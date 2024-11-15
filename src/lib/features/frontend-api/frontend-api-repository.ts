@@ -2,8 +2,8 @@ import EventEmitter from 'events';
 import type { RepositoryInterface } from 'unleash-client/lib/repository';
 import type { Segment } from 'unleash-client/lib/strategy/strategy';
 import type {
-    EnhancedFeatureInterface,
-    FeatureInterface,
+  EnhancedFeatureInterface,
+  FeatureInterface,
 } from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
 import type { IUnleashConfig } from '../../types';
@@ -14,56 +14,52 @@ import type { GlobalFrontendApiCache } from './global-frontend-api-cache';
 type Config = Pick<IUnleashConfig, 'getLogger'>;
 
 export class FrontendApiRepository
-    extends EventEmitter
-    implements RepositoryInterface
-{
-    private readonly config: Config;
+  extends EventEmitter
+  implements RepositoryInterface {
+  private readonly config: Config;
+  private readonly logger: Logger;
+  private readonly token: IApiUser;
+  private globalFrontendApiCache: GlobalFrontendApiCache;
+  private running: boolean;
 
-    private readonly logger: Logger;
+  constructor(
+    config: Config,
+    globalFrontendApiCache: GlobalFrontendApiCache,
+    token: IApiUser,
+  ) {
+    super();
 
-    private readonly token: IApiUser;
+    this.config = config;
+    this.logger = config.getLogger('frontend-api-repository.ts');
+    this.token = token;
+    this.globalFrontendApiCache = globalFrontendApiCache;
+  }
 
-    private globalFrontendApiCache: GlobalFrontendApiCache;
+  getTogglesWithSegmentData(): EnhancedFeatureInterface[] {
+    // TODO: add real implementation
+    return [];
+  }
 
-    private running: boolean;
+  getSegment(id: number): Segment | undefined {
+    return this.globalFrontendApiCache.getSegment(id);
+  }
 
-    constructor(
-        config: Config,
-        globalFrontendApiCache: GlobalFrontendApiCache,
-        token: IApiUser,
-    ) {
-        super();
-        this.config = config;
-        this.logger = config.getLogger('frontend-api-repository.ts');
-        this.token = token;
-        this.globalFrontendApiCache = globalFrontendApiCache;
-    }
+  getToggle(name: string): FeatureInterface {
+    return this.globalFrontendApiCache.getToggle(name, this.token);
+  }
 
-    getTogglesWithSegmentData(): EnhancedFeatureInterface[] {
-        // TODO: add real implementation
-        return [];
-    }
+  getToggles(): FeatureInterface[] {
+    return this.globalFrontendApiCache.getToggles(this.token);
+  }
 
-    getSegment(id: number): Segment | undefined {
-        return this.globalFrontendApiCache.getSegment(id);
-    }
+  async start(): Promise<void> {
+    this.running = true;
 
-    getToggle(name: string): FeatureInterface {
-        return this.globalFrontendApiCache.getToggle(name, this.token);
-    }
+    this.emit(UnleashEvents.Ready);
+    this.emit(UnleashEvents.Changed);
+  }
 
-    getToggles(): FeatureInterface[] {
-        return this.globalFrontendApiCache.getToggles(this.token);
-    }
-
-    async start(): Promise<void> {
-        this.running = true;
-
-        this.emit(UnleashEvents.Ready);
-        this.emit(UnleashEvents.Changed);
-    }
-
-    stop(): void {
-        this.running = false;
-    }
+  stop(): void {
+    this.running = false;
+  }
 }
