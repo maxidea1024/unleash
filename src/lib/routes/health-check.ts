@@ -10,43 +10,43 @@ import { createResponseSchema } from '../openapi/util/create-response-schema';
 import type { HealthCheckSchema } from '../openapi/spec/health-check-schema';
 
 export class HealthCheckController extends Controller {
-    private logger: Logger;
+  private readonly logger: Logger;
+  private readonly openApiService: OpenApiService;
 
-    private openApiService: OpenApiService;
+  constructor(
+    config: IUnleashConfig,
+    { openApiService }: Pick<IUnleashServices, 'openApiService'>,
+  ) {
+    super(config);
 
-    constructor(
-        config: IUnleashConfig,
-        { openApiService }: Pick<IUnleashServices, 'openApiService'>,
-    ) {
-        super(config);
-        this.logger = config.getLogger('health-check.js');
-        this.openApiService = openApiService;
+    this.logger = config.getLogger('health-check.js');
+    this.openApiService = openApiService;
 
-        this.route({
-            method: 'get',
-            path: '',
-            handler: this.getHealth,
-            permission: NONE,
-            middleware: [
-                openApiService.validPath({
-                    tags: ['Operational'],
-                    operationId: 'getHealth',
-                    summary: 'Get instance operational status',
-                    description:
-                        'This operation returns information about whether this Unleash instance is healthy and ready to serve requests or not. Typically used by your deployment orchestrator (e.g. Kubernetes, Docker Swarm, Mesos, et al.).',
-                    responses: {
-                        200: createResponseSchema('healthCheckSchema'),
-                        500: createResponseSchema('healthCheckSchema'),
-                    },
-                }),
-            ],
-        });
-    }
+    this.route({
+      method: 'get',
+      path: '',
+      handler: this.getHealth,
+      permission: NONE,
+      middleware: [
+        openApiService.validPath({
+          tags: ['Operational'],
+          operationId: 'getHealth',
+          summary: 'Get instance operational status',
+          description:
+            'This operation returns information about whether this Unleash instance is healthy and ready to serve requests or not. Typically used by your deployment orchestrator (e.g. Kubernetes, Docker Swarm, Mesos, et al.).',
+          responses: {
+            200: createResponseSchema('healthCheckSchema'),
+            500: createResponseSchema('healthCheckSchema'),
+          },
+        }),
+      ],
+    });
+  }
 
-    async getHealth(
-        _: Request,
-        res: Response<HealthCheckSchema>,
-    ): Promise<void> {
-        res.status(200).json({ health: 'GOOD' });
-    }
+  async getHealth(
+    _: Request,
+    res: Response<HealthCheckSchema>,
+  ): Promise<void> {
+    res.status(200).json({ health: 'GOOD' });
+  }
 }

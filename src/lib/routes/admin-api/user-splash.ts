@@ -13,66 +13,65 @@ import { getStandardResponses } from '../../openapi';
 import type { SplashResponseSchema } from '../../openapi/spec/splash-response-schema';
 
 class UserSplashController extends Controller {
-    private logger: Logger;
+  private readonly logger: Logger;
+  private readonly userSplashService: UserSplashService;
+  private readonly openApiService: OpenApiService;
 
-    private userSplashService: UserSplashService;
+  constructor(
+    config: IUnleashConfig,
+    {
+      userSplashService,
+      openApiService,
+    }: Pick<IUnleashServices, 'userSplashService' | 'openApiService'>,
+  ) {
+    super(config);
 
-    private openApiService: OpenApiService;
+    this.logger = config.getLogger('splash-controller.ts');
+    this.userSplashService = userSplashService;
+    this.openApiService = openApiService;
 
-    constructor(
-        config: IUnleashConfig,
-        {
-            userSplashService,
-            openApiService,
-        }: Pick<IUnleashServices, 'userSplashService' | 'openApiService'>,
-    ) {
-        super(config);
-        this.logger = config.getLogger('splash-controller.ts');
-        this.userSplashService = userSplashService;
-        this.openApiService = openApiService;
+    this.route({
+      method: 'post',
+      path: '/:id',
+      acceptAnyContentType: true,
+      handler: this.updateSplashSettings,
+      permission: NONE,
+      middleware: [
+        openApiService.validPath({
+          tags: ['Admin UI'],
+          operationId: 'updateSplashSettings',
+          summary: 'Update splash settings',
+          description:
+            'This operation updates splash settings for a user, indicating that they have seen a particualar splash screen.',
+          responses: {
+            200: createResponseSchema('splashResponseSchema'),
+            ...getStandardResponses(400, 401, 403, 415),
+          },
+        }),
+      ],
+    });
+  }
 
-        this.route({
-            method: 'post',
-            path: '/:id',
-            acceptAnyContentType: true,
-            handler: this.updateSplashSettings,
-            permission: NONE,
-            middleware: [
-                openApiService.validPath({
-                    tags: ['Admin UI'],
-                    operationId: 'updateSplashSettings',
-                    summary: 'Update splash settings',
-                    description:
-                        'This operation updates splash settings for a user, indicating that they have seen a particualar splash screen.',
-                    responses: {
-                        200: createResponseSchema('splashResponseSchema'),
-                        ...getStandardResponses(400, 401, 403, 415),
-                    },
-                }),
-            ],
-        });
-    }
+  private async updateSplashSettings(
+    req: IAuthRequest<{ id: string }>,
+    res: Response<SplashResponseSchema>,
+  ): Promise<void> {
+    const { user } = req;
+    const { id } = req.params;
 
-    private async updateSplashSettings(
-        req: IAuthRequest<{ id: string }>,
-        res: Response<SplashResponseSchema>,
-    ): Promise<void> {
-        const { user } = req;
-        const { id } = req.params;
+    const splash = {
+      splashId: id,
+      userId: user.id,
+      seen: true,
+    };
 
-        const splash = {
-            splashId: id,
-            userId: user.id,
-            seen: true,
-        };
-
-        this.openApiService.respondWithValidation(
-            200,
-            res,
-            splashRequestSchema.$id,
-            await this.userSplashService.updateSplash(splash),
-        );
-    }
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      splashRequestSchema.$id,
+      await this.userSplashService.updateSplash(splash),
+    );
+  }
 }
 
 module.exports = UserSplashController;

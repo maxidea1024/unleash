@@ -3,29 +3,29 @@ import type { IAuditUser, IUser } from '../types/user';
 import type { IApiUser } from '../types';
 
 export interface IAuthRequest<
-    PARAM = any,
-    ResBody = any,
-    ReqBody = any,
-    ReqQuery = any,
+  PARAM = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any,
 > extends Request<PARAM, ResBody, ReqBody, ReqQuery> {
-    user: IUser;
-    logout: (() => void) | ((callback: (err?: any) => void) => void);
-    session: any;
-    audit: IAuditUser;
+  user: IUser;
+  logout: (() => void) | ((callback: (err?: any) => void) => void);
+  session: any;
+  audit: IAuditUser;
 }
 
 export interface IApiRequest<
-    PARAM = any,
-    ResBody = any,
-    ReqBody = any,
-    ReqQuery = any,
+  PARAM = any,
+  ResBody = any,
+  ReqBody = any,
+  ReqQuery = any,
 > extends Request<PARAM, ResBody, ReqBody, ReqQuery> {
-    user: IApiUser;
-    logout: (() => void) | ((callback: (err?: any) => void) => void);
-    session: any;
-    audit: IAuditUser;
+  user: IApiUser;
+  logout: (() => void) | ((callback: (err?: any) => void) => void);
+  session: any;
+  audit: IAuditUser;
 }
 
 export interface RequestBody<T> extends Express.Request {
-    body: T;
+  body: T;
 }
