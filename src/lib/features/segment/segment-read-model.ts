@@ -35,7 +35,7 @@ interface IFeatureStrategySegmentRow {
 }
 
 export class SegmentReadModel implements ISegmentReadModel {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

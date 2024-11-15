@@ -72,7 +72,7 @@ const groupToRow = (group: IStoreGroup) => ({
 });
 
 export default class GroupStore implements IGroupStore {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;
@@ -195,7 +195,7 @@ export default class GroupStore implements IGroupStore {
         await this.db(T.GROUPS).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(id: number): Promise<boolean> {
         const result = await this.db.raw(

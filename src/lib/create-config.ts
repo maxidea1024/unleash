@@ -233,38 +233,38 @@ const databaseSSL = (): IDBOption['ssl'] => {
 };
 
 const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> =
-    {
-        user: process.env.DATABASE_USERNAME,
-        password: process.env.DATABASE_PASSWORD,
-        host: process.env.DATABASE_HOST,
-        port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
-        database: process.env.DATABASE_NAME || 'unleash',
-        ssl: databaseSSL(),
-        driver: 'postgres',
-        version: process.env.DATABASE_VERSION,
-        acquireConnectionTimeout: secondsToMilliseconds(30),
-        pool: {
-            min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
-            max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
-            idleTimeoutMillis: parseEnvVarNumber(
-                process.env.DATABASE_POOL_IDLE_TIMEOUT_MS,
-                secondsToMilliseconds(30),
-            ),
-            ...(parseEnvVarBoolean(
-                process.env.ALLOW_NON_STANDARD_DB_DATES,
-                false,
-            )
-                ? { afterCreate: dateHandlingCallback }
-                : {}),
-            propagateCreateError: false,
-        },
-        schema: process.env.DATABASE_SCHEMA || 'public',
-        disableMigration: parseEnvVarBoolean(
-            process.env.DATABASE_DISABLE_MIGRATION,
-            false,
+{
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
+    database: process.env.DATABASE_NAME || 'unleash',
+    ssl: databaseSSL(),
+    driver: 'postgres',
+    version: process.env.DATABASE_VERSION,
+    acquireConnectionTimeout: secondsToMilliseconds(30),
+    pool: {
+        min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
+        max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
+        idleTimeoutMillis: parseEnvVarNumber(
+            process.env.DATABASE_POOL_IDLE_TIMEOUT_MS,
+            secondsToMilliseconds(30),
         ),
-        applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
-    };
+        ...(parseEnvVarBoolean(
+            process.env.ALLOW_NON_STANDARD_DB_DATES,
+            false,
+        )
+            ? { afterCreate: dateHandlingCallback }
+            : {}),
+        propagateCreateError: false,
+    },
+    schema: process.env.DATABASE_SCHEMA || 'public',
+    disableMigration: parseEnvVarBoolean(
+        process.env.DATABASE_DISABLE_MIGRATION,
+        false,
+    ),
+    applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
+};
 
 const defaultSessionOption: ISessionOption = {
     ttlHours: parseEnvVarNumber(process.env.SESSION_TTL_HOURS, 48),

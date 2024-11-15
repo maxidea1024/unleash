@@ -16,15 +16,11 @@ import { calculateProjectHealth } from '../../domain/project-health/project-heal
 import { subDays } from 'date-fns';
 
 export class ProjectInsightsService {
-    private projectStore: IProjectStore;
-
-    private featureToggleStore: IFeatureToggleStore;
-
-    private featureTypeStore: IFeatureTypeStore;
-
-    private featureStrategiesStore: IFeatureStrategiesStore;
-
-    private projectStatsStore: IProjectStatsStore;
+    private readonly projectStore: IProjectStore;
+    private readonly featureToggleStore: IFeatureToggleStore;
+    private readonly featureTypeStore: IFeatureTypeStore;
+    private readonly featureStrategiesStore: IFeatureStrategiesStore;
+    private readonly projectStatsStore: IProjectStatsStore;
 
     constructor({
         projectStore,

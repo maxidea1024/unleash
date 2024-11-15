@@ -1,4 +1,4 @@
-import type { Store } from '../../types/stores/store';
+import type { IStore } from '../../types/stores/store';
 import type { Db, IUnleashConfig, Logger } from '../../server-impl';
 import metricsHelper from '../../util/metrics-helper';
 import { DB_TIME } from '../../metric-events';
@@ -17,11 +17,10 @@ const toRow = (data: Partial<JobModel>) =>
     defaultToRow<JobModel, Row<JobModel>>(data);
 
 export class JobStore
-    implements Store<JobModel, { name: string; bucket: Date }>
-{
-    private logger: Logger;
+    implements IStore<JobModel, { name: string; bucket: Date }> {
+    private readonly logger: Logger;
     protected readonly timer: (action: string) => Function;
-    private db: Db;
+    private readonly db: Db;
 
     constructor(
         db: Db,
@@ -100,7 +99,7 @@ export class JobStore
         return this.db(TABLE).delete();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async count(): Promise<number> {
         return this.db(TABLE)

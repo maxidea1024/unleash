@@ -19,17 +19,12 @@ import type { ProjectAccess } from '../private-project/privateProjectStore';
 import type { IAccessReadModel } from '../access/access-read-model-type';
 
 export default class EventService {
-    private logger: Logger;
-
-    private eventStore: IEventStore;
-
-    private featureTagStore: IFeatureTagStore;
-
-    private accessReadModel: IAccessReadModel;
-
-    private privateProjectChecker: IPrivateProjectChecker;
-
-    private eventBus: EventEmitter;
+    private readonly logger: Logger;
+    private readonly eventStore: IEventStore;
+    private readonly featureTagStore: IFeatureTagStore;
+    private readonly accessReadModel: IAccessReadModel;
+    private readonly privateProjectChecker: IPrivateProjectChecker;
+    private readonly eventBus: EventEmitter;
 
     constructor(
         {

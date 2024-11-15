@@ -16,7 +16,7 @@ test('Should not allow to exceed project limit on create', async () => {
         flagResolver: alwaysOnFlagResolver,
         resourceLimits: { projects: LIMIT },
         eventBus: {
-            emit: () => {},
+            emit: () => { },
         },
     } as unknown as IUnleashConfig);
 
@@ -37,7 +37,7 @@ test('Should not allow to exceed project limit on revive', async () => {
         flagResolver: alwaysOnFlagResolver,
         resourceLimits: { projects: LIMIT },
         eventBus: {
-            emit: () => {},
+            emit: () => { },
         },
     } as unknown as IUnleashConfig);
 

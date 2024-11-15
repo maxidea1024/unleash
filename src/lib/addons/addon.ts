@@ -10,17 +10,17 @@ import type { IFlagResolver } from '../types';
 import { ADDON_EVENTS_HANDLED } from '../metric-events';
 
 export default abstract class Addon {
-    logger: Logger;
+    protected readonly logger: Logger;
 
-    _name: string;
+    protected readonly _name: string;
 
-    _definition: IAddonDefinition;
+    protected readonly _definition: IAddonDefinition;
 
-    integrationEventsService: IntegrationEventsService;
+    protected readonly integrationEventsService: IntegrationEventsService;
 
-    eventBus: EventEmitter;
+    protected readonly eventBus: EventEmitter;
 
-    flagResolver: IFlagResolver;
+    protected readonly flagResolver: IFlagResolver;
 
     constructor(
         definition: IAddonDefinition,
@@ -73,8 +73,7 @@ export default abstract class Addon {
         } catch (e) {
             const { method } = options;
             this.logger.warn(
-                `Error querying ${url} with method ${
-                    method || 'GET'
+                `Error querying ${url} with method ${method || 'GET'
                 } status code ${e.code}`,
                 e,
             );

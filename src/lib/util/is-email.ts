@@ -21,8 +21,4 @@ function isEmail(value: string): boolean {
     return matcher.test(value);
 }
 
-/*
- * Exports.
- */
-
 export default isEmail;

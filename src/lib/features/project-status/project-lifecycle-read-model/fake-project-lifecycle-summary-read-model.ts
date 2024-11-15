@@ -4,8 +4,7 @@ import type {
 } from './project-lifecycle-read-model-type';
 
 export class FakeProjectLifecycleSummaryReadModel
-    implements IProjectLifecycleSummaryReadModel
-{
+    implements IProjectLifecycleSummaryReadModel {
     async getProjectLifecycleSummary(): Promise<ProjectLifecycleSummary> {
         const placeholderData = {
             averageDays: 0,

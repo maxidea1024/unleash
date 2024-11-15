@@ -8,8 +8,9 @@ import type {
 type SerializableFeatureDependency = Omit<FeatureDependency, 'variants'> & {
     variants?: string;
 };
+
 export class DependentFeaturesStore implements IDependentFeaturesStore {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

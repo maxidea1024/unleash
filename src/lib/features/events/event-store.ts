@@ -96,12 +96,12 @@ export interface IEventTable {
 const TABLE = 'events';
 
 class EventStore implements IEventStore {
-    private db: Db;
+    private readonly db: Db;
 
     // only one shared event emitter should exist across all event store instances
-    private eventEmitter: EventEmitter = sharedEventEmitter;
+    private readonly eventEmitter: EventEmitter = sharedEventEmitter;
 
-    private logger: Logger;
+    private readonly logger: Logger;
 
     // a new DB has to be injected per transaction
     constructor(db: Db, getLogger: LogProvider) {
@@ -209,7 +209,7 @@ class EventStore implements IEventStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(key: number): Promise<boolean> {
         const result = await this.db.raw(

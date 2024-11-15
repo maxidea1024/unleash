@@ -16,10 +16,8 @@ interface ITagTable {
 }
 
 export default class TagStore implements ITagStore {
-    private db: Db;
-
-    private logger: Logger;
-
+    private readonly db: Db;
+    private readonly logger: Logger;
     private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -98,7 +96,7 @@ export default class TagStore implements ITagStore {
             .ignore();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async get({ type, value }: ITag): Promise<ITag> {
         const stopTimer = this.timer('getTag');

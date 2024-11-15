@@ -9,7 +9,6 @@ export const createChangeRequestAccessReadModel = (
     config: IUnleashConfig,
 ): IChangeRequestAccessReadModel => {
     const accessService = createAccessService(db, config);
-
     return new ChangeRequestAccessReadModel(db, accessService);
 };
 

@@ -10,8 +10,9 @@ const T = {
     featureTag: 'feature_tag',
     projectSettings: 'project_settings',
 };
+
 export class ImportTogglesStore implements IImportTogglesStore {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

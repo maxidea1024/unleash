@@ -6,7 +6,7 @@ import type {
     IStrategyConfig,
     IVariant,
 } from '../../../types/model';
-import type { Store } from '../../../types/stores/store';
+import type { IStore } from '../../../types/stores/store';
 import type { IFeatureProjectUserParams } from '../feature-toggle-controller';
 
 export interface FeatureConfigurationClient {
@@ -60,7 +60,7 @@ export interface IQueryParam {
 }
 
 export interface IFeatureStrategiesStore
-    extends Store<IFeatureStrategy, string> {
+    extends IStore<IFeatureStrategy, string> {
     createStrategyFeatureEnv(
         strategyConfig: Omit<IFeatureStrategy, 'id' | 'createdAt'>,
     ): Promise<IFeatureStrategy>;

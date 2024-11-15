@@ -1,5 +1,5 @@
 import type { IUser, MinimalUser } from '../user';
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IUserLookup {
     id?: number;
@@ -13,7 +13,7 @@ export interface IAdminCount {
     service: number;
 }
 
-export interface IAccountStore extends Store<IUser, number> {
+export interface IAccountStore extends IStore<IUser, number> {
     hasAccount(idQuery: IUserLookup): Promise<number | undefined>;
     search(query: string): Promise<IUser[]>;
     getAllWithId(userIdList: number[]): Promise<IUser[]>;

@@ -37,9 +37,8 @@ const patToRow = ({ description, expiresAt }: CreatePatSchema) => ({
 });
 
 export default class PatStore implements IPatStore {
-    private db: Db;
-
-    private logger: Logger;
+    private readonly db: Db;
+    private readonly logger: Logger;
 
     constructor(db: Db, getLogger: LogProvider) {
         this.db = db;
@@ -69,7 +68,7 @@ export default class PatStore implements IPatStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(id: number): Promise<boolean> {
         const result = await this.db.raw(

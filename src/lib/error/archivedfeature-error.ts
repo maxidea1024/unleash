@@ -9,5 +9,6 @@ class ArchivedFeatureError extends UnleashError {
         super(message);
     }
 }
+
 export default ArchivedFeatureError;
 module.exports = ArchivedFeatureError;

@@ -6,20 +6,24 @@ import type { ITrafficDataUsageStore } from '../../types';
 import { isSameMonth, parse } from 'date-fns';
 
 export class FakeTrafficDataUsageStore implements ITrafficDataUsageStore {
-    private trafficData: IStatTrafficUsage[] = [];
+    private readonly trafficData: IStatTrafficUsage[] = [];
 
     get(key: IStatTrafficUsageKey): Promise<IStatTrafficUsage> {
         throw new Error('Method not implemented.');
     }
+
     getAll(query?: Object | undefined): Promise<IStatTrafficUsage[]> {
         throw new Error('Method not implemented.');
     }
+
     exists(key: IStatTrafficUsageKey): Promise<boolean> {
         throw new Error('Method not implemented.');
     }
+
     delete(key: IStatTrafficUsageKey): Promise<void> {
         throw new Error('Method not implemented.');
     }
+
     deleteAll(): Promise<void> {
         throw new Error('Method not implemented.');
     }

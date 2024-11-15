@@ -49,17 +49,11 @@ interface IMeta {
 
 export default class FeatureController extends Controller {
     private readonly logger: Logger;
-
     private clientFeatureToggleService: ClientFeatureToggleService;
-
     private clientSpecService: ClientSpecService;
-
     private openApiService: OpenApiService;
-
     private configurationRevisionService: ConfigurationRevisionService;
-
     private featureToggleService: FeatureToggleService;
-
     private flagResolver: IFlagResolver;
 
     private featuresAndSegments: (

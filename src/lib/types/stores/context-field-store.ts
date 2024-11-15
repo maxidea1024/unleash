@@ -1,4 +1,4 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IContextFieldDto {
     name: string;
@@ -19,7 +19,7 @@ export interface IContextField extends IContextFieldDto {
     createdAt: Date;
 }
 
-export interface IContextFieldStore extends Store<IContextField, string> {
+export interface IContextFieldStore extends IStore<IContextField, string> {
     create(data: IContextFieldDto): Promise<IContextField>;
     update(data: IContextFieldDto): Promise<IContextField>;
     count(): Promise<number>;

@@ -1,18 +1,18 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IUserSplash {
-    seen: boolean;
-    splashId: string;
-    userId: number;
+  seen: boolean;
+  splashId: string;
+  userId: number;
 }
 
 export interface IUserSplashKey {
-    userId: number;
-    splashId: string;
+  userId: number;
+  splashId: string;
 }
 
-export interface IUserSplashStore extends Store<IUserSplash, IUserSplashKey> {
-    getAllUserSplashes(userId: number): Promise<IUserSplash[]>;
-    getSplash(userId: number, splashId: string): Promise<IUserSplash>;
-    updateSplash(splash: IUserSplash): Promise<IUserSplash>;
+export interface IUserSplashStore extends IStore<IUserSplash, IUserSplashKey> {
+  getAllUserSplashes(userId: number): Promise<IUserSplash[]>;
+  getSplash(userId: number, splashId: string): Promise<IUserSplash>;
+  updateSplash(splash: IUserSplash): Promise<IUserSplash>;
 }

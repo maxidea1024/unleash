@@ -76,11 +76,11 @@ const reduceRows = (rows: any[]): IClientApplication[] => {
                 usage:
                     project && environment
                         ? [
-                              {
-                                  project,
-                                  environments: [environment],
-                              },
-                          ]
+                            {
+                                project,
+                                environments: [environment],
+                            },
+                        ]
                         : [],
             };
         }
@@ -114,15 +114,11 @@ const remapRow = (input) => {
 };
 
 export default class ClientApplicationsStore
-    implements IClientApplicationsStore
-{
-    private db: Db;
-
-    private logger: Logger;
-
-    private timer: Function;
-
-    private flagResolver: IFlagResolver;
+    implements IClientApplicationsStore {
+    private readonly db: Db;
+    private readonly logger: Logger;
+    private readonly timer: Function;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(
         db: Db,
@@ -282,7 +278,7 @@ export default class ClientApplicationsStore
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async get(appName: string): Promise<IClientApplication> {
         const row = await this.db

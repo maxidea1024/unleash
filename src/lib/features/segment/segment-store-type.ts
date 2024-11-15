@@ -1,8 +1,8 @@
 import type { IFeatureStrategySegment, ISegment } from '../../types/model';
-import type { Store } from '../../types/stores/store';
+import type { IStore } from '../../types/stores/store';
 import type { IAuditUser } from '../../types/user';
 
-export interface ISegmentStore extends Store<ISegment, number> {
+export interface ISegmentStore extends IStore<ISegment, number> {
     getAll(includeChangeRequestUsageData?: boolean): Promise<ISegment[]>;
 
     getByStrategy(strategyId: string): Promise<ISegment[]>;

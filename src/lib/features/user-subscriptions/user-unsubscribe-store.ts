@@ -11,7 +11,7 @@ interface IUserUnsubscribeTable {
 }
 
 export class UserUnsubscribeStore implements IUserUnsubscribeStore {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;
@@ -33,5 +33,5 @@ export class UserUnsubscribeStore implements IUserUnsubscribeStore {
             .del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 }

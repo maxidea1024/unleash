@@ -1,7 +1,7 @@
 import { NotFoundError } from '../../error';
 import { DB_TIME } from '../../metric-events';
 import type { Db, IUnleashConfig } from '../../server-impl';
-import type { Store } from '../../types/stores/store';
+import type { IStore } from '../../types/stores/store';
 import metricsHelper from '../../util/metrics-helper';
 import { defaultFromRow, defaultToRow } from './default-mappings';
 import type { Row } from './row-type';
@@ -28,12 +28,9 @@ export abstract class CRUDStore<
     OutputRowModel = Row<OutputModel>,
     InputRowModel = Row<InputModel>,
     IdType = number,
-> implements Store<OutputModel, IdType>
-{
+> implements IStore<OutputModel, IdType> {
     protected db: Db;
-
     protected tableName: string;
-
     protected readonly timer: (action: string) => Function;
 
     protected toRow: (item: Partial<InputModel>) => Partial<InputRowModel>;
@@ -106,7 +103,7 @@ export abstract class CRUDStore<
         return this.db(this.tableName).delete();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(id: IdType): Promise<boolean> {
         const endTimer = this.timer('exists');

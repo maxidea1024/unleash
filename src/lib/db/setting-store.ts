@@ -5,9 +5,8 @@ import type { Db } from './db';
 const TABLE = 'settings';
 
 export default class SettingStore implements ISettingStore {
-    private db: Db;
-
-    private logger: Logger;
+    private readonly db: Db;
+    private readonly logger: Logger;
 
     constructor(db: Db, getLogger: LogProvider) {
         this.db = db;
@@ -75,7 +74,7 @@ export default class SettingStore implements ISettingStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async getAll(): Promise<any[]> {
         const rows = await this.db(TABLE).select();

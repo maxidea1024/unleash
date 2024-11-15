@@ -16,10 +16,8 @@ interface ITagTypeTable {
 }
 
 export default class TagTypeStore implements ITagTypeStore {
-    private db: Db;
-
-    private logger: Logger;
-
+    private readonly db: Db;
+    private readonly logger: Logger;
     private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -102,7 +100,7 @@ export default class TagTypeStore implements ITagTypeStore {
         stopTimer();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     rowToTagType(row: ITagTypeTable): ITagType {
         return {

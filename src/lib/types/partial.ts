@@ -1,8 +1,8 @@
 // Recursively mark all properties as optional.
 export type PartialDeep<T> = T extends object
     ? {
-          [P in keyof T]?: PartialDeep<T[P]>;
-      }
+        [P in keyof T]?: PartialDeep<T[P]>;
+    }
     : T;
 
 // Mark one or more properties as optional.

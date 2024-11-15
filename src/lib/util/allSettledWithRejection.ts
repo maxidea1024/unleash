@@ -9,6 +9,7 @@ export const allSettledWithRejection = (
                     return;
                 }
             }
+
             resolve(
                 results.map((r) => (r as PromiseFulfilledResult<any>).value),
             );

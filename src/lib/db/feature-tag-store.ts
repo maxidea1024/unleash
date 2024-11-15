@@ -23,10 +23,8 @@ interface FeatureTagTable {
 }
 
 class FeatureTagStore implements IFeatureTagStore {
-    private db: Db;
-
-    private logger: Logger;
-
+    private readonly db: Db;
+    private readonly logger: Logger;
     private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -53,7 +51,7 @@ class FeatureTagStore implements IFeatureTagStore {
             .del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists({
         featureName,

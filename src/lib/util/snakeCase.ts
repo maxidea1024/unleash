@@ -1,5 +1,5 @@
 export const snakeCase = (input: string): string => {
-    const result = [];
+    const result: string[] = [];
     const splitString = input.split('');
     for (let i = 0; i < splitString.length; i++) {
         const char = splitString[i];
@@ -19,7 +19,6 @@ export const snakeCaseKeys = (obj: {
 
     Object.keys(obj).forEach((key) => {
         const snakeCaseKey = snakeCase(key);
-
         objResult[snakeCaseKey] = obj[key];
     });
 

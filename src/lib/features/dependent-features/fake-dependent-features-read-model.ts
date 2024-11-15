@@ -2,8 +2,7 @@ import type { IDependentFeaturesReadModel } from './dependent-features-read-mode
 import type { IDependency, IFeatureDependency } from '../../types';
 
 export class FakeDependentFeaturesReadModel
-    implements IDependentFeaturesReadModel
-{
+    implements IDependentFeaturesReadModel {
     getDependencies(): Promise<IFeatureDependency[]> {
         return Promise.resolve([]);
     }

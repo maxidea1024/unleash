@@ -27,14 +27,12 @@ import {
 
 const ANON_KEYS = ['email', 'username', 'createdBy'];
 const version = 1 as const;
+
 export default class EventSearchController extends Controller {
-    private eventService: EventService;
-
-    private flagResolver: IFlagResolver;
-
-    private msgFormatter: FeatureEventFormatter;
-
-    private openApiService: OpenApiService;
+    private readonly eventService: EventService;
+    private readonly flagResolver: IFlagResolver;
+    private readonly msgFormatter: FeatureEventFormatter;
+    private readonly openApiService: OpenApiService;
 
     constructor(
         config: IUnleashConfig,
@@ -44,6 +42,7 @@ export default class EventSearchController extends Controller {
         }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
     ) {
         super(config);
+
         this.eventService = eventService;
         this.flagResolver = config.flagResolver;
         this.openApiService = openApiService;

@@ -1,4 +1,4 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 import type Group from '../group';
 import type {
     ICreateGroupUserModel,
@@ -17,7 +17,7 @@ export interface IStoreGroup {
     rootRole?: number;
 }
 
-export interface IGroupStore extends Store<IGroup, number> {
+export interface IGroupStore extends IStore<IGroup, number> {
     getGroupsForUser(userId: number): Promise<Group[]>;
     getOldGroupsForExternalUser(
         userId: number,

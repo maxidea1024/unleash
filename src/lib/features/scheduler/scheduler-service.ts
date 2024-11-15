@@ -17,15 +17,11 @@ function randomJitter(
 }
 
 export class SchedulerService {
-    private intervalIds: NodeJS.Timeout[] = [];
-
-    private logger: Logger;
-
-    private maintenanceStatus: IMaintenanceStatus;
-
-    private eventBus: EventEmitter;
-
-    private executingSchedulers: Set<string> = new Set();
+    private readonly intervalIds: NodeJS.Timeout[] = [];
+    private readonly logger: Logger;
+    private readonly maintenanceStatus: IMaintenanceStatus;
+    private readonly eventBus: EventEmitter;
+    private readonly executingSchedulers: Set<string> = new Set();
 
     constructor(
         getLogger: LogProvider,

@@ -25,19 +25,13 @@ import type { CreateFeatureStrategySchema } from '../../openapi';
 import type EventService from '../events/event-service';
 
 export default class EnvironmentService {
-    private logger: Logger;
-
-    private environmentStore: IEnvironmentStore;
-
-    private featureStrategiesStore: IFeatureStrategiesStore;
-
-    private projectStore: IProjectStore;
-
-    private featureEnvironmentStore: IFeatureEnvironmentStore;
-
-    private eventService: EventService;
-
-    private flagResolver: IFlagResolver;
+    private readonly logger: Logger;
+    private readonly environmentStore: IEnvironmentStore;
+    private readonly featureStrategiesStore: IFeatureStrategiesStore;
+    private readonly projectStore: IProjectStore;
+    private readonly featureEnvironmentStore: IFeatureEnvironmentStore;
+    private readonly eventService: EventService;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(
         {

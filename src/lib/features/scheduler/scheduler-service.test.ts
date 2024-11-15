@@ -19,10 +19,10 @@ const getLogger = () => {
         error(...args: any[]) {
             records.push(args);
         },
-        debug() {},
-        info() {},
-        warn() {},
-        fatal() {},
+        debug() { },
+        info() { },
+        warn() { },
+        fatal() { },
     });
     const getRecords = () => records;
 
@@ -55,7 +55,7 @@ const createSchedulerTestService = ({
 
     const settingStore = new FakeSettingStore();
     const settingService = new SettingService({ settingStore }, config, {
-        storeEvent() {},
+        storeEvent() { },
     } as unknown as EventService);
     const maintenanceService = new MaintenanceService(config, settingService);
     const schedulerService = new SchedulerService(

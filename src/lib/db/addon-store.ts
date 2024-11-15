@@ -25,10 +25,8 @@ const COLUMNS = [
 const TABLE = 'addons';
 
 export default class AddonStore implements IAddonStore {
-    private db: Db;
-
-    private logger: Logger;
-
+    private readonly db: Db;
+    private readonly logger: Logger;
     private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -41,7 +39,7 @@ export default class AddonStore implements IAddonStore {
             });
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async getAll(query = {}): Promise<IAddon[]> {
         const stopTimer = this.timer('getAll');

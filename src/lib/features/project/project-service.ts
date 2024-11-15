@@ -123,51 +123,29 @@ function includes(
 }
 
 export default class ProjectService {
-    private projectStore: IProjectStore;
-
-    private projectOwnersReadModel: IProjectOwnersReadModel;
-
-    private projectFlagCreatorsReadModel: IProjectFlagCreatorsReadModel;
-
-    private accessService: AccessService;
-
-    private eventStore: IEventStore;
-
-    private featureToggleStore: IFeatureToggleStore;
-
-    private featureEnvironmentStore: IFeatureEnvironmentStore;
-
-    private environmentStore: IEnvironmentStore;
-
-    private groupService: GroupService;
-
-    private logger: any;
-
-    private featureToggleService: FeatureToggleService;
-
-    private privateProjectChecker: IPrivateProjectChecker;
-
-    private accountStore: IAccountStore;
-
-    private apiTokenService: ApiTokenService;
-
-    private favoritesService: FavoritesService;
-
-    private eventService: EventService;
-
-    private projectStatsStore: IProjectStatsStore;
-
-    private flagResolver: IFlagResolver;
-
-    private isEnterprise: boolean;
-
-    private resourceLimits: ResourceLimitsSchema;
-
-    private eventBus: EventEmitter;
-
-    private projectReadModel: IProjectReadModel;
-
-    private onboardingReadModel: IOnboardingReadModel;
+    private readonly projectStore: IProjectStore;
+    private readonly projectOwnersReadModel: IProjectOwnersReadModel;
+    private readonly projectFlagCreatorsReadModel: IProjectFlagCreatorsReadModel;
+    private readonly accessService: AccessService;
+    private readonly eventStore: IEventStore;
+    private readonly featureToggleStore: IFeatureToggleStore;
+    private readonly featureEnvironmentStore: IFeatureEnvironmentStore;
+    private readonly environmentStore: IEnvironmentStore;
+    private readonly groupService: GroupService;
+    private readonly logger: any;
+    private readonly featureToggleService: FeatureToggleService;
+    private readonly privateProjectChecker: IPrivateProjectChecker;
+    private readonly accountStore: IAccountStore;
+    private readonly apiTokenService: ApiTokenService;
+    private readonly favoritesService: FavoritesService;
+    private readonly eventService: EventService;
+    private readonly projectStatsStore: IProjectStatsStore;
+    private readonly flagResolver: IFlagResolver;
+    private readonly isEnterprise: boolean;
+    private readonly resourceLimits: ResourceLimitsSchema;
+    private readonly eventBus: EventEmitter;
+    private readonly projectReadModel: IProjectReadModel;
+    private readonly onboardingReadModel: IOnboardingReadModel;
 
     constructor(
         {
@@ -386,10 +364,10 @@ export default class ProjectService {
         const envsToEnable = newProject.environments?.length
             ? newProject.environments
             : (
-                  await this.environmentStore.getAll({
-                      enabled: true,
-                  })
-              ).map((env) => env.name);
+                await this.environmentStore.getAll({
+                    enabled: true,
+                })
+            ).map((env) => env.name);
 
         await Promise.all(
             envsToEnable.map(async (env) => {
@@ -1475,9 +1453,9 @@ export default class ProjectService {
             this.projectStore.getMembersCountByProject(projectId),
             userId
                 ? this.favoritesService.isFavoriteProject({
-                      project: projectId,
-                      userId,
-                  })
+                    project: projectId,
+                    userId,
+                })
                 : Promise.resolve(false),
             this.projectStatsStore.getProjectStats(projectId),
         ]);
@@ -1525,9 +1503,9 @@ export default class ProjectService {
             this.projectStore.getMembersCountByProject(projectId),
             userId
                 ? this.favoritesService.isFavoriteProject({
-                      project: projectId,
-                      userId,
-                  })
+                    project: projectId,
+                    userId,
+                })
                 : Promise.resolve(false),
             this.projectStatsStore.getProjectStats(projectId),
             this.onboardingReadModel.getOnboardingStatusForProject(projectId),

@@ -1,4 +1,4 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IClientInstance extends INewClientInstance {
     createdAt: Date;
@@ -13,7 +13,7 @@ export interface INewClientInstance {
     environment?: string;
 }
 export interface IClientInstanceStore
-    extends Store<
+    extends IStore<
         IClientInstance,
         Pick<INewClientInstance, 'appName' | 'instanceId'>
     > {

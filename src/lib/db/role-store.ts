@@ -28,11 +28,9 @@ interface IRoleRow {
 }
 
 export default class RoleStore implements IRoleStore {
-    private logger: Logger;
-
-    private eventBus: EventEmitter;
-
-    private db: Db;
+    private readonly logger: Logger;
+    private readonly eventBus: EventEmitter;
+    private readonly db: Db;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -211,5 +209,5 @@ export default class RoleStore implements IRoleStore {
         return this.db(T.ROLES).where({ name }).first();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 }

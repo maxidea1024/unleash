@@ -19,14 +19,13 @@ import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../../routes/unleash-types';
 
 export default class ProjectInsightsController extends Controller {
-    private projectInsightsService: ProjectInsightsService;
-
-    private openApiService: OpenApiService;
-
-    private flagResolver: IFlagResolver;
+    private readonly projectInsightsService: ProjectInsightsService;
+    private readonly openApiService: OpenApiService;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(config: IUnleashConfig, services: IUnleashServices) {
         super(config);
+
         this.projectInsightsService = services.projectInsightsService;
         this.openApiService = services.openApiService;
         this.flagResolver = config.flagResolver;

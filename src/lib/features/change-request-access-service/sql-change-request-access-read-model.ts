@@ -5,11 +5,9 @@ import type User from '../../types/user';
 import type { IChangeRequestAccessReadModel } from './change-request-access-read-model';
 
 export class ChangeRequestAccessReadModel
-    implements IChangeRequestAccessReadModel
-{
-    private db: Db;
-
-    private accessService: AccessService;
+    implements IChangeRequestAccessReadModel {
+    private readonly db: Db;
+    private readonly accessService: AccessService;
 
     constructor(db: Db, accessService: AccessService) {
         this.db = db;
@@ -24,11 +22,11 @@ export class ChangeRequestAccessReadModel
         const [canSkipChangeRequest, changeRequestEnabled] = await Promise.all([
             user
                 ? this.accessService.hasPermission(
-                      user,
-                      SKIP_CHANGE_REQUEST,
-                      project,
-                      environment,
-                  )
+                    user,
+                    SKIP_CHANGE_REQUEST,
+                    project,
+                    environment,
+                )
                 : Promise.resolve(false),
             this.isChangeRequestsEnabled(project, environment),
         ]);
@@ -42,10 +40,10 @@ export class ChangeRequestAccessReadModel
         const [canSkipChangeRequest, changeRequestEnabled] = await Promise.all([
             user
                 ? this.accessService.hasPermission(
-                      user,
-                      SKIP_CHANGE_REQUEST,
-                      project,
-                  )
+                    user,
+                    SKIP_CHANGE_REQUEST,
+                    project,
+                )
                 : Promise.resolve(false),
             this.isChangeRequestsEnabledForProject(project),
         ]);

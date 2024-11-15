@@ -13,13 +13,10 @@ import type EventService from '../events/event-service';
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
 
 export class UserSubscriptionsService {
-    private userUnsubscribeStore: IUserUnsubscribeStore;
-
-    private userSubscriptionsReadModel: IUserSubscriptionsReadModel;
-
-    private eventService: EventService;
-
-    private logger: Logger;
+    private readonly userUnsubscribeStore: IUserUnsubscribeStore;
+    private readonly userSubscriptionsReadModel: IUserSubscriptionsReadModel;
+    private readonly eventService: EventService;
+    private readonly logger: Logger;
 
     constructor(
         {

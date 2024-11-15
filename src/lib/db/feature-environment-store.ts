@@ -30,10 +30,8 @@ interface ISegmentRow {
 }
 
 export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
-    private db: Db;
-
-    private logger: Logger;
-
+    private readonly db: Db;
+    private readonly logger: Logger;
     private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -60,7 +58,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
         await this.db(T.featureEnvs).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists({
         featureName,

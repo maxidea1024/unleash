@@ -1,4 +1,4 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 import type { IApplicationOverview } from '../../features/metrics/instance/models';
 
 export interface IClientApplicationUsage {
@@ -35,7 +35,7 @@ export interface IClientApplicationsSearchParams {
 }
 
 export interface IClientApplicationsStore
-    extends Store<IClientApplication, string> {
+    extends IStore<IClientApplication, string> {
     upsert(details: Partial<IClientApplication>): Promise<void>;
     bulkUpsert(details: Partial<IClientApplication>[]): Promise<void>;
     getApplications(

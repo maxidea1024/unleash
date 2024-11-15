@@ -26,13 +26,10 @@ import { BadDataError, InvalidOperationError } from '../../error';
 import ApiUser from '../../types/api-user';
 
 class ExportImportController extends Controller {
-    private logger: Logger;
-
-    private exportService: IExportService;
-
-    private importService: WithTransactional<IImportService>;
-
-    private openApiService: OpenApiService;
+    private readonly logger: Logger;
+    private readonly exportService: IExportService;
+    private readonly importService: WithTransactional<IImportService>;
+    private readonly openApiService: OpenApiService;
 
     constructor(
         config: IUnleashConfig,
@@ -46,6 +43,7 @@ class ExportImportController extends Controller {
         >,
     ) {
         super(config);
+
         this.logger = config.getLogger('/admin-api/export-import.ts');
         this.exportService = exportService;
         this.importService = importService;
@@ -180,4 +178,5 @@ class ExportImportController extends Controller {
         }
     }
 }
+
 export default ExportImportController;

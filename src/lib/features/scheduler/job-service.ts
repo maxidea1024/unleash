@@ -4,8 +4,9 @@ import type { LogProvider } from '../../logger';
 import { subMinutes } from 'date-fns';
 
 export class JobService {
-    private jobStore: JobStore;
-    private logger: Logger;
+    private readonly jobStore: JobStore;
+    private readonly logger: Logger;
+
     constructor(jobStore: JobStore, logProvider: LogProvider) {
         this.jobStore = jobStore;
         this.logger = logProvider('/services/job-service');

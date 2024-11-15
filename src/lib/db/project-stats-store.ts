@@ -37,11 +37,9 @@ interface IProjectStatsRow {
 }
 
 class ProjectStatsStore implements IProjectStatsStore {
-    private db: Db;
-
-    private logger: Logger;
-
-    private timer: Function;
+    private readonly db: Db;
+    private readonly logger: Logger;
+    private readonly timer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;

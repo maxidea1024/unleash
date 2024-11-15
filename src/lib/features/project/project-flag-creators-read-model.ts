@@ -2,9 +2,8 @@ import type { Db } from '../../db/db';
 import type { IProjectFlagCreatorsReadModel } from './project-flag-creators-read-model.type';
 
 export class ProjectFlagCreatorsReadModel
-    implements IProjectFlagCreatorsReadModel
-{
-    private db: Db;
+    implements IProjectFlagCreatorsReadModel {
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

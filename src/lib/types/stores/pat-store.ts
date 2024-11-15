@@ -1,7 +1,7 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 import type { CreatePatSchema, PatSchema } from '../../openapi';
 
-export interface IPatStore extends Store<PatSchema, number> {
+export interface IPatStore extends IStore<PatSchema, number> {
     create(
         pat: CreatePatSchema,
         secret: string,

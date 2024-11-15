@@ -1,6 +1,5 @@
 import type { ITagType, ITagTypeStore } from './tag-type-store-type';
-
-const NotFoundError = require('../../error/notfound-error');
+import { NotFoundError } from '../../error';
 
 export default class FakeTagTypeStore implements ITagTypeStore {
     tagTypes: ITagType[] = [];
@@ -25,7 +24,7 @@ export default class FakeTagTypeStore implements ITagTypeStore {
         this.tagTypes = [];
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(key: string): Promise<boolean> {
         return this.tagTypes.some((t) => t.name === key);
@@ -36,6 +35,7 @@ export default class FakeTagTypeStore implements ITagTypeStore {
         if (tagType) {
             return tagType;
         }
+
         throw new NotFoundError('Could not find tag type');
     }
 

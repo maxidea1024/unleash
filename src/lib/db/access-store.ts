@@ -56,11 +56,9 @@ interface IPermissionRow {
 type NameAndIdPermission = NamePermissionRef & IdPermissionRef;
 
 export class AccessStore implements IAccessStore {
-    private logger: Logger;
-
-    private timer: Function;
-
-    private db: Db;
+    private readonly logger: Logger;
+    private readonly timer: Function;
+    private readonly db: Db;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: Function) {
         this.db = db;
@@ -153,7 +151,7 @@ export class AccessStore implements IAccessStore {
         await this.db(T.ROLES).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(key: number): Promise<boolean> {
         const result = await this.db.raw(
@@ -956,8 +954,8 @@ export class AccessStore implements IAccessStore {
                     FROM   role_user ru
                     INNER JOIN roles r on ru.role_id = r.id
                     WHERE ru.user_id = u.id and r.type IN (${ROOT_ROLE_TYPES.map(
-                        (type) => `'${type}'`,
-                    ).join(',')})
+                (type) => `'${type}'`,
+            ).join(',')})
                 ) r, LATERAL (
                 SELECT ARRAY (
                     SELECT g.name FROM group_user gu

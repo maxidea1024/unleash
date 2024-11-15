@@ -179,10 +179,10 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
             preData?.parameters[propertyName] === data?.parameters[propertyName]
                 ? ''
                 : !preData
-                  ? ` ${propertyName} to ${userIdText(
+                    ? ` ${propertyName} to ${userIdText(
                         data?.parameters[propertyName],
                     )}`
-                  : ` ${propertyName} from ${userIdText(
+                    : ` ${propertyName} from ${userIdText(
                         preData.parameters[propertyName],
                     )} to ${userIdText(data?.parameters[propertyName])}`;
         const constraintText = this.constraintChangeText(
@@ -213,20 +213,20 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
             oldStickiness === stickiness
                 ? ''
                 : !oldStickiness
-                  ? ` stickiness to ${stickiness}`
-                  : ` stickiness from ${oldStickiness} to ${stickiness}`;
+                    ? ` stickiness to ${stickiness}`
+                    : ` stickiness from ${oldStickiness} to ${stickiness}`;
         const rolloutText =
             oldRollout === rollout
                 ? ''
                 : !oldRollout
-                  ? ` rollout to ${rollout}%`
-                  : ` rollout from ${oldRollout}% to ${rollout}%`;
+                    ? ` rollout to ${rollout}%`
+                    : ` rollout from ${oldRollout}% to ${rollout}%`;
         const groupIdText =
             oldGroupId === groupId
                 ? ''
                 : !oldGroupId
-                  ? ` groupId to ${groupId}`
-                  : ` groupId from ${oldGroupId} to ${groupId}`;
+                    ? ` groupId to ${groupId}`
+                    : ` groupId from ${oldGroupId} to ${groupId}`;
         const constraintText = this.constraintChangeText(
             preData?.constraints,
             data?.constraints,
@@ -299,9 +299,8 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
                     ? constraintOperatorDescriptions[constraint.operator]
                     : constraint.operator;
 
-                return `${constraint.contextName} ${
-                    constraint.inverted ? 'not ' : ''
-                }${operator} ${val}`;
+                return `${constraint.contextName} ${constraint.inverted ? 'not ' : ''
+                    }${operator} ${val}`;
             };
 
             return constraints.length === 0

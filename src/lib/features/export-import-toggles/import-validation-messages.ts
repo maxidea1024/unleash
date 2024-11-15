@@ -101,7 +101,7 @@ export class ImportValidationMessages {
         }
         if (
             featureLimitResult.currentFeaturesCount +
-                featureLimitResult.newFeaturesCount >
+            featureLimitResult.newFeaturesCount >
             featureLimitResult.limit
         ) {
             errors.push({

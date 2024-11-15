@@ -2106,7 +2106,7 @@ interface IUserEventData
     extends Pick<
         IUserWithRootRole,
         'id' | 'name' | 'username' | 'email' | 'rootRole'
-    > {}
+    > { }
 
 function mapUserToData(user: IUserEventData): any {
     return {

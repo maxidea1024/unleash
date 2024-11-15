@@ -81,12 +81,9 @@ const toTokens = (rows: any[]): IApiToken[] => {
 };
 
 export class ApiTokenStore implements IApiTokenStore {
-    private logger: Logger;
-
-    private timer: Function;
-
-    private db: Db;
-
+    private readonly logger: Logger;
+    private readonly timer: Function;
+    private readonly db: Db;
     private readonly flagResolver: IFlagResolver;
 
     constructor(
@@ -201,7 +198,7 @@ export class ApiTokenStore implements IApiTokenStore {
         return response;
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(secret: string): Promise<boolean> {
         const result = await this.db.raw(

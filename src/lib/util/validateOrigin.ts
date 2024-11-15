@@ -9,7 +9,7 @@ export const validateOrigin = (origin: string): boolean => {
 
     try {
         const parsed = new URL(origin);
-        return parsed.origin && parsed.origin === origin;
+        return !!(parsed.origin && parsed.origin === origin);
     } catch {
         return false;
     }

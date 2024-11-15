@@ -1,9 +1,9 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 import type { PublicSignupTokenSchema } from '../../openapi/spec/public-signup-token-schema';
 import type { IPublicSignupTokenCreate } from '../models/public-signup-token';
 
 export interface IPublicSignupTokenStore
-    extends Store<PublicSignupTokenSchema, string> {
+    extends IStore<PublicSignupTokenSchema, string> {
     insert(
         newToken: IPublicSignupTokenCreate,
     ): Promise<PublicSignupTokenSchema>;

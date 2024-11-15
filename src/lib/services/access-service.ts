@@ -106,7 +106,7 @@ export interface AccessWithRoles {
     users: IUserWithProjectRoles[];
 }
 
-const isProjectPermission = (permission) => PROJECT_ADMIN.includes(permission);
+const isProjectPermission = (permission: string) => PROJECT_ADMIN.includes(permission);
 
 export const cleanPermissionEnvironment = (
     permissions: PermissionRef[] | undefined,

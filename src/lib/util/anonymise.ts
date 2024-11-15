@@ -14,6 +14,7 @@ export function encrypt(s?: string): string {
         Buffer.from(key, 'hex'),
         Buffer.from(iv, 'hex'),
     );
+
     const encrypted = cipher.update(s, 'utf8', 'hex') + cipher.final('hex');
     return `${encrypted}@unleash.run`;
 }
@@ -22,10 +23,12 @@ export function anonymise(s?: string): string {
     if (!s) {
         return '';
     }
+
     const hash = createHash('sha256')
         .update(s, 'utf-8')
         .digest('hex')
         .slice(0, 9);
+
     return `${hash}@unleash.run`;
 }
 
@@ -47,6 +50,7 @@ export function anonymiseKeys<T>(object: T, keys: string[]): T {
             } else if (typeof result[key] === 'object') {
                 result[key] = anonymiseKeys(result[key], keys);
             }
+
             return result;
         }, object);
     }

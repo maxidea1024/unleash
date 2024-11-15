@@ -30,13 +30,10 @@ interface IProjectEnvironmentParams {
 }
 
 export default class EnvironmentsController extends Controller {
-    private logger: Logger;
-
-    private environmentService: WithTransactional<EnvironmentService>;
-
-    private openApiService: OpenApiService;
-
-    private projectService: ProjectService;
+    private readonly logger: Logger;
+    private readonly environmentService: WithTransactional<EnvironmentService>;
+    private readonly openApiService: OpenApiService;
+    private readonly projectService: ProjectService;
 
     constructor(
         config: IUnleashConfig,

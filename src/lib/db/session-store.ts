@@ -15,11 +15,9 @@ interface ISessionRow {
 }
 
 export default class SessionStore implements ISessionStore {
-    private logger: Logger;
-
-    private eventBus: EventEmitter;
-
-    private db: Db;
+    private readonly logger: Logger;
+    private readonly eventBus: EventEmitter;
+    private readonly db: Db;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -84,7 +82,7 @@ export default class SessionStore implements ISessionStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(sid: string): Promise<boolean> {
         const result = await this.db.raw(

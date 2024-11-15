@@ -28,14 +28,14 @@ const mapRow = (row: any): IStatTrafficUsage => {
 };
 
 export class TrafficDataUsageStore implements ITrafficDataUsageStore {
-    private db: Db;
-
-    private logger: Logger;
+    private readonly db: Db;
+    private readonly logger: Logger;
 
     constructor(db: Db, getLogger: LogProvider) {
         this.db = db;
         this.logger = getLogger('traffic-data-usage-store.ts');
     }
+
     async get(key: IStatTrafficUsageKey): Promise<IStatTrafficUsage> {
         const row = await this.db
             .table(TABLE)
@@ -49,13 +49,15 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
 
         return mapRow(row);
     }
+
     async getAll(query = {}): Promise<IStatTrafficUsage[]> {
         const rows = await this.db.select(COLUMNS).where(query).from(TABLE);
         return rows.map(mapRow);
     }
+
     async exists(key: IStatTrafficUsageKey): Promise<boolean> {
         const result = await this.db.raw(
-            `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE 
+            `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE
                 day = ? AND
                 traffic_group = ? AND
                 status_code_series ?) AS present`,
@@ -64,6 +66,7 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
         const { present } = result.rows[0];
         return present;
     }
+
     async delete(key: IStatTrafficUsageKey): Promise<void> {
         await this.db(TABLE)
             .where({
@@ -76,7 +79,7 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
     async deleteAll(): Promise<void> {
         await this.db(TABLE).del();
     }
-    destroy(): void {}
+    destroy(): void { }
 
     async upsert(trafficDataUsage: IStatTrafficUsage): Promise<void> {
         const row = toRow(trafficDataUsage);

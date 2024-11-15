@@ -21,13 +21,10 @@ import { PermissionError } from '../../error';
 export type Mode = 'regular' | 'change_request';
 
 export class ImportPermissionsService {
-    private importTogglesStore: IImportTogglesStore;
-
-    private accessService: AccessService;
-
-    private tagTypeService: TagTypeService;
-
-    private contextService: ContextService;
+    private readonly importTogglesStore: IImportTogglesStore;
+    private readonly accessService: AccessService;
+    private readonly tagTypeService: TagTypeService;
+    private readonly contextService: ContextService;
 
     private async getNewTagTypes(
         dto: ImportTogglesSchema,

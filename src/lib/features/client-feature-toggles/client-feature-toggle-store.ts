@@ -36,8 +36,7 @@ export interface IGetAdminFeatures {
 }
 
 export default class FeatureToggleClientStore
-    implements IFeatureToggleClientStore
-{
+    implements IFeatureToggleClientStore {
     private db: Db;
 
     private logger: Logger;

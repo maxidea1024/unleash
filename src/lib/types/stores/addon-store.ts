@@ -1,4 +1,4 @@
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IAddonDto {
     provider: string;
@@ -16,7 +16,7 @@ export interface IAddon extends IAddonDto {
     description: string | null;
 }
 
-export interface IAddonStore extends Store<IAddon, number> {
+export interface IAddonStore extends IStore<IAddon, number> {
     insert(addon: IAddonDto): Promise<IAddon>;
     update(id: number, addon: IAddonDto): Promise<IAddon>;
 }

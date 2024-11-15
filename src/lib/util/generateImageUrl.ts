@@ -1,6 +1,7 @@
 import { createHash } from 'crypto';
 
 const base: string = 'https://gravatar.com/avatar';
+
 export const generateImageUrl = (user: {
     email?: string;
     username?: string;
@@ -12,6 +13,7 @@ export const generateImageUrl = (user: {
     } else {
         ident = ident.trim();
     }
+
     const identHash = createHash('sha256').update(ident).digest('hex');
     return `${base}/${identHash}?s=42&d=retro&r=g`;
 };

@@ -23,14 +23,13 @@ const fieldToRow = (fields: IUserSplash): IUserSplashTable => ({
 });
 
 const rowToField = (row: IUserSplashTable): IUserSplash => ({
-    seen: row.seen,
+    seen: !!row.seen,
     splashId: row.splash_id,
     userId: row.user_id,
 });
 
 export default class UserSplashStore implements IUserSplashStore {
     private db: Db;
-
     private logger: Logger;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
@@ -78,7 +77,7 @@ export default class UserSplashStore implements IUserSplashStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists({ userId, splashId }: IUserSplashKey): Promise<boolean> {
         const result = await this.db.raw(

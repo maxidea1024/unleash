@@ -34,11 +34,9 @@ import type { WithTransactional } from '../../db/transaction';
 const version = 1;
 
 class TagTypeController extends Controller {
-    private logger: Logger;
-
-    private tagTypeService: WithTransactional<TagTypeService>;
-
-    private openApiService: OpenApiService;
+    private readonly logger: Logger;
+    private readonly tagTypeService: WithTransactional<TagTypeService>;
+    private readonly openApiService: OpenApiService;
 
     constructor(
         config: IUnleashConfig,
@@ -51,6 +49,7 @@ class TagTypeController extends Controller {
         >,
     ) {
         super(config);
+
         this.logger = config.getLogger('/admin-api/tag-type.js');
         this.tagTypeService = transactionalTagTypeService;
         this.openApiService = openApiService;

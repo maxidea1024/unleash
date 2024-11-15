@@ -1,4 +1,4 @@
-export interface Store<T, K> {
+export interface IStore<T, K> {
     get(key: K): Promise<T>;
     getAll(query?: Object): Promise<T[]>;
     exists(key: K): Promise<boolean>;

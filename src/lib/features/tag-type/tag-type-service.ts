@@ -16,11 +16,9 @@ import type EventService from '../events/event-service';
 import type { IAuditUser } from '../../types';
 
 export default class TagTypeService {
-    private tagTypeStore: ITagTypeStore;
-
-    private eventService: EventService;
-
-    private logger: Logger;
+    private readonly tagTypeStore: ITagTypeStore;
+    private readonly eventService: EventService;
+    private readonly logger: Logger;
 
     constructor(
         { tagTypeStore }: Pick<IUnleashStores, 'tagTypeStore'>,

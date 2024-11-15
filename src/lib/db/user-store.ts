@@ -64,11 +64,11 @@ const rowToUser = (row) => {
 };
 
 class UserStore implements IUserStore {
-    private db: Db;
+    private readonly db: Db;
 
-    private logger: Logger;
+    private readonly logger: Logger;
 
-    private flagResolver: IFlagResolver;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
         this.db = db;
@@ -301,7 +301,7 @@ class UserStore implements IUserStore {
             .then((res) => Number(res[0].count));
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(id: number): Promise<boolean> {
         const result = await this.db.raw(

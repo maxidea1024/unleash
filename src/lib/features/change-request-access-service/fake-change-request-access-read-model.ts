@@ -1,11 +1,9 @@
 import type { IChangeRequestAccessReadModel } from './change-request-access-read-model';
 
 export class FakeChangeRequestAccessReadModel
-    implements IChangeRequestAccessReadModel
-{
-    private canBypass: boolean;
-
-    private isChangeRequestEnabled: boolean;
+    implements IChangeRequestAccessReadModel {
+    private readonly canBypass: boolean;
+    private readonly isChangeRequestEnabled: boolean;
 
     constructor(canBypass = true, isChangeRequestEnabled = true) {
         this.canBypass = canBypass;

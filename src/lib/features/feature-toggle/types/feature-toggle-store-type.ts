@@ -6,7 +6,7 @@ import type {
     IVariant,
 } from '../../../types/model';
 import type { FeatureToggleInsert } from '../feature-toggle-store';
-import type { Store } from '../../../types/stores/store';
+import type { IStore } from '../../../types/stores/store';
 import type { LastSeenInput } from '../../metrics/last-seen/last-seen-service';
 import type { FeatureConfigurationClient } from './feature-toggle-strategies-store-type';
 import type { IFeatureProjectUserParams } from '../feature-toggle-controller';
@@ -18,7 +18,7 @@ export interface IFeatureToggleStoreQuery {
     type?: string;
 }
 
-export interface IFeatureToggleStore extends Store<FeatureToggle, string> {
+export interface IFeatureToggleStore extends IStore<FeatureToggle, string> {
     count(query?: Partial<IFeatureToggleStoreQuery>): Promise<number>;
 
     setLastSeen(data: LastSeenInput[]): Promise<void>;

@@ -22,10 +22,9 @@ type AverageTimeInStage = {
 };
 
 export class ProjectLifecycleSummaryReadModel
-    implements IProjectLifecycleSummaryReadModel
-{
-    private db: Db;
-    private featureToggleStore: IFeatureToggleStore;
+    implements IProjectLifecycleSummaryReadModel {
+    private readonly db: Db;
+    private readonly featureToggleStore: IFeatureToggleStore;
 
     constructor(db: Db, featureToggleStore: IFeatureToggleStore) {
         this.db = db;

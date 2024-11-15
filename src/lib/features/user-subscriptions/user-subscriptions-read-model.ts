@@ -23,7 +23,7 @@ const mapRowToSubscriber = (row) =>
     }) as Subscriber;
 
 export class UserSubscriptionsReadModel implements IUserSubscriptionsReadModel {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

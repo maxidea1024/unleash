@@ -100,11 +100,9 @@ function fieldToRow(env: IEnvironment): IEnvironmentsTable {
 const TABLE = 'environments';
 
 export default class EnvironmentStore implements IEnvironmentStore {
-    private logger: Logger;
-
-    private db: Db;
-
-    private timer: (string) => any;
+    private readonly logger: Logger;
+    private readonly db: Db;
+    private readonly timer: (string) => any;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -328,5 +326,5 @@ export default class EnvironmentStore implements IEnvironmentStore {
         await this.db(TABLE).where({ name, protected: false }).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 }

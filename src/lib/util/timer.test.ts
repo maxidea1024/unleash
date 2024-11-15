@@ -1,6 +1,6 @@
 import timer from './timer';
 
-function timeout(fn, ms): Promise<void> {
+function timeout(fn: Function, ms: number): Promise<void> {
     return new Promise((resolve) =>
         setTimeout(() => {
             fn();

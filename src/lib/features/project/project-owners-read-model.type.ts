@@ -1,16 +1,19 @@
 import type { ProjectForUi } from './project-read-model-type';
 
 export type SystemOwner = { ownerType: 'system' };
+
 export type UserProjectOwner = {
     ownerType: 'user';
     name: string;
     email?: string;
     imageUrl?: string;
 };
+
 export type GroupProjectOwner = {
     ownerType: 'group';
     name: string;
 };
+
 export type ProjectOwners =
     | [SystemOwner]
     | Array<UserProjectOwner | GroupProjectOwner>;

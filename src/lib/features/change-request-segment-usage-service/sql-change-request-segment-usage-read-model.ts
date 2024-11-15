@@ -5,9 +5,8 @@ import type {
 } from './change-request-segment-usage-read-model';
 
 export class ChangeRequestSegmentUsageReadModel
-    implements IChangeRequestSegmentUsageReadModel
-{
-    private db: Db;
+    implements IChangeRequestSegmentUsageReadModel {
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

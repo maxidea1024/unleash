@@ -405,5 +405,5 @@ export default class SegmentStore implements ISegmentStore {
         };
     }
 
-    destroy(): void {}
+    destroy(): void { }
 }

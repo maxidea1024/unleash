@@ -1,4 +1,4 @@
-import type { Store } from '../../../types/stores/store';
+import type { IStore } from '../../../types/stores/store';
 
 export interface IClientMetricsEnvKey {
     featureName: string;
@@ -19,7 +19,7 @@ export interface IClientMetricsEnvVariant extends IClientMetricsEnvKey {
 }
 
 export interface IClientMetricsStoreV2
-    extends Store<IClientMetricsEnv, IClientMetricsEnvKey> {
+    extends IStore<IClientMetricsEnv, IClientMetricsEnvKey> {
     batchInsertMetrics(metrics: IClientMetricsEnv[]): Promise<void>;
     getMetricsForFeatureToggle(
         featureName: string,

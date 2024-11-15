@@ -1,4 +1,4 @@
-import type { Store } from '../../types/stores/store';
+import type { IStore } from '../../types/stores/store';
 
 export type IStatTrafficUsage = {
     day: Date;
@@ -14,7 +14,7 @@ export interface IStatTrafficUsageKey {
 }
 
 export interface ITrafficDataUsageStore
-    extends Store<IStatTrafficUsage, IStatTrafficUsageKey> {
+    extends IStore<IStatTrafficUsage, IStatTrafficUsageKey> {
     upsert(trafficDataUsage: IStatTrafficUsage): Promise<void>;
     getTrafficDataUsageForPeriod(period: string): Promise<IStatTrafficUsage[]>;
 }

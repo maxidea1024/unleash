@@ -16,38 +16,38 @@ import {
 
 export const createEnvironmentService =
     (config: IUnleashConfig) =>
-    (db: Db): EnvironmentService => {
-        const { getLogger, eventBus, flagResolver } = config;
-        const featureEnvironmentStore = new FeatureEnvironmentStore(
-            db,
-            eventBus,
-            getLogger,
-        );
-        const projectStore = new ProjectStore(
-            db,
-            eventBus,
-            getLogger,
-            flagResolver,
-        );
-        const featureStrategiesStore = new FeatureStrategiesStore(
-            db,
-            eventBus,
-            getLogger,
-            flagResolver,
-        );
-        const environmentStore = new EnvironmentStore(db, eventBus, getLogger);
-        const eventService = createEventsService(db, config);
-        return new EnvironmentService(
-            {
-                environmentStore,
-                featureStrategiesStore,
-                featureEnvironmentStore,
-                projectStore,
-            },
-            config,
-            eventService,
-        );
-    };
+        (db: Db): EnvironmentService => {
+            const { getLogger, eventBus, flagResolver } = config;
+            const featureEnvironmentStore = new FeatureEnvironmentStore(
+                db,
+                eventBus,
+                getLogger,
+            );
+            const projectStore = new ProjectStore(
+                db,
+                eventBus,
+                getLogger,
+                flagResolver,
+            );
+            const featureStrategiesStore = new FeatureStrategiesStore(
+                db,
+                eventBus,
+                getLogger,
+                flagResolver,
+            );
+            const environmentStore = new EnvironmentStore(db, eventBus, getLogger);
+            const eventService = createEventsService(db, config);
+            return new EnvironmentService(
+                {
+                    environmentStore,
+                    featureStrategiesStore,
+                    featureEnvironmentStore,
+                    projectStore,
+                },
+                config,
+                eventService,
+            );
+        };
 
 export const createFakeEnvironmentService = (
     config: IUnleashConfig,

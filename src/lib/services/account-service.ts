@@ -11,11 +11,11 @@ interface IUserWithRole extends IUser {
 }
 
 export class AccountService {
-    private logger: Logger;
+    private readonly logger: Logger;
 
-    private store: IAccountStore;
+    private readonly store: IAccountStore;
 
-    private accessService: AccessService;
+    private readonly accessService: AccessService;
 
     private lastSeenSecrets: Set<string> = new Set<string>();
 

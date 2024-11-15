@@ -50,15 +50,11 @@ type IUpdateFeatureStrategySegmentsRequest = IAuthRequest<
 >;
 
 export class SegmentsController extends Controller {
-    private logger: Logger;
-
-    private segmentService: ISegmentService;
-
-    private accessService: AccessService;
-
-    private flagResolver: IFlagResolver;
-
-    private openApiService: OpenApiService;
+    private readonly logger: Logger;
+    private readonly segmentService: ISegmentService;
+    private readonly accessService: AccessService;
+    private readonly flagResolver: IFlagResolver;
+    private readonly openApiService: OpenApiService;
 
     constructor(
         config: IUnleashConfig,
@@ -72,6 +68,7 @@ export class SegmentsController extends Controller {
         >,
     ) {
         super(config);
+
         this.flagResolver = config.flagResolver;
         this.config = config;
         this.logger = config.getLogger('/admin-api/segments.ts');
@@ -289,8 +286,8 @@ export class SegmentsController extends Controller {
 
         const responseBody = this.flagResolver.isEnabled('anonymiseEventLog')
             ? {
-                  segments: anonymiseKeys(segments, ['createdBy']),
-              }
+                segments: anonymiseKeys(segments, ['createdBy']),
+            }
             : { segments };
 
         this.openApiService.respondWithValidation(

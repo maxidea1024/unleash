@@ -17,11 +17,10 @@ class BadDataError extends UnleashError {
         message: string,
         errors?: [ValidationErrorDescription, ...ValidationErrorDescription[]],
     ) {
-        const topLevelMessage = `Request validation failed: your request body or params contain invalid data${
-            errors
+        const topLevelMessage = `Request validation failed: your request body or params contain invalid data${errors
                 ? '. Refer to the `details` list for more information.'
                 : `: ${message}`
-        }`;
+            }`;
         super(topLevelMessage);
 
         this.details = errors ?? [{ message: message }];
@@ -57,9 +56,8 @@ const additionalPropertiesMessage = (
     additionalPropertyName: string,
 ) => {
     const path = constructPath(pathToParentObject, additionalPropertyName);
-    const message = `The ${
-        pathToParentObject ? `\`${pathToParentObject}\`` : 'root'
-    } object of the request body does not allow additional properties. Your request included the \`${path}\` property.`;
+    const message = `The ${pathToParentObject ? `\`${pathToParentObject}\`` : 'root'
+        } object of the request body does not allow additional properties. Your request included the \`${path}\` property.`;
 
     return {
         path,
@@ -101,13 +99,12 @@ const enumMessage = (
     allowedValues: string[],
     suppliedValue: string | null | undefined,
 ) => {
-    const fullMessage = `The \`${propertyName}\` property ${
-        message ?? 'must match one of the allowed values'
-    }: ${allowedValues
-        .map((value) => `"${value}"`)
-        .join(
-            ', ',
-        )}. You provided "${suppliedValue}", which is not valid. Please use one of the allowed values instead..`;
+    const fullMessage = `The \`${propertyName}\` property ${message ?? 'must match one of the allowed values'
+        }: ${allowedValues
+            .map((value) => `"${value}"`)
+            .join(
+                ', ',
+            )}. You provided "${suppliedValue}", which is not valid. Please use one of the allowed values instead..`;
 
     return {
         message: fullMessage,
@@ -117,43 +114,43 @@ const enumMessage = (
 
 export const fromOpenApiValidationError =
     (data: object) =>
-    (validationError: ErrorObject): ValidationErrorDescription => {
-        const { instancePath, params, message } = validationError;
+        (validationError: ErrorObject): ValidationErrorDescription => {
+            const { instancePath, params, message } = validationError;
 
-        const propertyValue = getProp(
-            data,
-            instancePath.split('/').filter(Boolean),
-        );
+            const propertyValue = getProp(
+                data,
+                instancePath.split('/').filter(Boolean),
+            );
 
-        switch (validationError.keyword) {
-            case 'required':
-                return missingRequiredPropertyMessage(
-                    instancePath,
-                    params.missingProperty,
-                );
-            case 'additionalProperties':
-                return additionalPropertiesMessage(
-                    instancePath,
-                    params.additionalProperty,
-                );
-            case 'enum':
-                return enumMessage(
-                    instancePath.substring(instancePath.lastIndexOf('/') + 1),
-                    message,
-                    params.allowedValues,
-                    propertyValue,
-                );
+            switch (validationError.keyword) {
+                case 'required':
+                    return missingRequiredPropertyMessage(
+                        instancePath,
+                        params.missingProperty,
+                    );
+                case 'additionalProperties':
+                    return additionalPropertiesMessage(
+                        instancePath,
+                        params.additionalProperty,
+                    );
+                case 'enum':
+                    return enumMessage(
+                        instancePath.substring(instancePath.lastIndexOf('/') + 1),
+                        message,
+                        params.allowedValues,
+                        propertyValue,
+                    );
 
-            case 'oneOf':
-                return oneOfMessage(instancePath, validationError.message);
-            default:
-                return genericErrorMessage(
-                    instancePath,
-                    propertyValue,
-                    message,
-                );
-        }
-    };
+                case 'oneOf':
+                    return oneOfMessage(instancePath, validationError.message);
+                default:
+                    return genericErrorMessage(
+                        instancePath,
+                        propertyValue,
+                        message,
+                    );
+            }
+        };
 
 export const fromOpenApiValidationErrors = (
     data: object,

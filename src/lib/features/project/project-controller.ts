@@ -51,13 +51,10 @@ import {
 import ProjectStatusController from '../project-status/project-status-controller';
 
 export default class ProjectController extends Controller {
-    private projectService: ProjectService;
-
-    private openApiService: OpenApiService;
-
-    private clientInstanceService: ClientInstanceService;
-
-    private flagResolver: IFlagResolver;
+    private readonly projectService: ProjectService;
+    private readonly openApiService: OpenApiService;
+    private readonly clientInstanceService: ClientInstanceService;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
         super(config);

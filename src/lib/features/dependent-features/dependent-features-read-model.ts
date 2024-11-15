@@ -7,7 +7,7 @@ interface IVariantName {
 }
 
 export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
-    private db: Db;
+    private readonly db: Db;
 
     constructor(db: Db) {
         this.db = db;

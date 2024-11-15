@@ -26,11 +26,9 @@ const rowToFavorite = (row: IFavoriteProjectRow) => {
 };
 
 export class FavoriteProjectsStore implements IFavoriteProjectsStore {
-    private logger: Logger;
-
-    private eventBus: EventEmitter;
-
-    private db: Db;
+    private readonly logger: Logger;
+    private readonly eventBus: EventEmitter;
+    private readonly db: Db;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -63,7 +61,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
         await this.db(T.FAVORITE_PROJECTS).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists({ userId, project }: IFavoriteProjectKey): Promise<boolean> {
         const result = await this.db.raw(

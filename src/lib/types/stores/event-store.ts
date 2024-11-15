@@ -1,5 +1,5 @@
 import type { IBaseEvent, IEvent } from '../events';
-import type { Store } from './store';
+import type { IStore } from './store';
 import type {
     DeprecatedSearchEventsSchema,
     ProjectActivitySchema,
@@ -21,8 +21,8 @@ export interface IEventSearchParams {
 }
 
 export interface IEventStore
-    extends Store<IEvent, number>,
-        Pick<EventEmitter, 'on' | 'setMaxListeners' | 'emit' | 'off'> {
+    extends IStore<IEvent, number>,
+    Pick<EventEmitter, 'on' | 'setMaxListeners' | 'emit' | 'off'> {
     publishUnannouncedEvents(): Promise<void>;
     store(event: IBaseEvent): Promise<void>;
     batchStore(events: IBaseEvent[]): Promise<void>;

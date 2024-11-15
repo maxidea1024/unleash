@@ -15,7 +15,7 @@ import { createRequestSchema } from '../../openapi';
 const version = 1;
 
 export class UiObservabilityController extends Controller {
-    private logger: Logger;
+    private readonly logger: Logger;
 
     constructor(
         config: IUnleashConfig,

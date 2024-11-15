@@ -33,11 +33,9 @@ const rowToResetToken = (row: IResetTokenTable): IResetToken => ({
 });
 
 export class ResetTokenStore implements IResetTokenStore {
-    private logger: Logger;
-
-    private timer: Function;
-
-    private db: Db;
+    private readonly logger: Logger;
+    private readonly timer: Function;
+    private readonly db: Db;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -77,7 +75,7 @@ export class ResetTokenStore implements IResetTokenStore {
             token: newToken.reset_token,
             expiresAt: newToken.expires_at,
             createdAt: row.created_at,
-            createdBy: newToken.created_by,
+            createdBy: newToken.created_by || '<unknown>',
         };
     }
 
@@ -114,7 +112,7 @@ export class ResetTokenStore implements IResetTokenStore {
         await this.db(TABLE).where({ reset_token }).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(reset_token: string): Promise<boolean> {
         const result = await this.db.raw(

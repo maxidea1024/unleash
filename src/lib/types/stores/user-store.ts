@@ -1,5 +1,5 @@
 import type { IUser } from '../user';
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface ICreateUser {
     name?: string;
@@ -19,7 +19,7 @@ export interface IUserUpdateFields {
     email?: string;
 }
 
-export interface IUserStore extends Store<IUser, number> {
+export interface IUserStore extends IStore<IUser, number> {
     update(id: number, fields: IUserUpdateFields): Promise<IUser>;
     insert(user: ICreateUser): Promise<IUser>;
     upsert(user: ICreateUser): Promise<IUser>;

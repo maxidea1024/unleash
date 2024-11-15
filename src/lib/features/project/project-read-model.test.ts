@@ -28,7 +28,7 @@ beforeAll(async () => {
     db = await dbInit('feature_lifecycle_read_model', getLogger);
     projectReadModel = new ProjectReadModel(
         db.rawDatabase,
-        { emit: () => {} } as unknown as EventEmitter,
+        { emit: () => { } } as unknown as EventEmitter,
         alwaysOnFlagResolver,
     );
     projectStore = db.stores.projectStore;

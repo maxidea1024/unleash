@@ -16,9 +16,8 @@ interface IFeatureTypeRow {
 }
 
 class FeatureTypeStore implements IFeatureTypeStore {
-    private db: Db;
-
-    private logger: Logger;
+    private readonly db: Db;
+    private readonly logger: Logger;
 
     constructor(db: Db, getLogger: LogProvider) {
         this.db = db;
@@ -57,7 +56,7 @@ class FeatureTypeStore implements IFeatureTypeStore {
         await this.db(TABLE).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(key: string): Promise<boolean> {
         const result = await this.db.raw(
@@ -84,5 +83,6 @@ class FeatureTypeStore implements IFeatureTypeStore {
         }
     }
 }
+
 export default FeatureTypeStore;
 module.exports = FeatureTypeStore;

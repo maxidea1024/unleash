@@ -9,7 +9,7 @@ import type {
     IProjectApplications,
     ProjectMode,
 } from '../../types/model';
-import type { Store } from '../../types/stores/store';
+import type { IStore } from '../../types/stores/store';
 import type { CreateFeatureStrategySchema } from '../../openapi';
 
 export interface IProjectInsert {
@@ -67,7 +67,7 @@ export interface IProjectApplicationsSearchParams {
     sortOrder: 'asc' | 'desc';
 }
 
-export interface IProjectStore extends Store<IProject, string> {
+export interface IProjectStore extends IStore<IProject, string> {
     hasProject(id: string): Promise<boolean>;
 
     hasActiveProject(id: string): Promise<boolean>;

@@ -90,6 +90,7 @@ export default class User implements IUser {
         if (!id) {
             throw new ValidationError('Id is required', [], undefined);
         }
+
         Joi.assert(email, Joi.string().email({ ignoreLength: true }), 'Email');
         Joi.assert(username, Joi.string(), 'Username');
         Joi.assert(name, Joi.string(), 'Name');

@@ -17,6 +17,7 @@ const COLUMNS = [
     'legal_values',
     'created_at',
 ];
+
 const T = {
     contextFields: 'context_fields',
     featureStrategies: 'feature_strategies',
@@ -58,11 +59,9 @@ interface ICreateContextField {
 }
 
 class ContextFieldStore implements IContextFieldStore {
-    private db: Db;
-
-    private logger: Logger;
-
-    private flagResolver: IFlagResolver;
+    private readonly db: Db;
+    private readonly logger: Logger;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
         this.db = db;
@@ -133,7 +132,7 @@ class ContextFieldStore implements IContextFieldStore {
         await this.db(T.contextFields).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(key: string): Promise<boolean> {
         const result = await this.db.raw(
@@ -172,4 +171,5 @@ class ContextFieldStore implements IContextFieldStore {
             .then((res) => Number(res[0].count));
     }
 }
+
 export default ContextFieldStore;

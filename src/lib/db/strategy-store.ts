@@ -19,6 +19,7 @@ const STRATEGY_COLUMNS = [
     'deprecated',
     'display_name',
 ];
+
 const TABLE = 'strategies';
 
 interface IStrategyRow {
@@ -30,10 +31,10 @@ interface IStrategyRow {
     deprecated: boolean;
     display_name: string;
 }
-export default class StrategyStore implements IStrategyStore {
-    private db: Db;
 
-    private logger: Logger;
+export default class StrategyStore implements IStrategyStore {
+    private readonly db: Db;
+    private readonly logger: Logger;
 
     constructor(db: Db, getLogger: LogProvider) {
         this.db = db;
@@ -84,7 +85,7 @@ export default class StrategyStore implements IStrategyStore {
             .then((res) => Number(res[0].count));
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async exists(name: string): Promise<boolean> {
         const result = await this.db.raw(

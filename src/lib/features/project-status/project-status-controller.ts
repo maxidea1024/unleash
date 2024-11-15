@@ -20,14 +20,13 @@ import {
 import type { ProjectStatusService } from './project-status-service';
 
 export default class ProjectStatusController extends Controller {
-    private projectStatusService: ProjectStatusService;
-
-    private openApiService: OpenApiService;
-
-    private flagResolver: IFlagResolver;
+    private readonly projectStatusService: ProjectStatusService;
+    private readonly openApiService: OpenApiService;
+    private readonly flagResolver: IFlagResolver;
 
     constructor(config: IUnleashConfig, services: IUnleashServices) {
         super(config);
+
         this.projectStatusService = services.projectStatusService;
         this.openApiService = services.openApiService;
         this.flagResolver = config.flagResolver;

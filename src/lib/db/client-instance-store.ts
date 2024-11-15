@@ -42,13 +42,10 @@ const mapToDb = (client) => ({
 });
 
 export default class ClientInstanceStore implements IClientInstanceStore {
-    private db: Db;
-
-    private logger: Logger;
-
-    private eventBus: EventEmitter;
-
-    private metricTimer: Function;
+    private readonly db: Db;
+    private readonly logger: Logger;
+    private readonly eventBus: EventEmitter;
+    private readonly metricTimer: Function;
 
     constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
         this.db = db;
@@ -270,5 +267,5 @@ export default class ClientInstanceStore implements IClientInstanceStore {
         return this.db(TABLE).where('app_name', appName).del();
     }
 
-    destroy(): void {}
+    destroy(): void { }
 }

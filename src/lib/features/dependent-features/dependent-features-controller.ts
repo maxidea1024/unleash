@@ -55,12 +55,9 @@ type DependentFeaturesServices = Pick<
 >;
 
 export default class DependentFeaturesController extends Controller {
-    private dependentFeaturesService: WithTransactional<DependentFeaturesService>;
-
-    private openApiService: OpenApiService;
-
-    private flagResolver: IFlagResolver;
-
+    private readonly dependentFeaturesService: WithTransactional<DependentFeaturesService>;
+    private readonly openApiService: OpenApiService;
+    private readonly flagResolver: IFlagResolver;
     private readonly logger: Logger;
 
     constructor(
@@ -71,6 +68,7 @@ export default class DependentFeaturesController extends Controller {
         }: DependentFeaturesServices,
     ) {
         super(config);
+
         this.dependentFeaturesService = transactionalDependentFeaturesService;
         this.openApiService = openApiService;
         this.flagResolver = config.flagResolver;

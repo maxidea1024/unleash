@@ -86,47 +86,27 @@ export type IExportService = {
 };
 
 export default class ExportImportService
-    implements IExportService, IImportService
-{
-    private logger: Logger;
-
-    private toggleStore: IFeatureToggleStore;
-
-    private featureStrategiesStore: IFeatureStrategiesStore;
-
-    private importTogglesStore: IImportTogglesStore;
-
-    private tagTypeStore: ITagTypeStore;
-
-    private featureEnvironmentStore: IFeatureEnvironmentStore;
-
-    private featureTagStore: IFeatureTagStore;
-
-    private flagResolver: IFlagResolver;
-
-    private featureToggleService: FeatureToggleService;
-
-    private contextFieldStore: IContextFieldStore;
-
-    private strategyService: StrategyService;
-
-    private contextService: ContextService;
-
-    private accessService: AccessService;
-
-    private eventService: EventService;
-
-    private tagTypeService: TagTypeService;
-
-    private segmentReadModel: ISegmentReadModel;
-
-    private featureTagService: FeatureTagService;
-
-    private importPermissionsService: ImportPermissionsService;
-
-    private dependentFeaturesReadModel: IDependentFeaturesReadModel;
-
-    private dependentFeaturesService: DependentFeaturesService;
+    implements IExportService, IImportService {
+    private readonly logger: Logger;
+    private readonly toggleStore: IFeatureToggleStore;
+    private readonly featureStrategiesStore: IFeatureStrategiesStore;
+    private readonly importTogglesStore: IImportTogglesStore;
+    private readonly tagTypeStore: ITagTypeStore;
+    private readonly featureEnvironmentStore: IFeatureEnvironmentStore;
+    private readonly featureTagStore: IFeatureTagStore;
+    private readonly flagResolver: IFlagResolver;
+    private readonly featureToggleService: FeatureToggleService;
+    private readonly contextFieldStore: IContextFieldStore;
+    private readonly strategyService: StrategyService;
+    private readonly contextService: ContextService;
+    private readonly accessService: AccessService;
+    private readonly eventService: EventService;
+    private readonly tagTypeService: TagTypeService;
+    private readonly segmentReadModel: ISegmentReadModel;
+    private readonly featureTagService: FeatureTagService;
+    private readonly importPermissionsService: ImportPermissionsService;
+    private readonly dependentFeaturesReadModel: IDependentFeaturesReadModel;
+    private readonly dependentFeaturesService: DependentFeaturesService;
 
     constructor(
         stores: Pick<
@@ -501,12 +481,12 @@ export default class ExportImportService
             featureEnvsWithVariants.map((featureEnvironment) => {
                 return featureEnvironment.featureName
                     ? this.featureToggleService.legacySaveVariantsOnEnv(
-                          dto.project,
-                          featureEnvironment.featureName,
-                          dto.environment,
-                          featureEnvironment.variants as IVariant[],
-                          auditUser,
-                      )
+                        dto.project,
+                        featureEnvironment.featureName,
+                        dto.environment,
+                        featureEnvironment.variants as IVariant[],
+                        auditUser,
+                    )
                     : Promise.resolve();
             }),
         );
@@ -546,19 +526,19 @@ export default class ExportImportService
         const targetProject = dto.project;
         return dto.data.segments
             ? dto.data.segments
-                  .filter(
-                      (importingSegment) =>
-                          !supportedSegments.find(
-                              (existingSegment) =>
-                                  importingSegment.name ===
-                                      existingSegment.name &&
-                                  (!existingSegment.project ||
-                                      existingSegment.project ===
-                                          targetProject),
-                          ),
-                  )
+                .filter(
+                    (importingSegment) =>
+                        !supportedSegments.find(
+                            (existingSegment) =>
+                                importingSegment.name ===
+                                existingSegment.name &&
+                                (!existingSegment.project ||
+                                    existingSegment.project ===
+                                    targetProject),
+                        ),
+                )
 
-                  .map((it) => it.name)
+                .map((it) => it.name)
             : [];
     }
 
@@ -999,4 +979,5 @@ export default class ExportImportService
         });
     }
 }
+
 module.exports = ExportImportService;

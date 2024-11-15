@@ -64,13 +64,10 @@ export interface IProjectMembersCount {
 }
 
 class ProjectStore implements IProjectStore {
-    private db: Db;
-
-    private logger: Logger;
-
-    private flagResolver: IFlagResolver;
-
-    private timer: Function;
+    private readonly db: Db;
+    private readonly logger: Logger;
+    private readonly flagResolver: IFlagResolver;
+    private readonly timer: Function;
 
     constructor(
         db: Db,
@@ -97,7 +94,7 @@ class ProjectStore implements IProjectStore {
         };
     }
 
-    destroy(): void {}
+    destroy(): void { }
 
     async isFeatureLimitReached(id: string): Promise<boolean> {
         const result = await this.db.raw(

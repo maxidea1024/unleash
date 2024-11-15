@@ -26,15 +26,11 @@ interface IDependentFeaturesServiceDeps {
 }
 
 export class DependentFeaturesService {
-    private dependentFeaturesStore: IDependentFeaturesStore;
-
-    private dependentFeaturesReadModel: IDependentFeaturesReadModel;
-
-    private changeRequestAccessReadModel: IChangeRequestAccessReadModel;
-
-    private featuresReadModel: IFeaturesReadModel;
-
-    private eventService: EventService;
+    private readonly dependentFeaturesStore: IDependentFeaturesStore;
+    private readonly dependentFeaturesReadModel: IDependentFeaturesReadModel;
+    private readonly changeRequestAccessReadModel: IChangeRequestAccessReadModel;
+    private readonly featuresReadModel: IFeaturesReadModel;
+    private readonly eventService: EventService;
 
     constructor({
         featuresReadModel,
@@ -138,16 +134,16 @@ export class DependentFeaturesService {
         const featureDependency: FeatureDependency =
             enabled === false
                 ? {
-                      parent,
-                      child,
-                      enabled,
-                  }
+                    parent,
+                    child,
+                    enabled,
+                }
                 : {
-                      parent,
-                      child,
-                      enabled: true,
-                      variants,
-                  };
+                    parent,
+                    child,
+                    enabled: true,
+                    variants,
+                };
         await this.dependentFeaturesStore.upsert(featureDependency);
         await this.eventService.storeEvent(
             new FeatureDependencyAddedEvent({

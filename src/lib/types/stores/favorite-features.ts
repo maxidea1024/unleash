@@ -1,5 +1,5 @@
 import type { IFavoriteFeature } from '../favorites';
-import type { Store } from './store';
+import type { IStore } from './store';
 
 export interface IFavoriteFeatureKey {
     userId: number;
@@ -7,7 +7,7 @@ export interface IFavoriteFeatureKey {
 }
 
 export interface IFavoriteFeaturesStore
-    extends Store<IFavoriteFeature, IFavoriteFeatureKey> {
+    extends IStore<IFavoriteFeature, IFavoriteFeatureKey> {
     addFavoriteFeature(
         favorite: IFavoriteFeatureKey,
     ): Promise<IFavoriteFeature>;
