@@ -7,47 +7,47 @@ import { SegmentReadModel } from '../segment/segment-read-model';
 import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 
 export const createClientFeatureToggleService = (
-    db: Db,
-    config: IUnleashConfig,
+  db: Db,
+  config: IUnleashConfig,
 ): ClientFeatureToggleService => {
-    const { getLogger, eventBus, flagResolver } = config;
+  const { getLogger, eventBus, flagResolver } = config;
 
-    const featureToggleClientStore = new FeatureToggleClientStore(
-        db,
-        eventBus,
-        getLogger,
-        flagResolver,
-    );
+  const featureToggleClientStore = new FeatureToggleClientStore(
+    db,
+    eventBus,
+    getLogger,
+    flagResolver,
+  );
 
-    const segmentReadModel = new SegmentReadModel(db);
+  const segmentReadModel = new SegmentReadModel(db);
 
-    const clientFeatureToggleService = new ClientFeatureToggleService(
-        {
-            clientFeatureToggleStore: featureToggleClientStore,
-        },
-        segmentReadModel,
-        { getLogger, flagResolver },
-    );
+  const clientFeatureToggleService = new ClientFeatureToggleService(
+    {
+      clientFeatureToggleStore: featureToggleClientStore,
+    },
+    segmentReadModel,
+    { getLogger, flagResolver },
+  );
 
-    return clientFeatureToggleService;
+  return clientFeatureToggleService;
 };
 
 export const createFakeClientFeatureToggleService = (
-    config: IUnleashConfig,
+  config: IUnleashConfig,
 ): ClientFeatureToggleService => {
-    const { getLogger, flagResolver } = config;
+  const { getLogger, flagResolver } = config;
 
-    const fakeClientFeatureToggleStore = new FakeClientFeatureToggleStore();
+  const fakeClientFeatureToggleStore = new FakeClientFeatureToggleStore();
 
-    const fakeSegmentReadModel = new FakeSegmentReadModel();
+  const fakeSegmentReadModel = new FakeSegmentReadModel();
 
-    const clientFeatureToggleService = new ClientFeatureToggleService(
-        {
-            clientFeatureToggleStore: fakeClientFeatureToggleStore,
-        },
-        fakeSegmentReadModel,
-        { getLogger, flagResolver },
-    );
+  const clientFeatureToggleService = new ClientFeatureToggleService(
+    {
+      clientFeatureToggleStore: fakeClientFeatureToggleStore,
+    },
+    fakeSegmentReadModel,
+    { getLogger, flagResolver },
+  );
 
-    return clientFeatureToggleService;
+  return clientFeatureToggleService;
 };

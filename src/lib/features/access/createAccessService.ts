@@ -13,67 +13,67 @@ import FakeEnvironmentStore from '../project-environments/fake-environment-store
 import FakeAccessStore from '../../../test/fixtures/fake-access-store';
 import type { IAccessStore, IEventStore, IRoleStore } from '../../types';
 import {
-    createEventsService,
-    createFakeEventsService,
+  createEventsService,
+  createFakeEventsService,
 } from '../events/createEventsService';
 
 export const createAccessService = (
-    db: Db,
-    config: IUnleashConfig,
+  db: Db,
+  config: IUnleashConfig,
 ): AccessService => {
-    const { eventBus, getLogger } = config;
-    const groupStore = new GroupStore(db);
-    const accountStore = new AccountStore(db, getLogger);
-    const roleStore = new RoleStore(db, eventBus, getLogger);
-    const environmentStore = new EnvironmentStore(db, eventBus, getLogger);
-    const accessStore = new AccessStore(db, eventBus, getLogger);
-    const eventService = createEventsService(db, config);
-    const groupService = new GroupService(
-        { groupStore, accountStore },
-        { getLogger },
-        eventService,
-    );
-    return new AccessService(
-        { accessStore, accountStore, roleStore, environmentStore },
-        { getLogger },
-        groupService,
-        eventService,
-    );
+  const { eventBus, getLogger } = config;
+  const groupStore = new GroupStore(db);
+  const accountStore = new AccountStore(db, getLogger);
+  const roleStore = new RoleStore(db, eventBus, getLogger);
+  const environmentStore = new EnvironmentStore(db, eventBus, getLogger);
+  const accessStore = new AccessStore(db, eventBus, getLogger);
+  const eventService = createEventsService(db, config);
+  const groupService = new GroupService(
+    { groupStore, accountStore },
+    { getLogger },
+    eventService,
+  );
+  return new AccessService(
+    { accessStore, accountStore, roleStore, environmentStore },
+    { getLogger },
+    groupService,
+    eventService,
+  );
 };
 
 export const createFakeAccessService = (
-    config: IUnleashConfig,
+  config: IUnleashConfig,
 ): {
-    accessService: AccessService;
-    eventStore: IEventStore;
-    accessStore: IAccessStore;
-    roleStore: IRoleStore;
+  accessService: AccessService;
+  eventStore: IEventStore;
+  accessStore: IAccessStore;
+  roleStore: IRoleStore;
 } => {
-    const { getLogger } = config;
-    const eventStore = new FakeEventStore();
-    const groupStore = new FakeGroupStore();
-    const accountStore = new FakeAccountStore();
-    const roleStore = new FakeRoleStore();
-    const environmentStore = new FakeEnvironmentStore();
-    const accessStore = new FakeAccessStore(roleStore);
-    const eventService = createFakeEventsService(config, { eventStore });
-    const groupService = new GroupService(
-        { groupStore, accountStore },
-        { getLogger },
-        eventService,
-    );
+  const { getLogger } = config;
+  const eventStore = new FakeEventStore();
+  const groupStore = new FakeGroupStore();
+  const accountStore = new FakeAccountStore();
+  const roleStore = new FakeRoleStore();
+  const environmentStore = new FakeEnvironmentStore();
+  const accessStore = new FakeAccessStore(roleStore);
+  const eventService = createFakeEventsService(config, { eventStore });
+  const groupService = new GroupService(
+    { groupStore, accountStore },
+    { getLogger },
+    eventService,
+  );
 
-    const accessService = new AccessService(
-        { accessStore, accountStore, roleStore, environmentStore, groupStore },
-        { getLogger },
-        groupService,
-        eventService,
-    );
+  const accessService = new AccessService(
+    { accessStore, accountStore, roleStore, environmentStore, groupStore },
+    { getLogger },
+    groupService,
+    eventService,
+  );
 
-    return {
-        accessService,
-        eventStore,
-        accessStore,
-        roleStore,
-    };
+  return {
+    accessService,
+    eventStore,
+    accessStore,
+    roleStore,
+  };
 };
