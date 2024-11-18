@@ -7,62 +7,60 @@ import type { MaintenanceSchema } from '../../openapi/spec/maintenance-schema';
 import { minutesToMilliseconds } from 'date-fns';
 
 export interface IMaintenanceStatus {
-    isMaintenanceMode(): Promise<boolean>;
+  isMaintenanceMode(): Promise<boolean>;
 }
 
 export default class MaintenanceService implements IMaintenanceStatus {
-    private config: IUnleashConfig;
+  private config: IUnleashConfig;
+  private logger: Logger;
+  private settingService: SettingService;
 
-    private logger: Logger;
+  private resolveMaintenance: () => Promise<boolean>;
 
-    private settingService: SettingService;
+  constructor(config: IUnleashConfig, settingService: SettingService) {
+    this.config = config;
+    this.logger = config.getLogger('services/maintenance-service.ts');
+    this.settingService = settingService;
+    this.resolveMaintenance = memoizee(
+      async () => (await this.getMaintenanceSetting()).enabled,
+      {
+        promise: true,
+        maxAge: minutesToMilliseconds(1),
+      },
+    );
+  }
 
-    private resolveMaintenance: () => Promise<boolean>;
-
-    constructor(config: IUnleashConfig, settingService: SettingService) {
-        this.config = config;
-        this.logger = config.getLogger('services/maintenance-service.ts');
-        this.settingService = settingService;
-        this.resolveMaintenance = memoizee(
-            async () => (await this.getMaintenanceSetting()).enabled,
-            {
-                promise: true,
-                maxAge: minutesToMilliseconds(1),
-            },
-        );
+  async isMaintenanceMode(): Promise<boolean> {
+    try {
+      return (
+        this.config.flagResolver.isEnabled('maintenanceMode') ||
+        (await this.resolveMaintenance())
+      );
+    } catch (e) {
+      this.logger.warn('Error checking maintenance mode', e);
+      return false;
     }
+  }
 
-    async isMaintenanceMode(): Promise<boolean> {
-        try {
-            return (
-                this.config.flagResolver.isEnabled('maintenanceMode') ||
-                (await this.resolveMaintenance())
-            );
-        } catch (e) {
-            this.logger.warn('Error checking maintenance mode', e);
-            return false;
-        }
-    }
+  async getMaintenanceSetting(): Promise<MaintenanceSchema> {
+    return this.settingService.getWithDefault(maintenanceSettingsKey, {
+      enabled: false,
+    });
+  }
 
-    async getMaintenanceSetting(): Promise<MaintenanceSchema> {
-        return this.settingService.getWithDefault(maintenanceSettingsKey, {
-            enabled: false,
-        });
-    }
-
-    async toggleMaintenanceMode(
-        setting: MaintenanceSchema,
-        auditUser: IAuditUser,
-    ): Promise<void> {
-        //@ts-ignore
-        this.resolveMaintenance.clear();
-        return this.settingService.insert(
-            maintenanceSettingsKey,
-            setting,
-            auditUser,
-            false,
-        );
-    }
+  async toggleMaintenanceMode(
+    setting: MaintenanceSchema,
+    auditUser: IAuditUser,
+  ): Promise<void> {
+    //@ts-ignore
+    this.resolveMaintenance.clear();
+    return this.settingService.insert(
+      maintenanceSettingsKey,
+      setting,
+      auditUser,
+      false,
+    );
+  }
 }
 
 module.exports = MaintenanceService;

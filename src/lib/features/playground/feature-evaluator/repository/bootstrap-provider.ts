@@ -2,38 +2,38 @@ import type { ClientFeaturesResponse, FeatureInterface } from '../feature';
 import type { Segment } from '../strategy/strategy';
 
 export interface BootstrapProvider {
-    readBootstrap(): Promise<ClientFeaturesResponse | undefined>;
+  readBootstrap(): Promise<ClientFeaturesResponse | undefined>;
 }
 
 export interface BootstrapOptions {
-    data: FeatureInterface[];
-    segments?: Segment[];
+  data: FeatureInterface[];
+  segments?: Segment[];
 }
 
 export class DefaultBootstrapProvider implements BootstrapProvider {
-    private data?: FeatureInterface[];
+  private data?: FeatureInterface[];
 
-    private segments?: Segment[];
+  private segments?: Segment[];
 
-    constructor(options: BootstrapOptions) {
-        this.data = options.data;
-        this.segments = options.segments;
+  constructor(options: BootstrapOptions) {
+    this.data = options.data;
+    this.segments = options.segments;
+  }
+
+  async readBootstrap(): Promise<ClientFeaturesResponse | undefined> {
+    if (this.data) {
+      return {
+        version: 2,
+        segments: this.segments,
+        features: [...this.data],
+      };
     }
-
-    async readBootstrap(): Promise<ClientFeaturesResponse | undefined> {
-        if (this.data) {
-            return {
-                version: 2,
-                segments: this.segments,
-                features: [...this.data],
-            };
-        }
-        return undefined;
-    }
+    return undefined;
+  }
 }
 
 export function resolveBootstrapProvider(
-    options: BootstrapOptions,
+  options: BootstrapOptions,
 ): BootstrapProvider {
-    return new DefaultBootstrapProvider(options);
+  return new DefaultBootstrapProvider(options);
 }

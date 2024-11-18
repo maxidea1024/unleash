@@ -72,6 +72,7 @@ export const fromLegacyError = (e: Error): UnleashError => {
   if (e instanceof UnleashError) {
     return e;
   }
+
   const name = UnleashApiErrorTypes.includes(e.name as UnleashApiErrorName)
     ? (e.name as UnleashApiErrorName)
     : 'UnknownError';

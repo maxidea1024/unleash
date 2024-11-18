@@ -5,14 +5,14 @@ import { FakeChangeRequestAccessReadModel } from './fake-change-request-access-r
 import type { IChangeRequestAccessReadModel } from './change-request-access-read-model';
 
 export const createChangeRequestAccessReadModel = (
-    db: Db,
-    config: IUnleashConfig,
+  db: Db,
+  config: IUnleashConfig,
 ): IChangeRequestAccessReadModel => {
-    const accessService = createAccessService(db, config);
-    return new ChangeRequestAccessReadModel(db, accessService);
+  const accessService = createAccessService(db, config);
+  return new ChangeRequestAccessReadModel(db, accessService);
 };
 
 export const createFakeChangeRequestAccessService =
-    (): IChangeRequestAccessReadModel => {
-        return new FakeChangeRequestAccessReadModel();
-    };
+  (): IChangeRequestAccessReadModel => {
+    return new FakeChangeRequestAccessReadModel();
+  };

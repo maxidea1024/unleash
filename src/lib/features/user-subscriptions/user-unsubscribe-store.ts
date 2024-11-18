@@ -5,33 +5,33 @@ const COLUMNS = ['user_id', 'subscription', 'created_at'];
 export const TABLE = 'user_unsubscription';
 
 interface IUserUnsubscribeTable {
-    user_id: number;
-    subscription: string;
-    created_at?: Date;
+  user_id: number;
+  subscription: string;
+  created_at?: Date;
 }
 
 export class UserUnsubscribeStore implements IUserUnsubscribeStore {
-    private readonly db: Db;
+  private readonly db: Db;
 
-    constructor(db: Db) {
-        this.db = db;
-    }
+  constructor(db: Db) {
+    this.db = db;
+  }
 
-    async insert({ userId, subscription }) {
-        await this.db
-            .table<IUserUnsubscribeTable>(TABLE)
-            .insert({ user_id: userId, subscription: subscription })
-            .onConflict(['user_id', 'subscription'])
-            .ignore()
-            .returning(COLUMNS);
-    }
+  async insert({ userId, subscription }) {
+    await this.db
+      .table<IUserUnsubscribeTable>(TABLE)
+      .insert({ user_id: userId, subscription: subscription })
+      .onConflict(['user_id', 'subscription'])
+      .ignore()
+      .returning(COLUMNS);
+  }
 
-    async delete({ userId, subscription }): Promise<void> {
-        await this.db
-            .table<IUserUnsubscribeTable>(TABLE)
-            .where({ user_id: userId, subscription: subscription })
-            .del();
-    }
+  async delete({ userId, subscription }): Promise<void> {
+    await this.db
+      .table<IUserUnsubscribeTable>(TABLE)
+      .where({ user_id: userId, subscription: subscription })
+      .del();
+  }
 
-    destroy(): void { }
+  destroy(): void { }
 }

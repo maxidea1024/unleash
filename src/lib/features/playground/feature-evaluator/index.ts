@@ -1,6 +1,6 @@
 import {
-    FeatureEvaluator,
-    type FeatureEvaluatorConfig,
+  FeatureEvaluator,
+  type FeatureEvaluatorConfig,
 } from './feature-evaluator';
 import { Variant } from './variant';
 import { Context } from './context';

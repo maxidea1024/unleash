@@ -3,28 +3,28 @@ import type { IStore } from '../../types/stores/store';
 import type { IAuditUser } from '../../types/user';
 
 export interface ISegmentStore extends IStore<ISegment, number> {
-    getAll(includeChangeRequestUsageData?: boolean): Promise<ISegment[]>;
+  getAll(includeChangeRequestUsageData?: boolean): Promise<ISegment[]>;
 
-    getByStrategy(strategyId: string): Promise<ISegment[]>;
+  getByStrategy(strategyId: string): Promise<ISegment[]>;
 
-    create(
-        segment: Omit<ISegment, 'id'>,
-        createdBy: Pick<IAuditUser, 'username'>,
-    ): Promise<ISegment>;
+  create(
+    segment: Omit<ISegment, 'id'>,
+    createdBy: Pick<IAuditUser, 'username'>,
+  ): Promise<ISegment>;
 
-    update(id: number, segment: Omit<ISegment, 'id'>): Promise<ISegment>;
+  update(id: number, segment: Omit<ISegment, 'id'>): Promise<ISegment>;
 
-    delete(id: number): Promise<void>;
+  delete(id: number): Promise<void>;
 
-    addToStrategy(id: number, strategyId: string): Promise<void>;
+  addToStrategy(id: number, strategyId: string): Promise<void>;
 
-    removeFromStrategy(id: number, strategyId: string): Promise<void>;
+  removeFromStrategy(id: number, strategyId: string): Promise<void>;
 
-    getAllFeatureStrategySegments(): Promise<IFeatureStrategySegment[]>;
+  getAllFeatureStrategySegments(): Promise<IFeatureStrategySegment[]>;
 
-    existsByName(name: string): Promise<boolean>;
+  existsByName(name: string): Promise<boolean>;
 
-    count(): Promise<number>;
+  count(): Promise<number>;
 
-    getProjectSegmentCount(projectId: string): Promise<number>;
+  getProjectSegmentCount(projectId: string): Promise<number>;
 }

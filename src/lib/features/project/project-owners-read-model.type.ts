@@ -3,39 +3,39 @@ import type { ProjectForUi } from './project-read-model-type';
 export type SystemOwner = { ownerType: 'system' };
 
 export type UserProjectOwner = {
-    ownerType: 'user';
-    name: string;
-    email?: string;
-    imageUrl?: string;
+  ownerType: 'user';
+  name: string;
+  email?: string;
+  imageUrl?: string;
 };
 
 export type GroupProjectOwner = {
-    ownerType: 'group';
-    name: string;
+  ownerType: 'group';
+  name: string;
 };
 
 export type ProjectOwners =
-    | [SystemOwner]
-    | Array<UserProjectOwner | GroupProjectOwner>;
+  | [SystemOwner]
+  | Array<UserProjectOwner | GroupProjectOwner>;
 
 export type ProjectOwnersDictionary = Record<string, ProjectOwners>;
 
 export type IProjectForUiWithOwners = ProjectForUi & {
-    owners: ProjectOwners;
+  owners: ProjectOwners;
 };
 
 export type WithProjectOwners<T extends { id: string }> = (T & {
-    owners: ProjectOwners;
+  owners: ProjectOwners;
 })[];
 
 export interface IProjectOwnersReadModel {
-    addOwners<T extends { id: string }>(
-        projects: T[],
-    ): Promise<WithProjectOwners<T>>;
+  addOwners<T extends { id: string }>(
+    projects: T[],
+  ): Promise<WithProjectOwners<T>>;
 
-    getProjectOwners(projectId: string): Promise<ProjectOwners>;
+  getProjectOwners(projectId: string): Promise<ProjectOwners>;
 
-    getAllUserProjectOwners(
-        projects?: Set<string>,
-    ): Promise<UserProjectOwner[]>;
+  getAllUserProjectOwners(
+    projects?: Set<string>,
+  ): Promise<UserProjectOwner[]>;
 }

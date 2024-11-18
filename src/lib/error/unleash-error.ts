@@ -39,15 +39,13 @@ export type UnleashApiErrorName = (typeof UnleashApiErrorTypes)[number];
 
 export abstract class UnleashError extends Error {
   id: string;
-
   name: string;
-
   abstract statusCode: number;
-
   additionalParameters: object;
 
   constructor(message: string, name?: string) {
     super();
+
     this.id = uuidV4();
     this.name = name || this.constructor.name;
     super.message = message;
@@ -84,6 +82,7 @@ export class GenericUnleashError extends UnleashError {
     statusCode: number;
   }) {
     super(message, name);
+
     this.statusCode = statusCode;
   }
 }

@@ -5,20 +5,20 @@ import type { IProjectLifecycleSummaryReadModel } from './project-lifecycle-read
 import { ProjectLifecycleSummaryReadModel } from './project-lifecycle-summary-read-model';
 
 export const createProjectLifecycleSummaryReadModel = (
-    db: Db,
-    config: IUnleashConfig,
+  db: Db,
+  config: IUnleashConfig,
 ): IProjectLifecycleSummaryReadModel => {
-    const { eventBus, getLogger, flagResolver } = config;
-    const featureToggleStore = new FeatureToggleStore(
-        db,
-        eventBus,
-        getLogger,
-        flagResolver,
-    );
-    return new ProjectLifecycleSummaryReadModel(db, featureToggleStore);
+  const { eventBus, getLogger, flagResolver } = config;
+  const featureToggleStore = new FeatureToggleStore(
+    db,
+    eventBus,
+    getLogger,
+    flagResolver,
+  );
+  return new ProjectLifecycleSummaryReadModel(db, featureToggleStore);
 };
 
 export const createFakeProjectLifecycleSummaryReadModel =
-    (): IProjectLifecycleSummaryReadModel => {
-        return new FakeProjectLifecycleSummaryReadModel();
-    };
+  (): IProjectLifecycleSummaryReadModel => {
+    return new FakeProjectLifecycleSummaryReadModel();
+  };

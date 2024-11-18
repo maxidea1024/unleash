@@ -4,12 +4,12 @@ import { FakeChangeRequestSegmentUsageReadModel } from './fake-change-request-se
 import type { IChangeRequestSegmentUsageReadModel } from './change-request-segment-usage-read-model';
 
 export const createChangeRequestSegmentUsageReadModel = (
-    db: Db,
+  db: Db,
 ): IChangeRequestSegmentUsageReadModel => {
-    return new ChangeRequestSegmentUsageReadModel(db);
+  return new ChangeRequestSegmentUsageReadModel(db);
 };
 
 export const createFakeChangeRequestSegmentUsageReadModel =
-    (): IChangeRequestSegmentUsageReadModel => {
-        return new FakeChangeRequestSegmentUsageReadModel();
-    };
+  (): IChangeRequestSegmentUsageReadModel => {
+    return new FakeChangeRequestSegmentUsageReadModel();
+  };

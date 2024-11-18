@@ -6,13 +6,13 @@ import { ProjectReadModel } from './project-read-model';
 import { FakeProjectReadModel } from './fake-project-read-model';
 
 export const createProjectReadModel = (
-    db: Db,
-    eventBus: EventEmitter,
-    flagResolver: IFlagResolver,
+  db: Db,
+  eventBus: EventEmitter,
+  flagResolver: IFlagResolver,
 ): IProjectReadModel => {
-    return new ProjectReadModel(db, eventBus, flagResolver);
+  return new ProjectReadModel(db, eventBus, flagResolver);
 };
 
 export const createFakeProjectReadModel = (): IProjectReadModel => {
-    return new FakeProjectReadModel();
+  return new FakeProjectReadModel();
 };

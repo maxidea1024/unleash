@@ -32,9 +32,7 @@ interface IFeatureEventFormatterMdArgs {
 // This is not only formatting feature events. And it's also not only for (proper) markdown. We should probably revisit this sometime in the future and try to split it / refactor it.
 export class FeatureEventFormatterMd implements FeatureEventFormatter {
   private readonly unleashUrl: string;
-
   private readonly linkStyle: LinkStyle;
-
   private readonly formatStyle: FormatStyle;
 
   constructor({

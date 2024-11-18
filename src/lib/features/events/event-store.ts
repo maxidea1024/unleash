@@ -97,10 +97,8 @@ const TABLE = 'events';
 
 class EventStore implements IEventStore {
   private readonly db: Db;
-
   // only one shared event emitter should exist across all event store instances
   private readonly eventEmitter: EventEmitter = sharedEventEmitter;
-
   private readonly logger: Logger;
 
   // a new DB has to be injected per transaction

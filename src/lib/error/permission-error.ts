@@ -5,7 +5,7 @@ type Permission = string | string[];
 class PermissionError extends UnleashError {
   statusCode = 403;
 
-  permissions: Permission;
+  private readonly permissions: Permission;
 
   constructor(permission: Permission = [], environment?: string) {
     const permissions = Array.isArray(permission)

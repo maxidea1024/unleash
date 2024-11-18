@@ -22,13 +22,14 @@ interface ISlackAddonParameters {
   emojiIcon?: string;
   customHeaders?: string;
 }
+
 export default class SlackAddon extends Addon {
   private msgFormatter: FeatureEventFormatter;
-
   flagResolver: IFlagResolver;
 
   constructor(args: IAddonConfig) {
     super(slackDefinition, args);
+
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: args.unleashUrl,
       linkStyle: LinkStyle.SLACK,

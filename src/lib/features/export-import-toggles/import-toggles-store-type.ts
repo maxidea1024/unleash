@@ -1,42 +1,42 @@
 export interface ProjectFeaturesLimit {
-    limit: number;
-    newFeaturesCount: number;
-    currentFeaturesCount: number;
+  limit: number;
+  newFeaturesCount: number;
+  currentFeaturesCount: number;
 }
 
 export interface IImportTogglesStore {
-    deleteStrategiesForFeatures(
-        featureNames: string[],
-        environment: string,
-    ): Promise<void>;
+  deleteStrategiesForFeatures(
+    featureNames: string[],
+    environment: string,
+  ): Promise<void>;
 
-    getArchivedFeatures(featureNames: string[]): Promise<string[]>;
+  getArchivedFeatures(featureNames: string[]): Promise<string[]>;
 
-    getFeaturesInOtherProjects(
-        featureNames: string[],
-        project: string,
-    ): Promise<{ name: string; project: string }[]>;
+  getFeaturesInOtherProjects(
+    featureNames: string[],
+    project: string,
+  ): Promise<{ name: string; project: string }[]>;
 
-    getFeaturesInProject(
-        featureNames: string[],
-        project: string,
-    ): Promise<string[]>;
+  getFeaturesInProject(
+    featureNames: string[],
+    project: string,
+  ): Promise<string[]>;
 
-    getProjectFeaturesLimit(
-        featureNames: string[],
-        project: string,
-    ): Promise<ProjectFeaturesLimit>;
+  getProjectFeaturesLimit(
+    featureNames: string[],
+    project: string,
+  ): Promise<ProjectFeaturesLimit>;
 
-    deleteTagsForFeatures(tags: string[]): Promise<void>;
+  deleteTagsForFeatures(tags: string[]): Promise<void>;
 
-    strategiesExistForFeatures(
-        featureNames: string[],
-        environment: string,
-    ): Promise<boolean>;
+  strategiesExistForFeatures(
+    featureNames: string[],
+    environment: string,
+  ): Promise<boolean>;
 
-    getDisplayPermissions(
-        names: string[],
-    ): Promise<{ name: string; displayName: string }[]>;
+  getDisplayPermissions(
+    names: string[],
+  ): Promise<{ name: string; displayName: string }[]>;
 
-    getExistingFeatures(featureNames: string[]): Promise<string[]>;
+  getExistingFeatures(featureNames: string[]): Promise<string[]>;
 }

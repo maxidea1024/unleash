@@ -6,80 +6,80 @@ import SegmentStore from './segment-store';
 import FakeSegmentStore from '../../../test/fixtures/fake-segment-store';
 import FakeFeatureStrategiesStore from '../feature-toggle/fakes/fake-feature-strategies-store';
 import {
-    createChangeRequestAccessReadModel,
-    createFakeChangeRequestAccessService,
+  createChangeRequestAccessReadModel,
+  createFakeChangeRequestAccessService,
 } from '../change-request-access-service/createChangeRequestAccessReadModel';
 import {
-    createChangeRequestSegmentUsageReadModel,
-    createFakeChangeRequestSegmentUsageReadModel,
+  createChangeRequestSegmentUsageReadModel,
+  createFakeChangeRequestSegmentUsageReadModel,
 } from '../change-request-segment-usage-service/createChangeRequestSegmentUsageReadModel';
 import {
-    createFakePrivateProjectChecker,
-    createPrivateProjectChecker,
+  createFakePrivateProjectChecker,
+  createPrivateProjectChecker,
 } from '../private-project/createPrivateProjectChecker';
 import {
-    createEventsService,
-    createFakeEventsService,
+  createEventsService,
+  createFakeEventsService,
 } from '../events/createEventsService';
 
 export const createSegmentService = (
-    db: Db,
-    config: IUnleashConfig,
+  db: Db,
+  config: IUnleashConfig,
 ): SegmentService => {
-    const { eventBus, getLogger, flagResolver } = config;
-    const segmentStore = new SegmentStore(
-        db,
-        eventBus,
-        getLogger,
-        flagResolver,
-    );
-    const featureStrategiesStore = new FeatureStrategiesStore(
-        db,
-        eventBus,
-        getLogger,
-        flagResolver,
-    );
-    const changeRequestAccessReadModel = createChangeRequestAccessReadModel(
-        db,
-        config,
-    );
+  const { eventBus, getLogger, flagResolver } = config;
+  const segmentStore = new SegmentStore(
+    db,
+    eventBus,
+    getLogger,
+    flagResolver,
+  );
+  const featureStrategiesStore = new FeatureStrategiesStore(
+    db,
+    eventBus,
+    getLogger,
+    flagResolver,
+  );
+  const changeRequestAccessReadModel = createChangeRequestAccessReadModel(
+    db,
+    config,
+  );
 
-    const changeRequestSegmentUsageReadModel =
-        createChangeRequestSegmentUsageReadModel(db);
+  const changeRequestSegmentUsageReadModel =
+    createChangeRequestSegmentUsageReadModel(db);
 
-    const privateProjectChecker = createPrivateProjectChecker(db, config);
+  const privateProjectChecker = createPrivateProjectChecker(db, config);
 
-    const eventService = createEventsService(db, config);
+  const eventService = createEventsService(db, config);
 
-    return new SegmentService(
-        { segmentStore, featureStrategiesStore },
-        changeRequestAccessReadModel,
-        changeRequestSegmentUsageReadModel,
-        config,
-        eventService,
-        privateProjectChecker,
-    );
+  return new SegmentService(
+    { segmentStore, featureStrategiesStore },
+    changeRequestAccessReadModel,
+    changeRequestSegmentUsageReadModel,
+    config,
+    eventService,
+    privateProjectChecker,
+  );
 };
 
 export const createFakeSegmentService = (
-    config: IUnleashConfig,
+  config: IUnleashConfig,
 ): ISegmentService => {
-    const segmentStore = new FakeSegmentStore();
-    const featureStrategiesStore = new FakeFeatureStrategiesStore();
-    const changeRequestAccessReadModel = createFakeChangeRequestAccessService();
-    const changeRequestSegmentUsageReadModel =
-        createFakeChangeRequestSegmentUsageReadModel();
+  const segmentStore = new FakeSegmentStore();
+  const featureStrategiesStore = new FakeFeatureStrategiesStore();
+  const changeRequestAccessReadModel = createFakeChangeRequestAccessService();
+  const changeRequestSegmentUsageReadModel =
+    createFakeChangeRequestSegmentUsageReadModel();
 
-    const privateProjectChecker = createFakePrivateProjectChecker();
+  const privateProjectChecker = createFakePrivateProjectChecker();
 
-    const eventService = createFakeEventsService(config);
+  const eventService = createFakeEventsService(config);
 
-    return new SegmentService(
-        { segmentStore, featureStrategiesStore },
-        changeRequestAccessReadModel,
-        changeRequestSegmentUsageReadModel,
-        config,
-        eventService,
-        privateProjectChecker,
-    );
+  return new SegmentService(
+    { segmentStore, featureStrategiesStore },
+    changeRequestAccessReadModel,
+    changeRequestSegmentUsageReadModel,
+    config,
+    eventService,
+    privateProjectChecker,
+  );
 };

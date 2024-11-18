@@ -7,6 +7,7 @@ class PatternError extends UnleashError {
 
   constructor(message: string, details?: string[]) {
     super(message);
+
     this.details = details?.map((description) => ({
       message: description,
     }));

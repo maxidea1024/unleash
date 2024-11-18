@@ -1,3 +1,3 @@
 export interface IProjectStaleFlagsReadModel {
-    getStaleFlagCountForProject: (projectId: string) => Promise<number>;
+  getStaleFlagCountForProject: (projectId: string) => Promise<number>;
 }

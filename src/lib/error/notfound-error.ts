@@ -7,5 +7,6 @@ class NotFoundError extends UnleashError {
     super(message);
   }
 }
+
 export default NotFoundError;
 module.exports = NotFoundError;

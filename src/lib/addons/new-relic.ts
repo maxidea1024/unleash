@@ -38,11 +38,11 @@ interface INewRelicRequestBody {
 
 export default class NewRelicAddon extends Addon {
   private msgFormatter: FeatureEventFormatter;
-
   flagResolver: IFlagResolver;
 
   constructor(config: IAddonConfig) {
     super(definition, config);
+
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: config.unleashUrl,
     });

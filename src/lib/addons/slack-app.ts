@@ -33,15 +33,13 @@ interface ISlackAppAddonParameters {
 
 export default class SlackAppAddon extends Addon {
   private msgFormatter: FeatureEventFormatter;
-
   flagResolver: IFlagResolver;
-
   private accessToken?: string;
-
   private slackClient?: WebClient;
 
   constructor(args: IAddonConfig) {
     super(slackAppDefinition, args);
+
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: args.unleashUrl,
       linkStyle: LinkStyle.SLACK,

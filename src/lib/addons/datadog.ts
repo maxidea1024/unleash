@@ -31,11 +31,11 @@ interface DDRequestBody {
 
 export default class DatadogAddon extends Addon {
   private msgFormatter: FeatureEventFormatter;
-
   flagResolver: IFlagResolver;
 
   constructor(config: IAddonConfig) {
     super(definition, config);
+
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: config.unleashUrl,
     });

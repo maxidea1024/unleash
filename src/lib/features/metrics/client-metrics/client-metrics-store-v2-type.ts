@@ -1,51 +1,51 @@
 import type { IStore } from '../../../types/stores/store';
 
 export interface IClientMetricsEnvKey {
-    featureName: string;
-    appName: string;
-    environment: string;
-    timestamp: Date;
+  featureName: string;
+  appName: string;
+  environment: string;
+  timestamp: Date;
 }
 
 export interface IClientMetricsEnv extends IClientMetricsEnvKey {
-    yes: number;
-    no: number;
-    variants?: Record<string, number>;
+  yes: number;
+  no: number;
+  variants?: Record<string, number>;
 }
 
 export interface IClientMetricsEnvVariant extends IClientMetricsEnvKey {
-    variant: string;
-    count: number;
+  variant: string;
+  count: number;
 }
 
 export interface IClientMetricsStoreV2
-    extends IStore<IClientMetricsEnv, IClientMetricsEnvKey> {
-    batchInsertMetrics(metrics: IClientMetricsEnv[]): Promise<void>;
-    getMetricsForFeatureToggle(
-        featureName: string,
-        hoursBack?: number,
-    ): Promise<IClientMetricsEnv[]>;
-    getMetricsForFeatureToggleV2(
-        featureName: string,
-        hoursBack?: number,
-    ): Promise<IClientMetricsEnv[]>;
-    getSeenAppsForFeatureToggle(
-        featureName: string,
-        hoursBack?: number,
-    ): Promise<string[]>;
-    getSeenTogglesForApp(
-        appName: string,
-        hoursBack?: number,
-    ): Promise<string[]>;
-    clearMetrics(hoursAgo: number): Promise<void>;
-    clearDailyMetrics(daysAgo: number): Promise<void>;
-    countPreviousDayHourlyMetricsBuckets(): Promise<{
-        enabledCount: number;
-        variantCount: number;
-    }>;
-    countPreviousDayMetricsBuckets(): Promise<{
-        enabledCount: number;
-        variantCount: number;
-    }>;
-    aggregateDailyMetrics(): Promise<void>;
+  extends IStore<IClientMetricsEnv, IClientMetricsEnvKey> {
+  batchInsertMetrics(metrics: IClientMetricsEnv[]): Promise<void>;
+  getMetricsForFeatureToggle(
+    featureName: string,
+    hoursBack?: number,
+  ): Promise<IClientMetricsEnv[]>;
+  getMetricsForFeatureToggleV2(
+    featureName: string,
+    hoursBack?: number,
+  ): Promise<IClientMetricsEnv[]>;
+  getSeenAppsForFeatureToggle(
+    featureName: string,
+    hoursBack?: number,
+  ): Promise<string[]>;
+  getSeenTogglesForApp(
+    appName: string,
+    hoursBack?: number,
+  ): Promise<string[]>;
+  clearMetrics(hoursAgo: number): Promise<void>;
+  clearDailyMetrics(daysAgo: number): Promise<void>;
+  countPreviousDayHourlyMetricsBuckets(): Promise<{
+    enabledCount: number;
+    variantCount: number;
+  }>;
+  countPreviousDayMetricsBuckets(): Promise<{
+    enabledCount: number;
+    variantCount: number;
+  }>;
+  aggregateDailyMetrics(): Promise<void>;
 }

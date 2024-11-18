@@ -20,39 +20,39 @@ import { AccessStore } from '../../db/access-store';
 import FakeAccessStore from '../../../test/fixtures/fake-access-store';
 
 export const createPersonalDashboardService = (
-    db: Db,
-    config: IUnleashConfig,
-    stores: IUnleashStores,
+  db: Db,
+  config: IUnleashConfig,
+  stores: IUnleashStores,
 ) => {
-    return new PersonalDashboardService(
-        new PersonalDashboardReadModel(db),
-        new ProjectOwnersReadModel(db),
-        new ProjectReadModel(db, config.eventBus, config.flagResolver),
-        new OnboardingReadModel(db),
-        new EventStore(db, config.getLogger),
-        new FeatureEventFormatterMd({
-            unleashUrl: config.server.unleashUrl,
-            formatStyle: 'markdown',
-        }),
-        new PrivateProjectChecker(stores, config),
-        new AccountStore(db, config.getLogger),
-        new AccessStore(db, config.eventBus, config.getLogger),
-    );
+  return new PersonalDashboardService(
+    new PersonalDashboardReadModel(db),
+    new ProjectOwnersReadModel(db),
+    new ProjectReadModel(db, config.eventBus, config.flagResolver),
+    new OnboardingReadModel(db),
+    new EventStore(db, config.getLogger),
+    new FeatureEventFormatterMd({
+      unleashUrl: config.server.unleashUrl,
+      formatStyle: 'markdown',
+    }),
+    new PrivateProjectChecker(stores, config),
+    new AccountStore(db, config.getLogger),
+    new AccessStore(db, config.eventBus, config.getLogger),
+  );
 };
 
 export const createFakePersonalDashboardService = (config: IUnleashConfig) => {
-    return new PersonalDashboardService(
-        new FakePersonalDashboardReadModel(),
-        new FakeProjectOwnersReadModel(),
-        new FakeProjectReadModel(),
-        new FakeOnboardingReadModel(),
-        new FakeEventStore(),
-        new FeatureEventFormatterMd({
-            unleashUrl: config.server.unleashUrl,
-            formatStyle: 'markdown',
-        }),
-        new FakePrivateProjectChecker(),
-        new FakeAccountStore(),
-        new FakeAccessStore(),
-    );
+  return new PersonalDashboardService(
+    new FakePersonalDashboardReadModel(),
+    new FakeProjectOwnersReadModel(),
+    new FakeProjectReadModel(),
+    new FakeOnboardingReadModel(),
+    new FakeEventStore(),
+    new FeatureEventFormatterMd({
+      unleashUrl: config.server.unleashUrl,
+      formatStyle: 'markdown',
+    }),
+    new FakePrivateProjectChecker(),
+    new FakeAccountStore(),
+    new FakeAccessStore(),
+  );
 };

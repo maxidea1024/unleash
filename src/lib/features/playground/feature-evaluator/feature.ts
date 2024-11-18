@@ -4,26 +4,26 @@ import type { Segment } from './strategy/strategy';
 import type { VariantDefinition } from './variant';
 
 export interface Dependency {
-    feature: string;
-    variants?: string[];
-    enabled?: boolean;
+  feature: string;
+  variants?: string[];
+  enabled?: boolean;
 }
 
 export interface FeatureInterface {
-    name: string;
-    type: string;
-    description?: string;
-    enabled: boolean;
-    stale: boolean;
-    impressionData: boolean;
-    strategies: StrategyTransportInterface[];
-    variants: VariantDefinition[];
-    dependencies?: Dependency[];
+  name: string;
+  type: string;
+  description?: string;
+  enabled: boolean;
+  stale: boolean;
+  impressionData: boolean;
+  strategies: StrategyTransportInterface[];
+  variants: VariantDefinition[];
+  dependencies?: Dependency[];
 }
 
 export interface ClientFeaturesResponse {
-    version: number;
-    features: FeatureInterface[];
-    query?: any;
-    segments?: Segment[];
+  version: number;
+  features: FeatureInterface[];
+  query?: any;
+  segments?: Segment[];
 }

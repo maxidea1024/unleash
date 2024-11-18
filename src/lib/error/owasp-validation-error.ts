@@ -28,5 +28,6 @@ class OwaspValidationError extends UnleashError {
     };
   }
 }
+
 export default OwaspValidationError;
 module.exports = OwaspValidationError;
