@@ -52,27 +52,16 @@ export interface IAuditUser {
 
 export default class User implements IUser {
   isAPI: boolean = false;
-
   id: number;
-
   name: string;
-
   username: string;
-
   email: string;
-
   permissions: string[];
-
   imageUrl: string;
-
   seenAt?: Date;
-
   loginAttempts?: number;
-
   createdAt?: Date;
-
   accountType?: AccountType = 'User';
-
   scimId?: string;
 
   constructor({

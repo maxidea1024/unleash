@@ -8,22 +8,22 @@ import SlackAppAddon from './slack-app';
 import type { IAddonConfig } from '../types';
 
 export interface IAddonProviders {
-    [key: string]: Addon;
+  [key: string]: Addon;
 }
 
 export const getAddons: (args: IAddonConfig) => IAddonProviders = (args) => {
-    const addons: Addon[] = [
-        new Webhook(args),
-        new SlackAddon(args),
-        new SlackAppAddon(args),
-        new TeamsAddon(args),
-        new DatadogAddon(args),
-        new NewRelicAddon(args),
-    ];
+  const addons: Addon[] = [
+    new Webhook(args),
+    new SlackAddon(args),
+    new SlackAppAddon(args),
+    new TeamsAddon(args),
+    new DatadogAddon(args),
+    new NewRelicAddon(args),
+  ];
 
-    return addons.reduce((map, addon) => {
-        // eslint-disable-next-line no-param-reassign
-        map[addon.name] = addon;
-        return map;
-    }, {});
+  return addons.reduce((map, addon) => {
+    // eslint-disable-next-line no-param-reassign
+    map[addon.name] = addon;
+    return map;
+  }, {});
 };

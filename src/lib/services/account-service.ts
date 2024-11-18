@@ -7,61 +7,58 @@ import { RoleName } from '../types/model';
 import type { IAdminCount } from '../types/stores/account-store';
 
 interface IUserWithRole extends IUser {
-    rootRole: number;
+  rootRole: number;
 }
 
 export class AccountService {
-    private readonly logger: Logger;
+  private readonly logger: Logger;
+  private readonly store: IAccountStore;
+  private readonly accessService: AccessService;
+  private lastSeenSecrets: Set<string> = new Set<string>();
 
-    private readonly store: IAccountStore;
+  constructor(
+    stores: Pick<IUnleashStores, 'accountStore'>,
+    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    services: {
+      accessService: AccessService;
+    },
+  ) {
+    this.logger = getLogger('service/account-service.ts');
+    this.store = stores.accountStore;
+    this.accessService = services.accessService;
+  }
 
-    private readonly accessService: AccessService;
+  async getAll(): Promise<IUserWithRole[]> {
+    const accounts = await this.store.getAll();
+    const defaultRole = await this.accessService.getPredefinedRole(
+      RoleName.VIEWER,
+    );
+    const userRoles = await this.accessService.getRootRoleForAllUsers();
+    const accountsWithRootRole = accounts.map((u) => {
+      const rootRole = userRoles.find((r) => r.userId === u.id);
+      const roleId = rootRole ? rootRole.roleId : defaultRole.id;
+      return { ...u, rootRole: roleId };
+    });
+    return accountsWithRootRole;
+  }
 
-    private lastSeenSecrets: Set<string> = new Set<string>();
+  async getAccountByPersonalAccessToken(secret: string): Promise<IUser> {
+    return this.store.getAccountByPersonalAccessToken(secret);
+  }
 
-    constructor(
-        stores: Pick<IUnleashStores, 'accountStore'>,
-        { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
-        services: {
-            accessService: AccessService;
-        },
-    ) {
-        this.logger = getLogger('service/account-service.ts');
-        this.store = stores.accountStore;
-        this.accessService = services.accessService;
+  async getAdminCount(): Promise<IAdminCount> {
+    return this.store.getAdminCount();
+  }
+
+  async updateLastSeen(): Promise<void> {
+    if (this.lastSeenSecrets.size > 0) {
+      const toStore = [...this.lastSeenSecrets];
+      this.lastSeenSecrets = new Set<string>();
+      await this.store.markSeenAt(toStore);
     }
+  }
 
-    async getAll(): Promise<IUserWithRole[]> {
-        const accounts = await this.store.getAll();
-        const defaultRole = await this.accessService.getPredefinedRole(
-            RoleName.VIEWER,
-        );
-        const userRoles = await this.accessService.getRootRoleForAllUsers();
-        const accountsWithRootRole = accounts.map((u) => {
-            const rootRole = userRoles.find((r) => r.userId === u.id);
-            const roleId = rootRole ? rootRole.roleId : defaultRole.id;
-            return { ...u, rootRole: roleId };
-        });
-        return accountsWithRootRole;
-    }
-
-    async getAccountByPersonalAccessToken(secret: string): Promise<IUser> {
-        return this.store.getAccountByPersonalAccessToken(secret);
-    }
-
-    async getAdminCount(): Promise<IAdminCount> {
-        return this.store.getAdminCount();
-    }
-
-    async updateLastSeen(): Promise<void> {
-        if (this.lastSeenSecrets.size > 0) {
-            const toStore = [...this.lastSeenSecrets];
-            this.lastSeenSecrets = new Set<string>();
-            await this.store.markSeenAt(toStore);
-        }
-    }
-
-    addPATSeen(secret: string): void {
-        this.lastSeenSecrets.add(secret);
-    }
+  addPATSeen(secret: string): void {
+    this.lastSeenSecrets.add(secret);
+  }
 }

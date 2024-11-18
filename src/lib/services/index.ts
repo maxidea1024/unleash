@@ -1,7 +1,7 @@
 import type {
-    IUnleashConfig,
-    IUnleashServices,
-    IUnleashStores,
+  IUnleashConfig,
+  IUnleashServices,
+  IUnleashStores,
 } from '../types';
 import FeatureTypeService from './feature-type-service';
 import EventService from '../features/events/event-service';
@@ -47,86 +47,86 @@ import { SchedulerService } from '../features/scheduler/scheduler-service';
 import { ProjectInsightsService } from '../features/project-insights/project-insights-service';
 import type { Knex } from 'knex';
 import {
-    createExportImportTogglesService,
-    createFakeExportImportTogglesService,
-    deferredExportImportTogglesService,
+  createExportImportTogglesService,
+  createFakeExportImportTogglesService,
+  deferredExportImportTogglesService,
 } from '../features/export-import-toggles/createExportImportService';
 import type { Db } from '../db/db';
 import { withFakeTransactional, withTransactional } from '../db/transaction';
 import {
-    createChangeRequestAccessReadModel,
-    createFakeChangeRequestAccessService,
+  createChangeRequestAccessReadModel,
+  createFakeChangeRequestAccessService,
 } from '../features/change-request-access-service/createChangeRequestAccessReadModel';
 import {
-    createChangeRequestSegmentUsageReadModel,
-    createFakeChangeRequestSegmentUsageReadModel,
+  createChangeRequestSegmentUsageReadModel,
+  createFakeChangeRequestSegmentUsageReadModel,
 } from '../features/change-request-segment-usage-service/createChangeRequestSegmentUsageReadModel';
 import ConfigurationRevisionService from '../features/feature-toggle/configuration-revision-service';
 import {
-    createAccessService,
-    createEnvironmentService,
-    createEventsService,
-    createFakeAccessService,
-    createFakeEnvironmentService,
-    createFakeEventsService,
-    createFakeProjectService,
-    createFakeUserSubscriptionsService,
-    createFeatureLifecycleService,
-    createFeatureToggleService,
-    createProjectService,
-    createUserSubscriptionsService,
+  createAccessService,
+  createEnvironmentService,
+  createEventsService,
+  createFakeAccessService,
+  createFakeEnvironmentService,
+  createFakeEventsService,
+  createFakeProjectService,
+  createFakeUserSubscriptionsService,
+  createFeatureLifecycleService,
+  createFeatureToggleService,
+  createProjectService,
+  createUserSubscriptionsService,
 } from '../features';
 import EventAnnouncerService from './event-announcer-service';
 import { createGroupService } from '../features/group/createGroupService';
 import {
-    createFakePrivateProjectChecker,
-    createPrivateProjectChecker,
+  createFakePrivateProjectChecker,
+  createPrivateProjectChecker,
 } from '../features/private-project/createPrivateProjectChecker';
 import {
-    createFakeGetActiveUsers,
-    createGetActiveUsers,
+  createFakeGetActiveUsers,
+  createGetActiveUsers,
 } from '../features/instance-stats/getActiveUsers';
 import { DependentFeaturesService } from '../features/dependent-features/dependent-features-service';
 import {
-    createDependentFeaturesService,
-    createFakeDependentFeaturesService,
+  createDependentFeaturesService,
+  createFakeDependentFeaturesService,
 } from '../features/dependent-features/createDependentFeaturesService';
 import { DependentFeaturesReadModel } from '../features/dependent-features/dependent-features-read-model';
 import { FakeDependentFeaturesReadModel } from '../features/dependent-features/fake-dependent-features-read-model';
 import {
-    createFakeLastSeenService,
-    createLastSeenService,
+  createFakeLastSeenService,
+  createLastSeenService,
 } from '../features/metrics/last-seen/createLastSeenService';
 import {
-    createFakeGetProductionChanges,
-    createGetProductionChanges,
+  createFakeGetProductionChanges,
+  createGetProductionChanges,
 } from '../features/instance-stats/getProductionChanges';
 import {
-    createClientFeatureToggleService,
-    createFakeClientFeatureToggleService,
+  createClientFeatureToggleService,
+  createFakeClientFeatureToggleService,
 } from '../features/client-feature-toggles/createClientFeatureToggleService';
 import { ClientFeatureToggleService } from '../features/client-feature-toggles/client-feature-toggle-service';
 import {
-    createFakeFeatureSearchService,
-    createFeatureSearchService,
+  createFakeFeatureSearchService,
+  createFeatureSearchService,
 } from '../features/feature-search/createFeatureSearchService';
 import { FeatureSearchService } from '../features/feature-search/feature-search-service';
 import {
-    createFakeTagTypeService,
-    createTagTypeService,
+  createFakeTagTypeService,
+  createTagTypeService,
 } from '../features/tag-type/createTagTypeService';
 import {
-    createFakeInstanceStatsService,
-    createInstanceStatsService,
+  createFakeInstanceStatsService,
+  createInstanceStatsService,
 } from '../features/instance-stats/createInstanceStatsService';
 import { InactiveUsersService } from '../users/inactive/inactive-users-service';
 import {
-    createFakeFrontendApiService,
-    createFrontendApiService,
+  createFakeFrontendApiService,
+  createFrontendApiService,
 } from '../features/frontend-api/createFrontendApiService';
 import {
-    createFakeProjectInsightsService,
-    createProjectInsightsService,
+  createFakeProjectInsightsService,
+  createProjectInsightsService,
 } from '../features/project-insights/createProjectInsightsService';
 import { JobService } from '../features/scheduler/job-service';
 import { UserSubscriptionsService } from '../features/user-subscriptions/user-subscriptions-service';
@@ -136,421 +136,421 @@ import { createFakeFeatureLifecycleService } from '../features/feature-lifecycle
 import { FeatureLifecycleReadModel } from '../features/feature-lifecycle/feature-lifecycle-read-model';
 import { FakeFeatureLifecycleReadModel } from '../features/feature-lifecycle/fake-feature-lifecycle-read-model';
 import {
-    createApiTokenService,
-    createFakeApiTokenService,
+  createApiTokenService,
+  createFakeApiTokenService,
 } from '../features/api-tokens/createApiTokenService';
 import { IntegrationEventsService } from '../features/integration-events/integration-events-service';
 import { FeatureCollaboratorsReadModel } from '../features/feature-toggle/feature-collaborators-read-model';
 import { FakeFeatureCollaboratorsReadModel } from '../features/feature-toggle/fake-feature-collaborators-read-model';
 import {
-    createFakePlaygroundService,
-    createPlaygroundService,
+  createFakePlaygroundService,
+  createPlaygroundService,
 } from '../features/playground/createPlaygroundService';
 import {
-    createFakeOnboardingService,
-    createOnboardingService,
+  createFakeOnboardingService,
+  createOnboardingService,
 } from '../features/onboarding/createOnboardingService';
 import { OnboardingService } from '../features/onboarding/onboarding-service';
 import { PersonalDashboardService } from '../features/personal-dashboard/personal-dashboard-service';
 import {
-    createFakePersonalDashboardService,
-    createPersonalDashboardService,
+  createFakePersonalDashboardService,
+  createPersonalDashboardService,
 } from '../features/personal-dashboard/createPersonalDashboardService';
 import {
-    createFakeProjectStatusService,
-    createProjectStatusService,
+  createFakeProjectStatusService,
+  createProjectStatusService,
 } from '../features/project-status/createProjectStatusService';
 import { ProjectStatusService } from '../features/project-status/project-status-service';
 
 export const createServices = (
-    stores: IUnleashStores,
-    config: IUnleashConfig,
-    db?: Db,
+  stores: IUnleashStores,
+  config: IUnleashConfig,
+  db?: Db,
 ): IUnleashServices => {
-    const privateProjectChecker = db
-        ? createPrivateProjectChecker(db, config)
-        : createFakePrivateProjectChecker();
+  const privateProjectChecker = db
+    ? createPrivateProjectChecker(db, config)
+    : createFakePrivateProjectChecker();
 
-    const eventService = db
-        ? createEventsService(db, config)
-        : createFakeEventsService(config, stores);
-    const groupService = new GroupService(stores, config, eventService);
+  const eventService = db
+    ? createEventsService(db, config)
+    : createFakeEventsService(config, stores);
+  const groupService = new GroupService(stores, config, eventService);
 
-    const transactionalAccessService = db
-        ? withTransactional((db) => createAccessService(db, config), db)
-        : withFakeTransactional(createFakeAccessService(config).accessService);
+  const transactionalAccessService = db
+    ? withTransactional((db) => createAccessService(db, config), db)
+    : withFakeTransactional(createFakeAccessService(config).accessService);
 
-    const accessService = new AccessService(
-        stores,
-        config,
-        groupService,
-        eventService,
-    );
-    const apiTokenService = db
-        ? createApiTokenService(db, config)
-        : createFakeApiTokenService(config).apiTokenService;
-    const lastSeenService = db
-        ? createLastSeenService(db, config)
-        : createFakeLastSeenService(config);
-    const clientMetricsServiceV2 = new ClientMetricsServiceV2(
-        stores,
-        config,
-        lastSeenService,
-    );
-    const dependentFeaturesReadModel = db
-        ? new DependentFeaturesReadModel(db)
-        : new FakeDependentFeaturesReadModel();
-    const featureLifecycleReadModel = db
-        ? new FeatureLifecycleReadModel(db, config.flagResolver)
-        : new FakeFeatureLifecycleReadModel();
+  const accessService = new AccessService(
+    stores,
+    config,
+    groupService,
+    eventService,
+  );
+  const apiTokenService = db
+    ? createApiTokenService(db, config)
+    : createFakeApiTokenService(config).apiTokenService;
+  const lastSeenService = db
+    ? createLastSeenService(db, config)
+    : createFakeLastSeenService(config);
+  const clientMetricsServiceV2 = new ClientMetricsServiceV2(
+    stores,
+    config,
+    lastSeenService,
+  );
+  const dependentFeaturesReadModel = db
+    ? new DependentFeaturesReadModel(db)
+    : new FakeDependentFeaturesReadModel();
+  const featureLifecycleReadModel = db
+    ? new FeatureLifecycleReadModel(db, config.flagResolver)
+    : new FakeFeatureLifecycleReadModel();
 
-    const contextService = new ContextService(
-        stores,
-        config,
-        eventService,
-        privateProjectChecker,
-    );
-    const emailService = new EmailService(config);
-    const featureTypeService = new FeatureTypeService(
-        stores,
-        config,
-        eventService,
-    );
-    const resetTokenService = new ResetTokenService(stores, config);
-    const strategyService = new StrategyService(stores, config, eventService);
-    const tagService = new TagService(stores, config, eventService);
-    const transactionalTagTypeService = db
-        ? withTransactional(createTagTypeService(config), db)
-        : withFakeTransactional(createFakeTagTypeService(config));
-    const tagTypeService = transactionalTagTypeService;
-    const integrationEventsService = new IntegrationEventsService(
-        stores,
-        config,
-    );
-    const addonService = new AddonService(
-        stores,
-        config,
-        tagTypeService,
-        eventService,
-        integrationEventsService,
-    );
-    const sessionService = new SessionService(stores, config);
-    const settingService = new SettingService(stores, config, eventService);
-    const userService = new UserService(stores, config, {
-        accessService,
-        resetTokenService,
-        emailService,
-        eventService,
-        sessionService,
-        settingService,
-    });
-    const accountService = new AccountService(stores, config, {
-        accessService,
-    });
-    const getActiveUsers = db
-        ? createGetActiveUsers(db)
-        : createFakeGetActiveUsers();
-    const getProductionChanges = db
-        ? createGetProductionChanges(db)
-        : createFakeGetProductionChanges();
+  const contextService = new ContextService(
+    stores,
+    config,
+    eventService,
+    privateProjectChecker,
+  );
+  const emailService = new EmailService(config);
+  const featureTypeService = new FeatureTypeService(
+    stores,
+    config,
+    eventService,
+  );
+  const resetTokenService = new ResetTokenService(stores, config);
+  const strategyService = new StrategyService(stores, config, eventService);
+  const tagService = new TagService(stores, config, eventService);
+  const transactionalTagTypeService = db
+    ? withTransactional(createTagTypeService(config), db)
+    : withFakeTransactional(createFakeTagTypeService(config));
+  const tagTypeService = transactionalTagTypeService;
+  const integrationEventsService = new IntegrationEventsService(
+    stores,
+    config,
+  );
+  const addonService = new AddonService(
+    stores,
+    config,
+    tagTypeService,
+    eventService,
+    integrationEventsService,
+  );
+  const sessionService = new SessionService(stores, config);
+  const settingService = new SettingService(stores, config, eventService);
+  const userService = new UserService(stores, config, {
+    accessService,
+    resetTokenService,
+    emailService,
+    eventService,
+    sessionService,
+    settingService,
+  });
+  const accountService = new AccountService(stores, config, {
+    accessService,
+  });
+  const getActiveUsers = db
+    ? createGetActiveUsers(db)
+    : createFakeGetActiveUsers();
+  const getProductionChanges = db
+    ? createGetProductionChanges(db)
+    : createFakeGetProductionChanges();
 
-    const versionService = new VersionService(
-        stores,
-        config,
-        getActiveUsers,
-        getProductionChanges,
-    );
-    const healthService = new HealthService(stores, config);
-    const userFeedbackService = new UserFeedbackService(stores, config);
-    const changeRequestAccessReadModel = db
-        ? createChangeRequestAccessReadModel(db, config)
-        : createFakeChangeRequestAccessService();
+  const versionService = new VersionService(
+    stores,
+    config,
+    getActiveUsers,
+    getProductionChanges,
+  );
+  const healthService = new HealthService(stores, config);
+  const userFeedbackService = new UserFeedbackService(stores, config);
+  const changeRequestAccessReadModel = db
+    ? createChangeRequestAccessReadModel(db, config)
+    : createFakeChangeRequestAccessService();
 
-    const changeRequestSegmentUsageReadModel = db
-        ? createChangeRequestSegmentUsageReadModel(db)
-        : createFakeChangeRequestSegmentUsageReadModel();
+  const changeRequestSegmentUsageReadModel = db
+    ? createChangeRequestSegmentUsageReadModel(db)
+    : createFakeChangeRequestSegmentUsageReadModel();
 
-    const segmentService = new SegmentService(
-        stores,
-        changeRequestAccessReadModel,
-        changeRequestSegmentUsageReadModel,
-        config,
-        eventService,
-        privateProjectChecker,
-    );
+  const segmentService = new SegmentService(
+    stores,
+    changeRequestAccessReadModel,
+    changeRequestSegmentUsageReadModel,
+    config,
+    eventService,
+    privateProjectChecker,
+  );
 
-    const clientInstanceService = new ClientInstanceService(
-        stores,
-        config,
-        privateProjectChecker,
-    );
+  const clientInstanceService = new ClientInstanceService(
+    stores,
+    config,
+    privateProjectChecker,
+  );
 
-    const transactionalDependentFeaturesService = db
-        ? withTransactional(createDependentFeaturesService(config), db)
-        : withFakeTransactional(createFakeDependentFeaturesService(config));
-    const dependentFeaturesService = transactionalDependentFeaturesService;
+  const transactionalDependentFeaturesService = db
+    ? withTransactional(createDependentFeaturesService(config), db)
+    : withFakeTransactional(createFakeDependentFeaturesService(config));
+  const dependentFeaturesService = transactionalDependentFeaturesService;
 
-    const featureSearchService = db
-        ? createFeatureSearchService(config)(db)
-        : createFakeFeatureSearchService(config);
+  const featureSearchService = db
+    ? createFeatureSearchService(config)(db)
+    : createFakeFeatureSearchService(config);
 
-    const featureCollaboratorsReadModel = db
-        ? new FeatureCollaboratorsReadModel(db)
-        : new FakeFeatureCollaboratorsReadModel();
+  const featureCollaboratorsReadModel = db
+    ? new FeatureCollaboratorsReadModel(db)
+    : new FakeFeatureCollaboratorsReadModel();
 
-    const featureToggleServiceV2 = new FeatureToggleService(
-        stores,
-        config,
-        segmentService,
-        accessService,
-        eventService,
-        changeRequestAccessReadModel,
-        privateProjectChecker,
-        dependentFeaturesReadModel,
-        dependentFeaturesService,
-        featureLifecycleReadModel,
-        featureCollaboratorsReadModel,
-    );
-    const transactionalEnvironmentService = db
-        ? withTransactional(createEnvironmentService(config), db)
-        : withFakeTransactional(createFakeEnvironmentService(config));
-    const environmentService = transactionalEnvironmentService;
+  const featureToggleServiceV2 = new FeatureToggleService(
+    stores,
+    config,
+    segmentService,
+    accessService,
+    eventService,
+    changeRequestAccessReadModel,
+    privateProjectChecker,
+    dependentFeaturesReadModel,
+    dependentFeaturesService,
+    featureLifecycleReadModel,
+    featureCollaboratorsReadModel,
+  );
+  const transactionalEnvironmentService = db
+    ? withTransactional(createEnvironmentService(config), db)
+    : withFakeTransactional(createFakeEnvironmentService(config));
+  const environmentService = transactionalEnvironmentService;
 
-    const featureTagService = new FeatureTagService(
-        stores,
-        config,
-        eventService,
-    );
-    const favoritesService = new FavoritesService(stores, config, eventService);
-    const projectService = db
-        ? createProjectService(db, config)
-        : createFakeProjectService(config);
-    const transactionalProjectService = db
-        ? withTransactional((db: Db) => createProjectService(db, config), db)
-        : withFakeTransactional(createFakeProjectService(config));
-    const projectInsightsService = db
-        ? createProjectInsightsService(db, config)
-        : createFakeProjectInsightsService().projectInsightsService;
+  const featureTagService = new FeatureTagService(
+    stores,
+    config,
+    eventService,
+  );
+  const favoritesService = new FavoritesService(stores, config, eventService);
+  const projectService = db
+    ? createProjectService(db, config)
+    : createFakeProjectService(config);
+  const transactionalProjectService = db
+    ? withTransactional((db: Db) => createProjectService(db, config), db)
+    : withFakeTransactional(createFakeProjectService(config));
+  const projectInsightsService = db
+    ? createProjectInsightsService(db, config)
+    : createFakeProjectInsightsService().projectInsightsService;
 
-    const projectStatusService = db
-        ? createProjectStatusService(db, config)
-        : createFakeProjectStatusService().projectStatusService;
+  const projectStatusService = db
+    ? createProjectStatusService(db, config)
+    : createFakeProjectStatusService().projectStatusService;
 
-    const projectHealthService = new ProjectHealthService(
-        stores,
-        config,
-        projectService,
-    );
+  const projectHealthService = new ProjectHealthService(
+    stores,
+    config,
+    projectService,
+  );
 
-    const exportImportService = db
-        ? createExportImportTogglesService(db, config)
-        : createFakeExportImportTogglesService(config);
-    const importService = db
-        ? withTransactional(deferredExportImportTogglesService(config), db)
-        : withFakeTransactional(createFakeExportImportTogglesService(config));
-    const transactionalFeatureToggleService = (txDb: Knex.Transaction) =>
-        createFeatureToggleService(txDb, config);
-    const transactionalGroupService = (txDb: Knex.Transaction) =>
-        createGroupService(txDb, config);
-    const userSplashService = new UserSplashService(stores, config);
-    const openApiService = new OpenApiService(config);
-    const clientSpecService = new ClientSpecService(config);
-    const playgroundService = db
-        ? createPlaygroundService(db, config)
-        : createFakePlaygroundService(config);
+  const exportImportService = db
+    ? createExportImportTogglesService(db, config)
+    : createFakeExportImportTogglesService(config);
+  const importService = db
+    ? withTransactional(deferredExportImportTogglesService(config), db)
+    : withFakeTransactional(createFakeExportImportTogglesService(config));
+  const transactionalFeatureToggleService = (txDb: Knex.Transaction) =>
+    createFeatureToggleService(txDb, config);
+  const transactionalGroupService = (txDb: Knex.Transaction) =>
+    createGroupService(txDb, config);
+  const userSplashService = new UserSplashService(stores, config);
+  const openApiService = new OpenApiService(config);
+  const clientSpecService = new ClientSpecService(config);
+  const playgroundService = db
+    ? createPlaygroundService(db, config)
+    : createFakePlaygroundService(config);
 
-    const configurationRevisionService =
-        ConfigurationRevisionService.getInstance(stores, config);
+  const configurationRevisionService =
+    ConfigurationRevisionService.getInstance(stores, config);
 
-    const clientFeatureToggleService = db
-        ? createClientFeatureToggleService(db, config)
-        : createFakeClientFeatureToggleService(config);
+  const clientFeatureToggleService = db
+    ? createClientFeatureToggleService(db, config)
+    : createFakeClientFeatureToggleService(config);
 
-    const frontendApiService = db
-        ? createFrontendApiService(
-              db,
-              config,
-              clientMetricsServiceV2,
-              configurationRevisionService,
-          )
-        : createFakeFrontendApiService(
-              config,
-              clientMetricsServiceV2,
-              configurationRevisionService,
-          );
-
-    const edgeService = new EdgeService({ apiTokenService }, config);
-
-    const patService = new PatService(stores, config, eventService);
-
-    const publicSignupTokenService = new PublicSignupTokenService(
-        stores,
-        config,
-        userService,
-        eventService,
+  const frontendApiService = db
+    ? createFrontendApiService(
+      db,
+      config,
+      clientMetricsServiceV2,
+      configurationRevisionService,
+    )
+    : createFakeFrontendApiService(
+      config,
+      clientMetricsServiceV2,
+      configurationRevisionService,
     );
 
-    const instanceStatsService = db
-        ? createInstanceStatsService(db, config)
-        : createFakeInstanceStatsService(config);
+  const edgeService = new EdgeService({ apiTokenService }, config);
 
-    const maintenanceService = new MaintenanceService(config, settingService);
+  const patService = new PatService(stores, config, eventService);
 
-    const schedulerService = new SchedulerService(
-        config.getLogger,
-        maintenanceService,
-        config.eventBus,
+  const publicSignupTokenService = new PublicSignupTokenService(
+    stores,
+    config,
+    userService,
+    eventService,
+  );
+
+  const instanceStatsService = db
+    ? createInstanceStatsService(db, config)
+    : createFakeInstanceStatsService(config);
+
+  const maintenanceService = new MaintenanceService(config, settingService);
+
+  const schedulerService = new SchedulerService(
+    config.getLogger,
+    maintenanceService,
+    config.eventBus,
+  );
+
+  const eventAnnouncerService = new EventAnnouncerService(stores, config);
+  const inactiveUsersService = new InactiveUsersService(stores, config, {
+    userService,
+  });
+
+  const jobService = new JobService(
+    new JobStore(db!, config),
+    config.getLogger,
+  );
+
+  const transactionalFeatureLifecycleService = db
+    ? withTransactional(createFeatureLifecycleService(config), db)
+    : withFakeTransactional(
+      createFakeFeatureLifecycleService(config).featureLifecycleService,
     );
+  const featureLifecycleService = transactionalFeatureLifecycleService;
+  featureLifecycleService.listen();
 
-    const eventAnnouncerService = new EventAnnouncerService(stores, config);
-    const inactiveUsersService = new InactiveUsersService(stores, config, {
-        userService,
-    });
+  const onboardingService = db
+    ? createOnboardingService(config)(db)
+    : createFakeOnboardingService(config).onboardingService;
+  onboardingService.listen();
 
-    const jobService = new JobService(
-        new JobStore(db!, config),
-        config.getLogger,
-    );
+  const personalDashboardService = db
+    ? createPersonalDashboardService(db, config, stores)
+    : createFakePersonalDashboardService(config);
 
-    const transactionalFeatureLifecycleService = db
-        ? withTransactional(createFeatureLifecycleService(config), db)
-        : withFakeTransactional(
-              createFakeFeatureLifecycleService(config).featureLifecycleService,
-          );
-    const featureLifecycleService = transactionalFeatureLifecycleService;
-    featureLifecycleService.listen();
+  const transactionalUserSubscriptionsService = db
+    ? withTransactional(createUserSubscriptionsService(config), db)
+    : withFakeTransactional(createFakeUserSubscriptionsService(config));
 
-    const onboardingService = db
-        ? createOnboardingService(config)(db)
-        : createFakeOnboardingService(config).onboardingService;
-    onboardingService.listen();
-
-    const personalDashboardService = db
-        ? createPersonalDashboardService(db, config, stores)
-        : createFakePersonalDashboardService(config);
-
-    const transactionalUserSubscriptionsService = db
-        ? withTransactional(createUserSubscriptionsService(config), db)
-        : withFakeTransactional(createFakeUserSubscriptionsService(config));
-
-    return {
-        transactionalAccessService,
-        accessService,
-        accountService,
-        addonService,
-        eventAnnouncerService,
-        featureToggleService: featureToggleServiceV2,
-        featureToggleServiceV2,
-        featureTypeService,
-        healthService,
-        projectService,
-        transactionalProjectService,
-        strategyService,
-        tagTypeService,
-        transactionalTagTypeService,
-        tagService,
-        clientInstanceService,
-        clientMetricsServiceV2,
-        contextService,
-        versionService,
-        apiTokenService,
-        emailService,
-        userService,
-        resetTokenService,
-        eventService,
-        environmentService,
-        transactionalEnvironmentService,
-        settingService,
-        sessionService,
-        userFeedbackService,
-        featureTagService,
-        projectHealthService,
-        userSplashService,
-        segmentService,
-        openApiService,
-        clientSpecService,
-        playgroundService,
-        groupService,
-        frontendApiService,
-        edgeService,
-        patService,
-        publicSignupTokenService,
-        lastSeenService,
-        instanceStatsService,
-        favoritesService,
-        maintenanceService,
-        exportService: exportImportService,
-        importService,
-        schedulerService,
-        configurationRevisionService,
-        transactionalFeatureToggleService,
-        transactionalGroupService,
-        privateProjectChecker,
-        dependentFeaturesService,
-        transactionalDependentFeaturesService,
-        clientFeatureToggleService,
-        featureSearchService,
-        inactiveUsersService,
-        projectInsightsService,
-        jobService,
-        featureLifecycleService,
-        transactionalFeatureLifecycleService,
-        integrationEventsService,
-        onboardingService,
-        personalDashboardService,
-        projectStatusService,
-        transactionalUserSubscriptionsService,
-    };
+  return {
+    transactionalAccessService,
+    accessService,
+    accountService,
+    addonService,
+    eventAnnouncerService,
+    featureToggleService: featureToggleServiceV2,
+    featureToggleServiceV2,
+    featureTypeService,
+    healthService,
+    projectService,
+    transactionalProjectService,
+    strategyService,
+    tagTypeService,
+    transactionalTagTypeService,
+    tagService,
+    clientInstanceService,
+    clientMetricsServiceV2,
+    contextService,
+    versionService,
+    apiTokenService,
+    emailService,
+    userService,
+    resetTokenService,
+    eventService,
+    environmentService,
+    transactionalEnvironmentService,
+    settingService,
+    sessionService,
+    userFeedbackService,
+    featureTagService,
+    projectHealthService,
+    userSplashService,
+    segmentService,
+    openApiService,
+    clientSpecService,
+    playgroundService,
+    groupService,
+    frontendApiService,
+    edgeService,
+    patService,
+    publicSignupTokenService,
+    lastSeenService,
+    instanceStatsService,
+    favoritesService,
+    maintenanceService,
+    exportService: exportImportService,
+    importService,
+    schedulerService,
+    configurationRevisionService,
+    transactionalFeatureToggleService,
+    transactionalGroupService,
+    privateProjectChecker,
+    dependentFeaturesService,
+    transactionalDependentFeaturesService,
+    clientFeatureToggleService,
+    featureSearchService,
+    inactiveUsersService,
+    projectInsightsService,
+    jobService,
+    featureLifecycleService,
+    transactionalFeatureLifecycleService,
+    integrationEventsService,
+    onboardingService,
+    personalDashboardService,
+    projectStatusService,
+    transactionalUserSubscriptionsService,
+  };
 };
 
 export {
-    FeatureTypeService,
-    EventService,
-    HealthService,
-    ProjectService,
-    ClientInstanceService,
-    ClientMetricsServiceV2,
-    TagTypeService,
-    TagService,
-    StrategyService,
-    AddonService,
-    ContextService,
-    VersionService,
-    EmailService,
-    AccessService,
-    ApiTokenService,
-    UserService,
-    ResetTokenService,
-    SettingService,
-    SessionService,
-    UserFeedbackService,
-    FeatureToggleService,
-    EnvironmentService,
-    FeatureTagService,
-    ProjectHealthService,
-    UserSplashService,
-    SegmentService,
-    OpenApiService,
-    ClientSpecService,
-    PlaygroundService,
-    GroupService,
-    FrontendApiService,
-    EdgeService,
-    PatService,
-    PublicSignupTokenService,
-    LastSeenService,
-    InstanceStatsService,
-    FavoritesService,
-    SchedulerService,
-    DependentFeaturesService,
-    ClientFeatureToggleService,
-    FeatureSearchService,
-    ProjectInsightsService,
-    JobService,
-    FeatureLifecycleService,
-    IntegrationEventsService,
-    OnboardingService,
-    PersonalDashboardService,
-    ProjectStatusService,
-    UserSubscriptionsService,
+  FeatureTypeService,
+  EventService,
+  HealthService,
+  ProjectService,
+  ClientInstanceService,
+  ClientMetricsServiceV2,
+  TagTypeService,
+  TagService,
+  StrategyService,
+  AddonService,
+  ContextService,
+  VersionService,
+  EmailService,
+  AccessService,
+  ApiTokenService,
+  UserService,
+  ResetTokenService,
+  SettingService,
+  SessionService,
+  UserFeedbackService,
+  FeatureToggleService,
+  EnvironmentService,
+  FeatureTagService,
+  ProjectHealthService,
+  UserSplashService,
+  SegmentService,
+  OpenApiService,
+  ClientSpecService,
+  PlaygroundService,
+  GroupService,
+  FrontendApiService,
+  EdgeService,
+  PatService,
+  PublicSignupTokenService,
+  LastSeenService,
+  InstanceStatsService,
+  FavoritesService,
+  SchedulerService,
+  DependentFeaturesService,
+  ClientFeatureToggleService,
+  FeatureSearchService,
+  ProjectInsightsService,
+  JobService,
+  FeatureLifecycleService,
+  IntegrationEventsService,
+  OnboardingService,
+  PersonalDashboardService,
+  ProjectStatusService,
+  UserSubscriptionsService,
 };

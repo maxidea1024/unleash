@@ -59,7 +59,7 @@ export const CREATE_FEATURE_STRATEGY = 'CREATE_FEATURE_STRATEGY';
 export const UPDATE_FEATURE_STRATEGY = 'UPDATE_FEATURE_STRATEGY';
 export const DELETE_FEATURE_STRATEGY = 'DELETE_FEATURE_STRATEGY';
 export const UPDATE_FEATURE_ENVIRONMENT_VARIANTS =
-    'UPDATE_FEATURE_ENVIRONMENT_VARIANTS';
+  'UPDATE_FEATURE_ENVIRONMENT_VARIANTS';
 export const UPDATE_FEATURE_ENVIRONMENT = 'UPDATE_FEATURE_ENVIRONMENT';
 export const APPROVE_CHANGE_REQUEST = 'APPROVE_CHANGE_REQUEST';
 export const APPLY_CHANGE_REQUEST = 'APPLY_CHANGE_REQUEST';
@@ -75,70 +75,70 @@ export const PROJECT_CHANGE_REQUEST_WRITE = 'PROJECT_CHANGE_REQUEST_WRITE';
 export const PROJECT_SETTINGS_WRITE = 'PROJECT_SETTINGS_WRITE';
 
 export const RELEASE_PLAN_TEMPLATE_VIEW_OVERVIEW =
-    'RELEASE_PLAN_TEMPLATE_VIEW_OVERVIEW';
+  'RELEASE_PLAN_TEMPLATE_VIEW_OVERVIEW';
 export const RELEASE_PLAN_TEMPLATE_VIEW = 'RELEASE_PLAN_TEMPLATE_VIEW';
 export const RELEASE_PLAN_TEMPLATE_CREATE = 'RELEASE_PLAN_TEMPLATE_CREATE';
 export const RELEASE_PLAN_TEMPLATE_UPDATE = 'RELEASE_PLAN_TEMPLATE_UPDATE';
 export const RELEASE_PLAN_TEMPLATE_DELETE = 'RELEASE_PLAN_TEMPLATE_DELETE';
 
 export const ROOT_PERMISSION_CATEGORIES = [
-    {
-        label: 'Addon',
-        permissions: [CREATE_ADDON, UPDATE_ADDON, DELETE_ADDON],
-    },
-    {
-        label: 'API token',
-        permissions: [
-            UPDATE_CLIENT_API_TOKEN,
-            CREATE_CLIENT_API_TOKEN,
-            DELETE_CLIENT_API_TOKEN,
-            READ_CLIENT_API_TOKEN,
-            UPDATE_FRONTEND_API_TOKEN,
-            CREATE_FRONTEND_API_TOKEN,
-            DELETE_FRONTEND_API_TOKEN,
-            READ_FRONTEND_API_TOKEN,
-        ],
-    },
-    {
-        label: 'Application',
-        permissions: [UPDATE_APPLICATION],
-    },
-    {
-        label: 'Context field',
-        permissions: [
-            CREATE_CONTEXT_FIELD,
-            UPDATE_CONTEXT_FIELD,
-            DELETE_CONTEXT_FIELD,
-        ],
-    },
-    {
-        label: 'Project',
-        permissions: [CREATE_PROJECT],
-    },
-    {
-        label: 'Role',
-        permissions: [READ_ROLE],
-    },
-    {
-        label: 'Segment',
-        permissions: [CREATE_SEGMENT, UPDATE_SEGMENT, DELETE_SEGMENT],
-    },
-    {
-        label: 'Strategy',
-        permissions: [CREATE_STRATEGY, UPDATE_STRATEGY, DELETE_STRATEGY],
-    },
-    {
-        label: 'Tag type',
-        permissions: [CREATE_TAG_TYPE, UPDATE_TAG_TYPE, DELETE_TAG_TYPE],
-    },
-    {
-        label: 'Release plan templates',
-        permissions: [
-            RELEASE_PLAN_TEMPLATE_VIEW_OVERVIEW,
-            RELEASE_PLAN_TEMPLATE_VIEW,
-            RELEASE_PLAN_TEMPLATE_CREATE,
-            RELEASE_PLAN_TEMPLATE_DELETE,
-            RELEASE_PLAN_TEMPLATE_UPDATE,
-        ],
-    },
+  {
+    label: 'Addon',
+    permissions: [CREATE_ADDON, UPDATE_ADDON, DELETE_ADDON],
+  },
+  {
+    label: 'API token',
+    permissions: [
+      UPDATE_CLIENT_API_TOKEN,
+      CREATE_CLIENT_API_TOKEN,
+      DELETE_CLIENT_API_TOKEN,
+      READ_CLIENT_API_TOKEN,
+      UPDATE_FRONTEND_API_TOKEN,
+      CREATE_FRONTEND_API_TOKEN,
+      DELETE_FRONTEND_API_TOKEN,
+      READ_FRONTEND_API_TOKEN,
+    ],
+  },
+  {
+    label: 'Application',
+    permissions: [UPDATE_APPLICATION],
+  },
+  {
+    label: 'Context field',
+    permissions: [
+      CREATE_CONTEXT_FIELD,
+      UPDATE_CONTEXT_FIELD,
+      DELETE_CONTEXT_FIELD,
+    ],
+  },
+  {
+    label: 'Project',
+    permissions: [CREATE_PROJECT],
+  },
+  {
+    label: 'Role',
+    permissions: [READ_ROLE],
+  },
+  {
+    label: 'Segment',
+    permissions: [CREATE_SEGMENT, UPDATE_SEGMENT, DELETE_SEGMENT],
+  },
+  {
+    label: 'Strategy',
+    permissions: [CREATE_STRATEGY, UPDATE_STRATEGY, DELETE_STRATEGY],
+  },
+  {
+    label: 'Tag type',
+    permissions: [CREATE_TAG_TYPE, UPDATE_TAG_TYPE, DELETE_TAG_TYPE],
+  },
+  {
+    label: 'Release plan templates',
+    permissions: [
+      RELEASE_PLAN_TEMPLATE_VIEW_OVERVIEW,
+      RELEASE_PLAN_TEMPLATE_VIEW,
+      RELEASE_PLAN_TEMPLATE_CREATE,
+      RELEASE_PLAN_TEMPLATE_DELETE,
+      RELEASE_PLAN_TEMPLATE_UPDATE,
+    ],
+  },
 ];

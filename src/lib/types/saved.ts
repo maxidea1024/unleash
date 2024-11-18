@@ -1,6 +1,6 @@
 // Add an id field to an object.
 export type Saved<T extends {}, Id extends string | number = string> = T & {
-    id: Id;
+  id: Id;
 };
 
 // Remove an id field from an object.

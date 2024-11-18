@@ -1,3 +1,3 @@
 export interface IApplicationQuery {
-    strategyName?: string;
+  strategyName?: string;
 }

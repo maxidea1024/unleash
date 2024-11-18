@@ -1,7 +1,7 @@
 export interface IFavoriteFeature {
-    feature: string;
+  feature: string;
 }
 
 export interface IFavoriteProject {
-    project: string;
+  project: string;
 }

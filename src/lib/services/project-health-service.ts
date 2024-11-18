@@ -7,85 +7,80 @@ import type { IFeatureTypeStore } from '../types/stores/feature-type-store';
 import type { IProjectStore } from '../features/project/project-store-type';
 import type ProjectService from '../features/project/project-service';
 import {
-    calculateHealthRating,
-    calculateProjectHealth,
+  calculateHealthRating,
+  calculateProjectHealth,
 } from '../domain/project-health/project-health';
 
 export default class ProjectHealthService {
-    private logger: Logger;
+  private logger: Logger;
+  private projectStore: IProjectStore;
+  private featureTypeStore: IFeatureTypeStore;
+  private featureToggleStore: IFeatureToggleStore;
+  private projectService: ProjectService;
 
-    private projectStore: IProjectStore;
+  constructor(
+    {
+      projectStore,
+      featureTypeStore,
+      featureToggleStore,
+    }: Pick<
+      IUnleashStores,
+      'projectStore' | 'featureTypeStore' | 'featureToggleStore'
+    >,
+    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    projectService: ProjectService,
+  ) {
+    this.logger = getLogger('services/project-health-service.ts');
+    this.projectStore = projectStore;
+    this.featureTypeStore = featureTypeStore;
+    this.featureToggleStore = featureToggleStore;
+    this.projectService = projectService;
+  }
 
-    private featureTypeStore: IFeatureTypeStore;
+  async getProjectHealthReport(
+    projectId: string,
+  ): Promise<IProjectHealthReport> {
+    const featureTypes = await this.featureTypeStore.getAll();
 
-    private featureToggleStore: IFeatureToggleStore;
+    const overview = await this.projectService.getProjectHealth(
+      projectId,
+      false,
+      undefined,
+    );
 
-    private projectService: ProjectService;
+    const healthRating = calculateProjectHealth(
+      overview.features,
+      featureTypes,
+    );
 
-    constructor(
-        {
-            projectStore,
-            featureTypeStore,
-            featureToggleStore,
-        }: Pick<
-            IUnleashStores,
-            'projectStore' | 'featureTypeStore' | 'featureToggleStore'
-        >,
-        { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
-        projectService: ProjectService,
-    ) {
-        this.logger = getLogger('services/project-health-service.ts');
-        this.projectStore = projectStore;
-        this.featureTypeStore = featureTypeStore;
-        this.featureToggleStore = featureToggleStore;
+    return {
+      ...overview,
+      ...healthRating,
+    };
+  }
 
-        this.projectService = projectService;
-    }
+  async calculateHealthRating(project: IProject): Promise<number> {
+    const featureTypes = await this.featureTypeStore.getAll();
 
-    async getProjectHealthReport(
-        projectId: string,
-    ): Promise<IProjectHealthReport> {
-        const featureTypes = await this.featureTypeStore.getAll();
+    const toggles = await this.featureToggleStore.getAll({
+      project: project.id,
+      archived: false,
+    });
 
-        const overview = await this.projectService.getProjectHealth(
-            projectId,
-            false,
-            undefined,
-        );
+    return calculateHealthRating(toggles, featureTypes);
+  }
 
-        const healthRating = calculateProjectHealth(
-            overview.features,
-            featureTypes,
-        );
+  async setHealthRating(): Promise<void> {
+    const projects = await this.projectStore.getAll();
 
-        return {
-            ...overview,
-            ...healthRating,
-        };
-    }
-
-    async calculateHealthRating(project: IProject): Promise<number> {
-        const featureTypes = await this.featureTypeStore.getAll();
-
-        const toggles = await this.featureToggleStore.getAll({
-            project: project.id,
-            archived: false,
+    await Promise.all(
+      projects.map(async (project) => {
+        const newHealth = await this.calculateHealthRating(project);
+        await this.projectStore.updateHealth({
+          id: project.id,
+          health: newHealth,
         });
-
-        return calculateHealthRating(toggles, featureTypes);
-    }
-
-    async setHealthRating(): Promise<void> {
-        const projects = await this.projectStore.getAll();
-
-        await Promise.all(
-            projects.map(async (project) => {
-                const newHealth = await this.calculateHealthRating(project);
-                await this.projectStore.updateHealth({
-                    id: project.id,
-                    health: newHealth,
-                });
-            }),
-        );
-    }
+      }),
+    );
+  }
 }
