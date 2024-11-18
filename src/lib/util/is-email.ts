@@ -1,7 +1,7 @@
 // Email address matcher.
 // eslint-disable-next-line no-useless-escape
 const matcher =
-    /[A-Z0-9.!#$%&'*+-/=?^_{|}~]+@[A-Z0-9][A-Z0-9.!#$%&'*+-/=?^_{|}~]*\.[A-Z]{2,}$/i;
+  /[A-Z0-9.!#$%&'*+-/=?^_{|}~]+@[A-Z0-9][A-Z0-9.!#$%&'*+-/=?^_{|}~]*\.[A-Z]{2,}$/i;
 
 /**
  * Loosely validate an email address.
@@ -17,8 +17,8 @@ const matcher =
  * @return {boolean}
  */
 function isEmail(value: string): boolean {
-    if (value.length > 500) return false;
-    return matcher.test(value);
+  if (value.length > 500) return false;
+  return matcher.test(value);
 }
 
 export default isEmail;

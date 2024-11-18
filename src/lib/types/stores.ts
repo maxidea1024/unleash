@@ -55,114 +55,114 @@ import type { IUserUnsubscribeStore } from '../features/user-subscriptions/user-
 import type { IUserSubscriptionsReadModel } from '../features/user-subscriptions/user-subscriptions-read-model-type';
 
 export interface IUnleashStores {
-    accessStore: IAccessStore;
-    accountStore: IAccountStore;
-    addonStore: IAddonStore;
-    apiTokenStore: IApiTokenStore;
-    clientApplicationsStore: IClientApplicationsStore;
-    clientInstanceStore: IClientInstanceStore;
-    clientMetricsStoreV2: IClientMetricsStoreV2;
-    contextFieldStore: IContextFieldStore;
-    environmentStore: IEnvironmentStore;
-    eventStore: IEventStore;
-    featureEnvironmentStore: IFeatureEnvironmentStore;
-    featureStrategiesStore: IFeatureStrategiesStore;
-    featureTagStore: IFeatureTagStore;
-    featureToggleStore: IFeatureToggleStore;
-    clientFeatureToggleStore: IFeatureToggleClientStore;
-    featureTypeStore: IFeatureTypeStore;
-    groupStore: IGroupStore;
-    projectStore: IProjectStore;
-    resetTokenStore: IResetTokenStore;
-    sessionStore: ISessionStore;
-    settingStore: ISettingStore;
-    strategyStore: IStrategyStore;
-    tagStore: ITagStore;
-    tagTypeStore: ITagTypeStore;
-    userFeedbackStore: IUserFeedbackStore;
-    userStore: IUserStore;
-    userSplashStore: IUserSplashStore;
-    roleStore: IRoleStore;
-    segmentStore: ISegmentStore;
-    patStore: IPatStore;
-    publicSignupTokenStore: IPublicSignupTokenStore;
-    favoriteFeaturesStore: IFavoriteFeaturesStore;
-    favoriteProjectsStore: IFavoriteProjectsStore;
-    projectStatsStore: IProjectStatsStore;
-    importTogglesStore: IImportTogglesStore;
-    privateProjectStore: IPrivateProjectStore;
-    dependentFeaturesStore: IDependentFeaturesStore;
-    lastSeenStore: ILastSeenStore;
-    featureSearchStore: IFeatureSearchStore;
-    inactiveUsersStore: IInactiveUsersStore;
-    trafficDataUsageStore: ITrafficDataUsageStore;
-    segmentReadModel: ISegmentReadModel;
-    projectOwnersReadModel: IProjectOwnersReadModel;
-    projectFlagCreatorsReadModel: IProjectFlagCreatorsReadModel;
-    featureLifecycleStore: IFeatureLifecycleStore;
-    featureStrategiesReadModel: IFeatureStrategiesReadModel;
-    featureLifecycleReadModel: IFeatureLifecycleReadModel;
-    largestResourcesReadModel: ILargestResourcesReadModel;
-    integrationEventsStore: IntegrationEventsStore;
-    featureCollaboratorsReadModel: IFeatureCollaboratorsReadModel;
-    projectReadModel: IProjectReadModel;
-    onboardingReadModel: IOnboardingReadModel;
-    onboardingStore: IOnboardingStore;
-    userUnsubscribeStore: IUserUnsubscribeStore;
-    userSubscriptionsReadModel: IUserSubscriptionsReadModel;
+  accessStore: IAccessStore;
+  accountStore: IAccountStore;
+  addonStore: IAddonStore;
+  apiTokenStore: IApiTokenStore;
+  clientApplicationsStore: IClientApplicationsStore;
+  clientInstanceStore: IClientInstanceStore;
+  clientMetricsStoreV2: IClientMetricsStoreV2;
+  contextFieldStore: IContextFieldStore;
+  environmentStore: IEnvironmentStore;
+  eventStore: IEventStore;
+  featureEnvironmentStore: IFeatureEnvironmentStore;
+  featureStrategiesStore: IFeatureStrategiesStore;
+  featureTagStore: IFeatureTagStore;
+  featureToggleStore: IFeatureToggleStore;
+  clientFeatureToggleStore: IFeatureToggleClientStore;
+  featureTypeStore: IFeatureTypeStore;
+  groupStore: IGroupStore;
+  projectStore: IProjectStore;
+  resetTokenStore: IResetTokenStore;
+  sessionStore: ISessionStore;
+  settingStore: ISettingStore;
+  strategyStore: IStrategyStore;
+  tagStore: ITagStore;
+  tagTypeStore: ITagTypeStore;
+  userFeedbackStore: IUserFeedbackStore;
+  userStore: IUserStore;
+  userSplashStore: IUserSplashStore;
+  roleStore: IRoleStore;
+  segmentStore: ISegmentStore;
+  patStore: IPatStore;
+  publicSignupTokenStore: IPublicSignupTokenStore;
+  favoriteFeaturesStore: IFavoriteFeaturesStore;
+  favoriteProjectsStore: IFavoriteProjectsStore;
+  projectStatsStore: IProjectStatsStore;
+  importTogglesStore: IImportTogglesStore;
+  privateProjectStore: IPrivateProjectStore;
+  dependentFeaturesStore: IDependentFeaturesStore;
+  lastSeenStore: ILastSeenStore;
+  featureSearchStore: IFeatureSearchStore;
+  inactiveUsersStore: IInactiveUsersStore;
+  trafficDataUsageStore: ITrafficDataUsageStore;
+  segmentReadModel: ISegmentReadModel;
+  projectOwnersReadModel: IProjectOwnersReadModel;
+  projectFlagCreatorsReadModel: IProjectFlagCreatorsReadModel;
+  featureLifecycleStore: IFeatureLifecycleStore;
+  featureStrategiesReadModel: IFeatureStrategiesReadModel;
+  featureLifecycleReadModel: IFeatureLifecycleReadModel;
+  largestResourcesReadModel: ILargestResourcesReadModel;
+  integrationEventsStore: IntegrationEventsStore;
+  featureCollaboratorsReadModel: IFeatureCollaboratorsReadModel;
+  projectReadModel: IProjectReadModel;
+  onboardingReadModel: IOnboardingReadModel;
+  onboardingStore: IOnboardingStore;
+  userUnsubscribeStore: IUserUnsubscribeStore;
+  userSubscriptionsReadModel: IUserSubscriptionsReadModel;
 }
 
 export {
-    IAccessStore,
-    IAccountStore,
-    IAddonStore,
-    IApiTokenStore,
-    IClientApplicationsStore,
-    IClientInstanceStore,
-    IClientMetricsStoreV2,
-    IContextFieldStore,
-    IEnvironmentStore,
-    IEventStore,
-    IFeatureEnvironmentStore,
-    IFeatureStrategiesStore,
-    IFeatureTagStore,
-    IFeatureToggleClientStore,
-    IFeatureToggleStore,
-    IFeatureTypeStore,
-    IGroupStore,
-    IPatStore,
-    IProjectStore,
-    IPublicSignupTokenStore,
-    IResetTokenStore,
-    IRoleStore,
-    ISegmentStore,
-    ISessionStore,
-    ISettingStore,
-    IStrategyStore,
-    ITagStore,
-    ITagTypeStore,
-    IUserFeedbackStore,
-    IUserSplashStore,
-    IUserStore,
-    IFavoriteFeaturesStore,
-    IFavoriteProjectsStore,
-    IImportTogglesStore,
-    IPrivateProjectStore,
-    IDependentFeaturesStore,
-    ILastSeenStore,
-    IFeatureSearchStore,
-    ITrafficDataUsageStore,
-    ISegmentReadModel,
-    IProjectOwnersReadModel,
-    IFeatureLifecycleStore,
-    IProjectFlagCreatorsReadModel,
-    IFeatureStrategiesReadModel,
-    IFeatureLifecycleReadModel,
-    ILargestResourcesReadModel,
-    IFeatureCollaboratorsReadModel,
-    IOnboardingReadModel,
-    type IntegrationEventsStore,
-    type IProjectReadModel,
-    IOnboardingStore,
-    type IUserSubscriptionsReadModel,
+  IAccessStore,
+  IAccountStore,
+  IAddonStore,
+  IApiTokenStore,
+  IClientApplicationsStore,
+  IClientInstanceStore,
+  IClientMetricsStoreV2,
+  IContextFieldStore,
+  IEnvironmentStore,
+  IEventStore,
+  IFeatureEnvironmentStore,
+  IFeatureStrategiesStore,
+  IFeatureTagStore,
+  IFeatureToggleClientStore,
+  IFeatureToggleStore,
+  IFeatureTypeStore,
+  IGroupStore,
+  IPatStore,
+  IProjectStore,
+  IPublicSignupTokenStore,
+  IResetTokenStore,
+  IRoleStore,
+  ISegmentStore,
+  ISessionStore,
+  ISettingStore,
+  IStrategyStore,
+  ITagStore,
+  ITagTypeStore,
+  IUserFeedbackStore,
+  IUserSplashStore,
+  IUserStore,
+  IFavoriteFeaturesStore,
+  IFavoriteProjectsStore,
+  IImportTogglesStore,
+  IPrivateProjectStore,
+  IDependentFeaturesStore,
+  ILastSeenStore,
+  IFeatureSearchStore,
+  ITrafficDataUsageStore,
+  ISegmentReadModel,
+  IProjectOwnersReadModel,
+  IFeatureLifecycleStore,
+  IProjectFlagCreatorsReadModel,
+  IFeatureStrategiesReadModel,
+  IFeatureLifecycleReadModel,
+  ILargestResourcesReadModel,
+  IFeatureCollaboratorsReadModel,
+  IOnboardingReadModel,
+  type IntegrationEventsStore,
+  type IProjectReadModel,
+  IOnboardingStore,
+  type IUserSubscriptionsReadModel,
 };

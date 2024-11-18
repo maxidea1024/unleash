@@ -39,29 +39,29 @@ export const SEMVER_GT = 'SEMVER_GT';
 export const SEMVER_LT = 'SEMVER_LT';
 
 export const ALL_OPERATORS = [
-    NOT_IN,
-    IN,
-    STR_ENDS_WITH,
-    STR_STARTS_WITH,
-    STR_CONTAINS,
-    NUM_EQ,
-    NUM_GT,
-    NUM_GTE,
-    NUM_LT,
-    NUM_LTE,
-    DATE_AFTER,
-    DATE_BEFORE,
-    SEMVER_EQ,
-    SEMVER_GT,
-    SEMVER_LT,
+  NOT_IN,
+  IN,
+  STR_ENDS_WITH,
+  STR_STARTS_WITH,
+  STR_CONTAINS,
+  NUM_EQ,
+  NUM_GT,
+  NUM_GTE,
+  NUM_LT,
+  NUM_LTE,
+  DATE_AFTER,
+  DATE_BEFORE,
+  SEMVER_EQ,
+  SEMVER_GT,
+  SEMVER_LT,
 ] as const;
 
 export const STRING_OPERATORS = [
-    STR_ENDS_WITH,
-    STR_STARTS_WITH,
-    STR_CONTAINS,
-    IN,
-    NOT_IN,
+  STR_ENDS_WITH,
+  STR_STARTS_WITH,
+  STR_CONTAINS,
+  IN,
+  NOT_IN,
 ];
 export const NUM_OPERATORS = [NUM_EQ, NUM_GT, NUM_GTE, NUM_LT, NUM_LTE];
 export const DATE_OPERATORS = [DATE_AFTER, DATE_BEFORE];

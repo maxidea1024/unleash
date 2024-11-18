@@ -20,22 +20,22 @@ import timer from './timer';
 // stopTimer();
 
 const wrapTimer = (
-    eventBus: EventEmitter,
-    event: string,
-    args: Record<string, unknown> = {},
+  eventBus: EventEmitter,
+  event: string,
+  args: Record<string, unknown> = {},
 ) => {
-    const t = timer.new();
-    return (data: unknown) => {
-        args.time = t();
-        eventBus.emit(event, args);
-        return data;
-    };
+  const t = timer.new();
+  return (data: unknown) => {
+    args.time = t();
+    eventBus.emit(event, args);
+    return data;
+  };
 };
 
 const metricsHelper = {
-    wrapTimer,
+  wrapTimer,
 };
 export default metricsHelper;
 module.exports = {
-    wrapTimer,
+  wrapTimer,
 };

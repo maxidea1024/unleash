@@ -39,8 +39,8 @@ import type { AccountService } from '../services/account-service';
 import type { SchedulerService } from '../features/scheduler/scheduler-service';
 import type { Knex } from 'knex';
 import type {
-    IExportService,
-    IImportService,
+  IExportService,
+  IImportService,
 } from '../features/export-import-toggles/export-import-service';
 import type { ISegmentService } from '../features/segment/segment-service-interface';
 import type ConfigurationRevisionService from '../features/feature-toggle/configuration-revision-service';
@@ -61,73 +61,73 @@ import type { ProjectStatusService } from '../features/project-status/project-st
 import type { UserSubscriptionsService } from '../features/user-subscriptions/user-subscriptions-service';
 
 export interface IUnleashServices {
-    transactionalAccessService: WithTransactional<AccessService>;
-    accessService: AccessService;
-    accountService: AccountService;
-    addonService: AddonService;
-    apiTokenService: ApiTokenService;
-    clientInstanceService: ClientInstanceService;
-    clientMetricsServiceV2: ClientMetricsServiceV2;
-    contextService: ContextService;
-    emailService: EmailService;
-    environmentService: EnvironmentService;
-    transactionalEnvironmentService: WithTransactional<EnvironmentService>;
-    eventService: EventService;
-    edgeService: EdgeService;
-    featureTagService: FeatureTagService;
-    featureToggleService: FeatureToggleService;
-    /** @deprecated use featureToggleService instead, both are interchangeable */
-    featureToggleServiceV2: FeatureToggleService;
-    featureTypeService: FeatureTypeService;
-    groupService: GroupService;
-    healthService: HealthService;
-    projectHealthService: ProjectHealthService;
-    projectService: ProjectService;
-    transactionalProjectService: WithTransactional<ProjectService>;
-    playgroundService: PlaygroundService;
-    frontendApiService: FrontendApiService;
-    publicSignupTokenService: PublicSignupTokenService;
-    resetTokenService: ResetTokenService;
-    sessionService: SessionService;
-    settingService: SettingService;
-    strategyService: StrategyService;
-    tagService: TagService;
-    tagTypeService: TagTypeService;
-    transactionalTagTypeService: WithTransactional<TagTypeService>;
-    userFeedbackService: UserFeedbackService;
-    userService: UserService;
-    versionService: VersionService;
-    userSplashService: UserSplashService;
-    segmentService: ISegmentService;
-    openApiService: OpenApiService;
-    clientSpecService: ClientSpecService;
-    patService: PatService;
-    lastSeenService: LastSeenService;
-    instanceStatsService: InstanceStatsService;
-    favoritesService: FavoritesService;
-    maintenanceService: MaintenanceService;
-    exportService: IExportService;
-    importService: WithTransactional<IImportService>;
-    configurationRevisionService: ConfigurationRevisionService;
-    schedulerService: SchedulerService;
-    eventAnnouncerService: EventAnnouncerService;
-    transactionalFeatureToggleService: (
-        db: Knex.Transaction,
-    ) => FeatureToggleService;
-    transactionalGroupService: (db: Knex.Transaction) => GroupService;
-    privateProjectChecker: IPrivateProjectChecker;
-    dependentFeaturesService: DependentFeaturesService;
-    transactionalDependentFeaturesService: WithTransactional<DependentFeaturesService>;
-    clientFeatureToggleService: ClientFeatureToggleService;
-    featureSearchService: FeatureSearchService;
-    inactiveUsersService: InactiveUsersService;
-    projectInsightsService: ProjectInsightsService;
-    jobService: JobService;
-    featureLifecycleService: FeatureLifecycleService;
-    transactionalFeatureLifecycleService: WithTransactional<FeatureLifecycleService>;
-    integrationEventsService: IntegrationEventsService;
-    onboardingService: OnboardingService;
-    personalDashboardService: PersonalDashboardService;
-    projectStatusService: ProjectStatusService;
-    transactionalUserSubscriptionsService: WithTransactional<UserSubscriptionsService>;
+  transactionalAccessService: WithTransactional<AccessService>;
+  accessService: AccessService;
+  accountService: AccountService;
+  addonService: AddonService;
+  apiTokenService: ApiTokenService;
+  clientInstanceService: ClientInstanceService;
+  clientMetricsServiceV2: ClientMetricsServiceV2;
+  contextService: ContextService;
+  emailService: EmailService;
+  environmentService: EnvironmentService;
+  transactionalEnvironmentService: WithTransactional<EnvironmentService>;
+  eventService: EventService;
+  edgeService: EdgeService;
+  featureTagService: FeatureTagService;
+  featureToggleService: FeatureToggleService;
+  /** @deprecated use featureToggleService instead, both are interchangeable */
+  featureToggleServiceV2: FeatureToggleService;
+  featureTypeService: FeatureTypeService;
+  groupService: GroupService;
+  healthService: HealthService;
+  projectHealthService: ProjectHealthService;
+  projectService: ProjectService;
+  transactionalProjectService: WithTransactional<ProjectService>;
+  playgroundService: PlaygroundService;
+  frontendApiService: FrontendApiService;
+  publicSignupTokenService: PublicSignupTokenService;
+  resetTokenService: ResetTokenService;
+  sessionService: SessionService;
+  settingService: SettingService;
+  strategyService: StrategyService;
+  tagService: TagService;
+  tagTypeService: TagTypeService;
+  transactionalTagTypeService: WithTransactional<TagTypeService>;
+  userFeedbackService: UserFeedbackService;
+  userService: UserService;
+  versionService: VersionService;
+  userSplashService: UserSplashService;
+  segmentService: ISegmentService;
+  openApiService: OpenApiService;
+  clientSpecService: ClientSpecService;
+  patService: PatService;
+  lastSeenService: LastSeenService;
+  instanceStatsService: InstanceStatsService;
+  favoritesService: FavoritesService;
+  maintenanceService: MaintenanceService;
+  exportService: IExportService;
+  importService: WithTransactional<IImportService>;
+  configurationRevisionService: ConfigurationRevisionService;
+  schedulerService: SchedulerService;
+  eventAnnouncerService: EventAnnouncerService;
+  transactionalFeatureToggleService: (
+    db: Knex.Transaction,
+  ) => FeatureToggleService;
+  transactionalGroupService: (db: Knex.Transaction) => GroupService;
+  privateProjectChecker: IPrivateProjectChecker;
+  dependentFeaturesService: DependentFeaturesService;
+  transactionalDependentFeaturesService: WithTransactional<DependentFeaturesService>;
+  clientFeatureToggleService: ClientFeatureToggleService;
+  featureSearchService: FeatureSearchService;
+  inactiveUsersService: InactiveUsersService;
+  projectInsightsService: ProjectInsightsService;
+  jobService: JobService;
+  featureLifecycleService: FeatureLifecycleService;
+  transactionalFeatureLifecycleService: WithTransactional<FeatureLifecycleService>;
+  integrationEventsService: IntegrationEventsService;
+  onboardingService: OnboardingService;
+  personalDashboardService: PersonalDashboardService;
+  projectStatusService: ProjectStatusService;
+  transactionalUserSubscriptionsService: WithTransactional<UserSubscriptionsService>;
 }
