@@ -5,13 +5,13 @@ const ajv = new Ajv();
 
 type SchemaNames = keyof typeof schemas;
 type Rule = {
-    name: string;
-    match?: (
-        schemaName: string,
-        schema: (typeof schemas)[SchemaNames],
-    ) => boolean;
-    metaSchema: Schema;
-    knownExceptions?: string[];
+  name: string;
+  match?: (
+    schemaName: string,
+    schema: (typeof schemas)[SchemaNames],
+  ) => boolean;
+  metaSchema: Schema;
+  knownExceptions?: string[];
 };
 
 /**
@@ -30,109 +30,109 @@ type Rule = {
  * </code>
  */
 const metaRules: Rule[] = [
-    {
-        name: 'should have a type',
-        metaSchema: {
-            type: 'object',
-            properties: {
-                type: { type: 'string', enum: ['object', 'array', 'boolean'] },
-            },
-            required: ['type'],
-        },
-        knownExceptions: ['dateSchema'],
+  {
+    name: 'should have a type',
+    metaSchema: {
+      type: 'object',
+      properties: {
+        type: { type: 'string', enum: ['object', 'array', 'boolean'] },
+      },
+      required: ['type'],
     },
-    {
-        name: 'should have an $id with the expected format',
-        metaSchema: {
-            type: 'object',
-            properties: {
-                $id: {
-                    type: 'string',
-                    pattern: '^#/components/schemas/[a-z][a-zA-Z]+$',
-                },
-            },
-            required: ['$id'],
+    knownExceptions: ['dateSchema'],
+  },
+  {
+    name: 'should have an $id with the expected format',
+    metaSchema: {
+      type: 'object',
+      properties: {
+        $id: {
+          type: 'string',
+          pattern: '^#/components/schemas/[a-z][a-zA-Z]+$',
         },
+      },
+      required: ['$id'],
     },
-    {
-        name: 'should have properties with descriptions',
-        match: (_, schema) =>
-            // only match schemas that have a properties field
-            'properties' in schema,
-        metaSchema: {
-            type: 'object',
-            // properties of the meta schema
-            properties: {
-                // the schema should have a field called properties
+  },
+  {
+    name: 'should have properties with descriptions',
+    match: (_, schema) =>
+      // only match schemas that have a properties field
+      'properties' in schema,
+    metaSchema: {
+      type: 'object',
+      // properties of the meta schema
+      properties: {
+        // the schema should have a field called properties
+        properties: {
+          type: 'object', // properties of the schema should be an object
+          additionalProperties: {
+            // with the following shape
+            anyOf: [
+              {
+                type: 'object',
                 properties: {
-                    type: 'object', // properties of the schema should be an object
-                    additionalProperties: {
-                        // with the following shape
-                        anyOf: [
-                            {
-                                type: 'object',
-                                properties: {
-                                    description: { type: 'string' },
-                                },
-                                required: ['description'],
-                            },
-                            {
-                                type: 'object',
-                                properties: {
-                                    $ref: { type: 'string' },
-                                },
-                                required: ['$ref'],
-                            },
-                        ],
-                    },
+                  description: { type: 'string' },
                 },
-            },
+                required: ['description'],
+              },
+              {
+                type: 'object',
+                properties: {
+                  $ref: { type: 'string' },
+                },
+                required: ['$ref'],
+              },
+            ],
+          },
         },
-        knownExceptions: [],
+      },
     },
-    {
-        name: 'should either have oneOf or properties, instead extract them in commonProps',
-        match: (_, schema) =>
-            // only match schemas that have a properties field
-            'properties' in schema && 'oneOf' in schema,
-        metaSchema: {
-            type: 'object',
-            additionalProperties: false, // this is a shortcut to say: it should fail
-        },
-        knownExceptions: [],
+    knownExceptions: [],
+  },
+  {
+    name: 'should either have oneOf or properties, instead extract them in commonProps',
+    match: (_, schema) =>
+      // only match schemas that have a properties field
+      'properties' in schema && 'oneOf' in schema,
+    metaSchema: {
+      type: 'object',
+      additionalProperties: false, // this is a shortcut to say: it should fail
     },
-    {
-        name: 'should have a description',
-        metaSchema: {
-            type: 'object',
-            properties: {
-                description: { type: 'string' },
-            },
-            required: ['description'],
-        },
-        knownExceptions: [],
+    knownExceptions: [],
+  },
+  {
+    name: 'should have a description',
+    metaSchema: {
+      type: 'object',
+      properties: {
+        description: { type: 'string' },
+      },
+      required: ['description'],
     },
+    knownExceptions: [],
+  },
 ];
 
 describe.each(metaRules)('OpenAPI schemas $name', (rule) => {
-    const validateMetaSchema = ajv.compile(rule.metaSchema);
+  const validateMetaSchema = ajv.compile(rule.metaSchema);
 
-    // test all schemas against the rule
-    Object.entries(schemas).forEach(([schemaName, schema]) => {
-        if (!rule.match || rule.match(schemaName, schema)) {
-            it(`${schemaName}`, () => {
-                validateMetaSchema(schema);
+  // test all schemas against the rule
+  Object.entries(schemas).forEach(([schemaName, schema]) => {
+    if (!rule.match || rule.match(schemaName, schema)) {
+      it(`${schemaName}`, () => {
+        validateMetaSchema(schema);
 
-                // note: whenever you resolve an exception please remove it from the list
-                if (rule.knownExceptions?.includes(schemaName)) {
-                    console.warn(
-                        `${schemaName} is a known exception to rule "${rule.name}" that should be fixed`,
-                    );
-                    expect(validateMetaSchema.errors).not.toBeNull();
-                } else {
-                    expect(validateMetaSchema.errors).toBeNull();
-                }
-            });
+        // note: whenever you resolve an exception please remove it from the list
+        if (rule.knownExceptions?.includes(schemaName)) {
+          console.warn(
+            `${schemaName} is a known exception to rule "${rule.name}" that should be fixed`,
+          );
+          expect(validateMetaSchema.errors).not.toBeNull();
+        } else {
+          expect(validateMetaSchema.errors).toBeNull();
         }
-    });
+      });
+    }
+  });
 });

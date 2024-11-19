@@ -214,5 +214,3 @@ export default class Controller {
     return this.app;
   }
 }
-
-module.exports = Controller;

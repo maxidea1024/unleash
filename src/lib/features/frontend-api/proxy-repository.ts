@@ -64,8 +64,7 @@ export class ProxyRepository
     this.logger = config.getLogger('proxy-repository.ts');
     this.stores = stores;
     this.services = services;
-    this.configurationRevisionService =
-      services.configurationRevisionService;
+    this.configurationRevisionService = services.configurationRevisionService;
     this.token = token;
     this.onUpdateRevisionEvent = this.onUpdateRevisionEvent.bind(this);
     this.interval = config.frontendApi.refreshIntervalInMs;

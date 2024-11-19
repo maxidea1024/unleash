@@ -19,7 +19,7 @@ export class HealthCheckController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('health-check.js');
+    this.logger = config.getLogger('health-check.ts');
     this.openApiService = openApiService;
 
     this.route({
