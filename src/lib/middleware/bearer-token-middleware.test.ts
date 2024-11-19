@@ -7,96 +7,96 @@ import type { Request, Response } from 'express';
 const exampleSignalToken = 'signal_tokensecret';
 
 describe('bearerTokenMiddleware', () => {
-    const req = { headers: {}, path: '' } as Request;
-    const res = {} as Response;
-    const next = jest.fn();
+  const req = { headers: {}, path: '' } as Request;
+  const res = {} as Response;
+  const next = jest.fn();
 
-    let config: IUnleashConfig;
+  let config: IUnleashConfig;
 
-    beforeEach(() => {
-        config = createTestConfig({
-            getLogger,
-        });
+  beforeEach(() => {
+    config = createTestConfig({
+      getLogger,
+    });
+  });
+
+  it('should call next', () => {
+    const middleware = bearerTokenMiddleware(config);
+
+    middleware(req, res, next);
+
+    expect(next).toHaveBeenCalled();
+  });
+
+  it('should leave Unleash tokens intact', () => {
+    const middleware = bearerTokenMiddleware(config);
+
+    req.headers = { authorization: exampleSignalToken };
+
+    middleware(req, res, next);
+
+    expect(req.headers.authorization).toBe(exampleSignalToken);
+  });
+
+  it('should convert Bearer token to Unleash token', () => {
+    const middleware = bearerTokenMiddleware(config);
+
+    const bearerToken = `Bearer ${exampleSignalToken}`;
+    req.headers = { authorization: bearerToken };
+
+    middleware(req, res, next);
+
+    expect(req.headers.authorization).toBe(exampleSignalToken);
+  });
+
+  it('should be case insensitive in the scheme', () => {
+    const middleware = bearerTokenMiddleware(config);
+
+    const bearerToken = `bEaReR ${exampleSignalToken}`;
+    req.headers = { authorization: bearerToken };
+
+    middleware(req, res, next);
+
+    expect(req.headers.authorization).toBe(exampleSignalToken);
+  });
+
+  it('should always run for signal endpoint, without base path', () => {
+    const configWithBearerTokenMiddlewareFlagDisabled = createTestConfig({
+      getLogger,
     });
 
-    it('should call next', () => {
-        const middleware = bearerTokenMiddleware(config);
+    const middleware = bearerTokenMiddleware(
+      configWithBearerTokenMiddlewareFlagDisabled,
+    );
 
-        middleware(req, res, next);
+    req.path = '/api/signal-endpoint/';
 
-        expect(next).toHaveBeenCalled();
+    const bearerToken = `Bearer ${exampleSignalToken}`;
+    req.headers = { authorization: bearerToken };
+
+    middleware(req, res, next);
+
+    expect(req.headers.authorization).toBe(exampleSignalToken);
+  });
+
+  it('should always run for signal endpoint, regardless of the flag, with base path', () => {
+    const configWithBearerTokenMiddlewareFlagDisabled = createTestConfig({
+      getLogger,
+      server: {
+        baseUriPath: '/some-test-instance',
+      },
     });
 
-    it('should leave Unleash tokens intact', () => {
-        const middleware = bearerTokenMiddleware(config);
+    const middleware = bearerTokenMiddleware(
+      configWithBearerTokenMiddlewareFlagDisabled,
+    );
 
-        req.headers = { authorization: exampleSignalToken };
+    req.path = '/some-test-instance/api/signal-endpoint/';
 
-        middleware(req, res, next);
+    const bearerToken = `Bearer ${exampleSignalToken}`;
+    req.headers = { authorization: bearerToken };
 
-        expect(req.headers.authorization).toBe(exampleSignalToken);
-    });
+    middleware(req, res, next);
 
-    it('should convert Bearer token to Unleash token', () => {
-        const middleware = bearerTokenMiddleware(config);
-
-        const bearerToken = `Bearer ${exampleSignalToken}`;
-        req.headers = { authorization: bearerToken };
-
-        middleware(req, res, next);
-
-        expect(req.headers.authorization).toBe(exampleSignalToken);
-    });
-
-    it('should be case insensitive in the scheme', () => {
-        const middleware = bearerTokenMiddleware(config);
-
-        const bearerToken = `bEaReR ${exampleSignalToken}`;
-        req.headers = { authorization: bearerToken };
-
-        middleware(req, res, next);
-
-        expect(req.headers.authorization).toBe(exampleSignalToken);
-    });
-
-    it('should always run for signal endpoint, without base path', () => {
-        const configWithBearerTokenMiddlewareFlagDisabled = createTestConfig({
-            getLogger,
-        });
-
-        const middleware = bearerTokenMiddleware(
-            configWithBearerTokenMiddlewareFlagDisabled,
-        );
-
-        req.path = '/api/signal-endpoint/';
-
-        const bearerToken = `Bearer ${exampleSignalToken}`;
-        req.headers = { authorization: bearerToken };
-
-        middleware(req, res, next);
-
-        expect(req.headers.authorization).toBe(exampleSignalToken);
-    });
-
-    it('should always run for signal endpoint, regardless of the flag, with base path', () => {
-        const configWithBearerTokenMiddlewareFlagDisabled = createTestConfig({
-            getLogger,
-            server: {
-                baseUriPath: '/some-test-instance',
-            },
-        });
-
-        const middleware = bearerTokenMiddleware(
-            configWithBearerTokenMiddlewareFlagDisabled,
-        );
-
-        req.path = '/some-test-instance/api/signal-endpoint/';
-
-        const bearerToken = `Bearer ${exampleSignalToken}`;
-        req.headers = { authorization: bearerToken };
-
-        middleware(req, res, next);
-
-        expect(req.headers.authorization).toBe(exampleSignalToken);
-    });
+    expect(req.headers.authorization).toBe(exampleSignalToken);
+  });
 });

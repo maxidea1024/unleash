@@ -15,496 +15,496 @@ let featureToggleStore: IFeatureToggleStore;
 let segmentStore: ISegmentStore;
 
 beforeEach(() => {
-    featureToggleStore = new FakeFeatureToggleStore();
-    segmentStore = new FakeSegmentStore();
-    config = createTestConfig();
+  featureToggleStore = new FakeFeatureToggleStore();
+  segmentStore = new FakeSegmentStore();
+  config = createTestConfig();
 });
 
 test('should add checkRbac to request', () => {
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
+  const cb = jest.fn();
 
-    const req = jest.fn();
+  const req = jest.fn();
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    // @ts-ignore
-    expect(req.checkRbac).toBeTruthy();
-    // @ts-ignore
-    expect(typeof req.checkRbac).toBe('function');
+  // @ts-ignore
+  expect(req.checkRbac).toBeTruthy();
+  // @ts-ignore
+  expect(typeof req.checkRbac).toBe('function');
 });
 
 test('should give api-user ADMIN permission', async () => {
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new ApiUser({
-            tokenName: 'api',
-            permissions: [perms.ADMIN],
-            project: '*',
-            environment: '*',
-            type: ApiTokenType.ADMIN,
-            secret: 'a',
-        }),
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new ApiUser({
+      tokenName: 'api',
+      permissions: [perms.ADMIN],
+      project: '*',
+      environment: '*',
+      type: ApiTokenType.ADMIN,
+      secret: 'a',
+    }),
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    const hasAccess = await req.checkRbac(perms.ADMIN);
+  const hasAccess = await req.checkRbac(perms.ADMIN);
 
-    expect(hasAccess).toBe(true);
+  expect(hasAccess).toBe(true);
 });
 
 describe('ADMIN tokens should have user id -1337 when only passed through rbac-middleware', () => {
-    /// Will be -42 (ADMIN_USER.id) when we have the api-token-middleware run first
-    test('Should give ADMIN api-user userid -1337 (SYSTEM_USER_ID)', async () => {
-        const accessService = {
-            hasPermission: jest.fn(),
-        };
+  /// Will be -42 (ADMIN_USER.id) when we have the api-token-middleware run first
+  test('Should give ADMIN api-user userid -1337 (SYSTEM_USER_ID)', async () => {
+    const accessService = {
+      hasPermission: jest.fn(),
+    };
 
-        const func = rbacMiddleware(
-            config,
-            { featureToggleStore, segmentStore },
-            accessService,
-        );
+    const func = rbacMiddleware(
+      config,
+      { featureToggleStore, segmentStore },
+      accessService,
+    );
 
-        const cb = jest.fn();
-        const req: any = {
-            user: new ApiUser({
-                tokenName: 'api',
-                permissions: [perms.ADMIN],
-                project: '*',
-                environment: '*',
-                type: ApiTokenType.ADMIN,
-                secret: 'a',
-            }),
-        };
-        func(req, undefined, cb);
-        const hasAccess = await req.checkRbac(perms.ADMIN);
-        expect(req.user.id).toBe(SYSTEM_USER_ID);
-        expect(hasAccess).toBe(true);
-    });
-    /// Will be -42 (ADMIN_USER.id) when we have the api-token-middleware run first
-    test('Also when checking against permission NONE, userid should still be -1337', async () => {
-        const accessService = {
-            hasPermission: jest.fn(),
-        };
+    const cb = jest.fn();
+    const req: any = {
+      user: new ApiUser({
+        tokenName: 'api',
+        permissions: [perms.ADMIN],
+        project: '*',
+        environment: '*',
+        type: ApiTokenType.ADMIN,
+        secret: 'a',
+      }),
+    };
+    func(req, undefined, cb);
+    const hasAccess = await req.checkRbac(perms.ADMIN);
+    expect(req.user.id).toBe(SYSTEM_USER_ID);
+    expect(hasAccess).toBe(true);
+  });
+  /// Will be -42 (ADMIN_USER.id) when we have the api-token-middleware run first
+  test('Also when checking against permission NONE, userid should still be -1337', async () => {
+    const accessService = {
+      hasPermission: jest.fn(),
+    };
 
-        const func = rbacMiddleware(
-            config,
-            { featureToggleStore, segmentStore },
-            accessService,
-        );
+    const func = rbacMiddleware(
+      config,
+      { featureToggleStore, segmentStore },
+      accessService,
+    );
 
-        const cb = jest.fn();
-        const req: any = {
-            user: new ApiUser({
-                tokenName: 'api',
-                permissions: [perms.ADMIN],
-                project: '*',
-                environment: '*',
-                type: ApiTokenType.ADMIN,
-                secret: 'a',
-            }),
-        };
-        func(req, undefined, cb);
-        const hasAccess = await req.checkRbac(perms.NONE);
-        expect(req.user.id).toBe(SYSTEM_USER_ID);
-        expect(hasAccess).toBe(true);
-    });
+    const cb = jest.fn();
+    const req: any = {
+      user: new ApiUser({
+        tokenName: 'api',
+        permissions: [perms.ADMIN],
+        project: '*',
+        environment: '*',
+        type: ApiTokenType.ADMIN,
+        secret: 'a',
+      }),
+    };
+    func(req, undefined, cb);
+    const hasAccess = await req.checkRbac(perms.NONE);
+    expect(req.user.id).toBe(SYSTEM_USER_ID);
+    expect(hasAccess).toBe(true);
+  });
 });
 
 test('should not give api-user ADMIN permission', async () => {
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new ApiUser({
-            tokenName: 'api',
-            permissions: [perms.CLIENT],
-            project: '*',
-            environment: '*',
-            type: ApiTokenType.CLIENT,
-            secret: 'a',
-        }),
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new ApiUser({
+      tokenName: 'api',
+      permissions: [perms.CLIENT],
+      project: '*',
+      environment: '*',
+      type: ApiTokenType.CLIENT,
+      secret: 'a',
+    }),
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    const hasAccess = await req.checkRbac(perms.ADMIN);
+  const hasAccess = await req.checkRbac(perms.ADMIN);
 
-    expect(hasAccess).toBe(false);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(0);
+  expect(hasAccess).toBe(false);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(0);
 });
 
 test('should not allow user to miss userId', async () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: {
-            username: 'user',
-        },
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: {
+      username: 'user',
+    },
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    const hasAccess = await req.checkRbac(perms.ADMIN);
+  const hasAccess = await req.checkRbac(perms.ADMIN);
 
-    expect(hasAccess).toBe(false);
+  expect(hasAccess).toBe(false);
 });
 
 test('should return false for missing user', async () => {
-    jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {};
+  const cb = jest.fn();
+  const req: any = {};
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    const hasAccess = await req.checkRbac(perms.ADMIN);
+  const hasAccess = await req.checkRbac(perms.ADMIN);
 
-    expect(hasAccess).toBe(false);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(0);
+  expect(hasAccess).toBe(false);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(0);
 });
 
 test('should verify permission for root resource', async () => {
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({
-            username: 'user',
-            id: 1,
-        }),
-        params: {},
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({
+      username: 'user',
+      id: 1,
+    }),
+    params: {},
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.ADMIN);
+  await req.checkRbac(perms.ADMIN);
 
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.ADMIN],
-        undefined,
-        undefined,
-    );
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.ADMIN],
+    undefined,
+    undefined,
+  );
 });
 
 test('should lookup projectId from params', async () => {
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({
-            username: 'user',
-            id: 1,
-        }),
-        params: {
-            projectId: 'some-proj',
-        },
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({
+      username: 'user',
+      id: 1,
+    }),
+    params: {
+      projectId: 'some-proj',
+    },
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.UPDATE_PROJECT);
+  await req.checkRbac(perms.UPDATE_PROJECT);
 
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.UPDATE_PROJECT],
-        req.params.projectId,
-        undefined,
-    );
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.UPDATE_PROJECT],
+    req.params.projectId,
+    undefined,
+  );
 });
 
 test('should lookup projectId from feature flag', async () => {
-    const projectId = 'some-project-33';
-    const featureName = 'some-feature-flag';
+  const projectId = 'some-project-33';
+  const featureName = 'some-feature-flag';
 
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    featureToggleStore.getProjectId = jest.fn().mockReturnValue(projectId);
+  featureToggleStore.getProjectId = jest.fn().mockReturnValue(projectId);
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({
-            username: 'user',
-            id: 1,
-        }),
-        params: {
-            featureName,
-        },
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({
+      username: 'user',
+      id: 1,
+    }),
+    params: {
+      featureName,
+    },
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.UPDATE_FEATURE);
+  await req.checkRbac(perms.UPDATE_FEATURE);
 
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.UPDATE_FEATURE],
-        projectId,
-        undefined,
-    );
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.UPDATE_FEATURE],
+    projectId,
+    undefined,
+  );
 });
 
 test('should lookup projectId from data', async () => {
-    const projectId = 'some-project-33';
-    const featureName = 'some-feature-flag';
+  const projectId = 'some-project-33';
+  const featureName = 'some-feature-flag';
 
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({
-            username: 'user',
-            id: 1,
-        }),
-        params: {},
-        body: {
-            featureName,
-            project: projectId,
-        },
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({
+      username: 'user',
+      id: 1,
+    }),
+    params: {},
+    body: {
+      featureName,
+      project: projectId,
+    },
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.CREATE_FEATURE);
+  await req.checkRbac(perms.CREATE_FEATURE);
 
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.CREATE_FEATURE],
-        projectId,
-        undefined,
-    );
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.CREATE_FEATURE],
+    projectId,
+    undefined,
+  );
 });
 
 test('Does not double check permission if not changing project when updating flag', async () => {
-    const oldProjectId = 'some-project-34';
-    const featureName = 'some-feature-flag';
-    const accessService = {
-        hasPermission: jest.fn().mockReturnValue(true),
-    };
-    featureToggleStore.getProjectId = jest.fn().mockReturnValue(oldProjectId);
+  const oldProjectId = 'some-project-34';
+  const featureName = 'some-feature-flag';
+  const accessService = {
+    hasPermission: jest.fn().mockReturnValue(true),
+  };
+  featureToggleStore.getProjectId = jest.fn().mockReturnValue(oldProjectId);
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({ username: 'user', id: 1 }),
-        params: { featureName },
-        body: { featureName, project: oldProjectId },
-    };
-    func(req, undefined, cb);
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({ username: 'user', id: 1 }),
+    params: { featureName },
+    body: { featureName, project: oldProjectId },
+  };
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.UPDATE_FEATURE);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.UPDATE_FEATURE],
-        oldProjectId,
-        undefined,
-    );
+  await req.checkRbac(perms.UPDATE_FEATURE);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.UPDATE_FEATURE],
+    oldProjectId,
+    undefined,
+  );
 });
 
 test('CREATE_TAG_TYPE does not need projectId', async () => {
-    const accessService = {
-        hasPermission: jest.fn().mockReturnValue(true),
-    };
+  const accessService = {
+    hasPermission: jest.fn().mockReturnValue(true),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({ username: 'user', id: 1 }),
-        params: {},
-        body: { name: 'new-tag-type', description: 'New tag type for testing' },
-    };
-    func(req, undefined, cb);
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({ username: 'user', id: 1 }),
+    params: {},
+    body: { name: 'new-tag-type', description: 'New tag type for testing' },
+  };
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.CREATE_TAG_TYPE);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.CREATE_TAG_TYPE],
-        undefined,
-        undefined,
-    );
+  await req.checkRbac(perms.CREATE_TAG_TYPE);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.CREATE_TAG_TYPE],
+    undefined,
+    undefined,
+  );
 });
 
 test('UPDATE_TAG_TYPE does not need projectId', async () => {
-    const accessService = {
-        hasPermission: jest.fn().mockReturnValue(true),
-    };
+  const accessService = {
+    hasPermission: jest.fn().mockReturnValue(true),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({ username: 'user', id: 1 }),
-        params: {},
-        body: { name: 'new-tag-type', description: 'New tag type for testing' },
-    };
-    func(req, undefined, cb);
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({ username: 'user', id: 1 }),
+    params: {},
+    body: { name: 'new-tag-type', description: 'New tag type for testing' },
+  };
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.UPDATE_TAG_TYPE);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.UPDATE_TAG_TYPE],
-        undefined,
-        undefined,
-    );
+  await req.checkRbac(perms.UPDATE_TAG_TYPE);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.UPDATE_TAG_TYPE],
+    undefined,
+    undefined,
+  );
 });
 
 test('DELETE_TAG_TYPE does not need projectId', async () => {
-    const accessService = {
-        hasPermission: jest.fn().mockReturnValue(true),
-    };
+  const accessService = {
+    hasPermission: jest.fn().mockReturnValue(true),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({ username: 'user', id: 1 }),
-        params: {},
-        body: { name: 'new-tag-type', description: 'New tag type for testing' },
-    };
-    func(req, undefined, cb);
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({ username: 'user', id: 1 }),
+    params: {},
+    body: { name: 'new-tag-type', description: 'New tag type for testing' },
+  };
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.DELETE_TAG_TYPE);
-    expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.DELETE_TAG_TYPE],
-        undefined,
-        undefined,
-    );
+  await req.checkRbac(perms.DELETE_TAG_TYPE);
+  expect(accessService.hasPermission).toHaveBeenCalledTimes(1);
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.DELETE_TAG_TYPE],
+    undefined,
+    undefined,
+  );
 });
 
 test('should not expect featureName for UPDATE_FEATURE when projectId specified', async () => {
-    const projectId = 'some-project-33';
+  const projectId = 'some-project-33';
 
-    const accessService = {
-        hasPermission: jest.fn(),
-    };
+  const accessService = {
+    hasPermission: jest.fn(),
+  };
 
-    const func = rbacMiddleware(
-        config,
-        { featureToggleStore, segmentStore },
-        accessService,
-    );
+  const func = rbacMiddleware(
+    config,
+    { featureToggleStore, segmentStore },
+    accessService,
+  );
 
-    const cb = jest.fn();
-    const req: any = {
-        user: new User({
-            username: 'user',
-            id: 1,
-        }),
-        params: {},
-        body: {
-            project: projectId,
-        },
-    };
+  const cb = jest.fn();
+  const req: any = {
+    user: new User({
+      username: 'user',
+      id: 1,
+    }),
+    params: {},
+    body: {
+      project: projectId,
+    },
+  };
 
-    func(req, undefined, cb);
+  func(req, undefined, cb);
 
-    await req.checkRbac(perms.UPDATE_FEATURE);
+  await req.checkRbac(perms.UPDATE_FEATURE);
 
-    expect(accessService.hasPermission).toHaveBeenCalledWith(
-        req.user,
-        [perms.UPDATE_FEATURE],
-        projectId,
-        undefined,
-    );
+  expect(accessService.hasPermission).toHaveBeenCalledWith(
+    req.user,
+    [perms.UPDATE_FEATURE],
+    projectId,
+    undefined,
+  );
 });

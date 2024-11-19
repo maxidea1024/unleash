@@ -3,17 +3,19 @@ import authorizationMiddleware from './authorization-middleware';
 import type { LogProvider } from '../logger';
 
 function ossAuthHook(
-    app: Application,
-    getLogger: LogProvider,
-    baseUriPath: string,
+  app: Application,
+  getLogger: LogProvider,
+  baseUriPath: string,
 ): void {
-    app.use(
-        `${baseUriPath}/api`,
-        authorizationMiddleware(getLogger, baseUriPath),
-    );
-    app.use(
-        `${baseUriPath}/logout`,
-        authorizationMiddleware(getLogger, baseUriPath),
-    );
+  app.use(
+    `${baseUriPath}/api`,
+    authorizationMiddleware(getLogger, baseUriPath),
+  );
+
+  app.use(
+    `${baseUriPath}/logout`,
+    authorizationMiddleware(getLogger, baseUriPath),
+  );
 }
+
 export default ossAuthHook;

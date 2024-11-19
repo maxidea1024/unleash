@@ -12,21 +12,21 @@ const DEFAULT_ACCEPTED_CONTENT_TYPE = 'application/json';
  * @returns {function(Request, Response, NextFunction): void}
  */
 export default function requireContentType(
-    ...acceptedContentTypes: string[]
+  ...acceptedContentTypes: string[]
 ): RequestHandler {
-    if (acceptedContentTypes.length === 0) {
-        acceptedContentTypes.push(DEFAULT_ACCEPTED_CONTENT_TYPE);
+  if (acceptedContentTypes.length === 0) {
+    acceptedContentTypes.push(DEFAULT_ACCEPTED_CONTENT_TYPE);
+  }
+  return (req, res, next) => {
+    const contentType = req.header('Content-Type');
+    if (is(contentType, acceptedContentTypes)) {
+      next();
+    } else {
+      const error = new ContentTypeError(
+        acceptedContentTypes as [string, ...string[]],
+        contentType,
+      );
+      res.status(error.statusCode).json(error).end();
     }
-    return (req, res, next) => {
-        const contentType = req.header('Content-Type');
-        if (is(contentType, acceptedContentTypes)) {
-            next();
-        } else {
-            const error = new ContentTypeError(
-                acceptedContentTypes as [string, ...string[]],
-                contentType,
-            );
-            res.status(error.statusCode).json(error).end();
-        }
-    };
+  };
 }
