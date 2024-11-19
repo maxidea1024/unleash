@@ -3,51 +3,51 @@ import useAPI from '../useApi/useApi';
 import type { AddonSchema } from 'openapi';
 
 const useAddonsApi = () => {
-    const { makeRequest, createRequest, errors, loading } = useAPI({
-        propagateErrors: true,
+  const { makeRequest, createRequest, errors, loading } = useAPI({
+    propagateErrors: true,
+  });
+
+  const URI = 'api/admin/addons';
+
+  const createAddon = async (addonConfig: Omit<AddonSchema, 'id'>) => {
+    const path = URI;
+    const req = createRequest(path, {
+      method: 'POST',
+      body: JSON.stringify(addonConfig),
     });
 
-    const URI = 'api/admin/addons';
+    return makeRequest(req.caller, req.id);
+  };
 
-    const createAddon = async (addonConfig: Omit<AddonSchema, 'id'>) => {
-        const path = URI;
-        const req = createRequest(path, {
-            method: 'POST',
-            body: JSON.stringify(addonConfig),
-        });
+  const removeAddon = async (id: number) => {
+    const path = `${URI}/${id}`;
+    const req = createRequest(path, {
+      method: 'DELETE',
+    });
 
-        return makeRequest(req.caller, req.id);
-    };
+    return makeRequest(req.caller, req.id);
+  };
 
-    const removeAddon = async (id: number) => {
-        const path = `${URI}/${id}`;
-        const req = createRequest(path, {
-            method: 'DELETE',
-        });
+  const updateAddon = useCallback(
+    async (addonConfig: AddonSchema) => {
+      const path = `${URI}/${addonConfig.id}`;
+      const req = createRequest(path, {
+        method: 'PUT',
+        body: JSON.stringify(addonConfig),
+      });
 
-        return makeRequest(req.caller, req.id);
-    };
+      return makeRequest(req.caller, req.id);
+    },
+    [createRequest, makeRequest],
+  );
 
-    const updateAddon = useCallback(
-        async (addonConfig: AddonSchema) => {
-            const path = `${URI}/${addonConfig.id}`;
-            const req = createRequest(path, {
-                method: 'PUT',
-                body: JSON.stringify(addonConfig),
-            });
-
-            return makeRequest(req.caller, req.id);
-        },
-        [createRequest, makeRequest],
-    );
-
-    return {
-        createAddon,
-        updateAddon,
-        removeAddon,
-        errors,
-        loading,
-    };
+  return {
+    createAddon,
+    updateAddon,
+    removeAddon,
+    errors,
+    loading,
+  };
 };
 
 export default useAddonsApi;
