@@ -151,7 +151,7 @@ export class PublicSignupController extends Controller {
   }
 
   async getAllPublicSignupTokens(
-    req: IAuthRequest,
+    _: IAuthRequest,
     res: Response<PublicSignupTokensSchema>,
   ): Promise<void> {
     const tokens = await this.publicSignupTokenService.getAllTokens();

@@ -177,7 +177,7 @@ export default class TagTypeController extends Controller {
   }
 
   async getTagTypes(
-    req: Request,
+    _: Request,
     res: Response<TagTypesSchema>,
   ): Promise<void> {
     const tagTypes = await this.tagTypeService.getAll();
@@ -235,6 +235,7 @@ export default class TagTypeController extends Controller {
 
   async deleteTagType(req: IAuthRequest, res: Response): Promise<void> {
     const { name } = req.params;
+
     await this.tagTypeService.transactional((service) =>
       service.deleteTagType(name, req.audit),
     );

@@ -259,7 +259,7 @@ The backend will also distribute remaining weight up to 1000 after adding the va
     res: Response<FeatureVariantsSchema>,
   ): Promise<void> {
     const { projectId, featureName } = req.params;
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
     const updatedFeature = await this.featureService.saveVariants(
       featureName,
       projectId,

@@ -19,6 +19,7 @@ async function getSetup(adminTokenKillSwitchEnabled: boolean) {
     },
     //@ts-ignore - Just testing, so only need the isEnabled call here
   });
+
   const stores = createStores();
   const services = createServices(stores, config);
 

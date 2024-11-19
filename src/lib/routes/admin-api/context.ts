@@ -209,7 +209,7 @@ export class ContextController extends Controller {
   }
 
   async getContextFields(
-    req: Request,
+    _: Request,
     res: Response<ContextFieldsSchema>,
   ): Promise<void> {
     res.status(200)

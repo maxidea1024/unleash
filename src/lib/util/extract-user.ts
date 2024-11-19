@@ -36,6 +36,7 @@ export const extractAuditInfoFromUser = (
   username: extractUsernameFromUser(user),
   ip,
 });
+
 export const extractAuditInfo = (
   req: IAuthRequest | IApiRequest,
 ): IAuditUser => ({

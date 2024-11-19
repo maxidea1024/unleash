@@ -89,7 +89,7 @@ When a feature flag type's expected lifetime is changed, this will also cause an
   }
 
   async getAllFeatureTypes(
-    req: Request,
+    _: Request,
     res: Response<FeatureTypesSchema>,
   ): Promise<void> {
     this.openApiService.respondWithValidation(

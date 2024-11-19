@@ -12,7 +12,6 @@ export const omitKeys: OmitKeys = (obj, ...keys) => {
   };
 
   let key: keyof typeof obj;
-
   for (key in obj) {
     if (!keys.includes(key)) {
       ret[key] = obj[key];

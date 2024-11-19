@@ -49,6 +49,7 @@ export default class PatController extends Controller {
     this.flagResolver = config.flagResolver;
     this.openApiService = openApiService;
     this.patService = patService;
+
     this.route({
       method: 'get',
       path: '',

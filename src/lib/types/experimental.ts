@@ -1,6 +1,6 @@
 import { PayloadType, type Variant } from 'unleash-client';
 import { parseEnvVarBoolean } from '../util';
-import { getDefaultVariant } from 'unleash-client/lib/variant';
+import { defaultVariant } from 'unleash-client/lib/variant';
 
 export type IFlagKey =
   | 'accessLogs'
@@ -299,7 +299,7 @@ export const defaultExperimentalOptions: IExperimentalOptions = {
   flags,
   externalResolver: {
     isEnabled: (): boolean => false,
-    getVariant: () => getDefaultVariant(),
+    getVariant: () => defaultVariant,
   },
 };
 

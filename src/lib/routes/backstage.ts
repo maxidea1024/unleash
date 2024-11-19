@@ -5,7 +5,7 @@ import { register as prometheusRegister } from 'prom-client';
 import Controller from './controller';
 import type { IUnleashConfig } from '../types/option';
 
-class BackstageController extends Controller {
+export class BackstageController extends Controller {
   logger: any;
 
   constructor(config: IUnleashConfig) {
@@ -33,5 +33,3 @@ class BackstageController extends Controller {
     }
   }
 }
-
-export { BackstageController };

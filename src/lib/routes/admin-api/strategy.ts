@@ -200,7 +200,7 @@ export default class StrategyController extends Controller {
   }
 
   async getAllStrategies(
-    req: Request,
+    _: Request,
     res: Response<StrategiesSchema>,
   ): Promise<void> {
     const strategies = await this.strategyService.getStrategies();
@@ -231,7 +231,7 @@ export default class StrategyController extends Controller {
 
   async removeStrategy(req: IAuthRequest, res: Response): Promise<void> {
     const strategyName = req.params.name;
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
 
     await this.strategyService.removeStrategy(strategyName, req.audit);
     res.status(200).end();
@@ -241,7 +241,7 @@ export default class StrategyController extends Controller {
     req: IAuthRequest<unknown, unknown, CreateStrategySchema>,
     res: Response<StrategySchema>,
   ): Promise<void> {
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
 
     const strategy = await this.strategyService.createStrategy(
       req.body,
@@ -260,7 +260,7 @@ export default class StrategyController extends Controller {
     req: IAuthRequest<{ name: string }, UpdateStrategySchema>,
     res: Response<void>,
   ): Promise<void> {
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
 
     await this.strategyService.updateStrategy(
       { ...req.body, name: req.params.name },
@@ -273,7 +273,7 @@ export default class StrategyController extends Controller {
     req: IAuthRequest,
     res: Response<void>,
   ): Promise<void> {
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
     const { strategyName } = req.params;
 
     await this.strategyService.deprecateStrategy(strategyName, req.audit);
@@ -284,7 +284,7 @@ export default class StrategyController extends Controller {
     req: IAuthRequest,
     res: Response<void>,
   ): Promise<void> {
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
     const { strategyName } = req.params;
 
     await this.strategyService.reactivateStrategy(strategyName, req.audit);

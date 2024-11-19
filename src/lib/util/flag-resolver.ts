@@ -7,12 +7,11 @@ import type {
   IFlagResolver,
   IFlagKey,
 } from '../types/experimental';
-import { getDefaultVariant } from 'unleash-client/lib/variant';
+import { defaultVariant } from 'unleash-client/lib/variant';
 
 export default class FlagResolver implements IFlagResolver {
-  private experiments: IFlags;
-
-  private externalResolver: IExternalFlagResolver;
+  private readonly experiments: IFlags;
+  private readonly externalResolver: IExternalFlagResolver;
 
   constructor(expOpt: IExperimentalOptions) {
     this.experiments = expOpt.flags;
@@ -47,8 +46,11 @@ export default class FlagResolver implements IFlagResolver {
   isEnabled(expName: IFlagKey, context?: IFlagContext): boolean {
     const exp = this.experiments[expName];
     if (exp) {
-      if (typeof exp === 'boolean') return exp;
-      else return exp.enabled;
+      if (typeof exp === 'boolean') {
+        return exp;
+      } else {
+        return exp.enabled;
+      }
     }
     return this.externalResolver.isEnabled(expName, context);
   }
@@ -56,8 +58,11 @@ export default class FlagResolver implements IFlagResolver {
   getVariant(expName: IFlagKey, context?: IFlagContext): Variant {
     const exp = this.experiments[expName];
     if (exp) {
-      if (typeof exp === 'boolean') return getDefaultVariant();
-      else if (exp.enabled) return exp;
+      if (typeof exp === 'boolean') {
+        return defaultVariant;
+      } else if (exp.enabled) {
+        return exp;
+      }
     }
     return this.externalResolver.getVariant(expName, context);
   }
@@ -67,8 +72,9 @@ export const getVariantValue = <T = string>(
   variant: Variant | undefined,
 ): T | undefined => {
   if (variant?.enabled) {
-    if (!variant.payload) return variant.name as T;
-    if (variant.payload.type === PayloadType.JSON) {
+    if (!variant.payload) {
+      return variant.name as T;
+    } else if (variant.payload.type === PayloadType.JSON) {
       return JSON.parse(variant.payload.value) as T;
     }
 

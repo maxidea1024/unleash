@@ -198,7 +198,7 @@ Note: passing \`null\` as a value for the description property will set it to an
     });
   }
 
-  async getAddons(req: Request, res: Response<AddonsSchema>): Promise<void> {
+  async getAddons(_: Request, res: Response<AddonsSchema>): Promise<void> {
     const addons = await this.addonService.getAddons();
     const providers = this.addonService.getProviderDefinitions();
 

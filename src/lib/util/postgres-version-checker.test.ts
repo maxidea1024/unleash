@@ -33,6 +33,7 @@ beforeEach(() => {
     },
   });
 });
+
 describe('postgres-version-checker', () => {
   describe('Postgres version below 13.0 will yield error messages', () => {
     test('12.1.7', async () => {
@@ -66,6 +67,7 @@ describe('postgres-version-checker', () => {
       expect(infoMessages).toHaveLength(0);
     });
   });
+
   describe('Postgres version at 13.0 or higher will yield an info message', () => {
     test('13.9.2', async () => {
       settingStore = fakeSettingStore('13.9.2');

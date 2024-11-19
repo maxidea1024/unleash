@@ -177,7 +177,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async getAllEnvironments(
-    req: Request,
+    _: Request,
     res: Response<EnvironmentsSchema>,
   ): Promise<void> {
     this.openApiService.respondWithValidation(

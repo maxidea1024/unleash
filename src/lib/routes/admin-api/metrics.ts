@@ -55,10 +55,10 @@ export default class MetricsController extends Controller {
     this.flagResolver = config.flagResolver;
 
     // deprecated routes
-    this.get('/seen-toggles', this.deprecated);
-    this.get('/seen-apps', this.deprecated);
-    this.get('/feature-toggles', this.deprecated);
-    this.get('/feature-toggles/:name', this.deprecated);
+    // this.get('/seen-toggles', this.deprecated);
+    // this.get('/seen-apps', this.deprecated);
+    // this.get('/feature-toggles', this.deprecated);
+    // this.get('/feature-toggles/:name', this.deprecated);
 
     this.route({
       method: 'post',
@@ -205,13 +205,13 @@ export default class MetricsController extends Controller {
     });
   }
 
-  async deprecated(req: Request, res: Response): Promise<void> {
-    res.status(410).json({
-      lastHour: {},
-      lastMinute: {},
-      maturity: 'deprecated',
-    });
-  }
+  // async deprecated(req: Request, res: Response): Promise<void> {
+  //   res.status(410).json({
+  //     lastHour: {},
+  //     lastMinute: {},
+  //     maturity: 'deprecated',
+  //   });
+  // }
 
   async deleteApplication(
     req: Request<{

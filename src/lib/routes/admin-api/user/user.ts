@@ -203,6 +203,7 @@ export default class UserController extends Controller {
       res.status(400).end();
     }
   }
+
   async getMe(req: IAuthRequest, res: Response<MeSchema>): Promise<void> {
     res.setHeader('cache-control', 'no-store');
     const { user } = req;

@@ -66,6 +66,7 @@ export default class ConfigController extends Controller {
     this.frontendApiService = frontendApiService;
     this.maintenanceService = maintenanceService;
     this.clientInstanceService = clientInstanceService;
+
     this.route({
       method: 'get',
       path: '',
