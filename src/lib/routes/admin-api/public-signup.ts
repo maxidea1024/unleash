@@ -60,7 +60,7 @@ export class PublicSignupController extends Controller {
     this.accessService = accessService;
     this.userService = userService;
     this.openApiService = openApiService;
-    this.logger = config.getLogger('public-signup-controller.js');
+    this.logger = config.getLogger('public-signup-controller.ts');
 
     this.route({
       method: 'get',

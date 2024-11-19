@@ -42,13 +42,14 @@ interface ProjectTokenParam {
 
 const PATH = '/:projectId/api-tokens';
 const PATH_TOKEN = `${PATH}/:token`;
+
 export class ProjectApiTokenController extends Controller {
-  private apiTokenService: ApiTokenService;
-  private accessService: AccessService;
-  private frontendApiService: FrontendApiService;
-  private openApiService: OpenApiService;
-  private projectService: ProjectService;
-  private logger: Logger;
+  private readonly apiTokenService: ApiTokenService;
+  private readonly accessService: AccessService;
+  private readonly frontendApiService: FrontendApiService;
+  private readonly openApiService: OpenApiService;
+  private readonly projectService: ProjectService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -74,7 +75,7 @@ export class ProjectApiTokenController extends Controller {
     this.frontendApiService = frontendApiService;
     this.openApiService = openApiService;
     this.projectService = projectService;
-    this.logger = config.getLogger('project-api-token-controller.js');
+    this.logger = config.getLogger('project-api-token-controller.ts');
 
     this.route({
       method: 'get',

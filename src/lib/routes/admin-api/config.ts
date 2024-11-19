@@ -27,7 +27,7 @@ import type { FrontendApiService } from '../../services';
 import type MaintenanceService from '../../features/maintenance/maintenance-service';
 import type ClientInstanceService from '../../features/metrics/instance/instance-service';
 
-class ConfigController extends Controller {
+export default class ConfigController extends Controller {
   private readonly versionService: VersionService;
   private readonly settingService: SettingService;
   private readonly frontendApiService: FrontendApiService;
@@ -174,5 +174,3 @@ class ConfigController extends Controller {
     throw new NotFoundError();
   }
 }
-
-export default ConfigController;

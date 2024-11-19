@@ -33,7 +33,7 @@ import {
   type OutdatedSdksSchema,
 } from '../../openapi/spec/outdated-sdks-schema';
 
-class MetricsController extends Controller {
+export default class MetricsController extends Controller {
   private readonly logger: Logger;
   private readonly clientInstanceService: ClientInstanceService;
   private readonly flagResolver: IFlagResolver;
@@ -81,6 +81,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'delete',
       path: '/applications/:appName',
@@ -100,6 +101,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/applications',
@@ -119,6 +121,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/applications/:appName',
@@ -138,6 +141,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/applications/:appName/overview',
@@ -157,6 +161,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/instances/:appName/environment/:environment',
@@ -178,6 +183,7 @@ class MetricsController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/sdks/outdated',
@@ -326,5 +332,3 @@ class MetricsController extends Controller {
     );
   }
 }
-
-export default MetricsController;

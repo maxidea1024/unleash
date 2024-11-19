@@ -41,7 +41,7 @@ async function createApp(
   startApp: boolean,
 ): Promise<IUnleash> {
   // Database dependencies (stateful)
-  const logger = config.getLogger('server-impl.js');
+  const logger = config.getLogger('server-impl.ts');
   const serverVersion = config.enterpriseVersion ?? version;
   const db = createDb(config);
   const stores = createStores(config, db);
@@ -140,7 +140,7 @@ async function createApp(
 
 async function start(opts: IUnleashOptions = {}): Promise<IUnleash> {
   const config = createConfig(opts);
-  const logger = config.getLogger('server-impl.js');
+  const logger = config.getLogger('server-impl.ts');
 
   try {
     if (config.db.disableMigration) {
@@ -176,7 +176,7 @@ async function start(opts: IUnleashOptions = {}): Promise<IUnleash> {
 
 async function create(opts: IUnleashOptions): Promise<IUnleash> {
   const config = createConfig(opts);
-  const logger = config.getLogger('server-impl.js');
+  const logger = config.getLogger('server-impl.ts');
 
   try {
     if (config.db.disableMigration) {

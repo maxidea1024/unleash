@@ -31,7 +31,7 @@ import type { CreateTagSchema } from '../../openapi';
 
 const version = 1;
 
-class TagController extends Controller {
+export default class TagController extends Controller {
   private readonly logger: Logger;
   private readonly tagService: TagService;
   private readonly featureTagService: FeatureTagService;
@@ -54,7 +54,7 @@ class TagController extends Controller {
     this.tagService = tagService;
     this.openApiService = openApiService;
     this.featureTagService = featureTagService;
-    this.logger = config.getLogger('/admin-api/tag.js');
+    this.logger = config.getLogger('/admin-api/tag.ts');
     this.flagResolver = config.flagResolver;
 
     this.route({
@@ -75,6 +75,7 @@ class TagController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '',
@@ -116,6 +117,7 @@ class TagController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/:type/:value',
@@ -135,6 +137,7 @@ class TagController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'delete',
       path: '/:type/:value',
@@ -215,5 +218,3 @@ class TagController extends Controller {
     res.status(200).end();
   }
 }
-
-export default TagController;

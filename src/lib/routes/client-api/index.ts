@@ -13,5 +13,3 @@ export default class ClientApi extends Controller {
     this.use('/register', new RegisterController(services, config).router);
   }
 }
-
-module.exports = ClientApi;

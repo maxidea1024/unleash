@@ -11,7 +11,7 @@ class BackstageController extends Controller {
   constructor(config: IUnleashConfig) {
     super(config);
 
-    this.logger = config.getLogger('backstage.js');
+    this.logger = config.getLogger('backstage.ts');
 
     if (config.server.serverMetrics) {
       this.get('/prometheus', async (req, res) => {

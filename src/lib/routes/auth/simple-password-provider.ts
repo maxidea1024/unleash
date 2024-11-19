@@ -15,11 +15,9 @@ import { serializeDates } from '../../types/serialize-dates';
 import { getStandardResponses } from '../../openapi';
 
 export class SimplePasswordProvider extends Controller {
-  private logger: Logger;
-
-  private openApiService: OpenApiService;
-
-  private userService: UserService;
+  private readonly logger: Logger;
+  private readonly openApiService: OpenApiService;
+  private readonly userService: UserService;
 
   constructor(
     config: IUnleashConfig,
@@ -30,7 +28,7 @@ export class SimplePasswordProvider extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/auth/password-provider.js');
+    this.logger = config.getLogger('/auth/password-provider.ts');
     this.openApiService = openApiService;
     this.userService = userService;
 

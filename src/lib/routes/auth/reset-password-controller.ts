@@ -34,12 +34,10 @@ interface SessionRequest<PARAMS, QUERY, BODY, K>
   user?;
 }
 
-class ResetPasswordController extends Controller {
-  private userService: UserService;
-
-  private openApiService: OpenApiService;
-
-  private logger: Logger;
+export default class ResetPasswordController extends Controller {
+  private readonly userService: UserService;
+  private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -49,11 +47,13 @@ class ResetPasswordController extends Controller {
     }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
   ) {
     super(config);
+
     this.logger = config.getLogger(
       'lib/routes/auth/reset-password-controller.ts',
     );
     this.openApiService = openApiService;
     this.userService = userService;
+
     this.route({
       method: 'get',
       path: '/validate',
@@ -73,6 +73,7 @@ class ResetPasswordController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/password',
@@ -93,6 +94,7 @@ class ResetPasswordController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/validate-password',
@@ -113,6 +115,7 @@ class ResetPasswordController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/password-email',
@@ -190,5 +193,3 @@ class ResetPasswordController extends Controller {
     }
   }
 }
-
-export default ResetPasswordController;

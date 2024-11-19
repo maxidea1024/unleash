@@ -12,7 +12,7 @@ import { splashRequestSchema } from '../../openapi/spec/splash-request-schema';
 import { getStandardResponses } from '../../openapi';
 import type { SplashResponseSchema } from '../../openapi/spec/splash-response-schema';
 
-class UserSplashController extends Controller {
+export default class UserSplashController extends Controller {
   private readonly logger: Logger;
   private readonly userSplashService: UserSplashService;
   private readonly openApiService: OpenApiService;
@@ -73,6 +73,3 @@ class UserSplashController extends Controller {
     );
   }
 }
-
-module.exports = UserSplashController;
-export default UserSplashController;

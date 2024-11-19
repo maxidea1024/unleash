@@ -87,7 +87,7 @@ export default class FeatureController extends Controller {
     this.configurationRevisionService = configurationRevisionService;
     this.featureToggleService = featureToggleService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('client-api/feature.js');
+    this.logger = config.getLogger('client-api/feature.ts');
 
     this.route({
       method: 'get',

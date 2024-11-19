@@ -29,6 +29,7 @@ import {
 
 const ANON_KEYS = ['email', 'username', 'createdBy'];
 const version = 1 as const;
+
 export default class EventController extends Controller {
   private readonly eventService: EventService;
   private readonly flagResolver: IFlagResolver;

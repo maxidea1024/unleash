@@ -31,10 +31,10 @@ import { ForbiddenError, NotFoundError } from '../../../error';
 import idNumberMiddleware from '../../../middleware/id-number-middleware';
 
 export default class PatController extends Controller {
-  private patService: PatService;
-  private openApiService: OpenApiService;
-  private logger: Logger;
-  private flagResolver: IFlagResolver;
+  private readonly patService: PatService;
+  private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     config: IUnleashConfig,
@@ -69,6 +69,7 @@ export default class PatController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '',

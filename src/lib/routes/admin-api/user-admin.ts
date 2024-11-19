@@ -92,6 +92,7 @@ export default class UserAdminController extends Controller {
     >,
   ) {
     super(config);
+
     this.userService = userService;
     this.accountService = accountService;
     this.accessService = accessService;

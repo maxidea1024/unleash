@@ -32,7 +32,7 @@ export default class RegisterController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/api/client/register');
+    this.logger = config.getLogger('/api/client/register.ts');
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;

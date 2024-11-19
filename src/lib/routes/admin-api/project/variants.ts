@@ -39,9 +39,9 @@ interface ProjectParam {
 }
 
 export default class VariantsController extends Controller {
-  private logger: Logger;
-  private featureService: FeatureToggleService;
-  private accessService: AccessService;
+  private readonly logger: Logger;
+  private readonly featureService: FeatureToggleService;
+  private readonly accessService: AccessService;
 
   constructor(
     config: IUnleashConfig,

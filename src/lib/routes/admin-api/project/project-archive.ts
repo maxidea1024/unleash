@@ -34,15 +34,14 @@ const PATH_REVIVE = `${PATH}/revive`;
 
 export default class ProjectArchiveController extends Controller {
   private readonly logger: Logger;
-
-  private featureService: FeatureToggleService;
+  private readonly featureService: FeatureToggleService;
 
   private transactionalFeatureToggleService: (
     db: UnleashTransaction,
   ) => FeatureToggleService;
   private readonly startTransaction: TransactionCreator<UnleashTransaction>;
-  private openApiService: OpenApiService;
-  private flagResolver: IFlagResolver;
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     config: IUnleashConfig,
@@ -60,12 +59,11 @@ export default class ProjectArchiveController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/archive.js');
+    this.logger = config.getLogger('/admin-api/archive.ts');
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
-    this.transactionalFeatureToggleService =
-      transactionalFeatureToggleService;
+    this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;
 
     this.route({
@@ -218,5 +216,3 @@ export default class ProjectArchiveController extends Controller {
     res.send({ parentsWithChildFeatures, hasDeletedDependencies });
   }
 }
-
-module.exports = ProjectArchiveController;

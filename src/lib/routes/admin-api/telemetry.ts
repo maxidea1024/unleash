@@ -11,16 +11,16 @@ import {
   type TelemetrySettingsSchema,
 } from '../../openapi/spec/telemetry-settings-schema';
 
-class TelemetryController extends Controller {
-  config: IUnleashConfig;
-
-  openApiService: OpenApiService;
+export default class TelemetryController extends Controller {
+  readonly config: IUnleashConfig;
+  private readonly openApiService: OpenApiService;
 
   constructor(
     config: IUnleashConfig,
     { openApiService }: Pick<IUnleashServices, 'openApiService'>,
   ) {
     super(config);
+
     this.config = config;
     this.openApiService = openApiService;
 
@@ -59,5 +59,3 @@ class TelemetryController extends Controller {
     );
   }
 }
-
-export default TelemetryController;

@@ -33,7 +33,7 @@ import type { WithTransactional } from '../../db/transaction';
 
 const version = 1;
 
-class TagTypeController extends Controller {
+export default class TagTypeController extends Controller {
   private readonly logger: Logger;
   private readonly tagTypeService: WithTransactional<TagTypeService>;
   private readonly openApiService: OpenApiService;
@@ -50,9 +50,10 @@ class TagTypeController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/tag-type.js');
+    this.logger = config.getLogger('/admin-api/tag-type.ts');
     this.tagTypeService = transactionalTagTypeService;
     this.openApiService = openApiService;
+
     this.route({
       method: 'get',
       path: '',
@@ -71,6 +72,7 @@ class TagTypeController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '',
@@ -90,6 +92,7 @@ class TagTypeController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/validate',
@@ -110,6 +113,7 @@ class TagTypeController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'get',
       path: '/:name',
@@ -128,6 +132,7 @@ class TagTypeController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'put',
       path: '/:name',
@@ -148,6 +153,7 @@ class TagTypeController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'delete',
       path: '/:name',
@@ -235,6 +241,3 @@ class TagTypeController extends Controller {
     res.status(200).end();
   }
 }
-
-export default TagTypeController;
-module.exports = TagTypeController;

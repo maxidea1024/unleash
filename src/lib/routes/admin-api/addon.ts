@@ -48,7 +48,7 @@ type AddonServices = Pick<
 
 const PATH = '/';
 
-class AddonController extends Controller {
+export default class AddonController extends Controller {
   private readonly logger: Logger;
   private readonly addonService: AddonService;
   private readonly openApiService: OpenApiService;
@@ -302,6 +302,3 @@ Note: passing \`null\` as a value for the description property will set it to an
     );
   }
 }
-
-export default AddonController;
-module.exports = AddonController;

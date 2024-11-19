@@ -34,15 +34,15 @@ import {
 import type { IFlagResolver } from '../../../types';
 import type { UserSubscriptionsService } from '../../../features/user-subscriptions/user-subscriptions-service';
 
-class UserController extends Controller {
-  private accessService: AccessService;
-  private userService: UserService;
-  private userFeedbackService: UserFeedbackService;
-  private userSplashService: UserSplashService;
-  private openApiService: OpenApiService;
-  private projectService: ProjectService;
-  private flagResolver: IFlagResolver;
-  private userSubscriptionsService: UserSubscriptionsService;
+export default class UserController extends Controller {
+  private readonly accessService: AccessService;
+  private readonly userService: UserService;
+  private readonly userFeedbackService: UserFeedbackService;
+  private readonly userSplashService: UserSplashService;
+  private readonly openApiService: OpenApiService;
+  private readonly projectService: ProjectService;
+  private readonly flagResolver: IFlagResolver;
+  private readonly userSubscriptionsService: UserSubscriptionsService;
 
   constructor(
     config: IUnleashConfig,
@@ -277,6 +277,3 @@ class UserController extends Controller {
     }
   }
 }
-
-module.exports = UserController;
-export default UserController;

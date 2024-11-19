@@ -16,9 +16,9 @@ import {
 } from '../../../openapi/spec/health-report-schema';
 
 export default class ProjectHealthReport extends Controller {
-  private projectHealthService: ProjectHealthService;
-  private openApiService: OpenApiService;
-  private logger: Logger;
+  private readonly projectHealthService: ProjectHealthService;
+  private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -29,7 +29,7 @@ export default class ProjectHealthReport extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/project/health-report');
+    this.logger = config.getLogger('/admin-api/project/health-report.ts');
     this.projectHealthService = projectHealthService;
     this.openApiService = openApiService;
 

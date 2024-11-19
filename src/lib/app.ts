@@ -50,6 +50,7 @@ export default async function getApp(
   app.disable('x-powered-by');
   app.set('port', config.server.port);
   app.locals.baseUriPath = baseUriPath;
+
   if (config.server.serverMetrics && config.eventBus) {
     app.use(
       responseTimeMetrics(
@@ -105,6 +106,7 @@ export default async function getApp(
   if (config.enableOAS && services.openApiService) {
     services.openApiService.useDocs(app);
   }
+
   // Support CORS preflight requests for the frontend endpoints.
   // Preflight requests should not have Authorization headers,
   // so this must be handled before the API token middleware.

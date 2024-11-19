@@ -17,7 +17,7 @@ import {
 import type { InstanceAdminStatsSchema } from '../../openapi';
 import { serializeDates } from '../../types';
 
-class InstanceAdminController extends Controller {
+export default class InstanceAdminController extends Controller {
   private readonly instanceStatsService: InstanceStatsService;
   private readonly openApiService: OpenApiService;
   private readonly jsonCsvParser: Parser;
@@ -168,5 +168,3 @@ class InstanceAdminController extends Controller {
     res.send(csv);
   }
 }
-
-export default InstanceAdminController;

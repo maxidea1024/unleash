@@ -17,7 +17,7 @@ import { createResponseSchema } from '../../openapi/util/create-response-schema'
 import BadDataError from '../../error/bad-data-error';
 import { feedbackResponseSchema, getStandardResponses } from '../../openapi';
 
-class UserFeedbackController extends Controller {
+export default class UserFeedbackController extends Controller {
   private readonly logger: Logger;
   private readonly userFeedbackService: UserFeedbackService;
   private readonly openApiService: OpenApiService;
@@ -120,6 +120,3 @@ class UserFeedbackController extends Controller {
     );
   }
 }
-
-module.exports = UserFeedbackController;
-export default UserFeedbackController;
