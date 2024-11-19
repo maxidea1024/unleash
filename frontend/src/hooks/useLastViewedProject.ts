@@ -4,25 +4,25 @@ import { basePath } from 'utils/formatPath';
 import { useCustomEvent } from './useCustomEvent';
 
 export const useLastViewedProject = () => {
-    const key = `${basePath}:unleash-lastViewedProject`;
+  const key = `${basePath}:unleash-lastViewedProject`;
 
-    const [lastViewed, setLastViewed] = useState<string | undefined>(() => {
-        return getLocalStorageItem(key);
-    });
+  const [lastViewed, setLastViewed] = useState<string | undefined>(() => {
+    return getLocalStorageItem(key);
+  });
 
-    const { emitEvent } = useCustomEvent('lastViewedProjectUpdated', () => {
-        setLastViewed(getLocalStorageItem(key));
-    });
+  const { emitEvent } = useCustomEvent('lastViewedProjectUpdated', () => {
+    setLastViewed(getLocalStorageItem(key));
+  });
 
-    useEffect(() => {
-        if (lastViewed) {
-            setLocalStorageItem(key, lastViewed);
-            emitEvent();
-        }
-    }, [lastViewed, key, emitEvent]);
+  useEffect(() => {
+    if (lastViewed) {
+      setLocalStorageItem(key, lastViewed);
+      emitEvent();
+    }
+  }, [lastViewed, key, emitEvent]);
 
-    return {
-        lastViewed,
-        setLastViewed,
-    };
+  return {
+    lastViewed,
+    setLastViewed,
+  };
 };

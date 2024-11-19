@@ -3,25 +3,25 @@ import { createPersistentGlobalStateHook } from './usePersistentGlobalState';
 import type React from 'react';
 
 export interface IEventSettings {
-    showData: boolean;
+  showData: boolean;
 }
 
 interface IUseEventSettingsOutput {
-    eventSettings: IEventSettings;
-    setEventSettings: React.Dispatch<React.SetStateAction<IEventSettings>>;
+  eventSettings: IEventSettings;
+  setEventSettings: React.Dispatch<React.SetStateAction<IEventSettings>>;
 }
 
 export const useEventSettings = (): IUseEventSettingsOutput => {
-    const [eventSettings, setEventSettings] = useGlobalState();
+  const [eventSettings, setEventSettings] = useGlobalState();
 
-    return { eventSettings, setEventSettings };
+  return { eventSettings, setEventSettings };
 };
 
 const createInitialValue = (): IEventSettings => {
-    return { showData: false };
+  return { showData: false };
 };
 
 const useGlobalState = createPersistentGlobalStateHook<IEventSettings>(
-    `${basePath}:useEventSettings:v1`,
-    createInitialValue(),
+  `${basePath}:useEventSettings:v1`,
+  createInitialValue(),
 );

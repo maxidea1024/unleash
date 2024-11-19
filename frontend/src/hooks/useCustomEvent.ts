@@ -5,23 +5,23 @@ import { useCallback, useEffect } from 'react';
  * @param eventName The name of the event to listen for and dispatch.
  */
 export const useCustomEvent = (
-    eventName: string,
-    handler: (event: CustomEvent) => void,
+  eventName: string,
+  handler: (event: CustomEvent) => void,
 ) => {
-    const emitEvent = useCallback(() => {
-        const event = new CustomEvent(eventName);
-        document.dispatchEvent(event);
-    }, [eventName]);
+  const emitEvent = useCallback(() => {
+    const event = new CustomEvent(eventName);
+    document.dispatchEvent(event);
+  }, [eventName]);
 
-    useEffect(() => {
-        const eventListener = (event: Event) => handler(event as CustomEvent);
+  useEffect(() => {
+    const eventListener = (event: Event) => handler(event as CustomEvent);
 
-        document.addEventListener(eventName, eventListener);
+    document.addEventListener(eventName, eventListener);
 
-        return () => {
-            document.removeEventListener(eventName, eventListener);
-        };
-    }, [eventName, handler]);
+    return () => {
+      document.removeEventListener(eventName, eventListener);
+    };
+  }, [eventName, handler]);
 
-    return { emitEvent };
+  return { emitEvent };
 };

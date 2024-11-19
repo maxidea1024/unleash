@@ -3,19 +3,19 @@ import { useSWRConfig } from 'swr';
 type Cache = ReturnType<typeof useSWRConfig>['cache'];
 
 export const clearCacheEntries = (
-    cache: Cache,
-    currentKey: string,
-    clearPrefix: string,
-    SWR_CACHE_SIZE = 1,
+  cache: Cache,
+  currentKey: string,
+  clearPrefix: string,
+  SWR_CACHE_SIZE = 1,
 ) => {
-    const keys = [...cache.keys()];
+  const keys = [...cache.keys()];
 
-    const filteredKeys = keys.filter(
-        (key) => key.startsWith(clearPrefix) && key !== currentKey,
-    );
-    const keysToDelete = filteredKeys.slice(SWR_CACHE_SIZE - 1);
+  const filteredKeys = keys.filter(
+    (key) => key.startsWith(clearPrefix) && key !== currentKey,
+  );
+  const keysToDelete = filteredKeys.slice(SWR_CACHE_SIZE - 1);
 
-    keysToDelete.forEach((key) => cache.delete(key));
+  keysToDelete.forEach((key) => cache.delete(key));
 };
 
 /**
@@ -24,10 +24,10 @@ export const clearCacheEntries = (
  by the `clearPrefix`
  */
 export const useClearSWRCache = (
-    currentKey: string,
-    clearPrefix: string,
-    SWR_CACHE_SIZE = 1,
+  currentKey: string,
+  clearPrefix: string,
+  SWR_CACHE_SIZE = 1,
 ) => {
-    const { cache } = useSWRConfig();
-    clearCacheEntries(cache, currentKey, clearPrefix, SWR_CACHE_SIZE);
+  const { cache } = useSWRConfig();
+  clearCacheEntries(cache, currentKey, clearPrefix, SWR_CACHE_SIZE);
 };

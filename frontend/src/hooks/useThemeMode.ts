@@ -6,33 +6,33 @@ import darkTheme from 'themes/dark-theme';
 import type { Theme } from '@mui/material/styles/createTheme';
 
 interface IUseThemeModeOutput {
-    resolveTheme: () => Theme;
-    onSetThemeMode: () => void;
-    themeMode: themeMode;
+  resolveTheme: () => Theme;
+  onSetThemeMode: () => void;
+  themeMode: themeMode;
 }
 
 export const useThemeMode = (): IUseThemeModeOutput => {
-    const { themeMode, setThemeMode } = useContext(UIContext);
-    const key = 'unleash-theme';
+  const { themeMode, setThemeMode } = useContext(UIContext);
+  const key = 'unleash-theme';
 
-    const resolveTheme = () => {
-        if (themeMode === 'light') {
-            return mainTheme;
-        }
+  const resolveTheme = () => {
+    if (themeMode === 'light') {
+      return mainTheme;
+    }
 
-        return darkTheme;
-    };
+    return darkTheme;
+  };
 
-    const onSetThemeMode = () => {
-        setThemeMode((prev: themeMode) => {
-            if (prev === 'light') {
-                setLocalStorageItem(key, 'dark');
-                return 'dark';
-            }
-            setLocalStorageItem(key, 'light');
-            return 'light';
-        });
-    };
+  const onSetThemeMode = () => {
+    setThemeMode((prev: themeMode) => {
+      if (prev === 'light') {
+        setLocalStorageItem(key, 'dark');
+        return 'dark';
+      }
+      setLocalStorageItem(key, 'light');
+      return 'light';
+    });
+  };
 
-    return { resolveTheme, onSetThemeMode, themeMode };
+  return { resolveTheme, onSetThemeMode, themeMode };
 };

@@ -3,27 +3,27 @@ import { createPersistentGlobalStateHook } from './usePersistentGlobalState';
 import type React from 'react';
 
 export interface ILocationSettings {
-    locale: string;
+  locale: string;
 }
 
 interface IUseLocationSettingsOutput {
-    locationSettings: ILocationSettings;
-    setLocationSettings: React.Dispatch<
-        React.SetStateAction<ILocationSettings>
-    >;
+  locationSettings: ILocationSettings;
+  setLocationSettings: React.Dispatch<
+    React.SetStateAction<ILocationSettings>
+  >;
 }
 
 export const useLocationSettings = (): IUseLocationSettingsOutput => {
-    const [locationSettings, setLocationSettings] = useGlobalState();
+  const [locationSettings, setLocationSettings] = useGlobalState();
 
-    return { locationSettings, setLocationSettings };
+  return { locationSettings, setLocationSettings };
 };
 
 const createInitialValue = (): ILocationSettings => {
-    return { locale: navigator.language };
+  return { locale: navigator.language };
 };
 
 const useGlobalState = createPersistentGlobalStateHook<ILocationSettings>(
-    `${basePath}:useLocationSettings:v1`,
-    createInitialValue(),
+  `${basePath}:useLocationSettings:v1`,
+  createInitialValue(),
 );
