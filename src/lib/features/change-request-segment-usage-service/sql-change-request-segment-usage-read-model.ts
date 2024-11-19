@@ -12,7 +12,7 @@ export class ChangeRequestSegmentUsageReadModel
     this.db = db;
   }
 
-  public async getStrategiesUsedInActiveChangeRequests(
+  async getStrategiesUsedInActiveChangeRequests(
     segmentId: number,
   ): Promise<ChangeRequestStrategy[]> {
     const query = this.db.raw(

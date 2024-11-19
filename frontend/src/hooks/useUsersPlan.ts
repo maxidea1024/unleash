@@ -37,7 +37,9 @@ const calculatePaidUsers = (
   isBillingUsers: boolean,
   seats: number = 0,
 ) => {
-  if (!isBillingUsers || !seats) return users;
+  if (!isBillingUsers || !seats) {
+    return users;
+  }
 
   users
     .sort((a, b) => a.createdAt.localeCompare(b.createdAt))

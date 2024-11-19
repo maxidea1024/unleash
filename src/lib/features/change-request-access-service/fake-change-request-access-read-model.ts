@@ -10,19 +10,19 @@ export class FakeChangeRequestAccessReadModel
     this.isChangeRequestEnabled = isChangeRequestEnabled;
   }
 
-  public async canBypassChangeRequest(): Promise<boolean> {
+  async canBypassChangeRequest(): Promise<boolean> {
     return this.canBypass;
   }
 
-  public async canBypassChangeRequestForProject(): Promise<boolean> {
+  async canBypassChangeRequestForProject(): Promise<boolean> {
     return this.canBypass;
   }
 
-  public async isChangeRequestsEnabled(): Promise<boolean> {
+  async isChangeRequestsEnabled(): Promise<boolean> {
     return this.isChangeRequestEnabled;
   }
 
-  public async isChangeRequestsEnabledForProject(): Promise<boolean> {
+  async isChangeRequestsEnabledForProject(): Promise<boolean> {
     return this.isChangeRequestEnabled;
   }
 }

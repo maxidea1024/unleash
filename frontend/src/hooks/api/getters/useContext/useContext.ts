@@ -4,43 +4,43 @@ import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
 const useContext = (name: string, options: SWRConfiguration = {}) => {
-    const fetcher = async () => {
-        const path = formatApiPath(`api/admin/context/${name}`);
-        return fetch(path, {
-            method: 'GET',
-        })
-            .then(handleErrorResponses('Context data'))
-            .then((res) => res.json());
-    };
+  const fetcher = async () => {
+    const path = formatApiPath(`api/admin/context/${name}`);
+    return fetch(path, {
+      method: 'GET',
+    })
+      .then(handleErrorResponses('Context data'))
+      .then((res) => res.json());
+  };
 
-    const FEATURE_CACHE_KEY = `api/admin/context/${name}`;
+  const FEATURE_CACHE_KEY = `api/admin/context/${name}`;
 
-    const { data, error } = useSWR(FEATURE_CACHE_KEY, fetcher, {
-        ...options,
-    });
+  const { data, error } = useSWR(FEATURE_CACHE_KEY, fetcher, {
+    ...options,
+  });
 
-    const [loading, setLoading] = useState(!error && !data);
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetch = () => {
-        mutate(FEATURE_CACHE_KEY);
-    };
+  const refetch = () => {
+    mutate(FEATURE_CACHE_KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        context: data || {
-            name: '',
-            description: '',
-            legalValues: [],
-            stickiness: false,
-        },
-        error,
-        loading,
-        refetch,
-        FEATURE_CACHE_KEY,
-    };
+  return {
+    context: data || {
+      name: '',
+      description: '',
+      legalValues: [],
+      stickiness: false,
+    },
+    error,
+    loading,
+    refetch,
+    FEATURE_CACHE_KEY,
+  };
 };
 
 export default useContext;

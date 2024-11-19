@@ -14,7 +14,7 @@ export class ChangeRequestAccessReadModel
     this.accessService = accessService;
   }
 
-  public async canBypassChangeRequest(
+  async canBypassChangeRequest(
     project: string,
     environment: string,
     user?: User,
@@ -33,7 +33,7 @@ export class ChangeRequestAccessReadModel
     return canSkipChangeRequest || !changeRequestEnabled;
   }
 
-  public async canBypassChangeRequestForProject(
+  async canBypassChangeRequestForProject(
     project: string,
     user?: User,
   ): Promise<boolean> {
@@ -50,7 +50,7 @@ export class ChangeRequestAccessReadModel
     return canSkipChangeRequest || !changeRequestEnabled;
   }
 
-  public async isChangeRequestsEnabled(
+  async isChangeRequestsEnabled(
     project: string,
     environment: string,
   ): Promise<boolean> {
@@ -65,7 +65,7 @@ export class ChangeRequestAccessReadModel
     return present;
   }
 
-  public async isChangeRequestsEnabledForProject(
+  async isChangeRequestsEnabledForProject(
     project: string,
   ): Promise<boolean> {
     const result = await this.db('change_request_settings')

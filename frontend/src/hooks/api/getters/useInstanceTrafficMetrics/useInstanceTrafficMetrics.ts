@@ -6,11 +6,8 @@ import type { TrafficUsageDataSegmentedSchema } from 'openapi';
 
 export interface IInstanceTrafficMetricsResponse {
   usage: TrafficUsageDataSegmentedSchema;
-
   refetch: () => void;
-
   loading: boolean;
-
   error?: Error;
 }
 

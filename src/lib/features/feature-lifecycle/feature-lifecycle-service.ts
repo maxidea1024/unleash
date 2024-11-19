@@ -173,7 +173,7 @@ export class FeatureLifecycleService {
     }
   }
 
-  public async featureCompleted(
+  async featureCompleted(
     feature: string,
     projectId: string,
     status: FeatureLifecycleCompletedSchema,
@@ -198,7 +198,7 @@ export class FeatureLifecycleService {
     );
   }
 
-  public async featureUncompleted(
+  async featureUncompleted(
     feature: string,
     projectId: string,
     auditUser: IAuditUser,

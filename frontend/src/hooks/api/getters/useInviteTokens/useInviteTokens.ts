@@ -5,11 +5,12 @@ import type { IPublicSignupTokens } from 'interfaces/publicSignupTokens';
 
 export const url = 'api/admin/invite-link/tokens';
 
-const fetcher = () => {
+const fetcher = async () => {
   const path = formatApiPath(url);
-  return fetch(path, {
+  const res = await fetch(path, {
     method: 'GET',
-  }).then((res) => res.json());
+  });
+  return await res.json();
 };
 
 export const useInviteTokens = (options: SWRConfiguration = {}) => {

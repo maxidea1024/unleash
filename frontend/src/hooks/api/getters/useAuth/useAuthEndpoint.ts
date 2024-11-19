@@ -70,8 +70,9 @@ export const useAuthEndpoint = (): IUseAuthEndpointOutput => {
   };
 };
 
-const fetchAuthStatus = (): Promise<AuthEndpointResponse> => {
-  return fetch(USER_ENDPOINT_PATH).then((res) => res.json());
+const fetchAuthStatus = async (): Promise<AuthEndpointResponse> => {
+  const res = await fetch(USER_ENDPOINT_PATH);
+  return await res.json();
 };
 
 const swrConfig = {

@@ -5,33 +5,33 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import { useEnterpriseSWR } from '../useEnterpriseSWR/useEnterpriseSWR';
 
 const useAuthSettings = (id: string, options: SWRConfiguration = {}) => {
-    const fetcher = async () => {
-        const path = formatApiPath(`api/admin/auth/${id}/settings`);
-        const res = await fetch(path, {
-            method: 'GET',
-        }).then(handleErrorResponses('Auth settings'));
-        return res.json();
-    };
+  const fetcher = async () => {
+    const path = formatApiPath(`api/admin/auth/${id}/settings`);
+    const res = await fetch(path, {
+      method: 'GET',
+    }).then(handleErrorResponses('Auth settings'));
+    return res.json();
+  };
 
-    const KEY = `api/admin/auth/${id}/settings`;
+  const KEY = `api/admin/auth/${id}/settings`;
 
-    const { data, error } = useEnterpriseSWR({}, KEY, fetcher, options);
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useEnterpriseSWR({}, KEY, fetcher, options);
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetch = () => {
-        mutate(KEY);
-    };
+  const refetch = () => {
+    mutate(KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        config: data || {},
-        error,
-        loading,
-        refetch,
-    };
+  return {
+    config: data || {},
+    error,
+    loading,
+    refetch,
+  };
 };
 
 export default useAuthSettings;
