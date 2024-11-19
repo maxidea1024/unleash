@@ -5,35 +5,35 @@ import { formatApiPath } from 'utils/formatPath';
  * @see https://orval.dev/guides/custom-client
  */
 export const fetcher = async <T>({
-    url,
-    method,
-    params,
-    data,
-    headers,
-    credentials = 'include',
+  url,
+  method,
+  params,
+  data,
+  headers,
+  credentials = 'include',
 }: {
-    url: string;
-    method: 'get' | 'post' | 'put' | 'delete' | 'patch';
-    params?: string | URLSearchParams | Record<string, string> | string[][];
-    data?: BodyType<unknown>;
-    headers?: HeadersInit;
-    credentials?: RequestCredentials;
+  url: string;
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch';
+  params?: string | URLSearchParams | Record<string, string> | string[][];
+  data?: BodyType<unknown>;
+  headers?: HeadersInit;
+  credentials?: RequestCredentials;
 }): Promise<T> => {
-    const response = await fetch(
-        `${formatApiPath(url)}${new URLSearchParams(params)}`,
-        {
-            method,
-            credentials,
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                ...headers,
-            },
-            ...(data ? { body: JSON.stringify(data) } : {}),
-        },
-    );
+  const response = await fetch(
+    `${formatApiPath(url)}${new URLSearchParams(params)}`,
+    {
+      method,
+      credentials,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      ...(data ? { body: JSON.stringify(data) } : {}),
+    },
+  );
 
-    return response.json();
+  return response.json();
 };
 
 export default fetcher;

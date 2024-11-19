@@ -9,8 +9,8 @@ import type { VariantFlagSchemaPayloadType } from './variantFlagSchemaPayloadTyp
  * Additional data associated with this variant.
  */
 export type VariantFlagSchemaPayload = {
-    /** The type of data contained. */
-    type?: VariantFlagSchemaPayloadType;
-    /** The actual associated data */
-    value?: string;
+  /** The type of data contained. */
+  type?: VariantFlagSchemaPayloadType;
+  /** The actual associated data */
+  value?: string;
 };

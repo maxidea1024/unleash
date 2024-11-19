@@ -9,8 +9,8 @@ import type { VariantSchemaPayloadType } from './variantSchemaPayloadType';
  * Extra data configured for this variant
  */
 export type VariantSchemaPayload = {
-    /** The type of the value. Commonly used types are string, number, json and csv. */
-    type: VariantSchemaPayloadType;
-    /** The actual value of payload */
-    value: string;
+  /** The type of the value. Commonly used types are string, number, json and csv. */
+  type: VariantSchemaPayloadType;
+  /** The actual value of payload */
+  value: string;
 };

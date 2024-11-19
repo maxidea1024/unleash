@@ -1,5 +1,5 @@
 export enum TokenType {
-    ADMIN = 'ADMIN',
-    CLIENT = 'CLIENT',
-    FRONTEND = 'FRONTEND',
+  ADMIN = 'ADMIN',
+  CLIENT = 'CLIENT',
+  FRONTEND = 'FRONTEND',
 }

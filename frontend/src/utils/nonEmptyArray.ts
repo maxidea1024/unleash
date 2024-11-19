@@ -1,3 +1,3 @@
 export const nonEmptyArray = (value: unknown): boolean => {
-    return Boolean(value) && Array.isArray(value) && value.length > 0;
+  return Boolean(value) && Array.isArray(value) && value.length > 0;
 };

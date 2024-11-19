@@ -9,6 +9,6 @@ import type { UserAccessSchema } from './userAccessSchema';
  * Data containing an overview of all the projects and groups users have access to
  */
 export interface AccessOverviewSchema {
-    /** A list of user access details */
-    overview?: UserAccessSchema[];
+  /** A list of user access details */
+  overview?: UserAccessSchema[];
 }
