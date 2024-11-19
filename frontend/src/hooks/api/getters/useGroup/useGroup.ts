@@ -5,38 +5,38 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { IGroup } from 'interfaces/group';
 
 export interface IUseGroupOutput {
-    group?: IGroup;
-    refetchGroup: () => void;
-    loading: boolean;
-    error?: Error;
+  group?: IGroup;
+  refetchGroup: () => void;
+  loading: boolean;
+  error?: Error;
 }
 
 export const mapGroupUsers = (users: any[]) =>
-    users.map((user) => ({
-        ...user.user,
-        joinedAt: new Date(user.joinedAt),
-        createdBy: user.createdBy,
-    }));
+  users.map((user) => ({
+    ...user.user,
+    joinedAt: new Date(user.joinedAt),
+    createdBy: user.createdBy,
+  }));
 
 export const useGroup = (groupId: number): IUseGroupOutput => {
-    const { data, error, mutate } = useSWR(
-        formatApiPath(`api/admin/groups/${groupId}`),
-        fetcher,
-    );
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/groups/${groupId}`),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            group: data && { ...data, users: mapGroupUsers(data?.users ?? []) },
-            loading: !error && !data,
-            refetchGroup: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      group: data && { ...data, users: mapGroupUsers(data?.users ?? []) },
+      loading: !error && !data,
+      refetchGroup: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Group'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Group'))
+    .then((res) => res.json());
 };

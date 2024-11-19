@@ -6,33 +6,33 @@ import type { IUser } from 'interfaces/user';
 import type { IRole } from 'interfaces/role';
 
 interface IUseUsersOutput {
-    users: IUser[];
-    roles: IRole[];
-    loading: boolean;
-    refetch: () => void;
-    error?: Error;
+  users: IUser[];
+  roles: IRole[];
+  loading: boolean;
+  refetch: () => void;
+  error?: Error;
 }
 
 export const useUsers = (): IUseUsersOutput => {
-    const { data, error, mutate } = useSWR(
-        formatApiPath(`api/admin/user-admin`),
-        fetcher,
-    );
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/user-admin`),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            users: data?.users ?? [],
-            roles: data?.rootRoles ?? [],
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      users: data?.users ?? [],
+      roles: data?.rootRoles ?? [],
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Users'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Users'))
+    .then((res) => res.json());
 };

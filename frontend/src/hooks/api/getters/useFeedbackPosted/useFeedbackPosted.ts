@@ -8,31 +8,31 @@ const KEY = `api/admin/feedback`;
 const path = formatApiPath(KEY);
 
 const useFeedbackPosted = (options: SWRConfiguration = {}) => {
-    const fetcher = () => {
-        return fetch(path, {
-            method: 'GET',
-        })
-            .then(handleErrorResponses('FeedbackPosted'))
-            .then((res) => res.json());
-    };
+  const fetcher = () => {
+    return fetch(path, {
+      method: 'GET',
+    })
+      .then(handleErrorResponses('FeedbackPosted'))
+      .then((res) => res.json());
+  };
 
-    const { data, error } = useSWR<FeedbackListSchema>(KEY, fetcher, options);
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useSWR<FeedbackListSchema>(KEY, fetcher, options);
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetchFeedback = () => {
-        mutate(KEY);
-    };
+  const refetchFeedback = () => {
+    mutate(KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        feedback: data || [],
-        error,
-        loading,
-        refetchFeedback,
-    };
+  return {
+    feedback: data || [],
+    error,
+    loading,
+    refetchFeedback,
+  };
 };
 
 export default useFeedbackPosted;

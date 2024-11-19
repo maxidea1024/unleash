@@ -11,29 +11,29 @@ const ENDPOINT = 'api/admin/release-plan-templates';
 const DEFAULT_DATA: IReleasePlanTemplate[] = [];
 
 export const useReleasePlanTemplates = () => {
-    const { isEnterprise } = useUiConfig();
-    const releasePlansEnabled = useUiFlag('releasePlans');
+  const { isEnterprise } = useUiConfig();
+  const releasePlansEnabled = useUiFlag('releasePlans');
 
-    const { data, error, mutate } = useConditionalSWR<IReleasePlanTemplate[]>(
-        isEnterprise() && releasePlansEnabled,
-        DEFAULT_DATA,
-        formatApiPath(ENDPOINT),
-        fetcher,
-    );
+  const { data, error, mutate } = useConditionalSWR<IReleasePlanTemplate[]>(
+    isEnterprise() && releasePlansEnabled,
+    DEFAULT_DATA,
+    formatApiPath(ENDPOINT),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            templates: data ?? [],
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      templates: data ?? [],
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Release plan templates'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Release plan templates'))
+    .then((res) => res.json());
 };

@@ -10,36 +10,36 @@ import AccessContext from 'contexts/AccessContext';
 const ENDPOINT = 'api/admin/signal-endpoints';
 
 const DEFAULT_DATA = {
-    signalEndpoints: [],
+  signalEndpoints: [],
 };
 
 export const useSignalEndpoints = () => {
-    const { isAdmin } = useContext(AccessContext);
-    const { isEnterprise } = useUiConfig();
-    const signalsEnabled = useUiFlag('signals');
+  const { isAdmin } = useContext(AccessContext);
+  const { isEnterprise } = useUiConfig();
+  const signalsEnabled = useUiFlag('signals');
 
-    const { data, error, mutate } = useConditionalSWR<{
-        signalEndpoints: ISignalEndpoint[];
-    }>(
-        isEnterprise() && isAdmin && signalsEnabled,
-        DEFAULT_DATA,
-        formatApiPath(ENDPOINT),
-        fetcher,
-    );
+  const { data, error, mutate } = useConditionalSWR<{
+    signalEndpoints: ISignalEndpoint[];
+  }>(
+    isEnterprise() && isAdmin && signalsEnabled,
+    DEFAULT_DATA,
+    formatApiPath(ENDPOINT),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            signalEndpoints: data?.signalEndpoints ?? [],
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      signalEndpoints: data?.signalEndpoints ?? [],
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Signal endpoints'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Signal endpoints'))
+    .then((res) => res.json());
 };

@@ -5,36 +5,36 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { TrafficUsageDataSegmentedSchema } from 'openapi';
 
 export interface IInstanceTrafficMetricsResponse {
-    usage: TrafficUsageDataSegmentedSchema;
+  usage: TrafficUsageDataSegmentedSchema;
 
-    refetch: () => void;
+  refetch: () => void;
 
-    loading: boolean;
+  loading: boolean;
 
-    error?: Error;
+  error?: Error;
 }
 
 export const useInstanceTrafficMetrics = (
-    period: string,
+  period: string,
 ): IInstanceTrafficMetricsResponse => {
-    const { data, error, mutate } = useSWR(
-        formatApiPath(`api/admin/metrics/traffic/${period}`),
-        fetcher,
-    );
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/metrics/traffic/${period}`),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            usage: data,
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      usage: data,
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Instance Metrics'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Instance Metrics'))
+    .then((res) => res.json());
 };

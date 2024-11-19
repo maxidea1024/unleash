@@ -1,34 +1,34 @@
 import type {
-    FeatureTypeSchema,
-    UpdateFeatureTypeLifetimeSchema,
+  FeatureTypeSchema,
+  UpdateFeatureTypeLifetimeSchema,
 } from 'openapi';
 import useAPI from '../useApi/useApi';
 
 export const useFeatureTypeApi = () => {
-    const { makeRequest, createRequest, errors, loading } = useAPI({
-        propagateErrors: true,
+  const { makeRequest, createRequest, errors, loading } = useAPI({
+    propagateErrors: true,
+  });
+
+  const updateFeatureTypeLifetime = async (
+    featureTypeId: FeatureTypeSchema['id'],
+    lifetimeDays: UpdateFeatureTypeLifetimeSchema['lifetimeDays'],
+  ) => {
+    const payload: UpdateFeatureTypeLifetimeSchema = {
+      lifetimeDays,
+    };
+
+    const path = `api/admin/feature-types/${featureTypeId}/lifetime`;
+    const req = createRequest(path, {
+      method: 'PUT',
+      body: JSON.stringify(payload),
     });
 
-    const updateFeatureTypeLifetime = async (
-        featureTypeId: FeatureTypeSchema['id'],
-        lifetimeDays: UpdateFeatureTypeLifetimeSchema['lifetimeDays'],
-    ) => {
-        const payload: UpdateFeatureTypeLifetimeSchema = {
-            lifetimeDays,
-        };
+    await makeRequest(req.caller, req.id);
+  };
 
-        const path = `api/admin/feature-types/${featureTypeId}/lifetime`;
-        const req = createRequest(path, {
-            method: 'PUT',
-            body: JSON.stringify(payload),
-        });
-
-        await makeRequest(req.caller, req.id);
-    };
-
-    return {
-        updateFeatureTypeLifetime,
-        errors,
-        loading,
-    };
+  return {
+    updateFeatureTypeLifetime,
+    errors,
+    loading,
+  };
 };

@@ -6,38 +6,38 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { GetProjectsParams, ProjectsSchema } from 'openapi';
 
 const useProjects = (options: SWRConfiguration & GetProjectsParams = {}) => {
-    const KEY = `api/admin/projects${options.archived ? '?archived=true' : ''}`;
+  const KEY = `api/admin/projects${options.archived ? '?archived=true' : ''}`;
 
-    const fetcher = () => {
-        const path = formatApiPath(KEY);
-        return fetch(path, {
-            method: 'GET',
-        })
-            .then(handleErrorResponses('Projects'))
-            .then((res) => res.json());
-    };
+  const fetcher = () => {
+    const path = formatApiPath(KEY);
+    return fetch(path, {
+      method: 'GET',
+    })
+      .then(handleErrorResponses('Projects'))
+      .then((res) => res.json());
+  };
 
-    const { data, error } = useSWR<{ projects: ProjectsSchema['projects'] }>(
-        KEY,
-        fetcher,
-        options,
-    );
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useSWR<{ projects: ProjectsSchema['projects'] }>(
+    KEY,
+    fetcher,
+    options,
+  );
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetch = () => {
-        mutate(KEY);
-    };
+  const refetch = () => {
+    mutate(KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        projects: data?.projects || [],
-        error,
-        loading,
-        refetch,
-    };
+  return {
+    projects: data?.projects || [],
+    error,
+    loading,
+    refetch,
+  };
 };
 
 export default useProjects;

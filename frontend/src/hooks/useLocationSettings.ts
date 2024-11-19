@@ -15,7 +15,6 @@ interface IUseLocationSettingsOutput {
 
 export const useLocationSettings = (): IUseLocationSettingsOutput => {
   const [locationSettings, setLocationSettings] = useGlobalState();
-
   return { locationSettings, setLocationSettings };
 };
 

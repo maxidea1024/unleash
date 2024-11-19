@@ -4,28 +4,28 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { ProfileSchema } from '../../../../openapi';
 
 export interface IUseProfileOutput {
-    profile?: ProfileSchema;
-    refetchProfile: () => void;
-    loading: boolean;
-    error?: Error;
+  profile?: ProfileSchema;
+  refetchProfile: () => void;
+  loading: boolean;
+  error?: Error;
 }
 
 export const useProfile = (): IUseProfileOutput => {
-    const { data, error, mutate } = useSWR(
-        formatApiPath('api/admin/user/profile'),
-        fetcher,
-    );
+  const { data, error, mutate } = useSWR(
+    formatApiPath('api/admin/user/profile'),
+    fetcher,
+  );
 
-    return {
-        profile: data,
-        loading: !error && !data,
-        refetchProfile: () => mutate(),
-        error,
-    };
+  return {
+    profile: data,
+    loading: !error && !data,
+    refetchProfile: () => mutate(),
+    error,
+  };
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Profile'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Profile'))
+    .then((res) => res.json());
 };

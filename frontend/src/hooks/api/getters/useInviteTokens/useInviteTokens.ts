@@ -6,25 +6,25 @@ import type { IPublicSignupTokens } from 'interfaces/publicSignupTokens';
 export const url = 'api/admin/invite-link/tokens';
 
 const fetcher = () => {
-    const path = formatApiPath(url);
-    return fetch(path, {
-        method: 'GET',
-    }).then((res) => res.json());
+  const path = formatApiPath(url);
+  return fetch(path, {
+    method: 'GET',
+  }).then((res) => res.json());
 };
 
 export const useInviteTokens = (options: SWRConfiguration = {}) => {
-    const { data, error } = useSWR<IPublicSignupTokens>(url, fetcher, options);
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useSWR<IPublicSignupTokens>(url, fetcher, options);
+  const [loading, setLoading] = useState(!error && !data);
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        data: data
-            ? { tokens: data.tokens?.filter((token) => token.enabled) }
-            : undefined,
-        error,
-        loading,
-    };
+  return {
+    data: data
+      ? { tokens: data.tokens?.filter((token) => token.enabled) }
+      : undefined,
+    error,
+    loading,
+  };
 };

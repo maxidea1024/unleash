@@ -13,7 +13,6 @@ interface IUseEventSettingsOutput {
 
 export const useEventSettings = (): IUseEventSettingsOutput => {
   const [eventSettings, setEventSettings] = useGlobalState();
-
   return { eventSettings, setEventSettings };
 };
 

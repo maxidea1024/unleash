@@ -1,24 +1,24 @@
 import {
-    type IAuthEndpointDetailsResponse,
-    useAuthEndpoint,
+  type IAuthEndpointDetailsResponse,
+  useAuthEndpoint,
 } from './useAuthEndpoint';
 
 interface IUseAuthDetailsOutput {
-    authDetails?: IAuthEndpointDetailsResponse;
-    refetchAuthDetails: () => void;
-    loading: boolean;
-    error?: Error;
+  authDetails?: IAuthEndpointDetailsResponse;
+  refetchAuthDetails: () => void;
+  loading: boolean;
+  error?: Error;
 }
 
 export const useAuthDetails = (): IUseAuthDetailsOutput => {
-    const auth = useAuthEndpoint();
-    const authDetails =
-        auth.data && 'type' in auth.data ? auth.data : undefined;
+  const auth = useAuthEndpoint();
+  const authDetails =
+    auth.data && 'type' in auth.data ? auth.data : undefined;
 
-    return {
-        authDetails,
-        refetchAuthDetails: auth.refetchAuth,
-        loading: auth.loading,
-        error: auth.error,
-    };
+  return {
+    authDetails,
+    refetchAuthDetails: auth.refetchAuth,
+    loading: auth.loading,
+    error: auth.error,
+  };
 };

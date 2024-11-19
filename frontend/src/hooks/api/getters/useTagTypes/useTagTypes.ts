@@ -5,33 +5,33 @@ import type { ITagType } from 'interfaces/tags';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
 const useTagTypes = (options: SWRConfiguration = {}) => {
-    const fetcher = async () => {
-        const path = formatApiPath(`api/admin/tag-types`);
-        const res = await fetch(path, {
-            method: 'GET',
-        }).then(handleErrorResponses('Tag types'));
-        return res.json();
-    };
+  const fetcher = async () => {
+    const path = formatApiPath(`api/admin/tag-types`);
+    const res = await fetch(path, {
+      method: 'GET',
+    }).then(handleErrorResponses('Tag types'));
+    return res.json();
+  };
 
-    const KEY = `api/admin/tag-types`;
+  const KEY = `api/admin/tag-types`;
 
-    const { data, error } = useSWR(KEY, fetcher, options);
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useSWR(KEY, fetcher, options);
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetch = () => {
-        mutate(KEY);
-    };
+  const refetch = () => {
+    mutate(KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        tagTypes: (data?.tagTypes as ITagType[]) || [],
-        error,
-        loading,
-        refetch,
-    };
+  return {
+    tagTypes: (data?.tagTypes as ITagType[]) || [],
+    error,
+    loading,
+    refetch,
+  };
 };
 
 export default useTagTypes;

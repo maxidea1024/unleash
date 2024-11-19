@@ -1,64 +1,64 @@
 import { useCallback } from 'react';
 import useAPI from '../useApi/useApi';
 import type {
-    ICreateInvitedUser,
-    IPublicSignupTokenCreate,
-    IPublicSignupTokenUpdate,
+  ICreateInvitedUser,
+  IPublicSignupTokenCreate,
+  IPublicSignupTokenUpdate,
 } from 'interfaces/publicSignupTokens';
 
 const URI = 'api/admin/invite-link/tokens';
 
 export const useInviteTokenApi = () => {
-    const { makeRequest, createRequest, errors, loading } = useAPI({
-        propagateErrors: true,
-    });
+  const { makeRequest, createRequest, errors, loading } = useAPI({
+    propagateErrors: true,
+  });
 
-    const createToken = useCallback(
-        async (request: IPublicSignupTokenCreate) => {
-            const req = createRequest(URI, {
-                method: 'POST',
-                body: JSON.stringify(request),
-            });
+  const createToken = useCallback(
+    async (request: IPublicSignupTokenCreate) => {
+      const req = createRequest(URI, {
+        method: 'POST',
+        body: JSON.stringify(request),
+      });
 
-            return makeRequest(req.caller, req.id);
-        },
-        [createRequest, makeRequest],
-    );
+      return makeRequest(req.caller, req.id);
+    },
+    [createRequest, makeRequest],
+  );
 
-    const updateToken = useCallback(
-        async (tokenName: string, value: IPublicSignupTokenUpdate) => {
-            const req = createRequest(`${URI}/${tokenName}`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    ...(value.expiresAt ? { expiresAt: value.expiresAt } : {}),
-                    ...(value.enabled !== undefined
-                        ? { enabled: value.enabled }
-                        : {}),
-                }),
-            });
+  const updateToken = useCallback(
+    async (tokenName: string, value: IPublicSignupTokenUpdate) => {
+      const req = createRequest(`${URI}/${tokenName}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          ...(value.expiresAt ? { expiresAt: value.expiresAt } : {}),
+          ...(value.enabled !== undefined
+            ? { enabled: value.enabled }
+            : {}),
+        }),
+      });
 
-            return makeRequest(req.caller, req.id);
-        },
-        [createRequest, makeRequest],
-    );
+      return makeRequest(req.caller, req.id);
+    },
+    [createRequest, makeRequest],
+  );
 
-    const addUser = useCallback(
-        async (secret: string, value: ICreateInvitedUser) => {
-            const req = createRequest(`/invite/${secret}/signup`, {
-                method: 'POST',
-                body: JSON.stringify(value),
-            });
+  const addUser = useCallback(
+    async (secret: string, value: ICreateInvitedUser) => {
+      const req = createRequest(`/invite/${secret}/signup`, {
+        method: 'POST',
+        body: JSON.stringify(value),
+      });
 
-            return makeRequest(req.caller, req.id);
-        },
-        [createRequest, makeRequest],
-    );
+      return makeRequest(req.caller, req.id);
+    },
+    [createRequest, makeRequest],
+  );
 
-    return {
-        createToken,
-        updateToken,
-        addUser,
-        errors,
-        loading,
-    };
+  return {
+    createToken,
+    updateToken,
+    addUser,
+    errors,
+    loading,
+  };
 };

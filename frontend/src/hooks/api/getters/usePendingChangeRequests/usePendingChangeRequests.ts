@@ -4,22 +4,22 @@ import type { ChangeRequestType } from 'component/changeRequest/changeRequest.ty
 import { useEnterpriseSWR } from '../useEnterpriseSWR/useEnterpriseSWR';
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('ChangeRequest'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('ChangeRequest'))
+    .then((res) => res.json());
 };
 
 export const usePendingChangeRequests = (project: string) => {
-    const { data, error, mutate } = useEnterpriseSWR<ChangeRequestType[]>(
-        [],
-        formatApiPath(`api/admin/projects/${project}/change-requests/pending`),
-        fetcher,
-    );
+  const { data, error, mutate } = useEnterpriseSWR<ChangeRequestType[]>(
+    [],
+    formatApiPath(`api/admin/projects/${project}/change-requests/pending`),
+    fetcher,
+  );
 
-    return {
-        data,
-        loading: !error && !data,
-        refetch: mutate,
-        error,
-    };
+  return {
+    data,
+    loading: !error && !data,
+    refetch: mutate,
+    error,
+  };
 };

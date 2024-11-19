@@ -6,35 +6,35 @@ import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 import useUiConfig from '../useUiConfig/useUiConfig';
 
 export interface IUseServiceAccountTokensOutput {
-    tokens?: IPersonalAPIToken[];
-    refetchTokens: () => void;
-    loading: boolean;
-    error?: Error;
+  tokens?: IPersonalAPIToken[];
+  refetchTokens: () => void;
+  loading: boolean;
+  error?: Error;
 }
 
 export const useServiceAccountTokens = (
-    id: number,
+  id: number,
 ): IUseServiceAccountTokensOutput => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    const { data, error, mutate } = useConditionalSWR<PatsSchema>(
-        isEnterprise(),
-        { pats: [] },
-        formatApiPath(`api/admin/service-account/${id}/token`),
-        fetcher,
-    );
+  const { data, error, mutate } = useConditionalSWR<PatsSchema>(
+    isEnterprise(),
+    { pats: [] },
+    formatApiPath(`api/admin/service-account/${id}/token`),
+    fetcher,
+  );
 
-    return {
-        // FIXME: schema issue
-        tokens: data ? (data.pats as any) : undefined,
-        loading: !error && !data,
-        refetchTokens: () => mutate(),
-        error,
-    };
+  return {
+    // FIXME: schema issue
+    tokens: data ? (data.pats as any) : undefined,
+    loading: !error && !data,
+    refetchTokens: () => mutate(),
+    error,
+  };
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Service Account Tokens'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Service Account Tokens'))
+    .then((res) => res.json());
 };

@@ -6,28 +6,28 @@ import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 import useUiConfig from '../useUiConfig/useUiConfig';
 
 export const useLoginHistory = () => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    const { data, error, mutate } = useConditionalSWR(
-        isEnterprise(),
-        { events: [] },
-        formatApiPath(`api/admin/logins`),
-        fetcher,
-    );
+  const { data, error, mutate } = useConditionalSWR(
+    isEnterprise(),
+    { events: [] },
+    formatApiPath(`api/admin/logins`),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            events: (data?.events ?? []) as ILoginEvent[],
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      events: (data?.events ?? []) as ILoginEvent[],
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Login History'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Login History'))
+    .then((res) => res.json());
 };

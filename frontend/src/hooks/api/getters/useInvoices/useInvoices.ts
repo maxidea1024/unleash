@@ -7,31 +7,31 @@ const KEY = `api/admin/invoices`;
 const path = formatApiPath(KEY);
 
 const useInvoices = (options: SWRConfiguration = {}) => {
-    const fetcher = () => {
-        return fetch(path, {
-            method: 'GET',
-        })
-            .then(handleErrorResponses('Invoices'))
-            .then((res) => res.json());
-    };
+  const fetcher = () => {
+    return fetch(path, {
+      method: 'GET',
+    })
+      .then(handleErrorResponses('Invoices'))
+      .then((res) => res.json());
+  };
 
-    const { data, error } = useSWR(KEY, fetcher, options);
-    const [loading, setLoading] = useState(!error && !data);
+  const { data, error } = useSWR(KEY, fetcher, options);
+  const [loading, setLoading] = useState(!error && !data);
 
-    const refetchInvoices = () => {
-        mutate(KEY);
-    };
+  const refetchInvoices = () => {
+    mutate(KEY);
+  };
 
-    useEffect(() => {
-        setLoading(!error && !data);
-    }, [data, error]);
+  useEffect(() => {
+    setLoading(!error && !data);
+  }, [data, error]);
 
-    return {
-        invoices: data?.invoices || [],
-        error,
-        loading,
-        refetchInvoices,
-    };
+  return {
+    invoices: data?.invoices || [],
+    error,
+    loading,
+    refetchInvoices,
+  };
 };
 
 export default useInvoices;

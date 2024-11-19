@@ -5,30 +5,30 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { ISegment } from 'interfaces/segment';
 
 export interface IUseSegmentOutput {
-    segment?: ISegment;
-    refetchSegment: () => void;
-    loading: boolean;
-    error?: Error;
+  segment?: ISegment;
+  refetchSegment: () => void;
+  loading: boolean;
+  error?: Error;
 }
 
 export const useSegment = (id: number): IUseSegmentOutput => {
-    const path = formatApiPath(`api/admin/segments/${id}`);
-    const { data, error } = useSWR<ISegment>(path, () => fetchSegment(path));
+  const path = formatApiPath(`api/admin/segments/${id}`);
+  const { data, error } = useSWR<ISegment>(path, () => fetchSegment(path));
 
-    const refetchSegment = useCallback(() => {
-        mutate(path).catch(console.warn);
-    }, [path]);
+  const refetchSegment = useCallback(() => {
+    mutate(path).catch(console.warn);
+  }, [path]);
 
-    return {
-        segment: data,
-        refetchSegment,
-        loading: !error && !data,
-        error,
-    };
+  return {
+    segment: data,
+    refetchSegment,
+    loading: !error && !data,
+    error,
+  };
 };
 
 const fetchSegment = (path: string) => {
-    return fetch(path, { method: 'GET' })
-        .then(handleErrorResponses('Segment'))
-        .then((res) => res.json());
+  return fetch(path, { method: 'GET' })
+    .then(handleErrorResponses('Segment'))
+    .then((res) => res.json());
 };

@@ -3,8 +3,8 @@ import { createPaginatedHook } from '../usePaginatedData/usePaginatedData';
 
 const prefixKey = 'api/admin/metrics/applications?';
 const useApplications = createPaginatedHook<ApplicationsSchema>(
-    { applications: [], total: 0 },
-    prefixKey,
+  { applications: [], total: 0 },
+  prefixKey,
 );
 
 export default useApplications;

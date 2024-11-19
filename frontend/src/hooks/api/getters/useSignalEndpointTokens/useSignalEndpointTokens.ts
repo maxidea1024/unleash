@@ -9,35 +9,35 @@ import { useUiFlag } from 'hooks/useUiFlag';
 const ENDPOINT = 'api/admin/signal-endpoints';
 
 const DEFAULT_DATA = {
-    signalEndpointTokens: [],
+  signalEndpointTokens: [],
 };
 
 export const useSignalEndpointTokens = (signalEndpointId: number) => {
-    const { isEnterprise } = useUiConfig();
-    const signalsEnabled = useUiFlag('signals');
+  const { isEnterprise } = useUiConfig();
+  const signalsEnabled = useUiFlag('signals');
 
-    const { data, error, mutate } = useConditionalSWR<{
-        signalEndpointTokens: ISignalEndpointToken[];
-    }>(
-        isEnterprise() && signalsEnabled,
-        DEFAULT_DATA,
-        formatApiPath(`${ENDPOINT}/${signalEndpointId}/tokens`),
-        fetcher,
-    );
+  const { data, error, mutate } = useConditionalSWR<{
+    signalEndpointTokens: ISignalEndpointToken[];
+  }>(
+    isEnterprise() && signalsEnabled,
+    DEFAULT_DATA,
+    formatApiPath(`${ENDPOINT}/${signalEndpointId}/tokens`),
+    fetcher,
+  );
 
-    return useMemo(
-        () => ({
-            signalEndpointTokens: data?.signalEndpointTokens ?? [],
-            loading: !error && !data,
-            refetch: () => mutate(),
-            error,
-        }),
-        [data, error, mutate],
-    );
+  return useMemo(
+    () => ({
+      signalEndpointTokens: data?.signalEndpointTokens ?? [],
+      loading: !error && !data,
+      refetch: () => mutate(),
+      error,
+    }),
+    [data, error, mutate],
+  );
 };
 
 const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Signal endpoint tokens'))
-        .then((res) => res.json());
+  return fetch(path)
+    .then(handleErrorResponses('Signal endpoint tokens'))
+    .then((res) => res.json());
 };

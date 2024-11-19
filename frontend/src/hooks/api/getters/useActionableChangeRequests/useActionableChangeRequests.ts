@@ -4,27 +4,27 @@ import type { ActionableChangeRequestsSchema } from 'openapi/models/actionableCh
 import { useEnterpriseSWR } from '../useEnterpriseSWR/useEnterpriseSWR';
 
 interface IUseActionableChangeRequestsOutput {
-    total?: number;
+  total?: number;
 }
 
 export const useActionableChangeRequests = (
-    projectId: string,
+  projectId: string,
 ): IUseActionableChangeRequestsOutput => {
-    const { data } = useEnterpriseSWR<ActionableChangeRequestsSchema>(
-        { total: 0 },
-        formatApiPath(
-            `api/admin/projects/${projectId}/change-requests/actionable`,
-        ),
-        fetcher,
-    );
+  const { data } = useEnterpriseSWR<ActionableChangeRequestsSchema>(
+    { total: 0 },
+    formatApiPath(
+      `api/admin/projects/${projectId}/change-requests/actionable`,
+    ),
+    fetcher,
+  );
 
-    return {
-        total: data?.total,
-    };
+  return {
+    total: data?.total,
+  };
 };
 
-const fetcher = (path: string) => {
-    return fetch(path)
-        .then(handleErrorResponses('Actionable change requests'))
-        .then((res) => res.json());
+const fetcher = async(path: string) => {
+  return fetch(path)
+    .then(handleErrorResponses('Actionable change requests'))
+    .then((res) => res.json());
 };
