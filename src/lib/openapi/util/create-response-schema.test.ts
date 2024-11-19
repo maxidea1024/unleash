@@ -1,12 +1,12 @@
 import {
-    createResponseSchema,
-    createResponseSchemas,
-    schemaNamed,
-    schemaTyped,
+  createResponseSchema,
+  createResponseSchemas,
+  schemaNamed,
+  schemaTyped,
 } from './create-response-schema';
 
 test('createResponseSchema', () => {
-    expect(createResponseSchema('schemaName')).toMatchInlineSnapshot(`
+  expect(createResponseSchema('schemaName')).toMatchInlineSnapshot(`
         {
           "content": {
             "application/json": {
@@ -21,12 +21,12 @@ test('createResponseSchema', () => {
 });
 
 test('createResponseSchemaWithDifferentMedia', () => {
-    expect(
-        createResponseSchemas('my-schema', {
-            'application/json': schemaNamed('schemaName'),
-            'text/css': schemaTyped('string'),
-        }),
-    ).toMatchInlineSnapshot(`
+  expect(
+    createResponseSchemas('my-schema', {
+      'application/json': schemaNamed('schemaName'),
+      'text/css': schemaTyped('string'),
+    }),
+  ).toMatchInlineSnapshot(`
       {
         "content": {
           "application/json": {

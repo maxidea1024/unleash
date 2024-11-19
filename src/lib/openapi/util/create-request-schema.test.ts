@@ -1,7 +1,7 @@
 import { createRequestSchema } from './create-request-schema';
 
 test('createRequestSchema', () => {
-    expect(createRequestSchema('schemaName')).toMatchInlineSnapshot(`
+  expect(createRequestSchema('schemaName')).toMatchInlineSnapshot(`
         {
           "content": {
             "application/json": {
