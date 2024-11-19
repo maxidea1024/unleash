@@ -18,8 +18,8 @@ interface IInviteLinks {
 }
 
 export default class ResetTokenService {
-  private store: IResetTokenStore;
-  private logger: Logger;
+  private readonly store: IResetTokenStore;
+  private readonly logger: Logger;
   private readonly unleashBase: string;
 
   constructor(
@@ -124,5 +124,3 @@ export default class ResetTokenService {
     return bcrypt.hash(crypto.randomBytes(32).toString(), 10);
   }
 }
-
-module.exports = ResetTokenService;

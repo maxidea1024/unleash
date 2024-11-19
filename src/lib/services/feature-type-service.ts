@@ -10,9 +10,9 @@ import type EventService from '../features/events/event-service';
 import { FeatureTypeUpdatedEvent, type IAuditUser } from '../types';
 
 export default class FeatureTypeService {
-  private featureTypeStore: IFeatureTypeStore;
-  private eventService: EventService;
-  private logger: Logger;
+  private readonly featureTypeStore: IFeatureTypeStore;
+  private readonly eventService: EventService;
+  private readonly logger: Logger;
 
   constructor(
     { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
@@ -62,5 +62,3 @@ export default class FeatureTypeService {
     return result;
   }
 }
-
-module.exports = FeatureTypeService;

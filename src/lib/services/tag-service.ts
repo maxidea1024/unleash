@@ -10,9 +10,9 @@ import type EventService from '../features/events/event-service';
 import type { IAuditUser } from '../types';
 
 export default class TagService {
-  private tagStore: ITagStore;
-  private eventService: EventService;
-  private logger: Logger;
+  private readonly tagStore: ITagStore;
+  private readonly eventService: EventService;
+  private readonly logger: Logger;
 
   constructor(
     { tagStore }: Pick<IUnleashStores, 'tagStore'>,
@@ -76,5 +76,3 @@ export default class TagService {
     );
   }
 }
-
-module.exports = TagService;

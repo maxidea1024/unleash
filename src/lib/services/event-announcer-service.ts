@@ -5,9 +5,9 @@ import type { IEventStore } from '../types/stores/event-store';
 import type { IFlagResolver } from '../types';
 
 export default class EventAnnouncer {
-  private logger: Logger;
-  private eventStore: IEventStore;
-  private flagResolver: IFlagResolver;
+  private readonly logger: Logger;
+  private readonly eventStore: IEventStore;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     { eventStore }: Pick<IUnleashStores, 'eventStore'>,

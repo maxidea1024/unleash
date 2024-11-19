@@ -11,10 +11,10 @@ import type EventService from '../features/events/event-service';
 import type { IAuditUser } from '../types';
 
 export default class SettingService {
-  private config: IUnleashConfig;
-  private logger: Logger;
-  private settingStore: ISettingStore;
-  private eventService: EventService;
+  private readonly config: IUnleashConfig;
+  private readonly logger: Logger;
+  private readonly settingStore: ISettingStore;
+  private readonly eventService: EventService;
 
   constructor(
     { settingStore }: Pick<IUnleashStores, 'settingStore'>,

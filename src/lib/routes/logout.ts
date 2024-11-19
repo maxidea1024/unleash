@@ -6,7 +6,7 @@ import type { IAuthRequest } from './unleash-types';
 import type { IUnleashServices } from '../types';
 import type SessionService from '../services/session-service';
 
-class LogoutController extends Controller {
+export default class LogoutController extends Controller {
   private readonly clearSiteDataOnLogout: boolean;
   private readonly cookieName: string;
   private readonly baseUri: string;
@@ -78,5 +78,3 @@ class LogoutController extends Controller {
     return logout.length === 0;
   }
 }
-
-export default LogoutController;

@@ -16,10 +16,10 @@ import type EventService from '../features/events/event-service';
 import type { CreatePatSchema, PatSchema } from '../openapi';
 
 export default class PatService {
-  private config: IUnleashConfig;
-  private logger: Logger;
-  private patStore: IPatStore;
-  private eventService: EventService;
+  private readonly config: IUnleashConfig;
+  private readonly logger: Logger;
+  private readonly patStore: IPatStore;
+  private readonly eventService: EventService;
 
   constructor(
     { patStore }: Pick<IUnleashStores, 'patStore'>,
@@ -103,5 +103,3 @@ export default class PatService {
     return `user:${randomStr}`;
   }
 }
-
-module.exports = PatService;

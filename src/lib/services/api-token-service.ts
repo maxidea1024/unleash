@@ -204,7 +204,7 @@ export class ApiTokenService {
     }
   }
 
-  public async getUserForToken(
+  async getUserForToken(
     secret: string,
   ): Promise<IApiUser | undefined> {
     const token = await this.getTokenWithCache(secret);
@@ -229,7 +229,7 @@ export class ApiTokenService {
     return undefined;
   }
 
-  public async updateExpiry(
+  async updateExpiry(
     secret: string,
     expiresAt: Date,
     auditUser: IAuditUser,
@@ -246,7 +246,7 @@ export class ApiTokenService {
     return token;
   }
 
-  public async delete(secret: string, auditUser: IAuditUser): Promise<void> {
+  async delete(secret: string, auditUser: IAuditUser): Promise<void> {
     if (await this.store.exists(secret)) {
       const token = await this.store.get(secret);
       await this.store.delete(secret);
@@ -262,7 +262,7 @@ export class ApiTokenService {
   /**
    * @deprecated This may be removed in a future release, prefer createApiTokenWithProjects
    */
-  public async createApiToken(
+  async createApiToken(
     newToken: Omit<ILegacyApiTokenCreate, 'secret'>,
     auditUser: IAuditUser = SYSTEM_USER_AUDIT,
   ): Promise<IApiToken> {
@@ -275,7 +275,7 @@ export class ApiTokenService {
    * @param createdBy should be IApiUser or IUser. Still supports optional or string for backward compatibility
    * @param createdByUserId still supported for backward compatibility
    */
-  public async createApiTokenWithProjects(
+  async createApiTokenWithProjects(
     newToken: Omit<IApiTokenCreate, 'secret'>,
     auditUser: IAuditUser = SYSTEM_USER_AUDIT,
   ): Promise<IApiToken> {
@@ -310,7 +310,7 @@ export class ApiTokenService {
 
   // TODO: Remove this service method after embedded proxy has been released in
   // 4.16.0
-  public async createMigratedProxyApiToken(
+  async createMigratedProxyApiToken(
     newToken: Omit<IApiTokenCreate, 'secret'>,
   ): Promise<IApiToken> {
     validateApiToken(newToken);

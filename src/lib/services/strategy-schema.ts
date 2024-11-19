@@ -1,5 +1,5 @@
-const joi = require('joi');
-const { nameType } = require('../routes/util');
+import joi from 'joi';
+import { nameType } from '../routes/util';
 
 const strategySchema = joi
   .object()
@@ -25,4 +25,3 @@ const strategySchema = joi
   .options({ allowUnknown: false, stripUnknown: true, abortEarly: false });
 
 export default strategySchema;
-module.exports = strategySchema;

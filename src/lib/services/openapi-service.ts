@@ -17,7 +17,7 @@ export class OpenApiService {
   private readonly config: IUnleashConfig;
   private readonly logger: Logger;
   private readonly api: IExpressOpenApi;
-  private flagResolver: IFlagResolver;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(config: IUnleashConfig) {
     this.config = config;

@@ -1,5 +1,4 @@
 import Joi from 'joi';
-
 import { customJoi } from '../routes/util';
 import { TAG_MAX_LENGTH, TAG_MIN_LENGTH } from '../util';
 
@@ -17,5 +16,3 @@ export const tagSchema = Joi.object()
     stripUnknown: true,
     abortEarly: false,
   });
-
-module.exports = { tagSchema };

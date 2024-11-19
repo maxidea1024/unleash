@@ -5,8 +5,8 @@ import type { ISession, ISessionStore } from '../types/stores/session-store';
 import { compareDesc } from 'date-fns';
 
 export default class SessionService {
-  private logger: Logger;
-  private sessionStore: ISessionStore;
+  private readonly logger: Logger;
+  private readonly sessionStore: ISessionStore;
 
   constructor(
     { sessionStore }: Pick<IUnleashStores, 'sessionStore'>,
@@ -69,5 +69,3 @@ export default class SessionService {
     );
   }
 }
-
-module.exports = SessionService;

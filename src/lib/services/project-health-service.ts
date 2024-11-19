@@ -12,11 +12,11 @@ import {
 } from '../domain/project-health/project-health';
 
 export default class ProjectHealthService {
-  private logger: Logger;
-  private projectStore: IProjectStore;
-  private featureTypeStore: IFeatureTypeStore;
-  private featureToggleStore: IFeatureToggleStore;
-  private projectService: ProjectService;
+  private readonly logger: Logger;
+  private readonly projectStore: IProjectStore;
+  private readonly featureTypeStore: IFeatureTypeStore;
+  private readonly featureToggleStore: IFeatureToggleStore;
+  private readonly projectService: ProjectService;
 
   constructor(
     {

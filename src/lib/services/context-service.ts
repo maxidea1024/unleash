@@ -22,14 +22,14 @@ import { contextSchema } from './context-schema';
 import { NameExistsError } from '../error';
 import { nameSchema } from '../schema/feature-schema';
 
-class ContextService {
-  private projectStore: IProjectStore;
-  private eventService: EventService;
-  private contextFieldStore: IContextFieldStore;
-  private featureStrategiesStore: IFeatureStrategiesStore;
-  private logger: Logger;
-  private flagResolver: IFlagResolver;
-  private privateProjectChecker: IPrivateProjectChecker;
+export default class ContextService {
+  private readonly projectStore: IProjectStore;
+  private readonly eventService: EventService;
+  private readonly contextFieldStore: IContextFieldStore;
+  private readonly featureStrategiesStore: IFeatureStrategiesStore;
+  private readonly logger: Logger;
+  private readonly flagResolver: IFlagResolver;
+  private readonly privateProjectChecker: IPrivateProjectChecker;
 
   constructor(
     {
@@ -177,6 +177,3 @@ class ContextService {
     await this.validateUniqueName({ name });
   }
 }
-
-export default ContextService;
-module.exports = ContextService;

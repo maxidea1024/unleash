@@ -25,11 +25,11 @@ export interface IFavoriteProjectProps {
 }
 
 export class FavoritesService {
-  private config: IUnleashConfig;
-  private logger: Logger;
-  private favoriteFeaturesStore: IFavoriteFeaturesStore;
-  private favoriteProjectsStore: IFavoriteProjectsStore;
-  private eventService: EventService;
+  private readonly config: IUnleashConfig;
+  private readonly logger: Logger;
+  private readonly favoriteFeaturesStore: IFavoriteFeaturesStore;
+  private readonly favoriteProjectsStore: IFavoriteProjectsStore;
+  private readonly eventService: EventService;
 
   constructor(
     {

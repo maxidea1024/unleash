@@ -8,9 +8,8 @@ import type {
 } from '../types/stores/user-splash-store';
 
 export default class UserSplashService {
-  private userSplashStore: IUserSplashStore;
-
-  private logger: Logger;
+  private readonly userSplashStore: IUserSplashStore;
+  private readonly logger: Logger;
 
   constructor(
     { userSplashStore }: Pick<IUnleashStores, 'userSplashStore'>,
@@ -48,5 +47,3 @@ export default class UserSplashService {
     return this.userSplashStore.updateSplash(splash);
   }
 }
-
-module.exports = UserSplashService;

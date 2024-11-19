@@ -20,12 +20,12 @@ import { BadDataError, FOREIGN_KEY_VIOLATION } from '../../lib/error';
 import type EventService from '../features/events/event-service';
 import type { IAuditUser } from '../types';
 
-class FeatureTagService {
-  private tagStore: ITagStore;
-  private featureTagStore: IFeatureTagStore;
-  private featureToggleStore: IFeatureToggleStore;
-  private eventService: EventService;
-  private logger: Logger;
+export default class FeatureTagService {
+  private readonly tagStore: ITagStore;
+  private readonly featureTagStore: IFeatureTagStore;
+  private readonly featureToggleStore: IFeatureToggleStore;
+  private readonly eventService: EventService;
+  private readonly logger: Logger;
 
   constructor(
     {
@@ -191,5 +191,3 @@ class FeatureTagService {
     });
   }
 }
-
-export default FeatureTagService;

@@ -27,10 +27,10 @@ const {
   STRATEGY_UPDATED,
 } = require('../types/events');
 
-class StrategyService {
-  private logger: Logger;
-  private strategyStore: IStrategyStore;
-  private eventService: EventService;
+export default class StrategyService {
+  private readonly logger: Logger;
+  private readonly strategyStore: IStrategyStore;
+  private readonly eventService: EventService;
 
   constructor(
     { strategyStore }: Pick<IUnleashStores, 'strategyStore'>,
@@ -162,6 +162,3 @@ class StrategyService {
     }
   }
 }
-
-export default StrategyService;
-module.exports = StrategyService;

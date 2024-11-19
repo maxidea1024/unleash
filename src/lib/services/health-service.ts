@@ -3,10 +3,9 @@ import type { IUnleashConfig } from '../types/option';
 import type { Logger } from '../logger';
 import type { IFeatureTypeStore } from '../types/stores/feature-type-store';
 
-class HealthService {
-  private featureTypeStore: IFeatureTypeStore;
-
-  private logger: Logger;
+export default class HealthService {
+  private readonly featureTypeStore: IFeatureTypeStore;
+  private readonly logger: Logger;
 
   constructor(
     { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
@@ -17,10 +16,8 @@ class HealthService {
   }
 
   async dbIsUp(): Promise<boolean> {
+    // TODO: 이렇게 해야하나?
     const row = await this.featureTypeStore.getAll();
     return row.length > 0;
   }
 }
-
-export default HealthService;
-module.exports = HealthService;

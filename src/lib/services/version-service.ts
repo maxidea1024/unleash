@@ -70,49 +70,27 @@ export interface IFeatureUsageInfo {
 
 export default class VersionService {
   private logger: Logger;
-
   private settingStore: ISettingStore;
-
   private strategyStore: IStrategyStore;
-
   private userStore: IUserStore;
-
   private featureToggleStore: IFeatureToggleStore;
-
   private projectStore: IProjectStore;
-
   private environmentStore: IEnvironmentStore;
-
   private contextFieldStore: IContextFieldStore;
-
   private groupStore: IGroupStore;
-
   private roleStore: IRoleStore;
-
   private segmentStore: ISegmentStore;
-
   private eventStore: IEventStore;
-
   private featureStrategiesStore: IFeatureStrategiesStore;
-
   private getActiveUsers: GetActiveUsers;
-
   private getProductionChanges: GetProductionChanges;
-
   private current: IVersionInfo;
-
   private latest?: IVersionInfo;
-
   private enabled: boolean;
-
   private telemetryEnabled: boolean;
-
   private versionCheckUrl?: string;
-
   private instanceId?: string;
-
   private isLatest: boolean;
-
   private timer: NodeJS.Timeout;
 
   constructor(

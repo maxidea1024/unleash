@@ -71,7 +71,7 @@ export interface ILoginUserRequest {
 const saltRounds = 10;
 const disallowNPreviousPasswords = 5;
 
-class UserService {
+export default class UserService {
   private readonly logger: Logger;
   private readonly store: IUserStore;
   private readonly eventService: EventService;
@@ -608,5 +608,3 @@ class UserService {
     return resetLink;
   }
 }
-
-export default UserService;

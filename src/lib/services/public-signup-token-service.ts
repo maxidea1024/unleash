@@ -25,11 +25,11 @@ import { add } from 'date-fns';
 import type EventService from '../features/events/event-service';
 
 export class PublicSignupTokenService {
-  private store: IPublicSignupTokenStore;
-  private roleStore: IRoleStore;
-  private userService: UserService;
-  private eventService: EventService;
-  private logger: Logger;
+  private readonly store: IPublicSignupTokenStore;
+  private readonly roleStore: IRoleStore;
+  private readonly userService: UserService;
+  private readonly eventService: EventService;
+  private readonly logger: Logger;
   private readonly unleashBase: string;
 
   constructor(
@@ -45,9 +45,7 @@ export class PublicSignupTokenService {
     this.userService = userService;
     this.eventService = eventService;
     this.roleStore = roleStore;
-    this.logger = config.getLogger(
-      '/services/public-signup-token-service.ts',
-    );
+    this.logger = config.getLogger('/services/public-signup-token-service.ts');
     this.unleashBase = config.server.unleashUrl;
   }
 
@@ -57,19 +55,19 @@ export class PublicSignupTokenService {
     ).toString();
   }
 
-  public async get(secret: string): Promise<PublicSignupTokenSchema> {
+  async get(secret: string): Promise<PublicSignupTokenSchema> {
     return this.store.get(secret);
   }
 
-  public async getAllTokens(): Promise<PublicSignupTokenSchema[]> {
+  async getAllTokens(): Promise<PublicSignupTokenSchema[]> {
     return this.store.getAll();
   }
 
-  public async validate(secret: string): Promise<boolean> {
+  async validate(secret: string): Promise<boolean> {
     return this.store.isValid(secret);
   }
 
-  public async update(
+  async update(
     secret: string,
     { expiresAt, enabled }: { expiresAt?: Date; enabled?: boolean },
     auditUser: IAuditUser,
@@ -84,7 +82,7 @@ export class PublicSignupTokenService {
     return result;
   }
 
-  public async addTokenUser(
+  async addTokenUser(
     secret: string,
     createUser: CreateInvitedUserSchema,
     auditUser: IAuditUser,
@@ -107,7 +105,7 @@ export class PublicSignupTokenService {
     return user;
   }
 
-  public async createNewPublicSignupToken(
+  async createNewPublicSignupToken(
     tokenCreate: PublicSignupTokenCreateSchema,
     auditUser: IAuditUser,
   ): Promise<PublicSignupTokenSchema> {

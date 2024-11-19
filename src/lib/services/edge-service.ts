@@ -44,8 +44,7 @@ export default class EdgeService {
       }
     }
     stopTimer();
+
     return { tokens: validatedTokens };
   }
 }
-
-module.exports = EdgeService;
