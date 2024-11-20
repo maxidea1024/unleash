@@ -26,8 +26,8 @@ type DBProjectType = DBType & {
 };
 
 export class FeatureLifecycleReadModel implements IFeatureLifecycleReadModel {
-  private db: Db;
-  private flagResolver: IFlagResolver;
+  private readonly db: Db;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(db: Db, flagResolver: IFlagResolver) {
     this.db = db;

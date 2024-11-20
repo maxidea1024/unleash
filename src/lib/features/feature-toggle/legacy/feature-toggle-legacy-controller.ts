@@ -26,7 +26,7 @@ import type { ValidateFeatureSchema } from '../../../openapi/spec/validate-featu
 
 const version = 1;
 
-class FeatureController extends Controller {
+export default class FeatureController extends Controller {
   private readonly tagService: FeatureTagService;
   private readonly openApiService: OpenApiService;
   private readonly service: FeatureToggleService;
@@ -264,5 +264,3 @@ class FeatureController extends Controller {
     res.status(200).end();
   }
 }
-
-export default FeatureController;

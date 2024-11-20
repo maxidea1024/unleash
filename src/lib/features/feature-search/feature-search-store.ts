@@ -34,14 +34,11 @@ const sortEnvironments = (overview: IFeatureSearchOverview[]) => {
   }));
 };
 
-class FeatureSearchStore implements IFeatureSearchStore {
-  private db: Db;
-
-  private logger: Logger;
-
+export default class FeatureSearchStore implements IFeatureSearchStore {
+  private readonly db: Db;
+  private readonly logger: Logger;
   private readonly timer: Function;
-
-  private flagResolver: IFlagResolver;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     db: Db,
@@ -677,6 +674,3 @@ const createSegmentBaseQuery = (segments: string[]) => {
       .whereIn('name', segments);
   };
 };
-
-module.exports = FeatureSearchStore;
-export default FeatureSearchStore;

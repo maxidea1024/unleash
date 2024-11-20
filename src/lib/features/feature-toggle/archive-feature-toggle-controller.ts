@@ -50,8 +50,7 @@ export default class ArchiveController extends Controller {
     super(config);
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;
-    this.transactionalFeatureToggleService =
-      transactionalFeatureToggleService;
+    this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;
 
     this.route({

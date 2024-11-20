@@ -21,7 +21,7 @@ type DBProjectType = DBType & {
 };
 
 export class FeatureLifecycleStore implements IFeatureLifecycleStore {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

@@ -19,10 +19,10 @@ interface ProjectEnvironment {
 
 export default class FakeFeatureStrategiesStore
   implements IFeatureStrategiesStore {
-  environmentAndFeature: Map<string, any[]> = new Map();
-  projectToEnvironment: ProjectEnvironment[] = [];
-  featureStrategies: IFeatureStrategy[] = [];
-  featureToggles: FeatureToggle[] = [];
+  private readonly environmentAndFeature: Map<string, any[]> = new Map();
+  private projectToEnvironment: ProjectEnvironment[] = [];
+  private featureStrategies: IFeatureStrategy[] = [];
+  private readonly featureToggles: FeatureToggle[] = [];
 
   async createStrategyFeatureEnv(
     strategyConfig: Omit<IFeatureStrategy, 'id' | 'createdAt'>,
@@ -176,7 +176,7 @@ export default class FakeFeatureStrategiesStore
     archived: boolean = false,
   ): Promise<IFeatureToggleClient[]> {
     const rows = this.featureToggles.filter((toggle) => {
-      if (featureQuery.namePrefix) {
+      if (featureQuery?.namePrefix) {
         if (featureQuery.project) {
           return (
             (toggle.name.startsWith(featureQuery.namePrefix) &&
@@ -188,7 +188,7 @@ export default class FakeFeatureStrategiesStore
         }
         return toggle.name.startsWith(featureQuery.namePrefix);
       }
-      if (featureQuery.project) {
+      if (featureQuery?.project) {
         return (
           featureQuery.project.some((project) =>
             project.includes(toggle.project),
@@ -335,8 +335,6 @@ export default class FakeFeatureStrategiesStore
   }
 
   getCustomStrategiesInUseCount(): Promise<number> {
-    return Promise.resolve(3);
+    return Promise.resolve(3); // CHECKME: fixed to 3 ?
   }
 }
-
-module.exports = FakeFeatureStrategiesStore;

@@ -146,6 +146,8 @@ export default class ExportImportService
     dependentFeaturesReadModel: IDependentFeaturesReadModel,
     segmentReadModel: ISegmentReadModel,
   ) {
+    this.logger = getLogger('services/state-service.js');
+
     this.toggleStore = stores.featureToggleStore;
     this.importTogglesStore = stores.importTogglesStore;
     this.featureStrategiesStore = stores.featureStrategiesStore;
@@ -170,7 +172,6 @@ export default class ExportImportService
     );
     this.dependentFeaturesReadModel = dependentFeaturesReadModel;
     this.segmentReadModel = segmentReadModel;
-    this.logger = getLogger('services/state-service.js');
   }
 
   async validate(
@@ -979,5 +980,3 @@ export default class ExportImportService
     });
   }
 }
-
-module.exports = ExportImportService;

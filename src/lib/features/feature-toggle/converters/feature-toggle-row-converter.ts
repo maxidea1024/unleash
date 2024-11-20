@@ -12,7 +12,7 @@ import { mapValues, ensureStringValue } from '../../../util';
 import type { FeatureConfigurationClient } from '../types/feature-toggle-strategies-store-type';
 
 export class FeatureToggleRowConverter {
-  private flagResolver: IFlagResolver;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(flagResolver: IFlagResolver) {
     this.flagResolver = flagResolver;

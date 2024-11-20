@@ -13,7 +13,6 @@ export const calculateAverageTimeToProd = (
   if (timeToProdPerFeature.length) {
     const sum = timeToProdPerFeature.reduce((acc, curr) => acc + curr, 0);
     const avg = sum / Object.keys(items).length;
-
     return Number(avg.toFixed(1)) || 0.1;
   }
 

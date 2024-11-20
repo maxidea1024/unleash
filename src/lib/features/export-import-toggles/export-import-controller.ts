@@ -25,7 +25,7 @@ import { extractUsername } from '../../util';
 import { BadDataError, InvalidOperationError } from '../../error';
 import ApiUser from '../../types/api-user';
 
-class ExportImportController extends Controller {
+export default class ExportImportController extends Controller {
   private readonly logger: Logger;
   private readonly exportService: IExportService;
   private readonly importService: WithTransactional<IImportService>;
@@ -48,6 +48,7 @@ class ExportImportController extends Controller {
     this.exportService = exportService;
     this.importService = importService;
     this.openApiService = openApiService;
+
     this.route({
       method: 'post',
       path: '/export',
@@ -68,6 +69,7 @@ class ExportImportController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/validate',
@@ -89,6 +91,7 @@ class ExportImportController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/import',
@@ -178,5 +181,3 @@ class ExportImportController extends Controller {
     }
   }
 }
-
-export default ExportImportController;
