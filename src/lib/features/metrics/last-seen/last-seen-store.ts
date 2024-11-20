@@ -29,9 +29,9 @@ const prepareLastSeenInput = (data: LastSeenInput[]) => {
 };
 
 export default class LastSeenStore implements ILastSeenStore {
-  private db: Db;
-  private logger: Logger;
-  private timer: Function;
+  private readonly db: Db;
+  private readonly logger: Logger;
+  private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
     this.db = db;
@@ -72,5 +72,3 @@ export default class LastSeenStore implements ILastSeenStore {
       .del();
   }
 }
-
-module.exports = LastSeenStore;

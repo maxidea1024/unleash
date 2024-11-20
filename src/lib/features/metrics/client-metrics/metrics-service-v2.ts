@@ -27,12 +27,12 @@ import type { ClientMetricsSchema } from '../../../../lib/openapi';
 import { nameSchema } from '../../../schema/feature-schema';
 
 export default class ClientMetricsServiceV2 {
-  private config: IUnleashConfig;
-  private unsavedMetrics: IClientMetricsEnv[] = [];
-  private clientMetricsStoreV2: IClientMetricsStoreV2;
-  private lastSeenService: LastSeenService;
-  private flagResolver: Pick<IFlagResolver, 'isEnabled' | 'getVariant'>;
-  private logger: Logger;
+  private readonly config: IUnleashConfig;
+  private readonly unsavedMetrics: IClientMetricsEnv[] = [];
+  private readonly clientMetricsStoreV2: IClientMetricsStoreV2;
+  private readonly lastSeenService: LastSeenService;
+  private readonly flagResolver: Pick<IFlagResolver, 'isEnabled' | 'getVariant'>;
+  private readonly logger: Logger;
 
   constructor(
     { clientMetricsStoreV2 }: Pick<IUnleashStores, 'clientMetricsStoreV2'>,

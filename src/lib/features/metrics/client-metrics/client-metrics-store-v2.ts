@@ -125,13 +125,13 @@ const variantRowReducerV2 = (acc, tokenRow) => {
 };
 
 export class ClientMetricsStoreV2 implements IClientMetricsStoreV2 {
-  private db: Db;
-  private logger: Logger;
-  private flagResolver: IFlagResolver;
+  private readonly db: Db;
+  private readonly logger: Logger;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
     this.db = db;
-    this.logger = getLogger('client-metrics-store-v2.js');
+    this.logger = getLogger('client-metrics-store-v2.ts');
     this.flagResolver = flagResolver;
   }
 

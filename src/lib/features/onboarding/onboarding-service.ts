@@ -18,12 +18,12 @@ import { isBefore, millisecondsToSeconds } from 'date-fns';
 const START_ONBOARDING_TRACKING_DATE = new Date(2024, 8, 3);
 
 export class OnboardingService {
-  private flagResolver: IFlagResolver;
-  private eventBus: EventEmitter;
-  private logger: Logger;
-  private onboardingStore: IOnboardingStore;
-  private projectReadModel: IProjectReadModel;
-  private userStore: IUserStore;
+  private readonly flagResolver: IFlagResolver;
+  private readonly eventBus: EventEmitter;
+  private readonly logger: Logger;
+  private readonly onboardingStore: IOnboardingStore;
+  private readonly projectReadModel: IProjectReadModel;
+  private readonly userStore: IUserStore;
 
   constructor(
     {

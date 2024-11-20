@@ -21,7 +21,7 @@ const projectEventLookup = {
 };
 
 export class OnboardingReadModel implements IOnboardingReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

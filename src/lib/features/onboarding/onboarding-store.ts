@@ -43,7 +43,7 @@ const instanceEventLookup: Record<
 };
 
 export class OnboardingStore implements IOnboardingStore {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

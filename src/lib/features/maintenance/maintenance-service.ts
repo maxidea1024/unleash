@@ -11,11 +11,10 @@ export interface IMaintenanceStatus {
 }
 
 export default class MaintenanceService implements IMaintenanceStatus {
-  private config: IUnleashConfig;
-  private logger: Logger;
-  private settingService: SettingService;
-
-  private resolveMaintenance: () => Promise<boolean>;
+  private readonly config: IUnleashConfig;
+  private readonly logger: Logger;
+  private readonly settingService: SettingService;
+  private readonly resolveMaintenance: () => Promise<boolean>;
 
   constructor(config: IUnleashConfig, settingService: SettingService) {
     this.config = config;
@@ -62,5 +61,3 @@ export default class MaintenanceService implements IMaintenanceStatus {
     );
   }
 }
-
-module.exports = MaintenanceService;

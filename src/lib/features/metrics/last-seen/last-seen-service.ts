@@ -11,8 +11,8 @@ export type LastSeenInput = {
 
 export class LastSeenService {
   private lastSeenToggles: Map<String, LastSeenInput> = new Map();
-  private logger: Logger;
-  private lastSeenStore: ILastSeenStore;
+  private readonly logger: Logger;
+  private readonly lastSeenStore: ILastSeenStore;
 
   constructor(
     { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,

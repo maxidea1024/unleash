@@ -11,7 +11,7 @@ export interface IFeatureLastSeenResults {
   };
 }
 export class LastSeenAtReadModel implements ILastSeenReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

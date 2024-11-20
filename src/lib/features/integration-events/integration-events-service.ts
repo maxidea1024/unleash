@@ -8,8 +8,8 @@ import type { IntegrationEventSchema } from '../../openapi/spec/integration-even
 
 export class IntegrationEventsService {
   private readonly logger: Logger;
-  private integrationEventsStore: IntegrationEventsStore;
-  private flagResolver: IFlagResolver;
+  private readonly integrationEventsStore: IntegrationEventsStore;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     {

@@ -26,11 +26,11 @@ interface IHoursBack {
   hoursBack: number;
 }
 
-class ClientMetricsController extends Controller {
-  private logger: Logger;
-  private metrics: ClientMetricsServiceV2;
-  private openApiService: OpenApiService;
-  private flagResolver: Pick<IFlagResolver, 'isEnabled'>;
+export default class ClientMetricsController extends Controller {
+  private readonly logger: Logger;
+  private readonly metrics: ClientMetricsServiceV2;
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: Pick<IFlagResolver, 'isEnabled'>;
 
   private static HOURS_BACK_MIN = 1;
   private static HOURS_BACK_MAX = 48;
@@ -140,5 +140,3 @@ class ClientMetricsController extends Controller {
     }
   }
 }
-
-export default ClientMetricsController;

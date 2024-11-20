@@ -30,14 +30,15 @@ export default class ClientInstanceService {
 
   logger: Logger;
   seenClients: Record<string, IClientApp> = {};
-  private clientMetricsStoreV2: IClientMetricsStoreV2;
-  private strategyStore: IStrategyStore;
-  private featureToggleStore: IFeatureToggleStore;
-  private clientApplicationsStore: IClientApplicationsStore;
-  private clientInstanceStore: IClientInstanceStore;
-  private eventStore: IEventStore;
-  private privateProjectChecker: IPrivateProjectChecker;
-  private flagResolver: IFlagResolver;
+
+  private readonly clientMetricsStoreV2: IClientMetricsStoreV2;
+  private readonly strategyStore: IStrategyStore;
+  private readonly featureToggleStore: IFeatureToggleStore;
+  private readonly clientApplicationsStore: IClientApplicationsStore;
+  private readonly clientInstanceStore: IClientInstanceStore;
+  private readonly eventStore: IEventStore;
+  private readonly privateProjectChecker: IPrivateProjectChecker;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     {
@@ -75,7 +76,7 @@ export default class ClientInstanceService {
     );
   }
 
-  public async registerInstance(
+  async registerInstance(
     data: PartialSome<IClientApp, 'instanceId'>,
     clientIp: string,
   ): Promise<void> {
@@ -88,7 +89,7 @@ export default class ClientInstanceService {
     });
   }
 
-  public async registerClient(
+  async registerClient(
     data: PartialSome<IClientApp, 'instanceId'>,
     clientIp: string,
   ): Promise<void> {

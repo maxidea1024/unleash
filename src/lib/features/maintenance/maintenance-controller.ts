@@ -18,9 +18,9 @@ import type MaintenanceService from '../../features/maintenance/maintenance-serv
 import type { ToggleMaintenanceSchema } from '../../openapi/spec/toggle-maintenance-schema';
 
 export default class MaintenanceController extends Controller {
-  private maintenanceService: MaintenanceService;
-  private openApiService: OpenApiService;
-  private logger: Logger;
+  private readonly maintenanceService: MaintenanceService;
+  private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -34,6 +34,7 @@ export default class MaintenanceController extends Controller {
     this.maintenanceService = maintenanceService;
     this.openApiService = openApiService;
     this.logger = config.getLogger('routes/admin-api/maintenance.ts');
+
     this.route({
       method: 'post',
       path: '',
@@ -97,5 +98,3 @@ export default class MaintenanceController extends Controller {
     );
   }
 }
-
-module.exports = MaintenanceController;
