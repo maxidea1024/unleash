@@ -16,9 +16,9 @@ export const ALL_PROJECT_ACCESS: ProjectAccess = {
   mode: 'all',
 };
 
-class PrivateProjectStore implements IPrivateProjectStore {
-  private db: Db;
-  private logger: Logger;
+export default class PrivateProjectStore implements IPrivateProjectStore {
+  private readonly db: Db;
+  private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
     this.db = db;
@@ -109,5 +109,3 @@ class PrivateProjectStore implements IPrivateProjectStore {
     return { mode: 'limited', projects: accessibleProjects };
   }
 }
-
-export default PrivateProjectStore;

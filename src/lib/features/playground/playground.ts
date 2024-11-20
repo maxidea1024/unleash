@@ -24,9 +24,9 @@ import type { IAuthRequest } from '../../routes/unleash-types';
 import { extractUserIdFromUser } from '../../util';
 
 export default class PlaygroundController extends Controller {
-  private openApiService: OpenApiService;
-  private playgroundService: PlaygroundService;
-  private flagResolver: IFlagResolver;
+  private readonly openApiService: OpenApiService;
+  private readonly playgroundService: PlaygroundService;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     config: IUnleashConfig,

@@ -2,7 +2,7 @@ import { hostname } from 'os';
 import { Strategy } from './strategy';
 
 export default class ApplicationHostnameStrategy extends Strategy {
-  private hostname: string;
+  private readonly hostname: string;
 
   constructor() {
     super('applicationHostname');

@@ -45,11 +45,13 @@ function randomString() {
 }
 
 const stickinessSelectors = ['userId', 'sessionId', 'remoteAddress'];
+
 function getSeed(context: Context, stickiness: string = 'default'): string {
   if (stickiness !== 'default') {
     const value = resolveContextValue(context, stickiness);
     return value ? value.toString() : randomString();
   }
+
   let result: string | undefined;
   stickinessSelectors.some((key: string): boolean => {
     const value = context[key];

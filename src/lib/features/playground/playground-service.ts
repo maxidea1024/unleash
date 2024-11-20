@@ -70,13 +70,9 @@ export type PlaygroundFeatureEvaluationResult = Omit<
 
 export class PlaygroundService {
   private readonly logger: Logger;
-
   private readonly featureToggleService: FeatureToggleService;
-
   private readonly flagResolver: IFlagResolver;
-
   private readonly privateProjectChecker: IPrivateProjectChecker;
-
   private readonly segmentReadModel: ISegmentReadModel;
 
   constructor(

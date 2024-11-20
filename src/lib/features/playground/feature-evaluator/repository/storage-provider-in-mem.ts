@@ -1,7 +1,7 @@
 import type { StorageProvider } from './storage-provider';
 
 export default class InMemStorageProvider<T> implements StorageProvider<T> {
-  private store: Map<string, T> = new Map<string, T>();
+  private readonly store: Map<string, T> = new Map<string, T>();
 
   async set(key: string, data: T): Promise<void> {
     this.store.set(key, data);

@@ -32,8 +32,8 @@ export type FeatureStrategiesEvaluationResult = {
 };
 
 export default class UnleashClient {
-  private repository: RepositoryInterface;
-  private strategies: Strategy[];
+  private readonly repository: RepositoryInterface;
+  private readonly strategies: Strategy[];
 
   constructor(repository: RepositoryInterface, strategies: Strategy[]) {
     this.repository = repository;

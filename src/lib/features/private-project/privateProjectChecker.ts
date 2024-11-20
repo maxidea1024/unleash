@@ -4,9 +4,8 @@ import type { IPrivateProjectChecker } from './privateProjectCheckerType';
 import { ALL_PROJECT_ACCESS, type ProjectAccess } from './privateProjectStore';
 
 export class PrivateProjectChecker implements IPrivateProjectChecker {
-  private privateProjectStore: IPrivateProjectStore;
-
-  private isEnterprise: boolean;
+  private readonly privateProjectStore: IPrivateProjectStore;
+  private readonly isEnterprise: boolean;
 
   constructor(
     { privateProjectStore }: Pick<IUnleashStores, 'privateProjectStore'>,

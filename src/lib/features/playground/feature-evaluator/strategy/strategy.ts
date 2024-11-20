@@ -33,7 +33,6 @@ export interface Segment {
 
 export class Strategy {
   public name: string;
-
   private returnValue: boolean;
 
   constructor(name: string, returnValue: boolean = false) {

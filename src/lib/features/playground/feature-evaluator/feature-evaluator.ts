@@ -30,9 +30,9 @@ export interface StaticContext {
 }
 
 export class FeatureEvaluator {
-  private repository: RepositoryInterface;
-  private client: Client;
-  private staticContext: StaticContext;
+  private readonly repository: RepositoryInterface;
+  private readonly client: Client;
+  private readonly staticContext: StaticContext;
 
   constructor({
     appName,
