@@ -6,7 +6,7 @@ type ValidationError = {
   message: string;
 };
 
-class OwaspValidationError extends UnleashError {
+export default class OwaspValidationError extends UnleashError {
   statusCode = 400;
 
   private details: [ValidationError];
@@ -28,6 +28,3 @@ class OwaspValidationError extends UnleashError {
     };
   }
 }
-
-export default OwaspValidationError;
-module.exports = OwaspValidationError;

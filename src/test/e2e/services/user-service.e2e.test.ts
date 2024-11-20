@@ -28,7 +28,7 @@ import {
     USER_UPDATED,
 } from '../../../lib/types';
 import { CUSTOM_ROOT_ROLE_TYPE } from '../../../lib/util';
-import { PasswordPreviouslyUsedError } from '../../../lib/error/password-previously-used';
+import PasswordPreviouslyUsedError from '../../../lib/error/password-previously-used';
 import { createEventsService } from '../../../lib/features';
 import type EventEmitter from 'events';
 import { USER_LOGIN } from '../../../lib/metric-events';

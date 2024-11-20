@@ -2,7 +2,7 @@ import { type ApiErrorSchema, UnleashError } from './unleash-error';
 
 type Permission = string | string[];
 
-class PermissionError extends UnleashError {
+export default class PermissionError extends UnleashError {
   statusCode = 403;
 
   private readonly permissions: Permission;
@@ -34,6 +34,3 @@ class PermissionError extends UnleashError {
     };
   }
 }
-
-export default PermissionError;
-module.exports = PermissionError;

@@ -8,7 +8,7 @@ import InvalidTokenError from './invalid-token-error';
 import MinimumOneEnvironmentError from './minimum-one-environment-error';
 import NameExistsError from './name-exists-error';
 import PermissionError from './permission-error';
-import { OperationDeniedError } from './operation-denied-error';
+import OperationDeniedError from './operation-denied-error';
 import UserTokenError from './used-token-error';
 import RoleInUseError from './role-in-use-error';
 import ProjectWithoutOwnerError from './project-without-owner-error';

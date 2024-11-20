@@ -1,6 +1,6 @@
 import { UnleashError } from './unleash-error';
 
-export class RateLimitError extends UnleashError {
+export default class RateLimitError extends UnleashError {
   statusCode = 429;
 
   constructor(

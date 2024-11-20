@@ -1,6 +1,6 @@
 import { UnleashError } from './unleash-error';
 
-class ArchivedFeatureError extends UnleashError {
+export default class ArchivedFeatureError extends UnleashError {
   statusCode = 400;
 
   constructor(
@@ -9,6 +9,3 @@ class ArchivedFeatureError extends UnleashError {
     super(message);
   }
 }
-
-export default ArchivedFeatureError;
-module.exports = ArchivedFeatureError;

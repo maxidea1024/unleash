@@ -8,7 +8,7 @@ type ValidationErrorDescription = {
   path?: string;
 };
 
-class BadDataError extends UnleashError {
+export default class BadDataError extends UnleashError {
   statusCode = 400;
 
   details: ValidationErrorDescription[];
@@ -33,8 +33,6 @@ class BadDataError extends UnleashError {
     };
   }
 }
-
-export default BadDataError;
 
 const constructPath = (pathToParent: string, propertyName: string) =>
   [pathToParent, propertyName].filter(Boolean).join('/');

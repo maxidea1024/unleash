@@ -1,6 +1,6 @@
 import { type ApiErrorSchema, UnleashError } from './unleash-error';
 
-class PatternError extends UnleashError {
+export default class PatternError extends UnleashError {
   statusCode = 400;
 
   details?: { message: string }[];
@@ -20,5 +20,3 @@ class PatternError extends UnleashError {
     };
   }
 }
-
-export default PatternError;

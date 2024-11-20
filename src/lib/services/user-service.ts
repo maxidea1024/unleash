@@ -41,8 +41,8 @@ import PasswordMismatch from '../error/password-mismatch';
 import type EventService from '../features/events/event-service';
 
 import { type IFlagResolver, SYSTEM_USER, SYSTEM_USER_AUDIT } from '../types';
-import { PasswordPreviouslyUsedError } from '../error/password-previously-used';
-import { RateLimitError } from '../error/rate-limit-error';
+import PasswordPreviouslyUsedError from '../error/password-previously-used';
+import RateLimitError from '../error/rate-limit-error';
 import type EventEmitter from 'events';
 import { USER_LOGIN } from '../metric-events';
 

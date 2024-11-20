@@ -1,6 +1,6 @@
 import { UnleashError } from './unleash-error';
 
-export class PasswordPreviouslyUsedError extends UnleashError {
+export default class PasswordPreviouslyUsedError extends UnleashError {
   statusCode = 400;
 
   constructor(

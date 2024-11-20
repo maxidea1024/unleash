@@ -10,7 +10,7 @@ import type { IPatStore } from '../types/stores/pat-store';
 import crypto from 'crypto';
 import BadDataError from '../error/bad-data-error';
 import NameExistsError from '../error/name-exists-error';
-import { OperationDeniedError } from '../error/operation-denied-error';
+import OperationDeniedError from '../error/operation-denied-error';
 import { PAT_LIMIT } from '../util/constants';
 import type EventService from '../features/events/event-service';
 import type { CreatePatSchema, PatSchema } from '../openapi';

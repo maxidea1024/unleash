@@ -1,6 +1,6 @@
 import { UnleashError } from './unleash-error';
 
-class ContentTypeError extends UnleashError {
+export default class ContentTypeError extends UnleashError {
   statusCode = 415;
 
   constructor(
@@ -15,6 +15,3 @@ class ContentTypeError extends UnleashError {
     super(message);
   }
 }
-
-export default ContentTypeError;
-module.exports = ContentTypeError;
