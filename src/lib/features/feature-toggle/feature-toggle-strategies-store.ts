@@ -177,11 +177,12 @@ const parametersWithDefaults = (
 ) => {
   return mergeAll([defaultParameters(params, stickiness), params.parameters]);
 };
-class FeatureStrategiesStore implements IFeatureStrategiesStore {
-  private db: Db;
-  private logger: Logger;
+
+export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
+  private readonly db: Db;
+  private readonly logger: Logger;
   private readonly timer: Function;
-  private flagResolver: IFlagResolver;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     db: Db,
@@ -239,6 +240,7 @@ class FeatureStrategiesStore implements IFeatureStrategiesStore {
       });
     return Number.isInteger(max) ? max + 1 : 0;
   }
+
   private async getDefaultStickiness(projectName: string): Promise<string> {
     const defaultFromDb = await this.db(T.projectSettings)
       .select('default_stickiness')
@@ -246,6 +248,7 @@ class FeatureStrategiesStore implements IFeatureStrategiesStore {
       .first();
     return defaultFromDb?.default_stickiness || 'default';
   }
+
   async createStrategyFeatureEnv(
     strategyConfig: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>,
   ): Promise<IFeatureStrategy> {
@@ -951,6 +954,3 @@ class FeatureStrategiesStore implements IFeatureStrategiesStore {
     return rows.length;
   }
 }
-
-module.exports = FeatureStrategiesStore;
-export default FeatureStrategiesStore;

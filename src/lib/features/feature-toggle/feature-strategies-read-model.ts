@@ -2,7 +2,7 @@ import type { Db } from '../../db/db';
 import type { IFeatureStrategiesReadModel } from './types/feature-strategies-read-model-type';
 
 export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

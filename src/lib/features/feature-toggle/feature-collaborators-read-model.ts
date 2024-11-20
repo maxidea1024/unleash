@@ -7,7 +7,7 @@ import { generateImageUrl } from '../../util';
 
 export class FeatureCollaboratorsReadModel
   implements IFeatureCollaboratorsReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

@@ -87,7 +87,6 @@ interface StrategyIdParams extends FeatureStrategyParams {
 export interface IFeatureProjectUserParams extends ProjectParam {
   archived?: boolean;
   userId?: number;
-
   tag?: string[][];
   namePrefix?: string;
 }
@@ -112,20 +111,14 @@ type ProjectFeaturesServices = Pick<
 >;
 
 export default class ProjectFeaturesController extends Controller {
-  private featureService: FeatureToggleService;
-
-  private featureTagService: FeatureTagService;
-
-  private transactionalFeatureToggleService: (
+  private readonly featureService: FeatureToggleService;
+  private readonly featureTagService: FeatureTagService;
+  private readonly transactionalFeatureToggleService: (
     db: UnleashTransaction,
   ) => FeatureToggleService;
-
-  private openApiService: OpenApiService;
-
-  private flagResolver: IFlagResolver;
-
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: IFlagResolver;
   private readonly logger: Logger;
-
   private readonly startTransaction: TransactionCreator<UnleashTransaction>;
 
   constructor(
@@ -141,8 +134,7 @@ export default class ProjectFeaturesController extends Controller {
     super(config);
 
     this.featureService = featureToggleServiceV2;
-    this.transactionalFeatureToggleService =
-      transactionalFeatureToggleService;
+    this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;
     this.openApiService = openApiService;
     this.featureTagService = featureTagService;

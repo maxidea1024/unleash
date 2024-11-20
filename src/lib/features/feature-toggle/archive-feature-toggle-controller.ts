@@ -48,6 +48,7 @@ export default class ArchiveController extends Controller {
     startTransaction: TransactionCreator<UnleashTransaction>,
   ) {
     super(config);
+
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;
     this.transactionalFeatureToggleService = transactionalFeatureToggleService;
@@ -200,5 +201,3 @@ export default class ArchiveController extends Controller {
     res.status(200).end();
   }
 }
-
-module.exports = ArchiveController;

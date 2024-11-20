@@ -96,8 +96,9 @@ export class GlobalFrontendApiCache extends EventEmitter {
     environment: string,
   ): Record<string, FeatureInterface> {
     const features = this.featuresByEnvironment[environment];
-
-    if (features == null) return {};
+    if (features == null) {
+      return {};
+    }
 
     return features;
   }

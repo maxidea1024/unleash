@@ -465,15 +465,15 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   }
 
   insertToRow(project: string, data: FeatureToggleInsert): FeaturesTable {
-    const row = {
+    const row: FeaturesTable = {
       name: data.name,
-      description: data.description,
-      type: data.type,
+      description: data.description || '',
+      type: data.type || '',
       project,
-      archived_at: data.archived ? new Date() : null,
-      stale: data.stale,
+      archived_at: data.archived ? new Date() : undefined,
+      stale: !!data.stale,
       created_at: data.createdAt,
-      impression_data: data.impressionData,
+      impression_data: !!data.impressionData,
       created_by_user_id: data.createdByUserId,
     };
     if (!row.created_at) {
@@ -487,14 +487,14 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     project: string,
     data: FeatureToggleDTO,
   ): Omit<FeaturesTable, 'created_by_user_id'> {
-    const row = {
+    const row: Omit<FeaturesTable, 'created_by_user_id'> = {
       name: data.name,
-      description: data.description,
-      type: data.type,
+      description: data.description || '',
+      type: data.type || '',
       project,
-      archived_at: data.archived ? new Date() : null,
-      stale: data.stale,
-      impression_data: data.impressionData,
+      archived_at: data.archived ? new Date() : undefined,
+      stale: !!data.stale,
+      impression_data: !!data.impressionData,
     };
 
     return row;
@@ -755,5 +755,3 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     return toUpdate.length;
   }
 }
-
-module.exports = FeatureToggleStore;

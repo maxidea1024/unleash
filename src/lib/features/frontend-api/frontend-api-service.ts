@@ -80,8 +80,7 @@ export class FrontendApiService {
   ): Promise<FrontendApiFeatureSchema[]> {
     const client = await this.clientForFrontendApiToken(token);
     const definitions = client.getFeatureToggleDefinitions() || [];
-    const sessionId =
-      context.sessionId || crypto.randomBytes(18).toString('hex');
+    const sessionId = context.sessionId || crypto.randomBytes(18).toString('hex');
 
     const resultDefinitions = definitions
       .filter((feature) => {

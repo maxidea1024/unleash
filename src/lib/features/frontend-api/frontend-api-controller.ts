@@ -166,7 +166,7 @@ export default class FrontendAPIController extends Controller {
   }
 
   private static async endpointNotImplemented(
-    req: ApiUserRequest,
+    _: ApiUserRequest,
     res: Response,
   ) {
     const error = new NotImplementedError(
@@ -220,7 +220,7 @@ export default class FrontendAPIController extends Controller {
   }
 
   private async registerFrontendApiClient(
-    req: ApiUserRequest<unknown, unknown, FrontendApiClientSchema>,
+    _: ApiUserRequest<unknown, unknown, FrontendApiClientSchema>,
     res: Response<string>,
   ) {
     if (!this.config.flagResolver.isEnabled('embedProxy')) {

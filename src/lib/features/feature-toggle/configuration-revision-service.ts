@@ -12,10 +12,10 @@ export const UPDATE_REVISION = 'UPDATE_REVISION';
 export default class ConfigurationRevisionService extends EventEmitter {
   private static instance: ConfigurationRevisionService;
 
-  private logger: Logger;
-  private eventStore: IEventStore;
+  private readonly logger: Logger;
+  private readonly eventStore: IEventStore;
   private revisionId: number;
-  private flagResolver: IFlagResolver;
+  private readonly flagResolver: IFlagResolver;
 
   private constructor(
     { eventStore }: Pick<IUnleashStores, 'eventStore'>,
