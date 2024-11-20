@@ -13,7 +13,7 @@ type IntermediateProjectResult = Omit<PersonalProject, 'roles'> & {
 };
 
 export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

@@ -28,7 +28,7 @@ import { nameSchema } from '../../../schema/feature-schema';
 
 export default class ClientMetricsServiceV2 {
   private readonly config: IUnleashConfig;
-  private readonly unsavedMetrics: IClientMetricsEnv[] = [];
+  private unsavedMetrics: IClientMetricsEnv[] = [];
   private readonly clientMetricsStoreV2: IClientMetricsStoreV2;
   private readonly lastSeenService: LastSeenService;
   private readonly flagResolver: Pick<IFlagResolver, 'isEnabled' | 'getVariant'>;

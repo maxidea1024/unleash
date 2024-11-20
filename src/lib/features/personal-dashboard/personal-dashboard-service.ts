@@ -37,15 +37,15 @@ type PersonalDashboardProjectDetailsUnserialized = Omit<
 };
 
 export class PersonalDashboardService {
-  private personalDashboardReadModel: IPersonalDashboardReadModel;
-  private projectOwnersReadModel: IProjectOwnersReadModel;
-  private projectReadModel: IProjectReadModel;
-  private privateProjectChecker: IPrivateProjectChecker;
-  private eventStore: IEventStore;
-  private featureEventFormatter: FeatureEventFormatter;
-  private accountStore: IAccountStore;
-  private onboardingReadModel: IOnboardingReadModel;
-  private accessStore: IAccessStore;
+  private readonly personalDashboardReadModel: IPersonalDashboardReadModel;
+  private readonly projectOwnersReadModel: IProjectOwnersReadModel;
+  private readonly projectReadModel: IProjectReadModel;
+  private readonly privateProjectChecker: IPrivateProjectChecker;
+  private readonly eventStore: IEventStore;
+  private readonly featureEventFormatter: FeatureEventFormatter;
+  private readonly accountStore: IAccountStore;
+  private readonly onboardingReadModel: IOnboardingReadModel;
+  private readonly accessStore: IAccessStore;
 
   constructor(
     personalDashboardReadModel: IPersonalDashboardReadModel,
