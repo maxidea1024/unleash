@@ -4,6 +4,7 @@ import type { IUnleashConfig } from '../types/option';
 
 const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
   const logger = config.getLogger('HTTP');
+
   const enable = config.server.enableRequestLogger;
   return (req, res, next) => {
     if (enable) {

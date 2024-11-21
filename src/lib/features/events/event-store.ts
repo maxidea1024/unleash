@@ -103,8 +103,9 @@ export default class EventStore implements IEventStore {
 
   // a new DB has to be injected per transaction
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('event-store.ts');
+
+    this.db = db;
   }
 
   async store(event: IBaseEvent): Promise<void> {

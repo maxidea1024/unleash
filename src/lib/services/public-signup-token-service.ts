@@ -41,7 +41,7 @@ export class PublicSignupTokenService {
     userService: UserService,
     eventService: EventService,
   ) {
-    this.logger = config.getLogger('/services/public-signup-token-service.ts');
+    this.logger = config.getLogger('public-signup-token-service.ts');
 
     this.store = publicSignupTokenStore;
     this.userService = userService;

@@ -129,6 +129,7 @@ export interface IProjectStore extends IStore<IProject, string> {
   isFeatureLimitReached(id: string): Promise<boolean>;
 
   getProjectModeCounts(): Promise<ProjectModeCount[]>;
+
   getApplicationsByProject(
     searchParams: IProjectApplicationsSearchParams,
   ): Promise<IProjectApplications>;

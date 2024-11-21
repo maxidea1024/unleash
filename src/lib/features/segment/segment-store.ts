@@ -60,7 +60,7 @@ export default class SegmentStore implements ISegmentStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.logger = getLogger('lib/db/segment-store.ts');
+    this.logger = getLogger('segment-store.ts');
 
     this.db = db;
     this.eventBus = eventBus;

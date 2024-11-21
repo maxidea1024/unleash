@@ -133,13 +133,14 @@ export default class ProjectFeaturesController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('feature-toggle-controller.ts');
+
     this.featureService = featureToggleServiceV2;
     this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;
     this.openApiService = openApiService;
     this.featureTagService = featureTagService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('/admin-api/project/features.ts');
 
     this.route({
       method: 'get',

@@ -111,7 +111,7 @@ export default class UserService {
       settingService: SettingService;
     },
   ) {
-    this.logger = getLogger('service/user-service.ts');
+    this.logger = getLogger('user-service.ts');
 
     this.store = stores.userStore;
     this.eventBus = eventBus;

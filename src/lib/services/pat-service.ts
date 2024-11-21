@@ -26,7 +26,7 @@ export default class PatService {
     config: IUnleashConfig,
     eventService: EventService,
   ) {
-    this.logger = config.getLogger('services/pat-service.ts');
+    this.logger = config.getLogger('pat-service.ts');
 
     this.config = config;
     this.patStore = patStore;

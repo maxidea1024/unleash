@@ -51,6 +51,7 @@ export interface IVersionOption {
   url?: string;
   enable?: boolean;
 }
+
 export enum IAuthType {
   OPEN_SOURCE = 'open-source',
   DEMO = 'demo',

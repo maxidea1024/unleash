@@ -69,12 +69,11 @@ export default class DependentFeaturesController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('dependent-features-controller.ts');
+
     this.dependentFeaturesService = transactionalDependentFeaturesService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger(
-      '/dependent-features/dependent-features-controller.ts',
-    );
 
     this.route({
       method: 'post',

@@ -17,7 +17,7 @@ export class InactiveUsersStore implements IInactiveUsersStore {
   private readonly eventEmitter: EventEmitter;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.logger = getLogger('users/inactive/inactive-users-store.ts');
+    this.logger = getLogger('inactive-users-store.ts');
 
     this.db = db;
     this.eventEmitter = eventBus;

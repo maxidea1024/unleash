@@ -68,7 +68,7 @@ export default class AddonService {
     integrationEventsService,
     addons?: IAddonProviders,
   ) {
-    this.logger = getLogger('services/addon-service.ts');
+    this.logger = getLogger('addon-service.ts');
 
     this.addonStore = addonStore;
     this.featureToggleStore = featureToggleStore;

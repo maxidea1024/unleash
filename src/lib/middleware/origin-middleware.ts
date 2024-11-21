@@ -11,7 +11,8 @@ export const originMiddleware = ({
   eventBus,
   flagResolver,
 }: Pick<IUnleashConfig, 'getLogger' | 'eventBus' | 'flagResolver'>) => {
-  const logger = getLogger('/middleware/origin-middleware.ts');
+  const logger = getLogger('origin-middleware.ts');
+
   logger.debug('Enabling origin middleware');
 
   return (req: Request, _: Response, next: NextFunction) => {

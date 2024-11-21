@@ -17,15 +17,9 @@ import {
   StrategyUpdatedEvent,
 } from '../types';
 
-const strategySchema = require('./strategy-schema');
-const NameExistsError = require('../error/name-exists-error');
-const {
-  STRATEGY_CREATED,
-  STRATEGY_DELETED,
-  STRATEGY_DEPRECATED,
-  STRATEGY_REACTIVATED,
-  STRATEGY_UPDATED,
-} = require('../types/events');
+import strategySchema from './strategy-schema';
+import NameExistsError from '../error/name-exists-error';
+import { STRATEGY_CREATED, STRATEGY_DELETED, STRATEGY_DEPRECATED, STRATEGY_REACTIVATED, STRATEGY_UPDATED } from '../types/events';
 
 export default class StrategyService {
   private readonly logger: Logger;
@@ -37,7 +31,7 @@ export default class StrategyService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('services/strategy-service.ts');
+    this.logger = getLogger('strategy-service.ts');
 
     this.strategyStore = strategyStore;
     this.eventService = eventService;

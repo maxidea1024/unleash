@@ -22,7 +22,8 @@ export class ClientFeatureToggleService {
     segmentReadModel: ISegmentReadModel,
     { getLogger }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
-    this.logger = getLogger('services/client-feature-toggle-service.ts');
+    this.logger = getLogger('client-feature-toggle-service.ts');
+
     this.segmentReadModel = segmentReadModel;
     this.clientFeatureToggleStore = clientFeatureToggleStore;
   }

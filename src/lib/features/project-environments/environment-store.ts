@@ -105,7 +105,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
   private readonly timer: (string) => any;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.logger = getLogger('db/environment-store.ts');
+    this.logger = getLogger('environment-store.ts');
 
     this.db = db;
     this.timer = (action) =>

@@ -15,7 +15,7 @@ export default class UserFeedbackService {
     { userFeedbackStore }: Pick<IUnleashStores, 'userFeedbackStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.logger = getLogger('services/user-feedback-service.ts');
+    this.logger = getLogger('user-feedback-service.ts');
 
     this.userFeedbackStore = userFeedbackStore;
   }

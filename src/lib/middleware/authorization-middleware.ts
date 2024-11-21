@@ -8,7 +8,8 @@ const authorizationMiddleware = (
   getLogger: LogProvider,
   baseUriPath: string,
 ): any => {
-  const logger = getLogger('/middleware/authorization-middleware.ts');
+  const logger = getLogger('authorization-middleware.ts');
+
   logger.debug('Enabling Authorization middleware');
 
   return async (req: IAuthRequest, res: Response, next: NextFunction) => {
@@ -16,9 +17,11 @@ const authorizationMiddleware = (
       req.user = req.session.user;
       return next();
     }
+
     if (req.user) {
       return next();
     }
+
     if (req.header('authorization')) {
       // API clients should get 401 with a basic body
       const error = new UnauthorizedError(

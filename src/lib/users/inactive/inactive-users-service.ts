@@ -25,7 +25,7 @@ export class InactiveUsersService {
       userService: UserService;
     },
   ) {
-    this.logger = getLogger('services/client-feature-toggle-service.ts');
+    this.logger = getLogger('inactive-users-service.ts');
 
     this.inactiveUsersStore = inactiveUsersStore;
     this.userService = services.userService;
@@ -58,6 +58,7 @@ export class InactiveUsersService {
     userIds: number[],
   ): Promise<void> {
     this.logger.info('Deleting inactive users');
+
     for (const userid of userIds) {
       if (calledByUser.id !== userid) {
         await this.userService.deleteUser(userid, calledByUser);

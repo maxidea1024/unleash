@@ -4,7 +4,8 @@ import type { IUnleashConfig } from '../types';
 export const bearerTokenMiddleware = ({
   getLogger,
 }: Pick<IUnleashConfig, 'getLogger'>) => {
-  const logger = getLogger('/middleware/bearer-token-middleware.ts');
+  const logger = getLogger('bearer-token-middleware.ts');
+
   logger.debug('Enabling bearer token middleware');
 
   return (req: Request, _: Response, next: NextFunction) => {
@@ -13,6 +14,7 @@ export const bearerTokenMiddleware = ({
     if (authHeader) {
       req.headers.authorization = authHeader.replace(/^Bearer\s+/i, '');
     }
+
     next();
   };
 };

@@ -18,6 +18,7 @@ import type {
 } from '../feature-toggle-store';
 import type { FeatureConfigurationClient } from '../types/feature-toggle-strategies-store-type';
 import type { IFeatureProjectUserParams } from '../feature-toggle-controller';
+import { BadDataError } from '../../../error';
 
 export default class FakeFeatureToggleStore implements IFeatureToggleStore {
   features: FeatureToggle[] = [];
@@ -163,8 +164,10 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     const revive = this.features.find((f) => f.name === featureName);
     if (revive) {
       revive.archived = false;
+    } else {
+      throw new NotFoundError(`Could not find feature with name ${featureName}`);
     }
-    // TODO: handle not found case.
+
     return this.update(revive.project, revive);
   }
 
@@ -198,9 +201,11 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
       const old = this.features.find((f) => f.name === data.name);
       const updated = { ...old, ...data };
       this.features.splice(id, 1);
+      // FIXME
       this.features.push(updated);
       return updated;
     }
+
     throw new NotFoundError('Could not find feature to update');
   }
 

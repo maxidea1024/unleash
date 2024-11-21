@@ -18,7 +18,7 @@ export class FeatureSearchService {
     { featureSearchStore }: Pick<IUnleashStores, 'featureSearchStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.logger = getLogger('services/feature-search-service.ts');
+    this.logger = getLogger('feature-search-service.ts');
 
     this.featureSearchStore = featureSearchStore;
   }

@@ -134,7 +134,7 @@ export default class VersionService {
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,
   ) {
-    this.logger = getLogger('services/version-service.ts');
+    this.logger = getLogger('version-service.ts');
 
     this.settingStore = settingStore;
     this.strategyStore = strategyStore;

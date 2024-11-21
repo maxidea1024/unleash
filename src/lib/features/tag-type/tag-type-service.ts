@@ -25,7 +25,7 @@ export default class TagTypeService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('services/tag-type-service.ts');
+    this.logger = getLogger('tag-type-service.ts');
 
     this.tagTypeStore = tagTypeStore;
     this.eventService = eventService;

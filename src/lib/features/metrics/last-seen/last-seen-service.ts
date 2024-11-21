@@ -18,7 +18,7 @@ export class LastSeenService {
     { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,
     config: IUnleashConfig,
   ) {
-    this.logger = config.getLogger('/services/client-metrics/last-seen-service.ts');
+    this.logger = config.getLogger('last-seen-service.ts');
 
     this.lastSeenStore = lastSeenStore;
   }

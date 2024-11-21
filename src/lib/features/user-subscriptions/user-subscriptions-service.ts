@@ -29,7 +29,7 @@ export class UserSubscriptionsService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('services/user-subscription-service.ts');
+    this.logger = getLogger('user-subscription-service.ts');
 
     this.userUnsubscribeStore = userUnsubscribeStore;
     this.userSubscriptionsReadModel = userSubscriptionsReadModel;

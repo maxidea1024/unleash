@@ -207,7 +207,7 @@ export default class FeatureToggleService {
     featureLifecycleReadModel: IFeatureLifecycleReadModel,
     featureCollaboratorsReadModel: IFeatureCollaboratorsReadModel,
   ) {
-    this.logger = getLogger('services/feature-toggle-service.ts');
+    this.logger = getLogger('feature-toggle-service.ts');
 
     this.featureStrategiesStore = featureStrategiesStore;
     this.strategyStore = strategyStore;

@@ -39,7 +39,7 @@ export default class ClientMetricsServiceV2 {
     config: IUnleashConfig,
     lastSeenService: LastSeenService,
   ) {
-    this.logger = config.getLogger('/services/client-metrics/client-metrics-service-v2.ts');
+    this.logger = config.getLogger('metrics-service-v2.ts');
 
     this.clientMetricsStoreV2 = clientMetricsStoreV2;
     this.lastSeenService = lastSeenService;

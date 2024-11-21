@@ -35,7 +35,8 @@ export default class EventService {
     privateProjectChecker: IPrivateProjectChecker,
     accessReadModel: IAccessReadModel,
   ) {
-    this.logger = getLogger('services/event-service.ts');
+    this.logger = getLogger('event-service.ts');
+
     this.eventStore = eventStore;
     this.privateProjectChecker = privateProjectChecker;
     this.featureTagStore = featureTagStore;

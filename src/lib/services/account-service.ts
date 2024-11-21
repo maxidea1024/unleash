@@ -23,7 +23,7 @@ export class AccountService {
       accessService: AccessService;
     },
   ) {
-    this.logger = getLogger('service/account-service.ts');
+    this.logger = getLogger('account-service.ts');
 
     this.store = stores.accountStore;
     this.accessService = services.accessService;

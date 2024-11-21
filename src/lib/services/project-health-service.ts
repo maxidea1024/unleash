@@ -30,7 +30,7 @@ export default class ProjectHealthService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     projectService: ProjectService,
   ) {
-    this.logger = getLogger('services/project-health-service.ts');
+    this.logger = getLogger('project-health-service.ts');
 
     this.projectStore = projectStore;
     this.featureTypeStore = featureTypeStore;

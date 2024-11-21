@@ -62,11 +62,13 @@ const definition: IAddonDefinition = {
     },
   ],
 };
+
 export default class SimpleAddon extends Addon {
   events: any[];
 
   constructor() {
     super(definition, ARGS);
+
     this.events = [];
   }
 

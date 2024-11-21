@@ -47,7 +47,7 @@ export default class ClientMetricsController extends Controller {
 
     const { getLogger } = config;
 
-    this.logger = getLogger('/api/client/metrics.ts');
+    this.logger = getLogger('metrics.ts');
 
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;

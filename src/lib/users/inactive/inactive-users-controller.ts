@@ -21,6 +21,7 @@ import type { IAuthRequest } from '../../routes/unleash-types';
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services';
 import { anonymise } from '../../util';
+
 export class InactiveUsersController extends Controller {
   private readonly logger: Logger;
   private readonly inactiveUsersService: InactiveUsersService;
@@ -37,7 +38,7 @@ export class InactiveUsersController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('user/inactive/inactive-users-controller.ts');
+    this.logger = config.getLogger('inactive-users-controller.ts');
 
     this.inactiveUsersService = inactiveUsersService;
     this.openApiService = openApiService;

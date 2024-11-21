@@ -39,7 +39,8 @@ const apiAccessMiddleware = (
   }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
   { apiTokenService }: Pick<IUnleashServices, 'apiTokenService'>,
 ): any => {
-  const logger = getLogger('/middleware/api-token.ts');
+  const logger = getLogger('api-token-middleware.ts');
+
   logger.debug('Enabling api-token middleware');
 
   if (!authentication.enableApiToken) {

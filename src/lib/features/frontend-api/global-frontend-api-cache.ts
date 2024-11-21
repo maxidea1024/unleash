@@ -43,8 +43,9 @@ export class GlobalFrontendApiCache extends EventEmitter {
   ) {
     super();
 
-    this.config = config;
     this.logger = config.getLogger('global-frontend-api-cache.ts');
+
+    this.config = config;
     this.clientFeatureToggleReadModel = clientFeatureToggleReadModel;
     this.configurationRevisionService = configurationRevisionService;
     this.segmentReadModel = segmentReadModel;

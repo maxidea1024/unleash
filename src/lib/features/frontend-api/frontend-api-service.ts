@@ -67,7 +67,7 @@ export class FrontendApiService {
     services: Services,
     globalFrontendApiCache: GlobalFrontendApiCache,
   ) {
-    this.logger = config.getLogger('services/frontend-api-service.ts');
+    this.logger = config.getLogger('frontend-api-service.ts');
 
     this.config = config;
     this.stores = stores;

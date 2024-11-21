@@ -7,10 +7,11 @@ const patMiddleware = (
   { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   { accountService }: { accountService: AccountService },
 ): any => {
-  const logger = getLogger('/middleware/pat-middleware.ts');
+  const logger = getLogger('pat-middleware.ts');
+
   logger.debug('Enabling PAT middleware');
 
-  return async (req: IAuthRequest, res, next) => {
+  return async (req: IAuthRequest, _res, next) => {
     try {
       const apiToken = req.header('authorization');
       if (apiToken?.startsWith('user:')) {
@@ -31,6 +32,7 @@ const patMiddleware = (
         logger.error(error);
       }
     }
+
     next();
   };
 };

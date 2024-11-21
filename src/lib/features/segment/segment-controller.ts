@@ -69,7 +69,7 @@ export class SegmentsController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/segments.ts');
+    this.logger = config.getLogger('segment-controller.ts');
 
     this.flagResolver = config.flagResolver;
     this.config = config;
@@ -317,9 +317,9 @@ export class SegmentsController extends Controller {
       return;
     }
 
-    if (segmentIds.length > this.config.strategySegmentsLimit) {
+    if (segmentIds.length > this.config.resourceLimits.strategySegments) {
       throw new BadDataError(
-        `Strategies may not have more than ${this.config.strategySegmentsLimit} segments`,
+        `Strategies may not have more than ${this.config.resourceLimits.strategySegments} segments`,
       );
     }
 

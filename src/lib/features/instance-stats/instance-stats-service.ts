@@ -95,15 +95,10 @@ export class InstanceStatsService {
   private readonly clientMetricsStore: IClientMetricsStoreV2;
   private readonly flagResolver: IFlagResolver;
   private appCount?: Partial<{ [key in TimeRange]: number }>;
-
   getActiveUsers: GetActiveUsers;
-
   getLicencedUsers: GetLicensedUsers;
-
   getProductionChanges: GetProductionChanges;
-
   private featureStrategiesReadModel: IFeatureStrategiesReadModel;
-
   private trafficDataUsageStore: ITrafficDataUsageStore;
 
   constructor(
@@ -152,7 +147,7 @@ export class InstanceStatsService {
     getProductionChanges: GetProductionChanges,
     getLicencedUsers: GetLicensedUsers,
   ) {
-    this.logger = getLogger('services/stats-service.ts');
+    this.logger = getLogger('stats-service.ts');
 
     this.strategyStore = strategyStore;
     this.userStore = userStore;

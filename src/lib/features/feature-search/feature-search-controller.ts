@@ -41,7 +41,7 @@ export default class FeatureSearchController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/feature-search/feature-search-controller.ts');
+    this.logger = config.getLogger('feature-search-controller.ts');
 
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;

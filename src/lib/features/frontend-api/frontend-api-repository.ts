@@ -29,8 +29,9 @@ export class FrontendApiRepository
   ) {
     super();
 
-    this.config = config;
     this.logger = config.getLogger('frontend-api-repository.ts');
+
+    this.config = config;
     this.token = token;
     this.globalFrontendApiCache = globalFrontendApiCache;
   }

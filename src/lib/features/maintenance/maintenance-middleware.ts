@@ -9,7 +9,8 @@ const maintenanceMiddleware = (
   { getLogger }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   maintenanceService: MaintenanceService,
 ): any => {
-  const logger = getLogger('/middleware/maintenance-middleware.ts');
+  const logger = getLogger('maintenance-middleware.ts');
+
   logger.debug('Enabling Maintenance middleware');
 
   return async (req: IAuthRequest, res, next) => {

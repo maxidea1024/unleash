@@ -21,7 +21,7 @@ import {
   importTogglesValidateSchema,
 } from '../../openapi';
 import type { IAuthRequest } from '../../routes/unleash-types';
-import { extractUsername } from '../../util';
+// import { extractUsername } from '../../util';
 import { BadDataError, InvalidOperationError } from '../../error';
 import ApiUser from '../../types/api-user';
 
@@ -44,7 +44,8 @@ export default class ExportImportController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/export-import.ts');
+    this.logger = config.getLogger('/export-import-controller.ts');
+
     this.exportService = exportService;
     this.importService = importService;
     this.openApiService = openApiService;

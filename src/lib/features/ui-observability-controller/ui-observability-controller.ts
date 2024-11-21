@@ -23,7 +23,7 @@ export class UiObservabilityController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/ui-observability.ts');
+    this.logger = config.getLogger('ui-observability-controller.ts');
 
     this.route({
       method: 'post',

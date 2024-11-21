@@ -52,7 +52,7 @@ export default class EnvironmentService {
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('services/environment-service.ts');
+    this.logger = getLogger('environment-service.ts');
 
     this.environmentStore = environmentStore;
     this.featureStrategiesStore = featureStrategiesStore;

@@ -11,7 +11,7 @@ export default class HealthService {
     { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.logger = getLogger('services/health-service.ts');
+    this.logger = getLogger('health-service.ts');
 
     this.featureTypeStore = featureTypeStore;
   }

@@ -31,7 +31,7 @@ export default class MaintenanceController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/maintenance.ts');
+    this.logger = config.getLogger('maintenance-controller.ts');
 
     this.maintenanceService = maintenanceService;
     this.openApiService = openApiService;

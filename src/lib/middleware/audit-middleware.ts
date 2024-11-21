@@ -5,7 +5,8 @@ import { extractAuditInfo } from '../util';
 export const auditAccessMiddleware = ({
   getLogger,
 }: Pick<IUnleashConfig, 'getLogger'>): any => {
-  const logger = getLogger('/middleware/audit-middleware.ts');
+  const logger = getLogger('audit-middleware.ts');
+
   return (req: IAuthRequest | IApiRequest, _res, next) => {
     if (!req.user) {
       logger.info('Could not find user');
@@ -16,6 +17,7 @@ export const auditAccessMiddleware = ({
         logger.warn('Could not find audit info in request');
       }
     }
+
     next();
   };
 };

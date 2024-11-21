@@ -51,7 +51,7 @@ export class SegmentService implements ISegmentService {
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
-    this.logger = config.getLogger('services/segment-service.ts');
+    this.logger = config.getLogger('segment-service.ts');
 
     this.segmentStore = segmentStore;
     this.featureStrategiesStore = featureStrategiesStore;

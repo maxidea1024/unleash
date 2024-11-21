@@ -46,7 +46,7 @@ export default class FeatureSearchStore implements IFeatureSearchStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.logger = getLogger('feature-search/feature-search-store.ts');
+    this.logger = getLogger('feature-search-store.ts');
 
     this.db = db;
     this.flagResolver = flagResolver;

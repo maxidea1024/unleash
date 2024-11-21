@@ -48,8 +48,9 @@ export default class FeatureToggleClientStore
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.db = db;
     this.logger = getLogger('feature-toggle-client-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'client-feature-toggle',

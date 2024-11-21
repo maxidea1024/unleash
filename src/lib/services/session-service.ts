@@ -12,7 +12,7 @@ export default class SessionService {
     { sessionStore }: Pick<IUnleashStores, 'sessionStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.logger = getLogger('services/session-service.ts');
+    this.logger = getLogger('session-service.ts');
 
     this.sessionStore = sessionStore;
   }

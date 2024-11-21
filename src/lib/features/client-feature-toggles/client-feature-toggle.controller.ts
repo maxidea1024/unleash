@@ -80,6 +80,8 @@ export default class FeatureController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('client-feature-toggle.controller.ts');
+
     const { clientFeatureCaching } = config;
     this.clientFeatureToggleService = clientFeatureToggleService;
     this.clientSpecService = clientSpecService;
@@ -87,7 +89,6 @@ export default class FeatureController extends Controller {
     this.configurationRevisionService = configurationRevisionService;
     this.featureToggleService = featureToggleService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('client-api/feature.ts');
 
     this.route({
       method: 'get',

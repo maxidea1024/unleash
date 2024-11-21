@@ -103,7 +103,8 @@ export default class FrontendAPIController extends Controller {
         this.services.openApiService.validPath({
           tags: ['Frontend API'],
           summary: 'Register client usage metrics',
-          description: `Registers usage metrics. Stores information about how many times each flag was evaluated to enabled and disabled within a time frame. If provided, this operation will also store data on how many times each feature flag's variants were displayed to the end user. If the Frontend API is disabled 404 is returned.`,
+          description:
+            `Registers usage metrics. Stores information about how many times each flag was evaluated to enabled and disabled within a time frame. If provided, this operation will also store data on how many times each feature flag's variants were displayed to the end user. If the Frontend API is disabled 404 is returned.`,
           operationId: 'registerFrontendMetrics',
           requestBody: createRequestSchema('clientMetricsSchema'),
           responses: {
