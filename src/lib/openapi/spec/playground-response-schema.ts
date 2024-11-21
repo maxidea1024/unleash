@@ -11,40 +11,40 @@ import { playgroundSegmentSchema } from './playground-segment-schema';
 import { playgroundStrategySchema } from './playground-strategy-schema';
 
 export const playgroundResponseSchema = {
-    $id: '#/components/schemas/playgroundResponseSchema',
-    description: 'The state of all features given the provided input.',
-    type: 'object',
-    additionalProperties: false,
-    required: ['features', 'input'],
-    properties: {
-        input: {
-            description: 'The given input used to evaluate the features.',
-            $ref: playgroundRequestSchema.$id,
-        },
-        features: {
-            type: 'array',
-            description: 'The list of features that have been evaluated.',
-            items: {
-                $ref: playgroundFeatureSchema.$id,
-            },
-        },
+  $id: '#/components/schemas/playgroundResponseSchema',
+  description: 'The state of all features given the provided input.',
+  type: 'object',
+  additionalProperties: false,
+  required: ['features', 'input'],
+  properties: {
+    input: {
+      description: 'The given input used to evaluate the features.',
+      $ref: playgroundRequestSchema.$id,
     },
-    components: {
-        schemas: {
-            constraintSchema,
-            parametersSchema,
-            playgroundConstraintSchema,
-            playgroundFeatureSchema,
-            playgroundRequestSchema,
-            playgroundSegmentSchema,
-            playgroundStrategySchema,
-            sdkContextSchema,
-            variantSchema,
-            overrideSchema,
-        },
+    features: {
+      type: 'array',
+      description: 'The list of features that have been evaluated.',
+      items: {
+        $ref: playgroundFeatureSchema.$id,
+      },
     },
+  },
+  components: {
+    schemas: {
+      constraintSchema,
+      parametersSchema,
+      playgroundConstraintSchema,
+      playgroundFeatureSchema,
+      playgroundRequestSchema,
+      playgroundSegmentSchema,
+      playgroundStrategySchema,
+      sdkContextSchema,
+      variantSchema,
+      overrideSchema,
+    },
+  },
 } as const;
 
 export type PlaygroundResponseSchema = FromSchema<
-    typeof playgroundResponseSchema
+  typeof playgroundResponseSchema
 >;

@@ -13,56 +13,56 @@ import { advancedPlaygroundEnvironmentFeatureSchema } from './advanced-playgroun
 import { sdkFlatContextSchema } from './sdk-flat-context-schema';
 
 export const advancedPlaygroundResponseSchema = {
-    $id: '#/components/schemas/advancedPlaygroundResponseSchema',
-    description: 'The state of all features given the provided input.',
-    type: 'object',
-    additionalProperties: false,
-    required: ['features', 'input'],
-    properties: {
-        input: {
-            description: 'The given input used to evaluate the features.',
-            $ref: advancedPlaygroundRequestSchema.$id,
-        },
-        features: {
-            type: 'array',
-            description: 'The list of features that have been evaluated.',
-            items: {
-                $ref: advancedPlaygroundFeatureSchema.$id,
-            },
-        },
-        warnings: {
-            type: 'object',
-            description: 'Warnings that occurred during evaluation.',
-            properties: {
-                invalidContextProperties: {
-                    type: 'array',
-                    description:
-                        'A list of top-level context properties that were provided as input that are not valid due to being the wrong type.',
-                    items: {
-                        type: 'string',
-                    },
-                },
-            },
-        },
+  $id: '#/components/schemas/advancedPlaygroundResponseSchema',
+  description: 'The state of all features given the provided input.',
+  type: 'object',
+  additionalProperties: false,
+  required: ['features', 'input'],
+  properties: {
+    input: {
+      description: 'The given input used to evaluate the features.',
+      $ref: advancedPlaygroundRequestSchema.$id,
     },
-    components: {
-        schemas: {
-            constraintSchema,
-            parametersSchema,
-            playgroundConstraintSchema,
-            advancedPlaygroundFeatureSchema,
-            advancedPlaygroundEnvironmentFeatureSchema,
-            advancedPlaygroundRequestSchema,
-            playgroundSegmentSchema,
-            playgroundStrategySchema,
-            sdkContextSchema,
-            sdkFlatContextSchema,
-            variantSchema,
-            overrideSchema,
-        },
+    features: {
+      type: 'array',
+      description: 'The list of features that have been evaluated.',
+      items: {
+        $ref: advancedPlaygroundFeatureSchema.$id,
+      },
     },
+    warnings: {
+      type: 'object',
+      description: 'Warnings that occurred during evaluation.',
+      properties: {
+        invalidContextProperties: {
+          type: 'array',
+          description:
+            'A list of top-level context properties that were provided as input that are not valid due to being the wrong type.',
+          items: {
+            type: 'string',
+          },
+        },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      constraintSchema,
+      parametersSchema,
+      playgroundConstraintSchema,
+      advancedPlaygroundFeatureSchema,
+      advancedPlaygroundEnvironmentFeatureSchema,
+      advancedPlaygroundRequestSchema,
+      playgroundSegmentSchema,
+      playgroundStrategySchema,
+      sdkContextSchema,
+      sdkFlatContextSchema,
+      variantSchema,
+      overrideSchema,
+    },
+  },
 } as const;
 
 export type AdvancedPlaygroundResponseSchema = FromSchema<
-    typeof advancedPlaygroundResponseSchema
+  typeof advancedPlaygroundResponseSchema
 >;

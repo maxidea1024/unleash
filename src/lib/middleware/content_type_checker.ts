@@ -17,6 +17,7 @@ export default function requireContentType(
   if (acceptedContentTypes.length === 0) {
     acceptedContentTypes.push(DEFAULT_ACCEPTED_CONTENT_TYPE);
   }
+
   return (req, res, next) => {
     const contentType = req.header('Content-Type');
     if (contentType && is(contentType, acceptedContentTypes)) {

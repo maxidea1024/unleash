@@ -2,49 +2,49 @@ import { validateSchema } from '../validate';
 import type { ClientFeaturesSchema } from './client-features-schema';
 
 test('clientFeaturesSchema no fields', () => {
-    expect(
-        validateSchema('#/components/schemas/clientFeaturesSchema', {}),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/clientFeaturesSchema', {}),
+  ).toMatchSnapshot();
 });
 
 test('clientFeaturesSchema required fields', () => {
-    const data: ClientFeaturesSchema = {
-        version: 0,
-        query: {},
-        features: [
-            {
-                name: 'some-name',
-                enabled: false,
-                impressionData: false,
-                variants: [
-                    {
-                        name: 'a',
-                        weight: 1,
-                        weightType: 'fix',
-                        stickiness: 'c',
-                        payload: {
-                            type: 'string',
-                            value: 'b',
-                        },
-                        overrides: [
-                            {
-                                contextName: 'a',
-                                values: ['b'],
-                            },
-                        ],
-                    },
-                ],
+  const data: ClientFeaturesSchema = {
+    version: 0,
+    query: {},
+    features: [
+      {
+        name: 'some-name',
+        enabled: false,
+        impressionData: false,
+        variants: [
+          {
+            name: 'a',
+            weight: 1,
+            weightType: 'fix',
+            stickiness: 'c',
+            payload: {
+              type: 'string',
+              value: 'b',
             },
+            overrides: [
+              {
+                contextName: 'a',
+                values: ['b'],
+              },
+            ],
+          },
         ],
-    };
+      },
+    ],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/clientFeaturesSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientFeaturesSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientFeaturesSchema java-sdk expected response', () => {
-    const json = `{
+  const json = `{
       "version": 2,
       "segments": [
         {
@@ -136,16 +136,16 @@ test('clientFeaturesSchema java-sdk expected response', () => {
       ]
     }`;
 
-    expect(
-        validateSchema(
-            '#/components/schemas/clientFeaturesSchema',
-            JSON.parse(json),
-        ),
-    ).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientFeaturesSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });
 
 test('clientFeaturesSchema unleash-proxy expected response', () => {
-    const json = `{
+  const json = `{
       "version": 2,
       "segments": [
         {
@@ -239,16 +239,16 @@ test('clientFeaturesSchema unleash-proxy expected response', () => {
       ]
     }`;
 
-    expect(
-        validateSchema(
-            '#/components/schemas/clientFeaturesSchema',
-            JSON.parse(json),
-        ),
-    ).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientFeaturesSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });
 
 test('clientFeaturesSchema client specification test 15', () => {
-    const json = `{
+  const json = `{
       "version": 2,
       "features": [
         {
@@ -407,10 +407,10 @@ test('clientFeaturesSchema client specification test 15', () => {
       ]
     }`;
 
-    expect(
-        validateSchema(
-            '#/components/schemas/clientFeaturesSchema',
-            JSON.parse(json),
-        ),
-    ).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientFeaturesSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });

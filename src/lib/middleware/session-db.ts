@@ -11,8 +11,7 @@ function sessionDb(
 ): RequestHandler {
   let store: session.Store;
   const { db, cookieName } = config.session;
-  const age =
-    hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48);
+  const age = hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48);
   if (db) {
     store = new ConnectSessionKnexStore({
       tableName: 'unleash_session',
@@ -22,6 +21,7 @@ function sessionDb(
   } else {
     store = new session.MemoryStore();
   }
+
   return session({
     name: cookieName,
     rolling: false,

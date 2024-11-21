@@ -13,6 +13,7 @@ export const originMiddleware = ({
 }: Pick<IUnleashConfig, 'getLogger' | 'eventBus' | 'flagResolver'>) => {
   const logger = getLogger('/middleware/origin-middleware.ts');
   logger.debug('Enabling origin middleware');
+
   return (req: Request, _: Response, next: NextFunction) => {
     const isUI = !req.headers.authorization;
 

@@ -2,18 +2,18 @@ import { validateSchema } from '../validate';
 import type { SortOrderSchema } from './sort-order-schema';
 
 test('sortOrderSchema', () => {
-    const data: SortOrderSchema = {
-        a: 1,
-        b: 2,
-    };
+  const data: SortOrderSchema = {
+    a: 1,
+    b: 2,
+  };
 
-    expect(
-        validateSchema('#/components/schemas/sortOrderSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/sortOrderSchema', data),
+  ).toBeUndefined();
 });
 
 test('sortOrderSchema invalid value type', () => {
-    expect(
-        validateSchema('#/components/schemas/sortOrderSchema', { a: '1' }),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/sortOrderSchema', { a: '1' }),
+  ).toMatchSnapshot();
 });

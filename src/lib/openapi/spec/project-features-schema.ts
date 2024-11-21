@@ -4,32 +4,32 @@ import { projectFeatureSchema } from './project-feature-schema';
 import { projectFeatureEnvironmentSchema } from './project-feature-environment-schema';
 
 export const projectFeaturesSchema = {
-    $id: '#/components/schemas/projectFeaturesSchema',
-    type: 'object',
-    additionalProperties: false,
-    required: ['version', 'features'],
-    description: 'A list of features in a project',
-    deprecated: true,
-    properties: {
-        version: {
-            type: 'integer',
-            description: "The version of the feature's schema",
-        },
-        features: {
-            type: 'array',
-            items: {
-                $ref: '#/components/schemas/projectFeatureSchema',
-            },
-            description: 'A list of features',
-        },
+  $id: '#/components/schemas/projectFeaturesSchema',
+  type: 'object',
+  additionalProperties: false,
+  required: ['version', 'features'],
+  description: 'A list of features in a project',
+  deprecated: true,
+  properties: {
+    version: {
+      type: 'integer',
+      description: "The version of the feature's schema",
     },
-    components: {
-        schemas: {
-            projectFeatureSchema,
-            projectFeatureEnvironmentSchema,
-            tagSchema,
-        },
+    features: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/projectFeatureSchema',
+      },
+      description: 'A list of features',
     },
+  },
+  components: {
+    schemas: {
+      projectFeatureSchema,
+      projectFeatureEnvironmentSchema,
+      tagSchema,
+    },
+  },
 } as const;
 
 export type ProjectFeaturesSchema = FromSchema<typeof projectFeaturesSchema>;

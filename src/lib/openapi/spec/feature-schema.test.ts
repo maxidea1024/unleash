@@ -2,97 +2,97 @@ import { validateSchema } from '../validate';
 import type { FeatureSchema } from './feature-schema';
 
 test('featureSchema', () => {
-    const data: FeatureSchema = {
+  const data: FeatureSchema = {
+    name: 'a',
+    variants: [
+      {
         name: 'a',
-        variants: [
-            {
-                name: 'a',
-                weight: 1,
-                weightType: 'fix',
-                stickiness: 'a',
-                overrides: [{ contextName: 'a', values: ['a'] }],
-                payload: { type: 'string', value: 'b' },
-            },
+        weight: 1,
+        weightType: 'fix',
+        stickiness: 'a',
+        overrides: [{ contextName: 'a', values: ['a'] }],
+        payload: { type: 'string', value: 'b' },
+      },
+    ],
+    environments: [
+      {
+        name: 'a',
+        type: 'b',
+        enabled: true,
+        strategies: [
+          {
+            id: 'a',
+            name: 'a',
+            constraints: [
+              {
+                contextName: 'a',
+                operator: 'IN',
+              },
+            ],
+            segments: [1],
+          },
         ],
-        environments: [
-            {
-                name: 'a',
-                type: 'b',
-                enabled: true,
-                strategies: [
-                    {
-                        id: 'a',
-                        name: 'a',
-                        constraints: [
-                            {
-                                contextName: 'a',
-                                operator: 'IN',
-                            },
-                        ],
-                        segments: [1],
-                    },
-                ],
-            },
-        ],
-    };
+      },
+    ],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/featureSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toBeUndefined();
 });
 
 test('featureSchema constraints', () => {
-    const data = {
+  const data = {
+    name: 'a',
+    environments: [
+      {
         name: 'a',
-        environments: [
-            {
-                name: 'a',
-                type: 'b',
-                enabled: true,
-                strategies: [
-                    { name: 'a', constraints: [{ contextName: 'a' }] },
-                ],
-            },
+        type: 'b',
+        enabled: true,
+        strategies: [
+          { name: 'a', constraints: [{ contextName: 'a' }] },
         ],
-    };
+      },
+    ],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/featureSchema', data),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toMatchSnapshot();
 });
 
 test('featureSchema variants should only have a few required fields', () => {
-    const data = {
+  const data = {
+    name: 'a',
+    variants: [
+      {
         name: 'a',
-        variants: [
-            {
-                name: 'a',
-                weight: 1,
-            },
-        ],
-    };
+        weight: 1,
+      },
+    ],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/featureSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toBeUndefined();
 });
 
 test('featureSchema variant override values must be an array', () => {
-    const data = {
+  const data = {
+    name: 'a',
+    variants: [
+      {
         name: 'a',
-        variants: [
-            {
-                name: 'a',
-                weight: 1,
-                weightType: 'fix',
-                stickiness: 'a',
-                overrides: [{ contextName: 'a', values: 'b' }],
-                payload: { type: 'a', value: 'b' },
-            },
-        ],
-    };
+        weight: 1,
+        weightType: 'fix',
+        stickiness: 'a',
+        overrides: [{ contextName: 'a', values: 'b' }],
+        payload: { type: 'a', value: 'b' },
+      },
+    ],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/featureSchema', data),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toMatchSnapshot();
 });

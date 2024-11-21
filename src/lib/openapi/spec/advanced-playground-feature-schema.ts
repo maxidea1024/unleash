@@ -10,48 +10,48 @@ import { advancedPlaygroundEnvironmentFeatureSchema } from './advanced-playgroun
 import { sdkFlatContextSchema } from './sdk-flat-context-schema';
 
 export const advancedPlaygroundFeatureSchema = {
-    $id: '#/components/schemas/advancedPlaygroundFeatureSchema',
-    description:
-        'A simplified feature flag model intended for the Unleash playground.',
-    type: 'object',
-    additionalProperties: false,
-    required: ['name', 'projectId', 'environments'],
-    properties: {
-        name: {
-            type: 'string',
-            example: 'my-feature',
-            description: "The feature's name.",
-        },
-        projectId: {
-            type: 'string',
-            example: 'my-project',
-            description: 'The ID of the project that contains this feature.',
-        },
-        environments: {
-            type: 'object',
-            description:
-                'The lists of features that have been evaluated grouped by environment.',
-            additionalProperties: {
-                type: 'array',
-                items: { $ref: advancedPlaygroundEnvironmentFeatureSchema.$id },
-            },
-        },
+  $id: '#/components/schemas/advancedPlaygroundFeatureSchema',
+  description:
+    'A simplified feature flag model intended for the Unleash playground.',
+  type: 'object',
+  additionalProperties: false,
+  required: ['name', 'projectId', 'environments'],
+  properties: {
+    name: {
+      type: 'string',
+      example: 'my-feature',
+      description: "The feature's name.",
     },
-    components: {
-        schemas: {
-            advancedPlaygroundEnvironmentFeatureSchema,
-            playgroundStrategySchema,
-            playgroundConstraintSchema,
-            playgroundSegmentSchema,
-            parametersSchema,
-            variantSchema,
-            overrideSchema,
-            sdkContextSchema,
-            sdkFlatContextSchema,
-        },
+    projectId: {
+      type: 'string',
+      example: 'my-project',
+      description: 'The ID of the project that contains this feature.',
     },
+    environments: {
+      type: 'object',
+      description:
+        'The lists of features that have been evaluated grouped by environment.',
+      additionalProperties: {
+        type: 'array',
+        items: { $ref: advancedPlaygroundEnvironmentFeatureSchema.$id },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      advancedPlaygroundEnvironmentFeatureSchema,
+      playgroundStrategySchema,
+      playgroundConstraintSchema,
+      playgroundSegmentSchema,
+      parametersSchema,
+      variantSchema,
+      overrideSchema,
+      sdkContextSchema,
+      sdkFlatContextSchema,
+    },
+  },
 } as const;
 
 export type AdvancedPlaygroundFeatureSchema = FromSchema<
-    typeof advancedPlaygroundFeatureSchema
+  typeof advancedPlaygroundFeatureSchema
 >;

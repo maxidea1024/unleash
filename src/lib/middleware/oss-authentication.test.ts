@@ -24,6 +24,7 @@ async function getSetup(preRouterHook) {
       });
     },
   });
+
   const stores = createStores();
   const services = createServices(stores, config);
   const unleashSession = sessionDb(config, {} as Knex);

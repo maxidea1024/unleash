@@ -2,42 +2,42 @@ import { validateSchema } from '../validate';
 import type { ClientApplicationSchema } from './client-application-schema';
 
 test('clientApplicationSchema no fields', () => {
-    expect(
-        validateSchema('#/components/schemas/clientApplicationSchema', {}),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', {}),
+  ).toMatchSnapshot();
 });
 
 test('clientApplicationSchema required fields', () => {
-    const data: ClientApplicationSchema = {
-        appName: '',
-        interval: 0,
-        started: 0,
-        strategies: [''],
-    };
+  const data: ClientApplicationSchema = {
+    appName: '',
+    interval: 0,
+    started: 0,
+    strategies: [''],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/clientApplicationSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema all fields', () => {
-    const data: ClientApplicationSchema = {
-        appName: '',
-        instanceId: '',
-        sdkVersion: '',
-        environment: '',
-        interval: 0,
-        started: 0,
-        strategies: [''],
-    };
+  const data: ClientApplicationSchema = {
+    appName: '',
+    instanceId: '',
+    sdkVersion: '',
+    environment: '',
+    interval: 0,
+    started: 0,
+    strategies: [''],
+  };
 
-    expect(
-        validateSchema('#/components/schemas/clientApplicationSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema go-sdk request', () => {
-    const json = `{
+  const json = `{
         "appName": "x",
         "instanceId": "y",
         "sdkVersion": "unleash-client-go:3.3.1",
@@ -55,16 +55,16 @@ test('clientApplicationSchema go-sdk request', () => {
         "interval": 1
     }`;
 
-    expect(
-        validateSchema(
-            '#/components/schemas/clientApplicationSchema',
-            JSON.parse(json),
-        ),
-    ).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientApplicationSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema node-sdk request', () => {
-    const json = `{
+  const json = `{
         "appName": "unleash-test-node-appName2",
         "instanceId": "unleash-test-node-instanceId",
         "sdkVersion": "unleash-client-node:3.11.0",
@@ -83,10 +83,10 @@ test('clientApplicationSchema node-sdk request', () => {
         "interval": 1000
     }`;
 
-    expect(
-        validateSchema(
-            '#/components/schemas/clientApplicationSchema',
-            JSON.parse(json),
-        ),
-    ).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientApplicationSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });

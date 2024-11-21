@@ -18,50 +18,50 @@ import { featureDependenciesSchema } from './feature-dependencies-schema';
 import { dependentFeatureSchema } from './dependent-feature-schema';
 
 export const importTogglesSchema = {
-    $id: '#/components/schemas/importTogglesSchema',
-    type: 'object',
-    required: ['project', 'environment', 'data'],
-    additionalProperties: false,
-    description:
-        'The result of the export operation for a project and environment, used at import',
-    properties: {
-        project: {
-            type: 'string',
-            example: 'My awesome project',
-            description:
-                'The exported [project](https://docs.getunleash.io/reference/projects)',
-        },
-        environment: {
-            type: 'string',
-            example: 'development',
-            description:
-                'The exported [environment](https://docs.getunleash.io/reference/environments)',
-        },
-        data: {
-            $ref: '#/components/schemas/exportResultSchema',
-        },
+  $id: '#/components/schemas/importTogglesSchema',
+  type: 'object',
+  required: ['project', 'environment', 'data'],
+  additionalProperties: false,
+  description:
+    'The result of the export operation for a project and environment, used at import',
+  properties: {
+    project: {
+      type: 'string',
+      example: 'My awesome project',
+      description:
+        'The exported [project](https://docs.getunleash.io/reference/projects)',
     },
-    components: {
-        schemas: {
-            exportResultSchema,
-            featureSchema,
-            featureStrategySchema,
-            strategyVariantSchema,
-            featureEnvironmentSchema,
-            contextFieldSchema,
-            featureTagSchema,
-            segmentSchema,
-            variantsSchema,
-            variantSchema,
-            overrideSchema,
-            constraintSchema,
-            parametersSchema,
-            legalValueSchema,
-            tagTypeSchema,
-            featureDependenciesSchema,
-            dependentFeatureSchema,
-        },
+    environment: {
+      type: 'string',
+      example: 'development',
+      description:
+        'The exported [environment](https://docs.getunleash.io/reference/environments)',
     },
+    data: {
+      $ref: '#/components/schemas/exportResultSchema',
+    },
+  },
+  components: {
+    schemas: {
+      exportResultSchema,
+      featureSchema,
+      featureStrategySchema,
+      strategyVariantSchema,
+      featureEnvironmentSchema,
+      contextFieldSchema,
+      featureTagSchema,
+      segmentSchema,
+      variantsSchema,
+      variantSchema,
+      overrideSchema,
+      constraintSchema,
+      parametersSchema,
+      legalValueSchema,
+      tagTypeSchema,
+      featureDependenciesSchema,
+      dependentFeatureSchema,
+    },
+  },
 } as const;
 
 export type ImportTogglesSchema = FromSchema<typeof importTogglesSchema>;

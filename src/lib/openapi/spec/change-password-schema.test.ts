@@ -2,18 +2,18 @@ import { validateSchema } from '../validate';
 import type { ChangePasswordSchema } from './change-password-schema';
 
 test('changePasswordSchema', () => {
-    const data: ChangePasswordSchema = {
-        token: '',
-        password: '',
-    };
+  const data: ChangePasswordSchema = {
+    token: '',
+    password: '',
+  };
 
-    expect(
-        validateSchema('#/components/schemas/changePasswordSchema', data),
-    ).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/changePasswordSchema', data),
+  ).toBeUndefined();
 });
 
 test('changePasswordSchema empty', () => {
-    expect(
-        validateSchema('#/components/schemas/changePasswordSchema', {}),
-    ).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/changePasswordSchema', {}),
+  ).toMatchSnapshot();
 });

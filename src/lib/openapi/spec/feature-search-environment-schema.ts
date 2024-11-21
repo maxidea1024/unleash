@@ -7,40 +7,40 @@ import { strategyVariantSchema } from './strategy-variant-schema';
 import { featureEnvironmentSchema } from './feature-environment-schema';
 
 export const featureSearchEnvironmentSchema = {
-    $id: '#/components/schemas/featureSearchEnvironmentSchema',
-    type: 'object',
-    additionalProperties: false,
-    required: ['name', 'enabled', 'type'],
-    description: 'A detailed description of the feature environment',
-    properties: {
-        ...featureEnvironmentSchema.properties,
-        yes: {
-            description:
-                'How many times the toggle evaluated to true in last hour bucket',
-            type: 'integer',
-            example: 974,
-            minimum: 0,
-        },
-        no: {
-            description:
-                'How many times the toggle evaluated to false in last hour bucket',
-            type: 'integer',
-            example: 50,
-            minimum: 0,
-        },
+  $id: '#/components/schemas/featureSearchEnvironmentSchema',
+  type: 'object',
+  additionalProperties: false,
+  required: ['name', 'enabled', 'type'],
+  description: 'A detailed description of the feature environment',
+  properties: {
+    ...featureEnvironmentSchema.properties,
+    yes: {
+      description:
+        'How many times the toggle evaluated to true in last hour bucket',
+      type: 'integer',
+      example: 974,
+      minimum: 0,
     },
-    components: {
-        schemas: {
-            constraintSchema,
-            parametersSchema,
-            featureStrategySchema,
-            strategyVariantSchema,
-            featureEnvironmentSchema,
-            variantSchema,
-        },
+    no: {
+      description:
+        'How many times the toggle evaluated to false in last hour bucket',
+      type: 'integer',
+      example: 50,
+      minimum: 0,
     },
+  },
+  components: {
+    schemas: {
+      constraintSchema,
+      parametersSchema,
+      featureStrategySchema,
+      strategyVariantSchema,
+      featureEnvironmentSchema,
+      variantSchema,
+    },
+  },
 } as const;
 
 export type FeatureSearchEnvironmentSchema = FromSchema<
-    typeof featureSearchEnvironmentSchema
+  typeof featureSearchEnvironmentSchema
 >;

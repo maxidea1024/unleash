@@ -9,7 +9,7 @@ const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
     if (enable) {
       res.on('finish', () => {
         const { pathname } = url.parse(req.originalUrl);
-        logger.info(`${res.statusCode} ${req.method} ${pathname}`);
+        logger.info(`[${res.statusCode}] [${req.method}] ${pathname}`);
       });
     }
     next();
