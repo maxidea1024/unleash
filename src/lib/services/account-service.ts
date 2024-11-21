@@ -24,6 +24,7 @@ export class AccountService {
     },
   ) {
     this.logger = getLogger('service/account-service.ts');
+
     this.store = stores.accountStore;
     this.accessService = services.accessService;
   }

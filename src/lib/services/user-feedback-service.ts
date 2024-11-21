@@ -15,8 +15,9 @@ export default class UserFeedbackService {
     { userFeedbackStore }: Pick<IUnleashStores, 'userFeedbackStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
+    this.logger = getLogger('services/user-feedback-service.ts');
+
     this.userFeedbackStore = userFeedbackStore;
-    this.logger = getLogger('services/user-feedback-service.js');
   }
 
   async getAllUserFeedback(user: IUser): Promise<IUserFeedback[]> {

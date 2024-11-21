@@ -47,13 +47,14 @@ export default class ContextService {
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
+    this.logger = getLogger('services/context-service.ts');
+
     this.privateProjectChecker = privateProjectChecker;
     this.projectStore = projectStore;
     this.eventService = eventService;
     this.flagResolver = flagResolver;
     this.contextFieldStore = contextFieldStore;
     this.featureStrategiesStore = featureStrategiesStore;
-    this.logger = getLogger('services/context-service.js');
   }
 
   async getAll(): Promise<IContextField[]> {

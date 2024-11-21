@@ -39,14 +39,14 @@ interface ISensitiveParams {
 }
 
 export default class AddonService {
-  addonStore: IAddonStore;
-  featureToggleStore: IFeatureToggleStore;
-  logger: Logger;
-  tagTypeService: TagTypeService;
-  eventService: EventService;
-  addonProviders: IAddonProviders;
-  sensitiveParams: ISensitiveParams;
-  fetchAddonConfigs: (() => Promise<IAddon[]>) &
+  readonly addonStore: IAddonStore;
+  readonly featureToggleStore: IFeatureToggleStore;
+  readonly logger: Logger;
+  readonly tagTypeService: TagTypeService;
+  readonly eventService: EventService;
+  readonly addonProviders: IAddonProviders;
+  readonly sensitiveParams: ISensitiveParams;
+  readonly fetchAddonConfigs: (() => Promise<IAddon[]>) &
     memoizee.Memoized<() => Promise<IAddon[]>>;
 
   constructor(
@@ -68,9 +68,10 @@ export default class AddonService {
     integrationEventsService,
     addons?: IAddonProviders,
   ) {
+    this.logger = getLogger('services/addon-service.ts');
+
     this.addonStore = addonStore;
     this.featureToggleStore = featureToggleStore;
-    this.logger = getLogger('services/addon-service.js');
     this.tagTypeService = tagTypeService;
     this.eventService = eventService;
 

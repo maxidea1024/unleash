@@ -26,8 +26,9 @@ export default class ResetTokenService {
     { resetTokenStore }: Pick<IUnleashStores, 'resetTokenStore'>,
     { getLogger, server }: Pick<IUnleashConfig, 'getLogger' | 'server'>,
   ) {
-    this.store = resetTokenStore;
     this.logger = getLogger('/services/reset-token-service.ts');
+
+    this.store = resetTokenStore;
     this.unleashBase = server.unleashUrl;
   }
 

@@ -12,7 +12,8 @@ export default class SessionService {
     { sessionStore }: Pick<IUnleashStores, 'sessionStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.logger = getLogger('lib/services/session-service.ts');
+    this.logger = getLogger('services/session-service.ts');
+
     this.sessionStore = sessionStore;
   }
 

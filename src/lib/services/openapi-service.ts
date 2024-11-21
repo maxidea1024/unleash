@@ -20,9 +20,10 @@ export class OpenApiService {
   private readonly flagResolver: IFlagResolver;
 
   constructor(config: IUnleashConfig) {
+    this.logger = config.getLogger('openapi-service.ts');
+
     this.config = config;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('openapi-service.ts');
 
     this.api = openapi(
       this.docsPath(),

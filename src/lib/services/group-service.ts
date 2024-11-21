@@ -35,17 +35,18 @@ const setsAreEqual = (firstSet, secondSet) =>
   [...firstSet].every((x) => secondSet.has(x));
 
 export class GroupService {
-  private groupStore: IGroupStore;
-  private eventService: EventService;
-  private accountStore: IAccountStore;
-  private logger: Logger;
+  private readonly groupStore: IGroupStore;
+  private readonly eventService: EventService;
+  private readonly accountStore: IAccountStore;
+  private readonly logger: Logger;
 
   constructor(
     stores: Pick<IUnleashStores, 'groupStore' | 'accountStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('service/group-service.js');
+    this.logger = getLogger('service/group-service.ts');
+
     this.groupStore = stores.groupStore;
     this.eventService = eventService;
     this.accountStore = stores.accountStore;

@@ -69,29 +69,29 @@ export interface IFeatureUsageInfo {
 }
 
 export default class VersionService {
-  private logger: Logger;
-  private settingStore: ISettingStore;
-  private strategyStore: IStrategyStore;
-  private userStore: IUserStore;
-  private featureToggleStore: IFeatureToggleStore;
-  private projectStore: IProjectStore;
-  private environmentStore: IEnvironmentStore;
-  private contextFieldStore: IContextFieldStore;
-  private groupStore: IGroupStore;
-  private roleStore: IRoleStore;
-  private segmentStore: ISegmentStore;
-  private eventStore: IEventStore;
-  private featureStrategiesStore: IFeatureStrategiesStore;
-  private getActiveUsers: GetActiveUsers;
-  private getProductionChanges: GetProductionChanges;
-  private current: IVersionInfo;
+  private readonly logger: Logger;
+  private readonly settingStore: ISettingStore;
+  private readonly strategyStore: IStrategyStore;
+  private readonly userStore: IUserStore;
+  private readonly featureToggleStore: IFeatureToggleStore;
+  private readonly projectStore: IProjectStore;
+  private readonly environmentStore: IEnvironmentStore;
+  private readonly contextFieldStore: IContextFieldStore;
+  private readonly groupStore: IGroupStore;
+  private readonly roleStore: IRoleStore;
+  private readonly segmentStore: ISegmentStore;
+  private readonly eventStore: IEventStore;
+  private readonly featureStrategiesStore: IFeatureStrategiesStore;
+  private readonly getActiveUsers: GetActiveUsers;
+  private readonly getProductionChanges: GetProductionChanges;
+  private readonly current: IVersionInfo;
   private latest?: IVersionInfo;
-  private enabled: boolean;
-  private telemetryEnabled: boolean;
-  private versionCheckUrl?: string;
+  private readonly enabled: boolean;
+  private readonly telemetryEnabled: boolean;
+  private readonly versionCheckUrl?: string;
   private instanceId?: string;
   private isLatest: boolean;
-  private timer: NodeJS.Timeout;
+  private readonly timer: NodeJS.Timeout;
 
   constructor(
     {
@@ -134,7 +134,8 @@ export default class VersionService {
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,
   ) {
-    this.logger = getLogger('lib/services/version-service.js');
+    this.logger = getLogger('lib/services/version-service.ts');
+
     this.settingStore = settingStore;
     this.strategyStore = strategyStore;
     this.userStore = userStore;

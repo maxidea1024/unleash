@@ -19,9 +19,10 @@ export default class TagService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
+    this.logger = getLogger('services/tag-service.ts');
+
     this.tagStore = tagStore;
     this.eventService = eventService;
-    this.logger = getLogger('services/tag-service.js');
   }
 
   async getTags(): Promise<ITag[]> {

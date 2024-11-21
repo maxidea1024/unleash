@@ -76,14 +76,15 @@ export type OrderEnvironmentData = {
 };
 
 export class EmailService {
-  private logger: Logger;
-  private config: IUnleashConfig;
+  private readonly logger: Logger;
+  private readonly config: IUnleashConfig;
   private readonly mailer?: Transporter;
   private readonly sender: string;
 
   constructor(config: IUnleashConfig) {
-    this.config = config;
     this.logger = config.getLogger('services/email-service.ts');
+
+    this.config = config;
     const { email } = config;
     if (email?.host) {
       this.sender = email.sender;

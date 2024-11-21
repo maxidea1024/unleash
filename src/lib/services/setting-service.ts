@@ -21,8 +21,9 @@ export default class SettingService {
     config: IUnleashConfig,
     eventService: EventService,
   ) {
-    this.config = config;
     this.logger = config.getLogger('services/setting-service.ts');
+
+    this.config = config;
     this.settingStore = settingStore;
     this.eventService = eventService;
   }

@@ -87,15 +87,14 @@ const toTokens = (rows: any[]): PublicSignupTokenSchema[] => {
 };
 
 export class PublicSignupTokenStore implements IPublicSignupTokenStore {
-  private logger: Logger;
-
-  private timer: Function;
-
-  private db: Db;
+  private readonly logger: Logger;
+  private readonly timer: Function;
+  private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('public-signup-tokens.ts');
+
     this.db = db;
-    this.logger = getLogger('public-signup-tokens.js');
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'public-signup-tokens',

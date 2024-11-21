@@ -54,17 +54,17 @@ const resolveTokenPermissions = (tokenType: string) => {
 };
 
 export class ApiTokenService {
-  private store: IApiTokenStore;
-  private environmentStore: IEnvironmentStore;
-  private logger: Logger;
+  private readonly store: IApiTokenStore;
+  private readonly environmentStore: IEnvironmentStore;
+  private readonly logger: Logger;
   private activeTokens: IApiToken[] = [];
-  private queryAfter = new Map<string, Date>();
-  private eventService: EventService;
+  private readonly queryAfter = new Map<string, Date>();
+  private readonly eventService: EventService;
   private lastSeenSecrets: Set<string> = new Set<string>();
-  private flagResolver: IFlagResolver;
-  private timer: Function;
-  private resourceLimits: ResourceLimitsSchema;
-  private eventBus: EventEmitter;
+  private readonly flagResolver: IFlagResolver;
+  private readonly timer: Function;
+  private readonly resourceLimits: ResourceLimitsSchema;
+  private readonly eventBus: EventEmitter;
 
   constructor(
     {
@@ -81,11 +81,12 @@ export class ApiTokenService {
     >,
     eventService: EventService,
   ) {
+    this.logger = config.getLogger('/services/api-token-service.ts');
+
     this.store = apiTokenStore;
     this.eventService = eventService;
     this.environmentStore = environmentStore;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('/services/api-token-service.ts');
     this.resourceLimits = config.resourceLimits;
     if (!this.flagResolver.isEnabled('useMemoizedActiveTokens')) {
       // This is probably not needed because the scheduler will run it

@@ -31,6 +31,7 @@ export default class ProjectHealthService {
     projectService: ProjectService,
   ) {
     this.logger = getLogger('services/project-health-service.ts');
+
     this.projectStore = projectStore;
     this.featureTypeStore = featureTypeStore;
     this.featureToggleStore = featureToggleStore;

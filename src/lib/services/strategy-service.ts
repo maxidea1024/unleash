@@ -37,9 +37,10 @@ export default class StrategyService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
+    this.logger = getLogger('services/strategy-service.ts');
+
     this.strategyStore = strategyStore;
     this.eventService = eventService;
-    this.logger = getLogger('services/strategy-service.js');
   }
 
   async getStrategies(): Promise<IStrategy[]> {

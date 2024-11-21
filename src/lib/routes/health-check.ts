@@ -20,6 +20,7 @@ export class HealthCheckController extends Controller {
     super(config);
 
     this.logger = config.getLogger('health-check.ts');
+
     this.openApiService = openApiService;
 
     this.route({
@@ -44,7 +45,7 @@ export class HealthCheckController extends Controller {
   }
 
   async getHealth(
-    _: Request,
+    _req: Request,
     res: Response<HealthCheckSchema>,
   ): Promise<void> {
     res.status(200).json({ health: 'GOOD' });

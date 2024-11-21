@@ -40,6 +40,7 @@ export default class FeatureTagService {
     eventService: EventService,
   ) {
     this.logger = getLogger('/services/feature-tag-service.ts');
+
     this.tagStore = tagStore;
     this.featureTagStore = featureTagStore;
     this.featureToggleStore = featureToggleStore;

@@ -7,9 +7,9 @@ import metricsHelper from '../util/metrics-helper';
 import { FUNCTION_TIME } from '../metric-events';
 
 export default class EdgeService {
-  private logger: Logger;
-  private apiTokenService: ApiTokenService;
-  private timer: Function;
+  private readonly logger: Logger;
+  private readonly apiTokenService: ApiTokenService;
+  private readonly timer: Function;
 
   constructor(
     { apiTokenService }: { apiTokenService: ApiTokenService },
@@ -19,6 +19,7 @@ export default class EdgeService {
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
   ) {
     this.logger = getLogger('lib/services/edge-service.ts');
+
     this.apiTokenService = apiTokenService;
     this.timer = (functionName: string) =>
       metricsHelper.wrapTimer(eventBus, FUNCTION_TIME, {

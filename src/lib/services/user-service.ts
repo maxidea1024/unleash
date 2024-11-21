@@ -84,7 +84,7 @@ export default class UserService {
   private readonly flagResolver: IFlagResolver;
   private readonly passwordResetTimeouts: { [key: string]: NodeJS.Timeout } = {};
   private readonly baseUriPath: string;
-  readonly unleashUrl: string;
+  private readonly unleashUrl: string;
 
   constructor(
     stores: Pick<IUnleashStores, 'userStore'>,
@@ -111,7 +111,8 @@ export default class UserService {
       settingService: SettingService;
     },
   ) {
-    this.logger = getLogger('service/user-service.js');
+    this.logger = getLogger('service/user-service.ts');
+
     this.store = stores.userStore;
     this.eventBus = eventBus;
     this.eventService = services.eventService;
@@ -542,7 +543,7 @@ export default class UserService {
     return {
       token,
       createdBy,
-      email: user.email,
+      email: user.email || '',
       name: user.name,
       id: user.id,
       role: {

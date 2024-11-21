@@ -121,13 +121,13 @@ export const cleanPermissionEnvironment = (
 };
 
 export class AccessService {
-  private store: IAccessStore;
-  private accountStore: IAccountStore;
-  private roleStore: IRoleStore;
-  private groupService: GroupService;
-  private environmentStore: IEnvironmentStore;
-  private logger: Logger;
-  private eventService: EventService;
+  private readonly store: IAccessStore;
+  private readonly accountStore: IAccountStore;
+  private readonly roleStore: IRoleStore;
+  private readonly groupService: GroupService;
+  private readonly environmentStore: IEnvironmentStore;
+  private readonly logger: Logger;
+  private readonly eventService: EventService;
 
   constructor(
     {
@@ -143,12 +143,13 @@ export class AccessService {
     groupService: GroupService,
     eventService: EventService,
   ) {
+    this.logger = getLogger('/services/access-service.ts');
+
     this.store = accessStore;
     this.accountStore = accountStore;
     this.roleStore = roleStore;
     this.groupService = groupService;
     this.environmentStore = environmentStore;
-    this.logger = getLogger('/services/access-service.ts');
     this.eventService = eventService;
   }
 

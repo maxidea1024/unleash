@@ -15,8 +15,9 @@ export default class UserSplashService {
     { userSplashStore }: Pick<IUnleashStores, 'userSplashStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
+    this.logger = getLogger('services/user-splash-service.ts');
+
     this.userSplashStore = userSplashStore;
-    this.logger = getLogger('services/user-splash-service.js');
   }
 
   async getAllUserSplashes(user: IUser): Promise<Record<string, boolean>> {

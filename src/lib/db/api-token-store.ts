@@ -92,8 +92,9 @@ export class ApiTokenStore implements IApiTokenStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
+    this.logger = getLogger('api-tokens.ts');
+
     this.db = db;
-    this.logger = getLogger('api-tokens.js');
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'api-tokens',

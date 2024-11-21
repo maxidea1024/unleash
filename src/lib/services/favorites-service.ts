@@ -42,8 +42,9 @@ export class FavoritesService {
     config: IUnleashConfig,
     eventService: EventService,
   ) {
-    this.config = config;
     this.logger = config.getLogger('services/favorites-service.ts');
+
+    this.config = config;
     this.favoriteFeaturesStore = favoriteFeaturesStore;
     this.favoriteProjectsStore = favoriteProjectsStore;
     this.eventService = eventService;
