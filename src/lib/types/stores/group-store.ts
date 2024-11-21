@@ -19,19 +19,23 @@ export interface IStoreGroup {
 
 export interface IGroupStore extends IStore<IGroup, number> {
   getGroupsForUser(userId: number): Promise<Group[]>;
+
   getOldGroupsForExternalUser(
     userId: number,
     externalGroups: string[],
   ): Promise<IGroupUser[]>;
+
   addUserToGroups(
     userId: number,
     groupIds: number[],
     createdBy?: string,
   ): Promise<void>;
+
   getNewGroupsForExternalUser(
     userId: number,
     externalGroups: string[],
   ): Promise<IGroup[]>;
+
   getGroupProjects(groupIds: number[]): Promise<IGroupProject[]>;
 
   getProjectGroupRoles(projectId: string): Promise<IGroupRole[]>;

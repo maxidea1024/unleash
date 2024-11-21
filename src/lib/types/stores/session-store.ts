@@ -9,8 +9,12 @@ export interface ISession {
 
 export interface ISessionStore extends IStore<ISession, string> {
   getActiveSessions(): Promise<ISession[]>;
+
   getSessionsForUser(userId: number): Promise<ISession[]>;
+
   deleteSessionsForUser(userId: number): Promise<void>;
+
   insertSession(data: Omit<ISession, 'createdAt'>): Promise<ISession>;
+
   getSessionsCount(): Promise<{ userId: number; count: number }[]>;
 }

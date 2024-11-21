@@ -10,10 +10,11 @@ import type { InactiveUserSchema } from '../../openapi';
 import type { UserService } from '../../services';
 
 export class InactiveUsersService {
-  private inactiveUsersStore: IInactiveUsersStore;
+  private readonly inactiveUsersStore: IInactiveUsersStore;
   private readonly logger: Logger;
-  private userService: UserService;
+  private readonly userService: UserService;
   private readonly userInactivityThresholdInDays: number;
+
   constructor(
     { inactiveUsersStore }: Pick<IUnleashStores, 'inactiveUsersStore'>,
     {
@@ -25,6 +26,7 @@ export class InactiveUsersService {
     },
   ) {
     this.logger = getLogger('services/client-feature-toggle-service.ts');
+
     this.inactiveUsersStore = inactiveUsersStore;
     this.userService = services.userService;
     this.userInactivityThresholdInDays = userInactivityThresholdInDays;

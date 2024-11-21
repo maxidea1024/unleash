@@ -17,7 +17,10 @@ const matcher =
  * @return {boolean}
  */
 function isEmail(value: string): boolean {
-  if (value.length > 500) return false;
+  if (value.length > 500) {
+    return false;
+  }
+
   return matcher.test(value);
 }
 

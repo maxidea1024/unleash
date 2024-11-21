@@ -104,5 +104,3 @@ export default class User implements IUser {
 export interface IUserWithRootRole extends IUser {
   rootRole: number;
 }
-
-module.exports = User;

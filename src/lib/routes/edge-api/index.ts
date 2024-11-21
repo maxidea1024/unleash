@@ -29,7 +29,8 @@ export default class EdgeController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('edge-api/index.ts');
+    this.logger = config.getLogger('routes/edge-api/index.ts');
+
     this.edgeService = edgeService;
     this.openApiService = openApiService;
 

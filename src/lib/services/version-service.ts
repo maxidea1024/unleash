@@ -134,7 +134,7 @@ export default class VersionService {
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,
   ) {
-    this.logger = getLogger('lib/services/version-service.ts');
+    this.logger = getLogger('services/version-service.ts');
 
     this.settingStore = settingStore;
     this.strategyStore = strategyStore;
@@ -191,8 +191,7 @@ export default class VersionService {
         };
 
         if (this.telemetryEnabled) {
-          versionPayload.featureInfo =
-            await this.getFeatureUsageInfo();
+          versionPayload.featureInfo = await this.getFeatureUsageInfo();
         }
         if (this.versionCheckUrl) {
           const res = await fetch(this.versionCheckUrl, {
@@ -270,10 +269,8 @@ export default class VersionService {
       this.postgresVersion(),
     ]);
     const versionInfo = await this.getVersionInfo();
-    const customStrategies =
-      await this.strategyStore.getEditableStrategies();
-    const customStrategiesInUse =
-      await this.featureStrategiesStore.getCustomStrategiesInUseCount();
+    const customStrategies = await this.strategyStore.getEditableStrategies();
+    const customStrategiesInUse = await this.featureStrategiesStore.getCustomStrategiesInUseCount();
     const featureInfo = {
       featureToggles,
       users,

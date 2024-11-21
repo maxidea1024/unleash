@@ -12,6 +12,7 @@ export interface INewClientInstance {
   lastSeen?: Date;
   environment?: string;
 }
+
 export interface IClientInstanceStore
   extends IStore<
     IClientInstance,

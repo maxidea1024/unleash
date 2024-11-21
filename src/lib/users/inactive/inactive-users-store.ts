@@ -9,15 +9,17 @@ import metricsHelper from '../../util/metrics-helper';
 import { DB_TIME } from '../../metric-events';
 
 const TABLE = 'users';
+
 export class InactiveUsersStore implements IInactiveUsersStore {
-  private db: Db;
+  private readonly db: Db;
   private readonly logger: Logger;
-  private timer: Function;
-  private eventEmitter: EventEmitter;
+  private readonly timer: Function;
+  private readonly eventEmitter: EventEmitter;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('users/inactive/inactive-users-store.ts');
+
+    this.db = db;
     this.eventEmitter = eventBus;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {

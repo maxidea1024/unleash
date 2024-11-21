@@ -26,7 +26,8 @@ export default class UserSplashController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('splash-controller.ts');
+    this.logger = config.getLogger('routes/admin-api/user-splash.ts');
+
     this.userSplashService = userSplashService;
     this.openApiService = openApiService;
 

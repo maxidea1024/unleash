@@ -46,11 +46,18 @@ export interface IMinimalStrategyRow {
 
 export interface IStrategyStore extends IStore<IStrategy, string> {
   getEditableStrategies(): Promise<IEditableStrategy[]>;
+
   createStrategy(update: IMinimalStrategy): Promise<void>;
+
   updateStrategy(update: IMinimalStrategy): Promise<void>;
+
   deprecateStrategy({ name }: Pick<IStrategy, 'name'>): Promise<void>;
+
   reactivateStrategy({ name }: Pick<IStrategy, 'name'>): Promise<void>;
+
   importStrategy(data: IStrategyImport): Promise<void>;
+
   dropCustomStrategies(): Promise<void>;
+
   count(): Promise<number>;
 }

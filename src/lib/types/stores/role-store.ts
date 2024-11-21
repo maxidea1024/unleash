@@ -18,18 +18,32 @@ export interface ICustomRoleUpdate {
 
 export interface IRoleStore extends IStore<ICustomRole, number> {
   getAll(): Promise<ICustomRole[]>;
+
   create(role: ICustomRoleInsert): Promise<ICustomRole>;
+
   update(role: ICustomRoleUpdate): Promise<ICustomRole>;
+
   delete(id: number): Promise<void>;
+
   getRoles(): Promise<IRole[]>;
+
   getRoleByName(name: string): Promise<IRole>;
+
   getRolesForProject(projectId: string): Promise<IRole[]>;
+
   removeRolesForProject(projectId: string): Promise<void>;
+
   getProjectRoles(): Promise<IRole[]>;
+
   getRootRoles(): Promise<IRole[]>;
+
   getRootRoleForAllUsers(): Promise<IUserRole[]>;
+
   nameInUse(name: string, existingId?: number): Promise<boolean>;
+
   count(): Promise<number>;
+
   filteredCount(filter: Partial<RoleSchema>): Promise<number>;
+
   filteredCountInUse(filter: Partial<RoleSchema>): Promise<number>;
 }

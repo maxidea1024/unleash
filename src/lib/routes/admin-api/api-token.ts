@@ -142,12 +142,13 @@ export class ApiTokenController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('api-token.ts');
+
     this.apiTokenService = apiTokenService;
     this.accessService = accessService;
     this.frontendApiService = frontendApiService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('api-token-controller.ts');
 
     this.route({
       method: 'get',

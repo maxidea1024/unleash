@@ -48,9 +48,8 @@ export default class ResetPasswordController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger(
-      'lib/routes/auth/reset-password-controller.ts',
-    );
+    this.logger = config.getLogger('routes/auth/reset-password-controller.ts');
+
     this.openApiService = openApiService;
     this.userService = userService;
 

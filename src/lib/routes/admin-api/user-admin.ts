@@ -93,6 +93,8 @@ export default class UserAdminController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('routes/admin-api/user.ts');
+
     this.userService = userService;
     this.accountService = accountService;
     this.accessService = accessService;
@@ -100,7 +102,6 @@ export default class UserAdminController extends Controller {
     this.settingService = settingService;
     this.openApiService = openApiService;
     this.groupService = groupService;
-    this.logger = config.getLogger('routes/user-controller.ts');
     this.flagResolver = config.flagResolver;
     this.isEnterprise = config.isEnterprise;
 
@@ -630,7 +631,7 @@ export default class UserAdminController extends Controller {
   }
 
   async getAdminCount(
-    req: Request,
+    _req: Request,
     res: Response<AdminCountSchema>,
   ): Promise<void> {
     const adminCount = await this.accountService.getAdminCount();

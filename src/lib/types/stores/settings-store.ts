@@ -7,7 +7,10 @@ export interface ISettingInsert {
 
 export interface ISettingStore extends IStore<any, string> {
   insert<T>(name: string, content: T): Promise<void>;
+
   updateRow(name: string, content: any): Promise<void>;
+
   postgresVersion(): Promise<string>;
+
   get<T>(name: string): Promise<T | undefined>;
 }

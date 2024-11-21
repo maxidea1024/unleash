@@ -17,6 +17,7 @@ export interface IFeatureAndTag {
   featureName: string;
   tag: ITag;
 }
+
 export interface IFeatureTagStore extends IStore<IFeatureTag, IFeatureTag> {
   getAllTagsForFeature(featureName: string): Promise<ITag[]>;
   getAllFeaturesForTag(tagValue: string): Promise<string[]>;

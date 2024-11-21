@@ -7,12 +7,17 @@ export interface IPublicSignupTokenStore
   insert(
     newToken: IPublicSignupTokenCreate,
   ): Promise<PublicSignupTokenSchema>;
+
   addTokenUser(secret: string, userId: number): Promise<void>;
-  isValid(secret): Promise<boolean>;
+
+  isValid(secret: string): Promise<boolean>;
+
   update(
     secret: string,
     value: { expiresAt?: Date; enabled?: boolean },
   ): Promise<PublicSignupTokenSchema>;
+
   delete(secret: string): Promise<void>;
+
   count(): Promise<number>;
 }

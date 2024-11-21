@@ -25,10 +25,12 @@ export interface IConstraint {
   inverted?: boolean;
   caseInsensitive?: boolean;
 }
+
 export enum WeightType {
   VARIABLE = 'variable',
   FIX = 'fix',
 }
+
 export interface IStrategyConfig {
   id?: string;
   name: string;
@@ -41,6 +43,7 @@ export interface IStrategyConfig {
   title?: string | null;
   disabled?: boolean | null;
 }
+
 export interface IFeatureStrategy {
   id: string;
   featureName: string;

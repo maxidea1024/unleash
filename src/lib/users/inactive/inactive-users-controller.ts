@@ -37,14 +37,12 @@ export class InactiveUsersController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger(
-      'user/inactive/inactive-users-controller.ts',
-    );
+    this.logger = config.getLogger('user/inactive/inactive-users-controller.ts');
+
     this.inactiveUsersService = inactiveUsersService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
-    this.userInactivityThresholdInDays =
-      config.userInactivityThresholdInDays;
+    this.userInactivityThresholdInDays = config.userInactivityThresholdInDays;
 
     this.route({
       method: 'get',
@@ -63,6 +61,7 @@ export class InactiveUsersController extends Controller {
         }),
       ],
     });
+
     this.route({
       method: 'post',
       path: '/delete',

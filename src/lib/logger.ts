@@ -42,7 +42,8 @@ function validate(isValid: boolean, msg: string) {
 export function validateLogProvider(provider: LogProvider): void {
   validate(typeof provider === 'function', 'Provider needs to be a function');
 
-  const logger = provider('unleash:logger');
+  const logger = provider('logger.ts');
+
   validate(typeof logger.debug === 'function', 'Logger must implement debug');
   validate(typeof logger.info === 'function', 'Logger must implement info');
   validate(typeof logger.warn === 'function', 'Logger must implement warn');

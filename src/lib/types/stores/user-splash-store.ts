@@ -13,6 +13,8 @@ export interface IUserSplashKey {
 
 export interface IUserSplashStore extends IStore<IUserSplash, IUserSplashKey> {
   getAllUserSplashes(userId: number): Promise<IUserSplash[]>;
+
   getSplash(userId: number, splashId: string): Promise<IUserSplash>;
+
   updateSplash(splash: IUserSplash): Promise<IUserSplash>;
 }

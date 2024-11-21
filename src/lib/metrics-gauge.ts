@@ -3,10 +3,12 @@ import type { IUnleashConfig } from './types';
 import { createGauge, type Gauge } from './util/metrics';
 
 type Query<R> = () => Promise<R | undefined | null>;
+
 type MetricValue<L extends string> = {
   value: number;
   labels?: Record<L, string | number>;
 };
+
 type MapResult<R, L extends string> = (
   result: R,
 ) => MetricValue<L> | MetricValue<L>[];
@@ -31,7 +33,7 @@ export class DbMetricsMonitor {
   private readonly log: Logger;
 
   constructor({ getLogger }: Pick<IUnleashConfig, 'getLogger'>) {
-    this.log = getLogger('gauge-metrics');
+    this.log = getLogger('metrics-gauge.ts');
   }
 
   private asArray<T>(value: T | T[]): T[] {

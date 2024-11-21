@@ -27,6 +27,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
     super();
 
     this.logger = getLogger('configuration-revision-service.ts');
+
     this.eventStore = eventStore;
     this.flagResolver = flagResolver;
     this.revisionId = 0;

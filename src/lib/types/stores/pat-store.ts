@@ -7,11 +7,15 @@ export interface IPatStore extends IStore<PatSchema, number> {
     secret: string,
     userId: number,
   ): Promise<PatSchema>;
+
   getAllByUser(userId: number): Promise<PatSchema[]>;
+
   deleteForUser(id: number, userId: number): Promise<void>;
+
   existsWithDescriptionByUser(
     description: string,
     userId: number,
   ): Promise<boolean>;
+
   countByUser(userId: number): Promise<number>;
 }

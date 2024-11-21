@@ -11,13 +11,13 @@ interface IOptions extends IBaseOptions {
   options?: IBaseOptions[];
 }
 
-class AuthenticationRequired extends UnleashError {
+export default class AuthenticationRequired extends UnleashError {
   statusCode = 401;
 
-  private type: string;
-  private path: string;
-  private defaultHidden: boolean;
-  private options?: IBaseOptions[];
+  private readonly type: string;
+  private readonly path: string;
+  private readonly defaultHidden: boolean;
+  private readonly options?: IBaseOptions[];
 
   constructor({
     type,
@@ -27,6 +27,7 @@ class AuthenticationRequired extends UnleashError {
     defaultHidden = false,
   }: IOptions) {
     super(message);
+
     this.type = type;
     this.path = path;
     this.options = options;
@@ -43,6 +44,3 @@ class AuthenticationRequired extends UnleashError {
     };
   }
 }
-
-export default AuthenticationRequired;
-module.exports = AuthenticationRequired;

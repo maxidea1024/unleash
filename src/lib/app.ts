@@ -39,12 +39,13 @@ export default async function getApp(
   unleashSession?: RequestHandler,
   db?: Knex,
 ): Promise<Application> {
+  const logger = config.getLogger('lib/app.ts');
+
   const app = express();
 
   const baseUriPath = config.server.baseUriPath || '';
   const publicFolder = config.publicFolder || findPublicFolder();
   const indexHTML = await loadIndexHTML(config, publicFolder);
-  const logger = config.getLogger('lib/app.ts');
 
   app.set('trust proxy', true);
   app.disable('x-powered-by');
@@ -75,7 +76,7 @@ export default async function getApp(
 
   app.use(cookieParser());
 
-  app.use((req, res, next) => {
+  app.use((req, _res, next) => {
     req.url = req.url.replace(/\/+/g, '/');
     next();
   });
@@ -84,15 +85,18 @@ export default async function getApp(
     `${baseUriPath}/api/admin/features-batch`,
     express.json({ strict: false, limit: '500kB' }),
   );
+
   app.use(
     unless(
       `${baseUriPath}/api/admin/features-batch`,
       express.json({ strict: false }),
     ),
   );
+
   if (unleashSession) {
     app.use(unleashSession);
   }
+
   app.use(secureHeaders(config));
   app.use(express.urlencoded({ extended: true }));
   app.use(favicon(path.join(publicFolder, 'favicon.ico')));
@@ -193,7 +197,7 @@ export default async function getApp(
   }
 
   // Setup API routes
-  app.use(`${baseUriPath}/`, new IndexRouter(config, services, db).router);
+  app.use(`${baseUriPath}/`, new IndexRouter(config, services, db!).router);
 
   if (services.openApiService) {
     services.openApiService.useErrorHandler(app);
@@ -205,7 +209,7 @@ export default async function getApp(
     app.use(catchAllErrorHandler(config.getLogger));
   }
 
-  app.get(`${baseUriPath}`, (req, res) => {
+  app.get(`${baseUriPath}`, (_req, res) => {
     res.set('Content-Type', 'text/html');
     res.send(indexHTML);
   });
@@ -216,7 +220,6 @@ export default async function getApp(
       `The path you were looking for (${baseUriPath}/api${req.path}) is not available.`,
     );
     res.status(error.statusCode).send(error);
-    return;
   });
 
   app.get(`${baseUriPath}/*`, (req, res) => {

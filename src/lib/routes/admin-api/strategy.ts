@@ -49,7 +49,8 @@ export default class StrategyController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/strategy.ts');
+    this.logger = config.getLogger('routes/admin-api/strategy.ts');
+
     this.strategyService = strategyService;
     this.openApiService = openApiService;
 
@@ -200,7 +201,7 @@ export default class StrategyController extends Controller {
   }
 
   async getAllStrategies(
-    _: Request,
+    _req: Request,
     res: Response<StrategiesSchema>,
   ): Promise<void> {
     const strategies = await this.strategyService.getStrategies();

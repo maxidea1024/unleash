@@ -31,7 +31,8 @@ export default class UserFeedbackController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('feedback-controller.ts');
+    this.logger = config.getLogger('routes/admin-api/feedback-controller.ts');
+
     this.userFeedbackService = userFeedbackService;
     this.openApiService = openApiService;
 

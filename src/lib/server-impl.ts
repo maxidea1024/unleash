@@ -10,6 +10,7 @@ import { createConfig } from './create-config';
 import registerGracefulShutdown from './util/graceful-shutdown';
 import { createDb } from './db/db-pool';
 import sessionDb from './middleware/session-db';
+
 // Types
 import {
   type CustomAuthHandler,
@@ -42,6 +43,7 @@ async function createApp(
 ): Promise<IUnleash> {
   // Database dependencies (stateful)
   const logger = config.getLogger('server-impl.ts');
+
   const serverVersion = config.enterpriseVersion ?? version;
   const db = createDb(config);
   const stores = createStores(config, db);

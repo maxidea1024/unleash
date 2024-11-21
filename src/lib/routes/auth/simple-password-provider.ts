@@ -28,7 +28,8 @@ export class SimplePasswordProvider extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/auth/password-provider.ts');
+    this.logger = config.getLogger('routes/auth/simple-password-provider.ts');
+
     this.openApiService = openApiService;
     this.userService = userService;
 

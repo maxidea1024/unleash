@@ -51,10 +51,11 @@ export default class TagController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('routes/admin-api/tag.ts');
+
     this.tagService = tagService;
     this.openApiService = openApiService;
     this.featureTagService = featureTagService;
-    this.logger = config.getLogger('/admin-api/tag.ts');
     this.flagResolver = config.flagResolver;
 
     this.route({

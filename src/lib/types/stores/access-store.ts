@@ -61,6 +61,7 @@ interface IEntityWithProjectRoles {
 export interface IUserWithProjectRoles
   extends IUserWithRole,
   IEntityWithProjectRoles { }
+
 export interface IGroupWithProjectRoles
   extends IGroupModelWithAddedAt,
   IEntityWithProjectRoles { }
@@ -193,7 +194,9 @@ export interface IAccessStore extends IStore<IRole, number> {
     projectId: string,
     userId: number,
   ): Promise<number[]>;
+
   getRootRoleForUser(userId: number): Promise<IRole | undefined>;
+
   setProjectRolesForGroup(
     projectId: string,
     groupId: number,
@@ -204,7 +207,10 @@ export interface IAccessStore extends IStore<IRole, number> {
     projectId: string,
     groupId: number,
   ): Promise<number[]>;
+
   removeUserAccess(projectId: string, userId: number): Promise<void>;
+
   removeGroupAccess(projectId: string, groupId: number): Promise<void>;
+
   getUserAccessOverview(): Promise<IUserAccessOverview[]>;
 }
