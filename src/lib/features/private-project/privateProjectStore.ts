@@ -21,8 +21,9 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('project-permission-store.ts');
+
+    this.db = db;
   }
 
   destroy(): void { }
@@ -31,6 +32,7 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
     if (userId === ADMIN_TOKEN_USER.id) {
       return ALL_PROJECT_ACCESS;
     }
+
     const isViewer = await this.db('role_user')
       .join('roles', 'role_user.role_id', 'roles.id')
       .where('role_user.user_id', userId)

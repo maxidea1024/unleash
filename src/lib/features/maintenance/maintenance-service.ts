@@ -17,8 +17,9 @@ export default class MaintenanceService implements IMaintenanceStatus {
   private readonly resolveMaintenance: () => Promise<boolean>;
 
   constructor(config: IUnleashConfig, settingService: SettingService) {
-    this.config = config;
     this.logger = config.getLogger('services/maintenance-service.ts');
+
+    this.config = config;
     this.settingService = settingService;
     this.resolveMaintenance = memoizee(
       async () => (await this.getMaintenanceSetting()).enabled,

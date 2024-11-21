@@ -15,7 +15,9 @@ const config: SDKConfig = {
 };
 
 export const isOutdatedSdk = (sdkVersion: string | null): boolean => {
-  if (!sdkVersion) return false;
+  if (!sdkVersion) {
+    return false;
+  }
 
   const [sdkName, version] = sdkVersion.split(':');
   const minVersion = config[sdkName];

@@ -190,8 +190,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.db = db;
     this.logger = getLogger('feature-toggle-strategies-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'feature-toggle-strategies',

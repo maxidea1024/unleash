@@ -24,11 +24,11 @@ import { clientMetricsEnvBulkSchema } from '../shared/schema';
 import type { IClientMetricsEnv } from '../client-metrics/client-metrics-store-v2-type';
 
 export default class ClientMetricsController extends Controller {
-  logger: Logger;
-  clientInstanceService: ClientInstanceService;
-  openApiService: OpenApiService;
-  metricsV2: ClientMetricsServiceV2;
-  flagResolver: IFlagResolver;
+  private readonly logger: Logger;
+  private readonly clientInstanceService: ClientInstanceService;
+  private readonly openApiService: OpenApiService;
+  private readonly metricsV2: ClientMetricsServiceV2;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     {
@@ -47,7 +47,8 @@ export default class ClientMetricsController extends Controller {
 
     const { getLogger } = config;
 
-    this.logger = getLogger('/api/client/metrics');
+    this.logger = getLogger('/api/client/metrics.ts');
+
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;
     this.metricsV2 = clientMetricsServiceV2;

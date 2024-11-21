@@ -1,6 +1,7 @@
 import type { ProjectOwners } from '../project/project-owners-read-model.type';
 
 export type PersonalFeature = { name: string; type: string; project: string };
+
 export type BasePersonalProject = {
   name: string;
   id: string;
@@ -10,6 +11,7 @@ export type BasePersonalProject = {
     type: 'custom' | 'project' | 'root' | 'custom-root';
   }[];
 };
+
 export type PersonalProject = BasePersonalProject & {
   owners?: ProjectOwners;
 } & {

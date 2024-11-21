@@ -77,23 +77,23 @@ export type InstanceStatsSigned = Omit<InstanceStats, 'projects'> & {
 };
 
 export class InstanceStatsService {
-  private logger: Logger;
-  private strategyStore: IStrategyStore;
-  private userStore: IUserStore;
-  private featureToggleStore: IFeatureToggleStore;
-  private contextFieldStore: IContextFieldStore;
-  private projectStore: IProjectStore;
-  private groupStore: IGroupStore;
-  private environmentStore: IEnvironmentStore;
-  private segmentStore: ISegmentStore;
-  private roleStore: IRoleStore;
-  private eventStore: IEventStore;
-  private apiTokenStore: IApiTokenStore;
-  private versionService: VersionService;
-  private settingStore: ISettingStore;
-  private clientInstanceStore: IClientInstanceStore;
-  private clientMetricsStore: IClientMetricsStoreV2;
-  private flagResolver: IFlagResolver;
+  private readonly logger: Logger;
+  private readonly strategyStore: IStrategyStore;
+  private readonly userStore: IUserStore;
+  private readonly featureToggleStore: IFeatureToggleStore;
+  private readonly contextFieldStore: IContextFieldStore;
+  private readonly projectStore: IProjectStore;
+  private readonly groupStore: IGroupStore;
+  private readonly environmentStore: IEnvironmentStore;
+  private readonly segmentStore: ISegmentStore;
+  private readonly roleStore: IRoleStore;
+  private readonly eventStore: IEventStore;
+  private readonly apiTokenStore: IApiTokenStore;
+  private readonly versionService: VersionService;
+  private readonly settingStore: ISettingStore;
+  private readonly clientInstanceStore: IClientInstanceStore;
+  private readonly clientMetricsStore: IClientMetricsStoreV2;
+  private readonly flagResolver: IFlagResolver;
   private appCount?: Partial<{ [key in TimeRange]: number }>;
 
   getActiveUsers: GetActiveUsers;
@@ -152,6 +152,8 @@ export class InstanceStatsService {
     getProductionChanges: GetProductionChanges,
     getLicencedUsers: GetLicensedUsers,
   ) {
+    this.logger = getLogger('services/stats-service.ts');
+
     this.strategyStore = strategyStore;
     this.userStore = userStore;
     this.featureToggleStore = featureToggleStore;
@@ -165,7 +167,6 @@ export class InstanceStatsService {
     this.settingStore = settingStore;
     this.eventStore = eventStore;
     this.clientInstanceStore = clientInstanceStore;
-    this.logger = getLogger('services/stats-service.js');
     this.getActiveUsers = getActiveUsers;
     this.getLicencedUsers = getLicencedUsers;
     this.getProductionChanges = getProductionChanges;

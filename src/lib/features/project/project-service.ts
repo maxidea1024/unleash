@@ -183,6 +183,8 @@ export default class ProjectService {
     privateProjectChecker: IPrivateProjectChecker,
     apiTokenService: ApiTokenService,
   ) {
+    this.logger = config.getLogger('services/project-service.ts');
+
     this.projectStore = projectStore;
     this.projectOwnersReadModel = projectOwnersReadModel;
     this.projectFlagCreatorsReadModel = projectFlagCreatorsReadModel;
@@ -199,7 +201,6 @@ export default class ProjectService {
     this.groupService = groupService;
     this.eventService = eventService;
     this.projectStatsStore = projectStatsStore;
-    this.logger = config.getLogger('services/project-service.ts');
     this.flagResolver = config.flagResolver;
     this.isEnterprise = config.isEnterprise;
     this.resourceLimits = config.resourceLimits;

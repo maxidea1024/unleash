@@ -25,9 +25,10 @@ export default class TagTypeService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
+    this.logger = getLogger('services/tag-type-service.ts');
+
     this.tagTypeStore = tagTypeStore;
     this.eventService = eventService;
-    this.logger = getLogger('services/tag-type-service.js');
   }
 
   async getAll(): Promise<ITagType[]> {
@@ -99,5 +100,3 @@ export default class TagTypeService {
     return data;
   }
 }
-
-module.exports = TagTypeService;

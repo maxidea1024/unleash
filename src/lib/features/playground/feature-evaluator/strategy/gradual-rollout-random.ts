@@ -7,6 +7,7 @@ export default class GradualRolloutRandomStrategy extends Strategy {
 
   constructor(randomGenerator?: Function) {
     super('gradualRolloutRandom');
+
     this.randomGenerator = randomGenerator || this.randomGenerator;
   }
 

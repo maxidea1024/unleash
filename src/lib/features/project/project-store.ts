@@ -63,7 +63,7 @@ export interface IProjectMembersCount {
   project: string;
 }
 
-class ProjectStore implements IProjectStore {
+export default class ProjectStore implements IProjectStore {
   private readonly db: Db;
   private readonly logger: Logger;
   private readonly flagResolver: IFlagResolver;
@@ -75,8 +75,9 @@ class ProjectStore implements IProjectStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.db = db;
     this.logger = getLogger('project-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'project',
@@ -716,5 +717,3 @@ class ProjectStore implements IProjectStore {
     return Array.from(entriesMap.values());
   }
 }
-
-export default ProjectStore;

@@ -18,10 +18,10 @@ import { minutesToMilliseconds } from 'date-fns';
 import version from '../../../util/version';
 
 export default class RegisterController extends Controller {
-  logger: Logger;
-  clientInstanceService: ClientInstanceService;
-  openApiService: OpenApiService;
-  flagResolver: IFlagResolver;
+  private readonly logger: Logger;
+  private readonly clientInstanceService: ClientInstanceService;
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     {
@@ -33,6 +33,7 @@ export default class RegisterController extends Controller {
     super(config);
 
     this.logger = config.getLogger('/api/client/register.ts');
+
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;

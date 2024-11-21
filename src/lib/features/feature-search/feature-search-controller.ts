@@ -30,9 +30,9 @@ type FeatureSearchServices = Pick<
 >;
 
 export default class FeatureSearchController extends Controller {
-  private openApiService: OpenApiService;
-  private flagResolver: IFlagResolver;
-  private featureSearchService: FeatureSearchService;
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: IFlagResolver;
+  private readonly featureSearchService: FeatureSearchService;
   private readonly logger: Logger;
 
   constructor(
@@ -41,12 +41,11 @@ export default class FeatureSearchController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('/feature-search/feature-search-controller.ts');
+
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
     this.featureSearchService = featureSearchService;
-    this.logger = config.getLogger(
-      '/feature-search/feature-search-controller.ts',
-    );
 
     this.route({
       method: 'get',

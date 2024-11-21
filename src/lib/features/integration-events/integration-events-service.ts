@@ -20,9 +20,10 @@ export class IntegrationEventsService {
       flagResolver,
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
+    this.logger = getLogger('integration-events-service.ts');
+
     this.integrationEventsStore = integrationEventsStore;
     this.flagResolver = flagResolver;
-    this.logger = getLogger('integration-events-service');
   }
 
   async getPaginatedEvents(

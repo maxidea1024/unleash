@@ -26,8 +26,9 @@ export class JobStore
     db: Db,
     config: Pick<IUnleashConfig, 'eventBus' | 'getLogger'>,
   ) {
-    this.db = db;
     this.logger = config.getLogger('job-store.ts');
+
+    this.db = db;
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(config.eventBus, DB_TIME, {
         store: TABLE,

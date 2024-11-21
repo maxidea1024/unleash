@@ -95,7 +95,7 @@ export interface IEventTable {
 
 const TABLE = 'events';
 
-class EventStore implements IEventStore {
+export default class EventStore implements IEventStore {
   private readonly db: Db;
   // only one shared event emitter should exist across all event store instances
   private readonly eventEmitter: EventEmitter = sharedEventEmitter;
@@ -104,7 +104,7 @@ class EventStore implements IEventStore {
   // a new DB has to be injected per transaction
   constructor(db: Db, getLogger: LogProvider) {
     this.db = db;
-    this.logger = getLogger('event-store');
+    this.logger = getLogger('event-store.ts');
   }
 
   async store(event: IBaseEvent): Promise<void> {
@@ -597,5 +597,3 @@ class EventStore implements IEventStore {
     return toUpdate.length;
   }
 }
-
-export default EventStore;

@@ -37,10 +37,10 @@ export interface IGetAdminFeatures {
 
 export default class FeatureToggleClientStore
   implements IFeatureToggleClientStore {
-  private db: Db;
-  private logger: Logger;
-  private timer: Function;
-  private flagResolver: IFlagResolver;
+  private readonly db: Db;
+  private readonly logger: Logger;
+  private readonly timer: Function;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     db: Db,
@@ -383,5 +383,3 @@ export default class FeatureToggleClientStore
     });
   }
 }
-
-module.exports = FeatureToggleClientStore;

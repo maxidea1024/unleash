@@ -51,6 +51,7 @@ export default class TagTypeController extends Controller {
     super(config);
 
     this.logger = config.getLogger('/admin-api/tag-type.ts');
+
     this.tagTypeService = transactionalTagTypeService;
     this.openApiService = openApiService;
 

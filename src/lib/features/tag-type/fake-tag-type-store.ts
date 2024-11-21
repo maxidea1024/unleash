@@ -2,7 +2,7 @@ import type { ITagType, ITagTypeStore } from './tag-type-store-type';
 import { NotFoundError } from '../../error';
 
 export default class FakeTagTypeStore implements ITagTypeStore {
-  tagTypes: ITagType[] = [];
+  private tagTypes: ITagType[] = [];
 
   async bulkImport(tagTypes: ITagType[]): Promise<ITagType[]> {
     tagTypes.forEach((tT) => this.tagTypes.push(tT));

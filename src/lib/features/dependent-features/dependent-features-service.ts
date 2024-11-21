@@ -54,8 +54,7 @@ export class DependentFeaturesService {
     }: { featureName: string; newFeatureName: string; projectId: string },
     auditUser: IAuditUser,
   ) {
-    const parents =
-      await this.dependentFeaturesReadModel.getParents(featureName);
+    const parents = await this.dependentFeaturesReadModel.getParents(featureName);
     await Promise.all(
       parents.map((parent) =>
         this.unprotectedUpsertFeatureDependency(

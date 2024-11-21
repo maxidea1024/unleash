@@ -51,6 +51,7 @@ export default class EnvironmentsController extends Controller {
     super(config);
 
     this.logger = config.getLogger('admin-api/project/environments.ts');
+
     this.environmentService = transactionalEnvironmentService;
     this.openApiService = openApiService;
     this.projectService = projectService;

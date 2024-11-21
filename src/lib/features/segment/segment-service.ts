@@ -29,16 +29,16 @@ import type { ResourceLimitsSchema } from '../../openapi';
 import { throwExceedsLimitError } from '../../error/exceeds-limit-error';
 
 export class SegmentService implements ISegmentService {
-  private logger: Logger;
-  private segmentStore: ISegmentStore;
-  private featureStrategiesStore: IFeatureStrategiesStore;
-  private changeRequestAccessReadModel: IChangeRequestAccessReadModel;
-  private changeRequestSegmentUsageReadModel: IChangeRequestSegmentUsageReadModel;
-  private config: IUnleashConfig;
-  private flagResolver: IFlagResolver;
-  private eventService: EventService;
-  private privateProjectChecker: IPrivateProjectChecker;
-  private resourceLimits: ResourceLimitsSchema;
+  private readonly logger: Logger;
+  private readonly segmentStore: ISegmentStore;
+  private readonly featureStrategiesStore: IFeatureStrategiesStore;
+  private readonly changeRequestAccessReadModel: IChangeRequestAccessReadModel;
+  private readonly changeRequestSegmentUsageReadModel: IChangeRequestSegmentUsageReadModel;
+  private readonly config: IUnleashConfig;
+  private readonly flagResolver: IFlagResolver;
+  private readonly eventService: EventService;
+  private readonly privateProjectChecker: IPrivateProjectChecker;
+  private readonly resourceLimits: ResourceLimitsSchema;
 
   constructor(
     {
@@ -51,14 +51,14 @@ export class SegmentService implements ISegmentService {
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
+    this.logger = config.getLogger('services/segment-service.ts');
+
     this.segmentStore = segmentStore;
     this.featureStrategiesStore = featureStrategiesStore;
     this.eventService = eventService;
     this.changeRequestAccessReadModel = changeRequestAccessReadModel;
-    this.changeRequestSegmentUsageReadModel =
-      changeRequestSegmentUsageReadModel;
+    this.changeRequestSegmentUsageReadModel = changeRequestSegmentUsageReadModel;
     this.privateProjectChecker = privateProjectChecker;
-    this.logger = config.getLogger('services/segment-service.ts');
     this.flagResolver = config.flagResolver;
     this.resourceLimits = config.resourceLimits;
     this.config = config;
@@ -81,8 +81,7 @@ export class SegmentService implements ISegmentService {
     userId: number,
   ): Promise<StrategiesUsingSegment> {
     const allStrategies = await this.getAllStrategies(id);
-    const accessibleProjects =
-      await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const accessibleProjects = await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (accessibleProjects.mode === 'all') {
       return allStrategies;
     } else {
@@ -340,7 +339,10 @@ export class SegmentService implements ISegmentService {
   }
 
   private async stopWhenChangeRequestsEnabled(project?: string, user?: User) {
-    if (!project) return;
+    if (!project) {
+      return;
+    }
+
     const canBypass =
       await this.changeRequestAccessReadModel.canBypassChangeRequestForProject(
         project,

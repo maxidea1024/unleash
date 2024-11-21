@@ -11,14 +11,16 @@ import type {
 import { parseSearchOperatorValue } from './search-utils';
 
 export class FeatureSearchService {
-  private featureSearchStore: IFeatureSearchStore;
-  private logger: Logger;
+  private readonly featureSearchStore: IFeatureSearchStore;
+  private readonly logger: Logger;
+
   constructor(
     { featureSearchStore }: Pick<IUnleashStores, 'featureSearchStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
-    this.featureSearchStore = featureSearchStore;
     this.logger = getLogger('services/feature-search-service.ts');
+
+    this.featureSearchStore = featureSearchStore;
   }
 
   async search(params: IFeatureSearchParams) {

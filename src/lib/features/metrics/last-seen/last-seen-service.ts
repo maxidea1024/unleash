@@ -18,10 +18,9 @@ export class LastSeenService {
     { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,
     config: IUnleashConfig,
   ) {
+    this.logger = config.getLogger('/services/client-metrics/last-seen-service.ts');
+
     this.lastSeenStore = lastSeenStore;
-    this.logger = config.getLogger(
-      '/services/client-metrics/last-seen-service.ts',
-    );
   }
 
   async store(): Promise<number> {

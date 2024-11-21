@@ -119,7 +119,7 @@ export default class ExportImportController extends Controller {
   ): Promise<void> {
     this.verifyExportImportEnabled();
     const query = req.body;
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
 
     const data = await this.exportService.export(query, req.audit);
 

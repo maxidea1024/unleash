@@ -67,8 +67,9 @@ export class FrontendApiService {
     services: Services,
     globalFrontendApiCache: GlobalFrontendApiCache,
   ) {
-    this.config = config;
     this.logger = config.getLogger('services/frontend-api-service.ts');
+
+    this.config = config;
     this.stores = stores;
     this.services = services;
     this.globalFrontendApiCache = globalFrontendApiCache;
@@ -212,6 +213,8 @@ export class FrontendApiService {
     } catch (error) {
       this.logger.debug('Unable to fetch frontend settings', error);
     }
+
+    // TODO: handle null or undefined case.
     return this.cachedFrontendSettings;
   }
 

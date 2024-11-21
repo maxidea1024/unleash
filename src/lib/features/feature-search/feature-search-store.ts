@@ -46,8 +46,9 @@ export default class FeatureSearchStore implements IFeatureSearchStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
+    this.logger = getLogger('feature-search/feature-search-store.ts');
+
     this.db = db;
-    this.logger = getLogger('feature-search-store.ts');
     this.flagResolver = flagResolver;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
@@ -107,8 +108,7 @@ export default class FeatureSearchStore implements IFeatureSearchStore {
     total: number;
   }> {
     const stopTimer = this.timer('searchFeatures');
-    const validatedSortOrder =
-      sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
+    const validatedSortOrder = sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
 
     const finalQuery = this.db
       .with('ranked_features', (query) => {
@@ -340,6 +340,7 @@ export default class FeatureSearchStore implements IFeatureSearchStore {
       total: 0,
     };
   }
+
   /*
       This is noncritical data that can should be joined after paging and is not part of filtering/sorting
    */

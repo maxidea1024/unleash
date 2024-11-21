@@ -146,7 +146,7 @@ export default class ExportImportService
     dependentFeaturesReadModel: IDependentFeaturesReadModel,
     segmentReadModel: ISegmentReadModel,
   ) {
-    this.logger = getLogger('services/state-service.js');
+    this.logger = getLogger('export-import-service.ts');
 
     this.toggleStore = stores.featureToggleStore;
     this.importTogglesStore = stores.importTogglesStore;

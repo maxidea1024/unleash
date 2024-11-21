@@ -27,9 +27,11 @@ export class FakeTrafficDataUsageStore implements ITrafficDataUsageStore {
   deleteAll(): Promise<void> {
     throw new Error('Method not implemented.');
   }
+
   destroy(): void {
     throw new Error('Method not implemented.');
   }
+
   async upsert(trafficDataUsage: IStatTrafficUsage): Promise<void> {
     const index = this.trafficData.findIndex(
       (data) =>

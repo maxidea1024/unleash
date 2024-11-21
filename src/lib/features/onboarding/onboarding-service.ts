@@ -41,12 +41,13 @@ export class OnboardingService {
       getLogger,
     }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
+    this.logger = getLogger('onboarding/onboarding-service.ts');
+
     this.onboardingStore = onboardingStore;
     this.projectReadModel = projectReadModel;
     this.userStore = userStore;
     this.flagResolver = flagResolver;
     this.eventBus = eventBus;
-    this.logger = getLogger('onboarding/onboarding-service.ts');
   }
 
   listen() {
@@ -128,14 +129,18 @@ export class OnboardingService {
     const project = await this.projectReadModel.getFeatureProject(
       event.flag,
     );
-    if (!project) return;
+    if (!project) {
+      return;
+    }
 
     const startDate =
       project.project === 'default'
         ? firstInstanceUserDate
         : project.createdAt || null;
 
-    if (!startDate) return;
+    if (!startDate) {
+      return;
+    }
 
     const timeToEvent = millisecondsToSeconds(
       Date.now() - startDate.getTime(),

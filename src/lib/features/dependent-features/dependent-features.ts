@@ -7,4 +7,8 @@ export type FeatureDependency =
     enabled: true;
     variants?: string[];
   }
-  | { parent: string; child: string; enabled: false };
+  | {
+    parent: string;
+    child: string;
+    enabled: false
+  };

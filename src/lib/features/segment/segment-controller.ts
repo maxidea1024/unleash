@@ -69,9 +69,10 @@ export class SegmentsController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('/admin-api/segments.ts');
+
     this.flagResolver = config.flagResolver;
     this.config = config;
-    this.logger = config.getLogger('/admin-api/segments.ts');
     this.segmentService = segmentService;
     this.accessService = accessService;
     this.openApiService = openApiService;

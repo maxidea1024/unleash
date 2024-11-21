@@ -15,6 +15,7 @@ export class FakeOnboardingReadModel implements IOnboardingReadModel {
       firstLive: null,
     });
   }
+
   getProjectsOnboardingMetrics(): Promise<ProjectOnboarding[]> {
     return Promise.resolve([]);
   }

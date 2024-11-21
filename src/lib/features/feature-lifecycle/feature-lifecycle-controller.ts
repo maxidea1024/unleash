@@ -30,9 +30,9 @@ interface FeatureLifecycleParams {
 const PATH = '/:projectId/features/:featureName/lifecycle';
 
 export default class FeatureLifecycleController extends Controller {
-  private featureLifecycleService: WithTransactional<FeatureLifecycleService>;
-  private openApiService: OpenApiService;
-  private flagResolver: IFlagResolver;
+  private readonly featureLifecycleService: WithTransactional<FeatureLifecycleService>;
+  private readonly openApiService: OpenApiService;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     config: IUnleashConfig,
@@ -120,8 +120,7 @@ export default class FeatureLifecycleController extends Controller {
   ): Promise<void> {
     const { featureName } = req.params;
 
-    const result =
-      await this.featureLifecycleService.getFeatureLifecycle(featureName);
+    const result = await this.featureLifecycleService.getFeatureLifecycle(featureName);
 
     this.openApiService.respondWithValidation(
       200,

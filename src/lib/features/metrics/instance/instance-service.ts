@@ -63,6 +63,8 @@ export default class ClientInstanceService {
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
+    this.logger = getLogger('/services/client-metrics/client-instance-service.ts');
+
     this.clientMetricsStoreV2 = clientMetricsStoreV2;
     this.strategyStore = strategyStore;
     this.featureToggleStore = featureToggleStore;
@@ -71,9 +73,6 @@ export default class ClientInstanceService {
     this.eventStore = eventStore;
     this.privateProjectChecker = privateProjectChecker;
     this.flagResolver = flagResolver;
-    this.logger = getLogger(
-      '/services/client-metrics/client-instance-service.ts',
-    );
   }
 
   async registerInstance(

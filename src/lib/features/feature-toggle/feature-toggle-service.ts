@@ -144,7 +144,7 @@ const oneOf = (values: string[], match: string) => {
   return values.some((value) => value === match);
 };
 
-class FeatureToggleService {
+export default class FeatureToggleService {
   private readonly logger: Logger;
   private readonly featureStrategiesStore: IFeatureStrategiesStore;
   private readonly strategyStore: IStrategyStore;
@@ -208,6 +208,7 @@ class FeatureToggleService {
     featureCollaboratorsReadModel: IFeatureCollaboratorsReadModel,
   ) {
     this.logger = getLogger('services/feature-toggle-service.ts');
+
     this.featureStrategiesStore = featureStrategiesStore;
     this.strategyStore = strategyStore;
     this.featureToggleStore = featureToggleStore;
@@ -234,8 +235,7 @@ class FeatureToggleService {
     featureNames: string[],
     projectId: string,
   ): Promise<void> {
-    const features =
-      await this.featureToggleStore.getAllByNames(featureNames);
+    const features = await this.featureToggleStore.getAllByNames(featureNames);
 
     const invalidProjects = unique(
       features
@@ -2487,5 +2487,3 @@ class FeatureToggleService {
     }
   }
 }
-
-export default FeatureToggleService;

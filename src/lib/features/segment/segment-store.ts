@@ -49,13 +49,10 @@ interface IFeatureStrategySegmentRow {
 }
 
 export default class SegmentStore implements ISegmentStore {
-  private logger: Logger;
-
-  private eventBus: EventEmitter;
-
-  private db: Db;
-
-  private flagResolver: IFlagResolver;
+  private readonly logger: Logger;
+  private readonly eventBus: EventEmitter;
+  private readonly db: Db;
+  private readonly flagResolver: IFlagResolver;
 
   constructor(
     db: Db,
@@ -63,10 +60,11 @@ export default class SegmentStore implements ISegmentStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
+    this.logger = getLogger('lib/db/segment-store.ts');
+
     this.db = db;
     this.eventBus = eventBus;
     this.flagResolver = flagResolver;
-    this.logger = getLogger('lib/db/segment-store.ts');
   }
 
   async count(): Promise<number> {

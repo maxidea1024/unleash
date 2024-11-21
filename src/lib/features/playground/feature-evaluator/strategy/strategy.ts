@@ -32,8 +32,8 @@ export interface Segment {
 }
 
 export class Strategy {
-  public name: string;
-  private returnValue: boolean;
+  public readonly name: string;
+  private readonly returnValue: boolean;
 
   constructor(name: string, returnValue: boolean = false) {
     this.name = name || 'unknown';

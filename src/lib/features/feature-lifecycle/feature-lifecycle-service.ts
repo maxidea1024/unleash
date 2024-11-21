@@ -58,6 +58,8 @@ export class FeatureLifecycleService {
       getLogger,
     }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
+    this.logger = getLogger('feature-lifecycle/feature-lifecycle-service.ts');
+
     this.eventStore = eventStore;
     this.featureLifecycleStore = featureLifecycleStore;
     this.environmentStore = environmentStore;
@@ -65,9 +67,6 @@ export class FeatureLifecycleService {
     this.flagResolver = flagResolver;
     this.eventBus = eventBus;
     this.eventService = eventService;
-    this.logger = getLogger(
-      'feature-lifecycle/feature-lifecycle-service.ts',
-    );
   }
 
   listen() {

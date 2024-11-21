@@ -24,10 +24,10 @@ interface FeatureToggleData {
 }
 
 export default class Repository extends EventEmitter {
-  private timer: NodeJS.Timeout | undefined;
-  private appName: string;
-  private bootstrapProvider: BootstrapProvider;
-  private storageProvider: StorageProvider<ClientFeaturesResponse>;
+  private readonly timer: NodeJS.Timeout | undefined;
+  private readonly appName: string;
+  private readonly bootstrapProvider: BootstrapProvider;
+  private readonly storageProvider: StorageProvider<ClientFeaturesResponse>;
   private data: FeatureToggleData = {};
   private segments: Map<number, Segment>;
 

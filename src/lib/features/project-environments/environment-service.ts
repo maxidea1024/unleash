@@ -53,6 +53,7 @@ export default class EnvironmentService {
     eventService: EventService,
   ) {
     this.logger = getLogger('services/environment-service.ts');
+
     this.environmentStore = environmentStore;
     this.featureStrategiesStore = featureStrategiesStore;
     this.featureEnvironmentStore = featureEnvironmentStore;

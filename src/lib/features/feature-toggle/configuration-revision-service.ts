@@ -46,6 +46,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
           { getLogger, flagResolver },
         );
     }
+
     return ConfigurationRevisionService.instance;
   }
 

@@ -105,8 +105,9 @@ export default class EnvironmentStore implements IEnvironmentStore {
   private readonly timer: (string) => any;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('db/environment-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'environment',
@@ -130,18 +131,18 @@ export default class EnvironmentStore implements IEnvironmentStore {
     await this.db(TABLE).del();
   }
 
-  count(): Promise<number> {
-    return this.db
+  async count(): Promise<number> {
+    const res = await this.db
       .from(TABLE)
-      .count('*')
-      .then((res) => Number(res[0].count));
+      .count('*');
+    return Number(res[0].count);
   }
 
-  getMaxSortOrder(): Promise<number> {
-    return this.db
+  async getMaxSortOrder(): Promise<number> {
+    const res = await this.db
       .from(TABLE)
-      .max('sort_order')
-      .then((res) => Number(res[0].max));
+      .max('sort_order');
+    return Number(res[0].max);
   }
 
   async get(key: string): Promise<IEnvironment> {

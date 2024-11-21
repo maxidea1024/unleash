@@ -14,6 +14,7 @@ export default class FlexibleRolloutStrategy extends Strategy {
 
   constructor(radnomGenerator?: Function) {
     super('flexibleRollout');
+
     if (radnomGenerator) {
       this.randomGenerator = radnomGenerator;
     }

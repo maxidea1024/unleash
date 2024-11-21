@@ -134,5 +134,6 @@ export interface IProjectStore extends IStore<IProject, string> {
   ): Promise<IProjectApplications>;
 
   archive(projectId: string): Promise<void>;
+
   revive(projectId: string): Promise<void>;
 }

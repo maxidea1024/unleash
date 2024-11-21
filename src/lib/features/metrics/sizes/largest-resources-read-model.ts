@@ -2,7 +2,7 @@ import type { Db } from '../../../db/db';
 import type { ILargestResourcesReadModel } from './largest-resources-read-model-type';
 
 export class LargestResourcesReadModel implements ILargestResourcesReadModel {
-  private db: Db;
+  private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;

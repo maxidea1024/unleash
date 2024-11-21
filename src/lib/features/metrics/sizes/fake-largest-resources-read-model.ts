@@ -7,6 +7,7 @@ export class FakeLargestResourcesReadModel
   ): Promise<{ project: string; environment: string; size: number }[]> {
     return [];
   }
+
   async getLargestFeatureEnvironments(
     limit: number,
   ): Promise<{ feature: string; environment: string; size: number }[]> {

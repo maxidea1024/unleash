@@ -164,6 +164,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     if (revive) {
       revive.archived = false;
     }
+    // TODO: handle not found case.
     return this.update(revive.project, revive);
   }
 

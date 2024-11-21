@@ -21,8 +21,8 @@ import {
 } from '../../openapi/spec/personal-dashboard-project-details-schema';
 
 export default class PersonalDashboardController extends Controller {
-  private openApiService: OpenApiService;
-  private personalDashboardService: PersonalDashboardService;
+  private readonly openApiService: OpenApiService;
+  private readonly personalDashboardService: PersonalDashboardService;
 
   constructor(
     config: IUnleashConfig,

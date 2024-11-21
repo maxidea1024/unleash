@@ -112,7 +112,6 @@ export default class EventSearchController extends Controller {
   enrichEvents(events: IEvent[]): IEvent[] | IEnrichedEvent[] {
     return events.map((event) => {
       const { label, text: summary } = this.msgFormatter.format(event);
-
       return {
         ...event,
         label,

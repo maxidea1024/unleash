@@ -51,7 +51,7 @@ export class ImportPermissionsService {
           (availableField) =>
             availableField.name === contextField.name,
         ),
-    );
+    ) || [];
   }
 
   constructor(

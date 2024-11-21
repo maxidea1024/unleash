@@ -60,8 +60,9 @@ export class ProxyRepository
   ) {
     super();
 
-    this.config = config;
     this.logger = config.getLogger('proxy-repository.ts');
+
+    this.config = config;
     this.stores = stores;
     this.services = services;
     this.configurationRevisionService = services.configurationRevisionService;

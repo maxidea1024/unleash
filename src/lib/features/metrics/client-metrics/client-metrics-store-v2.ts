@@ -130,8 +130,9 @@ export class ClientMetricsStoreV2 implements IClientMetricsStoreV2 {
   private readonly flagResolver: IFlagResolver;
 
   constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
-    this.db = db;
     this.logger = getLogger('client-metrics-store-v2.ts');
+
+    this.db = db;
     this.flagResolver = flagResolver;
   }
 

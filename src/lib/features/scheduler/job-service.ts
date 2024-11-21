@@ -8,8 +8,9 @@ export class JobService {
   private readonly logger: Logger;
 
   constructor(jobStore: JobStore, logProvider: LogProvider) {
+    this.logger = logProvider('/services/job-service.ts');
+
     this.jobStore = jobStore;
-    this.logger = logProvider('/services/job-service');
   }
 
   /**

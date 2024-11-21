@@ -92,8 +92,9 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
-    this.db = db;
     this.logger = getLogger('feature-toggle-store.ts');
+
+    this.db = db;
     this.featureToggleRowConverter = new FeatureToggleRowConverter(
       flagResolver,
     );

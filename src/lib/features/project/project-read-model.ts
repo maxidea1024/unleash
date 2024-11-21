@@ -71,7 +71,9 @@ export class ProjectReadModel implements IProjectReadModel {
       .where('features.name', featureName)
       .first();
 
-    if (!result) return null;
+    if (!result) {
+      return null;
+    }
 
     return { project: result.project, createdAt: result.created_at };
   }

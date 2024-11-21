@@ -46,6 +46,7 @@ export default class FrontendAPIController extends Controller {
     super(config);
 
     this.logger = config.getLogger('frontend-api-controller.ts');
+
     this.services = services;
 
     this.timer = (functionName: string) =>

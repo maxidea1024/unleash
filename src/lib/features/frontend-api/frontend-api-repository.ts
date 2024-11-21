@@ -19,7 +19,7 @@ export class FrontendApiRepository
   private readonly config: Config;
   private readonly logger: Logger;
   private readonly token: IApiUser;
-  private globalFrontendApiCache: GlobalFrontendApiCache;
+  private readonly globalFrontendApiCache: GlobalFrontendApiCache;
   private running: boolean;
 
   constructor(

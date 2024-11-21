@@ -32,8 +32,9 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('traffic-data-usage-store.ts');
+
+    this.db = db;
   }
 
   async get(key: IStatTrafficUsageKey): Promise<IStatTrafficUsage> {

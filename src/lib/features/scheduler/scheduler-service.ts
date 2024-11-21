@@ -29,6 +29,7 @@ export class SchedulerService {
     eventBus: EventEmitter,
   ) {
     this.logger = getLogger('/services/scheduler-service.ts');
+
     this.maintenanceStatus = maintenanceStatus;
     this.eventBus = eventBus;
   }

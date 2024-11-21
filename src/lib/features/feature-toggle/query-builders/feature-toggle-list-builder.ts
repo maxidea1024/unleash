@@ -6,7 +6,7 @@ export class FeatureToggleListBuilder {
   public internalQuery: Knex.QueryBuilder;
   private readonly selectColumns: (string | Knex.Raw<any>)[];
 
-  constructor(db, selectColumns) {
+  constructor(db: Knex, selectColumns: (string | Knex.Raw<any>)[]) {
     this.db = db;
     this.selectColumns = selectColumns;
   }

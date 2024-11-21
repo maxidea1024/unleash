@@ -26,12 +26,12 @@ import {
 } from '../../openapi';
 
 export default class ArchiveController extends Controller {
-  private featureService: FeatureToggleService;
-  private transactionalFeatureToggleService: (
+  private readonly featureService: FeatureToggleService;
+  private readonly transactionalFeatureToggleService: (
     db: UnleashTransaction,
   ) => FeatureToggleService;
   private readonly startTransaction: TransactionCreator<UnleashTransaction>;
-  private openApiService: OpenApiService;
+  private readonly openApiService: OpenApiService;
 
   constructor(
     config: IUnleashConfig,

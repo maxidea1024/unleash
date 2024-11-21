@@ -68,8 +68,7 @@ export default class EventService {
     search: IEventSearchParams,
     userId: number,
   ): Promise<IEventList> {
-    const projectAccess =
-      await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const projectAccess = await this.privateProjectChecker.getUserAccessibleProjects(userId);
 
     search.project = filterAccessibleProjects(
       search.project,
