@@ -48,7 +48,7 @@ export default class MetricsController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/metrics.ts');
+    this.logger = config.getLogger('metrics-controller.ts');
 
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;

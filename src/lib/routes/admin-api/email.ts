@@ -20,7 +20,7 @@ export default class EmailController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/email.ts');
+    this.logger = config.getLogger('email-controller.ts');
 
     this.emailService = emailService;
     this.get('/preview/html/:template', this.getHtmlPreview, ADMIN);

@@ -48,7 +48,8 @@ export class EnvironmentsController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('admin-api/environments-controller.ts');
+    this.logger = config.getLogger('environments-controller.ts');
+
     this.openApiService = openApiService;
     this.service = environmentService;
 

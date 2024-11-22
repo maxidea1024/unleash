@@ -29,9 +29,10 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('favorites-store.ts');
+
     this.db = db;
     this.eventBus = eventBus;
-    this.logger = getLogger('lib/db/favorites-store.ts');
   }
 
   async addFavoriteFeature({

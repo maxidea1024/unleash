@@ -56,7 +56,7 @@ export class PublicSignupController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/public-signup.ts');
+    this.logger = config.getLogger('public-signup-controller.ts');
 
     this.publicSignupTokenService = publicSignupTokenService;
     this.accessService = accessService;

@@ -4,14 +4,15 @@ import { join } from 'path';
 import { register as prometheusRegister } from 'prom-client';
 import Controller from './controller';
 import type { IUnleashConfig } from '../types/option';
+import { Logger } from '../logger';
 
 export class BackstageController extends Controller {
-  logger: any;
+  private readonly logger: Logger;
 
   constructor(config: IUnleashConfig) {
     super(config);
 
-    this.logger = config.getLogger('routes/backstage.ts');
+    this.logger = config.getLogger('backstage.ts');
 
     if (config.server.serverMetrics) {
       this.get('/prometheus', async (req, res) => {

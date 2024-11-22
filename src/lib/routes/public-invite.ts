@@ -38,7 +38,7 @@ export class PublicInviteController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/public-invite.ts');
+    this.logger = config.getLogger('public-invite.ts');
 
     this.publicSignupTokenService = publicSignupTokenService;
     this.openApiService = openApiService;

@@ -81,7 +81,7 @@ export class ApiTokenService {
     >,
     eventService: EventService,
   ) {
-    this.logger = config.getLogger('/services/api-token-service.ts');
+    this.logger = config.getLogger('api-token-service.ts');
 
     this.store = apiTokenStore;
     this.eventService = eventService;

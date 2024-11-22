@@ -39,7 +39,7 @@ export default async function getApp(
   unleashSession?: RequestHandler,
   db?: Knex,
 ): Promise<Application> {
-  const logger = config.getLogger('lib/app.ts');
+  const logger = config.getLogger('app.ts');
 
   const app = express();
 

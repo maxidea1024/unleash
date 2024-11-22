@@ -143,7 +143,7 @@ export class AccessService {
     groupService: GroupService,
     eventService: EventService,
   ) {
-    this.logger = getLogger('/services/access-service.ts');
+    this.logger = getLogger('access-service.ts');
 
     this.store = accessStore;
     this.accountStore = accountStore;

@@ -33,9 +33,10 @@ export default class RoleStore implements IRoleStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('role-store.ts');
+
     this.db = db;
     this.eventBus = eventBus;
-    this.logger = getLogger('lib/db/role-store.ts');
   }
 
   async getAll(): Promise<ICustomRole[]> {

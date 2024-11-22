@@ -38,10 +38,11 @@ export class FeatureTypeController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('feature-type-controller.ts');
+
     this.featureTypeService = featureTypeService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
-    this.logger = config.getLogger('/admin-api/feature-type.ts');
 
     this.route({
       method: 'get',

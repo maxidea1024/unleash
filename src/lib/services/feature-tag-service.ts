@@ -39,7 +39,7 @@ export default class FeatureTagService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('/services/feature-tag-service.ts');
+    this.logger = getLogger('feature-tag-service.ts');
 
     this.tagStore = tagStore;
     this.featureTagStore = featureTagStore;

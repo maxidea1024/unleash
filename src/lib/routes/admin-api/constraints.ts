@@ -23,9 +23,10 @@ export default class ConstraintController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('constrain-controller.ts');
+
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;
-    this.logger = config.getLogger('/admin-api/validation.ts');
 
     this.route({
       method: 'post',

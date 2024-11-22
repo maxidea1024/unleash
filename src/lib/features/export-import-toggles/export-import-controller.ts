@@ -44,7 +44,7 @@ export default class ExportImportController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/export-import-controller.ts');
+    this.logger = config.getLogger('export-import-controller.ts');
 
     this.exportService = exportService;
     this.importService = importService;

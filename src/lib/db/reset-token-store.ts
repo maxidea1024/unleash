@@ -38,8 +38,9 @@ export class ResetTokenStore implements IResetTokenStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('reset-token-store.ts');
+
     this.db = db;
-    this.logger = getLogger('db/reset-token-store.ts');
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'reset-tokens',
@@ -55,6 +56,7 @@ export class ResetTokenStore implements IResetTokenStore {
     if (!row) {
       throw new NotFoundError('Could not find an active token');
     }
+
     return rowToResetToken(row);
   }
 
