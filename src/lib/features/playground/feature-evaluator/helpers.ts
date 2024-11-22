@@ -16,8 +16,7 @@ export function createFallbackFunction(
 
   if (typeof fallback === 'function') {
     return () => createEvalResult(fallback(name, context));
-  }
-  if (typeof fallback === 'boolean') {
+  } else if (typeof fallback === 'boolean') {
     return () => createEvalResult(fallback);
   }
   return () => createEvalResult(false);

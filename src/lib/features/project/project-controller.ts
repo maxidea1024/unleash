@@ -20,8 +20,8 @@ import {
   deprecatedProjectOverviewSchema,
   outdatedSdksSchema,
   type OutdatedSdksSchema,
-  type ProjectDoraMetricsSchema,
-  projectDoraMetricsSchema,
+  // type ProjectDoraMetricsSchema,
+  // projectDoraMetricsSchema,
   projectOverviewSchema,
   type ProjectsSchema,
   projectsSchema,
@@ -137,26 +137,26 @@ export default class ProjectController extends Controller {
       ],
     });
 
-    /** @deprecated use project insights instead */
-    this.route({
-      method: 'get',
-      path: '/:projectId/dora',
-      handler: this.getProjectDora,
-      permission: NONE,
-      middleware: [
-        this.openApiService.validPath({
-          tags: ['Projects'],
-          operationId: 'getProjectDora',
-          summary: 'Get an overview project dora metrics.',
-          description:
-            'This endpoint returns an overview of the specified dora metrics',
-          responses: {
-            200: createResponseSchema('projectDoraMetricsSchema'),
-            ...getStandardResponses(401, 403, 404),
-          },
-        }),
-      ],
-    });
+    // /** @deprecated use project insights instead */
+    // this.route({
+    //   method: 'get',
+    //   path: '/:projectId/dora',
+    //   handler: this.getProjectDora,
+    //   permission: NONE,
+    //   middleware: [
+    //     this.openApiService.validPath({
+    //       tags: ['Projects'],
+    //       operationId: 'getProjectDora',
+    //       summary: 'Get an overview project dora metrics.',
+    //       description:
+    //         'This endpoint returns an overview of the specified dora metrics',
+    //       responses: {
+    //         200: createResponseSchema('projectDoraMetricsSchema'),
+    //         ...getStandardResponses(401, 403, 404),
+    //       },
+    //     }),
+    //   ],
+    // });
 
     this.route({
       method: 'get',
@@ -310,22 +310,22 @@ export default class ProjectController extends Controller {
     );
   }
 
-  /** @deprecated use projectInsights instead */
-  async getProjectDora(
-    req: IAuthRequest,
-    res: Response<ProjectDoraMetricsSchema>,
-  ): Promise<void> {
-    const { projectId } = req.params;
+  // /** @deprecated use projectInsights instead */
+  // async getProjectDora(
+  //   req: IAuthRequest,
+  //   res: Response<ProjectDoraMetricsSchema>,
+  // ): Promise<void> {
+  //   const { projectId } = req.params;
 
-    const dora = await this.projectService.getDoraMetrics(projectId);
+  //   const dora = await this.projectService.getDoraMetrics(projectId);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      projectDoraMetricsSchema.$id,
-      dora,
-    );
-  }
+  //   this.openApiService.respondWithValidation(
+  //     200,
+  //     res,
+  //     projectDoraMetricsSchema.$id,
+  //     dora,
+  //   );
+  // }
 
   async getProjectApplications(
     req: IAuthRequest,

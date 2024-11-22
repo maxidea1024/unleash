@@ -47,17 +47,17 @@ const mapProjectForInsights = (row): ProjectForInsights => {
 
 export class ProjectReadModel implements IProjectReadModel {
   private readonly db: Db;
-  private readonly timer: Function;
   private readonly flagResolver: IFlagResolver;
+  private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, flagResolver: IFlagResolver) {
     this.db = db;
+    this.flagResolver = flagResolver;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'project',
         action,
       });
-    this.flagResolver = flagResolver;
   }
 
   async getFeatureProject(

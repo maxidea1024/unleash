@@ -21,7 +21,7 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.logger = getLogger('project-permission-store.ts');
+    this.logger = getLogger('privateProjectStore.ts');
 
     this.db = db;
   }

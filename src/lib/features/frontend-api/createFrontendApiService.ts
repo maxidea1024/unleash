@@ -33,18 +33,21 @@ export const createFrontendApiService = (
     config,
     eventService,
   );
+
   // TODO: remove this dependency after we migrate frontend API
   const featureToggleServiceV2 = createFeatureToggleService(db, config);
   const clientFeatureToggleReadModel = new ClientFeatureToggleReadModel(
     db,
     config.eventBus,
   );
+
   const globalFrontendApiCache = new GlobalFrontendApiCache(
     config,
     segmentReadModel,
     clientFeatureToggleReadModel,
     configurationRevisionService,
   );
+
   return new FrontendApiService(
     config,
     { segmentReadModel },
@@ -71,6 +74,7 @@ export const createFakeFrontendApiService = (
     config,
     eventService,
   );
+
   // TODO: remove this dependency after we migrate frontend API
   const featureToggleServiceV2 = createFakeFeatureToggleService(config).featureToggleService;
   const clientFeatureToggleReadModel = new FakeClientFeatureToggleReadModel();
@@ -80,6 +84,7 @@ export const createFakeFrontendApiService = (
     clientFeatureToggleReadModel,
     configurationRevisionService,
   );
+
   return new FrontendApiService(
     config,
     { segmentReadModel },

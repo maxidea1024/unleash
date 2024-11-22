@@ -82,7 +82,7 @@ export class EmailService {
   private readonly sender: string;
 
   constructor(config: IUnleashConfig) {
-    this.logger = config.getLogger('services/email-service.ts');
+    this.logger = config.getLogger('email-service.ts');
 
     this.config = config;
     const { email } = config;

@@ -20,14 +20,15 @@ export class DefaultBootstrapProvider implements BootstrapProvider {
   }
 
   async readBootstrap(): Promise<ClientFeaturesResponse | undefined> {
-    if (this.data) {
-      return {
-        version: 2,
-        segments: this.segments,
-        features: [...this.data],
-      };
+    if (!this.data) {
+      return undefined;
     }
-    return undefined;
+
+    return {
+      version: 2,
+      segments: this.segments,
+      features: [...this.data],
+    };
   }
 }
 

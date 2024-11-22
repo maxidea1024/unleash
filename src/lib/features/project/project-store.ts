@@ -78,12 +78,12 @@ export default class ProjectStore implements IProjectStore {
     this.logger = getLogger('project-store.ts');
 
     this.db = db;
+    this.flagResolver = flagResolver;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'project',
         action,
       });
-    this.flagResolver = flagResolver;
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

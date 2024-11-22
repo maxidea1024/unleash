@@ -10,9 +10,9 @@ export type LastSeenInput = {
 };
 
 export class LastSeenService {
-  private lastSeenToggles: Map<String, LastSeenInput> = new Map();
   private readonly logger: Logger;
   private readonly lastSeenStore: ILastSeenStore;
+  private lastSeenToggles: Map<String, LastSeenInput> = new Map();
 
   constructor(
     { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,

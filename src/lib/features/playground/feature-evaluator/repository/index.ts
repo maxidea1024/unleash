@@ -46,6 +46,7 @@ export default class Repository extends EventEmitter {
 
   async start(): Promise<void> {
     await this.loadBootstrap();
+
     process.nextTick(() => this.emit(UnleashEvents.Ready));
   }
 
@@ -53,6 +54,7 @@ export default class Repository extends EventEmitter {
     if (!segments) {
       return new Map();
     }
+
     return new Map(segments.map((segment) => [segment.id, segment]));
   }
 

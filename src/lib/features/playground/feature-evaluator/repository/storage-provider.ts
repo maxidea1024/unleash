@@ -14,12 +14,13 @@ export interface StorageOptions {
 }
 
 export class FileStorageProvider<T> implements StorageProvider<T> {
-  private backupPath: string;
+  private readonly backupPath: string;
 
   constructor(backupPath: string) {
     if (!backupPath) {
       throw new Error('backup Path is required');
     }
+
     this.backupPath = backupPath;
   }
 

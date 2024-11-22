@@ -15,7 +15,7 @@ export class ClientSpecService {
   };
 
   constructor(config: Pick<IUnleashConfig, 'getLogger'>) {
-    this.logger = config.getLogger('services/capability-service.ts');
+    this.logger = config.getLogger('capability-service.ts');
   }
 
   requestSupportsSpec(request: Request, feature: ClientSpecFeature): boolean {

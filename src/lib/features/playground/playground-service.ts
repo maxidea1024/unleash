@@ -86,7 +86,7 @@ export class PlaygroundService {
     >,
     segmentReadModel: ISegmentReadModel,
   ) {
-    this.logger = config.getLogger('services/playground-service.ts');
+    this.logger = config.getLogger('playground-service.ts');
 
     this.flagResolver = config.flagResolver;
     this.featureToggleService = featureToggleServiceV2;

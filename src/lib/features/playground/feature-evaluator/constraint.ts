@@ -63,11 +63,9 @@ const StringOperator = (constraint: Constraint, context: Context) => {
 
   if (operator === Operator.STR_STARTS_WITH) {
     return values.some((val) => contextValue?.startsWith(val));
-  }
-  if (operator === Operator.STR_ENDS_WITH) {
+  } else if (operator === Operator.STR_ENDS_WITH) {
     return values.some((val) => contextValue?.endsWith(val));
-  }
-  if (operator === Operator.STR_CONTAINS) {
+  } else if (operator === Operator.STR_CONTAINS) {
     return values.some((val) => contextValue?.includes(val));
   }
   return false;
@@ -84,11 +82,9 @@ const SemverOperator = (constraint: Constraint, context: Context) => {
   try {
     if (operator === Operator.SEMVER_EQ) {
       return semverEq(contextValue, value);
-    }
-    if (operator === Operator.SEMVER_LT) {
+    } else if (operator === Operator.SEMVER_LT) {
       return semverLt(contextValue, value);
-    }
-    if (operator === Operator.SEMVER_GT) {
+    } else if (operator === Operator.SEMVER_GT) {
       return semverGt(contextValue, value);
     }
   } catch (e) {
@@ -106,8 +102,7 @@ const DateOperator = (constraint: Constraint, context: Context) => {
 
   if (operator === Operator.DATE_AFTER) {
     return currentTime > value;
-  }
-  if (operator === Operator.DATE_BEFORE) {
+  } else if (operator === Operator.DATE_BEFORE) {
     return currentTime < value;
   }
   return false;
@@ -125,17 +120,13 @@ const NumberOperator = (constraint: Constraint, context: Context) => {
 
   if (operator === Operator.NUM_EQ) {
     return contextValue === value;
-  }
-  if (operator === Operator.NUM_GT) {
+  } else if (operator === Operator.NUM_GT) {
     return contextValue > value;
-  }
-  if (operator === Operator.NUM_GTE) {
+  } else if (operator === Operator.NUM_GTE) {
     return contextValue >= value;
-  }
-  if (operator === Operator.NUM_LT) {
+  } else if (operator === Operator.NUM_LT) {
     return contextValue < value;
-  }
-  if (operator === Operator.NUM_LTE) {
+  } else if (operator === Operator.NUM_LTE) {
     return contextValue <= value;
   }
   return false;

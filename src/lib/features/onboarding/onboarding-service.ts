@@ -41,7 +41,7 @@ export class OnboardingService {
       getLogger,
     }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
-    this.logger = getLogger('onboarding/onboarding-service.ts');
+    this.logger = getLogger('onboarding-service.ts');
 
     this.onboardingStore = onboardingStore;
     this.projectReadModel = projectReadModel;
@@ -61,6 +61,7 @@ export class OnboardingService {
         });
       }
     });
+
     this.eventBus.on(STAGE_ENTERED, async (stage: NewStage) => {
       if (stage.stage === 'initial') {
         await this.insert({
@@ -108,7 +109,9 @@ export class OnboardingService {
     },
     firstInstanceUserDate: Date | null,
   ): Promise<void> {
-    if (!firstInstanceUserDate) return;
+    if (!firstInstanceUserDate) {
+      return;
+    }
 
     const timeToEvent = millisecondsToSeconds(
       new Date().getTime() - firstInstanceUserDate.getTime(),

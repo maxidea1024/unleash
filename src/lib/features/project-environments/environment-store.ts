@@ -154,6 +154,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
     if (row) {
       return mapRow(row);
     }
+
     throw new NotFoundError(`Could not find environment with name: ${key}`);
   }
 

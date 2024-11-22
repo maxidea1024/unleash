@@ -148,6 +148,7 @@ export class ClientMetricsStoreV2 implements IClientMetricsStoreV2 {
     if (row) {
       return fromRow(row);
     }
+
     throw new NotFoundError(`Could not find metric`);
   }
 

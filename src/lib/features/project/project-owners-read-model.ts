@@ -148,6 +148,7 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
       },
       {} as Record<string, UserProjectOwner>,
     );
+
     return Object.values(ownersDict);
   }
 

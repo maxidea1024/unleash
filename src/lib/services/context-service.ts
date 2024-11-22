@@ -47,7 +47,7 @@ export default class ContextService {
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
-    this.logger = getLogger('services/context-service.ts');
+    this.logger = getLogger('context-service.ts');
 
     this.privateProjectChecker = privateProjectChecker;
     this.projectStore = projectStore;

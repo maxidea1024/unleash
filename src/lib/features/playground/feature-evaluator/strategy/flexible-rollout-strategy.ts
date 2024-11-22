@@ -20,7 +20,7 @@ export default class FlexibleRolloutStrategy extends Strategy {
     }
   }
 
-  resolveStickiness(stickiness: string, context: Context): any {
+  private resolveStickiness(stickiness: string, context: Context): any {
     switch (stickiness) {
       case STICKINESS.default:
         return (

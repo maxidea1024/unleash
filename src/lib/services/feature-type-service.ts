@@ -19,7 +19,7 @@ export default class FeatureTypeService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('services/feature-type-service.ts');
+    this.logger = getLogger('feature-type-service.ts');
 
     this.featureTypeStore = featureTypeStore;
     this.eventService = eventService;

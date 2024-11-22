@@ -171,9 +171,7 @@ export default class FrontendAPIController extends Controller {
     _: ApiUserRequest,
     res: Response,
   ) {
-    const error = new NotImplementedError(
-      'The frontend API does not support this endpoint.',
-    );
+    const error = new NotImplementedError('The frontend API does not support this endpoint.');
     res.status(error.statusCode).json(error);
   }
 

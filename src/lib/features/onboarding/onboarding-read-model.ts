@@ -119,6 +119,7 @@ export class OnboardingReadModel implements IOnboardingReadModel {
     if (!feature) {
       return { status: 'onboarding-started' };
     }
+
     return { status: 'first-flag-created', feature: feature.name };
   }
 }

@@ -33,7 +33,7 @@ export class GlobalFrontendApiCache extends EventEmitter {
   private featuresByEnvironment: FrontendApiFeatureCache = {};
   private segments: Segment[] = [];
   private status: GlobalFrontendApiCacheState = 'starting';
-  private timer: Function;
+  private readonly timer: Function;
 
   constructor(
     config: Config,

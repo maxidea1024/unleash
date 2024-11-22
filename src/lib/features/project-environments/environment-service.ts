@@ -91,6 +91,7 @@ export default class EnvironmentService {
     if (exists) {
       return this.environmentStore.updateProperty(name, 'enabled', value);
     }
+
     throw new NotFoundError(`Could not find environment ${name}`);
   }
 

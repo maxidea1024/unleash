@@ -45,7 +45,7 @@ export class GroupService {
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
-    this.logger = getLogger('service/group-service.ts');
+    this.logger = getLogger('group-service.ts');
 
     this.groupStore = stores.groupStore;
     this.eventService = eventService;

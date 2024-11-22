@@ -50,7 +50,7 @@ export class ProxyRepository
   private interval: number;
   private timer: NodeJS.Timeout | null;
   private running: boolean;
-  private methodTimer: Function;
+  private readonly methodTimer: Function;
 
   constructor(
     config: Config,
