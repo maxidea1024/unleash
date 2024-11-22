@@ -30,10 +30,10 @@ interface GaugeUpdater {
 
 export class DbMetricsMonitor {
   private readonly updaters: Map<string, GaugeUpdater> = new Map();
-  private readonly log: Logger;
+  private readonly logger: Logger;
 
   constructor({ getLogger }: Pick<IUnleashConfig, 'getLogger'>) {
-    this.log = getLogger('metrics-gauge.ts');
+    this.logger = getLogger('metrics-gauge.ts');
   }
 
   private asArray<T>(value: T | T[]): T[] {
@@ -53,7 +53,7 @@ export class DbMetricsMonitor {
       resultArray
         .filter((r) => typeof r.value !== 'number')
         .forEach((r) => {
-          this.log.debug(
+          this.logger.debug(
             `Invalid value for ${definition.name}: ${r.value}. Value must be an number.`,
           );
         });
@@ -81,7 +81,7 @@ export class DbMetricsMonitor {
           }
         }
       } catch (e) {
-        this.log.warn(`Failed to refresh ${definition.name}`, e);
+        this.logger.warn(`Failed to refresh ${definition.name}`, e);
       }
     };
     this.updaters.set(definition.name, { target: gauge, task });
@@ -93,7 +93,7 @@ export class DbMetricsMonitor {
       ([name, updater]) => ({ name, task: updater.task }),
     );
     for (const { name, task } of tasks) {
-      this.log.debug(`Refreshing metric ${name}`);
+      this.logger.debug(`Refreshing metric ${name}`);
       await task();
     }
   };
@@ -114,6 +114,7 @@ export class DbMetricsMonitor {
       // return first value
       return values.map(({ value }) => value).shift();
     }
+
     return undefined;
   }
 }
