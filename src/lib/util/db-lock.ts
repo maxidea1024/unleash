@@ -24,6 +24,7 @@ export const withDbLock =
         const client = new Client({
           ...dbConfig,
         });
+
         let lockAcquired = false;
         try {
           await client.connect();
