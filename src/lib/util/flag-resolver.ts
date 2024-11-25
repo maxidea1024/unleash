@@ -1,3 +1,5 @@
+// TODO: 클라이언트 라이브러리 패키지에서 가져오네?
+
 import { type Variant, PayloadType } from 'unleash-client';
 import type {
   IExperimentalOptions,
@@ -52,6 +54,7 @@ export default class FlagResolver implements IFlagResolver {
         return exp.enabled;
       }
     }
+
     return this.externalResolver.isEnabled(expName, context);
   }
 

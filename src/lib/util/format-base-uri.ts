@@ -1,5 +1,7 @@
 export const formatBaseUri = (input?: string): string => {
-  if (!input) return '';
+  if (!input) {
+    return '';
+  }
 
   const firstChar = input[0];
   const lastChar = input[input.length - 1];
