@@ -20,7 +20,7 @@ export default class FavoritesController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('favorites-controller.ts');
+    this.logger = config.getLogger('favorites.ts');
 
     this.favoritesService = favoritesService;
     this.openApiService = openApiService;

@@ -29,7 +29,8 @@ export default class ProjectHealthReport extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/project/health-report.ts');
+    this.logger = config.getLogger('health-report.ts');
+
     this.projectHealthService = projectHealthService;
     this.openApiService = openApiService;
 

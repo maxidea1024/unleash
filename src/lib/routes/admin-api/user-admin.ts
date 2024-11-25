@@ -62,12 +62,12 @@ export default class UserAdminController extends Controller {
   private readonly userService: UserService;
   private readonly accountService: AccountService;
   private readonly accessService: AccessService;
-  private readonly logger: Logger;
   private readonly resetTokenService: ResetTokenService;
   private readonly settingService: SettingService;
   private readonly openApiService: OpenApiService;
   private readonly groupService: GroupService;
   readonly isEnterprise: boolean;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -93,7 +93,7 @@ export default class UserAdminController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/user.ts');
+    this.logger = config.getLogger('user-admin.ts');
 
     this.userService = userService;
     this.accountService = accountService;

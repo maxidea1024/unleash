@@ -51,7 +51,7 @@ export default class TagController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/tag.ts');
+    this.logger = config.getLogger('tag.ts');
 
     this.tagService = tagService;
     this.openApiService = openApiService;
@@ -201,7 +201,7 @@ export default class TagController extends Controller {
     req: IAuthRequest<unknown, unknown, CreateTagSchema>,
     res: Response<TagWithVersionSchema>,
   ): Promise<void> {
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
     const tag = await this.tagService.createTag(req.body, req.audit);
     res.status(201)
       .header('location', `tags/${tag.type}/${tag.value}`)
@@ -214,7 +214,7 @@ export default class TagController extends Controller {
     res: Response,
   ): Promise<void> {
     const { type, value } = req.params;
-    const userName = extractUsername(req);
+    // const userName = extractUsername(req);
     await this.tagService.deleteTag({ type, value }, req.audit);
     res.status(200).end();
   }

@@ -16,9 +16,9 @@ import { getStandardResponses } from '../../openapi/util/standard-responses';
 import type { TokenStringListSchema } from '../../openapi';
 
 export default class EdgeController extends Controller {
-  private readonly logger: Logger;
   private readonly edgeService: EdgeService;
   private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -29,7 +29,7 @@ export default class EdgeController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/edge-api/index.ts');
+    this.logger = config.getLogger('edge-controller.ts');
 
     this.edgeService = edgeService;
     this.openApiService = openApiService;

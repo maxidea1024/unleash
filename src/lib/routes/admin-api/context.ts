@@ -58,7 +58,7 @@ export class ContextController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('context-controller.ts');
+    this.logger = config.getLogger('context.ts');
 
     this.openApiService = openApiService;
     this.contextService = contextService;

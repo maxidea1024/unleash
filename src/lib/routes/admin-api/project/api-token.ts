@@ -70,12 +70,13 @@ export class ProjectApiTokenController extends Controller {
   ) {
     super(config);
 
+    this.logger = config.getLogger('api-token.ts');
+
     this.apiTokenService = apiTokenService;
     this.accessService = accessService;
     this.frontendApiService = frontendApiService;
     this.openApiService = openApiService;
     this.projectService = projectService;
-    this.logger = config.getLogger('project-api-token-controller.ts');
 
     this.route({
       method: 'get',
@@ -146,7 +147,8 @@ export class ProjectApiTokenController extends Controller {
     const { user } = req;
     const { projectId } = req.params;
 
-    const project = await this.projectService.getProject(projectId); // Validates that the project exists
+    // TODO: 이걸 지원해야하지 않을까? 필요없나?
+    // const project = await this.projectService.getProject(projectId); // Validates that the project exists
     const projectTokens = await this.accessibleTokens(user, projectId);
     this.openApiService.respondWithValidation(
       200,
@@ -170,11 +172,13 @@ export class ProjectApiTokenController extends Controller {
       permissionRequired,
       projectId,
     );
+
     if (!hasPermission) {
       throw new OperationDeniedError(
         `You don't have the necessary access [${permissionRequired}] to perform this operation]`,
       );
     }
+
     if (!createToken.project) {
       createToken.project = projectId;
     }
@@ -210,6 +214,7 @@ export class ProjectApiTokenController extends Controller {
     const storedToken = (await this.accessibleTokens(user, projectId)).find(
       (currentToken) => this.tokenEquals(currentToken.secret, token),
     );
+
     if (
       storedToken &&
       (storedToken.project === projectId ||

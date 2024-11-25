@@ -107,6 +107,7 @@ export class PublicInviteController extends Controller {
       res.status(400).end();
       return;
     }
+
     const user = await this.publicSignupTokenService.addTokenUser(
       token,
       req.body,

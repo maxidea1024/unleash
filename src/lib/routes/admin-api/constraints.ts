@@ -23,7 +23,7 @@ export default class ConstraintController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('constrain-controller.ts');
+    this.logger = config.getLogger('constrains.ts');
 
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;

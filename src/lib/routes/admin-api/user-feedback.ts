@@ -31,7 +31,7 @@ export default class UserFeedbackController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/feedback-controller.ts');
+    this.logger = config.getLogger('user-feedback.ts');
 
     this.userFeedbackService = userFeedbackService;
     this.openApiService = openApiService;
@@ -110,7 +110,7 @@ export default class UserFeedbackController extends Controller {
       feedbackId: req.params.id,
       userId: req.user.id,
       neverShow: req.body.neverShow || false,
-      given: req.body.given && parseISO(req.body.given),
+      given: (req.body.given && parseISO(req.body.given)) || undefined,
     });
 
     this.openApiService.respondWithValidation(

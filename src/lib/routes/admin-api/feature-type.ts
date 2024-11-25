@@ -38,7 +38,7 @@ export class FeatureTypeController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('feature-type-controller.ts');
+    this.logger = config.getLogger('feature-type.ts');
 
     this.featureTypeService = featureTypeService;
     this.openApiService = openApiService;

@@ -21,6 +21,7 @@ export const customJoi = joi.extend((j) => ({
       // Generate an error, state and options need to be passed
       return { value, errors: helpers.error('isUrlFriendly.base') };
     }
+
     return undefined;
   },
 }));
@@ -41,8 +42,7 @@ export const handleErrors: (
       .json({ message: error.message });
   }
 
-  const finalError =
-    error instanceof UnleashError ? error : fromLegacyError(error);
+  const finalError = error instanceof UnleashError ? error : fromLegacyError(error);
 
   const format = (thing: object) => JSON.stringify(thing, null, 2);
 

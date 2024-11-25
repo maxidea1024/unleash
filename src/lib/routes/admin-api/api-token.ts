@@ -421,6 +421,7 @@ export class ApiTokenController extends Controller {
     if (user.isAPI && user.permissions.includes(ADMIN)) {
       return allTokens;
     }
+
     const userPermissions =
       await this.accessService.getPermissionsForUser(user);
 

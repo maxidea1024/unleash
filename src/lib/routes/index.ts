@@ -16,7 +16,11 @@ import type { Db } from '../db/db';
 import { minutesToMilliseconds } from 'date-fns';
 
 export default class IndexRouter extends Controller {
-  constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
+  constructor(
+    config: IUnleashConfig,
+    services: IUnleashServices,
+    db: Db
+  ) {
     super(config);
 
     this.use('/health', new HealthCheckController(config, services).router);

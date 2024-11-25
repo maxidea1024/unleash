@@ -59,7 +59,8 @@ export default class ProjectArchiveController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('/admin-api/archive.ts');
+    this.logger = config.getLogger('project-archive.ts');
+
     this.featureService = featureToggleServiceV2;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;

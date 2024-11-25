@@ -36,9 +36,9 @@ import type { UpdateStrategySchema } from '../../openapi/spec/update-strategy-sc
 const version = 1;
 
 export default class StrategyController extends Controller {
-  private readonly logger: Logger;
   private readonly strategyService: StrategyService;
   private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,
@@ -49,7 +49,7 @@ export default class StrategyController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('routes/admin-api/strategy.ts');
+    this.logger = config.getLogger('strategy.ts');
 
     this.strategyService = strategyService;
     this.openApiService = openApiService;

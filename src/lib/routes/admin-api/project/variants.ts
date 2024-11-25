@@ -56,7 +56,8 @@ export default class VariantsController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('admin-api/project/variants.ts');
+    this.logger = config.getLogger('variants.ts');
+
     this.featureService = featureToggleService;
     this.accessService = accessService;
 

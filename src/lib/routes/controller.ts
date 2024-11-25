@@ -48,9 +48,11 @@ const checkPermission =
       if (!permissions.length) {
         return next();
       }
+
       if (req.checkRbac && (await req.checkRbac(permissions))) {
         return next();
       }
+
       return res.status(403).json(new PermissionError(permissions)).end();
     };
 
@@ -61,6 +63,7 @@ const checkPrivateProjectPermissions = () => async (req, res, next) => {
   ) {
     return next();
   }
+
   return res.status(404).end();
 };
 
@@ -74,13 +77,12 @@ const checkPrivateProjectPermissions = () => async (req, res, next) => {
  */
 export default class Controller {
   private readonly ownLogger: Logger;
-
   app: IRouter;
-
   config: IUnleashConfig;
 
   constructor(config: IUnleashConfig) {
     this.ownLogger = config.getLogger(`controller/${this.constructor.name}`);
+
     this.app = Router();
     this.config = config;
   }

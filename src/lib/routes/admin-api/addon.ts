@@ -65,7 +65,7 @@ export default class AddonController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('admin-api/addon.ts');
+    this.logger = config.getLogger('addon.ts');
 
     this.addonService = addonService;
     this.openApiService = openApiService;

@@ -18,6 +18,7 @@ async function getSetup() {
     stores,
   };
 }
+
 let request: TestAgent<Test>;
 beforeEach(async () => {
   const setup = await getSetup();

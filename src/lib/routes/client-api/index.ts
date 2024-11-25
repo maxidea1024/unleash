@@ -4,7 +4,7 @@ import MetricsController from '../../features/metrics/instance/metrics';
 import RegisterController from '../../features/metrics/instance/register';
 import type { IUnleashConfig, IUnleashServices } from '../../types';
 
-export default class ClientApi extends Controller {
+export default class ClientApiController extends Controller {
   constructor(config: IUnleashConfig, services: IUnleashServices) {
     super(config);
 
