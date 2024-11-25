@@ -84,7 +84,6 @@ export default class StrategyController extends Controller {
           summary: 'Get a strategy definition',
           description:
             'Retrieves the definition of the strategy specified in the URL',
-
           tags: ['Strategies'],
           operationId: 'getStrategy',
           responses: {
