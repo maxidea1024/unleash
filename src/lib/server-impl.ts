@@ -10,8 +10,6 @@ import { createConfig } from './create-config';
 import registerGracefulShutdown from './util/graceful-shutdown';
 import { createDb } from './db/db-pool';
 import sessionDb from './middleware/session-db';
-
-// Types
 import {
   type CustomAuthHandler,
   IAuthType,
@@ -21,7 +19,6 @@ import {
   type IUnleashServices,
   RoleName,
 } from './types';
-
 import User, { type IAuditUser, type IUser } from './types/user';
 import ApiUser, { type IApiUser } from './types/api-user';
 import { type Logger, LogLevel } from './logger';
@@ -190,6 +187,7 @@ async function create(opts: IUnleashOptions): Promise<IUnleash> {
     logger.error('Failed to migrate db', err);
     throw err;
   }
+
   return createApp(config, false);
 }
 
