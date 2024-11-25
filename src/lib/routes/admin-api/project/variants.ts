@@ -61,26 +61,26 @@ export default class VariantsController extends Controller {
     this.featureService = featureToggleService;
     this.accessService = accessService;
 
-    this.route({
-      method: 'get',
-      path: PREFIX,
-      permission: NONE,
-      handler: this.getVariants,
-      middleware: [
-        openApiService.validPath({
-          summary: 'Retrieve variants for a feature (deprecated) ',
-          description:
-            '(deprecated from 4.21) Retrieve the variants for the specified feature. From Unleash 4.21 onwards, this endpoint will attempt to choose a [production-type environment](https://docs.getunleash.io/reference/environments) as the source of truth. If more than one production environment is found, the first one will be used.',
-          deprecated: true,
-          tags: ['Features'],
-          operationId: 'getFeatureVariants',
-          responses: {
-            200: createResponseSchema('featureVariantsSchema'),
-            ...getStandardResponses(401, 403, 404),
-          },
-        }),
-      ],
-    });
+    // this.route({
+    //   method: 'get',
+    //   path: PREFIX,
+    //   permission: NONE,
+    //   handler: this.getVariants,
+    //   middleware: [
+    //     openApiService.validPath({
+    //       summary: 'Retrieve variants for a feature (deprecated) ',
+    //       description:
+    //         '(deprecated from 4.21) Retrieve the variants for the specified feature. From Unleash 4.21 onwards, this endpoint will attempt to choose a [production-type environment](https://docs.getunleash.io/reference/environments) as the source of truth. If more than one production environment is found, the first one will be used.',
+    //       deprecated: true,
+    //       tags: ['Features'],
+    //       operationId: 'getFeatureVariants',
+    //       responses: {
+    //         200: createResponseSchema('featureVariantsSchema'),
+    //         ...getStandardResponses(401, 403, 404),
+    //       },
+    //     }),
+    //   ],
+    // });
 
     this.route({
       method: 'patch',
@@ -223,19 +223,19 @@ The backend will also distribute remaining weight up to 1000 after adding the va
     });
   }
 
-  /**
-   * @deprecated - Variants should be fetched from featureService.getVariantsForEnv (since variants are now; since 4.18, connected to environments)
-   * @param req
-   * @param res
-   */
-  async getVariants(
-    req: Request<FeatureParams, any, any, any>,
-    res: Response<FeatureVariantsSchema>,
-  ): Promise<void> {
-    const { featureName } = req.params;
-    const variants = await this.featureService.getVariants(featureName);
-    res.status(200).json({ version: 1, variants: variants || [] });
-  }
+  // /**
+  //  * @deprecated - Variants should be fetched from featureService.getVariantsForEnv (since variants are now; since 4.18, connected to environments)
+  //  * @param req
+  //  * @param res
+  //  */
+  // async getVariants(
+  //   req: Request<FeatureParams, any, any, any>,
+  //   res: Response<FeatureVariantsSchema>,
+  // ): Promise<void> {
+  //   const { featureName } = req.params;
+  //   const variants = await this.featureService.getVariants(featureName);
+  //   res.status(200).json({ version: 1, variants: variants || [] });
+  // }
 
   async patchVariants(
     req: IAuthRequest<FeatureParams, any, Operation[]>,

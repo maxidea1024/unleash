@@ -45,7 +45,8 @@ export default class PatController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('lib/routes/auth/pat-controller.ts');
+    this.logger = config.getLogger('pat-controller.ts');
+
     this.flagResolver = config.flagResolver;
     this.openApiService = openApiService;
     this.patService = patService;
