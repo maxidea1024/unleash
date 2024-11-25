@@ -33,6 +33,7 @@ export const corsOriginMiddleware = (
       callback(error);
     }
   });
+
   return (req, res, next) => {
     res.setHeader('Vary', 'Origin');
     corsFunc(req, res, next);

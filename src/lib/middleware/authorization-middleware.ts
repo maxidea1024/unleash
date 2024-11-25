@@ -27,6 +27,7 @@ const authorizationMiddleware = (
       const error = new UnauthorizedError(
         'You must log in to use Unleash.',
       );
+
       return res.status(error.statusCode).json(error);
     }
 

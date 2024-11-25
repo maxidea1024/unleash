@@ -47,12 +47,14 @@ export default class ProjectArchiveController extends Controller {
     config: IUnleashConfig,
     {
       transactionalFeatureToggleService,
-      featureToggleServiceV2,
+      // featureToggleServiceV2,
+      featureToggleService,
       openApiService,
     }: Pick<
       IUnleashServices,
       | 'transactionalFeatureToggleService'
-      | 'featureToggleServiceV2'
+      // | 'featureToggleServiceV2'
+      | 'featureToggleService'
       | 'openApiService'
     >,
     startTransaction: TransactionCreator<UnleashTransaction>,
@@ -61,7 +63,8 @@ export default class ProjectArchiveController extends Controller {
 
     this.logger = config.getLogger('project-archive.ts');
 
-    this.featureService = featureToggleServiceV2;
+    // this.featureService = featureToggleServiceV2;
+    this.featureService = featureToggleService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
     this.transactionalFeatureToggleService = transactionalFeatureToggleService;

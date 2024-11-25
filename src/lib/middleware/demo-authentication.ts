@@ -66,6 +66,7 @@ function demoAuthentication(
     if (req.user) {
       return next();
     }
+
     return res
       .status(401)
       .json(
