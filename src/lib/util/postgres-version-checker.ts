@@ -7,7 +7,8 @@ export async function compareAndLogPostgresVersion(
   config: IUnleashConfig,
   settingStore: ISettingStore,
 ): Promise<void> {
-  const logger = config.getLogger('server-impl/postgresVersionWarner');
+  const logger = config.getLogger('postgres-version-checker.ts');
+
   const postgresVersion = await settingStore.postgresVersion();
   const pgSemVer = semver.coerce(postgresVersion); // Postgres usually reports Major.Minor, semver needs a patch version included in string
   if (pgSemVer !== null && lt(pgSemVer, MIN_SUPPORTED_POSTGRES_VERSION)) {

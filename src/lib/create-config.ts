@@ -232,8 +232,7 @@ const databaseSSL = (): IDBOption['ssl'] => {
   return options;
 };
 
-const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> =
-{
+const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> = {
   user: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   host: process.env.DATABASE_HOST,
@@ -410,6 +409,7 @@ const loadTokensFromString = (
     validateApiToken(mapLegacyToken(token));
     return token;
   });
+
   return tokens;
 };
 

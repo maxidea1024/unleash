@@ -1,5 +1,5 @@
 export const formatBaseUri = (input?: string): string => {
-  if (!input) {
+  if (!input || input.length === 0) {
     return '';
   }
 
