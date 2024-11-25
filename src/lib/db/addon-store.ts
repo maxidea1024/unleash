@@ -30,8 +30,9 @@ export default class AddonStore implements IAddonStore {
   private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('addons-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'addons',
@@ -91,7 +92,6 @@ export default class AddonStore implements IAddonStore {
 
   async delete(id: number): Promise<void> {
     const rows = await this.db(TABLE).where({ id }).del();
-
     if (!rows) {
       throw new NotFoundError('Could not find addon');
     }

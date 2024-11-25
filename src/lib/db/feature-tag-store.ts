@@ -28,8 +28,9 @@ export default class FeatureTagStore implements IFeatureTagStore {
   private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('feature-tag-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'feature-tag-toggle',

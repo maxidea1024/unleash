@@ -53,6 +53,7 @@ const tokenRowReducer = (acc, tokenRow) => {
       username: token.token_name ? token.token_name : token.username,
     };
   }
+
   const currentToken = acc[tokenRow.secret];
   if (tokenRow.project) {
     if (isAllProjects(currentToken.projects)) {

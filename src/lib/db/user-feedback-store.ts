@@ -36,8 +36,9 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
   private readonly logger: Logger;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('user-feedback-store.ts');
+
+    this.db = db;
   }
 
   async getAllUserFeedback(userId: number): Promise<IUserFeedback[]> {
@@ -109,5 +110,3 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
     return userFeedbacks.map(rowToField);
   }
 }
-
-module.exports = UserFeedbackStore;

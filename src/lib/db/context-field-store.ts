@@ -58,15 +58,16 @@ interface ICreateContextField {
   updated_at: Date;
 }
 
-class ContextFieldStore implements IContextFieldStore {
+export default class ContextFieldStore implements IContextFieldStore {
   private readonly db: Db;
   private readonly logger: Logger;
   private readonly flagResolver: IFlagResolver;
 
   constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
+    this.logger = getLogger('context-field-store.ts');
+
     this.db = db;
     this.flagResolver = flagResolver;
-    this.logger = getLogger('context-field-store.ts');
   }
 
   prefixColumns(columns: string[] = COLUMNS): string[] {
@@ -78,9 +79,9 @@ class ContextFieldStore implements IContextFieldStore {
   ): Omit<ICreateContextField, 'updated_at'> {
     return {
       name: data.name,
-      description: data.description,
-      stickiness: data.stickiness,
-      sort_order: data.sortOrder, // eslint-disable-line
+      description: data.description || '',
+      stickiness: data.stickiness || false,
+      sort_order: data.sortOrder || -1,
       legal_values: JSON.stringify(data.legalValues || []),
     };
   }
@@ -171,5 +172,3 @@ class ContextFieldStore implements IContextFieldStore {
       .then((res) => Number(res[0].count));
   }
 }
-
-export default ContextFieldStore;

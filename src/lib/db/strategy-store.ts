@@ -37,8 +37,9 @@ export default class StrategyStore implements IStrategyStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('strategy-store.ts');
+
+    this.db = db;
   }
 
   async getAll(): Promise<IStrategy[]> {
@@ -183,5 +184,3 @@ export default class StrategyStore implements IStrategyStore {
       .delete();
   }
 }
-
-module.exports = StrategyStore;

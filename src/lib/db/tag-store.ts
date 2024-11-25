@@ -21,8 +21,9 @@ export default class TagStore implements ITagStore {
   private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('tag-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'tag',
@@ -120,4 +121,3 @@ export default class TagStore implements ITagStore {
     };
   }
 }
-module.exports = TagStore;

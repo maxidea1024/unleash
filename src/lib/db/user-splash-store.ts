@@ -33,8 +33,9 @@ export default class UserSplashStore implements IUserSplashStore {
   private readonly logger: Logger;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('user-splash-store.ts');
+
+    this.db = db;
   }
 
   async getAllUserSplashes(userId: number): Promise<IUserSplash[]> {
@@ -100,5 +101,3 @@ export default class UserSplashStore implements IUserSplashStore {
     return userSplashs.map(rowToField);
   }
 }
-
-module.exports = UserSplashStore;

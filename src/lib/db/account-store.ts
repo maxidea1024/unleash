@@ -52,8 +52,9 @@ export class AccountStore implements IAccountStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('account-store.ts');
+
+    this.db = db;
   }
 
   buildSelectAccount(q: IUserLookup): any {

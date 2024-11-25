@@ -20,8 +20,9 @@ export default class FeatureTypeStore implements IFeatureTypeStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('feature-type-store.ts');
+
+    this.db = db;
   }
 
   async getAll(): Promise<IFeatureType[]> {

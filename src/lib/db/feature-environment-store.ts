@@ -35,8 +35,9 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
   private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('feature-environment-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'feature-environments',

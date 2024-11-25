@@ -41,8 +41,9 @@ export default class PatStore implements IPatStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('pat-store.ts');
+
+    this.db = db;
   }
 
   async create(

@@ -69,8 +69,9 @@ export default class UserStore implements IUserStore {
   private readonly flagResolver: IFlagResolver;
 
   constructor(db: Db, getLogger: LogProvider, flagResolver: IFlagResolver) {
-    this.db = db;
     this.logger = getLogger('user-store.ts');
+
+    this.db = db;
     this.flagResolver = flagResolver;
   }
 
@@ -121,7 +122,6 @@ export default class UserStore implements IUserStore {
 
   async upsert(user: ICreateUser): Promise<User> {
     const id = await this.hasUser(user);
-
     if (id) {
       return this.update(id, user);
     }

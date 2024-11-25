@@ -20,9 +20,10 @@ export default class SessionStore implements ISessionStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('session-store.ts');
+
     this.db = db;
     this.eventBus = eventBus;
-    this.logger = getLogger('lib/db/session-store.ts');
   }
 
   async getActiveSessions(): Promise<ISession[]> {
@@ -119,5 +120,3 @@ export default class SessionStore implements ISessionStore {
     }));
   }
 }
-
-module.exports = SessionStore;

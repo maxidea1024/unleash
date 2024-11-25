@@ -9,8 +9,9 @@ export default class SettingStore implements ISettingStore {
   private readonly logger: Logger;
 
   constructor(db: Db, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('settings-store.ts');
+
+    this.db = db;
   }
 
   async postgresVersion(): Promise<string> {
@@ -81,5 +82,3 @@ export default class SettingStore implements ISettingStore {
     return rows.map((r) => r.content);
   }
 }
-
-module.exports = SettingStore;

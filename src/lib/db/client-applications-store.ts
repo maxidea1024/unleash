@@ -126,9 +126,10 @@ export default class ClientApplicationsStore
     getLogger: LogProvider,
     flagResolver: IFlagResolver,
   ) {
+    this.logger = getLogger('client-applications-store.ts');
+
     this.db = db;
     this.flagResolver = flagResolver;
-    this.logger = getLogger('client-applications-store.ts');
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'client-applications',
@@ -372,7 +373,9 @@ export default class ClientApplicationsStore
         strategies,
       } = row;
 
-      if (!environment) return acc;
+      if (!environment) {
+        return acc;
+      }
 
       strategies.forEach((strategy) => {
         if (

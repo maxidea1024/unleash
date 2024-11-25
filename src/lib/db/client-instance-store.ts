@@ -48,9 +48,10 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   private readonly metricTimer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
+    this.logger = getLogger('client-instance-store.ts');
+
     this.db = db;
     this.eventBus = eventBus;
-    this.logger = getLogger('client-instance-store.ts');
     this.metricTimer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'instance',

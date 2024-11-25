@@ -61,8 +61,9 @@ export class AccessStore implements IAccessStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: Function) {
-    this.db = db;
     this.logger = getLogger('access-store.ts');
+
+    this.db = db;
     this.timer = (action: string) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'access-store',

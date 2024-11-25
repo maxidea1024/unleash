@@ -42,8 +42,9 @@ export default class ProjectStatsStore implements IProjectStatsStore {
   private readonly timer: Function;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.db = db;
     this.logger = getLogger('project-stats-store.ts');
+
+    this.db = db;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
         store: 'project_stats',
