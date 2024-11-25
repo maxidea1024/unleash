@@ -29,7 +29,6 @@ const useProjectApi = () => {
     });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res.json();
   };
 
@@ -40,7 +39,6 @@ const useProjectApi = () => {
       body: JSON.stringify({ id }),
     });
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -52,7 +50,6 @@ const useProjectApi = () => {
     });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -67,7 +64,6 @@ const useProjectApi = () => {
     });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -76,7 +72,6 @@ const useProjectApi = () => {
     const req = createRequest(path, { method: 'DELETE' });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -85,7 +80,6 @@ const useProjectApi = () => {
     const req = createRequest(path, { method: 'POST' });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -94,7 +88,6 @@ const useProjectApi = () => {
     const req = createRequest(path, { method: 'POST' });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -109,7 +102,6 @@ const useProjectApi = () => {
     });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
@@ -121,7 +113,6 @@ const useProjectApi = () => {
     const req = createRequest(path, { method: 'DELETE' });
 
     const res = await makeRequest(req.caller, req.id);
-
     return res;
   };
 
