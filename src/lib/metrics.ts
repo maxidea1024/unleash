@@ -44,48 +44,50 @@ export function registerPrometheusPostgresMetrics(
   eventBus: EventEmitter,
   postgresVersion: string,
 ) {
-  if (db?.client) {
-    const dbPoolMin = createGauge({
-      name: 'db_pool_min',
-      help: 'Minimum DB pool size',
-    });
-    dbPoolMin.set(db.client.pool.min);
-    const dbPoolMax = createGauge({
-      name: 'db_pool_max',
-      help: 'Maximum DB pool size',
-    });
-    dbPoolMax.set(db.client.pool.max);
-    const dbPoolFree = createGauge({
-      name: 'db_pool_free',
-      help: 'Current free connections in DB pool',
-    });
-    const dbPoolUsed = createGauge({
-      name: 'db_pool_used',
-      help: 'Current connections in use in DB pool',
-    });
-    const dbPoolPendingCreates = createGauge({
-      name: 'db_pool_pending_creates',
-      help: 'how many asynchronous create calls are running in DB pool',
-    });
-    const dbPoolPendingAcquires = createGauge({
-      name: 'db_pool_pending_acquires',
-      help: 'how many acquires are waiting for a resource to be released in DB pool',
-    });
-
-    eventBus.on(DB_POOL_UPDATE, (data) => {
-      dbPoolFree.set(data.free);
-      dbPoolUsed.set(data.used);
-      dbPoolPendingCreates.set(data.pendingCreates);
-      dbPoolPendingAcquires.set(data.pendingAcquires);
-    });
-
-    const database_version = createGauge({
-      name: 'postgres_version',
-      help: 'Which version of postgres is running (SHOW server_version)',
-      labelNames: ['version'],
-    });
-    database_version.labels({ version: postgresVersion }).set(1);
+  if (!db?.client) {
+    return;
   }
+
+  const dbPoolMin = createGauge({
+    name: 'db_pool_min',
+    help: 'Minimum DB pool size',
+  });
+  dbPoolMin.set(db.client.pool.min);
+  const dbPoolMax = createGauge({
+    name: 'db_pool_max',
+    help: 'Maximum DB pool size',
+  });
+  dbPoolMax.set(db.client.pool.max);
+  const dbPoolFree = createGauge({
+    name: 'db_pool_free',
+    help: 'Current free connections in DB pool',
+  });
+  const dbPoolUsed = createGauge({
+    name: 'db_pool_used',
+    help: 'Current connections in use in DB pool',
+  });
+  const dbPoolPendingCreates = createGauge({
+    name: 'db_pool_pending_creates',
+    help: 'how many asynchronous create calls are running in DB pool',
+  });
+  const dbPoolPendingAcquires = createGauge({
+    name: 'db_pool_pending_acquires',
+    help: 'how many acquires are waiting for a resource to be released in DB pool',
+  });
+
+  eventBus.on(DB_POOL_UPDATE, (data) => {
+    dbPoolFree.set(data.free);
+    dbPoolUsed.set(data.used);
+    dbPoolPendingCreates.set(data.pendingCreates);
+    dbPoolPendingAcquires.set(data.pendingAcquires);
+  });
+
+  const database_version = createGauge({
+    name: 'postgres_version',
+    help: 'Which version of postgres is running (SHOW server_version)',
+    labelNames: ['version'],
+  });
+  database_version.labels({ version: postgresVersion }).set(1);
 }
 
 export function registerPrometheusMetrics(

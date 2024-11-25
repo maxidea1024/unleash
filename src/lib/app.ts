@@ -11,15 +11,12 @@ import apiTokenMiddleware from './middleware/api-token-middleware';
 import type { IUnleashServices } from './types/services';
 import { IAuthType, type IUnleashConfig } from './types/option';
 import type { IUnleashStores } from './types';
-
 import IndexRouter from './routes';
-
 import requestLogger from './middleware/request-logger';
 import demoAuthentication from './middleware/demo-authentication';
 import ossAuthentication from './middleware/oss-authentication';
 import noAuthentication, { noApiToken } from './middleware/no-authentication';
 import secureHeaders from './middleware/secure-headers';
-
 import { loadIndexHTML } from './util/load-index-html';
 import { findPublicFolder } from './util/findPublicFolder';
 import patMiddleware from './middleware/pat-middleware';
