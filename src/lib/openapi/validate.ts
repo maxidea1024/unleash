@@ -32,6 +32,7 @@ export const validateSchema = <S = SchemaId>(
   schema: S,
   data: unknown,
 ): ISchemaValidationErrors<S> | undefined => {
+  // TODO: schema 를 어떤 타입이어야?
   if (!ajv.validate(schema, data)) {
     return {
       schema,

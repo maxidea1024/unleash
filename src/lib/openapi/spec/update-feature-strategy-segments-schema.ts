@@ -35,6 +35,4 @@ export const updateFeatureStrategySegmentsSchema = {
   components: {},
 } as const;
 
-export type UpdateFeatureStrategySegmentsSchema = FromSchema<
-  typeof updateFeatureStrategySegmentsSchema
->;
+export type UpdateFeatureStrategySegmentsSchema = FromSchema<typeof updateFeatureStrategySegmentsSchema>;

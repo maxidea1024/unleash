@@ -22,6 +22,4 @@ export const validatedEdgeTokensSchema = {
   },
 } as const;
 
-export type ValidatedEdgeTokensSchema = FromSchema<
-  typeof validatedEdgeTokensSchema
->;
+export type ValidatedEdgeTokensSchema = FromSchema<typeof validatedEdgeTokensSchema>;

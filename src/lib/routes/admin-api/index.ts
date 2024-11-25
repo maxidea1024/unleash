@@ -34,7 +34,7 @@ import ExportImportController from '../../features/export-import-toggles/export-
 import { SegmentsController } from '../../features/segment/segment-controller';
 import { InactiveUsersController } from '../../users/inactive/inactive-users-controller';
 import { UiObservabilityController } from '../../features/ui-observability-controller/ui-observability-controller';
-import { SearchApi } from './search';
+import { SearchApiController } from './search';
 import PersonalDashboardController from '../../features/personal-dashboard/personal-dashboard-controller';
 
 export class AdminApi extends Controller {
@@ -52,16 +52,9 @@ export class AdminApi extends Controller {
     );
 
     this.app.use('/strategies', new StrategyController(config, services).router);
-
     this.app.use('', new EventController(config, services).router);
-
     this.app.use('/playground', new PlaygroundController(config, services).router);
-
-    this.app.use(
-      '/metrics',
-      new MetricsController(config, services).router,
-    );
-
+    this.app.use('/metrics', new MetricsController(config, services).router);
     this.app.use('/client-metrics', new ClientMetricsController(config, services).router);
     this.app.use('/user', new UserController(config, services).router);
     this.app.use('/user/tokens', new PatController(config, services).router);
@@ -83,32 +76,11 @@ export class AdminApi extends Controller {
     this.app.use('/constraints', new ConstraintsController(config, services).router);
     this.app.use('/invite-link', new PublicSignupController(config, services).router);
     this.app.use('/instance-admin', new InstanceAdminController(config, services).router);
-
-    this.app.use(
-      `/projects`,
-      new FavoritesController(config, services).router,
-    );
-
-    this.app.use(
-      `/segments`,
-      new SegmentsController(config, services).router,
-    );
-
-    this.app.use(
-      '/maintenance',
-      new MaintenanceController(config, services).router,
-    );
-
-    this.app.use(
-      '/telemetry',
-      new TelemetryController(config, services).router,
-    );
-
-    this.app.use('/search', new SearchApi(config, services, db).router);
-
-    this.app.use(
-      '/record-ui-error',
-      new UiObservabilityController(config, services).router,
-    );
+    this.app.use('/projects', new FavoritesController(config, services).router);
+    this.app.use('/segments', new SegmentsController(config, services).router);
+    this.app.use('/maintenance', new MaintenanceController(config, services).router);
+    this.app.use('/telemetry', new TelemetryController(config, services).router);
+    this.app.use('/search', new SearchApiController(config, services, db).router);
+    this.app.use('/record-ui-error', new UiObservabilityController(config, services).router);
   }
 }

@@ -7,7 +7,7 @@ import type {
 } from '../../../server-impl';
 import Controller from '../../controller';
 
-export class SearchApi extends Controller {
+export class SearchApiController extends Controller {
   constructor(
     config: IUnleashConfig,
     services: IUnleashServices,
@@ -16,7 +16,6 @@ export class SearchApi extends Controller {
     super(config);
 
     this.app.use('/features', new FeatureSearchController(config, services).router);
-
     this.app.use('/events', new EventSearchController(config, services).router);
   }
 }

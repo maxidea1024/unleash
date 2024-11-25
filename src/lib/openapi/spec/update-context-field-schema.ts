@@ -43,6 +43,4 @@ export const updateContextFieldSchema = {
   },
 } as const;
 
-export type UpdateContextFieldSchema = FromSchema<
-  typeof updateContextFieldSchema
->;
+export type UpdateContextFieldSchema = FromSchema<typeof updateContextFieldSchema>;

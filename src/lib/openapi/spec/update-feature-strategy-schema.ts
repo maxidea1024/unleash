@@ -49,6 +49,4 @@ export const updateFeatureStrategySchema = {
   },
 } as const;
 
-export type UpdateFeatureStrategySchema = FromSchema<
-  typeof updateFeatureStrategySchema
->;
+export type UpdateFeatureStrategySchema = FromSchema<typeof updateFeatureStrategySchema>;

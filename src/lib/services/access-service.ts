@@ -67,6 +67,7 @@ export type PermissionRef = IdPermissionRef | NamePermissionRef;
 type MatrixPermission = IPermission & {
   hasPermission: boolean;
 };
+
 type PermissionMatrix = {
   root: MatrixPermission[];
   project: MatrixPermission[];
@@ -218,6 +219,7 @@ export class AccessService {
         `Error checking ${permissionLogInfo}, userId=${user.id} projectId=${projectId}`,
         e,
       );
+
       return Promise.resolve(false);
     }
   }
@@ -235,6 +237,7 @@ export class AccessService {
   ): Promise<IRoleWithProject[]> {
     return this.store.getAllProjectRolesForUser(userId, project);
   }
+
   /**
    * Check a user against all available permissions.
    * Provided a project, project permissions will be checked against that project.
@@ -455,6 +458,7 @@ export class AccessService {
       const defaultRole = await this.getPredefinedRole(RoleName.VIEWER);
       return defaultRole;
     }
+
     return rootRole;
   }
 
@@ -501,6 +505,7 @@ export class AccessService {
         `ProjectId cannot be empty for permission=${permission}`,
       );
     }
+
     return this.store.addPermissionsToRole(
       roleId,
       [{ name: permission }],
@@ -519,6 +524,7 @@ export class AccessService {
         `ProjectId cannot be empty for permission=${permission}`,
       );
     }
+
     return this.store.removePermissionFromRole(
       roleId,
       permission,
@@ -545,6 +551,7 @@ export class AccessService {
       this.store.getPermissionsForRole(roleId),
       this.getUsersForRole(roleId),
     ]);
+
     return { role, permissions: rolePerms, users };
   }
 
@@ -574,6 +581,7 @@ export class AccessService {
     if (userIdList.length > 0) {
       return this.accountStore.getAllWithId(userIdList);
     }
+
     return [];
   }
 
@@ -582,6 +590,7 @@ export class AccessService {
     if (groupdIdList.length > 0) {
       return this.groupService.getAllWithId(groupdIdList);
     }
+
     return [];
   }
 
@@ -605,6 +614,7 @@ export class AccessService {
         };
       });
     }
+
     return [];
   }
 
@@ -624,14 +634,13 @@ export class AccessService {
           }));
       });
     }
+
     return [];
   }
 
   async getProjectRoleAccess(projectId: string): Promise<AccessWithRoles> {
     const roles = await this.roleStore.getProjectRoles();
-
     const users = await this.getProjectUsers(projectId);
-
     const groups = await this.groupService.getProjectGroups(projectId);
 
     return {
@@ -690,6 +699,7 @@ export class AccessService {
     } else {
       role = rootRoles.find((r) => r.name === rootRole);
     }
+
     return role;
   }
 
@@ -706,6 +716,7 @@ export class AccessService {
         `Could not find pre-defined role with name ${RoleName}`,
       );
     }
+
     return role;
   }
 
@@ -745,6 +756,7 @@ export class AccessService {
         );
       }
     }
+
     const addedPermissions = await this.store.getPermissionsForRole(
       newRole.id,
     );
@@ -757,6 +769,7 @@ export class AccessService {
         auditUser,
       }),
     );
+
     return newRole;
   }
 
