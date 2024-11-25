@@ -64,6 +64,7 @@ export default class FlagResolver implements IFlagResolver {
         return exp;
       }
     }
+
     return this.externalResolver.getVariant(expName, context);
   }
 }
