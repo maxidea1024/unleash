@@ -5,7 +5,7 @@ import {
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import type { IUnleashConfig } from '../../../../lib/types/option';
+import type { IUnleashConfig } from '../../../../lib/types/options';
 import type { IUnleashServices } from '../../../../lib/types/services';
 import type { IUnleashStores } from '../../../../lib/types';
 

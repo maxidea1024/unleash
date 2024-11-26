@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import Controller from '../controller';
 import type UserService from '../../services/user-service';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types';
 import { NONE } from '../../types/permissions';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';

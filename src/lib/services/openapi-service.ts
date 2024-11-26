@@ -1,6 +1,6 @@
 import openapi, { type IExpressOpenApi } from '@wesleytodd/openapi';
 import type { Express, RequestHandler, Response } from 'express';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import {
   createOpenApiSchema,
   type JsonSchemaProps,

@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { IFavoriteProjectsStore, IUnleashStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { IFavoriteFeaturesStore } from '../types/stores/favorite-features';

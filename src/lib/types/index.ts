@@ -1,5 +1,5 @@
 export * from './services';
-export * from './option';
+export * from './options';
 export * from './api-user';
 export * from './authentication-required';
 export * from './core';
@@ -9,7 +9,7 @@ export * from './group';
 export * from './model';
 export * from './mutable';
 export * from './no-auth-user';
-export * from './option';
+export * from './options';
 export * from './partial';
 export * from './project';
 export * from './query';

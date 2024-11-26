@@ -9,7 +9,7 @@ import { corsOriginMiddleware } from './middleware/cors-origin-middleware';
 import rbacMiddleware from './middleware/rbac-middleware';
 import apiTokenMiddleware from './middleware/api-token-middleware';
 import type { IUnleashServices } from './types/services';
-import { IAuthType, type IUnleashConfig } from './types/option';
+import { IAuthType, type IUnleashConfig } from './types/options';
 import type { IUnleashStores } from './types';
 import IndexRouter from './routes';
 import requestLogger from './middleware/request-logger';

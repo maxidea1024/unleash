@@ -86,11 +86,13 @@ export default class Group implements IGroup {
 
     this.id = id;
     this.name = name;
-    this.rootRole = rootRole;
-    this.description = description;
-    this.mappingsSSO = mappingsSSO;
-    this.createdBy = createdBy;
-    this.createdAt = createdAt;
     this.scimId = scimId;
+    this.rootRole = rootRole;
+
+    // TODO: 아래 필드들은 유효성을 체크하는게 맞는것 같은데?
+    this.description = description || '';
+    this.mappingsSSO = mappingsSSO || [];
+    this.createdBy = createdBy || '';
+    this.createdAt = createdAt || new Date();
   }
 }

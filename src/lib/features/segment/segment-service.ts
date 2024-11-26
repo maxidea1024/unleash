@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import {
   type IAuditUser,
   type IFlagResolver,

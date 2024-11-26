@@ -19,7 +19,7 @@ import type {
   IAuthOption,
   IUnleashConfig,
   UsernameAdminUser,
-} from '../types/option';
+} from '../types/options';
 import type SessionService from './session-service';
 import type { IUnleashStores } from '../types/stores';
 import PasswordUndefinedError from '../error/password-undefined';

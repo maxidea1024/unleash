@@ -1,3 +1,9 @@
 export const collectIds = <T>(items: { id?: T }[]): T[] => {
-  return items.map((item) => item.id);
+  const result: T[] = [];
+  for (let item of items) {
+    if (item.id) {
+      result.push(item.id);
+    }
+  }
+  return result;
 };

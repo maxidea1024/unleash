@@ -6,7 +6,7 @@ import type {
 } from '../types/stores/context-field-store';
 import type { IProjectStore } from '../features/project/project-store-type';
 import type { IFeatureStrategiesStore, IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { ContextFieldStrategiesSchema } from '../openapi/spec/context-field-strategies-schema';
 import {
   CONTEXT_FIELD_CREATED,

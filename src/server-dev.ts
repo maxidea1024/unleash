@@ -71,12 +71,11 @@ process.nextTick(async () => {
             },
           ],
         },
-        /* can be tweaked to control configuration caching for /api/client/features
-        clientFeatureCaching: {
-            enabled: true,
-            maxAge: 4000,
-        },
-        */
+        // // can be tweaked to control configuration caching for /api/client/features
+        // clientFeatureCaching: {
+        //     enabled: true,
+        //     maxAge: 4000,
+        // },
       }),
     );
   } catch (error) {

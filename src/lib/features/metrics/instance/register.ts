@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import Controller from '../../../routes/controller';
 import type { IFlagResolver, IUnleashServices } from '../../../types';
-import type { IUnleashConfig } from '../../../types/option';
+import type { IUnleashConfig } from '../../../types/options';
 import type { Logger } from '../../../logger';
 import type ClientInstanceService from './instance-service';
 import type { IAuthRequest, IUser } from '../../../server-impl';

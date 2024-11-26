@@ -22,7 +22,7 @@ import {
   type IVersionOption,
   type ISSLOption,
   type UsernameAdminUser,
-} from './types/option';
+} from './types/options';
 import { getDefaultLogProvider, LogLevel, validateLogProvider } from './logger';
 import { defaultCustomAuthDenyAll } from './default-custom-auth-deny-all';
 import { formatBaseUri } from './util/format-base-uri';

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../controller';
 import type { IUnleashServices } from '../../types/services';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type EnvironmentService from '../../features/project-environments/environment-service';
 import type { Logger } from '../../logger';
 import { ADMIN, NONE } from '../../types/permissions';

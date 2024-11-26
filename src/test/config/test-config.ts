@@ -3,7 +3,7 @@ import {
   IAuthType,
   type IUnleashConfig,
   type IUnleashOptions,
-} from '../../lib/types/option';
+} from '../../lib/types/options';
 import getLogger from '../fixtures/no-logger';
 import { createConfig } from '../../lib/create-config';
 import path from 'path';

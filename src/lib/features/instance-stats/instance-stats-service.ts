@@ -1,6 +1,6 @@
 import { sha256 } from 'js-sha256';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type {
   IClientInstanceStore,
   IClientMetricsStoreV2,

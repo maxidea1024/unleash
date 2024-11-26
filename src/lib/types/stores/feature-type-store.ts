@@ -9,6 +9,7 @@ export interface IFeatureType {
 
 export interface IFeatureTypeStore extends IStore<IFeatureType, string> {
   getByName(name: string): Promise<IFeatureType>;
+
   updateLifetime(
     name: string,
     newLifetimeDays: number | null,

@@ -1,5 +1,5 @@
 import { ApiTokenType } from '../types/models/api-token';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { IApiRequest, IAuthRequest } from '../routes/unleash-types';
 import type { IUnleashServices } from '../server-impl';
 

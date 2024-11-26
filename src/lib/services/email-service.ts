@@ -4,7 +4,7 @@ import path from 'path';
 import { existsSync, readFileSync } from 'fs';
 import type { Logger } from '../logger';
 import NotFoundError from '../error/notfound-error';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 
 export interface IAuthOptions {
   user: string;

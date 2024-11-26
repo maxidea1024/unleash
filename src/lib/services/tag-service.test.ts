@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import { createTestConfig } from '../../test/config/test-config';
 import type EventService from '../features/events/event-service';
 import FakeTagStore from '../../test/fixtures/fake-tag-store';

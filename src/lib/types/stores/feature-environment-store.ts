@@ -12,40 +12,50 @@ export interface IFeatureEnvironmentStore
     environment: string,
     featureName: string,
   ): Promise<boolean>;
+
   getEnvironmentsForFeature(
     featureName: string,
   ): Promise<IFeatureEnvironment[]>;
+
   getAllByFeatures(
     features: string[],
     environment?: string,
   ): Promise<IFeatureEnvironment[]>;
+
   isEnvironmentEnabled(
     featureName: string,
     environment: string,
   ): Promise<boolean>;
+
   setEnvironmentEnabledStatus(
     environment: string,
     featureName: string,
     enabled: boolean,
   ): Promise<number>;
+
   getEnvironmentMetaData(
     environment: string,
     featureName: string,
   ): Promise<IFeatureEnvironment>;
+
   removeEnvironmentForFeature(
     featureName: string,
     environment: string,
   ): Promise<void>;
+
   addEnvironmentToFeature(
     featureName: string,
     environment: string,
     enabled: boolean,
   ): Promise<void>;
+
   disableEnvironmentIfNoStrategies(
     featureName: string,
     environment: string,
   ): Promise<void>;
+
   disconnectFeatures(environment: string, project: string): Promise<void>;
+
   connectFeatures(environment: string, projectId: string): Promise<void>;
 
   connectFeatureToEnvironmentsForProject(
@@ -59,16 +69,20 @@ export interface IFeatureEnvironmentStore
     projectId: string,
     idempotent?: boolean,
   ): Promise<void>;
+
   disconnectProject(environment: string, projectId: string): Promise<void>;
+
   copyEnvironmentFeaturesByProjects(
     sourceEnvironment: string,
     destinationEnvironment: string,
     projects: string[],
   ): Promise<void>;
+
   cloneStrategies(
     sourceEnvironment: string,
     destinationEnvironment: string,
   ): Promise<void>;
+
   addVariantsToFeatureEnvironment(
     featureName: string,
     environment: string,

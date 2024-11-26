@@ -264,8 +264,8 @@ export class GroupService {
   async syncExternalGroups(
     userId: number,
     externalGroups: string[],
-    createdBy?: string, // deprecated
-    createdByUserId?: number, // deprecated
+    // createdBy?: string, // deprecated
+    // createdByUserId?: number, // deprecated
   ): Promise<void> {
     if (Array.isArray(externalGroups)) {
       const newGroups = await this.groupStore.getNewGroupsForExternalUser(

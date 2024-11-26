@@ -2,7 +2,7 @@ import supertest from 'supertest';
 
 import getApp from '../../../lib/app';
 import { createTestConfig } from '../../config/test-config';
-import { IAuthType, type IUnleashConfig } from '../../../lib/types/option';
+import { IAuthType, type IUnleashConfig } from '../../../lib/types/options';
 import { createServices } from '../../../lib/services';
 import sessionDb from '../../../lib/middleware/session-db';
 import {

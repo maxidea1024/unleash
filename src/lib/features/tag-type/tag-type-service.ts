@@ -11,7 +11,7 @@ import {
 
 import type { Logger } from '../../logger';
 import type { ITagType, ITagTypeStore } from './tag-type-store-type';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type EventService from '../events/event-service';
 import type { IAuditUser } from '../../types';
 

@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { IUser } from '../types/user';
 import type {
   IUserFeedback,

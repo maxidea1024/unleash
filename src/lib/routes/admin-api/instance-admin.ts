@@ -2,7 +2,7 @@ import { Parser } from 'json2csv';
 import type { Response } from 'express';
 import type { AuthedRequest } from '../../types/core';
 import type { IUnleashServices } from '../../types/services';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';
 import type {

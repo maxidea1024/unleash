@@ -1,5 +1,5 @@
 import type { Response } from 'express';
-import type { IUnleashConfig } from '../../../types/option';
+import type { IUnleashConfig } from '../../../types/options';
 import {
   type IFlagResolver,
   type IProjectParam,

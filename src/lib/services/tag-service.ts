@@ -3,7 +3,7 @@ import NameExistsError from '../error/name-exists-error';
 import { TagCreatedEvent, TagDeletedEvent } from '../types/events';
 import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { ITagStore } from '../types/stores/tag-store';
 import type { ITag } from '../types/model';
 import type EventService from '../features/events/event-service';

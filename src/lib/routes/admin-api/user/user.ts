@@ -2,7 +2,7 @@ import type { Response } from 'express';
 import type { IAuthRequest } from '../../unleash-types';
 import Controller from '../../controller';
 import type { AccessService } from '../../../services/access-service';
-import { IAuthType, type IUnleashConfig } from '../../../types/option';
+import { IAuthType, type IUnleashConfig } from '../../../types/options';
 import type { IUnleashServices } from '../../../types/services';
 import type UserService from '../../../services/user-service';
 import type UserFeedbackService from '../../../services/user-feedback-service';

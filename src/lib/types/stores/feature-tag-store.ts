@@ -20,15 +20,21 @@ export interface IFeatureAndTag {
 
 export interface IFeatureTagStore extends IStore<IFeatureTag, IFeatureTag> {
   getAllTagsForFeature(featureName: string): Promise<ITag[]>;
+
   getAllFeaturesForTag(tagValue: string): Promise<string[]>;
+
   getAllByFeatures(features: string[]): Promise<IFeatureTag[]>;
+
   tagFeature(
     featureName: string,
     tag: ITag,
     createdByUserId: number,
   ): Promise<ITag>;
+
   tagFeatures(featureTags: IFeatureTagInsert[]): Promise<IFeatureAndTag[]>;
+
   untagFeature(featureName: string, tag: ITag): Promise<void>;
+
   untagFeatures(
     featureTags: Omit<IFeatureTag, 'createdByUserId'>[],
   ): Promise<void>;

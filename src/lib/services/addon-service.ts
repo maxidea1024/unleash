@@ -27,6 +27,7 @@ import type { IAddonDefinition } from '../types/model';
 import { minutesToMilliseconds } from 'date-fns';
 import type EventService from '../features/events/event-service';
 import { omitKeys } from '../util';
+import { IntegrationEventsService } from '../internals';
 
 const SUPPORTED_EVENTS = Object.keys(events).map((k) => events[k]);
 
@@ -65,7 +66,7 @@ export default class AddonService {
     >,
     tagTypeService: TagTypeService,
     eventService: EventService,
-    integrationEventsService,
+    integrationEventsService: IntegrationEventsService,
     addons?: IAddonProviders,
   ) {
     this.logger = getLogger('addon-service.ts');
@@ -105,8 +106,8 @@ export default class AddonService {
     );
     return providerDefinitions.reduce((obj, definition) => {
       const sensitiveParams = definition.parameters
-        .filter((p) => p.sensitive)
-        .map((p) => p.name);
+        ?.filter((p) => p.sensitive)
+        .map((p) => p.name) || [];
 
       const o = { ...obj };
       o[definition.name] = sensitiveParams;
@@ -306,12 +307,12 @@ export default class AddonService {
     const providerDefinition = this.addonProviders[provider].definition;
 
     const requiredParamsMissing = providerDefinition.parameters
-      .filter((p) => p.required)
+      ?.filter((p) => p.required)
       .map((p) => p.name)
       .filter(
         (requiredParam) =>
           !Object.keys(parameters).includes(requiredParam),
-      );
+      ) || [];
     if (requiredParamsMissing.length > 0) {
       throw new ValidationError(
         `Missing required parameters: ${requiredParamsMissing.join(

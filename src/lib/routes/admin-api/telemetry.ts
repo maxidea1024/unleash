@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../unleash-types';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';
 import type { IUnleashServices } from '../../types';

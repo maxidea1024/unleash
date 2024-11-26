@@ -3,7 +3,7 @@ import {
   type EmailService,
   TemplateFormat,
 } from '../../services/email-service';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type { Request, Response } from 'express';
 import Controller from '../controller';

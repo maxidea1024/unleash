@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import type { AuthedRequest } from '../../types/core';
 import type { IUnleashServices } from '../../types/services';
-import { IAuthType, type IUnleashConfig } from '../../types/option';
+import { IAuthType, type IUnleashConfig } from '../../types/options';
 import version from '../../util/version';
 import Controller from '../controller';
 import type VersionService from '../../services/version-service';

@@ -20,7 +20,7 @@ export interface IClientInstanceStore
   > {
   bulkUpsert(instances: INewClientInstance[]): Promise<void>;
 
-  setLastSeen(INewClientInstance): Promise<void>;
+  setLastSeen(instance: INewClientInstance): Promise<void>;
 
   insert(details: INewClientInstance): Promise<void>;
 

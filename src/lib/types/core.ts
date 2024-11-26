@@ -4,7 +4,7 @@ import type * as https from 'https';
 import type * as http from 'http';
 import type User from './user';
 import type { IAuditUser, IUser } from './user';
-import type { IUnleashConfig } from './option';
+import type { IUnleashConfig } from './options';
 import type { IUnleashStores } from './stores';
 import type { IUnleashServices } from './services';
 

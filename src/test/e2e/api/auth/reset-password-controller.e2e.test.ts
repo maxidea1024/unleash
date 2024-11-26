@@ -1,7 +1,7 @@
 import type { URL } from 'url';
 import EventEmitter from 'events';
 import { createTestConfig } from '../../../config/test-config';
-import type { IUnleashConfig } from '../../../../lib/types/option';
+import type { IUnleashConfig } from '../../../../lib/types/options';
 import UserService from '../../../../lib/services/user-service';
 import { AccessService } from '../../../../lib/services/access-service';
 import ResetTokenService from '../../../../lib/services/reset-token-service';

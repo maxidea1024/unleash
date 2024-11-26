@@ -18,5 +18,6 @@ export interface IAddon extends IAddonDto {
 
 export interface IAddonStore extends IStore<IAddon, number> {
   insert(addon: IAddonDto): Promise<IAddon>;
+
   update(id: number, addon: IAddonDto): Promise<IAddon>;
 }

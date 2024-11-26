@@ -18,7 +18,7 @@ export default class EdgeService {
       eventBus,
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
   ) {
-    this.logger = getLogger('lib/services/edge-service.ts');
+    this.logger = getLogger('edge-service.ts');
 
     this.apiTokenService = apiTokenService;
     this.timer = (functionName: string) =>

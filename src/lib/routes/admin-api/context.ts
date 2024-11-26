@@ -8,7 +8,7 @@ import {
   DELETE_CONTEXT_FIELD,
   NONE,
 } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type ContextService from '../../services/context-service';
 import type { Logger } from '../../logger';

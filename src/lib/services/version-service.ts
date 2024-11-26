@@ -12,7 +12,7 @@ import type {
   IUnleashStores,
   IUserStore,
 } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import version from '../util/version';
 import type { Logger } from '../logger';
 import type { ISettingStore } from '../types/stores/settings-store';

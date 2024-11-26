@@ -7,7 +7,7 @@ import {
   NONE,
   UPDATE_TAG_TYPE,
 } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type TagTypeService from './tag-type-service';
 import type { Logger } from '../../logger';

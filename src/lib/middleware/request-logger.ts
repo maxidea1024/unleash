@@ -1,6 +1,6 @@
 import url from 'url';
 import type { RequestHandler } from 'express';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 
 const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
   const logger = config.getLogger('HTTP');

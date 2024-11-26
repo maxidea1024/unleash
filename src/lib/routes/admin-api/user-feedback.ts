@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import Controller from '../controller';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type UserFeedbackService from '../../services/user-feedback-service';
 import type { IAuthRequest } from '../unleash-types';

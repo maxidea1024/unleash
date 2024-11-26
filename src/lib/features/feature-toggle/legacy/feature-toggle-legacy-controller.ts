@@ -2,7 +2,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../../../routes/controller';
 import { NONE, UPDATE_FEATURE } from '../../../types/permissions';
-import type { IUnleashConfig } from '../../../types/option';
+import type { IUnleashConfig } from '../../../types/options';
 import type { IUnleashServices } from '../../../types';
 import type FeatureToggleService from '../feature-toggle-service';
 import { querySchema } from '../../../schema/feature-schema';

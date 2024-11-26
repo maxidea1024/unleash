@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import Controller from '../../../routes/controller';
-import type { IUnleashConfig } from '../../../types/option';
+import type { IUnleashConfig } from '../../../types/options';
 import type { IFlagResolver, IUnleashServices } from '../../../types';
 import type { Logger } from '../../../logger';
 import type ClientMetricsServiceV2 from './metrics-service-v2';

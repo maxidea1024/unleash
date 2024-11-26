@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { IProject, IProjectHealthReport } from '../types/model';
 import type { IFeatureToggleStore } from '../features/feature-toggle/types/feature-toggle-store-type';

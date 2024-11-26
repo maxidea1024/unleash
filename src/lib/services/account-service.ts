@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IUser } from '../types/user';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { IAccountStore, IUnleashStores } from '../types/stores';
 import type { AccessService } from './access-service';
 import { RoleName } from '../types/model';

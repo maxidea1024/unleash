@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { ISession, ISessionStore } from '../types/stores/session-store';
 import { compareDesc } from 'date-fns';

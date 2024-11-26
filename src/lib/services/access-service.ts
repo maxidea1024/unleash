@@ -228,6 +228,7 @@ export class AccessService {
    * Returns all roles the user has in the project.
    * Including roles via groups.
    * In addition, it includes root roles
+   *
    * @param userId user to find roles for
    * @param project project to find roles for
    */
@@ -704,9 +705,9 @@ export class AccessService {
   }
 
   /*
-      This method is intended to give a predicable way to fetch
-      pre-defined roles defined in the RoleName enum. This method
-      should not be used to fetch custom root or project roles.
+    This method is intended to give a predicable way to fetch
+    pre-defined roles defined in the RoleName enum. This method
+    should not be used to fetch custom root or project roles.
   */
   async getPredefinedRole(roleName: RoleName): Promise<IRole> {
     const roles = await this.roleStore.getRoles();

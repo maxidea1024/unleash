@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../controller';
 import { NONE, UPDATE_APPLICATION } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type { Logger } from '../../logger';
 import type ClientInstanceService from '../../features/metrics/instance/instance-service';

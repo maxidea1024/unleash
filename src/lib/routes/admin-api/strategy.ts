@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type StrategyService from '../../services/strategy-service';
 import type { Logger } from '../../logger';

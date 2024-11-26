@@ -1,7 +1,7 @@
 import type { Application } from 'express';
 import AuthenticationRequired from '../types/authentication-required';
 import type { IUnleashServices } from '../types/services';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import ApiUser from '../types/api-user';
 import { ApiTokenType } from '../types/models/api-token';
 import type { IAuthRequest, IUser } from '../server-impl';

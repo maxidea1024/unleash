@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import type FeatureToggleService from '../../features/feature-toggle/feature-toggle-service';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types';
 import { NONE } from '../../types/permissions';
 import Controller from '../controller';

@@ -1,5 +1,5 @@
 import type { Logger } from '../logger';
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type {
   IMinimalStrategy,

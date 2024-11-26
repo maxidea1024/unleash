@@ -20,6 +20,8 @@ export const PROJECT_ROLE_TYPES = [PROJECT_ROLE_TYPE, CUSTOM_PROJECT_ROLE_TYPE];
 export const TAG_MIN_LENGTH = 2;
 export const TAG_MAX_LENGTH = 50;
 
+// TODO: 몇개더 추가하는게 좋을듯하다. 그리고, 이름을 좀 정리할 필요가 있지 않을까?
+
 /* CONTEXT FIELD OPERATORS */
 
 export const NOT_IN = 'NOT_IN';

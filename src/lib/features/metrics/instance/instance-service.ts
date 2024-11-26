@@ -1,7 +1,7 @@
 import { APPLICATION_CREATED, CLIENT_REGISTER } from '../../../types/events';
 import type { IApplication, IApplicationOverview } from './models';
 import type { IUnleashStores } from '../../../types/stores';
-import type { IUnleashConfig } from '../../../types/option';
+import type { IUnleashConfig } from '../../../types/options';
 import type { IEventStore } from '../../../types/stores/event-store';
 import type {
   IClientApplication,

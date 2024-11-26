@@ -24,7 +24,7 @@ import {
   PROJECT_REVIVED,
   PROJECT_DELETED,
 } from './types/events';
-import type { IUnleashConfig } from './types/option';
+import type { IUnleashConfig } from './types/options';
 import type { IUnleashStores } from './types/stores';
 import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns';
 import type { InstanceStatsService } from './features/instance-stats/instance-stats-service';

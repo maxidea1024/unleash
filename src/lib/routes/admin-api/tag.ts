@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type TagService from '../../services/tag-service';
 import type { Logger } from '../../logger';

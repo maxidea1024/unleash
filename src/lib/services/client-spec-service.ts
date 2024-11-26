@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/option';
+import type { IUnleashConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { Request } from 'express';
 import semver, { type SemVer } from 'semver';

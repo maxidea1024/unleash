@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
 
 import { NONE } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/option';
+import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type { Logger } from '../../logger';
 
