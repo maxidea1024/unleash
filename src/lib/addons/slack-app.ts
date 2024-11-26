@@ -15,7 +15,6 @@ import Addon from './addon';
 import slackAppDefinition from './slack-app-definition';
 import {
   type IAddonConfig,
-  type IFlagResolver,
   serializeDates,
 } from '../types';
 import {
@@ -32,8 +31,7 @@ interface ISlackAppAddonParameters {
 }
 
 export default class SlackAppAddon extends Addon {
-  private msgFormatter: FeatureEventFormatter;
-  flagResolver: IFlagResolver;
+  private readonly msgFormatter: FeatureEventFormatter;
   private accessToken?: string;
   private slackClient?: WebClient;
 
@@ -44,7 +42,6 @@ export default class SlackAppAddon extends Addon {
       unleashUrl: args.unleashUrl,
       linkStyle: LinkStyle.SLACK,
     });
-    this.flagResolver = args.flagResolver;
   }
 
   async handleEvent(
@@ -101,8 +98,7 @@ export default class SlackAppAddon extends Addon {
         this.accessToken = accessToken;
       }
 
-      const { text: formattedMessage, url } =
-        this.msgFormatter.format(event);
+      const { text: formattedMessage, url } = this.msgFormatter.format(event);
       const maxLength = 3000;
       const text = formattedMessage.substring(0, maxLength);
       message = `${formattedMessage}${text.length < formattedMessage.length ? ` (trimmed to ${maxLength} characters)` : ''}`;
@@ -234,16 +230,13 @@ export default class SlackAppAddon extends Addon {
       if (error.code === ErrorCode.PlatformError) {
         const { data } = error as WebAPIPlatformError;
         return `A platform error occurred: ${JSON.stringify(data)}`;
-      }
-      if (error.code === ErrorCode.RequestError) {
+      } else if (error.code === ErrorCode.RequestError) {
         const { original } = error as WebAPIRequestError;
         return `A request error occurred: ${JSON.stringify(original)}`;
-      }
-      if (error.code === ErrorCode.RateLimitedError) {
+      } else if (error.code === ErrorCode.RateLimitedError) {
         const { retryAfter } = error as WebAPIRateLimitedError;
         return `A rate limit error occurred: retry after ${retryAfter} seconds`;
-      }
-      if (error.code === ErrorCode.HTTPError) {
+      } else if (error.code === ErrorCode.HTTPError) {
         const { statusCode } = error as WebAPIHTTPError;
         return `An HTTP error occurred: status code ${statusCode}`;
       }
@@ -252,5 +245,3 @@ export default class SlackAppAddon extends Addon {
     return error.message;
   }
 }
-
-module.exports = SlackAppAddon;

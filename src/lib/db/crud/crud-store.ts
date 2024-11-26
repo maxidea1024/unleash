@@ -29,8 +29,8 @@ export abstract class CRUDStore<
   InputRowModel = Row<InputModel>,
   IdType = number,
 > implements IStore<OutputModel, IdType> {
-  protected db: Db;
-  protected tableName: string;
+  protected readonly db: Db;
+  protected readonly tableName: string;
   protected readonly timer: (action: string) => Function;
 
   protected toRow: (item: Partial<InputModel>) => Partial<InputRowModel>;
@@ -53,8 +53,7 @@ export abstract class CRUDStore<
         action,
       });
     this.toRow = options?.toRow ?? defaultToRow<InputModel, InputRowModel>;
-    this.fromRow =
-      options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
+    this.fromRow = options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
   }
 
   async getAll(query?: Partial<InputModel>): Promise<OutputModel[]> {
@@ -79,6 +78,7 @@ export abstract class CRUDStore<
     if (!items || items.length === 0) {
       return [];
     }
+
     const endTimer = this.timer('bulkInsert');
     const rows = await this.db(this.tableName)
       .insert(items.map(this.toRow))

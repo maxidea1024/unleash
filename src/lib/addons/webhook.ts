@@ -4,7 +4,6 @@ import definition from './webhook-definition';
 import type { IEvent } from '../types/events';
 import {
   type IAddonConfig,
-  type IFlagResolver,
   serializeDates,
 } from '../types';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
@@ -23,16 +22,13 @@ interface IParameters {
 }
 
 export default class Webhook extends Addon {
-  private msgFormatter: FeatureEventFormatter;
-
-  flagResolver: IFlagResolver;
+  private readonly msgFormatter: FeatureEventFormatter;
 
   constructor(args: IAddonConfig) {
     super(definition, args);
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: args.unleashUrl,
     });
-    this.flagResolver = args.flagResolver;
   }
 
   async handleEvent(
@@ -73,8 +69,7 @@ export default class Webhook extends Addon {
         extraHeaders = JSON.parse(customHeaders);
       } catch (e) {
         state = 'successWithErrors';
-        const badHeadersMessage =
-          'Could not parse the JSON in the customHeaders parameter.';
+        const badHeadersMessage = 'Could not parse the JSON in the customHeaders parameter.';
         stateDetails.push(badHeadersMessage);
         this.logger.warn(badHeadersMessage);
       }

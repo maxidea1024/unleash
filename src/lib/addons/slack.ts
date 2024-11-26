@@ -3,7 +3,6 @@ import Addon from './addon';
 import slackDefinition from './slack-definition';
 import {
   type IAddonConfig,
-  type IFlagResolver,
   serializeDates,
 } from '../types';
 
@@ -24,8 +23,7 @@ interface ISlackAddonParameters {
 }
 
 export default class SlackAddon extends Addon {
-  private msgFormatter: FeatureEventFormatter;
-  flagResolver: IFlagResolver;
+  private readonly msgFormatter: FeatureEventFormatter;
 
   constructor(args: IAddonConfig) {
     super(slackDefinition, args);
@@ -34,7 +32,6 @@ export default class SlackAddon extends Addon {
       unleashUrl: args.unleashUrl,
       linkStyle: LinkStyle.SLACK,
     });
-    this.flagResolver = args.flagResolver;
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -73,8 +70,7 @@ export default class SlackAddon extends Addon {
       }
     }
 
-    const { text: formattedMessage, url: featureLink } =
-      this.msgFormatter.format(event);
+    const { text: formattedMessage, url: featureLink } = this.msgFormatter.format(event);
     const maxLength = 3000;
     const text = formattedMessage.substring(0, maxLength);
     const requests = slackChannels.map((channel) => {
@@ -161,5 +157,3 @@ export default class SlackAddon extends Addon {
     return [];
   }
 }
-
-module.exports = SlackAddon;

@@ -6,6 +6,7 @@ export function createDb({
   getLogger,
 }: Pick<IUnleashConfig, 'db' | 'getLogger'>): Knex {
   const logger = getLogger('db-pool.ts');
+
   return knex({
     client: 'pg',
     version: db.version,

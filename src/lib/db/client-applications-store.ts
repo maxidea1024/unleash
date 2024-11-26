@@ -258,7 +258,7 @@ export default class ClientApplicationsStore
     return rows.map(mapRow);
   }
 
-  /** *
+  /**
    * Updates all rows that have announced = false to announced =true and returns the rows altered
    * @return {[app]} - Apps that hadn't been announced
    */

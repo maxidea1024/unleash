@@ -16,6 +16,7 @@ export interface IFormattedEventData {
 export interface FeatureEventFormatter {
   format: (event: IEvent) => IFormattedEventData;
 }
+
 export enum LinkStyle {
   SLACK = 0,
   MD = 1,
@@ -57,8 +58,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
 
   generateChangeRequestLink(event: IEvent): string | undefined {
     const { preData, data, project, environment } = event;
-    const changeRequestId =
-      data?.changeRequestId || preData?.changeRequestId;
+    const changeRequestId = data?.changeRequestId || preData?.changeRequestId;
     if (project && changeRequestId) {
       const url = `${this.unleashUrl}/projects/${project}/change-requests/${changeRequestId}`;
       const text = `#${changeRequestId}`;

@@ -90,6 +90,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
         lastSeenAt: md.last_seen_at,
       };
     }
+
     throw new NotFoundError(
       `Could not find ${featureName} in ${environment}`,
     );
@@ -100,6 +101,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     if (query) {
       rows = rows.where(query);
     }
+
     return (await rows).map((r) => ({
       enabled: r.enabled,
       featureName: r.feature_name,
@@ -118,6 +120,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     if (environment) {
       rows = rows.where({ environment });
     }
+
     return (await rows).map((r) => ({
       enabled: r.enabled,
       featureName: r.feature_name,

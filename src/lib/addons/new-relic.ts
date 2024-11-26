@@ -37,8 +37,7 @@ interface INewRelicRequestBody {
 }
 
 export default class NewRelicAddon extends Addon {
-  private msgFormatter: FeatureEventFormatter;
-  flagResolver: IFlagResolver;
+  private readonly msgFormatter: FeatureEventFormatter;
 
   constructor(config: IAddonConfig) {
     super(definition, config);
@@ -46,7 +45,6 @@ export default class NewRelicAddon extends Addon {
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: config.unleashUrl,
     });
-    this.flagResolver = config.flagResolver;
   }
 
   async handleEvent(

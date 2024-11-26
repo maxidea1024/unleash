@@ -27,14 +27,17 @@ export default abstract class Addon {
     }: IAddonConfig,
   ) {
     this.logger = getLogger(`addon/${definition.name}`);
+
     const { error } = addonDefinitionSchema.validate(definition);
     if (error) {
       this.logger.warn(
         `Could not load addon provider ${definition.name}`,
         error,
       );
+
       throw error;
     }
+
     this._name = definition.name;
     this._definition = definition;
     this.integrationEventsService = integrationEventsService;
@@ -74,6 +77,7 @@ export default abstract class Addon {
       );
       res = { status: e.code, ok: false };
     }
+
     return res;
   }
 

@@ -26,8 +26,8 @@ const TABLE = 'addons';
 
 export default class AddonStore implements IAddonStore {
   private readonly db: Db;
-  private readonly logger: Logger;
   private readonly timer: Function;
+  private readonly logger: Logger;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
     this.logger = getLogger('addons-store.ts');
