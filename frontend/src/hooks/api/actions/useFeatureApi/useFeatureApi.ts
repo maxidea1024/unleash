@@ -33,6 +33,7 @@ const useFeatureApi = () => {
       method: 'POST',
       body: JSON.stringify(constraint),
     });
+
     await makeRequest(req.caller, req.id);
   };
 
@@ -45,6 +46,7 @@ const useFeatureApi = () => {
       method: 'POST',
       body: JSON.stringify(createFeatureSchema),
     });
+
     await makeRequest(req.caller, req.id);
   };
 

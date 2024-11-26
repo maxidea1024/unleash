@@ -22,6 +22,7 @@ const useFeatureStrategyApi = () => {
       { method: 'POST', body: JSON.stringify(payload) },
       'addStrategyToFeature',
     );
+
     return (await makeRequest(req.caller, req.id)).json();
   };
 
@@ -37,6 +38,7 @@ const useFeatureStrategyApi = () => {
       { method: 'DELETE' },
       'deleteStrategyFromFeature',
     );
+
     await makeRequest(req.caller, req.id);
   };
 
@@ -53,6 +55,7 @@ const useFeatureStrategyApi = () => {
       { method: 'PUT', body: JSON.stringify(payload) },
       'updateStrategyOnFeature',
     );
+
     await makeRequest(req.caller, req.id);
   };
 
@@ -68,6 +71,7 @@ const useFeatureStrategyApi = () => {
       { method: 'POST', body: JSON.stringify(payload) },
       'setStrategiesSortOrderOnFeature',
     );
+
     await makeRequest(req.caller, req.id);
   };
 
@@ -93,6 +97,7 @@ const useFeatureStrategyApi = () => {
       },
       'setStrategyDisabledState',
     );
+
     await makeRequest(req.caller, req.id);
   };
 

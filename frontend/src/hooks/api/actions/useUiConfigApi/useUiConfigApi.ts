@@ -16,6 +16,7 @@ export const useUiConfigApi = () => {
       { method: 'POST', body: JSON.stringify(payload) },
       'setFrontendSettings',
     );
+
     await makeRequest(req.caller, req.id);
   };
 

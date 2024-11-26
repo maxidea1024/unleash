@@ -25,6 +25,7 @@ const useTagTypesApi = () => {
 
     return makeRequest(req.caller, req.id);
   };
+
   const updateTagType = async (tagName: string, payload: ITagPayload) => {
     const path = `api/admin/tag-types/${tagName}`;
     const req = createRequest(path, {

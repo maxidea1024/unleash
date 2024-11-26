@@ -14,6 +14,7 @@ export const useInactiveUsersApi = () => {
         ids: userIds,
       }),
     });
+
     return makeRequest(req.caller, req.id);
   };
 

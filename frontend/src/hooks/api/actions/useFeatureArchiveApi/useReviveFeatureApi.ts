@@ -8,12 +8,14 @@ export const useFeatureArchiveApi = () => {
   const reviveFeature = async (feature: string) => {
     const path = `api/admin/archive/revive/${feature}`;
     const req = createRequest(path, { method: 'POST' });
+
     return makeRequest(req.caller, req.id);
   };
 
   const deleteFeature = async (feature: string) => {
     const path = `api/admin/archive/${feature}`;
     const req = createRequest(path, { method: 'DELETE' });
+
     return makeRequest(req.caller, req.id);
   };
 

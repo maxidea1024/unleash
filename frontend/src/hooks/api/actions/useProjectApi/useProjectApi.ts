@@ -40,6 +40,7 @@ const useProjectApi = () => {
       method: 'POST',
       body: JSON.stringify({ id }),
     });
+
     const res = await makeRequest(req.caller, req.id);
     return res;
   };

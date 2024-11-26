@@ -22,11 +22,13 @@ export const useImportApi = () => {
 
     try {
       const res = await makeRequest(req.caller, req.id);
+
       trackEvent('export_import', {
         props: {
           eventType: `features imported`,
         },
       });
+
       return res;
     } catch (e) {
       trackEvent('export_import', {
@@ -34,6 +36,7 @@ export const useImportApi = () => {
           eventType: `features import failed`,
         },
       });
+
       throw e;
     }
   };

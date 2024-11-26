@@ -5,7 +5,10 @@ export const handleBadRequest = async (
   setErrors?: Dispatch<SetStateAction<{}>>,
   res?: Response,
 ) => {
-  if (!setErrors) return;
+  if (!setErrors) {
+    return;
+  }
+
   if (res) {
     const data = await res.json();
     setErrors({ message: data.message });

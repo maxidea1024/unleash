@@ -8,6 +8,7 @@ const useInstanceStatusApi = () => {
   const extendTrial = async (): Promise<void> => {
     const path = 'api/instance/extend';
     const req = createRequest(path, { method: 'POST' }, 'extendTrial');
+
     await makeRequest(req.caller, req.id);
   };
 

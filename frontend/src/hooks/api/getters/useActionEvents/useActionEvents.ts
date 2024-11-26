@@ -41,8 +41,9 @@ export const useActionEvents = (
       return null;
 
     // Reached the end
-    if (previousPageData && !previousPageData.actionSetEvents.length)
+    if (previousPageData && !previousPageData.actionSetEvents.length) {
       return null;
+    }
 
     return formatApiPath(
       `api/admin/projects/${projectId}/actions/${actionSetId}/events?limit=${limit}&offset=${pageIndex * limit

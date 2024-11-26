@@ -12,8 +12,7 @@ interface IUseAuthDetailsOutput {
 
 export const useAuthDetails = (): IUseAuthDetailsOutput => {
   const auth = useAuthEndpoint();
-  const authDetails =
-    auth.data && 'type' in auth.data ? auth.data : undefined;
+  const authDetails = auth.data && 'type' in auth.data ? auth.data : undefined;
 
   return {
     authDetails,

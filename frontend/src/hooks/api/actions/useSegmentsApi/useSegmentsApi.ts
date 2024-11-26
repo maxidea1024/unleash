@@ -31,6 +31,7 @@ export const useSegmentsApi = () => {
     const req = createRequest(formatSegmentPath(segmentId), {
       method: 'DELETE',
     });
+
     return makeRequest(req.caller, req.id);
   };
 
