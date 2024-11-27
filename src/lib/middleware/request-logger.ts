@@ -13,6 +13,7 @@ const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
         logger.info(`[${res.statusCode}] [${req.method}] ${pathname}`);
       });
     }
+
     next();
   };
 };

@@ -88,6 +88,7 @@ const apiAccessMiddleware = (
     } catch (error) {
       logger.warn(error);
     }
+
     next();
   };
 };

@@ -21,10 +21,7 @@ const patMiddleware = (
       }
     } catch (error) {
       if (error instanceof NotFoundError) {
-        logger.warn(
-          'Tried to use a PAT token for user that no longer existed',
-          error,
-        );
+        logger.warn('Tried to use a PAT token for user that no longer existed', error);
       } else {
         logger.error(error);
       }

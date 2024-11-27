@@ -45,6 +45,7 @@ function demoAuthentication(
     if (req.session.user?.email || req.session.user?.username === 'admin') {
       req.user = req.session.user;
     }
+
     next();
   });
 
@@ -59,6 +60,7 @@ function demoAuthentication(
         secret: 'a',
       });
     }
+
     next();
   });
 

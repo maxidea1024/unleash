@@ -14,7 +14,7 @@ export const auditAccessMiddleware = ({
       try {
         req.audit = extractAuditInfo(req);
       } catch (e) {
-        logger.warn('Could not find audit info in request');
+        logger.warn('Could not find audit info in request', e);
       }
     }
 
