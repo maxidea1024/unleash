@@ -8,7 +8,7 @@ import {
 import type { Logger } from '../logger';
 import { type IUnleashConfig, NONE } from '../types';
 import { handleErrors } from './util';
-import requireContentType from '../middleware/content_type_checker';
+import requireContentType from '../middleware/content-type-checker';
 import { PermissionError } from '../error';
 import { storeRequestedRoute } from '../middleware/response-time-metrics';
 
