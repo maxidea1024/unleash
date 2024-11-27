@@ -8,10 +8,12 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
     const includeUnsafeInline = !config.flagResolver.isEnabled(
       'removeUnsafeInlineStyleSrc',
     );
+
     const styleSrc = ["'self'"];
     if (includeUnsafeInline) {
       styleSrc.push("'unsafe-inline'");
     }
+
     styleSrc.push(
       'cdn.getunleash.io',
       'fonts.googleapis.com',
@@ -19,6 +21,7 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
       'data:',
       ...config.additionalCspAllowedDomains.styleSrc,
     );
+
     const defaultHelmet = helmet({
       hsts: {
         maxAge: hoursToSeconds(24 * 365 * 2), // 2 non-leap years
@@ -86,6 +89,7 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
       originAgentCluster: false,
       xDnsPrefetchControl: false,
     });
+
     const apiHelmet = helmet({
       hsts: {
         maxAge: hoursToSeconds(24 * 365 * 2), // 2 non-leap years
@@ -125,15 +129,14 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
     return (req, res, next) => {
       if (req.method === 'OPTIONS') {
         return next();
-      } else if (
-        req.path.startsWith(`${config.server.baseUriPath}/api/`)
-      ) {
+      } else if (req.path.startsWith(`${config.server.baseUriPath}/api/`)) {
         apiHelmet(req, res, next);
       } else {
         defaultHelmet(req, res, next);
       }
     };
   }
+
   return (req, res, next) => {
     next();
   };

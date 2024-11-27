@@ -15,6 +15,7 @@ export const storeRequestedRoute: RequestHandler = (req, res, next) => {
       route: `${req.baseUrl}${req.route.path}`,
     };
   }
+
   next();
 };
 
@@ -46,12 +47,15 @@ export function responseTimeMetrics(
 ): RequestHandler {
   return _responseTime((req, res, time) => {
     const { statusCode } = res;
+
     let pathname: string | undefined = undefined;
+
     if (res.locals.route) {
       pathname = res.locals.route;
     } else if (req.route) {
       pathname = req.baseUrl + req.route.path;
     }
+
     // when pathname is undefined use a fallback
     pathname = pathname ?? collapse(req.path);
     let appName: string | undefined;
@@ -70,6 +74,7 @@ export function responseTimeMetrics(
       time,
       appName,
     };
+
     if (!res.locals.responseTimeEmitted) {
       res.locals.responseTimeEmitted = true;
       eventBus.emit(REQUEST_TIME, timingInfo);

@@ -44,7 +44,7 @@ const rbacMiddleware = (
 
   logger.debug('Enabling RBAC middleware');
 
-  return (req, _res, next) => {
+  return (req, res, next) => {
     req.checkRbac = async (permissions: string | string[]) => {
       const permissionsArray = Array.isArray(permissions)
         ? permissions

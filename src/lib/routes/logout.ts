@@ -69,6 +69,7 @@ export default class LogoutController extends Controller {
     if (req.user?.id) {
       await this.sessionService.deleteSessionsForUser(req.user.id);
     }
+
     res.redirect(`${this.baseUri}/`);
   }
 

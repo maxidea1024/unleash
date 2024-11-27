@@ -7,10 +7,15 @@ import UnauthorizedError from '../error/unauthorized-error';
 const authorizationMiddleware = (
   getLogger: LogProvider,
   baseUriPath: string,
+  apiEndpoint?: string,
 ): any => {
   const logger = getLogger('authorization-middleware.ts');
 
-  logger.debug(`Enabling Authorization middleware: ${baseUriPath}`);
+  if (apiEndpoint) {
+    logger.debug(`Enabling Authorization middleware: ${apiEndpoint}`);
+  } else {
+    logger.debug(`Enabling Authorization middleware`);
+  }
 
   return async (req: IAuthRequest, res: Response, next: NextFunction) => {
     if (!req.user?.isAPI && req.session?.user) {

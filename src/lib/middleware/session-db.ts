@@ -11,7 +11,7 @@ function sessionDb(
 ): RequestHandler {
   let store: session.Store;
   const { db, cookieName } = config.session;
-  const age = hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48);
+  const age = hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48); // default: 48 hours
   if (db) {
     store = new ConnectSessionKnexStore({
       tableName: 'unleash_session',

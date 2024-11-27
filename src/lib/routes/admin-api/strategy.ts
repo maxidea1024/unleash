@@ -200,7 +200,7 @@ export default class StrategyController extends Controller {
   }
 
   async getAllStrategies(
-    _req: Request,
+    req: Request,
     res: Response<StrategiesSchema>,
   ): Promise<void> {
     const strategies = await this.strategyService.getStrategies();

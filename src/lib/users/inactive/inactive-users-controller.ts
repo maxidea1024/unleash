@@ -85,7 +85,7 @@ export class InactiveUsersController extends Controller {
   }
 
   async getInactiveUsers(
-    _req: IAuthRequest,
+    req: IAuthRequest,
     res: Response<InactiveUsersSchema>,
   ): Promise<void> {
     this.logger.info('Hitting inactive users');

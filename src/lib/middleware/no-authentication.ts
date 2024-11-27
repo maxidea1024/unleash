@@ -13,7 +13,7 @@ import { DEFAULT_ENV } from '../util';
 function noneAuthentication(baseUriPath: string, app: Application): void {
   app.use(
     `${baseUriPath || ''}/api/admin/`,
-    (req: IAuthRequest, _res, next) => {
+    (req: IAuthRequest, res, next) => {
       if (!req.user) {
         req.user = new NoAuthUser();
       }
@@ -24,7 +24,7 @@ function noneAuthentication(baseUriPath: string, app: Application): void {
 }
 
 export function noApiToken(baseUriPath: string, app: Application) {
-  app.use(`${baseUriPath}/api/frontend`, (req: IApiRequest, _res, next) => {
+  app.use(`${baseUriPath}/api/frontend`, (req: IApiRequest, res, next) => {
     if (!req.headers.authorization && !req.user) {
       req.user = new ApiUser({
         tokenName: 'unknown',
@@ -39,7 +39,7 @@ export function noApiToken(baseUriPath: string, app: Application) {
     next();
   });
 
-  app.use(`${baseUriPath}/api/client`, (req: IApiRequest, _res, next) => {
+  app.use(`${baseUriPath}/api/client`, (req: IApiRequest, res, next) => {
     if (!req.headers.authorization && !req.user) {
       req.user = new ApiUser({
         tokenName: 'unknown',

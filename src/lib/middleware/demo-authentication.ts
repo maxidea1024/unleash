@@ -41,14 +41,14 @@ function demoAuthentication(
     }
   });
 
-  app.use(`${basePath}/api/admin/`, (req: IAuthRequest, _res, next) => {
+  app.use(`${basePath}/api/admin/`, (req: IAuthRequest, res, next) => {
     if (req.session.user?.email || req.session.user?.username === 'admin') {
       req.user = req.session.user;
     }
     next();
   });
 
-  app.use(`${basePath}/api/client`, (req: IApiRequest, _res, next) => {
+  app.use(`${basePath}/api/client`, (req: IApiRequest, res, next) => {
     if (!authentication.enableApiToken && !req.user) {
       req.user = new ApiUser({
         tokenName: 'unauthed-default-client',

@@ -45,7 +45,7 @@ export class HealthCheckController extends Controller {
   }
 
   async getHealth(
-    _req: Request,
+    req: Request,
     res: Response<HealthCheckSchema>,
   ): Promise<void> {
     res.status(200).json({ health: 'GOOD' });

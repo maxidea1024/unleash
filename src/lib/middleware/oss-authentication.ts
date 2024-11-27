@@ -9,12 +9,12 @@ function ossAuthHook(
 ): void {
   app.use(
     `${baseUriPath}/api`,
-    authorizationMiddleware(getLogger, baseUriPath),
+    authorizationMiddleware(getLogger, baseUriPath, `${baseUriPath}/api`),
   );
 
   app.use(
     `${baseUriPath}/logout`,
-    authorizationMiddleware(getLogger, baseUriPath),
+    authorizationMiddleware(getLogger, baseUriPath, `${baseUriPath}/logout`),
   );
 }
 

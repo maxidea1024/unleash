@@ -631,7 +631,7 @@ export default class UserAdminController extends Controller {
   }
 
   async getAdminCount(
-    _req: Request,
+    req: Request,
     res: Response<AdminCountSchema>,
   ): Promise<void> {
     const adminCount = await this.accountService.getAdminCount();
