@@ -15,10 +15,7 @@ const patMiddleware = (
     try {
       const apiToken = req.header('authorization');
       if (apiToken?.startsWith('user:')) {
-        const user =
-          await accountService.getAccountByPersonalAccessToken(
-            apiToken,
-          );
+        const user = await accountService.getAccountByPersonalAccessToken(apiToken);
         req.user = user;
         accountService.addPATSeen(apiToken);
       }

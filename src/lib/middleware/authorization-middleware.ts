@@ -10,7 +10,7 @@ const authorizationMiddleware = (
 ): any => {
   const logger = getLogger('authorization-middleware.ts');
 
-  logger.debug('Enabling Authorization middleware');
+  logger.debug(`Enabling Authorization middleware: ${baseUriPath}`);
 
   return async (req: IAuthRequest, res: Response, next: NextFunction) => {
     if (!req.user?.isAPI && req.session?.user) {

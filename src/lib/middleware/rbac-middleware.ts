@@ -62,6 +62,7 @@ const rbacMiddleware = (
           if (!req.user.id) {
             req.user.id = extractUserId(req);
           }
+
           return true;
         } else {
           return false;
