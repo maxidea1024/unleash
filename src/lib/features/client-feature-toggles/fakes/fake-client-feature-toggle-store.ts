@@ -15,6 +15,7 @@ export default class FakeClientFeatureToggleStore
     archived: boolean = false,
   ): Promise<IFeatureToggleClient[]> {
     const rows = this.featureToggles.filter((toggle) => {
+      // TODO: featureQuery가 지정되지 않았을 경우에 대한 처리가 아래의 상황에서 안전한가?
       if (featureQuery.namePrefix) {
         if (featureQuery.project) {
           return (

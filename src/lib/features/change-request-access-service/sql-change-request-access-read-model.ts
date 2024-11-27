@@ -55,10 +55,7 @@ export class ChangeRequestAccessReadModel
     environment: string,
   ): Promise<boolean> {
     const result = await this.db.raw(
-      `SELECT EXISTS(SELECT 1
-                           FROM change_request_settings
-                           WHERE environment = ?
-                             and project = ?) AS present`,
+      `SELECT EXISTS(SELECT 1 FROM change_request_settings WHERE environment = ? and project = ?) AS present`,
       [environment, project],
     );
     const { present } = result.rows[0];
