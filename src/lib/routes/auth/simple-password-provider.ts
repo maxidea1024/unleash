@@ -63,6 +63,7 @@ export class SimplePasswordProvider extends Controller {
 
     const user = await this.userService.loginUser(username, password);
     req.session.user = user;
+
     this.openApiService.respondWithValidation(
       200,
       res,

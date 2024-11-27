@@ -26,7 +26,7 @@ export const getFilteredOrigin = (request: Request): string | undefined => {
 
 export const determineIntegrationSource = (
   userAgent: string,
-): string | undefined => {
+): string/* | undefined*/ => {
   return (
     userAgentMatches.find((candidate) => candidate.matcher.test(userAgent))
       ?.label ?? 'Other'
