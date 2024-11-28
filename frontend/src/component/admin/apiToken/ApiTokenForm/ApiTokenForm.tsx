@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { CancelButton, StyledBox, StyledForm } from './ApiTokenForm.styles';
+import { useUiFlag } from 'hooks/useUiFlag';
 
 interface IApiTokenFormProps {
   handleSubmit: (e: any) => void;
@@ -16,7 +17,8 @@ interface IApiTokenFormProps {
 const ApiTokenForm: React.FC<IApiTokenFormProps> = ({ children, actions, handleSubmit, handleCancel }) => {
   const { uiConfig } = useUiConfig();
 
-  const isUnleashCloud = Boolean(uiConfig?.flags?.UNLEASH_CLOUD);
+  // const isUnleashCloud = Boolean(uiConfig?.flags?.UNLEASH_CLOUD);
+  const isUnleashCloud = useUiFlag('UNLEASH_CLOUD');
 
   return (
     <StyledForm onSubmit={handleSubmit}>

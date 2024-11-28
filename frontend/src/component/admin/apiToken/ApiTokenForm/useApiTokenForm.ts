@@ -14,6 +14,7 @@ import type { SelectOption } from './TokenTypeSelector/TokenTypeSelector';
 import { useUiFlag } from '../../../../hooks/useUiFlag';
 
 export type ApiTokenFormErrorType = 'username' | 'projects';
+
 export const useApiTokenForm = (project?: string) => {
   const { environments } = useEnvironments();
   const { uiConfig } = useUiConfig();
