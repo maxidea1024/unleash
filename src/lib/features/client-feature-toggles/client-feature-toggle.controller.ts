@@ -220,6 +220,7 @@ export default class FeatureController extends Controller {
       this.logger.debug(`Provided revision: ${userVersion}, calculated revision: ${etag}`);
     }
 
+    // TODO: 아래 조건에서 분기를 하게 되므로, features만 가져오는걸 별도로 만들어주자.
     const [features, segments] = await this.featuresAndSegments(query, etag);
 
     if (this.clientSpecService.requestSupportsSpec(req, 'segments')) {
