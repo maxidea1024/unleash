@@ -161,8 +161,8 @@ export default class VersionService {
     try {
       const { id } = (await this.settingStore.get<{ id: string }>('instanceInfo')) ?? { id: undefined };
       return id;
-    } catch (err) {
-      this.logger.warn('Could not find instanceInfo', err);
+    } catch (e) {
+      this.logger.warn('Could not find instanceInfo', e);
     }
   }
 
@@ -170,44 +170,48 @@ export default class VersionService {
     if (!this.instanceId) {
       this.instanceId = await this.readInstanceId();
     }
+
     return this.instanceId;
   }
 
   async checkLatestVersion(): Promise<void> {
     const instanceId = await this.getInstanceId();
     this.logger.debug(`Checking for newest version for instanceId=${instanceId}`);
-    if (this.enabled) {
-      try {
-        const versionPayload: any = {
-          versions: this.current,
-          instanceId: instanceId,
-        };
+    if (!this.enabled) {
+      return;
+    }
 
-        if (this.telemetryEnabled) {
-          versionPayload.featureInfo = await this.getFeatureUsageInfo();
-        }
-        if (this.versionCheckUrl) {
-          const res = await fetch(this.versionCheckUrl, {
-            method: 'POST',
-            body: JSON.stringify(versionPayload),
-            headers: { 'Content-Type': 'application/json' },
-          });
-          if (res.ok) {
-            const data = (await res.json()) as IVersionResponse;
-            this.latest = {
-              oss: data.versions.oss,
-              enterprise: data.versions.enterprise,
-            };
-            this.isLatest = data.latest;
-          } else {
-            this.logger.info(`Could not check newest version. Status: ${res.status}`);
-          }
-        } else {
-          this.logger.info('Had no URL to check newest version');
-        }
-      } catch (err) {
-        this.logger.info('Could not check newest version', err);
+    try {
+      const versionPayload: any = {
+        versions: this.current,
+        instanceId: instanceId,
+      };
+
+      if (this.telemetryEnabled) {
+        versionPayload.featureInfo = await this.getFeatureUsageInfo();
       }
+
+      if (this.versionCheckUrl) {
+        const res = await fetch(this.versionCheckUrl, {
+          method: 'POST',
+          body: JSON.stringify(versionPayload),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (res.ok) {
+          const data = (await res.json()) as IVersionResponse;
+          this.latest = {
+            oss: data.versions.oss,
+            enterprise: data.versions.enterprise,
+          };
+          this.isLatest = data.latest;
+        } else {
+          this.logger.info(`Could not check newest version. Status: ${res.status}`);
+        }
+      } else {
+        this.logger.info('Had no URL to check newest version');
+      }
+    } catch (e) {
+      this.logger.info('Could not check newest version', e);
     }
   }
 
@@ -317,13 +321,11 @@ export default class VersionService {
 
   async hasOIDC(): Promise<boolean> {
     const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.oidc');
-
     return settings?.enabled || false;
   }
 
   async hasSAML(): Promise<boolean> {
     const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.saml');
-
     return settings?.enabled || false;
   }
 

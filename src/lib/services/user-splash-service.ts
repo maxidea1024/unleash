@@ -21,6 +21,7 @@ export default class UserSplashService {
     if (user.isAPI) {
       return {};
     }
+
     try {
       return (await this.userSplashStore.getAllUserSplashes(user.id)).reduce(
         (splashObject, splash) => ({

@@ -111,21 +111,25 @@ export default class UserService {
   }
 
   validatePassword(password: string): boolean {
-    if (password) {
-      const result = owasp.test(password);
-      if (!result.strong) {
-        throw new OwaspValidationError(result);
-      } else return true;
-    } else {
+    if (!password) {
       throw new PasswordUndefinedError();
     }
+
+    const result = owasp.test(password);
+    if (!result.strong) {
+      throw new OwaspValidationError(result);
+    }
+
+    return true;
   }
 
   async initAdminUser({
     createAdminUser,
     initialAdminUser,
   }: Pick<IAuthOption, 'createAdminUser' | 'initialAdminUser'>): Promise<void> {
-    if (!createAdminUser) return Promise.resolve();
+    if (!createAdminUser) {
+      return Promise.resolve();
+    }
 
     return this.initAdminUsernameUser(initialAdminUser);
   }
@@ -161,6 +165,7 @@ export default class UserService {
       const roleId = rootRole ? rootRole.roleId : defaultRole.id;
       return { ...u, rootRole: roleId };
     });
+
     if (this.flagResolver.isEnabled('showUserDeviceCount')) {
       const sessionCounts = await this.sessionService.getSessionsCount();
       const usersWithSessionCounts = usersWithRootRole.map((u) => ({
@@ -239,6 +244,7 @@ export default class UserService {
       const inviteUrl = await this.resetTokenService.createNewUserUrl(user.id, auditUser.username);
       inviteLink = inviteUrl.toString();
     }
+
     return inviteLink;
   }
 
@@ -321,6 +327,7 @@ export default class UserService {
       user = await this.store.getByQuery(idQuery);
       passwordHash = await this.store.getPasswordHash(user.id);
     } catch (error) {}
+
     if (user && passwordHash) {
       const match = await bcrypt.compare(password, passwordHash);
       if (match) {
@@ -340,6 +347,7 @@ export default class UserService {
         return user;
       }
     }
+
     throw new PasswordMismatch(
       `The combination of password and username you provided is invalid. If you have forgotten your password, visit ${this.baseUriPath}/forgotten-password or get in touch with your instance administrator.`,
     );
@@ -381,6 +389,7 @@ export default class UserService {
         throw e;
       }
     }
+
     const loginOrder = await this.store.successfullyLogin(user);
     this.eventBus.emit(USER_LOGIN, { loginOrder });
     return user;
@@ -471,19 +480,20 @@ export default class UserService {
     if (!receiver) {
       throw new NotFoundError(`Could not find ${receiverEmail}`);
     }
+
     if (this.passwordResetTimeouts[receiver.id]) {
       throw new RateLimitError(
         'You can only send one new reset password email per minute, per user. Please try again later.',
       );
     }
 
-    const resetLink = await this.resetTokenService.createResetPasswordUrl(receiver.id, user.username || user.email);
+    const resetLink = await this.resetTokenService.createResetPasswordUrl(receiver.id, user.username || user.email!);
 
     this.passwordResetTimeouts[receiver.id] = setTimeout(() => {
       delete this.passwordResetTimeouts[receiver.id];
     }, 1000 * 60); // 1 minute
 
-    await this.emailService.sendResetMail(receiver.name, receiver.email, resetLink.toString());
+    await this.emailService.sendResetMail(receiver.name!, receiver.email!, resetLink.toString());
     return resetLink;
   }
 }
