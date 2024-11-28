@@ -70,6 +70,7 @@ export class OpenApiService {
 
     if (errors) {
       this.logger.debug('Invalid response:', JSON.stringify(errors, null, 4));
+
       if (this.flagResolver.isEnabled('strictSchemaValidation')) {
         throw new Error(JSON.stringify(errors, null, 4));
       }
