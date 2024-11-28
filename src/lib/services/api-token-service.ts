@@ -40,17 +40,13 @@ import type EventEmitter from 'events';
 const resolveTokenPermissions = (tokenType: string) => {
   if (tokenType === ApiTokenType.ADMIN) {
     return [ADMIN];
-  }
-
-  if (tokenType === ApiTokenType.CLIENT) {
+  } else if (tokenType === ApiTokenType.CLIENT) {
     return [CLIENT];
-  }
-
-  if (tokenType === ApiTokenType.FRONTEND) {
+  } else if (tokenType === ApiTokenType.FRONTEND) {
     return [FRONTEND];
+  } else {
+    return [];
   }
-
-  return [];
 };
 
 export class ApiTokenService {

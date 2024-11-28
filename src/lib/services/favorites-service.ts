@@ -119,6 +119,7 @@ export class FavoritesService {
     if (favorite.userId) {
       return this.favoriteProjectsStore.exists(favorite);
     }
+
     return Promise.resolve(false);
   }
 }
