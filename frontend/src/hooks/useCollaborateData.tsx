@@ -55,10 +55,14 @@ export const useCollaborateData = <Type,>(
   };
 
   const formatDequalData = (data: Type | null) => {
-    if (!data) return data;
+    if (!data) {
+      return data;
+    }
+
     if (comparisonModeratorFunc && typeof comparisonModeratorFunc === 'function') {
       return comparisonModeratorFunc(data);
     }
+
     return data;
   };
 
@@ -69,7 +73,9 @@ export const useCollaborateData = <Type,>(
   }, [initialData]);
 
   useEffect(() => {
-    if (!cache || !data) return;
+    if (!cache || !data) {
+      return;
+    }
 
     const equal = dequal(formatDequalData(cache), formatDequalData(data));
 

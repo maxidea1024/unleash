@@ -36,8 +36,14 @@ export const useLastViewedFlags = () => {
 
   const setCappedLastViewed = useCallback(
     (flag: { featureId: string; projectId: string }) => {
-      if (!flag.featureId || !flag.projectId) return;
-      if (lastViewed.find((item) => item.featureId === flag.featureId)) return;
+      if (!flag.featureId || !flag.projectId) {
+        return;
+      }
+
+      if (lastViewed.find((item) => item.featureId === flag.featureId)) {
+        return;
+      }
+
       const updatedLastViewed = removeIncorrect([...lastViewed, flag]);
       setLastViewed(updatedLastViewed.length > MAX_ITEMS ? updatedLastViewed.slice(-MAX_ITEMS) : updatedLastViewed);
     },

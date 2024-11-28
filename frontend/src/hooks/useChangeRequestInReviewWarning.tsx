@@ -4,7 +4,9 @@ import type { ChangeRequestType } from '../component/changeRequest/changeRequest
 
 export const useChangeRequestInReviewWarning = (draft: ChangeRequestType[] | undefined) => {
   const changeRequestInReviewOrApproved = (environment: string) => {
-    if (!draft) return false;
+    if (!draft) {
+      return false;
+    }
 
     return draft.some(
       (changeRequest) =>

@@ -92,6 +92,7 @@ export const useApiTokenForm = (project?: string) => {
     if (!username) {
       newErrors.username = 'Username is required';
     }
+
     if (projects.length === 0) {
       newErrors.projects = 'At least one project is required';
     }

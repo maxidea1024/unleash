@@ -18,7 +18,7 @@ export const useVirtualizedRange = (
   const parent = parentElement ? parentElement : window;
 
   const [scrollIndex, setScrollIndex] = useState(
-    Math.floor((parent instanceof HTMLElement ? parent.scrollTop : parent.pageYOffset) / rowHeight),
+    Math.floor((parent instanceof HTMLElement ? parent.scrollTop : parent.scrollY) / rowHeight),
   );
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export const useVirtualizedRange = (
       requestAnimationFrame(() => {
         setScrollIndex(
           Math.floor(
-            (parent instanceof HTMLElement ? parent.scrollTop : parent.pageYOffset) / (rowHeight * dampening),
+            (parent instanceof HTMLElement ? parent.scrollTop : parent.scrollY) / (rowHeight * dampening),
           ) * dampening,
         );
       });

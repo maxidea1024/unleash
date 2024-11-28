@@ -18,9 +18,9 @@ export const useThemeMode = (): IUseThemeModeOutput => {
   const resolveTheme = () => {
     if (themeMode === 'light') {
       return mainTheme;
+    } else {
+      return darkTheme;
     }
-
-    return darkTheme;
   };
 
   const onSetThemeMode = () => {
@@ -28,9 +28,10 @@ export const useThemeMode = (): IUseThemeModeOutput => {
       if (prev === 'light') {
         setLocalStorageItem(key, 'dark');
         return 'dark';
+      } else {
+        setLocalStorageItem(key, 'light');
+        return 'light';
       }
-      setLocalStorageItem(key, 'light');
-      return 'light';
     });
   };
 

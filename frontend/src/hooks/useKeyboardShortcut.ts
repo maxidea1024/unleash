@@ -14,11 +14,13 @@ export const useKeyboardShortcut = (
   callback: () => void,
 ) => {
   const isAppleDevice = useIsAppleDevice();
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (key !== event.key) {
         return;
       }
+
       if (modifiers.includes('ctrl')) {
         if (isAppleDevice) {
           if (!event.metaKey) {
@@ -30,12 +32,15 @@ export const useKeyboardShortcut = (
           }
         }
       }
+
       if (modifiers.includes('alt') && !event.altKey) {
         return;
       }
+
       if (modifiers.includes('shift') && !event.shiftKey) {
         return;
       }
+
       if (preventDefault) {
         event.preventDefault();
       }

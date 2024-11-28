@@ -72,6 +72,7 @@ const getSelectablePeriods = (): SelectablePeriod[] => {
       selectablePeriods.push(toSelectablePeriod(date));
     }
   }
+
   return selectablePeriods;
 };
 

@@ -10,12 +10,15 @@ const usePersistentSearchParams = <T extends QueryParamConfigMap>(key: string, q
   const { value, setValue } = createLocalStorage(key, {});
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
+
     if (Object.keys(params).length > 0) {
       return;
     }
+
     if (Object.keys(value).length === 0) {
       return;
     }
+
     setSearchParams(encodeQueryParams(queryParamsDefinition, value) as Record<string, string>, { replace: true });
   }, []);
 
@@ -43,6 +46,7 @@ export const usePersistentTableState = <T extends QueryParamConfigMap>(
       if (!queryParamsDefinition.offset) {
         return setTableStateInternal(newState);
       }
+
       if (typeof newState === 'function') {
         setTableStateInternal((prevState) => {
           const updatedState = (newState as Function)(prevState);

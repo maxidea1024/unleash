@@ -1,7 +1,7 @@
 import { Alert, Link } from '@mui/material';
 import type React from 'react';
 import type { ReactNode } from 'react';
-import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
+// import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { CancelButton, StyledBox, StyledForm } from './ApiTokenForm.styles';
 import { useUiFlag } from 'hooks/useUiFlag';
@@ -15,8 +15,7 @@ interface IApiTokenFormProps {
 }
 
 const ApiTokenForm: React.FC<IApiTokenFormProps> = ({ children, actions, handleSubmit, handleCancel }) => {
-  const { uiConfig } = useUiConfig();
-
+  // const { uiConfig } = useUiConfig();
   // const isUnleashCloud = Boolean(uiConfig?.flags?.UNLEASH_CLOUD);
   const isUnleashCloud = useUiFlag('UNLEASH_CLOUD');
 

@@ -33,16 +33,27 @@ export const useRecentlyVisited = () => {
   }, [JSON.stringify(lastVisited), key, emitEvent]);
 
   const pageEquals = (existing: LastViewedPage, page: LastViewedPage) => {
-    if (existing.featureId && existing.featureId === page.featureId) return true;
-    if (existing.pathName && existing.pathName === page.pathName) return true;
-    if (existing.projectId && !existing.featureId && !page.featureId && existing.projectId === page.projectId)
+    if (existing.featureId && existing.featureId === page.featureId) {
       return true;
+    }
+
+    if (existing.pathName && existing.pathName === page.pathName) {
+      return true;
+    }
+
+    if (existing.projectId && !existing.featureId && !page.featureId && existing.projectId === page.projectId) {
+      return true;
+    }
+
     return false;
   };
 
   const setCappedLastVisited = useCallback(
     (page: LastViewedPage) => {
-      if (page.featureId && !page.projectId) return;
+      if (page.featureId && !page.projectId) {
+        return;
+      }
+
       const filtered = lastVisited.filter((item) => !pageEquals(item, page));
       const updatedLastVisited = [page, ...filtered];
 
