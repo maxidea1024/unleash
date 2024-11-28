@@ -1,8 +1,4 @@
-import type {
-  IContextField,
-  IContextFieldDto,
-  IContextFieldStore,
-} from '../../lib/types/stores/context-field-store';
+import type { IContextField, IContextFieldDto, IContextFieldStore } from '../../lib/types/stores/context-field-store';
 import NotFoundError from '../../lib/error/notfound-error';
 
 export default class FakeContextFieldStore implements IContextFieldStore {

@@ -49,11 +49,7 @@ const useFormatApiCode = (isUpdating: boolean, expiry: string) => {
   return () => `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/invite-link/tokens' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
---data-raw '${JSON.stringify(
-    { name: 'default', expiresAt: expiry },
-    undefined,
-    2,
-  )}'`;
+--data-raw '${JSON.stringify({ name: 'default', expiresAt: expiry }, undefined, 2)}'`;
 };
 
 export const InviteLink: FC<IInviteLinkProps> = () => {
@@ -147,9 +143,7 @@ export const InviteLink: FC<IInviteLinkProps> = () => {
       >
         <Box sx={{ maxWidth: '400px' }}>
           <Box sx={{ mb: 2 }}>
-            <Typography sx={{ mb: 1 }}>
-              Expiration period for the invite link
-            </Typography>
+            <Typography sx={{ mb: 1 }}>Expiration period for the invite link</Typography>
             <GeneralSelect
               label='Link will expire in'
               name='type'
@@ -159,9 +153,7 @@ export const InviteLink: FC<IInviteLinkProps> = () => {
               fullWidth
             />
           </Box>
-          <Typography sx={{ mb: 1 }}>
-            People using this link will be invited as:
-          </Typography>
+          <Typography sx={{ mb: 1 }}>People using this link will be invited as:</Typography>
           <Box
             sx={{
               p: 2,
@@ -173,9 +165,8 @@ export const InviteLink: FC<IInviteLinkProps> = () => {
               Viewer
             </Typography>
             <Typography variant='body2' color='text.secondary'>
-              Users with this role can only read root resources in Unleash. The
-              viewer can be added to specific projects as project member.
-              Viewers may not view API tokens.
+              Users with this role can only read root resources in Unleash. The viewer can be added to specific projects
+              as project member. Viewers may not view API tokens.
             </Typography>
           </Box>
         </Box>
@@ -186,11 +177,7 @@ export const InviteLink: FC<IInviteLinkProps> = () => {
             mt: 'auto',
           }}
         >
-          <PermissionButton
-            type='submit'
-            permission={ADMIN}
-            disabled={isSending}
-          >
+          <PermissionButton type='submit' permission={ADMIN} disabled={isSending}>
             {isUpdating ? 'Update invite link' : 'Create invite link'}
           </PermissionButton>
           <ConditionallyRender
@@ -211,20 +198,14 @@ export const InviteLink: FC<IInviteLinkProps> = () => {
           </Button>
         </Box>
       </Box>
-      <Dialogue
-        open={Boolean(inviteLink)}
-        onClick={closeConfirm}
-        primaryButtonText='Close'
-        title='Invite link created'
-      >
+      <Dialogue open={Boolean(inviteLink)} onClick={closeConfirm} primaryButtonText='Close' title='Invite link created'>
         <Box>
           <Typography variant='body1' sx={{ mb: 2 }}>
             Using this link, new team members can now sign-up to Unleash.
           </Typography>
           <Typography variant='body1'>
-            Please provide them with the following link to get started. This
-            will allow them to set up their password and get started with their
-            Unleash account.
+            Please provide them with the following link to get started. This will allow them to set up their password
+            and get started with their Unleash account.
           </Typography>
           <LinkField inviteLink={inviteLink} />
         </Box>

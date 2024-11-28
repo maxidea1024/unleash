@@ -1,10 +1,4 @@
-import {
-  type IAuditUser,
-  type IUnleashConfig,
-  type IUnleashStores,
-  PatCreatedEvent,
-  PatDeletedEvent,
-} from '../types';
+import { type IAuditUser, type IUnleashConfig, type IUnleashStores, PatCreatedEvent, PatDeletedEvent } from '../types';
 import type { Logger } from '../logger';
 import type { IPatStore } from '../types/stores/pat-store';
 import crypto from 'crypto';
@@ -21,11 +15,7 @@ export default class PatService {
   private readonly patStore: IPatStore;
   private readonly eventService: EventService;
 
-  constructor(
-    { patStore }: Pick<IUnleashStores, 'patStore'>,
-    config: IUnleashConfig,
-    eventService: EventService,
-  ) {
+  constructor({ patStore }: Pick<IUnleashStores, 'patStore'>, config: IUnleashConfig, eventService: EventService) {
     this.logger = config.getLogger('pat-service.ts');
 
     this.config = config;
@@ -33,11 +23,7 @@ export default class PatService {
     this.eventService = eventService;
   }
 
-  async createPat(
-    pat: CreatePatSchema,
-    forUserId: number,
-    auditUser: IAuditUser,
-  ): Promise<PatSchema> {
+  async createPat(pat: CreatePatSchema, forUserId: number, auditUser: IAuditUser): Promise<PatSchema> {
     await this.validatePat(pat, forUserId);
 
     const secret = this.generateSecretKey();
@@ -57,11 +43,7 @@ export default class PatService {
     return this.patStore.getAllByUser(userId);
   }
 
-  async deletePat(
-    id: number,
-    forUserId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async deletePat(id: number, forUserId: number, auditUser: IAuditUser): Promise<void> {
     const pat = await this.patStore.get(id);
 
     await this.eventService.storeEvent(
@@ -74,10 +56,7 @@ export default class PatService {
     return this.patStore.deleteForUser(id, forUserId);
   }
 
-  async validatePat(
-    { description, expiresAt }: CreatePatSchema,
-    userId: number,
-  ): Promise<void> {
+  async validatePat({ description, expiresAt }: CreatePatSchema, userId: number): Promise<void> {
     if (!description) {
       throw new BadDataError('PAT description cannot be empty.');
     }
@@ -87,9 +66,7 @@ export default class PatService {
     }
 
     if ((await this.patStore.countByUser(userId)) >= PAT_LIMIT) {
-      throw new OperationDeniedError(
-        `Too many PATs (${PAT_LIMIT}) already exist for this user.`,
-      );
+      throw new OperationDeniedError(`Too many PATs (${PAT_LIMIT}) already exist for this user.`);
     }
 
     if (await this.patStore.existsWithDescriptionByUser(description, userId)) {

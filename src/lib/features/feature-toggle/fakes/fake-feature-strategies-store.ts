@@ -17,9 +17,7 @@ interface ProjectEnvironment {
   environment: string;
 }
 
-export default class FakeFeatureStrategiesStore
-  implements IFeatureStrategiesStore
-{
+export default class FakeFeatureStrategiesStore implements IFeatureStrategiesStore {
   private readonly environmentAndFeature: Map<string, any[]> = new Map();
   private projectToEnvironment: ProjectEnvironment[] = [];
   private featureStrategies: IFeatureStrategy[] = [];
@@ -33,13 +31,9 @@ export default class FakeFeatureStrategiesStore
     return Promise.resolve(newStrat);
   }
 
-  async getStrategiesByContextField(
-    contextFieldName: string,
-  ): Promise<IFeatureStrategy[]> {
+  async getStrategiesByContextField(contextFieldName: string): Promise<IFeatureStrategy[]> {
     const strategies = this.featureStrategies.filter((strategy) =>
-      strategy.constraints.some(
-        (constraint) => constraint.contextName === contextFieldName,
-      ),
+      strategy.constraints.some((constraint) => constraint.contextName === contextFieldName),
     );
     return Promise.resolve(strategies);
   }
@@ -96,19 +90,12 @@ export default class FakeFeatureStrategiesStore
     throw new Error('Method not implemented.');
   }
 
-  async removeAllStrategiesForFeatureEnv(
-    feature_name: string,
-    environment: string,
-  ): Promise<void> {
+  async removeAllStrategiesForFeatureEnv(feature_name: string, environment: string): Promise<void> {
     const toRemove = this.featureStrategies.filter(
       (fS) => fS.featureName === feature_name && fS.environment === environment,
     );
     this.featureStrategies = this.featureStrategies.filter(
-      (f) =>
-        !toRemove.some(
-          (r) =>
-            r.featureName === f.featureName && r.environment === f.environment,
-        ),
+      (f) => !toRemove.some((r) => r.featureName === f.featureName && r.environment === f.environment),
     );
     return Promise.resolve();
   }
@@ -123,10 +110,7 @@ export default class FakeFeatureStrategiesStore
     environment: string,
   ): Promise<IFeatureStrategy[]> {
     const rows = this.featureStrategies.filter(
-      (fS) =>
-        fS.projectId === project_name &&
-        fS.featureName === feature_name &&
-        fS.environment === environment,
+      (fS) => fS.projectId === project_name && fS.featureName === feature_name && fS.environment === environment,
     );
     return Promise.resolve(rows);
   }
@@ -148,9 +132,7 @@ export default class FakeFeatureStrategiesStore
     userId?: number,
     archived: boolean = false,
   ): Promise<FeatureToggleWithEnvironment> {
-    const toggle = this.featureToggles.find(
-      (f) => f.name === featureName && f.archived === archived,
-    );
+    const toggle = this.featureToggles.find((f) => f.name === featureName && f.archived === archived);
     if (toggle) {
       return { ...toggle, environments: [] };
     }
@@ -165,18 +147,13 @@ export default class FakeFeatureStrategiesStore
     return this.getFeatureToggleWithEnvs(featureName, userId, archived);
   }
 
-  async getFeatures(
-    featureQuery?: IFeatureToggleQuery,
-    archived: boolean = false,
-  ): Promise<IFeatureToggleClient[]> {
+  async getFeatures(featureQuery?: IFeatureToggleQuery, archived: boolean = false): Promise<IFeatureToggleClient[]> {
     const rows = this.featureToggles.filter((toggle) => {
       if (featureQuery?.namePrefix) {
         if (featureQuery.project) {
           return (
             (toggle.name.startsWith(featureQuery.namePrefix) &&
-              featureQuery.project.some((project) =>
-                project.includes(toggle.project),
-              )) ||
+              featureQuery.project.some((project) => project.includes(toggle.project))) ||
             featureQuery.project.includes(ALL_PROJECTS)
           );
         }
@@ -184,9 +161,8 @@ export default class FakeFeatureStrategiesStore
       }
       if (featureQuery?.project) {
         return (
-          featureQuery.project.some((project) =>
-            project.includes(toggle.project),
-          ) || featureQuery.project.includes(ALL_PROJECTS)
+          featureQuery.project.some((project) => project.includes(toggle.project)) ||
+          featureQuery.project.includes(ALL_PROJECTS)
         );
       }
       return toggle.archived === archived;
@@ -209,9 +185,7 @@ export default class FakeFeatureStrategiesStore
     if (strat) {
       return Promise.resolve(strat);
     }
-    return Promise.reject(
-      new NotFoundError(`Could not find strategy with id ${id}`),
-    );
+    return Promise.reject(new NotFoundError(`Could not find strategy with id ${id}`));
   }
 
   async connectEnvironmentAndFeature(
@@ -222,39 +196,26 @@ export default class FakeFeatureStrategiesStore
     if (!this.environmentAndFeature.has(environment)) {
       this.environmentAndFeature.set(environment, []);
     }
-    this.environmentAndFeature
-      .get(environment)
-      .push({ feature: feature_name, enabled });
+    this.environmentAndFeature.get(environment).push({ feature: feature_name, enabled });
     return Promise.resolve();
   }
 
-  async removeEnvironmentForFeature(
-    feature_name: string,
-    environment: string,
-  ): Promise<void> {
+  async removeEnvironmentForFeature(feature_name: string, environment: string): Promise<void> {
     this.environmentAndFeature.set(
       environment,
-      this.environmentAndFeature
-        .get(environment)
-        .filter((e) => e.featureName !== feature_name),
+      this.environmentAndFeature.get(environment).filter((e) => e.featureName !== feature_name),
     );
     return Promise.resolve();
   }
 
-  async disconnectEnvironmentFromProject(
-    environment: string,
-    project: string,
-  ): Promise<void> {
+  async disconnectEnvironmentFromProject(environment: string, project: string): Promise<void> {
     this.projectToEnvironment = this.projectToEnvironment.filter(
       (f) => f.projectName !== project && f.environment !== environment,
     );
     return Promise.resolve();
   }
 
-  async updateStrategy(
-    id: string,
-    updates: Partial<IFeatureStrategy>,
-  ): Promise<IFeatureStrategy> {
+  async updateStrategy(id: string, updates: Partial<IFeatureStrategy>): Promise<IFeatureStrategy> {
     this.featureStrategies = this.featureStrategies.map((f) => {
       if (f.id === id) {
         return { ...f, ...updates };
@@ -273,21 +234,13 @@ export default class FakeFeatureStrategiesStore
     return Promise.resolve();
   }
 
-  async isEnvironmentEnabled(
-    featureName: string,
-    environment: string,
-  ): Promise<boolean> {
+  async isEnvironmentEnabled(featureName: string, environment: string): Promise<boolean> {
     const enabled =
-      this.environmentAndFeature
-        .get(environment)
-        ?.find((f) => f.featureName === featureName)?.enabled || false;
+      this.environmentAndFeature.get(environment)?.find((f) => f.featureName === featureName)?.enabled || false;
     return Promise.resolve(enabled);
   }
 
-  async setProjectForStrategiesBelongingToFeature(
-    featureName: string,
-    newProjectId: string,
-  ): Promise<void> {
+  async setProjectForStrategiesBelongingToFeature(featureName: string, newProjectId: string): Promise<void> {
     this.featureStrategies = this.featureStrategies.map((f) => {
       if (f.featureName === featureName) {
         f.projectId = newProjectId;
@@ -297,11 +250,7 @@ export default class FakeFeatureStrategiesStore
     return Promise.resolve(undefined);
   }
 
-  async setEnvironmentEnabledStatus(
-    environment: string,
-    featureName: string,
-    enabled: boolean,
-  ): Promise<boolean> {
+  async setEnvironmentEnabledStatus(environment: string, featureName: string, enabled: boolean): Promise<boolean> {
     return Promise.resolve(enabled);
   }
 
@@ -315,15 +264,10 @@ export default class FakeFeatureStrategiesStore
   ): Promise<IFeatureOverview[]> {
     return Promise.resolve([]);
   }
-  getAllByFeatures(
-    features: string[],
-    environment?: string,
-  ): Promise<IFeatureStrategy[]> {
+  getAllByFeatures(features: string[], environment?: string): Promise<IFeatureStrategy[]> {
     return Promise.resolve(
       this.featureStrategies.filter(
-        (strategy) =>
-          features.includes(strategy.featureName) &&
-          strategy.environment === environment,
+        (strategy) => features.includes(strategy.featureName) && strategy.environment === environment,
       ),
     );
   }

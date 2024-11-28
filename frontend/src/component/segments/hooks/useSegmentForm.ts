@@ -11,8 +11,7 @@ export const useSegmentForm = (
   const [name, setName] = useState(initialName);
   const [description, setDescription] = useState(initialDescription);
   const [project, setProject] = useState<string | undefined>(initialProject);
-  const [constraints, setConstraints] =
-    useState<IConstraint[]>(initialConstraints);
+  const [constraints, setConstraints] = useState<IConstraint[]>(initialConstraints);
   const [errors, setErrors] = useState({});
   const nameError = useSegmentValidation(name, initialName);
 

@@ -15,8 +15,7 @@ export const featureMetricsSchema = {
       minimum: 1,
     },
     maturity: {
-      description:
-        'The maturity level of this API (alpha, beta, stable, deprecated)',
+      description: 'The maturity level of this API (alpha, beta, stable, deprecated)',
       type: 'string',
       example: 'stable',
     },

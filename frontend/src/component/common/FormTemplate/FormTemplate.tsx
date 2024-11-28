@@ -1,13 +1,6 @@
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Codebox from '../Codebox/Codebox';
-import {
-  Collapse,
-  IconButton,
-  useMediaQuery,
-  Tooltip,
-  Divider,
-  styled,
-} from '@mui/material';
+import { Collapse, IconButton, useMediaQuery, Tooltip, Divider, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import FileCopy from '@mui/icons-material/FileCopy';
 import Info from '@mui/icons-material/Info';
@@ -17,11 +10,7 @@ import useToast from 'hooks/useToast';
 import React from 'react';
 import { type ReactNode, useState } from 'react';
 import { ReactComponent as MobileGuidanceBG } from 'assets/img/mobileGuidanceBg.svg';
-import {
-  formTemplateFixedSidebarWidth,
-  formTemplateFormWidth,
-  formTemplateSidebarWidth,
-} from './FormTemplate.styles';
+import { formTemplateFixedSidebarWidth, formTemplateFormWidth, formTemplateSidebarWidth } from './FormTemplate.styles';
 import { relative } from 'themes/themeStyles';
 
 interface ICreateProps {
@@ -92,28 +81,22 @@ const StyledFormContent = styled('div', {
   shouldForwardProp: (prop) => {
     return !['disablePadding', 'compactPadding'].includes(prop.toString());
   },
-})<{ disablePadding?: boolean; compactPadding?: boolean }>(
-  ({ theme, disablePadding, compactPadding }) => ({
-    backgroundColor: theme.palette.background.paper,
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-    padding: disablePadding
-      ? 0
-      : compactPadding
-        ? theme.spacing(4)
-        : theme.spacing(6),
-    [theme.breakpoints.down('lg')]: {
-      padding: disablePadding ? 0 : theme.spacing(4),
-    },
-    [theme.breakpoints.down(1100)]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down(500)]: {
-      padding: disablePadding ? 0 : theme.spacing(4, 2),
-    },
-  }),
-);
+})<{ disablePadding?: boolean; compactPadding?: boolean }>(({ theme, disablePadding, compactPadding }) => ({
+  backgroundColor: theme.palette.background.paper,
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  padding: disablePadding ? 0 : compactPadding ? theme.spacing(4) : theme.spacing(6),
+  [theme.breakpoints.down('lg')]: {
+    padding: disablePadding ? 0 : theme.spacing(4),
+  },
+  [theme.breakpoints.down(1100)]: {
+    width: '100%',
+  },
+  [theme.breakpoints.down(500)]: {
+    padding: disablePadding ? 0 : theme.spacing(4, 2),
+  },
+}));
 
 const StyledFooter = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -173,30 +156,27 @@ const StyledInfoIcon = styled(Info)(({ theme }) => ({
 }));
 
 const StyledSidebar = styled('aside', {
-  shouldForwardProp: (prop) =>
-    !['sidebarWidth', 'fixedCodeHeight'].includes(prop.toString()),
-})<{ sidebarWidth?: string; fixedCodeHeight?: string }>(
-  ({ theme, sidebarWidth, fixedCodeHeight }) => ({
-    backgroundColor: theme.palette.background.sidebar,
-    padding: theme.spacing(4),
-    flexGrow: 0,
-    flexShrink: 0,
-    width: sidebarWidth || formTemplateSidebarWidth,
-    [theme.breakpoints.down(1100)]: {
-      width: '100%',
-    },
-    [theme.breakpoints.down(500)]: {
-      padding: theme.spacing(4, 2),
-    },
-    ...(fixedCodeHeight
-      ? {
-          pre: {
-            height: fixedCodeHeight,
-          },
-        }
-      : {}),
-  }),
-);
+  shouldForwardProp: (prop) => !['sidebarWidth', 'fixedCodeHeight'].includes(prop.toString()),
+})<{ sidebarWidth?: string; fixedCodeHeight?: string }>(({ theme, sidebarWidth, fixedCodeHeight }) => ({
+  backgroundColor: theme.palette.background.sidebar,
+  padding: theme.spacing(4),
+  flexGrow: 0,
+  flexShrink: 0,
+  width: sidebarWidth || formTemplateSidebarWidth,
+  [theme.breakpoints.down(1100)]: {
+    width: '100%',
+  },
+  [theme.breakpoints.down(500)]: {
+    padding: theme.spacing(4, 2),
+  },
+  ...(fixedCodeHeight
+    ? {
+        pre: {
+          height: fixedCodeHeight,
+        },
+      }
+    : {}),
+}));
 
 const StyledDescriptionCard = styled('article')(({ theme }) => ({
   display: 'flex',
@@ -280,10 +260,7 @@ const FormTemplate: React.FC<ICreateProps> = ({
     if (!apiDisabled) {
       return (
         <>
-          <ConditionallyRender
-            condition={!dividerDisabled}
-            show={<StyledSidebarDivider />}
-          />
+          <ConditionallyRender condition={!dividerDisabled} show={<StyledSidebarDivider />} />
           <StyledSubtitle>
             API Command{' '}
             <Tooltip title='Copy command' arrow>
@@ -305,9 +282,7 @@ const FormTemplate: React.FC<ICreateProps> = ({
       <ConditionallyRender
         condition={showGuidance && smallScreen}
         show={
-          <StyledMobileGuidanceWrapper
-            guidanceHeight={useFixedSidebar ? '240px' : undefined}
-          >
+          <StyledMobileGuidanceWrapper guidanceHeight={useFixedSidebar ? '240px' : undefined}>
             <MobileGuidance
               description={description}
               documentationIcon={documentationIcon}
@@ -318,19 +293,13 @@ const FormTemplate: React.FC<ICreateProps> = ({
         }
       />
       <StyledMain useFixedSidebar={useFixedSidebar}>
-        <StyledFormContent
-          disablePadding={disablePadding}
-          compactPadding={compactPadding}
-        >
+        <StyledFormContent disablePadding={disablePadding} compactPadding={compactPadding}>
           <ConditionallyRender
             condition={loading || false}
             show={<Loader />}
             elseShow={
               <>
-                <ConditionallyRender
-                  condition={title !== undefined}
-                  show={<StyledTitle>{title}</StyledTitle>}
-                />
+                <ConditionallyRender condition={title !== undefined} show={<StyledTitle>{title}</StyledTitle>} />
                 {children}
               </>
             }
@@ -357,10 +326,7 @@ const FormTemplate: React.FC<ICreateProps> = ({
             showDescription={showDescription}
             showLink={showLink}
           >
-            {renderApiInfo(
-              formatApiCode === undefined,
-              !(showDescription || showLink),
-            )}
+            {renderApiInfo(formatApiCode === undefined, !(showDescription || showLink))}
           </SidebarComponent>
         }
       />
@@ -389,10 +355,7 @@ const MobileGuidance = ({
         <StyledMobileGuidanceBackground />
       </StyledMobileGuidanceContainer>
       <Tooltip title='Toggle help' arrow>
-        <StyledMobileGuidanceButton
-          onClick={() => setOpen((prev) => !prev)}
-          size='large'
-        >
+        <StyledMobileGuidanceButton onClick={() => setOpen((prev) => !prev)} size='large'>
           <StyledInfoIcon />
         </StyledMobileGuidanceButton>
       </Tooltip>
@@ -443,9 +406,7 @@ const GuidanceContent: React.FC<
     overflowY: 'auto',
   });
 
-  const DocsWrapper = fixedDocumentationHeight
-    ? StyledDocumentationWrapper
-    : React.Fragment;
+  const DocsWrapper = fixedDocumentationHeight ? StyledDocumentationWrapper : React.Fragment;
 
   return (
     <>
@@ -456,11 +417,7 @@ const GuidanceContent: React.FC<
             <StyledDescriptionCard>
               <ConditionallyRender
                 condition={!!documentationIcon}
-                show={
-                  <StyledDocumentationIconWrapper>
-                    {documentationIcon}
-                  </StyledDocumentationIconWrapper>
-                }
+                show={<StyledDocumentationIconWrapper>{documentationIcon}</StyledDocumentationIconWrapper>}
               />
               <StyledDescription>{description}</StyledDescription>
             </StyledDescriptionCard>
@@ -472,11 +429,7 @@ const GuidanceContent: React.FC<
           show={
             <StyledLinkContainer>
               <StyledLinkIcon />
-              <StyledDocumentationLink
-                href={documentationLink}
-                rel='noopener noreferrer'
-                target='_blank'
-              >
+              <StyledDocumentationLink href={documentationLink} rel='noopener noreferrer' target='_blank'>
                 {documentationLinkLabel}
               </StyledDocumentationLink>
             </StyledLinkContainer>
@@ -498,10 +451,7 @@ const Guidance: React.FC<IGuidanceProps> = (props) => {
 
 const FixedGuidance: React.FC<IGuidanceProps> = (props) => {
   return (
-    <StyledSidebar
-      sidebarWidth={formTemplateFixedSidebarWidth}
-      fixedCodeHeight='300px'
-    >
+    <StyledSidebar sidebarWidth={formTemplateFixedSidebarWidth} fixedCodeHeight='300px'>
       <GuidanceContent {...props} fixedDocumentationHeight='170px' />
     </StyledSidebar>
   );

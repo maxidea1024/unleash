@@ -16,14 +16,11 @@ test('should allow to add strategy', async () => {
     <Routes>
       <Route
         path='/projects/:projectId/features/:featureId/strategies/create'
-        element={
-          <FeatureOverviewEnvironment env={environmentWithoutStrategies} />
-        }
+        element={<FeatureOverviewEnvironment env={environmentWithoutStrategies} />}
       />
     </Routes>,
     {
-      route:
-        '/projects/default/features/featureWithoutStrategies/strategies/create',
+      route: '/projects/default/features/featureWithoutStrategies/strategies/create',
       permissions: [{ permission: CREATE_FEATURE_STRATEGY }],
     },
   );

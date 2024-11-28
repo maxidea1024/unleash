@@ -12,10 +12,7 @@ interface IStrategyDeleteButtonProps {
   onClick: () => void;
 }
 
-export const StrategyDeleteButton: VFC<IStrategyDeleteButtonProps> = ({
-  strategy,
-  onClick,
-}) => {
+export const StrategyDeleteButton: VFC<IStrategyDeleteButtonProps> = ({ strategy, onClick }) => {
   const id = useId();
 
   return (

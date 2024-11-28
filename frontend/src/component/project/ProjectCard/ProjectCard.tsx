@@ -1,9 +1,4 @@
-import {
-  StyledProjectCard,
-  StyledCardTitle,
-  StyledProjectCardBody,
-  StyledIconBox,
-} from './ProjectCard.styles';
+import { StyledProjectCard, StyledCardTitle, StyledProjectCardBody, StyledIconBox } from './ProjectCard.styles';
 import { ProjectCardFooter } from './ProjectCardFooter/ProjectCardFooter';
 import { ProjectModeBadge } from './ProjectModeBadge/ProjectModeBadge';
 import { ProjectIcon } from 'component/common/ProjectIcon/ProjectIcon';

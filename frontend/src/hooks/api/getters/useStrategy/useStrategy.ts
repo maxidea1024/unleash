@@ -11,9 +11,7 @@ interface IUseStrategyOutput {
   error?: Error;
 }
 
-export const useStrategy = (
-  strategyName: string | undefined,
-): IUseStrategyOutput => {
+export const useStrategy = (strategyName: string | undefined): IUseStrategyOutput => {
   const { data, error, mutate } = useSWR(
     strategyName ? formatApiPath(`api/admin/strategies/${strategyName}`) : null, // Don't fetch until we have a strategyName.
     fetcher,

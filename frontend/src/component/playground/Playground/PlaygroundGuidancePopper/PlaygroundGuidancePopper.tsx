@@ -8,8 +8,7 @@ import { PlaygroundGuidance } from '../PlaygroundGuidance/PlaygroundGuidance';
 export const PlaygroundGuidancePopper = () => {
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
-  const onOpen = (event: React.FormEvent<HTMLButtonElement>) =>
-    setAnchorEl(event.currentTarget);
+  const onOpen = (event: React.FormEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
 
   const onClose = () => setAnchorEl(null);
 
@@ -23,12 +22,7 @@ export const PlaygroundGuidancePopper = () => {
         <Help />
       </IconButton>
 
-      <Popper
-        id={id}
-        open={open}
-        anchorEl={anchor}
-        sx={(theme) => ({ zIndex: theme.zIndex.tooltip })}
-      >
+      <Popper id={id} open={open} anchorEl={anchor} sx={(theme) => ({ zIndex: theme.zIndex.tooltip })}>
         <Paper
           sx={(theme) => ({
             padding: theme.spacing(8, 4),
@@ -36,10 +30,7 @@ export const PlaygroundGuidancePopper = () => {
             borderRadius: `${theme.shape.borderRadiusExtraLarge}px`,
           })}
         >
-          <IconButton
-            onClick={onClose}
-            sx={{ position: 'absolute', right: 25, top: 15 }}
-          >
+          <IconButton onClick={onClose} sx={{ position: 'absolute', right: 25, top: 15 }}>
             <Close />
           </IconButton>
           <PlaygroundGuidance />

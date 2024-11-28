@@ -1,8 +1,6 @@
 import { ProjectAccessAssign } from '../ProjectAccessAssign/ProjectAccessAssign';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import useProjectAccess, {
-  ENTITY_TYPE,
-} from 'hooks/api/getters/useProjectAccess/useProjectAccess';
+import useProjectAccess, { ENTITY_TYPE } from 'hooks/api/getters/useProjectAccess/useProjectAccess';
 import { useAccess } from 'hooks/api/getters/useAccess/useAccess';
 import { useUserProjectRoles } from '../../../../hooks/api/getters/useUserProjectRoles/useUserProjectRoles';
 
@@ -17,9 +15,7 @@ export const ProjectAccessEditUser = () => {
     return null;
   }
 
-  const user = access.rows.find(
-    (row) => row.entity.id === Number(userId) && row.type !== ENTITY_TYPE.GROUP,
-  );
+  const user = access.rows.find((row) => row.entity.id === Number(userId) && row.type !== ENTITY_TYPE.GROUP);
 
   return (
     <ProjectAccessAssign

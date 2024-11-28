@@ -8,29 +8,12 @@ interface IConfirmUserAddedProps {
   emailSent: boolean;
 }
 
-const ConfirmUserAdded = ({
-  open,
-  closeConfirm,
-  emailSent,
-  inviteLink,
-}: IConfirmUserAddedProps) => {
+const ConfirmUserAdded = ({ open, closeConfirm, emailSent, inviteLink }: IConfirmUserAddedProps) => {
   if (emailSent) {
-    return (
-      <ConfirmUserEmail
-        open={open}
-        closeConfirm={closeConfirm}
-        inviteLink={inviteLink}
-      />
-    );
+    return <ConfirmUserEmail open={open} closeConfirm={closeConfirm} inviteLink={inviteLink} />;
   }
 
-  return (
-    <ConfirmUserLink
-      open={open}
-      closeConfirm={closeConfirm}
-      inviteLink={inviteLink}
-    />
-  );
+  return <ConfirmUserLink open={open} closeConfirm={closeConfirm} inviteLink={inviteLink} />;
 };
 
 export default ConfirmUserAdded;

@@ -10,12 +10,7 @@ interface IUserWithIdStrategyProps {
   errors: IFormErrors;
 }
 
-const UserWithIdStrategy = ({
-  editable,
-  parameters,
-  updateParameter,
-  errors,
-}: IUserWithIdStrategyProps) => {
+const UserWithIdStrategy = ({ editable, parameters, updateParameter, errors }: IUserWithIdStrategyProps) => {
   return (
     <div>
       <StrategyInputList

@@ -18,10 +18,6 @@ afterAll(async () => {
 test('returns health good', async () => {
   expect.assertions(0);
   const { request, destroy } = await setupApp(stores);
-  await request
-    .get('/health')
-    .expect('Content-Type', /json/)
-    .expect(200)
-    .expect('{"health":"GOOD"}');
+  await request.get('/health').expect('Content-Type', /json/).expect(200).expect('{"health":"GOOD"}');
   await destroy();
 });

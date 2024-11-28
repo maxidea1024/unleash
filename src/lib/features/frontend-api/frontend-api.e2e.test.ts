@@ -1,22 +1,10 @@
-import {
-  type IUnleashTest,
-  setupAppWithAuth,
-} from '../../../test/e2e/helpers/test-helper';
+import { type IUnleashTest, setupAppWithAuth } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import { randomId } from '../../util';
-import {
-  ApiTokenType,
-  type IApiToken,
-  type IApiTokenCreate,
-} from '../../types/models/api-token';
+import { ApiTokenType, type IApiToken, type IApiTokenCreate } from '../../types/models/api-token';
 import { startOfHour } from 'date-fns';
-import {
-  type IConstraint,
-  type IStrategyConfig,
-  SYSTEM_USER_AUDIT,
-  TEST_AUDIT_USER,
-} from '../../types';
+import { type IConstraint, type IStrategyConfig, SYSTEM_USER_AUDIT, TEST_AUDIT_USER } from '../../types';
 import type { FrontendApiService } from './frontend-api-service';
 
 let app: IUnleashTest;
@@ -77,13 +65,12 @@ const createFeatureToggle = async ({
   strategies: IStrategyConfig[];
   enabled: boolean;
 }) => {
-  const createdFeature =
-    await app.services.featureToggleService.createFeatureToggle(
-      project,
-      { name },
-      TEST_AUDIT_USER,
-      true,
-    );
+  const createdFeature = await app.services.featureToggleService.createFeatureToggle(
+    project,
+    { name },
+    TEST_AUDIT_USER,
+    true,
+  );
   const createdStrategies = await Promise.all(
     (strategies ?? []).map(async (s) =>
       app.services.featureToggleService.createStrategy(
@@ -93,13 +80,7 @@ const createFeatureToggle = async ({
       ),
     ),
   );
-  await app.services.featureToggleService.updateEnabled(
-    project,
-    name,
-    environment,
-    enabled,
-    TEST_AUDIT_USER,
-  );
+  await app.services.featureToggleService.updateEnabled(project, name, environment, enabled, TEST_AUDIT_USER);
   return [createdFeature, createdStrategies] as const;
 };
 
@@ -116,10 +97,7 @@ const createProject = async (id: string, name: string): Promise<void> => {
 };
 
 test('should require a frontend token or an admin token', async () => {
-  await app.request
-    .get('/api/frontend')
-    .expect('Content-Type', /json/)
-    .expect(401);
+  await app.request.get('/api/frontend').expect('Content-Type', /json/).expect(401);
 });
 
 test('should not allow requests with a client token', async () => {
@@ -161,25 +139,10 @@ test('should allow requests with a token secret alias', async () => {
     environment: envB,
   });
   await frontendApiService.refreshData();
-  await app.request
-    .get('/api/frontend')
-    .expect('Content-Type', /json/)
-    .expect(401);
-  await app.request
-    .get('/api/frontend')
-    .set('Authorization', '')
-    .expect('Content-Type', /json/)
-    .expect(401);
-  await app.request
-    .get('/api/frontend')
-    .set('Authorization', 'null')
-    .expect('Content-Type', /json/)
-    .expect(401);
-  await app.request
-    .get('/api/frontend')
-    .set('Authorization', randomId())
-    .expect('Content-Type', /json/)
-    .expect(401);
+  await app.request.get('/api/frontend').expect('Content-Type', /json/).expect(401);
+  await app.request.get('/api/frontend').set('Authorization', '').expect('Content-Type', /json/).expect(401);
+  await app.request.get('/api/frontend').set('Authorization', 'null').expect('Content-Type', /json/).expect(401);
+  await app.request.get('/api/frontend').set('Authorization', randomId()).expect('Content-Type', /json/).expect(401);
   await app.request
     .get('/api/frontend')
     .set('Authorization', tokenA.secret.slice(0, -1))
@@ -524,9 +487,7 @@ test('should filter features by constraints', async () => {
     strategies: [
       {
         name: 'default',
-        constraints: [
-          { contextName: 'appName', operator: 'IN', values: ['a'] },
-        ],
+        constraints: [{ contextName: 'appName', operator: 'IN', values: ['a'] }],
         parameters: {},
       },
     ],
@@ -732,31 +693,15 @@ test('should filter features by environment', async () => {
     name: environmentB,
     type: 'production',
   });
-  await app.services.environmentService.addEnvironmentToProject(
-    environmentA,
-    'default',
-    SYSTEM_USER_AUDIT,
-  );
-  await app.services.environmentService.addEnvironmentToProject(
-    environmentB,
-    'default',
-    SYSTEM_USER_AUDIT,
-  );
-  const frontendTokenEnvironmentDefault = await createApiToken(
-    ApiTokenType.FRONTEND,
-  );
-  const frontendTokenEnvironmentA = await createApiToken(
-    ApiTokenType.FRONTEND,
-    {
-      environment: environmentA,
-    },
-  );
-  const frontendTokenEnvironmentB = await createApiToken(
-    ApiTokenType.FRONTEND,
-    {
-      environment: environmentB,
-    },
-  );
+  await app.services.environmentService.addEnvironmentToProject(environmentA, 'default', SYSTEM_USER_AUDIT);
+  await app.services.environmentService.addEnvironmentToProject(environmentB, 'default', SYSTEM_USER_AUDIT);
+  const frontendTokenEnvironmentDefault = await createApiToken(ApiTokenType.FRONTEND);
+  const frontendTokenEnvironmentA = await createApiToken(ApiTokenType.FRONTEND, {
+    environment: environmentA,
+  });
+  const frontendTokenEnvironmentB = await createApiToken(ApiTokenType.FRONTEND, {
+    environment: environmentB,
+  });
   await createFeatureToggle({
     name: 'featureInEnvironmentDefault',
     enabled: true,
@@ -1160,13 +1105,12 @@ test('should return 204 if metrics are disabled', async () => {
     db.rawDatabase,
   );
 
-  const frontendToken =
-    await localApp.services.apiTokenService.createApiTokenWithProjects({
-      type: ApiTokenType.FRONTEND,
-      projects: ['*'],
-      environment: 'default',
-      tokenName: `disabledMetric-token-${randomId()}`,
-    });
+  const frontendToken = await localApp.services.apiTokenService.createApiTokenWithProjects({
+    type: ApiTokenType.FRONTEND,
+    projects: ['*'],
+    environment: 'default',
+    tokenName: `disabledMetric-token-${randomId()}`,
+  });
 
   const appName = randomId();
   const instanceId = randomId();

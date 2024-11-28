@@ -19,17 +19,14 @@ interface IEnvironmentTableActionsProps {
   environment: IEnvironment;
 }
 
-export const EnvironmentActionCell = ({
-  environment,
-}: IEnvironmentTableActionsProps) => {
+export const EnvironmentActionCell = ({ environment }: IEnvironmentTableActionsProps) => {
   const navigate = useNavigate();
   const { uiConfig } = useUiConfig();
   const environmentLimit = uiConfig.resourceLimits.environments;
   const { setToastApiError, setToastData } = useToast();
   const { environments, refetchEnvironments } = useEnvironments();
   const { refetch: refetchPermissions } = usePermissions();
-  const { deleteEnvironment, toggleEnvironmentOn, toggleEnvironmentOff } =
-    useEnvironmentApi();
+  const { deleteEnvironment, toggleEnvironmentOn, toggleEnvironmentOff } = useEnvironmentApi();
 
   const [deleteDialog, setDeleteDialog] = useState(false);
   const [deprecateToggleDialog, setDeprecateToggleDialog] = useState(false);
@@ -117,11 +114,7 @@ export const EnvironmentActionCell = ({
           setTokenDialog(true);
         }}
       />
-      <EnvironmentTokenDialog
-        open={tokenDialog}
-        setOpen={setTokenDialog}
-        token={newToken}
-      />
+      <EnvironmentTokenDialog open={tokenDialog} setOpen={setTokenDialog} token={newToken} />
     </ActionCell>
   );
 };

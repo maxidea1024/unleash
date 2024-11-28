@@ -24,10 +24,7 @@ export const createFeature_API = (
   });
 };
 
-export const deleteFeature_API = (
-  name: string,
-  projectName?: string,
-): Chainable<any> => {
+export const deleteFeature_API = (name: string, projectName?: string): Chainable<any> => {
   const project = projectName || 'default';
   cy.request({
     method: 'DELETE',
@@ -39,10 +36,7 @@ export const deleteFeature_API = (
   });
 };
 
-export const createProject_API = (
-  project: string,
-  options?: Partial<Cypress.RequestOptions>,
-): Chainable<any> => {
+export const createProject_API = (project: string, options?: Partial<Cypress.RequestOptions>): Chainable<any> => {
   return cy.request({
     url: `${baseUrl}/api/admin/projects`,
     method: 'POST',
@@ -93,20 +87,12 @@ export const updateUserPassword_API = (id: number, pass?: string): Chainable =>
     password: pass || password,
   });
 
-export const addUserToProject_API = (
-  id: number,
-  role: number,
-  projectName?: string,
-): Chainable => {
+export const addUserToProject_API = (id: number, role: number, projectName?: string): Chainable => {
   const project = projectName || 'default';
-  return cy.request(
-    'POST',
-    `${baseUrl}/api/admin/projects/${project}/role/${role}/access`,
-    {
-      groups: [],
-      users: [{ id }],
-    },
-  );
+  return cy.request('POST', `${baseUrl}/api/admin/projects/${project}/role/${role}/access`, {
+    groups: [],
+    users: [{ id }],
+  });
 };
 
 interface IEnvironment {

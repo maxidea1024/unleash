@@ -4,9 +4,7 @@ import type { ClientFeaturesQuerySchema } from './client-features-query-schema';
 test('clientFeatureQuerySchema empty', () => {
   const data: ClientFeaturesQuerySchema = {};
 
-  expect(
-    validateSchema('#/components/schemas/clientFeaturesQuerySchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesQuerySchema', data)).toBeUndefined();
 });
 
 test('clientFeatureQuerySchema all fields', () => {
@@ -18,7 +16,5 @@ test('clientFeatureQuerySchema all fields', () => {
     inlineSegmentConstraints: true,
   };
 
-  expect(
-    validateSchema('#/components/schemas/clientFeaturesQuerySchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesQuerySchema', data)).toBeUndefined();
 });

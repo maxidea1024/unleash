@@ -70,10 +70,7 @@ test('should report has strategies and enabled strategies', async () => {
     'featureWithDisabledStrategies',
   );
 
-  const { body } = await app.request
-    .get('/api/admin/projects/default')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/projects/default').expect('Content-Type', /json/).expect(200);
 
   expect(body).toMatchObject({
     features: [
@@ -119,28 +116,19 @@ test('Should ONLY return default project', async () => {
     mode: 'open',
   });
 
-  const { body } = await app.request
-    .get('/api/admin/projects')
-    .expect(200)
-    .expect('Content-Type', /json/);
+  const { body } = await app.request.get('/api/admin/projects').expect(200).expect('Content-Type', /json/);
 
   expect(body.projects).toHaveLength(1);
   expect(body.projects[0].id).toBe('default');
 });
 
 test('response should include created_at', async () => {
-  const { body } = await app.request
-    .get('/api/admin/projects')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/projects').expect('Content-Type', /json/).expect(200);
   expect(body.projects[0].createdAt).toBeDefined();
 });
 
 test('response for default project should include created_at', async () => {
-  const { body } = await app.request
-    .get('/api/admin/projects/default')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/projects/default').expect('Content-Type', /json/).expect(200);
   expect(body.createdAt).toBeDefined();
 });
 test('response for project overview should include feature type counts', async () => {
@@ -173,51 +161,27 @@ test('response for project overview should include feature type counts', async (
 test('response should include last seen at per environment', async () => {
   await app.createFeature('my-new-feature-toggle');
 
-  await insertLastSeenAt(
-    'my-new-feature-toggle',
-    db.rawDatabase,
-    'default',
-    testDate,
-  );
-  await insertFeatureEnvironmentsLastSeen(
-    'my-new-feature-toggle',
-    db.rawDatabase,
-    'default',
-  );
+  await insertLastSeenAt('my-new-feature-toggle', db.rawDatabase, 'default', testDate);
+  await insertFeatureEnvironmentsLastSeen('my-new-feature-toggle', db.rawDatabase, 'default');
 
-  const { body } = await app.request
-    .get('/api/admin/projects/default')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/projects/default').expect('Content-Type', /json/).expect(200);
 
   expect(body.features[0].environments[0].lastSeenAt).toEqual(testDate);
   expect(body.features[0].lastSeenAt).toEqual(testDate);
 
-  const appWithLastSeenRefactor = await setupAppWithCustomConfig(
-    db.stores,
-    {},
-    db.rawDatabase,
-  );
+  const appWithLastSeenRefactor = await setupAppWithCustomConfig(db.stores, {}, db.rawDatabase);
 
   const response = await appWithLastSeenRefactor.request
     .get('/api/admin/projects/default')
     .expect('Content-Type', /json/)
     .expect(200);
 
-  expect(response.body.features[0].environments[0].lastSeenAt).toEqual(
-    '2023-10-01T12:34:56.000Z',
-  );
-  expect(response.body.features[0].lastSeenAt).toEqual(
-    '2023-10-01T12:34:56.000Z',
-  );
+  expect(response.body.features[0].environments[0].lastSeenAt).toEqual('2023-10-01T12:34:56.000Z');
+  expect(response.body.features[0].lastSeenAt).toEqual('2023-10-01T12:34:56.000Z');
 });
 
 test('response should include last seen at per environment for multiple environments', async () => {
-  const appWithLastSeenRefactor = await setupAppWithCustomConfig(
-    db.stores,
-    {},
-    db.rawDatabase,
-  );
+  const appWithLastSeenRefactor = await setupAppWithCustomConfig(db.stores, {}, db.rawDatabase);
   await app.createFeature('my-new-feature-toggle');
 
   await db.stores.environmentStore.create({
@@ -234,37 +198,14 @@ test('response should include last seen at per environment for multiple environm
     enabled: true,
   });
 
-  await appWithLastSeenRefactor.services.projectService.addEnvironmentToProject(
-    'default',
-    'development',
-  );
-  await appWithLastSeenRefactor.services.projectService.addEnvironmentToProject(
-    'default',
-    'production',
-  );
+  await appWithLastSeenRefactor.services.projectService.addEnvironmentToProject('default', 'development');
+  await appWithLastSeenRefactor.services.projectService.addEnvironmentToProject('default', 'production');
 
-  await appWithLastSeenRefactor.createFeature(
-    'multiple-environment-last-seen-at',
-  );
+  await appWithLastSeenRefactor.createFeature('multiple-environment-last-seen-at');
 
-  await insertLastSeenAt(
-    'multiple-environment-last-seen-at',
-    db.rawDatabase,
-    'default',
-    '2023-10-01 12:32:56',
-  );
-  await insertLastSeenAt(
-    'multiple-environment-last-seen-at',
-    db.rawDatabase,
-    'development',
-    '2023-10-01 12:34:56',
-  );
-  await insertLastSeenAt(
-    'multiple-environment-last-seen-at',
-    db.rawDatabase,
-    'production',
-    '2023-10-01 12:33:56',
-  );
+  await insertLastSeenAt('multiple-environment-last-seen-at', db.rawDatabase, 'default', '2023-10-01 12:32:56');
+  await insertLastSeenAt('multiple-environment-last-seen-at', db.rawDatabase, 'development', '2023-10-01 12:34:56');
+  await insertLastSeenAt('multiple-environment-last-seen-at', db.rawDatabase, 'production', '2023-10-01 12:33:56');
 
   const { body } = await appWithLastSeenRefactor.request
     .get('/api/admin/projects/default')

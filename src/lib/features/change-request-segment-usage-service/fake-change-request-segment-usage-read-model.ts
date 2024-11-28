@@ -3,19 +3,14 @@ import type {
   IChangeRequestSegmentUsageReadModel,
 } from './change-request-segment-usage-read-model';
 
-export class FakeChangeRequestSegmentUsageReadModel
-  implements IChangeRequestSegmentUsageReadModel
-{
+export class FakeChangeRequestSegmentUsageReadModel implements IChangeRequestSegmentUsageReadModel {
   strategiesUsedInActiveChangeRequests: ChangeRequestStrategy[];
 
   constructor(strategiesUsedInActiveChangeRequests = []) {
-    this.strategiesUsedInActiveChangeRequests =
-      strategiesUsedInActiveChangeRequests;
+    this.strategiesUsedInActiveChangeRequests = strategiesUsedInActiveChangeRequests;
   }
 
-  public async getStrategiesUsedInActiveChangeRequests(): Promise<
-    ChangeRequestStrategy[]
-  > {
+  public async getStrategiesUsedInActiveChangeRequests(): Promise<ChangeRequestStrategy[]> {
     return this.strategiesUsedInActiveChangeRequests;
   }
 }

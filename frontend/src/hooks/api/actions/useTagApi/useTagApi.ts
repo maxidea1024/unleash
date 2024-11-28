@@ -16,10 +16,7 @@ const useTagApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const bulkUpdateTags = async (
-    payload: TagsBulkAddSchema,
-    projectId: string,
-  ) => {
+  const bulkUpdateTags = async (payload: TagsBulkAddSchema, projectId: string) => {
     const path = `api/admin/projects/${projectId}/tags`;
     const req = createRequest(path, {
       method: 'PUT',

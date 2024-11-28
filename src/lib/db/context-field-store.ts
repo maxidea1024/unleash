@@ -9,14 +9,7 @@ import type {
 import NotFoundError from '../error/notfound-error';
 import type { IFlagResolver } from '../types';
 
-const COLUMNS = [
-  'name',
-  'description',
-  'stickiness',
-  'sort_order',
-  'legal_values',
-  'created_at',
-];
+const COLUMNS = ['name', 'description', 'stickiness', 'sort_order', 'legal_values', 'created_at'];
 
 const T = {
   contextFields: 'context_fields',
@@ -97,20 +90,13 @@ export default class ContextFieldStore implements IContextFieldStore {
                         WHERE elem ->> 'contextName' = ${T.contextFields}.name
                       )`,
       )
-      .groupBy(
-        this.prefixColumns(
-          COLUMNS.filter((column) => column !== 'legal_values'),
-        ),
-      )
+      .groupBy(this.prefixColumns(COLUMNS.filter((column) => column !== 'legal_values')))
       .orderBy('name', 'asc');
     return rows.map(mapRow);
   }
 
   async get(key: string): Promise<IContextField> {
-    const row = await this.db
-      .first(COLUMNS)
-      .from(T.contextFields)
-      .where({ name: key });
+    const row = await this.db.first(COLUMNS).from(T.contextFields).where({ name: key });
     if (!row) {
       throw new NotFoundError(`Could not find Context field with name ${key}`);
     }
@@ -124,19 +110,16 @@ export default class ContextFieldStore implements IContextFieldStore {
   destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${T.contextFields} WHERE name = ?) AS present`,
-      [key],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${T.contextFields} WHERE name = ?) AS present`, [
+      key,
+    ]);
     const { present } = result.rows[0];
     return present;
   }
 
   // TODO: write tests for the changes you made here?
   async create(contextField: IContextFieldDto): Promise<IContextField> {
-    const [row] = await this.db(T.contextFields)
-      .insert(this.fieldToRow(contextField))
-      .returning('*');
+    const [row] = await this.db(T.contextFields).insert(this.fieldToRow(contextField)).returning('*');
 
     return mapRow(row);
   }

@@ -10,10 +10,7 @@ import type { OpenApiService } from '../../../services/openapi-service';
 import { createResponseSchema } from '../../../openapi/util/create-response-schema';
 import { getStandardResponses } from '../../../openapi/util/standard-responses';
 import { serializeDates } from '../../../types/serialize-dates';
-import {
-  healthReportSchema,
-  type HealthReportSchema,
-} from '../../../openapi/spec/health-report-schema';
+import { healthReportSchema, type HealthReportSchema } from '../../../openapi/spec/health-report-schema';
 
 export default class ProjectHealthReport extends Controller {
   private readonly projectHealthService: ProjectHealthService;
@@ -22,10 +19,7 @@ export default class ProjectHealthReport extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      projectHealthService,
-      openApiService,
-    }: Pick<IUnleashServices, 'projectHealthService' | 'openApiService'>,
+    { projectHealthService, openApiService }: Pick<IUnleashServices, 'projectHealthService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -55,18 +49,9 @@ export default class ProjectHealthReport extends Controller {
     });
   }
 
-  async getProjectHealthReport(
-    req: Request<IProjectParam>,
-    res: Response<HealthReportSchema>,
-  ): Promise<void> {
+  async getProjectHealthReport(req: Request<IProjectParam>, res: Response<HealthReportSchema>): Promise<void> {
     const { projectId } = req.params;
-    const overview =
-      await this.projectHealthService.getProjectHealthReport(projectId);
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      healthReportSchema.$id,
-      serializeDates(overview),
-    );
+    const overview = await this.projectHealthService.getProjectHealthReport(projectId);
+    this.openApiService.respondWithValidation(200, res, healthReportSchema.$id, serializeDates(overview));
   }
 }

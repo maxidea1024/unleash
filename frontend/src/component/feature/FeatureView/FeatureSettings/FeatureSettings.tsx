@@ -64,17 +64,9 @@ export const FeatureSettings = () => {
         <StyledInnerBodyContainer>
           <ConditionallyRender
             condition={settings === METADATA}
-            show={
-              <FeatureSettingsInformation
-                projectId={projectId}
-                featureId={featureId}
-              />
-            }
+            show={<FeatureSettingsInformation projectId={projectId} featureId={featureId} />}
           />
-          <ConditionallyRender
-            condition={settings === PROJECT && uiConfig.flags.P}
-            show={<FeatureSettingsProject />}
-          />
+          <ConditionallyRender condition={settings === PROJECT && uiConfig.flags.P} show={<FeatureSettingsProject />} />
         </StyledInnerBodyContainer>
       </Box>
     </PageContent>

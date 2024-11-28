@@ -1,9 +1,6 @@
 import type { Db } from '../../db/db';
 import type { IDependentFeaturesStore } from './dependent-features-store-type';
-import type {
-  FeatureDependency,
-  FeatureDependencyId,
-} from './dependent-features';
+import type { FeatureDependency, FeatureDependencyId } from './dependent-features';
 
 type SerializableFeatureDependency = Omit<FeatureDependency, 'variants'> & {
   variants?: string;
@@ -23,26 +20,16 @@ export class DependentFeaturesStore implements IDependentFeaturesStore {
       enabled: featureDependency.enabled,
     };
     if ('variants' in featureDependency) {
-      serializableFeatureDependency.variants = JSON.stringify(
-        featureDependency.variants,
-      );
+      serializableFeatureDependency.variants = JSON.stringify(featureDependency.variants);
     }
     // TODO: remove when we support multiple parents
-    await this.db('dependent_features')
-      .where('child', featureDependency.child)
-      .del();
+    await this.db('dependent_features').where('child', featureDependency.child).del();
 
-    await this.db('dependent_features')
-      .insert(serializableFeatureDependency)
-      .onConflict(['parent', 'child'])
-      .merge();
+    await this.db('dependent_features').insert(serializableFeatureDependency).onConflict(['parent', 'child']).merge();
   }
 
   async delete(dependency: FeatureDependencyId): Promise<void> {
-    await this.db('dependent_features')
-      .where('parent', dependency.parent)
-      .andWhere('child', dependency.child)
-      .del();
+    await this.db('dependent_features').where('parent', dependency.parent).andWhere('child', dependency.child).del();
   }
 
   async deleteAll(features: string[] | undefined): Promise<void> {

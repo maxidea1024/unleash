@@ -14,36 +14,31 @@ import { Sticky } from 'component/common/Sticky/Sticky';
 const DEFAULT_VARIANT = 'info';
 
 const StyledBar = styled('aside', {
-  shouldForwardProp: (prop) =>
-    prop !== 'variant' && prop !== 'inline' && prop !== 'maxHeight',
-})<{ variant: BannerVariant; inline?: boolean; maxHeight?: number }>(
-  ({ theme, variant, inline, maxHeight }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(1),
-    gap: theme.spacing(1),
-    width: '100%',
-    ...(inline
-      ? {
-          border: '1px solid',
-          borderRadius: theme.shape.borderRadiusMedium,
-        }
-      : {
-          borderBottom: '1px solid',
-        }),
-    ...(maxHeight && {
-      maxHeight: maxHeight,
-      overflow: 'auto',
-    }),
-    borderColor:
-      theme.palette[variant]?.border ?? theme.palette[DEFAULT_VARIANT].border,
-    background:
-      theme.palette[variant]?.light ?? theme.palette[DEFAULT_VARIANT].light,
-    color: theme.palette[variant]?.dark ?? theme.palette[DEFAULT_VARIANT].dark,
-    fontSize: theme.fontSizes.smallBody,
+  shouldForwardProp: (prop) => prop !== 'variant' && prop !== 'inline' && prop !== 'maxHeight',
+})<{ variant: BannerVariant; inline?: boolean; maxHeight?: number }>(({ theme, variant, inline, maxHeight }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: theme.spacing(1),
+  gap: theme.spacing(1),
+  width: '100%',
+  ...(inline
+    ? {
+        border: '1px solid',
+        borderRadius: theme.shape.borderRadiusMedium,
+      }
+    : {
+        borderBottom: '1px solid',
+      }),
+  ...(maxHeight && {
+    maxHeight: maxHeight,
+    overflow: 'auto',
   }),
-);
+  borderColor: theme.palette[variant]?.border ?? theme.palette[DEFAULT_VARIANT].border,
+  background: theme.palette[variant]?.light ?? theme.palette[DEFAULT_VARIANT].light,
+  color: theme.palette[variant]?.dark ?? theme.palette[DEFAULT_VARIANT].dark,
+  fontSize: theme.fontSizes.smallBody,
+}));
 
 const StyledIcon = styled('div', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -86,18 +81,10 @@ export const Banner = ({ banner, inline, maxHeight }: IBannerProps) => {
         <BannerIcon icon={icon} variant={variant} />
       </StyledIcon>
       <Markdown>{message}</Markdown>
-      <BannerButton
-        link={link}
-        plausibleEvent={plausibleEvent}
-        openDialog={openDialog}
-      >
+      <BannerButton link={link} plausibleEvent={plausibleEvent} openDialog={openDialog}>
         {linkText}
       </BannerButton>
-      <BannerDialog
-        open={open}
-        setOpen={setOpen}
-        title={dialogTitle || linkText}
-      >
+      <BannerDialog open={open} setOpen={setOpen} title={dialogTitle || linkText}>
         {dialog!}
       </BannerDialog>
     </StyledBar>
@@ -135,12 +122,7 @@ interface IBannerButtonProps {
   children: React.ReactNode;
 }
 
-const BannerButton = ({
-  link,
-  plausibleEvent,
-  openDialog,
-  children,
-}: IBannerButtonProps) => {
+const BannerButton = ({ link, plausibleEvent, openDialog, children }: IBannerButtonProps) => {
   const navigate = useNavigate();
   const tracker = usePlausibleTracker();
 

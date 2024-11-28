@@ -1,12 +1,4 @@
-import {
-  type Dispatch,
-  type FormEvent,
-  type SetStateAction,
-  useEffect,
-  useMemo,
-  useState,
-  type VFC,
-} from 'react';
+import { type Dispatch, type FormEvent, type SetStateAction, useEffect, useMemo, useState, type VFC } from 'react';
 import {
   Box,
   Button,
@@ -27,26 +19,18 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import useToast from 'hooks/useToast';
 import { PlaygroundEditor } from './PlaygroundEditor/PlaygroundEditor';
 import { parseDateValue, parseValidDate } from 'component/common/util';
-import {
-  isStringOrStringArray,
-  normalizeCustomContextProperties,
-} from '../../playground.utils';
+import { isStringOrStringArray, normalizeCustomContextProperties } from '../../playground.utils';
 interface IPlaygroundCodeFieldsetProps {
   context: string | undefined;
   setContext: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
-  context,
-  setContext,
-}) => {
+export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({ context, setContext }) => {
   const theme = useTheme();
 
   const { setToastData } = useToast();
   const { context: contextData } = useUnleashContext();
-  const contextOptions = contextData
-    .sort((a, b) => a.sortOrder - b.sortOrder)
-    .map(({ name }) => name);
+  const contextOptions = contextData.sort((a, b) => a.sortOrder - b.sortOrder).map(({ name }) => name);
   const [error, setError] = useState<string>();
   const [fieldExist, setFieldExist] = useState<boolean>(false);
   const [contextField, setContextField] = useState<string>('');
@@ -62,8 +46,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
           const contextValue = JSON.parse(input);
 
           setFieldExist(
-            contextValue[contextField] !== undefined ||
-              contextValue?.properties?.[contextField] !== undefined,
+            contextValue[contextField] !== undefined || contextValue?.properties?.[contextField] !== undefined,
           );
         } catch (error: unknown) {
           return setError(formatUnknownError(error));
@@ -93,14 +76,9 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
         ),
       );
 
-      const foundContext = contextData.find(
-        (context) => context.name === contextField,
-      );
+      const foundContext = contextData.find((context) => context.name === contextField);
 
-      if (
-        (foundContext?.legalValues && foundContext.legalValues.length > 0) ||
-        contextField === 'currentTime'
-      ) {
+      if ((foundContext?.legalValues && foundContext.legalValues.length > 0) || contextField === 'currentTime') {
         return setContextValue('');
       }
     } catch (error) {
@@ -111,15 +89,11 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
     }
   };
 
-  const changeContextValue = (
-    e: FormEvent,
-    newValue: string | (string | string[])[] | null,
-  ) => {
+  const changeContextValue = (e: FormEvent, newValue: string | (string | string[])[] | null) => {
     if (!isStringOrStringArray(newValue)) return;
 
     if (Array.isArray(newValue)) {
-      const temp =
-        (newValue || []).length > 1 ? newValue.join(',') : newValue[0];
+      const temp = (newValue || []).length > 1 ? newValue.join(',') : newValue[0];
       return setContextValue(temp);
     }
 
@@ -134,9 +108,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
     }
 
     // Split comma separated strings to array for fields with legal values
-    const foundField = contextData.find(
-      (contextData) => contextData.name === contextField,
-    );
+    const foundField = contextData.find((contextData) => contextData.name === contextField);
     const hasLegalValues = (foundField?.legalValues || []).length > 1;
     if (contextValue.includes(',') && hasLegalValues) {
       return contextValue.split(',');
@@ -150,9 +122,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
       const validDate = parseValidDate(contextValue);
       const now = new Date();
 
-      const value = validDate
-        ? parseDateValue(validDate.toISOString())
-        : parseDateValue(now.toISOString());
+      const value = validDate ? parseDateValue(validDate.toISOString()) : parseDateValue(now.toISOString());
 
       return (
         <TextField
@@ -174,9 +144,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
         />
       );
     }
-    const foundField = contextData.find(
-      (contextData) => contextData.name === contextField,
-    );
+    const foundField = contextData.find((contextData) => contextData.name === contextField);
     if (foundField?.legalValues && foundField.legalValues.length > 0) {
       const options = foundField.legalValues.map(({ value }) => value);
       return (
@@ -224,11 +192,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
   return (
     <Box>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Typography
-          variant='body2'
-          color={theme.palette.text.primary}
-          sx={{ ml: 1 }}
-        >
+        <Typography variant='body2' color={theme.palette.text.primary} sx={{ ml: 1 }}>
           Unleash context
         </Typography>
       </Box>
@@ -266,11 +230,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
         </Button>
       </Box>
 
-      <PlaygroundEditor
-        context={context}
-        setContext={setContext}
-        error={error}
-      />
+      <PlaygroundEditor context={context} setContext={setContext} error={error} />
     </Box>
   );
 };

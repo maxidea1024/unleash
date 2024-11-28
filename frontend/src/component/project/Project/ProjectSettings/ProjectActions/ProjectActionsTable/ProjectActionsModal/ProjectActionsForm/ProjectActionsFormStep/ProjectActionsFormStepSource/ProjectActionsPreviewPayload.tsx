@@ -1,16 +1,8 @@
 import ArrowForwardIosSharp from '@mui/icons-material/ArrowForwardIosSharp';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  IconButton,
-  styled,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, IconButton, styled } from '@mui/material';
 import { Suspense, lazy } from 'react';
 
-const LazyReactJSONEditor = lazy(
-  () => import('component/common/ReactJSONEditor/ReactJSONEditor'),
-);
+const LazyReactJSONEditor = lazy(() => import('component/common/ReactJSONEditor/ReactJSONEditor'));
 
 const StyledNoSignalsSpan = styled('span')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
@@ -39,12 +31,10 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
   },
 }));
 
-const StyledArrowForwardIosSharp = styled(ArrowForwardIosSharp)(
-  ({ theme }) => ({
-    color: theme.palette.primary.main,
-    fontSize: theme.fontSizes.smallBody,
-  }),
-);
+const StyledArrowForwardIosSharp = styled(ArrowForwardIosSharp)(({ theme }) => ({
+  color: theme.palette.primary.main,
+  fontSize: theme.fontSizes.smallBody,
+}));
 
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   marginTop: theme.spacing(2),
@@ -55,15 +45,9 @@ interface IProjectActionsPreviewPayloadProps {
   payload?: unknown;
 }
 
-export const ProjectActionsPreviewPayload = ({
-  payload,
-}: IProjectActionsPreviewPayloadProps) => {
+export const ProjectActionsPreviewPayload = ({ payload }: IProjectActionsPreviewPayloadProps) => {
   if (!payload) {
-    return (
-      <StyledNoSignalsSpan>
-        No signals were received from this source yet.
-      </StyledNoSignalsSpan>
-    );
+    return <StyledNoSignalsSpan>No signals were received from this source yet.</StyledNoSignalsSpan>;
   }
 
   return (
@@ -79,12 +63,7 @@ export const ProjectActionsPreviewPayload = ({
       </StyledAccordionSummary>
       <StyledAccordionDetails>
         <Suspense fallback={null}>
-          <LazyReactJSONEditor
-            content={{ json: payload }}
-            readOnly
-            statusBar={false}
-            editorStyle='sidePanel'
-          />
+          <LazyReactJSONEditor content={{ json: payload }} readOnly statusBar={false} editorStyle='sidePanel' />
         </Suspense>
       </StyledAccordionDetails>
     </StyledAccordion>

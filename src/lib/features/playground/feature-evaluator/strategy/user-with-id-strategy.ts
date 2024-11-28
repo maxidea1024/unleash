@@ -11,9 +11,7 @@ export default class UserWithIdStrategy extends Strategy {
       return false;
     }
 
-    const userIdList = parameters.userIds
-      ? parameters.userIds.split(/\s*,\s*/)
-      : [];
+    const userIdList = parameters.userIds ? parameters.userIds.split(/\s*,\s*/) : [];
     return userIdList.includes(context.userId);
   }
 }

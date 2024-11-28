@@ -36,10 +36,7 @@ test('Display full overview information', () => {
   expect(screen.getByText('simple:value3')).toBeInTheDocument();
   expect(screen.getByText('1 more...')).toBeInTheDocument();
   expect(screen.queryByText('simple:value4')).not.toBeInTheDocument();
-  expect(screen.getByRole('link')).toHaveAttribute(
-    'href',
-    '/projects/my_project/features/my_feature',
-  );
+  expect(screen.getByRole('link')).toHaveAttribute('href', '/projects/my_project/features/my_feature');
 });
 
 test('Display minimal overview information', () => {
@@ -62,10 +59,7 @@ test('Display minimal overview information', () => {
   );
 
   expect(screen.getByText('my_feature')).toBeInTheDocument();
-  expect(screen.getByRole('link')).toHaveAttribute(
-    'href',
-    '/projects/my_project/features/my_feature',
-  );
+  expect(screen.getByRole('link')).toHaveAttribute('href', '/projects/my_project/features/my_feature');
 });
 
 test('show archived information', () => {

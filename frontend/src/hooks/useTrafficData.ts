@@ -44,13 +44,9 @@ const calculateTrafficDataCost = (trafficData: number) => {
   return unitCount * TRAFFIC_DATA_UNIT_COST;
 };
 
-const padMonth = (month: number): string =>
-  month < 10 ? `0${month}` : `${month}`;
+const padMonth = (month: number): string => (month < 10 ? `0${month}` : `${month}`);
 
-export const toSelectablePeriod = (
-  date: Date,
-  label?: string,
-): SelectablePeriod => {
+export const toSelectablePeriod = (date: Date, label?: string): SelectablePeriod => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const period = `${year}-${padMonth(month + 1)}`;
@@ -60,8 +56,7 @@ export const toSelectablePeriod = (
     year,
     month,
     dayCount,
-    label:
-      label || date.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
+    label: label || date.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
   };
 };
 
@@ -70,17 +65,9 @@ const currentPeriod = toSelectablePeriod(currentDate, 'Current month');
 
 const getSelectablePeriods = (): SelectablePeriod[] => {
   const selectablePeriods = [currentPeriod];
-  for (
-    let subtractMonthCount = 1;
-    subtractMonthCount < 13;
-    subtractMonthCount++
-  ) {
+  for (let subtractMonthCount = 1; subtractMonthCount < 13; subtractMonthCount++) {
     // JavaScript wraps around the year, so we don't need to handle that.
-    const date = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() - subtractMonthCount,
-      1,
-    );
+    const date = new Date(currentDate.getFullYear(), currentDate.getMonth() - subtractMonthCount, 1);
     if (date > new Date('2024-03-31')) {
       selectablePeriods.push(toSelectablePeriod(date));
     }
@@ -88,9 +75,7 @@ const getSelectablePeriods = (): SelectablePeriod[] => {
   return selectablePeriods;
 };
 
-const toPeriodsRecord = (
-  periods: SelectablePeriod[],
-): Record<string, SelectablePeriod> => {
+const toPeriodsRecord = (periods: SelectablePeriod[]): Record<string, SelectablePeriod> => {
   return periods.reduce(
     (acc, period) => {
       acc[period.key] = period;
@@ -111,10 +96,7 @@ const toChartData = (
 
   const data = traffic.usage.apiData
     .filter((item) => !!endpointsInfo[item.apiPath])
-    .sort(
-      (item1: any, item2: any) =>
-        endpointsInfo[item1.apiPath].order - endpointsInfo[item2.apiPath].order,
-    )
+    .sort((item1: any, item2: any) => endpointsInfo[item1.apiPath].order - endpointsInfo[item2.apiPath].order)
     .map((item: any) => {
       const daysRec = days.reduce(
         (acc, day: number) => {
@@ -144,13 +126,7 @@ const toChartData = (
 
 const toTrafficUsageSum = (trafficData: ChartDatasetType[]): number => {
   const data = trafficData.reduce((acc: number, current: ChartDatasetType) => {
-    return (
-      acc +
-      current.data.reduce(
-        (acc_inner, current_inner) => acc_inner + current_inner,
-        0,
-      )
-    );
+    return acc + current.data.reduce((acc_inner, current_inner) => acc_inner + current_inner, 0);
   }, 0);
   return data;
 };
@@ -159,24 +135,16 @@ const getDayLabels = (dayCount: number): number[] => {
   return [...Array(dayCount).keys()].map((i) => i + 1);
 };
 
-export const calculateOverageCost = (
-  dataUsage: number,
-  includedTraffic: number,
-): number => {
+export const calculateOverageCost = (dataUsage: number, includedTraffic: number): number => {
   if (dataUsage === 0) {
     return 0;
   }
 
-  const overage =
-    Math.floor((dataUsage - includedTraffic) / 1_000_000) * 1_000_000;
+  const overage = Math.floor((dataUsage - includedTraffic) / 1_000_000) * 1_000_000;
   return overage > 0 ? calculateTrafficDataCost(overage) : 0;
 };
 
-export const calculateProjectedUsage = (
-  today: number,
-  trafficData: ChartDatasetType[],
-  daysInPeriod: number,
-) => {
+export const calculateProjectedUsage = (today: number, trafficData: ChartDatasetType[], daysInPeriod: number) => {
   if (today < 5) {
     return 0;
   }
@@ -204,11 +172,7 @@ export const calculateEstimatedMonthlyCost = (
   }
 
   const today = currentDate.getDate();
-  const projectedUsage = calculateProjectedUsage(
-    today,
-    trafficData,
-    currentPeriod.dayCount,
-  );
+  const projectedUsage = calculateProjectedUsage(today, trafficData, currentPeriod.dayCount);
   return calculateOverageCost(projectedUsage, includedTraffic);
 };
 

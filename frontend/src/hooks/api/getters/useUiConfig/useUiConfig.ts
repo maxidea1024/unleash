@@ -28,10 +28,7 @@ const useUiConfig = (): IUseUIConfigOutput => {
   }, [data]);
 
   const isEnterprise = useCallback(() => {
-    return (
-      data?.environment?.toLowerCase() !== 'pro' &&
-      Boolean(data?.versionInfo?.current?.enterprise)
-    );
+    return data?.environment?.toLowerCase() !== 'pro' && Boolean(data?.versionInfo?.current?.enterprise);
   }, [data]);
 
   const uiConfig: IUiConfig = useMemo(() => {

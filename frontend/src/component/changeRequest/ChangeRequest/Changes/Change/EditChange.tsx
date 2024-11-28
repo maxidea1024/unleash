@@ -37,9 +37,7 @@ interface IEditChangeProps {
   onClose: () => void;
 }
 
-const addIdSymbolToConstraints = (
-  strategy?: ChangeRequestAddStrategy | ChangeRequestEditStrategy,
-) => {
+const addIdSymbolToConstraints = (strategy?: ChangeRequestAddStrategy | ChangeRequestEditStrategy) => {
   if (!strategy) return;
 
   return strategy?.constraints.map((constraint) => {
@@ -88,21 +86,20 @@ export const EditChange = ({
 
   const ref = useRef<IFeatureToggle>(feature);
 
-  const { data, staleDataNotification, forceRefreshCache } =
-    useCollaborateData<IFeatureToggle>(
-      {
-        unleashGetter: useFeature,
-        params: [projectId, featureId],
-        dataKey: 'feature',
-        refetchFunctionKey: 'refetchFeature',
-        options: {},
-      },
-      feature,
-      {
-        afterSubmitAction: refetchFeature,
-      },
-      comparisonModerator,
-    );
+  const { data, staleDataNotification, forceRefreshCache } = useCollaborateData<IFeatureToggle>(
+    {
+      unleashGetter: useFeature,
+      params: [projectId, featureId],
+      dataKey: 'feature',
+      refetchFunctionKey: 'refetchFeature',
+      options: {},
+    },
+    feature,
+    {
+      afterSubmitAction: refetchFeature,
+    },
+    comparisonModerator,
+  );
 
   useEffect(() => {
     if (ref.current.name === '' && feature.name) {
@@ -154,15 +151,7 @@ export const EditChange = ({
         description={featureStrategyHelp}
         documentationLink={featureStrategyDocsLink}
         documentationLinkLabel={featureStrategyDocsLinkLabel}
-        formatApiCode={() =>
-          formatUpdateStrategyApiCode(
-            projectId,
-            changeRequestId,
-            change.id,
-            payload,
-            unleashUrl,
-          )
-        }
+        formatApiCode={() => formatUpdateStrategyApiCode(projectId, changeRequestId, change.id, payload, unleashUrl)}
       >
         <FeatureStrategyForm
           projectId={projectId}
@@ -221,7 +210,6 @@ export const featureStrategyHelp = `
     If any of a feature flag's activation strategies returns true, the user will get access.
 `;
 
-export const featureStrategyDocsLink =
-  'https://docs.getunleash.io/reference/activation-strategies';
+export const featureStrategyDocsLink = 'https://docs.getunleash.io/reference/activation-strategies';
 
 export const featureStrategyDocsLinkLabel = 'Strategies documentation';

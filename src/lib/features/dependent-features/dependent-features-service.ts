@@ -1,10 +1,7 @@
 import { InvalidOperationError, PermissionError } from '../../error';
 import type { CreateDependentFeatureSchema } from '../../openapi';
 import type { IDependentFeaturesStore } from './dependent-features-store-type';
-import type {
-  FeatureDependency,
-  FeatureDependencyId,
-} from './dependent-features';
+import type { FeatureDependency, FeatureDependencyId } from './dependent-features';
 import type { IDependentFeaturesReadModel } from './dependent-features-read-model-type';
 import type { EventService } from '../../services';
 import type { IAuditUser, IUser } from '../../server-impl';
@@ -47,15 +44,10 @@ export class DependentFeaturesService {
   }
 
   async cloneDependencies(
-    {
-      featureName,
-      newFeatureName,
-      projectId,
-    }: { featureName: string; newFeatureName: string; projectId: string },
+    { featureName, newFeatureName, projectId }: { featureName: string; newFeatureName: string; projectId: string },
     auditUser: IAuditUser,
   ) {
-    const parents =
-      await this.dependentFeaturesReadModel.getParents(featureName);
+    const parents = await this.dependentFeaturesReadModel.getParents(featureName);
     await Promise.all(
       parents.map((parent) =>
         this.unprotectedUpsertFeatureDependency(
@@ -79,11 +71,7 @@ export class DependentFeaturesService {
   ): Promise<void> {
     await this.stopWhenChangeRequestsEnabled(projectId, user);
 
-    return this.unprotectedUpsertFeatureDependency(
-      { child, projectId },
-      dependentFeature,
-      auditUser,
-    );
+    return this.unprotectedUpsertFeatureDependency({ child, projectId }, dependentFeature, auditUser);
   }
 
   async unprotectedUpsertFeatureDependency(
@@ -94,18 +82,15 @@ export class DependentFeaturesService {
     const { enabled, feature: parent, variants } = dependentFeature;
 
     if (child === parent) {
-      throw new InvalidOperationError(
-        'A feature flag cannot depend on itself.',
-      );
+      throw new InvalidOperationError('A feature flag cannot depend on itself.');
     }
 
-    const [grandchildren, grandparents, parentExists, sameProject] =
-      await Promise.all([
-        this.dependentFeaturesReadModel.getChildren([child]),
-        this.dependentFeaturesReadModel.getParents(parent),
-        this.featuresReadModel.featureExists(parent),
-        this.featuresReadModel.featuresInTheSameProject(child, parent),
-      ]);
+    const [grandchildren, grandparents, parentExists, sameProject] = await Promise.all([
+      this.dependentFeaturesReadModel.getChildren([child]),
+      this.dependentFeaturesReadModel.getParents(parent),
+      this.featuresReadModel.featureExists(parent),
+      this.featuresReadModel.featuresInTheSameProject(child, parent),
+    ]);
 
     if (grandchildren.length > 0) {
       throw new InvalidOperationError(
@@ -124,9 +109,7 @@ export class DependentFeaturesService {
     }
 
     if (!sameProject) {
-      throw new InvalidOperationError(
-        'Parent and child features should be in the same project',
-      );
+      throw new InvalidOperationError('Parent and child features should be in the same project');
     }
 
     const featureDependency: FeatureDependency =
@@ -165,11 +148,7 @@ export class DependentFeaturesService {
   ): Promise<void> {
     await this.stopWhenChangeRequestsEnabled(projectId, user);
 
-    return this.unprotectedDeleteFeatureDependency(
-      dependency,
-      projectId,
-      auditUser,
-    );
+    return this.unprotectedDeleteFeatureDependency(dependency, projectId, auditUser);
   }
 
   async unprotectedDeleteFeatureDependency(
@@ -196,11 +175,7 @@ export class DependentFeaturesService {
   ): Promise<void> {
     await this.stopWhenChangeRequestsEnabled(projectId, user);
 
-    return this.unprotectedDeleteFeaturesDependencies(
-      features,
-      projectId,
-      auditUser,
-    );
+    return this.unprotectedDeleteFeaturesDependencies(features, projectId, auditUser);
   }
 
   async unprotectedDeleteFeaturesDependencies(
@@ -226,9 +201,7 @@ export class DependentFeaturesService {
   }
 
   async getPossibleParentVariants(parentFeature: string): Promise<string[]> {
-    return this.dependentFeaturesReadModel.getPossibleParentVariants(
-      parentFeature,
-    );
+    return this.dependentFeaturesReadModel.getPossibleParentVariants(parentFeature);
   }
 
   async checkDependenciesExist(): Promise<boolean> {
@@ -236,11 +209,7 @@ export class DependentFeaturesService {
   }
 
   private async stopWhenChangeRequestsEnabled(project: string, user?: IUser) {
-    const canBypass =
-      await this.changeRequestAccessReadModel.canBypassChangeRequestForProject(
-        project,
-        user,
-      );
+    const canBypass = await this.changeRequestAccessReadModel.canBypassChangeRequestForProject(project, user);
     if (!canBypass) {
       throw new PermissionError(SKIP_CHANGE_REQUEST);
     }

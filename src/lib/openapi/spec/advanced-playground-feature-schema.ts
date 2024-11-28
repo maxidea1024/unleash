@@ -11,8 +11,7 @@ import { sdkFlatContextSchema } from './sdk-flat-context-schema';
 
 export const advancedPlaygroundFeatureSchema = {
   $id: '#/components/schemas/advancedPlaygroundFeatureSchema',
-  description:
-    'A simplified feature flag model intended for the Unleash playground.',
+  description: 'A simplified feature flag model intended for the Unleash playground.',
   type: 'object',
   additionalProperties: false,
   required: ['name', 'projectId', 'environments'],
@@ -29,8 +28,7 @@ export const advancedPlaygroundFeatureSchema = {
     },
     environments: {
       type: 'object',
-      description:
-        'The lists of features that have been evaluated grouped by environment.',
+      description: 'The lists of features that have been evaluated grouped by environment.',
       additionalProperties: {
         type: 'array',
         items: { $ref: advancedPlaygroundEnvironmentFeatureSchema.$id },
@@ -52,6 +50,4 @@ export const advancedPlaygroundFeatureSchema = {
   },
 } as const;
 
-export type AdvancedPlaygroundFeatureSchema = FromSchema<
-  typeof advancedPlaygroundFeatureSchema
->;
+export type AdvancedPlaygroundFeatureSchema = FromSchema<typeof advancedPlaygroundFeatureSchema>;

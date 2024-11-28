@@ -44,19 +44,12 @@ export const variantValueSchema = joi
     }),
   })
   .messages({
-    invalidJsonString:
-      "'value' must be a valid json string when 'type' is json",
+    invalidJsonString: "'value' must be a valid json string when 'type' is json",
   });
 
 export const variantsSchema = joi.object().keys({
   name: nameType,
-  weight: joi
-    .number()
-    .integer()
-    .message('Weight only supports 1 decimal')
-    .min(0)
-    .max(1000)
-    .required(),
+  weight: joi.number().integer().message('Weight only supports 1 decimal').min(0).max(1000).required(),
   weightType: joi.string().valid('variable', 'fix').default('variable'),
   payload: joi
     .object()
@@ -91,12 +84,7 @@ export const featureMetadataSchema = joi
     archived: joi.boolean().default(false),
     type: joi.string().default('release'),
     description: joi.string().allow('').allow(null).optional(),
-    impressionData: joi
-      .boolean()
-      .allow(true)
-      .allow(false)
-      .default(false)
-      .optional(),
+    impressionData: joi.boolean().allow(true).allow(false).default(false).optional(),
     createdAt: joi.date().optional().allow(null),
     variants: joi
       .array()
@@ -127,18 +115,8 @@ export const featureSchema = joi
     type: joi.string().default('release'),
     project: joi.string().default('default'),
     description: joi.string().allow('').allow(null).optional(),
-    impressionData: joi
-      .boolean()
-      .allow(true)
-      .allow(false)
-      .default(false)
-      .optional(),
-    strategies: joi
-      .array()
-      .min(0)
-      .allow(null)
-      .optional()
-      .items(strategiesSchema),
+    impressionData: joi.boolean().allow(true).allow(false).default(false).optional(),
+    strategies: joi.array().min(0).allow(null).optional().items(strategiesSchema),
     variants: joi
       .array()
       .allow(null)

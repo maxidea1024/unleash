@@ -51,11 +51,7 @@ export const ProjectActionsActionItem = ({
 }: IProjectActionsItemProps) => {
   const { action: actionName, executionParams, error } = action;
   const projectId = useRequiredPathParam('projectId');
-  const { permissions } = useServiceAccountAccessMatrix(
-    actorId,
-    projectId,
-    executionParams.environment as string,
-  );
+  const { permissions } = useServiceAccountAccessMatrix(actorId, projectId, executionParams.environment as string);
 
   const actionConfiguration = actionConfigurations.get(actionName);
 
@@ -64,20 +60,14 @@ export const ProjectActionsActionItem = ({
 
     const { environment: actionEnvironment } = executionParams;
 
-    if (
-      permissions.length === 0 ||
-      !requiredPermissions ||
-      !actionEnvironment
-    ) {
+    if (permissions.length === 0 || !requiredPermissions || !actionEnvironment) {
       return true;
     }
 
     return requiredPermissions.some((requiredPermission) =>
       permissions.some(
         ({ permission, project, environment }) =>
-          permission === requiredPermission &&
-          project === projectId &&
-          environment === actionEnvironment,
+          permission === requiredPermission && project === projectId && environment === actionEnvironment,
       ),
     );
   }, [actionConfiguration, permissions]);
@@ -89,9 +79,7 @@ export const ProjectActionsActionItem = ({
     });
 
     const requiredParameters =
-      actionConfiguration?.parameters
-        .filter(({ optional }) => !optional)
-        .map(({ name }) => name) || [];
+      actionConfiguration?.parameters.filter(({ optional }) => !optional).map(({ name }) => name) || [];
 
     if (requiredParameters.some((required) => !executionParams[required])) {
       stateChanged({
@@ -114,9 +102,7 @@ export const ProjectActionsActionItem = ({
     </>
   );
 
-  const parameters =
-    actionConfiguration?.parameters.filter(({ type }) => type !== 'hidden') ||
-    [];
+  const parameters = actionConfiguration?.parameters.filter(({ type }) => type !== 'hidden') || [];
 
   return (
     <ProjectActionsFormItem index={index} header={header} separator='THEN'>
@@ -159,16 +145,12 @@ export const ProjectActionsActionItem = ({
             </StyledItemRow>
           }
         />
-        <ConditionallyRender
-          condition={validated && Boolean(error)}
-          show={<Alert severity='error'>{error}</Alert>}
-        />
+        <ConditionallyRender condition={validated && Boolean(error)} show={<Alert severity='error'>{error}</Alert>} />
         <ConditionallyRender
           condition={!hasPermission}
           show={
             <Alert severity='error'>
-              The selected service account does not have permissions to execute
-              this action currently.
+              The selected service account does not have permissions to execute this action currently.
             </Alert>
           }
         />

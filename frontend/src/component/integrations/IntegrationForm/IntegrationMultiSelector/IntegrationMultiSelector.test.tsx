@@ -2,10 +2,7 @@ import { vi } from 'vitest';
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { render } from 'utils/testRenderer';
-import {
-  type IIntegrationMultiSelectorProps,
-  IntegrationMultiSelector,
-} from './IntegrationMultiSelector';
+import { type IIntegrationMultiSelectorProps, IntegrationMultiSelector } from './IntegrationMultiSelector';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
 
 const onChange = vi.fn();

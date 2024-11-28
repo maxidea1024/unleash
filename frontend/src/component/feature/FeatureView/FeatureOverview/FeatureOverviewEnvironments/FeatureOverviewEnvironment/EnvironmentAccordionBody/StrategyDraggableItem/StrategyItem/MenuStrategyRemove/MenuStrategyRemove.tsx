@@ -1,14 +1,6 @@
 import type React from 'react';
 import { type SyntheticEvent, useState } from 'react';
-import {
-  Box,
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Tooltip,
-} from '@mui/material';
+import { Box, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import type { IFeatureStrategy } from 'interfaces/strategy';
 import { DialogStrategyRemove } from './DialogStrategyRemove';
@@ -16,16 +8,9 @@ import { DisableEnableStrategyDialog } from './DisableEnableStrategyDialog/Disab
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 import DeleteIcon from '@mui/icons-material/Delete';
 import BlockIcon from '@mui/icons-material/Block';
-import {
-  DELETE_FEATURE_STRATEGY,
-  UPDATE_FEATURE_STRATEGY,
-} from '@server/types/permissions';
+import { DELETE_FEATURE_STRATEGY, UPDATE_FEATURE_STRATEGY } from '@server/types/permissions';
 import { useHasProjectEnvironmentAccess } from 'hooks/useHasAccess';
-import {
-  MENU_STRATEGY_REMOVE,
-  STRATEGY_FORM_REMOVE_ID,
-  STRATEGY_REMOVE_MENU_BTN,
-} from 'utils/testIds';
+import { MENU_STRATEGY_REMOVE, STRATEGY_FORM_REMOVE_ID, STRATEGY_REMOVE_MENU_BTN } from 'utils/testIds';
 
 export interface IRemoveStrategyMenuProps {
   projectId: string;
@@ -34,15 +19,9 @@ export interface IRemoveStrategyMenuProps {
   strategy: IFeatureStrategy;
 }
 
-const MenuStrategyRemove = ({
-  projectId,
-  strategy,
-  featureId,
-  environmentId,
-}: IRemoveStrategyMenuProps) => {
+const MenuStrategyRemove = ({ projectId, strategy, featureId, environmentId }: IRemoveStrategyMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isDisableEnableDialogOpen, setDisableEnableDialogOpen] =
-    useState(false);
+  const [isDisableEnableDialogOpen, setDisableEnableDialogOpen] = useState(false);
   const [isRemoveDialogOpen, setRemoveDialogOpen] = useState(false);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -52,16 +31,8 @@ const MenuStrategyRemove = ({
     setAnchorEl(null);
     event.stopPropagation();
   };
-  const updateAccess = useHasProjectEnvironmentAccess(
-    UPDATE_FEATURE_STRATEGY,
-    projectId,
-    environmentId,
-  );
-  const deleteAccess = useHasProjectEnvironmentAccess(
-    DELETE_FEATURE_STRATEGY,
-    projectId,
-    environmentId,
-  );
+  const updateAccess = useHasProjectEnvironmentAccess(UPDATE_FEATURE_STRATEGY, projectId, environmentId);
+  const deleteAccess = useHasProjectEnvironmentAccess(DELETE_FEATURE_STRATEGY, projectId, environmentId);
 
   return (
     <>
@@ -95,21 +66,10 @@ const MenuStrategyRemove = ({
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         data-testid={MENU_STRATEGY_REMOVE}
       >
-        <Tooltip
-          title={strategy.disabled ? 'Enable strategy' : 'Disable strategy'}
-          arrow
-          placement='left'
-        >
-          <MenuItem
-            disabled={!updateAccess}
-            onClick={() => setDisableEnableDialogOpen(true)}
-          >
-            <ListItemIcon>
-              {strategy.disabled ? <TrackChangesIcon /> : <BlockIcon />}
-            </ListItemIcon>
-            <ListItemText>
-              {strategy.disabled ? 'Enable' : 'Disable'}
-            </ListItemText>
+        <Tooltip title={strategy.disabled ? 'Enable strategy' : 'Disable strategy'} arrow placement='left'>
+          <MenuItem disabled={!updateAccess} onClick={() => setDisableEnableDialogOpen(true)}>
+            <ListItemIcon>{strategy.disabled ? <TrackChangesIcon /> : <BlockIcon />}</ListItemIcon>
+            <ListItemText>{strategy.disabled ? 'Enable' : 'Disable'}</ListItemText>
           </MenuItem>
         </Tooltip>
         <Tooltip title='Remove strategy' arrow placement='left'>

@@ -1,12 +1,5 @@
 import { type MouseEvent, useContext, useState, type VFC } from 'react';
-import {
-  Button,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Tooltip,
-} from '@mui/material';
+import { Button, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
 import Lock from '@mui/icons-material/Lock';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { IFeatureEnvironment } from 'interfaces/featureToggle';
@@ -20,18 +13,12 @@ interface ICopyButtonProps {
   onClick: (environmentId: string) => void;
 }
 
-export const CopyButton: VFC<ICopyButtonProps> = ({
-  environmentId,
-  environments,
-  onClick,
-}) => {
+export const CopyButton: VFC<ICopyButtonProps> = ({ environmentId, environments, onClick }) => {
   const projectId = useRequiredPathParam('projectId');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { hasAccess } = useContext(AccessContext);
-  const enabled = environments.some((environment) =>
-    hasAccess(CREATE_FEATURE_STRATEGY, projectId, environment),
-  );
+  const enabled = environments.some((environment) => hasAccess(CREATE_FEATURE_STRATEGY, projectId, environment));
 
   return (
     <div>
@@ -64,26 +51,15 @@ export const CopyButton: VFC<ICopyButtonProps> = ({
         }}
       >
         {environments.map((environment) => {
-          const access = hasAccess(
-            CREATE_FEATURE_STRATEGY,
-            projectId,
-            environment,
-          );
+          const access = hasAccess(CREATE_FEATURE_STRATEGY, projectId, environment);
 
           return (
             <Tooltip
-              title={
-                access
-                  ? ''
-                  : "You don't have access to add a strategy to this environment"
-              }
+              title={access ? '' : "You don't have access to add a strategy to this environment"}
               key={environment}
             >
               <div>
-                <MenuItem
-                  onClick={() => onClick(environment)}
-                  disabled={!access}
-                >
+                <MenuItem onClick={() => onClick(environment)} disabled={!access}>
                   <ConditionallyRender
                     condition={!access}
                     show={

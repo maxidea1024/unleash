@@ -1,8 +1,4 @@
-import {
-  AccessService,
-  FeatureToggleService,
-  GroupService,
-} from '../../services';
+import { AccessService, FeatureToggleService, GroupService } from '../../services';
 import FeatureStrategiesStore from './feature-toggle-strategies-store';
 import FeatureToggleStore from './feature-toggle-store';
 import FeatureToggleClientStore from '../client-feature-toggles/client-feature-toggle-store';
@@ -32,10 +28,7 @@ import {
   createChangeRequestAccessReadModel,
   createFakeChangeRequestAccessService,
 } from '../change-request-access-service/createChangeRequestAccessReadModel';
-import {
-  createFakeSegmentService,
-  createSegmentService,
-} from '../segment/createSegmentService';
+import { createFakeSegmentService, createSegmentService } from '../segment/createSegmentService';
 import StrategyStore from '../../db/strategy-store';
 import FakeStrategiesStore from '../../../test/fixtures/fake-strategies-store';
 import {
@@ -50,45 +43,20 @@ import {
   createDependentFeaturesService,
   createFakeDependentFeaturesService,
 } from '../dependent-features/createDependentFeaturesService';
-import {
-  createEventsService,
-  createFakeEventsService,
-} from '../events/createEventsService';
+import { createEventsService, createFakeEventsService } from '../events/createEventsService';
 import { EventEmitter } from 'stream';
 import { FeatureLifecycleReadModel } from '../feature-lifecycle/feature-lifecycle-read-model';
 import { FakeFeatureLifecycleReadModel } from '../feature-lifecycle/fake-feature-lifecycle-read-model';
 import { FakeFeatureCollaboratorsReadModel } from './fake-feature-collaborators-read-model';
 import { FeatureCollaboratorsReadModel } from './feature-collaborators-read-model';
 
-export const createFeatureToggleService = (
-  db: Db,
-  config: IUnleashConfig,
-): FeatureToggleService => {
+export const createFeatureToggleService = (db: Db, config: IUnleashConfig): FeatureToggleService => {
   const { getLogger, eventBus, flagResolver, resourceLimits } = config;
-  const featureStrategiesStore = new FeatureStrategiesStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
-  const featureToggleStore = new FeatureToggleStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
-  const featureToggleClientStore = new FeatureToggleClientStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const featureStrategiesStore = new FeatureStrategiesStore(db, eventBus, getLogger, flagResolver);
+  const featureToggleStore = new FeatureToggleStore(db, eventBus, getLogger, flagResolver);
+  const featureToggleClientStore = new FeatureToggleClientStore(db, eventBus, getLogger, flagResolver);
   const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);
-  const featureEnvironmentStore = new FeatureEnvironmentStore(
-    db,
-    eventBus,
-    getLogger,
-  );
+  const featureEnvironmentStore = new FeatureEnvironmentStore(db, eventBus, getLogger);
   const contextFieldStore = new ContextFieldStore(db, getLogger, flagResolver);
   const groupStore = new GroupStore(db);
   const strategyStore = new StrategyStore(db, getLogger);
@@ -98,11 +66,7 @@ export const createFeatureToggleService = (
   const roleStore = new RoleStore(db, eventBus, getLogger);
   const environmentStore = new EnvironmentStore(db, eventBus, getLogger);
   const eventService = createEventsService(db, config);
-  const groupService = new GroupService(
-    { groupStore, accountStore },
-    { getLogger },
-    eventService,
-  );
+  const groupService = new GroupService({ groupStore, accountStore }, { getLogger }, eventService);
   const accessService = new AccessService(
     { accessStore, accountStore, roleStore, environmentStore },
     { getLogger },
@@ -110,19 +74,13 @@ export const createFeatureToggleService = (
     eventService,
   );
   const segmentService = createSegmentService(db, config);
-  const changeRequestAccessReadModel = createChangeRequestAccessReadModel(
-    db,
-    config,
-  );
+  const changeRequestAccessReadModel = createChangeRequestAccessReadModel(db, config);
 
   const privateProjectChecker = createPrivateProjectChecker(db, config);
 
   const dependentFeaturesReadModel = new DependentFeaturesReadModel(db);
 
-  const featureLifecycleReadModel = new FeatureLifecycleReadModel(
-    db,
-    config.flagResolver,
-  );
+  const featureLifecycleReadModel = new FeatureLifecycleReadModel(db, config.flagResolver);
 
   const dependentFeaturesService = createDependentFeaturesService(config)(db);
 
@@ -170,11 +128,7 @@ export const createFakeFeatureToggleService = (config: IUnleashConfig) => {
   const roleStore = new FakeRoleStore();
   const environmentStore = new FakeEnvironmentStore();
   const eventService = createFakeEventsService(config);
-  const groupService = new GroupService(
-    { groupStore, accountStore },
-    { getLogger },
-    eventService,
-  );
+  const groupService = new GroupService({ groupStore, accountStore }, { getLogger }, eventService);
   const accessService = new AccessService(
     { accessStore, accountStore, roleStore, environmentStore, groupStore },
     { getLogger },

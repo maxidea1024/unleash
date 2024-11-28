@@ -32,15 +32,7 @@ export default class ApiUser implements IApiUser {
   readonly secret: string;
   readonly username: string;
 
-  constructor({
-    permissions = [CLIENT],
-    projects,
-    project,
-    environment,
-    type,
-    secret,
-    tokenName,
-  }: IApiUserData) {
+  constructor({ permissions = [CLIENT], projects, project, environment, type, secret, tokenName }: IApiUserData) {
     if (!tokenName) {
       throw new ValidationError('tokenName is required', [], undefined);
     }

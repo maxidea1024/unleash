@@ -15,9 +15,12 @@ const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.primary.main,
   fontWeight: theme.fontWeight.bold,
 }));
-export const FeatureArchiveNotAllowedDialog: FC<
-  IFeatureArchiveNotAllowedDialogProps
-> = ({ isOpen, onClose, features, project }) => {
+export const FeatureArchiveNotAllowedDialog: FC<IFeatureArchiveNotAllowedDialogProps> = ({
+  isOpen,
+  onClose,
+  features,
+  project,
+}) => {
   return (
     <Dialogue
       title="You can't archive a feature that other features depend on"
@@ -29,11 +32,7 @@ export const FeatureArchiveNotAllowedDialog: FC<
       <ul>
         {features.map((feature) => (
           <li key={feature}>
-            <StyledLink
-              to={`/projects/${project}/features/${feature}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
+            <StyledLink to={`/projects/${project}/features/${feature}`} target='_blank' rel='noopener noreferrer'>
               {feature}
             </StyledLink>
           </li>

@@ -1,9 +1,5 @@
 import type { Db } from '../../db/db';
-import type {
-  InstanceEvent,
-  IOnboardingStore,
-  ProjectEvent,
-} from './onboarding-store-type';
+import type { InstanceEvent, IOnboardingStore, ProjectEvent } from './onboarding-store-type';
 
 export type DBProjectEvent = {
   event: 'first-flag' | 'first-pre-live' | 'first-live';
@@ -22,19 +18,13 @@ export type DBInstanceEvent =
       time_to_event: number;
     };
 
-const projectEventLookup: Record<
-  ProjectEvent['type'],
-  DBProjectEvent['event']
-> = {
+const projectEventLookup: Record<ProjectEvent['type'], DBProjectEvent['event']> = {
   'flag-created': 'first-flag',
   'pre-live': 'first-pre-live',
   live: 'first-live',
 };
 
-const instanceEventLookup: Record<
-  InstanceEvent['type'],
-  DBInstanceEvent['event']
-> = {
+const instanceEventLookup: Record<InstanceEvent['type'], DBInstanceEvent['event']> = {
   'flag-created': 'first-flag',
   'pre-live': 'first-pre-live',
   live: 'first-live',
@@ -71,9 +61,6 @@ export class OnboardingStore implements IOnboardingStore {
   }
 
   async deleteAll(): Promise<void> {
-    await Promise.all([
-      this.db('onboarding_events_project').del(),
-      this.db('onboarding_events_instance').del(),
-    ]);
+    await Promise.all([this.db('onboarding_events_project').del(), this.db('onboarding_events_instance').del()]);
   }
 }

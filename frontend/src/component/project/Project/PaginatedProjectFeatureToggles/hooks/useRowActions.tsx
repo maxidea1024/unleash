@@ -6,9 +6,7 @@ import { ArchivedFeatureDeleteConfirm } from '../../../../archive/ArchiveTable/A
 import { ArchivedFeatureReviveConfirm } from '../../../../archive/ArchiveTable/ArchivedFeatureActionCell/ArchivedFeatureReviveConfirm/ArchivedFeatureReviveConfirm';
 
 export const useRowActions = (onChange: () => void, projectId: string) => {
-  const [featureArchiveState, setFeatureArchiveState] = useState<
-    string | undefined
-  >();
+  const [featureArchiveState, setFeatureArchiveState] = useState<string | undefined>();
 
   const [featureStaleDialogState, setFeatureStaleDialogState] = useState<{
     featureId?: string;

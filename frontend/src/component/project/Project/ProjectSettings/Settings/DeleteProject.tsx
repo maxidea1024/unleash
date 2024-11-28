@@ -29,11 +29,7 @@ interface IDeleteProjectProps {
   featureCount: number;
 }
 
-export const DeleteProject = ({
-  projectId,
-  projectName,
-  featureCount,
-}: IDeleteProjectProps) => {
+export const DeleteProject = ({ projectId, projectName, featureCount }: IDeleteProjectProps) => {
   const { isEnterprise } = useUiConfig();
   const automatedActionsEnabled = useUiFlag('automatedActions');
   const { actions } = useActions(projectId);
@@ -43,12 +39,8 @@ export const DeleteProject = ({
   return (
     <StyledContainer>
       <p>
-        Before you can delete a project, you must first archive all the feature
-        flags associated with it
-        {isEnterprise() && automatedActionsEnabled
-          ? ' and disable all actions that are in it'
-          : ''}
-        .
+        Before you can delete a project, you must first archive all the feature flags associated with it
+        {isEnterprise() && automatedActionsEnabled ? ' and disable all actions that are in it' : ''}.
       </p>
       <ConditionallyRender
         condition={featureCount > 0}
@@ -56,29 +48,24 @@ export const DeleteProject = ({
           <p>
             Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
             <strong>
-              {featureCount} active feature{' '}
-              {featureCount === 1 ? 'flag' : 'flags'}.
+              {featureCount} active feature {featureCount === 1 ? 'flag' : 'flags'}.
             </strong>
           </p>
         }
       />
       <ConditionallyRender
-        condition={
-          isEnterprise() && automatedActionsEnabled && actionsCount > 0
-        }
+        condition={isEnterprise() && automatedActionsEnabled && actionsCount > 0}
         show={
           <p>
             Currently there {actionsCount <= 1 ? 'is' : 'are'}{' '}
             <strong>
-              {actionsCount} enabled {actionsCount === 1 ? 'action' : 'actions'}
-              .
+              {actionsCount} enabled {actionsCount === 1 ? 'action' : 'actions'}.
             </strong>
           </p>
         }
       />
       <p>
-        Keep in mind that deleting a project{' '}
-        <strong>will permanently remove</strong>
+        Keep in mind that deleting a project <strong>will permanently remove</strong>
         <ul>
           <li>all archived feature flags in this project</li>
           <li>API keys configured to access only this project</li>

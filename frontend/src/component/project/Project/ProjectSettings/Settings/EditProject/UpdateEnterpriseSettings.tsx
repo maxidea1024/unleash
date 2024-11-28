@@ -53,9 +53,7 @@ export const useModeTracking = () => {
   return { trackModePattern, setPreviousMode };
 };
 
-export const UpdateEnterpriseSettings = ({
-  project,
-}: IUpdateEnterpriseSettings) => {
+export const UpdateEnterpriseSettings = ({ project }: IUpdateEnterpriseSettings) => {
   const { uiConfig } = useUiConfig();
   const { setToastData, setToastApiError } = useToast();
   const id = useRequiredPathParam('projectId');
@@ -80,9 +78,7 @@ export const UpdateEnterpriseSettings = ({
   );
 
   const formatProjectSettingsApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/projects/${id}/settings' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/projects/${id}/settings' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getEnterpriseSettingsPayload(), undefined, 2)}'`;

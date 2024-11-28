@@ -1,6 +1,4 @@
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
 import type { IClientMetricsStoreV2, IUnleashStores } from '../../../types';
 import { endOfDay, setHours, startOfHour, subDays } from 'date-fns';
@@ -55,10 +53,7 @@ test('aggregate daily metrics from previous day', async () => {
 
   await clientMetricsStore.aggregateDailyMetrics();
 
-  const hourlyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2(
-    'feature',
-    48,
-  );
+  const hourlyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2('feature', 48);
   expect(hourlyMetrics).toMatchObject([
     {
       featureName: 'feature',
@@ -79,10 +74,7 @@ test('aggregate daily metrics from previous day', async () => {
       variants: { a: 0, b: 1 },
     },
   ]);
-  const dailyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2(
-    'feature',
-    49,
-  );
+  const dailyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2('feature', 49);
   expect(dailyMetrics).toMatchObject([
     {
       featureName: 'feature',
@@ -129,10 +121,7 @@ test('clear daily metrics', async () => {
 
   await clientMetricsStore.clearDailyMetrics(2);
 
-  const dailyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2(
-    'feature',
-    49,
-  );
+  const dailyMetrics = await clientMetricsStore.getMetricsForFeatureToggleV2('feature', 49);
   expect(dailyMetrics).toMatchObject([
     {
       featureName: 'feature',
@@ -179,13 +168,9 @@ test('clear daily metrics', async () => {
 
   await clientMetricsStore.clearDailyMetrics(2);
 
-  const results = await db.rawDatabase
-    .table('client_metrics_env_daily')
-    .select('*');
+  const results = await db.rawDatabase.table('client_metrics_env_daily').select('*');
   expect(results.length).toBe(1);
-  const variantResults = await db.rawDatabase
-    .table('client_metrics_env_variants_daily')
-    .select('*');
+  const variantResults = await db.rawDatabase.table('client_metrics_env_variants_daily').select('*');
   expect(variantResults.length).toBe(2);
 });
 
@@ -218,8 +203,7 @@ test('count previous day metrics', async () => {
     },
   ]);
 
-  const result =
-    await clientMetricsStore.countPreviousDayHourlyMetricsBuckets();
+  const result = await clientMetricsStore.countPreviousDayHourlyMetricsBuckets();
 
   expect(result).toMatchObject({ enabledCount: 2, variantCount: 4 });
 });

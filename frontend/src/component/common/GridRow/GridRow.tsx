@@ -12,13 +12,7 @@ export const GridRow: FC<{
   children?: React.ReactNode;
 }> = ({ sx, children }) => {
   return (
-    <StyledGrid
-      container
-      item
-      justifyContent='space-between'
-      alignItems='center'
-      sx={sx}
-    >
+    <StyledGrid container item justifyContent='space-between' alignItems='center' sx={sx}>
       {children}
     </StyledGrid>
   );

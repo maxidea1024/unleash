@@ -2,10 +2,7 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import type { ApiTokenService } from '../../../lib/services/api-token-service';
 import { createTestConfig } from '../../config/test-config';
-import {
-  ApiTokenType,
-  type IApiToken,
-} from '../../../lib/types/models/api-token';
+import { ApiTokenType, type IApiToken } from '../../../lib/types/models/api-token';
 import { DEFAULT_ENV } from '../../../lib/util/constants';
 import { addDays } from 'date-fns';
 import type ProjectService from '../../../lib/features/project/project-service';
@@ -54,9 +51,7 @@ afterAll(async () => {
 });
 afterEach(async () => {
   const tokens = await stores.apiTokenStore.getAll();
-  const deleteAll = tokens.map((t: IApiToken) =>
-    stores.apiTokenStore.delete(t.secret),
-  );
+  const deleteAll = tokens.map((t: IApiToken) => stores.apiTokenStore.delete(t.secret));
   await Promise.all(deleteAll);
 });
 

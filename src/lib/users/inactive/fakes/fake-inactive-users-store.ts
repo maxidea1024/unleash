@@ -1,7 +1,4 @@
-import type {
-  IInactiveUserRow,
-  IInactiveUsersStore,
-} from '../types/inactive-users-store-type';
+import type { IInactiveUserRow, IInactiveUsersStore } from '../types/inactive-users-store-type';
 import type { IUser } from '../../../types';
 import { subDays } from 'date-fns';
 

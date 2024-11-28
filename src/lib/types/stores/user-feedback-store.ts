@@ -12,8 +12,7 @@ export interface IUserFeedbackKey {
   feedbackId: string;
 }
 
-export interface IUserFeedbackStore
-  extends IStore<IUserFeedback, IUserFeedbackKey> {
+export interface IUserFeedbackStore extends IStore<IUserFeedback, IUserFeedbackKey> {
   getAllUserFeedback(userId: number): Promise<IUserFeedback[]>;
 
   getFeedback(userId: number, feedbackId: string): Promise<IUserFeedback>;

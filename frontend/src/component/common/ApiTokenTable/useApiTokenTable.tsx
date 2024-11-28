@@ -3,24 +3,13 @@ import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
 import { HighlightCell } from 'component/common/Table/cells/HighlightCell/HighlightCell';
 import { TimeAgoCell } from 'component/common/Table/cells/TimeAgoCell/TimeAgoCell';
-import {
-  useTable,
-  useGlobalFilter,
-  useSortBy,
-  useFlexLayout,
-} from 'react-table';
+import { useTable, useGlobalFilter, useSortBy, useFlexLayout } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { ProjectsList } from 'component/admin/apiToken/ProjectsList/ProjectsList';
 import { ApiTokenIcon } from 'component/admin/apiToken/ApiTokenIcon/ApiTokenIcon';
 
-export const useApiTokenTable = (
-  tokens: IApiToken[],
-  getActionCell: (props: any) => JSX.Element,
-) => {
-  const initialState = useMemo(
-    () => ({ sortBy: [{ id: 'createdAt', desc: true }] }),
-    [],
-  );
+export const useApiTokenTable = (tokens: IApiToken[], getActionCell: (props: any) => JSX.Element) => {
+  const initialState = useMemo(() => ({ sortBy: [{ id: 'createdAt', desc: true }] }), []);
 
   const COLUMNS = useMemo(() => {
     return [
@@ -63,10 +52,7 @@ export const useApiTokenTable = (
         Header: 'Project',
         accessor: 'project',
         Cell: (props: any) => (
-          <ProjectsList
-            project={props.row.original.project}
-            projects={props.row.original.projects}
-          />
+          <ProjectsList project={props.row.original.project} projects={props.row.original.projects} />
         ),
         width: 160,
       },
@@ -102,28 +88,20 @@ export const useApiTokenTable = (
     ];
   }, []);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state,
-    setGlobalFilter,
-    setHiddenColumns,
-  } = useTable(
-    {
-      columns: COLUMNS as any,
-      data: tokens as any,
-      initialState,
-      sortTypes,
-      autoResetHiddenColumns: false,
-      disableSortRemove: true,
-    },
-    useGlobalFilter,
-    useSortBy,
-    useFlexLayout,
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter, setHiddenColumns } =
+    useTable(
+      {
+        columns: COLUMNS as any,
+        data: tokens as any,
+        initialState,
+        sortTypes,
+        autoResetHiddenColumns: false,
+        disableSortRemove: true,
+      },
+      useGlobalFilter,
+      useSortBy,
+      useFlexLayout,
+    );
 
   return {
     getTableProps,

@@ -76,10 +76,7 @@ describe('Public Signup API', () => {
     });
     const bodyCreate = createBody();
 
-    const res = await request
-      .post('/api/admin/invite-link/tokens')
-      .send(bodyCreate)
-      .expect(201);
+    const res = await request.post('/api/admin/invite-link/tokens').send(bodyCreate).expect(201);
     const token = res.body;
     expect(token.name).toBe(bodyCreate.name);
     expect(token.secret).not.toBeNull();

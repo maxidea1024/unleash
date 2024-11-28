@@ -1,8 +1,4 @@
-import {
-  parseBasePath,
-  formatAssetPath,
-  formatApiPath,
-} from 'utils/formatPath';
+import { parseBasePath, formatAssetPath, formatApiPath } from 'utils/formatPath';
 
 test('formatBasePath', () => {
   expect(parseBasePath()).toEqual('');

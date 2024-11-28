@@ -30,9 +30,7 @@ export const SingleValue = ({ value, operator }: ISingleValueProps) => {
   return (
     <StyledDiv>
       <StyledParagraph>Value must be {operator}</StyledParagraph>{' '}
-      <StyledChip
-        label={<StringTruncator maxWidth='400' text={value} maxLength={50} />}
-      />
+      <StyledChip label={<StringTruncator maxWidth='400' text={value} maxLength={50} />} />
     </StyledDiv>
   );
 };

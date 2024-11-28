@@ -20,14 +20,10 @@ const CreateStrategyDeprecationWarning = () => (
       marginBottom: theme.spacing(3),
     })}
   >
-    Custom strategies are deprecated and may be removed in a future major
-    release. We recommend using the predefined strategies like Gradual rollout
-    with{' '}
-    <Link to='https://docs.getunleash.io/reference/strategy-constraints'>
-      {' '}
-      constraints
-    </Link>{' '}
-    instead of creating a custom strategy.
+    Custom strategies are deprecated and may be removed in a future major release. We recommend using the predefined
+    strategies like Gradual rollout with{' '}
+    <Link to='https://docs.getunleash.io/reference/strategy-constraints'> constraints</Link> instead of creating a
+    custom strategy.
   </Alert>
 );
 

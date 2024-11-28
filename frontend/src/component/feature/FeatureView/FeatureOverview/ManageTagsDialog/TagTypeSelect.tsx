@@ -1,11 +1,4 @@
-import {
-  Autocomplete,
-  type AutocompleteProps,
-  styled,
-  TextField,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Autocomplete, type AutocompleteProps, styled, TextField, Typography, useTheme } from '@mui/material';
 import type { ITagType } from 'interfaces/tags';
 
 interface ITagSelect {
@@ -19,12 +12,7 @@ const ListItem = styled('li')({
   flexDirection: 'column',
 });
 
-export const TagTypeSelect = ({
-  options,
-  value,
-  disabled = false,
-  onChange,
-}: ITagSelect) => {
+export const TagTypeSelect = ({ options, value, disabled = false, onChange }: ITagSelect) => {
   const theme = useTheme();
 
   return (
@@ -49,9 +37,7 @@ export const TagTypeSelect = ({
           <Typography variant='caption'>{option.description}</Typography>
         </ListItem>
       )}
-      renderInput={(params) => (
-        <TextField {...params} label='Tag type' value={value} />
-      )}
+      renderInput={(params) => <TextField {...params} label='Tag type' value={value} />}
       onChange={onChange}
       ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
     />

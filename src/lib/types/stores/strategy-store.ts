@@ -19,21 +19,11 @@ export interface IEditableStrategy {
   title?: string;
 }
 
-export type IMinimalStrategy = Pick<
-  CreateStrategySchema,
-  'name' | 'description' | 'editable' | 'parameters' | 'title'
->;
+export type IMinimalStrategy = Pick<CreateStrategySchema, 'name' | 'description' | 'editable' | 'parameters' | 'title'>;
 
 export type IStrategyImport = Pick<
   CreateStrategySchema,
-  | 'name'
-  | 'description'
-  | 'deprecated'
-  | 'parameters'
-  | 'builtIn'
-  | 'sortOrder'
-  | 'displayName'
-  | 'title'
+  'name' | 'description' | 'deprecated' | 'parameters' | 'builtIn' | 'sortOrder' | 'displayName' | 'title'
 >;
 
 export interface IMinimalStrategyRow {

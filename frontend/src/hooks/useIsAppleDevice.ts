@@ -13,11 +13,7 @@ export const useIsAppleDevice = () => {
       navigator?.platform ||
       'unknown';
 
-    setIsAppleDevice(
-      platform.toLowerCase().includes('mac') ||
-        platform === 'iPhone' ||
-        platform === 'iPad',
-    );
+    setIsAppleDevice(platform.toLowerCase().includes('mac') || platform === 'iPhone' || platform === 'iPad');
   }, []);
 
   return isAppleDevice;

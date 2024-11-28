@@ -1,13 +1,5 @@
 import { type FC, Fragment, useState, type ChangeEvent } from 'react';
-import {
-  Checkbox,
-  FormControlLabel,
-  TextField,
-  Box,
-  Paper,
-  styled,
-  Chip,
-} from '@mui/material';
+import { Checkbox, FormControlLabel, TextField, Box, Paper, styled, Chip } from '@mui/material';
 import { Autocomplete } from '@mui/material';
 
 import type {
@@ -48,21 +40,13 @@ export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
   error,
   onFocus,
 }) => {
-  const [projects, setProjects] = useState<string[]>(
-    typeof defaultValue === 'string' ? [defaultValue] : defaultValue,
-  );
+  const [projects, setProjects] = useState<string[]>(typeof defaultValue === 'string' ? [defaultValue] : defaultValue);
   const [isWildcardSelected, selectWildcard] = useState(
     typeof defaultValue === 'string' || defaultValue.includes(ALL_PROJECTS),
   );
-  const isAllSelected =
-    projects.length > 0 &&
-    projects.length === options.length &&
-    projects[0] !== ALL_PROJECTS;
+  const isAllSelected = projects.length > 0 && projects.length === options.length && projects[0] !== ALL_PROJECTS;
 
-  const onAllProjectsChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    checked: boolean,
-  ) => {
+  const onAllProjectsChange = (e: ChangeEvent<HTMLInputElement>, checked: boolean) => {
     if (checked) {
       selectWildcard(true);
       onChange([ALL_PROJECTS]);
@@ -100,12 +84,7 @@ export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
     <Fragment key={key}>
       <ConditionallyRender
         condition={options.length > 2}
-        show={
-          <SelectAllButton
-            isAllSelected={isAllSelected}
-            onClick={onSelectAllClick}
-          />
-        }
+        show={<SelectAllButton isAllSelected={isAllSelected} onClick={onSelectAllClick} />}
       />
       {children}
     </Fragment>
@@ -130,12 +109,7 @@ export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
         <FormControlLabel
           disabled={disabled}
           data-testid='select-all-projects'
-          control={
-            <Checkbox
-              checked={disabled || isWildcardSelected}
-              onChange={onAllProjectsChange}
-            />
-          }
+          control={<Checkbox checked={disabled || isWildcardSelected} onChange={onAllProjectsChange} />}
           label='ALL current and future projects'
         />
       </Box>
@@ -154,17 +128,11 @@ export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
         renderTags={(value, getTagProps) => {
           return value.map((option, index) => {
             const { key, ...props } = getTagProps({ index });
-            return (
-              <Chip size='small' key={key} {...props} label={option.label} />
-            );
+            return <Chip size='small' key={key} {...props} label={option.label} />;
           });
         }}
         renderInput={renderInput}
-        value={
-          isWildcardSelected || disabled
-            ? options
-            : options.filter((option) => projects.includes(option.value))
-        }
+        value={isWildcardSelected || disabled ? options : options.filter((option) => projects.includes(option.value))}
         onChange={(_, input) => {
           const state = input.map(({ value }) => value);
           setProjects(state);

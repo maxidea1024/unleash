@@ -492,10 +492,7 @@ export default createTheme({
             borderRadius: theme.shape.borderRadiusLarge,
           },
           '&.environment-accordion.Mui-expanded': {
-            outline: `2px solid ${alpha(
-              theme.palette.background.alternative,
-              0.6,
-            )}`,
+            outline: `2px solid ${alpha(theme.palette.background.alternative, 0.6)}`,
             boxShadow: `0px 2px 8px ${alpha(theme.palette.primary.main, 0.2)}`,
           },
         }),

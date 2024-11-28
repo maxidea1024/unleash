@@ -46,13 +46,9 @@
   background-color: var(--ifm-navbar-background-color);
   --ifm-menu-color: var(--ifm-navbar-link-color);
   --ifm-menu-color-active: var(--ifm-navbar-link-active-color);
-  --ifm-menu-color-background-active: var(
-    --unleash-navbar-active-background-color
-  );
+  --ifm-menu-color-background-active: var(--unleash-navbar-active-background-color);
   --ifm-menu-color-active: var(--ifm-navbar-link-active-color);
-  --ifm-menu-color-background-hover: var(
-    --unleash-navbar-active-background-color
-  );
+  --ifm-menu-color-background-hover: var(--unleash-navbar-active-background-color);
 }
 
 .navbar__logo {
@@ -116,9 +112,7 @@ html[data-theme="dark"] {
 
   --ifm-link-color: var(--ifm-color-primary);
 
-  --unleash-color-admonition-background: var(
-    --ifm-color-secondary-contrast-background
-  );
+  --unleash-color-admonition-background: var(--ifm-color-secondary-contrast-background);
 
   --docsearch-primary-color: var(--ifm-color-primary-darkest);
 }
@@ -147,16 +141,12 @@ main img {
   box-shadow: var(--ifm-global-shadow-lw);
 }
 
-main
-  p
-  > img:not([src^="https://img.shields.io/" i], [src*="badge.svg?branch=" i]) {
+main p > img:not([src^="https://img.shields.io/" i], [src*="badge.svg?branch=" i]) {
   /* give inline images a border */
   border: var(--ifm-global-border-width) solid var(--unleash-color-gray);
 }
 
-main
-  :is(p, figure)
-  > img:not([src^="https://img.shields.io/" i], [src*="badge.svg?branch=" i]) {
+main :is(p, figure) > img:not([src^="https://img.shields.io/" i], [src*="badge.svg?branch=" i]) {
   /* round corners to match the rest of the page */
   border-radius: var(--ifm-global-radius);
 

@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../helpers/test-helper';
 import getLogger from '../../../../fixtures/no-logger';
 import type { IUser } from '../../../../../lib/types';
 import { extractAuditInfoFromUser } from '../../../../../lib/util';
@@ -41,11 +38,7 @@ test('Project with no stale toggles should have 100% health rating', async () =>
     name: 'Health rating',
     description: 'Fancy',
   };
-  await app.services.projectService.createProject(
-    project,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await app.services.projectService.createProject(project, user, extractAuditInfoFromUser(user));
   await app.request
     .post('/api/admin/projects/fresh/features')
     .send({
@@ -79,11 +72,7 @@ test('Health rating endpoint yields stale, potentially stale and active count on
     name: 'Health rating',
     description: 'Fancy',
   };
-  await app.services.projectService.createProject(
-    project,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await app.services.projectService.createProject(project, user, extractAuditInfoFromUser(user));
   await app.request
     .post(`/api/admin/projects/${project.id}/features`)
     .send({
@@ -126,11 +115,7 @@ test('Health rating endpoint does not include archived toggles when calculating 
     name: 'Health rating',
     description: 'Fancy',
   };
-  await app.services.projectService.createProject(
-    project,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await app.services.projectService.createProject(project, user, extractAuditInfoFromUser(user));
   await app.request
     .post(`/api/admin/projects/${project.id}/features`)
     .send({
@@ -191,11 +176,7 @@ test('Health rating endpoint correctly handles potentially stale toggles', async
     name: 'Health rating',
     description: 'Fancy',
   };
-  await app.services.projectService.createProject(
-    project,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await app.services.projectService.createProject(project, user, extractAuditInfoFromUser(user));
   await app.request
     .post(`/api/admin/projects/${project.id}/features`)
     .send({
@@ -242,9 +223,7 @@ test('Health rating endpoint correctly handles potentially stale toggles', async
 });
 
 test('Health report for non-existing project yields 404', async () => {
-  await app.request
-    .get('/api/admin/projects/some-crazy-project-name/health-report')
-    .expect(404);
+  await app.request.get('/api/admin/projects/some-crazy-project-name/health-report').expect(404);
 });
 
 test('Sorts environments by sort order', async () => {
@@ -278,10 +257,7 @@ test('Sorts environments by sort order', async () => {
     })
     .expect(200);
 
-  await app.request
-    .post('/api/admin/projects/default/features')
-    .send({ name: featureName })
-    .expect(201);
+  await app.request.post('/api/admin/projects/default/features').send({ name: featureName }).expect(201);
 
   await app.request.get('/api/admin/projects/default').expect((res) => {
     const feature = res.body.features[0];
@@ -322,10 +298,7 @@ test('Sorts environments correctly if sort order is equal', async () => {
     })
     .expect(200);
 
-  await app.request
-    .post('/api/admin/projects/default/features')
-    .send({ name: featureName })
-    .expect(201);
+  await app.request.post('/api/admin/projects/default/features').send({ name: featureName }).expect(201);
 
   await app.request.get('/api/admin/projects/default').expect((res) => {
     const feature = res.body.features[0];

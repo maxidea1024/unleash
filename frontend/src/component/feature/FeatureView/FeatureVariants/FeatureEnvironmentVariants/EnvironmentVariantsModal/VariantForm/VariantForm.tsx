@@ -3,15 +3,7 @@ import Input from 'component/common/Input/Input';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import SelectMenu from 'component/common/select';
 import { OverrideConfig } from 'component/feature/FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsModal/VariantForm/VariantOverrides/VariantOverrides';
-import {
-  Button,
-  FormControlLabel,
-  IconButton,
-  InputAdornment,
-  styled,
-  Switch,
-  Tooltip,
-} from '@mui/material';
+import { Button, FormControlLabel, IconButton, InputAdornment, styled, Switch, Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { IPayload } from 'interfaces/featureToggle';
 import { useOverrides } from 'component/feature/FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsModal/VariantForm/VariantOverrides/useOverrides';
@@ -20,9 +12,7 @@ import { WeightType } from 'constants/variantTypes';
 import type { IFeatureVariantEdit } from '../EnvironmentVariantsModal';
 import Delete from '@mui/icons-material/Delete';
 
-const LazyReactJSONEditor = React.lazy(
-  () => import('component/common/ReactJSONEditor/ReactJSONEditor'),
-);
+const LazyReactJSONEditor = React.lazy(() => import('component/common/ReactJSONEditor/ReactJSONEditor'));
 
 const StyledVariantForm = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -35,16 +25,14 @@ const StyledVariantForm = styled('div')(({ theme }) => ({
   overflow: 'hidden',
 }));
 
-const StyledDecoration = styled('div')<{ color?: string }>(
-  ({ theme, color }) => ({
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    height: '100%',
-    background: color || 'transparent',
-    width: theme.spacing(1),
-  }),
-);
+const StyledDecoration = styled('div')<{ color?: string }>(({ theme, color }) => ({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  height: '100%',
+  background: color || 'transparent',
+  width: theme.spacing(1),
+}));
 
 const StyledDeleteButtonTooltip = styled(Tooltip)(({ theme }) => ({
   position: 'absolute',
@@ -187,16 +175,10 @@ export const VariantForm = ({
   weightsError,
 }: IVariantFormProps) => {
   const [name, setName] = useState(variant.name);
-  const [customPercentage, setCustomPercentage] = useState(
-    variant.weightType === WeightType.FIX,
-  );
+  const [customPercentage, setCustomPercentage] = useState(variant.weightType === WeightType.FIX);
   const [percentage, setPercentage] = useState(String(variant.weight / 10));
-  const [payload, setPayload] = useState<IPayload>(
-    variant.payload || EMPTY_PAYLOAD,
-  );
-  const [overrides, overridesDispatch] = useOverrides(
-    'overrides' in variant ? variant.overrides || [] : [],
-  );
+  const [payload, setPayload] = useState<IPayload>(variant.payload || EMPTY_PAYLOAD);
+  const [overrides, overridesDispatch] = useOverrides('overrides' in variant ? variant.overrides || [] : []);
 
   const { context } = useUnleashContext();
 
@@ -219,10 +201,7 @@ export const VariantForm = ({
 
   const editing = !variant.new;
   const customPercentageVisible =
-    variants.filter(
-      ({ id, weightType }) =>
-        id !== variant.id && weightType === WeightType.VARIABLE,
-    ).length > 0;
+    variants.filter(({ id, weightType }) => id !== variant.id && weightType === WeightType.VARIABLE).length > 0;
 
   const isProtectedVariant = (variant: IFeatureVariantEdit): boolean => {
     const isVariable = variant.weightType === WeightType.VARIABLE;
@@ -242,10 +221,7 @@ export const VariantForm = ({
   const onSetName = (name: string) => {
     clearError(ErrorField.NAME);
     if (!isNameUnique(name, variant.id)) {
-      setError(
-        ErrorField.NAME,
-        'A variant with that name already exists for this environment.',
-      );
+      setError(ErrorField.NAME, 'A variant with that name already exists for this environment.');
     }
     setName(name.trim());
   };
@@ -258,10 +234,7 @@ export const VariantForm = ({
 
   const validatePayload = (payload: IPayload) => {
     if (!isValidPayload(payload)) {
-      setError(
-        ErrorField.PAYLOAD,
-        payload.type === 'json' ? 'Invalid json' : 'Invalid number',
-      );
+      setError(ErrorField.PAYLOAD, payload.type === 'json' ? 'Invalid json' : 'Invalid number');
     }
   };
 
@@ -276,8 +249,7 @@ export const VariantForm = ({
 
   const isNameNotEmpty = (name: string) => Boolean(name.length);
   const isNameUnique = (name: string, id: string) =>
-    editing ||
-    !variants.some((variant) => variant.name === name && variant.id !== id);
+    editing || !variants.some((variant) => variant.name === name && variant.id !== id);
   const isValidPercentage = (percentage: string) => {
     if (!customPercentage) return true;
     if (percentage === '') return false;
@@ -332,21 +304,14 @@ export const VariantForm = ({
     }
   }, [variant.weight]);
 
-  const percentageError =
-    errors?.percentage || weightsError
-      ? 'Total weight may not exceed 100%'
-      : '';
+  const percentageError = errors?.percentage || weightsError ? 'Total weight may not exceed 100%' : '';
 
   return (
     <StyledVariantForm data-testid='VARIANT'>
       <StyledDecoration color={decorationColor} />
       <StyledDeleteButtonTooltip
         arrow
-        title={
-          isProtectedVariant(variant)
-            ? 'You need to have at least one variable variant'
-            : 'Delete variant'
-        }
+        title={isProtectedVariant(variant) ? 'You need to have at least one variable variant' : 'Delete variant'}
       >
         <div>
           <IconButton
@@ -361,9 +326,7 @@ export const VariantForm = ({
       <StyledTopRow>
         <StyledNameContainer>
           <StyledLabel>Variant name</StyledLabel>
-          <StyledSubLabel>
-            This will be used to identify the variant in your code
-          </StyledSubLabel>
+          <StyledSubLabel>This will be used to identify the variant in your code</StyledSubLabel>
           <StyledInput
             id={`variant-name-input-${variant.id}`}
             data-testid='VARIANT_NAME_INPUT'
@@ -403,9 +366,7 @@ export const VariantForm = ({
                 aria-valuemin={0}
                 aria-valuemax={100}
                 InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>%</InputAdornment>
-                  ),
+                  endAdornment: <InputAdornment position='end'>%</InputAdornment>,
                 }}
               />
             </StyledPercentageContainer>
@@ -442,10 +403,7 @@ export const VariantForm = ({
                     setPayload((payload) => {
                       return {
                         ...payload,
-                        value:
-                          'json' in content
-                            ? content.json?.toString() || ''
-                            : content.text,
+                        value: 'json' in content ? content.json?.toString() || '' : content.text,
                       };
                     })
                   }
@@ -458,9 +416,7 @@ export const VariantForm = ({
                 name='variant-payload-value'
                 label='Value'
                 multiline={payload.type !== 'string'}
-                rows={
-                  payload.type === 'string' || payload.type === 'number' ? 1 : 4
-                }
+                rows={payload.type === 'string' || payload.type === 'number' ? 1 : 4}
                 value={payload.value}
                 onChange={(e) => {
                   clearError(ErrorField.PAYLOAD);
@@ -484,10 +440,7 @@ export const VariantForm = ({
             Overrides
             <HelpIcon tooltip='Here you can specify which users should get this variant.' />
           </StyledMarginLabel>
-          <OverrideConfig
-            overrides={overrides}
-            overridesDispatch={overridesDispatch}
-          />
+          <OverrideConfig overrides={overrides} overridesDispatch={overridesDispatch} />
           <div>
             <StyledAddOverrideButton
               onClick={onAddOverride}

@@ -18,16 +18,11 @@ export const useInstanceStatus = (): IUseInstanceStatusOutput => {
     flags: { UNLEASH_CLOUD },
   } = uiConfig;
 
-  const { data, refetch, loading, error } = useApiGetter(
-    ['useInstanceStatus', UNLEASH_CLOUD],
-    () => fetchInstanceStatus(UNLEASH_CLOUD),
+  const { data, refetch, loading, error } = useApiGetter(['useInstanceStatus', UNLEASH_CLOUD], () =>
+    fetchInstanceStatus(UNLEASH_CLOUD),
   );
 
-  const billingPlans = [
-    InstancePlan.PRO,
-    InstancePlan.COMPANY,
-    InstancePlan.TEAM,
-  ];
+  const billingPlans = [InstancePlan.PRO, InstancePlan.COMPANY, InstancePlan.TEAM];
 
   const refresh = async (): Promise<void> => {
     await fetch(formatApiPath('api/instance/refresh'));
@@ -37,17 +32,13 @@ export const useInstanceStatus = (): IUseInstanceStatusOutput => {
     instanceStatus: data,
     refetchInstanceStatus: refetch,
     refresh,
-    isBilling:
-      uiConfig.billing === 'pay-as-you-go' ||
-      billingPlans.includes(data?.plan ?? InstancePlan.UNKNOWN),
+    isBilling: uiConfig.billing === 'pay-as-you-go' || billingPlans.includes(data?.plan ?? InstancePlan.UNKNOWN),
     loading,
     error,
   };
 };
 
-const fetchInstanceStatus = async (
-  UNLEASH_CLOUD?: boolean,
-): Promise<IInstanceStatus> => {
+const fetchInstanceStatus = async (UNLEASH_CLOUD?: boolean): Promise<IInstanceStatus> => {
   if (!UNLEASH_CLOUD) {
     return UNKNOWN_INSTANCE_STATUS;
   }

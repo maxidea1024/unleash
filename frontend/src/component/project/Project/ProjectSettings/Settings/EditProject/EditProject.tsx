@@ -1,7 +1,4 @@
-import {
-  PROJECT_SETTINGS_WRITE,
-  UPDATE_PROJECT,
-} from 'component/providers/AccessProvider/permissions';
+import { PROJECT_SETTINGS_WRITE, UPDATE_PROJECT } from 'component/providers/AccessProvider/permissions';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useContext } from 'react';
@@ -10,9 +7,7 @@ import { Alert, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { UpdateEnterpriseSettings } from './UpdateEnterpriseSettings';
 import { UpdateProject } from './UpdateProject';
-import useProjectOverview, {
-  featuresCount,
-} from 'hooks/api/getters/useProjectOverview/useProjectOverview';
+import useProjectOverview, { featuresCount } from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 import { ArchiveProjectForm } from './ArchiveProjectForm';
 
 const StyledFormContainer = styled('div')(({ theme }) => ({
@@ -31,10 +26,7 @@ const EditProject = () => {
     return null;
   }
 
-  const accessDeniedAlert = !hasAccess(
-    [UPDATE_PROJECT, PROJECT_SETTINGS_WRITE],
-    id,
-  ) && (
+  const accessDeniedAlert = !hasAccess([UPDATE_PROJECT, PROJECT_SETTINGS_WRITE], id) && (
     <Alert severity='error' sx={{ mb: 4 }}>
       You do not have the required permissions to edit this project.
     </Alert>
@@ -45,10 +37,7 @@ const EditProject = () => {
       {accessDeniedAlert}
       <StyledFormContainer>
         <UpdateProject project={project} />
-        <ConditionallyRender
-          condition={isEnterprise()}
-          show={<UpdateEnterpriseSettings project={project} />}
-        />
+        <ConditionallyRender condition={isEnterprise()} show={<UpdateEnterpriseSettings project={project} />} />
         <ArchiveProjectForm featureCount={featuresCount(project)} />
       </StyledFormContainer>
     </>

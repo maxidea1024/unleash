@@ -65,18 +65,10 @@ interface IEnvironmentVariantsCardProps {
   children?: React.ReactNode;
 }
 
-export const EnvironmentVariantsCard = ({
-  environment,
-  searchValue,
-  children,
-}: IEnvironmentVariantsCardProps) => {
+export const EnvironmentVariantsCard = ({ environment, searchValue, children }: IEnvironmentVariantsCardProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
-  const scheduledRequestIds = useVariantsFromScheduledRequests(
-    projectId,
-    featureId,
-    environment.name,
-  );
+  const scheduledRequestIds = useVariantsFromScheduledRequests(projectId, featureId, environment.name);
   const variants = environment.variants ?? [];
   const stickiness = variants[0]?.stickiness || 'default';
 
@@ -85,16 +77,12 @@ export const EnvironmentVariantsCard = ({
       <StyledHeader>
         <div>
           <StyledCloudCircle deprecated={!environment.enabled} />
-          <StyledName deprecated={!environment.enabled}>
-            {environment.name}
-          </StyledName>
+          <StyledName deprecated={!environment.enabled}>{environment.name}</StyledName>
           <ConditionallyRender
             condition={scheduledRequestIds.length > 0}
             show={
               <Box sx={{ ml: 2 }}>
-                <ChangesScheduledBadge
-                  scheduledChangeRequestIds={scheduledRequestIds}
-                />
+                <ChangesScheduledBadge scheduledChangeRequestIds={scheduledRequestIds} />
               </Box>
             }
           />
@@ -106,10 +94,7 @@ export const EnvironmentVariantsCard = ({
         show={
           <>
             <StyledTableContainer>
-              <EnvironmentVariantsTable
-                variants={variants}
-                searchValue={searchValue}
-              />
+              <EnvironmentVariantsTable variants={variants} searchValue={searchValue} />
             </StyledTableContainer>
             <ConditionallyRender
               condition={variants.length > 1}
@@ -120,9 +105,8 @@ export const EnvironmentVariantsCard = ({
                     <Badge>{stickiness}</Badge>
                   </StyledStickinessContainer>
                   <StyledDescription>
-                    By overriding the stickiness you can control which parameter
-                    is used to ensure consistent traffic allocation across
-                    variants.{' '}
+                    By overriding the stickiness you can control which parameter is used to ensure consistent traffic
+                    allocation across variants.{' '}
                     <Link
                       href='https://docs.getunleash.io/reference/feature-toggle-variants'
                       target='_blank'

@@ -35,9 +35,7 @@ const StyledExtraText = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(2),
 }));
 
-export const OrderEnvironmentsDialogPricing: FC<
-  OrderEnvironmentsDialogPricingProps
-> = ({ pricingOptions }) => (
+export const OrderEnvironmentsDialogPricing: FC<OrderEnvironmentsDialogPricingProps> = ({ pricingOptions }) => (
   <StyledContainer>
     <Typography variant='h3' component='div' color='white' gutterBottom>
       Pricing
@@ -53,18 +51,15 @@ export const OrderEnvironmentsDialogPricing: FC<
                 {option.environments > 1 ? 's' : ''}
               </Typography>
             </Box>
-            <Typography variant='body2'>
-              ${option.price} per user per month
-            </Typography>
+            <Typography variant='body2'>${option.price} per user per month</Typography>
           </Box>
         </StyledCardContent>
       </StyledCard>
     ))}
     <StyledExtraText>
       <Typography variant='body2' color='white'>
-        With Pro, there is a minimum of {BILLING_PRO_DEFAULT_INCLUDED_SEATS}{' '}
-        users, meaning an additional environment will cost at least $50 per
-        month.
+        With Pro, there is a minimum of {BILLING_PRO_DEFAULT_INCLUDED_SEATS} users, meaning an additional environment
+        will cost at least $50 per month.
       </Typography>
     </StyledExtraText>
   </StyledContainer>

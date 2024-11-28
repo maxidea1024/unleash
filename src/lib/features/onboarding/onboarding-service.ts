@@ -1,18 +1,9 @@
-import type {
-  IFlagResolver,
-  IProjectReadModel,
-  IUnleashConfig,
-  IUserStore,
-} from '../../types';
+import type { IFlagResolver, IProjectReadModel, IUnleashConfig, IUserStore } from '../../types';
 import type EventEmitter from 'events';
 import type { Logger } from '../../logger';
 import { STAGE_ENTERED, USER_LOGIN } from '../../metric-events';
 import type { NewStage } from '../feature-lifecycle/feature-lifecycle-store-type';
-import type {
-  InstanceEvent,
-  IOnboardingStore,
-  ProjectEvent,
-} from './onboarding-store-type';
+import type { InstanceEvent, IOnboardingStore, ProjectEvent } from './onboarding-store-type';
 import { isBefore, millisecondsToSeconds } from 'date-fns';
 
 const START_ONBOARDING_TRACKING_DATE = new Date(2024, 8, 3);
@@ -35,11 +26,7 @@ export class OnboardingService {
       projectReadModel: IProjectReadModel;
       userStore: IUserStore;
     },
-    {
-      flagResolver,
-      eventBus,
-      getLogger,
-    }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
+    { flagResolver, eventBus, getLogger }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
     this.logger = getLogger('onboarding-service.ts');
 
@@ -83,17 +70,11 @@ export class OnboardingService {
   }
 
   async insert(
-    event:
-      | { flag: string; type: ProjectEvent['type'] }
-      | { type: 'first-user-login' | 'second-user-login' },
+    event: { flag: string; type: ProjectEvent['type'] } | { type: 'first-user-login' | 'second-user-login' },
   ): Promise<void> {
     const firstInstanceUserDate = await this.userStore.getFirstUserDate();
     // the time we introduced onboarding tracking
-    if (
-      firstInstanceUserDate &&
-      isBefore(firstInstanceUserDate, START_ONBOARDING_TRACKING_DATE)
-    )
-      return;
+    if (firstInstanceUserDate && isBefore(firstInstanceUserDate, START_ONBOARDING_TRACKING_DATE)) return;
 
     await this.insertInstanceEvent(event, firstInstanceUserDate);
     if ('flag' in event) {
@@ -113,9 +94,7 @@ export class OnboardingService {
       return;
     }
 
-    const timeToEvent = millisecondsToSeconds(
-      new Date().getTime() - firstInstanceUserDate.getTime(),
-    );
+    const timeToEvent = millisecondsToSeconds(new Date().getTime() - firstInstanceUserDate.getTime());
     await this.onboardingStore.insertInstanceEvent({
       type: event.type,
       timeToEvent,
@@ -134,10 +113,7 @@ export class OnboardingService {
       return;
     }
 
-    const startDate =
-      project.project === 'default'
-        ? firstInstanceUserDate
-        : project.createdAt || null;
+    const startDate = project.project === 'default' ? firstInstanceUserDate : project.createdAt || null;
 
     if (!startDate) {
       return;

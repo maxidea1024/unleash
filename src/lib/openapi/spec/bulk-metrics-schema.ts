@@ -18,8 +18,7 @@ export const bulkMetricsSchema = {
       },
     },
     metrics: {
-      description:
-        'a list of client usage metrics registered by downstream providers. (Typically Unleash Edge)',
+      description: 'a list of client usage metrics registered by downstream providers. (Typically Unleash Edge)',
       type: 'array',
       items: {
         $ref: '#/components/schemas/clientMetricsEnvSchema',

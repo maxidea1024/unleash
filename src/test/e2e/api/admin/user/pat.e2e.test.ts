@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithAuth,
-} from '../../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithAuth } from '../../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
 import getLogger from '../../../../fixtures/no-logger';
 import type { IPatStore } from '../../../../../lib/types/stores/pat-store';
@@ -53,10 +50,7 @@ test('should create a PAT', async () => {
   firstSecret = body.secret;
   firstId = body.id;
 
-  const response = await request
-    .get('/api/admin/user/tokens')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const response = await request.get('/api/admin/user/tokens').expect('Content-Type', /json/).expect(200);
 
   expect(response.body.pats).toHaveLength(1);
 });
@@ -82,10 +76,7 @@ test('should delete the PAT', async () => {
 test('should get all PATs', async () => {
   const { request } = app;
 
-  const { body } = await request
-    .get('/api/admin/user/tokens')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get('/api/admin/user/tokens').expect('Content-Type', /json/).expect(200);
 
   expect(body.pats).toHaveLength(1);
   expect(body.pats[0].secret).toBeUndefined();
@@ -111,10 +102,7 @@ test('should not allow deletion of other users PAT', async () => {
     })
     .expect(200);
 
-  const { body } = await request
-    .get('/api/admin/user/tokens')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get('/api/admin/user/tokens').expect('Content-Type', /json/).expect(200);
 
   expect(body.pats).toHaveLength(1);
   expect(body.pats[0].secret).toBeUndefined();
@@ -139,10 +127,7 @@ test('should get only current user PATs', async () => {
     .set('Content-Type', 'application/json')
     .expect(201);
 
-  const { body } = await request
-    .get('/api/admin/user/tokens')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get('/api/admin/user/tokens').expect('Content-Type', /json/).expect(200);
 
   expect(body.pats).toHaveLength(1);
 });
@@ -236,10 +221,7 @@ test('should get user id 1', async () => {
 });
 
 test('should be able to get projects', async () => {
-  await app.request
-    .get('/api/admin/projects')
-    .set('Authorization', firstSecret)
-    .expect(200);
+  await app.request.get('/api/admin/projects').set('Authorization', firstSecret).expect(200);
 });
 
 test('should be able to create a toggle', async () => {
@@ -254,10 +236,7 @@ test('should be able to create a toggle', async () => {
 });
 
 test('should not get user with invalid token', async () => {
-  await app.request
-    .get('/api/admin/user')
-    .set('Authorization', 'randomtoken')
-    .expect(401);
+  await app.request.get('/api/admin/user').set('Authorization', 'randomtoken').expect(401);
 });
 
 test('should not get user with expired token', async () => {
@@ -273,10 +252,7 @@ test('should not get user with expired token', async () => {
     1,
   );
 
-  await app.request
-    .get('/api/admin/user')
-    .set('Authorization', secret)
-    .expect(401);
+  await app.request.get('/api/admin/user').set('Authorization', secret).expect(401);
 });
 /** TODO: Make this run properly
 test('should fail creation of PAT when PAT limit has been reached', async () => {

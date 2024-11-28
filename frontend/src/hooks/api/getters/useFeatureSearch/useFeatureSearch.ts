@@ -66,11 +66,7 @@ const createFeatureSearch = () => {
       initCache(params.project || '');
     }, []);
 
-    const { data, error, mutate, isLoading } = useSWR<SearchFeaturesSchema>(
-      swrKey,
-      fetcher,
-      options,
-    );
+    const { data, error, mutate, isLoading } = useSWR<SearchFeaturesSchema>(swrKey, fetcher, options);
 
     const refetch = useCallback(() => {
       mutate();

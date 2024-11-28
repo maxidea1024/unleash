@@ -29,10 +29,7 @@ const getLogger = () => {
   return { logger, getRecords };
 };
 
-const toggleMaintenanceMode = async (
-  maintenanceService: MaintenanceService,
-  enabled: boolean,
-) => {
+const toggleMaintenanceMode = async (maintenanceService: MaintenanceService, enabled: boolean) => {
   await maintenanceService.toggleMaintenanceMode({ enabled }, TEST_AUDIT_USER);
 };
 
@@ -55,11 +52,7 @@ const createSchedulerTestService = ({
     storeEvent() {},
   } as unknown as EventService);
   const maintenanceService = new MaintenanceService(config, settingService);
-  const schedulerService = new SchedulerService(
-    logger,
-    maintenanceService,
-    config.eventBus,
-  );
+  const schedulerService = new SchedulerService(logger, maintenanceService, config.eventBus);
 
   return { schedulerService, maintenanceService };
 };
@@ -172,13 +165,9 @@ test('Can handle crash of a async job', async () => {
 
   schedulerService.stop();
   const records = getRecords();
-  expect(records[0][0]).toContain(
-    'initial scheduled job failed | id: test-id-10',
-  );
+  expect(records[0][0]).toContain('initial scheduled job failed | id: test-id-10');
   expect(records[0][1]).toContain('async reason');
-  expect(records[1][0]).toContain(
-    'interval scheduled job failed | id: test-id-10',
-  );
+  expect(records[1][0]).toContain('interval scheduled job failed | id: test-id-10');
   expect(records[1][1]).toContain('async reason');
 });
 
@@ -197,13 +186,9 @@ test('Can handle crash of a sync job', async () => {
 
   schedulerService.stop();
   const records = getRecords();
-  expect(records[0][0]).toContain(
-    'initial scheduled job failed | id: test-id-11',
-  );
+  expect(records[0][0]).toContain('initial scheduled job failed | id: test-id-11');
   expect(records[0][1].message).toContain('sync reason');
-  expect(records[1][0]).toContain(
-    'interval scheduled job failed | id: test-id-11',
-  );
+  expect(records[1][0]).toContain('interval scheduled job failed | id: test-id-11');
 });
 
 it('should emit scheduler job time event when scheduled function is run', async () => {

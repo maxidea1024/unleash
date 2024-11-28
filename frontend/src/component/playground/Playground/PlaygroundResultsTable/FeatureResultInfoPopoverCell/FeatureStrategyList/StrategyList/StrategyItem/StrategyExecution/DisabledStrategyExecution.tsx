@@ -2,10 +2,7 @@ import { Fragment, type VFC } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { styled } from '@mui/material';
-import type {
-  PlaygroundRequestSchema,
-  PlaygroundStrategySchema,
-} from 'openapi';
+import type { PlaygroundRequestSchema, PlaygroundStrategySchema } from 'openapi';
 import { PlaygroundResultStrategyExecutionParameters } from './StrategyExecutionParameters/StrategyExecutionParameters';
 import { CustomStrategyParams } from './CustomStrategyParams/CustomStrategyParams';
 import { formattedStrategyNames } from 'utils/strategyNames';
@@ -24,18 +21,18 @@ const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0),
 }));
 
-export const DisabledStrategyExecution: VFC<
-  IDisabledStrategyExecutionProps
-> = ({ strategyResult, input, percentageFill }) => {
+export const DisabledStrategyExecution: VFC<IDisabledStrategyExecutionProps> = ({
+  strategyResult,
+  input,
+  percentageFill,
+}) => {
   const { name, constraints, segments, parameters } = strategyResult;
 
   const hasSegments = Boolean(segments && segments.length > 0);
   const hasConstraints = Boolean(constraints && constraints?.length > 0);
-  const hasExecutionParameters =
-    name !== 'default' && Object.keys(formattedStrategyNames).includes(name);
+  const hasExecutionParameters = name !== 'default' && Object.keys(formattedStrategyNames).includes(name);
   const hasCustomStrategyParameters =
-    Object.keys(parameters).length > 0 &&
-    strategyResult.result.evaluationStatus === 'incomplete'; // Use of custom strategy can be more explicit from the API
+    Object.keys(parameters).length > 0 && strategyResult.result.evaluationStatus === 'incomplete'; // Use of custom strategy can be more explicit from the API
 
   if (!parameters) {
     return null;
@@ -43,9 +40,7 @@ export const DisabledStrategyExecution: VFC<
 
   const items = [
     hasSegments && <SegmentExecutionWithoutResult segments={segments} />,
-    hasConstraints && (
-      <ConstraintExecutionWithoutResults constraints={constraints} />
-    ),
+    hasConstraints && <ConstraintExecutionWithoutResults constraints={constraints} />,
     hasExecutionParameters && (
       <PlaygroundResultStrategyExecutionParameters
         parameters={parameters}
@@ -54,9 +49,7 @@ export const DisabledStrategyExecution: VFC<
         disabled
       />
     ),
-    hasCustomStrategyParameters && (
-      <CustomStrategyParams strategyName={name} parameters={parameters} />
-    ),
+    hasCustomStrategyParameters && <CustomStrategyParams strategyName={name} parameters={parameters} />,
     name === 'default' && (
       <StyledBoxSummary
         sx={(theme) => ({
@@ -64,8 +57,7 @@ export const DisabledStrategyExecution: VFC<
           color: theme.palette.text.secondary,
         })}
       >
-        The standard strategy is <Badge color={'disabled'}>ON</Badge> for all
-        users.
+        The standard strategy is <Badge color={'disabled'}>ON</Badge> for all users.
       </StyledBoxSummary>
     ),
   ].filter(Boolean);
@@ -76,10 +68,7 @@ export const DisabledStrategyExecution: VFC<
         <Fragment key={index}>
           <ConditionallyRender
             condition={
-              index > 0 &&
-              (strategyResult.name === 'flexibleRollout'
-                ? index < items.length
-                : index < items.length - 1)
+              index > 0 && (strategyResult.name === 'flexibleRollout' ? index < items.length : index < items.length - 1)
             }
             show={<StrategySeparator text='AND' />}
           />

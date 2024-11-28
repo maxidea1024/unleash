@@ -5,8 +5,7 @@ export const clientMetricsSchema = {
   $id: '#/components/schemas/clientMetricsSchema',
   type: 'object',
   required: ['appName', 'bucket'],
-  description:
-    'Client usage metrics, accumulated in buckets of hour by hour by default',
+  description: 'Client usage metrics, accumulated in buckets of hour by hour by default',
   properties: {
     appName: {
       description: 'The name of the application that is evaluating toggles',
@@ -28,8 +27,7 @@ export const clientMetricsSchema = {
     },
     sdkVersion: {
       type: 'string',
-      description:
-        'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
+      description: 'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
       example: 'unleash-client-java:7.0.0',
     },
     platformName: {
@@ -51,33 +49,28 @@ export const clientMetricsSchema = {
       example: '1.0.0',
     },
     specVersion: {
-      description:
-        'The version of the Unleash client specification the client supports',
+      description: 'The version of the Unleash client specification the client supports',
       type: 'string',
       example: '3.0.0',
     },
     bucket: {
       type: 'object',
       required: ['start', 'stop', 'toggles'],
-      description:
-        'Holds all metrics gathered over a window of time. Typically 1 hour wide',
+      description: 'Holds all metrics gathered over a window of time. Typically 1 hour wide',
       properties: {
         start: {
           $ref: '#/components/schemas/dateSchema',
-          description:
-            'The start of the time window these metrics are valid for. The window is usually 1 hour wide',
+          description: 'The start of the time window these metrics are valid for. The window is usually 1 hour wide',
           example: '1926-05-08T12:00:00.000Z',
         },
         stop: {
           $ref: '#/components/schemas/dateSchema',
-          description:
-            'The end of the time window these metrics are valid for. The window is 1 hour wide',
+          description: 'The end of the time window these metrics are valid for. The window is 1 hour wide',
           example: '1926-05-08T13:00:00.000Z',
         },
         toggles: {
           type: 'object',
-          description:
-            'an object containing feature names with yes/no plus variant usage',
+          description: 'an object containing feature names with yes/no plus variant usage',
           example: {
             myCoolToggle: {
               yes: 25,

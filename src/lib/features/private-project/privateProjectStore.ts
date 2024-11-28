@@ -52,25 +52,15 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
         db.distinct()
           .select('projects.id as project_id')
           .from('projects')
-          .leftJoin(
-            'project_settings',
-            'projects.id',
-            'project_settings.project',
-          )
+          .leftJoin('project_settings', 'projects.id', 'project_settings.project')
           .where((builder) => {
-            builder
-              .whereNull('project_settings.project')
-              .orWhere('project_settings.project_mode', '!=', 'private');
+            builder.whereNull('project_settings.project').orWhere('project_settings.project_mode', '!=', 'private');
           })
           .unionAll((queryBuilder) => {
             queryBuilder
               .select('projects.id as project_id')
               .from('projects')
-              .join(
-                'project_settings',
-                'projects.id',
-                'project_settings.project',
-              )
+              .join('project_settings', 'projects.id', 'project_settings.project')
               .where('project_settings.project_mode', '=', 'private')
               .whereIn('projects.id', (whereBuilder) => {
                 whereBuilder
@@ -83,11 +73,7 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
                 whereBuilder
                   .select('group_role.project')
                   .from('group_role')
-                  .leftJoin(
-                    'group_user',
-                    'group_user.group_id',
-                    'group_role.group_id',
-                  )
+                  .leftJoin('group_user', 'group_user.group_id', 'group_role.group_id')
                   .where('group_user.user_id', userId);
               });
           })

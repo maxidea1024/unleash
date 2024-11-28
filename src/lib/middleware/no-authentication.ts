@@ -1,12 +1,7 @@
 import type { Application } from 'express';
 import NoAuthUser from '../types/no-auth-user';
 import { ApiTokenType } from '../types/models/api-token';
-import {
-  ApiUser,
-  type IApiRequest,
-  type IAuthRequest,
-  permissions,
-} from '../server-impl';
+import { ApiUser, type IApiRequest, type IAuthRequest, permissions } from '../server-impl';
 import { DEFAULT_ENV } from '../util';
 
 // eslint-disable-next-line

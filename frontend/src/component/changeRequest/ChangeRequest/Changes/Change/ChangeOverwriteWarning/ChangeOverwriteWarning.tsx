@@ -38,20 +38,11 @@ export const ChangeOverwriteWarning: React.FC<{
   const getChangesThatWouldBeOverwritten = () => {
     switch (data.changeType) {
       case 'segment':
-        return getSegmentChangesThatWouldBeOverwritten(
-          data.current,
-          data.change,
-        );
+        return getSegmentChangesThatWouldBeOverwritten(data.current, data.change);
       case 'strategy':
-        return getStrategyChangesThatWouldBeOverwritten(
-          data.current,
-          data.change,
-        );
+        return getStrategyChangesThatWouldBeOverwritten(data.current, data.change);
       case 'environment variant configuration':
-        return getEnvVariantChangesThatWouldBeOverwritten(
-          data.current,
-          data.change,
-        );
+        return getEnvVariantChangesThatWouldBeOverwritten(data.current, data.change);
     }
   };
 

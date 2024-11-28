@@ -8,12 +8,7 @@ import { Box, useMediaQuery } from '@mui/material';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { PaginatedTable, TablePlaceholder } from 'component/common/Table';
 import theme from 'themes/theme';
-import {
-  encodeQueryParams,
-  NumberParam,
-  StringParam,
-  withDefault,
-} from 'use-query-params';
+import { encodeQueryParams, NumberParam, StringParam, withDefault } from 'use-query-params';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import useLoading from 'hooks/useLoading';
 import { createColumnHelper, useReactTable } from '@tanstack/react-table';
@@ -65,19 +60,14 @@ export const ProjectApplications = () => {
     sortBy: withDefault(StringParam, 'createdAt'),
     sortOrder: withDefault(StringParam, 'desc'),
   };
-  const [tableState, setTableState] = usePersistentTableState(
-    `project-applications-table-${projectId}`,
-    stateConfig,
-  );
+  const [tableState, setTableState] = usePersistentTableState(`project-applications-table-${projectId}`, stateConfig);
 
   const {
     applications = [],
     total,
     loading,
   } = useProjectApplications(
-    mapValues(encodeQueryParams(stateConfig, tableState), (value) =>
-      value ? `${value}` : undefined,
-    ),
+    mapValues(encodeQueryParams(stateConfig, tableState), (value) => (value ? `${value}` : undefined)),
     projectId,
   );
 
@@ -87,8 +77,7 @@ export const ProjectApplications = () => {
 
   const bodyLoadingRef = useLoading(loading);
 
-  const { offset, limit, query, sortBy, sortOrder, ...filterState } =
-    tableState;
+  const { offset, limit, query, sortBy, sortOrder, ...filterState } = tableState;
 
   const columns = useMemo(
     () => [
@@ -109,13 +98,7 @@ export const ProjectApplications = () => {
       }),
       columnHelper.accessor('environments', {
         header: 'Environments',
-        cell: ({ row }) => (
-          <StringArrayCell
-            row={row.original}
-            field={'environments'}
-            singularLabel={'environment'}
-          />
-        ),
+        cell: ({ row }) => <StringArrayCell row={row.original} field={'environments'} singularLabel={'environment'} />,
         enableSorting: false,
         meta: {
           width: '25%',
@@ -123,13 +106,7 @@ export const ProjectApplications = () => {
       }),
       columnHelper.accessor('instances', {
         header: 'Instances',
-        cell: ({ row }) => (
-          <StringArrayCell
-            row={row.original}
-            field={'instances'}
-            singularLabel={'instance'}
-          />
-        ),
+        cell: ({ row }) => <StringArrayCell row={row.original} field={'instances'} singularLabel={'instance'} />,
         enableSorting: false,
         meta: {
           width: '25%',
@@ -169,12 +146,7 @@ export const ProjectApplications = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      placeholder='Search'
-                      expandable
-                      initialValue={query || ''}
-                      onChange={setSearchValue}
-                    />
+                    <Search placeholder='Search' expandable initialValue={query || ''} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -184,9 +156,7 @@ export const ProjectApplications = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search initialValue={query || ''} onChange={setSearchValue} />
-            }
+            show={<Search initialValue={query || ''} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
@@ -209,11 +179,7 @@ export const ProjectApplications = () => {
                   &rdquo;
                 </TablePlaceholder>
               }
-              elseShow={
-                <TablePlaceholder>
-                  No applications found matching your criteria.
-                </TablePlaceholder>
-              }
+              elseShow={<TablePlaceholder>No applications found matching your criteria.</TablePlaceholder>}
             />
           </Box>
         }

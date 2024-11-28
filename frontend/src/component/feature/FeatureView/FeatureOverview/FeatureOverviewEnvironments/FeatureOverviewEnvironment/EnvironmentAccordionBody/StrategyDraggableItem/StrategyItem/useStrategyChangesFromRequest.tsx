@@ -15,10 +15,7 @@ export const useStrategyChangesFromRequest = (
 ) => {
   const { user } = useAuthUser();
 
-  const { changeRequests } = usePendingChangeRequestsForFeature(
-    projectId,
-    featureId,
-  );
+  const { changeRequests } = usePendingChangeRequestsForFeature(projectId, featureId);
   const result: UseStrategyChangeFromRequestResult = [];
 
   const environmentDraftOrScheduled = changeRequests?.filter(
@@ -26,22 +23,16 @@ export const useStrategyChangesFromRequest = (
   );
 
   environmentDraftOrScheduled?.forEach((draftOrScheduled) => {
-    const feature = draftOrScheduled?.features.find(
-      (feature) => feature.name === featureId,
-    );
+    const feature = draftOrScheduled?.features.find((feature) => feature.name === featureId);
     const change = feature?.changes.find((change) => {
-      if (
-        change.action === 'updateStrategy' ||
-        change.action === 'deleteStrategy'
-      ) {
+      if (change.action === 'updateStrategy' || change.action === 'deleteStrategy') {
         return change.payload.id === strategyId;
       }
       return false;
     });
     if (change) {
       const isScheduledChange = draftOrScheduled.state === 'Scheduled';
-      const isOwnDraft =
-        !isScheduledChange && draftOrScheduled.createdBy.id === user?.id;
+      const isOwnDraft = !isScheduledChange && draftOrScheduled.createdBy.id === user?.id;
 
       if (isScheduledChange) {
         result.push({

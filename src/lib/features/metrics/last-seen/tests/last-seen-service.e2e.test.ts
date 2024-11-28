@@ -1,10 +1,5 @@
-import dbInit, {
-  type ITestDb,
-} from '../../../../../test/e2e/helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../../../test/e2e/helpers/test-helper';
+import dbInit, { type ITestDb } from '../../../../../test/e2e/helpers/database-init';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../../test/fixtures/no-logger';
 import { TEST_AUDIT_USER } from '../../../../types';
 
@@ -43,11 +38,7 @@ test('should clean unknown feature flag names from last seen store', async () =>
 
   await Promise.all(
     clean.map((featureName) =>
-      featureToggleService.createFeatureToggle(
-        'default',
-        { name: featureName },
-        TEST_AUDIT_USER,
-      ),
+      featureToggleService.createFeatureToggle('default', { name: featureName }, TEST_AUDIT_USER),
     ),
   );
 
@@ -77,9 +68,7 @@ test('should clean unknown feature flag names from last seen store', async () =>
   expect(stored.rows.length).toBe(4);
   expect(stored.rows).toMatch;
 
-  const notInDirty = stored.rows.filter(
-    (row) => !dirty.includes(row.feature_name),
-  );
+  const notInDirty = stored.rows.filter((row) => !dirty.includes(row.feature_name));
 
   expect(notInDirty.length).toBe(4);
 });
@@ -96,11 +85,7 @@ test('should clean unknown feature flag environments from last seen store', asyn
 
   await Promise.all(
     clean.map((feature) =>
-      featureToggleService.createFeatureToggle(
-        'default',
-        { name: feature.name },
-        TEST_AUDIT_USER,
-      ),
+      featureToggleService.createFeatureToggle('default', { name: feature.name }, TEST_AUDIT_USER),
     ),
   );
 
@@ -154,9 +139,7 @@ test('should not fail with feature names longer than 255 chars', async () => {
   await lastSeenService.store();
 
   // We have no method to get these from the last seen service or any other service or store
-  const stored = await db.rawDatabase.raw(
-    'SELECT * FROM last_seen_at_metrics;',
-  );
+  const stored = await db.rawDatabase.raw('SELECT * FROM last_seen_at_metrics;');
 
   expect(stored.rows.length).toBe(2);
 });

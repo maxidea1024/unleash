@@ -7,9 +7,7 @@ import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
 import useToast from 'hooks/useToast';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { CREATE_PROJECT } from 'component/providers/AccessProvider/permissions';
-import useProjectForm, {
-  DEFAULT_PROJECT_STICKINESS,
-} from '../../hooks/useProjectForm';
+import useProjectForm, { DEFAULT_PROJECT_STICKINESS } from '../../hooks/useProjectForm';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { type ReactNode, useState, type FormEvent } from 'react';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
@@ -70,19 +68,13 @@ const configButtonData = {
         <p>The modes and their functions are:</p>
         <StyledDefinitionList>
           <dt>Open</dt>
-          <dd>
-            Anyone can see the project and anyone can create change requests.
-          </dd>
+          <dd>Anyone can see the project and anyone can create change requests.</dd>
           <dt>Protected</dt>
-          <dd>
-            Anyone can see the project, but only admins and project members can
-            submit change requests.
-          </dd>
+          <dd>Anyone can see the project, but only admins and project members can submit change requests.</dd>
           <dt>Private</dt>
           <dd>
-            Hides the project from users with the "viewer" root role who are not
-            members of the project. Only project members and admins can submit
-            change requests.
+            Hides the project from users with the "viewer" root role who are not members of the project. Only project
+            members and admins can submit change requests.
           </dd>
         </StyledDefinitionList>
       </>
@@ -108,10 +100,7 @@ const useProjectLimit = () => {
   };
 };
 
-export const CreateProjectDialog = ({
-  open,
-  onClose,
-}: ICreateProjectDialogProps) => {
+export const CreateProjectDialog = ({ open, onClose }: ICreateProjectDialogProps) => {
   const { createProject, loading: creatingProject } = useProjectApi();
   const { refetchUser } = useAuthUser();
   const { uiConfig } = useUiConfig();
@@ -153,8 +142,7 @@ export const CreateProjectDialog = ({
 
   const [documentation, setDocumentation] = useState(generalDocumentation);
 
-  const clearDocumentationOverride = () =>
-    setDocumentation(generalDocumentation);
+  const clearDocumentationOverride = () => setDocumentation(generalDocumentation);
 
   const projectPayload = getCreateProjectPayload({
     omitId: true,
@@ -202,21 +190,14 @@ export const CreateProjectDialog = ({
     }
   };
 
-  const {
-    limit,
-    currentValue,
-    limitReached,
-    loading: loadingLimit,
-  } = useProjectLimit();
+  const { limit, currentValue, limitReached, loading: loadingLimit } = useProjectLimit();
 
   const { isEnterprise } = useUiConfig();
   const { environments: allEnvironments } = useEnvironments();
   const activeEnvironments = allEnvironments.filter((env) => env.enabled);
   const stickinessOptions = useStickinessOptions(projectStickiness);
 
-  const numberOfConfiguredChangeRequestEnvironments = Object.keys(
-    projectChangeRequestConfiguration,
-  ).length;
+  const numberOfConfiguredChangeRequestEnvironments = Object.keys(projectChangeRequestConfiguration).length;
   const changeRequestSelectorLabel =
     numberOfConfiguredChangeRequestEnvironments > 1
       ? `${numberOfConfiguredChangeRequestEnvironments} environments configured`
@@ -228,7 +209,10 @@ export const CreateProjectDialog = ({
     projectEnvironments.size === 0
       ? activeEnvironments
       : activeEnvironments.filter((env) => projectEnvironments.has(env.name))
-  ).map(({ name, type }) => ({ name, type }));
+  ).map(({ name, type }) => ({
+    name,
+    type,
+  }));
 
   return (
     <StyledDialog open={open} onClose={onClose}>
@@ -248,9 +232,7 @@ export const CreateProjectDialog = ({
             permission: CREATE_PROJECT,
             disabled: creatingProject || limitReached || loadingLimit,
           }}
-          Limit={
-            <Limit name='projects' limit={limit} currentValue={currentValue} />
-          }
+          Limit={<Limit name='projects' limit={limit} currentValue={currentValue} />}
           handleSubmit={handleSubmit}
           name={projectName}
           setName={setProjectName}
@@ -274,10 +256,7 @@ export const CreateProjectDialog = ({
                 }))}
                 onChange={setProjectEnvironments}
                 button={{
-                  label:
-                    projectEnvironments.size > 0
-                      ? `${projectEnvironments.size} selected`
-                      : 'All environments',
+                  label: projectEnvironments.size > 0 ? `${projectEnvironments.size} selected` : 'All environments',
                   labelWidth: `${'all environments'.length}ch`,
                   icon: <EnvironmentsIcon />,
                 }}
@@ -320,8 +299,7 @@ export const CreateProjectDialog = ({
                   <SingleSelectConfigButton
                     tooltip={{
                       header: 'Set project collaboration mode',
-                      additionalContent:
-                        configButtonData.mode.additionalTooltipContent,
+                      additionalContent: configButtonData.mode.additionalTooltipContent,
                     }}
                     description={configButtonData.mode.text}
                     options={projectModeOptions}
@@ -351,9 +329,7 @@ export const CreateProjectDialog = ({
                     }}
                     description={configButtonData.changeRequests.text}
                     activeEnvironments={availableChangeRequestEnvironments}
-                    updateProjectChangeRequestConfiguration={
-                      updateProjectChangeRequestConfig
-                    }
+                    updateProjectChangeRequestConfiguration={updateProjectChangeRequestConfig}
                     button={{
                       label: changeRequestSelectorLabel,
                       icon: <ChangeRequestIcon />,
@@ -363,12 +339,8 @@ export const CreateProjectDialog = ({
                       label: 'Filter environments',
                       placeholder: 'Filter environments',
                     }}
-                    projectChangeRequestConfiguration={
-                      projectChangeRequestConfiguration
-                    }
-                    onOpen={() =>
-                      setDocumentation(configButtonData.changeRequests)
-                    }
+                    projectChangeRequestConfiguration={projectChangeRequestConfiguration}
+                    onOpen={() => setDocumentation(configButtonData.changeRequests)}
                     onClose={clearDocumentationOverride}
                   />
                 }

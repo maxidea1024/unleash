@@ -43,10 +43,8 @@ const FeatureSettingsProjectConfirm = ({
   const currentProjectId = useRequiredPathParam('projectId');
   const { project } = useProjectOverview(projectId);
 
-  const { isChangeRequestConfiguredInAnyEnv } =
-    useChangeRequestsEnabled(projectId);
-  const targetProjectHasChangeRequestsEnabled =
-    isChangeRequestConfiguredInAnyEnv();
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(projectId);
+  const targetProjectHasChangeRequestsEnabled = isChangeRequestConfiguredInAnyEnv();
   const hasSameEnvironments: boolean = useMemo(() => {
     return arraysHaveSameItems(
       feature.environments.map((env) => env.name),
@@ -54,20 +52,14 @@ const FeatureSettingsProjectConfirm = ({
     );
   }, [feature, project]);
 
-  const hasPendingChangeRequests = changeRequests
-    ? changeRequests.length > 0
-    : false;
+  const hasPendingChangeRequests = changeRequests ? changeRequests.length > 0 : false;
 
-  const hasDependencies =
-    feature.dependencies.length > 0 || feature.children.length > 0;
+  const hasDependencies = feature.dependencies.length > 0 || feature.children.length > 0;
 
   return (
     <ConditionallyRender
       condition={
-        hasSameEnvironments &&
-        !hasDependencies &&
-        !hasPendingChangeRequests &&
-        !targetProjectHasChangeRequestsEnabled
+        hasSameEnvironments && !hasDependencies && !hasPendingChangeRequests && !targetProjectHasChangeRequestsEnabled
       }
       show={
         <Dialogue
@@ -79,31 +71,21 @@ const FeatureSettingsProjectConfirm = ({
           secondaryButtonText='Cancel'
         >
           <StyledContainer>
-            <StyledAlert severity='success'>
-              This feature flag is compatible with the new project.
-            </StyledAlert>
+            <StyledAlert severity='success'>This feature flag is compatible with the new project.</StyledAlert>
             <p>Are you sure you want to change the project for this flag?</p>
           </StyledContainer>
         </Dialogue>
       }
       elseShow={
-        <Dialogue
-          open={open}
-          onClick={onClose}
-          title='Confirm change project'
-          primaryButtonText='Close'
-        >
+        <Dialogue open={open} onClick={onClose} title='Confirm change project' primaryButtonText='Close'>
           <StyledContainer>
-            <StyledAlert severity='warning'>
-              Cannot proceed with the move
-            </StyledAlert>
+            <StyledAlert severity='warning'>Cannot proceed with the move</StyledAlert>
 
             <ConditionallyRender
               condition={hasDependencies}
               show={
                 <p>
-                  <span>The feature flag must not have any dependencies.</span>{' '}
-                  <br />
+                  <span>The feature flag must not have any dependencies.</span> <br />
                   <span>Please remove feature dependencies first.</span>
                 </p>
               }
@@ -112,8 +94,8 @@ const FeatureSettingsProjectConfirm = ({
               condition={!hasSameEnvironments}
               show={
                 <p>
-                  In order to move a feature flag between two projects, both
-                  projects must have the exact same environments enabled.
+                  In order to move a feature flag between two projects, both projects must have the exact same
+                  environments enabled.
                 </p>
               }
             />
@@ -122,17 +104,14 @@ const FeatureSettingsProjectConfirm = ({
               show={
                 <>
                   <p>
-                    The feature flag must not have any pending change requests.
-                    This feature flag is currently referenced in the following
-                    change requests:
+                    The feature flag must not have any pending change requests. This feature flag is currently
+                    referenced in the following change requests:
                   </p>
                   <StyledList>
                     {changeRequests?.map((changeRequest) => {
                       return (
                         <ListItem key={changeRequest.id}>
-                          <Link
-                            to={`/projects/${currentProjectId}/change-requests/${changeRequest.id}`}
-                          >
+                          <Link to={`/projects/${currentProjectId}/change-requests/${changeRequest.id}`}>
                             View change request {changeRequest.id}
                           </Link>
                         </ListItem>
@@ -147,10 +126,8 @@ const FeatureSettingsProjectConfirm = ({
               show={
                 <p>
                   You're not allowed to move the feature to project{' '}
-                  <Link to={`/projects/${projectId}/settings/change-requests`}>
-                    {projectId}
-                  </Link>
-                  . This project has change requests enabled.
+                  <Link to={`/projects/${projectId}/settings/change-requests`}>{projectId}</Link>. This project has
+                  change requests enabled.
                 </p>
               }
             />

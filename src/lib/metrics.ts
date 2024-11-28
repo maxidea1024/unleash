@@ -29,21 +29,12 @@ import type { IUnleashStores } from './types/stores';
 import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns';
 import type { InstanceStatsService } from './features/instance-stats/instance-stats-service';
 import type { IEnvironment, ISdkHeartbeat } from './types';
-import {
-  createCounter,
-  createGauge,
-  createSummary,
-  createHistogram,
-} from './util/metrics';
+import { createCounter, createGauge, createSummary, createHistogram } from './util/metrics';
 import type { SchedulerService } from './services';
 import type { IClientMetricsEnv } from './features/metrics/client-metrics/client-metrics-store-v2-type';
 import { DbMetricsMonitor } from './metrics-gauge';
 
-export function registerPrometheusPostgresMetrics(
-  db: Knex,
-  eventBus: EventEmitter,
-  postgresVersion: string,
-) {
+export function registerPrometheusPostgresMetrics(db: Knex, eventBus: EventEmitter, postgresVersion: string) {
   if (!db?.client) {
     return;
   }
@@ -115,13 +106,10 @@ export function registerPrometheusMetrics(
   const { flagResolver } = config;
   const dbMetrics = new DbMetricsMonitor(config);
 
-  const cachedEnvironments: () => Promise<IEnvironment[]> = memoizee(
-    async () => environmentStore.getAll(),
-    {
-      promise: true,
-      maxAge: hoursToMilliseconds(1),
-    },
-  );
+  const cachedEnvironments: () => Promise<IEnvironment[]> = memoizee(async () => environmentStore.getAll(), {
+    promise: true,
+    maxAge: hoursToMilliseconds(1),
+  });
 
   const requestDuration = createSummary({
     name: 'http_request_duration_milliseconds',
@@ -158,13 +146,7 @@ export function registerPrometheusMetrics(
   const featureFlagUpdateTotal = createCounter({
     name: 'feature_toggle_update_total',
     help: 'Number of times a toggle has been updated. Environment label would be "n/a" when it is not available, e.g. when a feature flag is created.',
-    labelNames: [
-      'toggle',
-      'project',
-      'environment',
-      'environmentType',
-      'action',
-    ],
+    labelNames: ['toggle', 'project', 'environment', 'environmentType', 'action'],
   });
   const featureFlagUsageTotal = createCounter({
     name: 'feature_toggle_usage_total',
@@ -184,8 +166,7 @@ export function registerPrometheusMetrics(
     name: 'max_feature_environment_strategies',
     help: 'Maximum number of environment strategies in one feature',
     labelNames: ['feature', 'environment'],
-    query: () =>
-      stores.featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies(),
+    query: () => stores.featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies(),
     map: (result) => ({
       value: result.count,
       labels: {
@@ -224,8 +205,7 @@ export function registerPrometheusMetrics(
     name: 'max_strategy_constraints',
     help: 'Maximum number of constraints used on a single strategy',
     labelNames: ['feature', 'environment'],
-    query: () =>
-      stores.featureStrategiesReadModel.getMaxConstraintsPerStrategy(),
+    query: () => stores.featureStrategiesReadModel.getMaxConstraintsPerStrategy(),
     map: (result) => ({
       value: result.count,
       labels: {
@@ -239,8 +219,7 @@ export function registerPrometheusMetrics(
     name: 'largest_project_environment_size',
     help: 'The largest project environment size (bytes) based on strategies, constraints, variants and parameters',
     labelNames: ['project', 'environment'],
-    query: () =>
-      stores.largestResourcesReadModel.getLargestProjectEnvironments(1),
+    query: () => stores.largestResourcesReadModel.getLargestProjectEnvironments(1),
     map: (results) => {
       const result = results[0];
       return {
@@ -256,8 +235,7 @@ export function registerPrometheusMetrics(
     name: 'largest_feature_environment_size',
     help: 'The largest feature environment size (bytes) base on strategies, constraints, variants and parameters',
     labelNames: ['feature', 'environment'],
-    query: () =>
-      stores.largestResourcesReadModel.getLargestFeatureEnvironments(1),
+    query: () => stores.largestResourcesReadModel.getLargestFeatureEnvironments(1),
     map: (results) => {
       const result = results[0];
       return {
@@ -425,14 +403,7 @@ export function registerPrometheusMetrics(
   const clientSdkVersionUsage = createCounter({
     name: 'client_sdk_versions',
     help: 'Which sdk versions are being used',
-    labelNames: [
-      'sdk_name',
-      'sdk_version',
-      'platform_name',
-      'platform_version',
-      'yggdrasil_version',
-      'spec_version',
-    ],
+    labelNames: ['sdk_name', 'sdk_version', 'platform_name', 'platform_version', 'yggdrasil_version', 'spec_version'],
   });
 
   const productionChanges30 = createGauge({
@@ -662,38 +633,29 @@ export function registerPrometheusMetrics(
   });
 
   // register event listeners
-  eventBus.on(
-    events.EXCEEDS_LIMIT,
-    ({ resource, limit }: { resource: string; limit: number }) => {
-      exceedsLimitErrorCounter.increment({ resource, limit });
-    },
-  );
+  eventBus.on(events.EXCEEDS_LIMIT, ({ resource, limit }: { resource: string; limit: number }) => {
+    exceedsLimitErrorCounter.increment({ resource, limit });
+  });
 
-  eventBus.on(
-    events.STAGE_ENTERED,
-    (entered: { stage: string; feature: string }) => {
-      if (flagResolver.isEnabled('trackLifecycleMetrics')) {
-        logger.info(`STAGE_ENTERED listened ${JSON.stringify(entered)}`);
-      }
-      featureLifecycleStageEnteredCounter.increment({
-        stage: entered.stage,
-      });
-    },
-  );
+  eventBus.on(events.STAGE_ENTERED, (entered: { stage: string; feature: string }) => {
+    if (flagResolver.isEnabled('trackLifecycleMetrics')) {
+      logger.info(`STAGE_ENTERED listened ${JSON.stringify(entered)}`);
+    }
+    featureLifecycleStageEnteredCounter.increment({
+      stage: entered.stage,
+    });
+  });
 
-  eventBus.on(
-    events.REQUEST_TIME,
-    ({ path, method, time, statusCode, appName }) => {
-      requestDuration
-        .labels({
-          path,
-          method,
-          status: statusCode,
-          appName,
-        })
-        .observe(time);
-    },
-  );
+  eventBus.on(events.REQUEST_TIME, ({ path, method, time, statusCode, appName }) => {
+    requestDuration
+      .labels({
+        path,
+        method,
+        status: statusCode,
+        appName,
+      })
+      .observe(time);
+  });
 
   eventBus.on(events.SCHEDULER_JOB_TIME, ({ jobId, time }) => {
     schedulerDuration.labels(jobId).observe(time);
@@ -737,13 +699,9 @@ export function registerPrometheusMetrics(
     mapFeaturesForClientDuration.observe(duration);
   });
 
-  events.onMetricEvent(
-    eventBus,
-    events.REQUEST_ORIGIN,
-    ({ type, method, source }) => {
-      requestOriginCounter.increment({ type, method, source });
-    },
-  );
+  events.onMetricEvent(eventBus, events.REQUEST_ORIGIN, ({ type, method, source }) => {
+    requestOriginCounter.increment({ type, method, source });
+  });
 
   eventStore.on(FEATURE_CREATED, ({ featureName, project }) => {
     featureFlagUpdateTotal.increment({
@@ -781,86 +739,56 @@ export function registerPrometheusMetrics(
       action: 'updated',
     });
   });
-  eventStore.on(
-    FEATURE_STRATEGY_ADD,
-    async ({ featureName, project, environment }) => {
-      const environmentType = await resolveEnvironmentType(
-        environment,
-        cachedEnvironments,
-      );
-      featureFlagUpdateTotal.increment({
-        toggle: featureName,
-        project,
-        environment,
-        environmentType,
-        action: 'updated',
-      });
-    },
-  );
-  eventStore.on(
-    FEATURE_STRATEGY_REMOVE,
-    async ({ featureName, project, environment }) => {
-      const environmentType = await resolveEnvironmentType(
-        environment,
-        cachedEnvironments,
-      );
-      featureFlagUpdateTotal.increment({
-        toggle: featureName,
-        project,
-        environment,
-        environmentType,
-        action: 'updated',
-      });
-    },
-  );
-  eventStore.on(
-    FEATURE_STRATEGY_UPDATE,
-    async ({ featureName, project, environment }) => {
-      const environmentType = await resolveEnvironmentType(
-        environment,
-        cachedEnvironments,
-      );
-      featureFlagUpdateTotal.increment({
-        toggle: featureName,
-        project,
-        environment,
-        environmentType,
-        action: 'updated',
-      });
-    },
-  );
-  eventStore.on(
-    FEATURE_ENVIRONMENT_DISABLED,
-    async ({ featureName, project, environment }) => {
-      const environmentType = await resolveEnvironmentType(
-        environment,
-        cachedEnvironments,
-      );
-      featureFlagUpdateTotal.increment({
-        toggle: featureName,
-        project,
-        environment,
-        environmentType,
-        action: 'updated',
-      });
-    },
-  );
-  eventStore.on(
-    FEATURE_ENVIRONMENT_ENABLED,
-    async ({ featureName, project, environment }) => {
-      const environmentType = await resolveEnvironmentType(
-        environment,
-        cachedEnvironments,
-      );
-      featureFlagUpdateTotal.increment({
-        toggle: featureName,
-        project,
-        environment,
-        environmentType,
-        action: 'updated',
-      });
-    },
-  );
+  eventStore.on(FEATURE_STRATEGY_ADD, async ({ featureName, project, environment }) => {
+    const environmentType = await resolveEnvironmentType(environment, cachedEnvironments);
+    featureFlagUpdateTotal.increment({
+      toggle: featureName,
+      project,
+      environment,
+      environmentType,
+      action: 'updated',
+    });
+  });
+  eventStore.on(FEATURE_STRATEGY_REMOVE, async ({ featureName, project, environment }) => {
+    const environmentType = await resolveEnvironmentType(environment, cachedEnvironments);
+    featureFlagUpdateTotal.increment({
+      toggle: featureName,
+      project,
+      environment,
+      environmentType,
+      action: 'updated',
+    });
+  });
+  eventStore.on(FEATURE_STRATEGY_UPDATE, async ({ featureName, project, environment }) => {
+    const environmentType = await resolveEnvironmentType(environment, cachedEnvironments);
+    featureFlagUpdateTotal.increment({
+      toggle: featureName,
+      project,
+      environment,
+      environmentType,
+      action: 'updated',
+    });
+  });
+  eventStore.on(FEATURE_ENVIRONMENT_DISABLED, async ({ featureName, project, environment }) => {
+    const environmentType = await resolveEnvironmentType(environment, cachedEnvironments);
+    featureFlagUpdateTotal.increment({
+      toggle: featureName,
+      project,
+      environment,
+      environmentType,
+      action: 'updated',
+    });
+  });
+  eventStore.on(FEATURE_ENVIRONMENT_ENABLED, async ({ featureName, project, environment }) => {
+    const environmentType = await resolveEnvironmentType(environment, cachedEnvironments);
+    featureFlagUpdateTotal.increment({
+      toggle: featureName,
+      project,
+      environment,
+      environmentType,
+      action: 'updated',
+    });
+  });
   eventStore.on(FEATURE_ARCHIVED, ({ featureName, project }) => {
     featureFlagUpdateTotal.increment({
       toggle: featureName,
@@ -929,8 +857,7 @@ export function registerPrometheusMetrics(
         sdk_version: heartbeatEvent.sdkVersion,
         platform_name: heartbeatEvent.metadata?.platformName ?? 'not-set',
         platform_version: heartbeatEvent.metadata?.platformVersion ?? 'not-set',
-        yggdrasil_version:
-          heartbeatEvent.metadata?.yggdrasilVersion ?? 'not-set',
+        yggdrasil_version: heartbeatEvent.metadata?.yggdrasilVersion ?? 'not-set',
         spec_version: heartbeatEvent.metadata?.specVersion ?? 'not-set',
       });
     } else {
@@ -958,9 +885,7 @@ export function registerPrometheusMetrics(
     collectStaticCounters: async () => {
       try {
         featureTogglesArchivedTotal.reset();
-        featureTogglesArchivedTotal.set(
-          await instanceStatsService.getArchivedToggleCount(),
-        );
+        featureTogglesArchivedTotal.set(await instanceStatsService.getArchivedToggleCount());
 
         usersTotal.reset();
         usersTotal.set(await instanceStatsService.getRegisteredUsers());
@@ -973,15 +898,11 @@ export function registerPrometheusMetrics(
 
         apiTokens.reset();
 
-        for (const [
-          type,
-          value,
-        ] of await instanceStatsService.countApiTokensByType()) {
+        for (const [type, value] of await instanceStatsService.countApiTokensByType()) {
           apiTokens.labels({ type }).set(value);
         }
 
-        const deprecatedTokens =
-          await stores.apiTokenStore.countDeprecatedTokens();
+        const deprecatedTokens = await stores.apiTokenStore.countDeprecatedTokens();
         orphanedTokensTotal.reset();
         orphanedTokensTotal.set(deprecatedTokens.orphanedTokens);
 
@@ -994,16 +915,11 @@ export function registerPrometheusMetrics(
         legacyTokensActive.reset();
         legacyTokensActive.set(deprecatedTokens.activeLegacyTokens);
 
-        const previousDayMetricsBucketsCount =
-          await instanceStatsService.countPreviousDayHourlyMetricsBuckets();
+        const previousDayMetricsBucketsCount = await instanceStatsService.countPreviousDayHourlyMetricsBuckets();
         enabledMetricsBucketsPreviousDay.reset();
-        enabledMetricsBucketsPreviousDay.set(
-          previousDayMetricsBucketsCount.enabledCount,
-        );
+        enabledMetricsBucketsPreviousDay.set(previousDayMetricsBucketsCount.enabledCount);
         variantMetricsBucketsPreviousDay.reset();
-        variantMetricsBucketsPreviousDay.set(
-          previousDayMetricsBucketsCount.variantCount,
-        );
+        variantMetricsBucketsPreviousDay.set(previousDayMetricsBucketsCount.variantCount);
 
         const activeUsers = await instanceStatsService.getActiveUsers();
         usersActive7days.reset();
@@ -1019,8 +935,7 @@ export function registerPrometheusMetrics(
         licensedUsers.reset();
         licensedUsers.set(licensedUsersStat);
 
-        const productionChanges =
-          await instanceStatsService.getProductionChanges();
+        const productionChanges = await instanceStatsService.getProductionChanges();
         productionChanges30.reset();
         productionChanges30.set(productionChanges.last30);
         productionChanges60.reset();
@@ -1049,14 +964,13 @@ export default class MetricsMonitor {
 
     collectDefaultMetrics();
 
-    const { collectStaticCounters, collectAggDbMetrics } =
-      registerPrometheusMetrics(
-        config,
-        stores,
-        version,
-        eventBus,
-        instanceStatsService,
-      );
+    const { collectStaticCounters, collectAggDbMetrics } = registerPrometheusMetrics(
+      config,
+      stores,
+      version,
+      eventBus,
+      instanceStatsService,
+    );
 
     const postgresVersion = await stores.settingStore.postgresVersion();
     registerPrometheusPostgresMetrics(db, eventBus, postgresVersion);

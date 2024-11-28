@@ -18,11 +18,7 @@ test('tagTypesSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/tagTypesSchema', {}),
-  ).not.toBeUndefined();
+  expect(validateSchema('#/components/schemas/tagTypesSchema', {})).not.toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/tagTypesSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/tagTypesSchema', data)).toBeUndefined();
 });

@@ -7,11 +7,7 @@ interface IPercentageCircleProps {
   disabled?: boolean | null;
 }
 
-const PercentageCircle = ({
-  percentage,
-  size = '4rem',
-  disabled = false,
-}: IPercentageCircleProps) => {
+const PercentageCircle = ({ percentage, size = '4rem', disabled = false }: IPercentageCircleProps) => {
   const theme = useTheme();
 
   const style: CSSProperties = {
@@ -29,22 +25,12 @@ const PercentageCircle = ({
   const r = 100 / (2 * Math.PI);
   const d = 2 * r;
 
-  const color = disabled
-    ? theme.palette.neutral.border
-    : theme.palette.primary.light;
+  const color = disabled ? theme.palette.neutral.border : theme.palette.primary.light;
 
   return (
     <svg viewBox={`0 0 ${d} ${d}`} style={style} aria-hidden>
       <title>A circle progress bar with {percentage}% completion.</title>
-      <circle
-        r={r}
-        cx={r}
-        cy={r}
-        fill='none'
-        stroke={color}
-        strokeWidth={d}
-        strokeDasharray={`${percentage} 100`}
-      />
+      <circle r={r} cx={r} cy={r} fill='none' stroke={color} strokeWidth={d} strokeDasharray={`${percentage} 100`} />
     </svg>
   );
 };

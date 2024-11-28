@@ -12,20 +12,16 @@ export const adminFeaturesQuerySchema = {
         type: 'string',
         pattern: '\\w+:\\w+',
       },
-      description:
-        'Used to filter by tags. For each entry, a TAGTYPE:TAGVALUE is expected',
+      description: 'Used to filter by tags. For each entry, a TAGTYPE:TAGVALUE is expected',
       example: ['simple:mytag'],
     },
     namePrefix: {
       type: 'string',
-      description:
-        'A case-insensitive prefix filter for the names of feature flags',
+      description: 'A case-insensitive prefix filter for the names of feature flags',
       example: 'demo.part1',
     },
   },
   components: {},
 } as const;
 
-export type AdminFeaturesQuerySchema = FromSchema<
-  typeof adminFeaturesQuerySchema
->;
+export type AdminFeaturesQuerySchema = FromSchema<typeof adminFeaturesQuerySchema>;

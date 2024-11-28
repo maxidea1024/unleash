@@ -1,11 +1,6 @@
 import crypto from 'crypto';
 import type { Logger } from '../logger';
-import {
-  type IAuditUser,
-  type IUnleashConfig,
-  type IUnleashStores,
-  SYSTEM_USER_AUDIT,
-} from '../types';
+import { type IAuditUser, type IUnleashConfig, type IUnleashStores, SYSTEM_USER_AUDIT } from '../types';
 import type { IPublicSignupTokenStore } from '../types/stores/public-signup-token-store';
 import type { PublicSignupTokenSchema } from '../openapi/spec/public-signup-token-schema';
 import type { IRoleStore } from '../types/stores/role-store';
@@ -33,10 +28,7 @@ export class PublicSignupTokenService {
   private readonly unleashBase: string;
 
   constructor(
-    {
-      publicSignupTokenStore,
-      roleStore,
-    }: Pick<IUnleashStores, 'publicSignupTokenStore' | 'roleStore'>,
+    { publicSignupTokenStore, roleStore }: Pick<IUnleashStores, 'publicSignupTokenStore' | 'roleStore'>,
     config: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'server'>,
     userService: UserService,
     eventService: EventService,
@@ -81,11 +73,7 @@ export class PublicSignupTokenService {
     return result;
   }
 
-  async addTokenUser(
-    secret: string,
-    createUser: CreateInvitedUserSchema,
-    auditUser: IAuditUser,
-  ): Promise<IUser> {
+  async addTokenUser(secret: string, createUser: CreateInvitedUserSchema, auditUser: IAuditUser): Promise<IUser> {
     const token = await this.get(secret);
     const user = await this.userService.createUser(
       {
@@ -111,10 +99,7 @@ export class PublicSignupTokenService {
     const viewerRole = await this.roleStore.getRoleByName(RoleName.VIEWER);
     const secret = this.generateSecretKey();
     const url = this.getUrl(secret);
-    const cappedDate = this.getMinimumDate(
-      new Date(tokenCreate.expiresAt),
-      add(new Date(), { months: 1 }),
-    );
+    const cappedDate = this.getMinimumDate(new Date(tokenCreate.expiresAt), add(new Date(), { months: 1 }));
     const newToken: IPublicSignupTokenCreate = {
       name: tokenCreate.name,
       expiresAt: cappedDate,

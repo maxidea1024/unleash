@@ -2,9 +2,7 @@ import { Alert, Button, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import PasswordField from 'component/common/PasswordField/PasswordField';
-import PasswordChecker, {
-  PASSWORD_FORMAT_MESSAGE,
-} from 'component/user/common/ResetPasswordForm/PasswordChecker';
+import PasswordChecker, { PASSWORD_FORMAT_MESSAGE } from 'component/user/common/ResetPasswordForm/PasswordChecker';
 import PasswordMatcher from 'component/user/common/ResetPasswordForm/PasswordMatcher';
 import { usePasswordApi } from 'hooks/api/actions/usePasswordApi/usePasswordApi';
 import useAuthSettings from 'hooks/api/getters/useAuthSettings/useAuthSettings';
@@ -21,8 +19,7 @@ const StyledForm = styled('form')(({ theme }) => ({
 }));
 
 export const PasswordTab = () => {
-  const { config: simpleAuthConfig, loading: authSettingsLoading } =
-    useAuthSettings('simple');
+  const { config: simpleAuthConfig, loading: authSettingsLoading } = useAuthSettings('simple');
 
   const [loading, setLoading] = useState(false);
   const { setToastData, setToastApiError } = useToast();
@@ -36,11 +33,9 @@ export const PasswordTab = () => {
 
   const passwordsDoNotMatch = password !== confirmPassword;
   const sameAsOldPassword = oldPassword === confirmPassword;
-  const allPasswordsFilled =
-    password.length > 0 && confirmPassword.length > 0 && oldPassword.length > 0;
+  const allPasswordsFilled = password.length > 0 && confirmPassword.length > 0 && oldPassword.length > 0;
 
-  const hasError =
-    !allPasswordsFilled || passwordsDoNotMatch || sameAsOldPassword;
+  const hasError = !allPasswordsFilled || passwordsDoNotMatch || sameAsOldPassword;
 
   const submit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -84,19 +79,10 @@ export const PasswordTab = () => {
     <PageContent isLoading={loading} header='Change password'>
       <ConditionallyRender
         condition={simpleAuthConfig.disabled}
-        show={
-          <Alert severity='error'>
-            Password based login is currently disabled for your Unleash
-            instance.
-          </Alert>
-        }
+        show={<Alert severity='error'>Password based login is currently disabled for your Unleash instance.</Alert>}
         elseShow={
           <StyledForm>
-            <PasswordChecker
-              password={password}
-              callback={setValidPassword}
-              data-loading
-            />
+            <PasswordChecker password={password} callback={setValidPassword} data-loading />
             <PasswordField
               data-loading
               label='Old password'
@@ -105,9 +91,7 @@ export const PasswordTab = () => {
               error={Boolean(authenticationError)}
               helperText={authenticationError}
               autoComplete='current-password'
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setOldPassword(e.target.value)
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOldPassword(e.target.value)}
             />
             <PasswordField
               data-loading
@@ -117,9 +101,7 @@ export const PasswordTab = () => {
               error={Boolean(error)}
               helperText={error}
               autoComplete='new-password'
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />
             <PasswordField
               data-loading
@@ -127,9 +109,7 @@ export const PasswordTab = () => {
               name='confirmPassword'
               value={confirmPassword}
               autoComplete='new-password'
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setConfirmPassword(e.target.value)
-              }
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
             />
             <PasswordMatcher
               data-loading
@@ -137,14 +117,7 @@ export const PasswordTab = () => {
               passwordsDoNotMatch={passwordsDoNotMatch}
               sameAsOldPassword={sameAsOldPassword}
             />
-            <Button
-              data-loading
-              variant='contained'
-              color='primary'
-              type='submit'
-              onClick={submit}
-              disabled={hasError}
-            >
+            <Button data-loading variant='contained' color='primary' type='submit' onClick={submit} disabled={hasError}>
               Save
             </Button>
           </StyledForm>

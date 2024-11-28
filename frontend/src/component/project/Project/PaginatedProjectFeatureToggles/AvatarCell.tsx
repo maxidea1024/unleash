@@ -44,15 +44,11 @@ export const AvatarCell =
   (onAvatarClick: (userId: number) => void): FC<AvatarCellProps> =>
   ({ row: { original } }) => {
     const ariaDisabled = original.createdBy.id === 0;
-    const clickAction = ariaDisabled
-      ? () => {}
-      : () => onAvatarClick(original.createdBy.id);
+    const clickAction = ariaDisabled ? () => {} : () => onAvatarClick(original.createdBy.id);
     const tooltipContent = ariaDisabled ? (
       <>
         <p>{original.createdBy.name}</p>
-        <StyledSecondaryText>
-          You can't filter by unknown users.
-        </StyledSecondaryText>
+        <StyledSecondaryText>You can't filter by unknown users.</StyledSecondaryText>
       </>
     ) : (
       <p>{original.createdBy.name}</p>
@@ -61,10 +57,7 @@ export const AvatarCell =
     return (
       <StyledContainer>
         <HtmlTooltip arrow describeChild title={tooltipContent}>
-          <StyledAvatarButton
-            aria-disabled={ariaDisabled}
-            onClick={clickAction}
-          >
+          <StyledAvatarButton aria-disabled={ariaDisabled} onClick={clickAction}>
             <ScreenReaderOnly>
               <span>Show only flags created by {original.createdBy.name}</span>
             </ScreenReaderOnly>

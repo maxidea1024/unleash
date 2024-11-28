@@ -3,10 +3,7 @@ import PrivateProjectStore from './privateProjectStore';
 import { PrivateProjectChecker } from './privateProjectChecker';
 import { FakePrivateProjectChecker } from './fakePrivateProjectChecker';
 
-export const createPrivateProjectChecker = (
-  db: Db,
-  config: IUnleashConfig,
-): PrivateProjectChecker => {
+export const createPrivateProjectChecker = (db: Db, config: IUnleashConfig): PrivateProjectChecker => {
   const { getLogger } = config;
   const privateProjectStore = new PrivateProjectStore(db, getLogger);
 
@@ -18,7 +15,6 @@ export const createPrivateProjectChecker = (
   );
 };
 
-export const createFakePrivateProjectChecker =
-  (): FakePrivateProjectChecker => {
-    return new FakePrivateProjectChecker();
-  };
+export const createFakePrivateProjectChecker = (): FakePrivateProjectChecker => {
+  return new FakePrivateProjectChecker();
+};

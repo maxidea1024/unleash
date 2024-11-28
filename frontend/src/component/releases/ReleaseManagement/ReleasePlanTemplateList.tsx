@@ -6,9 +6,7 @@ interface ITemplateList {
   templates: IReleasePlanTemplate[];
 }
 
-export const ReleasePlanTemplateList: React.FC<ITemplateList> = ({
-  templates,
-}) => {
+export const ReleasePlanTemplateList: React.FC<ITemplateList> = ({ templates }) => {
   return (
     <>
       {templates.map((template) => (

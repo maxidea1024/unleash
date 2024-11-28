@@ -29,10 +29,7 @@ const StyledCheckIcon = styled(CheckCircleOutlined)(({ theme }) => ({
   color: theme.palette.success.main,
 }));
 
-export const VariantInformation: VFC<IVariantInformationProps> = ({
-  variants,
-  selectedVariant,
-}) => {
+export const VariantInformation: VFC<IVariantInformationProps> = ({ variants, selectedVariant }) => {
   const theme = useTheme();
   const data = useMemo(() => {
     return variants.map((variant) => {
@@ -51,36 +48,32 @@ export const VariantInformation: VFC<IVariantInformationProps> = ({
     [],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        initialState,
-        columns: COLUMNS as any,
-        data: data as any,
-        sortTypes,
-        autoResetGlobalFilter: false,
-        autoResetSortBy: false,
-        disableSortRemove: true,
-      },
-      useGlobalFilter,
-      useSortBy,
-    );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      initialState,
+      columns: COLUMNS as any,
+      data: data as any,
+      sortTypes,
+      autoResetGlobalFilter: false,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+    },
+    useGlobalFilter,
+    useSortBy,
+  );
 
   return (
     <StyledBox>
-      <StyledTypography variant='subtitle2'>
-        Variant Information
+      <StyledTypography variant='subtitle2'>Variant Information</StyledTypography>
+
+      <StyledTypography variant='body2'>
+        The following table shows the variants defined on this feature toggle and the variant result based on your
+        context configuration.
       </StyledTypography>
 
       <StyledTypography variant='body2'>
-        The following table shows the variants defined on this feature toggle
-        and the variant result based on your context configuration.
-      </StyledTypography>
-
-      <StyledTypography variant='body2'>
-        If you include "userId" or "sessionId" in your context, the variant will
-        be the same every time because unleash uses these properties to ensure
-        that the user receives the same experience.
+        If you include "userId" or "sessionId" in your context, the variant will be the same every time because unleash
+        uses these properties to ensure that the user receives the same experience.
       </StyledTypography>
 
       <Table {...getTableProps()} rowHeight='dense'>
@@ -124,10 +117,7 @@ const COLUMNS = [
       },
     }: any) => (
       <>
-        <ConditionallyRender
-          condition={selected}
-          show={<IconCell icon={<StyledCheckIcon />} />}
-        />
+        <ConditionallyRender condition={selected} show={<IconCell icon={<StyledCheckIcon />} />} />
       </>
     ),
     maxWidth: 25,

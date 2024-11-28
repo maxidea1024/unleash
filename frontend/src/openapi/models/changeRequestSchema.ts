@@ -9,6 +9,4 @@ import type { ChangeRequestSchemaOneOfFour } from './changeRequestSchemaOneOfFou
 /**
  * A [change request](https://docs.getunleash.io/reference/change-requests)
  */
-export type ChangeRequestSchema =
-  | ChangeRequestSchemaOneOf
-  | ChangeRequestSchemaOneOfFour;
+export type ChangeRequestSchema = ChangeRequestSchemaOneOf | ChangeRequestSchemaOneOfFour;

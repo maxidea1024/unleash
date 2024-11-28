@@ -49,9 +49,7 @@ export const CommandSearchPages = ({
             <IconRenderer path={item.link} />
           </StyledListItemIcon>
           <StyledListItemText>
-            <StyledButtonTypography color='textPrimary'>
-              {item.name}
-            </StyledButtonTypography>
+            <StyledButtonTypography color='textPrimary'>{item.name}</StyledButtonTypography>
           </StyledListItemText>
         </ListItemButton>
       ))}

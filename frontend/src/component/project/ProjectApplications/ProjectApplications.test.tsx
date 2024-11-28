@@ -36,10 +36,7 @@ test('Display applications list', async () => {
   ]);
   render(
     <Routes>
-      <Route
-        path={'/projects/:projectId/applications'}
-        element={<ProjectApplications />}
-      />
+      <Route path={'/projects/:projectId/applications'} element={<ProjectApplications />} />
     </Routes>,
     {
       route: '/projects/default/applications?query=app',
@@ -66,10 +63,7 @@ test('Display no applications found', async () => {
   setupApi([]);
   render(
     <Routes>
-      <Route
-        path={'/projects/:projectId/applications'}
-        element={<ProjectApplications />}
-      />
+      <Route path={'/projects/:projectId/applications'} element={<ProjectApplications />} />
     </Routes>,
     {
       route: '/projects/default/applications?query=',

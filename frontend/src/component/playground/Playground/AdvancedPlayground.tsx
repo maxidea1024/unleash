@@ -35,8 +35,7 @@ const GenerateWarningMessages: React.FC<{
 
   if (invalidContextProperties && invalidContextProperties.length > 0) {
     invalidContextProperties.sort();
-    const summary =
-      'Some context properties were not taken into account during evaluation';
+    const summary = 'Some context properties were not taken into account during evaluation';
 
     const StyledDetails = styled('details')(({ theme }) => ({
       '* + *': { marginBlockStart: theme.spacing(1) },
@@ -47,9 +46,8 @@ const GenerateWarningMessages: React.FC<{
         <StyledDetails>
           <summary>{summary}</summary>
           <p>
-            The context you provided for this query contained top-level
-            properties with invalid values. These properties were not taken into
-            consideration when evaluating your query. The properties are:
+            The context you provided for this query contained top-level properties with invalid values. These properties
+            were not taken into consideration when evaluating your query. The properties are:
           </p>
           <ul>
             {invalidContextProperties.map((prop) => (
@@ -60,12 +58,11 @@ const GenerateWarningMessages: React.FC<{
           </ul>
 
           <p>
-            Remember that context fields (with the exception of the{' '}
-            <code>properties</code> object) must be strings.
+            Remember that context fields (with the exception of the <code>properties</code> object) must be strings.
           </p>
           <p>
-            Because we didn't take these properties into account during the
-            feature flag evaluation, they will not appear in the results table.
+            Because we didn't take these properties into account during the feature flag evaluation, they will not
+            appear in the results table.
           </p>
         </StyledDetails>
       </StyledAlert>
@@ -84,10 +81,7 @@ export const AdvancedPlayground: FC<{
     context?: string;
     token?: string;
   } = { projects: [], environments: [] };
-  const { value, setValue } = createLocalStorage(
-    'AdvancedPlayground:v1',
-    defaultSettings,
-  );
+  const { value, setValue } = createLocalStorage('AdvancedPlayground:v1', defaultSettings);
   const { trackEvent } = usePlausibleTracker();
 
   const { environments: availableEnvironments } = useEnvironments();
@@ -95,24 +89,15 @@ export const AdvancedPlayground: FC<{
   const matches = true;
 
   const [configurationError, setConfigurationError] = useState<string>();
-  const [environments, setEnvironments] = useState<string[]>(
-    value.environments,
-  );
+  const [environments, setEnvironments] = useState<string[]>(value.environments);
   const [projects, setProjects] = useState<string[]>(value.projects);
   const [token, setToken] = useState<string | undefined>(value.token);
   const [context, setContext] = useState<string | undefined>(value.context);
-  const [results, setResults] = useState<
-    AdvancedPlaygroundResponseSchema | undefined
-  >();
+  const [results, setResults] = useState<AdvancedPlaygroundResponseSchema | undefined>();
   const { setToastData } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [changeRequest, setChangeRequest] = useState<string>();
-  const {
-    evaluateAdvancedPlayground,
-    evaluateChangeRequestPlayground,
-    loading,
-    errors,
-  } = usePlaygroundApi();
+  const { evaluateAdvancedPlayground, evaluateChangeRequestPlayground, loading, errors } = usePlaygroundApi();
   const [hasFormBeenSubmitted, setHasFormBeenSubmitted] = useState(false);
 
   useEffect(() => {
@@ -135,11 +120,7 @@ export const AdvancedPlayground: FC<{
       // TODO: Add support for changeRequest
 
       if (environments && context) {
-        await evaluatePlaygroundContext(
-          environments || [],
-          projects || '*',
-          context,
-        );
+        await evaluatePlaygroundContext(environments || [], projects || '*', context);
       }
     } catch (error) {
       setToastData({
@@ -285,11 +266,7 @@ export const AdvancedPlayground: FC<{
     } else {
       searchParams.delete('projects');
     }
-    if (
-      Array.isArray(projects) &&
-      projects.length > 0 &&
-      !(projects.length === 1 && projects[0] === '*')
-    ) {
+    if (Array.isArray(projects) && projects.length > 0 && !(projects.length === 1 && projects[0] === '*')) {
       searchParams.set('projects', projects.join(','));
     } else {
       searchParams.delete('projects');
@@ -307,12 +284,7 @@ export const AdvancedPlayground: FC<{
 
   return (
     <PageContent
-      header={
-        <PageHeader
-          title='Unleash playground'
-          actions={<PlaygroundGuidancePopper />}
-        />
-      }
+      header={<PageHeader title='Unleash playground' actions={<PlaygroundGuidancePopper />} />}
       disableLoading
       bodyClass={'no-padding'}
     >
@@ -370,9 +342,7 @@ export const AdvancedPlayground: FC<{
         >
           <ConditionallyRender
             condition={Boolean(configurationError)}
-            show={
-              <StyledAlert severity='warning'>{configurationError}</StyledAlert>
-            }
+            show={<StyledAlert severity='warning'>{configurationError}</StyledAlert>}
           />
           <ConditionallyRender
             condition={loading}
@@ -380,9 +350,7 @@ export const AdvancedPlayground: FC<{
             elseShow={
               <>
                 <ConditionallyRender
-                  condition={
-                    Boolean(results) && Object.values(errors).length === 0
-                  }
+                  condition={Boolean(results) && Object.values(errors).length === 0}
                   show={
                     <>
                       <GenerateWarningMessages response={results} />
@@ -394,10 +362,7 @@ export const AdvancedPlayground: FC<{
                     </>
                   }
                 />
-                <ConditionallyRender
-                  condition={!results && !hasFormBeenSubmitted}
-                  show={<PlaygroundGuidance />}
-                />
+                <ConditionallyRender condition={!results && !hasFormBeenSubmitted} show={<PlaygroundGuidance />} />
               </>
             }
           />

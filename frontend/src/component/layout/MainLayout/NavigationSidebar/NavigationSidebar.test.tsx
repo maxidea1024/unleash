@@ -4,10 +4,7 @@ import { screen, fireEvent, waitFor } from '@testing-library/react';
 import { createLocalStorage } from 'utils/createLocalStorage';
 import { Route, Routes } from 'react-router-dom';
 import { listItemButtonClasses as classes } from '@mui/material/ListItemButton';
-import {
-  type LastViewedFlag,
-  useLastViewedFlags,
-} from 'hooks/useLastViewedFlags';
+import { type LastViewedFlag, useLastViewedFlags } from 'hooks/useLastViewedFlags';
 import { type FC, useEffect } from 'react';
 import { useLastViewedProject } from 'hooks/useLastViewedProject';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
@@ -59,10 +56,7 @@ test('persist navigation mode and expansion selection in storage', async () => {
     const { value } = createLocalStorage('navigation-mode:v1', {});
     expect(value).toBe('mini');
 
-    const { value: expanded } = createLocalStorage(
-      'navigation-expanded:v1',
-      {},
-    );
+    const { value: expanded } = createLocalStorage('navigation-expanded:v1', {});
     expect(expanded).toEqual(['admin']);
   });
 });
@@ -102,12 +96,7 @@ test('print recent projects and flags', async () => {
     return <NavigationSidebar />;
   };
 
-  render(
-    <TestNavigationSidebar
-      project={'projectA'}
-      flags={[{ featureId: 'featureA', projectId: 'projectB' }]}
-    />,
-  );
+  render(<TestNavigationSidebar project={'projectA'} flags={[{ featureId: 'featureA', projectId: 'projectB' }]} />);
 
   await screen.findByText('projectNameA');
   await screen.findByText('featureA');
@@ -123,16 +112,12 @@ describe('order of items in navigation', () => {
       name: /configure/i,
     });
     configureButton.click();
-    await waitFor(() =>
-      expect(configureButton.getAttribute('aria-expanded')).toBe('true'),
-    );
+    await waitFor(() => expect(configureButton.getAttribute('aria-expanded')).toBe('true'));
     const adminButton = await screen.findByRole('button', {
       name: /admin/i,
     });
     adminButton.click();
-    await waitFor(() =>
-      expect(adminButton.getAttribute('aria-expanded')).toBe('true'),
-    );
+    await waitFor(() => expect(adminButton.getAttribute('aria-expanded')).toBe('true'));
 
     const links = await screen.findAllByRole('link');
     return links.map((el: HTMLElement) => ({

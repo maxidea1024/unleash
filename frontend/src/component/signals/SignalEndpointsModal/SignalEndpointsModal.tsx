@@ -13,10 +13,7 @@ import {
 } from 'hooks/api/actions/useSignalEndpointsApi/useSignalEndpointsApi';
 import { useSignalEndpointTokensApi } from 'hooks/api/actions/useSignalEndpointTokensApi/useSignalEndpointTokensApi';
 import { SignalEndpointsForm } from './SignalEndpointsForm/SignalEndpointsForm';
-import {
-  TokenGeneration,
-  useSignalEndpointsForm,
-} from './SignalEndpointsForm/useSignalEndpointsForm';
+import { TokenGeneration, useSignalEndpointsForm } from './SignalEndpointsForm/useSignalEndpointsForm';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledHeader = styled('div')(({ theme }) => ({
@@ -64,8 +61,7 @@ export const SignalEndpointsModal = ({
   onOpenSignals,
 }: ISignalEndpointsModalProps) => {
   const { refetch } = useSignalEndpoints();
-  const { addSignalEndpoint, updateSignalEndpoint, loading } =
-    useSignalEndpointsApi();
+  const { addSignalEndpoint, updateSignalEndpoint, loading } = useSignalEndpointsApi();
   const { addSignalEndpointToken } = useSignalEndpointTokensApi();
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
@@ -102,11 +98,8 @@ export const SignalEndpointsModal = ({
     description,
   };
 
-  const formatApiCode = () => `curl --location --request ${
-    editing ? 'PUT' : 'POST'
-  } '${uiConfig.unleashUrl}/api/admin/signal-endpoints${
-    editing ? `/${signalEndpoint.id}` : ''
-  }' \\
+  const formatApiCode =
+    () => `curl --location --request ${editing ? 'PUT' : 'POST'} '${uiConfig.unleashUrl}/api/admin/signal-endpoints${editing ? `/${signalEndpoint.id}` : ''}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(payload, undefined, 2)}'`;
@@ -157,10 +150,7 @@ export const SignalEndpointsModal = ({
       >
         <StyledHeader>
           <StyledTitle>{title}</StyledTitle>
-          <ConditionallyRender
-            condition={editing}
-            show={<Link onClick={onOpenSignals}>View signals</Link>}
-          />
+          <ConditionallyRender condition={editing} show={<Link onClick={onOpenSignals}>View signals</Link>} />
         </StyledHeader>
         <StyledForm onSubmit={onSubmit}>
           <SignalEndpointsForm

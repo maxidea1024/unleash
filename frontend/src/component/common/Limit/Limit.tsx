@@ -82,16 +82,12 @@ export const Limit: FC<{
 
   const footerContent = isOss() ? (
     <>
-      Need help with resource limits? Try the the{' '}
-      <a href='https://slack.unleash.run'>Unleash community Slack</a>.
+      Need help with resource limits? Try the the <a href='https://slack.unleash.run'>Unleash community Slack</a>.
     </>
   ) : (
     <>
-      If you need more than <strong>{limit}</strong> {shortName ?? name}, please
-      reach out to us at{' '}
-      <a href='mailto:customersuccess@getunleash.io?subject=Increase limit'>
-        customersuccess@getunleash.io
-      </a>
+      If you need more than <strong>{limit}</strong> {shortName ?? name}, please reach out to us at{' '}
+      <a href='mailto:customersuccess@getunleash.io?subject=Increase limit'>customersuccess@getunleash.io</a>
     </>
   );
 
@@ -106,12 +102,8 @@ export const Limit: FC<{
 
         <ConditionallyRender
           condition={belowLimit}
-          show={
-            <ExpandableBox>You are nearing the limit for {name}</ExpandableBox>
-          }
-          elseShow={
-            <ExpandableBox>You have reached the limit for {name}</ExpandableBox>
-          }
+          show={<ExpandableBox>You are nearing the limit for {name}</ExpandableBox>}
+          elseShow={<ExpandableBox>You have reached the limit for {name}</ExpandableBox>}
         />
 
         <ConditionallyRender
@@ -127,22 +119,15 @@ export const Limit: FC<{
       </Header>
       <Main>
         <LimitStats>
-          You have added {currentValue} {shortName ?? name}, which is equivalent
-          to{' '}
+          You have added {currentValue} {shortName ?? name}, which is equivalent to{' '}
           <Typography component='span' color='primary'>
             {percentageLimit}%
           </Typography>{' '}
           of the limit.
         </LimitStats>
-        <BorderLinearProgress
-          variant='determinate'
-          value={Math.min(100, percentageLimit)}
-        />
+        <BorderLinearProgress variant='determinate' value={Math.min(100, percentageLimit)} />
         <LimitExplanation>
-          <Link
-            target='_blank'
-            to='https://docs.getunleash.io/reference/resource-limits'
-          >
+          <Link target='_blank' to='https://docs.getunleash.io/reference/resource-limits'>
             Read more about limits
           </Link>
           <Typography fontWeight='bold'>Limit: {limit}</Typography>

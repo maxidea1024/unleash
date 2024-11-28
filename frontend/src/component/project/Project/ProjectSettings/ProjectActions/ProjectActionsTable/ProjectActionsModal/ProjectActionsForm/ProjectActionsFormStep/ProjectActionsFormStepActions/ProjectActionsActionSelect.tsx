@@ -33,12 +33,10 @@ export const ProjectActionsActionSelect = ({
     </li>
   );
 
-  const actionOptions = [...actionConfigurations].map(
-    ([key, actionDefinition]) => ({
-      key,
-      ...actionDefinition,
-    }),
-  );
+  const actionOptions = [...actionConfigurations].map(([key, actionDefinition]) => ({
+    key,
+    ...actionDefinition,
+  }));
 
   return (
     <Autocomplete
@@ -49,9 +47,7 @@ export const ProjectActionsActionSelect = ({
       onChange={(_, value) => onChange(value ? value.key : '')}
       renderOption={renderActionOption}
       getOptionLabel={({ label }) => label}
-      renderInput={(params) => (
-        <TextField {...params} size='small' label='Action' />
-      )}
+      renderInput={(params) => <TextField {...params} size='small' label='Action' />}
     />
   );
 };

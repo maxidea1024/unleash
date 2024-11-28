@@ -22,8 +22,7 @@ const slackDefinition: IAddonDefinition = {
   displayName: 'Slack',
   description: 'Allows Unleash to post updates to Slack.',
   documentationUrl: 'https://docs.getunleash.io/docs/addons/slack',
-  deprecated:
-    'This integration is deprecated. Please try the new Slack App integration instead.',
+  deprecated: 'This integration is deprecated. Please try the new Slack App integration instead.',
   alerts: [
     {
       type: 'warning',
@@ -43,8 +42,7 @@ const slackDefinition: IAddonDefinition = {
       name: 'username',
       displayName: 'Username',
       placeholder: 'Unleash',
-      description:
-        'The username to use when posting messages to slack. Defaults to "Unleash".',
+      description: 'The username to use when posting messages to slack. Defaults to "Unleash".',
       type: 'text',
       required: false,
       sensitive: false,
@@ -53,8 +51,7 @@ const slackDefinition: IAddonDefinition = {
       name: 'emojiIcon',
       displayName: 'Emoji Icon',
       placeholder: ':unleash:',
-      description:
-        'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
+      description: 'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
       type: 'text',
       required: false,
       sensitive: false,
@@ -62,8 +59,7 @@ const slackDefinition: IAddonDefinition = {
     {
       name: 'defaultChannel',
       displayName: 'Default channel',
-      description:
-        '(Required) Default channel to post updates to if not specified in the slack-tag',
+      description: '(Required) Default channel to post updates to if not specified in the slack-tag',
       type: 'text',
       required: true,
       sensitive: false,
@@ -101,8 +97,7 @@ const slackDefinition: IAddonDefinition = {
   tagTypes: [
     {
       name: 'slack',
-      description:
-        'Slack tag used by the slack-addon to specify the slack channel.',
+      description: 'Slack tag used by the slack-addon to specify the slack channel.',
       icon: 'S',
     },
   ],

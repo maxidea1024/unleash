@@ -1,8 +1,5 @@
 import { useLocalStorageState } from 'hooks/useLocalStorageState';
-import type {
-  PersonalDashboardSchemaFlagsItem,
-  PersonalDashboardSchemaProjectsItem,
-} from 'openapi';
+import type { PersonalDashboardSchemaFlagsItem, PersonalDashboardSchemaProjectsItem } from 'openapi';
 import { useEffect } from 'react';
 
 export const useDashboardState = (
@@ -23,29 +20,21 @@ export const useDashboardState = (
     expandFlags: true,
   };
 
-  const [state, setState] = useLocalStorageState<State>(
-    'personal-dashboard:v1',
-    defaultState,
-  );
+  const [state, setState] = useLocalStorageState<State>('personal-dashboard:v1', defaultState);
 
-  const updateState = (newState: Partial<State>) =>
-    setState({ ...defaultState, ...state, ...newState });
+  const updateState = (newState: Partial<State>) => setState({ ...defaultState, ...state, ...newState });
 
   useEffect(() => {
     const updates: Partial<State> = {};
     const setDefaultFlag =
-      flags.length &&
-      (!state.activeFlag ||
-        !flags.some((flag) => flag.name === state.activeFlag?.name));
+      flags.length && (!state.activeFlag || !flags.some((flag) => flag.name === state.activeFlag?.name));
 
     if (setDefaultFlag) {
       updates.activeFlag = flags[0];
     }
 
     const setDefaultProject =
-      projects.length &&
-      (!state.activeProject ||
-        !projects.some((project) => project.id === state.activeProject));
+      projects.length && (!state.activeProject || !projects.some((project) => project.id === state.activeProject));
 
     if (setDefaultProject) {
       updates.activeProject = projects[0].id;

@@ -1,12 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  Button,
-} from '@mui/material';
+import { Table, TableHead, TableBody, TableRow, TableCell, Button } from '@mui/material';
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
@@ -39,12 +32,7 @@ const InvoiceList = () => {
             <PageHeader
               title='Invoices'
               actions={
-                <Button
-                  href={PORTAL_URL}
-                  rel='noreferrer'
-                  target='_blank'
-                  endIcon={<OpenInNew />}
-                >
+                <Button href={PORTAL_URL} rel='noreferrer' target='_blank' endIcon={<OpenInNew />}>
                   Billing portal
                 </Button>
               }
@@ -67,29 +55,19 @@ const InvoiceList = () => {
                   <TableRow
                     key={item.invoiceURL}
                     style={{
-                      backgroundColor:
-                        item.status === 'past-due' ? 'error.dark' : 'inherit',
+                      backgroundColor: item.status === 'past-due' ? 'error.dark' : 'inherit',
                     }}
                   >
+                    <TableCell style={{ textAlign: 'left' }}>{item.amountFormatted}</TableCell>
+                    <TableCell style={{ textAlign: 'left' }}>{item.status}</TableCell>
                     <TableCell style={{ textAlign: 'left' }}>
-                      {item.amountFormatted}
-                    </TableCell>
-                    <TableCell style={{ textAlign: 'left' }}>
-                      {item.status}
-                    </TableCell>
-                    <TableCell style={{ textAlign: 'left' }}>
-                      {item.dueDate &&
-                        formatDateYMD(item.dueDate, locationSettings.locale)}
+                      {item.dueDate && formatDateYMD(item.dueDate, locationSettings.locale)}
                     </TableCell>
                     <TableCell style={{ textAlign: 'left' }}>
                       <a href={item.invoicePDF}>PDF</a>
                     </TableCell>
                     <TableCell style={{ textAlign: 'left' }}>
-                      <a
-                        href={item.invoiceURL}
-                        target='_blank'
-                        rel='noreferrer'
-                      >
+                      <a href={item.invoiceURL} target='_blank' rel='noreferrer'>
                         Payment link
                       </a>
                     </TableCell>

@@ -14,11 +14,7 @@ interface IPersonalAPITokenDialogProps {
   token?: INewPersonalAPIToken;
 }
 
-export const PersonalAPITokenDialog: FC<IPersonalAPITokenDialogProps> = ({
-  open,
-  setOpen,
-  token,
-}) => (
+export const PersonalAPITokenDialog: FC<IPersonalAPITokenDialogProps> = ({ open, setOpen, token }) => (
   <Dialogue
     open={open}
     setOpen={setOpen}
@@ -31,8 +27,7 @@ export const PersonalAPITokenDialog: FC<IPersonalAPITokenDialogProps> = ({
     title='Personal API token created'
   >
     <StyledAlert severity='info'>
-      Make sure to copy your personal API token now. You won't be able to see it
-      again!
+      Make sure to copy your personal API token now. You won't be able to see it again!
     </StyledAlert>
     <Typography variant='body1'>Your token:</Typography>
     <UserToken token={token?.secret || ''} />

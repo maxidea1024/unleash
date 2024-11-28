@@ -1,7 +1,6 @@
 import path from 'node:path';
 
-export const mapObject = (fn) => (o) =>
-  Object.fromEntries(Object.entries(o).map(fn));
+export const mapObject = (fn) => (o) => Object.fromEntries(Object.entries(o).map(fn));
 
 export const enrichAdditional =
   (additionalProperties) =>
@@ -10,10 +9,7 @@ export const enrichAdditional =
     const slugName = (repoData.slugName ?? repoData.sidebarName).toLowerCase();
     const branch = repoData.branch ?? 'main';
 
-    return [
-      repoName,
-      { ...repoData, repoUrl, slugName, branch, ...additionalProperties },
-    ];
+    return [repoName, { ...repoData, repoUrl, slugName, branch, ...additionalProperties }];
   };
 
 export const enrich = enrichAdditional({});
@@ -74,9 +70,7 @@ const replaceLinks = ({ content, repo }) => {
   // extension, e.g. src="./.github/img/get-request.png"
   const imageSrcLink = /(?<=src=")([^")]+\.(png|svg|jpe?g|webp|gif))(?=")/g;
 
-  return content
-    .replaceAll(markdownLink, replaceMarkdownLink)
-    .replaceAll(imageSrcLink, replaceImageSrcLink);
+  return content.replaceAll(markdownLink, replaceMarkdownLink).replaceAll(imageSrcLink, replaceImageSrcLink);
 };
 
 export const modifyContent =
@@ -89,46 +83,32 @@ export const modifyContent =
     const generationTime = new Date();
 
     const processedFilename = (() => {
-      const constructed = `${path.join(
-        filePath(data) ?? '',
-        data.slugName,
-        subpage?.slugName ?? '',
-      )}.md`;
+      const constructed = `${path.join(filePath(data) ?? '', data.slugName, subpage?.slugName ?? '')}.md`;
 
       // ensure the file path does *not* start with a leading /
       return constructed.charAt(0) === '/' ? constructed.slice(1) : constructed;
     })();
 
     const processedSlug = (() => {
-      const constructed = path.join(
-        urlPath ?? '',
-        data.slugName,
-        subpage?.slugName ?? '',
-      );
+      const constructed = path.join(urlPath ?? '', data.slugName, subpage?.slugName ?? '');
       // ensure the slug *does* start with a leading /
       const prefix = constructed.charAt(0) === '/' ? '' : '/';
 
       return prefix + constructed;
     })();
 
-    const additionalAdmonitions = (getAdditionalAdmonitions(data) ?? []).join(
-      '\n\n',
-    );
+    const additionalAdmonitions = (getAdditionalAdmonitions(data) ?? []).join('\n\n');
 
     return {
       filename: processedFilename,
       content: `---
 title: ${subpage?.sidebarName ?? data.sidebarName}
 slug: ${processedSlug}
-custom_edit_url: ${data.repoUrl}/edit/${data.branch}/${
-        subpage ? subpageKey : 'README.md'
-      }
+custom_edit_url: ${data.repoUrl}/edit/${data.branch}/${subpage ? subpageKey : 'README.md'}
 ---
 
 :::info Generated content
-This document was generated from ${
-        subpage ? subpageKey : 'README.md'
-      } in the [${data.sidebarName} GitHub repository](${data.repoUrl}).
+This document was generated from ${subpage ? subpageKey : 'README.md'} in the [${data.sidebarName} GitHub repository](${data.repoUrl}).
 :::
 
 ${additionalAdmonitions}
@@ -140,10 +120,7 @@ ${replaceLinks({
 
 ---
 
-This content was generated on <time dateTime="${generationTime.toISOString()}">${generationTime.toLocaleString(
-        'en-gb',
-        { dateStyle: 'long', timeStyle: 'full' },
-      )}</time>
+This content was generated on <time dateTime="${generationTime.toISOString()}">${generationTime.toLocaleString('en-gb', { dateStyle: 'long', timeStyle: 'full' })}</time>
 `,
     };
   };
@@ -151,7 +128,5 @@ This content was generated on <time dateTime="${generationTime.toISOString()}">$
 export const getUrls = (documents) =>
   Object.entries(documents).flatMap(([repo, { branch, subPages }]) => [
     `${repo}/${branch}/README.md`,
-    ...(Object.keys(subPages ?? {}).map(
-      (remotePath) => `${repo}/${branch}/${remotePath}`,
-    ) ?? []),
+    ...(Object.keys(subPages ?? {}).map((remotePath) => `${repo}/${branch}/${remotePath}`) ?? []),
   ]);

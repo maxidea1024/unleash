@@ -44,8 +44,7 @@ export const exportResultSchema = {
     },
     featureStrategies: {
       type: 'array',
-      description:
-        'All strategy instances that are used by the exported features in the `features` list.',
+      description: 'All strategy instances that are used by the exported features in the `features` list.',
       example: [
         {
           name: 'flexibleRollout',
@@ -117,8 +116,7 @@ export const exportResultSchema = {
     },
     featureTags: {
       type: 'array',
-      description:
-        'A list of all the tags that have been applied to any of the features in the `features` list.',
+      description: 'A list of all the tags that have been applied to any of the features in the `features` list.',
       example: [
         {
           featureName: 'my-feature',
@@ -132,8 +130,7 @@ export const exportResultSchema = {
     },
     segments: {
       type: 'array',
-      description:
-        'A list of all the segments that are used by the strategies in the `featureStrategies` list.',
+      description: 'A list of all the segments that are used by the strategies in the `featureStrategies` list.',
       example: [
         {
           id: 1,
@@ -156,8 +153,7 @@ export const exportResultSchema = {
     },
     tagTypes: {
       type: 'array',
-      description:
-        'A list of all of the tag types that are used in the `featureTags` list.',
+      description: 'A list of all of the tag types that are used in the `featureTags` list.',
       example: [
         {
           name: 'simple',
@@ -171,8 +167,7 @@ export const exportResultSchema = {
     },
     dependencies: {
       type: 'array',
-      description:
-        'A list of all the dependencies for features in `features` list.',
+      description: 'A list of all the dependencies for features in `features` list.',
       items: {
         $ref: '#/components/schemas/featureDependenciesSchema',
       },

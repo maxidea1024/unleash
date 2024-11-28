@@ -73,6 +73,4 @@ The provider you choose for your addon dictates what properties the \`parameters
   components: {},
 } as const;
 
-export type AddonCreateUpdateSchema = FromSchema<
-  typeof addonCreateUpdateSchema
->;
+export type AddonCreateUpdateSchema = FromSchema<typeof addonCreateUpdateSchema>;

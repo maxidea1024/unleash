@@ -10,10 +10,7 @@ export const tokenStringListSchema = {
       description: 'Tokens that we want to get access information about',
       type: 'array',
       items: { type: 'string' },
-      example: [
-        'aproject:development.randomstring',
-        '[]:production.randomstring',
-      ],
+      example: ['aproject:development.randomstring', '[]:production.randomstring'],
     },
   },
   components: {},

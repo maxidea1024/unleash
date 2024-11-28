@@ -19,10 +19,7 @@ export default class UserSplashController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      userSplashService,
-      openApiService,
-    }: Pick<IUnleashServices, 'userSplashService' | 'openApiService'>,
+    { userSplashService, openApiService }: Pick<IUnleashServices, 'userSplashService' | 'openApiService'>,
   ) {
     super(config);
 

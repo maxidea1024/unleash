@@ -1,9 +1,4 @@
-import {
-  styled,
-  Tooltip,
-  tooltipClasses,
-  type TooltipProps,
-} from '@mui/material';
+import { styled, Tooltip, tooltipClasses, type TooltipProps } from '@mui/material';
 import type { SpacingArgument } from '@mui/system/createTheme/createSpacing';
 
 const StyledHtmlTooltipBody = styled('div')(({ theme }) => ({
@@ -12,13 +7,7 @@ const StyledHtmlTooltipBody = styled('div')(({ theme }) => ({
 }));
 
 const StyledHtmlTooltip = styled(
-  ({
-    className,
-    maxWidth,
-    maxHeight,
-    fontSize,
-    ...props
-  }: IHtmlTooltipProps) => (
+  ({ className, maxWidth, maxHeight, fontSize, ...props }: IHtmlTooltipProps) => (
     <Tooltip
       {...props}
       title={<StyledHtmlTooltipBody>{props.title}</StyledHtmlTooltipBody>}
@@ -26,8 +15,7 @@ const StyledHtmlTooltip = styled(
     />
   ),
   {
-    shouldForwardProp: (prop) =>
-      prop !== 'maxWidth' && prop !== 'maxHeight' && prop !== 'fontSize',
+    shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'maxHeight' && prop !== 'fontSize',
   },
 )<{
   maxWidth?: SpacingArgument;

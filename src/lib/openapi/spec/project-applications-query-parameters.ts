@@ -16,8 +16,7 @@ export const projectApplicationsQueryParameters = [
       type: 'string',
       example: '50',
     },
-    description:
-      'The number of applications to skip when returning a page. By default it is set to 0.',
+    description: 'The number of applications to skip when returning a page. By default it is set to 0.',
     in: 'query',
   },
   {
@@ -26,8 +25,7 @@ export const projectApplicationsQueryParameters = [
       type: 'string',
       example: '50',
     },
-    description:
-      'The number of applications to return in a page. By default it is set to 50.',
+    description: 'The number of applications to return in a page. By default it is set to 50.',
     in: 'query',
   },
   {
@@ -36,8 +34,7 @@ export const projectApplicationsQueryParameters = [
       type: 'string',
       example: 'type',
     },
-    description:
-      'The field to sort the results by. By default it is set to "appName".',
+    description: 'The field to sort the results by. By default it is set to "appName".',
     in: 'query',
   },
   {
@@ -46,12 +43,9 @@ export const projectApplicationsQueryParameters = [
       type: 'string',
       example: 'desc',
     },
-    description:
-      'The sort order for the sortBy. By default it is det to "asc".',
+    description: 'The sort order for the sortBy. By default it is det to "asc".',
     in: 'query',
   },
 ] as const;
 
-export type ProjectApplicationsQueryParameters = Partial<
-  FromQueryParams<typeof projectApplicationsQueryParameters>
->;
+export type ProjectApplicationsQueryParameters = Partial<FromQueryParams<typeof projectApplicationsQueryParameters>>;

@@ -12,13 +12,9 @@ export interface IUseStrategiesByContextOutput {
   error?: Error;
 }
 
-export const useStrategiesByContext = (
-  id?: string | number,
-): IUseStrategiesByContextOutput => {
+export const useStrategiesByContext = (id?: string | number): IUseStrategiesByContextOutput => {
   const path = formatApiPath(`api/admin/context/${id}/strategies`);
-  const { data, error } = useConditionalSWR(id, [], path, () =>
-    fetchUsedSegment(path),
-  );
+  const { data, error } = useConditionalSWR(id, [], path, () => fetchUsedSegment(path));
 
   const refetchUsedSegments = useCallback(() => {
     mutate(path).catch(console.warn);

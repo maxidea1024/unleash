@@ -28,8 +28,7 @@ export const clientFeaturesQuerySchema = {
       deprecated: true,
     },
     namePrefix: {
-      description:
-        'Features are filtered to only include features whose name starts with this prefix',
+      description: 'Features are filtered to only include features whose name starts with this prefix',
       type: 'string',
       example: 'payment',
     },
@@ -49,6 +48,4 @@ export const clientFeaturesQuerySchema = {
   components: {},
 } as const;
 
-export type ClientFeaturesQuerySchema = FromSchema<
-  typeof clientFeaturesQuerySchema
->;
+export type ClientFeaturesQuerySchema = FromSchema<typeof clientFeaturesQuerySchema>;

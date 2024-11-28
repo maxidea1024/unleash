@@ -19,26 +19,16 @@ interface ICreateButtonData {
 
 const NAVIGATE_TO_CREATE_PROJECT = 'NAVIGATE_TO_CREATE_PROJECT';
 
-function resolveCreateButtonData(
-  isOss: boolean,
-  hasAccess: boolean,
-): ICreateButtonData {
+function resolveCreateButtonData(isOss: boolean, hasAccess: boolean): ICreateButtonData {
   if (isOss) {
     return {
       disabled: true,
       tooltip: {
-        titleComponent: (
-          <PremiumFeature feature='adding-new-projects' tooltip />
-        ),
+        titleComponent: <PremiumFeature feature='adding-new-projects' tooltip />,
         sx: { maxWidth: '320px' },
         variant: 'custom',
       },
-      endIcon: (
-        <ThemeMode
-          darkmode={<ProPlanIconLight />}
-          lightmode={<ProPlanIcon />}
-        />
-      ),
+      endIcon: <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />,
     };
   } else if (!hasAccess) {
     return {
@@ -60,17 +50,11 @@ type ProjectCreationButtonProps = {
   setIsDialogOpen: (value: boolean) => void;
 };
 
-export const ProjectCreationButton: FC<ProjectCreationButtonProps> = ({
-  isDialogOpen,
-  setIsDialogOpen,
-}) => {
+export const ProjectCreationButton: FC<ProjectCreationButtonProps> = ({ isDialogOpen, setIsDialogOpen }) => {
   const { hasAccess } = useContext(AccessContext);
   const { isOss, loading } = useUiConfig();
 
-  const createButtonData = resolveCreateButtonData(
-    isOss(),
-    hasAccess(CREATE_PROJECT),
-  );
+  const createButtonData = resolveCreateButtonData(isOss(), hasAccess(CREATE_PROJECT));
 
   return (
     <>
@@ -86,10 +70,7 @@ export const ProjectCreationButton: FC<ProjectCreationButtonProps> = ({
       >
         New project
       </ResponsiveButton>
-      <CreateProjectDialog
-        open={isDialogOpen}
-        onClose={() => setIsDialogOpen(false)}
-      />
+      <CreateProjectDialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
     </>
   );
 };

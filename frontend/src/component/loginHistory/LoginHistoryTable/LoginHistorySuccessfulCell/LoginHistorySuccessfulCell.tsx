@@ -18,9 +18,7 @@ interface ILoginHistorySuccessfulCellProps {
   value: boolean;
 }
 
-export const LoginHistorySuccessfulCell: VFC<
-  ILoginHistorySuccessfulCellProps
-> = ({ row, value }) => {
+export const LoginHistorySuccessfulCell: VFC<ILoginHistorySuccessfulCellProps> = ({ row, value }) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (value)
@@ -32,14 +30,7 @@ export const LoginHistorySuccessfulCell: VFC<
 
   return (
     <StyledBox>
-      <HtmlTooltip
-        arrow
-        title={
-          <Highlighter search={searchQuery}>
-            {row.original.failure_reason}
-          </Highlighter>
-        }
-      >
+      <HtmlTooltip arrow title={<Highlighter search={searchQuery}>{row.original.failure_reason}</Highlighter>}>
         <Badge color='error'>False</Badge>
       </HtmlTooltip>
     </StyledBox>

@@ -32,14 +32,12 @@ export const ImportExplanation: FC = () => (
     </ImportExplanationDescription>
     <ImportExplanationHeader>Exceptions?</ImportExplanationHeader>
     <ImportExplanationDescription>
-      If the feature flag already exists in the new instance, it will be
-      overwritten
+      If the feature flag already exists in the new instance, it will be overwritten
     </ImportExplanationDescription>
     <ImportExplanationHeader>What is not imported?</ImportExplanationHeader>
     <ImportExplanationDescription sx={{ marginBottom: 0 }}>
-      If we detect segments or custom strategies in your imported file, we will
-      stop the import. You need to create them first in the new instance and run
-      the import again
+      If we detect segments or custom strategies in your imported file, we will stop the import. You need to create them
+      first in the new instance and run the import again
     </ImportExplanationDescription>
   </ImportExplanationContainer>
 );

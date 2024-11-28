@@ -38,35 +38,22 @@ export const PushVariantsButton = ({
   projectId,
   onSubmit,
 }: IPushVariantsButtonProps) => {
-  const [pushToAnchorEl, setPushToAnchorEl] = useState<null | HTMLElement>(
-    null,
-  );
+  const [pushToAnchorEl, setPushToAnchorEl] = useState<null | HTMLElement>(null);
   const pushToOpen = Boolean(pushToAnchorEl);
 
-  const [selectedEnvironments, setSelectedEnvironments] = useState<
-    IFeatureEnvironmentWithCrEnabled[]
-  >([]);
+  const [selectedEnvironments, setSelectedEnvironments] = useState<IFeatureEnvironmentWithCrEnabled[]>([]);
 
-  const addSelectedEnvironment = (
-    environment: IFeatureEnvironmentWithCrEnabled,
-  ) => {
-    setSelectedEnvironments((prevSelectedEnvironments) => [
-      ...prevSelectedEnvironments,
-      environment,
-    ]);
+  const addSelectedEnvironment = (environment: IFeatureEnvironmentWithCrEnabled) => {
+    setSelectedEnvironments((prevSelectedEnvironments) => [...prevSelectedEnvironments, environment]);
   };
 
-  const removeSelectedEnvironment = (
-    environment: IFeatureEnvironmentWithCrEnabled,
-  ) => {
+  const removeSelectedEnvironment = (environment: IFeatureEnvironmentWithCrEnabled) => {
     setSelectedEnvironments((prevSelectedEnvironments) =>
       prevSelectedEnvironments.filter(({ name }) => name !== environment.name),
     );
   };
 
-  const toggleSelectedEnvironment = (
-    environment: IFeatureEnvironmentWithCrEnabled,
-  ) => {
+  const toggleSelectedEnvironment = (environment: IFeatureEnvironmentWithCrEnabled) => {
     if (selectedEnvironments.includes(environment)) {
       removeSelectedEnvironment(environment);
     } else {
@@ -79,9 +66,7 @@ export const PushVariantsButton = ({
     setPushToAnchorEl(null);
   };
 
-  const variants =
-    environments.find((environment) => environment.name === current)
-      ?.variants ?? [];
+  const variants = environments.find((environment) => environment.name === current)?.variants ?? [];
 
   return (
     <ConditionallyRender

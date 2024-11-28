@@ -5,14 +5,10 @@ import type { RequestHandler } from 'express';
 import type { IUnleashConfig } from '../types/options';
 import { hoursToMilliseconds } from 'date-fns';
 
-function sessionDb(
-  config: Pick<IUnleashConfig, 'session' | 'server' | 'secureHeaders'>,
-  knex: Knex,
-): RequestHandler {
+function sessionDb(config: Pick<IUnleashConfig, 'session' | 'server' | 'secureHeaders'>, knex: Knex): RequestHandler {
   let store: session.Store;
   const { db, cookieName } = config.session;
-  const age =
-    hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48); // default: 48 hours
+  const age = hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48); // default: 48 hours
   if (db) {
     store = new ConnectSessionKnexStore({
       tableName: 'unleash_session',

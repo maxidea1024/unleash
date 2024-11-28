@@ -26,9 +26,7 @@ export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
   const [enabled, setEnabled] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [tokenGeneration, setTokenGeneration] = useState<TokenGeneration>(
-    TokenGeneration.LATER,
-  );
+  const [tokenGeneration, setTokenGeneration] = useState<TokenGeneration>(TokenGeneration.LATER);
   const [tokenName, setTokenName] = useState('');
 
   const reloadForm = () => {
@@ -45,9 +43,7 @@ export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
     reloadForm();
   }, [signalEndpoint]);
 
-  const [errors, setErrors] = useState<SignalEndpointsFormErrors>(
-    DEFAULT_SIGNAL_ENDPOINTS_FORM_ERRORS,
-  );
+  const [errors, setErrors] = useState<SignalEndpointsFormErrors>(DEFAULT_SIGNAL_ENDPOINTS_FORM_ERRORS);
   const [validated, setValidated] = useState(false);
 
   const clearError = (field: ErrorField) => {
@@ -61,9 +57,7 @@ export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
   const isEmpty = (value: string) => !value.length;
 
   const isNameNotUnique = (value: string) =>
-    signalEndpoints?.some(
-      ({ id, name }) => id !== signalEndpoint?.id && name === value,
-    );
+    signalEndpoints?.some(({ id, name }) => id !== signalEndpoint?.id && name === value);
 
   const isNameInvalid = (value: string) => !URL_SAFE_BASIC.test(value);
 
@@ -79,10 +73,7 @@ export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
     }
 
     if (isNameInvalid(name)) {
-      setError(
-        ErrorField.NAME,
-        'Name must only contain alphanumeric lowercase characters, dashes and underscores.',
-      );
+      setError(ErrorField.NAME, 'Name must only contain alphanumeric lowercase characters, dashes and underscores.');
       return false;
     }
 
@@ -90,10 +81,7 @@ export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
     return true;
   };
 
-  const validateTokenName = (
-    tokenGeneration: TokenGeneration,
-    tokenName: string,
-  ) => {
+  const validateTokenName = (tokenGeneration: TokenGeneration, tokenName: string) => {
     if (tokenGeneration === TokenGeneration.NOW && isEmpty(tokenName)) {
       setError(ErrorField.TOKEN_NAME, 'Token name is required.');
       return false;

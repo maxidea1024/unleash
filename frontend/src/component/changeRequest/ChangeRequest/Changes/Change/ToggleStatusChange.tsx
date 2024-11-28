@@ -8,18 +8,12 @@ interface IToggleStatusChange {
   actions?: ReactNode;
 }
 
-export const ToggleStatusChange: VFC<IToggleStatusChange> = ({
-  enabled,
-  actions,
-}) => {
+export const ToggleStatusChange: VFC<IToggleStatusChange> = ({ enabled, actions }) => {
   return (
     <ChangeItemWrapper>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         New status:{' '}
-        <Badge
-          sx={(theme) => ({ marginLeft: theme.spacing(1) })}
-          color={enabled ? 'success' : 'error'}
-        >
+        <Badge sx={(theme) => ({ marginLeft: theme.spacing(1) })} color={enabled ? 'success' : 'error'}>
           {enabled ? ' Enabled' : 'Disabled'}
         </Badge>
       </Box>

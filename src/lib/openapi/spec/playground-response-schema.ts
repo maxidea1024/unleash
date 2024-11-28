@@ -45,6 +45,4 @@ export const playgroundResponseSchema = {
   },
 } as const;
 
-export type PlaygroundResponseSchema = FromSchema<
-  typeof playgroundResponseSchema
->;
+export type PlaygroundResponseSchema = FromSchema<typeof playgroundResponseSchema>;

@@ -11,9 +11,7 @@ export const useProjectColor = () => {
     () =>
       projects
         .sort((a, b) =>
-          a.createdAt && b.createdAt
-            ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-            : 0,
+          a.createdAt && b.createdAt ? new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime() : 0,
         )
         .map((project) => project.id),
     [projects],

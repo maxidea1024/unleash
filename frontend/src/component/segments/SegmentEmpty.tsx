@@ -1,9 +1,6 @@
 import { styled, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import {
-  CREATE_SEGMENT,
-  UPDATE_PROJECT_SEGMENT,
-} from 'component/providers/AccessProvider/permissions';
+import { CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT } from 'component/providers/AccessProvider/permissions';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import AccessContext from 'contexts/AccessContext';
 import { useContext } from 'react';
@@ -46,20 +43,12 @@ export const SegmentEmpty = () => {
     <StyledDiv>
       <StyledTypography>No segments yet!</StyledTypography>
       <StyledParagraph>
-        Segment makes it easy for you to define who should be exposed to your
-        feature. The segment is often a collection of constraints and can be
-        reused.
+        Segment makes it easy for you to define who should be exposed to your feature. The segment is often a collection
+        of constraints and can be reused.
       </StyledParagraph>
       <ConditionallyRender
-        condition={hasAccess(
-          [CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT],
-          projectId,
-        )}
-        show={
-          <StyledLink to='/segments/create'>
-            Create your first segment
-          </StyledLink>
-        }
+        condition={hasAccess([CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT], projectId)}
+        show={<StyledLink to='/segments/create'>Create your first segment</StyledLink>}
       />
     </StyledDiv>
   );

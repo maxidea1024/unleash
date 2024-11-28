@@ -48,16 +48,8 @@ beforeAll(async () => {
     mode: 'open' as const,
   });
 
-  await environmentService.addEnvironmentToProject(
-    environment,
-    project,
-    TEST_AUDIT_USER,
-  );
-  await environmentService.addEnvironmentToProject(
-    environment,
-    project2,
-    TEST_AUDIT_USER,
-  );
+  await environmentService.addEnvironmentToProject(environment, project, TEST_AUDIT_USER);
+  await environmentService.addEnvironmentToProject(environment, project2, TEST_AUDIT_USER);
 
   await featureToggleServiceV2.createFeatureToggle(
     project,
@@ -137,11 +129,7 @@ test('doesnt return feature flags if project deleted', async () => {
     project: deletionProject,
   });
 
-  await app.services.projectService.deleteProject(
-    deletionProject,
-    new User(TEST_AUDIT_USER),
-    TEST_AUDIT_USER,
-  );
+  await app.services.projectService.deleteProject(deletionProject, new User(TEST_AUDIT_USER), TEST_AUDIT_USER);
 
   await app.services.apiTokenService.fetchActiveTokens();
 

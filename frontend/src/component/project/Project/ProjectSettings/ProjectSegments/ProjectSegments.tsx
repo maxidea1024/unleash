@@ -20,11 +20,7 @@ export const ProjectSegments = () => {
       <Route
         path='create'
         element={
-          <SidebarModal
-            open
-            onClose={() => navigate(GO_BACK)}
-            label='Create segment'
-          >
+          <SidebarModal open onClose={() => navigate(GO_BACK)} label='Create segment'>
             <CreateSegment modal />
           </SidebarModal>
         }
@@ -32,11 +28,7 @@ export const ProjectSegments = () => {
       <Route
         path='edit/:segmentId'
         element={
-          <SidebarModal
-            open
-            onClose={() => navigate(GO_BACK)}
-            label='Edit segment'
-          >
+          <SidebarModal open onClose={() => navigate(GO_BACK)} label='Edit segment'>
             <EditSegment modal />
           </SidebarModal>
         }

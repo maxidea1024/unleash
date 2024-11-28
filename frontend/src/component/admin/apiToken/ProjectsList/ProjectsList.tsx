@@ -28,8 +28,7 @@ interface IProjectsListProps {
 export const ProjectsList: FC<IProjectsListProps> = ({ projects, project }) => {
   const { searchQuery } = useSearchHighlightContext();
 
-  const projectsList =
-    projects && Array.isArray(projects) && projects.length > 1 ? projects : [];
+  const projectsList = projects && Array.isArray(projects) && projects.length > 1 ? projects : [];
 
   if (projectsList.length > 0) {
     return (
@@ -57,10 +56,7 @@ export const ProjectsList: FC<IProjectsListProps> = ({ projects, project }) => {
     );
   }
 
-  if (
-    (projectsList.length === 1 && projectsList[0] !== '*') ||
-    (project && project !== '*')
-  ) {
+  if ((projectsList.length === 1 && projectsList[0] !== '*') || (project && project !== '*')) {
     const item = project || projectsList[0];
 
     return <LinkCell to={`/projects/${item}`} title={item} />;
@@ -68,11 +64,7 @@ export const ProjectsList: FC<IProjectsListProps> = ({ projects, project }) => {
 
   return (
     <TextCell>
-      <HtmlTooltip
-        title='ALL current and future projects.'
-        placement='bottom'
-        arrow
-      >
+      <HtmlTooltip title='ALL current and future projects.' placement='bottom' arrow>
         <StyledContainer>
           <Highlighter search={searchQuery}>*</Highlighter>
         </StyledContainer>

@@ -59,8 +59,7 @@ export const deprecatedProjectOverviewSchema = {
       type: 'number',
       nullable: true,
       example: 100,
-      description:
-        'A limit on the number of features allowed in the project. Null if no limit.',
+      description: 'A limit on the number of features allowed in the project. Null if no limit.',
     },
     featureNaming: {
       $ref: '#/components/schemas/createFeatureNamingPatternSchema',
@@ -103,8 +102,7 @@ export const deprecatedProjectOverviewSchema = {
       items: {
         $ref: '#/components/schemas/featureSchema',
       },
-      description:
-        'The full list of features in this project (excluding archived features)',
+      description: 'The full list of features in this project (excluding archived features)',
     },
     updatedAt: {
       type: 'string',
@@ -146,6 +144,4 @@ export const deprecatedProjectOverviewSchema = {
   },
 } as const;
 
-export type DeprecatedProjectOverviewSchema = FromSchema<
-  typeof deprecatedProjectOverviewSchema
->;
+export type DeprecatedProjectOverviewSchema = FromSchema<typeof deprecatedProjectOverviewSchema>;

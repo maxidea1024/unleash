@@ -1,19 +1,15 @@
 import type { FC } from 'react';
 import { APPLY_CHANGE_REQUEST } from '../../../providers/AccessProvider/permissions';
 import PermissionButton from '../../../common/PermissionButton/PermissionButton';
-import {
-  ChangeRequestScheduledDialog,
-  type ChangeRequestScheduledDialogProps,
-} from './ChangeRequestScheduledDialog';
+import { ChangeRequestScheduledDialog, type ChangeRequestScheduledDialogProps } from './ChangeRequestScheduledDialog';
 
 export const ChangeRequestApplyScheduledDialogue: FC<
-  Omit<
-    ChangeRequestScheduledDialogProps,
-    'message' | 'title' | 'primaryButtonText' | 'permissionButton'
-  > & { projectId: string; environment: string }
+  Omit<ChangeRequestScheduledDialogProps, 'message' | 'title' | 'primaryButtonText' | 'permissionButton'> & {
+    projectId: string;
+    environment: string;
+  }
 > = ({ projectId, environment, disabled, onConfirm, ...rest }) => {
-  const message =
-    'Applying the changes now means the scheduled time will be ignored';
+  const message = 'Applying the changes now means the scheduled time will be ignored';
   const title = 'Apply changes';
   const primaryButtonText = 'Apply changes now';
 
@@ -41,10 +37,7 @@ export const ChangeRequestApplyScheduledDialogue: FC<
 };
 
 export const ChangeRequestRejectScheduledDialogue: FC<
-  Omit<
-    ChangeRequestScheduledDialogProps,
-    'message' | 'title' | 'primaryButtonText'
-  >
+  Omit<ChangeRequestScheduledDialogProps, 'message' | 'title' | 'primaryButtonText'>
 > = ({ ...rest }) => {
   const message =
     'Rejecting this change request will delete its schedule and it can no longer be rescheduled or applied.';
@@ -52,11 +45,6 @@ export const ChangeRequestRejectScheduledDialogue: FC<
   const primaryButtonText = 'Reject changes';
 
   return (
-    <ChangeRequestScheduledDialog
-      message={message}
-      title={title}
-      primaryButtonText={primaryButtonText}
-      {...rest}
-    />
+    <ChangeRequestScheduledDialog message={message} title={title} primaryButtonText={primaryButtonText} {...rest} />
   );
 };

@@ -36,10 +36,7 @@ export interface IProjectAccessOutput {
   rows: IProjectAccess[];
 }
 
-const useProjectAccess = (
-  projectId: string,
-  options: SWRConfiguration = {},
-) => {
+const useProjectAccess = (projectId: string, options: SWRConfiguration = {}) => {
   const path = formatApiPath(`api/admin/projects/${projectId}/access`);
   const fetcher = () => {
     return fetch(path, {
@@ -67,12 +64,8 @@ const useProjectAccess = (
     if (data) {
       return formatAccessData({
         roles: data.roles,
-        users: (data.users as IUser[]).filter(
-          ({ accountType }) => !accountType || accountType === 'User',
-        ),
-        serviceAccounts: (data.users as IUser[]).filter(
-          ({ accountType }) => accountType === 'Service Account',
-        ),
+        users: (data.users as IUser[]).filter(({ accountType }) => !accountType || accountType === 'User'),
+        serviceAccounts: (data.users as IUser[]).filter(({ accountType }) => accountType === 'Service Account'),
         groups:
           data?.groups.map((group: any) => ({
             ...group,

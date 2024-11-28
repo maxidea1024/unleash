@@ -13,11 +13,7 @@ interface IChangeRequestProps {
   onNavigate?: () => void;
 }
 
-export const ChangeRequest: VFC<IChangeRequestProps> = ({
-  changeRequest,
-  onRefetch,
-  onNavigate,
-}) => {
+export const ChangeRequest: VFC<IChangeRequestProps> = ({ changeRequest, onRefetch, onNavigate }) => {
   return (
     <Box>
       <ConditionallyRender

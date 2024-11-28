@@ -35,9 +35,7 @@ interface ISignalEndpointsFormURLProps {
   name: string;
 }
 
-export const SignalEndpointsFormURL = ({
-  name,
-}: ISignalEndpointsFormURLProps) => {
+export const SignalEndpointsFormURL = ({ name }: ISignalEndpointsFormURLProps) => {
   const { uiConfig } = useUiConfig();
   const { setToastData } = useToast();
 
@@ -53,9 +51,7 @@ export const SignalEndpointsFormURL = ({
 
   return (
     <StyledSignalEndpointUrlSection>
-      <StyledSignalEndpointUrlSectionDescription>
-        Signal endpoint URL:
-      </StyledSignalEndpointUrlSectionDescription>
+      <StyledSignalEndpointUrlSectionDescription>Signal endpoint URL:</StyledSignalEndpointUrlSectionDescription>
       <StyledSignalEndpointUrl>
         {url}
         <Tooltip title='Copy URL' arrow>

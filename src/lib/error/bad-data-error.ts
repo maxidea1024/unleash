@@ -13,15 +13,8 @@ export default class BadDataError extends UnleashError {
 
   details: ValidationErrorDescription[];
 
-  constructor(
-    message: string,
-    errors?: [ValidationErrorDescription, ...ValidationErrorDescription[]],
-  ) {
-    const topLevelMessage = `Request validation failed: your request body or params contain invalid data${
-      errors
-        ? '. Refer to the `details` list for more information.'
-        : `: ${message}`
-    }`;
+  constructor(message: string, errors?: [ValidationErrorDescription, ...ValidationErrorDescription[]]) {
+    const topLevelMessage = `Request validation failed: your request body or params contain invalid data${errors ? '. Refer to the `details` list for more information.' : `: ${message}`}`;
     super(topLevelMessage);
 
     this.details = errors ?? [{ message: message }];
@@ -38,10 +31,7 @@ export default class BadDataError extends UnleashError {
 const constructPath = (pathToParent: string, propertyName: string) =>
   [pathToParent, propertyName].filter(Boolean).join('/');
 
-const missingRequiredPropertyMessage = (
-  pathToParentObject: string,
-  missingPropertyName: string,
-) => {
+const missingRequiredPropertyMessage = (pathToParentObject: string, missingPropertyName: string) => {
   const path = constructPath(pathToParentObject, missingPropertyName);
   const message = `The \`${path}\` property is required. It was not present on the data you sent.`;
   return {
@@ -50,14 +40,9 @@ const missingRequiredPropertyMessage = (
   };
 };
 
-const additionalPropertiesMessage = (
-  pathToParentObject: string,
-  additionalPropertyName: string,
-) => {
+const additionalPropertiesMessage = (pathToParentObject: string, additionalPropertyName: string) => {
   const path = constructPath(pathToParentObject, additionalPropertyName);
-  const message = `The ${
-    pathToParentObject ? `\`${pathToParentObject}\`` : 'root'
-  } object of the request body does not allow additional properties. Your request included the \`${path}\` property.`;
+  const message = `The ${pathToParentObject ? `\`${pathToParentObject}\`` : 'root'} object of the request body does not allow additional properties. Your request included the \`${path}\` property.`;
 
   return {
     path,
@@ -65,11 +50,7 @@ const additionalPropertiesMessage = (
   };
 };
 
-const genericErrorMessage = (
-  propertyName: string,
-  propertyValue: object,
-  errorMessage: string = 'is invalid',
-) => {
+const genericErrorMessage = (propertyName: string, propertyValue: object, errorMessage: string = 'is invalid') => {
   const youSent = JSON.stringify(propertyValue);
   const message = `The \`${propertyName}\` property ${errorMessage}. You sent ${youSent}.`;
   return {
@@ -78,12 +59,8 @@ const genericErrorMessage = (
   };
 };
 
-const oneOfMessage = (
-  propertyName: string,
-  errorMessage: string = 'is invalid',
-) => {
-  const errorPosition =
-    propertyName === '' ? 'root object' : `"${propertyName}" property`;
+const oneOfMessage = (propertyName: string, errorMessage: string = 'is invalid') => {
+  const errorPosition = propertyName === '' ? 'root object' : `"${propertyName}" property`;
 
   const message = `The ${errorPosition} ${errorMessage}. The data you provided matches more than one option in the schema. These options are mutually exclusive. Please refer back to the schema and remove any excess properties.`;
 
@@ -99,13 +76,9 @@ const enumMessage = (
   allowedValues: string[],
   suppliedValue: string | null | undefined,
 ) => {
-  const fullMessage = `The \`${propertyName}\` property ${
-    message ?? 'must match one of the allowed values'
-  }: ${allowedValues
+  const fullMessage = `The \`${propertyName}\` property ${message ?? 'must match one of the allowed values'}: ${allowedValues
     .map((value) => `"${value}"`)
-    .join(
-      ', ',
-    )}. You provided "${suppliedValue}", which is not valid. Please use one of the allowed values instead..`;
+    .join(', ')}. You provided "${suppliedValue}", which is not valid. Please use one of the allowed values instead..`;
 
   return {
     message: fullMessage,
@@ -118,22 +91,13 @@ export const fromOpenApiValidationError =
   (validationError: ErrorObject): ValidationErrorDescription => {
     const { instancePath, params, message } = validationError;
 
-    const propertyValue = getProp(
-      data,
-      instancePath.split('/').filter(Boolean),
-    );
+    const propertyValue = getProp(data, instancePath.split('/').filter(Boolean));
 
     switch (validationError.keyword) {
       case 'required':
-        return missingRequiredPropertyMessage(
-          instancePath,
-          params.missingProperty,
-        );
+        return missingRequiredPropertyMessage(instancePath, params.missingProperty);
       case 'additionalProperties':
-        return additionalPropertiesMessage(
-          instancePath,
-          params.additionalProperty,
-        );
+        return additionalPropertiesMessage(instancePath, params.additionalProperty);
       case 'enum':
         return enumMessage(
           instancePath.substring(instancePath.lastIndexOf('/') + 1),
@@ -153,9 +117,7 @@ export const fromOpenApiValidationErrors = (
   data: object,
   validationErrors: [ErrorObject, ...ErrorObject[]],
 ): BadDataError => {
-  const [firstDetail, ...remainingDetails] = validationErrors.map(
-    fromOpenApiValidationError(data),
-  );
+  const [firstDetail, ...remainingDetails] = validationErrors.map(fromOpenApiValidationError(data));
 
   return new BadDataError(
     "Request validation failed: your request doesn't conform to the schema. Check the `details` property for a list of errors that we found.",
@@ -165,9 +127,7 @@ export const fromOpenApiValidationErrors = (
 
 export const fromJoiError = (err: ValidationError): BadDataError => {
   const details = err.details.map((detail) => {
-    const messageEnd = detail.context?.value
-      ? `. You provided ${JSON.stringify(detail.context.value)}.`
-      : '.';
+    const messageEnd = detail.context?.value ? `. You provided ${JSON.stringify(detail.context.value)}.` : '.';
     const message = detail.message + messageEnd;
     return {
       message,

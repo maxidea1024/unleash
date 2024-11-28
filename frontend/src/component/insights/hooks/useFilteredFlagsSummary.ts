@@ -1,30 +1,21 @@
 import { useMemo } from 'react';
 import type { InstanceInsightsSchemaProjectFlagTrendsItem } from 'openapi';
 
-const validTimeToProduction = (
-  item: InstanceInsightsSchemaProjectFlagTrendsItem,
-) =>
-  Boolean(item) &&
-  typeof item.timeToProduction === 'number' &&
-  item.timeToProduction !== 0;
+const validTimeToProduction = (item: InstanceInsightsSchemaProjectFlagTrendsItem) =>
+  Boolean(item) && typeof item.timeToProduction === 'number' && item.timeToProduction !== 0;
 
 // NOTE: should we move project filtering to the backend?
-export const useFilteredFlagsSummary = (
-  filteredProjectFlagTrends: InstanceInsightsSchemaProjectFlagTrendsItem[],
-) =>
+export const useFilteredFlagsSummary = (filteredProjectFlagTrends: InstanceInsightsSchemaProjectFlagTrendsItem[]) =>
   useMemo(() => {
     const lastWeekId = filteredProjectFlagTrends.reduce((prev, current) => {
       if (current.week > prev) return current.week;
       return prev;
     }, '');
 
-    const lastWeekSummary = filteredProjectFlagTrends.filter(
-      (summary) => summary.week === lastWeekId,
-    );
+    const lastWeekSummary = filteredProjectFlagTrends.filter((summary) => summary.week === lastWeekId);
 
     const averageUsers =
-      lastWeekSummary.reduce((acc, current) => acc + (current.users || 0), 0) /
-        lastWeekSummary.length || 0;
+      lastWeekSummary.reduce((acc, current) => acc + (current.users || 0), 0) / lastWeekSummary.length || 0;
 
     const sum = lastWeekSummary.reduce(
       (acc, current) => ({
@@ -54,18 +45,14 @@ export const useFilteredFlagsSummary = (
         ? (timesToProduction[midIndex - 1] + timesToProduction[midIndex]) / 2
         : timesToProduction[midIndex];
 
-    const medianTimeToProduction = Number.isNaN(
-      medianTimeToProductionCalculation,
-    )
+    const medianTimeToProduction = Number.isNaN(medianTimeToProductionCalculation)
       ? undefined
       : medianTimeToProductionCalculation;
 
     return {
       ...sum,
       averageUsers,
-      averageHealth: sum.total
-        ? ((sum.active / (sum.total || 1)) * 100).toFixed(0)
-        : '100',
+      averageHealth: sum.total ? ((sum.active / (sum.total || 1)) * 100).toFixed(0) : '100',
       medianTimeToProduction,
     };
   }, [filteredProjectFlagTrends]);

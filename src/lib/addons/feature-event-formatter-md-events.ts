@@ -68,50 +68,42 @@ interface IEventData {
 export const EVENT_MAP: Record<string, IEventData> = {
   [ADDON_CONFIG_CREATED]: {
     label: 'Integration configuration created',
-    action:
-      '{{b}}{{user}}{{b}} created a new {{b}}{{event.data.provider}}{{b}} integration configuration',
+    action: '{{b}}{{user}}{{b}} created a new {{b}}{{event.data.provider}}{{b}} integration configuration',
     path: '/integrations',
   },
   [ADDON_CONFIG_DELETED]: {
     label: 'Integration configuration deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted a {{b}}{{event.preData.provider}}{{b}} integration configuration',
+    action: '{{b}}{{user}}{{b}} deleted a {{b}}{{event.preData.provider}}{{b}} integration configuration',
     path: '/integrations',
   },
   [ADDON_CONFIG_UPDATED]: {
     label: 'Integration configuration updated',
-    action:
-      '{{b}}{{user}}{{b}} updated a {{b}}{{event.preData.provider}}{{b}} integration configuration',
+    action: '{{b}}{{user}}{{b}} updated a {{b}}{{event.preData.provider}}{{b}} integration configuration',
     path: '/integrations',
   },
   [API_TOKEN_CREATED]: {
     label: 'API token created',
-    action:
-      '{{b}}{{user}}{{b}} created API token {{b}}{{event.data.username}}{{b}}',
+    action: '{{b}}{{user}}{{b}} created API token {{b}}{{event.data.username}}{{b}}',
     path: '/admin/api',
   },
   [API_TOKEN_DELETED]: {
     label: 'API token deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted API token {{b}}{{event.preData.username}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted API token {{b}}{{event.preData.username}}{{b}}',
     path: '/admin/api',
   },
   [CHANGE_ADDED]: {
     label: 'Change added',
-    action:
-      '{{b}}{{user}}{{b}} added a change to change request {{changeRequest}}',
+    action: '{{b}}{{user}}{{b}} added a change to change request {{changeRequest}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CHANGE_DISCARDED]: {
     label: 'Change discarded',
-    action:
-      '{{b}}{{user}}{{b}} discarded a change in change request {{changeRequest}}',
+    action: '{{b}}{{user}}{{b}} discarded a change in change request {{changeRequest}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CHANGE_EDITED]: {
     label: 'Change edited',
-    action:
-      '{{b}}{{user}}{{b}} edited a change in change request {{changeRequest}}',
+    action: '{{b}}{{user}}{{b}} edited a change in change request {{changeRequest}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CHANGE_REQUEST_APPLIED]: {
@@ -121,8 +113,7 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [CHANGE_REQUEST_APPROVAL_ADDED]: {
     label: 'Change request approval added',
-    action:
-      '{{b}}{{user}}{{b}} added an approval to change request {{changeRequest}}',
+    action: '{{b}}{{user}}{{b}} added an approval to change request {{changeRequest}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CHANGE_REQUEST_APPROVED]: {
@@ -152,8 +143,7 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [CHANGE_REQUEST_SENT_TO_REVIEW]: {
     label: 'Change request sent to review',
-    action:
-      '{{b}}{{user}}{{b}} sent to review change request {{changeRequest}}',
+    action: '{{b}}{{user}}{{b}} sent to review change request {{changeRequest}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CHANGE_REQUEST_SCHEDULED]: {
@@ -176,44 +166,37 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [CHANGE_REQUEST_SCHEDULE_SUSPENDED]: {
     label: 'Change request suspended',
-    action:
-      'Change request {{changeRequest}} was suspended for the following reason: {{event.data.reason}}',
+    action: 'Change request {{changeRequest}} was suspended for the following reason: {{event.data.reason}}',
     path: '/projects/{{event.project}}/change-requests/{{event.data.changeRequestId}}',
   },
   [CONTEXT_FIELD_CREATED]: {
     label: 'Context field created',
-    action:
-      '{{b}}{{user}}{{b}} created context field {{b}}{{event.data.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} created context field {{b}}{{event.data.name}}{{b}}',
     path: '/context',
   },
   [CONTEXT_FIELD_DELETED]: {
     label: 'Context field deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted context field {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted context field {{b}}{{event.preData.name}}{{b}}',
     path: '/context',
   },
   [CONTEXT_FIELD_UPDATED]: {
     label: 'Context field updated',
-    action:
-      '{{b}}{{user}}{{b}} updated context field {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} updated context field {{b}}{{event.preData.name}}{{b}}',
     path: '/context',
   },
   [FEATURE_ARCHIVED]: {
     label: 'Flag archived',
-    action:
-      '{{b}}{{user}}{{b}} archived {{b}}{{event.featureName}}{{b}} in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} archived {{b}}{{event.featureName}}{{b}} in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/archive',
   },
   [FEATURE_CREATED]: {
     label: 'Flag created',
-    action:
-      '{{b}}{{user}}{{b}} created {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} created {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_DELETED]: {
     label: 'Flag deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted {{b}}{{event.featureName}}{{b}} in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted {{b}}{{event.featureName}}{{b}} in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}',
   },
   [FEATURE_ENVIRONMENT_DISABLED]: {
@@ -236,20 +219,17 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [FEATURE_METADATA_UPDATED]: {
     label: 'Flag metadata updated',
-    action:
-      '{{b}}{{user}}{{b}} updated {{b}}{{feature}}{{b}} metadata in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} updated {{b}}{{feature}}{{b}} metadata in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_COMPLETED]: {
     label: 'Flag marked as completed',
-    action:
-      '{{b}}{{feature}}{{b}} was marked as completed in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{feature}}{{b}} was marked as completed in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_POTENTIALLY_STALE_ON]: {
     label: 'Flag potentially stale',
-    action:
-      '{{b}}{{feature}}{{b}} was marked as potentially stale in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{feature}}{{b}} was marked as potentially stale in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_PROJECT_CHANGE]: {
@@ -260,20 +240,17 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [FEATURE_REVIVED]: {
     label: 'Flag revived',
-    action:
-      '{{b}}{{user}}{{b}} revived {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} revived {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_STALE_OFF]: {
     label: 'Flag stale marking removed',
-    action:
-      '{{b}}{{user}}{{b}} removed the stale marking on {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} removed the stale marking on {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_STALE_ON]: {
     label: 'Flag marked as stale',
-    action:
-      '{{b}}{{user}}{{b}} marked {{b}}{{feature}}{{b}} as stale in project {{b}}{{project}}{{b}}',
+    action: '{{b}}{{user}}{{b}} marked {{b}}{{feature}}{{b}} as stale in project {{b}}{{project}}{{b}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_STRATEGY_ADD]: {
@@ -290,8 +267,7 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [FEATURE_STRATEGY_UPDATE]: {
     label: 'Flag strategy updated',
-    action:
-      '{{b}}{{user}}{{b}} updated {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}} {{strategyChangeText}}',
+    action: '{{b}}{{user}}{{b}} updated {{b}}{{feature}}{{b}} in project {{b}}{{project}}{{b}} {{strategyChangeText}}',
     path: '/projects/{{event.project}}/features/{{event.featureName}}',
   },
   [FEATURE_TAGGED]: {
@@ -323,20 +299,17 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [BANNER_CREATED]: {
     label: 'Banner created',
-    action:
-      '{{b}}{{user}}{{b}} created banner {{b}}{{event.data.message}}{{b}}',
+    action: '{{b}}{{user}}{{b}} created banner {{b}}{{event.data.message}}{{b}}',
     path: '/admin/message-banners',
   },
   [BANNER_DELETED]: {
     label: 'Banner deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted banner {{b}}{{event.preData.message}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted banner {{b}}{{event.preData.message}}{{b}}',
     path: '/admin/message-banners',
   },
   [BANNER_UPDATED]: {
     label: 'Banner updated',
-    action:
-      '{{b}}{{user}}{{b}} updated banner {{b}}{{event.preData.message}}{{b}}',
+    action: '{{b}}{{user}}{{b}} updated banner {{b}}{{event.preData.message}}{{b}}',
     path: '/admin/message-banners',
   },
   [PROJECT_CREATED]: {
@@ -356,32 +329,27 @@ export const EVENT_MAP: Record<string, IEventData> = {
   },
   [SEGMENT_DELETED]: {
     label: 'Segment deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted segment {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted segment {{b}}{{event.preData.name}}{{b}}',
     path: '/segments',
   },
   [SEGMENT_UPDATED]: {
     label: 'Segment updated',
-    action:
-      '{{b}}{{user}}{{b}} updated segment {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} updated segment {{b}}{{event.preData.name}}{{b}}',
     path: '/segments',
   },
   [SERVICE_ACCOUNT_CREATED]: {
     label: 'Service account created',
-    action:
-      '{{b}}{{user}}{{b}} created service account {{b}}{{event.data.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} created service account {{b}}{{event.data.name}}{{b}}',
     path: '/admin/service-accounts',
   },
   [SERVICE_ACCOUNT_DELETED]: {
     label: 'Service account deleted',
-    action:
-      '{{b}}{{user}}{{b}} deleted service account {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} deleted service account {{b}}{{event.preData.name}}{{b}}',
     path: '/admin/service-accounts',
   },
   [SERVICE_ACCOUNT_UPDATED]: {
     label: 'Service account updated',
-    action:
-      '{{b}}{{user}}{{b}} updated service account {{b}}{{event.preData.name}}{{b}}',
+    action: '{{b}}{{user}}{{b}} updated service account {{b}}{{event.preData.name}}{{b}}',
     path: '/admin/service-accounts',
   },
   [USER_CREATED]: {

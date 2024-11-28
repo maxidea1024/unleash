@@ -18,18 +18,10 @@ export interface IFeatureResponse {
   body?: IFeatureToggle;
 }
 
-export const useFeature = (
-  projectId: string,
-  featureId: string,
-  options?: SWRConfiguration,
-): IUseFeatureOutput => {
+export const useFeature = (projectId: string, featureId: string, options?: SWRConfiguration): IUseFeatureOutput => {
   const path = formatFeatureApiPath(projectId, featureId);
 
-  const { data, error, mutate } = useSWR<IFeatureResponse>(
-    ['useFeature', path],
-    () => featureFetcher(path),
-    options,
-  );
+  const { data, error, mutate } = useSWR<IFeatureResponse>(['useFeature', path], () => featureFetcher(path), options);
 
   const refetchFeature = useCallback(() => {
     mutate().catch(console.warn);
@@ -44,9 +36,7 @@ export const useFeature = (
   };
 };
 
-export const featureFetcher = async (
-  path: string,
-): Promise<IFeatureResponse> => {
+export const featureFetcher = async (path: string): Promise<IFeatureResponse> => {
   const res = await fetch(path);
 
   if (res.status === 404) {
@@ -63,11 +53,6 @@ export const featureFetcher = async (
   };
 };
 
-export const formatFeatureApiPath = (
-  projectId: string,
-  featureId: string,
-): string => {
-  return formatApiPath(
-    `api/admin/projects/${projectId}/features/${featureId}?variantEnvironments=true`,
-  );
+export const formatFeatureApiPath = (projectId: string, featureId: string): string => {
+  return formatApiPath(`api/admin/projects/${projectId}/features/${featureId}?variantEnvironments=true`);
 };

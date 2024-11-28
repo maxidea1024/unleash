@@ -6,20 +6,11 @@ interface IConditionallyRenderProps {
   elseShow?: TargetElement;
 }
 
-type TargetElement =
-  | JSX.Element
-  | JSX.Element[]
-  | RenderFunc
-  | ReactNode
-  | null;
+type TargetElement = JSX.Element | JSX.Element[] | RenderFunc | ReactNode | null;
 
 type RenderFunc = () => JSX.Element;
 
-export const ConditionallyRender = ({
-  condition,
-  show,
-  elseShow,
-}: IConditionallyRenderProps): JSX.Element | null => {
+export const ConditionallyRender = ({ condition, show, elseShow }: IConditionallyRenderProps): JSX.Element | null => {
   const handleFunction = (renderFunc: RenderFunc): JSX.Element | null => {
     const result = renderFunc();
     if (!result) {

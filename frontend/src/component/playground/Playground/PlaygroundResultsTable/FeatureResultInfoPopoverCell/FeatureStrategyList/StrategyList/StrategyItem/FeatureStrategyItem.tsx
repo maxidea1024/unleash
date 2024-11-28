@@ -1,9 +1,6 @@
 import { useTheme } from '@mui/material';
 import { PlaygroundResultChip } from '../../../../PlaygroundResultChip/PlaygroundResultChip';
-import type {
-  PlaygroundStrategySchema,
-  PlaygroundRequestSchema,
-} from 'openapi';
+import type { PlaygroundStrategySchema, PlaygroundRequestSchema } from 'openapi';
 import { StrategyExecution } from './StrategyExecution/StrategyExecution';
 import { StrategyItemContainer } from 'component/common/StrategyItemContainer/StrategyItemContainer';
 import { objectId } from 'utils/objectId';
@@ -16,16 +13,11 @@ interface IFeatureStrategyItemProps {
   input?: PlaygroundRequestSchema;
 }
 
-export const FeatureStrategyItem = ({
-  strategy,
-  input,
-  index,
-}: IFeatureStrategyItemProps) => {
+export const FeatureStrategyItem = ({ strategy, input, index }: IFeatureStrategyItemProps) => {
   const { result } = strategy;
   const theme = useTheme();
   const label =
-    result.evaluationStatus === 'incomplete' ||
-    result.evaluationStatus === 'unevaluated'
+    result.evaluationStatus === 'incomplete' || result.evaluationStatus === 'unevaluated'
       ? 'Unevaluated'
       : result.enabled
         ? 'True'
@@ -34,26 +26,15 @@ export const FeatureStrategyItem = ({
   return (
     <StrategyItemContainer
       style={{
-        borderColor:
-          result.enabled && result.evaluationStatus === 'complete'
-            ? theme.palette.success.main
-            : 'none',
+        borderColor: result.enabled && result.evaluationStatus === 'complete' ? theme.palette.success.main : 'none',
       }}
       strategy={{ ...strategy, id: `${objectId(strategy)}` }}
       orderNumber={index + 1}
-      actions={
-        <PlaygroundResultChip
-          showIcon={false}
-          enabled={result.enabled}
-          label={label}
-        />
-      }
+      actions={<PlaygroundResultChip showIcon={false} enabled={result.enabled} label={label} />}
     >
       <ConditionallyRender
         condition={Boolean(strategy.disabled)}
-        show={
-          <DisabledStrategyExecution strategyResult={strategy} input={input} />
-        }
+        show={<DisabledStrategyExecution strategyResult={strategy} input={input} />}
         elseShow={
           <StrategyExecution
             strategyResult={strategy}

@@ -1,6 +1,4 @@
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 import {
   type IUnleashTest,
   insertLastSeenAt,
@@ -45,14 +43,8 @@ beforeAll(async () => {
     enabled: true,
   });
 
-  await app.services.projectService.addEnvironmentToProject(
-    'default',
-    'development',
-  );
-  await app.services.projectService.addEnvironmentToProject(
-    'default',
-    'production',
-  );
+  await app.services.projectService.addEnvironmentToProject('default', 'development');
+  await app.services.projectService.addEnvironmentToProject('default', 'production');
 });
 
 afterAll(async () => {
@@ -70,9 +62,7 @@ test('should return last seen at per env for /api/admin/features', async () => {
     .expect('Content-Type', /json/)
     .expect(200);
 
-  const found = await response.body.features.find(
-    (featureToggle) => featureToggle.name === 'lastSeenAtPerEnv',
-  );
+  const found = await response.body.features.find((featureToggle) => featureToggle.name === 'lastSeenAtPerEnv');
 
   expect(found.environments[0].lastSeenAt).toEqual('2023-10-01T12:34:56.000Z');
 });
@@ -104,9 +94,7 @@ test('response should include last seen at per environment for multiple environm
   const featureName = 'multiple-environment-last-seen-at-archived';
   await setupLastSeenAtTest(featureName);
 
-  await app.request
-    .delete(`/api/admin/projects/default/features/${featureName}`)
-    .expect(202);
+  await app.request.delete(`/api/admin/projects/default/features/${featureName}`).expect(202);
 
   const { body } = await app.request.get(`/api/admin/archive/features`);
 
@@ -127,9 +115,7 @@ test('response should include last seen at per environment for multiple environm
   const featureName = 'multiple-environment-last-seen-at-archived-project';
   await setupLastSeenAtTest(featureName);
 
-  await app.request
-    .delete(`/api/admin/projects/default/features/${featureName}`)
-    .expect(202);
+  await app.request.delete(`/api/admin/projects/default/features/${featureName}`).expect(202);
 
   const { body } = await app.request.get(`/api/admin/archive/features/default`);
 
@@ -155,30 +141,13 @@ test('response should include last seen at per environment correctly for a singl
   await setupLastSeenAtTest(`${featureName}4`);
   await setupLastSeenAtTest(`${featureName}5`);
 
-  await insertLastSeenAt(
-    featureName,
-    db.rawDatabase,
-    'default',
-    '2023-08-01 12:30:56',
-  );
+  await insertLastSeenAt(featureName, db.rawDatabase, 'default', '2023-08-01 12:30:56');
 
-  await insertLastSeenAt(
-    featureName,
-    db.rawDatabase,
-    'development',
-    '2023-08-01 12:30:56',
-  );
+  await insertLastSeenAt(featureName, db.rawDatabase, 'development', '2023-08-01 12:30:56');
 
-  await insertLastSeenAt(
-    featureName,
-    db.rawDatabase,
-    'production',
-    '2023-08-01 12:30:56',
-  );
+  await insertLastSeenAt(featureName, db.rawDatabase, 'production', '2023-08-01 12:30:56');
 
-  const { body } = await app.request
-    .get(`/api/admin/projects/default/features/${featureName}`)
-    .expect(200);
+  const { body } = await app.request.get(`/api/admin/projects/default/features/${featureName}`).expect(200);
 
   const expected = [
     {
@@ -196,12 +165,7 @@ test('response should include last seen at per environment correctly for a singl
   ];
 
   const toObject = (lastSeenAtEnvData) =>
-    Object.fromEntries(
-      lastSeenAtEnvData.map((env) => [
-        env.name,
-        { lastSeenAt: env.lastSeenAt },
-      ]),
-    );
+    Object.fromEntries(lastSeenAtEnvData.map((env) => [env.name, { lastSeenAt: env.lastSeenAt }]));
 
   expect(toObject(body.environments)).toMatchObject(toObject(expected));
 });

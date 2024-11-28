@@ -1,12 +1,7 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { createTestConfig } from '../../../config/test-config';
-import {
-  AccessService,
-  EmailService,
-  type EventService,
-  GroupService,
-} from '../../../../lib/services';
+import { AccessService, EmailService, type EventService, GroupService } from '../../../../lib/services';
 import ResetTokenService from '../../../../lib/services/reset-token-service';
 import SessionService from '../../../../lib/services/session-service';
 import SettingService from '../../../../lib/services/setting-service';
@@ -54,11 +49,7 @@ beforeAll(async () => {
     sessionService,
     settingService,
   });
-  inactiveUserService = createInactiveUsersService(
-    db.rawDatabase,
-    config,
-    userService,
-  );
+  inactiveUserService = createInactiveUsersService(db.rawDatabase, config, userService);
 });
 
 afterEach(async () => {
@@ -153,56 +144,32 @@ describe('Inactive users service', () => {
       await db.rawDatabase.raw(`INSERT INTO users(id, name, username, email, created_at)
                                       VALUES (9595, 'test user who never logged in', 'nedryerson', 'ned@ryerson.com',
                                               now() - INTERVAL '7 MONTHS')`);
-      const usersToDelete = await inactiveUserService
-        .getInactiveUsers()
-        .then((users) => users.map((user) => user.id));
-      await inactiveUserService.deleteInactiveUsers(
-        extractAuditInfoFromUser(deletionUser),
-        usersToDelete,
-      );
-      await expect(
-        userService.getUser(9595),
-      ).rejects.toThrowErrorMatchingSnapshot('noUserSnapshot');
+      const usersToDelete = await inactiveUserService.getInactiveUsers().then((users) => users.map((user) => user.id));
+      await inactiveUserService.deleteInactiveUsers(extractAuditInfoFromUser(deletionUser), usersToDelete);
+      await expect(userService.getUser(9595)).rejects.toThrowErrorMatchingSnapshot('noUserSnapshot');
     });
     test('Finds users that was last logged in before our deadline', async () => {
       await db.rawDatabase.raw(`INSERT INTO users(id, name, username, email, created_at, seen_at)
                                       VALUES (9595, 'test user who has not logged in in a while', 'nedryerson', 'ned@ryerson.com',
                                               now() - INTERVAL '7 MONTHS', now() - INTERVAL '182 DAYS')`);
-      const usersToDelete = await inactiveUserService
-        .getInactiveUsers()
-        .then((users) => users.map((user) => user.id));
-      await inactiveUserService.deleteInactiveUsers(
-        extractAuditInfoFromUser(deletionUser),
-        usersToDelete,
-      );
-      await expect(
-        userService.getUser(9595),
-      ).rejects.toThrowErrorMatchingSnapshot('noUserSnapshot');
+      const usersToDelete = await inactiveUserService.getInactiveUsers().then((users) => users.map((user) => user.id));
+      await inactiveUserService.deleteInactiveUsers(extractAuditInfoFromUser(deletionUser), usersToDelete);
+      await expect(userService.getUser(9595)).rejects.toThrowErrorMatchingSnapshot('noUserSnapshot');
     });
     test('Does not delete users that was last logged in after our deadline', async () => {
       await db.rawDatabase.raw(`INSERT INTO users(id, name, username, email, created_at, seen_at)
                                       VALUES (9595, 'test user who has logged in recently', 'nedryerson', 'ned@ryerson.com',
                                               now() - INTERVAL '7 MONTHS', now() - INTERVAL '1 MONTH')`);
-      const usersToDelete = await inactiveUserService
-        .getInactiveUsers()
-        .then((users) => users.map((user) => user.id));
-      await inactiveUserService.deleteInactiveUsers(
-        extractAuditInfoFromUser(deletionUser),
-        usersToDelete,
-      );
+      const usersToDelete = await inactiveUserService.getInactiveUsers().then((users) => users.map((user) => user.id));
+      await inactiveUserService.deleteInactiveUsers(extractAuditInfoFromUser(deletionUser), usersToDelete);
       await expect(userService.getUser(9595)).resolves.toBeTruthy();
     });
     test('Does not delete users that has never logged in, but was created after our deadline', async () => {
       await db.rawDatabase.raw(`INSERT INTO users(id, name, username, email, created_at)
                                       VALUES (9595, 'test user who never logged in', 'nedryerson', 'ned@ryerson.com',
                                               now() - INTERVAL '3 MONTHS')`);
-      const usersToDelete = await inactiveUserService
-        .getInactiveUsers()
-        .then((users) => users.map((user) => user.id));
-      await inactiveUserService.deleteInactiveUsers(
-        extractAuditInfoFromUser(deletionUser),
-        usersToDelete,
-      );
+      const usersToDelete = await inactiveUserService.getInactiveUsers().then((users) => users.map((user) => user.id));
+      await inactiveUserService.deleteInactiveUsers(extractAuditInfoFromUser(deletionUser), usersToDelete);
       await expect(userService.getUser(9595)).resolves.toBeTruthy();
     });
     test('Does not delete the user that calls the service', async () => {
@@ -211,13 +178,8 @@ describe('Inactive users service', () => {
                                               now() - INTERVAL '7 MONTHS')`);
       await db.rawDatabase.raw(`INSERT INTO users(id, name, username, email, created_at)
                                       VALUES (${deletionUser.id}, '${deletionUser.name}', '${deletionUser.username}', '${deletionUser.email}', now() - INTERVAL '7 MONTHS')`);
-      const usersToDelete = await inactiveUserService
-        .getInactiveUsers()
-        .then((users) => users.map((user) => user.id));
-      await inactiveUserService.deleteInactiveUsers(
-        extractAuditInfoFromUser(deletionUser),
-        usersToDelete,
-      );
+      const usersToDelete = await inactiveUserService.getInactiveUsers().then((users) => users.map((user) => user.id));
+      await inactiveUserService.deleteInactiveUsers(extractAuditInfoFromUser(deletionUser), usersToDelete);
       await expect(userService.getUser(9595)).rejects.toBeTruthy();
       await expect(userService.getUser(deletionUser.id)).resolves.toBeTruthy();
     });

@@ -1,13 +1,5 @@
 import { useState, type FC } from 'react';
-import {
-  Box,
-  Button,
-  Checkbox,
-  Dialog,
-  styled,
-  Typography,
-  TextField,
-} from '@mui/material';
+import { Box, Button, Checkbox, Dialog, styled, Typography, TextField } from '@mui/material';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { OrderEnvironmentsDialogPricing } from './OrderEnvironmentsDialogPricing/OrderEnvironmentsDialogPricing';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
@@ -83,25 +75,15 @@ const StyledCheckbox = styled(Checkbox)(({ theme }) => ({
 
 const PRICE = 10;
 const OPTIONS = [1, 2, 3];
-const ENVIRONMENT_TYPES = [
-  'development',
-  'testing',
-  'pre-production',
-  'production',
-];
+const ENVIRONMENT_TYPES = ['development', 'testing', 'pre-production', 'production'];
 
-export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({
-  open,
-  onClose,
-  onSubmit,
-  errors,
-}) => {
+export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({ open, onClose, onSubmit, errors }) => {
   const { trackEvent } = usePlausibleTracker();
   const [selectedOption, setSelectedOption] = useState(OPTIONS[0]);
   const [costCheckboxChecked, setCostCheckboxChecked] = useState(false);
-  const [environments, setEnvironments] = useState<
-    { name: string; type: string }[]
-  >([{ name: '', type: ENVIRONMENT_TYPES[0] }]);
+  const [environments, setEnvironments] = useState<{ name: string; type: string }[]>([
+    { name: '', type: ENVIRONMENT_TYPES[0] },
+  ]);
 
   const trackEnvironmentSelect = () => {
     trackEvent('order-environments', {
@@ -112,19 +94,11 @@ export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({
   };
 
   const onTypeChange = (index: number, type: string) => {
-    setEnvironments(
-      environments.map((env, i) =>
-        i === index ? { ...env, type } : { ...env },
-      ),
-    );
+    setEnvironments(environments.map((env, i) => (i === index ? { ...env, type } : { ...env })));
   };
 
   const onNameChange = (index: number, name: string) => {
-    setEnvironments(
-      environments.map((env, i) =>
-        i === index ? { ...env, name } : { ...env },
-      ),
-    );
+    setEnvironments(environments.map((env, i) => (i === index ? { ...env, name } : { ...env })));
   };
 
   return (
@@ -142,11 +116,7 @@ export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({
         footer={
           <StyledFooter>
             <Button onClick={onClose}>Cancel</Button>
-            <Button
-              variant='contained'
-              disabled={!costCheckboxChecked}
-              onClick={() => onSubmit(environments)}
-            >
+            <Button variant='contained' disabled={!costCheckboxChecked} onClick={() => onSubmit(environments)}>
               Order
             </Button>
           </StyledFooter>
@@ -158,8 +128,8 @@ export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({
           </Typography>
         </StyledTitle>
         <Typography variant='body2' color='text.secondary'>
-          With our PRO plan, you have the flexibility to expand your workspace
-          by adding environments at ${PRICE} per user per month.
+          With our PRO plan, you have the flexibility to expand your workspace by adding environments at ${PRICE} per
+          user per month.
         </Typography>
         <StyledFields>
           <Box>

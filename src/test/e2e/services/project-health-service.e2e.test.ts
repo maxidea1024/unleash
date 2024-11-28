@@ -22,11 +22,7 @@ beforeAll(async () => {
     email: 'test@getunleash.io',
   });
   projectService = createProjectService(db.rawDatabase, config);
-  projectHealthService = new ProjectHealthService(
-    stores,
-    config,
-    projectService,
-  );
+  projectHealthService = new ProjectHealthService(stores, config, projectService);
 });
 
 afterAll(async () => {
@@ -38,11 +34,7 @@ test('Project with no stale toggles should have 100% health rating', async () =>
     name: 'Health rating',
     description: 'Fancy',
   };
-  const savedProject = await projectService.createProject(
-    project,
-    user,
-    TEST_AUDIT_USER,
-  );
+  const savedProject = await projectService.createProject(project, user, TEST_AUDIT_USER);
   await stores.featureToggleStore.create('health-rating', {
     name: 'health-rating-not-stale',
     description: 'new',
@@ -65,11 +57,7 @@ test('Project with two stale toggles and two non stale should have 50% health ra
     name: 'Health rating',
     description: 'Fancy',
   };
-  const savedProject = await projectService.createProject(
-    project,
-    user,
-    TEST_AUDIT_USER,
-  );
+  const savedProject = await projectService.createProject(project, user, TEST_AUDIT_USER);
   await stores.featureToggleStore.create('health-rating-2', {
     name: 'health-rating-2-not-stale',
     description: 'new',
@@ -104,11 +92,7 @@ test('Project with one non-stale, one potentially stale and one stale should hav
     name: 'Health rating',
     description: 'Fancy',
   };
-  const savedProject = await projectService.createProject(
-    project,
-    user,
-    TEST_AUDIT_USER,
-  );
+  const savedProject = await projectService.createProject(project, user, TEST_AUDIT_USER);
   await stores.featureToggleStore.create('health-rating-3', {
     name: 'health-rating-3-not-stale',
     description: 'new',

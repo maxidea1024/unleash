@@ -27,14 +27,7 @@ export const IntegrationInstall = ({
           <StyledHelpText>{helpText}</StyledHelpText>
         </Box>
         <Box>
-          <Button
-            type='button'
-            variant='contained'
-            component={Link}
-            target='_blank'
-            rel='noopener noreferrer'
-            to={url}
-          >
+          <Button type='button' variant='contained' component={Link} target='_blank' rel='noopener noreferrer' to={url}>
             Install&nbsp;&amp;&nbsp;connect
           </Button>
         </Box>

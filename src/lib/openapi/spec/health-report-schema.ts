@@ -6,12 +6,7 @@ export const healthReportSchema = {
   $id: '#/components/schemas/healthReportSchema',
   description:
     'A report of the current health of the requested project, with datapoints like counters of currently active, stale, and potentially stale feature flags.',
-  required: [
-    ...healthOverviewSchema.required,
-    'potentiallyStaleCount',
-    'activeCount',
-    'staleCount',
-  ],
+  required: [...healthOverviewSchema.required, 'potentiallyStaleCount', 'activeCount', 'staleCount'],
   properties: {
     ...healthOverviewSchema.properties,
     potentiallyStaleCount: {

@@ -19,9 +19,7 @@ export const OrderEnvironments: FC<OrderEnvironmentsProps> = () => {
     environmentsCount?: number;
   }>({ isOpen: false });
   const { isPro } = useUiConfig();
-  const isPurchaseAdditionalEnvironmentsEnabled = useUiFlag(
-    'purchaseAdditionalEnvironments',
-  );
+  const isPurchaseAdditionalEnvironmentsEnabled = useUiFlag('purchaseAdditionalEnvironments');
   const errors = useFormErrors();
   const { orderEnvironments } = useOrderEnvironmentApi();
   const { setToastApiError } = useToast();
@@ -30,9 +28,7 @@ export const OrderEnvironments: FC<OrderEnvironmentsProps> = () => {
     return null;
   }
 
-  const onSubmit = async (
-    environments: OrderEnvironmentsSchema['environments'],
-  ) => {
+  const onSubmit = async (environments: OrderEnvironmentsSchema['environments']) => {
     let hasErrors = false;
     environments.forEach((environment, index) => {
       const field = `environment-${index}`;

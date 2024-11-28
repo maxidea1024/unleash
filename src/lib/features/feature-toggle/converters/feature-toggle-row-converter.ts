@@ -18,45 +18,26 @@ export class FeatureToggleRowConverter {
     this.flagResolver = flagResolver;
   }
 
-  isUnseenStrategyRow = (
-    feature: PartialDeep<IFeatureToggleClient>,
-    row: Record<string, any>,
-  ): boolean => {
-    return (
-      row.strategy_id &&
-      !feature.strategies?.find((strategy) => strategy?.id === row.strategy_id)
-    );
+  isUnseenStrategyRow = (feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>): boolean => {
+    return row.strategy_id && !feature.strategies?.find((strategy) => strategy?.id === row.strategy_id);
   };
 
-  isNewTag = (
-    feature: PartialDeep<IFeatureToggleClient>,
-    row: Record<string, any>,
-  ): boolean => {
+  isNewTag = (feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>): boolean => {
     return (
       row.tag_type &&
       row.tag_value &&
-      !feature.tags?.some(
-        (tag) => tag?.type === row.tag_type && tag?.value === row.tag_value,
-      )
+      !feature.tags?.some((tag) => tag?.type === row.tag_type && tag?.value === row.tag_value)
     );
   };
 
-  addSegmentToStrategy = (
-    feature: PartialDeep<IFeatureToggleClient>,
-    row: Record<string, any>,
-  ) => {
+  addSegmentToStrategy = (feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>) => {
     feature.strategies
       ?.find((strategy) => strategy?.id === row.strategy_id)
       ?.constraints?.push(...row.segment_constraints);
   };
 
-  addSegmentIdsToStrategy = (
-    feature: PartialDeep<IFeatureToggleClient>,
-    row: Record<string, any>,
-  ) => {
-    const strategy = feature.strategies?.find(
-      (strategy) => strategy?.id === row.strategy_id,
-    );
+  addSegmentIdsToStrategy = (feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>) => {
+    const strategy = feature.strategies?.find((strategy) => strategy?.id === row.strategy_id);
     if (!strategy) {
       return;
     }
@@ -66,17 +47,12 @@ export class FeatureToggleRowConverter {
     strategy.segments.push(row.segment_id);
   };
 
-  addLastSeenByEnvironment = (
-    feature: PartialDeep<IFeatureToggleListItem>,
-    row: Record<string, any>,
-  ) => {
+  addLastSeenByEnvironment = (feature: PartialDeep<IFeatureToggleListItem>, row: Record<string, any>) => {
     if (!feature.environments) {
       feature.environments = [];
     }
 
-    const found = feature.environments.find(
-      (environment) => environment?.name === row.last_seen_at_env,
-    );
+    const found = feature.environments.find((environment) => environment?.name === row.last_seen_at_env);
 
     if (found) {
       return;
@@ -126,10 +102,7 @@ export class FeatureToggleRowConverter {
       ...rest,
       strategies: strategies
         ?.sort((strategy1, strategy2) => {
-          if (
-            typeof strategy1.sortOrder === 'number' &&
-            typeof strategy2.sortOrder === 'number'
-          ) {
+          if (typeof strategy1.sortOrder === 'number' && typeof strategy2.sortOrder === 'number') {
             return strategy1.sortOrder - strategy2.sortOrder;
           }
           return 0;
@@ -140,11 +113,7 @@ export class FeatureToggleRowConverter {
         })),
     }));
 
-  createBaseFeature = (
-    row: any,
-    feature: PartialDeep<IFeatureToggleClient>,
-    featureQuery?: IFeatureToggleQuery,
-  ) => {
+  createBaseFeature = (row: any, feature: PartialDeep<IFeatureToggleClient>, featureQuery?: IFeatureToggleQuery) => {
     feature.impressionData = row.impression_data;
     feature.enabled = !!row.enabled;
     feature.name = row.name;
@@ -195,10 +164,7 @@ export class FeatureToggleRowConverter {
     return this.formatToggles(result);
   };
 
-  buildPlaygroundFeaturesFromRows = (
-    rows: any[],
-    featureQuery?: IFeatureToggleQuery,
-  ): FeatureConfigurationClient[] => {
+  buildPlaygroundFeaturesFromRows = (rows: any[], featureQuery?: IFeatureToggleQuery): FeatureConfigurationClient[] => {
     const result = rows.reduce((acc, r) => {
       let feature: PartialDeep<IFeatureToggleClient> = acc[r.name] ?? {
         strategies: [],
@@ -222,9 +188,7 @@ export class FeatureToggleRowConverter {
     return this.formatToggles(result);
   };
 
-  buildArchivedFeatureToggleListFromRows = (
-    rows: any[],
-  ): IFeatureToggleListItem[] => {
+  buildArchivedFeatureToggleListFromRows = (rows: any[]): IFeatureToggleListItem[] => {
     const result = rows.reduce((acc, row) => {
       const feature: PartialDeep<IFeatureToggleListItem> = acc[row.name] ?? {};
 

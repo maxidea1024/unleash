@@ -21,9 +21,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   borderColor: `${theme.palette.neutral.light}!important`,
 }));
 
-export const ChangeRequestScheduledDialog: FC<
-  ChangeRequestScheduledDialogProps
-> = ({
+export const ChangeRequestScheduledDialog: FC<ChangeRequestScheduledDialogProps> = ({
   open,
   onConfirm,
   onClose,

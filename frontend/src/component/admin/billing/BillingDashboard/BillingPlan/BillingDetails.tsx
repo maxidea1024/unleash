@@ -7,10 +7,7 @@ interface IBillingDetailsProps {
   isPAYG: boolean;
 }
 
-export const BillingDetails = ({
-  instanceStatus,
-  isPAYG,
-}: IBillingDetailsProps) => {
+export const BillingDetails = ({ instanceStatus, isPAYG }: IBillingDetailsProps) => {
   if (isPAYG) {
     return <BillingDetailsPAYG instanceStatus={instanceStatus} />;
   }

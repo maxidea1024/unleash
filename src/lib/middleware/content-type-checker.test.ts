@@ -49,11 +49,7 @@ test('Content-type middleware should by default only support application/json wi
   const middleware = requireContentType();
   const t = jest.fn();
   const fail = jest.fn();
-  middleware(
-    mockRequest('application/json; charset=UTF-8'),
-    expectNoCall(fail),
-    t,
-  );
+  middleware(mockRequest('application/json; charset=UTF-8'), expectNoCall(fail), t);
   middleware(mockRequest('text/plain'), returns415(t), fail);
   expect(t).toHaveBeenCalledTimes(2);
   expect(fail).toHaveBeenCalledTimes(0);
@@ -80,11 +76,7 @@ test('adding custom supported types no longer supports default type', () => {
 });
 
 test('Should be able to add multiple content-types supported', () => {
-  const middleware = requireContentType(
-    'application/json',
-    'application/yaml',
-    'form/multipart',
-  );
+  const middleware = requireContentType('application/json', 'application/yaml', 'form/multipart');
   const fail = jest.fn();
   const succeed = jest.fn();
   middleware(mockRequest('application/json'), expectNoCall(fail), succeed);

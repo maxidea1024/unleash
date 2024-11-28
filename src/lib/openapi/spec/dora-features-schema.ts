@@ -13,8 +13,7 @@ export const doraFeaturesSchema = {
     },
     timeToProduction: {
       type: 'number',
-      description:
-        'The average number of days it takes a feature flag to get into production',
+      description: 'The average number of days it takes a feature flag to get into production',
     },
   },
   components: {},

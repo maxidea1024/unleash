@@ -13,10 +13,7 @@ export interface IUseRoleOutput {
   error?: Error;
 }
 
-export const useRole = (
-  id?: string,
-  options: SWRConfiguration = {},
-): IUseRoleOutput => {
+export const useRole = (id?: string, options: SWRConfiguration = {}): IUseRoleOutput => {
   const { isEnterprise } = useUiConfig();
 
   const { data, error, mutate } = useConditionalSWR(

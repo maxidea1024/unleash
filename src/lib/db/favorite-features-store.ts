@@ -35,13 +35,8 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
     this.eventBus = eventBus;
   }
 
-  async addFavoriteFeature({
-    userId,
-    feature,
-  }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
-    const insertedFeature = await this.db<IFavoriteFeatureRow>(
-      T.FAVORITE_FEATURES,
-    )
+  async addFavoriteFeature({ userId, feature }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
+    const insertedFeature = await this.db<IFavoriteFeatureRow>(T.FAVORITE_FEATURES)
       .insert({ feature, user_id: userId })
       .onConflict(['user_id', 'feature'])
       .merge()
@@ -51,9 +46,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   }
 
   async delete({ userId, feature }: IFavoriteFeatureKey): Promise<void> {
-    return this.db(T.FAVORITE_FEATURES)
-      .where({ feature, user_id: userId })
-      .del();
+    return this.db(T.FAVORITE_FEATURES).where({ feature, user_id: userId }).del();
   }
 
   async deleteAll(): Promise<void> {
@@ -71,10 +64,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
     return present;
   }
 
-  async get({
-    userId,
-    feature,
-  }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
+  async get({ userId, feature }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
     const favorite = await this.db
       .table<IFavoriteFeatureRow>(T.FAVORITE_FEATURES)
       .select()
@@ -85,9 +75,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   }
 
   async getAll(): Promise<IFavoriteFeature[]> {
-    const groups = await this.db<IFavoriteFeatureRow>(
-      T.FAVORITE_FEATURES,
-    ).select();
+    const groups = await this.db<IFavoriteFeatureRow>(T.FAVORITE_FEATURES).select();
     return groups.map(rowToFavorite);
   }
 }

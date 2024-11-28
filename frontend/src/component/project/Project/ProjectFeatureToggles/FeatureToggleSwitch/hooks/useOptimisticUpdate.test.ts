@@ -6,11 +6,7 @@ describe('useOptimisticUpdate', () => {
   it('should return state, setter, and rollback function', () => {
     const { result } = renderHook(() => useOptimisticUpdate(true));
 
-    expect(result.current).toEqual([
-      true,
-      expect.any(Function),
-      expect.any(Function),
-    ]);
+    expect(result.current).toEqual([true, expect.any(Function), expect.any(Function)]);
   });
 
   it('should have working setter', () => {
@@ -26,12 +22,9 @@ describe('useOptimisticUpdate', () => {
   });
 
   it('should update reset state if input changed', () => {
-    const { result, rerender } = renderHook(
-      (state) => useOptimisticUpdate(state),
-      {
-        initialProps: 'A',
-      },
-    );
+    const { result, rerender } = renderHook((state) => useOptimisticUpdate(state), {
+      initialProps: 'A',
+    });
 
     rerender('B');
 

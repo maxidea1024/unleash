@@ -116,9 +116,7 @@ test('should import feature tags', async () => {
 });
 
 test('should throw not found error if feature does not exist', async () => {
-  await expect(async () =>
-    featureTagStore.getAllTagsForFeature('non.existing.toggle'),
-  ).rejects.toThrow(
+  await expect(async () => featureTagStore.getAllTagsForFeature('non.existing.toggle')).rejects.toThrow(
     new NotFoundError(`Could not find feature with name non.existing.toggle`),
   );
 });

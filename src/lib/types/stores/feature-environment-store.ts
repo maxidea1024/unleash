@@ -6,53 +6,24 @@ export interface FeatureEnvironmentKey {
   environment: string;
 }
 
-export interface IFeatureEnvironmentStore
-  extends IStore<IFeatureEnvironment, FeatureEnvironmentKey> {
-  featureHasEnvironment(
-    environment: string,
-    featureName: string,
-  ): Promise<boolean>;
+export interface IFeatureEnvironmentStore extends IStore<IFeatureEnvironment, FeatureEnvironmentKey> {
+  featureHasEnvironment(environment: string, featureName: string): Promise<boolean>;
 
-  getEnvironmentsForFeature(
-    featureName: string,
-  ): Promise<IFeatureEnvironment[]>;
+  getEnvironmentsForFeature(featureName: string): Promise<IFeatureEnvironment[]>;
 
-  getAllByFeatures(
-    features: string[],
-    environment?: string,
-  ): Promise<IFeatureEnvironment[]>;
+  getAllByFeatures(features: string[], environment?: string): Promise<IFeatureEnvironment[]>;
 
-  isEnvironmentEnabled(
-    featureName: string,
-    environment: string,
-  ): Promise<boolean>;
+  isEnvironmentEnabled(featureName: string, environment: string): Promise<boolean>;
 
-  setEnvironmentEnabledStatus(
-    environment: string,
-    featureName: string,
-    enabled: boolean,
-  ): Promise<number>;
+  setEnvironmentEnabledStatus(environment: string, featureName: string, enabled: boolean): Promise<number>;
 
-  getEnvironmentMetaData(
-    environment: string,
-    featureName: string,
-  ): Promise<IFeatureEnvironment>;
+  getEnvironmentMetaData(environment: string, featureName: string): Promise<IFeatureEnvironment>;
 
-  removeEnvironmentForFeature(
-    featureName: string,
-    environment: string,
-  ): Promise<void>;
+  removeEnvironmentForFeature(featureName: string, environment: string): Promise<void>;
 
-  addEnvironmentToFeature(
-    featureName: string,
-    environment: string,
-    enabled: boolean,
-  ): Promise<void>;
+  addEnvironmentToFeature(featureName: string, environment: string, enabled: boolean): Promise<void>;
 
-  disableEnvironmentIfNoStrategies(
-    featureName: string,
-    environment: string,
-  ): Promise<void>;
+  disableEnvironmentIfNoStrategies(featureName: string, environment: string): Promise<void>;
 
   disconnectFeatures(environment: string, project: string): Promise<void>;
 
@@ -64,11 +35,7 @@ export interface IFeatureEnvironmentStore
     enabledIn?: { [environment: string]: boolean },
   ): Promise<void>;
 
-  connectProject(
-    environment: string,
-    projectId: string,
-    idempotent?: boolean,
-  ): Promise<void>;
+  connectProject(environment: string, projectId: string, idempotent?: boolean): Promise<void>;
 
   disconnectProject(environment: string, projectId: string): Promise<void>;
 
@@ -78,22 +45,11 @@ export interface IFeatureEnvironmentStore
     projects: string[],
   ): Promise<void>;
 
-  cloneStrategies(
-    sourceEnvironment: string,
-    destinationEnvironment: string,
-  ): Promise<void>;
+  cloneStrategies(sourceEnvironment: string, destinationEnvironment: string): Promise<void>;
 
-  addVariantsToFeatureEnvironment(
-    featureName: string,
-    environment: string,
-    variants: IVariant[],
-  ): Promise<void>;
+  addVariantsToFeatureEnvironment(featureName: string, environment: string, variants: IVariant[]): Promise<void>;
 
-  setVariantsToFeatureEnvironments(
-    featureName: string,
-    environments: string[],
-    variants: IVariant[],
-  ): Promise<void>;
+  setVariantsToFeatureEnvironments(featureName: string, environments: string[], variants: IVariant[]): Promise<void>;
 
   addFeatureEnvironment(featureEnvironment: IFeatureEnvironment): Promise<void>;
 

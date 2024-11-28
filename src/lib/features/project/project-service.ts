@@ -2,10 +2,7 @@ import { subDays } from 'date-fns';
 import { ValidationError } from 'joi';
 import createSlug from 'slug';
 import type { IAuditUser, IUser } from '../../types/user';
-import type {
-  AccessService,
-  AccessWithRoles,
-} from '../../services/access-service';
+import type { AccessService, AccessWithRoles } from '../../services/access-service';
 import NameExistsError from '../../error/name-exists-error';
 import InvalidOperationError from '../../error/invalid-operation-error';
 import { nameType } from '../../routes/util';
@@ -56,11 +53,7 @@ import {
   type IProjectReadModel,
   type IOnboardingReadModel,
 } from '../../types';
-import type {
-  IProjectAccessModel,
-  IRoleDescriptor,
-  IRoleWithProject,
-} from '../../types/stores/access-store';
+import type { IProjectAccessModel, IRoleDescriptor, IRoleWithProject } from '../../types/stores/access-store';
 import type FeatureToggleService from '../feature-toggle/feature-toggle-service';
 import IncompatibleProjectError from '../../error/incompatible-project-error';
 import ProjectWithoutOwnerError from '../../error/project-without-owner-error';
@@ -72,10 +65,7 @@ import { calculateAverageTimeToProd } from '../feature-toggle/time-to-production
 import type { IProjectStatsStore } from '../../types/stores/project-stats-store-type';
 import { uniqueByKey } from '../../util/unique';
 import { BadDataError, PermissionError } from '../../error';
-import type {
-  ProjectDoraMetricsSchema,
-  ResourceLimitsSchema,
-} from '../../openapi';
+import type { ProjectDoraMetricsSchema, ResourceLimitsSchema } from '../../openapi';
 import { checkFeatureNamingData } from '../feature-naming-pattern/feature-naming-validation';
 import type { IPrivateProjectChecker } from '../private-project/privateProjectCheckerType';
 import type EventService from '../events/event-service';
@@ -209,25 +199,16 @@ export default class ProjectService {
     this.onboardingReadModel = onboardingReadModel;
   }
 
-  async getProjects(
-    query?: IProjectQuery & IProjectsQuery,
-    userId?: number,
-  ): Promise<ProjectForUi[]> {
-    const projects = await this.projectReadModel.getProjectsForAdminUi(
-      query,
-      userId,
-    );
+  async getProjects(query?: IProjectQuery & IProjectsQuery, userId?: number): Promise<ProjectForUi[]> {
+    const projects = await this.projectReadModel.getProjectsForAdminUi(query, userId);
 
     if (userId) {
-      const projectAccess =
-        await this.privateProjectChecker.getUserAccessibleProjects(userId);
+      const projectAccess = await this.privateProjectChecker.getUserAccessibleProjects(userId);
 
       if (projectAccess.mode === 'all') {
         return projects;
       } else {
-        return projects.filter((project) =>
-          projectAccess.projects.includes(project.id),
-        );
+        return projects.filter((project) => projectAccess.projects.includes(project.id));
       }
     }
     return projects;
@@ -241,21 +222,17 @@ export default class ProjectService {
     return this.projectStore.get(id);
   }
 
-  private validateAndProcessFeatureNamingPattern = (
-    featureNaming: IFeatureNaming,
-  ): IFeatureNaming => {
+  private validateAndProcessFeatureNamingPattern = (featureNaming: IFeatureNaming): IFeatureNaming => {
     const validationResult = checkFeatureNamingData(featureNaming);
 
     if (validationResult.state === 'invalid') {
-      const [firstReason, ...remainingReasons] = validationResult.reasons.map(
-        (message) => ({
-          message,
-        }),
-      );
-      throw new BadDataError(
-        'The feature naming pattern data you provided was invalid.',
-        [firstReason, ...remainingReasons],
-      );
+      const [firstReason, ...remainingReasons] = validationResult.reasons.map((message) => ({
+        message,
+      }));
+      throw new BadDataError('The feature naming pattern data you provided was invalid.', [
+        firstReason,
+        ...remainingReasons,
+      ]);
     }
 
     if (featureNaming.pattern && !featureNaming.example) {
@@ -270,31 +247,20 @@ export default class ProjectService {
 
   private async validateEnvironmentsExist(environments: string[]) {
     const projectsAndExistence = await Promise.all(
-      environments.map(async (env) => [
-        env,
-        await this.environmentStore.exists(env),
-      ]),
+      environments.map(async (env) => [env, await this.environmentStore.exists(env)]),
     );
 
-    const invalidEnvs = projectsAndExistence
-      .filter(([_, exists]) => !exists)
-      .map(([env]) => env);
+    const invalidEnvs = projectsAndExistence.filter(([_, exists]) => !exists).map(([env]) => env);
 
     if (invalidEnvs.length > 0) {
-      throw new BadDataError(
-        `These environments do not exist: ${invalidEnvs
-          .map((env) => `'${env}'`)
-          .join(', ')}.`,
-      );
+      throw new BadDataError(`These environments do not exist: ${invalidEnvs.map((env) => `'${env}'`).join(', ')}.`);
     }
   }
 
   async validateProjectEnvironments(environments: string[] | undefined) {
     if (environments) {
       if (environments.length === 0) {
-        throw new BadDataError(
-          'A project must always have at least one environment.',
-        );
+        throw new BadDataError('A project must always have at least one environment.');
       }
 
       await this.validateEnvironmentsExist(environments);
@@ -372,13 +338,10 @@ export default class ProjectService {
 
     if (this.isEnterprise) {
       if (newProject.changeRequestEnvironments) {
-        await this.validateEnvironmentsExist(
-          newProject.changeRequestEnvironments.map((env) => env.name),
+        await this.validateEnvironmentsExist(newProject.changeRequestEnvironments.map((env) => env.name));
+        const changeRequestEnvironments = await enableChangeRequestsForSpecifiedEnvironments(
+          newProject.changeRequestEnvironments,
         );
-        const changeRequestEnvironments =
-          await enableChangeRequestsForSpecifiedEnvironments(
-            newProject.changeRequestEnvironments,
-          );
 
         data.changeRequestEnvironments = changeRequestEnvironments;
       } else {
@@ -399,10 +362,7 @@ export default class ProjectService {
     return { ...data, environments: envsToEnable };
   }
 
-  async updateProject(
-    updatedProject: IProjectUpdate,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async updateProject(updatedProject: IProjectUpdate, auditUser: IAuditUser): Promise<void> {
     const preData = await this.projectStore.get(updatedProject.id);
 
     await this.projectStore.update(updatedProject);
@@ -442,35 +402,25 @@ export default class ProjectService {
     );
   }
 
-  async checkProjectsCompatibility(
-    feature: FeatureToggle,
-    newProjectId: string,
-  ): Promise<boolean> {
+  async checkProjectsCompatibility(feature: FeatureToggle, newProjectId: string): Promise<boolean> {
     const featureEnvs = await this.featureEnvironmentStore.getAll({
       feature_name: feature.name,
     });
-    const newEnvs =
-      await this.projectStore.getEnvironmentsForProject(newProjectId);
+    const newEnvs = await this.projectStore.getEnvironmentsForProject(newProjectId);
     return arraysHaveSameItems(
       featureEnvs.map((env) => env.environment),
       newEnvs.map((projectEnv) => projectEnv.environment),
     );
   }
 
-  async addEnvironmentToProject(
-    project: string,
-    environment: string,
-  ): Promise<void> {
+  async addEnvironmentToProject(project: string, environment: string): Promise<void> {
     await this.projectStore.addEnvironmentToProject(project, environment);
   }
 
   private async validateActiveProject(projectId: string) {
-    const hasActiveProject =
-      await this.projectStore.hasActiveProject(projectId);
+    const hasActiveProject = await this.projectStore.hasActiveProject(projectId);
     if (!hasActiveProject) {
-      throw new NotFoundError(
-        `Active project with id ${projectId} does not exist`,
-      );
+      throw new NotFoundError(`Active project with id ${projectId} does not exist`);
     }
   }
 
@@ -489,45 +439,25 @@ export default class ProjectService {
 
     await this.validateActiveProject(newProjectId);
 
-    const authorized = await this.accessService.hasPermission(
-      user,
-      MOVE_FEATURE_TOGGLE,
-      newProjectId,
-    );
+    const authorized = await this.accessService.hasPermission(user, MOVE_FEATURE_TOGGLE, newProjectId);
 
     if (!authorized) {
       throw new PermissionError(MOVE_FEATURE_TOGGLE);
     }
 
-    const isCompatibleWithTargetProject = await this.checkProjectsCompatibility(
-      feature,
-      newProjectId,
-    );
+    const isCompatibleWithTargetProject = await this.checkProjectsCompatibility(feature, newProjectId);
     if (!isCompatibleWithTargetProject) {
       throw new IncompatibleProjectError(newProjectId);
     }
-    const updatedFeature = await this.featureToggleService.changeProject(
-      featureName,
-      newProjectId,
-      auditUser,
-    );
-    await this.featureToggleService.updateFeatureStrategyProject(
-      featureName,
-      newProjectId,
-    );
+    const updatedFeature = await this.featureToggleService.changeProject(featureName, newProjectId, auditUser);
+    await this.featureToggleService.updateFeatureStrategyProject(featureName, newProjectId);
 
     return updatedFeature;
   }
 
-  async deleteProject(
-    id: string,
-    user: IUser,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async deleteProject(id: string, user: IUser, auditUser: IAuditUser): Promise<void> {
     if (id === DEFAULT_PROJECT) {
-      throw new InvalidOperationError(
-        'You can not delete the default project!',
-      );
+      throw new InvalidOperationError('You can not delete the default project!');
     }
 
     const flags = await this.featureToggleStore.getAll({
@@ -536,9 +466,7 @@ export default class ProjectService {
     });
 
     if (flags.length > 0) {
-      throw new InvalidOperationError(
-        'You can not delete a project with active feature flags',
-      );
+      throw new InvalidOperationError('You can not delete a project with active feature flags');
     }
 
     const archivedFlags = await this.featureToggleStore.getAll({
@@ -554,20 +482,12 @@ export default class ProjectService {
 
     const allTokens = await this.apiTokenService.getAllTokens();
     const projectTokens = allTokens.filter(
-      (token) =>
-        (token.projects &&
-          token.projects.length === 1 &&
-          token.projects[0] === id) ||
-        token.project === id,
+      (token) => (token.projects && token.projects.length === 1 && token.projects[0] === id) || token.project === id,
     );
 
     await this.projectStore.delete(id);
 
-    await Promise.all(
-      projectTokens.map((token) =>
-        this.apiTokenService.delete(token.secret, auditUser),
-      ),
-    );
+    await Promise.all(projectTokens.map((token) => this.apiTokenService.delete(token.secret, auditUser)));
 
     await this.eventService.storeEvent(
       new ProjectDeletedEvent({
@@ -588,9 +508,7 @@ export default class ProjectService {
     // TODO: allow archiving project with unused flags
 
     if (flags.length > 0) {
-      throw new InvalidOperationError(
-        'You can not archive a project with active feature flags',
-      );
+      throw new InvalidOperationError('You can not archive a project with active feature flags');
     }
 
     await this.projectStore.archive(id);
@@ -637,21 +555,13 @@ export default class ProjectService {
   /**
    * @deprecated see addAccess instead.
    */
-  async addUser(
-    projectId: string,
-    roleId: number,
-    userId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const { roles, users } =
-      await this.accessService.getProjectRoleAccess(projectId);
+  async addUser(projectId: string, roleId: number, userId: number, auditUser: IAuditUser): Promise<void> {
+    const { roles, users } = await this.accessService.getProjectRoleAccess(projectId);
     const user = await this.accountStore.get(userId);
 
     const role = roles.find((r) => r.id === roleId);
     if (!role) {
-      throw new NotFoundError(
-        `Could not find roleId=${roleId} on project=${projectId}`,
-      );
+      throw new NotFoundError(`Could not find roleId=${roleId} on project=${projectId}`);
     }
 
     const alreadyHasAccess = users.some((u) => u.id === userId);
@@ -678,12 +588,7 @@ export default class ProjectService {
   /**
    * @deprecated use removeUserAccess
    */
-  async removeUser(
-    projectId: string,
-    roleId: number,
-    userId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async removeUser(projectId: string, roleId: number, userId: number, auditUser: IAuditUser): Promise<void> {
     const role = await this.findProjectRole(projectId, roleId);
 
     await this.validateAtLeastOneOwner(projectId, role);
@@ -706,15 +611,8 @@ export default class ProjectService {
     );
   }
 
-  async removeUserAccess(
-    projectId: string,
-    userId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const existingRoles = await this.accessService.getProjectRolesForUser(
-      projectId,
-      userId,
-    );
+  async removeUserAccess(projectId: string, userId: number, auditUser: IAuditUser): Promise<void> {
+    const existingRoles = await this.accessService.getProjectRolesForUser(projectId, userId);
 
     const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
@@ -736,15 +634,8 @@ export default class ProjectService {
     );
   }
 
-  async removeGroupAccess(
-    projectId: string,
-    groupId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const existingRoles = await this.accessService.getProjectRolesForGroup(
-      projectId,
-      groupId,
-    );
+  async removeGroupAccess(projectId: string, groupId: number, auditUser: IAuditUser): Promise<void> {
+    const existingRoles = await this.accessService.getProjectRolesForGroup(projectId, groupId);
 
     const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
@@ -766,24 +657,13 @@ export default class ProjectService {
     );
   }
 
-  async addGroup(
-    projectId: string,
-    roleId: number,
-    groupId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async addGroup(projectId: string, roleId: number, groupId: number, auditUser: IAuditUser): Promise<void> {
     const role = await this.accessService.getRole(roleId);
     const group = await this.groupService.getGroup(groupId);
     const project = await this.getProject(projectId);
-    if (group.id == null)
-      throw new ValidationError('Unexpected empty group id', [], undefined);
+    if (group.id == null) throw new ValidationError('Unexpected empty group id', [], undefined);
 
-    await this.accessService.addGroupToRole(
-      group.id,
-      role.id,
-      auditUser.username,
-      project.id,
-    );
+    await this.accessService.addGroupToRole(group.id, role.id, auditUser.username, project.id);
 
     await this.eventService.storeEvent(
       new ProjectGroupAddedEvent({
@@ -801,17 +681,11 @@ export default class ProjectService {
   /**
    * @deprecated use removeGroupAccess
    */
-  async removeGroup(
-    projectId: string,
-    roleId: number,
-    groupId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async removeGroup(projectId: string, roleId: number, groupId: number, auditUser: IAuditUser): Promise<void> {
     const group = await this.groupService.getGroup(groupId);
     const role = await this.accessService.getRole(roleId);
     const project = await this.getProject(projectId);
-    if (group.id == null)
-      throw new ValidationError('Unexpected empty group id', [], undefined);
+    if (group.id == null) throw new ValidationError('Unexpected empty group id', [], undefined);
 
     await this.validateAtLeastOneOwner(projectId, role);
 
@@ -860,17 +734,11 @@ export default class ProjectService {
   }
 
   private isAdmin(userId: number, roles: IRoleWithProject[]): boolean {
-    return (
-      userId === SYSTEM_USER_ID ||
-      userId === ADMIN_TOKEN_USER.id ||
-      roles.some((r) => r.name === RoleName.ADMIN)
-    );
+    return userId === SYSTEM_USER_ID || userId === ADMIN_TOKEN_USER.id || roles.some((r) => r.name === RoleName.ADMIN);
   }
 
   private isProjectOwner(roles: IRoleWithProject[], project: string): boolean {
-    return roles.some(
-      (r) => r.project === project && r.name === RoleName.OWNER,
-    );
+    return roles.some((r) => r.project === project && r.name === RoleName.OWNER);
   }
 
   private async isAllowedToAddAccess(
@@ -878,20 +746,13 @@ export default class ProjectService {
     projectId: string,
     rolesBeingAdded: number[],
   ): Promise<boolean> {
-    const userPermissions =
-      await this.accessService.getPermissionsForUser(userAddingAccess);
+    const userPermissions = await this.accessService.getPermissionsForUser(userAddingAccess);
     if (userPermissions.some(({ permission }) => permission === ADMIN)) {
       return true;
     }
-    const userRoles = await this.accessService.getAllProjectRolesForUser(
-      userAddingAccess.id,
-      projectId,
-    );
+    const userRoles = await this.accessService.getAllProjectRolesForUser(userAddingAccess.id, projectId);
 
-    if (
-      this.isAdmin(userAddingAccess.id, userRoles) ||
-      this.isProjectOwner(userRoles, projectId)
-    ) {
+    if (this.isAdmin(userAddingAccess.id, userRoles) || this.isProjectOwner(userRoles, projectId)) {
       return true;
     }
 
@@ -899,25 +760,14 @@ export default class ProjectService {
     // Since the project roles are just collections of permissions that are not tied to a project in the database
     // not filtering here might lead to false positives as they may have the permission in another project.
     if (this.flagResolver.isEnabled('projectRoleAssignment')) {
-      const filteredUserPermissions = userPermissions.filter(
-        (permission) => permission.project === projectId,
-      );
+      const filteredUserPermissions = userPermissions.filter((permission) => permission.project === projectId);
 
-      const rolesToBeAssignedData = await Promise.all(
-        rolesBeingAdded.map((role) => this.accessService.getRole(role)),
-      );
-      const rolesToBeAssignedPermissions = rolesToBeAssignedData.flatMap(
-        (role) => role.permissions,
-      );
+      const rolesToBeAssignedData = await Promise.all(rolesBeingAdded.map((role) => this.accessService.getRole(role)));
+      const rolesToBeAssignedPermissions = rolesToBeAssignedData.flatMap((role) => role.permissions);
 
-      return canGrantProjectRole(
-        filteredUserPermissions,
-        rolesToBeAssignedPermissions,
-      );
+      return canGrantProjectRole(filteredUserPermissions, rolesToBeAssignedPermissions);
     } else {
-      return rolesBeingAdded.every((roleId) =>
-        userRoles.some((userRole) => userRole.id === roleId),
-      );
+      return rolesBeingAdded.every((roleId) => userRoles.some((userRole) => userRole.id === roleId));
     }
   }
 
@@ -929,13 +779,7 @@ export default class ProjectService {
     auditUser: IAuditUser,
   ): Promise<void> {
     if (await this.isAllowedToAddAccess(auditUser, projectId, roles)) {
-      await this.accessService.addAccessToProject(
-        roles,
-        groups,
-        users,
-        projectId,
-        auditUser.username,
-      );
+      await this.accessService.addAccessToProject(roles, groups, users, projectId, auditUser.username);
 
       await this.eventService.storeEvent(
         new ProjectAccessAddedEvent({
@@ -953,22 +797,12 @@ export default class ProjectService {
         }),
       );
     } else {
-      throw new InvalidOperationError(
-        'User tried to grant role they did not have access to',
-      );
+      throw new InvalidOperationError('User tried to grant role they did not have access to');
     }
   }
 
-  async setRolesForUser(
-    projectId: string,
-    userId: number,
-    newRoles: number[],
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const currentRoles = await this.accessService.getProjectRolesForUser(
-      projectId,
-      userId,
-    );
+  async setRolesForUser(projectId: string, userId: number, newRoles: number[], auditUser: IAuditUser): Promise<void> {
+    const currentRoles = await this.accessService.getProjectRolesForUser(projectId, userId);
     const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
     const hasOwnerRole = includes(currentRoles, ownerRole);
@@ -976,17 +810,9 @@ export default class ProjectService {
     if (hasOwnerRole && isRemovingOwnerRole) {
       await this.validateAtLeastOneOwner(projectId, ownerRole);
     }
-    const isAllowedToAssignRoles = await this.isAllowedToAddAccess(
-      auditUser,
-      projectId,
-      newRoles,
-    );
+    const isAllowedToAssignRoles = await this.isAllowedToAddAccess(auditUser, projectId, newRoles);
     if (isAllowedToAssignRoles) {
-      await this.accessService.setProjectRolesForUser(
-        projectId,
-        userId,
-        newRoles,
-      );
+      await this.accessService.setProjectRolesForUser(projectId, userId, newRoles);
       await this.eventService.storeEvent(
         new ProjectAccessUserRolesUpdated({
           project: projectId,
@@ -1002,22 +828,12 @@ export default class ProjectService {
         }),
       );
     } else {
-      throw new InvalidOperationError(
-        'User tried to assign a role they did not have access to',
-      );
+      throw new InvalidOperationError('User tried to assign a role they did not have access to');
     }
   }
 
-  async setRolesForGroup(
-    projectId: string,
-    groupId: number,
-    newRoles: number[],
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const currentRoles = await this.accessService.getProjectRolesForGroup(
-      projectId,
-      groupId,
-    );
+  async setRolesForGroup(projectId: string, groupId: number, newRoles: number[], auditUser: IAuditUser): Promise<void> {
+    const currentRoles = await this.accessService.getProjectRolesForGroup(projectId, groupId);
 
     const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
     const hasOwnerRole = includes(currentRoles, ownerRole);
@@ -1025,18 +841,9 @@ export default class ProjectService {
     if (hasOwnerRole && isRemovingOwnerRole) {
       await this.validateAtLeastOneOwner(projectId, ownerRole);
     }
-    const isAllowedToAssignRoles = await this.isAllowedToAddAccess(
-      auditUser,
-      projectId,
-      newRoles,
-    );
+    const isAllowedToAssignRoles = await this.isAllowedToAddAccess(auditUser, projectId, newRoles);
     if (isAllowedToAssignRoles) {
-      await this.accessService.setProjectRolesForGroup(
-        projectId,
-        groupId,
-        newRoles,
-        auditUser.username,
-      );
+      await this.accessService.setProjectRolesForGroup(projectId, groupId, newRoles, auditUser.username);
       await this.eventService.storeEvent(
         new ProjectAccessGroupRolesUpdated({
           project: projectId,
@@ -1052,53 +859,33 @@ export default class ProjectService {
         }),
       );
     } else {
-      throw new InvalidOperationError(
-        'User tried to assign a role they did not have access to',
-      );
+      throw new InvalidOperationError('User tried to assign a role they did not have access to');
     }
   }
 
-  async findProjectGroupRole(
-    projectId: string,
-    roleId: number,
-  ): Promise<IGroupRole> {
+  async findProjectGroupRole(projectId: string, roleId: number): Promise<IGroupRole> {
     const roles = await this.groupService.getRolesForProject(projectId);
     const role = roles.find((r) => r.roleId === roleId);
     if (!role) {
-      throw new NotFoundError(
-        `Couldn't find roleId=${roleId} on project=${projectId}`,
-      );
+      throw new NotFoundError(`Couldn't find roleId=${roleId} on project=${projectId}`);
     }
     return role;
   }
 
-  async findProjectRole(
-    projectId: string,
-    roleId: number,
-  ): Promise<IRoleDescriptor> {
+  async findProjectRole(projectId: string, roleId: number): Promise<IRoleDescriptor> {
     const roles = await this.accessService.getRolesForProject(projectId);
     const role = roles.find((r) => r.id === roleId);
     if (!role) {
-      throw new NotFoundError(
-        `Couldn't find roleId=${roleId} on project=${projectId}`,
-      );
+      throw new NotFoundError(`Couldn't find roleId=${roleId} on project=${projectId}`);
     }
     return role;
   }
 
-  async validateAtLeastOneOwner(
-    projectId: string,
-    currentRole: IRoleDescriptor,
-  ): Promise<void> {
+  async validateAtLeastOneOwner(projectId: string, currentRole: IRoleDescriptor): Promise<void> {
     if (currentRole.name === RoleName.OWNER) {
-      const users = await this.accessService.getProjectUsersForRole(
-        currentRole.id,
-        projectId,
-      );
+      const users = await this.accessService.getProjectUsersForRole(currentRole.id, projectId);
       const groups = await this.groupService.getProjectGroups(projectId);
-      const roleGroups = groups.filter((g) =>
-        g.roles?.includes(currentRole.id),
-      );
+      const roleGroups = groups.filter((g) => g.roles?.includes(currentRole.id));
       if (users.length + roleGroups.length < 2) {
         throw new ProjectWithoutOwnerError();
       }
@@ -1107,9 +894,9 @@ export default class ProjectService {
 
   /** @deprecated use projectInsightsService instead */
   async getDoraMetrics(projectId: string): Promise<ProjectDoraMetricsSchema> {
-    const activeFeatureFlags = (
-      await this.featureToggleStore.getAll({ project: projectId })
-    ).map((feature) => feature.name);
+    const activeFeatureFlags = (await this.featureToggleStore.getAll({ project: projectId })).map(
+      (feature) => feature.name,
+    );
 
     const archivedFeatureFlags = (
       await this.featureToggleStore.getAll({
@@ -1120,15 +907,9 @@ export default class ProjectService {
 
     const featureFlagNames = [...activeFeatureFlags, ...archivedFeatureFlags];
 
-    const projectAverage = calculateAverageTimeToProd(
-      await this.projectStatsStore.getTimeToProdDates(projectId),
-    );
+    const projectAverage = calculateAverageTimeToProd(await this.projectStatsStore.getTimeToProdDates(projectId));
 
-    const flagAverage =
-      await this.projectStatsStore.getTimeToProdDatesForFeatureToggles(
-        projectId,
-        featureFlagNames,
-      );
+    const flagAverage = await this.projectStatsStore.getTimeToProdDatesForFeatureToggles(projectId, featureFlagNames);
 
     return {
       features: flagAverage,
@@ -1136,9 +917,7 @@ export default class ProjectService {
     };
   }
 
-  async getApplications(
-    searchParams: IProjectApplicationsSearchParams,
-  ): Promise<IProjectApplications> {
+  async getApplications(searchParams: IProjectApplicationsSearchParams): Promise<IProjectApplications> {
     const applications = await this.projectStore.getApplicationsByProject({
       ...searchParams,
       sortBy: searchParams.sortBy || 'appName',
@@ -1150,20 +929,13 @@ export default class ProjectService {
     return this.projectFlagCreatorsReadModel.getFlagCreators(projectId);
   }
 
-  async changeRole(
-    projectId: string,
-    roleId: number,
-    userId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async changeRole(projectId: string, roleId: number, userId: number, auditUser: IAuditUser): Promise<void> {
     const usersWithRoles = await this.getAccessToProject(projectId);
     const user = usersWithRoles.users.find((u) => u.id === userId);
-    if (!user)
-      throw new ValidationError('Unexpected empty user', [], undefined);
+    if (!user) throw new ValidationError('Unexpected empty user', [], undefined);
 
     const currentRole = usersWithRoles.roles.find((r) => r.id === user.roleId);
-    if (!currentRole)
-      throw new ValidationError('Unexpected empty current role', [], undefined);
+    if (!currentRole) throw new ValidationError('Unexpected empty current role', [], undefined);
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1194,21 +966,12 @@ export default class ProjectService {
     );
   }
 
-  async changeGroupRole(
-    projectId: string,
-    roleId: number,
-    userId: number,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async changeGroupRole(projectId: string, roleId: number, userId: number, auditUser: IAuditUser): Promise<void> {
     const usersWithRoles = await this.getAccessToProject(projectId);
     const userGroup = usersWithRoles.groups.find((u) => u.id === userId);
-    if (!userGroup)
-      throw new ValidationError('Unexpected empty user', [], undefined);
-    const currentRole = usersWithRoles.roles.find((r) =>
-      userGroup.roles?.includes(r.id),
-    );
-    if (!currentRole)
-      throw new ValidationError('Unexpected empty current role', [], undefined);
+    if (!userGroup) throw new ValidationError('Unexpected empty user', [], undefined);
+    const currentRole = usersWithRoles.roles.find((r) => userGroup.roles?.includes(r.id));
+    if (!currentRole) throw new ValidationError('Unexpected empty current role', [], undefined);
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1241,11 +1004,8 @@ export default class ProjectService {
     return this.projectStore.getMembersCountByProject(projectId);
   }
 
-  async getProjectUsers(
-    projectId: string,
-  ): Promise<Array<Pick<IUser, 'id' | 'email' | 'username'>>> {
-    const { groups, users } =
-      await this.accessService.getProjectRoleAccess(projectId);
+  async getProjectUsers(projectId: string): Promise<Array<Pick<IUser, 'id' | 'email' | 'username'>>> {
+    const { groups, users } = await this.accessService.getProjectRoleAccess(projectId);
     const actualUsers = users.map((user) => ({
       id: user.id,
       email: user.email,
@@ -1278,16 +1038,11 @@ export default class ProjectService {
   async statusJob(): Promise<void> {
     const projects = await this.projectStore.getAll();
 
-    const statusUpdates = await Promise.all(
-      projects.map((project) => this.getStatusUpdates(project.id)),
-    );
+    const statusUpdates = await Promise.all(projects.map((project) => this.getStatusUpdates(project.id)));
 
     await Promise.all(
       statusUpdates.map((statusUpdate) => {
-        return this.projectStatsStore.updateProjectStats(
-          statusUpdate.projectId,
-          statusUpdate.updates,
-        );
+        return this.projectStatsStore.updateProjectStats(statusUpdate.projectId, statusUpdate.updates);
       }),
     );
   }
@@ -1296,12 +1051,7 @@ export default class ProjectService {
     const dateMinusThirtyDays = subDays(new Date(), 30).toISOString();
     const dateMinusSixtyDays = subDays(new Date(), 60).toISOString();
 
-    const [
-      createdCurrentWindow,
-      createdPastWindow,
-      archivedCurrentWindow,
-      archivedPastWindow,
-    ] = await Promise.all([
+    const [createdCurrentWindow, createdPastWindow, archivedCurrentWindow, archivedPastWindow] = await Promise.all([
       await this.featureToggleStore.countByDate({
         project: projectId,
         dateAccessor: 'created_at',
@@ -1326,45 +1076,43 @@ export default class ProjectService {
       }),
     ]);
 
-    const [projectActivityCurrentWindow, projectActivityPastWindow] =
-      await Promise.all([
-        this.eventStore.queryCount([
-          {
-            op: 'where',
-            parameters: { project: projectId },
+    const [projectActivityCurrentWindow, projectActivityPastWindow] = await Promise.all([
+      this.eventStore.queryCount([
+        {
+          op: 'where',
+          parameters: { project: projectId },
+        },
+        {
+          op: 'beforeDate',
+          parameters: {
+            dateAccessor: 'created_at',
+            date: dateMinusThirtyDays,
           },
-          {
-            op: 'beforeDate',
-            parameters: {
-              dateAccessor: 'created_at',
-              date: dateMinusThirtyDays,
-            },
+        },
+      ]),
+      this.eventStore.queryCount([
+        {
+          op: 'where',
+          parameters: { project: projectId },
+        },
+        {
+          op: 'betweenDate',
+          parameters: {
+            dateAccessor: 'created_at',
+            range: [dateMinusSixtyDays, dateMinusThirtyDays],
           },
-        ]),
-        this.eventStore.queryCount([
-          {
-            op: 'where',
-            parameters: { project: projectId },
-          },
-          {
-            op: 'betweenDate',
-            parameters: {
-              dateAccessor: 'created_at',
-              range: [dateMinusSixtyDays, dateMinusThirtyDays],
-            },
-          },
-        ]),
-      ]);
+        },
+      ]),
+    ]);
 
     const avgTimeToProdCurrentWindow = calculateAverageTimeToProd(
       await this.projectStatsStore.getTimeToProdDates(projectId),
     );
 
-    const projectMembersAddedCurrentWindow =
-      await this.projectStore.getMembersCountByProjectAfterDate(
-        projectId,
-        dateMinusThirtyDays,
-      );
+    const projectMembersAddedCurrentWindow = await this.projectStore.getMembersCountByProjectAfterDate(
+      projectId,
+      dateMinusThirtyDays,
+    );
 
     return {
       projectId,
@@ -1381,29 +1129,24 @@ export default class ProjectService {
     };
   }
 
-  async getProjectHealth(
-    projectId: string,
-    archived: boolean = false,
-    userId?: number,
-  ): Promise<IProjectHealth> {
-    const [project, environments, features, members, favorite, projectStats] =
-      await Promise.all([
-        this.projectStore.get(projectId),
-        this.projectStore.getEnvironmentsForProject(projectId),
-        this.featureToggleService.getFeatureOverview({
-          projectId,
-          archived,
-          userId,
-        }),
-        this.projectStore.getMembersCountByProject(projectId),
-        userId
-          ? this.favoritesService.isFavoriteProject({
-              project: projectId,
-              userId,
-            })
-          : Promise.resolve(false),
-        this.projectStatsStore.getProjectStats(projectId),
-      ]);
+  async getProjectHealth(projectId: string, archived: boolean = false, userId?: number): Promise<IProjectHealth> {
+    const [project, environments, features, members, favorite, projectStats] = await Promise.all([
+      this.projectStore.get(projectId),
+      this.projectStore.getEnvironmentsForProject(projectId),
+      this.featureToggleService.getFeatureOverview({
+        projectId,
+        archived,
+        userId,
+      }),
+      this.projectStore.getMembersCountByProject(projectId),
+      userId
+        ? this.favoritesService.isFavoriteProject({
+            project: projectId,
+            userId,
+          })
+        : Promise.resolve(false),
+      this.projectStatsStore.getProjectStats(projectId),
+    ]);
 
     return {
       stats: projectStats,
@@ -1424,37 +1167,26 @@ export default class ProjectService {
     };
   }
 
-  async getProjectOverview(
-    projectId: string,
-    archived: boolean = false,
-    userId?: number,
-  ): Promise<IProjectOverview> {
-    const [
-      project,
-      environments,
-      featureTypeCounts,
-      members,
-      favorite,
-      projectStats,
-      onboardingStatus,
-    ] = await Promise.all([
-      this.projectStore.get(projectId),
-      this.projectStore.getEnvironmentsForProject(projectId),
-      this.featureToggleService.getFeatureTypeCounts({
-        projectId,
-        archived,
-        userId,
-      }),
-      this.projectStore.getMembersCountByProject(projectId),
-      userId
-        ? this.favoritesService.isFavoriteProject({
-            project: projectId,
-            userId,
-          })
-        : Promise.resolve(false),
-      this.projectStatsStore.getProjectStats(projectId),
-      this.onboardingReadModel.getOnboardingStatusForProject(projectId),
-    ]);
+  async getProjectOverview(projectId: string, archived: boolean = false, userId?: number): Promise<IProjectOverview> {
+    const [project, environments, featureTypeCounts, members, favorite, projectStats, onboardingStatus] =
+      await Promise.all([
+        this.projectStore.get(projectId),
+        this.projectStore.getEnvironmentsForProject(projectId),
+        this.featureToggleService.getFeatureTypeCounts({
+          projectId,
+          archived,
+          userId,
+        }),
+        this.projectStore.getMembersCountByProject(projectId),
+        userId
+          ? this.favoritesService.isFavoriteProject({
+              project: projectId,
+              userId,
+            })
+          : Promise.resolve(false),
+        this.projectStatsStore.getProjectStats(projectId),
+        this.onboardingReadModel.getOnboardingStatusForProject(projectId),
+      ]);
 
     return {
       stats: projectStats,

@@ -1,9 +1,5 @@
 import type { Logger } from '../logger';
-import type {
-  IContextField,
-  IContextFieldDto,
-  IContextFieldStore,
-} from '../types/stores/context-field-store';
+import type { IContextField, IContextFieldDto, IContextFieldStore } from '../types/stores/context-field-store';
 import type { IProjectStore } from '../features/project/project-store-type';
 import type { IFeatureStrategiesStore, IUnleashStores } from '../types/stores';
 import type { IUnleashConfig } from '../types/options';
@@ -36,14 +32,8 @@ export default class ContextService {
       projectStore,
       contextFieldStore,
       featureStrategiesStore,
-    }: Pick<
-      IUnleashStores,
-      'projectStore' | 'contextFieldStore' | 'featureStrategiesStore'
-    >,
-    {
-      getLogger,
-      flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IUnleashStores, 'projectStore' | 'contextFieldStore' | 'featureStrategiesStore'>,
+    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
@@ -65,21 +55,14 @@ export default class ContextService {
     return this.contextFieldStore.get(name);
   }
 
-  async getStrategiesByContextField(
-    name: string,
-    userId: number,
-  ): Promise<ContextFieldStrategiesSchema> {
-    const strategies =
-      await this.featureStrategiesStore.getStrategiesByContextField(name);
-    const accessibleProjects =
-      await this.privateProjectChecker.getUserAccessibleProjects(userId);
+  async getStrategiesByContextField(name: string, userId: number): Promise<ContextFieldStrategiesSchema> {
+    const strategies = await this.featureStrategiesStore.getStrategiesByContextField(name);
+    const accessibleProjects = await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (accessibleProjects.mode === 'all') {
       return this.mapStrategies(strategies);
     } else {
       return this.mapStrategies(
-        strategies.filter((strategy) =>
-          accessibleProjects.projects.includes(strategy.projectId),
-        ),
+        strategies.filter((strategy) => accessibleProjects.projects.includes(strategy.projectId)),
       );
     }
   }
@@ -96,10 +79,7 @@ export default class ContextService {
     };
   }
 
-  async createContextField(
-    value: IContextFieldDto,
-    auditUser: IAuditUser,
-  ): Promise<IContextField> {
+  async createContextField(value: IContextFieldDto, auditUser: IAuditUser): Promise<IContextField> {
     // validations
     await this.validateUniqueName(value);
     const contextField = await contextSchema.validateAsync(value);
@@ -117,13 +97,8 @@ export default class ContextService {
     return createdField;
   }
 
-  async updateContextField(
-    updatedContextField: IContextFieldDto,
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const contextField = await this.contextFieldStore.get(
-      updatedContextField.name,
-    );
+  async updateContextField(updatedContextField: IContextFieldDto, auditUser: IAuditUser): Promise<void> {
+    const contextField = await this.contextFieldStore.get(updatedContextField.name);
     const value = await contextSchema.validateAsync(updatedContextField);
 
     // update
@@ -154,9 +129,7 @@ export default class ContextService {
     });
   }
 
-  async validateUniqueName({
-    name,
-  }: Pick<IContextFieldDto, 'name'>): Promise<void> {
+  async validateUniqueName({ name }: Pick<IContextFieldDto, 'name'>): Promise<void> {
     let msg: string | undefined;
     try {
       await this.contextFieldStore.get(name);

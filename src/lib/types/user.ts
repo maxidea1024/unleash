@@ -35,10 +35,7 @@ export interface IUser {
   activeSessions?: number;
 }
 
-export type MinimalUser = Pick<
-  IUser,
-  'id' | 'name' | 'username' | 'email' | 'imageUrl'
->;
+export type MinimalUser = Pick<IUser, 'id' | 'name' | 'username' | 'email' | 'imageUrl'>;
 
 export interface IProjectUser extends IUser {
   addedAt: Date;
@@ -64,18 +61,7 @@ export default class User implements IUser {
   accountType?: AccountType = 'User';
   scimId?: string;
 
-  constructor({
-    id,
-    name,
-    email,
-    username,
-    imageUrl,
-    seenAt,
-    loginAttempts,
-    createdAt,
-    isService,
-    scimId,
-  }: UserData) {
+  constructor({ id, name, email, username, imageUrl, seenAt, loginAttempts, createdAt, isService, scimId }: UserData) {
     if (!id) {
       throw new ValidationError('Id is required', [], undefined);
     }

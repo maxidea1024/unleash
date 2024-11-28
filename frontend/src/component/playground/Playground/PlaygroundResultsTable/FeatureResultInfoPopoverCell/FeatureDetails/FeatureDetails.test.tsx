@@ -11,8 +11,7 @@ const testCases = [
       isEnabledInCurrentEnvironment: false,
     } as PlaygroundFeatureSchema,
     expectedText1: 'This feature flag is False in development because',
-    expectedText2:
-      'parent dependency is not satisfied and the environment is disabled',
+    expectedText2: 'parent dependency is not satisfied and the environment is disabled',
   },
   {
     name: 'Feature has unsatisfied parent dependency',
@@ -71,8 +70,7 @@ const testCases = [
       },
     } as PlaygroundFeatureSchema,
     expectedText1: 'This feature flag is False in development because',
-    expectedText2:
-      'all strategies are either False or could not be fully evaluated',
+    expectedText2: 'all strategies are either False or could not be fully evaluated',
   },
 ];
 

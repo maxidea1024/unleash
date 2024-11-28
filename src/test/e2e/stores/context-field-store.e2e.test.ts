@@ -44,8 +44,7 @@ test('creating an arbitrary context field should return the created context fiel
   await fc.assert(
     fc
       .asyncProperty(contextFieldDto(), async (input) => {
-        const { createdAt, ...storedData } =
-          await stores.contextFieldStore.create(input);
+        const { createdAt, ...storedData } = await stores.contextFieldStore.create(input);
 
         Object.entries(input).forEach(([key, value]) => {
           expect(storedData[key]).toStrictEqual(value);
@@ -58,37 +57,27 @@ test('creating an arbitrary context field should return the created context fiel
 test('updating a context field should update the specified fields and leave everything else untouched', async () => {
   await fc.assert(
     fc
-      .asyncProperty(
-        contextFieldDto(),
-        contextFieldDto(),
-        async (original, { name, ...updateData }) => {
-          await stores.contextFieldStore.create(original);
+      .asyncProperty(contextFieldDto(), contextFieldDto(), async (original, { name, ...updateData }) => {
+        await stores.contextFieldStore.create(original);
 
-          const { createdAt, ...updatedData } =
-            await stores.contextFieldStore.update({
-              name: original.name,
-              ...updateData,
-            });
+        const { createdAt, ...updatedData } = await stores.contextFieldStore.update({
+          name: original.name,
+          ...updateData,
+        });
 
-          const allKeys = [
-            'sortOrder',
-            'stickiness',
-            'description',
-            'legalValues',
-          ];
-          const updateKeys = Object.keys(updateData);
+        const allKeys = ['sortOrder', 'stickiness', 'description', 'legalValues'];
+        const updateKeys = Object.keys(updateData);
 
-          const unchangedKeys = allKeys.filter((k) => !updateKeys.includes(k));
+        const unchangedKeys = allKeys.filter((k) => !updateKeys.includes(k));
 
-          Object.entries(updateData).forEach(([key, value]) => {
-            expect(updatedData[key]).toStrictEqual(value);
-          });
+        Object.entries(updateData).forEach(([key, value]) => {
+          expect(updatedData[key]).toStrictEqual(value);
+        });
 
-          for (const key in unchangedKeys) {
-            expect(updatedData[key]).toStrictEqual(original[key]);
-          }
-        },
-      )
+        for (const key in unchangedKeys) {
+          expect(updatedData[key]).toStrictEqual(original[key]);
+        }
+      })
       .afterEach(cleanup),
   );
 });

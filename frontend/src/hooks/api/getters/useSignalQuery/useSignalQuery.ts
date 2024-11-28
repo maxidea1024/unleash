@@ -51,11 +51,7 @@ const createSignalQuery = () => {
     internalCache[key] = value;
   };
 
-  return (
-    params: SignalQueryParams,
-    options: SWRConfiguration = {},
-    cachePrefix: string = '',
-  ): UseSignalsOutput => {
+  return (params: SignalQueryParams, options: SWRConfiguration = {}, cachePrefix: string = ''): UseSignalsOutput => {
     const { isEnterprise } = useUiConfig();
     const signalsEnabled = useUiFlag('signals');
 
@@ -63,14 +59,13 @@ const createSignalQuery = () => {
     const swrKey = `${cachePrefix}${KEY}`;
     useClearSWRCache(swrKey, PATH, SWR_CACHE_SIZE);
 
-    const { data, error, mutate, isLoading } =
-      useConditionalSWR<SignalQueryResponse>(
-        isEnterprise() && signalsEnabled,
-        fallbackData,
-        swrKey,
-        fetcher,
-        options,
-      );
+    const { data, error, mutate, isLoading } = useConditionalSWR<SignalQueryResponse>(
+      isEnterprise() && signalsEnabled,
+      fallbackData,
+      swrKey,
+      fetcher,
+      options,
+    );
 
     const refetch = useCallback(() => {
       mutate();

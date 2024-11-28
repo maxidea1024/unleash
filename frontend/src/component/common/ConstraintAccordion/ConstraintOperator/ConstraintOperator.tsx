@@ -30,11 +30,7 @@ const StyledText = styled('p', {
   color: disabled ? theme.palette.text.secondary : theme.palette.neutral.main,
 }));
 
-export const ConstraintOperator = ({
-  constraint,
-  hasPrefix,
-  disabled = false,
-}: IConstraintOperatorProps) => {
+export const ConstraintOperator = ({ constraint, hasPrefix, disabled = false }: IConstraintOperatorProps) => {
   const operatorName = constraint.operator;
   const operatorText = formatOperatorDescription(constraint.operator);
 

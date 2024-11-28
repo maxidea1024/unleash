@@ -2,10 +2,7 @@ import { type FC, useState } from 'react';
 import { Button } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import Undo from '@mui/icons-material/Undo';
-import {
-  DELETE_FEATURE,
-  UPDATE_FEATURE,
-} from 'component/providers/AccessProvider/permissions';
+import { DELETE_FEATURE, UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
 import { useFeaturesArchive } from 'hooks/api/getters/useFeaturesArchive/useFeaturesArchive';
 import { ArchivedFeatureDeleteConfirm } from './ArchivedFeatureActionCell/ArchivedFeatureDeleteConfirm/ArchivedFeatureDeleteConfirm';
@@ -18,11 +15,7 @@ interface IArchiveBatchActionsProps {
   onConfirm?: () => void;
 }
 
-export const ArchiveBatchActions: FC<IArchiveBatchActionsProps> = ({
-  selectedIds,
-  projectId,
-  onConfirm,
-}) => {
+export const ArchiveBatchActions: FC<IArchiveBatchActionsProps> = ({ selectedIds, projectId, onConfirm }) => {
   const { refetchArchived } = useFeaturesArchive(projectId);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [reviveModalOpen, setReviveModalOpen] = useState(false);
@@ -53,13 +46,7 @@ export const ArchiveBatchActions: FC<IArchiveBatchActionsProps> = ({
       </PermissionHOC>
       <PermissionHOC projectId={projectId} permission={DELETE_FEATURE}>
         {({ hasAccess }) => (
-          <Button
-            disabled={!hasAccess}
-            startIcon={<Delete />}
-            variant='outlined'
-            size='small'
-            onClick={onDelete}
-          >
+          <Button disabled={!hasAccess} startIcon={<Delete />} variant='outlined' size='small' onClick={onDelete}>
             Delete
           </Button>
         )}

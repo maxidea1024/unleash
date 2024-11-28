@@ -6,7 +6,6 @@ export interface IFavoriteFeatureKey {
   feature: string;
 }
 
-export interface IFavoriteFeaturesStore
-  extends IStore<IFavoriteFeature, IFavoriteFeatureKey> {
+export interface IFavoriteFeaturesStore extends IStore<IFavoriteFeature, IFavoriteFeatureKey> {
   addFavoriteFeature(favorite: IFavoriteFeatureKey): Promise<IFavoriteFeature>;
 }

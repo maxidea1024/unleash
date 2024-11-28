@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
 
@@ -106,11 +103,9 @@ test('should get list of applications', async () => {
 
 test('should delete application', async () => {
   expect.assertions(2);
-  await app.request
-    .delete('/api/admin/metrics/applications/deletable-app')
-    .expect((res) => {
-      expect(res.status).toBe(200);
-    });
+  await app.request.delete('/api/admin/metrics/applications/deletable-app').expect((res) => {
+    expect(res.status).toBe(200);
+  });
   return app.request
     .get('/api/admin/metrics/applications')
     .expect('Content-Type', /json/)
@@ -121,21 +116,14 @@ test('should delete application', async () => {
 
 test('deleting an application should be idempotent, so expect 200', async () => {
   expect.assertions(1);
-  return app.request
-    .delete('/api/admin/metrics/applications/unknown')
-    .expect((res) => {
-      expect(res.status).toBe(200);
-    });
+  return app.request.delete('/api/admin/metrics/applications/unknown').expect((res) => {
+    expect(res.status).toBe(200);
+  });
 });
 
 test('should get list of application usage', async () => {
-  const { body } = await app.request
-    .get('/api/admin/metrics/applications')
-    .expect('Content-Type', /json/)
-    .expect(200);
-  const application = body.applications.find(
-    (selectableApp) => selectableApp.appName === 'usage-app',
-  );
+  const { body } = await app.request.get('/api/admin/metrics/applications').expect('Content-Type', /json/).expect(200);
+  const application = body.applications.find((selectableApp) => selectableApp.appName === 'usage-app');
   expect(application).toMatchObject({
     appName: 'usage-app',
     usage: [
@@ -154,13 +142,12 @@ test('should save multiple projects from token', async () => {
     name: 'mainProject',
   });
 
-  const multiProjectToken =
-    await app.services.apiTokenService.createApiTokenWithProjects({
-      type: ApiTokenType.CLIENT,
-      projects: ['default', 'mainProject'],
-      environment: 'default',
-      tokenName: 'tester',
-    });
+  const multiProjectToken = await app.services.apiTokenService.createApiTokenWithProjects({
+    type: ApiTokenType.CLIENT,
+    projects: ['default', 'mainProject'],
+    environment: 'default',
+    tokenName: 'tester',
+  });
 
   await app.request
     .post('/api/client/register')
@@ -175,10 +162,7 @@ test('should save multiple projects from token', async () => {
 
   await app.services.clientInstanceService.bulkAdd();
 
-  const { body } = await app.request
-    .get('/api/admin/metrics/applications')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/metrics/applications').expect('Content-Type', /json/).expect(200);
 
   expect(body).toMatchObject({
     applications: [

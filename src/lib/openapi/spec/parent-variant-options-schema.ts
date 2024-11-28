@@ -11,6 +11,4 @@ export const parentVariantOptionsSchema = {
   components: {},
 } as const;
 
-export type ParentVariantOptionsSchema = FromSchema<
-  typeof parentVariantOptionsSchema
->;
+export type ParentVariantOptionsSchema = FromSchema<typeof parentVariantOptionsSchema>;

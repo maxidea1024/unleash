@@ -1,8 +1,5 @@
 import { Box, styled } from '@mui/material';
-import type {
-  ChangeRequestState,
-  IChangeRequestPatchVariant,
-} from 'component/changeRequest/changeRequest.types';
+import type { ChangeRequestState, IChangeRequestPatchVariant } from 'component/changeRequest/changeRequest.types';
 import { Badge } from 'component/common/Badge/Badge';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
@@ -53,9 +50,7 @@ export const VariantPatch = ({
 }: IVariantPatchProps) => {
   const { feature: featureData } = useFeature(project, feature);
 
-  const preData =
-    featureData.environments.find(({ name }) => environment === name)
-      ?.variants ?? [];
+  const preData = featureData.environments.find(({ name }) => environment === name)?.variants ?? [];
 
   return (
     <ChangeItemInfo>
@@ -69,9 +64,7 @@ export const VariantPatch = ({
       />
       <StyledChangeHeader>
         <TooltipLink
-          tooltip={
-            <VariantDiff preData={preData} data={change.payload.variants} />
-          }
+          tooltip={<VariantDiff preData={preData} data={change.payload.variants} />}
           tooltipProps={{
             maxWidth: 500,
             maxHeight: 600,
@@ -88,9 +81,7 @@ export const VariantPatch = ({
           <>
             <StyledStickinessContainer>
               <p>Stickiness:</p>
-              <Badge>
-                {change.payload.variants[0]?.stickiness || 'default'}
-              </Badge>
+              <Badge>{change.payload.variants[0]?.stickiness || 'default'}</Badge>
             </StyledStickinessContainer>
           </>
         }

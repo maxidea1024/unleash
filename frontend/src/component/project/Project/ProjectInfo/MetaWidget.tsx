@@ -1,10 +1,7 @@
 import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
 
-import {
-  StyledProjectInfoWidgetContainer,
-  StyledWidgetTitle,
-} from './ProjectInfo.styles';
+import { StyledProjectInfoWidgetContainer, StyledWidgetTitle } from './ProjectInfo.styles';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { WidgetFooterLink } from './WidgetFooterLink';
 
@@ -49,11 +46,7 @@ export const MetaWidget: FC<IMetaWidgetProps> = ({ id, description }) => {
       />
       <ConditionallyRender
         condition={!description}
-        show={
-          <WidgetFooterLink to={`/projects/${id}/settings`}>
-            Add description
-          </WidgetFooterLink>
-        }
+        show={<WidgetFooterLink to={`/projects/${id}/settings`}>Add description</WidgetFooterLink>}
       />
     </StyledProjectInfoWidgetContainer>
   );

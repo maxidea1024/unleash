@@ -80,9 +80,7 @@ const EnvironmentForm: React.FC<IEnvironmentForm> = ({
       <StyledFormHeader>Environment information</StyledFormHeader>
 
       <StyledContainer>
-        <StyledInputDescription>
-          What is your environment name? (Can't be changed later)
-        </StyledInputDescription>
+        <StyledInputDescription>What is your environment name? (Can't be changed later)</StyledInputDescription>
         <StyledInput
           label='Environment name'
           value={name}
@@ -95,13 +93,8 @@ const EnvironmentForm: React.FC<IEnvironmentForm> = ({
           autoFocus
         />
 
-        <StyledInputDescription>
-          What type of environment do you want to create?
-        </StyledInputDescription>
-        <EnvironmentTypeSelector
-          onChange={(e) => setType(e.currentTarget.value)}
-          value={type}
-        />
+        <StyledInputDescription>What type of environment do you want to create?</StyledInputDescription>
+        <EnvironmentTypeSelector onChange={(e) => setType(e.currentTarget.value)} value={type} />
       </StyledContainer>
 
       <LimitContainer>{Limit}</LimitContainer>

@@ -32,11 +32,7 @@ const StyledGroupFormUsersSelect = styled('div')(({ theme }) => ({
   },
 }));
 
-const renderOption = (
-  props: React.HTMLAttributes<HTMLLIElement>,
-  option: IUser,
-  selected: boolean,
-) => (
+const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: IUser, selected: boolean) => (
   <li {...props}>
     <Checkbox
       icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
@@ -46,18 +42,14 @@ const renderOption = (
     />
     <StyledOption>
       <span>{option.name || option.username}</span>
-      <span>
-        {option.name && option.username ? option.username : option.email}
-      </span>
+      <span>{option.name && option.username ? option.username : option.email}</span>
     </StyledOption>
   </li>
 );
 
 const renderTags = (value: IGroupUser[]) => (
   <StyledTags>
-    {value.length > 1
-      ? `${value.length} users selected`
-      : value[0].name || value[0].username || value[0].email}
+    {value.length > 1 ? `${value.length} users selected` : value[0].name || value[0].username || value[0].email}
   </StyledTags>
 );
 
@@ -70,10 +62,7 @@ interface IGroupFormUsersSelectProps {
   setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
 }
 
-export const GroupFormUsersSelect: VFC<IGroupFormUsersSelectProps> = ({
-  users,
-  setUsers,
-}) => {
+export const GroupFormUsersSelect: VFC<IGroupFormUsersSelectProps> = ({ users, setUsers }) => {
   const { users: usersAll } = useUsers();
   const { serviceAccounts } = useServiceAccounts();
 
@@ -119,9 +108,7 @@ export const GroupFormUsersSelect: VFC<IGroupFormUsersSelectProps> = ({
         }}
         groupBy={(option) => option.type}
         options={options}
-        renderOption={(props, option, { selected }) =>
-          renderOption(props, option as UserOption, selected)
-        }
+        renderOption={(props, option, { selected }) => renderOption(props, option as UserOption, selected)}
         filterOptions={(options, { inputValue }) =>
           options.filter(
             ({ name, username, email }) =>
@@ -131,9 +118,7 @@ export const GroupFormUsersSelect: VFC<IGroupFormUsersSelectProps> = ({
           )
         }
         isOptionEqualToValue={(option, value) => option.id === value.id}
-        getOptionLabel={(option: UserOption) =>
-          option.email || option.name || option.username || ''
-        }
+        getOptionLabel={(option: UserOption) => option.email || option.name || option.username || ''}
         renderInput={(params) => <TextField {...params} label='Select users' />}
         renderTags={(value) => renderTags(value)}
       />

@@ -6,9 +6,7 @@ import useUiConfig from '../useUiConfig/useUiConfig';
 
 export const useChangeRequestConfig = (projectId: string) => {
   const { isEnterprise } = useUiConfig();
-  const { data, error, mutate } = useConditionalSWR<
-    IChangeRequestEnvironmentConfig[]
-  >(
+  const { data, error, mutate } = useConditionalSWR<IChangeRequestEnvironmentConfig[]>(
     Boolean(projectId) && isEnterprise(),
     [],
     formatApiPath(`api/admin/projects/${projectId}/change-requests/config`),

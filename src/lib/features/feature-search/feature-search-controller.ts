@@ -24,10 +24,7 @@ import {
 import { normalizeQueryParams } from './search-utils';
 import { anonymise } from '../../util';
 
-type FeatureSearchServices = Pick<
-  IUnleashServices,
-  'openApiService' | 'featureSearchService'
->;
+type FeatureSearchServices = Pick<IUnleashServices, 'openApiService' | 'featureSearchService'>;
 
 export default class FeatureSearchController extends Controller {
   private readonly openApiService: OpenApiService;
@@ -35,10 +32,7 @@ export default class FeatureSearchController extends Controller {
   private readonly featureSearchService: FeatureSearchService;
   private readonly logger: Logger;
 
-  constructor(
-    config: IUnleashConfig,
-    { openApiService, featureSearchService }: FeatureSearchServices,
-  ) {
+  constructor(config: IUnleashConfig, { openApiService, featureSearchService }: FeatureSearchServices) {
     super(config);
 
     this.logger = config.getLogger('feature-search-controller.ts');
@@ -101,12 +95,7 @@ export default class FeatureSearchController extends Controller {
       sortBy,
     } = req.query;
     const userId = req.user.id;
-    const {
-      normalizedQuery,
-      normalizedSortOrder,
-      normalizedOffset,
-      normalizedLimit,
-    } = normalizeQueryParams(
+    const { normalizedQuery, normalizedSortOrder, normalizedOffset, normalizedLimit } = normalizeQueryParams(
       {
         query,
         offset: req.query.offset,
@@ -121,9 +110,7 @@ export default class FeatureSearchController extends Controller {
 
     const normalizedStatus = status
       ?.map((tag) => tag.split(':'))
-      .filter(
-        (tag) => tag.length === 2 && ['enabled', 'disabled'].includes(tag[1]),
-      );
+      .filter((tag) => tag.length === 2 && ['enabled', 'disabled'].includes(tag[1]));
     const normalizedFavoritesFirst = favoritesFirst === 'true';
     const normalizedArchived = archived === 'IS:true';
     const { features, total } = await this.featureSearchService.search({

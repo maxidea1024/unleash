@@ -22,11 +22,7 @@ beforeAll(async () => {
   const bulkInterval = secondsToMilliseconds(0.5);
   const announcementInterval = secondsToMilliseconds(2);
 
-  clientInstanceService = new ClientInstanceService(
-    stores,
-    config,
-    new FakePrivateProjectChecker(),
-  );
+  clientInstanceService = new ClientInstanceService(stores, config, new FakePrivateProjectChecker());
 });
 
 afterAll(async () => {

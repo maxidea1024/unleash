@@ -1,10 +1,4 @@
-import {
-  useState,
-  useCallback,
-  type ReactNode,
-  type RefObject,
-  useEffect,
-} from 'react';
+import { useState, useCallback, type ReactNode, type RefObject, useEffect } from 'react';
 import { StickyContext } from './StickyContext';
 
 interface IStickyProviderProps {
@@ -12,12 +6,8 @@ interface IStickyProviderProps {
 }
 
 export const StickyProvider = ({ children }: IStickyProviderProps) => {
-  const [stickyItems, setStickyItems] = useState<RefObject<HTMLDivElement>[]>(
-    [],
-  );
-  const [resizeListeners, setResizeListeners] = useState(
-    new Set<RefObject<HTMLDivElement>>(),
-  );
+  const [stickyItems, setStickyItems] = useState<RefObject<HTMLDivElement>[]>([]);
+  const [resizeListeners, setResizeListeners] = useState(new Set<RefObject<HTMLDivElement>>());
 
   const registerStickyItem = useCallback((item: RefObject<HTMLDivElement>) => {
     setStickyItems((prevItems) => {
@@ -32,10 +22,7 @@ export const StickyProvider = ({ children }: IStickyProviderProps) => {
           const elementA = a.current;
           const elementB = b.current;
           if (elementA && elementB) {
-            return (
-              elementA.getBoundingClientRect().top -
-              elementB.getBoundingClientRect().top
-            );
+            return elementA.getBoundingClientRect().top - elementB.getBoundingClientRect().top;
           }
           return 0;
         });
@@ -50,23 +37,17 @@ export const StickyProvider = ({ children }: IStickyProviderProps) => {
     setStickyItems((prev) => prev.filter((item) => item !== ref));
   }, []);
 
-  const registerResizeListener = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
-      setResizeListeners((prev) => new Set(prev).add(ref));
-    },
-    [],
-  );
+  const registerResizeListener = useCallback((ref: RefObject<HTMLDivElement>) => {
+    setResizeListeners((prev) => new Set(prev).add(ref));
+  }, []);
 
-  const unregisterResizeListener = useCallback(
-    (ref: RefObject<HTMLDivElement>) => {
-      setResizeListeners((prev) => {
-        const newListeners = new Set(prev);
-        newListeners.delete(ref);
-        return newListeners;
-      });
-    },
-    [],
-  );
+  const unregisterResizeListener = useCallback((ref: RefObject<HTMLDivElement>) => {
+    setResizeListeners((prev) => {
+      const newListeners = new Set(prev);
+      newListeners.delete(ref);
+      return newListeners;
+    });
+  }, []);
 
   const getTopOffset = useCallback(
     (ref: RefObject<HTMLDivElement>) => {

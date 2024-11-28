@@ -27,35 +27,25 @@ export const MobileNavigationSidebar: FC<{
     <>
       {NewInUnleash ? <NewInUnleash /> : null}
       <PrimaryNavigationList mode='full' onClick={onClick} />
-      <SecondaryNavigationList
-        routes={routes.mainNavRoutes}
-        mode='full'
-        onClick={onClick}
-      />
-      <SecondaryNavigationList
-        routes={routes.adminRoutes}
-        mode='full'
-        onClick={onClick}
-      />
+      <SecondaryNavigationList routes={routes.mainNavRoutes} mode='full' onClick={onClick} />
+      <SecondaryNavigationList routes={routes.adminRoutes} mode='full' onClick={onClick} />
       <OtherLinksList />
     </>
   );
 };
 
-export const StretchContainer = styled(Box)<{ mode: string }>(
-  ({ theme, mode }) => ({
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2),
-    alignSelf: 'stretch',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-    zIndex: 1,
-    overflowAnchor: 'none',
-    minWidth: mode === 'full' ? theme.spacing(40) : 'auto',
-    width: mode === 'full' ? theme.spacing(40) : 'auto',
-  }),
-);
+export const StretchContainer = styled(Box)<{ mode: string }>(({ theme, mode }) => ({
+  backgroundColor: theme.palette.background.paper,
+  padding: theme.spacing(2),
+  alignSelf: 'stretch',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  zIndex: 1,
+  overflowAnchor: 'none',
+  minWidth: mode === 'full' ? theme.spacing(40) : 'auto',
+  width: mode === 'full' ? theme.spacing(40) : 'auto',
+}));
 
 // This component is needed when the sticky item could overlap with nav items. You can replicate it on a short screen.
 const StickyContainer = styled(Box)(({ theme }) => ({
@@ -67,9 +57,7 @@ const StickyContainer = styled(Box)(({ theme }) => ({
   borderTop: `1px solid ${theme.palette.divider}`,
 }));
 
-export const NavigationSidebar: FC<{ NewInUnleash?: typeof NewInUnleash }> = ({
-  NewInUnleash,
-}) => {
+export const NavigationSidebar: FC<{ NewInUnleash?: typeof NewInUnleash }> = ({ NewInUnleash }) => {
   const { routes } = useRoutes();
 
   const [mode, setMode] = useNavigationMode();
@@ -90,11 +78,7 @@ export const NavigationSidebar: FC<{ NewInUnleash?: typeof NewInUnleash }> = ({
 
   return (
     <StretchContainer mode={mode}>
-      <PrimaryNavigationList
-        mode={mode}
-        onClick={setActiveItem}
-        activeItem={activeItem}
-      />
+      <PrimaryNavigationList mode={mode} onClick={setActiveItem} activeItem={activeItem} />
       <SecondaryNavigation
         expanded={expanded.includes('configure')}
         onExpandChange={(expand) => {
@@ -146,20 +130,14 @@ export const NavigationSidebar: FC<{ NewInUnleash?: typeof NewInUnleash }> = ({
       )}
 
       {showRecentFlags && (
-        <RecentFlagsNavigation
-          mode={mode}
-          flags={lastViewedFlags}
-          onClick={() => setActiveItem('/projects')}
-        />
+        <RecentFlagsNavigation mode={mode} flags={lastViewedFlags} onClick={() => setActiveItem('/projects')} />
       )}
 
       {/* this will push the show/hide to the bottom on short nav list */}
       <Box sx={{ flex: 1 }} />
 
       <StickyContainer>
-        {NewInUnleash ? (
-          <NewInUnleash mode={mode} onMiniModeClick={() => setMode('full')} />
-        ) : null}
+        {NewInUnleash ? <NewInUnleash mode={mode} onMiniModeClick={() => setMode('full')} /> : null}
         <ShowHide
           mode={mode}
           onChange={() => {

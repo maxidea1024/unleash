@@ -1,12 +1,5 @@
 import type { RemoteData } from './RemoteData';
-import {
-  Box,
-  IconButton,
-  ListItem,
-  ListItemButton,
-  Typography,
-  styled,
-} from '@mui/material';
+import { Box, IconButton, ListItem, ListItemButton, Typography, styled } from '@mui/material';
 import { ProjectIcon } from '../common/ProjectIcon/ProjectIcon';
 import LinkIcon from '@mui/icons-material/ArrowForward';
 import { ProjectSetupComplete } from './ProjectSetupComplete';
@@ -95,11 +88,7 @@ const ProjectListItem: FC<{
   }, []);
 
   return (
-    <ListItem
-      disablePadding={true}
-      sx={{ mb: 1 }}
-      ref={selected ? activeProjectRef : null}
-    >
+    <ListItem disablePadding={true} sx={{ mb: 1 }} ref={selected ? activeProjectRef : null}>
       <ListItemButton sx={listItemStyle} selected={selected} onClick={onClick}>
         <ListItemBox>
           <ProjectIcon color='primary' />
@@ -133,14 +122,7 @@ export const MyProjects: React.FC<{
   setActiveProject: (project: string) => void;
   admins: PersonalDashboardSchemaAdminsItem[];
   owners: PersonalDashboardSchemaProjectOwnersItem[];
-}> = ({
-  projects,
-  personalDashboardProjectDetails,
-  setActiveProject,
-  activeProject,
-  admins,
-  owners,
-}) => {
+}> = ({ projects, personalDashboardProjectDetails, setActiveProject, activeProject, admins, owners }) => {
   const ref = useLoading(personalDashboardProjectDetails.state === 'loading');
 
   const getGridContents = (): {
@@ -152,14 +134,10 @@ export const MyProjects: React.FC<{
       return {
         list: (
           <ActionBox>
+            <Typography>You don't currently have access to any projects in the system.</Typography>
             <Typography>
-              You don't currently have access to any projects in the system.
-            </Typography>
-            <Typography>
-              To get started, you can{' '}
-              <Link to='/projects?create=true'>create your own project</Link>.
-              Alternatively, you can review the available projects in the system
-              and ask the owner for access.
+              To get started, you can <Link to='/projects?create=true'>create your own project</Link>. Alternatively,
+              you can review the available projects in the system and ask the owner for access.
             </Typography>
           </ActionBox>
         ),
@@ -184,38 +162,22 @@ export const MyProjects: React.FC<{
     const [box1, box2] = (() => {
       switch (personalDashboardProjectDetails.state) {
         case 'success': {
-          const activeProjectStage =
-            personalDashboardProjectDetails.data.onboardingStatus.status ??
-            'loading';
+          const activeProjectStage = personalDashboardProjectDetails.data.onboardingStatus.status ?? 'loading';
           const onboardingStarted = activeProjectStage === 'onboarding-started';
 
           if (activeProjectStage === 'onboarded') {
             return [
-              <ProjectSetupComplete
-                project={activeProject}
-                insights={personalDashboardProjectDetails.data.insights}
-              />,
-              <LatestProjectEvents
-                latestEvents={personalDashboardProjectDetails.data.latestEvents}
-              />,
+              <ProjectSetupComplete project={activeProject} insights={personalDashboardProjectDetails.data.insights} />,
+              <LatestProjectEvents latestEvents={personalDashboardProjectDetails.data.latestEvents} />,
             ];
           } else if (onboardingStarted) {
-            return [
-              <CreateFlag project={activeProject} />,
-              <ConnectSDK project={activeProject} />,
-            ];
+            return [<CreateFlag project={activeProject} />, <ConnectSDK project={activeProject} />];
           } else {
-            return [
-              <ExistingFlag project={activeProject} />,
-              <ConnectSDK project={activeProject} />,
-            ];
+            return [<ExistingFlag project={activeProject} />, <ConnectSDK project={activeProject} />];
           }
         }
         case 'error':
-          return [
-            <DataError project={activeProject} />,
-            <ContactAdmins admins={admins} />,
-          ];
+          return [<DataError project={activeProject} />, <ContactAdmins admins={admins} />];
         default: // loading
           return [<SkeletonDiv data-loading />, <SkeletonDiv data-loading />];
       }
@@ -237,8 +199,7 @@ export const MyProjects: React.FC<{
             roles={
               personalDashboardProjectDetails.state === 'success'
                 ? personalDashboardProjectDetails.data.roles.map(
-                    (role: PersonalDashboardProjectDetailsSchemaRolesItem) =>
-                      role.name,
+                    (role: PersonalDashboardProjectDetailsSchemaRolesItem) => role.name,
                   )
                 : []
             }

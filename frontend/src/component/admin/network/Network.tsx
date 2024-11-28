@@ -7,9 +7,7 @@ import { PageContent } from 'component/common/PageContent/PageContent';
 
 const NetworkOverview = lazy(() => import('./NetworkOverview/NetworkOverview'));
 const NetworkTraffic = lazy(() => import('./NetworkTraffic/NetworkTraffic'));
-const NetworkTrafficUsage = lazy(
-  () => import('./NetworkTrafficUsage/NetworkTrafficUsage'),
-);
+const NetworkTrafficUsage = lazy(() => import('./NetworkTrafficUsage/NetworkTrafficUsage'));
 
 const tabs = [
   {

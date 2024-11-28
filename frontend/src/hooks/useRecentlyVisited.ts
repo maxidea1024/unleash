@@ -19,16 +19,11 @@ const localStorageItems = (key: string): LastViewedPage[] => {
 export const useRecentlyVisited = () => {
   const key = `${basePath}:unleash-lastVisitedPages`;
 
-  const [lastVisited, setLastVisited] = useState<LastViewedPage[]>(
-    localStorageItems(key),
-  );
+  const [lastVisited, setLastVisited] = useState<LastViewedPage[]>(localStorageItems(key));
 
-  const { emitEvent } = useCustomEvent(
-    RECENTLY_VISITED_PAGES_UPDATED_EVENT,
-    () => {
-      setLastVisited(localStorageItems(key));
-    },
-  );
+  const { emitEvent } = useCustomEvent(RECENTLY_VISITED_PAGES_UPDATED_EVENT, () => {
+    setLastVisited(localStorageItems(key));
+  });
 
   useEffect(() => {
     if (lastVisited) {
@@ -38,15 +33,9 @@ export const useRecentlyVisited = () => {
   }, [JSON.stringify(lastVisited), key, emitEvent]);
 
   const pageEquals = (existing: LastViewedPage, page: LastViewedPage) => {
-    if (existing.featureId && existing.featureId === page.featureId)
-      return true;
+    if (existing.featureId && existing.featureId === page.featureId) return true;
     if (existing.pathName && existing.pathName === page.pathName) return true;
-    if (
-      existing.projectId &&
-      !existing.featureId &&
-      !page.featureId &&
-      existing.projectId === page.projectId
-    )
+    if (existing.projectId && !existing.featureId && !page.featureId && existing.projectId === page.projectId)
       return true;
     return false;
   };
@@ -58,9 +47,7 @@ export const useRecentlyVisited = () => {
       const updatedLastVisited = [page, ...filtered];
 
       const sliced =
-        updatedLastVisited.length > MAX_ITEMS
-          ? updatedLastVisited.slice(0, MAX_ITEMS)
-          : updatedLastVisited;
+        updatedLastVisited.length > MAX_ITEMS ? updatedLastVisited.slice(0, MAX_ITEMS) : updatedLastVisited;
       setLastVisited(sliced);
     },
     [JSON.stringify(lastVisited)],

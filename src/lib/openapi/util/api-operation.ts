@@ -10,8 +10,7 @@ type DeprecatedOpenAPITag =
   // of values, it would be breaking change to remove them completely.
   'client' | 'other' | 'auth' | 'admin';
 
-export interface ApiOperation<Tag = OpenApiTag | DeprecatedOpenAPITag>
-  extends Omit<OpenAPIV3.OperationObject, 'tags'> {
+export interface ApiOperation<Tag = OpenApiTag | DeprecatedOpenAPITag> extends Omit<OpenAPIV3.OperationObject, 'tags'> {
   operationId: string;
   tags: [Tag];
 }

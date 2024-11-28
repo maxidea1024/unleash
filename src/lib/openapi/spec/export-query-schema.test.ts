@@ -7,7 +7,5 @@ test('exportQuerySchema', () => {
     features: ['firstFeature', 'secondFeature'],
   };
 
-  expect(
-    validateSchema('#/components/schemas/exportQuerySchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/exportQuerySchema', data)).toBeUndefined();
 });

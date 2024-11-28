@@ -9,21 +9,12 @@ import Controller from '../controller';
 import { NONE, UPDATE_FEATURE } from '../../types/permissions';
 import type { IAuthRequest } from '../unleash-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
-import {
-  createResponseSchema,
-  resourceCreatedResponseSchema,
-} from '../../openapi/util/create-response-schema';
+import { createResponseSchema, resourceCreatedResponseSchema } from '../../openapi/util/create-response-schema';
 import { tagsSchema, type TagsSchema } from '../../openapi/spec/tags-schema';
 import type { TagSchema } from '../../openapi/spec/tag-schema';
 import type { OpenApiService } from '../../services/openapi-service';
-import {
-  tagWithVersionSchema,
-  type TagWithVersionSchema,
-} from '../../openapi/spec/tag-with-version-schema';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { tagWithVersionSchema, type TagWithVersionSchema } from '../../openapi/spec/tag-with-version-schema';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import type FeatureTagService from '../../services/feature-tag-service';
 import type { IFlagResolver } from '../../types';
 import type { CreateTagSchema } from '../../openapi';
@@ -43,10 +34,7 @@ export default class TagController extends Controller {
       tagService,
       openApiService,
       featureTagService,
-    }: Pick<
-      IUnleashServices,
-      'tagService' | 'openApiService' | 'featureTagService'
-    >,
+    }: Pick<IUnleashServices, 'tagService' | 'openApiService' | 'featureTagService'>,
   ) {
     super(config);
 
@@ -106,8 +94,7 @@ export default class TagController extends Controller {
           tags: ['Tags'],
           operationId: 'getTagsByType',
           summary: 'List all tags of a given type.',
-          description:
-            'List all tags of a given type. If the tag type does not exist it returns an empty list.',
+          description: 'List all tags of a given type. If the tag type does not exist it returns an empty list.',
           responses: {
             200: createResponseSchema('tagsSchema'),
             ...getStandardResponses(401, 403),
@@ -147,8 +134,7 @@ export default class TagController extends Controller {
           tags: ['Tags'],
           operationId: 'deleteTag',
           summary: 'Delete a tag.',
-          description:
-            'Delete a tag by type and value. When a tag is deleted all references to the tag are removed.',
+          description: 'Delete a tag by type and value. When a tag is deleted all references to the tag are removed.',
           responses: {
             200: emptyResponse,
           },
@@ -159,36 +145,21 @@ export default class TagController extends Controller {
 
   async getTags(req: Request, res: Response<TagsSchema>): Promise<void> {
     const tags = await this.tagService.getTags();
-    this.openApiService.respondWithValidation<TagsSchema>(
-      200,
-      res,
-      tagsSchema.$id,
-      { version, tags },
-    );
+    this.openApiService.respondWithValidation<TagsSchema>(200, res, tagsSchema.$id, { version, tags });
   }
 
   async getTagsByType(req: Request, res: Response<TagsSchema>): Promise<void> {
     const tags = await this.tagService.getTagsByType(req.params.type);
-    this.openApiService.respondWithValidation<TagsSchema>(
-      200,
-      res,
-      tagsSchema.$id,
-      { version, tags },
-    );
+    this.openApiService.respondWithValidation<TagsSchema>(200, res, tagsSchema.$id, { version, tags });
   }
 
-  async getTag(
-    req: Request<TagSchema>,
-    res: Response<TagWithVersionSchema>,
-  ): Promise<void> {
+  async getTag(req: Request<TagSchema>, res: Response<TagWithVersionSchema>): Promise<void> {
     const { type, value } = req.params;
     const tag = await this.tagService.getTag({ type, value });
-    this.openApiService.respondWithValidation<TagWithVersionSchema>(
-      200,
-      res,
-      tagWithVersionSchema.$id,
-      { version, tag },
-    );
+    this.openApiService.respondWithValidation<TagWithVersionSchema>(200, res, tagWithVersionSchema.$id, {
+      version,
+      tag,
+    });
   }
 
   async createTag(
@@ -197,11 +168,7 @@ export default class TagController extends Controller {
   ): Promise<void> {
     // const userName = extractUsername(req);
     const tag = await this.tagService.createTag(req.body, req.audit);
-    res
-      .status(201)
-      .header('location', `tags/${tag.type}/${tag.value}`)
-      .json({ version, tag })
-      .end();
+    res.status(201).header('location', `tags/${tag.type}/${tag.value}`).json({ version, tag }).end();
   }
 
   async deleteTag(req: IAuthRequest<TagSchema>, res: Response): Promise<void> {

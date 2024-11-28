@@ -6,16 +6,10 @@ import version from '../../util/version';
 import Controller from '../controller';
 import type VersionService from '../../services/version-service';
 import type SettingService from '../../services/setting-service';
-import {
-  type SimpleAuthSettings,
-  simpleAuthSettingsKey,
-} from '../../types/settings/simple-auth-settings';
+import { type SimpleAuthSettings, simpleAuthSettingsKey } from '../../types/settings/simple-auth-settings';
 import { ADMIN, NONE } from '../../types/permissions';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
-import {
-  uiConfigSchema,
-  type UiConfigSchema,
-} from '../../openapi/spec/ui-config-schema';
+import { uiConfigSchema, type UiConfigSchema } from '../../openapi/spec/ui-config-schema';
 import type { OpenApiService } from '../../services/openapi-service';
 import type { EmailService } from '../../services/email-service';
 import { emptyResponse } from '../../openapi/util/standard-responses';
@@ -76,8 +70,7 @@ export default class ConfigController extends Controller {
         openApiService.validPath({
           tags: ['Admin UI'],
           summary: 'Get UI configuration',
-          description:
-            'Retrieves the full configuration used to set up the Unleash Admin UI.',
+          description: 'Retrieves the full configuration used to set up the Unleash Admin UI.',
           operationId: 'getUiConfig',
           responses: {
             200: createResponseSchema('uiConfigSchema'),
@@ -104,20 +97,14 @@ export default class ConfigController extends Controller {
     });
   }
 
-  async getUiConfig(
-    req: AuthedRequest,
-    res: Response<UiConfigSchema>,
-  ): Promise<void> {
-    const [frontendSettings, simpleAuthSettings, maintenanceMode] =
-      await Promise.all([
-        this.frontendApiService.getFrontendSettings(false),
-        this.settingService.get<SimpleAuthSettings>(simpleAuthSettingsKey),
-        this.maintenanceService.isMaintenanceMode(),
-      ]);
+  async getUiConfig(req: AuthedRequest, res: Response<UiConfigSchema>): Promise<void> {
+    const [frontendSettings, simpleAuthSettings, maintenanceMode] = await Promise.all([
+      this.frontendApiService.getFrontendSettings(false),
+      this.settingService.get<SimpleAuthSettings>(simpleAuthSettingsKey),
+      this.maintenanceService.isMaintenanceMode(),
+    ]);
 
-    const disablePasswordAuth =
-      simpleAuthSettings?.disabled ||
-      this.config.authentication.type === IAuthType.NONE;
+    const disablePasswordAuth = simpleAuthSettings?.disabled || this.config.authentication.type === IAuthType.NONE;
 
     const expFlags = this.config.flagResolver.getAll({
       email: req.user.email,
@@ -148,23 +135,12 @@ export default class ConfigController extends Controller {
       unleashAIAvailable: this.config.openAIAPIKey !== undefined,
     };
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      uiConfigSchema.$id,
-      response,
-    );
+    this.openApiService.respondWithValidation(200, res, uiConfigSchema.$id, response);
   }
 
-  async setUiConfig(
-    req: IAuthRequest<void, void, SetUiConfigSchema>,
-    res: Response<string>,
-  ): Promise<void> {
+  async setUiConfig(req: IAuthRequest<void, void, SetUiConfigSchema>, res: Response<string>): Promise<void> {
     if (req.body.frontendSettings) {
-      await this.frontendApiService.setFrontendSettings(
-        req.body.frontendSettings,
-        req.audit,
-      );
+      await this.frontendApiService.setFrontendSettings(req.body.frontendSettings, req.audit);
       res.sendStatus(204);
       return;
     }

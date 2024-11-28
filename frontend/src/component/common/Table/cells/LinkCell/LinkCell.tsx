@@ -4,13 +4,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
-import {
-  StyledWrapper,
-  StyledLink,
-  StyledContainer,
-  StyledTitle,
-  StyledDescription,
-} from './LinkCell.styles';
+import { StyledWrapper, StyledLink, StyledContainer, StyledTitle, StyledDescription } from './LinkCell.styles';
 
 interface ILinkCellProps {
   title?: string;
@@ -20,13 +14,7 @@ interface ILinkCellProps {
   children?: React.ReactNode;
 }
 
-export const LinkCell: React.FC<ILinkCellProps> = ({
-  title,
-  to,
-  onClick,
-  subtitle,
-  children,
-}) => {
+export const LinkCell: React.FC<ILinkCellProps> = ({ title, to, onClick, subtitle, children }) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const renderSubtitle = (
@@ -59,10 +47,7 @@ export const LinkCell: React.FC<ILinkCellProps> = ({
         <Highlighter search={searchQuery}>{title}</Highlighter>
         {children}
       </StyledTitle>
-      <ConditionallyRender
-        condition={Boolean(subtitle)}
-        show={renderSubtitle}
-      />
+      <ConditionallyRender condition={Boolean(subtitle)} show={renderSubtitle} />
     </StyledContainer>
   );
 

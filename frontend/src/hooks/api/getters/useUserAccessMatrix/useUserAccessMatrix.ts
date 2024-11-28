@@ -25,20 +25,11 @@ interface IUserAccessMatrixOutput extends Partial<IUserAccessMatrixResponse> {
   error?: Error;
 }
 
-export const useUserAccessMatrix = (
-  id: string,
-  project?: string,
-  environment?: string,
-): IUserAccessMatrixOutput => {
-  const queryParams = `${project ? `?project=${project}` : ''}${
-    environment ? `${project ? '&' : '?'}environment=${environment}` : ''
-  }`;
+export const useUserAccessMatrix = (id: string, project?: string, environment?: string): IUserAccessMatrixOutput => {
+  const queryParams = `${project ? `?project=${project}` : ''}${environment ? `${project ? '&' : '?'}environment=${environment}` : ''}`;
   const url = `api/admin/user-admin/${id}/permissions${queryParams}`;
 
-  const { data, error, mutate } = useSWR<IUserAccessMatrixResponse>(
-    formatApiPath(url),
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR<IUserAccessMatrixResponse>(formatApiPath(url), fetcher);
 
   return useMemo(
     () => ({

@@ -1,7 +1,4 @@
-import {
-  createGetLicensedUsers,
-  type GetLicensedUsers,
-} from './getLicensedUsers';
+import { createGetLicensedUsers, type GetLicensedUsers } from './getLicensedUsers';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 
@@ -9,10 +6,7 @@ let db: ITestDb;
 let getLicensedUsers: GetLicensedUsers;
 
 const mockUser = (deletedDaysAgo: number | null, uniqueId: number) => {
-  const deletedAt =
-    deletedDaysAgo !== null
-      ? new Date(Date.now() - deletedDaysAgo * 24 * 60 * 60 * 1000)
-      : null;
+  const deletedAt = deletedDaysAgo !== null ? new Date(Date.now() - deletedDaysAgo * 24 * 60 * 60 * 1000) : null;
   return {
     email: `${uniqueId}.user@example.com`,
     email_hash: `${uniqueId}.user@example.com`,

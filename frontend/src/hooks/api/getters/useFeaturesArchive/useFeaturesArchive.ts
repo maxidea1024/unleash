@@ -11,11 +11,7 @@ const fetcher = (path: string) => {
 
 export const useFeaturesArchive = (projectId?: string) => {
   const { data, error, mutate, isLoading } = useSWR<ArchivedFeaturesSchema>(
-    formatApiPath(
-      projectId
-        ? `/api/admin/archive/features/${projectId}`
-        : 'api/admin/archive/features',
-    ),
+    formatApiPath(projectId ? `/api/admin/archive/features/${projectId}` : 'api/admin/archive/features'),
     fetcher,
     {
       refreshInterval: 15 * 1000, // ms

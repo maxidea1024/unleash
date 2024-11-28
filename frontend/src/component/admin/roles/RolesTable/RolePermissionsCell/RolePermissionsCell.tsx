@@ -10,9 +10,7 @@ interface IRolePermissionsCellProps {
   row: { original: IRole };
 }
 
-export const RolePermissionsCell: VFC<IRolePermissionsCellProps> = ({
-  row,
-}) => {
+export const RolePermissionsCell: VFC<IRolePermissionsCellProps> = ({ row }) => {
   const { original: rowRole } = row;
   const { role } = useRole(rowRole.id.toString());
 
@@ -21,9 +19,7 @@ export const RolePermissionsCell: VFC<IRolePermissionsCellProps> = ({
   return (
     <TextCell>
       <TooltipLink tooltip={<RoleDescription roleId={rowRole.id} tooltip />}>
-        {role.permissions?.length === 1
-          ? '1 permission'
-          : `${role.permissions?.length} permissions`}
+        {role.permissions?.length === 1 ? '1 permission' : `${role.permissions?.length} permissions`}
       </TooltipLink>
     </TextCell>
   );

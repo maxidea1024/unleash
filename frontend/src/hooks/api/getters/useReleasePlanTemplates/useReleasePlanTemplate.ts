@@ -6,8 +6,7 @@ import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 import { useUiFlag } from 'hooks/useUiFlag';
 import type { IReleasePlanTemplate } from 'interfaces/releasePlans';
 
-const path = (templateId: string) =>
-  `api/admin/release-plan-templates/${templateId}`;
+const path = (templateId: string) => `api/admin/release-plan-templates/${templateId}`;
 
 const DEFAULT_DATA: IReleasePlanTemplate = {
   id: '',

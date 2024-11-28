@@ -3,10 +3,7 @@ import { render } from 'utils/testRenderer';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
 import { screen } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
-import type {
-  ChangeRequestAction,
-  ChangeRequestType,
-} from 'component/changeRequest/changeRequest.types';
+import type { ChangeRequestAction, ChangeRequestType } from 'component/changeRequest/changeRequest.types';
 import { EnvironmentVariantsCard } from './EnvironmentVariantsCard';
 import type { IFeatureEnvironment } from 'interfaces/featureToggle';
 
@@ -103,8 +100,7 @@ const user = () => {
       id: 1,
       name: 'Some User',
       email: 'user@example.com',
-      imageUrl:
-        'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
+      imageUrl: 'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
       seenAt: '2022-11-28T14:55:18.982Z',
       loginAttempts: 0,
       createdAt: '2022-11-23T13:31:17.061Z',
@@ -239,11 +235,7 @@ const Component = () => {
 };
 describe('Change request badges for variants', () => {
   test('should not render a badge if no changes', async () => {
-    testServerRoute(
-      server,
-      '/api/admin/projects/default/change-requests/pending/feature1/variants',
-      [],
-    );
+    testServerRoute(server, '/api/admin/projects/default/change-requests/pending/feature1/variants', []);
 
     render(<Component />, {
       route: '/projects/default/features/feature1/variants',
@@ -260,11 +252,7 @@ describe('Change request badges for variants', () => {
   test('should render the badge when scheduled request with "patchVariant" action', async () => {
     const changeRequest = scheduledRequest('patchVariant', 1);
 
-    testServerRoute(
-      server,
-      '/api/admin/projects/default/change-requests/scheduled',
-      [changeRequest],
-    );
+    testServerRoute(server, '/api/admin/projects/default/change-requests/scheduled', [changeRequest]);
 
     render(<Component />, {
       route: '/projects/default/features/feature1/variants',
@@ -281,11 +269,7 @@ describe('Change request badges for variants', () => {
     disableChangeRequests();
     const changeRequest = scheduledRequest('patchVariant', 1);
 
-    testServerRoute(
-      server,
-      '/api/admin/projects/default/change-requests/scheduled',
-      [changeRequest],
-    );
+    testServerRoute(server, '/api/admin/projects/default/change-requests/scheduled', [changeRequest]);
 
     render(<Component />, {
       route: '/projects/default/features/feature1/variants',

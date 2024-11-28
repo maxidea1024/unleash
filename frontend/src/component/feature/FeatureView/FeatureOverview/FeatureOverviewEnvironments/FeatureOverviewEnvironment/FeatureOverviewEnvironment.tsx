@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  styled,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, styled } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import useFeatureMetrics from 'hooks/api/getters/useFeatureMetrics/useFeatureMetrics';
@@ -32,9 +26,7 @@ const StyledFeatureOverviewEnvironment = styled('div', {
 })<{ enabled: boolean }>(({ theme, enabled }) => ({
   borderRadius: theme.shape.borderRadiusLarge,
   marginBottom: theme.spacing(2),
-  backgroundColor: enabled
-    ? theme.palette.background.paper
-    : theme.palette.envAccordion.disabled,
+  backgroundColor: enabled ? theme.palette.background.paper : theme.palette.envAccordion.disabled,
 }));
 
 const StyledAccordion = styled(Accordion)({
@@ -64,13 +56,11 @@ const StyledAccordionDetails = styled(AccordionDetails, {
   },
 }));
 
-const StyledEnvironmentAccordionBody = styled(EnvironmentAccordionBody)(
-  ({ theme }) => ({
-    width: '100%',
-    position: 'relative',
-    paddingBottom: theme.spacing(2),
-  }),
-);
+const StyledEnvironmentAccordionBody = styled(EnvironmentAccordionBody)(({ theme }) => ({
+  width: '100%',
+  position: 'relative',
+  paddingBottom: theme.spacing(2),
+}));
 
 const StyledHeader = styled('div', {
   shouldForwardProp: (prop) => prop !== 'enabled',
@@ -115,9 +105,7 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const FeatureOverviewEnvironment = ({
-  env,
-}: IFeatureOverviewEnvironmentProps) => {
+const FeatureOverviewEnvironment = ({ env }: IFeatureOverviewEnvironmentProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { metrics } = useFeatureMetrics(projectId, featureId);
@@ -125,12 +113,8 @@ const FeatureOverviewEnvironment = ({
   const { value: globalStore } = useGlobalLocalStorage();
 
   const featureMetrics = getFeatureMetrics(feature?.environments, metrics);
-  const environmentMetric = featureMetrics.find(
-    (featureMetric) => featureMetric.environment === env.name,
-  );
-  const featureEnvironment = feature?.environments.find(
-    (featureEnvironment) => featureEnvironment.name === env.name,
-  );
+  const environmentMetric = featureMetrics.find((featureMetric) => featureMetric.environment === env.name);
+  const featureEnvironment = feature?.environments.find((featureEnvironment) => featureEnvironment.name === env.name);
 
   return (
     <ConditionallyRender
@@ -140,22 +124,14 @@ const FeatureOverviewEnvironment = ({
           <StyledAccordion
             TransitionProps={{ mountOnEnter: true }}
             data-testid={`${FEATURE_ENVIRONMENT_ACCORDION}_${env.name}`}
-            className={`environment-accordion ${
-              env.enabled ? '' : 'accordion-disabled'
-            }`}
+            className={`environment-accordion ${env.enabled ? '' : 'accordion-disabled'}`}
           >
-            <StyledAccordionSummary
-              expandIcon={<ExpandMore titleAccess='Toggle' />}
-            >
+            <StyledAccordionSummary expandIcon={<ExpandMore titleAccess='Toggle' />}>
               <StyledHeader data-loading enabled={env.enabled}>
                 <StyledHeaderTitle>
                   <StyledEnvironmentIcon enabled={env.enabled} />
                   <div>
-                    <StyledStringTruncator
-                      text={env.name}
-                      maxWidth='100'
-                      maxLength={15}
-                    />
+                    <StyledStringTruncator text={env.name} maxWidth='100' maxLength={15} />
                   </div>
                   <ConditionallyRender
                     condition={!env.enabled}
@@ -175,25 +151,18 @@ const FeatureOverviewEnvironment = ({
                     variant='outlined'
                     size='small'
                   />
-                  <FeatureStrategyIcons
-                    strategies={featureEnvironment?.strategies}
-                  />
+                  <FeatureStrategyIcons strategies={featureEnvironment?.strategies} />
                 </StyledButtonContainer>
               </StyledHeader>
 
-              <FeatureOverviewEnvironmentMetrics
-                environmentMetric={environmentMetric}
-                disabled={!env.enabled}
-              />
+              <FeatureOverviewEnvironmentMetrics environmentMetric={environmentMetric} disabled={!env.enabled} />
             </StyledAccordionSummary>
 
             <StyledAccordionDetails enabled={env.enabled}>
               <StyledEnvironmentAccordionBody
                 featureEnvironment={featureEnvironment}
                 isDisabled={!env.enabled}
-                otherEnvironments={feature?.environments
-                  .map(({ name }) => name)
-                  .filter((name) => name !== env.name)}
+                otherEnvironments={feature?.environments.map(({ name }) => name).filter((name) => name !== env.name)}
               />
               <ConditionallyRender
                 condition={(featureEnvironment?.strategies?.length || 0) > 0}

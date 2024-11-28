@@ -39,9 +39,7 @@ interface IFeatureStrategyRemoveDialogueProps {
 }
 
 const RemoveAlert: FC = () => (
-  <Alert severity='error'>
-    Removing the strategy will change which users receive access to the feature.
-  </Alert>
+  <Alert severity='error'>Removing the strategy will change which users receive access to the feature.</Alert>
 );
 
 const AlertContainer = styled('div')(({ theme }) => ({
@@ -58,8 +56,8 @@ const StrategyInScheduledChangeRequestsWarning: FC<{
     return (
       <Alert severity='warning'>
         <p>
-          This strategy is in use by at least one scheduled change request. If
-          you remove it, those change requests can no longer be applied.
+          This strategy is in use by at least one scheduled change request. If you remove it, those change requests can
+          no longer be applied.
         </p>
         <p>The following scheduled change requests use this strategy:</p>
         <ul>
@@ -85,8 +83,8 @@ const StrategyInScheduledChangeRequestsWarning: FC<{
     return (
       <Alert severity='warning'>
         <p>
-          This strategy may be in use by one or more scheduled change requests.
-          If you remove it, those change requests can no longer be applied.
+          This strategy may be in use by one or more scheduled change requests. If you remove it, those change requests
+          can no longer be applied.
         </p>
       </Alert>
     );
@@ -108,9 +106,12 @@ const Alerts: FC<{
   </AlertContainer>
 );
 
-export const FeatureStrategyRemoveDialogue: FC<
-  IFeatureStrategyRemoveDialogueProps
-> = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
+export const FeatureStrategyRemoveDialogue: FC<IFeatureStrategyRemoveDialogueProps> = ({
+  onRemove,
+  onClose,
+  isOpen,
+  scheduledChangeRequestsForStrategy,
+}) => {
   return (
     <Dialogue
       title='Are you sure you want to delete this strategy?'
@@ -120,9 +121,7 @@ export const FeatureStrategyRemoveDialogue: FC<
       onClick={onRemove}
       onClose={onClose}
     >
-      <Alerts
-        scheduledChangeRequestsForStrategy={scheduledChangeRequestsForStrategy}
-      />
+      <Alerts scheduledChangeRequestsForStrategy={scheduledChangeRequestsForStrategy} />
     </Dialogue>
   );
 };
@@ -132,9 +131,12 @@ const MsgContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-export const SuggestFeatureStrategyRemoveDialogue: FC<
-  IFeatureStrategyRemoveDialogueProps
-> = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
+export const SuggestFeatureStrategyRemoveDialogue: FC<IFeatureStrategyRemoveDialogueProps> = ({
+  onRemove,
+  onClose,
+  isOpen,
+  scheduledChangeRequestsForStrategy,
+}) => {
   return (
     <Dialogue
       title='Suggest changes'
@@ -144,9 +146,7 @@ export const SuggestFeatureStrategyRemoveDialogue: FC<
       onClick={onRemove}
       onClose={onClose}
     >
-      <Alerts
-        scheduledChangeRequestsForStrategy={scheduledChangeRequestsForStrategy}
-      />
+      <Alerts scheduledChangeRequestsForStrategy={scheduledChangeRequestsForStrategy} />
       <MsgContainer>
         <Typography variant='body2' color='text.secondary'>
           Your suggestion:
@@ -164,12 +164,7 @@ interface IRemoveProps {
   strategyId: string;
 }
 
-const useOnRemove = ({
-  projectId,
-  featureId,
-  environmentId,
-  strategyId,
-}: IRemoveProps) => {
+const useOnRemove = ({ projectId, featureId, environmentId, strategyId }: IRemoveProps) => {
   const { deleteStrategyFromFeature } = useFeatureStrategyApi();
   const { setToastData, setToastApiError } = useToast();
   const navigate = useNavigate();
@@ -178,12 +173,7 @@ const useOnRemove = ({
   const onRemove = async (event: React.FormEvent) => {
     try {
       event.preventDefault();
-      await deleteStrategyFromFeature(
-        projectId,
-        featureId,
-        environmentId,
-        strategyId,
-      );
+      await deleteStrategyFromFeature(projectId, featureId, environmentId, strategyId);
       setToastData({
         title: 'Strategy deleted',
         type: 'success',
@@ -197,15 +187,9 @@ const useOnRemove = ({
   return onRemove;
 };
 
-const useOnSuggestRemove = ({
-  projectId,
-  featureId,
-  environmentId,
-  strategyId,
-}: IRemoveProps) => {
+const useOnSuggestRemove = ({ projectId, featureId, environmentId, strategyId }: IRemoveProps) => {
   const { addChange } = useChangeRequestApi();
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
   const { setToastData, setToastApiError } = useToast();
   const onSuggestRemove = async (event: React.FormEvent) => {
     try {
@@ -242,10 +226,7 @@ export const DialogStrategyRemove = ({
 }) => {
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
 
-  const { changeRequests } = useScheduledChangeRequestsWithStrategy(
-    projectId,
-    strategyId,
-  );
+  const { changeRequests } = useScheduledChangeRequestsWithStrategy(projectId, strategyId);
 
   const changeRequestData = {
     changeRequests,

@@ -7,14 +7,9 @@ import { FilterItemOperator } from './FilterItemOperator/FilterItemOperator';
 import { FILTER_ITEM } from 'utils/testIds';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-const StyledChip = styled(
-  ({
-    isActive,
-    ...props
-  }: { isActive: boolean } & ComponentProps<typeof Chip>) => (
-    <Chip data-testid={FILTER_ITEM} {...props} />
-  ),
-)(({ theme, isActive = false }) => ({
+const StyledChip = styled(({ isActive, ...props }: { isActive: boolean } & ComponentProps<typeof Chip>) => (
+  <Chip data-testid={FILTER_ITEM} {...props} />
+))(({ theme, isActive = false }) => ({
   borderRadius: `${theme.shape.borderRadius}px`,
   padding: 0,
   fontSize: theme.typography.body2.fontSize,
@@ -117,11 +112,7 @@ export const FilterItemChip: FC<IFilterItemChipProps> = ({
             show={() => <Arrow />}
             elseShow={() => (
               <>
-                <FilterItemOperator
-                  options={operatorOptions}
-                  value={operator}
-                  onChange={onChange}
-                />
+                <FilterItemOperator options={operatorOptions} value={operator} onChange={onChange} />
                 <StyledOptions>
                   {explicitOptions.join(', ')}
                   {remainingOptions > 0 ? ` +${remainingOptions}` : ''}

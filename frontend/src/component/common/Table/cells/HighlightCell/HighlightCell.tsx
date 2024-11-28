@@ -41,12 +41,7 @@ const StyledSubtitle = styled('span')(({ theme }) => ({
   WebkitBoxOrient: 'vertical',
 }));
 
-export const HighlightCell: FC<IHighlightCellProps> = ({
-  value,
-  subtitle,
-  afterTitle,
-  subtitleTooltip,
-}) => {
+export const HighlightCell: FC<IHighlightCellProps> = ({ value, subtitle, afterTitle, subtitleTooltip }) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const renderSubtitle = (
@@ -79,10 +74,7 @@ export const HighlightCell: FC<IHighlightCellProps> = ({
         <Highlighter search={searchQuery}>{value}</Highlighter>
         {afterTitle}
       </StyledTitle>
-      <ConditionallyRender
-        condition={Boolean(subtitle)}
-        show={renderSubtitle}
-      />
+      <ConditionallyRender condition={Boolean(subtitle)} show={renderSubtitle} />
     </StyledContainer>
   );
 };

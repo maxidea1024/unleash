@@ -60,8 +60,7 @@ export const projectOverviewSchema = {
       type: 'number',
       nullable: true,
       example: 100,
-      description:
-        'A limit on the number of features allowed in the project. Null if no limit.',
+      description: 'A limit on the number of features allowed in the project. Null if no limit.',
     },
     featureNaming: {
       $ref: '#/components/schemas/createFeatureNamingPatternSchema',
@@ -104,8 +103,7 @@ export const projectOverviewSchema = {
       items: {
         $ref: '#/components/schemas/featureTypeCountSchema',
       },
-      description:
-        'The number of features of each type that are in this project',
+      description: 'The number of features of each type that are in this project',
     },
     updatedAt: {
       type: 'string',

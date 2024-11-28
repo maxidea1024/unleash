@@ -56,20 +56,11 @@ const ProjectOverview: FC = () => {
   return (
     <StyledContainer key={projectId}>
       <StyledContentContainer>
-        {hideChangeRequestOverview ? null : (
-          <ProjectOverviewChangeRequests project={projectId} />
-        )}
-        <ConditionallyRender
-          condition={outdatedSdksBannerEnabled}
-          show={<OutdatedSdksBanner project={projectId} />}
-        />
+        {hideChangeRequestOverview ? null : <ProjectOverviewChangeRequests project={projectId} />}
+        <ConditionallyRender condition={outdatedSdksBannerEnabled} show={<OutdatedSdksBanner project={projectId} />} />
 
         <StyledProjectToggles>
-          <ProjectFeatureToggles
-            environments={project.environments.map(
-              (environment) => environment.environment,
-            )}
-          />
+          <ProjectFeatureToggles environments={project.environments.map((environment) => environment.environment)} />
         </StyledProjectToggles>
       </StyledContentContainer>
     </StyledContainer>

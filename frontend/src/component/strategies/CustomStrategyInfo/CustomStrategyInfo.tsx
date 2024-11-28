@@ -20,24 +20,14 @@ export const CustomStrategyInfo: FC<{ alert?: boolean }> = ({ alert }) => {
       <Paragraph>
         If you decide to create a custom strategy be aware of the following:
         <ul>
-          <li>
-            They require writing custom code and deployments for each SDK you’re
-            using.
-          </li>
-          <li>
-            Differing implementation in each SDK will cause toggles to evaluate
-            differently
-          </li>
-          <li>
-            Custom strategies require a lot of configuration in both Unleash
-            admin UI and the SDK.
-          </li>
+          <li>They require writing custom code and deployments for each SDK you’re using.</li>
+          <li>Differing implementation in each SDK will cause toggles to evaluate differently</li>
+          <li>Custom strategies require a lot of configuration in both Unleash admin UI and the SDK.</li>
         </ul>
       </Paragraph>
       <Paragraph>
-        Constraints don’t have these problems. They’re configured once in the
-        admin UI and behave in the same way in each SDK without further
-        configuration.
+        Constraints don’t have these problems. They’re configured once in the admin UI and behave in the same way in
+        each SDK without further configuration.
       </Paragraph>
     </>
   );

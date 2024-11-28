@@ -1,21 +1,12 @@
 import { useRef, useState, type VFC } from 'react';
-import {
-  useTheme,
-  IconButton,
-  Typography,
-  useMediaQuery,
-  Popover,
-  Box,
-} from '@mui/material';
+import { useTheme, IconButton, Typography, useMediaQuery, Popover, Box } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import HelpOutline from '@mui/icons-material/HelpOutline';
 import { ReactComponent as ChangeRequestProcessWithScheduleImage } from 'assets/img/changeRequestProcessWithSchedule.svg';
 
 type IChangeRequestProcessHelpProps = {};
 
-export const ChangeRequestProcessHelp: VFC<
-  IChangeRequestProcessHelpProps
-> = () => {
+export const ChangeRequestProcessHelp: VFC<IChangeRequestProcessHelpProps> = () => {
   const ref = useRef<HTMLButtonElement>(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -27,15 +18,9 @@ export const ChangeRequestProcessHelp: VFC<
     <>
       <ConditionallyRender
         condition={!isSmallScreen}
-        show={
-          <Typography variant='body2'>Show change request process </Typography>
-        }
+        show={<Typography variant='body2'>Show change request process </Typography>}
       />
-      <IconButton
-        title='Change request process'
-        ref={ref}
-        onClick={() => setIsOpen(true)}
-      >
+      <IconButton title='Change request process' ref={ref} onClick={() => setIsOpen(true)}>
         <HelpOutline />
       </IconButton>
       <Popover
@@ -63,59 +48,38 @@ export const ChangeRequestProcessHelp: VFC<
                 </ul>
               </li>
               <li>
-                A user with the <strong>“Review change request”</strong>{' '}
-                permission can approve or reject the changes.
+                A user with the <strong>“Review change request”</strong> permission can approve or reject the changes.
                 <ul>
-                  <li>
-                    The user who created the change request can cancel it at
-                    this stage.
-                  </li>
-                  <li>
-                    Rejecting or canceling the changes will close the change
-                    request.
-                  </li>
+                  <li>The user who created the change request can cancel it at this stage.</li>
+                  <li>Rejecting or canceling the changes will close the change request.</li>
                 </ul>
               </li>
               <>
                 <li>
-                  Once approved, a user with the{' '}
-                  <strong>“Apply/Reject change request”</strong> permission can
-                  apply, schedule, or reject the changes.
+                  Once approved, a user with the <strong>“Apply/Reject change request”</strong> permission can apply,
+                  schedule, or reject the changes.
                   <ul>
+                    <li>If applied, the changes will take effect and the change request will be closed.</li>
+                    <li>If scheduled, Unleash will attempt to apply the changes at the scheduled date and time.</li>
                     <li>
-                      If applied, the changes will take effect and the change
-                      request will be closed.
-                    </li>
-                    <li>
-                      If scheduled, Unleash will attempt to apply the changes at
-                      the scheduled date and time.
-                    </li>
-                    <li>
-                      The user who created the change request can cancel the
-                      changes up until they are applied or scheduled.
+                      The user who created the change request can cancel the changes up until they are applied or
+                      scheduled.
                     </li>
                   </ul>
                 </li>
                 <li>
-                  A user with the <strong>“Apply/Reject change request”</strong>{' '}
-                  permission can reschedule, reject, or immediately apply a
-                  scheduled change request.
+                  A user with the <strong>“Apply/Reject change request”</strong> permission can reschedule, reject, or
+                  immediately apply a scheduled change request.
                   <ul>
                     <li>
-                      If any of the flags or strategies in the change request
-                      are archived or deleted (outside of the change request),
-                      thus creating a conflict, Unleash will send an email out
-                      to the change request author and to the user who (last)
-                      scheduled the change request.
+                      If any of the flags or strategies in the change request are archived or deleted (outside of the
+                      change request), thus creating a conflict, Unleash will send an email out to the change request
+                      author and to the user who (last) scheduled the change request.
                     </li>
+                    <li>If the scheduled changes contain any conflicts, Unleash will refuse to apply them.</li>
                     <li>
-                      If the scheduled changes contain any conflicts, Unleash
-                      will refuse to apply them.
-                    </li>
-                    <li>
-                      If the user who scheduled the changes is removed from this
-                      Unleash instance, the scheduled changes will also not be
-                      applied.
+                      If the user who scheduled the changes is removed from this Unleash instance, the scheduled changes
+                      will also not be applied.
                     </li>
                   </ul>
                 </li>

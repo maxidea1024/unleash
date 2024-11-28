@@ -27,7 +27,9 @@ test('batch archive', async () => {
       selectedIds={['featureA', 'featureB']}
       data={[]}
     />,
-    { permissions: [{ permission: DELETE_FEATURE }] },
+    {
+      permissions: [{ permission: DELETE_FEATURE }],
+    },
   );
 
   const archiveButton = screen.getByText('Archive');

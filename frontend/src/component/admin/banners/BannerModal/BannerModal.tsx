@@ -7,10 +7,7 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { type FormEvent, useEffect, useState } from 'react';
 import type { BannerVariant, IInternalBanner } from 'interfaces/banner';
 import { useBanners } from 'hooks/api/getters/useBanners/useBanners';
-import {
-  type AddOrUpdateBanner,
-  useBannersApi,
-} from 'hooks/api/actions/useBannersApi/useBannersApi';
+import { type AddOrUpdateBanner, useBannersApi } from 'hooks/api/actions/useBannersApi/useBannersApi';
 import { BannerForm } from './BannerForm';
 
 const StyledForm = styled('form')(() => ({
@@ -81,9 +78,7 @@ export const BannerModal = ({ banner, open, setOpen }: IBannerModalProps) => {
   };
 
   const formatApiCode = () => {
-    return `curl --location --request ${editing ? 'PUT' : 'POST'} '${
-      uiConfig.unleashUrl
-    }/api/admin/banners${editing ? `/${banner.id}` : ''}' \\
+    return `curl --location --request ${editing ? 'PUT' : 'POST'} '${uiConfig.unleashUrl}/api/admin/banners${editing ? `/${banner.id}` : ''}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(payload, undefined, 2)}'`;
@@ -150,12 +145,7 @@ export const BannerModal = ({ banner, open, setOpen }: IBannerModalProps) => {
             setDialog={setDialog}
           />
           <StyledButtonContainer>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              disabled={!isValid}
-            >
+            <Button type='submit' variant='contained' color='primary' disabled={!isValid}>
               {editing ? 'Save' : 'Add'} banner
             </Button>
             <StyledCancelButton

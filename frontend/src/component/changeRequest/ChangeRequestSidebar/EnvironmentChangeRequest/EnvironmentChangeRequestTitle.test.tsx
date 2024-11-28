@@ -37,11 +37,7 @@ const TestComponent: FC = () => {
   const [title, setTitle] = useState(changeRequest.title);
 
   return (
-    <ChangeRequestTitle
-      environmentChangeRequest={changeRequest}
-      title={title}
-      setTitle={setTitle}
-    >
+    <ChangeRequestTitle environmentChangeRequest={changeRequest} title={title} setTitle={setTitle}>
       <h1>{title}</h1>
     </ChangeRequestTitle>
   );

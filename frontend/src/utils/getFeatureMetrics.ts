@@ -1,7 +1,4 @@
-import type {
-  IFeatureEnvironment,
-  IFeatureMetrics,
-} from '../interfaces/featureToggle';
+import type { IFeatureEnvironment, IFeatureMetrics } from '../interfaces/featureToggle';
 
 const emptyMetric = (environment: string) => ({
   yes: 0,
@@ -10,14 +7,9 @@ const emptyMetric = (environment: string) => ({
   timestamp: '',
 });
 
-export const getFeatureMetrics = (
-  environments: IFeatureEnvironment[],
-  metrics: IFeatureMetrics,
-) => {
+export const getFeatureMetrics = (environments: IFeatureEnvironment[], metrics: IFeatureMetrics) => {
   return environments.map((env) => {
-    const envMetric = metrics.lastHourUsage.find(
-      (metric) => metric.environment === env.name,
-    );
+    const envMetric = metrics.lastHourUsage.find((metric) => metric.environment === env.name);
     return envMetric || emptyMetric(env.name);
   });
 };

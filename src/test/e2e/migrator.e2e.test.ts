@@ -39,9 +39,7 @@ async function validateTablesHavePrimaryKeys(db: IDBOption) {
   await client.end();
   if ((tables.rowCount ?? 0) > 0) {
     throw new Error(
-      `The following tables do not have a primary key defined: ${tables.rows
-        .map((r) => r.table_name)
-        .join(', ')}`,
+      `The following tables do not have a primary key defined: ${tables.rows.map((r) => r.table_name).join(', ')}`,
     );
   }
 }

@@ -10,9 +10,7 @@ interface IRoleDeleteDialogProjectRoleTableProps {
   projects: IProjectRoleUsageCount[];
 }
 
-export const RoleDeleteDialogProjectRoleTable = ({
-  projects,
-}: IRoleDeleteDialogProjectRoleTableProps) => {
+export const RoleDeleteDialogProjectRoleTable = ({ projects }: IRoleDeleteDialogProjectRoleTableProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'name' }],
   }));
@@ -32,26 +30,21 @@ export const RoleDeleteDialogProjectRoleTable = ({
         {
           id: 'users',
           Header: 'Assigned users',
-          accessor: (row: any) =>
-            row.userCount === 1 ? '1 user' : `${row.userCount} users`,
+          accessor: (row: any) => (row.userCount === 1 ? '1 user' : `${row.userCount} users`),
           Cell: TextCell,
           maxWidth: 150,
         },
         {
           id: 'serviceAccounts',
           Header: 'Service accounts',
-          accessor: (row: any) =>
-            row.serviceAccountCount === 1
-              ? '1 account'
-              : `${row.serviceAccountCount} accounts`,
+          accessor: (row: any) => (row.serviceAccountCount === 1 ? '1 account' : `${row.serviceAccountCount} accounts`),
           Cell: TextCell,
           maxWidth: 150,
         },
         {
           id: 'groups',
           Header: 'Assigned groups',
-          accessor: (row: any) =>
-            row.groupCount === 1 ? '1 group' : `${row.groupCount} groups`,
+          accessor: (row: any) => (row.groupCount === 1 ? '1 group' : `${row.groupCount} groups`),
           Cell: TextCell,
           maxWidth: 150,
         },
@@ -74,11 +67,5 @@ export const RoleDeleteDialogProjectRoleTable = ({
     useFlexLayout,
   );
 
-  return (
-    <VirtualizedTable
-      rows={rows}
-      headerGroups={headerGroups}
-      prepareRow={prepareRow}
-    />
-  );
+  return <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />;
 };

@@ -25,9 +25,7 @@ const CommentHeader = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(1.5),
 }));
 
-export const ChangeRequestComment: FC<{ comment: IChangeRequestComment }> = ({
-  comment,
-}) => (
+export const ChangeRequestComment: FC<{ comment: IChangeRequestComment }> = ({ comment }) => (
   <ChangeRequestCommentWrapper>
     <StyledAvatar user={comment.createdBy} />
     <CommentPaper variant='outlined'>

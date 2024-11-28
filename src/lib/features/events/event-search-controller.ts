@@ -11,19 +11,13 @@ import {
   type EventSearchQueryParameters,
   eventSearchQueryParameters,
 } from '../../openapi/spec/event-search-query-parameters';
-import {
-  type EventSearchResponseSchema,
-  eventSearchResponseSchema,
-} from '../../openapi';
+import { type EventSearchResponseSchema, eventSearchResponseSchema } from '../../openapi';
 import { normalizeQueryParams } from '../../features/feature-search/search-utils';
 import Controller from '../../routes/controller';
 import type { IAuthRequest } from '../../server-impl';
 import type { IEnrichedEvent, IEvent } from '../../types';
 import { anonymiseKeys, extractUserIdFromUser } from '../../util';
-import {
-  FeatureEventFormatterMd,
-  type FeatureEventFormatter,
-} from '../../addons/feature-event-formatter-md';
+import { FeatureEventFormatterMd, type FeatureEventFormatter } from '../../addons/feature-event-formatter-md';
 
 const ANON_KEYS = ['email', 'username', 'createdBy'];
 const version = 1 as const;
@@ -36,10 +30,7 @@ export default class EventSearchController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      eventService,
-      openApiService,
-    }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
+    { eventService, openApiService }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -61,8 +52,7 @@ export default class EventSearchController extends Controller {
           operationId: 'searchEvents',
           tags: ['Events'],
           summary: 'Search for events',
-          description:
-            'Allows searching for events that match the query parameter criteria.',
+          description: 'Allows searching for events that match the query parameter criteria.',
           parameters: [...eventSearchQueryParameters],
           responses: {
             200: createResponseSchema('eventSearchResponseSchema'),
@@ -77,13 +67,10 @@ export default class EventSearchController extends Controller {
     res: Response<EventSearchResponseSchema>,
   ): Promise<void> {
     const { user } = req;
-    const { normalizedLimit, normalizedOffset } = normalizeQueryParams(
-      req.query,
-      {
-        limitDefault: 50,
-        maxLimit: 1000,
-      },
-    );
+    const { normalizedLimit, normalizedOffset } = normalizeQueryParams(req.query, {
+      limitDefault: 50,
+      maxLimit: 1000,
+    });
 
     const { events, totalEvents } = await this.eventService.searchEvents(
       {

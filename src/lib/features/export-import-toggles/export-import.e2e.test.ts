@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../test/e2e/helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import {
@@ -19,12 +16,7 @@ import {
   TEST_AUDIT_USER,
 } from '../../types';
 import { DEFAULT_ENV } from '../../util';
-import type {
-  ContextFieldSchema,
-  ImportTogglesSchema,
-  UpsertSegmentSchema,
-  VariantsSchema,
-} from '../../openapi';
+import type { ContextFieldSchema, ImportTogglesSchema, UpsertSegmentSchema, VariantsSchema } from '../../openapi';
 import type { IContextFieldDto } from '../../types/stores/context-field-store';
 
 let app: IUnleashTest;
@@ -64,11 +56,7 @@ const createFlag = async (
   username: string = 'test',
   userId: number = -9999,
 ) => {
-  await app.services.featureToggleServiceV2.createFeatureToggle(
-    projectId,
-    flag,
-    TEST_AUDIT_USER,
-  );
+  await app.services.featureToggleServiceV2.createFeatureToggle(projectId, flag, TEST_AUDIT_USER);
   if (strategy) {
     await app.services.featureToggleServiceV2.createStrategy(
       strategy,
@@ -95,11 +83,7 @@ const createFlag = async (
 };
 
 const createContext = async (context: ContextFieldSchema = defaultContext) => {
-  await app.request
-    .post('/api/admin/context')
-    .send(context)
-    .set('Content-Type', 'application/json')
-    .expect(201);
+  await app.request.post('/api/admin/context').send(context).set('Content-Type', 'application/json').expect(201);
 };
 
 const createVariants = async (feature: string, variants: IVariant[]) => {
@@ -112,10 +96,7 @@ const createVariants = async (feature: string, variants: IVariant[]) => {
   );
 };
 
-const createProjects = async (
-  projects: string[] = [DEFAULT_PROJECT],
-  featureLimit = 2,
-) => {
+const createProjects = async (projects: string[] = [DEFAULT_PROJECT], featureLimit = 2) => {
   await db.stores.environmentStore.create({
     name: DEFAULT_ENV,
     type: 'production',
@@ -146,8 +127,7 @@ const unArchiveFeature = async (featureName: string) => {
     .expect(200);
 };
 
-const getContextField = (name: string) =>
-  app.request.get(`/api/admin/context/${name}`).expect(200);
+const getContextField = (name: string) => app.request.get(`/api/admin/context/${name}`).expect(200);
 
 beforeAll(async () => {
   db = await dbInit('export_import_api_serial', getLogger);
@@ -399,18 +379,11 @@ test('should export custom context fields from strategies and variants', async (
   await createProjects();
   const strategyContext = {
     name: 'strategy-context',
-    legalValues: [
-      { value: 'strategy-context-1' },
-      { value: 'strategy-context-2' },
-      { value: 'strategy-context-3' },
-    ],
+    legalValues: [{ value: 'strategy-context-1' }, { value: 'strategy-context-2' }, { value: 'strategy-context-3' }],
   };
   const strategyStickinessContext = {
     name: 'strategy-stickiness',
-    legalValues: [
-      { value: 'strategy-stickiness-1' },
-      { value: 'strategy-stickiness-2' },
-    ],
+    legalValues: [{ value: 'strategy-stickiness-1' }, { value: 'strategy-stickiness-2' }],
   };
   await createContext(strategyContext);
   await createContext(strategyStickinessContext);
@@ -437,17 +410,11 @@ test('should export custom context fields from strategies and variants', async (
   );
   const variantStickinessContext = {
     name: 'variant-stickiness-context',
-    legalValues: [
-      { value: 'variant-stickiness-context-1' },
-      { value: 'variant-stickiness-context-2' },
-    ],
+    legalValues: [{ value: 'variant-stickiness-context-1' }, { value: 'variant-stickiness-context-2' }],
   };
   const variantOverridesContext = {
     name: 'variant-overrides-context',
-    legalValues: [
-      { value: 'variant-overrides-context-1' },
-      { value: 'variant-overrides-context-2' },
-    ],
+    legalValues: [{ value: 'variant-overrides-context-1' }, { value: 'variant-overrides-context-2' }],
   };
   await createContext(variantStickinessContext);
   await createContext(variantOverridesContext);
@@ -490,12 +457,7 @@ test('should export custom context fields from strategies and variants', async (
         featureName: defaultFeatureName,
       },
     ],
-    contextFields: [
-      strategyContext,
-      strategyStickinessContext,
-      variantOverridesContext,
-      variantStickinessContext,
-    ],
+    contextFields: [strategyContext, strategyStickinessContext, variantOverridesContext, variantStickinessContext],
   });
 });
 
@@ -633,16 +595,15 @@ const anotherExportedFeature: ImportTogglesSchema['data']['features'][0] = {
   project: 'old_project',
   name: 'second_feature',
 };
-const constraints: ImportTogglesSchema['data']['featureStrategies'][0]['constraints'] =
-  [
-    {
-      values: ['conduit'],
-      inverted: false,
-      operator: 'IN',
-      contextName: 'appName',
-      caseInsensitive: false,
-    },
-  ];
+const constraints: ImportTogglesSchema['data']['featureStrategies'][0]['constraints'] = [
+  {
+    values: ['conduit'],
+    inverted: false,
+    operator: 'IN',
+    contextName: 'appName',
+    caseInsensitive: false,
+  },
+];
 const exportedStrategy: ImportTogglesSchema['data']['featureStrategies'][0] = {
   featureName: defaultFeatureName,
   id: '798cb25a-2abd-47bd-8a95-40ec13472309',
@@ -747,19 +708,12 @@ const importWithMultipleFeatures: ImportTogglesSchema = {
 };
 
 const getFeature = async (feature: string) =>
-  app.request
-    .get(`/api/admin/projects/${DEFAULT_PROJECT}/features/${feature}`)
-    .expect(200);
+  app.request.get(`/api/admin/projects/${DEFAULT_PROJECT}/features/${feature}`).expect(200);
 
 const getFeatureEnvironment = (feature: string) =>
-  app.request
-    .get(
-      `/api/admin/projects/${DEFAULT_PROJECT}/features/${feature}/environments/${DEFAULT_ENV}`,
-    )
-    .expect(200);
+  app.request.get(`/api/admin/projects/${DEFAULT_PROJECT}/features/${feature}/environments/${DEFAULT_ENV}`).expect(200);
 
-const getTags = (feature: string) =>
-  app.request.get(`/api/admin/features/${feature}/tags`).expect(200);
+const getTags = (feature: string) => app.request.get(`/api/admin/features/${feature}/tags`).expect(200);
 
 const validateImport = (importPayload: ImportTogglesSchema, status = 200) =>
   app.request
@@ -827,8 +781,7 @@ test('import features to existing project and environment', async () => {
     ],
   });
 
-  const { body: importedFeatureEnvironment } =
-    await getFeatureEnvironment(defaultFeatureName);
+  const { body: importedFeatureEnvironment } = await getFeatureEnvironment(defaultFeatureName);
   expect(importedFeatureEnvironment).toMatchObject({
     name: defaultFeatureName,
     environment: DEFAULT_ENV,
@@ -909,8 +862,7 @@ test('can update toggles on subsequent import', async () => {
     variants,
   });
 
-  const { body: importedFeatureEnvironment } =
-    await getFeatureEnvironment(defaultFeatureName);
+  const { body: importedFeatureEnvironment } = await getFeatureEnvironment(defaultFeatureName);
 
   expect(importedFeatureEnvironment).toMatchObject({
     name: defaultFeatureName,
@@ -1061,8 +1013,7 @@ test('validate import data', async () => {
   expect(body).toMatchObject({
     errors: [
       {
-        message:
-          'We detected the following custom strategy that needs to be created first:',
+        message: 'We detected the following custom strategy that needs to be created first:',
         affectedItems: ['customStrategy'],
       },
       {
@@ -1071,8 +1022,7 @@ test('validate import data', async () => {
         affectedItems: [contextField.name],
       },
       {
-        message:
-          'We detected the following features are duplicate in your import data:',
+        message: 'We detected the following features are duplicate in your import data:',
         affectedItems: [defaultFeatureName],
       },
 
@@ -1086,14 +1036,12 @@ test('validate import data', async () => {
         affectedItems: [],
       },
       {
-        message:
-          'We detected the following segments that need to be created first:',
+        message: 'We detected the following segments that need to be created first:',
         affectedItems: ['customSegment'],
       },
       {
         affectedItems: ['parentFeature'],
-        message:
-          'We detected the following dependencies that need to be created first:',
+        message: 'We detected the following dependencies that need to be created first:',
       },
     ],
     warnings: [

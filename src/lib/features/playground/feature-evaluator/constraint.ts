@@ -29,13 +29,9 @@ export enum Operator {
   SEMVER_LT = 'SEMVER_LT',
 }
 
-export type OperatorImpl = (
-  constraint: Constraint,
-  context: Context,
-) => boolean;
+export type OperatorImpl = (constraint: Constraint, context: Context) => boolean;
 
-const cleanValues = (values: string[]) =>
-  values.filter((v) => !!v).map((v) => v.trim());
+const cleanValues = (values: string[]) => values.filter((v) => !!v).map((v) => v.trim());
 
 const InOperator = (constraint: Constraint, context: Context) => {
   const field = constraint.contextName;
@@ -44,9 +40,7 @@ const InOperator = (constraint: Constraint, context: Context) => {
   const contextValue = resolveContextValue(context, field);
 
   const isIn = values.some((val) =>
-    caseInsensitive
-      ? val.toLowerCase() === contextValue?.toLowerCase()
-      : val === contextValue,
+    caseInsensitive ? val.toLowerCase() === contextValue?.toLowerCase() : val === contextValue,
   );
   return constraint.operator === Operator.IN ? isIn : !isIn;
 };
@@ -96,9 +90,7 @@ const SemverOperator = (constraint: Constraint, context: Context) => {
 const DateOperator = (constraint: Constraint, context: Context) => {
   const { operator } = constraint;
   const value = new Date(constraint.value as string);
-  const currentTime = context.currentTime
-    ? new Date(context.currentTime)
-    : new Date();
+  const currentTime = context.currentTime ? new Date(context.currentTime) : new Date();
 
   if (operator === Operator.DATE_AFTER) {
     return currentTime > value;

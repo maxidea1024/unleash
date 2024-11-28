@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  IconButton,
-  styled,
-  TextField,
-  Tooltip,
-} from '@mui/material';
+import { Box, Button, ClickAwayListener, IconButton, styled, TextField, Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useFeedbackContext } from './useFeedback';
 import type React from 'react';
@@ -172,8 +164,7 @@ const StyledButtonContainer = styled(Box)(({ theme }) => ({
 }));
 
 export const FeedbackComponentWrapper = () => {
-  const { feedbackData, showFeedback, closeFeedback, feedbackMode } =
-    useFeedbackContext();
+  const { feedbackData, showFeedback, closeFeedback, feedbackMode } = useFeedbackContext();
 
   if (!feedbackData || !feedbackMode) return null;
 
@@ -194,33 +185,23 @@ interface IFeedbackComponent {
   closeFeedback: () => void;
 }
 
-export const FeedbackComponent = ({
-  feedbackData,
-  showFeedback,
-  closeFeedback,
-  feedbackMode,
-}: IFeedbackComponent) => {
+export const FeedbackComponent = ({ feedbackData, showFeedback, closeFeedback, feedbackMode }: IFeedbackComponent) => {
   const { setToastData } = useToast();
   const userType = useUserType();
   const { trackEvent } = usePlausibleTracker();
   const theme = useTheme();
 
   const { addFeedback } = useUserFeedbackApi();
-  const { setHasSubmittedFeedback } = useUserSubmittedFeedback(
-    feedbackData.category,
-  );
+  const { setHasSubmittedFeedback } = useUserSubmittedFeedback(feedbackData.category);
   const feedbackComments = useUiFlag('feedbackComments');
 
   function isProvideFeedbackSchema(data: any): data is ProvideFeedbackSchema {
-    data.difficultyScore = data.difficultyScore
-      ? Number(data.difficultyScore)
-      : undefined;
+    data.difficultyScore = data.difficultyScore ? Number(data.difficultyScore) : undefined;
 
     return (
       typeof data.category === 'string' &&
       typeof data.userType === 'string' &&
-      (typeof data.difficultyScore === 'number' ||
-        data.difficultyScore === undefined)
+      (typeof data.difficultyScore === 'number' || data.difficultyScore === undefined)
     );
   }
 
@@ -292,23 +273,14 @@ export const FeedbackComponent = ({
               <StyledContent>
                 <StyledTitle>Help us to improve Unleash</StyledTitle>
                 <StyledForm onSubmit={onSubmission}>
-                  <input
-                    type='hidden'
-                    name='category'
-                    value={feedbackData.category}
-                  />
+                  <input type='hidden' name='category' value={feedbackData.category} />
                   <input type='hidden' name='userType' value={userType} />
                   <FormTitle>{feedbackData.title}</FormTitle>
                   <StyledScoreContainer>
                     <StyledScoreInput>
                       {[1, 2, 3, 4, 5, 6, 7].map((score) => (
                         <StyledScoreValue key={score}>
-                          <input
-                            type='radio'
-                            name='difficultyScore'
-                            value={score}
-                            onChange={onScoreChange}
-                          />
+                          <input type='radio' name='difficultyScore' value={score} onChange={onScoreChange} />
                           <span>{score}</span>
                         </StyledScoreValue>
                       ))}
@@ -362,9 +334,7 @@ export const FeedbackComponent = ({
                   ) : (
                     <>
                       <Box>
-                        <FormSubTitle>
-                          {feedbackData.positiveLabel}
-                        </FormSubTitle>
+                        <FormSubTitle>{feedbackData.positiveLabel}</FormSubTitle>
                         <TextField
                           placeholder='Your answer here'
                           style={{ width: '100%' }}
@@ -381,9 +351,7 @@ export const FeedbackComponent = ({
                         />
                       </Box>
                       <Box>
-                        <FormSubTitle>
-                          {feedbackData.areasForImprovementsLabel}
-                        </FormSubTitle>
+                        <FormSubTitle>{feedbackData.areasForImprovementsLabel}</FormSubTitle>
                         <TextField
                           placeholder='Your answer here'
                           style={{ width: '100%' }}
@@ -403,22 +371,13 @@ export const FeedbackComponent = ({
                   )}
 
                   <StyledButtonContainer>
-                    <StyledButton
-                      disabled={!selectedScore}
-                      variant='contained'
-                      color='primary'
-                      type='submit'
-                    >
+                    <StyledButton disabled={!selectedScore} variant='contained' color='primary' type='submit'>
                       Send Feedback
                     </StyledButton>
                     <ConditionallyRender
                       condition={feedbackMode === 'manual'}
                       show={
-                        <StyledButton
-                          variant='outlined'
-                          color='primary'
-                          onClick={dontAskAgain}
-                        >
+                        <StyledButton variant='outlined' color='primary' onClick={dontAskAgain}>
                           Don't ask me again
                         </StyledButton>
                       }

@@ -58,13 +58,9 @@ interface IEntityWithProjectRoles {
   roles?: number[];
 }
 
-export interface IUserWithProjectRoles
-  extends IUserWithRole,
-    IEntityWithProjectRoles {}
+export interface IUserWithProjectRoles extends IUserWithRole, IEntityWithProjectRoles {}
 
-export interface IGroupWithProjectRoles
-  extends IGroupModelWithAddedAt,
-    IEntityWithProjectRoles {}
+export interface IGroupWithProjectRoles extends IGroupModelWithAddedAt, IEntityWithProjectRoles {}
 
 export interface IAccessStore extends IStore<IRole, number> {
   getAvailablePermissions(): Promise<IPermission[]>;
@@ -83,15 +79,9 @@ export interface IAccessStore extends IStore<IRole, number> {
 
   getRolesForUserId(userId: number): Promise<IRoleWithProject[]>;
 
-  getProjectUsersForRole(
-    roleId: number,
-    projectId?: string,
-  ): Promise<IUserRole[]>;
+  getProjectUsersForRole(roleId: number, projectId?: string): Promise<IUserRole[]>;
 
-  getAllProjectRolesForUser(
-    userId: number,
-    project: string,
-  ): Promise<IRoleWithProject[]>;
+  getAllProjectRolesForUser(userId: number, project: string): Promise<IRoleWithProject[]>;
 
   getProjectUsers(projectId?: string): Promise<IUserWithProjectRoles[]>;
 
@@ -99,22 +89,13 @@ export interface IAccessStore extends IStore<IRole, number> {
 
   getGroupIdsForRole(roleId: number, projectId?: string): Promise<number[]>;
 
-  getProjectUserAndGroupCountsForRole(
-    roleId: number,
-  ): Promise<IProjectRoleUsage[]>;
+  getProjectUserAndGroupCountsForRole(roleId: number): Promise<IProjectRoleUsage[]>;
 
   wipePermissionsFromRole(role_id: number): Promise<void>;
 
-  addEnvironmentPermissionsToRole(
-    role_id: number,
-    permissions: PermissionRef[],
-  ): Promise<void>;
+  addEnvironmentPermissionsToRole(role_id: number, permissions: PermissionRef[]): Promise<void>;
 
-  addUserToRole(
-    userId: number,
-    roleId: number,
-    projectId?: string,
-  ): Promise<void>;
+  addUserToRole(userId: number, roleId: number, projectId?: string): Promise<void>;
 
   addRoleAccessToProject(
     users: IAccessInfo[],
@@ -132,75 +113,31 @@ export interface IAccessStore extends IStore<IRole, number> {
     createdBy: string,
   ): Promise<void>;
 
-  removeUserFromRole(
-    userId: number,
-    roleId: number,
-    projectId?: string,
-  ): Promise<void>;
+  removeUserFromRole(userId: number, roleId: number, projectId?: string): Promise<void>;
 
-  addGroupToRole(
-    groupId: number,
-    roleId: number,
-    created_by: string,
-    projectId?: string,
-  ): Promise<void>;
+  addGroupToRole(groupId: number, roleId: number, created_by: string, projectId?: string): Promise<void>;
 
-  removeGroupFromRole(
-    groupId: number,
-    roleId: number,
-    projectId?: string,
-  ): Promise<void>;
+  removeGroupFromRole(groupId: number, roleId: number, projectId?: string): Promise<void>;
 
-  updateUserProjectRole(
-    userId: number,
-    roleId: number,
-    projectId: string,
-  ): Promise<void>;
+  updateUserProjectRole(userId: number, roleId: number, projectId: string): Promise<void>;
 
-  updateGroupProjectRole(
-    userId: number,
-    roleId: number,
-    projectId: string,
-  ): Promise<void>;
+  updateGroupProjectRole(userId: number, roleId: number, projectId: string): Promise<void>;
 
   removeRolesOfTypeForUser(userId: number, roleTypes: string[]): Promise<void>;
 
-  addPermissionsToRole(
-    role_id: number,
-    permissions: PermissionRef[] | string[],
-    environment?: string,
-  ): Promise<void>;
+  addPermissionsToRole(role_id: number, permissions: PermissionRef[] | string[], environment?: string): Promise<void>;
 
-  removePermissionFromRole(
-    roleId: number,
-    permission: string,
-    environment?: string,
-  ): Promise<void>;
+  removePermissionFromRole(roleId: number, permission: string, environment?: string): Promise<void>;
 
-  cloneEnvironmentPermissions(
-    sourceEnvironment: string,
-    destinationEnvironment: string,
-  ): Promise<void>;
+  cloneEnvironmentPermissions(sourceEnvironment: string, destinationEnvironment: string): Promise<void>;
 
-  setProjectRolesForUser(
-    projectId: string,
-    userId: number,
-    roles: number[],
-  ): Promise<void>;
+  setProjectRolesForUser(projectId: string, userId: number, roles: number[]): Promise<void>;
   getProjectRolesForUser(projectId: string, userId: number): Promise<number[]>;
 
   getRootRoleForUser(userId: number): Promise<IRole | undefined>;
 
-  setProjectRolesForGroup(
-    projectId: string,
-    groupId: number,
-    roles: number[],
-    createdBy: string,
-  ): Promise<void>;
-  getProjectRolesForGroup(
-    projectId: string,
-    groupId: number,
-  ): Promise<number[]>;
+  setProjectRolesForGroup(projectId: string, groupId: number, roles: number[], createdBy: string): Promise<void>;
+  getProjectRolesForGroup(projectId: string, groupId: number): Promise<number[]>;
 
   removeUserAccess(projectId: string, userId: number): Promise<void>;
 

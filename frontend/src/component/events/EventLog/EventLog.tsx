@@ -51,15 +51,7 @@ const Placeholder = styled('li')({
 export const EventLog = ({ title, project, feature }: IEventLogProps) => {
   const { isEnterprise } = useUiConfig();
   const showFilters = isEnterprise();
-  const {
-    events,
-    total,
-    loading,
-    tableState,
-    setTableState,
-    filterState,
-    pagination,
-  } = useEventLogSearch(
+  const { events, total, loading, tableState, setTableState, filterState, pagination } = useEventLogSearch(
     project
       ? { type: 'project', projectId: project }
       : feature
@@ -79,23 +71,13 @@ export const EventLog = ({ title, project, feature }: IEventLogProps) => {
   };
 
   const searchInputField = (
-    <Search
-      onChange={setSearchValue}
-      initialValue={tableState.query || ''}
-      debounceTime={500}
-    />
+    <Search onChange={setSearchValue} initialValue={tableState.query || ''} debounceTime={500} />
   );
 
   const showDataSwitch = (
     <FormControlLabel
       label='Full events'
-      control={
-        <Switch
-          checked={eventSettings.showData}
-          onChange={onShowData}
-          color='primary'
-        />
-      }
+      control={<Switch checked={eventSettings.showData} onChange={onShowData} color='primary' />}
     />
   );
 
@@ -104,10 +86,7 @@ export const EventLog = ({ title, project, feature }: IEventLogProps) => {
       return (
         <StyledEventsList>
           {Array.from({ length: pagination.pageSize }).map((_, i) => (
-            <Placeholder
-              data-loading-events='true'
-              key={`event-skeleton-${i}`}
-            />
+            <Placeholder data-loading-events='true' key={`event-skeleton-${i}`} />
           ))}
         </StyledEventsList>
       );

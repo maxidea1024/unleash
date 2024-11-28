@@ -10,9 +10,7 @@ export interface IPersonalDashboardProjectDetailsOutput {
   error?: Error;
 }
 
-export const usePersonalDashboardProjectDetails = (
-  project?: string,
-): IPersonalDashboardProjectDetailsOutput => {
+export const usePersonalDashboardProjectDetails = (project?: string): IPersonalDashboardProjectDetailsOutput => {
   const { data, error, mutate } = useConditionalSWR(
     Boolean(project),
     {

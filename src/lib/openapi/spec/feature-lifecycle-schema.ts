@@ -13,14 +13,12 @@ export const featureLifecycleSchema = {
         type: 'string',
         enum: ['initial', 'pre-live', 'live', 'completed', 'archived'],
         example: 'initial',
-        description:
-          'The name of the lifecycle stage that got recorded for a given feature',
+        description: 'The name of the lifecycle stage that got recorded for a given feature',
       },
       status: {
         type: 'string',
         example: 'kept',
-        description:
-          'The name of the detailed status of a given stage. E.g. completed stage can be kept or discarded.',
+        description: 'The name of the detailed status of a given stage. E.g. completed stage can be kept or discarded.',
       },
       enteredStageAt: {
         type: 'string',

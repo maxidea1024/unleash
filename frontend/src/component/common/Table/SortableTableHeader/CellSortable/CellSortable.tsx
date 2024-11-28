@@ -1,13 +1,5 @@
 import type React from 'react';
-import {
-  type FC,
-  type MouseEventHandler,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { type FC, type MouseEventHandler, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AnnouncerContext } from 'component/common/Announcer/AnnouncerContext/AnnouncerContext';
@@ -55,19 +47,11 @@ export const CellSortable: FC<ICellSortableProps> = ({
   const [title, setTitle] = useState('');
   const ref = useRef<HTMLSpanElement>(null);
 
-  const ariaSort = isSorted
-    ? isDescending
-      ? 'descending'
-      : 'ascending'
-    : undefined;
+  const ariaSort = isSorted ? (isDescending ? 'descending' : 'ascending') : undefined;
 
   const onSortClick: MouseEventHandler<HTMLButtonElement> = (event) => {
     onClick(event);
-    setAnnouncement(
-      `Sorted${ariaTitle ? ` by ${ariaTitle} ` : ''}, ${
-        isDescending ? 'ascending' : 'descending'
-      }`,
-    );
+    setAnnouncement(`Sorted${ariaTitle ? ` by ${ariaTitle} ` : ''}, ${isDescending ? 'ascending' : 'descending'}`);
   };
 
   const alignStyle = useMemo(() => {
@@ -94,11 +78,7 @@ export const CellSortable: FC<ICellSortableProps> = ({
 
   useEffect(() => {
     const newTitle =
-      ariaTitle &&
-      ref.current &&
-      ref?.current?.offsetWidth < ref?.current?.scrollWidth
-        ? `${children}`
-        : '';
+      ariaTitle && ref.current && ref?.current?.offsetWidth < ref?.current?.scrollWidth ? `${children}` : '';
 
     if (newTitle !== title) {
       setTitle(newTitle);
@@ -118,11 +98,7 @@ export const CellSortable: FC<ICellSortableProps> = ({
         condition={isSortable}
         show={
           <Tooltip title={title} arrow>
-            <StyledButton
-              isSorted={isSorted}
-              type='button'
-              onClick={onSortClick}
-            >
+            <StyledButton isSorted={isSorted} type='button' onClick={onSortClick}>
               <StyledHiddenMeasurementLayer style={alignStyle} aria-hidden>
                 <StyledLabel tabIndex={-1} data-text={children}>
                   {children}
@@ -133,11 +109,7 @@ export const CellSortable: FC<ICellSortableProps> = ({
                 <span ref={ref} tabIndex={-1}>
                   <span>{children}</span>
                 </span>
-                <SortArrow
-                  isSorted={isSorted}
-                  isDesc={isDescending}
-                  className='sort-arrow'
-                />
+                <SortArrow isSorted={isSorted} isDesc={isDescending} className='sort-arrow' />
               </StyledVisibleAbsoluteLayer>
             </StyledButton>
           </Tooltip>

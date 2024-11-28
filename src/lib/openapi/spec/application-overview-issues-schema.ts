@@ -19,6 +19,4 @@ export const applicationOverviewIssuesSchema = {
   components: {},
 } as const;
 
-export type ApplicationOverviewIssuesSchema = FromSchema<
-  typeof applicationOverviewIssuesSchema
->;
+export type ApplicationOverviewIssuesSchema = FromSchema<typeof applicationOverviewIssuesSchema>;

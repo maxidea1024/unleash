@@ -1,9 +1,4 @@
-import type {
-  IStrategy,
-  IFeatureStrategy,
-  IFeatureStrategyParameters,
-  IStrategyParameter,
-} from 'interfaces/strategy';
+import type { IStrategy, IFeatureStrategy, IFeatureStrategyParameters, IStrategyParameter } from 'interfaces/strategy';
 
 // Create a new feature strategy with default values from a strategy definition.
 export const createFeatureStrategy = (
@@ -13,10 +8,7 @@ export const createFeatureStrategy = (
   const parameters: IFeatureStrategyParameters = {};
 
   strategyDefinition.parameters.forEach((parameter: IStrategyParameter) => {
-    parameters[parameter.name] = createFeatureStrategyParameterValue(
-      featureId,
-      parameter,
-    );
+    parameters[parameter.name] = createFeatureStrategyParameterValue(featureId, parameter);
   });
 
   return {
@@ -27,15 +19,8 @@ export const createFeatureStrategy = (
 };
 
 // Create default feature strategy parameter values from a strategy definition.
-const createFeatureStrategyParameterValue = (
-  featureId: string,
-  parameter: IStrategyParameter,
-): string => {
-  if (
-    parameter.name === 'rollout' ||
-    parameter.name === 'percentage' ||
-    parameter.type === 'percentage'
-  ) {
+const createFeatureStrategyParameterValue = (featureId: string, parameter: IStrategyParameter): string => {
+  if (parameter.name === 'rollout' || parameter.name === 'percentage' || parameter.type === 'percentage') {
     return '50';
   }
 

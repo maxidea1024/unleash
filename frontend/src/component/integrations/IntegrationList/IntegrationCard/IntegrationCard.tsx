@@ -37,9 +37,7 @@ interface IIntegrationCardWithOnClickProps extends IIntegrationCardBaseProps {
   onClick: () => void;
 }
 
-type IIntegrationCardProps =
-  | IIntegrationCardWithLinkProps
-  | IIntegrationCardWithOnClickProps;
+type IIntegrationCardProps = IIntegrationCardWithLinkProps | IIntegrationCardWithOnClickProps;
 
 const StyledCard = styled('div', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -159,25 +157,15 @@ export const IntegrationCard: VFC<IIntegrationCardProps> = ({
             </Badge>
           }
         />
-        <ConditionallyRender
-          condition={isEnabled === false}
-          show={<Badge data-loading>Disabled</Badge>}
-        />
-        <ConditionallyRender
-          condition={isConfigured}
-          show={<IntegrationCardMenu addon={addon as AddonSchema} />}
-        />
+        <ConditionallyRender condition={isEnabled === false} show={<Badge data-loading>Disabled</Badge>} />
+        <ConditionallyRender condition={isConfigured} show={<IntegrationCardMenu addon={addon as AddonSchema} />} />
       </StyledHeader>
       <Typography variant='body2' color='text.secondary' data-loading>
         {description}
       </Typography>
       <StyledAction data-loading>
         {configureActionText}
-        <ConditionallyRender
-          condition={isExternal}
-          show={<StyledOpenInNewIcon />}
-          elseShow={<ChevronRightIcon />}
-        />
+        <ConditionallyRender condition={isExternal} show={<StyledOpenInNewIcon />} elseShow={<ChevronRightIcon />} />
         <IntegrationEventsLastEvent integration={addon} sx={{ ml: 'auto' }} />
       </StyledAction>
     </StyledCard>
@@ -197,12 +185,7 @@ export const IntegrationCard: VFC<IIntegrationCardProps> = ({
     );
   } else if (isExternal) {
     return (
-      <StyledLink
-        href={link}
-        target='_blank'
-        rel='noreferrer'
-        onClick={handleClick}
-      >
+      <StyledLink href={link} target='_blank' rel='noreferrer' onClick={handleClick}>
         {content}
       </StyledLink>
     );

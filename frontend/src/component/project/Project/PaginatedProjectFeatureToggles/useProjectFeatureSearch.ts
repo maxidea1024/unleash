@@ -1,18 +1,6 @@
-import {
-  ArrayParam,
-  encodeQueryParams,
-  NumberParam,
-  StringParam,
-  withDefault,
-} from 'use-query-params';
-import {
-  DEFAULT_PAGE_LIMIT,
-  useFeatureSearch,
-} from 'hooks/api/getters/useFeatureSearch/useFeatureSearch';
-import {
-  BooleansStringParam,
-  FilterItemParam,
-} from 'utils/serializeQueryParams';
+import { ArrayParam, encodeQueryParams, NumberParam, StringParam, withDefault } from 'use-query-params';
+import { DEFAULT_PAGE_LIMIT, useFeatureSearch } from 'hooks/api/getters/useFeatureSearch/useFeatureSearch';
+import { BooleansStringParam, FilterItemParam } from 'utils/serializeQueryParams';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import mapValues from 'lodash.mapvalues';
 import type { SearchFeaturesParams } from 'openapi';
@@ -42,10 +30,7 @@ export const useProjectFeatureSearch = (
     createdBy: FilterItemParam,
     archived: FilterItemParam,
   };
-  const [tableState, setTableState] = usePersistentTableState(
-    `${storageKey}-${projectId}`,
-    stateConfig,
-  );
+  const [tableState, setTableState] = usePersistentTableState(`${storageKey}-${projectId}`, stateConfig);
 
   const { columns: _, ...apiTableState } = tableState;
   const { features, total, refetch, loading, initialLoad } = useFeatureSearch(
@@ -79,11 +64,7 @@ export const useProjectFeatureSearchActions = (
   const onAttributeClick = (attribute: Attribute, value: string) => {
     const attributeState = tableState[attribute.key];
 
-    if (
-      attributeState &&
-      attributeState.values.length > 0 &&
-      !attributeState.values.includes(value)
-    ) {
+    if (attributeState && attributeState.values.length > 0 && !attributeState.values.includes(value)) {
       setTableState({
         [attribute.key]: {
           operator: attributeState.operator,
@@ -100,12 +81,9 @@ export const useProjectFeatureSearchActions = (
     }
   };
 
-  const onTagClick = (tag: string) =>
-    onAttributeClick({ key: 'tag', operator: 'INCLUDE' }, tag);
-  const onFlagTypeClick = (type: string) =>
-    onAttributeClick({ key: 'type', operator: 'IS' }, type);
-  const onAvatarClick = (userId: number) =>
-    onAttributeClick({ key: 'createdBy', operator: 'IS' }, userId.toString());
+  const onTagClick = (tag: string) => onAttributeClick({ key: 'tag', operator: 'INCLUDE' }, tag);
+  const onFlagTypeClick = (type: string) => onAttributeClick({ key: 'type', operator: 'IS' }, type);
+  const onAvatarClick = (userId: number) => onAttributeClick({ key: 'createdBy', operator: 'IS' }, userId.toString());
 
   return {
     onFlagTypeClick,

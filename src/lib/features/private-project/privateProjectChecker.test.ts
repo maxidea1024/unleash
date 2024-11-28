@@ -16,10 +16,7 @@ test('filter user accessible projects', async () => {
     { isEnterprise: true },
   );
 
-  const projects = await checker.filterUserAccessibleProjects(123, [
-    'projectA',
-    'projectC',
-  ]);
+  const projects = await checker.filterUserAccessibleProjects(123, ['projectA', 'projectC']);
 
   expect(projects).toEqual(['projectA']);
 });
@@ -39,10 +36,7 @@ test('do not filter for non enterprise', async () => {
     { isEnterprise: false },
   );
 
-  const projects = await checker.filterUserAccessibleProjects(123, [
-    'projectA',
-    'projectC',
-  ]);
+  const projects = await checker.filterUserAccessibleProjects(123, ['projectA', 'projectC']);
 
   expect(projects).toEqual(['projectA', 'projectC']);
 });
@@ -59,10 +53,7 @@ test('do not filter for all mode', async () => {
     { isEnterprise: false },
   );
 
-  const projects = await checker.filterUserAccessibleProjects(123, [
-    'projectA',
-    'projectC',
-  ]);
+  const projects = await checker.filterUserAccessibleProjects(123, ['projectA', 'projectC']);
 
   expect(projects).toEqual(['projectA', 'projectC']);
 });

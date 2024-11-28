@@ -8,8 +8,7 @@ export interface IFeatureTag {
   createdByUserId?: number;
 }
 
-export interface IFeatureTagInsert
-  extends Omit<IFeatureTag, 'created_by_user_id'> {
+export interface IFeatureTagInsert extends Omit<IFeatureTag, 'created_by_user_id'> {
   createdByUserId: number;
 }
 
@@ -25,17 +24,11 @@ export interface IFeatureTagStore extends IStore<IFeatureTag, IFeatureTag> {
 
   getAllByFeatures(features: string[]): Promise<IFeatureTag[]>;
 
-  tagFeature(
-    featureName: string,
-    tag: ITag,
-    createdByUserId: number,
-  ): Promise<ITag>;
+  tagFeature(featureName: string, tag: ITag, createdByUserId: number): Promise<ITag>;
 
   tagFeatures(featureTags: IFeatureTagInsert[]): Promise<IFeatureAndTag[]>;
 
   untagFeature(featureName: string, tag: ITag): Promise<void>;
 
-  untagFeatures(
-    featureTags: Omit<IFeatureTag, 'createdByUserId'>[],
-  ): Promise<void>;
+  untagFeatures(featureTags: Omit<IFeatureTag, 'createdByUserId'>[]): Promise<void>;
 }

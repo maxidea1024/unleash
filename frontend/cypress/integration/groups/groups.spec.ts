@@ -20,9 +20,7 @@ describe('groups', () => {
   });
 
   after(() => {
-    userIds.forEach((id) =>
-      cy.request('DELETE', `${baseUrl}/api/admin/user-admin/${id}`),
-    );
+    userIds.forEach((id) => cy.request('DELETE', `${baseUrl}/api/admin/user-admin/${id}`));
   });
 
   beforeEach(() => {
@@ -54,9 +52,7 @@ describe('groups', () => {
     cy.intercept('POST', '/api/admin/groups').as('createGroup');
 
     cy.get("[data-testid='UG_NAME_ID']").type(groupName);
-    cy.get("[data-testid='INPUT_ERROR_TEXT'").contains(
-      'A group with that name already exists.',
-    );
+    cy.get("[data-testid='INPUT_ERROR_TEXT'").contains('A group with that name already exists.');
   });
 
   it('can edit a group', () => {

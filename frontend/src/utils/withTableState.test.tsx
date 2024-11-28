@@ -16,11 +16,7 @@ describe('withTableState', () => {
     const mockSetTableState = vi.fn();
     const mockOptions = { data: [], columns: [] };
 
-    const result = withTableState(
-      mockTableState,
-      mockSetTableState,
-      mockOptions,
-    );
+    const result = withTableState(mockTableState, mockSetTableState, mockOptions);
 
     expect(result.state).toEqual({
       pagination: {
@@ -72,11 +68,7 @@ describe('withTableState', () => {
     const mockSetTableState = vi.fn();
     const mockOptions = { data: [], columns: [] };
 
-    const { result } = renderHook(() =>
-      useReactTable(
-        withTableState(mockTableState, mockSetTableState, mockOptions),
-      ),
-    );
+    const { result } = renderHook(() => useReactTable(withTableState(mockTableState, mockSetTableState, mockOptions)));
 
     result.current.setPagination({
       pageIndex: 3,
@@ -99,11 +91,7 @@ describe('withTableState', () => {
     const mockSetTableState = vi.fn();
     const mockOptions = { data: [], columns: [] };
 
-    const { result } = renderHook(() =>
-      useReactTable(
-        withTableState(mockTableState, mockSetTableState, mockOptions),
-      ),
-    );
+    const { result } = renderHook(() => useReactTable(withTableState(mockTableState, mockSetTableState, mockOptions)));
 
     result.current.setSorting([
       {
@@ -141,11 +129,7 @@ describe('withTableState', () => {
       ],
     };
 
-    const { result } = renderHook(() =>
-      useReactTable(
-        withTableState(mockTableState, mockSetTableState, mockOptions),
-      ),
-    );
+    const { result } = renderHook(() => useReactTable(withTableState(mockTableState, mockSetTableState, mockOptions)));
 
     expect(result.current.getState().columnVisibility).toMatchObject({
       name: true,
@@ -239,44 +223,21 @@ describe('withTableState', () => {
           <button type='button' onClick={table.previousPage}>
             Previous page
           </button>
-          <button
-            type='button'
-            onClick={() => table.setPagination({ pageIndex: 2, pageSize: 10 })}
-          >
+          <button type='button' onClick={() => table.setPagination({ pageIndex: 2, pageSize: 10 })}>
             Paginate
           </button>
-          <button
-            type='button'
-            onClick={() => table.setSorting([{ id: 'createdAt', desc: true }])}
-          >
+          <button type='button' onClick={() => table.setSorting([{ id: 'createdAt', desc: true }])}>
             Sort
           </button>
           <textarea value={JSON.stringify(table.getState())} readOnly />
-          <input
-            data-testid='page'
-            type='text'
-            value={table.getState().pagination.pageIndex}
-            readOnly
-          />
-          <input
-            data-testid='pageSize'
-            type='text'
-            value={table.getState().pagination.pageSize}
-            readOnly
-          />
-          <input
-            data-testid='sort'
-            type='text'
-            value={table.getState().sorting[0].id}
-            readOnly
-          />
+          <input data-testid='page' type='text' value={table.getState().pagination.pageIndex} readOnly />
+          <input data-testid='pageSize' type='text' value={table.getState().pagination.pageSize} readOnly />
+          <input data-testid='sort' type='text' value={table.getState().sorting[0].id} readOnly />
         </>
       );
     };
 
-    const { getByTestId, findByTestId, getByRole, findByRole } = render(
-      <Component />,
-    );
+    const { getByTestId, findByTestId, getByRole, findByRole } = render(<Component />);
 
     expect(getByTestId('page')).toHaveValue('8');
     expect(getByTestId('pageSize')).toHaveValue('5');
@@ -326,11 +287,7 @@ describe('withTableState', () => {
       ],
     };
 
-    const result = withTableState(
-      mockTableState,
-      mockSetTableState,
-      mockOptions,
-    );
+    const result = withTableState(mockTableState, mockSetTableState, mockOptions);
 
     expect(result.state).toMatchObject({
       columnVisibility: {

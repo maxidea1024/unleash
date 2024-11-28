@@ -84,14 +84,16 @@
       "./package.json",
       "./frontend/package.json"
     ],
-    "indentWidth": 2
+    "indentWidth": 2,
+    "lineWidth": 120
   },
   "javascript": {
     "formatter": {
       "semicolons": "always",
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
-      "indentWidth": 2
+      "indentWidth": 2,
+      "lineWidth": 120
     }
   },
   "json": {

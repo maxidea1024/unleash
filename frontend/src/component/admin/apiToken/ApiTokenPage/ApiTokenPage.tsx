@@ -48,10 +48,7 @@ export const ApiTokenPage = () => {
 
     return (
       <ActionCell>
-        <CopyApiTokenButton
-          token={props.row.original}
-          permission={READ_PERMISSION}
-        />
+        <CopyApiTokenButton token={props.row.original} permission={READ_PERMISSION} />
         <RemoveApiTokenButton
           token={props.row.original}
           permission={DELETE_PERMISSION}
@@ -65,26 +62,17 @@ export const ApiTokenPage = () => {
   });
 
   return (
-    <PermissionGuard
-      permissions={[READ_CLIENT_API_TOKEN, READ_FRONTEND_API_TOKEN, ADMIN]}
-    >
+    <PermissionGuard permissions={[READ_CLIENT_API_TOKEN, READ_FRONTEND_API_TOKEN, ADMIN]}>
       <PageContent
         header={
           <PageHeader
             title={`API access (${rows.length})`}
             actions={
               <>
-                <Search
-                  initialValue={globalFilter}
-                  onChange={setGlobalFilter}
-                />
+                <Search initialValue={globalFilter} onChange={setGlobalFilter} />
                 <PageHeader.Divider />
                 <CreateApiTokenButton
-                  permission={[
-                    CREATE_FRONTEND_API_TOKEN,
-                    CREATE_CLIENT_API_TOKEN,
-                    ADMIN,
-                  ]}
+                  permission={[CREATE_FRONTEND_API_TOKEN, CREATE_CLIENT_API_TOKEN, ADMIN]}
                   path='/admin/api/create-token'
                 />
               </>

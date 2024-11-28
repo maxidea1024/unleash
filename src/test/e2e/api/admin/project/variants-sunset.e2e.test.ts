@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
 import getLogger from '../../../../fixtures/no-logger';
 import { WeightType } from '../../../../../lib/types/model';
@@ -41,11 +38,7 @@ test('Cannot add environment variants to a new feature', async () => {
     name: featureName,
     createdByUserId: 9999,
   });
-  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(
-    featureName,
-    'development',
-    true,
-  );
+  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(featureName, 'development', true);
 
   const patch = [
     {
@@ -60,9 +53,7 @@ test('Cannot add environment variants to a new feature', async () => {
   ];
 
   await app.request
-    .patch(
-      `/api/admin/projects/default/features/${featureName}/environments/development/variants`,
-    )
+    .patch(`/api/admin/projects/default/features/${featureName}/environments/development/variants`)
     .send(patch)
     .expect(403)
     .expect((res) => {
@@ -79,11 +70,7 @@ test('Can add environment variants when existing ones exist for this feature', a
     name: featureName,
     createdByUserId: 9999,
   });
-  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(
-    featureName,
-    'development',
-    true,
-  );
+  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(featureName, 'development', true);
   await db.stores.featureToggleStore.saveVariants('default', featureName, [
     {
       name: 'existing-variant',
@@ -106,9 +93,7 @@ test('Can add environment variants when existing ones exist for this feature', a
   ];
 
   await app.request
-    .patch(
-      `/api/admin/projects/default/features/${featureName}/environments/development/variants`,
-    )
+    .patch(`/api/admin/projects/default/features/${featureName}/environments/development/variants`)
     .send(patch)
     .expect(200);
 });

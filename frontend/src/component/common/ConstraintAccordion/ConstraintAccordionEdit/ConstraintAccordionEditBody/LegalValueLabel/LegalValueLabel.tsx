@@ -27,10 +27,7 @@ export const LegalValueLabel = ({ legal, control }: ILegalValueTextProps) => {
   );
 };
 
-export const filterLegalValues = (
-  legalValues: ILegalValue[],
-  filter: string,
-): ILegalValue[] => {
+export const filterLegalValues = (legalValues: ILegalValue[], filter: string): ILegalValue[] => {
   return legalValues.filter((legalValue) => {
     return legalValue.value.includes(filter);
   });

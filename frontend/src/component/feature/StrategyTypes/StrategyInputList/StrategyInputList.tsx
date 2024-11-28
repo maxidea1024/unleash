@@ -1,12 +1,5 @@
 import { type ChangeEvent, useState } from 'react';
-import {
-  Button,
-  Chip,
-  TextField,
-  Typography,
-  styled,
-  type TextFieldProps,
-} from '@mui/material';
+import { Button, Chip, TextField, Typography, styled, type TextFieldProps } from '@mui/material';
 import Add from '@mui/icons-material/Add';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ADD_TO_STRATEGY_INPUT_LIST, STRATEGY_INPUT_LIST } from 'utils/testIds';
@@ -38,13 +31,7 @@ const InputContainer = styled('div')(({ theme }) => ({
   alignItems: 'start',
 }));
 
-const StrategyInputList = ({
-  name,
-  list,
-  setConfig,
-  disabled,
-  errors,
-}: IStrategyInputList) => {
+const StrategyInputList = ({ name, list, setConfig, disabled, errors }: IStrategyInputList) => {
   const [input, setInput] = useState('');
   const ENTERKEY = 'Enter';
 
@@ -101,13 +88,7 @@ const StrategyInputList = ({
             {list.map((entryValue, index) => (
               <Chip
                 key={index + entryValue}
-                label={
-                  <StringTruncator
-                    maxWidth='300'
-                    text={entryValue}
-                    maxLength={50}
-                  />
-                }
+                label={<StringTruncator maxWidth='300' text={entryValue} maxLength={50} />}
                 onDelete={disabled ? undefined : () => onClose(index)}
                 title='Remove value'
               />

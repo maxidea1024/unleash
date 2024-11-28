@@ -35,10 +35,7 @@ export default class SessionStore implements ISessionStore {
   }
 
   async getSessionsForUser(userId: number): Promise<ISession[]> {
-    const rows = await this.db<ISessionRow>(TABLE).whereRaw(
-      "(sess -> 'user' ->> 'id')::int = ?",
-      [userId],
-    );
+    const rows = await this.db<ISessionRow>(TABLE).whereRaw("(sess -> 'user' ->> 'id')::int = ?", [userId]);
     if (rows && rows.length > 0) {
       return rows.map(this.rowToSession);
     }
@@ -46,9 +43,7 @@ export default class SessionStore implements ISessionStore {
   }
 
   async get(sid: string): Promise<ISession> {
-    const row = await this.db<ISessionRow>(TABLE)
-      .where('sid', '=', sid)
-      .first();
+    const row = await this.db<ISessionRow>(TABLE).where('sid', '=', sid).first();
     if (row) {
       return this.rowToSession(row);
     }
@@ -56,9 +51,7 @@ export default class SessionStore implements ISessionStore {
   }
 
   async deleteSessionsForUser(userId: number): Promise<void> {
-    await this.db<ISessionRow>(TABLE)
-      .whereRaw("(sess -> 'user' ->> 'id')::int = ?", [userId])
-      .del();
+    await this.db<ISessionRow>(TABLE).whereRaw("(sess -> 'user' ->> 'id')::int = ?", [userId]).del();
   }
 
   async delete(sid: string): Promise<void> {
@@ -86,10 +79,7 @@ export default class SessionStore implements ISessionStore {
   destroy(): void {}
 
   async exists(sid: string): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE sid = ?) AS present`,
-      [sid],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE sid = ?) AS present`, [sid]);
     const { present } = result.rows[0];
     return present;
   }

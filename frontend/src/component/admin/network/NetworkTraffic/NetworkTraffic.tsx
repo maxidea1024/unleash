@@ -14,10 +14,7 @@ import {
   Title,
   Tooltip,
 } from 'chart.js';
-import {
-  type ILocationSettings,
-  useLocationSettings,
-} from 'hooks/useLocationSettings';
+import { type ILocationSettings, useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateHM } from 'utils/formatDate';
 import type { RequestsPerSecondSchema } from 'openapi';
 import 'chartjs-adapter-date-fns';
@@ -40,20 +37,14 @@ type ChartDatasetType = ChartDataset<'line', IPoint[]>;
 
 type ResultValue = [number, string];
 
-const createChartPoints = (
-  values: ResultValue[],
-  y: (m: string) => number,
-): IPoint[] => {
+const createChartPoints = (values: ResultValue[], y: (m: string) => number): IPoint[] => {
   return values.map((row) => ({
     x: row[0],
     y: y(row[1]),
   }));
 };
 
-const createInstanceChartOptions = (
-  theme: Theme,
-  locationSettings: ILocationSettings,
-): ChartOptions<'line'> => ({
+const createInstanceChartOptions = (theme: Theme, locationSettings: ILocationSettings): ChartOptions<'line'> => ({
   locale: locationSettings.locale,
   responsive: true,
   maintainAspectRatio: false,
@@ -73,8 +64,7 @@ const createInstanceChartOptions = (
       boxPadding: 5,
       usePointStyle: true,
       callbacks: {
-        title: (items) =>
-          formatDateHM(1000 * items[0].parsed.x, locationSettings.locale),
+        title: (items) => formatDateHM(1000 * items[0].parsed.x, locationSettings.locale),
       },
       itemSort: (a, b) => b.parsed.y - a.parsed.y,
     },
@@ -128,8 +118,7 @@ const createInstanceChartOptions = (
         borderColor: theme.palette.divider,
       },
       ticks: {
-        callback: (_, i, data) =>
-          formatDateHM(data[i].value * 1000, locationSettings.locale),
+        callback: (_, i, data) => formatDateHM(data[i].value * 1000, locationSettings.locale),
       },
     },
   },
@@ -150,10 +139,7 @@ class ItemPicker<T> {
   }
 }
 
-const toChartData = (
-  theme: Theme,
-  rps?: RequestsPerSecondSchema,
-): ChartDatasetType[] => {
+const toChartData = (theme: Theme, rps?: RequestsPerSecondSchema): ChartDatasetType[] => {
   if (rps?.data?.result) {
     const colorPicker = new ItemPicker([
       theme.palette.success,
@@ -220,16 +206,7 @@ export const NetworkTraffic: VFC = () => {
 };
 
 // Register dependencies that we need to draw the chart.
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  TimeScale,
-  Legend,
-  Tooltip,
-  Title,
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, TimeScale, Legend, Tooltip, Title);
 
 // Use a default export to lazy-load the charting library.
 export default NetworkTraffic;

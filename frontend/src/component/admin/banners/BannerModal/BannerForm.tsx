@@ -6,12 +6,7 @@ import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import Input from 'component/common/Input/Input';
 import type { BannerVariant } from 'interfaces/banner';
-import {
-  type ChangeEvent,
-  type Dispatch,
-  type SetStateAction,
-  useState,
-} from 'react';
+import { type ChangeEvent, type Dispatch, type SetStateAction, useState } from 'react';
 import Visibility from '@mui/icons-material/Visibility';
 import { BannerDialog } from 'component/banners/Banner/BannerDialog/BannerDialog';
 
@@ -146,13 +141,10 @@ export const BannerForm = ({
   return (
     <StyledForm>
       <StyledBannerPreview>
-        <StyledBannerPreviewDescription>
-          Banner preview:
-        </StyledBannerPreviewDescription>
+        <StyledBannerPreviewDescription>Banner preview:</StyledBannerPreviewDescription>
         <Banner
           banner={{
-            message:
-              message || '*No message set. Please enter a message below.*',
+            message: message || '*No message set. Please enter a message below.*',
             variant,
             sticky: false,
             icon,
@@ -172,9 +164,7 @@ export const BannerForm = ({
       <StyledSection>
         <StyledSectionLabel>Configuration</StyledSectionLabel>
         <StyledFieldGroup>
-          <StyledInputDescription>
-            What type of banner is it?
-          </StyledInputDescription>
+          <StyledInputDescription>What type of banner is it?</StyledInputDescription>
           <StyledSelect
             size='small'
             value={variant}
@@ -183,9 +173,7 @@ export const BannerForm = ({
           />
         </StyledFieldGroup>
         <StyledFieldGroup>
-          <StyledInputDescription>
-            What icon should be displayed on the banner?
-          </StyledInputDescription>
+          <StyledInputDescription>What icon should be displayed on the banner?</StyledInputDescription>
           <StyledSelect
             size='small'
             value={iconOption}
@@ -215,18 +203,14 @@ export const BannerForm = ({
                     <StyledTooltip>
                       <p>
                         Choose an icon from{' '}
-                        <a
-                          href='https://fonts.google.com/icons'
-                          target='_blank'
-                          rel='noreferrer'
-                        >
+                        <a href='https://fonts.google.com/icons' target='_blank' rel='noreferrer'>
                           Material Symbols
                         </a>
                         .
                       </p>
                       <p>
-                        For example, if you want to display the "Rocket Launch"
-                        icon, you can enter "rocket_launch" in the field below.
+                        For example, if you want to display the "Rocket Launch" icon, you can enter "rocket_launch" in
+                        the field below.
                       </p>
                     </StyledTooltip>
                   }
@@ -235,9 +219,7 @@ export const BannerForm = ({
               <StyledInput
                 label='Banner icon'
                 value={icon}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setIcon(e.target.value)
-                }
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setIcon(e.target.value)}
                 autoComplete='off'
               />
             </StyledFieldGroup>
@@ -251,11 +233,7 @@ export const BannerForm = ({
               tooltip={
                 <StyledTooltip>
                   <p>
-                    <a
-                      href='https://www.markdownguide.org/basic-syntax/'
-                      target='_blank'
-                      rel='noreferrer'
-                    >
+                    <a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>
                       Markdown
                     </a>{' '}
                     is supported.
@@ -271,9 +249,7 @@ export const BannerForm = ({
             minRows={2}
             maxRows={6}
             value={message}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setMessage(e.target.value)
-            }
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
             autoComplete='off'
             required
           />
@@ -282,9 +258,7 @@ export const BannerForm = ({
       <StyledSection>
         <StyledSectionLabel>Banner action</StyledSectionLabel>
         <StyledFieldGroup>
-          <StyledInputDescription>
-            What action should be available in the banner?
-          </StyledInputDescription>
+          <StyledInputDescription>What action should be available in the banner?</StyledInputDescription>
           <StyledSelect
             size='small'
             value={linkOption}
@@ -309,15 +283,11 @@ export const BannerForm = ({
           condition={linkOption === 'Link'}
           show={
             <StyledFieldGroup>
-              <StyledInputDescription>
-                What URL should be opened?
-              </StyledInputDescription>
+              <StyledInputDescription>What URL should be opened?</StyledInputDescription>
               <StyledInput
                 label='URL'
                 value={link}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setLink(e.target.value)
-                }
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setLink(e.target.value)}
                 onBlur={() => {
                   if (!linkText) setLinkText(link);
                 }}
@@ -330,15 +300,11 @@ export const BannerForm = ({
           condition={linkOption !== 'None'}
           show={
             <StyledFieldGroup>
-              <StyledInputDescription>
-                What is the action text?
-              </StyledInputDescription>
+              <StyledInputDescription>What is the action text?</StyledInputDescription>
               <StyledInput
                 label='Action text'
                 value={linkText}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setLinkText(e.target.value)
-                }
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setLinkText(e.target.value)}
                 autoComplete='off'
               />
             </StyledFieldGroup>
@@ -349,15 +315,11 @@ export const BannerForm = ({
           show={
             <>
               <StyledFieldGroup>
-                <StyledInputDescription>
-                  What is the dialog title?
-                </StyledInputDescription>
+                <StyledInputDescription>What is the dialog title?</StyledInputDescription>
                 <StyledInput
                   label='Dialog title'
                   value={dialogTitle}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setDialogTitle(e.target.value)
-                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setDialogTitle(e.target.value)}
                   autoComplete='off'
                 />
               </StyledFieldGroup>
@@ -369,11 +331,7 @@ export const BannerForm = ({
                     tooltip={
                       <StyledTooltip>
                         <p>
-                          <a
-                            href='https://www.markdownguide.org/basic-syntax/'
-                            target='_blank'
-                            rel='noreferrer'
-                          >
+                          <a href='https://www.markdownguide.org/basic-syntax/' target='_blank' rel='noreferrer'>
                             Markdown
                           </a>{' '}
                           is supported.
@@ -387,9 +345,7 @@ export const BannerForm = ({
                   multiline
                   minRows={4}
                   value={dialog}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    setDialog(e.target.value)
-                  }
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setDialog(e.target.value)}
                   autoComplete='off'
                 />
               </StyledFieldGroup>
@@ -401,11 +357,7 @@ export const BannerForm = ({
               >
                 Preview dialog
               </StyledPreviewButton>
-              <BannerDialog
-                open={previewDialogOpen}
-                setOpen={setPreviewDialogOpen}
-                title={dialogTitle || linkText}
-              >
+              <BannerDialog open={previewDialogOpen} setOpen={setPreviewDialogOpen} title={dialogTitle || linkText}>
                 {dialog!}
               </BannerDialog>
             </>
@@ -415,12 +367,7 @@ export const BannerForm = ({
       <StyledSection>
         <StyledSectionLabel>Sticky banner</StyledSectionLabel>
         <FormControlLabel
-          control={
-            <Checkbox
-              checked={sticky}
-              onChange={(e) => setSticky(e.target.checked)}
-            />
-          }
+          control={<Checkbox checked={sticky} onChange={(e) => setSticky(e.target.checked)} />}
           label='Make the banner sticky on the screen when scrolling'
         />
       </StyledSection>

@@ -37,10 +37,7 @@ export const PayloadCell = ({ value: payload }: IPayloadCellProps) => {
             </StyledItem>
           </>
         }
-        highlighted={
-          searchQuery.length > 0 &&
-          payload.value.toLowerCase().includes(searchQuery.toLowerCase())
-        }
+        highlighted={searchQuery.length > 0 && payload.value.toLowerCase().includes(searchQuery.toLowerCase())}
       >
         {payload.type}
       </TooltipLink>

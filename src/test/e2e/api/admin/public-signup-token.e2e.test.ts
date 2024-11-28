@@ -229,9 +229,7 @@ test('should not be able to set expiry further than 1 month', async () => {
     .expect('Content-Type', /json/)
     .expect(201)
     .expect((res) => {
-      expect(new Date(res.body.expiresAt).getTime()).toBeLessThan(
-        expireAt(31).getTime(),
-      );
+      expect(new Date(res.body.expiresAt).getTime()).toBeLessThan(expireAt(31).getTime());
     });
 
   await destroy();

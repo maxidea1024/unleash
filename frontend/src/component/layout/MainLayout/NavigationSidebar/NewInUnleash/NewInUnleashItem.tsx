@@ -1,13 +1,6 @@
 import type * as React from 'react';
 import { type ReactNode, useState } from 'react';
-import {
-  IconButton,
-  ListItem,
-  ListItemButton,
-  styled,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { IconButton, ListItem, ListItemButton, styled, Tooltip, Typography } from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import { NewInUnleashTooltip } from './NewInUnleashTooltip';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -51,8 +44,7 @@ const StyledItemButtonClose = styled(IconButton)(({ theme }) => ({
   padding: theme.spacing(0.25),
 }));
 
-interface INewInUnleashItemProps
-  extends Omit<NewInUnleashItemDetails, 'show' | 'beta'> {
+interface INewInUnleashItemProps extends Omit<NewInUnleashItemDetails, 'show' | 'beta'> {
   onClick: () => void;
   onDismiss: () => void;
   beta: boolean;
@@ -116,19 +108,12 @@ export const NewInUnleashItem = ({
               <Typography fontWeight='bold' fontSize='small'>
                 {label}
               </Typography>
-              <ConditionallyRender
-                condition={beta}
-                show={<Badge color='secondary'>Beta</Badge>}
-              />
+              <ConditionallyRender condition={beta} show={<Badge color='secondary'>Beta</Badge>} />
             </StyledItemTitle>
             <Typography fontSize='small'>{summary}</Typography>
           </LabelWithSummary>
           <Tooltip title='Dismiss' arrow sx={{ marginLeft: 'auto' }}>
-            <StyledItemButtonClose
-              aria-label='dismiss'
-              onClick={onDismissClick}
-              size='small'
-            >
+            <StyledItemButtonClose aria-label='dismiss' onClick={onDismissClick} size='small'>
               <Close fontSize='inherit' />
             </StyledItemButtonClose>
           </Tooltip>

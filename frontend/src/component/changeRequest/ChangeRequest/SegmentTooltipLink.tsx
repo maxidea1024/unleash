@@ -27,8 +27,7 @@ export const SegmentDiff: FC<{
   change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
   currentSegment?: ISegment;
 }> = ({ change, currentSegment }) => {
-  const changeRequestSegment =
-    change.action === 'deleteSegment' ? undefined : change.payload;
+  const changeRequestSegment = change.action === 'deleteSegment' ? undefined : change.payload;
 
   return (
     <StyledCodeSection>
@@ -46,25 +45,20 @@ interface IStrategyTooltipLinkProps {
   children?: React.ReactNode;
 }
 
-const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(
-  ({ theme }) => ({
-    display: 'grid',
-    gridAutoFlow: 'column',
-    gridTemplateColumns: 'auto 1fr',
-    gap: theme.spacing(1),
-    alignItems: 'center',
-  }),
-);
+const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gridAutoFlow: 'column',
+  gridTemplateColumns: 'auto 1fr',
+  gap: theme.spacing(1),
+  alignItems: 'center',
+}));
 
 const Truncated = styled('div')(() => ({
   ...textTruncated,
   maxWidth: 500,
 }));
 
-export const SegmentTooltipLink: FC<IStrategyTooltipLinkProps> = ({
-  change,
-  children,
-}) => (
+export const SegmentTooltipLink: FC<IStrategyTooltipLinkProps> = ({ change, children }) => (
   <StyledContainer>
     <Truncated>
       <TooltipLink
@@ -74,10 +68,7 @@ export const SegmentTooltipLink: FC<IStrategyTooltipLinkProps> = ({
           maxHeight: 600,
         }}
       >
-        <NameWithChangeInfo
-          previousName={change.name}
-          newName={change.payload.name}
-        />
+        <NameWithChangeInfo previousName={change.name} newName={change.payload.name} />
       </TooltipLink>
     </Truncated>
   </StyledContainer>

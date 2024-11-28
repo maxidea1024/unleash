@@ -1,13 +1,6 @@
 import { usePageTitle } from 'hooks/usePageTitle';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import {
-  Alert,
-  Box,
-  Button,
-  Divider,
-  LinearProgress,
-  styled,
-} from '@mui/material';
+import { Alert, Box, Button, Divider, LinearProgress, styled } from '@mui/material';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useApplicationOverview } from 'hooks/api/getters/useApplicationOverview/useApplicationOverview';
 import { ApplicationIssues } from './ApplicationIssues/ApplicationIssues';
@@ -71,10 +64,8 @@ const ApplicationOverview = () => {
   const createFeedbackContext = () => {
     openFeedback({
       title: 'How easy was it to use the application overview page?',
-      positiveLabel:
-        'What do you like most about the new application overview page?',
-      areasForImprovementsLabel:
-        'What should be improved on the application overview page?',
+      positiveLabel: 'What do you like most about the new application overview page?',
+      areasForImprovementsLabel: 'What should be improved on the application overview page?',
     });
   };
 
@@ -111,12 +102,7 @@ const ApplicationOverview = () => {
                 </Badge>
               ))}
             </ProjectContainer>
-            <Button
-              startIcon={<ReviewsOutlined />}
-              variant='outlined'
-              onClick={createFeedbackContext}
-              size='small'
-            >
+            <Button startIcon={<ReviewsOutlined />} variant='outlined' onClick={createFeedbackContext} size='small'>
               Provide feedback
             </Button>
           </ApplicationHeader>

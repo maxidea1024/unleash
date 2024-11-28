@@ -25,9 +25,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-export const ScheduleChangeRequestDialog: FC<
-  ScheduleChangeRequestDialogProps
-> = ({
+export const ScheduleChangeRequestDialog: FC<ScheduleChangeRequestDialogProps> = ({
   open,
   onConfirm,
   onClose,
@@ -38,9 +36,7 @@ export const ScheduleChangeRequestDialog: FC<
   disabled,
   scheduledAt,
 }) => {
-  const [selectedDate, setSelectedDate] = useState(
-    scheduledAt ? new Date(scheduledAt) : new Date(),
-  );
+  const [selectedDate, setSelectedDate] = useState(scheduledAt ? new Date(scheduledAt) : new Date());
   const [error, setError] = useState<string | undefined>(undefined);
 
   const timezone = getBrowserTimezone();
@@ -72,9 +68,8 @@ export const ScheduleChangeRequestDialog: FC<
         The time shown below is based on your browser's time zone.
       </Alert>
       <Typography variant={'body1'} sx={{ mb: (theme) => theme.spacing(4) }}>
-        Select the date and time when these changes should be applied. If you
-        change your mind later, you can reschedule the changes or apply them
-        immediately.
+        Select the date and time when these changes should be applied. If you change your mind later, you can reschedule
+        the changes or apply them immediately.
       </Typography>
       <StyledContainer>
         <DateTimePicker
@@ -94,9 +89,7 @@ export const ScheduleChangeRequestDialog: FC<
           errorText={error}
           required
         />
-        <Typography variant={'body2'}>
-          Your browser's time zone is {timezone}
-        </Typography>
+        <Typography variant={'body2'}>Your browser's time zone is {timezone}</Typography>
       </StyledContainer>
     </Dialogue>
   );

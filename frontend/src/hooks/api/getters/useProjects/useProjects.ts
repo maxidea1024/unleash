@@ -17,11 +17,7 @@ const useProjects = (options: SWRConfiguration & GetProjectsParams = {}) => {
       .then((res) => res.json());
   };
 
-  const { data, error } = useSWR<{ projects: ProjectsSchema['projects'] }>(
-    KEY,
-    fetcher,
-    options,
-  );
+  const { data, error } = useSWR<{ projects: ProjectsSchema['projects'] }>(KEY, fetcher, options);
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {

@@ -22,16 +22,8 @@ const CreateEnvironment = () => {
   const canCreateMoreEnvs = environments.length < environmentLimit;
   const { createEnvironment, loading } = useEnvironmentApi();
   const { refetch } = usePermissions();
-  const {
-    name,
-    setName,
-    type,
-    setType,
-    getEnvPayload,
-    validateEnvironmentName,
-    clearErrors,
-    errors,
-  } = useEnvironmentForm();
+  const { name, setName, type, setType, getEnvPayload, validateEnvironmentName, clearErrors, errors } =
+    useEnvironmentForm();
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
@@ -94,19 +86,9 @@ const CreateEnvironment = () => {
         setType={setType}
         mode='Create'
         clearErrors={clearErrors}
-        Limit={
-          <Limit
-            name='environments'
-            limit={environmentLimit}
-            currentValue={environments.length}
-          />
-        }
+        Limit={<Limit name='environments' limit={environmentLimit} currentValue={environments.length} />}
       >
-        <CreateButton
-          name='environment'
-          permission={ADMIN}
-          disabled={!canCreateMoreEnvs}
-        />
+        <CreateButton name='environment' permission={ADMIN} disabled={!canCreateMoreEnvs} />
       </EnvironmentForm>
     </FormTemplate>
   );

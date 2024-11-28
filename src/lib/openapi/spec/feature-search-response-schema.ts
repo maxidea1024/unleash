@@ -37,14 +37,12 @@ export const featureSearchResponseSchema = {
     type: {
       type: 'string',
       example: 'kill-switch',
-      description:
-        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     description: {
       type: 'string',
       nullable: true,
-      example:
-        'Controls disabling of the comments section in case of an incident',
+      example: 'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     dependencyType: {
@@ -63,8 +61,7 @@ export const featureSearchResponseSchema = {
     stale: {
       type: 'boolean',
       example: false,
-      description:
-        '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
+      description: '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
     },
     favorite: {
       type: 'boolean',
@@ -74,8 +71,7 @@ export const featureSearchResponseSchema = {
     impressionData: {
       type: 'boolean',
       example: false,
-      description:
-        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     createdAt: {
       type: 'string',
@@ -120,8 +116,7 @@ export const featureSearchResponseSchema = {
       items: {
         $ref: '#/components/schemas/variantSchema',
       },
-      description:
-        'The list of feature variants. This field was deprecated in v5',
+      description: 'The list of feature variants. This field was deprecated in v5',
       deprecated: true,
     },
     strategies: {
@@ -205,6 +200,4 @@ export const featureSearchResponseSchema = {
   },
 } as const;
 
-export type FeatureSearchResponseSchema = FromSchema<
-  typeof featureSearchResponseSchema
->;
+export type FeatureSearchResponseSchema = FromSchema<typeof featureSearchResponseSchema>;

@@ -1,10 +1,7 @@
 import { knex, type Knex } from 'knex';
 import type { IUnleashConfig } from '../types/options';
 
-export function createDb({
-  db,
-  getLogger,
-}: Pick<IUnleashConfig, 'db' | 'getLogger'>): Knex {
+export function createDb({ db, getLogger }: Pick<IUnleashConfig, 'db' | 'getLogger'>): Knex {
   const logger = getLogger('db-pool.ts');
 
   return knex({

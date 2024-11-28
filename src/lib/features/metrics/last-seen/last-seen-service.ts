@@ -14,10 +14,7 @@ export class LastSeenService {
   private readonly lastSeenStore: ILastSeenStore;
   private lastSeenToggles: Map<String, LastSeenInput> = new Map();
 
-  constructor(
-    { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,
-    config: IUnleashConfig,
-  ) {
+  constructor({ lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>, config: IUnleashConfig) {
     this.logger = config.getLogger('last-seen-service.ts');
 
     this.lastSeenStore = lastSeenStore;
@@ -38,9 +35,7 @@ export class LastSeenService {
           )}`,
         );
       }
-      this.logger.debug(
-        `Updating last seen for ${lastSeenToggles.length} toggles`,
-      );
+      this.logger.debug(`Updating last seen for ${lastSeenToggles.length} toggles`);
       this.lastSeenToggles = new Map<String, LastSeenInput>();
 
       await this.lastSeenStore.setLastSeen(lastSeenToggles);
@@ -50,12 +45,7 @@ export class LastSeenService {
 
   updateLastSeen(clientMetrics: IClientMetricsEnv[]): void {
     clientMetrics
-      .filter(
-        (clientMetric) =>
-          !this.lastSeenToggles.has(
-            `${clientMetric.featureName}:${clientMetric.environment}`,
-          ),
-      )
+      .filter((clientMetric) => !this.lastSeenToggles.has(`${clientMetric.featureName}:${clientMetric.environment}`))
       .filter((clientMetric) => clientMetric.yes > 0 || clientMetric.no > 0)
       .forEach((clientMetric) => {
         const key = `${clientMetric.featureName}:${clientMetric.environment}`;

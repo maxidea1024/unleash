@@ -2,11 +2,7 @@ import { useMemo, type VFC } from 'react';
 import 'chartjs-adapter-date-fns';
 
 import type { InstanceInsightsSchema } from 'openapi';
-import {
-  fillGradientPrimary,
-  LineChart,
-  NotEnoughData,
-} from 'component/insights/components/LineChart/LineChart';
+import { fillGradientPrimary, LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
 import { MetricsSummaryTooltip } from './MetricsChartTooltip/MetricsChartTooltip';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
@@ -15,9 +11,7 @@ import { aggregateDataPerDate } from './aggregate-metrics-by-day';
 import { useFilledMetricsSummary } from '../../hooks/useFilledMetricsSummary';
 
 interface IMetricsSummaryChartProps {
-  metricsSummaryTrends: GroupedDataByProject<
-    InstanceInsightsSchema['metricsSummaryTrends']
-  >;
+  metricsSummaryTrends: GroupedDataByProject<InstanceInsightsSchema['metricsSummaryTrends']>;
   isAggregate?: boolean;
   allDatapointsSorted: string[];
   isLoading?: boolean;
@@ -30,10 +24,7 @@ export const MetricsSummaryChart: VFC<IMetricsSummaryChartProps> = ({
   isLoading,
 }) => {
   const theme = useTheme();
-  const metricsSummary = useFilledMetricsSummary(
-    metricsSummaryTrends,
-    allDatapointsSorted,
-  );
+  const metricsSummary = useFilledMetricsSummary(metricsSummaryTrends, allDatapointsSorted);
   const notEnoughData = useMemo(
     () => !isLoading && !metricsSummary.datasets.some((d) => d.data.length > 1),
     [metricsSummary, isLoading],
@@ -41,9 +32,7 @@ export const MetricsSummaryChart: VFC<IMetricsSummaryChartProps> = ({
   const placeholderData = usePlaceholderData();
 
   const aggregatedPerDay = useMemo(() => {
-    const result = aggregateDataPerDate(
-      Object.values(metricsSummary.datasets).flatMap((item) => item.data),
-    );
+    const result = aggregateDataPerDate(Object.values(metricsSummary.datasets).flatMap((item) => item.data));
     const data = Object.entries(result)
       .map(([date, trends]) => ({ date, ...trends }))
       .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());

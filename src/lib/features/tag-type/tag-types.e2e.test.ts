@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../test/e2e/helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 
 let app: IUnleashTest;
@@ -63,8 +60,7 @@ test('Can create a new tag type', async () => {
     .post('/api/admin/tag-types')
     .send({
       name: 'slack',
-      description:
-        'Tag your feature flags with slack channel to post updates for flag to',
+      description: 'Tag your feature flags with slack channel to post updates for flag to',
       icon: 'http://icons.iconarchive.com/icons/papirus-team/papirus-apps/32/slack-icon.png',
     })
     .expect(201);
@@ -90,9 +86,7 @@ test('Invalid tag types gets rejected', async () => {
     .set('Content-Type', 'application/json')
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toMatch(
-        '"name" must be URL friendly',
-      );
+      expect(res.body.details[0].message).toMatch('"name" must be URL friendly');
     });
 });
 
@@ -164,17 +158,12 @@ test('Invalid tag-types get refused by validator', async () => {
     .set('Content-Type', 'application/json')
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toMatch(
-        '"name" must be URL friendly',
-      );
+      expect(res.body.details[0].message).toMatch('"name" must be URL friendly');
     });
 });
 
 test('Can delete tag type', async () => {
-  await app.request
-    .delete('/api/admin/tag-types/simple')
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  await app.request.delete('/api/admin/tag-types/simple').set('Content-Type', 'application/json').expect(200);
   await app.request.get('/api/admin/tag-types/simple').expect(404);
 
   const { body } = await app.getRecordedEvents();

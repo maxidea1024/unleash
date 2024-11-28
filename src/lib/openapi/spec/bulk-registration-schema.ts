@@ -42,8 +42,7 @@ export const bulkRegistrationSchema = {
       example: 'application-name-dacb1234',
     },
     interval: {
-      description:
-        'How often (in seconds) the application refreshes its features',
+      description: 'How often (in seconds) the application refreshes its features',
       type: 'number',
       example: 10,
     },
@@ -62,8 +61,7 @@ export const bulkRegistrationSchema = {
       },
     },
     sdkVersion: {
-      description:
-        'The version the sdk is running. Typically <client>:<version>',
+      description: 'The version the sdk is running. Typically <client>:<version>',
       example: 'unleash-client-java:8.0.0',
       type: 'string',
     },

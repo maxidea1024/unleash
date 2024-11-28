@@ -36,10 +36,7 @@ export const Insights: FC<InsightsProps> = ({ withCharts = true }) => {
     to: FilterItemParam,
   };
   const [state, setState] = usePersistentTableState('insights', stateConfig);
-  const { insights, loading } = useInsights(
-    state.from?.values[0],
-    state.to?.values[0],
-  );
+  const { insights, loading } = useInsights(state.from?.values[0], state.to?.values[0]);
 
   const projects = state.project?.values ?? [allOption.id];
 
@@ -60,17 +57,9 @@ export const Insights: FC<InsightsProps> = ({ withCharts = true }) => {
   return (
     <StyledWrapper>
       <StickyContainer>
-        <InsightsHeader
-          actions={<InsightsFilters state={state} onChange={setState} />}
-        />
+        <InsightsHeader actions={<InsightsFilters state={state} onChange={setState} />} />
       </StickyContainer>
-      {withCharts && (
-        <InsightsCharts
-          loading={loading}
-          projects={projects}
-          {...insightsData}
-        />
-      )}
+      {withCharts && <InsightsCharts loading={loading} projects={projects} {...insightsData} />}
     </StyledWrapper>
   );
 };

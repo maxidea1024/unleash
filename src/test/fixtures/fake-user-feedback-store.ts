@@ -1,8 +1,4 @@
-import type {
-  IUserFeedback,
-  IUserFeedbackKey,
-  IUserFeedbackStore,
-} from '../../lib/types/stores/user-feedback-store';
+import type { IUserFeedback, IUserFeedbackKey, IUserFeedbackStore } from '../../lib/types/stores/user-feedback-store';
 
 export default class FakeUserFeedbackStore implements IUserFeedbackStore {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

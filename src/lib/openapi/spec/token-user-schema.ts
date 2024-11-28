@@ -29,8 +29,7 @@ export const tokenUserSchema = {
       example: 'user:xyzrandomstring',
     },
     createdBy: {
-      description:
-        'A username or email identifying which user created this token',
+      description: 'A username or email identifying which user created this token',
       type: 'string',
       nullable: true,
       example: 'admin@example.com',

@@ -2,21 +2,14 @@ import {
   type PlaygroundFeatureEvaluationResult,
   PlaygroundService,
 } from '../../../lib/features/playground/playground-service';
-import {
-  clientFeaturesAndSegments,
-  commonISOTimestamp,
-} from '../../arbitraries.test';
+import { clientFeaturesAndSegments, commonISOTimestamp } from '../../arbitraries.test';
 import { generate as generateContext } from '../../../lib/openapi/spec/sdk-context-schema.test';
 import fc from 'fast-check';
 import { createTestConfig } from '../../config/test-config';
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import type { IUnleashStores } from '../../../lib/types/stores';
 import type FeatureToggleService from '../../../lib/features/feature-toggle/feature-toggle-service';
-import {
-  type FeatureToggle,
-  type ISegment,
-  WeightType,
-} from '../../../lib/types/model';
+import { type FeatureToggle, type ISegment, WeightType } from '../../../lib/types/model';
 import type { PlaygroundFeatureSchema } from '../../../lib/openapi/spec/playground-feature-schema';
 import { offlineUnleashClientNode } from '../../../lib/features/playground/offline-unleash-client.test';
 import type { ClientFeatureSchema } from '../../../lib/openapi/spec/client-feature-schema';
@@ -37,10 +30,7 @@ beforeAll(async () => {
   const config = createTestConfig();
   db = await dbInit('playground_service_serial', config.getLogger);
   stores = db.stores;
-  const privateProjectChecker = createPrivateProjectChecker(
-    db.rawDatabase,
-    config,
-  );
+  const privateProjectChecker = createPrivateProjectChecker(db.rawDatabase, config);
   const segmentReadModel = new SegmentReadModel(db.rawDatabase);
 
   featureToggleService = createFeatureToggleService(db.rawDatabase, config);
@@ -73,10 +63,7 @@ const testParams = {
   markInterruptAsFailure: false, // When set to false, timeout during initial cases will not be considered as a failure
 };
 
-const mapSegmentSchemaToISegment = (
-  segment: SegmentSchema,
-  index?: number,
-): ISegment => ({
+const mapSegmentSchemaToISegment = (segment: SegmentSchema, index?: number): ISegment => ({
   ...segment,
   name: segment.name || `test-segment ${index ?? 'unnumbered'}`,
   createdAt: new Date(),
@@ -91,10 +78,7 @@ export const seedDatabaseForPlaygroundTest = async (
   if (segments) {
     await Promise.all(
       segments.map(async (segment, index) =>
-        database.stores.segmentStore.create(
-          mapSegmentSchemaToISegment(segment, index),
-          { username: 'test' },
-        ),
+        database.stores.segmentStore.create(mapSegmentSchemaToISegment(segment, index), { username: 'test' }),
       ),
     );
   }
@@ -115,63 +99,43 @@ export const seedDatabaseForPlaygroundTest = async (
         });
 
       // create feature
-      const toggle = await database.stores.featureToggleStore.create(
-        feature.project,
-        {
-          ...feature,
-          createdAt: undefined,
-          variants: null,
-          createdByUserId: 9999,
-        },
-      );
+      const toggle = await database.stores.featureToggleStore.create(feature.project, {
+        ...feature,
+        createdAt: undefined,
+        variants: null,
+        createdByUserId: 9999,
+      });
 
       // enable/disable the feature in environment
-      await database.stores.featureEnvironmentStore.addEnvironmentToFeature(
-        feature.name,
-        environment,
-        feature.enabled,
-      );
+      await database.stores.featureEnvironmentStore.addEnvironmentToFeature(feature.name, environment, feature.enabled);
 
-      await database.stores.featureToggleStore.saveVariants(
-        feature.project,
-        feature.name,
-        [
-          ...(feature.variants ?? []).map((variant) => ({
-            ...variant,
-            weightType: WeightType.VARIABLE,
-            stickiness: 'default',
-          })),
-        ],
-      );
+      await database.stores.featureToggleStore.saveVariants(feature.project, feature.name, [
+        ...(feature.variants ?? []).map((variant) => ({
+          ...variant,
+          weightType: WeightType.VARIABLE,
+          stickiness: 'default',
+        })),
+      ]);
 
       // assign strategies
       await Promise.all(
-        (feature.strategies || []).map(
-          async ({ segments: strategySegments, ...strategy }) => {
-            await database.stores.featureStrategiesStore.createStrategyFeatureEnv(
-              {
-                parameters: {},
-                constraints: [],
-                ...strategy,
-                featureName: feature.name,
-                environment,
-                strategyName: strategy.name,
-                projectId: feature.project!,
-              },
-            );
+        (feature.strategies || []).map(async ({ segments: strategySegments, ...strategy }) => {
+          await database.stores.featureStrategiesStore.createStrategyFeatureEnv({
+            parameters: {},
+            constraints: [],
+            ...strategy,
+            featureName: feature.name,
+            environment,
+            strategyName: strategy.name,
+            projectId: feature.project!,
+          });
 
-            if (strategySegments) {
-              await Promise.all(
-                strategySegments.map((segmentId) =>
-                  database.stores.segmentStore.addToStrategy(
-                    segmentId,
-                    strategy.id!,
-                  ),
-                ),
-              );
-            }
-          },
-        ),
+          if (strategySegments) {
+            await Promise.all(
+              strategySegments.map((segmentId) => database.stores.segmentStore.addToStrategy(segmentId, strategy.id!)),
+            );
+          }
+        }),
       );
 
       return toggle;
@@ -215,14 +179,12 @@ describe('the playground service (e2e)', () => {
       fc
         .asyncProperty(
           clientFeaturesAndSegments({ minLength: 1 }),
-          fc
-            .tuple(generateContext(), commonISOTimestamp())
-            .map(([context, currentTime]) => ({
-              ...context,
-              userId: 'constant',
-              sessionId: 'constant2',
-              currentTime,
-            })),
+          fc.tuple(generateContext(), commonISOTimestamp()).map(([context, currentTime]) => ({
+            ...context,
+            userId: 'constant',
+            sessionId: 'constant2',
+            currentTime,
+          })),
           fc.context(),
           async ({ segments, features }, context, ctx) => {
             const serviceToggles = await insertAndEvaluateFeatures({
@@ -231,8 +193,7 @@ describe('the playground service (e2e)', () => {
               segments,
             });
 
-            const [head, ...rest] =
-              await featureToggleService.getClientFeatures();
+            const [head, ...rest] = await featureToggleService.getClientFeatures();
             if (!head) {
               return serviceToggles.length === 0;
             }
@@ -247,15 +208,11 @@ describe('the playground service (e2e)', () => {
             const clientContext = {
               ...context,
 
-              currentTime: context.currentTime
-                ? new Date(context.currentTime)
-                : undefined,
+              currentTime: context.currentTime ? new Date(context.currentTime) : undefined,
             };
 
             return serviceToggles.every((feature) => {
-              ctx.log(
-                `Examining feature ${feature.name}: ${JSON.stringify(feature)}`,
-              );
+              ctx.log(`Examining feature ${feature.name}: ${JSON.stringify(feature)}`);
 
               // the playground differs from a normal SDK in that
               // it _must_ evaluate all strategies and features
@@ -263,19 +220,12 @@ describe('the playground service (e2e)', () => {
               // enabled in the current environment or not.
               const expectedSDKState = feature.isEnabled;
 
-              const enabledStateMatches =
-                expectedSDKState ===
-                client.isEnabled(feature.name, clientContext);
+              const enabledStateMatches = expectedSDKState === client.isEnabled(feature.name, clientContext);
 
               ctx.log(
                 `feature.isEnabled, feature.isEnabledInCurrentEnvironment, presumedSDKState: ${feature.isEnabled}, ${feature.isEnabledInCurrentEnvironment}, ${expectedSDKState}`,
               );
-              ctx.log(
-                `client.isEnabled: ${client.isEnabled(
-                  feature.name,
-                  clientContext,
-                )}`,
-              );
+              ctx.log(`client.isEnabled: ${client.isEnabled(feature.name, clientContext)}`);
               expect(enabledStateMatches).toBe(true);
 
               // if x is disabled, then the variant will be the
@@ -286,16 +236,11 @@ describe('the playground service (e2e)', () => {
                 ctx.log(JSON.stringify(enabledStateMatches));
                 ctx.log(JSON.stringify(feature.variant?.name === 'disabled'));
                 ctx.log(JSON.stringify(feature.variant?.enabled === false));
-                return (
-                  enabledStateMatches && isDisabledVariant(feature.variant)
-                );
+                return enabledStateMatches && isDisabledVariant(feature.variant);
               }
               ctx.log('feature is enabled');
 
-              const clientVariant = client.getVariant(
-                feature.name,
-                clientContext,
-              );
+              const clientVariant = client.getVariant(feature.name, clientContext);
 
               // if x is enabled, but its variant is the disabled
               // variant, then the source does not have any
@@ -463,12 +408,7 @@ describe('the playground service (e2e)', () => {
       ],
       { appName: ' ', userId: 'constant', sessionId: 'constant2' },
       {
-        logs: [
-          '0 is not enabled',
-          '{"name":"disabled","enabled":false}',
-          'true',
-          'true',
-        ],
+        logs: ['0 is not enabled', '{"name":"disabled","enabled":false}', 'true', 'true'],
       },
     ],
     [
@@ -626,17 +566,14 @@ describe('the playground service (e2e)', () => {
             // and make sure that the evaluated
             // return genFeat.length === servFeat.length && zip(gen, serv).
             data.features.forEach((feature) => {
-              const mappedFeature: PlaygroundFeatureSchema =
-                serviceFeaturesDict[feature.name];
+              const mappedFeature: PlaygroundFeatureSchema = serviceFeaturesDict[feature.name];
 
               // log(feature);
               log(mappedFeature);
 
               const featureStrategies = feature.strategies ?? [];
 
-              expect(mappedFeature.strategies.data.length).toEqual(
-                featureStrategies.length,
-              );
+              expect(mappedFeature.strategies.data.length).toEqual(featureStrategies.length);
 
               // we can't guarantee that the order we inserted
               // strategies into the database is the same as it
@@ -653,16 +590,14 @@ describe('the playground service (e2e)', () => {
                 result: unknown;
               }) => rest;
 
-              const cleanedReceivedStrategies =
-                mappedFeature.strategies.data.map((strategy) => {
-                  const { segments: mappedSegments, ...mappedStrategy } =
-                    removeResult(strategy);
+              const cleanedReceivedStrategies = mappedFeature.strategies.data.map((strategy) => {
+                const { segments: mappedSegments, ...mappedStrategy } = removeResult(strategy);
 
-                  return {
-                    ...mappedStrategy,
-                    constraints: mappedStrategy.constraints?.map(removeResult),
-                  };
-                });
+                return {
+                  ...mappedStrategy,
+                  constraints: mappedStrategy.constraints?.map(removeResult),
+                };
+              });
 
               feature.strategies?.forEach(({ segments, ...strategy }) => {
                 expect(cleanedReceivedStrategies).toEqual(
@@ -727,9 +662,7 @@ describe('the playground service (e2e)', () => {
             // must be true. If a feature is _disabled_, _at least_
             // one segment is not true.
             generatedFeatures.forEach((unmappedFeature) => {
-              const strategies = serviceFeaturesDict[
-                unmappedFeature.name
-              ].strategies.data.reduce(
+              const strategies = serviceFeaturesDict[unmappedFeature.name].strategies.data.reduce(
                 (acc, strategy) => ({
                   ...acc,
                   [strategy.id]: strategy,
@@ -738,28 +671,21 @@ describe('the playground service (e2e)', () => {
               );
 
               unmappedFeature.strategies?.forEach((unmappedStrategy) => {
-                const mappedStrategySegments: PlaygroundSegmentSchema[] =
-                  strategies[unmappedStrategy.id].segments;
+                const mappedStrategySegments: PlaygroundSegmentSchema[] = strategies[unmappedStrategy.id].segments;
 
                 const unmappedSegments = unmappedStrategy.segments ?? [];
 
                 // 1. The segments lists have the same length
                 // 2. All segment ids listed in the input exist:
-                expect(
-                  [
-                    ...mappedStrategySegments?.map((segment) => segment.id),
-                  ].sort(),
-                ).toEqual([...unmappedSegments].sort());
+                expect([...mappedStrategySegments?.map((segment) => segment.id)].sort()).toEqual(
+                  [...unmappedSegments].sort(),
+                );
 
                 switch (strategies[unmappedStrategy.id].result) {
                   case true:
                     // If a strategy is considered true, _all_ segments
                     // must be true.
-                    expect(
-                      mappedStrategySegments.every(
-                        (segment) => segment.result === true,
-                      ),
-                    ).toBeTruthy();
+                    expect(mappedStrategySegments.every((segment) => segment.result === true)).toBeTruthy();
                     break;
                   case false:
                   // empty -- all segments can be true and
@@ -781,21 +707,19 @@ describe('the playground service (e2e)', () => {
     await fc.assert(
       fc
         .asyncProperty(
-          clientFeaturesAndSegments({ minLength: 1 }).map(
-            ({ features, ...rest }) => ({
-              ...rest,
-              features: features.map((feature) => ({
-                ...feature,
-                // remove any constraints and use a name that doesn't exist
-                strategies: feature.strategies?.map((strategy) => ({
-                  ...strategy,
-                  name: 'bogus-strategy',
-                  constraints: [],
-                  segments: [],
-                })),
+          clientFeaturesAndSegments({ minLength: 1 }).map(({ features, ...rest }) => ({
+            ...rest,
+            features: features.map((feature) => ({
+              ...feature,
+              // remove any constraints and use a name that doesn't exist
+              strategies: feature.strategies?.map((strategy) => ({
+                ...strategy,
+                name: 'bogus-strategy',
+                constraints: [],
+                segments: [],
               })),
-            }),
-          ),
+            })),
+          })),
           generateContext(),
           fc.context(),
           async (featsAndSegments, context, ctx) => {
@@ -806,12 +730,8 @@ describe('the playground service (e2e)', () => {
 
             serviceFeatures.forEach((feature) =>
               feature.strategies.data.forEach((strategy) => {
-                expect(strategy.result.evaluationStatus).toBe(
-                  playgroundStrategyEvaluation.evaluationIncomplete,
-                );
-                expect(strategy.result.enabled).toBe(
-                  playgroundStrategyEvaluation.unknownResult,
-                );
+                expect(strategy.result.evaluationStatus).toBe(playgroundStrategyEvaluation.evaluationIncomplete);
+                expect(strategy.result.enabled).toBe(playgroundStrategyEvaluation.unknownResult);
               }),
             );
 
@@ -835,26 +755,24 @@ describe('the playground service (e2e)', () => {
     await fc.assert(
       fc
         .asyncProperty(
-          fc
-            .tuple(fc.uuid(), clientFeaturesAndSegments({ minLength: 1 }))
-            .map(([uuid, { features, ...rest }]) => ({
-              ...rest,
-              features: features.map((feature) => ({
-                ...feature,
-                // use a constraint that will never be true
-                strategies: feature.strategies?.map((strategy) => ({
-                  ...strategy,
-                  name: 'bogusStrategy',
-                  constraints: [
-                    {
-                      contextName: 'appName',
-                      operator: 'IN' as const,
-                      values: [uuid],
-                    },
-                  ],
-                })),
+          fc.tuple(fc.uuid(), clientFeaturesAndSegments({ minLength: 1 })).map(([uuid, { features, ...rest }]) => ({
+            ...rest,
+            features: features.map((feature) => ({
+              ...feature,
+              // use a constraint that will never be true
+              strategies: feature.strategies?.map((strategy) => ({
+                ...strategy,
+                name: 'bogusStrategy',
+                constraints: [
+                  {
+                    contextName: 'appName',
+                    operator: 'IN' as const,
+                    values: [uuid],
+                  },
+                ],
               })),
             })),
+          })),
           generateContext(),
           fc.context(),
           async (featsAndSegments, context, ctx) => {
@@ -865,9 +783,7 @@ describe('the playground service (e2e)', () => {
 
             serviceFeatures.forEach((feature) =>
               feature.strategies.data.forEach((strategy) => {
-                expect(strategy.result.evaluationStatus).toBe(
-                  playgroundStrategyEvaluation.evaluationIncomplete,
-                );
+                expect(strategy.result.evaluationStatus).toBe(playgroundStrategyEvaluation.evaluationIncomplete);
                 expect(strategy.result.enabled).toBe(false);
               }),
             );
@@ -893,28 +809,26 @@ describe('the playground service (e2e)', () => {
     await fc.assert(
       fc
         .asyncProperty(
-          fc
-            .tuple(fc.uuid(), clientFeaturesAndSegments({ minLength: 1 }))
-            .map(([uuid, { features, ...rest }]) => ({
-              ...rest,
-              features: features.map((feature) => ({
-                ...feature,
-                // use a constraint that will never be true
-                strategies: [
-                  ...feature.strategies.map((strategy) => ({
-                    ...strategy,
-                    constraints: [
-                      {
-                        contextName: 'appName',
-                        operator: 'IN' as const,
-                        values: [uuid],
-                      },
-                    ],
-                  })),
-                  { name: 'my-custom-strategy' },
-                ],
-              })),
+          fc.tuple(fc.uuid(), clientFeaturesAndSegments({ minLength: 1 })).map(([uuid, { features, ...rest }]) => ({
+            ...rest,
+            features: features.map((feature) => ({
+              ...feature,
+              // use a constraint that will never be true
+              strategies: [
+                ...feature.strategies.map((strategy) => ({
+                  ...strategy,
+                  constraints: [
+                    {
+                      contextName: 'appName',
+                      operator: 'IN' as const,
+                      values: [uuid],
+                    },
+                  ],
+                })),
+                { name: 'my-custom-strategy' },
+              ],
             })),
+          })),
           generateContext(),
           async (featsAndSegments, context) => {
             const serviceFeatures = await insertAndEvaluateFeatures({
@@ -943,17 +857,15 @@ describe('the playground service (e2e)', () => {
     await fc.assert(
       fc
         .asyncProperty(
-          clientFeaturesAndSegments({ minLength: 1 }).map(
-            ({ features, ...rest }) => ({
-              ...rest,
-              features: features.map((feature) => ({
-                ...feature,
-                enabled: false,
-                // remove any constraints and use a name that doesn't exist
-                strategies: [{ name: 'default' }],
-              })),
-            }),
-          ),
+          clientFeaturesAndSegments({ minLength: 1 }).map(({ features, ...rest }) => ({
+            ...rest,
+            features: features.map((feature) => ({
+              ...feature,
+              enabled: false,
+              // remove any constraints and use a name that doesn't exist
+              strategies: [{ name: 'default' }],
+            })),
+          })),
           generateContext(),
           fc.context(),
           async (featsAndSegments, context, ctx) => {
@@ -964,9 +876,7 @@ describe('the playground service (e2e)', () => {
 
             serviceFeatures.forEach((feature) =>
               feature.strategies.data.forEach((strategy) => {
-                expect(strategy.result.evaluationStatus).toBe(
-                  playgroundStrategyEvaluation.evaluationComplete,
-                );
+                expect(strategy.result.evaluationStatus).toBe(playgroundStrategyEvaluation.evaluationComplete);
                 expect(strategy.result.enabled).toBe(true);
               }),
             );
@@ -1006,12 +916,8 @@ describe('the playground service (e2e)', () => {
 
             serviceFeatures.forEach((feature) => {
               if (variantsMap[feature.name]) {
-                expect(feature.variants).toEqual(
-                  expect.arrayContaining(variantsMap[feature.name]),
-                );
-                expect(variantsMap[feature.name]).toEqual(
-                  expect.arrayContaining(feature.variants),
-                );
+                expect(feature.variants).toEqual(expect.arrayContaining(variantsMap[feature.name]));
+                expect(variantsMap[feature.name]).toEqual(expect.arrayContaining(feature.variants));
               } else {
                 expect(feature.variants).toStrictEqual([]);
               }
@@ -1041,10 +947,7 @@ describe('the playground service (e2e)', () => {
                 expect(feature.isEnabledInCurrentEnvironment).toBe(true);
                 expect(feature.strategies.result).toBe(true);
               } else {
-                expect(
-                  !feature.isEnabledInCurrentEnvironment ||
-                    feature.strategies.result !== true,
-                ).toBe(true);
+                expect(!feature.isEnabledInCurrentEnvironment || feature.strategies.result !== true).toBe(true);
               }
             });
           },
@@ -1069,34 +972,18 @@ describe('the playground service (e2e)', () => {
 
             serviceFeatures.forEach(({ strategies }) => {
               if (strategies.result === false) {
-                expect(
-                  strategies.data.every(
-                    (strategy) => strategy.result.enabled === false,
-                  ),
-                ).toBe(true);
-              } else if (
-                strategies.result === playgroundStrategyEvaluation.unknownResult
-              ) {
+                expect(strategies.data.every((strategy) => strategy.result.enabled === false)).toBe(true);
+              } else if (strategies.result === playgroundStrategyEvaluation.unknownResult) {
                 expect(
                   strategies.data.some(
-                    (strategy) =>
-                      strategy.result.enabled ===
-                      playgroundStrategyEvaluation.unknownResult,
+                    (strategy) => strategy.result.enabled === playgroundStrategyEvaluation.unknownResult,
                   ),
                 ).toBe(true);
 
-                expect(
-                  strategies.data.every(
-                    (strategy) => strategy.result.enabled !== true,
-                  ),
-                ).toBe(true);
+                expect(strategies.data.every((strategy) => strategy.result.enabled !== true)).toBe(true);
               } else {
                 if (strategies.data.length > 0) {
-                  expect(
-                    strategies.data.some(
-                      (strategy) => strategy.result.enabled === true,
-                    ),
-                  ).toBe(true);
+                  expect(strategies.data.some((strategy) => strategy.result.enabled === true)).toBe(true);
                 }
               }
             });
@@ -1121,10 +1008,7 @@ describe('the playground service (e2e)', () => {
             });
 
             serviceFeatures.forEach((feature) => {
-              if (
-                feature.strategies.result ===
-                playgroundStrategyEvaluation.unknownResult
-              ) {
+              if (feature.strategies.result === playgroundStrategyEvaluation.unknownResult) {
                 expect(feature.variant).toEqual({
                   name: 'disabled',
                   enabled: false,

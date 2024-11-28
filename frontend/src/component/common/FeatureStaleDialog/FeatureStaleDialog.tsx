@@ -14,23 +14,13 @@ interface IFeatureStaleDialogProps {
   onClose: () => void;
 }
 
-export const FeatureStaleDialog = ({
-  isStale,
-  isOpen,
-  projectId,
-  featureId,
-  onClose,
-}: IFeatureStaleDialogProps) => {
+export const FeatureStaleDialog = ({ isStale, isOpen, projectId, featureId, onClose }: IFeatureStaleDialogProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { patchFeatureToggle } = useFeatureApi();
 
-  const flagToStaleContent = (
-    <Typography>Setting a flag to stale marks it for cleanup</Typography>
-  );
+  const flagToStaleContent = <Typography>Setting a flag to stale marks it for cleanup</Typography>;
 
-  const flagToActiveContent = (
-    <Typography>Setting a flag to active marks it as in active use</Typography>
-  );
+  const flagToActiveContent = <Typography>Setting a flag to active marks it as in active use</Typography>;
 
   const flagActionText = isStale ? 'active' : 'stale';
 
@@ -69,11 +59,7 @@ export const FeatureStaleDialog = ({
       onClick={onSubmit}
       onClose={onClose}
     >
-      <ConditionallyRender
-        condition={isStale}
-        show={flagToActiveContent}
-        elseShow={flagToStaleContent}
-      />
+      <ConditionallyRender condition={isStale} show={flagToActiveContent} elseShow={flagToStaleContent} />
     </Dialogue>
   );
 };

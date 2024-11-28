@@ -57,10 +57,7 @@ test('should register client without sdkVersion', () => {
 
 test('should require appName field', () => {
   expect.assertions(0);
-  return request
-    .post('/api/client/register')
-    .set('Content-Type', 'application/json')
-    .expect(400);
+  return request.post('/api/client/register').set('Content-Type', 'application/json').expect(400);
 });
 
 test('should require strategies field', () => {

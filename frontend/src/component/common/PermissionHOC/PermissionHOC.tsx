@@ -1,9 +1,6 @@
 import { useContext, type FC, type ReactElement } from 'react';
 import AccessContext from 'contexts/AccessContext';
-import {
-  type ITooltipResolverProps,
-  TooltipResolver,
-} from 'component/common/TooltipResolver/TooltipResolver';
+import { type ITooltipResolverProps, TooltipResolver } from 'component/common/TooltipResolver/TooltipResolver';
 import { formatAccessText } from 'utils/formatAccessText';
 
 type IPermissionHOCProps = {
@@ -35,10 +32,7 @@ export const PermissionHOC: FC<IPermissionHOCProps> = ({
   }
 
   return (
-    <TooltipResolver
-      {...tooltipProps}
-      title={formatAccessText(access, tooltip)}
-    >
+    <TooltipResolver {...tooltipProps} title={formatAccessText(access, tooltip)}>
       {children({ hasAccess: access })}
     </TooltipResolver>
   );

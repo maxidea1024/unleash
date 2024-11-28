@@ -13,11 +13,7 @@ const useUserInfo = (id: string, options: SWRConfiguration = {}) => {
       .then((res) => res.json());
   };
 
-  const { data, error } = useSWR(
-    `api/admin/user-admin/${id}`,
-    fetcher,
-    options,
-  );
+  const { data, error } = useSWR(`api/admin/user-admin/${id}`, fetcher, options);
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {

@@ -2,10 +2,7 @@ import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Box, Button, Grid, TextField, styled } from '@mui/material';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import {
-  useLicense,
-  useLicenseCheck,
-} from 'hooks/api/getters/useLicense/useLicense';
+import { useLicense, useLicenseCheck } from 'hooks/api/getters/useLicense/useLicense';
 import { formatDateYMD } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { useState } from 'react';
@@ -77,15 +74,11 @@ export const License = () => {
             <div>
               <StyledDataCollectionPropertyRow>
                 <StyledPropertyName>Customer</StyledPropertyName>
-                <StyledPropertyDetails>
-                  {license.customer}
-                </StyledPropertyDetails>
+                <StyledPropertyDetails>{license.customer}</StyledPropertyDetails>
               </StyledDataCollectionPropertyRow>
               <StyledDataCollectionPropertyRow>
                 <StyledPropertyName>Instance Name</StyledPropertyName>
-                <StyledPropertyDetails>
-                  {license.instanceName}
-                </StyledPropertyDetails>
+                <StyledPropertyDetails>{license.instanceName}</StyledPropertyDetails>
               </StyledDataCollectionPropertyRow>
               <StyledDataCollectionPropertyRow>
                 <StyledPropertyName>Plan</StyledPropertyName>
@@ -103,9 +96,7 @@ export const License = () => {
               </StyledDataCollectionPropertyRow>
             </div>
           }
-          elseShow={
-            <p>You do not have a registered Unleash Enterprise License.</p>
-          }
+          elseShow={<p>You do not have a registered Unleash Enterprise License.</p>}
         />
 
         <form onSubmit={onSubmit}>
@@ -123,12 +114,7 @@ export const License = () => {
           />
           <Grid container spacing={3} marginTop={2}>
             <Grid item md={5}>
-              <Button
-                variant='contained'
-                color='primary'
-                type='submit'
-                disabled={loading}
-              >
+              <Button variant='contained' color='primary' type='submit' disabled={loading}>
                 Update license key
               </Button>{' '}
               <p>

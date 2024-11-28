@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { DEFAULT_PROJECT } from '../../../../lib/types';
@@ -122,12 +119,8 @@ test('should be allowed to reuse deleted flag name', async () => {
       expect(res.body.name).toBe('really.delete.feature');
       expect(res.body.createdAt).toBeTruthy();
     });
-  await app.request
-    .delete('/api/admin/projects/default/features/really.delete.feature')
-    .expect(202);
-  await app.request
-    .delete('/api/admin/archive/really.delete.feature')
-    .expect(200);
+  await app.request.delete('/api/admin/projects/default/features/really.delete.feature').expect(202);
+  await app.request.delete('/api/admin/archive/really.delete.feature').expect(200);
   return app.request
     .post('/api/admin/features/validate')
     .send({ name: 'really.delete.feature' })
@@ -149,9 +142,7 @@ test('Deleting an unarchived flag should not take effect', async () => {
       expect(res.body.name).toBe('really.delete.feature');
       expect(res.body.createdAt).toBeTruthy();
     });
-  await app.request
-    .delete('/api/admin/archive/really.delete.feature')
-    .expect(200);
+  await app.request.delete('/api/admin/archive/really.delete.feature').expect(200);
   return app.request
     .post('/api/admin/features/validate')
     .send({ name: 'really.delete.feature' })
@@ -178,10 +169,7 @@ test('can bulk delete features and recreate after', async () => {
       features,
     })
     .expect(202);
-  await app.request
-    .post('/api/admin/projects/default/delete')
-    .send({ features })
-    .expect(200);
+  await app.request.post('/api/admin/projects/default/delete').send({ features }).expect(200);
   for (const feature of features) {
     await app.request
       .post('/api/admin/features/validate')
@@ -210,14 +198,9 @@ test('can bulk revive features', async () => {
       features,
     })
     .expect(202);
-  await app.request
-    .post('/api/admin/projects/default/revive')
-    .send({ features })
-    .expect(200);
+  await app.request.post('/api/admin/projects/default/revive').send({ features }).expect(200);
   for (const feature of features) {
-    const { body } = await app.request
-      .get(`/api/admin/projects/default/features/${feature}`)
-      .expect(200);
+    const { body } = await app.request.get(`/api/admin/projects/default/features/${feature}`).expect(200);
 
     expect(body.environments.every((env) => !env.enabled));
   }
@@ -237,9 +220,7 @@ test('Should be able to bulk archive features', async () => {
     })
     .expect(202);
 
-  const { body } = await app.request
-    .get(`/api/admin/archive/features/${DEFAULT_PROJECT}`)
-    .expect(200);
+  const { body } = await app.request.get(`/api/admin/archive/features/${DEFAULT_PROJECT}`).expect(200);
 
   const archivedFeatures = body.features.filter(
     (feature) => feature.name === featureName1 || feature.name === featureName2,

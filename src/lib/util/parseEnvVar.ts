@@ -1,7 +1,4 @@
-export function parseEnvVarNumber(
-  envVar: string | undefined,
-  defaultVal: number,
-): number {
+export function parseEnvVarNumber(envVar: string | undefined, defaultVal: number): number {
   if (!envVar) {
     return defaultVal;
   }
@@ -14,10 +11,7 @@ export function parseEnvVarNumber(
   return parsed;
 }
 
-export function parseEnvVarBoolean(
-  envVar: string | undefined,
-  defaultVal: boolean,
-): boolean {
+export function parseEnvVarBoolean(envVar: string | undefined, defaultVal: boolean): boolean {
   if (envVar) {
     return envVar === 'true' || envVar === '1' || envVar === 't';
   }
@@ -25,10 +19,7 @@ export function parseEnvVarBoolean(
   return defaultVal;
 }
 
-export function parseEnvVarStrings(
-  envVar: string | undefined,
-  defaultVal: string[],
-): string[] {
+export function parseEnvVarStrings(envVar: string | undefined, defaultVal: string[]): string[] {
   if (typeof envVar === 'string') {
     return envVar
       .split(',')

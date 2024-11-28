@@ -13,11 +13,7 @@ interface IResultChipProps {
   showIcon?: boolean;
 }
 
-export const PlaygroundResultChip: VFC<IResultChipProps> = ({
-  enabled,
-  label,
-  showIcon = true,
-}) => {
+export const PlaygroundResultChip: VFC<IResultChipProps> = ({ enabled, label, showIcon = true }) => {
   const theme = useTheme();
   const icon = (
     <ConditionallyRender
@@ -26,18 +22,8 @@ export const PlaygroundResultChip: VFC<IResultChipProps> = ({
       elseShow={
         <ConditionallyRender
           condition={typeof enabled === 'boolean' && Boolean(enabled)}
-          show={
-            <FeatureEnabledIcon
-              color={theme.palette.success.main}
-              strokeWidth='0.25'
-            />
-          }
-          elseShow={
-            <FeatureDisabledIcon
-              color={theme.palette.error.main}
-              strokeWidth='0.25'
-            />
-          }
+          show={<FeatureEnabledIcon color={theme.palette.success.main} strokeWidth='0.25' />}
+          elseShow={<FeatureDisabledIcon color={theme.palette.error.main} strokeWidth='0.25' />}
         />
       }
     />

@@ -4,8 +4,7 @@ import { constraintSchema } from './constraint-schema';
 export const clientSegmentSchema = {
   $id: '#/components/schemas/clientSegmentSchema',
   type: 'object',
-  description:
-    'Represents a client API segment of users defined by a set of constraints.',
+  description: 'Represents a client API segment of users defined by a set of constraints.',
   additionalProperties: false,
   required: ['id', 'constraints'],
   properties: {
@@ -20,8 +19,7 @@ export const clientSegmentSchema = {
     },
     constraints: {
       type: 'array',
-      description:
-        'List of constraints that determine which users are part of the segment',
+      description: 'List of constraints that determine which users are part of the segment',
       items: {
         $ref: '#/components/schemas/constraintSchema',
       },

@@ -13,35 +13,24 @@ const useProjectForm = (
   initialFeatureLimit = '',
   initialProjectMode: ProjectMode = 'open',
   initialProjectEnvironments: Set<string> = new Set(),
-  initialProjectChangeRequestConfiguration: Record<
-    string,
-    { requiredApprovals: number }
-  > = {},
+  initialProjectChangeRequestConfiguration: Record<string, { requiredApprovals: number }> = {},
 ) => {
   const { isEnterprise } = useUiConfig();
   const [projectId, setProjectId] = useState(initialProjectId);
-  const [projectMode, setProjectMode] =
-    useState<ProjectMode>(initialProjectMode);
+  const [projectMode, setProjectMode] = useState<ProjectMode>(initialProjectMode);
   const [projectName, setProjectName] = useState(initialProjectName);
   const [projectDesc, setProjectDesc] = useState(initialProjectDesc);
-  const [projectStickiness, setProjectStickiness] = useState<string>(
-    initialProjectStickiness,
-  );
+  const [projectStickiness, setProjectStickiness] = useState<string>(initialProjectStickiness);
   const [featureLimit, setFeatureLimit] = useState<string>(initialFeatureLimit);
-  const [projectEnvironments, setProjectEnvironments] = useState<Set<string>>(
-    initialProjectEnvironments,
+  const [projectEnvironments, setProjectEnvironments] = useState<Set<string>>(initialProjectEnvironments);
+  const [projectChangeRequestConfiguration, setProjectChangeRequestConfiguration] = useState(
+    initialProjectChangeRequestConfiguration,
   );
-  const [
-    projectChangeRequestConfiguration,
-    setProjectChangeRequestConfiguration,
-  ] = useState(initialProjectChangeRequestConfiguration);
 
   const updateProjectEnvironments = (newState: Set<string>) => {
     if (newState.size !== 0) {
       const filteredChangeRequestEnvs = Object.fromEntries(
-        Object.entries(projectChangeRequestConfiguration).filter(([env]) =>
-          newState.has(env),
-        ),
+        Object.entries(projectChangeRequestConfiguration).filter(([env]) => newState.has(env)),
       );
 
       setProjectChangeRequestConfiguration(filteredChangeRequestEnvs);
@@ -100,17 +89,14 @@ const useProjectForm = (
     omitId?: boolean;
     includeChangeRequestConfig?: boolean;
   }) => {
-    const environmentsPayload =
-      projectEnvironments.size > 0
-        ? { environments: [...projectEnvironments] }
-        : {};
+    const environmentsPayload = projectEnvironments.size > 0 ? { environments: [...projectEnvironments] } : {};
 
-    const changeRequestEnvironments = Object.entries(
-      projectChangeRequestConfiguration,
-    ).map(([env, { requiredApprovals }]) => ({
-      name: env,
-      requiredApprovals,
-    }));
+    const changeRequestEnvironments = Object.entries(projectChangeRequestConfiguration).map(
+      ([env, { requiredApprovals }]) => ({
+        name: env,
+        requiredApprovals,
+      }),
+    );
 
     const ossPayload = {
       ...(options?.omitId ? {} : { id: projectId }),
@@ -124,9 +110,7 @@ const useProjectForm = (
       ? {
           ...ossPayload,
           mode: projectMode,
-          ...(options?.includeChangeRequestConfig
-            ? { changeRequestEnvironments }
-            : {}),
+          ...(options?.includeChangeRequestConfig ? { changeRequestEnvironments } : {}),
         }
       : ossPayload;
   };

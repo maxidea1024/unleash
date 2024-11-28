@@ -2,11 +2,7 @@ import type { IPatStore } from '../../lib/types/stores/pat-store';
 import type { CreatePatSchema, PatSchema } from '../../lib/openapi';
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export default class FakePatStore implements IPatStore {
-  create(
-    pat: CreatePatSchema,
-    secret: string,
-    userId: number,
-  ): Promise<PatSchema> {
+  create(pat: CreatePatSchema, secret: string, userId: number): Promise<PatSchema> {
     throw new Error('Method not implemented.');
   }
 
@@ -24,10 +20,7 @@ export default class FakePatStore implements IPatStore {
     throw new Error('Method not implemented.');
   }
 
-  existsWithDescriptionByUser(
-    description: string,
-    userId: number,
-  ): Promise<boolean> {
+  existsWithDescriptionByUser(description: string, userId: number): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 

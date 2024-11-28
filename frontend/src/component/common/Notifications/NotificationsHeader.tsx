@@ -11,9 +11,7 @@ const StyledOuterContainerBox = styled(Box)(({ theme }) => ({
   boxShadow: theme.boxShadows.separator,
 }));
 
-export const NotificationsHeader: FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+export const NotificationsHeader: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <StyledOuterContainerBox>

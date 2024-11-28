@@ -53,13 +53,7 @@ const useStyles = makeStyles()((theme) => ({
 
 const ENTER = 'Enter';
 
-export const FreeTextInput = ({
-  values,
-  removeValue,
-  setValues,
-  error,
-  setError,
-}: IFreeTextInputProps) => {
+export const FreeTextInput = ({ values, removeValue, setValues, error, setError }: IFreeTextInputProps) => {
   const [inputValues, setInputValues] = useState('');
   const { classes: styles } = useStyles();
 
@@ -71,10 +65,7 @@ export const FreeTextInput = ({
   };
 
   const addValues = () => {
-    const newValues = uniqueValues([
-      ...values,
-      ...parseParameterStrings(inputValues),
-    ]);
+    const newValues = uniqueValues([...values, ...parseParameterStrings(inputValues)]);
 
     if (newValues.length === 0) {
       setError('values cannot be empty');
@@ -132,10 +123,7 @@ interface IConstraintValueChipsProps {
   removeValue: (index: number) => void;
 }
 
-const ConstraintValueChips = ({
-  values,
-  removeValue,
-}: IConstraintValueChipsProps) => {
+const ConstraintValueChips = ({ values, removeValue }: IConstraintValueChipsProps) => {
   const { classes: styles } = useStyles();
   return (
     <>
@@ -144,14 +132,7 @@ const ConstraintValueChips = ({
         // be unique here.
         return (
           <Chip
-            label={
-              <StringTruncator
-                text={value}
-                maxLength={35}
-                maxWidth='100'
-                className={styles.chipValue}
-              />
-            }
+            label={<StringTruncator text={value} maxLength={35} maxWidth='100' className={styles.chipValue} />}
             key={`${value}-${index}`}
             onDelete={() => removeValue(index)}
             className={styles.valueChip}

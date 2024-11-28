@@ -26,16 +26,14 @@ export const ChangeItemWrapper = styled(Box)({
   alignItems: 'center',
 });
 
-const ChangeItemInfo: FC<{ children?: React.ReactNode }> = styled(Box)(
-  ({ theme }) => ({
-    display: 'grid',
-    gridTemplateColumns: '150px auto',
-    gridAutoFlow: 'column',
-    alignItems: 'center',
-    flexGrow: 1,
-    gap: theme.spacing(1),
-  }),
-);
+const ChangeItemInfo: FC<{ children?: React.ReactNode }> = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '150px auto',
+  gridAutoFlow: 'column',
+  alignItems: 'center',
+  flexGrow: 1,
+  gap: theme.spacing(1),
+}));
 
 const SegmentContainer = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'conflict',
@@ -95,10 +93,7 @@ export const SegmentChangeDetails: VFC<{
             </ChangeItemInfo>
             <div>{actions}</div>
           </ChangeItemCreateEditWrapper>
-          <ConstraintAccordionList
-            constraints={change.payload.constraints}
-            showLabel={false}
-          />
+          <ConstraintAccordionList constraints={change.payload.constraints} showLabel={false} />
         </>
       )}
     </SegmentContainer>

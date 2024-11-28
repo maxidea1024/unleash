@@ -5,10 +5,7 @@ import type { IFeatureStrategyPayload } from '../interfaces/strategy';
 import { useChangeRequestApi } from './api/actions/useChangeRequestApi/useChangeRequestApi';
 import { usePendingChangeRequests } from './api/getters/usePendingChangeRequests/usePendingChangeRequests';
 
-export type ChangeRequestStrategyAction =
-  | 'addStrategy'
-  | 'updateStrategy'
-  | 'deleteStrategy';
+export type ChangeRequestStrategyAction = 'addStrategy' | 'updateStrategy' | 'deleteStrategy';
 
 export const useChangeRequestAddStrategy = (
   project: string,
@@ -29,11 +26,7 @@ export const useChangeRequestAddStrategy = (
   }>({ isOpen: false });
 
   const onChangeRequestAddStrategy = useCallback(
-    (
-      environment: string,
-      strategy: IFeatureStrategyPayload,
-      fromEnvironment?: string,
-    ) => {
+    (environment: string, strategy: IFeatureStrategyPayload, fromEnvironment?: string) => {
       setChangeRequestDialogDetails({
         featureName,
         environment,
@@ -46,11 +39,7 @@ export const useChangeRequestAddStrategy = (
   );
 
   const onChangeRequestAddStrategies = useCallback(
-    (
-      environment: string,
-      strategies: IFeatureStrategyPayload[],
-      fromEnvironment: string,
-    ) => {
+    (environment: string, strategies: IFeatureStrategyPayload[], fromEnvironment: string) => {
       setChangeRequestDialogDetails({
         featureName,
         environment,

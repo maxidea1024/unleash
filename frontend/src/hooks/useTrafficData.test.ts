@@ -59,12 +59,7 @@ describe('traffic overage calculation', () => {
     const now = new Date();
     const period = toSelectablePeriod(now);
     const testNow = new Date(now.getFullYear(), now.getMonth(), 4);
-    const result = calculateEstimatedMonthlyCost(
-      period.key,
-      testData4Days,
-      53_000_000,
-      testNow,
-    );
+    const result = calculateEstimatedMonthlyCost(period.key, testData4Days, 53_000_000, testNow);
     expect(result).toBe(0);
   });
 
@@ -76,12 +71,7 @@ describe('traffic overage calculation', () => {
     const now = new Date();
     const period = toSelectablePeriod(now);
     const testNow = new Date(now.getFullYear(), now.getMonth(), 5);
-    const result = calculateEstimatedMonthlyCost(
-      period.key,
-      testData,
-      53_000_000,
-      testNow,
-    );
+    const result = calculateEstimatedMonthlyCost(period.key, testData, 53_000_000, testNow);
     expect(result).toBeGreaterThan(1430);
   });
 
@@ -93,11 +83,7 @@ describe('traffic overage calculation', () => {
     // Testing April 5th of 2024 (30 days)
     const now = new Date(2024, 3, 5);
     const period = toSelectablePeriod(now);
-    const result = calculateProjectedUsage(
-      now.getDate(),
-      testData,
-      period.dayCount,
-    );
+    const result = calculateProjectedUsage(now.getDate(), testData, period.dayCount);
     // 22_500_000 * 3 * 30 = 2_025_000_000
     expect(result).toBe(2_025_000_000);
   });

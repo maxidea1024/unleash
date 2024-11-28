@@ -13,8 +13,7 @@ export interface IStatTrafficUsageKey {
   statusCodeSeries: number;
 }
 
-export interface ITrafficDataUsageStore
-  extends IStore<IStatTrafficUsage, IStatTrafficUsageKey> {
+export interface ITrafficDataUsageStore extends IStore<IStatTrafficUsage, IStatTrafficUsageKey> {
   upsert(trafficDataUsage: IStatTrafficUsage): Promise<void>;
   getTrafficDataUsageForPeriod(period: string): Promise<IStatTrafficUsage[]>;
 }

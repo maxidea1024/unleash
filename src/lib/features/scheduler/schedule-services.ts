@@ -1,8 +1,4 @@
-import {
-  hoursToMilliseconds,
-  minutesToMilliseconds,
-  secondsToMilliseconds,
-} from 'date-fns';
+import { hoursToMilliseconds, minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 import type { IUnleashConfig, IUnleashServices } from '../../server-impl';
 
 /**
@@ -11,10 +7,7 @@ import type { IUnleashConfig, IUnleashServices } from '../../server-impl';
  * In order to promote runtime control, you should **not use** a flagResolver inside this method. Instead, implement your flag usage inside the scheduled methods themselves.
  * @param services
  */
-export const scheduleServices = async (
-  services: IUnleashServices,
-  config: IUnleashConfig,
-): Promise<void> => {
+export const scheduleServices = async (services: IUnleashServices, config: IUnleashConfig): Promise<void> => {
   const {
     accountService,
     schedulerService,
@@ -40,11 +33,7 @@ export const scheduleServices = async (
     'cleanLastSeen',
   );
 
-  schedulerService.schedule(
-    lastSeenService.store.bind(lastSeenService),
-    secondsToMilliseconds(30),
-    'storeLastSeen',
-  );
+  schedulerService.schedule(lastSeenService.store.bind(lastSeenService), secondsToMilliseconds(30), 'storeLastSeen');
 
   schedulerService.schedule(
     apiTokenService.fetchActiveTokens.bind(apiTokenService),
@@ -70,9 +59,7 @@ export const scheduleServices = async (
   );
 
   schedulerService.schedule(
-    clientInstanceService.removeInstancesOlderThanTwoDays.bind(
-      clientInstanceService,
-    ),
+    clientInstanceService.removeInstancesOlderThanTwoDays.bind(clientInstanceService),
     hoursToMilliseconds(24),
     'removeInstancesOlderThanTwoDays',
   );
@@ -89,11 +76,7 @@ export const scheduleServices = async (
     'announceUnannounced',
   );
 
-  schedulerService.schedule(
-    projectService.statusJob.bind(projectService),
-    hoursToMilliseconds(24),
-    'statusJob',
-  );
+  schedulerService.schedule(projectService.statusJob.bind(projectService), hoursToMilliseconds(24), 'statusJob');
 
   schedulerService.schedule(
     projectHealthService.setHealthRating.bind(projectHealthService),
@@ -102,9 +85,7 @@ export const scheduleServices = async (
   );
 
   schedulerService.schedule(
-    configurationRevisionService.updateMaxRevisionId.bind(
-      configurationRevisionService,
-    ),
+    configurationRevisionService.updateMaxRevisionId.bind(configurationRevisionService),
     secondsToMilliseconds(1),
     'updateMaxRevisionId',
   );
@@ -116,9 +97,7 @@ export const scheduleServices = async (
   );
 
   schedulerService.schedule(
-    featureToggleService.updatePotentiallyStaleFeatures.bind(
-      featureToggleService,
-    ),
+    featureToggleService.updatePotentiallyStaleFeatures.bind(featureToggleService),
     minutesToMilliseconds(1),
     'updatePotentiallyStaleFeatures',
   );
@@ -161,9 +140,7 @@ export const scheduleServices = async (
       'setEventCreatedByUserId',
     );
     schedulerService.schedule(
-      featureToggleService.setFeatureCreatedByUserIdFromEvents.bind(
-        featureToggleService,
-      ),
+      featureToggleService.setFeatureCreatedByUserIdFromEvents.bind(featureToggleService),
       minutesToMilliseconds(15),
       'setFeatureCreatedByUserIdFromEvents',
     );

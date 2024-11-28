@@ -1,8 +1,4 @@
-import {
-  type IUnleashTest,
-  setupApp,
-  setupAppWithBaseUrl,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupApp, setupAppWithBaseUrl } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import SwaggerParser from '@apidevtools/swagger-parser';
@@ -24,10 +20,7 @@ afterAll(async () => {
 });
 
 test('should serve the OpenAPI UI', async () => {
-  return app.request
-    .get('/docs/openapi/')
-    .expect('Content-Type', /html/)
-    .expect(200);
+  return app.request.get('/docs/openapi/').expect('Content-Type', /html/).expect(200);
 });
 
 test('should serve the OpenAPI spec', async () => {
@@ -52,9 +45,7 @@ test('should serve the OpenAPI spec with a `version` property', async () => {
       const { version } = res.body.info;
       // ensure there's no whitespace or leading `v`
       // clean removes +anything modifier from the version
-      expect(version).toMatch(
-        new RegExp(`^${semver.clean(version) ?? 'invalid semver'}`),
-      );
+      expect(version).toMatch(new RegExp(`^${semver.clean(version) ?? 'invalid semver'}`));
 
       // ensure the version listed is valid semver
       expect(semver.parse(version, { loose: false })).toBeTruthy();
@@ -76,10 +67,7 @@ describe('subpath handling', () => {
   test('the OpenAPI spec has the base path appended to its server', async () => {
     const {
       body: { servers },
-    } = await appWithSubPath.request
-      .get(`${subPath}/docs/openapi.json`)
-      .expect('Content-Type', /json/)
-      .expect(200);
+    } = await appWithSubPath.request.get(`${subPath}/docs/openapi.json`).expect('Content-Type', /json/).expect(200);
 
     expect(servers[0].url).toMatch(new RegExp(`.+${subPath}$`));
   });
@@ -87,26 +75,18 @@ describe('subpath handling', () => {
   test('When the server has a base path, that base path is stripped from the endpoints', async () => {
     const {
       body: { paths },
-    } = await appWithSubPath.request
-      .get(`${subPath}/docs/openapi.json`)
-      .expect('Content-Type', /json/)
-      .expect(200);
+    } = await appWithSubPath.request.get(`${subPath}/docs/openapi.json`).expect('Content-Type', /json/).expect(200);
 
     // ensure that paths on this server don't start with the base
     // uri path.
-    const noPathsStartWithSubpath = Object.keys(paths).every(
-      (p) => !p.startsWith(subPath),
-    );
+    const noPathsStartWithSubpath = Object.keys(paths).every((p) => !p.startsWith(subPath));
 
     expect(noPathsStartWithSubpath).toBe(true);
   });
 });
 
 test('the generated OpenAPI spec is valid', async () => {
-  const { body } = await app.request
-    .get('/docs/openapi.json')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await app.request.get('/docs/openapi.json').expect('Content-Type', /json/).expect(200);
   // this throws if the swagger parser can't parse it correctly
   // also parses examples, but _does_ do some string coercion in examples
   try {
@@ -152,10 +132,7 @@ test('the generated OpenAPI spec is valid', async () => {
 });
 
 test('all root-level tags are "approved tags"', async () => {
-  const { body: spec } = await app.request
-    .get('/docs/openapi.json')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body: spec } = await app.request.get('/docs/openapi.json').expect('Content-Type', /json/).expect(200);
 
   const specTags = spec.tags;
   const approvedTags = openApiTags;
@@ -177,10 +154,7 @@ test('all root-level tags are "approved tags"', async () => {
 // If none of the official tags seem appropriate for an endpoint, consider
 // creating a new tag.
 test('all tags are listed in the root "tags" list', async () => {
-  const { body: spec } = await app.request
-    .get('/docs/openapi.json')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body: spec } = await app.request.get('/docs/openapi.json').expect('Content-Type', /json/).expect(200);
 
   const rootLevelTagNames = new Set(spec.tags.map((tag) => tag.name));
 
@@ -196,8 +170,7 @@ test('all tags are listed in the root "tags" list', async () => {
         if (!rootLevelTagNames.has(tag)) {
           // store other invalid tags that already exist on this
           // operation
-          const preExistingTags =
-            invalidTags[path]?.[operation]?.invalidTags ?? [];
+          const preExistingTags = invalidTags[path]?.[operation]?.invalidTags ?? [];
           // add information about the invalid tag to the invalid tags
           // dict.
           invalidTags = {
@@ -220,20 +193,14 @@ test('all tags are listed in the root "tags" list', async () => {
     const msgs = Object.entries(invalidTags).flatMap(([path, data]) =>
       Object.entries(data).map(
         ([operation, opData]) =>
-          `${operation.toUpperCase()} ${path} (operation id: ${
-            opData.operationId
-          }) has the following invalid tags: ${opData.invalidTags
-            .map((tag) => `"${tag}"`)
-            .join(', ')}`,
+          `${operation.toUpperCase()} ${path} (operation id: ${opData.operationId}) has the following invalid tags: ${opData.invalidTags.map((tag) => `"${tag}"`).join(', ')}`,
       ),
     );
 
     // format message
     const errorMessage = `The OpenAPI spec contains path-level tags that are not listed in the root-level tags object. The relevant paths, operation ids, and tags are as follows:\n\n${msgs.join(
       '\n\n',
-    )}\n\nFor reference, the root-level tags are: ${spec.tags
-      .map((tag) => `"${tag.name}"`)
-      .join(', ')}`;
+    )}\n\nFor reference, the root-level tags are: ${spec.tags.map((tag) => `"${tag.name}"`).join(', ')}`;
 
     console.error(errorMessage);
   }
@@ -241,10 +208,7 @@ test('all tags are listed in the root "tags" list', async () => {
 });
 
 test('all API operations have non-empty summaries and descriptions', async () => {
-  const { body: spec } = await app.request
-    .get('/docs/openapi.json')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body: spec } = await app.request.get('/docs/openapi.json').expect('Content-Type', /json/).expect(200);
 
   const anomalies = Object.entries(spec.paths).flatMap(([path, data]) => {
     return Object.entries(data)
@@ -256,10 +220,7 @@ test('all API operations have non-empty summaries and descriptions', async () =>
         }
       })
       .filter(Boolean)
-      .map(
-        ([verb, operationId]) =>
-          `${verb.toUpperCase()} ${path} (operation ID: ${operationId})`,
-      );
+      .map(([verb, operationId]) => `${verb.toUpperCase()} ${path} (operation ID: ${operationId})`);
   });
 
   // any items left in the anomalies list is missing either a summary, or a

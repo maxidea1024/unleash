@@ -5,11 +5,7 @@ import { SCHEDULER_JOB_TIME } from '../../metric-events';
 
 // returns between min and max seconds in ms
 // when schedule interval is smaller than max jitter then no jitter
-function randomJitter(
-  minMs: number,
-  maxMs: number,
-  scheduleIntervalMs: number,
-): number {
+function randomJitter(minMs: number, maxMs: number, scheduleIntervalMs: number): number {
   if (scheduleIntervalMs < maxMs) {
     return 0;
   }
@@ -23,11 +19,7 @@ export class SchedulerService {
   private readonly eventBus: EventEmitter;
   private readonly executingSchedulers: Set<string> = new Set();
 
-  constructor(
-    getLogger: LogProvider,
-    maintenanceStatus: IMaintenanceStatus,
-    eventBus: EventEmitter,
-  ) {
+  constructor(getLogger: LogProvider, maintenanceStatus: IMaintenanceStatus, eventBus: EventEmitter) {
     this.logger = getLogger('scheduler-service.ts');
 
     this.maintenanceStatus = maintenanceStatus;
@@ -69,8 +61,7 @@ export class SchedulerService {
     this.intervalIds.push(
       setInterval(async () => {
         try {
-          const maintenanceMode =
-            await this.maintenanceStatus.isMaintenanceMode();
+          const maintenanceMode = await this.maintenanceStatus.isMaintenanceMode();
           if (!maintenanceMode) {
             await runScheduledFunctionWithEvent();
           }

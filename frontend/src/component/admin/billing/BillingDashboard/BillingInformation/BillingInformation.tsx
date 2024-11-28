@@ -55,8 +55,7 @@ export const BillingInformation = () => {
           condition={inactive}
           show={
             <StyledAlert severity='warning'>
-              In order to <strong>Upgrade trial</strong> you need to provide us
-              your billing information.
+              In order to <strong>Upgrade trial</strong> you need to provide us your billing information.
             </StyledAlert>
           }
         />
@@ -68,12 +67,8 @@ export const BillingInformation = () => {
         </StyledInfoLabel>
         <StyledDivider />
         <StyledInfoLabel>
-          <a
-            href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}
-          >
-            Get in touch with us
-          </a>{' '}
-          for any clarification
+          <a href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}>Get in touch with us</a> for any
+          clarification
         </StyledInfoLabel>
       </StyledInfoBox>
     </Grid>

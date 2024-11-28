@@ -10,29 +10,10 @@ interface IRoleDeleteDialogProps {
   onConfirm: (role: IRole) => void;
 }
 
-export const RoleDeleteDialog = ({
-  role,
-  open,
-  setOpen,
-  onConfirm,
-}: IRoleDeleteDialogProps) => {
+export const RoleDeleteDialog = ({ role, open, setOpen, onConfirm }: IRoleDeleteDialogProps) => {
   if (role?.type === CUSTOM_PROJECT_ROLE_TYPE) {
-    return (
-      <RoleDeleteDialogProjectRole
-        role={role}
-        open={open}
-        setOpen={setOpen}
-        onConfirm={onConfirm}
-      />
-    );
+    return <RoleDeleteDialogProjectRole role={role} open={open} setOpen={setOpen} onConfirm={onConfirm} />;
   }
 
-  return (
-    <RoleDeleteDialogRootRole
-      role={role}
-      open={open}
-      setOpen={setOpen}
-      onConfirm={onConfirm}
-    />
-  );
+  return <RoleDeleteDialogRootRole role={role} open={open} setOpen={setOpen} onConfirm={onConfirm} />;
 };

@@ -2,27 +2,14 @@ import memoizee from 'memoizee';
 import { ValidationError } from 'joi';
 import { getAddons, type IAddonProviders } from '../addons';
 import * as events from '../types/events';
-import {
-  AddonConfigCreatedEvent,
-  AddonConfigDeletedEvent,
-  AddonConfigUpdatedEvent,
-} from '../types/events';
+import { AddonConfigCreatedEvent, AddonConfigDeletedEvent, AddonConfigUpdatedEvent } from '../types/events';
 import { addonSchema } from './addon-schema';
 import NameExistsError from '../error/name-exists-error';
 import type { IFeatureToggleStore } from '../features/feature-toggle/types/feature-toggle-store-type';
 import type { Logger } from '../logger';
 import type TagTypeService from '../features/tag-type/tag-type-service';
-import type {
-  IAddon,
-  IAddonDto,
-  IAddonStore,
-} from '../types/stores/addon-store';
-import {
-  type IAuditUser,
-  type IUnleashConfig,
-  type IUnleashStores,
-  SYSTEM_USER_AUDIT,
-} from '../types';
+import type { IAddon, IAddonDto, IAddonStore } from '../types/stores/addon-store';
+import { type IAuditUser, type IUnleashConfig, type IUnleashStores, SYSTEM_USER_AUDIT } from '../types';
 import type { IAddonDefinition } from '../types/model';
 import { minutesToMilliseconds } from 'date-fns';
 import type EventService from '../features/events/event-service';
@@ -47,23 +34,16 @@ export default class AddonService {
   readonly eventService: EventService;
   readonly addonProviders: IAddonProviders;
   readonly sensitiveParams: ISensitiveParams;
-  readonly fetchAddonConfigs: (() => Promise<IAddon[]>) &
-    memoizee.Memoized<() => Promise<IAddon[]>>;
+  readonly fetchAddonConfigs: (() => Promise<IAddon[]>) & memoizee.Memoized<() => Promise<IAddon[]>>;
 
   constructor(
-    {
-      addonStore,
-      featureToggleStore,
-    }: Pick<IUnleashStores, 'addonStore' | 'featureToggleStore'>,
+    { addonStore, featureToggleStore }: Pick<IUnleashStores, 'addonStore' | 'featureToggleStore'>,
     {
       getLogger,
       server,
       flagResolver,
       eventBus,
-    }: Pick<
-      IUnleashConfig,
-      'getLogger' | 'server' | 'flagResolver' | 'eventBus'
-    >,
+    }: Pick<IUnleashConfig, 'getLogger' | 'server' | 'flagResolver' | 'eventBus'>,
     tagTypeService: TagTypeService,
     eventService: EventService,
     integrationEventsService: IntegrationEventsService,
@@ -91,23 +71,16 @@ export default class AddonService {
     }
 
     // Memoized private function
-    this.fetchAddonConfigs = memoizee(
-      async () => addonStore.getAll({ enabled: true }),
-      {
-        promise: true,
-        maxAge: minutesToMilliseconds(1),
-      },
-    );
+    this.fetchAddonConfigs = memoizee(async () => addonStore.getAll({ enabled: true }), {
+      promise: true,
+      maxAge: minutesToMilliseconds(1),
+    });
   }
 
   loadSensitiveParams(addonProviders: IAddonProviders): ISensitiveParams {
-    const providerDefinitions = Object.values(addonProviders).map(
-      (p) => p.definition,
-    );
+    const providerDefinitions = Object.values(addonProviders).map((p) => p.definition);
     return providerDefinitions.reduce((obj, definition) => {
-      const sensitiveParams =
-        definition.parameters?.filter((p) => p.sensitive).map((p) => p.name) ||
-        [];
+      const sensitiveParams = definition.parameters?.filter((p) => p.sensitive).map((p) => p.name) || [];
 
       const o = { ...obj };
       o[definition.name] = sensitiveParams;
@@ -116,9 +89,7 @@ export default class AddonService {
   }
 
   registerEventHandler(): void {
-    SUPPORTED_EVENTS.forEach((eventName) =>
-      this.eventService.onEvent(eventName, this.handleEvent(eventName)),
-    );
+    SUPPORTED_EVENTS.forEach((eventName) => this.eventService.onEvent(eventName, this.handleEvent(eventName)));
   }
 
   handleEvent(eventName: string): (IEvent) => void {
@@ -144,13 +115,7 @@ export default class AddonService {
               addon.environments.includes(event.environment),
           )
           .filter((addon) => addonProviders[addon.provider])
-          .forEach((addon) =>
-            addonProviders[addon.provider].handleEvent(
-              event,
-              addon.parameters,
-              addon.id,
-            ),
-          );
+          .forEach((addon) => addonProviders[addon.provider].handleEvent(event, addon.parameters, addon.id));
       });
     };
   }
@@ -214,9 +179,7 @@ export default class AddonService {
     const createdAddon = await this.addonStore.insert(addonConfig);
     await this.addTagTypes(createdAddon.provider);
 
-    this.logger.info(
-      `User ${auditUser.username} created addon ${addonConfig.provider}`,
-    );
+    this.logger.info(`User ${auditUser.username} created addon ${addonConfig.provider}`);
 
     await this.eventService.storeEvent(
       new AddonConfigCreatedEvent({
@@ -228,28 +191,21 @@ export default class AddonService {
     return createdAddon;
   }
 
-  async updateAddon(
-    id: number,
-    data: IAddonDto,
-    auditUser: IAuditUser,
-  ): Promise<IAddon> {
+  async updateAddon(id: number, data: IAddonDto, auditUser: IAuditUser): Promise<IAddon> {
     const existingConfig = await this.addonStore.get(id); // because getting an early 404 here makes more sense
     const addonConfig = await addonSchema.validateAsync(data);
     await this.validateKnownProvider(addonConfig);
     await this.validateRequiredParameters(addonConfig);
     if (this.sensitiveParams[addonConfig.provider].length > 0) {
-      addonConfig.parameters = Object.keys(addonConfig.parameters).reduce(
-        (params, key) => {
-          const o = { ...params };
-          if (addonConfig.parameters[key] === MASKED_VALUE) {
-            o[key] = existingConfig.parameters[key];
-          } else {
-            o[key] = addonConfig.parameters[key];
-          }
-          return o;
-        },
-        {},
-      );
+      addonConfig.parameters = Object.keys(addonConfig.parameters).reduce((params, key) => {
+        const o = { ...params };
+        if (addonConfig.parameters[key] === MASKED_VALUE) {
+          o[key] = existingConfig.parameters[key];
+        } else {
+          o[key] = addonConfig.parameters[key];
+        }
+        return o;
+      }, {});
     }
     const result = await this.addonStore.update(id, addonConfig);
     await this.eventService.storeEvent(
@@ -286,11 +242,7 @@ export default class AddonService {
 
     const p = this.addonProviders[config.provider];
     if (!p) {
-      throw new ValidationError(
-        `Unknown addon provider ${config.provider}`,
-        [],
-        undefined,
-      );
+      throw new ValidationError(`Unknown addon provider ${config.provider}`, [], undefined);
     } else {
       return true;
     }
@@ -304,15 +256,9 @@ export default class AddonService {
       providerDefinition.parameters
         ?.filter((p) => p.required)
         .map((p) => p.name)
-        .filter(
-          (requiredParam) => !Object.keys(parameters).includes(requiredParam),
-        ) || [];
+        .filter((requiredParam) => !Object.keys(parameters).includes(requiredParam)) || [];
     if (requiredParamsMissing.length > 0) {
-      throw new ValidationError(
-        `Missing required parameters: ${requiredParamsMissing.join(',')} `,
-        [],
-        undefined,
-      );
+      throw new ValidationError(`Missing required parameters: ${requiredParamsMissing.join(',')} `, [], undefined);
     }
     return true;
   }

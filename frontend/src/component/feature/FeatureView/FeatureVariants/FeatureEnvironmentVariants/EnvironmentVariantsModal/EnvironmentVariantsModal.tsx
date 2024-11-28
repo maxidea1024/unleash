@@ -4,10 +4,7 @@ import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { type FormEvent, useEffect, useMemo, useState, memo } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type {
-  IFeatureEnvironment,
-  IFeatureVariant,
-} from 'interfaces/featureToggle';
+import type { IFeatureEnvironment, IFeatureVariant } from 'interfaces/featureToggle';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { Operation } from 'fast-json-patch';
 import CloudCircle from '@mui/icons-material/CloudCircle';
@@ -151,8 +148,7 @@ export const EnvironmentVariantsModal = ({
 
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
   const { data } = usePendingChangeRequests(projectId);
-  const { changeRequestInReviewOrApproved, alert } =
-    useChangeRequestInReviewWarning(data);
+  const { changeRequestInReviewOrApproved, alert } = useChangeRequestInReviewWarning(data);
 
   const oldVariants = environment?.variants || [];
   const [variantsEdit, setVariantsEdit] = useState<IFeatureVariantEdit[]>([]);
@@ -174,10 +170,7 @@ export const EnvironmentVariantsModal = ({
                 weightType: WeightType.VARIABLE,
                 weight: 0,
                 overrides: [],
-                stickiness:
-                  variantsEdit?.length > 0
-                    ? variantsEdit[0].stickiness
-                    : defaultStickiness,
+                stickiness: variantsEdit?.length > 0 ? variantsEdit[0].stickiness : defaultStickiness,
                 new: true,
                 isValid: false,
                 id: uuidv4(),
@@ -190,9 +183,7 @@ export const EnvironmentVariantsModal = ({
   const updateVariant = (updatedVariant: IFeatureVariantEdit, id: string) => {
     setVariantsEdit((prevVariants) =>
       updateWeightEdit(
-        prevVariants.map((prevVariant) =>
-          prevVariant.id === id ? updatedVariant : prevVariant,
-        ),
+        prevVariants.map((prevVariant) => (prevVariant.id === id ? updatedVariant : prevVariant)),
         1000,
       ),
     );
@@ -207,10 +198,7 @@ export const EnvironmentVariantsModal = ({
         weightType: WeightType.VARIABLE,
         weight: 0,
         overrides: [],
-        stickiness:
-          variantsEdit?.length > 0
-            ? variantsEdit[0].stickiness
-            : defaultStickiness,
+        stickiness: variantsEdit?.length > 0 ? variantsEdit[0].stickiness : defaultStickiness,
         new: true,
         isValid: false,
         id,
@@ -221,18 +209,14 @@ export const EnvironmentVariantsModal = ({
 
   useEffect(() => {
     if (newVariant) {
-      const element = document.getElementById(
-        `variant-name-input-${newVariant}`,
-      );
+      const element = document.getElementById(`variant-name-input-${newVariant}`);
       element?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       element?.focus({ preventScroll: true });
       setNewVariant(undefined);
     }
   }, [newVariant]);
 
-  const variants = variantsEdit.map(
-    ({ new: _, isValid: __, id: ___, ...rest }) => rest,
-  );
+  const variants = variantsEdit.map(({ new: _, isValid: __, id: ___, ...rest }) => rest);
 
   const apiPayload = getApiPayload(oldVariants, variants);
   const crPayload = getCrPayload(variants);
@@ -244,27 +228,18 @@ export const EnvironmentVariantsModal = ({
 
   const formatApiCode = () =>
     isChangeRequest
-      ? `curl --location --request POST '${
-          uiConfig.unleashUrl
-        }/api/admin/projects/${projectId}/environments/${
-          environment?.name
-        }/change-requests' \\
+      ? `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/environments/${environment?.name}/change-requests' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(crPayload, undefined, 2)}'`
-      : `curl --location --request PATCH '${
-          uiConfig.unleashUrl
-        }/api/admin/projects/${projectId}/features/${featureId}/environments/${
-          environment?.name
-        }/variants' \\
+      : `curl --location --request PATCH '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/features/${featureId}/environments/${environment?.name}/variants' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(apiPayload.patch, undefined, 2)}'`;
 
   const isValid = variantsEdit.every(({ isValid }) => isValid);
 
-  const hasChangeRequestInReviewForEnvironment =
-    changeRequestInReviewOrApproved(environment?.name || '');
+  const hasChangeRequestInReviewForEnvironment = changeRequestInReviewOrApproved(environment?.name || '');
 
   const changeRequestButtonText = hasChangeRequestInReviewForEnvironment
     ? 'Add to existing change request'
@@ -280,10 +255,7 @@ export const EnvironmentVariantsModal = ({
   }, [loading, defaultStickiness, JSON.stringify(variants[0] ?? {})]);
 
   const stickinessOptions = useMemo(
-    () => [
-      'default',
-      ...context.filter((c) => c.stickiness).map((c) => c.name),
-    ],
+    () => ['default', ...context.filter((c) => c.stickiness).map((c) => c.name)],
     [context],
   );
   const options = stickinessOptions.map((c) => ({ key: c, label: c }));
@@ -334,9 +306,7 @@ export const EnvironmentVariantsModal = ({
         <StyledFormSubtitle>
           <div>
             <StyledCloudCircle deprecated={!environment?.enabled} />
-            <StyledName deprecated={!environment?.enabled}>
-              {environment?.name}
-            </StyledName>
+            <StyledName deprecated={!environment?.enabled}>{environment?.name}</StyledName>
           </div>
           <PermissionButton
             data-testid='MODAL_ADD_VARIANT_BUTTON'
@@ -359,10 +329,8 @@ export const EnvironmentVariantsModal = ({
                 show={
                   <StyledCRAlert severity='info'>
                     <strong>Change requests</strong> are enabled
-                    {environment ? ` for ${environment.name}` : ''}. Your
-                    changes need to be approved before they will be live. All
-                    the changes you do now will be added into a draft that you
-                    can submit for review.
+                    {environment ? ` for ${environment.name}` : ''}. Your changes need to be approved before they will
+                    be live. All the changes you do now will be added into a draft that you can submit for review.
                   </StyledCRAlert>
                 }
               />
@@ -374,9 +342,7 @@ export const EnvironmentVariantsModal = ({
                 key={variant.id}
                 variant={variant}
                 variants={variantsEdit}
-                updateVariant={(updatedVariant) =>
-                  updateVariant(updatedVariant, variant.id)
-                }
+                updateVariant={(updatedVariant) => updateVariant(updatedVariant, variant.id)}
                 removeVariant={() =>
                   setVariantsEdit((variantsEdit) =>
                     updateWeightEdit(
@@ -407,9 +373,8 @@ export const EnvironmentVariantsModal = ({
                   <p>Stickiness</p>
                 </StyledStickinessContainer>
                 <StyledDescription>
-                  By overriding the stickiness you can control which parameter
-                  is used to ensure consistent traffic allocation across
-                  variants.{' '}
+                  By overriding the stickiness you can control which parameter is used to ensure consistent traffic
+                  allocation across variants.{' '}
                   <Link
                     href='https://docs.getunleash.io/reference/feature-toggle-variants'
                     target='_blank'
@@ -429,10 +394,7 @@ export const EnvironmentVariantsModal = ({
               </>
             }
             elseShow={
-              <StyledDescription>
-                This environment has no variants. Get started by adding a
-                variant.
-              </StyledDescription>
+              <StyledDescription>This environment has no variants. Get started by adding a variant.</StyledDescription>
             }
           />
 
@@ -451,9 +413,7 @@ export const EnvironmentVariantsModal = ({
             >
               {isChangeRequest ? changeRequestButtonText : 'Save variants'}
             </Button>
-            <StyledCancelButton onClick={handleClose}>
-              Cancel
-            </StyledCancelButton>
+            <StyledCancelButton onClick={handleClose}>Cancel</StyledCancelButton>
           </StyledButtonContainer>
         </StyledForm>
       </FormTemplate>

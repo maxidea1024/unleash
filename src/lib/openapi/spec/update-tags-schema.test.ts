@@ -17,7 +17,5 @@ test('updateTagsSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/updateTagsSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/updateTagsSchema', data)).toBeUndefined();
 });

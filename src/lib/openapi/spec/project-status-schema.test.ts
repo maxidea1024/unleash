@@ -41,7 +41,5 @@ test('projectStatusSchema', () => {
     },
   };
 
-  expect(
-    validateSchema('#/components/schemas/projectStatusSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/projectStatusSchema', data)).toBeUndefined();
 });

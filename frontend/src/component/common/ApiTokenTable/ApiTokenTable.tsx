@@ -62,11 +62,7 @@ export const ApiTokenTable = ({
       />
       <Box sx={{ overflowX: 'auto' }}>
         <SearchHighlightProvider value={globalFilter}>
-          <VirtualizedTable
-            rows={rows}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-          />
+          <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
         </SearchHighlightProvider>
       </Box>
       <ConditionallyRender
@@ -85,11 +81,7 @@ export const ApiTokenTable = ({
               <TablePlaceholder>
                 <span>
                   {'No tokens available. Read '}
-                  <Link
-                    href='https://docs.getunleash.io/how-to/api'
-                    target='_blank'
-                    rel='noreferrer'
-                  >
+                  <Link href='https://docs.getunleash.io/how-to/api' target='_blank' rel='noreferrer'>
                     API How-to guides
                   </Link>{' '}
                   {' to learn more.'}

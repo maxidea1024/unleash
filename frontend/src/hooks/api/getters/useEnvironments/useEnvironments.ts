@@ -1,9 +1,6 @@
 import useSWR from 'swr';
 import { useMemo, useCallback } from 'react';
-import type {
-  IEnvironmentResponse,
-  IEnvironment,
-} from 'interfaces/environments';
+import type { IEnvironmentResponse, IEnvironment } from 'interfaces/environments';
 import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
@@ -16,10 +13,7 @@ interface IUseEnvironmentsOutput {
 }
 
 export const useEnvironments = (): IUseEnvironmentsOutput => {
-  const { data, error, mutate } = useSWR<IEnvironment[]>(
-    formatApiPath(`api/admin/environments`),
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR<IEnvironment[]>(formatApiPath(`api/admin/environments`), fetcher);
 
   const environments = useMemo(() => {
     return data || [];

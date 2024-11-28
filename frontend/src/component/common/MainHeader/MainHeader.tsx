@@ -37,11 +37,7 @@ interface IMainHeaderProps {
   actions?: ReactNode;
 }
 
-export const MainHeader = ({
-  title,
-  description,
-  actions,
-}: IMainHeaderProps) => {
+export const MainHeader = ({ title, description, actions }: IMainHeaderProps) => {
   usePageTitle(title);
 
   return (

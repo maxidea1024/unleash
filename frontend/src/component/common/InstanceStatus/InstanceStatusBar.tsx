@@ -7,11 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import AccessContext from 'contexts/AccessContext';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
-import {
-  trialHasExpired,
-  trialExpiresSoon,
-  isTrialInstance,
-} from 'utils/instanceTrial';
+import { trialHasExpired, trialExpiresSoon, isTrialInstance } from 'utils/instanceTrial';
 import { formatDistanceToNowStrict, parseISO } from 'date-fns';
 
 const StyledWarningBar = styled('aside')(({ theme }) => ({
@@ -60,9 +56,7 @@ interface IInstanceStatusBarProps {
   instanceStatus: IInstanceStatus;
 }
 
-export const InstanceStatusBar = ({
-  instanceStatus,
-}: IInstanceStatusBarProps) => {
+export const InstanceStatusBar = ({ instanceStatus }: IInstanceStatusBarProps) => {
   if (trialHasExpired(instanceStatus)) {
     return <StatusBarExpired instanceStatus={instanceStatus} />;
   }
@@ -83,9 +77,8 @@ const StatusBarExpired = ({ instanceStatus }: IInstanceStatusBarProps) => {
     <StyledWarningBar data-testid={INSTANCE_STATUS_BAR_ID}>
       <StyledWarningIcon />
       <Typography sx={(theme) => ({ fontSize: theme.fontSizes.smallBody })}>
-        <strong>Warning!</strong> Your free {instanceStatus.plan} trial has
-        expired. <strong>Upgrade trial</strong> otherwise your{' '}
-        <strong>account will be deleted.</strong>
+        <strong>Warning!</strong> Your free {instanceStatus.plan} trial has expired. <strong>Upgrade trial</strong>{' '}
+        otherwise your <strong>account will be deleted.</strong>
       </Typography>
       <BillingLink instanceStatus={instanceStatus} />
     </StyledWarningBar>
@@ -93,17 +86,14 @@ const StatusBarExpired = ({ instanceStatus }: IInstanceStatusBarProps) => {
 };
 
 const StatusBarExpiresSoon = ({ instanceStatus }: IInstanceStatusBarProps) => {
-  const timeRemaining = formatDistanceToNowStrict(
-    parseISO(instanceStatus.trialExpiry!),
-    { roundingMethod: 'floor' },
-  );
+  const timeRemaining = formatDistanceToNowStrict(parseISO(instanceStatus.trialExpiry!), { roundingMethod: 'floor' });
 
   return (
     <StyledInfoBar data-testid={INSTANCE_STATUS_BAR_ID}>
       <StyledInfoIcon />
       <Typography sx={(theme) => ({ fontSize: theme.fontSizes.smallBody })}>
-        <strong>Heads up!</strong> You have <strong>{timeRemaining}</strong>{' '}
-        left of your free {instanceStatus.plan} trial.
+        <strong>Heads up!</strong> You have <strong>{timeRemaining}</strong> left of your free {instanceStatus.plan}{' '}
+        trial.
       </Typography>
       <BillingLink instanceStatus={instanceStatus} />
     </StyledInfoBar>
@@ -115,8 +105,7 @@ const StatusBarExpiresLater = ({ instanceStatus }: IInstanceStatusBarProps) => {
     <StyledInfoBar data-testid={INSTANCE_STATUS_BAR_ID}>
       <StyledInfoIcon />
       <Typography sx={(theme) => ({ fontSize: theme.fontSizes.smallBody })}>
-        <strong>Heads up!</strong> You're currently on a free{' '}
-        {instanceStatus.plan} trial account.
+        <strong>Heads up!</strong> You're currently on a free {instanceStatus.plan} trial account.
       </Typography>
       <BillingLink instanceStatus={instanceStatus} />
     </StyledInfoBar>

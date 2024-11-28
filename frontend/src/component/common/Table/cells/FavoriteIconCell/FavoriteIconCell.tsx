@@ -32,10 +32,7 @@ interface IFavoriteIconCellProps {
   onClick?: () => void;
 }
 
-export const FavoriteIconCell: VFC<IFavoriteIconCellProps> = ({
-  value,
-  onClick,
-}) => (
+export const FavoriteIconCell: VFC<IFavoriteIconCellProps> = ({ value, onClick }) => (
   <StyledCell>
     <ConditionallyRender
       condition={Boolean(value)}
@@ -45,11 +42,7 @@ export const FavoriteIconCell: VFC<IFavoriteIconCellProps> = ({
         </StyledIconButton>
       }
       elseShow={
-        <StyledIconButtonInactive
-          className='show-row-hover'
-          onClick={onClick}
-          size='small'
-        >
+        <StyledIconButtonInactive className='show-row-hover' onClick={onClick} size='small'>
           <StarBorderIcon fontSize='small' />
         </StyledIconButtonInactive>
       }

@@ -144,10 +144,7 @@ test('sets featureinfo', async () => {
   const scope = nock(url)
     .post(
       '/',
-      (body) =>
-        body.featureInfo &&
-        body.featureInfo.featureToggles === 0 &&
-        body.featureInfo.environments === 0,
+      (body) => body.featureInfo && body.featureInfo.featureToggles === 0 && body.featureInfo.environments === 0,
     )
     .reply(() => [
       200,

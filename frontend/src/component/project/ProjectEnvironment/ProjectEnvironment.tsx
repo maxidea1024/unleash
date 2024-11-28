@@ -15,12 +15,7 @@ import { getEnabledEnvs } from './helpers';
 import { usePageTitle } from 'hooks/usePageTitle';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useGlobalFilter, useTable } from 'react-table';
-import {
-  SortableTableHeader,
-  Table,
-  TableCell,
-  TablePlaceholder,
-} from 'component/common/Table';
+import { SortableTableHeader, Table, TableCell, TablePlaceholder } from 'component/common/Table';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Search } from 'component/common/Search/Search';
 import { EnvironmentNameCell } from 'component/environments/EnvironmentTable/EnvironmentNameCell/EnvironmentNameCell';
@@ -57,15 +52,12 @@ const ProjectEnvironmentList = () => {
 
   // api state
   const { setToastData, setToastApiError } = useToast();
-  const { environments, loading, error, refetchEnvironments } =
-    useProjectEnvironments(projectId);
+  const { environments, loading, error, refetchEnvironments } = useProjectEnvironments(projectId);
   const { project, refetch: refetchProject } = useProjectOverview(projectId);
-  const { removeEnvironmentFromProject, addEnvironmentToProject } =
-    useProjectApi();
+  const { removeEnvironmentFromProject, addEnvironmentToProject } = useProjectApi();
 
   // local state
-  const [selectedEnvironment, setSelectedEnvironment] =
-    useState<IProjectEnvironment>();
+  const [selectedEnvironment, setSelectedEnvironment] = useState<IProjectEnvironment>();
   const [hideDialog, setHideDialog] = useState(false);
   const { isOss } = useUiConfig();
 
@@ -86,15 +78,11 @@ const ProjectEnvironmentList = () => {
   };
 
   const renderError = () => {
-    return (
-      <StyledApiError onClick={refetch} text='Error fetching environments' />
-    );
+    return <StyledApiError onClick={refetch} text='Error fetching environments' />;
   };
 
   const errorMsg = (enable: boolean): string => {
-    return `Got an API error when trying to set the environment as ${
-      enable ? 'visible' : 'hidden'
-    }`;
+    return `Got an API error when trying to set the environment as ${enable ? 'visible' : 'hidden'}`;
   };
 
   const toggleEnv = async (env: IProjectEnvironment) => {
@@ -153,9 +141,7 @@ const ProjectEnvironmentList = () => {
       {
         Header: 'Name',
         accessor: 'name',
-        Cell: ({ row: { original } }: any) => (
-          <EnvironmentNameCell environment={original} />
-        ),
+        Cell: ({ row: { original } }: any) => <EnvironmentNameCell environment={original} />,
       },
       {
         Header: 'Type',
@@ -165,9 +151,7 @@ const ProjectEnvironmentList = () => {
       {
         Header: 'Project API tokens',
         accessor: (row: IProjectEnvironment) =>
-          row.projectApiTokenCount === 1
-            ? '1 token'
-            : `${row.projectApiTokenCount} tokens`,
+          row.projectApiTokenCount === 1 ? '1 token' : `${row.projectApiTokenCount} tokens`,
         Cell: TextCell,
       },
       {
@@ -178,11 +162,7 @@ const ProjectEnvironmentList = () => {
         Cell: ({ row: { original } }: any) => (
           <ActionCell>
             <PermissionSwitch
-              tooltip={
-                original.projectVisible
-                  ? 'Hide environment and disable feature flags'
-                  : 'Make it visible'
-              }
+              tooltip={original.projectVisible ? 'Hide environment and disable feature flags' : 'Make it visible'}
               size='medium'
               disabled={envIsDisabled(original.name)}
               projectId={projectId}
@@ -239,16 +219,13 @@ const ProjectEnvironmentList = () => {
       <StyledDivContainer>
         <ConditionallyRender condition={Boolean(error)} show={renderError()} />
         <StyledAlert severity='info'>
-          <strong>Important!</strong> In order for your application to retrieve
-          configured activation strategies for a specific environment, the
-          application must use an environment specific API token. You can look
-          up the environment-specific{' '}
-          <RouterLink to='/admin/api'>API tokens here</RouterLink>.
+          <strong>Important!</strong> In order for your application to retrieve configured activation strategies for a
+          specific environment, the application must use an environment specific API token. You can look up the
+          environment-specific <RouterLink to='/admin/api'>API tokens here</RouterLink>.
           <br />
           <br />
-          Your administrator can configure an environment-specific API token to
-          be used in the SDK. If you are an administrator you can{' '}
-          <RouterLink to='/admin/api'>create a new API token here</RouterLink>.
+          Your administrator can configure an environment-specific API token to be used in the SDK. If you are an
+          administrator you can <RouterLink to='/admin/api'>create a new API token here</RouterLink>.
         </StyledAlert>
         <SearchHighlightProvider value={globalFilter}>
           <Table {...getTableProps()} rowHeight='compact'>
@@ -286,11 +263,7 @@ const ProjectEnvironmentList = () => {
                   &rdquo;
                 </TablePlaceholder>
               }
-              elseShow={
-                <TablePlaceholder>
-                  No environments available. Get started by adding one.
-                </TablePlaceholder>
-              }
+              elseShow={<TablePlaceholder>No environments available. Get started by adding one.</TablePlaceholder>}
             />
           }
         />

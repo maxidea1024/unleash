@@ -49,10 +49,7 @@ const PATH_PARENTS = `${PATH_FEATURE}/parents`;
 const PATH_PARENT_VARIANTS = `${PATH}/:parent/parent-variants`;
 const PATH_DEPENDENCY = `${PATH_FEATURE}/dependencies/:parent`;
 
-type DependentFeaturesServices = Pick<
-  IUnleashServices,
-  'transactionalDependentFeaturesService' | 'openApiService'
->;
+type DependentFeaturesServices = Pick<IUnleashServices, 'transactionalDependentFeaturesService' | 'openApiService'>;
 
 export default class DependentFeaturesController extends Controller {
   private readonly dependentFeaturesService: WithTransactional<DependentFeaturesService>;
@@ -62,10 +59,7 @@ export default class DependentFeaturesController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      transactionalDependentFeaturesService,
-      openApiService,
-    }: DependentFeaturesServices,
+    { transactionalDependentFeaturesService, openApiService }: DependentFeaturesServices,
   ) {
     super(config);
 
@@ -145,8 +139,7 @@ export default class DependentFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Dependencies'],
           summary: 'List parent options.',
-          description:
-            'List available parents who have no transitive dependencies.',
+          description: 'List available parents who have no transitive dependencies.',
           operationId: 'listParentOptions',
           responses: {
             200: createResponseSchema('parentFeatureOptionsSchema'),
@@ -165,8 +158,7 @@ export default class DependentFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Dependencies'],
           summary: 'List parent feature variants.',
-          description:
-            'List available parent variants across all strategy variants and feature environment variants.',
+          description: 'List available parent variants across all strategy variants and feature environment variants.',
           operationId: 'listParentVariantOptions',
           responses: {
             200: createResponseSchema('parentVariantOptionsSchema'),
@@ -185,8 +177,7 @@ export default class DependentFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Dependencies'],
           summary: 'Check dependencies exist.',
-          description:
-            'Check if any dependencies exist in this Unleash instance',
+          description: 'Check if any dependencies exist in this Unleash instance',
           operationId: 'checkDependenciesExist',
           responses: {
             200: createResponseSchema('dependenciesExistSchema'),
@@ -220,10 +211,7 @@ export default class DependentFeaturesController extends Controller {
     res.status(200).end();
   }
 
-  async deleteFeatureDependency(
-    req: IAuthRequest<DeleteDependencyParams, any, any>,
-    res: Response,
-  ): Promise<void> {
+  async deleteFeatureDependency(req: IAuthRequest<DeleteDependencyParams, any, any>, res: Response): Promise<void> {
     const { child, parent, projectId } = req.params;
 
     await this.dependentFeaturesService.transactional((service) =>
@@ -240,19 +228,11 @@ export default class DependentFeaturesController extends Controller {
     res.status(200).end();
   }
 
-  async deleteFeatureDependencies(
-    req: IAuthRequest<FeatureParams, any, any>,
-    res: Response,
-  ): Promise<void> {
+  async deleteFeatureDependencies(req: IAuthRequest<FeatureParams, any, any>, res: Response): Promise<void> {
     const { child, projectId } = req.params;
 
     await this.dependentFeaturesService.transactional((service) =>
-      service.deleteFeaturesDependencies(
-        [child],
-        projectId,
-        req.user,
-        req.audit,
-      ),
+      service.deleteFeaturesDependencies([child], projectId, req.user, req.audit),
     );
     res.status(200).end();
   }
@@ -263,15 +243,9 @@ export default class DependentFeaturesController extends Controller {
   ): Promise<void> {
     const { child } = req.params;
 
-    const options =
-      await this.dependentFeaturesService.getPossibleParentFeatures(child);
+    const options = await this.dependentFeaturesService.getPossibleParentFeatures(child);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      parentFeatureOptionsSchema.$id,
-      options,
-    );
+    this.openApiService.respondWithValidation(200, res, parentFeatureOptionsSchema.$id, options);
   }
 
   async getPossibleParentVariants(
@@ -280,21 +254,12 @@ export default class DependentFeaturesController extends Controller {
   ): Promise<void> {
     const { parent } = req.params;
 
-    const options =
-      await this.dependentFeaturesService.getPossibleParentVariants(parent);
+    const options = await this.dependentFeaturesService.getPossibleParentVariants(parent);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      parentVariantOptionsSchema.$id,
-      options,
-    );
+    this.openApiService.respondWithValidation(200, res, parentVariantOptionsSchema.$id, options);
   }
 
-  async checkDependenciesExist(
-    req: IAuthRequest,
-    res: Response,
-  ): Promise<void> {
+  async checkDependenciesExist(req: IAuthRequest, res: Response): Promise<void> {
     const { child } = req.params;
 
     const exist = await this.dependentFeaturesService.checkDependenciesExist();

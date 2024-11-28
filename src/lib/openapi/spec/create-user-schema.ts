@@ -9,14 +9,12 @@ export const createUserSchema = {
     'The payload must contain at least one of the name and email properties, though which one is up to you. For the user to be able to log in to the system, the user must have an email.',
   properties: {
     username: {
-      description:
-        "The user's username. Must be provided if email is not provided.",
+      description: "The user's username. Must be provided if email is not provided.",
       type: 'string',
       example: 'hunter',
     },
     email: {
-      description:
-        "The user's email address. Must be provided if username is not provided.",
+      description: "The user's email address. Must be provided if username is not provided.",
       type: 'string',
       example: 'user@example.com',
     },
@@ -31,8 +29,7 @@ export const createUserSchema = {
       description: 'Password for the user',
     },
     rootRole: {
-      description:
-        "The role to assign to the user. Can be either the role's ID or its unique name.",
+      description: "The role to assign to the user. Can be either the role's ID or its unique name.",
       oneOf: [
         {
           type: 'integer',
@@ -49,8 +46,7 @@ export const createUserSchema = {
     sendEmail: {
       type: 'boolean',
       example: false,
-      description:
-        'Whether to send a welcome email with a login link to the user or not. Defaults to `true`.',
+      description: 'Whether to send a welcome email with a login link to the user or not. Defaults to `true`.',
     },
   },
   components: {},

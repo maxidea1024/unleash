@@ -7,23 +7,14 @@ interface IProjectActionsActionParameterProps {
   onChange: (value: string) => void;
 }
 
-export const ProjectActionsActionParameter = ({
-  parameter,
-  value,
-  onChange,
-}: IProjectActionsActionParameterProps) => {
+export const ProjectActionsActionParameter = ({ parameter, value, onChange }: IProjectActionsActionParameterProps) => {
   const { label, type } = parameter;
 
   if (type === 'select') {
     const { options } = parameter;
 
     return (
-      <ProjectActionsActionParameterAutocomplete
-        label={label}
-        value={value}
-        onChange={onChange}
-        options={options}
-      />
+      <ProjectActionsActionParameterAutocomplete label={label} value={value} onChange={onChange} options={options} />
     );
   }
 

@@ -26,20 +26,14 @@ interface IDeleteProjectProps {
   featureCount: number;
 }
 
-export const ArchiveProject = ({
-  projectId,
-  featureCount,
-}: IDeleteProjectProps) => {
+export const ArchiveProject = ({ projectId, featureCount }: IDeleteProjectProps) => {
   const [showArchiveDialog, setShowArchiveDialog] = useState(false);
   const navigate = useNavigate();
   const disabled = featureCount > 0;
 
   return (
     <StyledContainer>
-      <p>
-        Before you can archive a project, you must first archive all of the
-        feature flags associated with it.
-      </p>
+      <p>Before you can archive a project, you must first archive all of the feature flags associated with it.</p>
       <ConditionallyRender
         condition={featureCount > 0}
         show={
@@ -47,8 +41,7 @@ export const ArchiveProject = ({
             Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
             <Link component={RouterLink} to='../..'>
               <strong>
-                {featureCount} active feature{' '}
-                {featureCount === 1 ? 'flag' : 'flags'}.
+                {featureCount} active feature {featureCount === 1 ? 'flag' : 'flags'}.
               </strong>
             </Link>
           </p>

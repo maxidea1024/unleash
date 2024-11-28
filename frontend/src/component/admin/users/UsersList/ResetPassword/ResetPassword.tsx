@@ -24,11 +24,7 @@ interface IChangePasswordProps {
   user: IUser;
 }
 
-const ResetPassword = ({
-  showDialog,
-  closeDialog,
-  user,
-}: IChangePasswordProps) => {
+const ResetPassword = ({ showDialog, closeDialog, user }: IChangePasswordProps) => {
   const { classes: themeStyles } = useThemeStyles();
   const { resetPassword } = useAdminUsersApi();
   const { setToastApiError } = useToast();
@@ -37,23 +33,17 @@ const ResetPassword = ({
   const submit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     if (!user.email) {
-      setToastApiError(
-        "You can't reset the password of a user who doesn't have an email address.",
-      );
+      setToastApiError("You can't reset the password of a user who doesn't have an email address.");
       return;
     }
 
     try {
-      const token = await resetPassword(user.email).then((res) =>
-        res.ok ? res.json() : undefined,
-      );
+      const token = await resetPassword(user.email).then((res) => (res.ok ? res.json() : undefined));
 
       if (token) {
         setResetLink(token.resetPasswordUrl);
       } else {
-        setToastApiError(
-          'Could not reset password. This may be to prevent too many resets. Try again in a minute.',
-        );
+        setToastApiError('Could not reset password. This may be to prevent too many resets. Try again in a minute.');
       }
     } catch (error) {
       setToastApiError(formatUnknownError(error));
@@ -81,13 +71,7 @@ const ResetPassword = ({
       secondaryButtonText='Cancel'
       maxWidth='xs'
     >
-      <form
-        onSubmit={submit}
-        className={classnames(
-          themeStyles.contentSpacingY,
-          themeStyles.flexColumn,
-        )}
-      >
+      <form onSubmit={submit} className={classnames(themeStyles.contentSpacingY, themeStyles.flexColumn)}>
         <Typography variant='subtitle1'>Resetting password for user</Typography>
         <div className={themeStyles.flexRow}>
           <StyledUserAvatar user={user} variant='rounded' />
@@ -105,8 +89,8 @@ const ResetPassword = ({
       >
         <Box>
           <Typography variant='body1'>
-            The user can use this link to reset their password. You should not
-            share this link with anyone but the user in question.
+            The user can use this link to reset their password. You should not share this link with anyone but the user
+            in question.
           </Typography>
           <LinkField inviteLink={resetLink} />
         </Box>

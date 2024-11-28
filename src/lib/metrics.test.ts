@@ -2,12 +2,7 @@ import { register } from 'prom-client';
 import EventEmitter from 'events';
 import type { IEventStore } from './types/stores/event-store';
 import { createTestConfig } from '../test/config/test-config';
-import {
-  DB_TIME,
-  EXCEEDS_LIMIT,
-  FUNCTION_TIME,
-  REQUEST_TIME,
-} from './metric-events';
+import { DB_TIME, EXCEEDS_LIMIT, FUNCTION_TIME, REQUEST_TIME } from './metric-events';
 import {
   CLIENT_METRICS,
   CLIENT_REGISTER,
@@ -15,22 +10,13 @@ import {
   FEATURE_UPDATED,
   PROJECT_ENVIRONMENT_REMOVED,
 } from './types/events';
-import {
-  createMetricsMonitor,
-  registerPrometheusMetrics,
-  registerPrometheusPostgresMetrics,
-} from './metrics';
+import { createMetricsMonitor, registerPrometheusMetrics, registerPrometheusPostgresMetrics } from './metrics';
 import createStores from '../test/fixtures/store';
 import { InstanceStatsService } from './features/instance-stats/instance-stats-service';
 import VersionService from './services/version-service';
 import { createFakeGetActiveUsers } from './features/instance-stats/getActiveUsers';
 import { createFakeGetProductionChanges } from './features/instance-stats/getProductionChanges';
-import type {
-  IEnvironmentStore,
-  IFeatureLifecycleReadModel,
-  IFeatureLifecycleStore,
-  IUnleashStores,
-} from './types';
+import type { IEnvironmentStore, IFeatureLifecycleReadModel, IFeatureLifecycleStore, IUnleashStores } from './types';
 import FakeEnvironmentStore from './features/project-environments/fake-environment-store';
 import { SchedulerService } from './services';
 import noLogger from '../test/fixtures/no-logger';
@@ -71,10 +57,7 @@ beforeAll(async () => {
   );
   db = await dbInit('metrics_test', getLogger);
 
-  featureLifeCycleReadModel = new FeatureLifecycleReadModel(
-    db.rawDatabase,
-    config.flagResolver,
-  );
+  featureLifeCycleReadModel = new FeatureLifecycleReadModel(db.rawDatabase, config.flagResolver);
   stores.featureLifecycleReadModel = featureLifeCycleReadModel;
   featureLifeCycleStore = new FeatureLifecycleStore(db.rawDatabase);
   stores.featureLifecycleStore = featureLifeCycleStore;
@@ -109,8 +92,13 @@ beforeAll(async () => {
     },
   };
 
-  const { collectAggDbMetrics, collectStaticCounters } =
-    registerPrometheusMetrics(config, stores, '4.0.0', eventBus, statsService);
+  const { collectAggDbMetrics, collectStaticCounters } = registerPrometheusMetrics(
+    config,
+    stores,
+    '4.0.0',
+    eventBus,
+    statsService,
+  );
   refreshDbMetrics = collectAggDbMetrics;
   await collectStaticCounters();
 });
@@ -194,9 +182,7 @@ test('should collect metrics for db query timings', async () => {
   });
 
   const metrics = await prometheusRegister.metrics();
-  expect(metrics).toMatch(
-    /db_query_duration_seconds\{quantile="0\.99",store="foo",action="bar"\} 0.1337/,
-  );
+  expect(metrics).toMatch(/db_query_duration_seconds\{quantile="0\.99",store="foo",action="bar"\} 0.1337/);
 });
 
 test('should collect metrics for function timings', async () => {
@@ -265,9 +251,7 @@ test('Should collect metrics for client sdk versions', async () => {
     sdkName: 'unleash-client-java',
     sdkVersion: '5.0.0',
   });
-  const metrics = await prometheusRegister.getSingleMetricAsString(
-    'client_sdk_versions',
-  );
+  const metrics = await prometheusRegister.getSingleMetricAsString('client_sdk_versions');
   expect(metrics).toMatch(
     /client_sdk_versions\{sdk_name="unleash-client-node",sdk_version="3\.2\.5"\,platform_name=\"not-set\",platform_version=\"not-set\",yggdrasil_version=\"not-set\",spec_version=\"not-set\"} 3/,
   );
@@ -278,9 +262,7 @@ test('Should collect metrics for client sdk versions', async () => {
     sdkName: 'unleash-client-node',
     sdkVersion: '3.2.5',
   });
-  const newmetrics = await prometheusRegister.getSingleMetricAsString(
-    'client_sdk_versions',
-  );
+  const newmetrics = await prometheusRegister.getSingleMetricAsString('client_sdk_versions');
   expect(newmetrics).toMatch(
     /client_sdk_versions\{sdk_name="unleash-client-node",sdk_version="3\.2\.5"\,platform_name=\"not-set\",platform_version=\"not-set\",yggdrasil_version=\"not-set\",spec_version=\"not-set\"} 4/,
   );
@@ -289,9 +271,7 @@ test('Should collect metrics for client sdk versions', async () => {
 test('Should not collect client sdk version if sdkVersion is of wrong format or non-existent', async () => {
   eventStore.emit(CLIENT_REGISTER, { sdkVersion: 'unleash-client-rust' });
   eventStore.emit(CLIENT_REGISTER, {});
-  const metrics = await prometheusRegister.getSingleMetricAsString(
-    'client_sdk_versions',
-  );
+  const metrics = await prometheusRegister.getSingleMetricAsString('client_sdk_versions');
   expect(metrics).not.toMatch(/unleash-client-rust/);
 });
 
@@ -303,12 +283,8 @@ test('should collect metrics for project disabled numbers', async () => {
     createdByUserId: 26,
   });
 
-  const recordedMetric = await prometheusRegister.getSingleMetricAsString(
-    'project_environments_disabled',
-  );
-  expect(recordedMetric).toMatch(
-    /project_environments_disabled{project_id=\"default\"} 1/,
-  );
+  const recordedMetric = await prometheusRegister.getSingleMetricAsString('project_environments_disabled');
+  expect(recordedMetric).toMatch(/project_environments_disabled{project_id=\"default\"} 1/);
 });
 
 test('should collect metrics for lifecycle', async () => {
@@ -323,8 +299,7 @@ test('should collect metrics for lifecycle', async () => {
     },
   ]);
   const stageCount = await featureLifeCycleReadModel.getStageCountByProject();
-  const stageDurations =
-    await featureLifeCycleReadModel.getAllWithStageDuration();
+  const stageDurations = await featureLifeCycleReadModel.getAllWithStageDuration();
   expect(stageCount).toHaveLength(1);
   expect(stageDurations).toHaveLength(1);
 
@@ -340,22 +315,16 @@ test('should collect limit exceeded metrics', async () => {
     limit: '5000',
   });
 
-  const recordedMetric = await prometheusRegister.getSingleMetricAsString(
-    'exceeds_limit_error',
-  );
-  expect(recordedMetric).toMatch(
-    /exceeds_limit_error{resource=\"feature flags\",limit=\"5000\"} 1/,
-  );
+  const recordedMetric = await prometheusRegister.getSingleMetricAsString('exceeds_limit_error');
+  expect(recordedMetric).toMatch(/exceeds_limit_error{resource=\"feature flags\",limit=\"5000\"} 1/);
 });
 
 test('should collect traffic_total metrics', async () => {
-  const recordedMetric =
-    await prometheusRegister.getSingleMetricAsString('traffic_total');
+  const recordedMetric = await prometheusRegister.getSingleMetricAsString('traffic_total');
   expect(recordedMetric).toMatch(/traffic_total 0/);
 });
 
 test('should collect licensed_users metrics', async () => {
-  const recordedMetric =
-    await prometheusRegister.getSingleMetricAsString('licensed_users');
+  const recordedMetric = await prometheusRegister.getSingleMetricAsString('licensed_users');
   expect(recordedMetric).toMatch(/licensed_users 0/);
 });

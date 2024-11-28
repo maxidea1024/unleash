@@ -1,10 +1,4 @@
-import {
-  EXPERIMENT,
-  RELEASE,
-  KILLSWITCH,
-  OPERATIONAL,
-  PERMISSION,
-} from '../constants/featureToggleTypes';
+import { EXPERIMENT, RELEASE, KILLSWITCH, OPERATIONAL, PERMISSION } from '../constants/featureToggleTypes';
 
 import LoopIcon from '@mui/icons-material/Loop';
 import TimelineIcon from '@mui/icons-material/Timeline';

@@ -14,11 +14,7 @@ export const StyledSpan = styled('span')(({ theme }) => ({
   },
 }));
 
-export const Highlighter: FC<IHighlighterProps> = ({
-  search,
-  children,
-  caseSensitive,
-}) => {
+export const Highlighter: FC<IHighlighterProps> = ({ search, children, caseSensitive }) => {
   if (!children) {
     return null;
   }
@@ -28,9 +24,7 @@ export const Highlighter: FC<IHighlighterProps> = ({
   }
 
   const searchTerms = search.split(',').map((term) => term.trim());
-  const searchRegex = searchTerms
-    .map((term) => safeRegExp(term, '').source)
-    .join('|');
+  const searchRegex = searchTerms.map((term) => safeRegExp(term, '').source).join('|');
   const regex = new RegExp(searchRegex, caseSensitive ? 'g' : 'gi');
 
   const parts = children.split(regex);
@@ -38,9 +32,7 @@ export const Highlighter: FC<IHighlighterProps> = ({
   const matches = Array.from(children.matchAll(regex)).map((match) => match[0]);
 
   const highlightedText = parts.flatMap((part, index) => {
-    return index < matches.length
-      ? [part, <mark key={index}>{matches[index]}</mark>]
-      : [part];
+    return index < matches.length ? [part, <mark key={index}>{matches[index]}</mark>] : [part];
   });
 
   return <StyledSpan>{highlightedText}</StyledSpan>;

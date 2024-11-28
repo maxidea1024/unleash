@@ -47,8 +47,7 @@ export const strategyConstraint = (): Arbitrary<ConstraintSchema> =>
     value: fc.string(),
   });
 
-const strategyConstraints = (): Arbitrary<ConstraintSchema[]> =>
-  fc.array(strategyConstraint());
+const strategyConstraints = (): Arbitrary<ConstraintSchema[]> => fc.array(strategyConstraint());
 
 export const strategy = (
   name: string,
@@ -97,18 +96,14 @@ export const strategies = (): Arbitrary<FeatureStrategySchema[]> =>
       strategy(
         'applicationHostname',
         fc.record({
-          hostNames: fc
-            .uniqueArray(fc.domain())
-            .map((domains) => domains.join(',')),
+          hostNames: fc.uniqueArray(fc.domain()).map((domains) => domains.join(',')),
         }),
       ),
 
       strategy(
         'userWithId',
         fc.record({
-          userIds: fc
-            .uniqueArray(fc.emailAddress())
-            .map((ids) => ids.join(',')),
+          userIds: fc.uniqueArray(fc.emailAddress()).map((ids) => ids.join(',')),
         }),
       ),
       strategy(
@@ -120,9 +115,7 @@ export const strategies = (): Arbitrary<FeatureStrategySchema[]> =>
       strategy(
         'custom-strategy',
         fc.record({
-          customParam: fc
-            .uniqueArray(fc.lorem())
-            .map((words) => words.join(',')),
+          customParam: fc.uniqueArray(fc.lorem()).map((words) => words.join(',')),
         }),
       ),
     ),
@@ -174,13 +167,7 @@ export const clientFeature = (name?: string): Arbitrary<ClientFeatureSchema> =>
   fc.record(
     {
       name: name ? fc.constant(name) : urlFriendlyString(),
-      type: fc.constantFrom(
-        'release',
-        'kill-switch',
-        'experiment',
-        'operational',
-        'permission',
-      ),
+      type: fc.constantFrom('release', 'kill-switch', 'experiment', 'operational', 'permission'),
       description: fc.lorem(),
       project: urlFriendlyString(),
       enabled: fc.boolean(),
@@ -215,62 +202,46 @@ export const clientFeaturesAndSegments = (featureConstraints?: {
 
   // create segments and make sure that all strategies reference segments that
   // exist
-  return fc
-    .tuple(segments(), clientFeatures(featureConstraints))
-    .map(([generatedSegments, generatedFeatures]) => {
-      const renumberedSegments = generatedSegments.map(
-        (generatedSegment, index) => ({
-          ...generatedSegment,
-          id: index + 1,
-        }),
-      );
+  return fc.tuple(segments(), clientFeatures(featureConstraints)).map(([generatedSegments, generatedFeatures]) => {
+    const renumberedSegments = generatedSegments.map((generatedSegment, index) => ({
+      ...generatedSegment,
+      id: index + 1,
+    }));
 
-      const features: ClientFeatureSchema[] = generatedFeatures.map(
-        (feature) => ({
-          ...feature,
-          ...(feature.strategies && {
-            strategies: feature.strategies.map((generatedStrategy) => ({
-              ...generatedStrategy,
-              ...(generatedStrategy.segments && {
-                segments:
-                  renumberedSegments.length > 0
-                    ? [
-                        ...new Set(
-                          generatedStrategy.segments.map(
-                            (generatedSegment) =>
-                              (generatedSegment % renumberedSegments.length) +
-                              1,
-                          ),
-                        ),
-                      ]
-                    : [],
-              }),
-            })),
+    const features: ClientFeatureSchema[] = generatedFeatures.map((feature) => ({
+      ...feature,
+      ...(feature.strategies && {
+        strategies: feature.strategies.map((generatedStrategy) => ({
+          ...generatedStrategy,
+          ...(generatedStrategy.segments && {
+            segments:
+              renumberedSegments.length > 0
+                ? [
+                    ...new Set(
+                      generatedStrategy.segments.map(
+                        (generatedSegment) => (generatedSegment % renumberedSegments.length) + 1,
+                      ),
+                    ),
+                  ]
+                : [],
           }),
-        }),
-      );
+        })),
+      }),
+    }));
 
-      return {
-        features,
-        segments: renumberedSegments,
-      };
-    });
+    return {
+      features,
+      segments: renumberedSegments,
+    };
+  });
 };
 
 // TEST ARBITRARIES
 
 test('url-friendly strings are URL-friendly', () =>
-  fc.assert(
-    fc.property(urlFriendlyString(), (input: string) =>
-      /^[\w~.-]+$/.test(input),
-    ),
-  ));
+  fc.assert(fc.property(urlFriendlyString(), (input: string) => /^[\w~.-]+$/.test(input))));
 
 test('variant payloads are either present or undefined; never null', () =>
   fc.assert(
-    fc.property(
-      variant(),
-      (generatedVariant) =>
-        !!generatedVariant.payload || generatedVariant.payload === undefined,
-    ),
+    fc.property(variant(), (generatedVariant) => !!generatedVariant.payload || generatedVariant.payload === undefined),
   ));

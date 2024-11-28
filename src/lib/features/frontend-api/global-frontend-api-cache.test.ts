@@ -1,23 +1,12 @@
-import {
-  GlobalFrontendApiCache,
-  type GlobalFrontendApiCacheState,
-} from './global-frontend-api-cache';
+import { GlobalFrontendApiCache, type GlobalFrontendApiCacheState } from './global-frontend-api-cache';
 import noLogger from '../../../test/fixtures/no-logger';
 import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 import FakeClientFeatureToggleReadModel from './fake-client-feature-toggle-read-model';
 import EventEmitter from 'events';
-import type {
-  IApiUser,
-  IFeatureToggleClient,
-  IFlagResolver,
-  ISegment,
-} from '../../types';
+import type { IApiUser, IFeatureToggleClient, IFlagResolver, ISegment } from '../../types';
 import { UPDATE_REVISION } from '../feature-toggle/configuration-revision-service';
 
-const state = async (
-  cache: GlobalFrontendApiCache,
-  state: GlobalFrontendApiCacheState,
-) => {
+const state = async (cache: GlobalFrontendApiCache, state: GlobalFrontendApiCacheState) => {
   await new Promise((resolve) => {
     cache.on(state, () => {
       resolve('done');
@@ -54,9 +43,7 @@ const createCache = (
     eventBus: <any>{ emit: jest.fn() },
   };
   const segmentReadModel = new FakeSegmentReadModel([segment as ISegment]);
-  const clientFeatureToggleReadModel = new FakeClientFeatureToggleReadModel(
-    features,
-  );
+  const clientFeatureToggleReadModel = new FakeClientFeatureToggleReadModel(features);
   const configurationRevisionService = new EventEmitter();
   const cache = new GlobalFrontendApiCache(
     config,
@@ -157,8 +144,7 @@ test('Can read initial features', async () => {
 });
 
 test('Can refresh data on revision update', async () => {
-  const { cache, configurationRevisionService, clientFeatureToggleReadModel } =
-    createCache();
+  const { cache, configurationRevisionService, clientFeatureToggleReadModel } = createCache();
 
   await state(cache, 'ready');
 

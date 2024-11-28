@@ -2,28 +2,15 @@ import { ValidationError } from 'joi';
 
 import getLogger from '../../test/fixtures/no-logger';
 import TagTypeService from '../features/tag-type/tag-type-service';
-import {
-  ADDON_CONFIG_CREATED,
-  ADDON_CONFIG_DELETED,
-  ADDON_CONFIG_UPDATED,
-  FEATURE_CREATED,
-} from '../types/events';
+import { ADDON_CONFIG_CREATED, ADDON_CONFIG_DELETED, ADDON_CONFIG_UPDATED, FEATURE_CREATED } from '../types/events';
 import createStores from '../../test/fixtures/store';
 
 import AddonService from './addon-service';
 import type { IAddonDto } from '../types/stores/addon-store';
 import SimpleAddon from './addon-service-test-simple-addon';
 import type { IAddonProviders } from '../addons';
-import {
-  type IFlagResolver,
-  type IUnleashConfig,
-  SYSTEM_USER,
-  TEST_AUDIT_USER,
-} from '../types';
-import {
-  createFakeEventsService,
-  IntegrationEventsService,
-} from '../internals';
+import { type IFlagResolver, type IUnleashConfig, SYSTEM_USER, TEST_AUDIT_USER } from '../types';
+import { createFakeEventsService, IntegrationEventsService } from '../internals';
 import { createTestConfig } from '../../test/config/test-config';
 
 const MASKED_VALUE = '*****';
@@ -37,11 +24,7 @@ const config: IUnleashConfig = createTestConfig();
 function getSetup() {
   const stores = createStores();
   const eventService = createFakeEventsService(config);
-  const tagTypeService = new TagTypeService(
-    stores,
-    { getLogger },
-    eventService,
-  );
+  const tagTypeService = new TagTypeService(stores, { getLogger }, eventService);
   const integrationEventsService = new IntegrationEventsService(stores, {
     getLogger,
     flagResolver: {} as IFlagResolver,
@@ -494,11 +477,7 @@ test('Should support filtering by both project and environment', async () => {
       url: 'http://localhost:wh',
     },
   };
-  const expectedFeatureNames = [
-    'desired-toggle1',
-    'desired-toggle2',
-    'desired-toggle3',
-  ];
+  const expectedFeatureNames = ['desired-toggle1', 'desired-toggle2', 'desired-toggle3'];
   await addonService.createAddon(config, TEST_AUDIT_USER);
   await eventService.storeEvent({
     type: FEATURE_CREATED,
@@ -763,9 +742,7 @@ test('should reject addon config with missing required parameter when creating',
     description: '',
   };
 
-  await expect(async () =>
-    addonService.createAddon(config, TEST_AUDIT_USER),
-  ).rejects.toThrow(ValidationError);
+  await expect(async () => addonService.createAddon(config, TEST_AUDIT_USER)).rejects.toThrow(ValidationError);
 });
 
 test('should reject updating addon config with missing required parameter', async () => {
@@ -788,9 +765,9 @@ test('should reject updating addon config with missing required parameter', asyn
     parameters: { var: 'some-new-value' },
     description: 'test',
   };
-  await expect(async () =>
-    addonService.updateAddon(config.id, updated, TEST_AUDIT_USER),
-  ).rejects.toThrow(ValidationError);
+  await expect(async () => addonService.updateAddon(config.id, updated, TEST_AUDIT_USER)).rejects.toThrow(
+    ValidationError,
+  );
 });
 
 test('Should reject addon config if a required parameter is just the empty string', async () => {
@@ -807,7 +784,5 @@ test('Should reject addon config if a required parameter is just the empty strin
     description: '',
   };
 
-  await expect(async () =>
-    addonService.createAddon(config, TEST_AUDIT_USER),
-  ).rejects.toThrow(ValidationError);
+  await expect(async () => addonService.createAddon(config, TEST_AUDIT_USER)).rejects.toThrow(ValidationError);
 });

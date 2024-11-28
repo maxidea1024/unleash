@@ -11,20 +11,17 @@ export const projectFilterGenerator = (
 ): ((projectId: string) => boolean) => {
   let admin = false;
 
-  const permissionMap: objectIdx = permissions.reduce(
-    (acc: objectIdx, p: IPermission) => {
-      if (p.permission === ADMIN) {
-        admin = true;
-      }
+  const permissionMap: objectIdx = permissions.reduce((acc: objectIdx, p: IPermission) => {
+    if (p.permission === ADMIN) {
+      admin = true;
+    }
 
-      if (p.project && p.permission === matcherPermission) {
-        acc[p.project] = matcherPermission;
-      }
+    if (p.project && p.permission === matcherPermission) {
+      acc[p.project] = matcherPermission;
+    }
 
-      return acc;
-    },
-    {},
-  );
+    return acc;
+  }, {});
 
   return (projectId: string) => {
     return admin || Boolean(permissionMap[projectId]);

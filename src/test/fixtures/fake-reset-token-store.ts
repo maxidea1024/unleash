@@ -51,9 +51,7 @@ export default class FakeResetTokenStore implements IResetTokenStore {
   }
 
   async deleteFromQuery(query: IResetTokenQuery): Promise<void> {
-    this.data = this.data.filter(
-      (t) => t.userId !== query.user_id && t.token !== query.reset_token,
-    );
+    this.data = this.data.filter((t) => t.userId !== query.user_id && t.token !== query.reset_token);
   }
 
   destroy(): void {}
@@ -86,9 +84,7 @@ export default class FakeResetTokenStore implements IResetTokenStore {
 
   async useToken(token: IResetQuery): Promise<boolean> {
     if (this.exists(token.token)) {
-      const d = this.data.find(
-        (t) => t.usedAt === null && t.token === token.token,
-      );
+      const d = this.data.find((t) => t.usedAt === null && t.token === token.token);
       d.usedAt = new Date();
       return true;
     }

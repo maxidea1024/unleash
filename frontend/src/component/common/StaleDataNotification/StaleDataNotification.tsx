@@ -1,9 +1,6 @@
 import { Typography, Button, useTheme, useMediaQuery } from '@mui/material';
 import EventDiff from 'component/events/EventDiff/EventDiff';
-import {
-  fadeInBottomEnter,
-  fadeInBottomStartWithoutFixed,
-} from 'themes/themeStyles';
+import { fadeInBottomEnter, fadeInBottomStartWithoutFixed } from 'themes/themeStyles';
 import AnimateOnMount from 'component/common/AnimateOnMount/AnimateOnMount';
 import { useMemo } from 'react';
 
@@ -15,13 +12,7 @@ interface IStaleDataNotification {
   show: boolean;
 }
 
-export const StaleDataNotification = ({
-  refresh,
-  show,
-  afterSubmitAction,
-  data,
-  cache,
-}: IStaleDataNotification) => {
+export const StaleDataNotification = ({ refresh, show, afterSubmitAction, data, cache }: IStaleDataNotification) => {
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -53,9 +44,8 @@ export const StaleDataNotification = ({
         Your data is stale
       </Typography>
       <Typography variant='body1' sx={{ my: 2, mb: 3 }}>
-        The data you have been working on is stale, would you like to refresh
-        your data? This may happen if someone has been making changes to the
-        data while you were working.
+        The data you have been working on is stale, would you like to refresh your data? This may happen if someone has
+        been making changes to the data while you were working.
       </Typography>
       <EventDiff entry={{ preData: cache, data }} />
       <Button

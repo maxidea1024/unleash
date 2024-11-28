@@ -5,8 +5,7 @@ import { tagSchema } from './tag-schema';
 export const createTagSchema = {
   ...tagSchema,
   $id: '#/components/schemas/createTagSchema',
-  description:
-    'Data used to create a new [tag](https://docs.getunleash.io/reference/tags)',
+  description: 'Data used to create a new [tag](https://docs.getunleash.io/reference/tags)',
   properties: {
     ...tagSchema.properties,
     value: {

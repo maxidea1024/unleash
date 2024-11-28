@@ -21,13 +21,11 @@ export const searchFeaturesSchema = {
       items: {
         $ref: '#/components/schemas/featureSearchResponseSchema',
       },
-      description:
-        'The full list of features in this project matching search and filter criteria.',
+      description: 'The full list of features in this project matching search and filter criteria.',
     },
     total: {
       type: 'number',
-      description:
-        'Total count of the features matching search and filter criteria',
+      description: 'Total count of the features matching search and filter criteria',
       example: 10,
     },
   },

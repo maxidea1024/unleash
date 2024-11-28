@@ -54,19 +54,14 @@ export const EnvironmentStrategyExecutionOrder = ({
 
   if (loading) return null;
 
-  const featureEnvironment = featureData.environments.find(
-    ({ name }) => environment === name,
-  );
+  const featureEnvironment = featureData.environments.find(({ name }) => environment === name);
   const environmentStrategies = featureEnvironment?.strategies || [];
 
   const preData = {
     strategyIds:
       environmentStrategies
         .sort((strategy1, strategy2) => {
-          if (
-            typeof strategy1.sortOrder === 'number' &&
-            typeof strategy2.sortOrder === 'number'
-          ) {
+          if (typeof strategy1.sortOrder === 'number' && typeof strategy2.sortOrder === 'number') {
             return strategy1.sortOrder - strategy2.sortOrder;
           }
           return 0;
@@ -88,9 +83,7 @@ export const EnvironmentStrategyExecutionOrder = ({
     <ChangeItemInfo>
       <StyledChangeHeader>
         <TooltipLink
-          tooltip={
-            <EnvironmentStrategyOrderDiff preData={preData} data={data} />
-          }
+          tooltip={<EnvironmentStrategyOrderDiff preData={preData} data={data} />}
           tooltipProps={{
             maxWidth: 500,
             maxHeight: 600,

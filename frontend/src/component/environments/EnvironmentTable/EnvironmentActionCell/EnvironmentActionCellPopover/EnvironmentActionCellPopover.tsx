@@ -13,11 +13,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useState } from 'react';
 import type { IEnvironment } from 'interfaces/environments';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
-import {
-  ADMIN,
-  DELETE_ENVIRONMENT,
-  UPDATE_ENVIRONMENT,
-} from 'component/providers/AccessProvider/permissions';
+import { ADMIN, DELETE_ENVIRONMENT, UPDATE_ENVIRONMENT } from 'component/providers/AccessProvider/permissions';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import CopyIcon from '@mui/icons-material/AddToPhotos';
@@ -146,9 +142,7 @@ export const EnvironmentActionCellPopover = ({
                   />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant='body2'>
-                    {environment.enabled ? 'Deprecate' : 'Undeprecate'}
-                  </Typography>
+                  <Typography variant='body2'>{environment.enabled ? 'Deprecate' : 'Undeprecate'}</Typography>
                 </ListItemText>
               </StyledMenuItem>
             )}

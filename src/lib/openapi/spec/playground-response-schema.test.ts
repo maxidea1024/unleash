@@ -19,7 +19,6 @@ test('playgroundResponseSchema', () =>
   fc.assert(
     fc.property(
       generate(),
-      (data: PlaygroundResponseSchema) =>
-        validateSchema(playgroundResponseSchema.$id, data) === undefined,
+      (data: PlaygroundResponseSchema) => validateSchema(playgroundResponseSchema.$id, data) === undefined,
     ),
   ));

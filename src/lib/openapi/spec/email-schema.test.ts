@@ -6,11 +6,7 @@ test('emailSchema', () => {
     email: '',
   };
 
-  expect(
-    validateSchema('#/components/schemas/emailSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/emailSchema', data)).toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/emailSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/emailSchema', {})).toMatchSnapshot();
 });

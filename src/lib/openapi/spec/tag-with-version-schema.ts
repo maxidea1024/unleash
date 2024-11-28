@@ -6,8 +6,7 @@ export const tagWithVersionSchema = {
   type: 'object',
   additionalProperties: false,
   required: ['version', 'tag'],
-  description:
-    'A tag with a version number representing the schema used to model the tag.',
+  description: 'A tag with a version number representing the schema used to model the tag.',
   properties: {
     version: {
       type: 'integer',

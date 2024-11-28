@@ -16,22 +16,12 @@ interface IFeatureMetricsTableProps {
   tableSectionId?: string;
 }
 
-export const FeatureMetricsTable = ({
-  metrics,
-  tableSectionId,
-}: IFeatureMetricsTableProps) => {
+export const FeatureMetricsTable = ({ metrics, tableSectionId }: IFeatureMetricsTableProps) => {
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const initialState = useMemo(() => ({ sortBy: [{ id: 'timestamp' }] }), []);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    setHiddenColumns,
-  } = useTable(
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
       initialState,
       columns: COLUMNS as any,
@@ -97,9 +87,7 @@ const COLUMNS = [
     Cell: (props: any) => (
       <DateTimeCell
         value={props.row.original.timestamp}
-        timeZone={
-          props.row.original.timestamp.includes('23:59') ? 'UTC' : undefined
-        }
+        timeZone={props.row.original.timestamp.includes('23:59') ? 'UTC' : undefined}
       />
     ),
   },

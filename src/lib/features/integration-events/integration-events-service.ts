@@ -1,9 +1,6 @@
 import type { Logger } from '../../logger';
 import type { IFlagResolver, IUnleashConfig } from '../../types';
-import type {
-  IntegrationEventsStore,
-  IntegrationEventWriteModel,
-} from './integration-events-store';
+import type { IntegrationEventsStore, IntegrationEventWriteModel } from './integration-events-store';
 import type { IntegrationEventSchema } from '../../openapi/spec/integration-event-schema';
 
 export class IntegrationEventsService {
@@ -12,13 +9,8 @@ export class IntegrationEventsService {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    {
-      integrationEventsStore,
-    }: { integrationEventsStore: IntegrationEventsStore },
-    {
-      getLogger,
-      flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    { integrationEventsStore }: { integrationEventsStore: IntegrationEventsStore },
+    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
     this.logger = getLogger('integration-events-service.ts');
 
@@ -26,17 +18,11 @@ export class IntegrationEventsService {
     this.flagResolver = flagResolver;
   }
 
-  async getPaginatedEvents(
-    id: number,
-    limit: number,
-    offset: number,
-  ): Promise<IntegrationEventSchema[]> {
+  async getPaginatedEvents(id: number, limit: number, offset: number): Promise<IntegrationEventSchema[]> {
     return this.integrationEventsStore.getPaginatedEvents(id, limit, offset);
   }
 
-  async registerEvent(
-    integrationEvent: IntegrationEventWriteModel,
-  ): Promise<IntegrationEventSchema> {
+  async registerEvent(integrationEvent: IntegrationEventWriteModel): Promise<IntegrationEventSchema> {
     return this.integrationEventsStore.insert(integrationEvent);
   }
 

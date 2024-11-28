@@ -19,11 +19,7 @@ export const useUserInvite = (options: SWRConfiguration = {}) => {
   const query = useQueryParams();
   const secret = query.get('invite') || '';
   const url = `/invite/${secret}/validate`;
-  const { data, error } = useSWR<boolean>(
-    url,
-    getFetcher(secret, url),
-    options,
-  );
+  const { data, error } = useSWR<boolean>(url, getFetcher(secret, url), options);
   const [loading, setLoading] = useState(!error && !data);
 
   useEffect(() => {

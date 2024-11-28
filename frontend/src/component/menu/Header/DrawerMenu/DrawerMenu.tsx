@@ -39,12 +39,7 @@ interface IDrawerMenuProps {
   };
 }
 
-export const DrawerMenu: VFC<IDrawerMenuProps> = ({
-  links = [],
-  open = false,
-  toggleDrawer,
-  routes,
-}) => {
+export const DrawerMenu: VFC<IDrawerMenuProps> = ({ links = [], open = false, toggleDrawer, routes }) => {
   return (
     <Drawer
       className={styles.drawer}
@@ -55,12 +50,7 @@ export const DrawerMenu: VFC<IDrawerMenuProps> = ({
     >
       <nav id='header-drawer' className={styles.drawerContainer}>
         <StyledDrawerHeader>
-          <Link
-            to='/'
-            className={styles.drawerTitle}
-            aria-label='Home'
-            onClick={() => toggleDrawer()}
-          >
+          <Link to='/' className={styles.drawerTitle} aria-label='Home' onClick={() => toggleDrawer()}>
             <ThemeMode
               darkmode={<UnleashLogoWhite aria-label='Unleash logo' />}
               lightmode={<UnleashLogo aria-label='Unleash logo' />}
@@ -68,10 +58,7 @@ export const DrawerMenu: VFC<IDrawerMenuProps> = ({
           </Link>
         </StyledDrawerHeader>
         <Divider />
-        <MobileNavigationSidebar
-          onClick={toggleDrawer}
-          NewInUnleash={NewInUnleash}
-        />
+        <MobileNavigationSidebar onClick={toggleDrawer} NewInUnleash={NewInUnleash} />
       </nav>
     </Drawer>
   );

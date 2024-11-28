@@ -3,10 +3,7 @@ import type { VFC, FC, ReactNode } from 'react';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
-import {
-  StrategyDiff,
-  StrategyTooltipLink,
-} from '../../StrategyTooltipLink/StrategyTooltipLink';
+import { StrategyDiff, StrategyTooltipLink } from '../../StrategyTooltipLink/StrategyTooltipLink';
 import { StrategyExecution } from 'component/feature/FeatureView/FeatureOverview/FeatureOverviewEnvironments/FeatureOverviewEnvironment/EnvironmentAccordionBody/StrategyDraggableItem/StrategyItem/StrategyExecution/StrategyExecution';
 import type {
   ChangeRequestState,
@@ -37,36 +34,27 @@ const ChangeItemCreateEditDeleteWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
 }));
 
-const ChangeItemInfo: FC<{ children?: React.ReactNode }> = styled(Box)(
-  ({ theme }) => ({
-    display: 'grid',
-    gridTemplateColumns: '150px auto',
-    gridAutoFlow: 'column',
-    alignItems: 'center',
-    flexGrow: 1,
-    gap: theme.spacing(1),
-  }),
-);
+const ChangeItemInfo: FC<{ children?: React.ReactNode }> = styled(Box)(({ theme }) => ({
+  display: 'grid',
+  gridTemplateColumns: '150px auto',
+  gridAutoFlow: 'column',
+  alignItems: 'center',
+  flexGrow: 1,
+  gap: theme.spacing(1),
+}));
 
-const StyledBox: FC<{ children?: React.ReactNode }> = styled(Box)(
-  ({ theme }) => ({
-    marginTop: theme.spacing(2),
-  }),
-);
+const StyledBox: FC<{ children?: React.ReactNode }> = styled(Box)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+}));
 
-const StyledTypography: FC<{ children?: React.ReactNode }> = styled(Typography)(
-  ({ theme }) => ({
-    margin: `${theme.spacing(1)} 0`,
-  }),
-);
+const StyledTypography: FC<{ children?: React.ReactNode }> = styled(Typography)(({ theme }) => ({
+  margin: `${theme.spacing(1)} 0`,
+}));
 
 const hasNameField = (payload: unknown): payload is { name: string } =>
   typeof payload === 'object' && payload !== null && 'name' in payload;
 
-const DisabledEnabledState: VFC<{ show?: boolean; disabled: boolean }> = ({
-  show = true,
-  disabled,
-}) => {
+const DisabledEnabledState: VFC<{ show?: boolean; disabled: boolean }> = ({ show = true, disabled }) => {
   if (!show) {
     return null;
   }
@@ -119,38 +107,20 @@ const EditHeader: VFC<{
 
 export const StrategyChange: VFC<{
   actions?: ReactNode;
-  change:
-    | IChangeRequestAddStrategy
-    | IChangeRequestDeleteStrategy
-    | IChangeRequestUpdateStrategy;
+  change: IChangeRequestAddStrategy | IChangeRequestDeleteStrategy | IChangeRequestUpdateStrategy;
   environmentName: string;
   featureName: string;
   projectId: string;
   changeRequestState: ChangeRequestState;
-}> = ({
-  actions,
-  change,
-  featureName,
-  environmentName,
-  projectId,
-  changeRequestState,
-}) => {
-  const currentStrategy = useCurrentStrategy(
-    change,
-    projectId,
-    featureName,
-    environmentName,
-  );
+}> = ({ actions, change, featureName, environmentName, projectId, changeRequestState }) => {
+  const currentStrategy = useCurrentStrategy(change, projectId, featureName, environmentName);
 
   const hasDiff = (object: unknown, objectToCompare: unknown) =>
     JSON.stringify(object) !== JSON.stringify(objectToCompare);
 
-  const isStrategyAction =
-    change.action === 'addStrategy' || change.action === 'updateStrategy';
+  const isStrategyAction = change.action === 'addStrategy' || change.action === 'updateStrategy';
 
-  const hasVariantDiff =
-    isStrategyAction &&
-    hasDiff(currentStrategy?.variants || [], change.payload.variants || []);
+  const hasVariantDiff = isStrategyAction && hasDiff(currentStrategy?.variants || [], change.payload.variants || []);
 
   return (
     <>
@@ -158,24 +128,14 @@ export const StrategyChange: VFC<{
         <>
           <ChangeItemCreateEditDeleteWrapper>
             <ChangeItemInfo>
-              <Typography
-                color={
-                  change.payload?.disabled ? 'action.disabled' : 'success.dark'
-                }
-              >
+              <Typography color={change.payload?.disabled ? 'action.disabled' : 'success.dark'}>
                 + Adding strategy:
               </Typography>
               <StrategyTooltipLink change={change}>
-                <StrategyDiff
-                  change={change}
-                  currentStrategy={currentStrategy}
-                />
+                <StrategyDiff change={change} currentStrategy={currentStrategy} />
               </StrategyTooltipLink>
               <div>
-                <DisabledEnabledState
-                  disabled
-                  show={change.payload?.disabled === true}
-                />
+                <DisabledEnabledState disabled show={change.payload?.disabled === true} />
               </div>
             </ChangeItemInfo>
             <div>{actions}</div>
@@ -186,12 +146,8 @@ export const StrategyChange: VFC<{
             show={
               change.payload.variants && (
                 <StyledBox>
-                  <StyledTypography>
-                    Updating feature variants to:
-                  </StyledTypography>
-                  <EnvironmentVariantsTable
-                    variants={change.payload.variants}
-                  />
+                  <StyledTypography>Updating feature variants to:</StyledTypography>
+                  <EnvironmentVariantsTable variants={change.payload.variants} />
                 </StyledBox>
               )
             }
@@ -211,10 +167,7 @@ export const StrategyChange: VFC<{
               </Typography>
               {hasNameField(change.payload) && (
                 <StrategyTooltipLink change={change}>
-                  <StrategyDiff
-                    change={change}
-                    currentStrategy={currentStrategy}
-                  />
+                  <StrategyDiff change={change} currentStrategy={currentStrategy} />
                 </StrategyTooltipLink>
               )}
             </ChangeItemInfo>
@@ -222,11 +175,7 @@ export const StrategyChange: VFC<{
           </ChangeItemCreateEditDeleteWrapper>
           <ConditionallyRender
             condition={Boolean(currentStrategy)}
-            show={
-              <Typography>
-                {<StrategyExecution strategy={currentStrategy!} />}
-              </Typography>
-            }
+            show={<Typography>{<StrategyExecution strategy={currentStrategy!} />}</Typography>}
           />
         </>
       )}
@@ -242,18 +191,9 @@ export const StrategyChange: VFC<{
           />
           <ChangeItemCreateEditDeleteWrapper>
             <ChangeItemInfo>
-              <EditHeader
-                wasDisabled={currentStrategy?.disabled}
-                willBeDisabled={change.payload?.disabled}
-              />
-              <StrategyTooltipLink
-                change={change}
-                previousTitle={currentStrategy?.title}
-              >
-                <StrategyDiff
-                  change={change}
-                  currentStrategy={currentStrategy}
-                />
+              <EditHeader wasDisabled={currentStrategy?.disabled} willBeDisabled={change.payload?.disabled} />
+              <StrategyTooltipLink change={change} previousTitle={currentStrategy?.title}>
+                <StrategyDiff change={change} currentStrategy={currentStrategy} />
               </StrategyTooltipLink>
             </ChangeItemInfo>
             <div>{actions}</div>
@@ -269,10 +209,7 @@ export const StrategyChange: VFC<{
                   gap: (theme) => theme.spacing(1),
                 }}
               >
-                This strategy will be{' '}
-                <DisabledEnabledState
-                  disabled={change.payload?.disabled || false}
-                />
+                This strategy will be <DisabledEnabledState disabled={change.payload?.disabled || false} />
               </Typography>
             }
           />
@@ -281,12 +218,8 @@ export const StrategyChange: VFC<{
             condition={Boolean(hasVariantDiff)}
             show={
               <StyledBox>
-                <StyledTypography>
-                  Updating feature variants to:
-                </StyledTypography>
-                <EnvironmentVariantsTable
-                  variants={change.payload.variants || []}
-                />
+                <StyledTypography>Updating feature variants to:</StyledTypography>
+                <EnvironmentVariantsTable variants={change.payload.variants || []} />
               </StyledBox>
             }
           />

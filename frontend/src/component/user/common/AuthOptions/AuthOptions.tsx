@@ -16,13 +16,7 @@ const AuthOptions = ({ options }: IAuthOptionProps) => {
   return (
     <>
       {options?.map((o) => (
-        <div
-          key={o.type}
-          className={classnames(
-            themeStyles.flexColumn,
-            themeStyles.contentSpacingY,
-          )}
-        >
+        <div key={o.type} className={classnames(themeStyles.flexColumn, themeStyles.contentSpacingY)}>
           <Button
             color='primary'
             data-loading

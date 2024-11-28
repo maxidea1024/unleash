@@ -8,12 +8,7 @@ interface ITemplateDeleteDialogProps {
   onConfirm: (template: IReleasePlanTemplate) => void;
 }
 
-export const TemplateDeleteDialog: React.FC<ITemplateDeleteDialogProps> = ({
-  template,
-  open,
-  setOpen,
-  onConfirm,
-}) => {
+export const TemplateDeleteDialog: React.FC<ITemplateDeleteDialogProps> = ({ template, open, setOpen, onConfirm }) => {
   return (
     <Dialogue
       title='Delete release plan template?'
@@ -26,8 +21,7 @@ export const TemplateDeleteDialog: React.FC<ITemplateDeleteDialogProps> = ({
       }}
     >
       <p>
-        You are about to delete release plan template:{' '}
-        <strong>{template?.name}</strong>
+        You are about to delete release plan template: <strong>{template?.name}</strong>
       </p>
     </Dialogue>
   );

@@ -45,11 +45,7 @@ interface IEditGroupUsersProps {
   group: IGroup;
 }
 
-export const EditGroupUsers: FC<IEditGroupUsersProps> = ({
-  open,
-  setOpen,
-  group,
-}) => {
+export const EditGroupUsers: FC<IEditGroupUsersProps> = ({ open, setOpen, group }) => {
   const { refetchGroup } = useGroup(group.id);
   const { refetchGroups } = useGroups();
   const { updateGroup, loading } = useGroupApi();
@@ -86,9 +82,7 @@ export const EditGroupUsers: FC<IEditGroupUsersProps> = ({
   };
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/groups/${group.id}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/groups/${group.id}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(getGroupPayload(), undefined, 2)}'`;
@@ -113,21 +107,14 @@ export const EditGroupUsers: FC<IEditGroupUsersProps> = ({
       >
         <StyledForm onSubmit={handleSubmit}>
           <div>
-            <StyledInputDescription>
-              Edit users in this group
-            </StyledInputDescription>
+            <StyledInputDescription>Edit users in this group</StyledInputDescription>
             <GroupFormUsersSelect users={users} setUsers={setUsers} />
             <GroupFormUsersTable users={users} setUsers={setUsers} />
           </div>
 
           <StyledButtonContainer>
             <StyledBox>
-              <Button
-                type='submit'
-                variant='contained'
-                color='primary'
-                data-testid={UG_SAVE_BTN_ID}
-              >
+              <Button type='submit' variant='contained' color='primary' data-testid={UG_SAVE_BTN_ID}>
                 Save
               </Button>
               <StyledCancelButton

@@ -22,12 +22,7 @@ interface IEnvironmentHideDialogProps {
   onConfirm: () => void;
 }
 
-export const EnvironmentHideDialog = ({
-  environment,
-  open,
-  setOpen,
-  onConfirm,
-}: IEnvironmentHideDialogProps) => {
+export const EnvironmentHideDialog = ({ environment, open, setOpen, onConfirm }: IEnvironmentHideDialogProps) => {
   const [confirmName, setConfirmName] = useState('');
 
   useEffect(() => {
@@ -47,22 +42,17 @@ export const EnvironmentHideDialog = ({
       }}
     >
       <Alert severity='error'>
-        <strong>Danger!</strong> Hiding an environment will disable all the
-        feature flags that are enabled in this environment and it can impact
-        client applications connected to the environment.
+        <strong>Danger!</strong> Hiding an environment will disable all the feature flags that are enabled in this
+        environment and it can impact client applications connected to the environment.
       </Alert>
 
       <ProjectEnvironmentTableSingle environment={environment!} />
 
       <StyledLabel>
-        In order to hide this environment, please enter the id of the
-        environment in the textfield below: <strong>{environment?.name}</strong>
+        In order to hide this environment, please enter the id of the environment in the textfield below:{' '}
+        <strong>{environment?.name}</strong>
       </StyledLabel>
-      <StyledInput
-        label='Environment name'
-        value={confirmName}
-        onChange={(e) => setConfirmName(e.target.value)}
-      />
+      <StyledInput label='Environment name' value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
     </Dialogue>
   );
 };

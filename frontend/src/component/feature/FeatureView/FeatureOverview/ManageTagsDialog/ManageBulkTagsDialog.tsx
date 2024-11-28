@@ -1,11 +1,6 @@
 import { useEffect, useReducer, useState, type VFC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import {
-  type AutocompleteProps,
-  Link,
-  styled,
-  Typography,
-} from '@mui/material';
+import { type AutocompleteProps, Link, styled, Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { TagTypeSelect } from './TagTypeSelect';
 import { type TagOption, TagsInput } from './TagsInput';
@@ -38,13 +33,10 @@ const formId = 'manage-tags-form';
 
 const mergeTags = (tags: ITag[], newTag: ITag) => [
   ...tags,
-  ...(tags.some((x) => x.value === newTag.value && x.type === newTag.type)
-    ? []
-    : [newTag]),
+  ...(tags.some((x) => x.value === newTag.value && x.type === newTag.type) ? [] : [newTag]),
 ];
 
-const filterTags = (tags: ITag[], tag: ITag) =>
-  tags.filter((x) => !(x.value === tag.value && x.type === tag.type));
+const filterTags = (tags: ITag[], tag: ITag) => tags.filter((x) => !(x.value === tag.value && x.type === tag.type));
 
 const payloadReducer = (
   state: Payload,
@@ -106,22 +98,13 @@ export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
     removedTags: [],
   });
 
-  const resetTagType = (
-    tagType: ITagType = tagTypes.length > 0 ? tagTypes[0] : emptyTagType,
-  ) => {
+  const resetTagType = (tagType: ITagType = tagTypes.length > 0 ? tagTypes[0] : emptyTagType) => {
     setTagType(tagType);
-    const newIndeterminateValues = initialIndeterminateValues.filter(
-      ({ type }) => type === tagType.name,
-    );
+    const newIndeterminateValues = initialIndeterminateValues.filter(({ type }) => type === tagType.name);
     setSelectedTags(
       initialValues
         .filter(({ type }) => type === tagType.name)
-        .filter(
-          ({ type, value }) =>
-            !newIndeterminateValues.some(
-              (tag) => tag.value === value && tag.type === type,
-            ),
-        )
+        .filter(({ type, value }) => !newIndeterminateValues.some((tag) => tag.value === value && tag.type === type))
         .map(({ value }) => ({
           title: value,
         })),
@@ -143,12 +126,7 @@ export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
     }
   }, [tagTypesLoading]);
 
-  const handleTagTypeChange: AutocompleteProps<
-    ITagType,
-    false,
-    any,
-    any
-  >['onChange'] = (event, value) => {
+  const handleTagTypeChange: AutocompleteProps<ITagType, false, any, any>['onChange'] = (event, value) => {
     if (value != null && typeof value !== 'string') {
       event.preventDefault();
       resetTagType(value);
@@ -168,12 +146,12 @@ export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
       });
     });
 
-  const handleInputChange: AutocompleteProps<
-    TagOption,
-    true,
-    false,
-    false
-  >['onChange'] = (_event, newValue, reason, selected) => {
+  const handleInputChange: AutocompleteProps<TagOption, true, false, false>['onChange'] = (
+    _event,
+    newValue,
+    reason,
+    selected,
+  ) => {
     if (reason === 'selectOption') {
       newValue.forEach((value) => {
         if (
@@ -186,9 +164,7 @@ export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
         }
 
         setSelectedTags(newValue as TagOption[]);
-        setIndeterminateTags((prev: TagOption[]) =>
-          prev.filter(({ title }) => title !== value.title),
-        );
+        setIndeterminateTags((prev: TagOption[]) => prev.filter(({ title }) => title !== value.title));
         if (selected?.option) {
           dispatch({
             type: 'add',
@@ -231,16 +207,11 @@ export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
       primaryButtonText='Save tags'
       title='Update feature flag tags'
       onClick={() => onSubmit(payload)}
-      disabledPrimaryButton={
-        payload.addedTags.length === 0 && payload.removedTags.length === 0
-      }
+      disabledPrimaryButton={payload.addedTags.length === 0 && payload.removedTags.length === 0}
       onClose={onClose}
       formId={formId}
     >
-      <Typography
-        paragraph
-        sx={{ marginBottom: (theme) => theme.spacing(2.5) }}
-      >
+      <Typography paragraph sx={{ marginBottom: (theme) => theme.spacing(2.5) }}>
         Tags allow you to group features together
       </Typography>
       <form id={formId} onSubmit={() => onSubmit(payload)}>

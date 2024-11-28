@@ -61,13 +61,7 @@ const LimitContainer = styled(Box)(({ theme }) => ({
 
 const ENTER = 'Enter';
 
-export const FreeTextInput = ({
-  values,
-  removeValue,
-  setValues,
-  error,
-  setError,
-}: IFreeTextInputProps) => {
+export const FreeTextInput = ({ values, removeValue, setValues, error, setError }: IFreeTextInputProps) => {
   const [inputValues, setInputValues] = useState('');
   const { classes: styles } = useStyles();
   const { uiConfig, loading } = useUiConfig();
@@ -81,16 +75,11 @@ export const FreeTextInput = ({
   };
 
   const addValues = () => {
-    const newValues = uniqueValues([
-      ...values,
-      ...parseParameterStrings(inputValues),
-    ]);
+    const newValues = uniqueValues([...values, ...parseParameterStrings(inputValues)]);
     const limitReached = Boolean(newValues.length > constraintValuesLimit);
 
     if (limitReached) {
-      setError(
-        `constraints cannot have more than ${constraintValuesLimit} values`,
-      );
+      setError(`constraints cannot have more than ${constraintValuesLimit} values`);
     } else if (newValues.length === 0) {
       setError('values cannot be empty');
     } else if (newValues.some((v) => v.length > 100)) {
@@ -156,10 +145,7 @@ interface IConstraintValueChipsProps {
   removeValue: (index: number) => void;
 }
 
-const ConstraintValueChips = ({
-  values,
-  removeValue,
-}: IConstraintValueChipsProps) => {
+const ConstraintValueChips = ({ values, removeValue }: IConstraintValueChipsProps) => {
   const { classes: styles } = useStyles();
   return (
     <>
@@ -168,14 +154,7 @@ const ConstraintValueChips = ({
         // be unique here.
         return (
           <Chip
-            label={
-              <StringTruncator
-                text={value}
-                maxLength={35}
-                maxWidth='100'
-                className={styles.chipValue}
-              />
-            }
+            label={<StringTruncator text={value} maxLength={35} maxWidth='100' className={styles.chipValue} />}
             key={`${value}-${index}`}
             onDelete={() => removeValue(index)}
             className={styles.valueChip}

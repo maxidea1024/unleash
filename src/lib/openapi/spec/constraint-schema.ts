@@ -8,8 +8,7 @@ export const constraintSchemaBase = {
     'A strategy constraint. For more information, refer to [the strategy constraint reference documentation](https://docs.getunleash.io/reference/strategy-constraints)',
   properties: {
     contextName: {
-      description:
-        'The name of the context field that this constraint should apply to.',
+      description: 'The name of the context field that this constraint should apply to.',
       example: 'appName',
       type: 'string',
     },
@@ -21,8 +20,7 @@ export const constraintSchemaBase = {
       example: 'IN',
     },
     caseInsensitive: {
-      description:
-        'Whether the operator should be case sensitive or not. Defaults to `false` (being case sensitive).',
+      description: 'Whether the operator should be case sensitive or not. Defaults to `false` (being case sensitive).',
       type: 'boolean',
       default: false,
     },

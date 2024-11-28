@@ -74,9 +74,7 @@ export const LatestProjectEvents: FC<{
                 <Timestamp dateTime={event.createdAt}>
                   {formatDateYMDHM(event.createdAt, locationSettings.locale)}
                 </Timestamp>
-                <StyledMarkdown>
-                  {event.summary || 'No preview available for this event'}
-                </StyledMarkdown>
+                <StyledMarkdown>{event.summary || 'No preview available for this event'}</StyledMarkdown>
               </div>
             </Event>
           );

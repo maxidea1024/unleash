@@ -15,17 +15,13 @@ const patMiddleware = (
     try {
       const apiToken = req.header('authorization');
       if (apiToken?.startsWith('user:')) {
-        const user =
-          await accountService.getAccountByPersonalAccessToken(apiToken);
+        const user = await accountService.getAccountByPersonalAccessToken(apiToken);
         req.user = user;
         accountService.addPATSeen(apiToken);
       }
     } catch (error) {
       if (error instanceof NotFoundError) {
-        logger.warn(
-          'Tried to use a PAT token for user that no longer existed',
-          error,
-        );
+        logger.warn('Tried to use a PAT token for user that no longer existed', error);
       } else {
         logger.error(error);
       }

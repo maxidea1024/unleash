@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/lines-between-class-members */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import EventEmitter from 'events';
-import type {
-  IClientMetricsEnv,
-  IClientMetricsEnvKey,
-  IClientMetricsStoreV2,
-} from './client-metrics-store-v2-type';
+import type { IClientMetricsEnv, IClientMetricsEnvKey, IClientMetricsStoreV2 } from './client-metrics-store-v2-type';
 
-export default class FakeClientMetricsStoreV2
-  extends EventEmitter
-  implements IClientMetricsStoreV2
-{
+export default class FakeClientMetricsStoreV2 extends EventEmitter implements IClientMetricsStoreV2 {
   metrics: IClientMetricsEnv[] = [];
 
   constructor() {
@@ -41,22 +34,13 @@ export default class FakeClientMetricsStoreV2
   aggregateDailyMetrics(): Promise<void> {
     return Promise.resolve();
   }
-  getSeenAppsForFeatureToggle(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<string[]> {
+  getSeenAppsForFeatureToggle(featureName: string, hoursBack?: number): Promise<string[]> {
     throw new Error('Method not implemented.');
   }
-  getMetricsForFeatureToggle(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<IClientMetricsEnv[]> {
+  getMetricsForFeatureToggle(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]> {
     throw new Error('Method not implemented.');
   }
-  getMetricsForFeatureToggleV2(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<IClientMetricsEnv[]> {
+  getMetricsForFeatureToggleV2(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]> {
     throw new Error('Method not implemented.');
   }
   batchInsertMetrics(metrics: IClientMetricsEnv[]): Promise<void> {

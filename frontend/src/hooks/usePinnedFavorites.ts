@@ -14,16 +14,9 @@ export const sortTypesWithFavorites: Record<
 > = Object.assign(
   {},
   ...Object.entries(sortTypes).map(([key, value]) => ({
-    [key]: (
-      v1: Row<WithFavorite>,
-      v2: Row<WithFavorite>,
-      id: string,
-      desc?: boolean,
-    ) => {
-      if (v1?.original?.favorite && !v2?.original?.favorite)
-        return desc ? 1 : -1;
-      if (!v1?.original?.favorite && v2?.original?.favorite)
-        return desc ? -1 : 1;
+    [key]: (v1: Row<WithFavorite>, v2: Row<WithFavorite>, id: string, desc?: boolean) => {
+      if (v1?.original?.favorite && !v2?.original?.favorite) return desc ? 1 : -1;
+      if (!v1?.original?.favorite && v2?.original?.favorite) return desc ? -1 : 1;
       return value(v1, v2, id, desc);
     },
   })),

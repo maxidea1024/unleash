@@ -2,13 +2,7 @@ import type { ReactNode, VFC } from 'react';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { useFeedback } from 'component/feedbackNew/useFeedback';
 import ReviewsOutlined from '@mui/icons-material/ReviewsOutlined';
-import {
-  Button,
-  styled,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Button, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -87,18 +81,10 @@ export const InsightsHeader: VFC<DashboardHeaderProps> = ({ actions }) => {
           <StyledActionsContainer>
             <ConditionallyRender
               condition={!isSmallScreen}
-              show={
-                <StyledExternalActionsContainer>
-                  {actions}
-                </StyledExternalActionsContainer>
-              }
+              show={<StyledExternalActionsContainer>{actions}</StyledExternalActionsContainer>}
             />
             <StyledActionButtons>
-              <Button
-                startIcon={<ReviewsOutlined />}
-                variant='outlined'
-                onClick={createFeedbackContext}
-              >
+              <Button startIcon={<ReviewsOutlined />} variant='outlined' onClick={createFeedbackContext}>
                 Provide feedback
               </Button>
             </StyledActionButtons>

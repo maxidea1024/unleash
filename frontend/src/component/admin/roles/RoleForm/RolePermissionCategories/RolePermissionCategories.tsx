@@ -1,11 +1,7 @@
 import UserIcon from '@mui/icons-material/Person';
 import TopicIcon from '@mui/icons-material/Topic';
 import CloudCircleIcon from '@mui/icons-material/CloudCircle';
-import {
-  ENVIRONMENT_PERMISSION_TYPE,
-  PROJECT_PERMISSION_TYPE,
-  PROJECT_ROLE_TYPES,
-} from '@server/util/constants';
+import { ENVIRONMENT_PERMISSION_TYPE, PROJECT_PERMISSION_TYPE, PROJECT_ROLE_TYPES } from '@server/util/constants';
 import usePermissions from 'hooks/api/getters/usePermissions/usePermissions';
 import type { ICheckedPermissions, IPermission } from 'interfaces/permissions';
 import type { PredefinedRoleType } from 'interfaces/role';
@@ -22,9 +18,7 @@ import { useMemo } from 'react';
 interface IPermissionCategoriesProps {
   type: PredefinedRoleType;
   checkedPermissions: ICheckedPermissions;
-  setCheckedPermissions: React.Dispatch<
-    React.SetStateAction<ICheckedPermissions>
-  >;
+  setCheckedPermissions: React.Dispatch<React.SetStateAction<ICheckedPermissions>>;
   validatePermissions: (permissions: ICheckedPermissions) => boolean;
 }
 
@@ -45,30 +39,19 @@ export const RolePermissionCategories = ({
   const categories = useMemo(
     () =>
       isProjectRole
-        ? getCategorizedProjectPermissions(
-            flattenProjectPermissions(
-              permissions.project,
-              permissions.environments,
-            ),
-          )
+        ? getCategorizedProjectPermissions(flattenProjectPermissions(permissions.project, permissions.environments))
         : getCategorizedRootPermissions(permissions.root),
     [permissions, isProjectRole],
   );
 
   const onPermissionChange = (permission: IPermission) => {
-    const newCheckedPermissions = togglePermission(
-      checkedPermissions,
-      permission,
-    );
+    const newCheckedPermissions = togglePermission(checkedPermissions, permission);
     validatePermissions(newCheckedPermissions);
     setCheckedPermissions(newCheckedPermissions);
   };
 
   const onCheckAll = (permissions: IPermission[]) => {
-    const newCheckedPermissions = toggleAllPermissions(
-      checkedPermissions,
-      permissions,
-    );
+    const newCheckedPermissions = toggleAllPermissions(checkedPermissions, permissions);
     validatePermissions(newCheckedPermissions);
     setCheckedPermissions(newCheckedPermissions);
   };
@@ -92,9 +75,7 @@ export const RolePermissionCategories = ({
             }
             permissions={permissions}
             checkedPermissions={checkedPermissions}
-            onPermissionChange={(permission: IPermission) =>
-              onPermissionChange(permission)
-            }
+            onPermissionChange={(permission: IPermission) => onPermissionChange(permission)}
             onCheckAll={() => onCheckAll(permissions)}
           />
         ))}

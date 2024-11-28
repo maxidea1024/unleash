@@ -1,13 +1,4 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  Link,
-  Radio,
-  RadioGroup,
-  styled,
-  Switch,
-} from '@mui/material';
+import { Button, FormControl, FormControlLabel, Link, Radio, RadioGroup, styled, Switch } from '@mui/material';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -15,10 +6,7 @@ import useToast from 'hooks/useToast';
 import { type FormEvent, useEffect, useState } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import Input from 'component/common/Input/Input';
-import type {
-  IEnvironment,
-  IEnvironmentClonePayload,
-} from 'interfaces/environments';
+import type { IEnvironment, IEnvironmentClonePayload } from 'interfaces/environments';
 import useEnvironmentApi from 'hooks/api/actions/useEnvironmentApi/useEnvironmentApi';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 import EnvironmentTypeSelector from 'component/environments/EnvironmentForm/EnvironmentTypeSelector/EnvironmentTypeSelector';
@@ -26,9 +14,7 @@ import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import { EnvironmentProjectSelect } from './EnvironmentProjectSelect/EnvironmentProjectSelect';
 import { SelectProjectInput } from 'component/admin/apiToken/ApiTokenForm/ProjectSelector/SelectProjectInput/SelectProjectInput';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
-import useApiTokensApi, {
-  type IApiTokenCreate,
-} from 'hooks/api/actions/useApiTokensApi/useApiTokensApi';
+import useApiTokensApi, { type IApiTokenCreate } from 'hooks/api/actions/useApiTokensApi/useApiTokensApi';
 import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -106,12 +92,7 @@ interface IEnvironmentCloneModalProps {
   newToken: (token: IApiToken) => void;
 }
 
-export const EnvironmentCloneModal = ({
-  environment,
-  open,
-  setOpen,
-  newToken,
-}: IEnvironmentCloneModalProps) => {
+export const EnvironmentCloneModal = ({ environment, open, setOpen, newToken }: IEnvironmentCloneModalProps) => {
   const { environments, refetchEnvironments } = useEnvironments();
   const { cloneEnvironment, loading } = useEnvironmentApi();
   const { createToken } = useApiTokensApi();
@@ -124,8 +105,7 @@ export const EnvironmentCloneModal = ({
   const [projects, setProjects] = useState<string[]>([]);
   const [tokenProjects, setTokenProjects] = useState<string[]>(['*']);
   const [clonePermissions, setClonePermissions] = useState(true);
-  const [apiTokenGeneration, setApiTokenGeneration] =
-    useState<APITokenGeneration>(APITokenGeneration.LATER);
+  const [apiTokenGeneration, setApiTokenGeneration] = useState<APITokenGeneration>(APITokenGeneration.LATER);
   const [errors, setErrors] = useState<IEnvironmentCloneModalErrors>({});
 
   const clearError = (field: ErrorField) => {
@@ -192,27 +172,20 @@ export const EnvironmentCloneModal = ({
   };
 
   const formatApiCode = () => {
-    return `curl --location --request POST '${
-      uiConfig.unleashUrl
-    }/api/admin/environments/${environment.name}/clone' \\
+    return `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/environments/${environment.name}/clone' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(getCloneEnvironmentPayload(), undefined, 2)}'`;
   };
 
   const isNameNotEmpty = (name: string) => name.length;
-  const isNameUnique = (name: string) =>
-    !environments?.some((environment) => environment.name === name);
-  const isValid =
-    isNameNotEmpty(name) && isNameUnique(name) && tokenProjects.length;
+  const isNameUnique = (name: string) => !environments?.some((environment) => environment.name === name);
+  const isValid = isNameNotEmpty(name) && isNameUnique(name) && tokenProjects.length;
 
   const onSetName = (name: string) => {
     clearError(ErrorField.NAME);
     if (!isNameUnique(name)) {
-      setError(
-        ErrorField.NAME,
-        'An environment with that name already exists.',
-      );
+      setError(ErrorField.NAME, 'An environment with that name already exists.');
     }
     setName(name);
   };
@@ -241,9 +214,7 @@ export const EnvironmentCloneModal = ({
       >
         <StyledForm onSubmit={handleSubmit}>
           <div>
-            <StyledInputDescription>
-              What is your new environment name? (Can't be changed later)
-            </StyledInputDescription>
+            <StyledInputDescription>What is your new environment name? (Can't be changed later)</StyledInputDescription>
             <StyledInput
               autoFocus
               label='Environment name'
@@ -253,44 +224,26 @@ export const EnvironmentCloneModal = ({
               onChange={(e) => onSetName(e.target.value)}
               required
             />
+            <StyledInputDescription>What type of environment do you want to create?</StyledInputDescription>
+            <EnvironmentTypeSelector onChange={(e) => setType(e.currentTarget.value)} value={type} />
             <StyledInputDescription>
-              What type of environment do you want to create?
-            </StyledInputDescription>
-            <EnvironmentTypeSelector
-              onChange={(e) => setType(e.currentTarget.value)}
-              value={type}
-            />
-            <StyledInputDescription>
-              Select which projects you want to clone the environment
-              configuration in?
+              Select which projects you want to clone the environment configuration in?
               <HelpIcon tooltip='The cloned environment will keep the feature flag state for the selected projects, where it will be enabled by default.' />
             </StyledInputDescription>
-            <EnvironmentProjectSelect
-              projects={projects}
-              setProjects={setProjects}
-            />
-            <StyledInputDescription>
-              Keep the users permission for this environment?
-            </StyledInputDescription>
+            <EnvironmentProjectSelect projects={projects} setProjects={setProjects} />
+            <StyledInputDescription>Keep the users permission for this environment?</StyledInputDescription>
             <StyledInputSecondaryDescription>
-              If you turn it off, the permission for this environment across all
-              projects and feature flags will remain only for admin and editor
-              roles.
+              If you turn it off, the permission for this environment across all projects and feature flags will remain
+              only for admin and editor roles.
             </StyledInputSecondaryDescription>
             <FormControlLabel
               label={clonePermissions ? 'Yes' : 'No'}
-              control={
-                <Switch
-                  onChange={(e) => setClonePermissions(e.target.checked)}
-                  checked={clonePermissions}
-                />
-              }
+              control={<Switch onChange={(e) => setClonePermissions(e.target.checked)} checked={clonePermissions} />}
             />
             <StyledSecondaryContainer>
               <StyledInputDescription>API Token</StyledInputDescription>
               <StyledInputSecondaryDescription>
-                In order to connect your SDKs to your newly cloned environment,
-                you will also need an API token.{' '}
+                In order to connect your SDKs to your newly cloned environment, you will also need an API token.{' '}
                 <Link
                   href='https://docs.getunleash.io/reference/api-tokens-and-client-keys'
                   target='_blank'
@@ -303,9 +256,7 @@ export const EnvironmentCloneModal = ({
               <FormControl>
                 <RadioGroup
                   value={apiTokenGeneration}
-                  onChange={(e) =>
-                    setApiTokenGeneration(e.target.value as APITokenGeneration)
-                  }
+                  onChange={(e) => setApiTokenGeneration(e.target.value as APITokenGeneration)}
                   name='api-token-generation'
                 >
                   <FormControlLabel
@@ -322,8 +273,8 @@ export const EnvironmentCloneModal = ({
               </FormControl>
               <StyledInlineContainer>
                 <StyledInputSecondaryDescription>
-                  A new Server-side SDK (CLIENT) API token will be generated for
-                  the cloned environment, so you can get started right away.
+                  A new Server-side SDK (CLIENT) API token will be generated for the cloned environment, so you can get
+                  started right away.
                 </StyledInputSecondaryDescription>
                 <ConditionallyRender
                   condition={apiTokenGeneration === APITokenGeneration.NOW}
@@ -347,12 +298,7 @@ export const EnvironmentCloneModal = ({
           </div>
 
           <StyledButtonContainer>
-            <Button
-              type='submit'
-              variant='contained'
-              color='primary'
-              disabled={!isValid}
-            >
+            <Button type='submit' variant='contained' color='primary' disabled={!isValid}>
               Clone environment
             </Button>
             <StyledCancelButton

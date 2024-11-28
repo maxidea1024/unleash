@@ -4,10 +4,7 @@ import {
   mapSegmentsForClient,
   offlineUnleashClient,
 } from './offline-unleash-client';
-import {
-  Unleash as UnleashClientNode,
-  InMemStorageProvider as InMemStorageProviderNode,
-} from 'unleash-client';
+import { Unleash as UnleashClientNode, InMemStorageProvider as InMemStorageProviderNode } from 'unleash-client';
 import { once } from 'events';
 import { playgroundStrategyEvaluation } from '../../openapi/spec/playground-strategy-schema';
 
@@ -349,9 +346,7 @@ describe('offline client', () => {
     const result = client.isEnabled(name, context);
 
     result.strategies.forEach((strategy) =>
-      expect(strategy.result.enabled).toEqual(
-        playgroundStrategyEvaluation.unknownResult,
-      ),
+      expect(strategy.result.enabled).toEqual(playgroundStrategyEvaluation.unknownResult),
     );
     expect(result.result).toEqual(playgroundStrategyEvaluation.unknownResult);
   });
@@ -384,9 +379,7 @@ describe('offline client', () => {
     const result = client.isEnabled(name, context);
 
     result.strategies.forEach((strategy) =>
-      expect(strategy.result.enabled).toEqual(
-        playgroundStrategyEvaluation.unknownResult,
-      ),
+      expect(strategy.result.enabled).toEqual(playgroundStrategyEvaluation.unknownResult),
     );
     expect(result.result).toEqual(playgroundStrategyEvaluation.unknownResult);
   });
@@ -499,12 +492,8 @@ describe('offline client', () => {
       logError: console.log,
     });
 
-    const evaluatedStrategies = client
-      .isEnabled(featureName, context)
-      .strategies.map((strategy) => strategy.name);
+    const evaluatedStrategies = client.isEnabled(featureName, context).strategies.map((strategy) => strategy.name);
 
-    expect(evaluatedStrategies).toEqual(
-      strategies.map((strategy) => strategy.name),
-    );
+    expect(evaluatedStrategies).toEqual(strategies.map((strategy) => strategy.name));
   });
 });

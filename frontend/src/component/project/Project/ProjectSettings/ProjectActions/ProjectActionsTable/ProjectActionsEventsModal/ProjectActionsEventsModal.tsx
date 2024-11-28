@@ -60,14 +60,9 @@ export const ProjectActionsEventsModal = ({
 }: IProjectActionsEventsModalProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { locationSettings } = useLocationSettings();
-  const { actionEvents, hasMore, loadMore, loading } = useActionEvents(
-    action?.id,
-    projectId,
-    20,
-    {
-      refreshInterval: 5000,
-    },
-  );
+  const { actionEvents, hasMore, loadMore, loading } = useActionEvents(action?.id, projectId, 20, {
+    refreshInterval: 5000,
+  });
 
   if (!action) {
     return null;
@@ -111,29 +106,19 @@ export const ProjectActionsEventsModal = ({
               {
                 header: 'Date',
                 maxWidth: 240,
-                cell: ({ createdAt }) =>
-                  formatDateYMDHMS(createdAt, locationSettings?.locale),
+                cell: ({ createdAt }) => formatDateYMDHMS(createdAt, locationSettings?.locale),
               },
             ]}
             sidePanelHeader='Details'
             renderContent={ProjectActionsEventsDetails}
             renderItem={({ id, state }, children) => {
               if (state === 'failed') {
-                return (
-                  <StyledFailedItemWrapper key={id}>
-                    {children}
-                  </StyledFailedItemWrapper>
-                );
+                return <StyledFailedItemWrapper key={id}>{children}</StyledFailedItemWrapper>;
               }
 
               return children;
             }}
-            listEnd={
-              <ConditionallyRender
-                condition={hasMore}
-                show={<Button onClick={loadMore}>Load more</Button>}
-              />
-            }
+            listEnd={<ConditionallyRender condition={hasMore} show={<Button onClick={loadMore}>Load more</Button>} />}
           />
           <ConditionallyRender
             condition={actionEvents.length === 0}

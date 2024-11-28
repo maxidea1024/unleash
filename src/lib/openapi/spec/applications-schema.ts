@@ -5,8 +5,7 @@ import { applicationUsageSchema } from './application-usage-schema';
 export const applicationsSchema = {
   $id: '#/components/schemas/applicationsSchema',
   additionalProperties: false,
-  description:
-    'An object containing a list of applications that have connected to Unleash via an SDK.',
+  description: 'An object containing a list of applications that have connected to Unleash via an SDK.',
   required: ['total', 'applications'],
   type: 'object',
   properties: {
@@ -16,8 +15,7 @@ export const applicationsSchema = {
       description: 'The total number of project applications.',
     },
     applications: {
-      description:
-        'The list of applications that have connected to this Unleash instance.',
+      description: 'The list of applications that have connected to this Unleash instance.',
       type: 'array',
       items: {
         $ref: '#/components/schemas/applicationSchema',

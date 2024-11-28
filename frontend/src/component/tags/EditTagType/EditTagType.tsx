@@ -18,15 +18,10 @@ const EditTagType = () => {
   const navigate = useNavigate();
   const name = useRequiredPathParam('name');
   const { tagType } = useTagType(name);
-  const {
-    tagName,
-    tagDesc,
-    setTagName,
-    setTagDesc,
-    getTagPayload,
-    errors,
-    clearErrors,
-  } = useTagTypeForm(tagType?.name, tagType?.description);
+  const { tagName, tagDesc, setTagName, setTagDesc, getTagPayload, errors, clearErrors } = useTagTypeForm(
+    tagType?.name,
+    tagType?.description,
+  );
   const { updateTagType, loading } = useTagTypesApi();
 
   const handleSubmit = async (e: Event) => {
@@ -46,9 +41,7 @@ const EditTagType = () => {
   };
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/tag-types/${name}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/tag-types/${name}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getTagPayload(), undefined, 2)}'`;

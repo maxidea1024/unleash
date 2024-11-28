@@ -18,9 +18,7 @@ export interface Logger {
   fatal(message: any, ...args: any[]): void;
 }
 
-export function getDefaultLogProvider(
-  logLevel: LogLevel = LogLevel.error,
-): LogProvider {
+export function getDefaultLogProvider(logLevel: LogLevel = LogLevel.error): LogProvider {
   configure({
     appenders: {
       console: { type: 'console' },

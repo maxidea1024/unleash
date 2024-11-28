@@ -47,9 +47,7 @@ describe('System user definitions in code and db', () => {
     const client = new Client(config.db);
     await client.connect();
 
-    const query = await client.query(
-      `select * from system_user_alignment_test.users where id = -1337;`,
-    );
+    const query = await client.query(`select * from system_user_alignment_test.users where id = -1337;`);
 
     dbDefinition = query.rows[0];
   });

@@ -23,10 +23,7 @@ export const strategyEvaluationResults = {
           type: 'string',
           description:
             "Signals that this strategy could not be evaluated. This is most likely because you're using a custom strategy that Unleash doesn't know about. The `unevaluated` result is also returned if the strategy is disabled.",
-          enum: [
-            playgroundStrategyEvaluation.evaluationIncomplete,
-            playgroundStrategyEvaluation.unevaluated,
-          ],
+          enum: [playgroundStrategyEvaluation.evaluationIncomplete, playgroundStrategyEvaluation.unevaluated],
         },
         enabled: {
           description:
@@ -112,16 +109,7 @@ export const playgroundStrategySchema = {
   type: 'object',
   description: 'An evaluated feature flag strategy as used by the Playground',
   additionalProperties: false,
-  required: [
-    'id',
-    'name',
-    'result',
-    'segments',
-    'constraints',
-    'parameters',
-    'disabled',
-    'links',
-  ],
+  required: ['id', 'name', 'result', 'segments', 'constraints', 'parameters', 'disabled', 'links'],
   properties: {
     name: {
       description: "The strategy's name.",
@@ -143,8 +131,7 @@ export const playgroundStrategySchema = {
     },
     disabled: {
       type: 'boolean',
-      description:
-        "The strategy's status. Disabled strategies are not evaluated",
+      description: "The strategy's status. Disabled strategies are not evaluated",
       example: false,
       nullable: true,
     },
@@ -193,6 +180,4 @@ export const playgroundStrategySchema = {
   },
 } as const;
 
-export type PlaygroundStrategySchema = FromSchema<
-  typeof playgroundStrategySchema
->;
+export type PlaygroundStrategySchema = FromSchema<typeof playgroundStrategySchema>;

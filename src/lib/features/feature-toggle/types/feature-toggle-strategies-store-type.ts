@@ -59,22 +59,12 @@ export interface IQueryParam {
   values: (string | null)[];
 }
 
-export interface IFeatureStrategiesStore
-  extends IStore<IFeatureStrategy, string> {
-  createStrategyFeatureEnv(
-    strategyConfig: Omit<IFeatureStrategy, 'id' | 'createdAt'>,
-  ): Promise<IFeatureStrategy>;
+export interface IFeatureStrategiesStore extends IStore<IFeatureStrategy, string> {
+  createStrategyFeatureEnv(strategyConfig: Omit<IFeatureStrategy, 'id' | 'createdAt'>): Promise<IFeatureStrategy>;
 
-  removeAllStrategiesForFeatureEnv(
-    featureName: string,
-    environment: string,
-  ): Promise<void>;
+  removeAllStrategiesForFeatureEnv(featureName: string, environment: string): Promise<void>;
 
-  getStrategiesForFeatureEnv(
-    projectId: string,
-    featureName: string,
-    environment: string,
-  ): Promise<IFeatureStrategy[]>;
+  getStrategiesForFeatureEnv(projectId: string, featureName: string, environment: string): Promise<IFeatureStrategy[]>;
 
   getFeatureToggleWithEnvs(
     featureName: string,
@@ -88,39 +78,23 @@ export interface IFeatureStrategiesStore
     archived?,
   ): Promise<FeatureToggleWithEnvironment>;
 
-  getFeatureOverview(
-    params: IFeatureProjectUserParams,
-  ): Promise<IFeatureOverview[]>;
+  getFeatureOverview(params: IFeatureProjectUserParams): Promise<IFeatureOverview[]>;
 
   getStrategyById(id: string): Promise<IFeatureStrategy>;
 
-  updateStrategy(
-    id: string,
-    updates: Partial<IFeatureStrategy>,
-  ): Promise<IFeatureStrategy>;
+  updateStrategy(id: string, updates: Partial<IFeatureStrategy>): Promise<IFeatureStrategy>;
 
-  deleteConfigurationsForProjectAndEnvironment(
-    projectId: String,
-    environment: String,
-  ): Promise<void>;
+  deleteConfigurationsForProjectAndEnvironment(projectId: String, environment: String): Promise<void>;
 
-  setProjectForStrategiesBelongingToFeature(
-    featureName: string,
-    newProjectId: string,
-  ): Promise<void>;
+  setProjectForStrategiesBelongingToFeature(featureName: string, newProjectId: string): Promise<void>;
 
   getStrategiesBySegment(segmentId: number): Promise<IFeatureStrategy[]>;
 
-  getStrategiesByContextField(
-    contextFieldName: string,
-  ): Promise<IFeatureStrategy[]>;
+  getStrategiesByContextField(contextFieldName: string): Promise<IFeatureStrategy[]>;
 
   updateSortOrder(id: string, sortOrder: number): Promise<void>;
 
-  getAllByFeatures(
-    features: string[],
-    environment?: string,
-  ): Promise<IFeatureStrategy[]>;
+  getAllByFeatures(features: string[], environment?: string): Promise<IFeatureStrategy[]>;
 
   getCustomStrategiesInUseCount(): Promise<number>;
 }

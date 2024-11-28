@@ -1,10 +1,7 @@
 import type EventEmitter from 'events';
 import type { Logger, LogProvider } from '../logger';
 import type { IFavoriteProject } from '../types/favorites';
-import type {
-  IFavoriteProjectKey,
-  IFavoriteProjectsStore,
-} from '../types/stores/favorite-projects';
+import type { IFavoriteProjectKey, IFavoriteProjectsStore } from '../types/stores/favorite-projects';
 import type { Db } from './db';
 
 const T = {
@@ -37,13 +34,8 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
     this.eventBus = eventBus;
   }
 
-  async addFavoriteProject({
-    userId,
-    project,
-  }: IFavoriteProjectKey): Promise<IFavoriteProject> {
-    const insertedProject = await this.db<IFavoriteProjectRow>(
-      T.FAVORITE_PROJECTS,
-    )
+  async addFavoriteProject({ userId, project }: IFavoriteProjectKey): Promise<IFavoriteProject> {
+    const insertedProject = await this.db<IFavoriteProjectRow>(T.FAVORITE_PROJECTS)
       .insert({ project, user_id: userId })
       .onConflict(['user_id', 'project'])
       .merge()
@@ -53,9 +45,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
   }
 
   async delete({ userId, project }: IFavoriteProjectKey): Promise<void> {
-    return this.db(T.FAVORITE_PROJECTS)
-      .where({ project, user_id: userId })
-      .del();
+    return this.db(T.FAVORITE_PROJECTS).where({ project, user_id: userId }).del();
   }
 
   async deleteAll(): Promise<void> {
@@ -73,10 +63,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
     return present;
   }
 
-  async get({
-    userId,
-    project,
-  }: IFavoriteProjectKey): Promise<IFavoriteProject> {
+  async get({ userId, project }: IFavoriteProjectKey): Promise<IFavoriteProject> {
     const favorite = await this.db
       .table<IFavoriteProjectRow>(T.FAVORITE_PROJECTS)
       .select()
@@ -87,9 +74,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
   }
 
   async getAll(): Promise<IFavoriteProject[]> {
-    const groups = await this.db<IFavoriteProjectRow>(
-      T.FAVORITE_PROJECTS,
-    ).select();
+    const groups = await this.db<IFavoriteProjectRow>(T.FAVORITE_PROJECTS).select();
     return groups.map(rowToFavorite);
   }
 }

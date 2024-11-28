@@ -93,8 +93,8 @@ export const SplashPageOperators = () => {
             <CloseOutlined titleAccess='Close' />
           </StyledCloseButton>
           <StyledIngress>
-            We've added some new feature strategy constraint operators.
-            Fine-tune your feature targeting like never before.
+            We've added some new feature strategy constraint operators. Fine-tune your feature targeting like never
+            before.
           </StyledIngress>
         </StyledHeader>
         <StyledBody>
@@ -109,22 +109,19 @@ export const SplashPageOperators = () => {
             <li>
               <span>Toggle features for versions: </span>
               <span>
-                <strong>SEMVER_EQ</strong> <strong>SEMVER_GT</strong>{' '}
-                <strong>SEMVER_LT</strong>
+                <strong>SEMVER_EQ</strong> <strong>SEMVER_GT</strong> <strong>SEMVER_LT</strong>
               </span>
             </li>
             <li>
               <span>Toggle features for strings: </span>
               <span>
-                <strong>STR_CONTAINS</strong> <strong>STR_ENDS_WITH</strong>{' '}
-                <strong>STR_STARTS_WITH</strong>
+                <strong>STR_CONTAINS</strong> <strong>STR_ENDS_WITH</strong> <strong>STR_STARTS_WITH</strong>
               </span>
             </li>
             <li>
               <span>Toggle features for numbers: </span>
               <span>
-                <strong>NUM_GT</strong> <strong>NUM_GTE</strong>{' '}
-                <strong>NUM_LT</strong> <strong>NUM_LTE</strong>
+                <strong>NUM_GT</strong> <strong>NUM_GTE</strong> <strong>NUM_LT</strong> <strong>NUM_LTE</strong>
               </span>
             </li>
           </StyledList>

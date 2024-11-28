@@ -33,24 +33,17 @@ interface ISearchInstructionsProps {
   onClick: (instruction: string) => void;
 }
 
-const firstFilterOption = (filter: { name: string; options: string[] }) =>
-  `${filter.name}:${filter.options[0]}`;
+const firstFilterOption = (filter: { name: string; options: string[] }) => `${filter.name}:${filter.options[0]}`;
 const secondFilterOption = (filter: { name: string; options: string[] }) =>
   `${filter.name}:${filter.options.slice(0, 2).join(',')}`;
 
-export const SearchInstructions: VFC<ISearchInstructionsProps> = ({
-  filters,
-  searchableColumnsString,
-  onClick,
-}) => {
+export const SearchInstructions: VFC<ISearchInstructionsProps> = ({ filters, searchableColumnsString, onClick }) => {
   return (
     <>
       <StyledHeader>
         {filters.length > 0
           ? 'Filter your results by:'
-          : `Start typing to search${
-              searchableColumnsString ? ` in ${searchableColumnsString}` : '...'
-            }`}
+          : `Start typing to search${searchableColumnsString ? ` in ${searchableColumnsString}` : '...'}`}
       </StyledHeader>
       {filters.map((filter) => (
         <StyledFilterHint key={filter.name}>

@@ -7,24 +7,13 @@ test('anonymise', () => {
 });
 
 describe('anonymiseKeys', () => {
-  test.each([
-    null,
-    undefined,
-    true,
-    false,
-    'test',
-    123,
-    [1, 2, 3],
-    { test: 'test' },
-  ])(
+  test.each([null, undefined, true, false, 'test', 123, [1, 2, 3], { test: 'test' }])(
     'A parameter without keys (non-object, non-array) should return the same value',
     (obj) => expect(anonymiseKeys(obj!, [])).toStrictEqual(obj),
   );
 
   test('An object should anonymise the specified keys', () => {
-    expect(
-      anonymiseKeys({ test: 'test', test2: 'test2' }, ['test']),
-    ).toStrictEqual({
+    expect(anonymiseKeys({ test: 'test', test2: 'test2' }, ['test'])).toStrictEqual({
       test: expect.stringMatching(REGEX_MATCH),
       test2: 'test2',
     });

@@ -7,11 +7,7 @@ export const createApiToken = joi
   .keys({
     username: joi.string().optional(),
     tokenName: joi.string().optional(),
-    type: joi
-      .string()
-      .lowercase()
-      .required()
-      .valid(ApiTokenType.ADMIN, ApiTokenType.CLIENT, ApiTokenType.FRONTEND),
+    type: joi.string().lowercase().required().valid(ApiTokenType.ADMIN, ApiTokenType.CLIENT, ApiTokenType.FRONTEND),
     expiresAt: joi.date().optional(),
     project: joi.when('projects', {
       not: joi.required(),

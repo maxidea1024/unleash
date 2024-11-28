@@ -1,15 +1,8 @@
 import type { EventEmitter } from 'stream';
-import {
-  createEventsService,
-  createFeatureToggleService,
-} from '../../lib/features';
+import { createEventsService, createFeatureToggleService } from '../../lib/features';
 import { FEATURES_CREATED_BY_PROCESSED } from '../../lib/metric-events';
 import type { EventService, FeatureToggleService } from '../../lib/services';
-import {
-  ADMIN_TOKEN_USER,
-  type IUnleashConfig,
-  type IUnleashStores,
-} from '../../lib/types';
+import { ADMIN_TOKEN_USER, type IUnleashConfig, type IUnleashStores } from '../../lib/types';
 import { createTestConfig } from '../config/test-config';
 import dbInit, { type ITestDb } from './helpers/database-init';
 
@@ -107,9 +100,7 @@ test('should set created_by_user_id on features', async () => {
   await stores.featureToggleStore.setCreatedByUserId(200);
 
   const features = await db.rawDatabase('features').select('*');
-  const notSet = features.filter(
-    (f) => !f.created_by_user_id && f.description === '--created_by_test--',
-  );
+  const notSet = features.filter((f) => !f.created_by_user_id && f.description === '--created_by_test--');
   const test1 = features.filter((f) => f.created_by_user_id === 1);
   const test2 = features.filter((f) => f.created_by_user_id === 2);
   const test3 = features.filter((f) => f.created_by_user_id === 3);
@@ -180,19 +171,12 @@ test('admin tokens get populated to admin token user', async () => {
 
   await stores.featureToggleStore.setCreatedByUserId(200);
 
-  const user = await db
-    .rawDatabase('users')
-    .where({ username: 'input1' })
-    .first('id');
+  const user = await db.rawDatabase('users').where({ username: 'input1' }).first('id');
 
   const features = await db.rawDatabase('features').select('*');
-  const notSet = features.filter(
-    (f) => !f.created_by_user_id && f.description === '--created_by_test--',
-  );
+  const notSet = features.filter((f) => !f.created_by_user_id && f.description === '--created_by_test--');
   const test1 = features.filter((f) => f.created_by_user_id === user.id);
-  const test2 = features.filter(
-    (f) => f.created_by_user_id === ADMIN_TOKEN_USER.id,
-  );
+  const test2 = features.filter((f) => f.created_by_user_id === ADMIN_TOKEN_USER.id);
   expect(notSet).toHaveLength(1);
   expect(test1).toHaveLength(2);
   expect(test2).toHaveLength(2);

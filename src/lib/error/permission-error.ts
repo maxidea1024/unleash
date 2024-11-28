@@ -13,9 +13,7 @@ export default class PermissionError extends UnleashError {
     const permissionsMessage =
       permissions.length === 1
         ? `the "${permissions[0]}" permission`
-        : `one of the following permissions: ${permissions
-            .map((perm) => `"${perm}"`)
-            .join(', ')}`;
+        : `one of the following permissions: ${permissions.map((perm) => `"${perm}"`).join(', ')}`;
 
     const message = `You don't have the required permissions to perform this operation. To perform this action, you need ${permissionsMessage}${
       environment ? ` in the "${environment}" environment.` : `.`

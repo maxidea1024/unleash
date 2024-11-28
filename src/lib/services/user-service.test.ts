@@ -79,10 +79,7 @@ describe('Default admin initialization', () => {
     const eventStore = new EventStoreMock();
     const accessService = new AccessServiceMock();
     const resetTokenStore = new FakeResetTokenStore();
-    const resetTokenService = new ResetTokenService(
-      { resetTokenStore },
-      config,
-    );
+    const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
     const emailService = new EmailService(config);
 
     emailService.configured = jest.fn(() => true);
@@ -112,10 +109,7 @@ describe('Default admin initialization', () => {
   test('Should create default admin user if `createAdminUser` is true and `initialAdminUser` is not set', async () => {
     await userService.initAdminUser({ createAdminUser: true });
 
-    const user = await userService.loginUser(
-      DEFAULT_ADMIN_USERNAME,
-      DEFAULT_ADMIN_PASSWORD,
-    );
+    const user = await userService.loginUser(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD);
     expect(user.username).toBe(DEFAULT_ADMIN_USERNAME);
   });
 
@@ -128,16 +122,11 @@ describe('Default admin initialization', () => {
       },
     });
 
-    await expect(
-      userService.loginUser(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD),
-    ).rejects.toThrow(
+    await expect(userService.loginUser(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD)).rejects.toThrow(
       'The combination of password and username you provided is invalid',
     );
 
-    const user = await userService.loginUser(
-      CUSTOM_ADMIN_USERNAME,
-      CUSTOM_ADMIN_PASSWORD,
-    );
+    const user = await userService.loginUser(CUSTOM_ADMIN_USERNAME, CUSTOM_ADMIN_PASSWORD);
     expect(user.username).toBe(CUSTOM_ADMIN_USERNAME);
   });
 
@@ -146,10 +135,7 @@ describe('Default admin initialization', () => {
     const eventStore = new EventStoreMock();
     const accessService = new AccessServiceMock();
     const resetTokenStore = new FakeResetTokenStore();
-    const resetTokenService = new ResetTokenService(
-      { resetTokenStore },
-      config,
-    );
+    const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
     const emailService = new EmailService(config);
     const sessionStore = new FakeSessionStore();
     const sessionService = new SessionService({ sessionStore }, config);
@@ -184,8 +170,7 @@ describe('Default admin initialization', () => {
     process.env.UNLEASH_DEFAULT_ADMIN_USERNAME = CUSTOM_ADMIN_USERNAME;
     process.env.UNLEASH_DEFAULT_ADMIN_PASSWORD = CUSTOM_ADMIN_PASSWORD;
 
-    const createTestConfig =
-      require('../../test/config/test-config').createTestConfig;
+    const createTestConfig = require('../../test/config/test-config').createTestConfig;
 
     const config = createTestConfig();
 
@@ -255,12 +240,8 @@ test('Password must be at least 10 chars', async () => {
     sessionService,
     settingService,
   });
-  expect(() => service.validatePassword('admin')).toThrow(
-    'The password must be at least 10 characters long.',
-  );
-  expect(() => service.validatePassword('qwertyabcde')).toThrowError(
-    OwaspValidationError,
-  );
+  expect(() => service.validatePassword('admin')).toThrow('The password must be at least 10 characters long.');
+  expect(() => service.validatePassword('qwertyabcde')).toThrowError(OwaspValidationError);
 });
 
 test('The password must contain at least one uppercase letter.', async () => {
@@ -293,9 +274,7 @@ test('The password must contain at least one uppercase letter.', async () => {
   expect(() => service.validatePassword('qwertyabcde')).toThrowError(
     'The password must contain at least one uppercase letter.',
   );
-  expect(() => service.validatePassword('qwertyabcde')).toThrowError(
-    OwaspValidationError,
-  );
+  expect(() => service.validatePassword('qwertyabcde')).toThrowError(OwaspValidationError);
 });
 
 test('The password must contain at least one number', async () => {
@@ -326,12 +305,8 @@ test('The password must contain at least one number', async () => {
     settingService,
   });
 
-  expect(() => service.validatePassword('qwertyabcdE')).toThrowError(
-    'The password must contain at least one number.',
-  );
-  expect(() => service.validatePassword('qwertyabcdE')).toThrowError(
-    OwaspValidationError,
-  );
+  expect(() => service.validatePassword('qwertyabcdE')).toThrowError('The password must contain at least one number.');
+  expect(() => service.validatePassword('qwertyabcdE')).toThrowError(OwaspValidationError);
 });
 
 test('The password must contain at least one special character', async () => {
@@ -364,9 +339,7 @@ test('The password must contain at least one special character', async () => {
   expect(() => service.validatePassword('qwertyabcdE2')).toThrowError(
     'The password must contain at least one special character.',
   );
-  expect(() => service.validatePassword('qwertyabcdE2')).toThrowError(
-    OwaspValidationError,
-  );
+  expect(() => service.validatePassword('qwertyabcdE2')).toThrowError(OwaspValidationError);
 });
 
 test('Should be a valid password with special chars', async () => {

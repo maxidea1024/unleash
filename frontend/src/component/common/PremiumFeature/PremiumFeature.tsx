@@ -14,9 +14,7 @@ const PremiumFeatureWrapper = styled(Box, {
   flexDirection: 'column',
   alignItems: tooltip ? 'start' : 'center',
   textAlign: tooltip ? 'left' : 'center',
-  backgroundColor: tooltip
-    ? 'transparent'
-    : theme.palette.background.elevation2,
+  backgroundColor: tooltip ? 'transparent' : theme.palette.background.elevation2,
   borderRadius: tooltip ? 0 : theme.shape.borderRadiusLarge,
   padding: tooltip ? theme.spacing(1, 0.5) : theme.spacing(7.5, 1),
 }));
@@ -145,11 +143,7 @@ export interface PremiumFeatureProps {
   page?: boolean;
 }
 
-export const PremiumFeature = ({
-  feature,
-  tooltip,
-  page,
-}: PremiumFeatureProps) => {
+export const PremiumFeature = ({ feature, tooltip, page }: PremiumFeatureProps) => {
   const { url, plan, label } = PremiumFeatures[feature];
 
   const tracker = usePlausibleTracker();
@@ -186,10 +180,7 @@ export const PremiumFeature = ({
   const content = (
     <PremiumFeatureWrapper tooltip={tooltip}>
       <StyledTitle>
-        <ThemeMode
-          darkmode={<ProPlanIconLight />}
-          lightmode={<ProPlanIcon />}
-        />
+        <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />
         {`${plan} feature`}
       </StyledTitle>
       <ConditionallyRender
@@ -198,17 +189,11 @@ export const PremiumFeature = ({
           <>
             <StyledBody tooltip>
               <StyledTypography>
-                {featureMessage}. You need to upgrade your plan if you want to
-                use it.
+                {featureMessage}. You need to upgrade your plan if you want to use it.
               </StyledTypography>
             </StyledBody>
             <StyledButtonContainer>
-              <StyledLink
-                href={upgradeUrl}
-                target='_blank'
-                rel='noreferrer'
-                onClick={trackUpgradePlan}
-              >
+              <StyledLink href={upgradeUrl} target='_blank' rel='noreferrer' onClick={trackUpgradePlan}>
                 Compare plans
               </StyledLink>
             </StyledButtonContainer>
@@ -218,26 +203,13 @@ export const PremiumFeature = ({
           <>
             <StyledBody>
               <StyledTypography>{featureMessage}</StyledTypography>
-              <StyledTypography>
-                You need to upgrade your plan if you want to use it.
-              </StyledTypography>
+              <StyledTypography>You need to upgrade your plan if you want to use it.</StyledTypography>
             </StyledBody>
             <StyledButtonContainer>
-              <Button
-                variant='contained'
-                href={upgradeUrl}
-                target='_blank'
-                rel='noreferrer'
-                onClick={trackUpgradePlan}
-              >
+              <Button variant='contained' href={upgradeUrl} target='_blank' rel='noreferrer' onClick={trackUpgradePlan}>
                 Compare plans
               </Button>
-              <Button
-                href={url}
-                target='_blank'
-                rel='noreferrer'
-                onClick={trackReadAbout}
-              >
+              <Button href={url} target='_blank' rel='noreferrer' onClick={trackReadAbout}>
                 Read about {label}
               </Button>
             </StyledButtonContainer>
@@ -248,9 +220,7 @@ export const PremiumFeature = ({
   );
 
   if (page) {
-    return (
-      <PageContent header={<PageHeader title={label} />}>{content}</PageContent>
-    );
+    return <PageContent header={<PageHeader title={label} />}>{content}</PageContent>;
   }
 
   return content;

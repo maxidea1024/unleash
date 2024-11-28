@@ -1,25 +1,13 @@
 import type EventEmitter from 'events';
 import type { Logger, LogProvider } from '../logger';
-import type {
-  IClientInstance,
-  IClientInstanceStore,
-  INewClientInstance,
-} from '../types/stores/client-instance-store';
+import type { IClientInstance, IClientInstanceStore, INewClientInstance } from '../types/stores/client-instance-store';
 import { subDays } from 'date-fns';
 import type { Db } from './db';
 
 const metricsHelper = require('../util/metrics-helper');
 const { DB_TIME } = require('../metric-events');
 
-const COLUMNS = [
-  'app_name',
-  'instance_id',
-  'sdk_version',
-  'client_ip',
-  'last_seen',
-  'created_at',
-  'environment',
-];
+const COLUMNS = ['app_name', 'instance_id', 'sdk_version', 'client_ip', 'last_seen', 'created_at', 'environment'];
 const TABLE = 'client_instances';
 
 const mapRow = (row) => ({
@@ -60,21 +48,14 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   }
 
   async removeInstancesOlderThanTwoDays(): Promise<void> {
-    const rows = await this.db(TABLE)
-      .whereRaw("created_at < now() - interval '2 days'")
-      .del();
+    const rows = await this.db(TABLE).whereRaw("created_at < now() - interval '2 days'").del();
 
     if (rows > 0) {
       this.logger.debug(`Deleted ${rows} instances`);
     }
   }
 
-  async setLastSeen({
-    appName,
-    instanceId,
-    environment,
-    clientIp,
-  }: INewClientInstance): Promise<void> {
+  async setLastSeen({ appName, instanceId, environment, clientIp }: INewClientInstance): Promise<void> {
     await this.db(TABLE)
       .insert({
         app_name: appName,
@@ -92,16 +73,10 @@ export default class ClientInstanceStore implements IClientInstanceStore {
 
   async bulkUpsert(instances: INewClientInstance[]): Promise<void> {
     const rows = instances.map(mapToDb);
-    await this.db(TABLE)
-      .insert(rows)
-      .onConflict(['app_name', 'instance_id', 'environment'])
-      .merge();
+    await this.db(TABLE).insert(rows).onConflict(['app_name', 'instance_id', 'environment']).merge();
   }
 
-  async delete({
-    appName,
-    instanceId,
-  }: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<void> {
+  async delete({ appName, instanceId }: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<void> {
     await this.db(TABLE)
       .where({
         app_name: appName,
@@ -114,13 +89,7 @@ export default class ClientInstanceStore implements IClientInstanceStore {
     await this.db(TABLE).del();
   }
 
-  async get({
-    appName,
-    instanceId,
-  }: Pick<
-    INewClientInstance,
-    'appName' | 'instanceId'
-  >): Promise<IClientInstance> {
+  async get({ appName, instanceId }: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<IClientInstance> {
     const row = await this.db(TABLE)
       .where({
         app_name: appName,
@@ -130,10 +99,7 @@ export default class ClientInstanceStore implements IClientInstanceStore {
     return mapRow(row);
   }
 
-  async exists({
-    appName,
-    instanceId,
-  }: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<boolean> {
+  async exists({ appName, instanceId }: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<boolean> {
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE app_name = ? AND instance_id = ?) AS present`,
       [appName, instanceId],
@@ -145,10 +111,7 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   async insert(details: INewClientInstance): Promise<void> {
     const stopTimer = this.metricTimer('insert');
 
-    await this.db(TABLE)
-      .insert(mapToDb(details))
-      .onConflict(['app_name', 'instance_id', 'environment'])
-      .merge();
+    await this.db(TABLE).insert(mapToDb(details)).onConflict(['app_name', 'instance_id', 'environment']).merge();
 
     stopTimer();
   }
@@ -156,10 +119,7 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   async getAll(): Promise<IClientInstance[]> {
     const stopTimer = this.metricTimer('getAll');
 
-    const rows = await this.db
-      .select(COLUMNS)
-      .from(TABLE)
-      .orderBy('last_seen', 'desc');
+    const rows = await this.db.select(COLUMNS).from(TABLE).orderBy('last_seen', 'desc');
 
     const toggles = rows.map(mapRow);
 
@@ -169,19 +129,12 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   }
 
   async getByAppName(appName: string): Promise<IClientInstance[]> {
-    const rows = await this.db
-      .select()
-      .from(TABLE)
-      .where('app_name', appName)
-      .orderBy('last_seen', 'desc');
+    const rows = await this.db.select().from(TABLE).where('app_name', appName).orderBy('last_seen', 'desc');
 
     return rows.map(mapRow);
   }
 
-  async getByAppNameAndEnvironment(
-    appName: string,
-    environment: string,
-  ): Promise<IClientInstance[]> {
+  async getByAppNameAndEnvironment(appName: string, environment: string): Promise<IClientInstance[]> {
     const rows = await this.db
       .select()
       .from(TABLE)
@@ -195,42 +148,22 @@ export default class ClientInstanceStore implements IClientInstanceStore {
 
   async getBySdkName(sdkName: string): Promise<IClientInstance[]> {
     const sdkPrefix = `${sdkName}%`;
-    const rows = await this.db
-      .select()
-      .from(TABLE)
-      .whereLike('sdk_version', sdkPrefix)
-      .orderBy('last_seen', 'desc');
+    const rows = await this.db.select().from(TABLE).whereLike('sdk_version', sdkPrefix).orderBy('last_seen', 'desc');
     return rows.map(mapRow);
   }
 
-  async groupApplicationsBySdk(): Promise<
-    { sdkVersion: string; applications: string[] }[]
-  > {
+  async groupApplicationsBySdk(): Promise<{ sdkVersion: string; applications: string[] }[]> {
     const rows = await this.db
-      .select([
-        'sdk_version as sdkVersion',
-        this.db.raw('ARRAY_AGG(DISTINCT app_name) as applications'),
-      ])
+      .select(['sdk_version as sdkVersion', this.db.raw('ARRAY_AGG(DISTINCT app_name) as applications')])
       .from(TABLE)
       .groupBy('sdk_version');
 
     return rows;
   }
-  async groupApplicationsBySdkAndProject(
-    projectId: string,
-  ): Promise<{ sdkVersion: string; applications: string[] }[]> {
+  async groupApplicationsBySdkAndProject(projectId: string): Promise<{ sdkVersion: string; applications: string[] }[]> {
     const rows = await this.db
-      .with(
-        'instances',
-        this.db
-          .select('app_name', 'sdk_version')
-          .distinct()
-          .from('client_instances'),
-      )
-      .select([
-        'i.sdk_version as sdkVersion',
-        this.db.raw('ARRAY_AGG(DISTINCT cme.app_name) as applications'),
-      ])
+      .with('instances', this.db.select('app_name', 'sdk_version').distinct().from('client_instances'))
+      .select(['i.sdk_version as sdkVersion', this.db.raw('ARRAY_AGG(DISTINCT cme.app_name) as applications')])
       .from('client_metrics_env as cme')
       .leftJoin('features as f', 'f.name', 'cme.feature_name')
       .leftJoin('instances as i', 'i.app_name', 'cme.app_name')
@@ -241,11 +174,7 @@ export default class ClientInstanceStore implements IClientInstanceStore {
   }
 
   async getDistinctApplications(): Promise<string[]> {
-    const rows = await this.db
-      .distinct('app_name')
-      .select(['app_name'])
-      .from(TABLE)
-      .orderBy('app_name', 'desc');
+    const rows = await this.db.distinct('app_name').select(['app_name']).from(TABLE).orderBy('app_name', 'desc');
 
     return rows.map((r) => r.app_name);
   }

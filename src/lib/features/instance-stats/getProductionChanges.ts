@@ -19,14 +19,8 @@ export const createGetProductionChanges =
                   WHERE e.type = 'production';`);
     return {
       last30: Number.parseInt(productionChanges.rows[0]?.last_month || '0', 10),
-      last60: Number.parseInt(
-        productionChanges.rows[0]?.last_two_months || '0',
-        10,
-      ),
-      last90: Number.parseInt(
-        productionChanges.rows[0]?.last_quarter || '0',
-        10,
-      ),
+      last60: Number.parseInt(productionChanges.rows[0]?.last_two_months || '0', 10),
+      last90: Number.parseInt(productionChanges.rows[0]?.last_quarter || '0', 10),
     };
   };
 

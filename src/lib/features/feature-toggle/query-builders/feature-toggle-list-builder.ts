@@ -26,20 +26,14 @@ export class FeatureToggleListBuilder {
   };
 
   withArchived = (includeArchived: boolean) => {
-    this.internalQuery.modify(
-      FeatureToggleStore.filterByArchived,
-      includeArchived,
-    );
+    this.internalQuery.modify(FeatureToggleStore.filterByArchived, includeArchived);
 
     return this;
   };
 
   withStrategies = (filter: string) => {
     this.internalQuery.leftJoin(
-      this.db('feature_strategies')
-        .select('*')
-        .where({ environment: filter })
-        .as('fs'),
+      this.db('feature_strategies').select('*').where({ environment: filter }).as('fs'),
       'fs.feature_name',
       'features.name',
     );
@@ -50,13 +44,7 @@ export class FeatureToggleListBuilder {
   withFeatureEnvironments = (filter: string) => {
     this.internalQuery.leftJoin(
       this.db('feature_environments')
-        .select(
-          'feature_name',
-          'enabled',
-          'environment',
-          'variants',
-          'last_seen_at',
-        )
+        .select('feature_name', 'enabled', 'environment', 'variants', 'last_seen_at')
         .where({ environment: filter })
         .as('fe'),
       'fe.feature_name',
@@ -67,11 +55,7 @@ export class FeatureToggleListBuilder {
   };
 
   withFeatureStrategySegments = () => {
-    this.internalQuery.leftJoin(
-      'feature_strategy_segment as fss',
-      `fss.feature_strategy_id`,
-      `fs.id`,
-    );
+    this.internalQuery.leftJoin('feature_strategy_segment as fss', `fss.feature_strategy_id`, `fs.id`);
 
     return this;
   };
@@ -83,21 +67,13 @@ export class FeatureToggleListBuilder {
   };
 
   withDependentFeatureToggles = () => {
-    this.internalQuery.leftJoin(
-      'dependent_features as df',
-      'df.child',
-      'features.name',
-    );
+    this.internalQuery.leftJoin('dependent_features as df', 'df.child', 'features.name');
 
     return this;
   };
 
   withFeatureTags = () => {
-    this.internalQuery.leftJoin(
-      'feature_tag as ft',
-      'ft.feature_name',
-      'features.name',
-    );
+    this.internalQuery.leftJoin('feature_tag as ft', 'ft.feature_name', 'features.name');
 
     return this;
   };
@@ -105,18 +81,10 @@ export class FeatureToggleListBuilder {
   withLastSeenByEnvironment = (archived = false) => {
     if (archived) {
       this.internalQuery.leftJoin('last_seen_at_metrics', function () {
-        this.on(
-          'last_seen_at_metrics.feature_name',
-          '=',
-          'features.name',
-        ).andOnNotNull('features.archived_at');
+        this.on('last_seen_at_metrics.feature_name', '=', 'features.name').andOnNotNull('features.archived_at');
       });
     } else {
-      this.internalQuery.leftJoin(
-        'last_seen_at_metrics',
-        'last_seen_at_metrics.feature_name',
-        'features.name',
-      );
+      this.internalQuery.leftJoin('last_seen_at_metrics', 'last_seen_at_metrics.feature_name', 'features.name');
     }
 
     return this;
@@ -124,11 +92,7 @@ export class FeatureToggleListBuilder {
 
   withFavorites = (userId: number) => {
     this.internalQuery.leftJoin(`favorite_features`, function () {
-      this.on('favorite_features.feature', 'features.name').andOnVal(
-        'favorite_features.user_id',
-        '=',
-        userId,
-      );
+      this.on('favorite_features.feature', 'features.name').andOnVal('favorite_features.user_id', '=', userId);
     });
 
     return this;

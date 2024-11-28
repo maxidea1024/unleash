@@ -7,10 +7,7 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import type { IPoint } from './createChartData';
 import { daysOrHours } from '../daysOrHours';
 
-const formatVariantEntry = (
-  variant: [string, number],
-  totalExposure: number,
-) => {
+const formatVariantEntry = (variant: [string, number], totalExposure: number) => {
   if (totalExposure === 0) return '';
   const [key, value] = variant;
   const percentage = Math.floor((Number(value) / totalExposure) * 100);
@@ -55,10 +52,7 @@ export const createChartOptions = (
           afterLabel: (item) => {
             const data = item.dataset.data[item.dataIndex] as unknown as IPoint;
 
-            if (
-              item.dataset.label !== 'Exposed' ||
-              data.variants === undefined
-            ) {
+            if (item.dataset.label !== 'Exposed' || data.variants === undefined) {
               return '';
             }
             const { disabled, ...actualVariants } = data.variants;
@@ -67,15 +61,7 @@ export const createChartOptions = (
               .join('\n');
           },
           title: (items) =>
-            `Time: ${
-              hoursBack > 48
-                ? formatDateYMDHM(
-                    items[0].parsed.x,
-                    locationSettings.locale,
-                    'UTC',
-                  )
-                : formatDateHM(items[0].parsed.x, locationSettings.locale)
-            }`,
+            `Time: ${hoursBack > 48 ? formatDateYMDHM(items[0].parsed.x, locationSettings.locale, 'UTC') : formatDateHM(items[0].parsed.x, locationSettings.locale)}`,
         },
       },
       legend: {
@@ -132,9 +118,7 @@ export const createChartOptions = (
 };
 
 const formatChartLabel = (hoursBack: number): string => {
-  return hoursBack === 1
-    ? 'Requests in the last hour'
-    : `Requests in the last ${daysOrHours(hoursBack)}`;
+  return hoursBack === 1 ? 'Requests in the last hour' : `Requests in the last ${daysOrHours(hoursBack)}`;
 };
 
 // Set the default font for ticks, legends, tooltips, etc.

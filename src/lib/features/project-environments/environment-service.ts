@@ -39,17 +39,8 @@ export default class EnvironmentService {
       featureStrategiesStore,
       featureEnvironmentStore,
       projectStore,
-    }: Pick<
-      IUnleashStores,
-      | 'environmentStore'
-      | 'featureStrategiesStore'
-      | 'featureEnvironmentStore'
-      | 'projectStore'
-    >,
-    {
-      getLogger,
-      flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IUnleashStores, 'environmentStore' | 'featureStrategiesStore' | 'featureEnvironmentStore' | 'projectStore'>,
+    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('environment-service.ts');
@@ -70,9 +61,7 @@ export default class EnvironmentService {
     return this.environmentStore.get(name);
   }
 
-  async getProjectEnvironments(
-    projectId: string,
-  ): Promise<IProjectEnvironment[]> {
+  async getProjectEnvironments(projectId: string): Promise<IProjectEnvironment[]> {
     return this.environmentStore.getProjectEnvironments(projectId);
   }
 
@@ -95,17 +84,10 @@ export default class EnvironmentService {
     throw new NotFoundError(`Could not find environment ${name}`);
   }
 
-  async addEnvironmentToProject(
-    environment: string,
-    projectId: string,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async addEnvironmentToProject(environment: string, projectId: string, auditUser: IAuditUser): Promise<void> {
     try {
       await this.featureEnvironmentStore.connectProject(environment, projectId);
-      await this.featureEnvironmentStore.connectFeatures(
-        environment,
-        projectId,
-      );
+      await this.featureEnvironmentStore.connectFeatures(environment, projectId);
       await this.eventService.storeEvent(
         new ProjectEnvironmentAdded({
           project: projectId,
@@ -115,9 +97,7 @@ export default class EnvironmentService {
       );
     } catch (e) {
       if (e.code === UNIQUE_CONSTRAINT_VIOLATION) {
-        throw new NameExistsError(
-          `${projectId} already has the environment ${environment} enabled`,
-        );
+        throw new NameExistsError(`${projectId} already has the environment ${environment} enabled`);
       }
       throw e;
     }
@@ -130,19 +110,10 @@ export default class EnvironmentService {
     auditUser: IAuditUser,
   ): Promise<CreateFeatureStrategySchema> {
     if (strategy.name !== 'flexibleRollout') {
-      throw new BadDataError(
-        'Only "flexibleRollout" strategy can be used as a default strategy for an environment',
-      );
+      throw new BadDataError('Only "flexibleRollout" strategy can be used as a default strategy for an environment');
     }
-    const previousDefaultStrategy = await this.projectStore.getDefaultStrategy(
-      projectId,
-      environment,
-    );
-    const defaultStrategy = await this.projectStore.updateDefaultStrategy(
-      projectId,
-      environment,
-      strategy,
-    );
+    const previousDefaultStrategy = await this.projectStore.getDefaultStrategy(projectId, environment);
+    const defaultStrategy = await this.projectStore.updateDefaultStrategy(projectId, environment, strategy);
     await this.eventService.storeEvent(
       new DefaultStrategyUpdatedEvent({
         project: projectId,
@@ -156,30 +127,22 @@ export default class EnvironmentService {
     return defaultStrategy;
   }
 
-  async overrideEnabledProjects(
-    environmentNamesToEnable: string[],
-  ): Promise<void> {
+  async overrideEnabledProjects(environmentNamesToEnable: string[]): Promise<void> {
     if (environmentNamesToEnable.length === 0) {
       return Promise.resolve();
     }
 
     const allEnvironments = await this.environmentStore.getAll();
-    const existingEnvironmentsToEnable = allEnvironments.filter((env) =>
-      environmentNamesToEnable.includes(env.name),
-    );
+    const existingEnvironmentsToEnable = allEnvironments.filter((env) => environmentNamesToEnable.includes(env.name));
 
-    if (
-      existingEnvironmentsToEnable.length !== environmentNamesToEnable.length
-    ) {
+    if (existingEnvironmentsToEnable.length !== environmentNamesToEnable.length) {
       this.logger.warn(
         "Found environment enabled overrides but some of the specified environments don't exist, no overrides will be executed",
       );
       return Promise.resolve();
     }
 
-    const environmentsNotAlreadyEnabled = existingEnvironmentsToEnable.filter(
-      (env) => !env.enabled,
-    );
+    const environmentsNotAlreadyEnabled = existingEnvironmentsToEnable.filter((env) => !env.enabled);
     const environmentsToDisable = allEnvironments.filter((env) => {
       return !environmentNamesToEnable.includes(env.name) && env.enabled;
     });
@@ -187,66 +150,35 @@ export default class EnvironmentService {
     await this.environmentStore.disable(environmentsToDisable);
     await this.environmentStore.enable(environmentsNotAlreadyEnabled);
 
-    await this.remapProjectsLinks(
-      environmentsToDisable,
-      environmentsNotAlreadyEnabled,
-    );
+    await this.remapProjectsLinks(environmentsToDisable, environmentsNotAlreadyEnabled);
   }
 
-  private async remapProjectsLinks(
-    toDisable: IEnvironment[],
-    toEnable: IEnvironment[],
-  ) {
-    const projectLinks = await this.projectStore.getProjectLinksForEnvironments(
-      toDisable.map((env) => env.name),
-    );
+  private async remapProjectsLinks(toDisable: IEnvironment[], toEnable: IEnvironment[]) {
+    const projectLinks = await this.projectStore.getProjectLinksForEnvironments(toDisable.map((env) => env.name));
 
     const unlinkTasks = projectLinks.map((link) => {
-      return this.forceRemoveEnvironmentFromProject(
-        link.environmentName,
-        link.projectId,
-      );
+      return this.forceRemoveEnvironmentFromProject(link.environmentName, link.projectId);
     });
     await Promise.all(unlinkTasks.flat());
 
-    const uniqueProjects = [
-      ...new Set(projectLinks.map((link) => link.projectId)),
-    ];
+    const uniqueProjects = [...new Set(projectLinks.map((link) => link.projectId))];
 
     const linkTasks = uniqueProjects.flatMap((project) => {
       return toEnable.map((enabledEnv) => {
-        return this.addEnvironmentToProject(
-          enabledEnv.name,
-          project,
-          SYSTEM_USER_AUDIT,
-        );
+        return this.addEnvironmentToProject(enabledEnv.name, project, SYSTEM_USER_AUDIT);
       });
     });
 
     await Promise.all(linkTasks);
   }
 
-  async forceRemoveEnvironmentFromProject(
-    environment: string,
-    projectId: string,
-  ): Promise<void> {
-    await this.featureEnvironmentStore.disconnectFeatures(
-      environment,
-      projectId,
-    );
-    await this.featureEnvironmentStore.disconnectProject(
-      environment,
-      projectId,
-    );
+  async forceRemoveEnvironmentFromProject(environment: string, projectId: string): Promise<void> {
+    await this.featureEnvironmentStore.disconnectFeatures(environment, projectId);
+    await this.featureEnvironmentStore.disconnectProject(environment, projectId);
   }
 
-  async removeEnvironmentFromProject(
-    environment: string,
-    projectId: string,
-    auditUser: IAuditUser,
-  ): Promise<void> {
-    const projectEnvs =
-      await this.projectStore.getEnvironmentsForProject(projectId);
+  async removeEnvironmentFromProject(environment: string, projectId: string, auditUser: IAuditUser): Promise<void> {
+    const projectEnvs = await this.projectStore.getEnvironmentsForProject(projectId);
 
     if (projectEnvs.length > 1) {
       await this.forceRemoveEnvironmentFromProject(environment, projectId);
@@ -259,8 +191,6 @@ export default class EnvironmentService {
       );
       return;
     }
-    throw new MinimumOneEnvironmentError(
-      'You must always have one active environment',
-    );
+    throw new MinimumOneEnvironmentError('You must always have one active environment');
   }
 }

@@ -40,9 +40,7 @@ export const ConstraintAccordionViewHeader = ({
   const { context } = useUnleashContext();
   const { contextName } = constraint;
 
-  const disableEdit = !context
-    .map((contextDefinition) => contextDefinition.name)
-    .includes(contextName);
+  const disableEdit = !context.map((contextDefinition) => contextDefinition.name).includes(contextName);
 
   return (
     <StyledContainer>
@@ -54,11 +52,7 @@ export const ConstraintAccordionViewHeader = ({
         expanded={expanded}
         disabled={disabled}
       />
-      <ConstraintAccordionHeaderActions
-        onEdit={onEdit}
-        onDelete={onDelete}
-        disableEdit={disableEdit}
-      />
+      <ConstraintAccordionHeaderActions onEdit={onEdit} onDelete={onDelete} disableEdit={disableEdit} />
     </StyledContainer>
   );
 };

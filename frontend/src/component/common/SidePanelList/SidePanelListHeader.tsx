@@ -1,8 +1,5 @@
 import { styled } from '@mui/material';
-import {
-  type SidePanelListColumn,
-  StyledSidePanelListColumn,
-} from './SidePanelList';
+import { type SidePanelListColumn, StyledSidePanelListColumn } from './SidePanelList';
 
 const StyledHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -35,11 +32,7 @@ export const SidePanelListHeader = <T,>({
   <StyledHeader>
     <StyledHeaderHalf maxWidth={leftPanelMaxWidth}>
       {columns.map(({ header, maxWidth, align }) => (
-        <StyledSidePanelListColumn
-          key={header}
-          maxWidth={maxWidth}
-          align={align}
-        >
+        <StyledSidePanelListColumn key={header} maxWidth={maxWidth} align={align}>
           {header}
         </StyledSidePanelListColumn>
       ))}

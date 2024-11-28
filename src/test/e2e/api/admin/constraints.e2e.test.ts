@@ -1,9 +1,6 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 
 let app: IUnleashTest;
 let db: ITestDb;
@@ -34,10 +31,7 @@ test('should reject invalid constraints', async () => {
 });
 
 test('should accept valid constraints', async () => {
-  await app.request
-    .post(PATH)
-    .send({ contextName: 'environment', operator: 'NUM_EQ', value: 1 })
-    .expect(204);
+  await app.request.post(PATH).send({ contextName: 'environment', operator: 'NUM_EQ', value: 1 }).expect(204);
   await app.request
     .post(PATH)
     .send({ contextName: 'environment', operator: 'IN', values: ['a'] })

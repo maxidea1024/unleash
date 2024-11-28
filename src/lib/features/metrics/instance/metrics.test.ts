@@ -3,15 +3,8 @@ import getApp from '../../../app';
 import { createTestConfig } from '../../../../test/config/test-config';
 import { clientMetricsSchema } from '../shared/schema';
 import { createServices } from '../../../services';
-import {
-  IAuthType,
-  type IUnleashOptions,
-  type IUnleashServices,
-  type IUnleashStores,
-} from '../../../types';
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import { IAuthType, type IUnleashOptions, type IUnleashServices, type IUnleashStores } from '../../../types';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 import { subMinutes } from 'date-fns';
 import { ApiTokenType } from '../../../types/models/api-token';
 import type TestAgent from 'supertest/lib/agent';
@@ -55,10 +48,7 @@ afterEach(async () => {
 });
 
 test('should validate client metrics', () => {
-  return request
-    .post('/api/client/metrics')
-    .send({ random: 'blush' })
-    .expect(400);
+  return request.post('/api/client/metrics').send({ random: 'blush' }).expect(400);
 });
 
 test('should accept empty client metrics', () => {
@@ -300,16 +290,8 @@ describe('bulk metrics', () => {
       })
       .expect(202);
     await services.clientMetricsServiceV2.bulkAdd(); // Force bulk collection.
-    const developmentReport =
-      await services.clientMetricsServiceV2.getClientMetricsForToggle(
-        'test_feature_two',
-        1,
-      );
-    const defaultReport =
-      await services.clientMetricsServiceV2.getClientMetricsForToggle(
-        'test_feature_one',
-        1,
-      );
+    const developmentReport = await services.clientMetricsServiceV2.getClientMetricsForToggle('test_feature_two', 1);
+    const defaultReport = await services.clientMetricsServiceV2.getClientMetricsForToggle('test_feature_one', 1);
     expect(developmentReport).toHaveLength(0);
     expect(defaultReport).toHaveLength(1);
     expect(defaultReport[0].yes).toBe(1000);
@@ -326,10 +308,7 @@ describe('bulk metrics', () => {
   });
 
   test('should validate bulk metrics data', async () => {
-    await request
-      .post('/api/client/metrics/bulk')
-      .send({ randomData: 'blurb' })
-      .expect(400);
+    await request.post('/api/client/metrics/bulk').send({ randomData: 'blurb' }).expect(400);
   });
 
   test('bulk metrics should return 204 if metrics are disabled', async () => {
@@ -363,25 +342,20 @@ describe('bulk metrics', () => {
       type: 'development',
       enabled: true,
     });
-    const clientToken =
-      await authed.services.apiTokenService.createApiTokenWithProjects({
-        tokenName: 'bulk-metrics-test',
-        type: ApiTokenType.CLIENT,
-        environment: 'development',
-        projects: ['*'],
-      });
-    const frontendToken =
-      await authed.services.apiTokenService.createApiTokenWithProjects({
-        tokenName: 'frontend-bulk-metrics-test',
-        type: ApiTokenType.FRONTEND,
-        environment: 'development',
-        projects: ['*'],
-      });
+    const clientToken = await authed.services.apiTokenService.createApiTokenWithProjects({
+      tokenName: 'bulk-metrics-test',
+      type: ApiTokenType.CLIENT,
+      environment: 'development',
+      projects: ['*'],
+    });
+    const frontendToken = await authed.services.apiTokenService.createApiTokenWithProjects({
+      tokenName: 'frontend-bulk-metrics-test',
+      type: ApiTokenType.FRONTEND,
+      environment: 'development',
+      projects: ['*'],
+    });
 
-    await authed.request
-      .post('/api/client/metrics/bulk')
-      .send({ applications: [], metrics: [] })
-      .expect(401);
+    await authed.request.post('/api/client/metrics/bulk').send({ applications: [], metrics: [] }).expect(401);
     await authed.request
       .post('/api/client/metrics/bulk')
       .set('Authorization', frontendToken.secret)

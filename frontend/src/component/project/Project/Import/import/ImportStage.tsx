@@ -44,15 +44,9 @@ const InfoContainer = styled(Box)(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-type ApiStatus =
-  | { status: 'success' }
-  | { status: 'error'; errors: Record<string, string> }
-  | { status: 'loading' };
+type ApiStatus = { status: 'success' } | { status: 'error'; errors: Record<string, string> } | { status: 'loading' };
 
-const toApiStatus = (
-  loading: boolean,
-  errors: Record<string, string>,
-): ApiStatus => {
+const toApiStatus = (loading: boolean, errors: Record<string, string>): ApiStatus => {
   if (loading) return { status: 'loading' };
   if (Object.keys(errors).length > 0) return { status: 'error', errors };
   return { status: 'success' };
@@ -86,8 +80,7 @@ export const ImportStage: FC<{
 
   const importStatus = toApiStatus(loading, errors);
 
-  const showChangeRequestInfo =
-    isChangeRequestConfigured(environment) && importStatus.status === 'success';
+  const showChangeRequestInfo = isChangeRequestConfigured(environment) && importStatus.status === 'success';
 
   return (
     <ImportLayoutContainer>
@@ -117,39 +110,23 @@ export const ImportStage: FC<{
           }
         />
         <ImportMessage>
-          <ConditionallyRender
-            condition={importStatus.status === 'loading'}
-            show={'Importing...'}
-          />
-          <ConditionallyRender
-            condition={importStatus.status === 'success'}
-            show={'Import completed'}
-          />
-          <ConditionallyRender
-            condition={importStatus.status === 'error'}
-            show={'Import failed'}
-          />
+          <ConditionallyRender condition={importStatus.status === 'loading'} show={'Importing...'} />
+          <ConditionallyRender condition={importStatus.status === 'success'} show={'Import completed'} />
+          <ConditionallyRender condition={importStatus.status === 'error'} show={'Import failed'} />
         </ImportMessage>
       </ImportStatusArea>
       <ConditionallyRender
         condition={showChangeRequestInfo}
         show={
           <InfoContainer>
-            For this environment <strong>Change request</strong> is enabled.
-            This means that the import has generated a change request which
-            needs to be approved before the configuration will be visible in the
-            instance.
+            For this environment <strong>Change request</strong> is enabled. This means that the import has generated a
+            change request which needs to be approved before the configuration will be visible in the instance.
           </InfoContainer>
         }
       />
 
       <ActionsContainer>
-        <Button
-          sx={{ position: 'static' }}
-          variant='contained'
-          type='submit'
-          onClick={onClose}
-        >
+        <Button sx={{ position: 'static' }} variant='contained' type='submit' onClick={onClose}>
           Close
         </Button>
       </ActionsContainer>

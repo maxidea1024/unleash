@@ -51,11 +51,7 @@ export const FeaturesCell: VFC<FeaturesCellProps> = ({ value, project }) => {
       <ConditionallyRender
         condition={featureNames?.length < 3}
         show={featureNames?.map((featureName: string) => (
-          <StyledLink
-            key={featureName}
-            title={featureName}
-            to={`/projects/${project}/features/${featureName}`}
-          >
+          <StyledLink key={featureName} title={featureName} to={`/projects/${project}/features/${featureName}`}>
             <Highlighter search={searchQuery}>{featureName}</Highlighter>
           </StyledLink>
         ))}
@@ -70,9 +66,7 @@ export const FeaturesCell: VFC<FeaturesCellProps> = ({ value, project }) => {
                     title={featureName}
                     to={`/projects/${project}/features/${featureName}`}
                   >
-                    <Highlighter search={searchQuery}>
-                      {featureName}
-                    </Highlighter>
+                    <Highlighter search={searchQuery}>{featureName}</Highlighter>
                   </StyledTooltipLink>
                 ))}
               </StyledTooltipContainer>

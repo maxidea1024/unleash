@@ -3,9 +3,7 @@ import type React from 'react';
 import { ResponseError } from 'utils/apiUtils';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 
-export const SWRProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+export const SWRProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { refetchUser } = useAuthUser();
 
   const onError = (error: Error) => {

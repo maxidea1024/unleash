@@ -21,9 +21,7 @@ const ensureFullYearData = (data: Output[]): Output[] => {
   const formattedOneYearBack = oneYearBack.toISOString().split('T')[0];
 
   const hasToday = data.some((item) => item.date === formattedToday);
-  const hasOneYearBack = data.some(
-    (item) => item.date === formattedOneYearBack,
-  );
+  const hasOneYearBack = data.some((item) => item.date === formattedOneYearBack);
 
   if (!hasOneYearBack) {
     data.unshift({ count: 0, date: formattedOneYearBack, level: 0 });
@@ -95,11 +93,7 @@ export const ProjectActivity = () => {
               totalCount: '{{count}} activities in the last year',
             }}
             renderBlock={(block, activity) => (
-              <Tooltip
-                title={`${activity.count} activities on ${activity.date}`}
-              >
-                {block}
-              </Tooltip>
+              <Tooltip title={`${activity.count} activities on ${activity.date}`}>{block}</Tooltip>
             )}
           />
         </StyledContainer>

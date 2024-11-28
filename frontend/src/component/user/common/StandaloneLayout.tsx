@@ -64,10 +64,7 @@ const StyledInnerRightContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const StandaloneLayout: FC<IStandaloneLayout> = ({
-  children,
-  BannerComponent,
-}) => {
+const StandaloneLayout: FC<IStandaloneLayout> = ({ children, BannerComponent }) => {
   let banner = <StandaloneBanner title='Unleash' />;
 
   if (BannerComponent) {

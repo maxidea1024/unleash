@@ -1,13 +1,5 @@
 import Delete from '@mui/icons-material/Delete';
-import {
-  Button,
-  IconButton,
-  styled,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Button, IconButton, styled, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Search } from 'component/common/Search/Search';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
@@ -18,12 +10,7 @@ import { PAT_LIMIT } from '@server/util/constants';
 import { useSignalEndpointTokens } from 'hooks/api/getters/useSignalEndpointTokens/useSignalEndpointTokens';
 import { useSearch } from 'hooks/useSearch';
 import { useMemo, useState } from 'react';
-import {
-  useTable,
-  type SortingRule,
-  useSortBy,
-  useFlexLayout,
-} from 'react-table';
+import { useTable, type SortingRule, useSortBy, useFlexLayout } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { SignalEndpointsTokensCreateDialog } from './SignalEndpointsTokensCreateDialog';
 import { SignalEndpointsTokensDialog } from './SignalEndpointsTokensDialog';
@@ -70,9 +57,7 @@ const StyledPlaceholderSubtitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
 
-export type PageQueryType = Partial<
-  Record<'sort' | 'order' | 'search', string>
->;
+export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
 
 const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 
@@ -80,17 +65,13 @@ interface ISignalEndpointsTokensProps {
   signalEndpoint: ISignalEndpoint;
 }
 
-export const SignalEndpointsTokens = ({
-  signalEndpoint,
-}: ISignalEndpointsTokensProps) => {
+export const SignalEndpointsTokens = ({ signalEndpoint }: ISignalEndpointsTokensProps) => {
   const theme = useTheme();
   const { setToastData, setToastApiError } = useToast();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const { signalEndpointTokens, refetch: refetchTokens } =
-    useSignalEndpointTokens(signalEndpoint.id);
+  const { signalEndpointTokens, refetch: refetchTokens } = useSignalEndpointTokens(signalEndpoint.id);
   const { refetch } = useSignalEndpoints();
-  const { addSignalEndpointToken, removeSignalEndpointToken } =
-    useSignalEndpointTokensApi();
+  const { addSignalEndpointToken, removeSignalEndpointToken } = useSignalEndpointTokensApi();
 
   const [initialState] = useState(() => ({
     sortBy: [defaultSort],
@@ -105,10 +86,7 @@ export const SignalEndpointsTokens = ({
 
   const onCreateClick = async (newToken: SignalEndpointTokenPayload) => {
     try {
-      const { token } = await addSignalEndpointToken(
-        signalEndpoint.id,
-        newToken,
-      );
+      const { token } = await addSignalEndpointToken(signalEndpoint.id, newToken);
       refetch();
       refetchTokens();
       setCreateOpen(false);
@@ -182,11 +160,7 @@ export const SignalEndpointsTokens = ({
     [setSelectedToken, setDeleteOpen],
   );
 
-  const { data, getSearchText, getSearchContext } = useSearch(
-    columns,
-    searchValue,
-    signalEndpointTokens,
-  );
+  const { data, getSearchText, getSearchContext } = useSearch(columns, searchValue, signalEndpointTokens);
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -217,11 +191,7 @@ export const SignalEndpointsTokens = ({
   return (
     <>
       <StyledHeader>
-        <Search
-          initialValue={searchValue}
-          onChange={setSearchValue}
-          getSearchContext={getSearchContext}
-        />
+        <Search initialValue={searchValue} onChange={setSearchValue} getSearchContext={getSearchContext} />
         <Button
           variant='contained'
           color='primary'
@@ -232,11 +202,7 @@ export const SignalEndpointsTokens = ({
         </Button>
       </StyledHeader>
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -252,9 +218,7 @@ export const SignalEndpointsTokens = ({
             }
             elseShow={
               <StyledTablePlaceholder>
-                <StyledPlaceholderTitle>
-                  You have no tokens for this signal endpoint yet.
-                </StyledPlaceholderTitle>
+                <StyledPlaceholderTitle>You have no tokens for this signal endpoint yet.</StyledPlaceholderTitle>
                 <StyledPlaceholderSubtitle>
                   Create a token to start using this signal endpoint.
                 </StyledPlaceholderSubtitle>
@@ -289,9 +253,8 @@ export const SignalEndpointsTokens = ({
         title='Delete token?'
       >
         <Typography>
-          Any applications or scripts using this token "
-          <strong>{selectedToken?.name}</strong>" will no longer be able to make
-          requests to this signal endpoint. You cannot undo this action.
+          Any applications or scripts using this token "<strong>{selectedToken?.name}</strong>" will no longer be able
+          to make requests to this signal endpoint. You cannot undo this action.
         </Typography>
       </Dialogue>
     </>

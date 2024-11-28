@@ -3,10 +3,7 @@ import useAPI from '../useApi/useApi';
 
 const ENDPOINT = 'api/admin/signal-endpoints';
 
-export type SignalEndpointPayload = Omit<
-  ISignalEndpoint,
-  'id' | 'createdAt' | 'createdByUserId' | 'tokens'
->;
+export type SignalEndpointPayload = Omit<ISignalEndpoint, 'id' | 'createdAt' | 'createdByUserId' | 'tokens'>;
 
 export const useSignalEndpointsApi = () => {
   const { loading, makeRequest, createRequest, errors } = useAPI({
@@ -28,10 +25,7 @@ export const useSignalEndpointsApi = () => {
     return response.json();
   };
 
-  const updateSignalEndpoint = async (
-    signalEndpointId: number,
-    signalEndpoint: SignalEndpointPayload,
-  ) => {
+  const updateSignalEndpoint = async (signalEndpointId: number, signalEndpoint: SignalEndpointPayload) => {
     const requestId = 'updateSignalEndpoint';
     const req = createRequest(
       `${ENDPOINT}/${signalEndpointId}`,
@@ -71,10 +65,7 @@ export const useSignalEndpointsApi = () => {
     await makeRequest(req.caller, req.id);
   };
 
-  const toggleSignalEndpoint = async (
-    signalEndpointId: number,
-    enabled: boolean,
-  ) => {
+  const toggleSignalEndpoint = async (signalEndpointId: number, enabled: boolean) => {
     if (enabled) {
       await enableSignalEndpoint(signalEndpointId);
     } else {
@@ -84,11 +75,7 @@ export const useSignalEndpointsApi = () => {
 
   const removeSignalEndpoint = async (signalEndpointId: number) => {
     const requestId = 'removeSignalEndpoint';
-    const req = createRequest(
-      `${ENDPOINT}/${signalEndpointId}`,
-      { method: 'DELETE' },
-      requestId,
-    );
+    const req = createRequest(`${ENDPOINT}/${signalEndpointId}`, { method: 'DELETE' }, requestId);
 
     await makeRequest(req.caller, req.id);
   };

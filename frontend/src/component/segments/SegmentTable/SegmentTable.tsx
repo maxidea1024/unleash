@@ -1,13 +1,6 @@
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import {
-  SortableTableHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TablePlaceholder,
-  TableRow,
-} from 'component/common/Table';
+import { SortableTableHeader, Table, TableBody, TableCell, TablePlaceholder, TableRow } from 'component/common/Table';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import { CreateSegmentButton } from 'component/segments/CreateSegmentButton/CreateSegmentButton';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
@@ -183,11 +176,7 @@ const getColumns = (projectId?: string) => [
     }: any) => (
       <LinkCell
         title={name}
-        to={
-          projectId
-            ? `/projects/${projectId}/settings/segments/edit/${id}`
-            : `/segments/edit/${id}`
-        }
+        to={projectId ? `/projects/${projectId}/settings/segments/edit/${id}` : `/segments/edit/${id}`}
         subtitle={description}
       />
     ),
@@ -231,9 +220,7 @@ const getColumns = (projectId?: string) => [
     width: '1%',
     disableSortBy: true,
     disableGlobalFilter: true,
-    Cell: ({ row: { original } }: any) => (
-      <SegmentActionCell segment={original} />
-    ),
+    Cell: ({ row: { original } }: any) => <SegmentActionCell segment={original} />,
   },
   {
     accessor: 'description',

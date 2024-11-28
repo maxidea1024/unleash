@@ -46,9 +46,7 @@ export const IntegrationParameterTextField = ({
       label={
         <>
           {definition.displayName}
-          {definition.required ? (
-            <Typography component='span'>*</Typography>
-          ) : null}
+          {definition.required ? <Typography component='span'>*</Typography> : null}
         </>
       }
       name={definition.name}
@@ -60,11 +58,7 @@ export const IntegrationParameterTextField = ({
       error={Boolean(error)}
       onChange={setParameterValue(definition.name)}
       variant='outlined'
-      helperText={
-        definition.description ? (
-          <Markdown>{definition.description}</Markdown>
-        ) : undefined
-      }
+      helperText={definition.description ? <Markdown>{definition.description}</Markdown> : undefined}
     />
   );
 };

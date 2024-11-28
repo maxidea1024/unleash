@@ -22,13 +22,9 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 export interface IChartsProps {
   flagTrends: InstanceInsightsSchema['flagTrends'];
   projectsData: InstanceInsightsSchema['projectFlagTrends'];
-  groupedProjectsData: GroupedDataByProject<
-    InstanceInsightsSchema['projectFlagTrends']
-  >;
+  groupedProjectsData: GroupedDataByProject<InstanceInsightsSchema['projectFlagTrends']>;
   metricsData: InstanceInsightsSchema['metricsSummaryTrends'];
-  groupedMetricsData: GroupedDataByProject<
-    InstanceInsightsSchema['metricsSummaryTrends']
-  >;
+  groupedMetricsData: GroupedDataByProject<InstanceInsightsSchema['metricsSummaryTrends']>;
   userTrends: InstanceInsightsSchema['userTrends'];
   environmentTypeTrends: InstanceInsightsSchema['environmentTypeTrends'];
   summary: {
@@ -68,19 +64,17 @@ const StyledWidgetContent = styled(Box)(({ theme }) => ({
   width: '100%',
 }));
 
-const StyledWidgetStats = styled(Box)<{ width?: number; padding?: number }>(
-  ({ theme, width = 300, padding = 3 }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-    padding: theme.spacing(padding),
-    minWidth: '100%',
-    [theme.breakpoints.up('md')]: {
-      minWidth: `${width}px`,
-      borderRight: `1px solid ${theme.palette.background.application}`,
-    },
-  }),
-);
+const StyledWidgetStats = styled(Box)<{ width?: number; padding?: number }>(({ theme, width = 300, padding = 3 }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  padding: theme.spacing(padding),
+  minWidth: '100%',
+  [theme.breakpoints.up('md')]: {
+    minWidth: `${width}px`,
+    borderRight: `1px solid ${theme.palette.background.application}`,
+  },
+}));
 
 const StyledChartContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -115,9 +109,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
 
   function getFlagsPerUser(flagsTotal: number, usersTotal: number) {
     const flagsPerUserCalculation = flagsTotal / usersTotal;
-    return Number.isNaN(flagsPerUserCalculation)
-      ? 'N/A'
-      : flagsPerUserCalculation.toFixed(2);
+    return Number.isNaN(flagsPerUserCalculation) ? 'N/A' : flagsPerUserCalculation.toFixed(2);
   }
 
   return (
@@ -129,12 +121,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
             <StyledWidget>
               <StyledWidgetStats>
                 <WidgetTitle title='Total users' />
-                <UserStats
-                  count={usersTotal}
-                  active={usersActive}
-                  inactive={usersInactive}
-                  isLoading={loading}
-                />
+                <UserStats count={usersTotal} active={usersActive} inactive={usersInactive} isLoading={loading} />
               </StyledWidgetStats>
               <StyledChartContainer>
                 <UsersChart userTrends={userTrends} isLoading={loading} />
@@ -147,11 +134,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
             <StyledWidget>
               <StyledWidgetStats>
                 <WidgetTitle
-                  title={
-                    isOneProjectSelected
-                      ? 'Users in project'
-                      : 'Users per project on average'
-                  }
+                  title={isOneProjectSelected ? 'Users in project' : 'Users per project on average'}
                   tooltip={
                     isOneProjectSelected
                       ? 'Number of users in selected projects.'
@@ -161,10 +144,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
                 <UserStats count={summary.averageUsers} isLoading={loading} />
               </StyledWidgetStats>
               <StyledChartContainer>
-                <UsersPerProjectChart
-                  projectFlagTrends={groupedProjectsData}
-                  isLoading={loading}
-                />
+                <UsersPerProjectChart projectFlagTrends={groupedProjectsData} isLoading={loading} />
               </StyledChartContainer>
             </StyledWidget>
           </>
@@ -184,9 +164,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
                   title={
                     <WidgetTitle
                       title='Health'
-                      tooltip={
-                        'Percentage of flags that are not stale or potentially stale.'
-                      }
+                      tooltip={'Percentage of flags that are not stale or potentially stale.'}
                     />
                   }
                 />
@@ -205,9 +183,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
                   title='Median time to production'
                   tooltip={`How long does it currently take on average from when a feature flag was created until it was enabled in a "production" type environment. This is calculated only from feature flags of the type "release" and is the median across the selected projects.`}
                 />
-                <TimeToProduction
-                  daysToProduction={summary.medianTimeToProduction}
-                />
+                <TimeToProduction daysToProduction={summary.medianTimeToProduction} />
               </StyledWidgetStats>
               <StyledChartContainer>
                 <TimeToProductionChart
@@ -244,17 +220,10 @@ export const InsightsCharts: FC<IChartsProps> = ({
             <StyledWidget>
               <StyledWidgetStats width={275}>
                 <WidgetTitle title='Flags' />
-                <FlagStats
-                  count={summary.total}
-                  flagsPerUser={''}
-                  isLoading={loading}
-                />
+                <FlagStats count={summary.total} flagsPerUser={''} isLoading={loading} />
               </StyledWidgetStats>
               <StyledChartContainer>
-                <FlagsProjectChart
-                  projectFlagTrends={groupedProjectsData}
-                  isLoading={loading}
-                />
+                <FlagsProjectChart projectFlagTrends={groupedProjectsData} isLoading={loading} />
               </StyledChartContainer>
             </StyledWidget>
           </>
@@ -286,10 +255,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
                   title='Updates per environment type'
                   tooltip='Summary of all configuration updates per environment type.'
                 />
-                <UpdatesPerEnvironmentTypeChart
-                  environmentTypeTrends={environmentTypeTrends}
-                  isLoading={loading}
-                />
+                <UpdatesPerEnvironmentTypeChart environmentTypeTrends={environmentTypeTrends} isLoading={loading} />
               </StyledWidgetContent>
             </StyledWidget>
           </>

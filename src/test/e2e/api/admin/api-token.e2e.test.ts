@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { ALL, ApiTokenType } from '../../../../lib/types/models/api-token';
@@ -198,10 +195,7 @@ test('removes api token', async () => {
     type: ApiTokenType.CLIENT,
   });
 
-  await app.request
-    .delete(`/api/admin/api-tokens/${tokenSecret}`)
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  await app.request.delete(`/api/admin/api-tokens/${tokenSecret}`).set('Content-Type', 'application/json').expect(200);
 
   return app.request
     .get('/api/admin/api-tokens')
@@ -304,9 +298,7 @@ test('should not create token for invalid environment', async () => {
     .set('Content-Type', 'application/json')
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toMatch(
-        /bogus-environment-something/,
-      );
+      expect(res.body.details[0].message).toMatch(/bogus-environment-something/);
     });
 });
 
@@ -430,7 +422,5 @@ test('updating expiry of non existing token should yield 200', async () => {
 });
 
 test('Deleting non-existing token should yield 200', async () => {
-  return app.request
-    .delete('/api/admin/api-tokens/random-non-existing-token')
-    .expect(200);
+  return app.request.delete('/api/admin/api-tokens/random-non-existing-token').expect(200);
 });

@@ -1,18 +1,8 @@
 import type { FC } from 'react';
 import type { IAutocompleteBoxOption } from '../../../common/AutocompleteBox/AutocompleteBox';
-import type {
-  AutocompleteRenderInputParams,
-  AutocompleteRenderOptionState,
-} from '@mui/material/Autocomplete';
+import type { AutocompleteRenderInputParams, AutocompleteRenderOptionState } from '@mui/material/Autocomplete';
 import { styled } from '@mui/system';
-import {
-  capitalize,
-  Checkbox,
-  Paper,
-  TextField,
-  Autocomplete,
-  Typography,
-} from '@mui/material';
+import { capitalize, Checkbox, Paper, TextField, Autocomplete, Typography } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';

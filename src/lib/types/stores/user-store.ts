@@ -36,11 +36,7 @@ export interface IUserStore extends IStore<IUser, number> {
 
   getPasswordHash(userId: number): Promise<string>;
 
-  setPasswordHash(
-    userId: number,
-    passwordHash: string,
-    disallowNPreviousPasswords: number,
-  ): Promise<void>;
+  setPasswordHash(userId: number, passwordHash: string, disallowNPreviousPasswords: number): Promise<void>;
 
   getPasswordsPreviouslyUsed(userId: number): Promise<string[]>;
 

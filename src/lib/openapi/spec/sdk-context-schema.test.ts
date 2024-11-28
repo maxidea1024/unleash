@@ -19,9 +19,5 @@ export const generate = (): Arbitrary<SdkContextSchema> =>
 
 test('sdkContextSchema', () =>
   fc.assert(
-    fc.property(
-      generate(),
-      (data: SdkContextSchema) =>
-        validateSchema(sdkContextSchema.$id, data) === undefined,
-    ),
+    fc.property(generate(), (data: SdkContextSchema) => validateSchema(sdkContextSchema.$id, data) === undefined),
   ));

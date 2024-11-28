@@ -1,9 +1,6 @@
 import { type RequestHandler, Router } from 'express';
 
-export const conditionalMiddleware = (
-  condition: () => boolean,
-  middleware: RequestHandler,
-): RequestHandler => {
+export const conditionalMiddleware = (condition: () => boolean, middleware: RequestHandler): RequestHandler => {
   const router = Router();
 
   router.use((req, res, next) => {

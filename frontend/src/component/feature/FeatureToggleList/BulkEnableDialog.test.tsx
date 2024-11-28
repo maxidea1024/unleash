@@ -30,12 +30,8 @@ test('should render bulk enable dialog in regular mode', async () => {
 
   expect(screen.getByText('Enable feature flags')).toBeInTheDocument();
   expect(screen.getByText('env1')).toBeInTheDocument();
-  expect(
-    screen.getByText('1 feature flag is already enabled.'),
-  ).toBeInTheDocument();
-  expect(
-    screen.queryByText('Change requests are enabled for this environment.'),
-  ).not.toBeInTheDocument();
+  expect(screen.getByText('1 feature flag is already enabled.')).toBeInTheDocument();
+  expect(screen.queryByText('Change requests are enabled for this environment.')).not.toBeInTheDocument();
   expect(screen.getByText('Enable flags')).toBeInTheDocument();
 });
 
@@ -47,22 +43,18 @@ test('should render bulk enable dialog in change request mode', async () => {
     },
   });
   testServerRoute(server, '/api/admin/projects/project1', {});
-  testServerRoute(
-    server,
-    '/api/admin/projects/project1/change-requests/config',
-    [
-      {
-        environment: 'env1',
-        type: 'development',
-        changeRequestEnabled: true,
-      },
-      {
-        environment: 'env2',
-        type: 'production',
-        changeRequestEnabled: true,
-      },
-    ],
-  );
+  testServerRoute(server, '/api/admin/projects/project1/change-requests/config', [
+    {
+      environment: 'env1',
+      type: 'development',
+      changeRequestEnabled: true,
+    },
+    {
+      environment: 'env2',
+      type: 'production',
+      changeRequestEnabled: true,
+    },
+  ]);
 
   const defaultProps = {
     showExportDialog: true,
@@ -102,8 +94,6 @@ test('should render bulk enable dialog in change request mode', async () => {
 
   expect(screen.getByText('Enable feature flags')).toBeInTheDocument();
   expect(screen.getByText('env1')).toBeInTheDocument();
-  expect(
-    screen.getByText('2 feature flags are already enabled.'),
-  ).toBeInTheDocument();
+  expect(screen.getByText('2 feature flags are already enabled.')).toBeInTheDocument();
   expect(screen.getByText('Add to change request')).toBeInTheDocument();
 });

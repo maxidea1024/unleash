@@ -19,9 +19,7 @@ export const SortableTableHeader = <T extends object>({
           {headerGroup.headers.map((column: HeaderGroup<T>) => {
             const content = column.render('Header');
 
-            const { key, ...props } = column.getHeaderProps(
-              column.canSort ? column.getSortByToggleProps() : undefined,
-            );
+            const { key, ...props } = column.getHeaderProps(column.canSort ? column.getSortByToggleProps() : undefined);
 
             return (
               <CellSortable

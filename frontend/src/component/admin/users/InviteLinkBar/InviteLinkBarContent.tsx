@@ -29,34 +29,23 @@ export const StyledButtonBox = styled(Box)(() => ({
   flexGrow: 1,
 }));
 
-export const InviteLinkBarContent = ({
-  onActionClick,
-}: IInviteLinkBarContentProps) => {
+export const InviteLinkBarContent = ({ onActionClick }: IInviteLinkBarContentProps) => {
   const navigate = useNavigate();
   const { data, loading } = useInviteTokens();
   const ref = useLoading(loading);
   const { trackEvent } = usePlausibleTracker();
-  const inviteToken =
-    data?.tokens?.find((token) => token.name === 'default') ?? null;
+  const inviteToken = data?.tokens?.find((token) => token.name === 'default') ?? null;
   const inviteLink = inviteToken?.url;
   const createdAt = data?.tokens?.[0]?.createdAt ?? '';
   const expiresAt = data?.tokens?.[0]?.expiresAt ?? '';
   const expires = expiresAt || false;
   const isExpired = Boolean(expires && isAfter(new Date(), parseISO(expires)));
-  const willExpireSoon =
-    expires && isAfter(add(new Date(), { days: 14 }), parseISO(expires));
-  const expiresIn = expires
-    ? formatDistanceToNowStrict(parseISO(expires))
-    : false;
+  const willExpireSoon = expires && isAfter(add(new Date(), { days: 14 }), parseISO(expires));
+  const expiresIn = expires ? formatDistanceToNowStrict(parseISO(expires)) : false;
   const { locationSettings } = useLocationSettings();
 
   const expireDateComponent = (
-    <Typography
-      component='span'
-      variant='body2'
-      color={willExpireSoon ? 'warning.dark' : 'inherit'}
-      fontWeight='bold'
-    >
+    <Typography component='span' variant='body2' color={willExpireSoon ? 'warning.dark' : 'inherit'} fontWeight='bold'>
       {expiresIn}
     </Typography>
   );
@@ -73,10 +62,7 @@ export const InviteLinkBarContent = ({
           show={
             <>
               <Typography variant='body2' sx={{ mb: 1 }}>
-                {`You have an invite link created on ${formatDateYMD(
-                  createdAt,
-                  locationSettings.locale,
-                )} `}
+                {`You have an invite link created on ${formatDateYMD(createdAt, locationSettings.locale)} `}
                 <ConditionallyRender
                   condition={isExpired}
                   show={<>that expired {expireDateComponent} ago</>}
@@ -88,8 +74,8 @@ export const InviteLinkBarContent = ({
           }
           elseShow={
             <Typography variant='body2' data-loading>
-              You can easily create an invite link here that you can share and
-              use to invite people from your company to your Unleash setup.
+              You can easily create an invite link here that you can share and use to invite people from your company to
+              your Unleash setup.
             </Typography>
           }
         />
@@ -102,11 +88,7 @@ export const InviteLinkBarContent = ({
           },
         }}
       >
-        <Button
-          variant='outlined'
-          onClick={onInviteLinkActionClick}
-          data-loading
-        >
+        <Button variant='outlined' onClick={onInviteLinkActionClick} data-loading>
           {inviteLink ? 'Update' : 'Create'} invite link
         </Button>
       </StyledButtonBox>

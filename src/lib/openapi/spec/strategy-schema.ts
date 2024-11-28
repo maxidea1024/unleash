@@ -2,18 +2,10 @@ import type { FromSchema } from 'json-schema-to-ts';
 
 export const strategySchema = {
   $id: '#/components/schemas/strategySchema',
-  description:
-    'The [activation strategy](https://docs.getunleash.io/reference/activation-strategies) schema',
+  description: 'The [activation strategy](https://docs.getunleash.io/reference/activation-strategies) schema',
   type: 'object',
   additionalProperties: false,
-  required: [
-    'name',
-    'displayName',
-    'description',
-    'editable',
-    'deprecated',
-    'parameters',
-  ],
+  required: ['name', 'displayName', 'description', 'editable', 'deprecated', 'parameters'],
   properties: {
     title: {
       type: 'string',
@@ -40,8 +32,7 @@ export const strategySchema = {
     },
     editable: {
       type: 'boolean',
-      description:
-        'Whether the strategy can be edited or not. Strategies bundled with Unleash cannot be edited.',
+      description: 'Whether the strategy can be edited or not. Strategies bundled with Unleash cannot be edited.',
       example: true,
     },
     deprecated: {

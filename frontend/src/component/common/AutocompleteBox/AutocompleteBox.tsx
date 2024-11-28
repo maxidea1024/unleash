@@ -1,12 +1,6 @@
 import { useStyles } from 'component/common/AutocompleteBox/AutocompleteBox.styles';
 import Add from '@mui/icons-material/Add';
-import {
-  Autocomplete,
-  InputAdornment,
-  styled,
-  TextField,
-  useTheme,
-} from '@mui/material';
+import { Autocomplete, InputAdornment, styled, TextField, useTheme } from '@mui/material';
 import type { AutocompleteRenderInputParams } from '@mui/material/Autocomplete';
 import { useState } from 'react';
 
@@ -35,9 +29,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
 const StyledIcon = styled('div', {
   shouldForwardProp: (prop: string) => !prop.startsWith('$'),
 })<{ $disabled: boolean }>(({ theme, $disabled }) => ({
-  background: $disabled
-    ? theme.palette.primary.light
-    : theme.palette.primary.main,
+  background: $disabled ? theme.palette.primary.light : theme.palette.primary.main,
   height: '48px',
   width: '48px',
   display: 'flex',
@@ -53,13 +45,7 @@ const StyledAutocomplete = styled(Autocomplete)({
   flex: 1,
 }) as typeof Autocomplete;
 
-export const AutocompleteBox = ({
-  label,
-  options,
-  value = [],
-  onChange,
-  disabled,
-}: IAutocompleteBoxProps) => {
+export const AutocompleteBox = ({ label, options, value = [], onChange, disabled }: IAutocompleteBoxProps) => {
   const [placeHolder, setPlaceholder] = useState('Add Segments');
   const { classes: styles } = useStyles();
   const theme = useTheme();

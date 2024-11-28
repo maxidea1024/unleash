@@ -24,9 +24,7 @@ type EventTimelineStateSetters = {
   setSignalsSuggestionSeen: (seen: boolean) => void;
 };
 
-export interface IEventTimelineContext
-  extends EventTimelinePersistentState,
-    EventTimelineStateSetters {}
+export interface IEventTimelineContext extends EventTimelinePersistentState, EventTimelineStateSetters {}
 
 export const timeSpanOptions: TimeSpanOption[] = [
   {
@@ -76,18 +74,10 @@ interface IEventTimelineProviderProps {
   children: ReactNode;
 }
 
-export const EventTimelineProvider = ({
-  children,
-}: IEventTimelineProviderProps) => {
-  const [state, setState] = useLocalStorageState<EventTimelinePersistentState>(
-    'event-timeline:v1',
-    defaultState,
-  );
+export const EventTimelineProvider = ({ children }: IEventTimelineProviderProps) => {
+  const [state, setState] = useLocalStorageState<EventTimelinePersistentState>('event-timeline:v1', defaultState);
 
-  const setField = <K extends keyof EventTimelinePersistentState>(
-    key: K,
-    value: EventTimelinePersistentState[K],
-  ) => {
+  const setField = <K extends keyof EventTimelinePersistentState>(key: K, value: EventTimelinePersistentState[K]) => {
     setState((prevState) => ({ ...prevState, [key]: value }));
   };
 
@@ -95,15 +85,9 @@ export const EventTimelineProvider = ({
     ...state,
     setOpen: (open: boolean) => setField('open', open),
     setTimeSpan: (timeSpan: TimeSpanOption) => setField('timeSpan', timeSpan),
-    setEnvironment: (environment: IEnvironment) =>
-      setField('environment', environment),
-    setSignalsSuggestionSeen: (seen: boolean) =>
-      setField('signalsSuggestionSeen', seen),
+    setEnvironment: (environment: IEnvironment) => setField('environment', environment),
+    setSignalsSuggestionSeen: (seen: boolean) => setField('signalsSuggestionSeen', seen),
   };
 
-  return (
-    <EventTimelineContext.Provider value={contextValue}>
-      {children}
-    </EventTimelineContext.Provider>
-  );
+  return <EventTimelineContext.Provider value={contextValue}>{children}</EventTimelineContext.Provider>;
 };

@@ -4,10 +4,7 @@ import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 import type { IApiToken } from '../useApiTokens/useApiTokens';
 
-export const useProjectApiTokens = (
-  project: string,
-  options: SWRConfiguration = {},
-) => {
+export const useProjectApiTokens = (project: string, options: SWRConfiguration = {}) => {
   const path = formatApiPath(`api/admin/projects/${project}/api-tokens`);
   const { data, error, mutate } = useSWR<IApiToken[]>(path, fetcher, options);
 
@@ -28,9 +25,7 @@ export const useProjectApiTokens = (
 };
 
 const fetcher = async (path: string): Promise<IApiToken[]> => {
-  const res = await fetch(path).then(
-    handleErrorResponses('Project Api tokens'),
-  );
+  const res = await fetch(path).then(handleErrorResponses('Project Api tokens'));
   const data = await res.json();
   return data.tokens;
 };

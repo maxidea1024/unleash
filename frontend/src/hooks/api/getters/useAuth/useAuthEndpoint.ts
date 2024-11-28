@@ -6,9 +6,7 @@ import type { IPermission, IUser } from 'interfaces/user';
 // The auth endpoint returns different things depending on the auth status.
 // When the user is logged in, the endpoint returns user data and permissions.
 // When the user is logged out, the endpoint returns details on how to log in.
-type AuthEndpointResponse =
-  | IAuthEndpointUserResponse
-  | IAuthEndpointDetailsResponse;
+type AuthEndpointResponse = IAuthEndpointUserResponse | IAuthEndpointDetailsResponse;
 
 export interface IAuthEndpointUserResponse {
   user: IUser;
@@ -52,11 +50,7 @@ export interface IUseAuthEndpointOutput {
 // This helper hook returns the raw response data from the user auth endpoint.
 // Check out the other hooks in this directory for more ergonomic alternatives.
 export const useAuthEndpoint = (): IUseAuthEndpointOutput => {
-  const { data, error } = useSWR<AuthEndpointResponse>(
-    USER_ENDPOINT_PATH,
-    fetchAuthStatus,
-    swrConfig,
-  );
+  const { data, error } = useSWR<AuthEndpointResponse>(USER_ENDPOINT_PATH, fetchAuthStatus, swrConfig);
 
   const refetchAuth = useCallback(() => {
     mutate(USER_ENDPOINT_PATH).catch(console.warn);

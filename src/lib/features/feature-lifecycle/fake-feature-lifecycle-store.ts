@@ -8,9 +8,7 @@ import type {
 export class FakeFeatureLifecycleStore implements IFeatureLifecycleStore {
   private lifecycles: Record<string, FeatureLifecycleView> = {};
 
-  async insert(
-    featureLifecycleStages: FeatureLifecycleStage[],
-  ): Promise<NewStage[]> {
+  async insert(featureLifecycleStages: FeatureLifecycleStage[]): Promise<NewStage[]> {
     const results = await Promise.all(
       featureLifecycleStages.map(async (stage) => {
         const success = await this.insertOne(stage);
@@ -28,9 +26,7 @@ export class FakeFeatureLifecycleStore implements IFeatureLifecycleStore {
 
   async backfill() {}
 
-  private async insertOne(
-    featureLifecycleStage: FeatureLifecycleStage,
-  ): Promise<boolean> {
+  private async insertOne(featureLifecycleStage: FeatureLifecycleStage): Promise<boolean> {
     if (await this.stageExists(featureLifecycleStage)) {
       return false;
     }
@@ -40,9 +36,7 @@ export class FakeFeatureLifecycleStore implements IFeatureLifecycleStore {
       ...existingStages,
       {
         stage: featureLifecycleStage.stage,
-        ...(featureLifecycleStage.status
-          ? { status: featureLifecycleStage.status }
-          : {}),
+        ...(featureLifecycleStage.status ? { status: featureLifecycleStage.status } : {}),
         enteredStageAt: new Date(),
       },
     ];
@@ -70,9 +64,7 @@ export class FakeFeatureLifecycleStore implements IFeatureLifecycleStore {
     if (!this.lifecycles[stage.feature]) {
       return;
     }
-    const updatedStages = this.lifecycles[stage.feature].filter(
-      (s) => s.stage !== stage.stage,
-    );
+    const updatedStages = this.lifecycles[stage.feature].filter((s) => s.stage !== stage.stage);
     this.lifecycles[stage.feature] = updatedStages;
   }
 }

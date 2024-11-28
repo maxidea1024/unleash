@@ -14,10 +14,7 @@ interface IBannersActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const BannersActionsCell = ({
-  onEdit,
-  onDelete,
-}: IBannersActionsCellProps) => {
+export const BannersActionsCell = ({ onEdit, onDelete }: IBannersActionsCellProps) => {
   return (
     <StyledBox>
       <PermissionIconButton

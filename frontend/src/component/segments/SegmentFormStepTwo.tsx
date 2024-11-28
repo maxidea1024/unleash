@@ -20,14 +20,8 @@ import {
   type IConstraintAccordionListRef,
 } from 'component/common/ConstraintAccordion/ConstraintAccordionList/ConstraintAccordionList';
 import type { SegmentFormStep, SegmentFormMode } from './SegmentForm';
-import {
-  AutocompleteBox,
-  type IAutocompleteBoxOption,
-} from 'component/common/AutocompleteBox/AutocompleteBox';
-import {
-  SegmentDocsValuesInfo,
-  SegmentDocsValuesError,
-} from 'component/segments/SegmentDocs';
+import { AutocompleteBox, type IAutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
+import { SegmentDocsValuesInfo, SegmentDocsValuesError } from 'component/segments/SegmentDocs';
 import { useSegmentValuesCount } from 'component/segments/hooks/useSegmentValuesCount';
 import AccessContext from 'contexts/AccessContext';
 import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentLimits';
@@ -118,14 +112,10 @@ export const SegmentFormStepTwo: React.FC<ISegmentFormPartTwoProps> = ({
   const [open, setOpen] = useState(false);
   const segmentValuesCount = useSegmentValuesCount(constraints);
   const modePermission =
-    mode === 'create'
-      ? [CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT]
-      : [UPDATE_SEGMENT, UPDATE_PROJECT_SEGMENT];
+    mode === 'create' ? [CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT] : [UPDATE_SEGMENT, UPDATE_PROJECT_SEGMENT];
   const { segmentValuesLimit } = useSegmentLimits();
 
-  const overSegmentValuesLimit: boolean = Boolean(
-    segmentValuesLimit && segmentValuesCount > segmentValuesLimit,
-  );
+  const overSegmentValuesLimit: boolean = Boolean(segmentValuesLimit && segmentValuesCount > segmentValuesLimit);
 
   const autocompleteOptions = context.map((c) => ({
     value: c.name,
@@ -143,32 +133,14 @@ export const SegmentFormStepTwo: React.FC<ISegmentFormPartTwoProps> = ({
           <SegmentDocsValuesInfo />
         </StyledInfo>
         <div>
-          <StyledInputDescription>
-            Select the context fields you want to include in the segment.
-          </StyledInputDescription>
-          <StyledInputDescription>
-            Use a predefined context field:
-          </StyledInputDescription>
-          <AutocompleteBox
-            label='Select a context'
-            options={autocompleteOptions}
-            onChange={onChange}
-          />
+          <StyledInputDescription>Select the context fields you want to include in the segment.</StyledInputDescription>
+          <StyledInputDescription>Use a predefined context field:</StyledInputDescription>
+          <AutocompleteBox label='Select a context' options={autocompleteOptions} onChange={onChange} />
         </div>
         <StyledAddContextContainer>
-          <StyledInputDescription>
-            ...or add a new context field:
-          </StyledInputDescription>
-          <SidebarModal
-            label='Create new context'
-            onClose={() => setOpen(false)}
-            open={open}
-          >
-            <CreateUnleashContext
-              onSubmit={() => setOpen(false)}
-              onCancel={() => setOpen(false)}
-              modal
-            />
+          <StyledInputDescription>...or add a new context field:</StyledInputDescription>
+          <SidebarModal label='Create new context' onClose={() => setOpen(false)} open={open}>
+            <CreateUnleashContext onSubmit={() => setOpen(false)} onCancel={() => setOpen(false)} modal />
           </SidebarModal>
           <PermissionButton
             permission={CREATE_CONTEXT_FIELD}
@@ -190,8 +162,8 @@ export const SegmentFormStepTwo: React.FC<ISegmentFormPartTwoProps> = ({
           show={
             <StyledNoConstraintText>
               <StyledSubtitle>
-                Start adding context fields by selecting an option from above,
-                or you can create a new context field and use it right away
+                Start adding context fields by selecting an option from above, or you can create a new context field and
+                use it right away
               </StyledSubtitle>
             </StyledNoConstraintText>
           }
@@ -200,9 +172,7 @@ export const SegmentFormStepTwo: React.FC<ISegmentFormPartTwoProps> = ({
           <ConstraintAccordionList
             ref={constraintsAccordionListRef}
             constraints={constraints}
-            setConstraints={
-              hasAccess(modePermission, project) ? setConstraints : undefined
-            }
+            setConstraints={hasAccess(modePermission, project) ? setConstraints : undefined}
           />
         </StyledConstraintContainer>
       </StyledForm>

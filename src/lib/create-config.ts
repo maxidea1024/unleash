@@ -26,31 +26,12 @@ import {
 import { getDefaultLogProvider, LogLevel, validateLogProvider } from './logger';
 import { defaultCustomAuthDenyAll } from './default-custom-auth-deny-all';
 import { formatBaseUri } from './util/format-base-uri';
-import {
-  hoursToMilliseconds,
-  minutesToMilliseconds,
-  secondsToMilliseconds,
-} from 'date-fns';
+import { hoursToMilliseconds, minutesToMilliseconds, secondsToMilliseconds } from 'date-fns';
 import EventEmitter from 'events';
-import {
-  ApiTokenType,
-  mapLegacyToken,
-  validateApiToken,
-} from './types/models/api-token';
-import {
-  parseEnvVarBoolean,
-  parseEnvVarJSON,
-  parseEnvVarNumber,
-  parseEnvVarStrings,
-} from './util/parseEnvVar';
-import {
-  defaultExperimentalOptions,
-  type IExperimentalOptions,
-} from './types/experimental';
-import {
-  DEFAULT_SEGMENT_VALUES_LIMIT,
-  DEFAULT_STRATEGY_SEGMENTS_LIMIT,
-} from './util/segments';
+import { ApiTokenType, mapLegacyToken, validateApiToken } from './types/models/api-token';
+import { parseEnvVarBoolean, parseEnvVarJSON, parseEnvVarNumber, parseEnvVarStrings } from './util/parseEnvVar';
+import { defaultExperimentalOptions, type IExperimentalOptions } from './types/experimental';
+import { DEFAULT_SEGMENT_VALUES_LIMIT, DEFAULT_STRATEGY_SEGMENTS_LIMIT } from './util/segments';
 import FlagResolver from './util/flag-resolver';
 import { validateOrigins } from './util/validateOrigin';
 import type { ResourceLimitsSchema } from './openapi/spec/resource-limits-schema';
@@ -59,10 +40,7 @@ const safeToUpper = (s?: string) => (s ? s.toUpperCase() : s);
 
 type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
-export function authTypeFromString(
-  s?: string,
-  defaultType: IAuthType = IAuthType.OPEN_SOURCE,
-): IAuthType {
+export function authTypeFromString(s?: string, defaultType: IAuthType = IAuthType.OPEN_SOURCE): IAuthType {
   const upperS = safeToUpper(s);
   return upperS && IAuthType[upperS] ? IAuthType[upperS] : defaultType;
 }
@@ -87,49 +65,23 @@ const defaultClientCachingOptions: IClientCachingOption = {
   maxAge: hoursToMilliseconds(1),
 };
 
-function loadClientCachingOptions(
-  options: IUnleashOptions,
-): IClientCachingOption {
+function loadClientCachingOptions(options: IUnleashOptions): IClientCachingOption {
   const envs: Partial<IClientCachingOption> = {};
   if (process.env.CLIENT_FEATURE_CACHING_MAXAGE) {
-    envs.maxAge = parseEnvVarNumber(
-      process.env.CLIENT_FEATURE_CACHING_MAXAGE,
-      600,
-    );
+    envs.maxAge = parseEnvVarNumber(process.env.CLIENT_FEATURE_CACHING_MAXAGE, 600);
   }
   if (process.env.CLIENT_FEATURE_CACHING_ENABLED) {
-    envs.enabled = parseEnvVarBoolean(
-      process.env.CLIENT_FEATURE_CACHING_ENABLED,
-      true,
-    );
+    envs.enabled = parseEnvVarBoolean(process.env.CLIENT_FEATURE_CACHING_ENABLED, true);
   }
 
-  return mergeAll([
-    defaultClientCachingOptions,
-    options.clientFeatureCaching || {},
-    envs,
-  ]);
+  return mergeAll([defaultClientCachingOptions, options.clientFeatureCaching || {}, envs]);
 }
 
-function loadMetricsRateLimitingConfig(
-  options: IUnleashOptions,
-): IMetricsRateLimiting {
-  const clientMetricsMaxPerMinute = parseEnvVarNumber(
-    process.env.REGISTER_CLIENT_RATE_LIMIT_PER_MINUTE,
-    6000,
-  );
-  const clientRegisterMaxPerMinute = parseEnvVarNumber(
-    process.env.CLIENT_METRICS_RATE_LIMIT_PER_MINUTE,
-    6000,
-  );
-  const frontendRegisterMaxPerMinute = parseEnvVarNumber(
-    process.env.REGISTER_FRONTEND_RATE_LIMIT_PER_MINUTE,
-    6000,
-  );
-  const frontendMetricsMaxPerMinute = parseEnvVarNumber(
-    process.env.FRONTEND_METRICS_RATE_LIMIT_PER_MINUTE,
-    6000,
-  );
+function loadMetricsRateLimitingConfig(options: IUnleashOptions): IMetricsRateLimiting {
+  const clientMetricsMaxPerMinute = parseEnvVarNumber(process.env.REGISTER_CLIENT_RATE_LIMIT_PER_MINUTE, 6000);
+  const clientRegisterMaxPerMinute = parseEnvVarNumber(process.env.CLIENT_METRICS_RATE_LIMIT_PER_MINUTE, 6000);
+  const frontendRegisterMaxPerMinute = parseEnvVarNumber(process.env.REGISTER_FRONTEND_RATE_LIMIT_PER_MINUTE, 6000);
+  const frontendMetricsMaxPerMinute = parseEnvVarNumber(process.env.FRONTEND_METRICS_RATE_LIMIT_PER_MINUTE, 6000);
   const defaultRateLimitOptions: IMetricsRateLimiting = {
     clientMetricsMaxPerMinute: clientMetricsMaxPerMinute,
     clientRegisterMaxPerMinute: clientRegisterMaxPerMinute,
@@ -141,22 +93,10 @@ function loadMetricsRateLimitingConfig(
 }
 
 function loadRateLimitingConfig(options: IUnleashOptions): IRateLimiting {
-  const createUserMaxPerMinute = parseEnvVarNumber(
-    process.env.CREATE_USER_RATE_LIMIT_PER_MINUTE,
-    20,
-  );
-  const simpleLoginMaxPerMinute = parseEnvVarNumber(
-    process.env.SIMPLE_LOGIN_LIMIT_PER_MINUTE,
-    10,
-  );
-  const passwordResetMaxPerMinute = parseEnvVarNumber(
-    process.env.PASSWORD_RESET_LIMIT_PER_MINUTE,
-    1,
-  );
-  const callSignalEndpointMaxPerSecond = parseEnvVarNumber(
-    process.env.SIGNAL_ENDPOINT_RATE_LIMIT_PER_SECOND,
-    1,
-  );
+  const createUserMaxPerMinute = parseEnvVarNumber(process.env.CREATE_USER_RATE_LIMIT_PER_MINUTE, 20);
+  const simpleLoginMaxPerMinute = parseEnvVarNumber(process.env.SIMPLE_LOGIN_LIMIT_PER_MINUTE, 10);
+  const passwordResetMaxPerMinute = parseEnvVarNumber(process.env.PASSWORD_RESET_LIMIT_PER_MINUTE, 1);
+  const callSignalEndpointMaxPerSecond = parseEnvVarNumber(process.env.SIGNAL_ENDPOINT_RATE_LIMIT_PER_SECOND, 1);
 
   const defaultRateLimitOptions: IRateLimiting = {
     createUserMaxPerMinute,
@@ -182,14 +122,8 @@ const dateHandlingCallback = (connection, callback) => {
   });
 };
 
-const readAndAddOption = (
-  name: keyof ISSLOption,
-  value: string | undefined,
-  options: ISSLOption,
-): ISSLOption =>
-  value != null
-    ? { ...options, [name]: readFileSync(value).toString() }
-    : options;
+const readAndAddOption = (name: keyof ISSLOption, value: string | undefined, options: ISSLOption): ISSLOption =>
+  value != null ? { ...options, [name]: readFileSync(value).toString() } : options;
 
 const databaseSSL = (): IDBOption['ssl'] => {
   if (process.env.DATABASE_SSL != null) {
@@ -197,9 +131,7 @@ const databaseSSL = (): IDBOption['ssl'] => {
   }
 
   if (process.env.DATABASE_SSL_CA_CONFIG != null) {
-    return readFileSync(
-      process.env.DATABASE_SSL_CA_CONFIG,
-    ).toString() as unknown as IDBOption['ssl'];
+    return readFileSync(process.env.DATABASE_SSL_CA_CONFIG).toString() as unknown as IDBOption['ssl'];
   }
 
   const rejectUnauthorizedDefault =
@@ -208,60 +140,43 @@ const databaseSSL = (): IDBOption['ssl'] => {
     process.env.DATABASE_SSL_KEY_FILE != null;
 
   let options: ISSLOption = {
-    rejectUnauthorized: parseEnvVarBoolean(
-      process.env.DATABASE_SSL_REJECT_UNAUTHORIZED,
-      rejectUnauthorizedDefault,
-    ),
+    rejectUnauthorized: parseEnvVarBoolean(process.env.DATABASE_SSL_REJECT_UNAUTHORIZED, rejectUnauthorizedDefault),
   };
 
   options = readAndAddOption('key', process.env.DATABASE_SSL_KEY_FILE, options);
-  options = readAndAddOption(
-    'cert',
-    process.env.DATABASE_SSL_CERT_FILE,
-    options,
-  );
+  options = readAndAddOption('cert', process.env.DATABASE_SSL_CERT_FILE, options);
   options = readAndAddOption('ca', process.env.DATABASE_SSL_CA_FILE, options);
 
   return options;
 };
 
-const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> =
-  {
-    user: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    host: process.env.DATABASE_HOST,
-    port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
-    database: process.env.DATABASE_NAME || 'unleash',
-    ssl: databaseSSL(),
-    driver: 'postgres',
-    version: process.env.DATABASE_VERSION,
-    acquireConnectionTimeout: secondsToMilliseconds(30),
-    pool: {
-      min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
-      max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
-      idleTimeoutMillis: parseEnvVarNumber(
-        process.env.DATABASE_POOL_IDLE_TIMEOUT_MS,
-        secondsToMilliseconds(30),
-      ),
-      ...(parseEnvVarBoolean(process.env.ALLOW_NON_STANDARD_DB_DATES, false)
-        ? { afterCreate: dateHandlingCallback }
-        : {}),
-      propagateCreateError: false,
-    },
-    schema: process.env.DATABASE_SCHEMA || 'public',
-    disableMigration: parseEnvVarBoolean(
-      process.env.DATABASE_DISABLE_MIGRATION,
-      false,
-    ),
-    applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
-  };
+const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> = {
+  user: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  host: process.env.DATABASE_HOST,
+  port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
+  database: process.env.DATABASE_NAME || 'unleash',
+  ssl: databaseSSL(),
+  driver: 'postgres',
+  version: process.env.DATABASE_VERSION,
+  acquireConnectionTimeout: secondsToMilliseconds(30),
+  pool: {
+    min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
+    max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
+    idleTimeoutMillis: parseEnvVarNumber(process.env.DATABASE_POOL_IDLE_TIMEOUT_MS, secondsToMilliseconds(30)),
+    ...(parseEnvVarBoolean(process.env.ALLOW_NON_STANDARD_DB_DATES, false)
+      ? { afterCreate: dateHandlingCallback }
+      : {}),
+    propagateCreateError: false,
+  },
+  schema: process.env.DATABASE_SCHEMA || 'public',
+  disableMigration: parseEnvVarBoolean(process.env.DATABASE_DISABLE_MIGRATION, false),
+  applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
+};
 
 const defaultSessionOption: ISessionOption = {
   ttlHours: parseEnvVarNumber(process.env.SESSION_TTL_HOURS, 48),
-  clearSiteDataOnLogout: parseEnvVarBoolean(
-    process.env.SESSION_CLEAR_SITE_DATA_ON_LOGOUT,
-    true,
-  ),
+  clearSiteDataOnLogout: parseEnvVarBoolean(process.env.SESSION_CLEAR_SITE_DATA_ON_LOGOUT, true),
   cookieName: 'unleash-session',
   db: true,
 };
@@ -274,35 +189,15 @@ const defaultServerOption: IServerOption = {
   cdnPrefix: process.env.CDN_PREFIX,
   unleashUrl: process.env.UNLEASH_URL || 'http://localhost:4242',
   serverMetrics: true,
-  enableHeapSnapshotEnpoint: parseEnvVarBoolean(
-    process.env.ENABLE_HEAP_SNAPSHOT_ENPOINT,
-    false,
-  ),
-  disableCompression: parseEnvVarBoolean(
-    process.env.SERVER_DISABLE_COMPRESSION,
-    false,
-  ),
-  keepAliveTimeout: secondsToMilliseconds(
-    parseEnvVarNumber(process.env.SERVER_KEEPALIVE_TIMEOUT, 15),
-  ),
+  enableHeapSnapshotEnpoint: parseEnvVarBoolean(process.env.ENABLE_HEAP_SNAPSHOT_ENPOINT, false),
+  disableCompression: parseEnvVarBoolean(process.env.SERVER_DISABLE_COMPRESSION, false),
+  keepAliveTimeout: secondsToMilliseconds(parseEnvVarNumber(process.env.SERVER_KEEPALIVE_TIMEOUT, 15)),
   headersTimeout: secondsToMilliseconds(61),
-  enableRequestLogger: parseEnvVarBoolean(
-    process.env.REQUEST_LOGGER_ENABLE,
-    false,
-  ),
-  gracefulShutdownEnable: parseEnvVarBoolean(
-    process.env.GRACEFUL_SHUTDOWN_ENABLE,
-    true,
-  ),
-  gracefulShutdownTimeout: parseEnvVarNumber(
-    process.env.GRACEFUL_SHUTDOWN_TIMEOUT,
-    secondsToMilliseconds(1),
-  ),
+  enableRequestLogger: parseEnvVarBoolean(process.env.REQUEST_LOGGER_ENABLE, false),
+  gracefulShutdownEnable: parseEnvVarBoolean(process.env.GRACEFUL_SHUTDOWN_ENABLE, true),
+  gracefulShutdownTimeout: parseEnvVarNumber(process.env.GRACEFUL_SHUTDOWN_TIMEOUT, secondsToMilliseconds(1)),
   secret: process.env.UNLEASH_SECRET || 'super-secret',
-  enableScheduledCreatedByMigration: parseEnvVarBoolean(
-    process.env.ENABLE_SCHEDULED_CREATED_BY_MIGRATION,
-    false,
-  ),
+  enableScheduledCreatedByMigration: parseEnvVarBoolean(process.env.ENABLE_SCHEDULED_CREATED_BY_MIGRATION, false),
 };
 
 const defaultVersionOption: IVersionOption = {
@@ -317,10 +212,7 @@ const parseEnvVarInitialAdminUser = (): UsernameAdminUser | undefined => {
 };
 
 const defaultAuthentication: IAuthOption = {
-  demoAllowAdminLogin: parseEnvVarBoolean(
-    process.env.AUTH_DEMO_ALLOW_ADMIN_LOGIN,
-    false,
-  ),
+  demoAllowAdminLogin: parseEnvVarBoolean(process.env.AUTH_DEMO_ALLOW_ADMIN_LOGIN, false),
   enableApiToken: parseEnvVarBoolean(process.env.AUTH_ENABLE_API_TOKEN, true),
   type: authTypeFromString(process.env.AUTH_TYPE),
   customAuthHandler: defaultCustomAuthDenyAll,
@@ -361,9 +253,7 @@ const removeUndefinedKeys = (o: object): object =>
     return a;
   }, {});
 
-const formatServerOptions = (
-  serverOptions?: Partial<IServerOption>,
-): Partial<IServerOption> | undefined => {
+const formatServerOptions = (serverOptions?: Partial<IServerOption>): Partial<IServerOption> | undefined => {
   if (!serverOptions) {
     return {
       baseUriPath: formatBaseUri(process.env.BASE_URI_PATH),
@@ -372,16 +262,11 @@ const formatServerOptions = (
 
   return {
     ...serverOptions,
-    baseUriPath: formatBaseUri(
-      process.env.BASE_URI_PATH || serverOptions.baseUriPath,
-    ),
+    baseUriPath: formatBaseUri(process.env.BASE_URI_PATH || serverOptions.baseUriPath),
   };
 };
 
-const loadTokensFromString = (
-  tokenString: String | undefined,
-  tokenType: ApiTokenType,
-) => {
+const loadTokensFromString = (tokenString: String | undefined, tokenType: ApiTokenType) => {
   if (!tokenString) {
     return [];
   }
@@ -406,18 +291,9 @@ const loadTokensFromString = (
 
 const loadInitApiTokens = () => {
   return [
-    ...loadTokensFromString(
-      process.env.INIT_ADMIN_API_TOKENS,
-      ApiTokenType.ADMIN,
-    ),
-    ...loadTokensFromString(
-      process.env.INIT_CLIENT_API_TOKENS,
-      ApiTokenType.CLIENT,
-    ),
-    ...loadTokensFromString(
-      process.env.INIT_FRONTEND_API_TOKENS,
-      ApiTokenType.FRONTEND,
-    ),
+    ...loadTokensFromString(process.env.INIT_ADMIN_API_TOKENS, ApiTokenType.ADMIN),
+    ...loadTokensFromString(process.env.INIT_CLIENT_API_TOKENS, ApiTokenType.CLIENT),
+    ...loadTokensFromString(process.env.INIT_FRONTEND_API_TOKENS, ApiTokenType.FRONTEND),
   ];
 };
 
@@ -429,9 +305,7 @@ const loadEnvironmentEnableOverrides = () => {
   return [];
 };
 
-const parseCspConfig = (
-  cspConfig?: ICspDomainOptions,
-): ICspDomainConfig | undefined => {
+const parseCspConfig = (cspConfig?: ICspDomainOptions): ICspDomainConfig | undefined => {
   if (!cspConfig) {
     return undefined;
   }
@@ -498,10 +372,7 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
   let fileDbOptions = {};
   if (options.databaseUrlFile && existsSync(options.databaseUrlFile)) {
     fileDbOptions = parse(readFileSync(options.databaseUrlFile, 'utf-8'));
-  } else if (
-    process.env.DATABASE_URL_FILE &&
-    existsSync(process.env.DATABASE_URL_FILE)
-  ) {
+  } else if (process.env.DATABASE_URL_FILE && existsSync(process.env.DATABASE_URL_FILE)) {
     fileDbOptions = parse(readFileSync(process.env.DATABASE_URL_FILE, 'utf-8'));
   }
   const db: IDBOption = mergeAll<IDBOption>([
@@ -511,44 +382,28 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
     options.db || {},
   ]);
 
-  const session: ISessionOption = mergeAll([
-    defaultSessionOption,
-    options.session || {},
-  ]);
+  const session: ISessionOption = mergeAll([defaultSessionOption, options.session || {}]);
 
-  const logLevel =
-    options.logLevel || LogLevel[process.env.LOG_LEVEL ?? LogLevel.error];
+  const logLevel = options.logLevel || LogLevel[process.env.LOG_LEVEL ?? LogLevel.error];
   const getLogger = options.getLogger || getDefaultLogProvider(logLevel);
   validateLogProvider(getLogger);
 
-  const server: IServerOption = mergeAll([
-    defaultServerOption,
-    formatServerOptions(options.server) || {},
-  ]);
+  const server: IServerOption = mergeAll([defaultServerOption, formatServerOptions(options.server) || {}]);
 
-  const versionCheck: IVersionOption = mergeAll([
-    defaultVersionOption,
-    options.versionCheck || {},
-  ]);
+  const versionCheck: IVersionOption = mergeAll([defaultVersionOption, options.versionCheck || {}]);
 
-  const telemetry: boolean =
-    options.telemetry || parseEnvVarBoolean(process.env.SEND_TELEMETRY, true);
+  const telemetry: boolean = options.telemetry || parseEnvVarBoolean(process.env.SEND_TELEMETRY, true);
   const initApiTokens = loadInitApiTokens();
 
   const authentication: IAuthOption = mergeAll([
     defaultAuthentication,
-    (options.authentication
-      ? removeUndefinedKeys(options.authentication)
-      : options.authentication) || {},
+    (options.authentication ? removeUndefinedKeys(options.authentication) : options.authentication) || {},
     { initApiTokens: initApiTokens },
   ]);
 
   const environmentEnableOverrides = loadEnvironmentEnableOverrides();
 
-  const importSetting: IImportOption = mergeAll([
-    defaultImport,
-    options.import || {},
-  ]);
+  const importSetting: IImportOption = mergeAll([defaultImport, options.import || {}]);
 
   const experimental = loadExperimental(options);
   const flagResolver = new FlagResolver(experimental);
@@ -565,31 +420,20 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
   }
 
   const frontendApi = options.frontendApi || {
-    refreshIntervalInMs: parseEnvVarNumber(
-      process.env.FRONTEND_API_REFRESH_INTERVAL_MS,
-      minutesToMilliseconds(45),
-    ),
+    refreshIntervalInMs: parseEnvVarNumber(process.env.FRONTEND_API_REFRESH_INTERVAL_MS, minutesToMilliseconds(45)),
   };
 
-  const secureHeaders =
-    options.secureHeaders ||
-    parseEnvVarBoolean(process.env.SECURE_HEADERS, false);
+  const secureHeaders = options.secureHeaders || parseEnvVarBoolean(process.env.SECURE_HEADERS, false);
 
   const enableOAS = parseEnvVarBoolean(process.env.ENABLE_OAS, true);
 
   const additionalCspAllowedDomains: ICspDomainConfig =
-    parseCspConfig(options.additionalCspAllowedDomains) ||
-    parseCspEnvironmentVariables();
+    parseCspConfig(options.additionalCspAllowedDomains) || parseCspEnvironmentVariables();
 
   const inlineSegmentConstraints =
-    typeof options.inlineSegmentConstraints === 'boolean'
-      ? options.inlineSegmentConstraints
-      : true;
+    typeof options.inlineSegmentConstraints === 'boolean' ? options.inlineSegmentConstraints : true;
 
-  const segmentValuesLimit = parseEnvVarNumber(
-    process.env.UNLEASH_SEGMENT_VALUES_LIMIT,
-    DEFAULT_SEGMENT_VALUES_LIMIT,
-  );
+  const segmentValuesLimit = parseEnvVarNumber(process.env.UNLEASH_SEGMENT_VALUES_LIMIT, DEFAULT_SEGMENT_VALUES_LIMIT);
 
   const strategySegmentsLimit = parseEnvVarNumber(
     process.env.UNLEASH_STRATEGY_SEGMENTS_LIMIT,
@@ -604,9 +448,7 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
 
   const prometheusApi = options.prometheusApi || process.env.PROMETHEUS_API;
 
-  const isEnterprise =
-    Boolean(options.enterpriseVersion) &&
-    ui.environment?.toLowerCase() !== 'pro';
+  const isEnterprise = Boolean(options.enterpriseVersion) && ui.environment?.toLowerCase() !== 'pro';
 
   const metricsRateLimiting = loadMetricsRateLimitingConfig(options);
 
@@ -614,38 +456,17 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
 
   const feedbackUriPath = process.env.FEEDBACK_URI_PATH;
 
-  const dailyMetricsStorageDays = Math.min(
-    parseEnvVarNumber(process.env.DAILY_METRICS_STORAGE_DAYS, 31),
-    91,
-  );
+  const dailyMetricsStorageDays = Math.min(parseEnvVarNumber(process.env.DAILY_METRICS_STORAGE_DAYS, 31), 91);
 
   const resourceLimits: ResourceLimitsSchema = {
     segmentValues: segmentValuesLimit,
     strategySegments: strategySegmentsLimit,
-    signalEndpoints: parseEnvVarNumber(
-      process.env.UNLEASH_SIGNAL_ENDPOINTS_LIMIT,
-      5,
-    ),
-    actionSetActions: parseEnvVarNumber(
-      process.env.UNLEASH_ACTION_SET_ACTIONS_LIMIT,
-      10,
-    ),
-    actionSetsPerProject: parseEnvVarNumber(
-      process.env.UNLEASH_ACTION_SETS_PER_PROJECT_LIMIT,
-      5,
-    ),
-    actionSetFilters: parseEnvVarNumber(
-      process.env.UNLEASH_ACTION_SET_FILTERS_LIMIT,
-      5,
-    ),
-    actionSetFilterValues: parseEnvVarNumber(
-      process.env.UNLEASH_ACTION_SET_FILTER_VALUES_LIMIT,
-      25,
-    ),
-    signalTokensPerEndpoint: parseEnvVarNumber(
-      process.env.UNLEASH_SIGNAL_TOKENS_PER_ENDPOINT_LIMIT,
-      5,
-    ),
+    signalEndpoints: parseEnvVarNumber(process.env.UNLEASH_SIGNAL_ENDPOINTS_LIMIT, 5),
+    actionSetActions: parseEnvVarNumber(process.env.UNLEASH_ACTION_SET_ACTIONS_LIMIT, 10),
+    actionSetsPerProject: parseEnvVarNumber(process.env.UNLEASH_ACTION_SETS_PER_PROJECT_LIMIT, 5),
+    actionSetFilters: parseEnvVarNumber(process.env.UNLEASH_ACTION_SET_FILTERS_LIMIT, 5),
+    actionSetFilterValues: parseEnvVarNumber(process.env.UNLEASH_ACTION_SET_FILTER_VALUES_LIMIT, 25),
+    signalTokensPerEndpoint: parseEnvVarNumber(process.env.UNLEASH_SIGNAL_TOKENS_PER_ENDPOINT_LIMIT, 5),
     featureEnvironmentStrategies: Math.max(
       1,
       parseEnvVarNumber(
@@ -655,52 +476,31 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
     ),
     constraintValues: Math.max(
       1,
-      parseEnvVarNumber(
-        process.env.UNLEASH_CONSTRAINT_VALUES_LIMIT,
-        options?.resourceLimits?.constraintValues ?? 250,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_CONSTRAINT_VALUES_LIMIT, options?.resourceLimits?.constraintValues ?? 250),
     ),
     constraints: Math.max(
       0,
-      parseEnvVarNumber(
-        process.env.UNLEASH_CONSTRAINTS_LIMIT,
-        options?.resourceLimits?.constraints ?? 30,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_CONSTRAINTS_LIMIT, options?.resourceLimits?.constraints ?? 30),
     ),
     environments: Math.max(
       1,
-      parseEnvVarNumber(
-        process.env.UNLEASH_ENVIRONMENTS_LIMIT,
-        options?.resourceLimits?.environments ?? 50,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_ENVIRONMENTS_LIMIT, options?.resourceLimits?.environments ?? 50),
     ),
     projects: Math.max(
       1,
-      parseEnvVarNumber(
-        process.env.UNLEASH_PROJECTS_LIMIT,
-        options?.resourceLimits?.projects ?? 500,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_PROJECTS_LIMIT, options?.resourceLimits?.projects ?? 500),
     ),
     apiTokens: Math.max(
       0,
-      parseEnvVarNumber(
-        process.env.UNLEASH_API_TOKENS_LIMIT,
-        options?.resourceLimits?.apiTokens ?? 2000,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_API_TOKENS_LIMIT, options?.resourceLimits?.apiTokens ?? 2000),
     ),
     segments: Math.max(
       0,
-      parseEnvVarNumber(
-        process.env.UNLEASH_SEGMENTS_LIMIT,
-        options?.resourceLimits?.segments ?? 300,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_SEGMENTS_LIMIT, options?.resourceLimits?.segments ?? 300),
     ),
     featureFlags: Math.max(
       1,
-      parseEnvVarNumber(
-        process.env.UNLEASH_FEATURE_FLAGS_LIMIT,
-        options?.resourceLimits?.featureFlags ?? 5000,
-      ),
+      parseEnvVarNumber(process.env.UNLEASH_FEATURE_FLAGS_LIMIT, options?.resourceLimits?.featureFlags ?? 5000),
     ),
   };
 
@@ -709,10 +509,7 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
   const defaultDaysToBeConsideredInactive = 180;
   const userInactivityThresholdInDays =
     options.userInactivityThresholdInDays ??
-    parseEnvVarNumber(
-      process.env.USER_INACTIVITY_THRESHOLD_IN_DAYS,
-      defaultDaysToBeConsideredInactive,
-    );
+    parseEnvVarNumber(process.env.USER_INACTIVITY_THRESHOLD_IN_DAYS, defaultDaysToBeConsideredInactive);
 
   return {
     db,

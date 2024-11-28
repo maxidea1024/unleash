@@ -26,9 +26,7 @@ export const AddDependencyDialogue = ({
   showDependencyDialogue,
   onClose,
 }: IAddDependencyDialogueProps) => {
-  const [parent, setParent] = useState(
-    parentDependency?.feature || REMOVE_DEPENDENCY_OPTION.key,
-  );
+  const [parent, setParent] = useState(parentDependency?.feature || REMOVE_DEPENDENCY_OPTION.key);
 
   const getInitialParentValue = (): ParentValue => {
     if (!parentDependency) return { status: 'enabled' };
@@ -40,9 +38,7 @@ export const AddDependencyDialogue = ({
     if (parentDependency.enabled === false) return { status: 'disabled' };
     return { status: 'enabled' };
   };
-  const [parentValue, setParentValue] = useState<ParentValue>(
-    getInitialParentValue,
-  );
+  const [parentValue, setParentValue] = useState<ParentValue>(getInitialParentValue);
 
   const resetState = () => {
     setParent(parentDependency?.feature || REMOVE_DEPENDENCY_OPTION.key);
@@ -53,20 +49,11 @@ export const AddDependencyDialogue = ({
     resetState();
   }, [JSON.stringify(parentDependency)]);
 
-  const manageDependency = useManageDependency(
-    project,
-    featureId,
-    parent,
-    parentValue,
-    onClose,
-  );
-  const { isChangeRequestConfiguredInAnyEnv } =
-    useChangeRequestsEnabled(project);
+  const manageDependency = useManageDependency(project, featureId, parent, parentValue, onClose);
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(project);
 
   const showStatus = parent !== REMOVE_DEPENDENCY_OPTION.key;
-  const showVariants =
-    parent !== REMOVE_DEPENDENCY_OPTION.key &&
-    parentValue.status === 'enabled_with_variants';
+  const showVariants = parent !== REMOVE_DEPENDENCY_OPTION.key && parentValue.status === 'enabled_with_variants';
 
   const selectStatus = (value: string) => {
     if (value === 'enabled' || value === 'disabled') {
@@ -105,9 +92,8 @@ export const AddDependencyDialogue = ({
       <Box>
         <DependenciesUpgradeAlert />
         <Box sx={{ mt: 2, mb: 4 }}>
-          Your feature will be evaluated only when the selected parent feature
-          is <b>{parentValue.status === 'disabled' ? 'disabled' : 'enabled'}</b>{' '}
-          in the same environment.
+          Your feature will be evaluated only when the selected parent feature is{' '}
+          <b>{parentValue.status === 'disabled' ? 'disabled' : 'enabled'}</b> in the same environment.
         </Box>
 
         <Typography>
@@ -135,10 +121,7 @@ export const AddDependencyDialogue = ({
               <Typography>
                 What <b>feature status</b> do you want to depend on?
               </Typography>
-              <FeatureStatusOptions
-                parentValue={parentValue}
-                onSelect={selectStatus}
-              />
+              <FeatureStatusOptions parentValue={parentValue} onSelect={selectStatus} />
             </Box>
           }
         />

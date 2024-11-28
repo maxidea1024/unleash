@@ -20,11 +20,7 @@ const StyledWrapper = styled(Box)(({ theme }) => ({
   gap: 2,
 }));
 
-export const CustomParameterItem = ({
-  text,
-  input = null,
-  isRequired = false,
-}: ICustomParameterItem) => {
+export const CustomParameterItem = ({ text, input = null, isRequired = false }: ICustomParameterItem) => {
   const theme = useTheme();
 
   const color = input === null ? 'error' : 'neutral';
@@ -32,11 +28,7 @@ export const CustomParameterItem = ({
 
   return (
     <StyledWrapper>
-      <Typography
-        variant='subtitle1'
-        color={theme.palette[color].main}
-        sx={{ minWidth: 118 }}
-      >
+      <Typography variant='subtitle1' color={theme.palette[color].main} sx={{ minWidth: 118 }}>
         {`${input === null ? 'no value' : input}`}
       </Typography>
       <Box

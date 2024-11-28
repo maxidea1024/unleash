@@ -8,20 +8,17 @@ type OrderEnvironmentsConfirmationProps = {
   onClose: () => void;
 };
 
-export const OrderEnvironmentsConfirmation: FC<
-  OrderEnvironmentsConfirmationProps
-> = ({ open, orderedEnvironments, onClose }) => {
+export const OrderEnvironmentsConfirmation: FC<OrderEnvironmentsConfirmationProps> = ({
+  open,
+  orderedEnvironments,
+  onClose,
+}) => {
   return (
-    <Dialogue
-      open={open}
-      title='Order confirmed'
-      onClick={onClose}
-      primaryButtonText='Close'
-    >
+    <Dialogue open={open} title='Order confirmed' onClick={onClose} primaryButtonText='Close'>
       <Typography>
         You have ordered <strong>{orderedEnvironments}</strong> additional{' '}
-        {orderedEnvironments === 1 ? 'environment' : 'environments'}. It may
-        take up to 24 hours before you will get access.
+        {orderedEnvironments === 1 ? 'environment' : 'environments'}. It may take up to 24 hours before you will get
+        access.
       </Typography>
     </Dialogue>
   );

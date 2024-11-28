@@ -516,8 +516,7 @@ export const routes: IRoute[] = [
   },
 ];
 
-export const getRoute = (path: string) =>
-  routes.find((route) => route.path === path);
+export const getRoute = (path: string) => routes.find((route) => route.path === path);
 
 export const baseRoutes = routes.filter((route) => !route.hidden);
 

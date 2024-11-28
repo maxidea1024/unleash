@@ -44,6 +44,4 @@ export const publicSignupTokensSchema = {
   },
 } as const;
 
-export type PublicSignupTokensSchema = FromSchema<
-  typeof publicSignupTokensSchema
->;
+export type PublicSignupTokensSchema = FromSchema<typeof publicSignupTokensSchema>;

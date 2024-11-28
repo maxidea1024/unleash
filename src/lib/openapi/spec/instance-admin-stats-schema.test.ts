@@ -7,7 +7,5 @@ test('instanceAdminStatsSchema', () => {
     users: 0,
   };
 
-  expect(
-    validateSchema('#/components/schemas/instanceAdminStatsSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/instanceAdminStatsSchema', data)).toBeUndefined();
 });

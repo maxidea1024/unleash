@@ -8,11 +8,7 @@ import ApplicationOverview from './ApplicationOverview';
 const server = testServerSetup();
 
 const setupApi = (application: ApplicationOverviewSchema) => {
-  testServerRoute(
-    server,
-    '/api/admin/metrics/applications/my-app/overview',
-    application,
-  );
+  testServerRoute(server, '/api/admin/metrics/applications/my-app/overview', application);
   testServerRoute(server, '/api/admin/ui-config', {
     flags: {},
   });
@@ -103,12 +99,8 @@ test('Display application with issues', async () => {
     },
   );
 
-  await screen.findByText(
-    'We detected 1 feature flag defined in the SDK that does not exist in Unleash',
-  );
-  await screen.findByText(
-    'We detected 1 strategy type defined in the SDK that does not exist in Unleash',
-  );
+  await screen.findByText('We detected 1 feature flag defined in the SDK that does not exist in Unleash');
+  await screen.findByText('We detected 1 strategy type defined in the SDK that does not exist in Unleash');
   await screen.findByText('feature1');
   await screen.findByText('strategy1');
 });

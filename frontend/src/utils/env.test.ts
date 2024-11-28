@@ -1,8 +1,4 @@
-import {
-  isLocalhostDomain,
-  isVercelBranchDomain,
-  isUnleashDomain,
-} from 'utils/env';
+import { isLocalhostDomain, isVercelBranchDomain, isUnleashDomain } from 'utils/env';
 
 test('isLocalhostDomain', () => {
   expect(isLocalhostDomain()).toEqual(true);

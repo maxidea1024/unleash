@@ -1,12 +1,5 @@
 import { createFakeFeatureToggleService } from '../createFeatureToggleService';
-import type {
-  IAuditUser,
-  IConstraint,
-  IFlagResolver,
-  IStrategyConfig,
-  IUnleashConfig,
-  IUser,
-} from '../../../types';
+import type { IAuditUser, IConstraint, IFlagResolver, IStrategyConfig, IUnleashConfig, IUser } from '../../../types';
 import getLogger from '../../../../test/fixtures/no-logger';
 import { ExceedsLimitError } from '../../../error/exceeds-limit-error';
 
@@ -19,14 +12,13 @@ const alwaysOnFlagResolver = {
 describe('Strategy limits', () => {
   test('Should not allow to exceed strategy limit', async () => {
     const LIMIT = 3;
-    const { featureToggleService, featureToggleStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          featureEnvironmentStrategies: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, featureToggleStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        featureEnvironmentStrategies: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     const addStrategy = () =>
       featureToggleService.unprotectedCreateStrategy(
@@ -50,14 +42,13 @@ describe('Strategy limits', () => {
 
   test('Should not allow to exceed constraints limit', async () => {
     const LIMIT = 1;
-    const { featureToggleService, featureToggleStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          constraints: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, featureToggleStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        constraints: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     const addStrategy = (constraints: IConstraint[]) =>
       featureToggleService.unprotectedCreateStrategy(
@@ -87,21 +78,18 @@ describe('Strategy limits', () => {
           contextName: 'accountId',
         },
       ]),
-    ).rejects.toThrow(
-      "Failed to create constraints. You can't create more than the established limit of 1",
-    );
+    ).rejects.toThrow("Failed to create constraints. You can't create more than the established limit of 1");
   });
 
   test('Should not throw limit exceeded errors if the new number of constraints is less than or equal to the previous number', async () => {
     const LIMIT = 1;
-    const { featureToggleService, featureStrategiesStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          constraints: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, featureStrategiesStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        constraints: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     const constraints: IConstraint[] = [
       {
@@ -153,21 +141,20 @@ describe('Strategy limits', () => {
     await updateStrategy(constraints.slice(0, 2));
 
     // check that you can't save more constraints
-    await expect(async () =>
-      updateStrategy([...constraints, ...constraints]),
-    ).rejects.toThrow(new ExceedsLimitError('constraints', LIMIT));
+    await expect(async () => updateStrategy([...constraints, ...constraints])).rejects.toThrow(
+      new ExceedsLimitError('constraints', LIMIT),
+    );
   });
 
   test('Should not allow to exceed constraint values limit', async () => {
     const LIMIT = 3;
-    const { featureToggleService, featureToggleStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          constraintValues: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, featureToggleStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        constraintValues: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     const addStrategyWithConstraints = (constraints: IConstraint[]) =>
       featureToggleService.unprotectedCreateStrategy(
@@ -198,21 +185,18 @@ describe('Strategy limits', () => {
 
   test('Should not throw limit exceeded errors for constraint values if the new values are less than or equal to the old values AND there have been no other constraint updates (re-ordering or deleting)', async () => {
     const LIMIT = 1;
-    const { featureToggleService, featureStrategiesStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          constraintValues: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, featureStrategiesStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        constraintValues: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     const constraints = (valueCount: number) =>
       [
         {
-          values: Array.from({ length: valueCount }).map((_, i) =>
-            i.toString(),
-          ),
+          values: Array.from({ length: valueCount }).map((_, i) => i.toString()),
           operator: 'IN',
           contextName: 'appName',
         },
@@ -256,9 +240,7 @@ describe('Strategy limits', () => {
     await updateStrategy(initialConstraintValueCount - 1);
 
     // check that you can't save more constraint values
-    await expect(async () =>
-      updateStrategy(initialConstraintValueCount + 1),
-    ).rejects.toThrow(
+    await expect(async () => updateStrategy(initialConstraintValueCount + 1)).rejects.toThrow(
       new ExceedsLimitError('constraint values for appName', LIMIT),
     );
   });
@@ -267,14 +249,13 @@ describe('Strategy limits', () => {
 describe('Flag limits', () => {
   test('Should not allow you to exceed the flag limit', async () => {
     const LIMIT = 3;
-    const { featureToggleService, projectStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          featureFlags: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, projectStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        featureFlags: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     await projectStore.create({
       name: 'default',
@@ -283,11 +264,7 @@ describe('Flag limits', () => {
     });
 
     const createFlag = (name: string) =>
-      featureToggleService.createFeatureToggle(
-        'default',
-        { name },
-        {} as IAuditUser,
-      );
+      featureToggleService.createFeatureToggle('default', { name }, {} as IAuditUser);
 
     for (let i = 0; i < LIMIT; i++) {
       await createFlag(`feature-${i}`);
@@ -300,14 +277,13 @@ describe('Flag limits', () => {
 
   test('Archived flags do not count towards the total', async () => {
     const LIMIT = 1;
-    const { featureToggleService, projectStore } =
-      createFakeFeatureToggleService({
-        getLogger,
-        flagResolver: alwaysOnFlagResolver,
-        resourceLimits: {
-          featureFlags: LIMIT,
-        },
-      } as unknown as IUnleashConfig);
+    const { featureToggleService, projectStore } = createFakeFeatureToggleService({
+      getLogger,
+      flagResolver: alwaysOnFlagResolver,
+      resourceLimits: {
+        featureFlags: LIMIT,
+      },
+    } as unknown as IUnleashConfig);
 
     await projectStore.create({
       name: 'default',
@@ -316,19 +292,11 @@ describe('Flag limits', () => {
     });
 
     const createFlag = (name: string) =>
-      featureToggleService.createFeatureToggle(
-        'default',
-        { name },
-        {} as IAuditUser,
-      );
+      featureToggleService.createFeatureToggle('default', { name }, {} as IAuditUser);
 
     await createFlag('to-be-archived');
 
-    await featureToggleService.archiveToggle(
-      'to-be-archived',
-      {} as IUser,
-      {} as IAuditUser,
-    );
+    await featureToggleService.archiveToggle('to-be-archived', {} as IUser, {} as IAuditUser);
 
     await expect(createFlag('should-be-okay')).resolves.toMatchObject({
       name: 'should-be-okay',

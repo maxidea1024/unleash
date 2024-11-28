@@ -4,10 +4,7 @@ import { IconButton, styled, Tooltip, useMediaQuery } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import {
-  type ChatMessage,
-  useAIApi,
-} from 'hooks/api/actions/useAIApi/useAIApi';
+import { type ChatMessage, useAIApi } from 'hooks/api/actions/useAIApi/useAIApi';
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { AIChatInput } from './AIChatInput';
@@ -67,10 +64,7 @@ const StyledResizable = styled(Resizable)(({ theme }) => ({
 }));
 
 const StyledAIIconButton = styled(IconButton)(({ theme }) => ({
-  background:
-    theme.mode === 'light'
-      ? theme.palette.primary.main
-      : theme.palette.primary.light,
+  background: theme.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.light,
   color: theme.palette.primary.contrastText,
   boxShadow: theme.boxShadows.popup,
   transition: 'background 0.3s',
@@ -167,10 +161,7 @@ export const AIChat = () => {
 
     try {
       setLoading(true);
-      setMessages((currentMessages) => [
-        ...currentMessages,
-        { role: 'user', content },
-      ]);
+      setMessages((currentMessages) => [...currentMessages, { role: 'user', content }]);
       const { messages: newMessages } = await chat(content);
       mutate(() => true);
       setMessages(newMessages);
@@ -241,26 +232,16 @@ export const AIChat = () => {
             />
             <StyledChatContent>
               <AIChatDisclaimer />
-              <AIChatMessage from='assistant'>
-                Hello, how can I assist you?
-              </AIChatMessage>
+              <AIChatMessage from='assistant'>Hello, how can I assist you?</AIChatMessage>
               {messages.map(({ role, content }, index) => (
                 <AIChatMessage key={index} from={role}>
                   {content}
                 </AIChatMessage>
               ))}
-              {loading && (
-                <AIChatMessage from='assistant'>
-                  _Unleash AI is typing..._
-                </AIChatMessage>
-              )}
+              {loading && <AIChatMessage from='assistant'>_Unleash AI is typing..._</AIChatMessage>}
               <div ref={chatEndRef} />
             </StyledChatContent>
-            <AIChatInput
-              onSend={onSend}
-              loading={loading}
-              onHeightChange={() => scrollToEnd({ onlyIfAtEnd: true })}
-            />
+            <AIChatInput onSend={onSend} loading={loading} onHeightChange={() => scrollToEnd({ onlyIfAtEnd: true })} />
           </StyledChat>
         </StyledResizable>
       </Highlight>

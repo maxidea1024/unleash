@@ -1,10 +1,5 @@
 import Mustache from 'mustache';
-import {
-  FEATURE_ARCHIVED,
-  FEATURE_STRATEGY_UPDATE,
-  type IConstraint,
-  type IEvent,
-} from '../types';
+import { FEATURE_ARCHIVED, FEATURE_STRATEGY_UPDATE, type IConstraint, type IEvent } from '../types';
 import { EVENT_MAP } from './feature-event-formatter-md-events';
 
 export interface IFormattedEventData {
@@ -36,11 +31,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
   private readonly linkStyle: LinkStyle;
   private readonly formatStyle: FormatStyle;
 
-  constructor({
-    unleashUrl,
-    linkStyle = LinkStyle.MD,
-    formatStyle = 'simple',
-  }: IFeatureEventFormatterMdArgs) {
+  constructor({ unleashUrl, linkStyle = LinkStyle.MD, formatStyle = 'simple' }: IFeatureEventFormatterMdArgs) {
     this.unleashUrl = unleashUrl;
     this.linkStyle = linkStyle;
     this.formatStyle = formatStyle;
@@ -63,16 +54,10 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
       const url = `${this.unleashUrl}/projects/${project}/change-requests/${changeRequestId}`;
       const text = `#${changeRequestId}`;
       const featureLink = this.generateFeatureLink(event);
-      const featureText = featureLink
-        ? ` for feature flag ${this.bold(featureLink)}`
-        : '';
-      const environmentText = environment
-        ? ` in the ${this.bold(environment)} environment`
-        : '';
+      const featureText = featureLink ? ` for feature flag ${this.bold(featureLink)}` : '';
+      const environmentText = environment ? ` in the ${this.bold(environment)} environment` : '';
       const projectLink = this.generateProjectLink(event);
-      const projectText = project
-        ? ` in project ${this.bold(projectLink)}`
-        : '';
+      const projectText = project ? ` in project ${this.bold(projectLink)}` : '';
       if (this.linkStyle === LinkStyle.SLACK) {
         return `${this.bold(`<${url}|${text}>`)}${featureText}${environmentText}${projectText}`;
       } else {
@@ -116,12 +101,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
   }
 
   getStrategyTitle(event: IEvent): string | undefined {
-    return (
-      event.preData?.title ||
-      event.data?.title ||
-      event.preData?.name ||
-      event.data?.name
-    );
+    return event.preData?.title || event.data?.title || event.preData?.name || event.data?.name;
   }
 
   generateFeatureStrategyChangeText(event: IEvent): string | undefined {
@@ -140,9 +120,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
           case 'applicationHostname':
             return this.applicationHostnameStrategyChangeText(event);
           default:
-            return `by updating strategy ${this.bold(
-              this.getStrategyTitle(event),
-            )} in ${this.bold(environment)}`;
+            return `by updating strategy ${this.bold(this.getStrategyTitle(event))} in ${this.bold(environment)}`;
         }
       };
 
@@ -164,39 +142,22 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
 
   private listOfValuesStrategyChangeText(event: IEvent, propertyName: string) {
     const { preData, data, environment } = event;
-    const userIdText = (values) =>
-      values.length === 0 ? `empty set of ${propertyName}` : `[${values}]`;
+    const userIdText = (values) => (values.length === 0 ? `empty set of ${propertyName}` : `[${values}]`);
     const usersText =
       preData?.parameters[propertyName] === data?.parameters[propertyName]
         ? ''
         : !preData
           ? ` ${propertyName} to ${userIdText(data?.parameters[propertyName])}`
-          : ` ${propertyName} from ${userIdText(
-              preData.parameters[propertyName],
-            )} to ${userIdText(data?.parameters[propertyName])}`;
-    const constraintText = this.constraintChangeText(
-      preData?.constraints,
-      data?.constraints,
-    );
-    const segmentsText = this.segmentsChangeText(
-      preData?.segments,
-      data?.segments,
-    );
-    const strategySpecificText = [usersText, constraintText, segmentsText]
-      .filter((x) => x.length)
-      .join(';');
-    return `by updating strategy ${this.bold(
-      this.getStrategyTitle(event),
-    )} in ${this.bold(environment)}${strategySpecificText}`;
+          : ` ${propertyName} from ${userIdText(preData.parameters[propertyName])} to ${userIdText(data?.parameters[propertyName])}`;
+    const constraintText = this.constraintChangeText(preData?.constraints, data?.constraints);
+    const segmentsText = this.segmentsChangeText(preData?.segments, data?.segments);
+    const strategySpecificText = [usersText, constraintText, segmentsText].filter((x) => x.length).join(';');
+    return `by updating strategy ${this.bold(this.getStrategyTitle(event))} in ${this.bold(environment)}${strategySpecificText}`;
   }
 
   private flexibleRolloutStrategyChangeText(event: IEvent) {
     const { preData, data, environment } = event;
-    const {
-      rollout: oldRollout,
-      stickiness: oldStickiness,
-      groupId: oldGroupId,
-    } = preData?.parameters || {};
+    const { rollout: oldRollout, stickiness: oldStickiness, groupId: oldGroupId } = preData?.parameters || {};
     const { rollout, stickiness, groupId } = data?.parameters || {};
     const stickinessText =
       oldStickiness === stickiness
@@ -216,50 +177,23 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
         : !oldGroupId
           ? ` groupId to ${groupId}`
           : ` groupId from ${oldGroupId} to ${groupId}`;
-    const constraintText = this.constraintChangeText(
-      preData?.constraints,
-      data?.constraints,
-    );
-    const segmentsText = this.segmentsChangeText(
-      preData?.segments,
-      data?.segments,
-    );
-    const strategySpecificText = [
-      stickinessText,
-      rolloutText,
-      groupIdText,
-      constraintText,
-      segmentsText,
-    ]
+    const constraintText = this.constraintChangeText(preData?.constraints, data?.constraints);
+    const segmentsText = this.segmentsChangeText(preData?.segments, data?.segments);
+    const strategySpecificText = [stickinessText, rolloutText, groupIdText, constraintText, segmentsText]
       .filter((txt) => txt.length)
       .join(';');
-    return `by updating strategy ${this.bold(
-      this.getStrategyTitle(event),
-    )} in ${this.bold(environment)}${strategySpecificText}`;
+    return `by updating strategy ${this.bold(this.getStrategyTitle(event))} in ${this.bold(environment)}${strategySpecificText}`;
   }
 
   private defaultStrategyChangeText(event: IEvent) {
     const { preData, data, environment } = event;
-    const constraintText = this.constraintChangeText(
-      preData?.constraints,
-      data?.constraints,
-    );
-    const segmentsText = this.segmentsChangeText(
-      preData?.segments,
-      data?.segments,
-    );
-    const strategySpecificText = [constraintText, segmentsText]
-      .filter((txt) => txt.length)
-      .join(';');
-    return `by updating strategy ${this.bold(
-      this.getStrategyTitle(event),
-    )} in ${this.bold(environment)}${strategySpecificText}`;
+    const constraintText = this.constraintChangeText(preData?.constraints, data?.constraints);
+    const segmentsText = this.segmentsChangeText(preData?.segments, data?.segments);
+    const strategySpecificText = [constraintText, segmentsText].filter((txt) => txt.length).join(';');
+    return `by updating strategy ${this.bold(this.getStrategyTitle(event))} in ${this.bold(environment)}${strategySpecificText}`;
   }
 
-  private constraintChangeText(
-    oldConstraints: IConstraint[] = [],
-    newConstraints: IConstraint[] = [],
-  ) {
+  private constraintChangeText(oldConstraints: IConstraint[] = [], newConstraints: IConstraint[] = []) {
     const formatConstraints = (constraints: IConstraint[]) => {
       const constraintOperatorDescriptions = {
         IN: 'is one of',
@@ -279,18 +213,12 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
         SEMVER_LT: 'is a SemVer less than',
       };
       const formatConstraint = (constraint: IConstraint) => {
-        const val = constraint.hasOwnProperty('value')
-          ? constraint.value
-          : `(${constraint.values?.join(',')})`;
-        const operator = constraintOperatorDescriptions.hasOwnProperty(
-          constraint.operator,
-        )
+        const val = constraint.hasOwnProperty('value') ? constraint.value : `(${constraint.values?.join(',')})`;
+        const operator = constraintOperatorDescriptions.hasOwnProperty(constraint.operator)
           ? constraintOperatorDescriptions[constraint.operator]
           : constraint.operator;
 
-        return `${constraint.contextName} ${
-          constraint.inverted ? 'not ' : ''
-        }${operator} ${val}`;
+        return `${constraint.contextName} ${constraint.inverted ? 'not ' : ''}${operator} ${val}`;
       };
 
       return constraints.length === 0
@@ -304,21 +232,14 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
       : ` constraints from ${oldConstraintText} to ${newConstraintText}`;
   }
 
-  private segmentsChangeText(
-    oldSegments: string[] = [],
-    newSegments: string[] = [],
-  ) {
+  private segmentsChangeText(oldSegments: string[] = [], newSegments: string[] = []) {
     const formatSegments = (segments: string[]) => {
-      return segments.length === 0
-        ? 'empty set of segments'
-        : `(${segments.join(',')})`;
+      return segments.length === 0 ? 'empty set of segments' : `(${segments.join(',')})`;
     };
     const oldSegmentsText = formatSegments(oldSegments);
     const newSegmentsText = formatSegments(newSegments);
 
-    return oldSegmentsText === newSegmentsText
-      ? ''
-      : ` segments from ${oldSegmentsText} to ${newSegmentsText}`;
+    return oldSegmentsText === newSegmentsText ? '' : ` segments from ${oldSegmentsText} to ${newSegmentsText}`;
   }
 
   format(event: IEvent): IFormattedEventData {
@@ -346,9 +267,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
     Mustache.escape = (text) => text;
 
     const text = Mustache.render(action, context);
-    const url = path
-      ? `${this.unleashUrl}${Mustache.render(path, context)}`
-      : undefined;
+    const url = path ? `${this.unleashUrl}${Mustache.render(path, context)}` : undefined;
 
     return {
       label,

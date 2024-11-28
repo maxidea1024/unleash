@@ -64,10 +64,7 @@ export const SsoGroupSettings = ({
       <Grid container spacing={3} mb={2}>
         <Grid item md={5}>
           <strong>Group Field JSON Path</strong>
-          <p>
-            Specifies the path in the {ssoType} token response from which to
-            read the groups the user belongs to.
-          </p>
+          <p>Specifies the path in the {ssoType} token response from which to read the groups the user belongs to.</p>
         </Grid>
         <Grid item md={6}>
           <TextField
@@ -89,10 +86,7 @@ export const SsoGroupSettings = ({
           <Grid container spacing={3} mb={2}>
             <Grid item md={5}>
               <strong>Request 'groups' Scope</strong>
-              <p>
-                When enabled Unleash will also request the 'groups' scope as
-                part of the login request.
-              </p>
+              <p>When enabled Unleash will also request the 'groups' scope as part of the login request.</p>
             </Grid>
             <Grid item md={6} style={{ padding: '20px' }}>
               <FormControlLabel

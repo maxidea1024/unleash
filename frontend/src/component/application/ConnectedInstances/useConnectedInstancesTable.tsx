@@ -11,13 +11,8 @@ type ConnectedInstancesTableData = {
   lastSeen: string;
 };
 
-export const useConnectedInstancesTable = (
-  instanceData: ConnectedInstancesTableData[],
-) => {
-  const initialState = useMemo(
-    () => ({ sortBy: [{ id: 'lastSeen', desc: true }] }),
-    [],
-  );
+export const useConnectedInstancesTable = (instanceData: ConnectedInstancesTableData[]) => {
+  const initialState = useMemo(() => ({ sortBy: [{ id: 'lastSeen', desc: true }] }), []);
 
   const COLUMNS = useMemo(() => {
     return [
@@ -56,27 +51,19 @@ export const useConnectedInstancesTable = (
     ];
   }, []);
 
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-    state,
-    setGlobalFilter,
-    setHiddenColumns,
-  } = useTable(
-    {
-      columns: COLUMNS as any,
-      data: instanceData as any,
-      initialState,
-      sortTypes,
-      autoResetHiddenColumns: false,
-      disableSortRemove: true,
-    },
-    useGlobalFilter,
-    useSortBy,
-  );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter, setHiddenColumns } =
+    useTable(
+      {
+        columns: COLUMNS as any,
+        data: instanceData as any,
+        initialState,
+        sortTypes,
+        autoResetHiddenColumns: false,
+        disableSortRemove: true,
+      },
+      useGlobalFilter,
+      useSortBy,
+    );
 
   return {
     getTableProps,

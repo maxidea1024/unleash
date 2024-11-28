@@ -32,11 +32,7 @@ export const EditStrategy = () => {
     clearErrors,
     setErrors,
     errors,
-  } = useStrategyForm(
-    strategyDefinition?.name,
-    strategyDefinition?.description,
-    strategyDefinition?.parameters,
-  );
+  } = useStrategyForm(strategyDefinition?.name, strategyDefinition?.description, strategyDefinition?.parameters);
   const { updateStrategy, loading } = useStrategiesApi();
   const { refetchStrategies } = useStrategies();
 
@@ -61,9 +57,7 @@ export const EditStrategy = () => {
   };
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/strategies/${name}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/strategies/${name}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getStrategyPayload(), undefined, 2)}'`;

@@ -1,13 +1,6 @@
 import type { IStore } from './store';
 import type Group from '../group';
-import type {
-  ICreateGroupUserModel,
-  IGroup,
-  IGroupModel,
-  IGroupProject,
-  IGroupRole,
-  IGroupUser,
-} from '../group';
+import type { ICreateGroupUserModel, IGroup, IGroupModel, IGroupProject, IGroupRole, IGroupUser } from '../group';
 import type { IGroupWithProjectRoles } from './access-store';
 
 export interface IStoreGroup {
@@ -20,21 +13,11 @@ export interface IStoreGroup {
 export interface IGroupStore extends IStore<IGroup, number> {
   getGroupsForUser(userId: number): Promise<Group[]>;
 
-  getOldGroupsForExternalUser(
-    userId: number,
-    externalGroups: string[],
-  ): Promise<IGroupUser[]>;
+  getOldGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroupUser[]>;
 
-  addUserToGroups(
-    userId: number,
-    groupIds: number[],
-    createdBy?: string,
-  ): Promise<void>;
+  addUserToGroups(userId: number, groupIds: number[], createdBy?: string): Promise<void>;
 
-  getNewGroupsForExternalUser(
-    userId: number,
-    externalGroups: string[],
-  ): Promise<IGroup[]>;
+  getNewGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroup[]>;
 
   getGroupProjects(groupIds: number[]): Promise<IGroupProject[]>;
 
@@ -57,11 +40,7 @@ export interface IGroupStore extends IStore<IGroup, number> {
 
   getAllUsersByGroups(groupIds: number[]): Promise<IGroupUser[]>;
 
-  addUsersToGroup(
-    groupId: number,
-    users: ICreateGroupUserModel[],
-    userName: string,
-  ): Promise<void>;
+  addUsersToGroup(groupId: number, users: ICreateGroupUserModel[], userName: string): Promise<void>;
 
   existsWithName(name: string): Promise<boolean>;
 

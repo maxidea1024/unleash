@@ -1,10 +1,4 @@
-import {
-  inOperators,
-  stringOperators,
-  numOperators,
-  semVerOperators,
-  dateOperators,
-} from 'constants/operators';
+import { inOperators, stringOperators, numOperators, semVerOperators, dateOperators } from 'constants/operators';
 import type { IUnleashContextDefinition } from 'interfaces/context';
 import type { IConstraint } from 'interfaces/strategy';
 import type React from 'react';
@@ -58,11 +52,7 @@ const SEMVER_VALIDATOR = 'SEMVER_VALIDATOR';
 const STRING_ARRAY_VALIDATOR = 'STRING_ARRAY_VALIDATOR';
 const DATE_VALIDATOR = 'DATE_VALIDATOR';
 
-type Validator =
-  | 'NUMBER_VALIDATOR'
-  | 'SEMVER_VALIDATOR'
-  | 'STRING_ARRAY_VALIDATOR'
-  | 'DATE_VALIDATOR';
+type Validator = 'NUMBER_VALIDATOR' | 'SEMVER_VALIDATOR' | 'STRING_ARRAY_VALIDATOR' | 'DATE_VALIDATOR';
 
 export const useConstraintInput = ({
   contextDefinition,
@@ -73,25 +63,13 @@ export const useConstraintInput = ({
   const [error, setError] = useState('');
 
   const resolveInputType = useCallback(() => {
-    if (
-      nonEmptyArray(contextDefinition.legalValues) &&
-      oneOf(inOperators, localConstraint.operator)
-    ) {
+    if (nonEmptyArray(contextDefinition.legalValues) && oneOf(inOperators, localConstraint.operator)) {
       setInput(IN_OPERATORS_LEGAL_VALUES);
-    } else if (
-      nonEmptyArray(contextDefinition.legalValues) &&
-      oneOf(stringOperators, localConstraint.operator)
-    ) {
+    } else if (nonEmptyArray(contextDefinition.legalValues) && oneOf(stringOperators, localConstraint.operator)) {
       setInput(STRING_OPERATORS_LEGAL_VALUES);
-    } else if (
-      nonEmptyArray(contextDefinition.legalValues) &&
-      oneOf(numOperators, localConstraint.operator)
-    ) {
+    } else if (nonEmptyArray(contextDefinition.legalValues) && oneOf(numOperators, localConstraint.operator)) {
       setInput(NUM_OPERATORS_LEGAL_VALUES);
-    } else if (
-      nonEmptyArray(contextDefinition.legalValues) &&
-      oneOf(semVerOperators, localConstraint.operator)
-    ) {
+    } else if (nonEmptyArray(contextDefinition.legalValues) && oneOf(semVerOperators, localConstraint.operator)) {
       setInput(SEMVER_OPERATORS_LEGAL_VALUES);
     } else if (oneOf(dateOperators, localConstraint.operator)) {
       setInput(DATE_OPERATORS_SINGLE_VALUE);
@@ -142,12 +120,7 @@ export const useConstraintInput = ({
 
   useEffect(() => {
     resolveValidatorType(localConstraint.operator);
-  }, [
-    localConstraint.operator,
-    localConstraint.value,
-    localConstraint.values,
-    resolveValidatorType,
-  ]);
+  }, [localConstraint.operator, localConstraint.value, localConstraint.values, resolveValidatorType]);
 
   useEffect(() => {
     resolveInputType();

@@ -1,17 +1,5 @@
-import {
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useState,
-} from 'react';
-import {
-  BAD_REQUEST,
-  FORBIDDEN,
-  NOT_FOUND,
-  OK,
-  UNAUTHORIZED,
-  UNAVAILABLE,
-} from 'constants/statusCodes';
+import { type Dispatch, type SetStateAction, useCallback, useState } from 'react';
+import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, OK, UNAUTHORIZED, UNAVAILABLE } from 'constants/statusCodes';
 import {
   AuthenticationError,
   BadRequestError,
@@ -23,18 +11,10 @@ import {
 import { formatApiPath } from 'utils/formatPath';
 import { ACCESS_DENIED_TEXT } from 'utils/formatAccessText';
 
-type ApiErrorHandler = (
-  setErrors: Dispatch<SetStateAction<{}>>,
-  res: Response,
-  requestId: string,
-) => void;
+type ApiErrorHandler = (setErrors: Dispatch<SetStateAction<{}>>, res: Response, requestId: string) => void;
 
 type ApiCaller = () => Promise<Response>;
-type RequestFunction = (
-  apiCaller: ApiCaller,
-  requestId: string,
-  loadingOn?: boolean,
-) => Promise<Response>;
+type RequestFunction = (apiCaller: ApiCaller, requestId: string, loadingOn?: boolean) => Promise<Response>;
 
 interface IUseAPI {
   handleBadRequest?: ApiErrorHandler;
@@ -55,9 +35,7 @@ const timeApiCallEnd = (startTime: number, requestId: string) => {
   // Calculate the end time and subtract the start time
   const endTime = Date.now();
   const duration = endTime - startTime;
-  console.log(
-    `[DEVELOPMENT LOG] Timing for request ${requestId}: ${duration} ms`,
-  );
+  console.log(`[DEVELOPMENT LOG] Timing for request ${requestId}: ${duration} ms`);
 
   if (duration > 500) {
     console.error(
@@ -185,42 +163,23 @@ const useAPI = ({
         }
       }
     },
-    [
-      handleBadRequest,
-      handleForbidden,
-      handleNotFound,
-      handleUnauthorized,
-      propagateErrors,
-    ],
+    [handleBadRequest, handleForbidden, handleNotFound, handleUnauthorized, propagateErrors],
   );
 
   const requestWithTimer = (requestFunction: RequestFunction) => {
-    return async (
-      apiCaller: () => Promise<Response>,
-      requestId: string,
-      loadingOn: boolean = true,
-    ) => {
-      const start = timeApiCallStart(
-        requestId || `Unknown request happening on ${apiCaller}`,
-      );
+    return async (apiCaller: () => Promise<Response>, requestId: string, loadingOn: boolean = true) => {
+      const start = timeApiCallStart(requestId || `Unknown request happening on ${apiCaller}`);
 
       const res = await requestFunction(apiCaller, requestId, loadingOn);
 
-      timeApiCallEnd(
-        start,
-        requestId || `Unknown request happening on ${apiCaller}`,
-      );
+      timeApiCallEnd(start, requestId || `Unknown request happening on ${apiCaller}`);
 
       return res;
     };
   };
 
   const makeRequest = useCallback(
-    async (
-      apiCaller: () => Promise<Response>,
-      requestId: string,
-      loadingOn: boolean = true,
-    ): Promise<Response> => {
+    async (apiCaller: () => Promise<Response>, requestId: string, loadingOn: boolean = true): Promise<Response> => {
       if (loadingOn) {
         setLoading(true);
       }
@@ -246,11 +205,7 @@ const useAPI = ({
   );
 
   const makeLightRequest = useCallback(
-    async (
-      apiCaller: () => Promise<Response>,
-      requestId: string,
-      loadingOn: boolean = true,
-    ): Promise<Response> => {
+    async (apiCaller: () => Promise<Response>, requestId: string, loadingOn: boolean = true): Promise<Response> => {
       try {
         const res = await apiCaller();
 
@@ -266,25 +221,22 @@ const useAPI = ({
     [],
   );
 
-  const createRequest = useCallback(
-    (path: string, options: any, requestId: string = '') => {
-      const defaultOptions: RequestInit = {
-        headers,
-        credentials: 'include',
-      };
+  const createRequest = useCallback((path: string, options: any, requestId: string = '') => {
+    const defaultOptions: RequestInit = {
+      headers,
+      credentials: 'include',
+    };
 
-      return {
-        caller: () => {
-          return fetch(formatApiPath(path), {
-            ...defaultOptions,
-            ...options,
-          });
-        },
-        id: requestId,
-      };
-    },
-    [],
-  );
+    return {
+      caller: () => {
+        return fetch(formatApiPath(path), {
+          ...defaultOptions,
+          ...options,
+        });
+      },
+      id: requestId,
+    };
+  }, []);
 
   const makeRequestWithTimer = requestWithTimer(makeRequest);
   const makeLightRequestWithTimer = requestWithTimer(makeLightRequest);
@@ -294,9 +246,7 @@ const useAPI = ({
   return {
     loading,
     makeRequest: isDevelopment ? makeRequestWithTimer : makeRequest,
-    makeLightRequest: isDevelopment
-      ? makeLightRequestWithTimer
-      : makeLightRequest,
+    makeLightRequest: isDevelopment ? makeLightRequestWithTimer : makeLightRequest,
     createRequest,
     errors,
   };

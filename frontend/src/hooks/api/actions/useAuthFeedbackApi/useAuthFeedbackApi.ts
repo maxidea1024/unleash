@@ -35,11 +35,7 @@ export const useAuthFeedbackApi = (): IUseAuthFeedbackApi => {
   };
 };
 
-const sendFeedback = async (
-  method: 'PUT' | 'POST',
-  path: string,
-  feedback: IAuthFeedback,
-): Promise<void> => {
+const sendFeedback = async (method: 'PUT' | 'POST', path: string, feedback: IAuthFeedback): Promise<void> => {
   await fetch(path, {
     method,
     headers: { 'Content-Type': 'application/json' },

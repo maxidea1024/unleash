@@ -41,10 +41,7 @@ export default class EnvironmentsController extends Controller {
       transactionalEnvironmentService,
       openApiService,
       projectService,
-    }: Pick<
-      IUnleashServices,
-      'transactionalEnvironmentService' | 'openApiService' | 'projectService'
-    >,
+    }: Pick<IUnleashServices, 'transactionalEnvironmentService' | 'openApiService' | 'projectService'>,
   ) {
     super(config);
 
@@ -86,8 +83,7 @@ export default class EnvironmentsController extends Controller {
           tags: ['Projects'],
           operationId: 'removeEnvironmentFromProject',
           summary: 'Remove an environment from a project.',
-          description:
-            'This endpoint removes the specified environment from the project.',
+          description: 'This endpoint removes the specified environment from the project.',
           responses: {
             200: emptyResponse,
             ...getStandardResponses(400, 401, 403),
@@ -119,11 +115,7 @@ export default class EnvironmentsController extends Controller {
   }
 
   async addEnvironmentToProject(
-    req: IAuthRequest<
-      Omit<IProjectEnvironmentParams, 'environment'>,
-      void,
-      ProjectEnvironmentSchema
-    >,
+    req: IAuthRequest<Omit<IProjectEnvironmentParams, 'environment'>, void, ProjectEnvironmentSchema>,
     res: Response,
   ): Promise<void> {
     const { projectId } = req.params;
@@ -137,10 +129,7 @@ export default class EnvironmentsController extends Controller {
     res.status(200).end();
   }
 
-  async removeEnvironmentFromProject(
-    req: IAuthRequest<IProjectEnvironmentParams>,
-    res: Response<void>,
-  ): Promise<void> {
+  async removeEnvironmentFromProject(req: IAuthRequest<IProjectEnvironmentParams>, res: Response<void>): Promise<void> {
     const { projectId, environment } = req.params;
 
     await this.environmentService.transactional((service) =>
@@ -158,19 +147,9 @@ export default class EnvironmentsController extends Controller {
     const strategy = req.body;
 
     const saved = await this.environmentService.transactional((service) =>
-      service.updateDefaultStrategy(
-        environment,
-        projectId,
-        strategy,
-        req.audit,
-      ),
+      service.updateDefaultStrategy(environment, projectId, strategy, req.audit),
     );
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      createFeatureStrategySchema.$id,
-      serializeDates(saved),
-    );
+    this.openApiService.respondWithValidation(200, res, createFeatureStrategySchema.$id, serializeDates(saved));
   }
 }

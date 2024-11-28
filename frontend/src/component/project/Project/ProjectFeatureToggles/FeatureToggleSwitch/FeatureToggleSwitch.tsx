@@ -25,8 +25,7 @@ export const FeatureToggleSwitch: VFC<FeatureToggleSwitchProps> = ({
   value,
   onToggle,
 }) => {
-  const [isChecked, setIsChecked, rollbackIsChecked] =
-    useOptimisticUpdate<boolean>(value);
+  const [isChecked, setIsChecked, rollbackIsChecked] = useOptimisticUpdate<boolean>(value);
 
   const onClick = () => {
     setIsChecked(!isChecked);
@@ -44,11 +43,7 @@ export const FeatureToggleSwitch: VFC<FeatureToggleSwitchProps> = ({
         data-testid={`TOGGLE-${key}`}
       >
         <PermissionSwitch
-          tooltip={
-            isChecked
-              ? `Disable feature in ${environmentName}`
-              : `Enable feature in ${environmentName}`
-          }
+          tooltip={isChecked ? `Disable feature in ${environmentName}` : `Enable feature in ${environmentName}`}
           checked={value}
           environmentId={environmentName}
           projectId={projectId}

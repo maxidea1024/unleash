@@ -1,9 +1,4 @@
-import {
-  encodeQueryParams,
-  NumberParam,
-  StringParam,
-  withDefault,
-} from 'use-query-params';
+import { encodeQueryParams, NumberParam, StringParam, withDefault } from 'use-query-params';
 import { FilterItemParam } from 'utils/serializeQueryParams';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import mapValues from 'lodash.mapvalues';
@@ -11,10 +6,7 @@ import { useEventSearch } from 'hooks/api/getters/useEventSearch/useEventSearch'
 import type { SearchEventsParams } from 'openapi';
 import type { FilterItemParamHolder } from 'component/filter/Filters/Filters';
 
-type Log =
-  | { type: 'global' }
-  | { type: 'project'; projectId: string }
-  | { type: 'flag'; flagName: string };
+type Log = { type: 'global' } | { type: 'project'; projectId: string } | { type: 'flag'; flagName: string };
 
 const extraParameters = (logType: Log) => {
   switch (logType.type) {
@@ -51,11 +43,7 @@ export const calculatePaginationInfo = ({
   };
 };
 
-export const useEventLogSearch = (
-  logType: Log,
-  storageKey = 'event-log',
-  refreshInterval = 15 * 1000,
-) => {
+export const useEventLogSearch = (logType: Log, storageKey = 'event-log', refreshInterval = 15 * 1000) => {
   const stateConfig = {
     offset: withDefault(NumberParam, 0),
     limit: withDefault(NumberParam, DEFAULT_PAGE_SIZE),
@@ -78,10 +66,7 @@ export const useEventLogSearch = (
     }
   })();
 
-  const [tableState, setTableState] = usePersistentTableState(
-    fullStorageKey,
-    stateConfig,
-  );
+  const [tableState, setTableState] = usePersistentTableState(fullStorageKey, stateConfig);
 
   const filterState = (() => {
     const { offset, limit, query, ...fs } = tableState;
@@ -108,11 +93,10 @@ export const useEventLogSearch = (
     },
   );
 
-  const { currentPage, nextPageOffset, previousPageOffset } =
-    calculatePaginationInfo({
-      offset: tableState.offset ?? 0,
-      pageSize: tableState.limit ?? 1,
-    });
+  const { currentPage, nextPageOffset, previousPageOffset } = calculatePaginationInfo({
+    offset: tableState.offset ?? 0,
+    pageSize: tableState.limit ?? 1,
+  });
 
   return {
     events,

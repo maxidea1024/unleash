@@ -9,9 +9,7 @@ interface IFeatureArchivedCellProps {
   value?: string | Date | null;
 }
 
-export const FeatureArchivedCell: FC<IFeatureArchivedCellProps> = ({
-  value: archivedAt,
-}) => {
+export const FeatureArchivedCell: FC<IFeatureArchivedCellProps> = ({ value: archivedAt }) => {
   const { locationSettings } = useLocationSettings();
   const theme = useTheme();
 
@@ -26,13 +24,7 @@ export const FeatureArchivedCell: FC<IFeatureArchivedCellProps> = ({
 
   return (
     <TextCell>
-      <Tooltip
-        title={`Archived on: ${formatDateYMD(
-          archivedAt,
-          locationSettings.locale,
-        )}`}
-        arrow
-      >
+      <Tooltip title={`Archived on: ${formatDateYMD(archivedAt, locationSettings.locale)}`} arrow>
         <Typography noWrap variant='body2' data-loading>
           <TimeAgo date={new Date(archivedAt)} refresh={false} />
         </Typography>

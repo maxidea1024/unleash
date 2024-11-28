@@ -10,12 +10,7 @@ const ENDPOINT = 'api/admin/banners';
 export const useBanners = () => {
   const { isEnterprise } = useUiConfig();
 
-  const { data, error, mutate } = useConditionalSWR(
-    isEnterprise(),
-    { banners: [] },
-    formatApiPath(ENDPOINT),
-    fetcher,
-  );
+  const { data, error, mutate } = useConditionalSWR(isEnterprise(), { banners: [] }, formatApiPath(ENDPOINT), fetcher);
 
   return useMemo(
     () => ({

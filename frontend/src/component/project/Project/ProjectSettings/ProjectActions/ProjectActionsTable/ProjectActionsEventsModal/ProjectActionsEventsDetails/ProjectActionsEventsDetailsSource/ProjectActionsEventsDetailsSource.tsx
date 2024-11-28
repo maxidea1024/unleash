@@ -5,9 +5,7 @@ interface IProjectActionsEventsDetailsSourceProps {
   signal: ISignal;
 }
 
-export const ProjectActionsEventsDetailsSource = ({
-  signal,
-}: IProjectActionsEventsDetailsSourceProps) => {
+export const ProjectActionsEventsDetailsSource = ({ signal }: IProjectActionsEventsDetailsSourceProps) => {
   const { source } = signal;
 
   if (source === 'signal-endpoint') {

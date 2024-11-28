@@ -11,9 +11,7 @@ export const usePersonalAPITokensApi = () => {
     propagateErrors: true,
   });
 
-  const createPersonalAPIToken = async (
-    payload: ICreatePersonalApiTokenPayload,
-  ): Promise<INewPersonalAPIToken> => {
+  const createPersonalAPIToken = async (payload: ICreatePersonalApiTokenPayload): Promise<INewPersonalAPIToken> => {
     const req = createRequest('api/admin/user/tokens', {
       method: 'POST',
       body: JSON.stringify(payload),

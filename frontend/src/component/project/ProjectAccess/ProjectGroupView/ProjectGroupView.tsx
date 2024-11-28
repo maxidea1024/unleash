@@ -18,12 +18,7 @@ import { UPDATE_PROJECT } from 'component/providers/AccessProvider/permissions';
 import { useSearch } from 'hooks/useSearch';
 import type { IGroup, IGroupUser } from 'interfaces/group';
 import { type VFC, useState } from 'react';
-import {
-  type SortingRule,
-  useFlexLayout,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { type SortingRule, useFlexLayout, useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
 
@@ -90,11 +85,7 @@ const columns = [
     Header: 'Last login',
     accessor: (row: IGroupUser) => row.seenAt || '',
     Cell: ({ row: { original: user } }: any) => (
-      <TimeAgoCell
-        value={user.seenAt}
-        emptyText='Never'
-        title={(date) => `Last login: ${date}`}
-      />
+      <TimeAgoCell value={user.seenAt} emptyText='Never' title={(date) => `Last login: ${date}`} />
     ),
     maxWidth: 150,
   },
@@ -147,11 +138,7 @@ export const ProjectGroupView: VFC<IProjectGroupViewProps> = ({
   }));
   const [searchValue, setSearchValue] = useState('');
 
-  const { data, getSearchText, getSearchContext } = useSearch(
-    columns,
-    searchValue,
-    group?.users ?? [],
-  );
+  const { data, getSearchText, getSearchContext } = useSearch(columns, searchValue, group?.users ?? []);
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -193,11 +180,8 @@ export const ProjectGroupView: VFC<IProjectGroupViewProps> = ({
             secondary
             titleElement={
               <StyledTitle>
-                {group?.name} (
-                {rows.length < data.length
-                  ? `${rows.length} of ${data.length}`
-                  : data.length}
-                )<span>{subtitle}</span>
+                {group?.name} ({rows.length < data.length ? `${rows.length} of ${data.length}` : data.length})
+                <span>{subtitle}</span>
               </StyledTitle>
             }
             actions={
@@ -254,11 +238,7 @@ export const ProjectGroupView: VFC<IProjectGroupViewProps> = ({
         }
       >
         <SearchHighlightProvider value={getSearchText(searchValue)}>
-          <VirtualizedTable
-            rows={rows}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-          />
+          <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
         </SearchHighlightProvider>
         <ConditionallyRender
           condition={rows.length === 0}
@@ -273,10 +253,7 @@ export const ProjectGroupView: VFC<IProjectGroupViewProps> = ({
                 </TablePlaceholder>
               }
               elseShow={
-                <TablePlaceholder>
-                  This group is empty. Get started by adding a user to the
-                  group.
-                </TablePlaceholder>
+                <TablePlaceholder>This group is empty. Get started by adding a user to the group.</TablePlaceholder>
               }
             />
           }

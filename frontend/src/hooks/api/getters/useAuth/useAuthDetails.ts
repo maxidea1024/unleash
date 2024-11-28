@@ -1,7 +1,4 @@
-import {
-  type IAuthEndpointDetailsResponse,
-  useAuthEndpoint,
-} from './useAuthEndpoint';
+import { type IAuthEndpointDetailsResponse, useAuthEndpoint } from './useAuthEndpoint';
 
 interface IUseAuthDetailsOutput {
   authDetails?: IAuthEndpointDetailsResponse;

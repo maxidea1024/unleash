@@ -1,10 +1,6 @@
 import { TableBody, TableRow, TableHead } from '@mui/material';
 import { Table } from 'component/common/Table/Table/Table';
-import {
-  type Header,
-  type Table as TableType,
-  flexRender,
-} from '@tanstack/react-table';
+import { type Header, type Table as TableType, flexRender } from '@tanstack/react-table';
 import { TableCell } from '../TableCell/TableCell';
 import { CellSortable } from '../SortableTableHeader/CellSortable/CellSortable';
 import { StickyPaginationBar } from 'component/common/Table/StickyPaginationBar/StickyPaginationBar';
@@ -86,9 +82,7 @@ export const PaginatedTable = <T extends object>({
             {tableInstance.getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
+                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                 ))}
               </TableRow>
             ))}
@@ -96,9 +90,7 @@ export const PaginatedTable = <T extends object>({
         </Table>
       </TableContainer>
       <ConditionallyRender
-        condition={
-          tableInstance.getRowModel().rows.length > 0 && (totalItems || 0) > 25
-        }
+        condition={tableInstance.getRowModel().rows.length > 0 && (totalItems || 0) > 25}
         show={
           <StickyPaginationBar
             totalItems={totalItems}

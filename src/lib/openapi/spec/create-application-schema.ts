@@ -45,6 +45,4 @@ export const createApplicationSchema = {
   components: {},
 } as const;
 
-export type CreateApplicationSchema = FromSchema<
-  typeof createApplicationSchema
->;
+export type CreateApplicationSchema = FromSchema<typeof createApplicationSchema>;

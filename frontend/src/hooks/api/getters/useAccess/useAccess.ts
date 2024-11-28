@@ -15,18 +15,11 @@ export interface IUseAccessOutput {
 }
 
 export const useAccess = (): IUseAccessOutput => {
-  const { data, error, mutate } = useSWR(
-    formatApiPath(`api/admin/user-admin/access`),
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/user-admin/access`), fetcher);
 
   return {
-    users: (data?.users as IUser[])?.filter(
-      ({ accountType }) => !accountType || accountType === 'User',
-    ),
-    serviceAccounts: (data?.users as IServiceAccount[])?.filter(
-      ({ accountType }) => accountType === 'Service Account',
-    ),
+    users: (data?.users as IUser[])?.filter(({ accountType }) => !accountType || accountType === 'User'),
+    serviceAccounts: (data?.users as IServiceAccount[])?.filter(({ accountType }) => accountType === 'Service Account'),
     groups: data?.groups,
     loading: !error && !data,
     refetch: () => mutate(),

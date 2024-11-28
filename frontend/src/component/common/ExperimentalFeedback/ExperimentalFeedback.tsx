@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 import { Box, Button, Divider, Typography, styled } from '@mui/material';
 import PermMedia from '@mui/icons-material/PermMedia';
 import Send from '@mui/icons-material/Send';
-import {
-  type CustomEvents,
-  usePlausibleTracker,
-} from 'hooks/usePlausibleTracker';
+import { type CustomEvents, usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { createLocalStorage } from 'utils/createLocalStorage';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -106,15 +103,11 @@ export const ExperimentalFeedback: React.FC<IExperimentalFeedbackProps> = ({
   const emailSubject = "I'd like to get involved";
   const emailBody = `Hello Unleash,\n\nI just saw your ${eventKey} experiment. I'd like to be involved in user tests and give my feedback on this feature.\n\nRegards,\n`;
 
-  const mailtoURL = `mailto:${recipientEmail}?subject=${encodeURIComponent(
-    emailSubject,
-  )}&body=${encodeURIComponent(emailBody)}`;
+  const mailtoURL = `mailto:${recipientEmail}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
 
   return (
     <StyledOuterContainer>
-      <StyledHeader variant='h1'>
-        We are trying something experimental!
-      </StyledHeader>
+      <StyledHeader variant='h1'>We are trying something experimental!</StyledHeader>
       <Typography>{description}</Typography>
 
       <br />
@@ -126,18 +119,10 @@ export const ExperimentalFeedback: React.FC<IExperimentalFeedbackProps> = ({
             {' '}
             <Typography>Is this useful to you?</Typography>
             <StyledBtnContainer>
-              <StyledBtn
-                variant='contained'
-                color='primary'
-                onClick={() => onBtnClick('useful')}
-              >
+              <StyledBtn variant='contained' color='primary' onClick={() => onBtnClick('useful')}>
                 Yes, I like the direction
               </StyledBtn>
-              <Button
-                variant='outlined'
-                color='primary'
-                onClick={() => onBtnClick('not useful')}
-              >
+              <Button variant='outlined' color='primary' onClick={() => onBtnClick('not useful')}>
                 No, I don't see value in this
               </Button>
             </StyledBtnContainer>
@@ -145,9 +130,8 @@ export const ExperimentalFeedback: React.FC<IExperimentalFeedbackProps> = ({
         }
         elseShow={
           <Typography sx={(theme) => ({ marginTop: theme.spacing(3) })}>
-            Thank you for the feedback. Feel free to check out the sketches and
-            leave comments, or get in touch with our UX team if you'd like to be
-            involved in usertests and the development of this feature.
+            Thank you for the feedback. Feel free to check out the sketches and leave comments, or get in touch with our
+            UX team if you'd like to be involved in usertests and the development of this feature.
           </Typography>
         }
       />
@@ -167,9 +151,7 @@ export const ExperimentalFeedback: React.FC<IExperimentalFeedbackProps> = ({
           <StyledIconWrapper>
             <Send />
           </StyledIconWrapper>
-          <StyledLink href={mailtoURL}>
-            Get involved with our UX team
-          </StyledLink>
+          <StyledLink href={mailtoURL}>Get involved with our UX team</StyledLink>
         </StyledFlexBox>
       </StyledFlexBox>
     </StyledOuterContainer>

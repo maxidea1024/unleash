@@ -50,13 +50,7 @@ export default async function getApp(
   app.locals.baseUriPath = baseUriPath;
 
   if (config.server.serverMetrics && config.eventBus) {
-    app.use(
-      responseTimeMetrics(
-        config.eventBus,
-        config.flagResolver,
-        services.instanceStatsService,
-      ),
-    );
+    app.use(responseTimeMetrics(config.eventBus, config.flagResolver, services.instanceStatsService));
   }
 
   app.use(requestLogger(config));
@@ -78,17 +72,9 @@ export default async function getApp(
     next();
   });
 
-  app.use(
-    `${baseUriPath}/api/admin/features-batch`,
-    express.json({ strict: false, limit: '500kB' }),
-  );
+  app.use(`${baseUriPath}/api/admin/features-batch`, express.json({ strict: false, limit: '500kB' }));
 
-  app.use(
-    unless(
-      `${baseUriPath}/api/admin/features-batch`,
-      express.json({ strict: false }),
-    ),
-  );
+  app.use(unless(`${baseUriPath}/api/admin/features-batch`, express.json({ strict: false })));
 
   if (unleashSession) {
     app.use(unleashSession);
@@ -111,10 +97,7 @@ export default async function getApp(
   // Support CORS preflight requests for the frontend endpoints.
   // Preflight requests should not have Authorization headers,
   // so this must be handled before the API token middleware.
-  app.options(
-    `${baseUriPath}/api/frontend*`,
-    corsOriginMiddleware(services, config),
-  );
+  app.options(`${baseUriPath}/api/frontend*`, corsOriginMiddleware(services, config));
 
   app.use(baseUriPath, patMiddleware(config, services));
 
@@ -151,9 +134,7 @@ export default async function getApp(
       break;
     }
     case IAuthType.NONE: {
-      logger.warn(
-        'The AuthType=none option for Unleash is no longer recommended and will be removed in version 6.',
-      );
+      logger.warn('The AuthType=none option for Unleash is no longer recommended and will be removed in version 6.');
       noApiToken(baseUriPath, app);
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       noAuthentication(baseUriPath, app);
@@ -171,10 +152,7 @@ export default async function getApp(
   app.use(`${baseUriPath}/api/admin`, originMiddleware(config));
 
   app.use(`${baseUriPath}/api/admin`, auditAccessMiddleware(config));
-  app.use(
-    `${baseUriPath}/api/admin`,
-    maintenanceMiddleware(config, services.maintenanceService),
-  );
+  app.use(`${baseUriPath}/api/admin`, maintenanceMiddleware(config, services.maintenanceService));
 
   if (typeof config.preRouterHook === 'function') {
     config.preRouterHook(app, config, services, stores, db);
@@ -200,9 +178,7 @@ export default async function getApp(
 
   // handle all API 404s
   app.use(`${baseUriPath}/api`, (req, res) => {
-    const error = new NotFoundError(
-      `The path you were looking for (${baseUriPath}/api${req.path}) is not available.`,
-    );
+    const error = new NotFoundError(`The path you were looking for (${baseUriPath}/api${req.path}) is not available.`);
     res.status(error.statusCode).send(error);
   });
 

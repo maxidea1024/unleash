@@ -62,10 +62,7 @@ export const ColumnsMenu: VFC<IColumnsMenuProps> = ({
       return;
     }
 
-    const setVisibleColumns = (
-      columns: string[],
-      environmentsToShow: number = 0,
-    ) => {
+    const setVisibleColumns = (columns: string[], environmentsToShow: number = 0) => {
       const visibleEnvColumns = allColumns
         .filter(({ id }) => id.startsWith('environment:') !== false)
         .map(({ id }) => id)
@@ -153,10 +150,7 @@ export const ColumnsMenu: VFC<IColumnsMenuProps> = ({
           {allColumns
             .filter(({ hideInMenu }) => !hideInMenu)
             .map((column) => [
-              <ConditionallyRender
-                condition={dividerBefore.includes(column.id)}
-                show={<StyledDivider />}
-              />,
+              <ConditionallyRender condition={dividerBefore.includes(column.id)} show={<StyledDivider />} />,
               <StyledMenuItem
                 onClick={() => {
                   column.toggleHidden(column.isVisible);
@@ -180,22 +174,15 @@ export const ColumnsMenu: VFC<IColumnsMenuProps> = ({
                   primary={
                     <Typography variant='body2'>
                       <ConditionallyRender
-                        condition={Boolean(
-                          typeof column.Header === 'string' && column.Header,
-                        )}
+                        condition={Boolean(typeof column.Header === 'string' && column.Header)}
                         show={() => <>{column.Header}</>}
-                        elseShow={() => (
-                          <>{columnNameMap[column.id] || column.id}</>
-                        )}
+                        elseShow={() => <>{columnNameMap[column.id] || column.id}</>}
                       />
                     </Typography>
                   }
                 />
               </StyledMenuItem>,
-              <ConditionallyRender
-                condition={dividerAfter.includes(column.id)}
-                show={<StyledDivider />}
-              />,
+              <ConditionallyRender condition={dividerAfter.includes(column.id)} show={<StyledDivider />} />,
             ])}
         </MenuList>
       </Popover>

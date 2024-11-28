@@ -60,8 +60,6 @@ test('should handle lock timeout', async () => {
 
   const asyncAction = () => ms(100);
 
-  await expect(lock(asyncAction)()).rejects.toStrictEqual(
-    new Error('Query read timeout'),
-  );
+  await expect(lock(asyncAction)()).rejects.toStrictEqual(new Error('Query read timeout'));
   expect(loggedError).toBe('Locking error: Query read timeout');
 });

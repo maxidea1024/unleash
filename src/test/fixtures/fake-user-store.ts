@@ -1,10 +1,6 @@
 import type User from '../../lib/types/user';
 import type { IUser } from '../../lib/types/user';
-import type {
-  ICreateUser,
-  IUserLookup,
-  IUserStore,
-} from '../../lib/types/stores/user-store';
+import type { ICreateUser, IUserLookup, IUserStore } from '../../lib/types/stores/user-store';
 
 class UserStoreMock implements IUserStore {
   data: IUser[];
@@ -25,9 +21,7 @@ class UserStoreMock implements IUserStore {
       if (!user.createdAt) {
         return oldest;
       }
-      return !oldest.createdAt || user.createdAt < oldest.createdAt
-        ? user
-        : oldest;
+      return !oldest.createdAt || user.createdAt < oldest.createdAt ? user : oldest;
     }, this.data[0]);
 
     return oldestUser.createdAt || null;
@@ -40,11 +34,7 @@ class UserStoreMock implements IUserStore {
     return Promise.resolve(0);
   }
 
-  async hasUser({
-    id,
-    username,
-    email,
-  }: IUserLookup): Promise<number | undefined> {
+  async hasUser({ id, username, email }: IUserLookup): Promise<number | undefined> {
     const user = this.data.find((i) => {
       if (id && i.id === id) return true;
       if (username && i.username === username) return true;

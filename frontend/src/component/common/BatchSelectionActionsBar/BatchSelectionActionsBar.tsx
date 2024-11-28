@@ -51,10 +51,7 @@ const StyledText = styled(Typography)(({ theme }) => ({
   marginRight: 'auto',
 }));
 
-export const BatchSelectionActionsBar: FC<IBatchSelectionActionsBarProps> = ({
-  count,
-  children,
-}) => {
+export const BatchSelectionActionsBar: FC<IBatchSelectionActionsBarProps> = ({ count, children }) => {
   if (count === 0) {
     return null;
   }
@@ -64,9 +61,7 @@ export const BatchSelectionActionsBar: FC<IBatchSelectionActionsBarProps> = ({
       <StyledContainer>
         <StyledBar elevation={4}>
           <StyledText>
-            <StyledCount data-testid={BATCH_SELECTED_COUNT}>
-              {count}
-            </StyledCount>
+            <StyledCount data-testid={BATCH_SELECTED_COUNT}>{count}</StyledCount>
             &ensp;selected
           </StyledText>
           {children}

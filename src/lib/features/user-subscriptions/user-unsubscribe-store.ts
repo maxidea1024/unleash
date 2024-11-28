@@ -27,10 +27,7 @@ export class UserUnsubscribeStore implements IUserUnsubscribeStore {
   }
 
   async delete({ userId, subscription }): Promise<void> {
-    await this.db
-      .table<IUserUnsubscribeTable>(TABLE)
-      .where({ user_id: userId, subscription: subscription })
-      .del();
+    await this.db.table<IUserUnsubscribeTable>(TABLE).where({ user_id: userId, subscription: subscription }).del();
   }
 
   destroy(): void {}

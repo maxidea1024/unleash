@@ -6,10 +6,7 @@ import { ADMIN } from '../../providers/AccessProvider/permissions';
 
 const server = testServerSetup();
 
-const setupApi = ({
-  limit,
-  environments,
-}: { limit: number; environments: number }) => {
+const setupApi = ({ limit, environments }: { limit: number; environments: number }) => {
   testServerRoute(server, '/api/admin/ui-config', {
     resourceLimits: {
       environments: limit,

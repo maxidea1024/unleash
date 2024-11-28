@@ -18,8 +18,7 @@ export const DeprecatedSearchEventsSchemaType = {
   'feature-updated': 'feature-updated',
   'feature-metadata-updated': 'feature-metadata-updated',
   'feature-variants-updated': 'feature-variants-updated',
-  'feature-environment-variants-updated':
-    'feature-environment-variants-updated',
+  'feature-environment-variants-updated': 'feature-environment-variants-updated',
   'feature-project-change': 'feature-project-change',
   'feature-archived': 'feature-archived',
   'feature-revived': 'feature-revived',
@@ -124,12 +123,9 @@ export const DeprecatedSearchEventsSchemaType = {
   'change-request-schedule-suspended': 'change-request-schedule-suspended',
   'change-request-applied': 'change-request-applied',
   'change-request-scheduled': 'change-request-scheduled',
-  'change-request-scheduled-application-success':
-    'change-request-scheduled-application-success',
-  'change-request-scheduled-application-failure':
-    'change-request-scheduled-application-failure',
-  'change-request-configuration-updated':
-    'change-request-configuration-updated',
+  'change-request-scheduled-application-success': 'change-request-scheduled-application-success',
+  'change-request-scheduled-application-failure': 'change-request-scheduled-application-failure',
+  'change-request-configuration-updated': 'change-request-configuration-updated',
   'api-token-created': 'api-token-created',
   'api-token-updated': 'api-token-updated',
   'api-token-deleted': 'api-token-deleted',

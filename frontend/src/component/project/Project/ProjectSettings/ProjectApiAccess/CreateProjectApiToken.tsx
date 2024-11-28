@@ -7,11 +7,7 @@ export const CreateProjectApiToken = () => {
   const navigate = useNavigate();
 
   return (
-    <SidebarModal
-      open
-      onClose={() => navigate(GO_BACK)}
-      label={`Create API token`}
-    >
+    <SidebarModal open onClose={() => navigate(GO_BACK)} label={`Create API token`}>
       <CreateProjectApiTokenForm />
     </SidebarModal>
   );

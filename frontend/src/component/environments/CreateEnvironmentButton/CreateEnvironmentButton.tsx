@@ -12,9 +12,7 @@ export const CreateEnvironmentButton = () => {
   const navigate = useNavigate();
   const disabled = !useUiFlag('EEA');
 
-  const endIcon = disabled ? (
-    <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />
-  ) : undefined;
+  const endIcon = disabled ? <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} /> : undefined;
 
   const tooltipProps = disabled
     ? {

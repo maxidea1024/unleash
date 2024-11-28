@@ -17,16 +17,10 @@ interface ISegmentDeleteConfirmProps {
   onRemove: () => void;
 }
 
-export const SegmentDeleteConfirm = ({
-  segment,
-  open,
-  onClose,
-  onRemove,
-}: ISegmentDeleteConfirmProps) => {
+export const SegmentDeleteConfirm = ({ segment, open, onClose, onRemove }: ISegmentDeleteConfirmProps) => {
   const [confirmName, setConfirmName] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setConfirmName(e.currentTarget.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setConfirmName(e.currentTarget.value);
 
   const handleCancel = () => {
     onClose();
@@ -48,13 +42,12 @@ export const SegmentDeleteConfirm = ({
       formId={formId}
     >
       <Alert sx={{ marginBottom: 2 }} severity='warning'>
-        Deleted segments may be referenced in strategies if the feature flag is
-        archived. Removing the segment will also remove the segments from
-        strategies of archived flags.
+        Deleted segments may be referenced in strategies if the feature flag is archived. Removing the segment will also
+        remove the segments from strategies of archived flags.
       </Alert>
       <p>
-        In order to delete this segment, please enter the name of the segment in
-        the field below: <strong>{segment?.name}</strong>
+        In order to delete this segment, please enter the name of the segment in the field below:{' '}
+        <strong>{segment?.name}</strong>
       </p>
 
       <form id={formId}>

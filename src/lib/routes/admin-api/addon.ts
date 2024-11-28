@@ -1,50 +1,25 @@
 import type { Request, Response } from 'express';
 import Controller from '../controller';
-import type {
-  IFlagResolver,
-  IUnleashConfig,
-  IUnleashServices,
-} from '../../types';
+import type { IFlagResolver, IUnleashConfig, IUnleashServices } from '../../types';
 import type { Logger } from '../../logger';
 import type AddonService from '../../services/addon-service';
 
-import {
-  ADMIN,
-  CREATE_ADDON,
-  DELETE_ADDON,
-  NONE,
-  UPDATE_ADDON,
-} from '../../types/permissions';
+import { ADMIN, CREATE_ADDON, DELETE_ADDON, NONE, UPDATE_ADDON } from '../../types/permissions';
 import type { IAuthRequest } from '../unleash-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { OpenApiService } from '../../services/openapi-service';
 import { type AddonSchema, addonSchema } from '../../openapi/spec/addon-schema';
 import { serializeDates } from '../../types/serialize-dates';
-import {
-  type AddonsSchema,
-  addonsSchema,
-} from '../../openapi/spec/addons-schema';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { type AddonsSchema, addonsSchema } from '../../openapi/spec/addons-schema';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import type { AddonCreateUpdateSchema } from '../../openapi/spec/addon-create-update-schema';
-import {
-  type BasePaginationParameters,
-  basePaginationParameters,
-} from '../../openapi/spec/base-pagination-parameters';
-import {
-  type IntegrationEventsSchema,
-  integrationEventsSchema,
-} from '../../openapi/spec/integration-events-schema';
+import { type BasePaginationParameters, basePaginationParameters } from '../../openapi/spec/base-pagination-parameters';
+import { type IntegrationEventsSchema, integrationEventsSchema } from '../../openapi/spec/integration-events-schema';
 import { BadDataError } from '../../error';
 import type { IntegrationEventsService } from '../../services';
 
-type AddonServices = Pick<
-  IUnleashServices,
-  'addonService' | 'openApiService' | 'integrationEventsService'
->;
+type AddonServices = Pick<IUnleashServices, 'addonService' | 'openApiService' | 'integrationEventsService'>;
 
 const PATH = '/';
 
@@ -55,10 +30,7 @@ export default class AddonController extends Controller {
   private readonly integrationEventsService: IntegrationEventsService;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(
-    config: IUnleashConfig,
-    { addonService, openApiService, integrationEventsService }: AddonServices,
-  ) {
+  constructor(config: IUnleashConfig, { addonService, openApiService, integrationEventsService }: AddonServices) {
     super(config);
 
     this.logger = config.getLogger('addon.ts');
@@ -76,8 +48,7 @@ export default class AddonController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Get all addons and providers',
-          description:
-            'Retrieve all addons and providers that are defined on this Unleash instance.',
+          description: 'Retrieve all addons and providers that are defined on this Unleash instance.',
           tags: ['Addons'],
           operationId: 'getAddons',
           responses: {
@@ -117,8 +88,7 @@ export default class AddonController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Get a specific addon',
-          description:
-            'Retrieve information about the addon whose ID matches the ID in the request URL.',
+          description: 'Retrieve information about the addon whose ID matches the ID in the request URL.',
           tags: ['Addons'],
           operationId: 'getAddon',
           responses: {
@@ -160,8 +130,7 @@ Note: passing \`null\` as a value for the description property will set it to an
       middleware: [
         openApiService.validPath({
           summary: 'Delete an addon',
-          description:
-            'Delete the addon specified by the ID in the request path.',
+          description: 'Delete the addon specified by the ID in the request path.',
           tags: ['Addons'],
           operationId: 'deleteAddon',
           responses: {
@@ -181,8 +150,7 @@ Note: passing \`null\` as a value for the description property will set it to an
         openApiService.validPath({
           tags: ['Addons'],
           operationId: 'getIntegrationEvents',
-          summary:
-            'Get integration events for a specific integration configuration.',
+          summary: 'Get integration events for a specific integration configuration.',
           description:
             'Returns a list of integration events belonging to a specific integration configuration, identified by its id.',
           parameters: [...basePaginationParameters],
@@ -205,18 +173,10 @@ Note: passing \`null\` as a value for the description property will set it to an
     });
   }
 
-  async getAddon(
-    req: Request<{ id: number }, any, any, any>,
-    res: Response<AddonSchema>,
-  ): Promise<void> {
+  async getAddon(req: Request<{ id: number }, any, any, any>, res: Response<AddonSchema>): Promise<void> {
     const { id } = req.params;
     const addon = await this.addonService.getAddon(id);
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      addonSchema.$id,
-      serializeDates(addon),
-    );
+    this.openApiService.respondWithValidation(200, res, addonSchema.$id, serializeDates(addon));
   }
 
   async updateAddon(
@@ -228,12 +188,7 @@ Note: passing \`null\` as a value for the description property will set it to an
 
     const addon = await this.addonService.updateAddon(id, data, req.audit);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      addonSchema.$id,
-      serializeDates(addon),
-    );
+    this.openApiService.respondWithValidation(200, res, addonSchema.$id, serializeDates(addon));
   }
 
   async createAddon(
@@ -243,18 +198,10 @@ Note: passing \`null\` as a value for the description property will set it to an
     const data = req.body;
     const addon = await this.addonService.createAddon(data, req.audit);
 
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      addonSchema.$id,
-      serializeDates(addon),
-    );
+    this.openApiService.respondWithValidation(201, res, addonSchema.$id, serializeDates(addon));
   }
 
-  async deleteAddon(
-    req: IAuthRequest<{ id: number }, any, any, any>,
-    res: Response<void>,
-  ): Promise<void> {
+  async deleteAddon(req: IAuthRequest<{ id: number }, any, any, any>, res: Response<void>): Promise<void> {
     const { id } = req.params;
     await this.addonService.removeAddon(id, req.audit);
 
@@ -262,12 +209,7 @@ Note: passing \`null\` as a value for the description property will set it to an
   }
 
   async getIntegrationEvents(
-    req: IAuthRequest<
-      { id: number },
-      unknown,
-      unknown,
-      BasePaginationParameters
-    >,
+    req: IAuthRequest<{ id: number }, unknown, unknown, BasePaginationParameters>,
     res: Response<IntegrationEventsSchema>,
   ): Promise<void> {
     const { id } = req.params;
@@ -278,24 +220,17 @@ Note: passing \`null\` as a value for the description property will set it to an
 
     const { limit = '50', offset = '0' } = req.query;
 
-    const normalizedLimit =
-      Number(limit) > 0 && Number(limit) <= 100 ? Number(limit) : 50;
+    const normalizedLimit = Number(limit) > 0 && Number(limit) <= 100 ? Number(limit) : 50;
     const normalizedOffset = Number(offset) > 0 ? Number(offset) : 0;
 
-    const integrationEvents =
-      await this.integrationEventsService.getPaginatedEvents(
-        id,
-        normalizedLimit,
-        normalizedOffset,
-      );
-
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      integrationEventsSchema.$id,
-      {
-        integrationEvents: serializeDates(integrationEvents),
-      },
+    const integrationEvents = await this.integrationEventsService.getPaginatedEvents(
+      id,
+      normalizedLimit,
+      normalizedOffset,
     );
+
+    this.openApiService.respondWithValidation(200, res, integrationEventsSchema.$id, {
+      integrationEvents: serializeDates(integrationEvents),
+    });
   }
 }

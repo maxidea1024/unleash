@@ -19,15 +19,8 @@ export const GroupEmpty = () => {
 
   return (
     <StyledContainerDiv>
-      <StyledTitle>
-        No groups available. Get started by adding a new group.
-      </StyledTitle>
-      <Button
-        to='/admin/groups/create-group'
-        component={Link}
-        variant='outlined'
-        color='primary'
-      >
+      <StyledTitle>No groups available. Get started by adding a new group.</StyledTitle>
+      <Button to='/admin/groups/create-group' component={Link} variant='outlined' color='primary'>
         Create your first group
       </Button>
     </StyledContainerDiv>

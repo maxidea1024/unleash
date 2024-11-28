@@ -86,11 +86,7 @@ export const ProjectActionsTableActionsCell = ({
         <MenuList aria-labelledby={id}>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem
-                sx={defaultBorderRadius}
-                onClick={onOpenEvents}
-                disabled={!hasAccess}
-              >
+              <MenuItem sx={defaultBorderRadius} onClick={onOpenEvents} disabled={!hasAccess}>
                 <ListItemIcon>
                   <Visibility />
                 </ListItemIcon>
@@ -102,11 +98,7 @@ export const ProjectActionsTableActionsCell = ({
           </PermissionHOC>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem
-                sx={defaultBorderRadius}
-                onClick={onEdit}
-                disabled={!hasAccess}
-              >
+              <MenuItem sx={defaultBorderRadius} onClick={onEdit} disabled={!hasAccess}>
                 <ListItemIcon>
                   <Edit />
                 </ListItemIcon>
@@ -118,11 +110,7 @@ export const ProjectActionsTableActionsCell = ({
           </PermissionHOC>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem
-                sx={defaultBorderRadius}
-                onClick={onDelete}
-                disabled={!hasAccess}
-              >
+              <MenuItem sx={defaultBorderRadius} onClick={onDelete} disabled={!hasAccess}>
                 <ListItemIcon>
                   <Delete />
                 </ListItemIcon>

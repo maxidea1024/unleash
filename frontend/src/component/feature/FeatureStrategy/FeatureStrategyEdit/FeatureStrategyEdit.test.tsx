@@ -26,10 +26,7 @@ const setupComponent = () => {
   return {
     wrapper: render(
       <Routes>
-        <Route
-          path={'/projects/:projectId/features/:featureId/strategies/edit'}
-          element={<FeatureStrategyEdit />}
-        />
+        <Route path={'/projects/:projectId/features/:featureId/strategies/edit'} element={<FeatureStrategyEdit />} />
       </Routes>,
       {
         route: `/projects/default/features/${featureName}/strategies/edit?environmentId=development&strategyId=1`,

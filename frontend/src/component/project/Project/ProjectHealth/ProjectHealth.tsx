@@ -12,10 +12,7 @@ const ProjectHealth = () => {
   const projectName = useProjectOverviewNameOrId(projectId);
   usePageTitle(`Project health – ${projectName}`);
 
-  const { healthReport, refetchHealthReport, error } = useHealthReport(
-    projectId,
-    { refreshInterval: 15 * 1000 },
-  );
+  const { healthReport, refetchHealthReport, error } = useHealthReport(projectId, { refreshInterval: 15 * 1000 });
 
   if (!healthReport) {
     return null;

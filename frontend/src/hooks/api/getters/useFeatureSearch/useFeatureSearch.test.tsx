@@ -53,9 +53,7 @@ describe('useFeatureSearch', () => {
 
     render(<TestComponent params={{ project: 'project1' }} />);
     await screen.findByText(/Features: Feature1/);
-    await screen.findByText(
-      'Cache: api/admin/search/features?project=project1',
-    );
+    await screen.findByText('Cache: api/admin/search/features?project=project1');
 
     testServerRoute(server, '/api/admin/search/features?project=project2', {
       features: [{ name: 'Feature2' }],

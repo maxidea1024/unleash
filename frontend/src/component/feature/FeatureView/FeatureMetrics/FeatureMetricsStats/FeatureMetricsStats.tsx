@@ -50,10 +50,7 @@ export const FeatureMetricsStats = ({
   statsSectionId,
   tableSectionId,
 }: IFeatureMetricsStatsProps) => {
-  const hoursSuffix =
-    hoursBack === 1
-      ? 'in the last hour'
-      : `in the last ${daysOrHours(hoursBack)}`;
+  const hoursSuffix = hoursBack === 1 ? 'in the last hour' : `in the last ${daysOrHours(hoursBack)}`;
 
   return (
     <Grid
@@ -70,20 +67,14 @@ export const FeatureMetricsStats = ({
           <StyledValue>
             <PrettifyLargeNumber value={totalYes} />
           </StyledValue>
-          <StyledText>
-            Total exposure of the feature in the environment {hoursSuffix}.
-          </StyledText>
+          <StyledText>Total exposure of the feature in the environment {hoursSuffix}.</StyledText>
         </StyledItem>
       </Grid>
       <Grid item xs={12} sm={4}>
         <StyledItem>
           <StyledTitle>Exposure %</StyledTitle>
-          <StyledValue>
-            {calculatePercentage(totalYes + totalNo, totalYes)}%
-          </StyledValue>
-          <StyledText>
-            % total exposure of the feature in the environment {hoursSuffix}.
-          </StyledText>
+          <StyledValue>{calculatePercentage(totalYes + totalNo, totalYes)}%</StyledValue>
+          <StyledText>% total exposure of the feature in the environment {hoursSuffix}.</StyledText>
         </StyledItem>
       </Grid>
       <Grid item xs={12} sm={4}>
@@ -92,9 +83,7 @@ export const FeatureMetricsStats = ({
           <StyledValue>
             <PrettifyLargeNumber value={totalYes + totalNo} />
           </StyledValue>
-          <StyledText>
-            Total requests for the feature in the environment {hoursSuffix}.
-          </StyledText>
+          <StyledText>Total requests for the feature in the environment {hoursSuffix}.</StyledText>
         </StyledItem>
       </Grid>
     </Grid>

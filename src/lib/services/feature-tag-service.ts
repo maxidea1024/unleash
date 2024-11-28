@@ -1,19 +1,10 @@
 import NotFoundError from '../error/notfound-error';
 import type { Logger } from '../logger';
-import {
-  FEATURE_TAGGED,
-  FEATURE_UNTAGGED,
-  FeatureTaggedEvent,
-  TAG_CREATED,
-} from '../types/events';
+import { FEATURE_TAGGED, FEATURE_UNTAGGED, FeatureTaggedEvent, TAG_CREATED } from '../types/events';
 import type { IUnleashConfig } from '../types/options';
 import type { IFeatureToggleStore, IUnleashStores } from '../types/stores';
 import { tagSchema } from './tag-schema';
-import type {
-  IFeatureTag,
-  IFeatureTagInsert,
-  IFeatureTagStore,
-} from '../types/stores/feature-tag-store';
+import type { IFeatureTag, IFeatureTagInsert, IFeatureTagStore } from '../types/stores/feature-tag-store';
 import type { ITagStore } from '../types/stores/tag-store';
 import type { ITag } from '../types/model';
 import { BadDataError, FOREIGN_KEY_VIOLATION } from '../../lib/error';
@@ -32,10 +23,7 @@ export default class FeatureTagService {
       tagStore,
       featureTagStore,
       featureToggleStore,
-    }: Pick<
-      IUnleashStores,
-      'tagStore' | 'featureTagStore' | 'featureToggleStore'
-    >,
+    }: Pick<IUnleashStores, 'tagStore' | 'featureTagStore' | 'featureToggleStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
@@ -56,19 +44,11 @@ export default class FeatureTagService {
   }
 
   // TODO: add project Id
-  async addTag(
-    featureName: string,
-    tag: ITag,
-    auditUser: IAuditUser,
-  ): Promise<ITag> {
+  async addTag(featureName: string, tag: ITag, auditUser: IAuditUser): Promise<ITag> {
     const featureToggle = await this.featureToggleStore.get(featureName);
     const validatedTag = await tagSchema.validateAsync(tag);
     await this.createTagIfNeeded(validatedTag, auditUser);
-    await this.featureTagStore.tagFeature(
-      featureName,
-      validatedTag,
-      auditUser.id,
-    );
+    await this.featureTagStore.tagFeature(featureName, validatedTag, auditUser.id);
 
     await this.eventService.storeEvent(
       new FeatureTaggedEvent({
@@ -87,31 +67,26 @@ export default class FeatureTagService {
     removedTags: ITag[],
     auditUser: IAuditUser,
   ): Promise<void> {
-    const featureToggles =
-      await this.featureToggleStore.getAllByNames(featureNames);
-    await Promise.all(
-      addedTags.map((tag) => this.createTagIfNeeded(tag, auditUser)),
-    );
-    const createdFeatureTags: IFeatureTagInsert[] = featureNames.flatMap(
-      (featureName) =>
-        addedTags.map((addedTag) => ({
-          featureName,
-          tagType: addedTag.type,
-          tagValue: addedTag.value,
-          createdByUserId: auditUser.id,
-        })),
+    const featureToggles = await this.featureToggleStore.getAllByNames(featureNames);
+    await Promise.all(addedTags.map((tag) => this.createTagIfNeeded(tag, auditUser)));
+    const createdFeatureTags: IFeatureTagInsert[] = featureNames.flatMap((featureName) =>
+      addedTags.map((addedTag) => ({
+        featureName,
+        tagType: addedTag.type,
+        tagValue: addedTag.value,
+        createdByUserId: auditUser.id,
+      })),
     );
 
     await this.featureTagStore.tagFeatures(createdFeatureTags);
 
-    const removedFeatureTags: Omit<IFeatureTag, 'createdByUserId'>[] =
-      featureNames.flatMap((featureName) =>
-        removedTags.map((addedTag) => ({
-          featureName,
-          tagType: addedTag.type,
-          tagValue: addedTag.value,
-        })),
-      );
+    const removedFeatureTags: Omit<IFeatureTag, 'createdByUserId'>[] = featureNames.flatMap((featureName) =>
+      removedTags.map((addedTag) => ({
+        featureName,
+        tagType: addedTag.type,
+        tagValue: addedTag.value,
+      })),
+    );
 
     await this.featureTagStore.untagFeatures(removedFeatureTags);
 
@@ -166,11 +141,7 @@ export default class FeatureTagService {
   }
 
   // TODO: add project Id
-  async removeTag(
-    featureName: string,
-    tag: ITag,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async removeTag(featureName: string, tag: ITag, auditUser: IAuditUser): Promise<void> {
     const featureToggle = await this.featureToggleStore.get(featureName);
     const tags = await this.featureTagStore.getAllTagsForFeature(featureName);
     await this.featureTagStore.untagFeature(featureName, tag);

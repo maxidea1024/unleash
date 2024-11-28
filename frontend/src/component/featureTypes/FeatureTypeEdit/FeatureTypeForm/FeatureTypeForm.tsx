@@ -36,21 +36,13 @@ const StyledForm = styled(Box)(() => ({
   flexGrow: 1,
 }));
 
-export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
-  featureType,
-  loading,
-}) => {
+export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({ featureType, loading }) => {
   const navigate = useNavigate();
   const { uiConfig } = useUiConfig();
   const { refetch } = useFeatureTypes();
-  const { updateFeatureTypeLifetime, loading: actionLoading } =
-    useFeatureTypeApi();
-  const [lifetime, setLifetime] = useState<number>(
-    featureType?.lifetimeDays || 0,
-  );
-  const [doesntExpire, setDoesntExpire] = useState<boolean>(
-    !featureType?.lifetimeDays,
-  );
+  const { updateFeatureTypeLifetime, loading: actionLoading } = useFeatureTypeApi();
+  const [lifetime, setLifetime] = useState<number>(featureType?.lifetimeDays || 0);
+  const [doesntExpire, setDoesntExpire] = useState<boolean>(!featureType?.lifetimeDays);
   const { setToastData, setToastApiError } = useToast();
   const tracker = usePlausibleTracker();
 
@@ -117,9 +109,7 @@ export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
   return (
     <FormTemplate
       modal
-      title={
-        loading ? 'Edit flag type' : `Edit flag type: ${featureType?.name}`
-      }
+      title={loading ? 'Edit flag type' : `Edit flag type: ${featureType?.name}`}
       description={featureType?.description || ''}
       documentationLink='https://docs.getunleash.io/reference/feature-toggles#feature-flag-types'
       documentationLinkLabel='Feature flag types documentation'
@@ -141,8 +131,7 @@ export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
             tooltip={
               <>
                 <p>
-                  If your flag exceeds the expected lifetime of its flag type it
-                  will be marked as potentially stale.
+                  If your flag exceeds the expected lifetime of its flag type it will be marked as potentially stale.
                 </p>
                 <br />
                 <a
@@ -195,11 +184,7 @@ export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
           >
             Save feature flag type
           </PermissionButton>
-          <Button
-            type='button'
-            color='primary'
-            onClick={() => navigate(GO_BACK)}
-          >
+          <Button type='button' color='primary' onClick={() => navigate(GO_BACK)}>
             Cancel
           </Button>
         </StyledButtons>

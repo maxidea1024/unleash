@@ -26,10 +26,7 @@ export const MarkCompletedDialogue = ({
   onComplete,
 }: IMarkCompletedDialogueProps) => {
   const { markFeatureCompleted } = useFeatureLifecycleApi();
-  const { parentVariantOptions: variantOptions } = useParentVariantOptions(
-    projectId,
-    featureId,
-  );
+  const { parentVariantOptions: variantOptions } = useParentVariantOptions(projectId, featureId);
   const [status, setStatus] = useState<Status>('kept');
   const [variant, setVariant] = useState<string | undefined>(undefined);
 
@@ -70,11 +67,10 @@ export const MarkCompletedDialogue = ({
             mb: 4,
           }}
         >
-          Marking the feature <b>{featureId}</b> as complete does not affect any
-          configuration, but it moves the feature flag into it’s next life cycle
-          stage and is an indication that you have learned what you needed in
-          order to progress with the feature. It serves as a reminder to start
-          cleaning up the feature flag and removing it from the code.
+          Marking the feature <b>{featureId}</b> as complete does not affect any configuration, but it moves the feature
+          flag into it’s next life cycle stage and is an indication that you have learned what you needed in order to
+          progress with the feature. It serves as a reminder to start cleaning up the feature flag and removing it from
+          the code.
         </Box>
 
         <Typography
@@ -116,17 +112,14 @@ export const MarkCompletedDialogue = ({
                 value={'kept-with-variant'}
                 legal={{
                   value: 'We decided to keep the feature variant',
-                  description:
-                    'Choose to specify which feature variant will be kept',
+                  description: 'Choose to specify which feature variant will be kept',
                 }}
                 control={<Radio />}
               />
             }
           />
           <ConditionallyRender
-            condition={
-              variantOptions.length > 0 && status === 'kept-with-variant'
-            }
+            condition={variantOptions.length > 0 && status === 'kept-with-variant'}
             show={
               <SingleVariantOptions
                 parent={featureId}

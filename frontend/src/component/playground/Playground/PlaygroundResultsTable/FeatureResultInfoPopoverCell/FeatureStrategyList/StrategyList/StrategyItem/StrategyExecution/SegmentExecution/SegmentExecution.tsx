@@ -20,10 +20,7 @@ const SegmentResultTextWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const SegmentExecution: VFC<ISegmentExecutionProps> = ({
-  segments,
-  input,
-}) => {
+export const SegmentExecution: VFC<ISegmentExecutionProps> = ({ segments, input }) => {
   if (!segments) return null;
 
   return (
@@ -32,12 +29,7 @@ export const SegmentExecution: VFC<ISegmentExecutionProps> = ({
         <Fragment key={segment.id}>
           <SegmentItem
             segment={segment}
-            constraintList={
-              <ConstraintExecution
-                constraints={segment.constraints}
-                input={input}
-              />
-            }
+            constraintList={<ConstraintExecution constraints={segment.constraints} input={input} />}
             headerContent={
               <ConditionallyRender
                 condition={!segment.result}

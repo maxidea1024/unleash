@@ -30,9 +30,7 @@ const joinPaths = (...paths: string[]): string => {
 };
 
 const basePathMetaTagContent = (): string => {
-  const el = document.querySelector<HTMLMetaElement>(
-    'meta[name="baseUriPath"]',
-  );
+  const el = document.querySelector<HTMLMetaElement>('meta[name="baseUriPath"]');
 
   return el?.content ?? '';
 };

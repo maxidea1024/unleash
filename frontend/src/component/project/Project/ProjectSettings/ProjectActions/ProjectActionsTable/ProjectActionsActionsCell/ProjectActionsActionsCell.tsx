@@ -30,10 +30,7 @@ interface IProjectActionsActionsCellProps {
   onCreateAction?: () => void;
 }
 
-export const ProjectActionsActionsCell = ({
-  action,
-  onCreateAction,
-}: IProjectActionsActionsCellProps) => {
+export const ProjectActionsActionsCell = ({ action, onCreateAction }: IProjectActionsActionsCellProps) => {
   const { actions } = action;
 
   if (actions.length === 0) {

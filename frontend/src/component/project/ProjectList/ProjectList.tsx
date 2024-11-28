@@ -37,22 +37,13 @@ export const ProjectList = () => {
 
   const myProjects = new Set(useProfile().profile?.projects || []);
 
-  const setSearchValue = useCallback(
-    (value: string) => setState({ query: value || undefined }),
-    [setState],
-  );
+  const setSearchValue = useCallback((value: string) => setState({ query: value || undefined }), [setState]);
 
-  const sortedProjects = useProjectsSearchAndSort(
-    projects,
-    state.query,
-    state.sortBy,
-  );
+  const sortedProjects = useProjectsSearchAndSort(projects, state.query, state.sortBy);
   const groupedProjects = useGroupedProjects(sortedProjects, myProjects);
 
   const projectCount =
-    sortedProjects.length < projects.length
-      ? `${sortedProjects.length} of ${projects.length}`
-      : projects.length;
+    sortedProjects.length < projects.length ? `${sortedProjects.length} of ${projects.length}` : projects.length;
 
   return (
     <PageContent
@@ -66,10 +57,7 @@ export const ProjectList = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={state.query || ''}
-                      onChange={setSearchValue}
-                    />
+                    <Search initialValue={state.query || ''} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -89,12 +77,7 @@ export const ProjectList = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search
-                initialValue={state.query || ''}
-                onChange={setSearchValue}
-              />
-            }
+            show={<Search initialValue={state.query || ''} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
@@ -102,9 +85,7 @@ export const ProjectList = () => {
       <StyledContainer>
         <ConditionallyRender
           condition={error}
-          show={() => (
-            <StyledApiError onClick={refetch} text='Error fetching projects' />
-          )}
+          show={() => <StyledApiError onClick={refetch} text='Error fetching projects' />}
         />
         <SearchHighlightProvider value={state.query || ''}>
           <ProjectGroup

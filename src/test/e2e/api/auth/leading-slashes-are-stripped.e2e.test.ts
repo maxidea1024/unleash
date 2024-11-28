@@ -10,10 +10,7 @@ let stores: IUnleashStores;
 let db: ITestDb;
 
 beforeAll(async () => {
-  db = await dbInit(
-    'multiple_leading_slashes_are_still_authed_serial',
-    getLogger,
-  );
+  db = await dbInit('multiple_leading_slashes_are_still_authed_serial', getLogger);
   stores = db.stores;
   app = await setupAppWithAuth(
     stores,
@@ -64,8 +61,5 @@ test('Access with API token is granted', async () => {
     tokenName: 'test',
     type: ApiTokenType.CLIENT,
   });
-  await app.request
-    .get('/api/client/features')
-    .set('Authorization', token.secret)
-    .expect(200);
+  await app.request.get('/api/client/features').set('Authorization', token.secret).expect(200);
 });

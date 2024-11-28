@@ -5,9 +5,7 @@ import { hoursToSeconds } from 'date-fns';
 
 const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
   if (config.secureHeaders) {
-    const includeUnsafeInline = !config.flagResolver.isEnabled(
-      'removeUnsafeInlineStyleSrc',
-    );
+    const includeUnsafeInline = !config.flagResolver.isEnabled('removeUnsafeInlineStyleSrc');
 
     const styleSrc = ["'self'"];
     if (includeUnsafeInline) {
@@ -30,12 +28,7 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
       },
       contentSecurityPolicy: {
         directives: {
-          defaultSrc: [
-            "'self'",
-            'cdn.getunleash.io',
-            'gravatar.com',
-            ...config.additionalCspAllowedDomains.defaultSrc,
-          ],
+          defaultSrc: ["'self'", 'cdn.getunleash.io', 'gravatar.com', ...config.additionalCspAllowedDomains.defaultSrc],
           fontSrc: [
             "'self'",
             'cdn.getunleash.io',
@@ -44,11 +37,7 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
             ...config.additionalCspAllowedDomains.fontSrc,
           ],
           styleSrc,
-          scriptSrc: [
-            "'self'",
-            'cdn.getunleash.io',
-            ...config.additionalCspAllowedDomains.scriptSrc,
-          ],
+          scriptSrc: ["'self'", 'cdn.getunleash.io', ...config.additionalCspAllowedDomains.scriptSrc],
           imgSrc: [
             "'self'",
             'data:',
@@ -65,16 +54,8 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
             'app.unleash-hosted.com',
             ...config.additionalCspAllowedDomains.connectSrc,
           ],
-          mediaSrc: [
-            '*.youtube.com',
-            '*.youtube-nocookie.com',
-            ...config.additionalCspAllowedDomains.mediaSrc,
-          ],
-          objectSrc: [
-            '*.youtube.com',
-            '*.youtube-nocookie.com',
-            ...config.additionalCspAllowedDomains.objectSrc,
-          ],
+          mediaSrc: ['*.youtube.com', '*.youtube-nocookie.com', ...config.additionalCspAllowedDomains.mediaSrc],
+          objectSrc: ['*.youtube.com', '*.youtube-nocookie.com', ...config.additionalCspAllowedDomains.objectSrc],
           frameSrc: [
             "'self'",
             'cdn.getunleash.io',

@@ -41,11 +41,8 @@ const ChangeRequestCount = styled(Typography)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-export const ProjectOverviewChangeRequests: FC<{ project: string }> = ({
-  project,
-}) => {
-  const { isChangeRequestConfiguredInAnyEnv } =
-    useChangeRequestsEnabled(project);
+export const ProjectOverviewChangeRequests: FC<{ project: string }> = ({ project }) => {
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(project);
   const { data } = useChangeRequestsCount(project);
 
   if (!isChangeRequestConfiguredInAnyEnv()) {
@@ -66,9 +63,7 @@ export const ProjectOverviewChangeRequests: FC<{ project: string }> = ({
         <span>To be reviewed</span>
         <ChangeRequestCount>{toBeReviewed}</ChangeRequestCount>
       </ReviewBox>
-      <Link to={`/projects/${project}/change-requests`}>
-        View change requests
-      </Link>
+      <Link to={`/projects/${project}/change-requests`}>View change requests</Link>
     </ChangeRequestContainer>
   );
 };

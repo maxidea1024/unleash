@@ -8,13 +8,7 @@ interface IStringTruncatorProps {
   maxLength: number;
 }
 
-const StringTruncator = ({
-  text,
-  maxWidth,
-  maxLength,
-  className,
-  ...rest
-}: IStringTruncatorProps) => {
+const StringTruncator = ({ text, maxWidth, maxLength, className, ...rest }: IStringTruncatorProps) => {
   return (
     <ConditionallyRender
       condition={(text?.length ?? 0) > maxLength}

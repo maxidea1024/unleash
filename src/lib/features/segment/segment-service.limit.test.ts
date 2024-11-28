@@ -19,8 +19,7 @@ test('Should not allow to exceed segment limit', async () => {
     },
   } as unknown as IUnleashConfig);
 
-  const createSegment = (name: string) =>
-    segmentService.create({ name, constraints: [] }, {} as IAuditUser);
+  const createSegment = (name: string) => segmentService.create({ name, constraints: [] }, {} as IAuditUser);
 
   await createSegment('segmentA');
 

@@ -33,19 +33,12 @@ export const DependencyChange: VFC<{
         <>
           <ChangeItemWrapper>
             <AddDependencyWrapper>
-              <Typography color={'success.dark'}>
-                + Adding dependency:
-              </Typography>
-              <StyledLink
-                to={`/projects/${projectId}/features/${change.payload.feature}`}
-                onClick={onNavigate}
-              >
+              <Typography color={'success.dark'}>+ Adding dependency:</Typography>
+              <StyledLink to={`/projects/${projectId}/features/${change.payload.feature}`} onClick={onNavigate}>
                 {change.payload.feature}
               </StyledLink>
               {!change.payload.enabled ? ' (disabled)' : null}
-              {change.payload.variants?.length
-                ? `(${change.payload.variants?.join(', ')})`
-                : null}
+              {change.payload.variants?.length ? `(${change.payload.variants?.join(', ')})` : null}
             </AddDependencyWrapper>
             {actions}
           </ChangeItemWrapper>

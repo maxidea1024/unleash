@@ -25,8 +25,7 @@ export const featureEnvironmentMetricsSchema = {
       example: 'development',
     },
     timestamp: {
-      description:
-        'The start of the time window these metrics are valid for. The window is usually 1 hour wide',
+      description: 'The start of the time window these metrics are valid for. The window is usually 1 hour wide',
       example: '1926-05-08T12:00:00.000Z',
       $ref: '#/components/schemas/dateSchema',
     },
@@ -61,6 +60,4 @@ export const featureEnvironmentMetricsSchema = {
   },
 } as const;
 
-export type FeatureEnvironmentMetricsSchema = FromSchema<
-  typeof featureEnvironmentMetricsSchema
->;
+export type FeatureEnvironmentMetricsSchema = FromSchema<typeof featureEnvironmentMetricsSchema>;

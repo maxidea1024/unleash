@@ -70,16 +70,10 @@ export const ExistingFlag: FC<{ project: string }> = ({ project }) => {
         <Typography fontWeight='bold' variant='body2'>
           You have created your first flag
         </Typography>
-        <Typography variant='body2'>
-          Go to the project to customize the flag further.
-        </Typography>
+        <Typography variant='body2'>Go to the project to customize the flag further.</Typography>
       </SuccessContainer>
       <div>
-        <Button
-          component={Link}
-          to={`/projects/${project}`}
-          variant='contained'
-        >
+        <Button component={Link} to={`/projects/${project}`} variant='contained'>
           Go to project
         </Button>
       </div>
@@ -103,11 +97,7 @@ export const ConnectSDK: FC<{ project: string }> = ({ project }) => {
         <p>To start using your feature flag, connect an SDK to the project.</p>
       </div>
       <div>
-        <Button
-          component={Link}
-          to={`/projects/${project}`}
-          variant='contained'
-        >
+        <Button component={Link} to={`/projects/${project}`} variant='contained'>
           Go to project
         </Button>
       </div>

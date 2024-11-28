@@ -25,8 +25,7 @@ const columns = [
     accessor: 'stale',
     filterName: 'state',
     filterBy: (row: any, values: string[]) =>
-      (values.includes('active') && !row.stale) ||
-      (values.includes('stale') && row.stale),
+      (values.includes('active') && !row.stale) || (values.includes('stale') && row.stale),
   },
   {
     accessor: (row: any) => row.type,
@@ -35,12 +34,10 @@ const columns = [
   {
     accessor: 'seen',
     searchable: true,
-    searchBy: (row: any, value: string) =>
-      (value === 'seen' && row.seen) || (value === 'never' && !row.seen),
+    searchBy: (row: any, value: string) => (value === 'seen' && row.seen) || (value === 'never' && !row.seen),
   },
   {
-    accessor: (row: IFeatureFlagListItem) =>
-      row.tags?.map(({ type, value }) => `${type}:${value}`).join('\n') || '',
+    accessor: (row: IFeatureFlagListItem) => row.tags?.map(({ type, value }) => `${type}:${value}`).join('\n') || '',
     searchable: true,
     filterName: 'tags',
     filterBy(row: IFeatureFlagListItem, values: string[]) {
@@ -385,59 +382,31 @@ describe('Search and filter data', () => {
   });
 
   it('should handle multiple filters', () => {
-    render(
-      <SearchData
-        searchValue={'project:my-project ,another-value state:active'}
-      />,
-    );
+    render(<SearchData searchValue={'project:my-project ,another-value state:active'} />);
 
     screen.getByText('my-feature-flag-3');
   });
 
   it('should handle multiple filters with long spaces', () => {
-    render(
-      <SearchData
-        searchValue={
-          'project:my-project   ,   another-value   state:active   ,   stale'
-        }
-      />,
-    );
+    render(<SearchData searchValue={'project:my-project   ,   another-value   state:active   ,   stale'} />);
 
     screen.getByText('my-feature-flag-3,my-feature-flag-4');
   });
 
   it('should handle multiple filters and search string in between', () => {
-    render(
-      <SearchData
-        searchValue={
-          'project:my-project , another-value flag-3 state:active , stale'
-        }
-      />,
-    );
+    render(<SearchData searchValue={'project:my-project , another-value flag-3 state:active , stale'} />);
 
     screen.getByText('my-feature-flag-3');
   });
 
   it('should handle multiple filters and search string at the end', () => {
-    render(
-      <SearchData
-        searchValue={
-          'project:my-project , another-value state:active , stale flag-3'
-        }
-      />,
-    );
+    render(<SearchData searchValue={'project:my-project , another-value state:active , stale flag-3'} />);
 
     screen.getByText('my-feature-flag-3');
   });
 
   it('should handle multiple filters and search string at the beginning', () => {
-    render(
-      <SearchData
-        searchValue={
-          'flag-3 project:my-project , another-value state:active , stale'
-        }
-      />,
-    );
+    render(<SearchData searchValue={'flag-3 project:my-project , another-value state:active , stale'} />);
 
     screen.getByText('my-feature-flag-3');
   });
@@ -449,13 +418,7 @@ describe('Search and filter data', () => {
   });
 
   it('should return advanced search text', () => {
-    render(
-      <SearchText
-        searchValue={
-          'project:my-project , another-value flag-3 state:active , stale'
-        }
-      />,
-    );
+    render(<SearchText searchValue={'project:my-project , another-value flag-3 state:active , stale'} />);
 
     screen.getByText('flag-3');
   });
@@ -485,11 +448,7 @@ describe('Search and filter data', () => {
   });
 
   it('should support quotes in filter and search', () => {
-    render(
-      <SearchData
-        searchValue={'tags:tag,"simple:some space" "my-feature-flag"'}
-      />,
-    );
+    render(<SearchData searchValue={'tags:tag,"simple:some space" "my-feature-flag"'} />);
 
     screen.getByText('my-feature-flag');
   });

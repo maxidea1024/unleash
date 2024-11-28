@@ -2,11 +2,7 @@ import type EventEmitter from 'events';
 import type { Logger, LogProvider } from '../logger';
 import NotFoundError from '../error/notfound-error';
 import type { ICustomRole } from '../types/model';
-import type {
-  ICustomRoleInsert,
-  ICustomRoleUpdate,
-  IRoleStore,
-} from '../types/stores/role-store';
+import type { ICustomRoleInsert, ICustomRoleUpdate, IRoleStore } from '../types/stores/role-store';
 import type { IRole, IUserRole } from '../types/stores/access-store';
 import type { Db } from './db';
 import { PROJECT_ROLE_TYPES, ROOT_ROLE_TYPES } from '../util';
@@ -40,10 +36,7 @@ export default class RoleStore implements IRoleStore {
   }
 
   async getAll(): Promise<ICustomRole[]> {
-    const rows = await this.db
-      .select(COLUMNS)
-      .from(T.ROLES)
-      .orderBy('name', 'asc');
+    const rows = await this.db.select(COLUMNS).from(T.ROLES).orderBy('name', 'asc');
 
     return rows.map(this.mapRow);
   }
@@ -70,9 +63,7 @@ export default class RoleStore implements IRoleStore {
       .leftJoin('role_user as ru', 'roles.id', 'ru.role_id')
       .leftJoin('groups as g', 'roles.id', 'g.root_role_id')
       .where(filter)
-      .andWhere((qb) =>
-        qb.whereNotNull('ru.role_id').orWhereNotNull('g.root_role_id'),
-      )
+      .andWhere((qb) => qb.whereNotNull('ru.role_id').orWhereNotNull('g.root_role_id'))
       .then((res) => Number(res[0].count));
   }
 
@@ -114,10 +105,7 @@ export default class RoleStore implements IRoleStore {
   }
 
   async exists(id: number): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${T.ROLES} WHERE id = ?) AS present`,
-      [id],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${T.ROLES} WHERE id = ?) AS present`, [id]);
     const { present } = result.rows[0];
     return present;
   }
@@ -149,17 +137,11 @@ export default class RoleStore implements IRoleStore {
   }
 
   async getRoles(): Promise<IRole[]> {
-    return this.db
-      .select(['id', 'name', 'type', 'description'])
-      .from<IRole>(T.ROLES);
+    return this.db.select(['id', 'name', 'type', 'description']).from<IRole>(T.ROLES);
   }
 
   async getRoleWithId(id: number): Promise<IRole> {
-    return this.db
-      .select(['id', 'name', 'type', 'description'])
-      .where('id', id)
-      .first()
-      .from<IRole>(T.ROLES);
+    return this.db.select(['id', 'name', 'type', 'description']).where('id', id).first().from<IRole>(T.ROLES);
   }
 
   async getProjectRoles(): Promise<IRole[]> {
@@ -178,10 +160,7 @@ export default class RoleStore implements IRoleStore {
   }
 
   async getRootRoles(): Promise<IRole[]> {
-    return this.db
-      .select(['id', 'name', 'type', 'description'])
-      .from<IRole>(T.ROLES)
-      .whereIn('type', ROOT_ROLE_TYPES);
+    return this.db.select(['id', 'name', 'type', 'description']).from<IRole>(T.ROLES).whereIn('type', ROOT_ROLE_TYPES);
   }
 
   async removeRolesForProject(projectId: string): Promise<void> {

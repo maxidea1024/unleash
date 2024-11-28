@@ -37,21 +37,15 @@ export class FeatureLifecycleStore implements IFeatureLifecycleStore {
     `);
   }
 
-  async insert(
-    featureLifecycleStages: FeatureLifecycleStage[],
-  ): Promise<NewStage[]> {
+  async insert(featureLifecycleStages: FeatureLifecycleStage[]): Promise<NewStage[]> {
     const existingFeatures = await this.db('features')
       .select('name')
       .whereIn(
         'name',
         featureLifecycleStages.map((stage) => stage.feature),
       );
-    const existingFeaturesSet = new Set(
-      existingFeatures.map((item) => item.name),
-    );
-    const validStages = featureLifecycleStages.filter((stage) =>
-      existingFeaturesSet.has(stage.feature),
-    );
+    const existingFeaturesSet = new Set(existingFeatures.map((item) => item.name));
+    const validStages = featureLifecycleStages.filter((stage) => existingFeaturesSet.has(stage.feature));
 
     if (validStages.length === 0) {
       return [];
@@ -77,9 +71,7 @@ export class FeatureLifecycleStore implements IFeatureLifecycleStore {
   }
 
   async get(feature: string): Promise<FeatureLifecycleView> {
-    const results = await this.db('feature_lifecycles')
-      .where({ feature })
-      .orderBy('created_at', 'asc');
+    const results = await this.db('feature_lifecycles').where({ feature }).orderBy('created_at', 'asc');
 
     return results.map(({ stage, status, created_at }: DBType) => ({
       stage,
@@ -94,14 +86,12 @@ export class FeatureLifecycleStore implements IFeatureLifecycleStore {
       .leftJoin('features as f', 'f.name', 'flc.feature')
       .orderBy('created_at', 'asc');
 
-    return results.map(
-      ({ feature, stage, created_at, project }: DBProjectType) => ({
-        feature,
-        stage,
-        project,
-        enteredStageAt: new Date(created_at),
-      }),
-    );
+    return results.map(({ feature, stage, created_at, project }: DBProjectType) => ({
+      feature,
+      stage,
+      project,
+      enteredStageAt: new Date(created_at),
+    }));
   }
 
   async delete(feature: string): Promise<void> {

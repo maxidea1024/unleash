@@ -16,8 +16,7 @@ const stageDataWithAverageDaysSchema = {
     },
     currentFlags: {
       type: 'integer',
-      description:
-        'The number of feature flags currently in a stage in this project.',
+      description: 'The number of feature flags currently in a stage in this project.',
       example: 10,
     },
   },
@@ -27,13 +26,7 @@ export const projectStatusSchema = {
   $id: '#/components/schemas/projectStatusSchema',
   type: 'object',
   additionalProperties: false,
-  required: [
-    'activityCountByDate',
-    'resources',
-    'averageHealth',
-    'lifecycleSummary',
-    'staleFlags',
-  ],
+  required: ['activityCountByDate', 'resources', 'averageHealth', 'lifecycleSummary', 'staleFlags'],
   description:
     'Schema representing the overall status of a project, including an array of activity records. Each record in the activity array contains a date and a count, providing a snapshot of the project’s activity level over time.',
   properties: {
@@ -45,8 +38,7 @@ export const projectStatusSchema = {
     averageHealth: {
       type: 'integer',
       minimum: 0,
-      description:
-        'The average health score over the last 4 weeks, indicating whether features are stale or active.',
+      description: 'The average health score over the last 4 weeks, indicating whether features are stale or active.',
     },
     resources: {
       type: 'object',
@@ -57,14 +49,12 @@ export const projectStatusSchema = {
         connectedEnvironments: {
           type: 'integer',
           minimum: 0,
-          description:
-            'The number of environments that have received SDK traffic in this project.',
+          description: 'The number of environments that have received SDK traffic in this project.',
         },
         apiTokens: {
           type: 'integer',
           minimum: 0,
-          description:
-            'The number of API tokens created specifically for this project.',
+          description: 'The number of API tokens created specifically for this project.',
         },
         members: {
           type: 'integer',
@@ -75,23 +65,20 @@ export const projectStatusSchema = {
         segments: {
           type: 'integer',
           minimum: 0,
-          description:
-            'The number of segments that are scoped to this project.',
+          description: 'The number of segments that are scoped to this project.',
         },
       },
     },
     staleFlags: {
       type: 'object',
       additionalProperties: false,
-      description:
-        'Information on stale and potentially stale flags in this project.',
+      description: 'Information on stale and potentially stale flags in this project.',
       required: ['total'],
       properties: {
         total: {
           type: 'integer',
           minimum: 0,
-          description:
-            'The total number of flags in this project that are stale or potentially stale.',
+          description: 'The total number of flags in this project that are stale or potentially stale.',
         },
       },
     },
@@ -119,8 +106,7 @@ export const projectStatusSchema = {
             },
             last30Days: {
               type: 'integer',
-              description:
-                'The number of flags in this project that have been changed over the last 30 days.',
+              description: 'The number of flags in this project that have been changed over the last 30 days.',
               example: 5,
             },
           },

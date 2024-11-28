@@ -16,20 +16,11 @@ export const StyledLink = styled('div')(({ theme }) => ({
   margin: 0,
 }));
 
-export const ChangeRequestTitleCell = ({
-  value,
-  row: { original },
-}: IChangeRequestTitleCellProps) => {
+export const ChangeRequestTitleCell = ({ value, row: { original } }: IChangeRequestTitleCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
   const projectId = useRequiredPathParam('projectId');
-  const {
-    id,
-    title,
-    features: featureChanges,
-    segments: segmentChanges,
-  } = original;
-  const totalChanges =
-    (featureChanges || []).length + (segmentChanges || []).length;
+  const { id, title, features: featureChanges, segments: segmentChanges } = original;
+  const totalChanges = (featureChanges || []).length + (segmentChanges || []).length;
   const path = `/projects/${projectId}/change-requests/${id}`;
 
   if (!value) {

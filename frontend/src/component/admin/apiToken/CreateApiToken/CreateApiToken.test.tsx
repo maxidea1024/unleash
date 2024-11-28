@@ -2,11 +2,7 @@ import { render } from 'utils/testRenderer';
 import { screen, waitFor } from '@testing-library/react';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
 import { CreateApiToken } from './CreateApiToken';
-import {
-  ADMIN,
-  CREATE_CLIENT_API_TOKEN,
-  CREATE_FRONTEND_API_TOKEN,
-} from '@server/types/permissions';
+import { ADMIN, CREATE_CLIENT_API_TOKEN, CREATE_FRONTEND_API_TOKEN } from '@server/types/permissions';
 
 const permissions = [
   { permission: CREATE_CLIENT_API_TOKEN },

@@ -38,17 +38,10 @@ export const EditContext = () => {
     clearErrors,
     setErrors,
     errors,
-  } = useContextForm(
-    context?.name,
-    context?.description,
-    context?.legalValues,
-    context?.stickiness,
-  );
+  } = useContextForm(context?.name, context?.description, context?.legalValues, context?.stickiness);
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/context/${name}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/context/${name}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getContextPayload(), undefined, 2)}'`;

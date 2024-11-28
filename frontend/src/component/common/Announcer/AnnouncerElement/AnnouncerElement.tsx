@@ -17,16 +17,9 @@ const StyledContainer = styled('div')({
   overflow: 'hidden',
 });
 
-export const AnnouncerElement = ({
-  announcement,
-}: IAnnouncerElementProps): ReactElement => {
+export const AnnouncerElement = ({ announcement }: IAnnouncerElementProps): ReactElement => {
   return (
-    <StyledContainer
-      role='status'
-      aria-live='polite'
-      aria-atomic
-      data-testid={ANNOUNCER_ELEMENT_TEST_ID}
-    >
+    <StyledContainer role='status' aria-live='polite' aria-atomic data-testid={ANNOUNCER_ELEMENT_TEST_ID}>
       {announcement}
     </StyledContainer>
   );

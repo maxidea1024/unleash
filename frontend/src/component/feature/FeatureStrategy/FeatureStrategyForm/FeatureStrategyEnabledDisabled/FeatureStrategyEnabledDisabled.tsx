@@ -1,10 +1,4 @@
-import {
-  Box,
-  FormControlLabel,
-  styled,
-  Switch,
-  Typography,
-} from '@mui/material';
+import { Box, FormControlLabel, styled, Switch, Typography } from '@mui/material';
 import type { VFC } from 'react';
 
 interface IFeatureStrategyEnabledDisabledProps {
@@ -21,16 +15,15 @@ const StyledBox = styled(Box)(({ theme }) => ({
   borderRadius: `${theme.shape.borderRadiusMedium}px`,
 }));
 
-export const FeatureStrategyEnabledDisabled: VFC<
-  IFeatureStrategyEnabledDisabledProps
-> = ({ enabled, onToggleEnabled }) => {
+export const FeatureStrategyEnabledDisabled: VFC<IFeatureStrategyEnabledDisabledProps> = ({
+  enabled,
+  onToggleEnabled,
+}) => {
   return (
     <StyledBox>
       <Typography>Strategy Status</Typography>
       <FormControlLabel
-        control={
-          <Switch name='enabled' onChange={onToggleEnabled} checked={enabled} />
-        }
+        control={<Switch name='enabled' onChange={onToggleEnabled} checked={enabled} />}
         label='Enabled'
       />
     </StyledBox>

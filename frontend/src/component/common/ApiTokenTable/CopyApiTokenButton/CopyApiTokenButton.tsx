@@ -11,12 +11,7 @@ interface ICopyApiTokenButtonProps {
   track?: () => void;
 }
 
-export const CopyApiTokenButton = ({
-  token,
-  project,
-  permission,
-  track,
-}: ICopyApiTokenButtonProps) => {
+export const CopyApiTokenButton = ({ token, project, permission, track }: ICopyApiTokenButtonProps) => {
   const { setToastData } = useToast();
 
   const copyToken = (value: string) => {

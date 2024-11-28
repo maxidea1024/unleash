@@ -41,15 +41,9 @@ export const AccessMatrix = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const [project, setProject] = useState(query.project ?? '');
-  const [environment, setEnvironment] = useState(
-    query.environment ?? undefined,
-  );
+  const [environment, setEnvironment] = useState(query.environment ?? undefined);
 
-  const { matrix, rootRole, projectRoles } = useUserAccessMatrix(
-    id,
-    project,
-    environment,
-  );
+  const { matrix, rootRole, projectRoles } = useUserAccessMatrix(id, project, environment);
 
   useEffect(() => {
     setQuery(
@@ -73,9 +67,7 @@ export const AccessMatrix = () => {
       <AccessMatrixSelect
         label='Environment'
         options={environments}
-        getOptionLabel={(option) =>
-          option?.name.concat(!option.enabled ? ' - deprecated' : '') ?? ''
-        }
+        getOptionLabel={(option) => option?.name.concat(!option.enabled ? ' - deprecated' : '') ?? ''}
         value={environments.find(({ name }) => name === environment)}
         setValue={(value) => setEnvironment(value?.name)}
       />
@@ -88,12 +80,7 @@ export const AccessMatrix = () => {
       header={
         <PageHeader
           title={`Access for ${user.name ?? user.username}`}
-          actions={
-            <ConditionallyRender
-              condition={!isSmallScreen}
-              show={AccessActions}
-            />
-          }
+          actions={<ConditionallyRender condition={!isSmallScreen} show={AccessActions} />}
         >
           <ConditionallyRender condition={isSmallScreen} show={AccessActions} />
         </PageHeader>
@@ -106,9 +93,7 @@ export const AccessMatrix = () => {
         {projectRoles?.map((role: any) => role.name).join(', ')}]
       </StyledTitle>
       <PermissionsTable permissions={matrix?.project ?? []} />
-      <StyledTitle>
-        Environment permissions for environment {environment}
-      </StyledTitle>
+      <StyledTitle>Environment permissions for environment {environment}</StyledTitle>
       <PermissionsTable permissions={matrix?.environment ?? []} />
     </PageContent>
   );

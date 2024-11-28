@@ -21,10 +21,7 @@ type Props = {
   title?: string | ReactNode;
 };
 
-export const ActionBox: FC<PropsWithChildren<Props>> = ({
-  title,
-  children,
-}) => {
+export const ActionBox: FC<PropsWithChildren<Props>> = ({ title, children }) => {
   return (
     <Container>
       {title ? <TitleContainer>{title}</TitleContainer> : null}

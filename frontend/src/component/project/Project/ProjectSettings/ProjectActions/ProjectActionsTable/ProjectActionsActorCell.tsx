@@ -8,10 +8,7 @@ interface IProjectActionsActorCellProps {
   serviceAccounts: IServiceAccount[];
 }
 
-export const ProjectActionsActorCell = ({
-  action,
-  serviceAccounts,
-}: IProjectActionsActorCellProps) => {
+export const ProjectActionsActorCell = ({ action, serviceAccounts }: IProjectActionsActorCellProps) => {
   const { actorId } = action;
   const actor = serviceAccounts.find(({ id }) => id === actorId);
 
@@ -19,11 +16,5 @@ export const ProjectActionsActorCell = ({
     return <TextCell>No service account</TextCell>;
   }
 
-  return (
-    <LinkCell
-      to='/admin/service-accounts'
-      title={actor.name}
-      subtitle={actor.username}
-    />
-  );
+  return <LinkCell to='/admin/service-accounts' title={actor.name} subtitle={actor.username} />;
 };

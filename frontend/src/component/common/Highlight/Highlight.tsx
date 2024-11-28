@@ -32,18 +32,12 @@ interface IHighlightProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-export const Highlight = forwardRef<HTMLDivElement, IHighlightProps>(
-  ({ highlightKey, children, ...props }, ref) => {
-    const { isHighlighted } = useHighlightContext();
+export const Highlight = forwardRef<HTMLDivElement, IHighlightProps>(({ highlightKey, children, ...props }, ref) => {
+  const { isHighlighted } = useHighlightContext();
 
-    return (
-      <StyledHighlight
-        ref={ref}
-        highlighted={isHighlighted(highlightKey)}
-        {...props}
-      >
-        {children}
-      </StyledHighlight>
-    );
-  },
-);
+  return (
+    <StyledHighlight ref={ref} highlighted={isHighlighted(highlightKey)} {...props}>
+      {children}
+    </StyledHighlight>
+  );
+});

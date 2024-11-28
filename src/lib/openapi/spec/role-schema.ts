@@ -3,8 +3,7 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const roleSchema = {
   $id: '#/components/schemas/roleSchema',
   type: 'object',
-  description:
-    'A role holds permissions to allow Unleash to decide what actions a role holder is allowed to perform',
+  description: 'A role holds permissions to allow Unleash to decide what actions a role holder is allowed to perform',
   additionalProperties: false,
   required: ['id', 'type', 'name'],
   properties: {
@@ -15,8 +14,7 @@ export const roleSchema = {
       minimum: 0,
     },
     type: {
-      description:
-        'A role can either be a global root role (applies to all projects) or a project role',
+      description: 'A role can either be a global root role (applies to all projects) or a project role',
       type: 'string',
       example: 'root',
     },

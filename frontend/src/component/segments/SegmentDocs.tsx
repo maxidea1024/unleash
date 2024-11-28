@@ -11,11 +11,7 @@ export const SegmentDocsValuesInfo = () => {
   return (
     <Alert severity='info'>
       A segment can have{' '}
-      <a
-        href='https://docs.getunleash.io/reference/segments#segment-limits'
-        target='_blank'
-        rel='noreferrer'
-      >
+      <a href='https://docs.getunleash.io/reference/segments#segment-limits' target='_blank' rel='noreferrer'>
         at most {segmentValuesLimit} values across all of its constraints
       </a>
       . <SegmentLimitsLink />
@@ -33,15 +29,10 @@ export const SegmentDocsValuesError = (props: { values: number }) => {
   return (
     <Alert severity='error'>
       A segment can have{' '}
-      <a
-        href='https://docs.getunleash.io/reference/segments#segment-limits'
-        target='_blank'
-        rel='noreferrer'
-      >
+      <a href='https://docs.getunleash.io/reference/segments#segment-limits' target='_blank' rel='noreferrer'>
         at most {segmentValuesLimit} across all of its contraints
       </a>
-      . This segment has {props.values}{' '}
-      {props.values === 1 ? 'value' : 'values'}.
+      . This segment has {props.values} {props.values === 1 ? 'value' : 'values'}.
     </Alert>
   );
 };
@@ -55,8 +46,7 @@ export const SegmentDocsStrategyWarning = () => {
 
   return (
     <Alert severity='warning'>
-      You can't apply more than {strategySegmentsLimit} segments to a strategy.{' '}
-      <SegmentLimitsLink />
+      You can't apply more than {strategySegmentsLimit} segments to a strategy. <SegmentLimitsLink />
     </Alert>
   );
 };

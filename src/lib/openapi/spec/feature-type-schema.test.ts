@@ -9,13 +9,9 @@ test('featureTypeSchema', () => {
     lifetimeDays: 0,
   };
 
-  expect(
-    validateSchema('#/components/schemas/featureTypeSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/featureTypeSchema', data)).toBeUndefined();
 });
 
 test('featureTypeSchema empty', () => {
-  expect(
-    validateSchema('#/components/schemas/featureTypeSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/featureTypeSchema', {})).toMatchSnapshot();
 });

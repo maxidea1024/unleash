@@ -62,13 +62,9 @@ export const PaginationBar: React.FC<PaginationBarProps> = ({
 }) => {
   const itemRange =
     totalItems !== undefined && pageSize && totalItems > 1
-      ? `${pageIndex * pageSize + 1}-${Math.min(
-          totalItems,
-          (pageIndex + 1) * pageSize,
-        )}`
+      ? `${pageIndex * pageSize + 1}-${Math.min(totalItems, (pageIndex + 1) * pageSize)}`
       : totalItems;
-  const pageCount =
-    totalItems !== undefined ? Math.ceil(totalItems / pageSize) : 1;
+  const pageCount = totalItems !== undefined ? Math.ceil(totalItems / pageSize) : 1;
   const hasPreviousPage = pageIndex > 0;
   const hasNextPage = totalItems !== undefined && pageIndex < pageCount - 1;
 
@@ -76,20 +72,14 @@ export const PaginationBar: React.FC<PaginationBarProps> = ({
     <StyledBoxContainer>
       <StyledTypography>
         {totalItems !== undefined
-          ? `Showing ${itemRange} item${
-              totalItems !== 1 ? 's' : ''
-            } out of ${totalItems}`
+          ? `Showing ${itemRange} item${totalItems !== 1 ? 's' : ''} out of ${totalItems}`
           : ' '}
       </StyledTypography>
       <StyledCenterBox>
         <ConditionallyRender
           condition={hasPreviousPage}
           show={
-            <StyledPaginationButton
-              variant='outlined'
-              color='primary'
-              onClick={fetchPrevPage}
-            >
+            <StyledPaginationButton variant='outlined' color='primary' onClick={fetchPrevPage}>
               <ArrowLeft />
             </StyledPaginationButton>
           }
@@ -100,11 +90,7 @@ export const PaginationBar: React.FC<PaginationBarProps> = ({
         <ConditionallyRender
           condition={hasNextPage}
           show={
-            <StyledPaginationButton
-              onClick={fetchNextPage}
-              variant='outlined'
-              color='primary'
-            >
+            <StyledPaginationButton onClick={fetchNextPage} variant='outlined' color='primary'>
               <ArrowRight />
             </StyledPaginationButton>
           }
@@ -123,9 +109,7 @@ export const PaginationBar: React.FC<PaginationBarProps> = ({
                 */}
         <StyledSelect
           value={pageSize}
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
-            setPageLimit(Number(event.target.value))
-          }
+          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => setPageLimit(Number(event.target.value))}
         >
           <option value={25}>25</option>
           <option value={50}>50</option>

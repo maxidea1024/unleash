@@ -33,11 +33,7 @@ test('should enrich metrics with environment from api-token', async () => {
     project: '*',
   });
 
-  await app.request
-    .post('/api/client/metrics')
-    .set('Authorization', token.secret)
-    .send(metricsExample)
-    .expect(202);
+  await app.request.post('/api/client/metrics').set('Authorization', token.secret).send(metricsExample).expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
   const all = await clientMetricsStoreV2.getAll();

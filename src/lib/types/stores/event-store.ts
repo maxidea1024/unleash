@@ -1,9 +1,6 @@
 import type { IBaseEvent, IEvent } from '../events';
 import type { IStore } from './store';
-import type {
-  DeprecatedSearchEventsSchema,
-  ProjectActivitySchema,
-} from '../../openapi';
+import type { DeprecatedSearchEventsSchema, ProjectActivitySchema } from '../../openapi';
 import type EventEmitter from 'events';
 import type { IQueryOperations } from '../../features/events/event-store';
 import type { IQueryParam } from '../../features/feature-toggle/types/feature-toggle-strategies-store-type';
@@ -33,23 +30,13 @@ export interface IEventStore
 
   count(): Promise<number>;
 
-  deprecatedFilteredCount(
-    search: DeprecatedSearchEventsSchema,
-  ): Promise<number>;
+  deprecatedFilteredCount(search: DeprecatedSearchEventsSchema): Promise<number>;
 
-  searchEventsCount(
-    params: IEventSearchParams,
-    queryParams: IQueryParam[],
-  ): Promise<number>;
+  searchEventsCount(params: IEventSearchParams, queryParams: IQueryParam[]): Promise<number>;
 
-  deprecatedSearchEvents(
-    search: DeprecatedSearchEventsSchema,
-  ): Promise<IEvent[]>;
+  deprecatedSearchEvents(search: DeprecatedSearchEventsSchema): Promise<IEvent[]>;
 
-  searchEvents(
-    params: IEventSearchParams,
-    queryParams: IQueryParam[],
-  ): Promise<IEvent[]>;
+  searchEvents(params: IEventSearchParams, queryParams: IQueryParam[]): Promise<IEvent[]>;
 
   getMaxRevisionId(currentMax?: number): Promise<number>;
 
@@ -61,7 +48,5 @@ export interface IEventStore
 
   getEventCreators(): Promise<Array<{ id: number; name: string }>>;
 
-  getProjectRecentEventActivity(
-    project: string,
-  ): Promise<ProjectActivitySchema>;
+  getProjectRecentEventActivity(project: string): Promise<ProjectActivitySchema>;
 }

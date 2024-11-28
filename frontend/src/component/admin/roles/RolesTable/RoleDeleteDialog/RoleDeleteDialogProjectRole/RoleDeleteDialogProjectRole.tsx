@@ -20,12 +20,7 @@ interface IRoleDeleteDialogProps {
   onConfirm: (role: IRole) => void;
 }
 
-export const RoleDeleteDialogProjectRole = ({
-  role,
-  open,
-  setOpen,
-  onConfirm,
-}: IRoleDeleteDialogProps) => {
+export const RoleDeleteDialogProjectRole = ({ role, open, setOpen, onConfirm }: IRoleDeleteDialogProps) => {
   const { projects } = useProjectRoleAccessUsage(role?.id);
 
   const entitiesWithRole = Boolean(projects?.length);
@@ -48,16 +43,14 @@ export const RoleDeleteDialogProjectRole = ({
         show={
           <>
             <Alert severity='error'>
-              You are not allowed to delete a role that is currently in use.
-              Please change the role of the following entities first:
+              You are not allowed to delete a role that is currently in use. Please change the role of the following
+              entities first:
             </Alert>
             <ConditionallyRender
               condition={Boolean(projects?.length)}
               show={
                 <>
-                  <StyledLabel>
-                    Role assigned in {projects?.length} projects:
-                  </StyledLabel>
+                  <StyledLabel>Role assigned in {projects?.length} projects:</StyledLabel>
                   <StyledTableContainer>
                     <RoleDeleteDialogProjectRoleTable projects={projects} />
                   </StyledTableContainer>

@@ -26,25 +26,22 @@ export const EnvironmentsField: FC<IEnvironmentsFieldProps> = ({
       id: name,
     })),
   ];
-  const envValue = environmentOptions.filter(({ id }) =>
-    environments.includes(id),
-  );
+  const envValue = environmentOptions.filter(({ id }) => environments.includes(id));
 
-  const onEnvironmentsChange: ComponentProps<typeof Autocomplete>['onChange'] =
-    (event, value, reason) => {
-      const newEnvironments = value as IOption | IOption[];
-      if (reason === 'clear' || newEnvironments === null) {
+  const onEnvironmentsChange: ComponentProps<typeof Autocomplete>['onChange'] = (event, value, reason) => {
+    const newEnvironments = value as IOption | IOption[];
+    if (reason === 'clear' || newEnvironments === null) {
+      return setEnvironments([]);
+    }
+    if (Array.isArray(newEnvironments)) {
+      if (newEnvironments.length === 0) {
         return setEnvironments([]);
       }
-      if (Array.isArray(newEnvironments)) {
-        if (newEnvironments.length === 0) {
-          return setEnvironments([]);
-        }
-        return setEnvironments(newEnvironments.map(({ id }) => id));
-      }
+      return setEnvironments(newEnvironments.map(({ id }) => id));
+    }
 
-      return setEnvironments([newEnvironments.id]);
-    };
+    return setEnvironments([newEnvironments.id]);
+  };
 
   return (
     <Autocomplete
@@ -59,9 +56,7 @@ export const EnvironmentsField: FC<IEnvironmentsFieldProps> = ({
       renderTags={(value, getTagProps) => {
         return value.map((option, index) => {
           const { key, ...props } = getTagProps({ index });
-          return (
-            <Chip size='small' key={key} {...props} label={option.label} />
-          );
+          return <Chip size='small' key={key} {...props} label={option.label} />;
         });
       }}
       getOptionLabel={({ label }) => label}

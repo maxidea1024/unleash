@@ -11,8 +11,7 @@ export const useSuggestEnableDisable = ({
   strategy,
 }: IDisableEnableStrategyProps) => {
   const { addChange } = useChangeRequestApi();
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
   const { setToastData, setToastApiError } = useToast();
   const onSuggestEnableDisable = (enabled: boolean) => async () => {
     try {

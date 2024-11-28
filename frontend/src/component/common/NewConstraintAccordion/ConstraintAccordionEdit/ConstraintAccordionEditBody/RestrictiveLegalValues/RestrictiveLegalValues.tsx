@@ -4,10 +4,7 @@ import { Alert, Button, Checkbox, Chip, Stack, styled } from '@mui/material';
 import { ConstraintValueSearch } from 'component/common/ConstraintAccordion/ConstraintValueSearch/ConstraintValueSearch';
 import { ConstraintFormHeader } from '../ConstraintFormHeader/ConstraintFormHeader';
 import type { ILegalValue } from 'interfaces/context';
-import {
-  filterLegalValues,
-  LegalValueLabel,
-} from '../LegalValueLabel/LegalValueLabel';
+import { filterLegalValues, LegalValueLabel } from '../LegalValueLabel/LegalValueLabel';
 import { useUiFlag } from 'hooks/useUiFlag';
 
 interface IRestrictiveLegalValuesProps {
@@ -41,10 +38,7 @@ export const getLegalValueSet = (values: ILegalValue[]) => {
   return new Set(values.map(({ value }) => value));
 };
 
-export const getIllegalValues = (
-  constraintValues: string[],
-  deletedLegalValues: ILegalValue[],
-) => {
+export const getIllegalValues = (constraintValues: string[], deletedLegalValues: ILegalValue[]) => {
   const deletedValuesSet = getLegalValueSet(deletedLegalValues);
 
   return constraintValues.filter((value) => deletedValuesSet.has(value));
@@ -88,15 +82,11 @@ export const RestrictiveLegalValues = ({
   // Lazily initialise the values because there might be a lot of them.
   const [valuesMap, setValuesMap] = useState(() => createValuesMap(values));
 
-  const disableShowContextFieldSelectionValues = useUiFlag(
-    'disableShowContextFieldSelectionValues',
-  );
+  const disableShowContextFieldSelectionValues = useUiFlag('disableShowContextFieldSelectionValues');
 
   const cleanDeletedLegalValues = (constraintValues: string[]): string[] => {
     const deletedValuesSet = getLegalValueSet(deletedLegalValues);
-    return (
-      constraintValues?.filter((value) => !deletedValuesSet.has(value)) || []
-    );
+    return constraintValues?.filter((value) => !deletedValuesSet.has(value)) || [];
   };
 
   const illegalValues = getIllegalValues(constraintValues, deletedLegalValues);
@@ -125,9 +115,7 @@ export const RestrictiveLegalValues = ({
     setValuesWithRecord([...cleanDeletedLegalValues(values), legalValue]);
   };
 
-  const isAllSelected = legalValues.every((value) =>
-    values.includes(value.value),
-  );
+  const isAllSelected = legalValues.every((value) => values.includes(value.value));
 
   const onSelectAll = () => {
     if (isAllSelected) {
@@ -142,9 +130,8 @@ export const RestrictiveLegalValues = ({
         condition={Boolean(illegalValues && illegalValues.length > 0)}
         show={
           <Alert severity='warning'>
-            This constraint is using legal values that have been deleted as
-            valid options. If you save changes on this constraint and then save
-            the strategy the following values will be removed:
+            This constraint is using legal values that have been deleted as valid options. If you save changes on this
+            constraint and then save the strategy the following values will be removed:
             <ul>
               {illegalValues?.map((value) => (
                 <li key={value}>{value}</li>
@@ -154,9 +141,7 @@ export const RestrictiveLegalValues = ({
         }
       />
       <StyledStack direction={'row'}>
-        <ConstraintFormHeader>
-          Select values from a predefined set
-        </ConstraintFormHeader>
+        <ConstraintFormHeader>Select values from a predefined set</ConstraintFormHeader>
         <Button variant={'text'} onClick={onSelectAll}>
           {isAllSelected ? 'Unselect all' : 'Select all'}
         </Button>
@@ -166,19 +151,11 @@ export const RestrictiveLegalValues = ({
         show={
           <>
             <ConditionallyRender
-              condition={
-                !disableShowContextFieldSelectionValues && Boolean(values)
-              }
+              condition={!disableShowContextFieldSelectionValues && Boolean(values)}
               show={
                 <StyledValuesContainer sx={{ border: 0 }}>
                   {values.map((value) => {
-                    return (
-                      <Chip
-                        key={value}
-                        label={value}
-                        onDelete={() => onChange(value)}
-                      />
-                    );
+                    return <Chip key={value} label={value} onDelete={() => onChange(value)} />;
                   })}
                 </StyledValuesContainer>
               }
@@ -199,18 +176,13 @@ export const RestrictiveLegalValues = ({
                 onChange={() => onChange(match.value)}
                 name={match.value}
                 color='primary'
-                disabled={deletedLegalValues
-                  .map(({ value }) => value)
-                  .includes(match.value)}
+                disabled={deletedLegalValues.map(({ value }) => value).includes(match.value)}
               />
             }
           />
         ))}
       </StyledValuesContainer>
-      <ConditionallyRender
-        condition={Boolean(error)}
-        show={<ErrorText>{error}</ErrorText>}
-      />
+      <ConditionallyRender condition={Boolean(error)} show={<ErrorText>{error}</ErrorText>} />
     </>
   );
 };

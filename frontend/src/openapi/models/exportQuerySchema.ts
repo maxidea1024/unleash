@@ -10,7 +10,4 @@ import type { ExportQuerySchemaAnyOfThree } from './exportQuerySchemaAnyOfThree'
 /**
  * Available query parameters for  the [deprecated export/import](https://docs.getunleash.io/reference/deploy/import-export) functionality.
  */
-export type ExportQuerySchema =
-  | ExportQuerySchemaAnyOf
-  | ExportQuerySchemaAnyOfTwo
-  | ExportQuerySchemaAnyOfThree;
+export type ExportQuerySchema = ExportQuerySchemaAnyOf | ExportQuerySchemaAnyOfTwo | ExportQuerySchemaAnyOfThree;

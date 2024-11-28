@@ -12,14 +12,9 @@ const PercentageScore = styled('span')(({ theme }) => ({
 const ConnectedSdkProject: FC<{ project: string }> = ({ project }) => {
   return (
     <>
+      <Typography>This project already has connected SDKs and existing feature flags.</Typography>
       <Typography>
-        This project already has connected SDKs and existing feature flags.
-      </Typography>
-      <Typography>
-        <Link to={`/projects/${project}?create=true`}>
-          Create a new feature flag
-        </Link>{' '}
-        or go to the{' '}
+        <Link to={`/projects/${project}?create=true`}>Create a new feature flag</Link> or go to the{' '}
         <Link to={`/projects/${project}`} title={project}>
           go to the project
         </Link>{' '}
@@ -31,9 +26,7 @@ const ConnectedSdkProject: FC<{ project: string }> = ({ project }) => {
 
 type HealthTrend = 'consistent' | 'improved' | 'declined' | 'unknown';
 
-const determineProjectHealthTrend = (
-  insights: PersonalDashboardProjectDetailsSchemaInsights,
-): HealthTrend => {
+const determineProjectHealthTrend = (insights: PersonalDashboardProjectDetailsSchemaInsights): HealthTrend => {
   const { avgHealthCurrentWindow, avgHealthPastWindow } = insights;
 
   if (avgHealthCurrentWindow === null || avgHealthPastWindow === null) {
@@ -57,19 +50,15 @@ const ProjectHealthMessage: FC<{
   project: string;
 }> = ({ trend, insights, project }) => {
   const { avgHealthCurrentWindow, avgHealthPastWindow, health } = insights;
-  const improveMessage =
-    'Remember to archive your stale feature flags to keep the project health growing.';
-  const keepDoingMessage =
-    'This indicates that you are doing a good job of archiving your feature flags.';
+  const improveMessage = 'Remember to archive your stale feature flags to keep the project health growing.';
+  const keepDoingMessage = 'This indicates that you are doing a good job of archiving your feature flags.';
 
   if (trend === 'improved') {
     return (
       <>
         <Typography>
-          On average, your project health went up from{' '}
-          <PercentageScore>{avgHealthPastWindow}%</PercentageScore> to{' '}
-          <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore> during
-          the last 4 weeks.
+          On average, your project health went up from <PercentageScore>{avgHealthPastWindow}%</PercentageScore> to{' '}
+          <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore> during the last 4 weeks.
         </Typography>
         <Typography>{keepDoingMessage}</Typography>
       </>
@@ -80,10 +69,8 @@ const ProjectHealthMessage: FC<{
     return (
       <>
         <Typography>
-          On average, your project health went down from{' '}
-          <PercentageScore>{avgHealthPastWindow}%</PercentageScore> to{' '}
-          <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore> during
-          the last 4 weeks.
+          On average, your project health went down from <PercentageScore>{avgHealthPastWindow}%</PercentageScore> to{' '}
+          <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore> during the last 4 weeks.
         </Typography>
         <Typography>{improveMessage}</Typography>
       </>
@@ -94,14 +81,11 @@ const ProjectHealthMessage: FC<{
     return (
       <>
         <Typography>
-          On average, your project health has remained at{' '}
-          <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore> during
-          the last 4 weeks.
+          On average, your project health has remained at <PercentageScore>{avgHealthCurrentWindow}%</PercentageScore>{' '}
+          during the last 4 weeks.
         </Typography>
         <Typography>
-          {avgHealthCurrentWindow && avgHealthCurrentWindow >= 70
-            ? keepDoingMessage
-            : improveMessage}
+          {avgHealthCurrentWindow && avgHealthCurrentWindow >= 70 ? keepDoingMessage : improveMessage}
         </Typography>
       </>
     );
@@ -111,12 +95,9 @@ const ProjectHealthMessage: FC<{
     return (
       <>
         <Typography>
-          Your current health score is{' '}
-          <PercentageScore>{health}%</PercentageScore>.
+          Your current health score is <PercentageScore>{health}%</PercentageScore>.
         </Typography>
-        <Typography>
-          {health >= 70 ? keepDoingMessage : improveMessage}
-        </Typography>
+        <Typography>{health >= 70 ? keepDoingMessage : improveMessage}</Typography>
       </>
     );
   }
@@ -141,15 +122,9 @@ export const ProjectSetupComplete: FC<{
         </>
       }
     >
-      <ProjectHealthMessage
-        trend={projectHealthTrend}
-        insights={insights}
-        project={project}
-      />
+      <ProjectHealthMessage trend={projectHealthTrend} insights={insights} project={project} />
 
-      {projectHealthTrend !== 'unknown' && (
-        <Link to={`/projects/${project}/insights`}>View more insights</Link>
-      )}
+      {projectHealthTrend !== 'unknown' && <Link to={`/projects/${project}/insights`}>View more insights</Link>}
     </ActionBox>
   );
 };

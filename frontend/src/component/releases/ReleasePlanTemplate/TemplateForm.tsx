@@ -29,9 +29,7 @@ export const TemplateForm: React.FC<ITemplateForm> = ({
 }) => {
   return (
     <>
-      <StyledInputDescription>
-        What would you like to call your template?
-      </StyledInputDescription>
+      <StyledInputDescription>What would you like to call your template?</StyledInputDescription>
       <StyledInput
         label='Template name'
         value={name}
@@ -41,9 +39,7 @@ export const TemplateForm: React.FC<ITemplateForm> = ({
         onFocus={() => clearErrors()}
         autoFocus
       />
-      <StyledInputDescription>
-        What's the purpose of this template?
-      </StyledInputDescription>
+      <StyledInputDescription>What's the purpose of this template?</StyledInputDescription>
       <StyledInput
         label='Template description (optional)'
         value={description}

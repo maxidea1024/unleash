@@ -5,8 +5,7 @@
 const OPENAPI_TAGS = [
   {
     name: 'Addons',
-    description:
-      'Create, update, and delete [Unleash addons](https://docs.getunleash.io/addons).',
+    description: 'Create, update, and delete [Unleash addons](https://docs.getunleash.io/addons).',
   },
   {
     name: 'Admin UI',
@@ -26,18 +25,15 @@ const OPENAPI_TAGS = [
   { name: 'Auth', description: 'Manage logins, passwords, etc.' },
   {
     name: 'Banners',
-    description:
-      'Create, update, flag, and delete [banners](https://docs.getunleash.io/reference/banners).',
+    description: 'Create, update, flag, and delete [banners](https://docs.getunleash.io/reference/banners).',
   },
   {
     name: 'Change Requests',
-    description:
-      'API for managing [change requests](https://docs.getunleash.io/reference/change-requests).',
+    description: 'API for managing [change requests](https://docs.getunleash.io/reference/change-requests).',
   },
   {
     name: 'Client',
-    description:
-      'Endpoints for [Unleash server-side clients](https://docs.getunleash.io/reference/sdks).',
+    description: 'Endpoints for [Unleash server-side clients](https://docs.getunleash.io/reference/sdks).',
   },
   {
     name: 'Context',
@@ -62,13 +58,11 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Features',
-    description:
-      'Create, update, and delete [feature flags](https://docs.getunleash.io/reference/feature-toggles).',
+    description: 'Create, update, and delete [feature flags](https://docs.getunleash.io/reference/feature-toggles).',
   },
   {
     name: 'Frontend API',
-    description:
-      'API for connecting client-side (frontend) applications to Unleash.',
+    description: 'API for connecting client-side (frontend) applications to Unleash.',
   },
   {
     name: 'Import/Export',
@@ -77,8 +71,7 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Instance Admin',
-    description:
-      'Instance admin endpoints used to manage the Unleash instance itself.',
+    description: 'Instance admin endpoints used to manage the Unleash instance itself.',
   },
   {
     name: 'Maintenance',
@@ -90,13 +83,11 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Notifications',
-    description:
-      'API for managing [notifications](https://docs.getunleash.io/reference/notifications).',
+    description: 'API for managing [notifications](https://docs.getunleash.io/reference/notifications).',
   },
   {
     name: 'Operational',
-    description:
-      'Endpoints related to the operational status of this Unleash instance.',
+    description: 'Endpoints related to the operational status of this Unleash instance.',
   },
   {
     name: 'Personal access tokens',
@@ -109,8 +100,7 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Projects',
-    description:
-      'Create, update, and delete [Unleash projects](https://docs.getunleash.io/reference/projects).',
+    description: 'Create, update, and delete [Unleash projects](https://docs.getunleash.io/reference/projects).',
   },
   {
     name: 'Public signup tokens',
@@ -120,8 +110,7 @@ const OPENAPI_TAGS = [
   { name: 'Search', description: 'Search for features.' },
   {
     name: 'Segments',
-    description:
-      'Create, update, delete, and manage [segments](https://docs.getunleash.io/reference/segments).',
+    description: 'Create, update, delete, and manage [segments](https://docs.getunleash.io/reference/segments).',
   },
   {
     name: 'Service Accounts',
@@ -135,8 +124,7 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Tags',
-    description:
-      'Create, update, and delete [tags and tag types](https://docs.getunleash.io/reference/tags).',
+    description: 'Create, update, and delete [tags and tag types](https://docs.getunleash.io/reference/tags).',
   },
   {
     name: 'Telemetry',
@@ -144,8 +132,7 @@ const OPENAPI_TAGS = [
   },
   {
     name: 'Unstable',
-    description:
-      'Experimental endpoints that may change or disappear at any time.',
+    description: 'Experimental endpoints that may change or disappear at any time.',
   },
   { name: 'Users', description: 'Manage users and passwords.' },
 ] as const;

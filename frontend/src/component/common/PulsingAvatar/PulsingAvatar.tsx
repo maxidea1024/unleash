@@ -27,9 +27,7 @@ export const WhitePulsingAvatar = styled(Avatar, {
 })<{ active: boolean }>(({ theme, active }) => ({
   transition: 'background-color 0.5s ease',
   color: theme.palette.primary.main,
-  backgroundColor: active
-    ? theme.palette.background.default
-    : theme.palette.divider,
+  backgroundColor: active ? theme.palette.background.default : theme.palette.divider,
   '@keyframes pulse': {
     '0%': {
       boxShadow: `0 0 0 0px ${alpha(theme.palette.background.default, 0.7)}`,

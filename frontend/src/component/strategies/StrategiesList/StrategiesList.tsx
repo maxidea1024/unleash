@@ -2,14 +2,7 @@ import { useState, useMemo, useCallback, type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert, Box, Link, Typography, styled } from '@mui/material';
 import Extension from '@mui/icons-material/Extension';
-import {
-  Table,
-  SortableTableHeader,
-  TableBody,
-  TableCell,
-  TableRow,
-  TablePlaceholder,
-} from 'component/common/Table';
+import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -65,11 +58,7 @@ const Subtitle: FC<{
       htmlTooltip
       tooltip={
         <>
-          <Typography
-            variant='body2'
-            component='p'
-            sx={(theme) => ({ marginBottom: theme.spacing(1) })}
-          >
+          <Typography variant='body2' component='p' sx={(theme) => ({ marginBottom: theme.spacing(1) })}>
             {description}
           </Typography>
           <Link href={link} target='_blank' variant='body2'>
@@ -112,18 +101,12 @@ const PredefinedStrategyTitle = () => (
 
 const StrategyDeprecationWarning = () => (
   <Alert severity='warning' sx={{ mb: 2 }}>
-    Custom strategies are deprecated and may be removed in a future major
-    version. We recommend not using custom strategies going forward and instead
-    using the predefined strategies with{' '}
-    <Link
-      href={'https://docs.getunleash.io/reference/strategy-constraints'}
-      target='_blank'
-      variant='body2'
-    >
+    Custom strategies are deprecated and may be removed in a future major version. We recommend not using custom
+    strategies going forward and instead using the predefined strategies with{' '}
+    <Link href={'https://docs.getunleash.io/reference/strategy-constraints'} target='_blank' variant='body2'>
       constraints
     </Link>
-    . If you have a need for custom strategies that you cannot support with
-    constraints, please reach out to us.
+    . If you have a need for custom strategies that you cannot support with constraints, please reach out to us.
   </Alert>
 );
 
@@ -136,8 +119,7 @@ export const StrategiesList = () => {
   });
 
   const { strategies, refetchStrategies, loading } = useStrategies();
-  const { removeStrategy, deprecateStrategy, reactivateStrategy } =
-    useStrategiesApi();
+  const { removeStrategy, deprecateStrategy, reactivateStrategy } = useStrategiesApi();
   const { setToastData, setToastApiError } = useToast();
 
   const data = useMemo(() => {
@@ -153,14 +135,12 @@ export const StrategiesList = () => {
       };
     }
 
-    const all = strategies.map(
-      ({ name, description, editable, deprecated }) => ({
-        name,
-        description,
-        editable,
-        deprecated,
-      }),
-    );
+    const all = strategies.map(({ name, description, editable, deprecated }) => ({
+      name,
+      description,
+      editable,
+      deprecated,
+    }));
     return {
       all,
       predefined: all.filter((strategy) => !strategy.editable),
@@ -208,13 +188,7 @@ export const StrategiesList = () => {
         });
       }
     },
-    [
-      deprecateStrategy,
-      reactivateStrategy,
-      refetchStrategies,
-      setToastApiError,
-      setToastData,
-    ],
+    [deprecateStrategy, reactivateStrategy, refetchStrategies, setToastApiError, setToastData],
   );
 
   const onDeleteStrategy = useCallback(
@@ -276,17 +250,10 @@ export const StrategiesList = () => {
           },
         }: any) => {
           return (
-            <LinkCell
-              data-loading
-              title={formatStrategyName(name)}
-              subtitle={description}
-              to={`/strategies/${name}`}
-            >
+            <LinkCell data-loading title={formatStrategyName(name)} subtitle={description} to={`/strategies/${name}`}>
               <ConditionallyRender
                 condition={deprecated}
-                show={() => (
-                  <StyledBadge color='disabled'>Disabled</StyledBadge>
-                )}
+                show={() => <StyledBadge color='disabled'>Disabled</StyledBadge>}
               />
             </LinkCell>
           );
@@ -299,23 +266,14 @@ export const StrategiesList = () => {
         align: 'center',
         Cell: ({ row: { original } }: any) => (
           <ActionCell>
-            <StrategySwitch
-              deprecated={original.deprecated}
-              onToggle={onToggle(original)}
-            />
+            <StrategySwitch deprecated={original.deprecated} onToggle={onToggle(original)} />
             <ConditionallyRender
               condition={original.editable}
               show={
                 <>
                   <ActionCell.Divider />
-                  <StrategyEditButton
-                    strategy={original}
-                    onClick={() => onEditStrategy(original)}
-                  />
-                  <StrategyDeleteButton
-                    strategy={original}
-                    onClick={() => onDeleteStrategy(original)}
-                  />
+                  <StrategyEditButton strategy={original} onClick={() => onEditStrategy(original)} />
+                  <StrategyDeleteButton strategy={original} onClick={() => onDeleteStrategy(original)} />
                 </>
               }
             />
@@ -345,19 +303,18 @@ export const StrategiesList = () => {
     [],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns: columns as any[], // TODO: fix after `react-table` v8 update
-        data: data.predefined,
-        initialState,
-        sortTypes,
-        autoResetSortBy: false,
-        disableSortRemove: true,
-        autoResetHiddenColumns: false,
-      },
-      useSortBy,
-    );
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      columns: columns as any[], // TODO: fix after `react-table` v8 update
+      data: data.predefined,
+      initialState,
+      sortTypes,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+      autoResetHiddenColumns: false,
+    },
+    useSortBy,
+  );
 
   const {
     getTableProps: customGetTableProps,
@@ -390,12 +347,7 @@ export const StrategiesList = () => {
     <StyledBox>
       <PageContent
         isLoading={loading}
-        header={
-          <PageHeader
-            titleElement={<PredefinedStrategyTitle />}
-            title='Strategy types'
-          />
-        }
+        header={<PageHeader titleElement={<PredefinedStrategyTitle />} title='Strategy types' />}
       >
         <Box>
           <Table {...getTableProps()}>
@@ -470,10 +422,7 @@ export const StrategiesList = () => {
               })}
             </TableBody>
           </Table>
-          <ConditionallyRender
-            condition={customRows.length === 0}
-            show={<CustomStrategyInfo />}
-          />
+          <ConditionallyRender condition={customRows.length === 0} show={<CustomStrategyInfo />} />
         </Box>
 
         <Dialogue

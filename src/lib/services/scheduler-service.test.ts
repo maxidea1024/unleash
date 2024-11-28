@@ -41,11 +41,7 @@ beforeEach(() => {
   const { logger, getRecords: getRecordsFn } = getLogger();
   getRecords = getRecordsFn;
 
-  schedulerService = new SchedulerService(
-    logger,
-    maintenanceService,
-    config.eventBus,
-  );
+  schedulerService = new SchedulerService(logger, maintenanceService, config.eventBus);
 });
 
 test('Schedules job immediately', async () => {
@@ -101,12 +97,8 @@ test('Can handle crash of a async job', async () => {
 
   schedulerService.stop();
   const records = getRecords();
-  expect(records[0][0]).toContain(
-    'initial scheduled job failed | id: test-id-10',
-  );
-  expect(records[1][0]).toContain(
-    'interval scheduled job failed | id: test-id-10',
-  );
+  expect(records[0][0]).toContain('initial scheduled job failed | id: test-id-10');
+  expect(records[1][0]).toContain('interval scheduled job failed | id: test-id-10');
 });
 
 test('Can handle crash of a sync job', async () => {
@@ -119,10 +111,6 @@ test('Can handle crash of a sync job', async () => {
 
   schedulerService.stop();
   const records = getRecords();
-  expect(records[0][0]).toContain(
-    'initial scheduled job failed | id: test-id-11',
-  );
-  expect(records[1][0]).toContain(
-    'interval scheduled job failed | id: test-id-11',
-  );
+  expect(records[0][0]).toContain('initial scheduled job failed | id: test-id-11');
+  expect(records[1][0]).toContain('interval scheduled job failed | id: test-id-11');
 });

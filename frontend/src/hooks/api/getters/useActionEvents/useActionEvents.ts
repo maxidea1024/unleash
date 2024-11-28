@@ -1,7 +1,4 @@
-import useSWRInfinite, {
-  type SWRInfiniteConfiguration,
-  type SWRInfiniteKeyLoader,
-} from 'swr/infinite';
+import useSWRInfinite, { type SWRInfiniteConfiguration, type SWRInfiniteKeyLoader } from 'swr/infinite';
 import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 import useUiConfig from '../useUiConfig/useUiConfig';
@@ -27,13 +24,9 @@ export const useActionEvents = (
   const { isEnterprise } = useUiConfig();
   const automatedActionsEnabled = useUiFlag('automatedActions');
 
-  const getKey: SWRInfiniteKeyLoader = (
-    pageIndex: number,
-    previousPageData: ActionEventsResponse,
-  ) => {
+  const getKey: SWRInfiniteKeyLoader = (pageIndex: number, previousPageData: ActionEventsResponse) => {
     // Does not meet conditions
-    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled)
-      return null;
+    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled) return null;
 
     // Reached the end
     if (previousPageData && !previousPageData.actionSetEvents.length) {
@@ -41,21 +34,16 @@ export const useActionEvents = (
     }
 
     return formatApiPath(
-      `api/admin/projects/${projectId}/actions/${actionSetId}/events?limit=${limit}&offset=${
-        pageIndex * limit
-      }`,
+      `api/admin/projects/${projectId}/actions/${actionSetId}/events?limit=${limit}&offset=${pageIndex * limit}`,
     );
   };
 
-  const { data, error, size, setSize, mutate } =
-    useSWRInfinite<ActionEventsResponse>(getKey, fetcher, {
-      ...options,
-      revalidateAll: true,
-    });
+  const { data, error, size, setSize, mutate } = useSWRInfinite<ActionEventsResponse>(getKey, fetcher, {
+    ...options,
+    revalidateAll: true,
+  });
 
-  const actionEvents = data
-    ? data.flatMap(({ actionSetEvents }) => actionSetEvents)
-    : [];
+  const actionEvents = data ? data.flatMap(({ actionSetEvents }) => actionSetEvents) : [];
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore = size > 0 && !data?.[size - 1];

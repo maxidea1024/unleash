@@ -1,7 +1,4 @@
-import {
-  StyledProjectInfoWidgetContainer,
-  StyledWidgetTitle,
-} from './ProjectInfo.styles';
+import { StyledProjectInfoWidgetContainer, StyledWidgetTitle } from './ProjectInfo.styles';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { StatusBox } from '../ProjectStats/StatusBox';
 import { WidgetFooterLink } from './WidgetFooterLink';
@@ -16,11 +13,7 @@ interface IProjectMembersWidgetProps {
 /**
  * @deprecated in favor of ProjectMembers.tsx
  */
-export const ProjectMembersWidget = ({
-  projectId,
-  memberCount,
-  change = 0,
-}: IProjectMembersWidgetProps) => {
+export const ProjectMembersWidget = ({ projectId, memberCount, change = 0 }: IProjectMembersWidgetProps) => {
   const { uiConfig } = useUiConfig();
 
   let link = `/admin/users`;

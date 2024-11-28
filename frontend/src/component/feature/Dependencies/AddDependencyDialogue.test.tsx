@@ -15,31 +15,13 @@ const setupApi = () => {
     },
   });
 
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/features/child/dependencies',
-    {},
-    'delete',
-  );
+  testServerRoute(server, '/api/admin/projects/default/features/child/dependencies', {}, 'delete');
 
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/features/child/dependencies',
-    {},
-    'post',
-  );
+  testServerRoute(server, '/api/admin/projects/default/features/child/dependencies', {}, 'post');
 
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/features/parentA/parent-variants',
-    ['variantA', 'variantB'],
-  );
+  testServerRoute(server, '/api/admin/projects/default/features/parentA/parent-variants', ['variantA', 'variantB']);
 
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/features/child/parents',
-    ['parentA', 'parentB'],
-  );
+  testServerRoute(server, '/api/admin/projects/default/features/child/parents', ['parentA', 'parentB']);
 
   testServerRoute(server, '/api/admin/projects/default/features/child', {
     dependencies: [{ feature: 'parentB', enabled: true, variants: [] }],
@@ -47,23 +29,15 @@ const setupApi = () => {
 };
 
 const setupChangeRequestApi = () => {
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/change-requests/config',
-    [
-      {
-        environment: 'development',
-        type: 'development',
-        requiredApprovals: null,
-        changeRequestEnabled: true,
-      },
-    ],
-  );
-  testServerRoute(
-    server,
-    'api/admin/projects/default/change-requests/pending',
-    [],
-  );
+  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
+    {
+      environment: 'development',
+      type: 'development',
+      requiredApprovals: null,
+      changeRequestEnabled: true,
+    },
+  ]);
+  testServerRoute(server, 'api/admin/projects/default/change-requests/pending', []);
 };
 
 test('Delete dependency', async () => {
@@ -98,13 +72,10 @@ test.skip('Edit dependency', async () => {
   let dependency: IDependency;
   setupApi();
   server.use(
-    http.post(
-      '/api/admin/projects/default/features/child/dependencies',
-      async ({ request }) => {
-        dependency = (await request.json()) as IDependency;
-        return new HttpResponse(null, { status: 200 });
-      },
-    ),
+    http.post('/api/admin/projects/default/features/child/dependencies', async ({ request }) => {
+      dependency = (await request.json()) as IDependency;
+      return new HttpResponse(null, { status: 200 });
+    }),
   );
 
   render(
@@ -126,8 +97,7 @@ test.skip('Edit dependency', async () => {
   });
 
   // Open the dropdown by selecting the role.
-  const [featureDropdown, featureStatusDropdown] =
-    screen.queryAllByRole('combobox');
+  const [featureDropdown, featureStatusDropdown] = screen.queryAllByRole('combobox');
 
   await waitFor(() => {
     expect(featureDropdown.innerHTML).toBe('parentB');
@@ -174,13 +144,10 @@ test('Add change to draft', async () => {
   setupApi();
   setupChangeRequestApi();
   server.use(
-    http.post(
-      '/api/admin/projects/default/environments/development/change-requests',
-      async ({ request }) => {
-        change = (await request.json()) as IChangeSchema[];
-        return new HttpResponse(null, { status: 201 });
-      },
-    ),
+    http.post('/api/admin/projects/default/environments/development/change-requests', async ({ request }) => {
+      change = (await request.json()) as IChangeSchema[];
+      return new HttpResponse(null, { status: 201 });
+    }),
   );
   render(
     <AddDependencyDialogue

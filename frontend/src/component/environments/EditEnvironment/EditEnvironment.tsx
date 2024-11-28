@@ -21,8 +21,7 @@ const EditEnvironment = () => {
   const { updateEnvironment } = useEnvironmentApi();
 
   const navigate = useNavigate();
-  const { name, type, setName, setType, errors, clearErrors } =
-    useEnvironmentForm(environment.name, environment.type);
+  const { name, type, setName, setType, errors, clearErrors } = useEnvironmentForm(environment.name, environment.type);
   const { refetch } = usePermissions();
 
   const editPayload = () => {
@@ -33,9 +32,7 @@ const EditEnvironment = () => {
   };
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/environments/update/${id}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/environments/update/${id}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(editPayload(), undefined, 2)}'`;

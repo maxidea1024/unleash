@@ -7,10 +7,7 @@ export const formatConstraintValue = (
   constraint: IConstraint,
   locationSettings: ILocationSettings,
 ): string | undefined => {
-  if (
-    constraint.value &&
-    constraint.contextName === CURRENT_TIME_CONTEXT_FIELD
-  ) {
+  if (constraint.value && constraint.contextName === CURRENT_TIME_CONTEXT_FIELD) {
     return formatDateYMDHMS(constraint.value, locationSettings.locale);
   }
 

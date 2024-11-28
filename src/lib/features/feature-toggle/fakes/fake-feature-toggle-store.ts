@@ -1,7 +1,4 @@
-import type {
-  IFeatureToggleStore,
-  IFeatureToggleStoreQuery,
-} from '../types/feature-toggle-store-type';
+import type { IFeatureToggleStore, IFeatureToggleStoreQuery } from '../types/feature-toggle-store-type';
 import NotFoundError from '../../../error/notfound-error';
 import type {
   FeatureToggle,
@@ -12,10 +9,7 @@ import type {
   IVariant,
 } from '../../../types/model';
 import type { LastSeenInput } from '../../metrics/last-seen/last-seen-service';
-import type {
-  EnvironmentFeatureNames,
-  FeatureToggleInsert,
-} from '../feature-toggle-store';
+import type { EnvironmentFeatureNames, FeatureToggleInsert } from '../feature-toggle-store';
 import type { FeatureConfigurationClient } from '../types/feature-toggle-strategies-store-type';
 import type { IFeatureProjectUserParams } from '../feature-toggle-controller';
 
@@ -28,28 +22,19 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
       feature.archived = true;
       return feature;
     }
-    throw new NotFoundError(
-      `Could not find feature flag with name ${featureName}`,
-    );
+    throw new NotFoundError(`Could not find feature flag with name ${featureName}`);
   }
 
   async batchArchive(featureNames: string[]): Promise<FeatureToggle[]> {
-    const features = this.features.filter((feature) =>
-      featureNames.includes(feature.name),
-    );
+    const features = this.features.filter((feature) => featureNames.includes(feature.name));
     for (const feature of features) {
       feature.archived = true;
     }
     return features;
   }
 
-  async batchStale(
-    featureNames: string[],
-    stale: boolean,
-  ): Promise<FeatureToggle[]> {
-    const features = this.features.filter((feature) =>
-      featureNames.includes(feature.name),
-    );
+  async batchStale(featureNames: string[], stale: boolean): Promise<FeatureToggle[]> {
+    const features = this.features.filter((feature) => featureNames.includes(feature.name));
     for (const feature of features) {
       feature.stale = stale;
     }
@@ -57,9 +42,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
   }
 
   async batchDelete(featureNames: string[]): Promise<void> {
-    this.features = this.features.filter(
-      (feature) => !featureNames.includes(feature.name),
-    );
+    this.features = this.features.filter((feature) => !featureNames.includes(feature.name));
     return Promise.resolve();
   }
 
@@ -75,9 +58,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     throw new Error('Method not implemented.');
   }
 
-  async count(
-    query: Partial<IFeatureToggleStoreQuery> = { archived: false },
-  ): Promise<number> {
+  async count(query: Partial<IFeatureToggleStoreQuery> = { archived: false }): Promise<number> {
     return this.getAll(query).then((features) => features.length);
   }
 
@@ -107,10 +88,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     };
   }
 
-  async create(
-    project: string,
-    data: FeatureToggleInsert,
-  ): Promise<FeatureToggle> {
+  async create(project: string, data: FeatureToggleInsert): Promise<FeatureToggle> {
     const inserted: FeatureToggle = { ...data, project };
     this.features.push(inserted);
     return inserted;
@@ -141,9 +119,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     throw new NotFoundError(`Could not find feature with name ${key}`);
   }
 
-  async getAll(
-    query: Partial<IFeatureToggleStoreQuery> = { archived: false },
-  ): Promise<FeatureToggle[]> {
+  async getAll(query: Partial<IFeatureToggleStoreQuery> = { archived: false }): Promise<FeatureToggle[]> {
     return this.features.filter(this.getFilterQuery(query));
   }
 
@@ -151,9 +127,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     return this.get(name);
   }
 
-  async getBy(
-    query: Partial<IFeatureToggleStoreQuery>,
-  ): Promise<FeatureToggle[]> {
+  async getBy(query: Partial<IFeatureToggleStoreQuery>): Promise<FeatureToggle[]> {
     return this.features.filter(this.getFilterQuery(query));
   }
 
@@ -162,19 +136,13 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     if (revive) {
       revive.archived = false;
     } else {
-      throw new NotFoundError(
-        `Could not find feature with name ${featureName}`,
-      );
+      throw new NotFoundError(`Could not find feature with name ${featureName}`);
     }
 
     return this.update(revive.project, revive);
   }
 
-  async getFeatureToggleList(
-    query?: IFeatureToggleQuery,
-    userId?: number,
-    archived = false,
-  ): Promise<FeatureToggle[]> {
+  async getFeatureToggleList(query?: IFeatureToggleQuery, userId?: number, archived = false): Promise<FeatureToggle[]> {
     return this.features.filter((feature) => feature.archived !== archived);
   }
 
@@ -182,18 +150,11 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     return this.features.filter((feature) => feature.archived === true);
   }
 
-  async getPlaygroundFeatures(
-    query?: IFeatureToggleQuery,
-  ): Promise<FeatureConfigurationClient[]> {
-    return this.features.filter(
-      (feature) => feature,
-    ) as FeatureConfigurationClient[];
+  async getPlaygroundFeatures(query?: IFeatureToggleQuery): Promise<FeatureConfigurationClient[]> {
+    return this.features.filter((feature) => feature) as FeatureConfigurationClient[];
   }
 
-  async update(
-    project: string,
-    data: FeatureToggleDTO,
-  ): Promise<FeatureToggle> {
+  async update(project: string, data: FeatureToggleDTO): Promise<FeatureToggle> {
     const exists = await this.exists(data.name);
     if (exists) {
       const id = this.features.findIndex((f) => f.name === data.name);
@@ -209,20 +170,17 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
   }
 
   async setLastSeen(data: LastSeenInput[]): Promise<void> {
-    const envArrays = data.reduce(
-      (acc: EnvironmentFeatureNames, feature: LastSeenInput) => {
-        const { environment, featureName } = feature;
+    const envArrays = data.reduce((acc: EnvironmentFeatureNames, feature: LastSeenInput) => {
+      const { environment, featureName } = feature;
 
-        if (!acc[environment]) {
-          acc[environment] = [];
-        }
+      if (!acc[environment]) {
+        acc[environment] = [];
+      }
 
-        acc[environment].push(featureName);
+      acc[environment].push(featureName);
 
-        return acc;
-      },
-      {},
-    );
+      return acc;
+    }, {});
 
     for (const env of Object.keys(envArrays)) {
       const toggleNames = envArrays[env];
@@ -261,21 +219,13 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     return this.getVariants(featureName);
   }
 
-  async saveVariants(
-    project: string,
-    featureName: string,
-    newVariants: IVariant[],
-  ): Promise<FeatureToggle> {
+  async saveVariants(project: string, featureName: string, newVariants: IVariant[]): Promise<FeatureToggle> {
     const feature = await this.get(featureName);
     feature.variants = newVariants;
     return feature;
   }
 
-  async saveVariantsOnEnv(
-    featureName: string,
-    environment: string,
-    newVariants: IVariant[],
-  ): Promise<IVariant[]> {
+  async saveVariantsOnEnv(featureName: string, environment: string, newVariants: IVariant[]): Promise<IVariant[]> {
     await this.saveVariants('default', featureName, newVariants);
     return Promise.resolve(newVariants);
   }
@@ -296,16 +246,11 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
         return true;
       }
 
-      if (
-        new Date(feature[queryModifiers.dateAccessor]).getTime() >=
-        new Date(queryModifiers.date).getTime()
-      ) {
+      if (new Date(feature[queryModifiers.dateAccessor]).getTime() >= new Date(queryModifiers.date).getTime()) {
         return true;
       }
 
-      const featureDate = new Date(
-        feature[queryModifiers.dateAccessor],
-      ).getTime();
+      const featureDate = new Date(feature[queryModifiers.dateAccessor]).getTime();
       if (
         featureDate >= new Date(queryModifiers.range[0]).getTime() &&
         featureDate <= new Date(queryModifiers.range[1]).getTime()
@@ -322,9 +267,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     return Promise.resolve();
   }
 
-  updatePotentiallyStaleFeatures(): Promise<
-    { name: string; potentiallyStale: boolean; project: string }[]
-  > {
+  updatePotentiallyStaleFeatures(): Promise<{ name: string; potentiallyStale: boolean; project: string }[]> {
     throw new Error('Method not implemented.');
   }
 
@@ -332,9 +275,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     throw new Error('Method not implemented.');
   }
 
-  async getFeatureTypeCounts(
-    params: IFeatureProjectUserParams,
-  ): Promise<IFeatureTypeCount[]> {
+  async getFeatureTypeCounts(params: IFeatureProjectUserParams): Promise<IFeatureTypeCount[]> {
     const typeCounts = this.features.reduce(
       (acc, feature) => {
         if (!feature.type) {

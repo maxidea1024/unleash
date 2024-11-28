@@ -29,9 +29,7 @@ export type ScheduledChangeRequest = BaseChangeRequest & {
   schedule: ChangeRequestSchedule;
 };
 
-export type ChangeRequestType =
-  | UnscheduledChangeRequest
-  | ScheduledChangeRequest;
+export type ChangeRequestType = UnscheduledChangeRequest | ScheduledChangeRequest;
 
 export type ChangeRequestSchedulePending = {
   status: 'pending';
@@ -162,13 +160,11 @@ export interface IChangeRequestAddDependency extends IChangeRequestChangeBase {
   payload: ChangeRequestAddDependency;
 }
 
-export interface IChangeRequestDeleteDependency
-  extends IChangeRequestChangeBase {
+export interface IChangeRequestDeleteDependency extends IChangeRequestChangeBase {
   action: 'deleteDependency';
 }
 
-export interface IChangeRequestReorderStrategy
-  extends IChangeRequestChangeBase {
+export interface IChangeRequestReorderStrategy extends IChangeRequestChangeBase {
   action: 'reorderStrategy';
   payload: SetStrategySortOrderSchema;
 }
@@ -212,9 +208,7 @@ export type IFeatureChange =
   | IChangeRequestAddDependency
   | IChangeRequestDeleteDependency;
 
-export type ISegmentChange =
-  | IChangeRequestUpdateSegment
-  | IChangeRequestDeleteSegment;
+export type ISegmentChange = IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
 
 type ChangeRequestVariantPatch = {
   variants: IFeatureVariant[];

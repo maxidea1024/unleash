@@ -3,11 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Input from 'component/common/Input/Input';
 import { FormSwitch } from 'component/common/FormSwitch/FormSwitch';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type {
-  ActionsFilterState,
-  ActionsActionState,
-  ProjectActionsFormErrors,
-} from './useProjectActionsForm';
+import type { ActionsFilterState, ActionsActionState, ProjectActionsFormErrors } from './useProjectActionsForm';
 import { useServiceAccounts } from 'hooks/api/getters/useServiceAccounts/useServiceAccounts';
 import { ProjectActionsFormStepSource } from './ProjectActionsFormStep/ProjectActionsFormStepSource/ProjectActionsFormStepSource';
 import { ProjectActionsFormStepActions } from './ProjectActionsFormStep/ProjectActionsFormStepActions/ProjectActionsFormStepActions';
@@ -83,8 +79,7 @@ export const ProjectActionsForm = ({
   validateActorId,
   validated,
 }: IProjectActionsFormProps) => {
-  const { serviceAccounts, loading: serviceAccountsLoading } =
-    useServiceAccounts();
+  const { serviceAccounts, loading: serviceAccountsLoading } = useServiceAccounts();
 
   const handleOnBlur = (callback: Function) => {
     setTimeout(() => callback(), 300);
@@ -98,8 +93,7 @@ export const ProjectActionsForm = ({
         condition={serviceAccounts.length === 0}
         show={
           <StyledServiceAccountAlert color='warning'>
-            <strong>Heads up!</strong> In order to create an action you need to
-            create a service account first. Please{' '}
+            <strong>Heads up!</strong> In order to create an action you need to create a service account first. Please{' '}
             <Link to='/admin/service-accounts' component={RouterLink}>
               go ahead and create one
             </Link>
@@ -112,9 +106,7 @@ export const ProjectActionsForm = ({
           Action status
         </FormSwitch>
       </StyledRaisedSection>
-      <StyledInputDescription>
-        What is your new action name?
-      </StyledInputDescription>
+      <StyledInputDescription>What is your new action name?</StyledInputDescription>
       <StyledInput
         autoFocus
         label='Action name'
@@ -128,9 +120,7 @@ export const ProjectActionsForm = ({
         onBlur={(e) => handleOnBlur(() => validateName(e.target.value))}
         autoComplete='off'
       />
-      <StyledInputDescription>
-        What is your new action description?
-      </StyledInputDescription>
+      <StyledInputDescription>What is your new action description?</StyledInputDescription>
       <StyledInput
         label='Action description'
         value={description}

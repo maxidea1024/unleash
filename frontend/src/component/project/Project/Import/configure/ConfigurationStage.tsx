@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  styled,
-  Tab,
-  Tabs,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, styled, Tab, Tabs, TextField, Typography } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StyledFileDropZone } from './StyledFileDropZone';
 import { PulsingAvatar } from 'component/common/PulsingAvatar/PulsingAvatar';
@@ -16,11 +8,7 @@ import { type FC, type ReactNode, useState } from 'react';
 import useToast from 'hooks/useToast';
 import { ImportLayoutContainer } from '../ImportLayoutContainer';
 import { ActionsContainer } from '../ActionsContainer';
-import {
-  CODE_EDITOR_TAB,
-  CODE_TEXT_FIELD,
-  VALIDATE_BUTTON,
-} from 'utils/testIds';
+import { CODE_EDITOR_TAB, CODE_TEXT_FIELD, VALIDATE_BUTTON } from 'utils/testIds';
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
@@ -55,17 +43,8 @@ export const ConfigurationTabs: FC<{
     }}
   >
     <Tabs value={activeTab}>
-      <Tab
-        label='Upload file'
-        value='file'
-        onClick={() => setActiveTab('file')}
-      />
-      <Tab
-        label='Code editor'
-        value='code'
-        data-testid={CODE_EDITOR_TAB}
-        onClick={() => setActiveTab('code')}
-      />
+      <Tab label='Upload file' value='file' onClick={() => setActiveTab('file')} />
+      <Tab label='Code editor' value='code' data-testid={CODE_EDITOR_TAB} onClick={() => setActiveTab('code')} />
     </Tabs>
   </Box>
 );
@@ -104,12 +83,8 @@ export const ImportArea: FC<{
           <PulsingAvatar sx={{ width: 80, height: 80 }} active={dragActive}>
             <ArrowUpward fontSize='large' />
           </PulsingAvatar>
-          <DropMessage>
-            {dragActive ? 'Drop your file to upload' : 'Drop your file here'}
-          </DropMessage>
-          <SelectFileMessage>
-            or select a file from your device
-          </SelectFileMessage>
+          <DropMessage>{dragActive ? 'Drop your file to upload' : 'Drop your file here'}</DropMessage>
+          <SelectFileMessage>or select a file from your device</SelectFileMessage>
           <Button variant='outlined'>Select file</Button>
           <MaxSizeMessage>JSON format: max 500 kB</MaxSizeMessage>
         </StyledFileDropZone>
@@ -146,12 +121,7 @@ export const Actions: FC<{
     >
       Validate
     </Button>
-    <Button
-      sx={{ position: 'static', ml: 2 }}
-      variant='outlined'
-      type='submit'
-      onClick={onClose}
-    >
+    <Button sx={{ position: 'static', ml: 2 }} variant='outlined' type='submit' onClick={onClose}>
       Cancel import
     </Button>
   </ActionsContainer>

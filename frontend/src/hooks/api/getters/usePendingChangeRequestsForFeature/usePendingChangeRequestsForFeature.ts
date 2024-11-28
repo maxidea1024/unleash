@@ -9,15 +9,10 @@ const fetcher = (path: string) => {
     .then((res) => res.json());
 };
 
-export const usePendingChangeRequestsForFeature = (
-  project: string,
-  featureName: string,
-) => {
+export const usePendingChangeRequestsForFeature = (project: string, featureName: string) => {
   const { data, error, mutate } = useEnterpriseSWR<ChangeRequestType[]>(
     [],
-    formatApiPath(
-      `api/admin/projects/${project}/change-requests/pending/${featureName}`,
-    ),
+    formatApiPath(`api/admin/projects/${project}/change-requests/pending/${featureName}`),
     fetcher,
   );
 

@@ -7,11 +7,7 @@ import { OutdatedSdksBanner } from './OutdatedSdksBanner';
 const server = testServerSetup();
 
 const setupApi = (outdatedSdks: OutdatedSdksSchema) => {
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/sdks/outdated',
-    outdatedSdks,
-  );
+  testServerRoute(server, '/api/admin/projects/default/sdks/outdated', outdatedSdks);
   testServerRoute(server, '/api/admin/ui-config', {
     flags: {
       outdatedSdksBanner: true,

@@ -12,11 +12,7 @@ import {
   type IFlagResolver,
   type IUnleashConfig,
 } from '../../types';
-import type {
-  FeatureLifecycleView,
-  IFeatureLifecycleStore,
-  NewStage,
-} from './feature-lifecycle-store-type';
+import type { FeatureLifecycleView, IFeatureLifecycleStore, NewStage } from './feature-lifecycle-store-type';
 import type EventEmitter from 'events';
 import type { Logger } from '../../logger';
 import type EventService from '../events/event-service';
@@ -52,11 +48,7 @@ export class FeatureLifecycleService {
     }: {
       eventService: EventService;
     },
-    {
-      flagResolver,
-      eventBus,
-      getLogger,
-    }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
+    { flagResolver, eventBus, getLogger }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
     this.logger = getLogger('feature-lifecycle-service.ts');
 
@@ -74,21 +66,16 @@ export class FeatureLifecycleService {
     this.eventStore.on(FEATURE_CREATED, async (event) => {
       await this.featureInitialized(event.featureName);
     });
-    this.eventBus.on(
-      CLIENT_METRICS_ADDED,
-      async (events: IClientMetricsEnv[]) => {
-        if (events.length > 0) {
-          const groupedByEnvironment = groupBy(events, 'environment');
+    this.eventBus.on(CLIENT_METRICS_ADDED, async (events: IClientMetricsEnv[]) => {
+      if (events.length > 0) {
+        const groupedByEnvironment = groupBy(events, 'environment');
 
-          for (const [environment, metrics] of Object.entries(
-            groupedByEnvironment,
-          )) {
-            const features = metrics.map((metric) => metric.featureName);
-            await this.featuresReceivedMetrics(features, environment);
-          }
+        for (const [environment, metrics] of Object.entries(groupedByEnvironment)) {
+          const features = metrics.map((metric) => metric.featureName);
+          await this.featuresReceivedMetrics(features, environment);
         }
-      },
-    );
+      }
+    });
     this.eventStore.on(FEATURE_ARCHIVED, async (event) => {
       await this.featureArchived(event.featureName);
     });
@@ -102,45 +89,28 @@ export class FeatureLifecycleService {
   }
 
   private async featureInitialized(feature: string) {
-    const result = await this.featureLifecycleStore.insert([
-      { feature, stage: 'initial' },
-    ]);
+    const result = await this.featureLifecycleStore.insert([{ feature, stage: 'initial' }]);
     this.recordStagesEntered(result);
   }
 
-  private async stageReceivedMetrics(
-    features: string[],
-    stage: 'live' | 'pre-live',
-  ) {
-    const newlyEnteredStages = await this.featureLifecycleStore.insert(
-      features.map((feature) => ({ feature, stage })),
-    );
+  private async stageReceivedMetrics(features: string[], stage: 'live' | 'pre-live') {
+    const newlyEnteredStages = await this.featureLifecycleStore.insert(features.map((feature) => ({ feature, stage })));
     this.recordStagesEntered(newlyEnteredStages);
   }
 
   private recordStagesEntered(newlyEnteredStages: NewStage[]) {
-    if (
-      this.flagResolver.isEnabled('trackLifecycleMetrics') &&
-      newlyEnteredStages.length > 0
-    ) {
-      this.logger.info(
-        `recordStagesEntered parameter ${JSON.stringify(newlyEnteredStages)}`,
-      );
+    if (this.flagResolver.isEnabled('trackLifecycleMetrics') && newlyEnteredStages.length > 0) {
+      this.logger.info(`recordStagesEntered parameter ${JSON.stringify(newlyEnteredStages)}`);
     }
     newlyEnteredStages.forEach(({ stage, feature }) => {
       this.eventBus.emit(STAGE_ENTERED, { stage, feature });
       if (this.flagResolver.isEnabled('trackLifecycleMetrics')) {
-        this.logger.info(
-          `STAGE_ENTERED emitted ${JSON.stringify({ stage, feature })}`,
-        );
+        this.logger.info(`STAGE_ENTERED emitted ${JSON.stringify({ stage, feature })}`);
       }
     });
   }
 
-  private async featuresReceivedMetrics(
-    features: string[],
-    environment: string,
-  ) {
+  private async featuresReceivedMetrics(features: string[], environment: string) {
     try {
       const env = await this.environmentStore.get(environment);
 
@@ -149,20 +119,12 @@ export class FeatureLifecycleService {
       }
       await this.stageReceivedMetrics(features, 'pre-live');
       if (env.type === 'production') {
-        const featureEnv = await this.featureEnvironmentStore.getAllByFeatures(
-          features,
-          env.name,
-        );
-        const enabledFeatures = featureEnv
-          .filter((feature) => feature.enabled)
-          .map((feature) => feature.featureName);
+        const featureEnv = await this.featureEnvironmentStore.getAllByFeatures(features, env.name);
+        const enabledFeatures = featureEnv.filter((feature) => feature.enabled).map((feature) => feature.featureName);
         await this.stageReceivedMetrics(enabledFeatures, 'live');
       }
     } catch (e) {
-      this.logger.warn(
-        `Error handling ${features.length} metrics in ${environment}`,
-        e,
-      );
+      this.logger.warn(`Error handling ${features.length} metrics in ${environment}`, e);
     }
   }
 
@@ -191,11 +153,7 @@ export class FeatureLifecycleService {
     );
   }
 
-  async featureUncompleted(
-    feature: string,
-    projectId: string,
-    auditUser: IAuditUser,
-  ) {
+  async featureUncompleted(feature: string, projectId: string, auditUser: IAuditUser) {
     await this.featureLifecycleStore.deleteStage({
       feature,
       stage: 'completed',
@@ -210,9 +168,7 @@ export class FeatureLifecycleService {
   }
 
   private async featureArchived(feature: string) {
-    const result = await this.featureLifecycleStore.insert([
-      { feature, stage: 'archived' },
-    ]);
+    const result = await this.featureLifecycleStore.insert([{ feature, stage: 'archived' }]);
     this.recordStagesEntered(result);
   }
 

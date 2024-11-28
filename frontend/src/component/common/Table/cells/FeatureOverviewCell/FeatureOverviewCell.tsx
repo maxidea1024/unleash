@@ -18,13 +18,7 @@ interface IFeatureNameCellProps {
   row: {
     original: Pick<
       FeatureSearchResponseSchema,
-      | 'name'
-      | 'description'
-      | 'project'
-      | 'tags'
-      | 'type'
-      | 'dependencyType'
-      | 'archivedAt'
+      'name' | 'description' | 'project' | 'tags' | 'type' | 'dependencyType' | 'archivedAt'
     >;
   };
 }
@@ -51,19 +45,12 @@ const Tag = styled('button')(({ theme }) => ({
   color: 'inherit',
 }));
 
-const CappedDescription: FC<{ text: string; searchQuery: string }> = ({
-  text,
-  searchQuery,
-}) => {
+const CappedDescription: FC<{ text: string; searchQuery: string }> = ({ text, searchQuery }) => {
   return (
     <ConditionallyRender
       condition={Boolean(text && text.length > 40)}
       show={
-        <HtmlTooltip
-          title={<Highlighter search={searchQuery}>{text}</Highlighter>}
-          placement='bottom-start'
-          arrow
-        >
+        <HtmlTooltip title={<Highlighter search={searchQuery}>{text}</Highlighter>} placement='bottom-start' arrow>
           <StyledDescription>
             <Highlighter search={searchQuery}>{text}</Highlighter>
           </StyledDescription>
@@ -78,10 +65,7 @@ const CappedDescription: FC<{ text: string; searchQuery: string }> = ({
   );
 };
 
-const CappedTag: FC<{ tag: string; children: ReactElement }> = ({
-  tag,
-  children,
-}) => {
+const CappedTag: FC<{ tag: string; children: ReactElement }> = ({ tag, children }) => {
   return (
     <ConditionallyRender
       condition={tag.length > 30}
@@ -155,10 +139,7 @@ const ArchivedFeatureName: FC<{
   );
 };
 
-const RestTags: FC<{ tags: string[]; onClick: (tag: string) => void }> = ({
-  tags,
-  onClick,
-}) => {
+const RestTags: FC<{ tags: string[]; onClick: (tag: string) => void }> = ({ tags, onClick }) => {
   return (
     <HtmlTooltip
       title={tags.map((tag) => (
@@ -176,9 +157,7 @@ const Tags: FC<{
   tags: FeatureSearchResponseSchema['tags'];
   onClick: (tag: string) => void;
 }> = ({ tags, onClick }) => {
-  const [tag1, tag2, tag3, ...restTags] = (tags || []).map(
-    ({ type, value }) => `${type}:${value}`,
-  );
+  const [tag1, tag2, tag3, ...restTags] = (tags || []).map(({ type, value }) => `${type}:${value}`);
 
   return (
     <TagsContainer>
@@ -197,10 +176,7 @@ const Tags: FC<{
           <Tag onClick={() => onClick(tag3)}>{tag3}</Tag>
         </CappedTag>
       )}
-      <ConditionallyRender
-        condition={restTags.length > 0}
-        show={<RestTags tags={restTags} onClick={onClick} />}
-      />
+      <ConditionallyRender condition={restTags.length > 0} show={<RestTags tags={restTags} onClick={onClick} />} />
     </TagsContainer>
   );
 };
@@ -209,10 +185,7 @@ const StyledDependencyLink = styled(Link)({
   display: 'block',
 });
 
-const DependencyPreview: FC<{ feature: string; project: string }> = ({
-  feature,
-  project,
-}) => {
+const DependencyPreview: FC<{ feature: string; project: string }> = ({ feature, project }) => {
   const { feature: fetchedFeature } = useFeature(project, feature);
   const children = fetchedFeature.children;
   const parents = fetchedFeature.dependencies;
@@ -223,10 +196,7 @@ const DependencyPreview: FC<{ feature: string; project: string }> = ({
         <Box>Children</Box>
 
         {children.map((child) => (
-          <StyledDependencyLink
-            to={`/projects/${project}/features/${child}`}
-            key={child}
-          >
+          <StyledDependencyLink to={`/projects/${project}/features/${child}`} key={child}>
             {child}
           </StyledDependencyLink>
         ))}
@@ -237,9 +207,7 @@ const DependencyPreview: FC<{ feature: string; project: string }> = ({
     return (
       <>
         <Box>Parent</Box>
-        <Link to={`/projects/${project}/features/${parentFeature}`}>
-          {parentFeature}
-        </Link>
+        <Link to={`/projects/${project}/features/${parentFeature}`}>{parentFeature}</Link>
       </>
     );
   }
@@ -255,39 +223,18 @@ export const PrimaryFeatureInfo: FC<{
   dependencyType: string;
   onTypeClick: (type: string) => void;
   delay?: number;
-}> = ({
-  project,
-  feature,
-  archivedAt,
-  type,
-  searchQuery,
-  dependencyType,
-  onTypeClick,
-  delay = 500,
-}) => {
+}> = ({ project, feature, archivedAt, type, searchQuery, dependencyType, onTypeClick, delay = 500 }) => {
   const { featureTypes } = useFeatureTypes();
   const IconComponent = getFeatureTypeIcons(type);
-  const typeName = featureTypes.find(
-    (featureType) => featureType.id === type,
-  )?.name;
+  const typeName = featureTypes.find((featureType) => featureType.id === type)?.name;
   const title = `${typeName || type} flag`;
   const { locationSettings } = useLocationSettings();
-  const archivedDate = getLocalizedDateString(
-    archivedAt,
-    locationSettings.locale,
-  );
+  const archivedDate = getLocalizedDateString(archivedAt, locationSettings.locale);
 
   const TypeIcon = () => (
     <HtmlTooltip arrow title={title} describeChild>
-      <IconButton
-        sx={{ p: 0 }}
-        aria-label={`add ${type} flag to filter`}
-        onClick={() => onTypeClick(type)}
-      >
-        <IconComponent
-          sx={(theme) => ({ fontSize: theme.spacing(2) })}
-          data-testid='feature-type-icon'
-        />
+      <IconButton sx={{ p: 0 }} aria-label={`add ${type} flag to filter`} onClick={() => onTypeClick(type)}>
+        <IconComponent sx={(theme) => ({ fontSize: theme.spacing(2) })} data-testid='feature-type-icon' />
       </IconButton>
     </HtmlTooltip>
   );
@@ -298,11 +245,7 @@ export const PrimaryFeatureInfo: FC<{
       {archivedAt ? (
         <ArchivedFeatureName feature={feature} searchQuery={searchQuery} />
       ) : (
-        <FeatureName
-          project={project}
-          feature={feature}
-          searchQuery={searchQuery}
-        />
+        <FeatureName project={project} feature={feature} searchQuery={searchQuery} />
       )}
 
       <ConditionallyRender
@@ -313,9 +256,7 @@ export const PrimaryFeatureInfo: FC<{
             enterDelay={delay}
             enterNextDelay={delay}
           >
-            <DependencyBadge
-              color={dependencyType === 'parent' ? 'warning' : 'secondary'}
-            >
+            <DependencyBadge color={dependencyType === 'parent' ? 'warning' : 'secondary'}>
               {dependencyType}
             </DependencyBadge>
           </HtmlTooltip>
@@ -347,10 +288,7 @@ const SecondaryFeatureInfo: FC<{
 };
 
 export const FeatureOverviewCell =
-  (
-    onTagClick: (tag: string) => void,
-    onFlagTypeClick: (type: string) => void,
-  ): FC<IFeatureNameCellProps> =>
+  (onTagClick: (tag: string) => void, onFlagTypeClick: (type: string) => void): FC<IFeatureNameCellProps> =>
   ({ row }) => {
     const { searchQuery } = useSearchHighlightContext();
 
@@ -365,10 +303,7 @@ export const FeatureOverviewCell =
           dependencyType={row.original.dependencyType || ''}
           onTypeClick={onFlagTypeClick}
         />
-        <SecondaryFeatureInfo
-          description={row.original.description || ''}
-          searchQuery={searchQuery}
-        />
+        <SecondaryFeatureInfo description={row.original.description || ''} searchQuery={searchQuery} />
         <Tags tags={row.original.tags} onClick={onTagClick} />
       </Container>
     );

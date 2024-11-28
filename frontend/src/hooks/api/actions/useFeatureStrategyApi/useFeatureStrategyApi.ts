@@ -1,8 +1,4 @@
-import type {
-  IFeatureStrategyPayload,
-  IFeatureStrategy,
-  IFeatureStrategySortOrder,
-} from 'interfaces/strategy';
+import type { IFeatureStrategyPayload, IFeatureStrategy, IFeatureStrategySortOrder } from 'interfaces/strategy';
 import useAPI from '../useApi/useApi';
 
 const useFeatureStrategyApi = () => {
@@ -17,11 +13,7 @@ const useFeatureStrategyApi = () => {
     payload: IFeatureStrategyPayload,
   ): Promise<IFeatureStrategy> => {
     const path = `api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/strategies`;
-    const req = createRequest(
-      path,
-      { method: 'POST', body: JSON.stringify(payload) },
-      'addStrategyToFeature',
-    );
+    const req = createRequest(path, { method: 'POST', body: JSON.stringify(payload) }, 'addStrategyToFeature');
 
     return (await makeRequest(req.caller, req.id)).json();
   };
@@ -33,11 +25,7 @@ const useFeatureStrategyApi = () => {
     strategyId: string,
   ): Promise<void> => {
     const path = `api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/strategies/${strategyId}`;
-    const req = createRequest(
-      path,
-      { method: 'DELETE' },
-      'deleteStrategyFromFeature',
-    );
+    const req = createRequest(path, { method: 'DELETE' }, 'deleteStrategyFromFeature');
 
     await makeRequest(req.caller, req.id);
   };
@@ -50,11 +38,7 @@ const useFeatureStrategyApi = () => {
     payload: IFeatureStrategyPayload,
   ): Promise<void> => {
     const path = `api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/strategies/${strategyId}`;
-    const req = createRequest(
-      path,
-      { method: 'PUT', body: JSON.stringify(payload) },
-      'updateStrategyOnFeature',
-    );
+    const req = createRequest(path, { method: 'PUT', body: JSON.stringify(payload) }, 'updateStrategyOnFeature');
 
     await makeRequest(req.caller, req.id);
   };

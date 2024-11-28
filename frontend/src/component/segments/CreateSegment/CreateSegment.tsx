@@ -2,10 +2,7 @@ import type React from 'react';
 import { useContext } from 'react';
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
-import {
-  CREATE_SEGMENT,
-  UPDATE_PROJECT_SEGMENT,
-} from 'component/providers/AccessProvider/permissions';
+import { CREATE_SEGMENT, UPDATE_PROJECT_SEGMENT } from 'component/providers/AccessProvider/permissions';
 import { useSegmentsApi } from 'hooks/api/actions/useSegmentsApi/useSegmentsApi';
 import { useConstraintsValidation } from 'hooks/api/getters/useConstraintsValidation/useConstraintsValidation';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
@@ -53,9 +50,7 @@ export const CreateSegment = ({ modal }: ICreateSegmentProps) => {
   const { segmentValuesLimit } = useSegmentLimits();
   const segmentValuesCount = useSegmentValuesCount(constraints);
 
-  const overSegmentValuesLimit: boolean = Boolean(
-    segmentValuesLimit && segmentValuesCount > segmentValuesLimit,
-  );
+  const overSegmentValuesLimit: boolean = Boolean(segmentValuesLimit && segmentValuesCount > segmentValuesLimit);
 
   const formatApiCode = () => {
     return `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/segments' \\

@@ -7,12 +7,7 @@ test('featureLifecycleCompletedSchema', () => {
     statusValue: 'variant1',
   };
 
-  expect(
-    validateSchema(
-      '#/components/schemas/featureLifecycleCompletedSchema',
-      data,
-    ),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/featureLifecycleCompletedSchema', data)).toBeUndefined();
 });
 
 test('featureLifecycleCompletedSchema without status', () => {
@@ -20,10 +15,5 @@ test('featureLifecycleCompletedSchema without status', () => {
     status: 'kept',
   };
 
-  expect(
-    validateSchema(
-      '#/components/schemas/featureLifecycleCompletedSchema',
-      data,
-    ),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/featureLifecycleCompletedSchema', data)).toBeUndefined();
 });

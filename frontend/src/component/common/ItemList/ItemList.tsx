@@ -21,12 +21,7 @@ interface IItemListProps {
   onChange: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const ItemList = ({
-  label,
-  value,
-  onChange,
-  ...props
-}: IItemListProps) => {
+export const ItemList = ({ label, value, onChange, ...props }: IItemListProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const addItem = () => {

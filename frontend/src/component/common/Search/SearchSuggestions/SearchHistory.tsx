@@ -19,10 +19,7 @@ interface ISearchHistoryProps {
   savedQuery?: string;
 }
 
-export const SearchHistory: VFC<ISearchHistoryProps> = ({
-  onSuggestion,
-  savedQuery,
-}) => {
+export const SearchHistory: VFC<ISearchHistoryProps> = ({ onSuggestion, savedQuery }) => {
   const { trackEvent } = usePlausibleTracker();
   const onSavedQuery = () => {
     onSuggestion(savedQuery || '');
@@ -40,11 +37,7 @@ export const SearchHistory: VFC<ISearchHistoryProps> = ({
         <>
           <StyledBox>
             <StyledHistory />
-            <StyledCode
-              tabIndex={0}
-              onClick={onSavedQuery}
-              onKeyDown={onEnter(onSavedQuery)}
-            >
+            <StyledCode tabIndex={0} onClick={onSavedQuery} onKeyDown={onEnter(onSavedQuery)}>
               <span>{savedQuery}</span>
             </StyledCode>
           </StyledBox>

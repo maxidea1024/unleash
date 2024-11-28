@@ -21,14 +21,12 @@ export const addonsSchema = {
     },
     providers: {
       type: 'array',
-      description:
-        'A list of  all available addon providers, along with their parameters and descriptions.',
+      description: 'A list of  all available addon providers, along with their parameters and descriptions.',
       example: [
         {
           name: 'webhook',
           displayName: 'Webhook',
-          description:
-            'A Webhook is a generic way to post messages from Unleash to third party services.',
+          description: 'A Webhook is a generic way to post messages from Unleash to third party services.',
           documentationUrl: 'https://docs.getunleash.io/docs/addons/webhook',
           parameters: [
             {
@@ -44,8 +42,7 @@ export const addonsSchema = {
               name: 'contentType',
               displayName: 'Content-Type',
               placeholder: 'application/json',
-              description:
-                '(Optional) The Content-Type header to use. Defaults to "application/json".',
+              description: '(Optional) The Content-Type header to use. Defaults to "application/json".',
               type: 'text',
               required: false,
               sensitive: false,
@@ -54,8 +51,7 @@ export const addonsSchema = {
               name: 'authorization',
               displayName: 'Authorization',
               placeholder: '',
-              description:
-                '(Optional) The Authorization header to use. Not used if left blank.',
+              description: '(Optional) The Authorization header to use. Not used if left blank.',
               type: 'text',
               required: false,
               sensitive: true,
@@ -122,8 +118,7 @@ export const addonsSchema = {
               name: 'username',
               displayName: 'Username',
               placeholder: 'Unleash',
-              description:
-                'The username to use when posting messages to slack. Defaults to "Unleash".',
+              description: 'The username to use when posting messages to slack. Defaults to "Unleash".',
               type: 'text',
               required: false,
               sensitive: false,
@@ -132,8 +127,7 @@ export const addonsSchema = {
               name: 'emojiIcon',
               displayName: 'Emoji Icon',
               placeholder: ':unleash:',
-              description:
-                'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
+              description: 'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
               type: 'text',
               required: false,
               sensitive: false,
@@ -141,8 +135,7 @@ export const addonsSchema = {
             {
               name: 'defaultChannel',
               displayName: 'Default channel',
-              description:
-                '(Required) Default channel to post updates to if not specified in the slack-tag',
+              description: '(Required) Default channel to post updates to if not specified in the slack-tag',
               type: 'text',
               required: true,
               sensitive: false,
@@ -167,8 +160,7 @@ export const addonsSchema = {
           tagTypes: [
             {
               name: 'slack',
-              description:
-                'Slack tag used by the slack-addon to specify the slack channel.',
+              description: 'Slack tag used by the slack-addon to specify the slack channel.',
               icon: 'S',
             },
           ],
@@ -249,8 +241,7 @@ export const addonsSchema = {
           tagTypes: [
             {
               name: 'datadog',
-              description:
-                'All Datadog tags added to a specific feature are sent to datadog event stream.',
+              description: 'All Datadog tags added to a specific feature are sent to datadog event stream.',
               icon: 'D',
             },
           ],

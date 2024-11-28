@@ -4,10 +4,7 @@ import { createTestConfig } from '../../../test/config/test-config';
 import createStores from '../../../test/fixtures/store';
 import getApp from '../../app';
 import { createServices } from '../../services';
-import {
-  DEFAULT_SEGMENT_VALUES_LIMIT,
-  DEFAULT_STRATEGY_SEGMENTS_LIMIT,
-} from '../../util/segments';
+import { DEFAULT_SEGMENT_VALUES_LIMIT, DEFAULT_STRATEGY_SEGMENTS_LIMIT } from '../../util/segments';
 import type TestAgent from 'supertest/lib/agent';
 import type { IUnleashStores } from '../../types';
 
@@ -46,10 +43,7 @@ beforeEach(async () => {
 });
 
 test('should get ui config', async () => {
-  const { body } = await request
-    .get(`${base}/api/admin/ui-config`)
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get(`${base}/api/admin/ui-config`).expect('Content-Type', /json/).expect(200);
 
   expect(body.slogan).toEqual('hello');
   expect(body.headerBackground).toEqual('red');

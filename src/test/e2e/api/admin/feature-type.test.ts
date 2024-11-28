@@ -1,9 +1,6 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import { validateSchema } from '../../../../lib/openapi/validate';
 import { featureTypesSchema } from '../../../../lib/openapi/spec/feature-types-schema';
 
@@ -45,17 +42,14 @@ test('Should get all defined feature types', async () => {
 });
 
 describe('updating lifetimes', () => {
-  test.each([null, 5])(
-    'it updates to the lifetime correctly: `%s`',
-    async (lifetimeDays) => {
-      const { body } = await app.request
-        .put('/api/admin/feature-types/release/lifetime')
-        .send({ lifetimeDays })
-        .expect(200);
+  test.each([null, 5])('it updates to the lifetime correctly: `%s`', async (lifetimeDays) => {
+    const { body } = await app.request
+      .put('/api/admin/feature-types/release/lifetime')
+      .send({ lifetimeDays })
+      .expect(200);
 
-      expect(body.lifetimeDays).toEqual(lifetimeDays);
-    },
-  );
+    expect(body.lifetimeDays).toEqual(lifetimeDays);
+  });
   test("if the feature type doesn't exist, you get a 404", async () => {
     await app.request
       .put('/api/admin/feature-types/bogus-feature-type/lifetime')

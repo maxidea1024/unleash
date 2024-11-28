@@ -4,10 +4,7 @@ import { render } from 'utils/testRenderer';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import type { LifecycleStage } from './LifecycleStage';
-import {
-  DELETE_FEATURE,
-  UPDATE_FEATURE,
-} from 'component/providers/AccessProvider/permissions';
+import { DELETE_FEATURE, UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
 
 const currentTime = '2024-04-25T08:05:00.000Z';
 const twoMinutesAgo = '2024-04-25T08:03:00.000Z';
@@ -33,10 +30,7 @@ const renderOpenTooltip = (
       <span>child</span>
     </FeatureLifecycleTooltip>,
     {
-      permissions: [
-        { permission: DELETE_FEATURE },
-        { permission: UPDATE_FEATURE },
-      ],
+      permissions: [{ permission: DELETE_FEATURE }, { permission: UPDATE_FEATURE }],
     },
   );
 
@@ -53,9 +47,7 @@ test('render initial stage', async () => {
 
   await screen.findByText('initial');
   await screen.findByText('2 minutes');
-  await screen.findByText(
-    'This feature flag is currently in the initial phase of its lifecycle.',
-  );
+  await screen.findByText('This feature flag is currently in the initial phase of its lifecycle.');
 });
 
 test('render pre-live stage', async () => {

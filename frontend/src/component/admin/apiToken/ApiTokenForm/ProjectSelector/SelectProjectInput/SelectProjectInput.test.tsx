@@ -2,10 +2,7 @@ import { vi } from 'vitest';
 import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { render } from 'utils/testRenderer';
-import {
-  type ISelectProjectInputProps,
-  SelectProjectInput,
-} from './SelectProjectInput';
+import { type ISelectProjectInputProps, SelectProjectInput } from './SelectProjectInput';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
 
 const onChange = vi.fn();
@@ -48,17 +45,13 @@ describe('SelectProjectInput', () => {
 
     await user.click(screen.getByTestId('select-all-projects'));
 
-    expect(
-      screen.getByLabelText(/all current and future projects/i),
-    ).not.toBeChecked();
+    expect(screen.getByLabelText(/all current and future projects/i)).not.toBeChecked();
 
     expect(screen.getByLabelText('Projects')).toBeEnabled();
 
     await user.click(screen.getByTestId('select-all-projects'));
 
-    expect(
-      screen.getByLabelText(/all current and future projects/i),
-    ).toBeChecked();
+    expect(screen.getByLabelText(/all current and future projects/i)).toBeChecked();
 
     expect(screen.getByLabelText('Projects')).toBeDisabled();
   });
@@ -86,11 +79,7 @@ describe('SelectProjectInput', () => {
       expect(button).toBeInTheDocument();
       await user.click(button);
 
-      expect(onChange).toHaveBeenCalledWith([
-        'project1',
-        'project2',
-        'project3',
-      ]);
+      expect(onChange).toHaveBeenCalledWith(['project1', 'project2', 'project3']);
 
       button = screen.getByRole('button', {
         name: /deselect all/i,

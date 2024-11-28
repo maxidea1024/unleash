@@ -12,8 +12,7 @@ let userStore: IUserStore;
 let userUnsubscribeStore: IUserUnsubscribeStore;
 let userSubscriptionsReadModel: IUserSubscriptionsReadModel;
 
-const subscription =
-  'productivity-report' satisfies (typeof SUBSCRIPTION_TYPES)[number];
+const subscription = 'productivity-report' satisfies (typeof SUBSCRIPTION_TYPES)[number];
 
 beforeAll(async () => {
   db = await dbInit('user_subscriptions_read_model_test', getLogger);
@@ -51,8 +50,7 @@ describe('getSubscribedUsers', () => {
       subscription,
     });
 
-    const subscribers =
-      await userSubscriptionsReadModel.getSubscribedUsers(subscription);
+    const subscribers = await userSubscriptionsReadModel.getSubscribedUsers(subscription);
 
     expect(subscribers).toHaveLength(2);
     expect(subscribers).toEqual(
@@ -69,38 +67,23 @@ describe('getSubscribedUsers', () => {
       name: 'User Seven',
     });
 
-    let subscribers =
-      await userSubscriptionsReadModel.getSubscribedUsers(subscription);
-    expect(subscribers).toEqual(
-      expect.arrayContaining([
-        { email: 'user7@example.com', name: 'User Seven' },
-      ]),
-    );
+    let subscribers = await userSubscriptionsReadModel.getSubscribedUsers(subscription);
+    expect(subscribers).toEqual(expect.arrayContaining([{ email: 'user7@example.com', name: 'User Seven' }]));
 
     await userUnsubscribeStore.insert({
       userId: user.id,
       subscription,
     });
-    subscribers =
-      await userSubscriptionsReadModel.getSubscribedUsers(subscription);
-    expect(subscribers).not.toEqual(
-      expect.arrayContaining([
-        { email: 'user7@example.com', name: 'User Seven' },
-      ]),
-    );
+    subscribers = await userSubscriptionsReadModel.getSubscribedUsers(subscription);
+    expect(subscribers).not.toEqual(expect.arrayContaining([{ email: 'user7@example.com', name: 'User Seven' }]));
 
     await userUnsubscribeStore.delete({
       userId: user.id,
       subscription,
     });
 
-    subscribers =
-      await userSubscriptionsReadModel.getSubscribedUsers(subscription);
-    expect(subscribers).toEqual(
-      expect.arrayContaining([
-        { email: 'user7@example.com', name: 'User Seven' },
-      ]),
-    );
+    subscribers = await userSubscriptionsReadModel.getSubscribedUsers(subscription);
+    expect(subscribers).toEqual(expect.arrayContaining([{ email: 'user7@example.com', name: 'User Seven' }]));
   });
 
   test('should not include deleted users', async () => {
@@ -111,8 +94,7 @@ describe('getSubscribedUsers', () => {
 
     await userStore.delete(user.id);
 
-    const subscribers =
-      await userSubscriptionsReadModel.getSubscribedUsers(subscription);
+    const subscribers = await userSubscriptionsReadModel.getSubscribedUsers(subscription);
 
     expect(subscribers).toHaveLength(0);
   });
@@ -125,8 +107,7 @@ describe('getUserSubscriptions', () => {
       name: 'User Four',
     });
 
-    const userSubscriptions =
-      await userSubscriptionsReadModel.getUserSubscriptions(user.id);
+    const userSubscriptions = await userSubscriptionsReadModel.getUserSubscriptions(user.id);
 
     expect(userSubscriptions).toEqual(SUBSCRIPTION_TYPES);
   });
@@ -136,16 +117,14 @@ describe('getUserSubscriptions', () => {
       email: 'user5@example.com',
       name: 'User Five',
     });
-    const subscription =
-      'productivity-report' satisfies (typeof SUBSCRIPTION_TYPES)[number];
+    const subscription = 'productivity-report' satisfies (typeof SUBSCRIPTION_TYPES)[number];
 
     await userUnsubscribeStore.insert({
       userId: user.id,
       subscription,
     });
 
-    const userSubscriptions =
-      await userSubscriptionsReadModel.getUserSubscriptions(user.id);
+    const userSubscriptions = await userSubscriptionsReadModel.getUserSubscriptions(user.id);
 
     expect(userSubscriptions).not.toContain(subscription);
 
@@ -154,8 +133,7 @@ describe('getUserSubscriptions', () => {
       subscription,
     });
 
-    const userSubscriptionsAfterResubscribe =
-      await userSubscriptionsReadModel.getUserSubscriptions(user.id);
+    const userSubscriptionsAfterResubscribe = await userSubscriptionsReadModel.getUserSubscriptions(user.id);
 
     expect(userSubscriptionsAfterResubscribe).toContain(subscription);
   });

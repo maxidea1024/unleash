@@ -11,6 +11,4 @@ export const parentFeatureOptionsSchema = {
   components: {},
 } as const;
 
-export type ParentFeatureOptionsSchema = FromSchema<
-  typeof parentFeatureOptionsSchema
->;
+export type ParentFeatureOptionsSchema = FromSchema<typeof parentFeatureOptionsSchema>;

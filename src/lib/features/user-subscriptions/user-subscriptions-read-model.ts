@@ -6,14 +6,7 @@ import {
 } from './user-subscriptions-read-model-type';
 
 const USERS_TABLE = 'users';
-const USER_COLUMNS = [
-  'id',
-  'name',
-  'username',
-  'email',
-  'image_url',
-  'is_service',
-];
+const USER_COLUMNS = ['id', 'name', 'username', 'email', 'image_url', 'is_service'];
 const UNSUBSCRIPTION_TABLE = 'user_unsubscription';
 
 const mapRowToSubscriber = (row) =>
@@ -45,16 +38,10 @@ export class UserSubscriptionsReadModel implements IUserSubscriptionsReadModel {
   }
 
   async getUserSubscriptions(userId: number) {
-    const unsubscriptionsList = await this.db(UNSUBSCRIPTION_TABLE)
-      .select('subscription')
-      .where('user_id', userId);
+    const unsubscriptionsList = await this.db(UNSUBSCRIPTION_TABLE).select('subscription').where('user_id', userId);
 
-    const unsubscriptions: string[] = unsubscriptionsList.map(
-      (item) => item.subscription,
-    );
+    const unsubscriptions: string[] = unsubscriptionsList.map((item) => item.subscription);
 
-    return SUBSCRIPTION_TYPES.filter(
-      (subscription) => !unsubscriptions.includes(subscription),
-    );
+    return SUBSCRIPTION_TYPES.filter((subscription) => !unsubscriptions.includes(subscription));
   }
 }

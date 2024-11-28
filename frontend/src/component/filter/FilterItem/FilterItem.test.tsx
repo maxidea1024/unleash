@@ -1,13 +1,8 @@
 import { screen, fireEvent } from '@testing-library/react';
 import { render } from 'utils/testRenderer';
-import {
-  FilterItem,
-  type FilterItemParams,
-  type IFilterItemProps,
-} from './FilterItem';
+import { FilterItem, type FilterItemParams, type IFilterItemProps } from './FilterItem';
 
-const getOption = (option: string) =>
-  screen.getByText(option).closest('li')!.querySelector('input')!;
+const getOption = (option: string) => screen.getByText(option).closest('li')!.querySelector('input')!;
 
 const setup = (initialState: FilterItemParams | null) => {
   const recordedChanges: FilterItemParams[] = [];

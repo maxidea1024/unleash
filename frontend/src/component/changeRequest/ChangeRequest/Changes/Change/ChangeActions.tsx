@@ -30,24 +30,17 @@ import MoreVert from '@mui/icons-material/MoreVert';
 import { EditChange } from './EditChange';
 
 const useShowActions = (changeRequest: ChangeRequestType, change: IChange) => {
-  const { isChangeRequestConfigured } = useChangeRequestsEnabled(
-    changeRequest.project,
-  );
-  const allowChangeRequestActions = isChangeRequestConfigured(
-    changeRequest.environment,
-  );
+  const { isChangeRequestConfigured } = useChangeRequestsEnabled(changeRequest.project);
+  const allowChangeRequestActions = isChangeRequestConfigured(changeRequest.environment);
 
-  const isPending = !['Cancelled', 'Applied', 'Scheduled'].includes(
-    changeRequest.state,
-  );
+  const isPending = !['Cancelled', 'Applied', 'Scheduled'].includes(changeRequest.state);
 
   const { user } = useAuthUser();
   const isAuthor = user?.id === changeRequest.createdBy.id;
 
   const showActions = allowChangeRequestActions && isPending && isAuthor;
 
-  const showEdit =
-    showActions && ['addStrategy', 'updateStrategy'].includes(change.action);
+  const showEdit = showActions && ['addStrategy', 'updateStrategy'].includes(change.action);
 
   const showDiscard = showActions && changesCount(changeRequest) > 1;
 
@@ -148,11 +141,7 @@ export const ChangeActions: FC<{
                     <EditChange
                       changeRequestId={changeRequest.id}
                       featureId={feature}
-                      change={
-                        change as
-                          | IChangeRequestAddStrategy
-                          | IChangeRequestUpdateStrategy
-                      }
+                      change={change as IChangeRequestAddStrategy | IChangeRequestUpdateStrategy}
                       environment={changeRequest.environment}
                       open={editOpen}
                       onSubmit={() => {

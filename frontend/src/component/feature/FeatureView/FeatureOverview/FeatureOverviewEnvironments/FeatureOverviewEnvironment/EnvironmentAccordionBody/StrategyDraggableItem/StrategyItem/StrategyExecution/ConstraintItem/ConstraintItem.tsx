@@ -36,16 +36,10 @@ export const ConstraintItem = ({ value, text }: IConstraintItemProps) => {
         elseShow={
           <div>
             <StyledParagraph>
-              {value.length} {value.length > 1 ? `${text}s` : text} will get
-              access.
+              {value.length} {value.length > 1 ? `${text}s` : text} will get access.
             </StyledParagraph>
             {value.map((v: string) => (
-              <StyledChip
-                key={v}
-                label={
-                  <StringTruncator maxWidth='300' text={v} maxLength={50} />
-                }
-              />
+              <StyledChip key={v} label={<StringTruncator maxWidth='300' text={v} maxLength={50} />} />
             ))}
           </div>
         }

@@ -7,17 +7,13 @@ import { sortTypes } from 'utils/sortTypes';
 import { TimeAgoCell } from 'component/common/Table/cells/TimeAgoCell/TimeAgoCell';
 import type { IUser } from 'interfaces/user';
 
-export type PageQueryType = Partial<
-  Record<'sort' | 'order' | 'search', string>
->;
+export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
 
 interface IRoleDeleteDialogUsersProps {
   users: IUser[];
 }
 
-export const RoleDeleteDialogUsers = ({
-  users,
-}: IRoleDeleteDialogUsersProps) => {
+export const RoleDeleteDialogUsers = ({ users }: IRoleDeleteDialogUsersProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'last-login', desc: true }],
   }));
@@ -31,10 +27,7 @@ export const RoleDeleteDialogUsers = ({
           accessor: (row: any) => row.name || '',
           minWidth: 200,
           Cell: ({ row: { original: user } }: any) => (
-            <HighlightCell
-              value={user.name}
-              subtitle={user.email || user.username}
-            />
+            <HighlightCell value={user.name} subtitle={user.email || user.username} />
           ),
         },
         {
@@ -49,11 +42,7 @@ export const RoleDeleteDialogUsers = ({
           Header: 'Last login',
           accessor: (row: any) => row.seenAt || '',
           Cell: ({ row: { original: user } }: any) => (
-            <TimeAgoCell
-              value={user.seenAt}
-              emptyText='Never'
-              title={(date) => `Last login: ${date}`}
-            />
+            <TimeAgoCell value={user.seenAt} emptyText='Never' title={(date) => `Last login: ${date}`} />
           ),
           maxWidth: 150,
         },
@@ -76,11 +65,5 @@ export const RoleDeleteDialogUsers = ({
     useFlexLayout,
   );
 
-  return (
-    <VirtualizedTable
-      rows={rows}
-      headerGroups={headerGroups}
-      prepareRow={prepareRow}
-    />
-  );
+  return <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />;
 };

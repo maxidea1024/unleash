@@ -28,9 +28,8 @@ export const SdkCell: VFC<ISdkCellProps> = ({ row }) => {
     searchQuery.length > 0 &&
     row.original.sdks.some(
       (sdk) =>
-        sdk.versions.some((version) =>
-          version.toLowerCase().includes(searchQuery.toLowerCase()),
-        ) || sdk.name.toLowerCase().includes(searchQuery.toLowerCase()),
+        sdk.versions.some((version) => version.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        sdk.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
   if (!row.original.sdks || row.original.sdks.length === 0) return <TextCell />;
@@ -56,9 +55,7 @@ export const SdkCell: VFC<ISdkCellProps> = ({ row }) => {
           </>
         }
       >
-        {row.original.sdks?.length === 1
-          ? '1 sdk'
-          : `${row.original.sdks.length} sdks`}
+        {row.original.sdks?.length === 1 ? '1 sdk' : `${row.original.sdks.length} sdks`}
       </TooltipLink>
     </TextCell>
   );

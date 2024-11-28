@@ -1,9 +1,4 @@
-import {
-  Autocomplete,
-  type AutocompleteProps,
-  TextField,
-  styled,
-} from '@mui/material';
+import { Autocomplete, type AutocompleteProps, TextField, styled } from '@mui/material';
 import type { IRole } from 'interfaces/role';
 import { RoleDescription } from '../RoleDescription/RoleDescription';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
@@ -17,8 +12,7 @@ const StyledRoleOption = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IRoleSelectProps
-  extends Partial<AutocompleteProps<IRole, false, false, false>> {
+interface IRoleSelectProps extends Partial<AutocompleteProps<IRole, false, false, false>> {
   roles: IRole[];
   value: IRole | null;
   setValue: (role: IRole | null) => void;
@@ -26,18 +20,8 @@ interface IRoleSelectProps
   hideDescription?: boolean;
 }
 
-export const RoleSelect = ({
-  roles,
-  value,
-  setValue,
-  required,
-  hideDescription,
-  ...rest
-}: IRoleSelectProps) => {
-  const renderRoleOption = (
-    props: React.HTMLAttributes<HTMLLIElement>,
-    option: IRole,
-  ) => (
+export const RoleSelect = ({ roles, value, setValue, required, hideDescription, ...rest }: IRoleSelectProps) => {
+  const renderRoleOption = (props: React.HTMLAttributes<HTMLLIElement>, option: IRole) => (
     <li {...props}>
       <StyledRoleOption>
         <span>{option.name}</span>
@@ -56,16 +40,12 @@ export const RoleSelect = ({
         options={roles}
         renderOption={renderRoleOption}
         getOptionLabel={(option) => option.name}
-        renderInput={(params) => (
-          <TextField {...params} label='Role' required={required} />
-        )}
+        renderInput={(params) => <TextField {...params} label='Role' required={required} />}
         {...rest}
       />
       <ConditionallyRender
         condition={Boolean(value) && !hideDescription}
-        show={() => (
-          <RoleDescription sx={{ marginTop: 1 }} roleId={value!.id} />
-        )}
+        show={() => <RoleDescription sx={{ marginTop: 1 }} roleId={value!.id} />}
       />
     </>
   );

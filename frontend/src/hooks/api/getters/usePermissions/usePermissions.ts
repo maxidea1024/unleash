@@ -24,11 +24,7 @@ const usePermissions = (options: SWRConfiguration = {}): IUsePermissions => {
 
   const KEY = `api/admin/permissions`;
 
-  const { data, error } = useSWR<{ permissions: IPermissions }>(
-    KEY,
-    fetcher,
-    options,
-  );
+  const { data, error } = useSWR<{ permissions: IPermissions }>(KEY, fetcher, options);
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {

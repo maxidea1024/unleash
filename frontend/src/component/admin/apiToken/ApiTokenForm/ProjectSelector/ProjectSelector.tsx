@@ -13,13 +13,7 @@ interface IProjectSelectorProps {
   errors: { [key: string]: string };
   clearErrors: (error?: ApiTokenFormErrorType) => void;
 }
-export const ProjectSelector = ({
-  type,
-  projects,
-  setProjects,
-  errors,
-  clearErrors,
-}: IProjectSelectorProps) => {
+export const ProjectSelector = ({ type, projects, setProjects, errors, clearErrors }: IProjectSelectorProps) => {
   const projectId = useOptionalPathParam('projectId');
   const { projects: availableProjects } = useProjects();
 
@@ -34,9 +28,7 @@ export const ProjectSelector = ({
 
   return (
     <>
-      <StyledInputDescription>
-        Which project do you want to give access to?
-      </StyledInputDescription>
+      <StyledInputDescription>Which project do you want to give access to?</StyledInputDescription>
       <SelectProjectInput
         disabled={type === TokenType.ADMIN}
         options={selectableProjects}

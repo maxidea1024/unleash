@@ -1,8 +1,5 @@
 import type { Knex } from 'knex';
-import type {
-  IQueryOperator,
-  IQueryParam,
-} from '../feature-toggle/types/feature-toggle-strategies-store-type';
+import type { IQueryOperator, IQueryParam } from '../feature-toggle/types/feature-toggle-strategies-store-type';
 
 export interface NormalizeParamsDefaults {
   limitDefault: number;
@@ -36,19 +33,13 @@ export const applySearchFilters = (
 
     qb.where((builder) => {
       columns.forEach((column) => {
-        builder.orWhereRaw(
-          `(${column}) ILIKE ANY (ARRAY[${sqlQueryParameters}])`,
-          sqlParameters,
-        );
+        builder.orWhereRaw(`(${column}) ILIKE ANY (ARRAY[${sqlQueryParameters}])`, sqlParameters);
       });
     });
   }
 };
 
-export const applyGenericQueryParams = (
-  query: Knex.QueryBuilder,
-  queryParams: IQueryParam[],
-): void => {
+export const applyGenericQueryParams = (query: Knex.QueryBuilder, queryParams: IQueryParam[]): void => {
   queryParams.forEach((param) => {
     const isSingleParam = param.values.length === 1;
     switch (param.operator) {
@@ -86,15 +77,11 @@ export const normalizeQueryParams = (
     .filter((query) => query);
 
   const maxLimit = defaults.maxLimit || 1000;
-  const normalizedLimit =
-    Number(limit) > 0 && Number(limit) <= maxLimit
-      ? Number(limit)
-      : defaults.limitDefault;
+  const normalizedLimit = Number(limit) > 0 && Number(limit) <= maxLimit ? Number(limit) : defaults.limitDefault;
 
   const normalizedOffset = Number(offset) > 0 ? Number(offset) : 0;
 
-  const normalizedSortOrder =
-    sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
+  const normalizedSortOrder = sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
 
   return {
     normalizedQuery,
@@ -104,10 +91,7 @@ export const normalizeQueryParams = (
   };
 };
 
-export const parseSearchOperatorValue = (
-  field: string,
-  value: string,
-): IQueryParam | null => {
+export const parseSearchOperatorValue = (field: string, value: string): IQueryParam | null => {
   const pattern =
     /^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF|INCLUDE|DO_NOT_INCLUDE|INCLUDE_ALL_OF|INCLUDE_ANY_OF|EXCLUDE_IF_ANY_OF|EXCLUDE_ALL|IS_BEFORE|IS_ON_OR_AFTER):(.+)$/;
   const match = value.match(pattern);

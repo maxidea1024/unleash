@@ -8,19 +8,10 @@ import { ADMIN, NONE } from '../../types/permissions';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
-import {
-  environmentsSchema,
-  type EnvironmentsSchema,
-} from '../../openapi/spec/environments-schema';
-import {
-  environmentSchema,
-  type EnvironmentSchema,
-} from '../../openapi/spec/environment-schema';
+import { environmentsSchema, type EnvironmentsSchema } from '../../openapi/spec/environments-schema';
+import { environmentSchema, type EnvironmentSchema } from '../../openapi/spec/environment-schema';
 import type { SortOrderSchema } from '../../openapi/spec/sort-order-schema';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import {
   environmentsProjectSchema,
   type EnvironmentsProjectSchema,
@@ -41,10 +32,7 @@ export class EnvironmentsController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      environmentService,
-      openApiService,
-    }: Pick<IUnleashServices, 'environmentService' | 'openApiService'>,
+    { environmentService, openApiService }: Pick<IUnleashServices, 'environmentService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -62,8 +50,7 @@ export class EnvironmentsController extends Controller {
         openApiService.validPath({
           tags: ['Environments'],
           summary: 'Get all environments',
-          description:
-            'Retrieves all environments that exist in this Unleash instance.',
+          description: 'Retrieves all environments that exist in this Unleash instance.',
           operationId: 'getAllEnvironments',
           responses: {
             200: createResponseSchema('environmentsSchema'),
@@ -83,8 +70,7 @@ export class EnvironmentsController extends Controller {
           tags: ['Environments'],
           operationId: 'getEnvironment',
           summary: 'Get the environment with `name`',
-          description:
-            'Retrieves the environment with `name` if it exists in this Unleash instance',
+          description: 'Retrieves the environment with `name` if it exists in this Unleash instance',
           responses: {
             200: createResponseSchema('environmentSchema'),
             ...getStandardResponses(401, 403, 404),
@@ -122,8 +108,7 @@ export class EnvironmentsController extends Controller {
         openApiService.validPath({
           tags: ['Environments'],
           summary: 'Update environment sort orders',
-          description:
-            'Updates sort orders for the named environments. Environments not specified are unaffected.',
+          description: 'Updates sort orders for the named environments. Environments not specified are unaffected.',
           operationId: 'updateSortOrder',
           requestBody: createRequestSchema('sortOrderSchema'),
           responses: {
@@ -165,8 +150,7 @@ export class EnvironmentsController extends Controller {
         openApiService.validPath({
           tags: ['Environments'],
           summary: 'Toggle the environment with `name` off',
-          description:
-            'Removes this environment from the list of available environments for projects to use',
+          description: 'Removes this environment from the list of available environments for projects to use',
           operationId: 'toggleEnvironmentOff',
           responses: {
             204: emptyResponse,
@@ -177,70 +161,38 @@ export class EnvironmentsController extends Controller {
     });
   }
 
-  async getAllEnvironments(
-    _: Request,
-    res: Response<EnvironmentsSchema>,
-  ): Promise<void> {
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      environmentsSchema.$id,
-      { version: 1, environments: await this.service.getAll() },
-    );
+  async getAllEnvironments(_: Request, res: Response<EnvironmentsSchema>): Promise<void> {
+    this.openApiService.respondWithValidation(200, res, environmentsSchema.$id, {
+      version: 1,
+      environments: await this.service.getAll(),
+    });
   }
 
-  async updateSortOrder(
-    req: Request<unknown, unknown, SortOrderSchema>,
-    res: Response,
-  ): Promise<void> {
+  async updateSortOrder(req: Request<unknown, unknown, SortOrderSchema>, res: Response): Promise<void> {
     await this.service.updateSortOrder(req.body);
     res.status(200).end();
   }
 
-  async toggleEnvironmentOn(
-    req: Request<EnvironmentParam>,
-    res: Response,
-  ): Promise<void> {
+  async toggleEnvironmentOn(req: Request<EnvironmentParam>, res: Response): Promise<void> {
     const { name } = req.params;
     await this.service.toggleEnvironment(name, true);
     res.status(204).end();
   }
 
-  async toggleEnvironmentOff(
-    req: Request<EnvironmentParam>,
-    res: Response,
-  ): Promise<void> {
+  async toggleEnvironmentOff(req: Request<EnvironmentParam>, res: Response): Promise<void> {
     const { name } = req.params;
     await this.service.toggleEnvironment(name, false);
     res.status(204).end();
   }
 
-  async getEnvironment(
-    req: Request<EnvironmentParam>,
-    res: Response<EnvironmentSchema>,
-  ): Promise<void> {
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      environmentSchema.$id,
-      await this.service.get(req.params.name),
-    );
+  async getEnvironment(req: Request<EnvironmentParam>, res: Response<EnvironmentSchema>): Promise<void> {
+    this.openApiService.respondWithValidation(200, res, environmentSchema.$id, await this.service.get(req.params.name));
   }
 
-  async getProjectEnvironments(
-    req: Request<ProjectParam>,
-    res: Response<EnvironmentsProjectSchema>,
-  ): Promise<void> {
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      environmentsProjectSchema.$id,
-      {
-        version: 1,
-        environments: (await this.service.getProjectEnvironments(
-          req.params.projectId,
-        )) as any,
-      },
-    );
+  async getProjectEnvironments(req: Request<ProjectParam>, res: Response<EnvironmentsProjectSchema>): Promise<void> {
+    this.openApiService.respondWithValidation(200, res, environmentsProjectSchema.$id, {
+      version: 1,
+      environments: (await this.service.getProjectEnvironments(req.params.projectId)) as any,
+    });
   }
 }

@@ -33,18 +33,8 @@ export const LastSeenProgress = ({ yes, no }: ILastSeenProgressProps) => {
   return (
     <ProgressContainer>
       <Box sx={{ position: 'relative' }}>
-        <BackgroundCircularProgress
-          variant='determinate'
-          size={18}
-          thickness={11}
-          value={100}
-        />
-        <MainCircularProgress
-          variant='determinate'
-          size={18}
-          thickness={11}
-          value={progress}
-        />
+        <BackgroundCircularProgress variant='determinate' size={18} thickness={11} value={100} />
+        <MainCircularProgress variant='determinate' size={18} thickness={11} value={progress} />
       </Box>
       <Box>{progress}%</Box>
     </ProgressContainer>

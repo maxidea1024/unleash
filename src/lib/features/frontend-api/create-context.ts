@@ -3,15 +3,7 @@ import crypto from 'crypto';
 import type { Context } from 'unleash-client';
 
 export function createContext(value: any): Context {
-  const {
-    appName,
-    environment,
-    userId,
-    sessionId,
-    remoteAddress,
-    properties,
-    ...rest
-  } = value;
+  const { appName, environment, userId, sessionId, remoteAddress, properties, ...rest } = value;
 
   // move non root context fields to properties
   const context: Context = {

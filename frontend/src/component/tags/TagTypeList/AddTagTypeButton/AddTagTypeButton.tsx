@@ -15,19 +15,12 @@ export const AddTagTypeButton = () => {
     <ConditionallyRender
       condition={smallScreen}
       show={
-        <PermissionIconButton
-          onClick={() => navigate('/tag-types/create')}
-          size='large'
-          permission={CREATE_TAG_TYPE}
-        >
+        <PermissionIconButton onClick={() => navigate('/tag-types/create')} size='large' permission={CREATE_TAG_TYPE}>
           <Add />
         </PermissionIconButton>
       }
       elseShow={
-        <PermissionButton
-          permission={CREATE_TAG_TYPE}
-          onClick={() => navigate('/tag-types/create')}
-        >
+        <PermissionButton permission={CREATE_TAG_TYPE} onClick={() => navigate('/tag-types/create')}>
           New tag type
         </PermissionButton>
       }

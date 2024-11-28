@@ -4,12 +4,7 @@ import { DB_TIME } from '../metric-events';
 import type { Logger, LogProvider } from '../logger';
 import NotFoundError from '../error/notfound-error';
 import type { IApiTokenStore } from '../types/stores/api-token-store';
-import {
-  ApiTokenType,
-  type IApiToken,
-  type IApiTokenCreate,
-  isAllProjects,
-} from '../types/models/api-token';
+import { ApiTokenType, type IApiToken, type IApiTokenCreate, isAllProjects } from '../types/models/api-token';
 import { ALL_PROJECTS } from '../util/constants';
 import type { Db } from './db';
 import { inTransaction } from './transaction';
@@ -86,12 +81,7 @@ export class ApiTokenStore implements IApiTokenStore {
   private readonly db: Db;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(
-    db: Db,
-    eventBus: EventEmitter,
-    getLogger: LogProvider,
-    flagResolver: IFlagResolver,
-  ) {
+  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
     this.logger = getLogger('api-tokens.ts');
 
     this.db = db;
@@ -142,20 +132,14 @@ export class ApiTokenStore implements IApiTokenStore {
 
   async getAllActive(): Promise<IApiToken[]> {
     const stopTimer = this.timer('getAllActive');
-    const rows = await this.makeTokenProjectQuery()
-      .where('expires_at', 'IS', null)
-      .orWhere('expires_at', '>', 'now()');
+    const rows = await this.makeTokenProjectQuery().where('expires_at', 'IS', null).orWhere('expires_at', '>', 'now()');
     stopTimer();
     return toTokens(rows);
   }
 
   private makeTokenProjectQuery() {
     return this.db<ITokenRow>(`${TABLE} as tokens`)
-      .leftJoin(
-        `${API_LINK_TABLE} as token_project_link`,
-        'tokens.secret',
-        'token_project_link.secret',
-      )
+      .leftJoin(`${API_LINK_TABLE} as token_project_link`, 'tokens.secret', 'token_project_link.secret')
       .select(
         'tokens.secret',
         'username',
@@ -172,19 +156,14 @@ export class ApiTokenStore implements IApiTokenStore {
 
   async insert(newToken: IApiTokenCreate): Promise<IApiToken> {
     const response = await inTransaction(this.db, async (tx) => {
-      const [row] = await tx<ITokenInsert>(TABLE).insert(toRow(newToken), [
-        'created_at',
-      ]);
+      const [row] = await tx<ITokenInsert>(TABLE).insert(toRow(newToken), ['created_at']);
 
       const updateProjectTasks = (newToken.projects || [])
         .filter((project) => {
           return project !== ALL_PROJECTS;
         })
         .map((project) => {
-          return tx.raw(`INSERT INTO ${API_LINK_TABLE} VALUES (?, ?)`, [
-            newToken.secret,
-            project,
-          ]);
+          return tx.raw(`INSERT INTO ${API_LINK_TABLE} VALUES (?, ?)`, [newToken.secret, project]);
         });
       await Promise.all(updateProjectTasks);
       return {
@@ -201,10 +180,7 @@ export class ApiTokenStore implements IApiTokenStore {
   destroy(): void {}
 
   async exists(secret: string): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE secret = ?) AS present`,
-      [secret],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE secret = ?) AS present`, [secret]);
     const { present } = result.rows[0];
     return present;
   }
@@ -225,10 +201,7 @@ export class ApiTokenStore implements IApiTokenStore {
   }
 
   async setExpiry(secret: string, expiresAt: Date): Promise<IApiToken> {
-    const rows = await this.makeTokenProjectQuery()
-      .update({ expires_at: expiresAt })
-      .where({ secret })
-      .returning('*');
+    const rows = await this.makeTokenProjectQuery().update({ expires_at: expiresAt }).where({ secret }).returning('*');
     if (rows.length > 0) {
       return toTokens(rows)[0];
     }
@@ -268,18 +241,12 @@ export class ApiTokenStore implements IApiTokenStore {
     );
 
     const orphanedTokensQuery = this.db<ITokenRow>(`${TABLE} as tokens`)
-      .leftJoin(
-        `${API_LINK_TABLE} as token_project_link`,
-        'tokens.secret',
-        'token_project_link.secret',
-      )
+      .leftJoin(`${API_LINK_TABLE} as token_project_link`, 'tokens.secret', 'token_project_link.secret')
       .whereNull('token_project_link.project')
       .andWhere('tokens.secret', 'NOT LIKE', '*:%') // Exclude intentionally wildcard tokens
       .andWhere('tokens.secret', 'LIKE', '%:%') // Exclude legacy tokens
       .andWhere((builder) => {
-        builder
-          .where('tokens.type', ApiTokenType.CLIENT)
-          .orWhere('tokens.type', ApiTokenType.FRONTEND);
+        builder.where('tokens.type', ApiTokenType.CLIENT).orWhere('tokens.type', ApiTokenType.FRONTEND);
       });
 
     const allOrphanedCount = this.withTimer('allOrphanedCount', () =>
@@ -299,12 +266,7 @@ export class ApiTokenStore implements IApiTokenStore {
         .then((res) => Number(res?.count) || 0),
     );
 
-    const [
-      orphanedTokens,
-      activeOrphanedTokens,
-      legacyTokens,
-      activeLegacyTokens,
-    ] = await Promise.all([
+    const [orphanedTokens, activeOrphanedTokens, legacyTokens, activeLegacyTokens] = await Promise.all([
       allOrphanedCount,
       activeOrphanedCount,
       allLegacyCount,
@@ -320,10 +282,7 @@ export class ApiTokenStore implements IApiTokenStore {
   }
 
   async countProjectTokens(projectId: string): Promise<number> {
-    const count = await this.db(API_LINK_TABLE)
-      .where({ project: projectId })
-      .count()
-      .first();
+    const count = await this.db(API_LINK_TABLE).where({ project: projectId }).count().first();
     return Number(count?.count ?? 0);
   }
 }

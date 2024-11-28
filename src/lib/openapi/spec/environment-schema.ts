@@ -15,14 +15,12 @@ export const environmentSchema = {
     type: {
       type: 'string',
       example: 'development',
-      description:
-        'The [type of environment](https://docs.getunleash.io/reference/environments#environment-types).',
+      description: 'The [type of environment](https://docs.getunleash.io/reference/environments#environment-types).',
     },
     enabled: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the environment is enabled for the project, otherwise `false`.',
+      description: '`true` if the environment is enabled for the project, otherwise `false`.',
     },
     protected: {
       type: 'boolean',

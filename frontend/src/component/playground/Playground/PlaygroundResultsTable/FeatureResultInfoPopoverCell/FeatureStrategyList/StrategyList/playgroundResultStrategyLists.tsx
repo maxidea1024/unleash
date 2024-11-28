@@ -1,10 +1,6 @@
 import { Fragment } from 'react';
 import { Alert, Box, styled, Typography } from '@mui/material';
-import type {
-  PlaygroundStrategySchema,
-  PlaygroundRequestSchema,
-  PlaygroundFeatureSchema,
-} from 'openapi';
+import type { PlaygroundStrategySchema, PlaygroundRequestSchema, PlaygroundFeatureSchema } from 'openapi';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { FeatureStrategyItem } from './StrategyItem/FeatureStrategyItem';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
@@ -50,28 +46,18 @@ export const PlaygroundResultStrategyLists = ({
     condition={strategies.length > 0}
     show={
       <>
-        <StyledSubtitle variant={'subtitle1'}>{`${
-          titlePrefix ? titlePrefix.concat(' strategies') : 'Strategies'
-        } (${strategies?.length})`}</StyledSubtitle>
+        <StyledSubtitle
+          variant={'subtitle1'}
+        >{`${titlePrefix ? titlePrefix.concat(' strategies') : 'Strategies'} (${strategies?.length})`}</StyledSubtitle>
         <ConditionallyRender
           condition={Boolean(infoText)}
-          show={
-            <StyledSubtitle variant={'subtitle2'}>{infoText}</StyledSubtitle>
-          }
+          show={<StyledSubtitle variant={'subtitle2'}>{infoText}</StyledSubtitle>}
         />
         <Box sx={{ width: '100%' }}>
           {strategies?.map((strategy, index) => (
             <Fragment key={strategy.id}>
-              <ConditionallyRender
-                condition={index > 0}
-                show={<StrategySeparator text='OR' />}
-              />
-              <FeatureStrategyItem
-                key={strategy.id}
-                strategy={strategy}
-                index={index}
-                input={input}
-              />
+              <ConditionallyRender condition={index > 0} show={<StrategySeparator text='OR' />} />
+              <FeatureStrategyItem key={strategy.id} strategy={strategy} index={index} input={input} />
             </Fragment>
           ))}
         </Box>
@@ -86,10 +72,7 @@ interface IWrappedPlaygroundResultStrategyListProps {
 }
 
 const resolveHintText = (feature: PlaygroundFeatureSchema) => {
-  if (
-    feature.hasUnsatisfiedDependency &&
-    !feature.isEnabledInCurrentEnvironment
-  ) {
+  if (feature.hasUnsatisfiedDependency && !feature.isEnabledInCurrentEnvironment) {
     return 'If environment was enabled and parent dependencies were satisfied';
   }
   if (feature.hasUnsatisfiedDependency) {
@@ -101,25 +84,17 @@ const resolveHintText = (feature: PlaygroundFeatureSchema) => {
   return '';
 };
 
-export const WrappedPlaygroundResultStrategyList = ({
-  feature,
-  input,
-}: IWrappedPlaygroundResultStrategyListProps) => {
-  const enabledStrategies = feature.strategies?.data?.filter(
-    (strategy) => !strategy.disabled,
-  );
-  const disabledStrategies = feature.strategies?.data?.filter(
-    (strategy) => strategy.disabled,
-  );
+export const WrappedPlaygroundResultStrategyList = ({ feature, input }: IWrappedPlaygroundResultStrategyListProps) => {
+  const enabledStrategies = feature.strategies?.data?.filter((strategy) => !strategy.disabled);
+  const disabledStrategies = feature.strategies?.data?.filter((strategy) => strategy.disabled);
 
   const showDisabledStrategies = disabledStrategies?.length > 0;
 
   return (
     <StyledAlertWrapper sx={{ pb: 1, mt: 2 }}>
       <StyledAlert severity={'info'} color={'warning'}>
-        {resolveHintText(feature)}, then this feature flag would be{' '}
-        {feature.strategies?.result ? 'TRUE' : 'FALSE'} with strategies
-        evaluated like so:{' '}
+        {resolveHintText(feature)}, then this feature flag would be {feature.strategies?.result ? 'TRUE' : 'FALSE'} with
+        strategies evaluated like so:{' '}
       </StyledAlert>
       <StyledListWrapper sx={{ p: 2.5 }}>
         <PlaygroundResultStrategyLists
@@ -136,9 +111,7 @@ export const WrappedPlaygroundResultStrategyList = ({
               strategies={disabledStrategies}
               input={input}
               titlePrefix={'Disabled'}
-              infoText={
-                'Disabled strategies are not evaluated for the overall result.'
-              }
+              infoText={'Disabled strategies are not evaluated for the overall result.'}
             />
           </StyledListWrapper>
         }

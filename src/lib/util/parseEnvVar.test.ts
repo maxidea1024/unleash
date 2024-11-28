@@ -1,8 +1,4 @@
-import {
-  parseEnvVarBoolean,
-  parseEnvVarNumber,
-  parseEnvVarStrings,
-} from './parseEnvVar';
+import { parseEnvVarBoolean, parseEnvVarNumber, parseEnvVarStrings } from './parseEnvVar';
 
 test('parseEnvVarNumber', () => {
   expect(parseEnvVarNumber('', 1)).toEqual(1);

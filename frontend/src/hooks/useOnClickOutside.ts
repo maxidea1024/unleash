@@ -6,10 +6,7 @@ import { useEffect } from 'react';
  * @param {Array<React.RefObject>} refs - List of refs to the target elements.
  * @param {Function} callback - Callback to execute on outside click.
  */
-export const useOnClickOutside = (
-  refs: Array<React.RefObject<HTMLElement>>,
-  callback: Function,
-) => {
+export const useOnClickOutside = (refs: Array<React.RefObject<HTMLElement>>, callback: Function) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       // Check if event target is outside all provided refs

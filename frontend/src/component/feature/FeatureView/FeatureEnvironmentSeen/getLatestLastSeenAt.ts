@@ -1,8 +1,6 @@
 import type { ILastSeenEnvironments } from 'interfaces/featureToggle';
 
-export const getLatestLastSeenAt = (
-  environments: ILastSeenEnvironments[],
-): string | null => {
+export const getLatestLastSeenAt = (environments: ILastSeenEnvironments[]): string | null => {
   try {
     if (!Array.isArray(environments) || environments.length === 0) {
       return null;

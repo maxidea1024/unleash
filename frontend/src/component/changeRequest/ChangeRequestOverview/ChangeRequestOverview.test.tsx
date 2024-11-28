@@ -1,15 +1,9 @@
 import { fireEvent, screen, waitFor, within } from '@testing-library/react';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
-import type {
-  ChangeRequestState,
-  ChangeRequestType,
-} from '../changeRequest.types';
+import type { ChangeRequestState, ChangeRequestType } from '../changeRequest.types';
 import { render } from 'utils/testRenderer';
 import { ChangeRequestOverview } from './ChangeRequestOverview';
-import {
-  ADMIN,
-  APPLY_CHANGE_REQUEST,
-} from 'component/providers/AccessProvider/permissions';
+import { ADMIN, APPLY_CHANGE_REQUEST } from 'component/providers/AccessProvider/permissions';
 import { Route, Routes } from 'react-router-dom';
 
 const server = testServerSetup();
@@ -26,8 +20,7 @@ const mockChangeRequest = (
     createdBy: {
       id: 1,
       username: 'admin',
-      imageUrl:
-        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
     },
     createdAt: new Date('2022-12-02T09:19:12.242Z'),
     segments: [],
@@ -49,8 +42,7 @@ const mockChangeRequest = (
             createdBy: {
               id: 1,
               username: 'admin',
-              imageUrl:
-                'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+              imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
             },
           },
         ],
@@ -89,27 +81,13 @@ const mockChangeRequest = (
   };
 };
 const pendingChangeRequest = (changeRequest: ChangeRequestType) =>
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/change-requests/pending',
-    [changeRequest],
-  );
+  testServerRoute(server, '/api/admin/projects/default/change-requests/pending', [changeRequest]);
 
 const changeRequest = (changeRequest: ChangeRequestType) =>
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/change-requests/1',
-    changeRequest,
-    'get',
-  );
+  testServerRoute(server, '/api/admin/projects/default/change-requests/1', changeRequest, 'get');
 
 const updateChangeRequestState = () =>
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/change-requests/1/state',
-    {},
-    'post',
-  );
+  testServerRoute(server, '/api/admin/projects/default/change-requests/1/state', {}, 'post');
 const changeRequestConfig = () =>
   testServerRoute(
     server,
@@ -156,8 +134,7 @@ const user = () => {
       id: 17,
       name: 'Some User',
       email: 'user@example.com',
-      imageUrl:
-        'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
+      imageUrl: 'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
       seenAt: '2022-11-28T14:55:18.982Z',
       loginAttempts: 0,
       createdAt: '2022-11-23T13:31:17.061Z',
@@ -183,10 +160,7 @@ const Component = () => {
   return (
     <>
       <Routes>
-        <Route
-          path={'/projects/:projectId/change-requests/:id'}
-          element={<ChangeRequestOverview />}
-        />
+        <Route path={'/projects/:projectId/change-requests/:id'} element={<ChangeRequestOverview />} />
       </Routes>
     </>
   );
@@ -208,9 +182,7 @@ test('should allow scheduling of approved change request and show the schedule d
     ],
   });
 
-  const applyOrScheduleButton = await screen.findByText(
-    'Apply or schedule changes',
-  );
+  const applyOrScheduleButton = await screen.findByText('Apply or schedule changes');
   await waitFor(() => expect(applyOrScheduleButton).toBeEnabled(), {
     timeout: 3000,
   });
@@ -241,9 +213,7 @@ test('should show a reschedule dialog when change request is scheduled and updat
     ],
   });
 
-  const applyOrScheduleButton = await screen.findByText(
-    'Apply or schedule changes',
-  );
+  const applyOrScheduleButton = await screen.findByText('Apply or schedule changes');
   await waitFor(() => expect(applyOrScheduleButton).toBeEnabled(), {
     timeout: 3000,
   });
@@ -263,8 +233,7 @@ test('should be allowed to apply your own change request if it is approved', asy
   setupChangeRequest(featureName, 'Approved', {
     createdBy: {
       id: 17,
-      imageUrl:
-        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
     },
   });
 
@@ -279,9 +248,7 @@ test('should be allowed to apply your own change request if it is approved', asy
     ],
   });
 
-  const applyOrScheduleButton = await screen.findByText(
-    'Apply or schedule changes',
-  );
+  const applyOrScheduleButton = await screen.findByText('Apply or schedule changes');
   await waitFor(() => expect(applyOrScheduleButton).toBeEnabled(), {
     timeout: 3000,
   });
@@ -311,9 +278,7 @@ test('should show an apply dialog when change request is scheduled and apply is 
     ],
   });
 
-  const applyOrScheduleButton = await screen.findByText(
-    'Apply or schedule changes',
-  );
+  const applyOrScheduleButton = await screen.findByText('Apply or schedule changes');
   await waitFor(() => expect(applyOrScheduleButton).toBeEnabled(), {
     timeout: 3000,
   });
@@ -335,18 +300,14 @@ test('should show a reject dialog when change request is scheduled and Reject Ch
     permissions: [{ permission: ADMIN }],
   });
 
-  const applyOrScheduleButton = await screen.findByText(
-    'Apply or schedule changes',
-  );
+  const applyOrScheduleButton = await screen.findByText('Apply or schedule changes');
   await waitFor(() => expect(applyOrScheduleButton).toBeEnabled(), {
     timeout: 3000,
   });
 
   const buttons = await screen.findAllByRole('button');
   const rejectChangesButton = buttons[buttons.length - 1];
-  expect(
-    within(rejectChangesButton).getByText('Reject changes'),
-  ).toBeInTheDocument();
+  expect(within(rejectChangesButton).getByText('Reject changes')).toBeInTheDocument();
   fireEvent.click(rejectChangesButton);
 
   await screen.findByRole('dialog', {

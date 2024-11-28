@@ -40,11 +40,7 @@
       ]
     }
   ],
-  "contextFields": [
-    { "name": "environment" },
-    { "name": "userId" },
-    { "name": "appName" }
-  ],
+  "contextFields": [{ "name": "environment" }, { "name": "userId" }, { "name": "appName" }],
   "projects": [
     {
       "id": "default",

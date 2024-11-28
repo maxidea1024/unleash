@@ -29,6 +29,4 @@ export const eventSearchResponseSchema = {
   },
 } as const;
 
-export type EventSearchResponseSchema = FromSchema<
-  typeof eventSearchResponseSchema
->;
+export type EventSearchResponseSchema = FromSchema<typeof eventSearchResponseSchema>;

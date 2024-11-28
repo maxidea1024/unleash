@@ -1,31 +1,14 @@
 import { useState } from 'react';
-import {
-  IconButton,
-  styled,
-  Tab,
-  Tabs,
-  Tooltip,
-  useMediaQuery,
-} from '@mui/material';
+import { IconButton, styled, Tab, Tabs, Tooltip, useMediaQuery } from '@mui/material';
 import Archive from '@mui/icons-material/Archive';
 import FileCopy from '@mui/icons-material/FileCopy';
 import Label from '@mui/icons-material/Label';
 import WatchLater from '@mui/icons-material/WatchLater';
 import LibraryAdd from '@mui/icons-material/LibraryAdd';
 import Check from '@mui/icons-material/Check';
-import {
-  Link,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from 'react-router-dom';
+import { Link, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
-import {
-  CREATE_FEATURE,
-  DELETE_FEATURE,
-  UPDATE_FEATURE,
-} from 'component/providers/AccessProvider/permissions';
+import { CREATE_FEATURE, DELETE_FEATURE, UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import FeatureLog from './FeatureLog/FeatureLog';
 import FeatureOverview from './FeatureOverview/FeatureOverview';
@@ -130,9 +113,7 @@ export const StyledLink = styled(Link)(() => ({
 
 const useLegacyVariants = (environments: IFeatureToggle['environments']) => {
   const enableLegacyVariants = useUiFlag('enableLegacyVariants');
-  const existingLegacyVariantsExist = environments.some(
-    (environment) => environment.variants?.length,
-  );
+  const existingLegacyVariantsExist = environments.some((environment) => environment.variants?.length);
   return enableLegacyVariants || existingLegacyVariantsExist;
 };
 
@@ -230,43 +211,23 @@ export const FeatureView = () => {
       <StyledHeader>
         <StyledInnerContainer>
           <StyledFlagInfoContainer>
-            <FavoriteIconButton
-              onClick={onFavorite}
-              isFavorite={feature?.favorite}
-            />
+            <FavoriteIconButton onClick={onFavorite} isFavorite={feature?.favorite} />
             <div>
               <StyledFlagInfoContainer>
-                <StyledFeatureViewHeader data-loading>
-                  {feature.name}{' '}
-                </StyledFeatureViewHeader>
-                <Tooltip
-                  title={isFeatureNameCopied ? 'Copied!' : 'Copy name'}
-                  arrow
-                >
-                  <IconButton
-                    onClick={handleCopyToClipboard}
-                    style={{ marginLeft: 8 }}
-                  >
-                    {isFeatureNameCopied ? (
-                      <Check style={{ fontSize: 16 }} />
-                    ) : (
-                      <FileCopy style={{ fontSize: 16 }} />
-                    )}
+                <StyledFeatureViewHeader data-loading>{feature.name} </StyledFeatureViewHeader>
+                <Tooltip title={isFeatureNameCopied ? 'Copied!' : 'Copy name'} arrow>
+                  <IconButton onClick={handleCopyToClipboard} style={{ marginLeft: 8 }}>
+                    {isFeatureNameCopied ? <Check style={{ fontSize: 16 }} /> : <FileCopy style={{ fontSize: 16 }} />}
                   </IconButton>
                 </Tooltip>
-                <ConditionallyRender
-                  condition={!smallScreen}
-                  show={<FeatureStatusChip stale={feature?.stale} />}
-                />
+                <ConditionallyRender condition={!smallScreen} show={<FeatureStatusChip stale={feature?.stale} />} />
               </StyledFlagInfoContainer>
               <ConditionallyRender
                 condition={feature.dependencies.length > 0}
                 show={
                   <StyledDependency>
                     <b>Has parent: </b>
-                    <StyledLink
-                      to={`/projects/${feature.project}/features/${feature?.dependencies[0]?.feature}`}
-                    >
+                    <StyledLink to={`/projects/${feature.project}/features/${feature?.dependencies[0]?.feature}`}>
                       {feature?.dependencies[0]?.feature}
                     </StyledLink>
                   </StyledDependency>
@@ -277,10 +238,7 @@ export const FeatureView = () => {
                 show={
                   <StyledDependency>
                     <b>Has children:</b>
-                    <ChildrenTooltip
-                      childFeatures={feature.children}
-                      project={feature.project}
-                    />
+                    <ChildrenTooltip childFeatures={feature.children} project={feature.project} />
                   </StyledDependency>
                 }
               />
@@ -335,11 +293,7 @@ export const FeatureView = () => {
         </StyledInnerContainer>
         <StyledSeparator />
         <StyledTabRow>
-          <Tabs
-            value={activeTab.path}
-            indicatorColor='primary'
-            textColor='primary'
-          >
+          <Tabs value={activeTab.path} indicatorColor='primary' textColor='primary'>
             {tabData.map((tab) => (
               <StyledTabButton
                 key={tab.title}

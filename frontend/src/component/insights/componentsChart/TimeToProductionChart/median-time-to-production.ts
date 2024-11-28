@@ -4,9 +4,7 @@ type GroupedDataByDate<T> = Record<string, T[]>;
 
 type DateResult<T> = Record<string, T>;
 
-export function medianTimeToProduction(
-  projectsData: InstanceInsightsSchema['projectFlagTrends'],
-): DateResult<number> {
+export function medianTimeToProduction(projectsData: InstanceInsightsSchema['projectFlagTrends']): DateResult<number> {
   const groupedData: GroupedDataByDate<number> = {};
   projectsData.forEach((item) => {
     const { date, timeToProduction } = item;
@@ -25,9 +23,7 @@ export function medianTimeToProduction(
     const midIndex = Math.floor(sortedTimes.length / 2);
 
     const median =
-      sortedTimes.length % 2 === 0
-        ? (sortedTimes[midIndex - 1] + sortedTimes[midIndex]) / 2
-        : sortedTimes[midIndex];
+      sortedTimes.length % 2 === 0 ? (sortedTimes[midIndex - 1] + sortedTimes[midIndex]) / 2 : sortedTimes[midIndex];
 
     medianByDate[date] = median;
   });

@@ -50,19 +50,17 @@ export default class TagStore implements ITagStore {
     const tag = await this.db.first(COLUMNS).from(TABLE).where({ type, value });
     stopTimer();
     if (!tag) {
-      throw new NotFoundError(
-        `No tag with type: [${type}] and value [${value}]`,
-      );
+      throw new NotFoundError(`No tag with type: [${type}] and value [${value}]`);
     }
     return tag;
   }
 
   async exists(tag: ITag): Promise<boolean> {
     const stopTimer = this.timer('exists');
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE type = ? AND value = ?) AS present`,
-      [tag.type, tag.value],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE type = ? AND value = ?) AS present`, [
+      tag.type,
+      tag.value,
+    ]);
     const { present } = result.rows[0];
     stopTimer();
     return present;
@@ -87,11 +85,7 @@ export default class TagStore implements ITagStore {
   }
 
   async bulkImport(tags: ITag[]): Promise<ITag[]> {
-    return this.db(TABLE)
-      .insert(tags)
-      .returning(COLUMNS)
-      .onConflict(['type', 'value'])
-      .ignore();
+    return this.db(TABLE).insert(tags).returning(COLUMNS).onConflict(['type', 'value']).ignore();
   }
 
   destroy(): void {}
@@ -101,9 +95,7 @@ export default class TagStore implements ITagStore {
     const tag = await this.db.first(COLUMNS).from(TABLE).where({ type, value });
     stopTimer();
     if (!tag) {
-      throw new NotFoundError(
-        `No tag with type: [${type}] and value [${value}]`,
-      );
+      throw new NotFoundError(`No tag with type: [${type}] and value [${value}]`);
     }
     return tag;
   }

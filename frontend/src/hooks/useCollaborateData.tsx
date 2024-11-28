@@ -56,10 +56,7 @@ export const useCollaborateData = <Type,>(
 
   const formatDequalData = (data: Type | null) => {
     if (!data) return data;
-    if (
-      comparisonModeratorFunc &&
-      typeof comparisonModeratorFunc === 'function'
-    ) {
+    if (comparisonModeratorFunc && typeof comparisonModeratorFunc === 'function') {
       return comparisonModeratorFunc(data);
     }
     return data;

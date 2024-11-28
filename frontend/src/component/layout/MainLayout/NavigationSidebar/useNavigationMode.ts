@@ -3,10 +3,7 @@ import type { NavigationMode } from './NavigationMode';
 import { useEffect } from 'react';
 
 export const useNavigationMode = () => {
-  const [mode, setMode] = useLocalStorageState<NavigationMode>(
-    'navigation-mode:v1',
-    'full',
-  );
+  const [mode, setMode] = useLocalStorageState<NavigationMode>('navigation-mode:v1', 'full');
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'b' && (event.metaKey || event.ctrlKey)) {

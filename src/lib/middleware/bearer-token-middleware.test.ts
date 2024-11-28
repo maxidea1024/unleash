@@ -64,9 +64,7 @@ describe('bearerTokenMiddleware', () => {
       getLogger,
     });
 
-    const middleware = bearerTokenMiddleware(
-      configWithBearerTokenMiddlewareFlagDisabled,
-    );
+    const middleware = bearerTokenMiddleware(configWithBearerTokenMiddlewareFlagDisabled);
 
     req.path = '/api/signal-endpoint/';
 
@@ -86,9 +84,7 @@ describe('bearerTokenMiddleware', () => {
       },
     });
 
-    const middleware = bearerTokenMiddleware(
-      configWithBearerTokenMiddlewareFlagDisabled,
-    );
+    const middleware = bearerTokenMiddleware(configWithBearerTokenMiddlewareFlagDisabled);
 
     req.path = '/some-test-instance/api/signal-endpoint/';
 

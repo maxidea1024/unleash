@@ -7,23 +7,11 @@ import ToastRenderer from '../../../common/ToastRenderer/ToastRenderer';
 const server = testServerSetup();
 
 const setupSubscribeApi = () => {
-  testServerRoute(
-    server,
-    '/api/admin/email-subscription/productivity-report',
-    {},
-    'put',
-    202,
-  );
+  testServerRoute(server, '/api/admin/email-subscription/productivity-report', {}, 'put', 202);
 };
 
 const setupUnsubscribeApi = () => {
-  testServerRoute(
-    server,
-    '/api/admin/email-subscription/productivity-report',
-    {},
-    'delete',
-    202,
-  );
+  testServerRoute(server, '/api/admin/email-subscription/productivity-report', {}, 'delete', 202);
 };
 
 const setupErrorApi = () => {

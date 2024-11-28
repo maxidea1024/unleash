@@ -1,21 +1,10 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../test/e2e/helpers/test-helper';
-import type {
-  IConstraint,
-  IFeatureOverview,
-  IFeatureToggleClient,
-  ISegment,
-} from '../../types/model';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import type { IConstraint, IFeatureOverview, IFeatureToggleClient, ISegment } from '../../types/model';
 import { randomId } from '../../util/random-id';
 import User from '../../types/user';
-import {
-  DEFAULT_SEGMENT_VALUES_LIMIT,
-  DEFAULT_STRATEGY_SEGMENTS_LIMIT,
-} from '../../util/segments';
+import { DEFAULT_SEGMENT_VALUES_LIMIT, DEFAULT_STRATEGY_SEGMENTS_LIMIT } from '../../util/segments';
 import { collectIds } from '../../util/collect-ids';
 import { arraysHaveSameItems } from '../../util/arraysHaveSameItems';
 import type {
@@ -64,10 +53,7 @@ const createSegment = (postData: UpsertSegmentSchema): Promise<ISegment> => {
   return app.services.segmentService.create(postData, TEST_AUDIT_USER);
 };
 
-const updateSegment = (
-  id: number,
-  postData: UpsertSegmentSchema,
-): Promise<void> => {
+const updateSegment = (id: number, postData: UpsertSegmentSchema): Promise<void> => {
   return app.services.segmentService.update(
     id,
     postData,
@@ -111,17 +97,13 @@ const createFeatureToggle = async (
   project = DEFAULT_PROJECT,
   environment = DEFAULT_ENV,
   expectStatusCode = 201,
-  expectSegmentStatusCodes: { status: number; message?: string }[] = [
-    { status: 200 },
-  ],
+  expectSegmentStatusCodes: { status: number; message?: string }[] = [{ status: 200 }],
 ): Promise<void> => {
   await app.createFeature(feature, project, expectStatusCode);
   let processed = 0;
   for (const strategy of strategies) {
     const { body, status } = await app.request
-      .post(
-        `/api/admin/projects/${project}/features/${feature.name}/environments/${environment}/strategies`,
-      )
+      .post(`/api/admin/projects/${project}/features/${feature.name}/environments/${environment}/strategies`)
       .send(strategy);
     const expectation = expectSegmentStatusCodes[processed++];
     expect(status).toBe(expectation.status);
@@ -139,9 +121,7 @@ const updateFeatureStrategy = async (
   expectedStatus = 200,
 ): Promise<void> => {
   const { status } = await app.request
-    .put(
-      `/api/admin/projects/${project}/features/${featureName}/environments/${environment}/strategies/${strategy.id}`,
-    )
+    .put(`/api/admin/projects/${project}/features/${featureName}/environments/${environment}/strategies/${strategy.id}`)
     .send(strategy);
   expect(status).toBe(expectedStatus);
 };
@@ -185,9 +165,7 @@ const createTestSegments = async () => {
   const segment2 = await createSegment({ name: 'S2', constraints });
   const segment3 = await createSegment({ name: 'S3', constraints });
 
-  await createFeatureToggle(mockFeatureToggle(), [
-    mockStrategy([segment1.id, segment2.id]),
-  ]);
+  await createFeatureToggle(mockFeatureToggle(), [mockStrategy([segment1.id, segment2.id])]);
   await createFeatureToggle(mockFeatureToggle(), [mockStrategy([segment2.id])]);
   await createFeatureToggle(mockFeatureToggle());
 
@@ -227,9 +205,7 @@ test('should validate segment constraint values limit', async () => {
     },
   ];
 
-  await expect(
-    createSegment({ name: randomId(), constraints }),
-  ).rejects.toThrow(
+  await expect(createSegment({ name: randomId(), constraints })).rejects.toThrow(
     `Segments may not have more than ${DEFAULT_SEGMENT_VALUES_LIMIT} values`,
   );
 });
@@ -248,9 +224,7 @@ test('should validate segment constraint values limit with multiple constraints'
     },
   ];
 
-  await expect(
-    createSegment({ name: randomId(), constraints }),
-  ).rejects.toThrow(
+  await expect(createSegment({ name: randomId(), constraints })).rejects.toThrow(
     `Segments may not have more than ${DEFAULT_SEGMENT_VALUES_LIMIT} values`,
   );
 });
@@ -294,10 +268,7 @@ test('should clone feature strategy segments', async () => {
   expect(collectIds(segments1)).toEqual([segment1.id]);
   expect(collectIds(segments2)).toEqual([]);
 
-  await app.services.segmentService.cloneStrategySegments(
-    strategy1!,
-    strategy2!,
-  );
+  await app.services.segmentService.cloneStrategySegments(strategy1!, strategy2!);
 
   segments1 = await app.services.segmentService.getByStrategy(strategy1!);
   segments2 = await app.services.segmentService.getByStrategy(strategy2!);
@@ -311,11 +282,7 @@ test('should store segment-created and segment-deleted events', async () => {
 
   await createSegment({ name: 'S1', constraints });
   const [segment1] = await fetchSegments();
-  await app.services.segmentService.delete(
-    segment1.id,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await app.services.segmentService.delete(segment1.id, user, extractAuditInfoFromUser(user));
   const events = await db.stores.eventStore.getEvents();
 
   expect(events[0].type).toEqual('segment-deleted');
@@ -502,9 +469,7 @@ describe('project-specific segments', () => {
         ...segment,
         project: project2,
       }),
-    ).rejects.toThrow(
-      `Invalid project. Segment is being used by strategies in other projects: ${project1}`,
-    );
+    ).rejects.toThrow(`Invalid project. Segment is being used by strategies in other projects: ${project1}`);
   });
 
   test('can promote a segment project to global even when being used by a specific project', async () => {

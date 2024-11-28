@@ -1,11 +1,5 @@
 import { useState } from 'react';
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  styled,
-  Typography,
-} from '@mui/material';
+import { Box, Button, ClickAwayListener, styled, Typography } from '@mui/material';
 import { UserProfileContent } from './UserProfileContent/UserProfileContent';
 import type { IUser } from 'interfaces/user';
 import { useId } from 'hooks/useId';
@@ -62,12 +56,7 @@ const UserProfile = ({ profile }: IUserProfileProps) => {
           {showProfile ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </Button>
 
-        <UserProfileContent
-          id={modalId}
-          showProfile={showProfile}
-          setShowProfile={setShowProfile}
-          profile={profile}
-        />
+        <UserProfileContent id={modalId} showProfile={showProfile} setShowProfile={setShowProfile} profile={profile} />
       </StyledProfileContainer>
     </ClickAwayListener>
   );

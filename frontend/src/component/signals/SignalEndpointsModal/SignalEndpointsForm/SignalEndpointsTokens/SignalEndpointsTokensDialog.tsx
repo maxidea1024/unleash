@@ -44,8 +44,7 @@ export const SignalEndpointsTokensDialog = ({
       title='Signal endpoint token created'
     >
       <StyledAlert severity='info'>
-        Make sure to copy your signal endpoint token now. You won't be able to
-        see it again!
+        Make sure to copy your signal endpoint token now. You won't be able to see it again!
       </StyledAlert>
       <Typography variant='body1'>Your token:</Typography>
       <UserToken token={token || ''} />
@@ -54,13 +53,10 @@ export const SignalEndpointsTokensDialog = ({
         show={() => (
           <>
             <Typography variant='body1' sx={{ marginTop: 3, marginBottom: 2 }}>
-              You can call your signal endpoint with the newly created token
-              like this:
+              You can call your signal endpoint with the newly created token like this:
             </Typography>
             <StyledCodeBlock>
-              {`curl --request POST '${
-                uiConfig.unleashUrl
-              }/api/signal-endpoint/${signalEndpoint!.name}' \\
+              {`curl --request POST '${uiConfig.unleashUrl}/api/signal-endpoint/${signalEndpoint!.name}' \\
     --header 'Authorization: Bearer ${token || 'YOUR_TOKEN'}' \\
     --header 'Content-Type: application/json' \\
     --data-raw '{

@@ -75,9 +75,8 @@ export const FeatureStrategyConstraintAccordionList = forwardRef<
                 tooltip={
                   <Box>
                     <Typography variant='body2'>
-                      Constraints are advanced targeting rules that you can use
-                      to enable a feature flag for a subset of your users. Read
-                      more about constraints{' '}
+                      Constraints are advanced targeting rules that you can use to enable a feature flag for a subset of
+                      your users. Read more about constraints{' '}
                       <a
                         href='https://docs.getunleash.io/reference/strategy-constraints'
                         target='_blank'

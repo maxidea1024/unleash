@@ -1,8 +1,5 @@
 import { useContext } from 'react';
-import useSWRInfinite, {
-  type SWRInfiniteConfiguration,
-  type SWRInfiniteKeyLoader,
-} from 'swr/infinite';
+import useSWRInfinite, { type SWRInfiniteConfiguration, type SWRInfiniteKeyLoader } from 'swr/infinite';
 import { formatApiPath } from 'utils/formatPath';
 import type { IntegrationEvents } from 'interfaces/integrationEvent';
 import AccessContext from 'contexts/AccessContext';
@@ -14,40 +11,25 @@ const fetcher = async (url: string) => {
   return response.json();
 };
 
-export const useIntegrationEvents = (
-  integrationId?: number,
-  limit = 50,
-  options: SWRInfiniteConfiguration = {},
-) => {
+export const useIntegrationEvents = (integrationId?: number, limit = 50, options: SWRInfiniteConfiguration = {}) => {
   const { isAdmin } = useContext(AccessContext);
 
-  const getKey: SWRInfiniteKeyLoader = (
-    pageIndex: number,
-    previousPageData: IntegrationEvents,
-  ) => {
+  const getKey: SWRInfiniteKeyLoader = (pageIndex: number, previousPageData: IntegrationEvents) => {
     // Does not meet conditions
     if (!integrationId || !isAdmin) return null;
 
     // Reached the end
-    if (previousPageData && !previousPageData.integrationEvents.length)
-      return null;
+    if (previousPageData && !previousPageData.integrationEvents.length) return null;
 
-    return formatApiPath(
-      `api/admin/addons/${integrationId}/events?limit=${limit}&offset=${
-        pageIndex * limit
-      }`,
-    );
+    return formatApiPath(`api/admin/addons/${integrationId}/events?limit=${limit}&offset=${pageIndex * limit}`);
   };
 
-  const { data, error, size, setSize, mutate } =
-    useSWRInfinite<IntegrationEvents>(getKey, fetcher, {
-      ...options,
-      revalidateAll: true,
-    });
+  const { data, error, size, setSize, mutate } = useSWRInfinite<IntegrationEvents>(getKey, fetcher, {
+    ...options,
+    revalidateAll: true,
+  });
 
-  const integrationEvents = data
-    ? data.flatMap(({ integrationEvents }) => integrationEvents)
-    : [];
+  const integrationEvents = data ? data.flatMap(({ integrationEvents }) => integrationEvents) : [];
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore = size > 0 && !data?.[size - 1];

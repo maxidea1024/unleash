@@ -9,17 +9,10 @@ const fetcher = (path: string) => {
     .then((res) => res.json());
 };
 
-export const useScheduledChangeRequestsWithVariant = (
-  project: string,
-  feature: string,
-) => {
-  const { data, error, mutate } = useEnterpriseSWR<
-    ScheduledChangeRequestViewModel[]
-  >(
+export const useScheduledChangeRequestsWithVariant = (project: string, feature: string) => {
+  const { data, error, mutate } = useEnterpriseSWR<ScheduledChangeRequestViewModel[]>(
     [],
-    formatApiPath(
-      `api/admin/projects/${project}/change-requests/scheduled?variantForFlag=${feature}`,
-    ),
+    formatApiPath(`api/admin/projects/${project}/change-requests/scheduled?variantForFlag=${feature}`),
     fetcher,
   );
 

@@ -16,11 +16,7 @@ interface IManageTagsProps {
   onChange?: () => void;
 }
 
-export const ManageTags: VFC<IManageTagsProps> = ({
-  projectId,
-  data,
-  onChange,
-}) => {
+export const ManageTags: VFC<IManageTagsProps> = ({ projectId, data, onChange }) => {
   const { bulkUpdateTags } = useTagApi();
   const { setToastData, setToastApiError } = useToast();
   const { trackEvent } = usePlausibleTracker();
@@ -29,20 +25,12 @@ export const ManageTags: VFC<IManageTagsProps> = ({
     const uniqueTags = data
       .flatMap(({ tags }) => tags || [])
       .reduce<ITag[]>(
-        (acc, tag) => [
-          ...acc,
-          ...(acc.some((x) => x.type === tag.type && x.value === tag.value)
-            ? []
-            : [tag]),
-        ],
+        (acc, tag) => [...acc, ...(acc.some((x) => x.type === tag.type && x.value === tag.value) ? [] : [tag])],
         [],
       );
 
     const tagsNotPresentInEveryFeature = uniqueTags.filter(
-      (tag) =>
-        !data.every(({ tags }) =>
-          tags?.some((x) => x.type === tag.type && x.value === tag.value),
-        ),
+      (tag) => !data.every(({ tags }) => tags?.some((x) => x.type === tag.type && x.value === tag.value)),
     );
 
     return [uniqueTags, tagsNotPresentInEveryFeature];
@@ -60,14 +48,10 @@ export const ManageTags: VFC<IManageTagsProps> = ({
     try {
       await bulkUpdateTags(payload, projectId);
       const added = addedTags.length
-        ? `Added tags: ${addedTags
-            .map(({ type, value }) => `${type}:${value}`)
-            .join(', ')}.`
+        ? `Added tags: ${addedTags.map(({ type, value }) => `${type}:${value}`).join(', ')}.`
         : '';
       const removed = removedTags.length
-        ? `Removed tags: ${removedTags
-            .map(({ type, value }) => `${type}:${value}`)
-            .join(', ')}.`
+        ? `Removed tags: ${removedTags.map(({ type, value }) => `${type}:${value}`).join(', ')}.`
         : '';
 
       setToastData({
@@ -93,12 +77,7 @@ export const ManageTags: VFC<IManageTagsProps> = ({
       <PermissionHOC projectId={projectId} permission={UPDATE_FEATURE}>
         {({ hasAccess }) => (
           <span>
-            <Button
-              disabled={!hasAccess || isOpen}
-              variant='outlined'
-              size='small'
-              onClick={() => setIsOpen(true)}
-            >
+            <Button disabled={!hasAccess || isOpen} variant='outlined' size='small' onClick={() => setIsOpen(true)}>
               Tags
             </Button>
           </span>

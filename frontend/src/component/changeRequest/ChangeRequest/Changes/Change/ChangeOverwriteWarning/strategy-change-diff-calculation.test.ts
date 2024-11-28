@@ -71,10 +71,7 @@ describe('Strategy change conflict detection', () => {
   };
 
   test('It compares strategies regardless of order of keys in the objects', () => {
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      existingStrategy,
-      change,
-    );
+    const result = getStrategyChangesThatWouldBeOverwritten(existingStrategy, change);
 
     expect(result).toBeNull();
   });
@@ -91,10 +88,7 @@ describe('Strategy change conflict detection', () => {
     expect(resultUndefined).toBeNull();
 
     const { segments, ...withoutSegments } = existingStrategy;
-    const resultMissing = getStrategyChangesThatWouldBeOverwritten(
-      withoutSegments,
-      change,
-    );
+    const resultMissing = getStrategyChangesThatWouldBeOverwritten(withoutSegments, change);
 
     expect(resultMissing).toBeNull();
   });
@@ -122,11 +116,9 @@ describe('Strategy change conflict detection', () => {
       ...existingStrategy,
       variants: undefined,
     };
-    const { variants: _variants, ...missingVariantsExistingStrategy } =
-      existingStrategy;
+    const { variants: _variants, ...missingVariantsExistingStrategy } = existingStrategy;
 
-    const { variants: _snapshotVariants, ...snapshot } =
-      change.payload.snapshot!;
+    const { variants: _snapshotVariants, ...snapshot } = change.payload.snapshot!;
 
     const undefinedVariantsInSnapshot = {
       ...change,
@@ -148,13 +140,9 @@ describe('Strategy change conflict detection', () => {
     };
 
     // for all combinations, check that there are no changes
-    const cases = [
-      undefinedVariantsExistingStrategy,
-      missingVariantsExistingStrategy,
-    ].flatMap((existing) =>
-      [undefinedVariantsInSnapshot, missingVariantsInSnapshot].map(
-        (changeValue) =>
-          getStrategyChangesThatWouldBeOverwritten(existing, changeValue),
+    const cases = [undefinedVariantsExistingStrategy, missingVariantsExistingStrategy].flatMap((existing) =>
+      [undefinedVariantsInSnapshot, missingVariantsInSnapshot].map((changeValue) =>
+        getStrategyChangesThatWouldBeOverwritten(existing, changeValue),
       ),
     );
 
@@ -197,20 +185,15 @@ describe('Strategy change conflict detection', () => {
       segments: [3],
     };
 
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      withChanges,
-      change,
-    );
+    const result = getStrategyChangesThatWouldBeOverwritten(withChanges, change);
 
     const { id, name, ...changedProperties } = withChanges;
 
-    const expectedOutput = Object.entries(changedProperties).map(
-      ([property, oldValue]) => ({
-        property,
-        oldValue,
-        newValue: change.payload[property as keyof ChangeRequestEditStrategy],
-      }),
-    );
+    const expectedOutput = Object.entries(changedProperties).map(([property, oldValue]) => ({
+      property,
+      oldValue,
+      newValue: change.payload[property as keyof ChangeRequestEditStrategy],
+    }));
 
     expectedOutput.sort((a, b) => a.property.localeCompare(b.property));
     expect(result).toStrictEqual(expectedOutput);
@@ -251,17 +234,11 @@ describe('Strategy change conflict detection', () => {
       },
     };
 
-    expect(
-      getStrategyChangesThatWouldBeOverwritten(
-        existingStrategyMod,
-        constraintChange,
-      ),
-    ).toBeNull();
+    expect(getStrategyChangesThatWouldBeOverwritten(existingStrategyMod, constraintChange)).toBeNull();
   });
 
   test('Any properties in the existing strategy that do not exist in the snapshot are also detected', () => {
-    const { variants: _snapshotVariants, ...snapshot } =
-      change.payload.snapshot!;
+    const { variants: _snapshotVariants, ...snapshot } = change.payload.snapshot!;
 
     const existingStrategyWithVariants = {
       ...existingStrategy,
@@ -279,16 +256,13 @@ describe('Strategy change conflict detection', () => {
       ],
     };
 
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      existingStrategyWithVariants,
-      {
-        ...change,
-        payload: {
-          ...change.payload,
-          snapshot,
-        },
+    const result = getStrategyChangesThatWouldBeOverwritten(existingStrategyWithVariants, {
+      ...change,
+      payload: {
+        ...change.payload,
+        snapshot,
       },
-    );
+    });
 
     expect(result).toStrictEqual([
       {
@@ -353,13 +327,9 @@ describe('Strategy change conflict detection', () => {
       },
     };
 
-    const cases = [
-      undefinedTitleExistingStrategy,
-      emptyTitleExistingStrategy,
-    ].flatMap((existing) =>
-      [nullTitleInSnapshot, emptyTitleInSnapshot, missingTitleInSnapshot].map(
-        (changeValue) =>
-          getStrategyChangesThatWouldBeOverwritten(existing, changeValue),
+    const cases = [undefinedTitleExistingStrategy, emptyTitleExistingStrategy].flatMap((existing) =>
+      [nullTitleInSnapshot, emptyTitleInSnapshot, missingTitleInSnapshot].map((changeValue) =>
+        getStrategyChangesThatWouldBeOverwritten(existing, changeValue),
       ),
     );
 
@@ -379,10 +349,7 @@ describe('Strategy change conflict detection', () => {
         title: 'other-new-title',
       },
     };
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      liveVersion,
-      changedVersion,
-    );
+    const result = getStrategyChangesThatWouldBeOverwritten(liveVersion, changedVersion);
 
     expect(result).toStrictEqual([
       {
@@ -406,10 +373,7 @@ describe('Strategy change conflict detection', () => {
         title: liveVersion.title,
       },
     };
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      liveVersion,
-      changedVersion,
-    );
+    const result = getStrategyChangesThatWouldBeOverwritten(liveVersion, changedVersion);
 
     expect(result).toBeNull();
   });
@@ -422,10 +386,7 @@ describe('Strategy change conflict detection', () => {
         title: 'new-title',
       },
     };
-    const result = getStrategyChangesThatWouldBeOverwritten(
-      existingStrategy,
-      changedVersion,
-    );
+    const result = getStrategyChangesThatWouldBeOverwritten(existingStrategy, changedVersion);
 
     expect(result).toBeNull();
   });
@@ -486,10 +447,7 @@ describe('Segment change conflict detection', () => {
       },
     };
 
-    const result = getSegmentChangesThatWouldBeOverwritten(
-      segmentWithConstraints,
-      changeWithConstraints,
-    );
+    const result = getSegmentChangesThatWouldBeOverwritten(segmentWithConstraints, changeWithConstraints);
 
     expect(result).toStrictEqual([
       {

@@ -3,11 +3,7 @@ import type { Db } from '../../db/db';
 import type { Logger, LogProvider } from '../../logger';
 import metricsHelper from '../../util/metrics-helper';
 import { DB_TIME } from '../../metric-events';
-import type {
-  IEnvironment,
-  IEnvironmentCreate,
-  IProjectEnvironment,
-} from '../../types/model';
+import type { IEnvironment, IEnvironmentCreate, IProjectEnvironment } from '../../types/model';
 import NotFoundError from '../../error/notfound-error';
 import type { IEnvironmentStore } from './environment-store-type';
 import { snakeCaseKeys } from '../../util/snakeCase';
@@ -34,14 +30,7 @@ interface IEnvironmentsWithProjectCountsTable extends IEnvironmentsTable {
   project_default_strategy?: CreateFeatureStrategySchema;
 }
 
-const COLUMNS = [
-  'type',
-  'name',
-  'created_at',
-  'sort_order',
-  'enabled',
-  'protected',
-];
+const COLUMNS = ['type', 'name', 'created_at', 'sort_order', 'enabled', 'protected'];
 
 function mapRow(row: IEnvironmentsTable): IEnvironment {
   return {
@@ -53,37 +42,23 @@ function mapRow(row: IEnvironmentsTable): IEnvironment {
   };
 }
 
-function mapRowWithCounts(
-  row: IEnvironmentsWithCountsTable,
-): IProjectEnvironment {
+function mapRowWithCounts(row: IEnvironmentsWithCountsTable): IProjectEnvironment {
   return {
     ...mapRow(row),
-    projectCount: row.project_count
-      ? Number.parseInt(row.project_count, 10)
-      : 0,
-    apiTokenCount: row.api_token_count
-      ? Number.parseInt(row.api_token_count, 10)
-      : 0,
-    enabledToggleCount: row.enabled_toggle_count
-      ? Number.parseInt(row.enabled_toggle_count, 10)
-      : 0,
+    projectCount: row.project_count ? Number.parseInt(row.project_count, 10) : 0,
+    apiTokenCount: row.api_token_count ? Number.parseInt(row.api_token_count, 10) : 0,
+    enabledToggleCount: row.enabled_toggle_count ? Number.parseInt(row.enabled_toggle_count, 10) : 0,
   };
 }
 
-function mapRowWithProjectCounts(
-  row: IEnvironmentsWithProjectCountsTable,
-): IProjectEnvironment {
+function mapRowWithProjectCounts(row: IEnvironmentsWithProjectCountsTable): IProjectEnvironment {
   return {
     ...mapRow(row),
-    projectApiTokenCount: row.project_api_token_count
-      ? Number.parseInt(row.project_api_token_count, 10)
-      : 0,
+    projectApiTokenCount: row.project_api_token_count ? Number.parseInt(row.project_api_token_count, 10) : 0,
     projectEnabledToggleCount: row.project_enabled_toggle_count
       ? Number.parseInt(row.project_enabled_toggle_count, 10)
       : 0,
-    defaultStrategy: row.project_default_strategy
-      ? (row.project_default_strategy as any)
-      : undefined,
+    defaultStrategy: row.project_default_strategy ? (row.project_default_strategy as any) : undefined,
   };
 }
 
@@ -115,9 +90,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
       });
   }
 
-  async importEnvironments(
-    environments: IEnvironment[],
-  ): Promise<IEnvironment[]> {
+  async importEnvironments(environments: IEnvironment[]): Promise<IEnvironment[]> {
     const rows = await this.db(TABLE)
       .insert(environments.map(fieldToRow))
       .returning(COLUMNS)
@@ -143,9 +116,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
 
   async get(key: string): Promise<IEnvironment> {
     const stopTimer = this.timer('get');
-    const row = await this.db<IEnvironmentsTable>(TABLE)
-      .where({ name: key })
-      .first();
+    const row = await this.db<IEnvironmentsTable>(TABLE).where({ name: key }).first();
     stopTimer();
     if (row) {
       return mapRow(row);
@@ -197,10 +168,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
     return rows.map(mapRowWithCounts);
   }
 
-  async getProjectEnvironments(
-    projectId: string,
-    query?: Object,
-  ): Promise<IProjectEnvironment[]> {
+  async getProjectEnvironments(projectId: string, query?: Object): Promise<IProjectEnvironment[]> {
     const stopTimer = this.timer('getProjectEnvironments');
     let qB = this.db<IEnvironmentsWithProjectCountsTable>(TABLE)
       .select(
@@ -235,10 +203,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
 
   async exists(name: string): Promise<boolean> {
     const stopTimer = this.timer('exists');
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`,
-      [name],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`, [name]);
     stopTimer();
     const { present } = result.rows[0];
     return present;
@@ -246,9 +211,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
 
   async getByName(name: string): Promise<IEnvironment> {
     const stopTimer = this.timer('getByName');
-    const row = await this.db<IEnvironmentsTable>(TABLE)
-      .where({ name })
-      .first();
+    const row = await this.db<IEnvironmentsTable>(TABLE).where({ name }).first();
     stopTimer();
     if (!row) {
       throw new NotFoundError(`Could not find environment with name ${name}`);
@@ -256,11 +219,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
     return mapRow(row);
   }
 
-  async updateProperty(
-    id: string,
-    field: string,
-    value: string | number,
-  ): Promise<void> {
+  async updateProperty(id: string, field: string, value: string | number): Promise<void> {
     await this.db<IEnvironmentsTable>(TABLE)
       .update({
         [field]: value,
@@ -276,10 +235,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
       .where({ name: id });
   }
 
-  async update(
-    env: Pick<IEnvironment, 'type' | 'protected'>,
-    name: string,
-  ): Promise<IEnvironment> {
+  async update(env: Pick<IEnvironment, 'type' | 'protected'>, name: string): Promise<IEnvironment> {
     const updatedEnv = await this.db<IEnvironmentsTable>(TABLE)
       .update(snakeCaseKeys(env))
       .where({ name, protected: false })

@@ -47,10 +47,7 @@ export const clientMetricsEnvSchema = joi
     timestamp: joi.date(),
     variants: joi.object().pattern(joi.string(), joi.number().min(0)),
   });
-export const clientMetricsEnvBulkSchema = joi
-  .array()
-  .items(clientMetricsEnvSchema)
-  .empty();
+export const clientMetricsEnvBulkSchema = joi.array().items(clientMetricsEnvSchema).empty();
 
 export const applicationSchema = joi
   .object()

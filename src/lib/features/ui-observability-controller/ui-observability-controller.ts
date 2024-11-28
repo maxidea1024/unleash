@@ -6,10 +6,7 @@ import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type { Logger } from '../../logger';
 
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import { createRequestSchema } from '../../openapi';
 
 const version = 1;
@@ -17,10 +14,7 @@ const version = 1;
 export class UiObservabilityController extends Controller {
   private readonly logger: Logger;
 
-  constructor(
-    config: IUnleashConfig,
-    { openApiService }: Pick<IUnleashServices, 'openApiService'>,
-  ) {
+  constructor(config: IUnleashConfig, { openApiService }: Pick<IUnleashServices, 'openApiService'>) {
     super(config);
 
     this.logger = config.getLogger('ui-observability-controller.ts');
@@ -48,10 +42,7 @@ export class UiObservabilityController extends Controller {
   }
 
   async recordUiError(req: Request, res: Response): Promise<void> {
-    this.logger.error(
-      `UI Observability Error: ${req.body.errorMessage}`,
-      req.body.errorStack,
-    );
+    this.logger.error(`UI Observability Error: ${req.body.errorMessage}`, req.body.errorStack);
 
     res.status(204).end();
   }

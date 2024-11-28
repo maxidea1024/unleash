@@ -27,9 +27,7 @@ const args = (permissions: PermissionRef[], expectations?: PermissionRef[]) => {
 
 test('resolvePermissions returns empty list if undefined', async () => {
   const access = db.stores.accessStore as AccessStore;
-  const result = await access.resolvePermissions(
-    undefined as unknown as PermissionRef[],
-  );
+  const result = await access.resolvePermissions(undefined as unknown as PermissionRef[]);
   expect(result).toStrictEqual([]);
 });
 
@@ -42,25 +40,16 @@ test('resolvePermissions returns empty list if empty list', async () => {
 test.each([
   args([{ name: 'CREATE_CONTEXT_FIELD' }]),
   args([{ name: 'CREATE_FEATURE', environment: 'development' }]),
-  args([
-    { name: 'CREATE_CONTEXT_FIELD' },
-    { name: 'CREATE_FEATURE', environment: 'development' },
-  ]),
-])(
-  'resolvePermissions with permission names (%o) will return the list unmodified',
-  async (permissions) => {
-    const access = db.stores.accessStore as AccessStore;
-    const result = await access.resolvePermissions(permissions);
-    expect(result).toStrictEqual(permissions);
-  },
-);
+  args([{ name: 'CREATE_CONTEXT_FIELD' }, { name: 'CREATE_FEATURE', environment: 'development' }]),
+])('resolvePermissions with permission names (%o) will return the list unmodified', async (permissions) => {
+  const access = db.stores.accessStore as AccessStore;
+  const result = await access.resolvePermissions(permissions);
+  expect(result).toStrictEqual(permissions);
+});
 
 test.each([
   args([{ id: 1 }], [{ id: 1, name: 'ADMIN' }]),
-  args(
-    [{ id: 4, environment: 'development' }],
-    [{ id: 4, name: 'CREATE_ADDON', environment: 'development' }],
-  ),
+  args([{ id: 4, environment: 'development' }], [{ id: 4, name: 'CREATE_ADDON', environment: 'development' }]),
   args(
     [
       { id: 1, environment: 'development' },
@@ -120,13 +109,7 @@ describe('addAccessToProject', () => {
       };
 
       await expect(() =>
-        access.addAccessToProject(
-          payload.roles,
-          payload.groups,
-          payload.users,
-          'projectId',
-          'createdBy',
-        ),
+        access.addAccessToProject(payload.roles, payload.groups, payload.users, 'projectId', 'createdBy'),
       ).rejects.toThrow(BadDataError);
     },
   );

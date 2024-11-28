@@ -12,9 +12,7 @@ const prepareLastSeenInput = (data: LastSeenInput[]) => {
   const now = new Date();
 
   const sortedData = data.sort(
-    (a, b) =>
-      a.featureName.localeCompare(b.featureName) ||
-      a.environment.localeCompare(b.environment),
+    (a, b) => a.featureName.localeCompare(b.featureName) || a.environment.localeCompare(b.environment),
   );
 
   const inserts = sortedData.map((item) => {
@@ -53,10 +51,7 @@ export default class LastSeenStore implements ILastSeenStore {
         const batch = inserts.slice(i, i + batchSize);
         // Knex optimizes multi row insert when given an array:
         // https://knexjs.org/guide/query-builder.html#insert
-        await this.db(TABLE)
-          .insert(batch)
-          .onConflict(['feature_name', 'environment'])
-          .merge();
+        await this.db(TABLE).insert(batch).onConflict(['feature_name', 'environment']).merge();
       }
     } catch (err) {
       this.logger.error('Could not update lastSeen, error: ', err);

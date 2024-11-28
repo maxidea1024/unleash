@@ -34,17 +34,12 @@ import { useFeedback } from 'component/feedbackNew/useFeedback';
 export const SignalEndpointsTable = () => {
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
-  const { openFeedback, hasSubmittedFeedback } = useFeedback(
-    'signals',
-    'automatic',
-  );
+  const { openFeedback, hasSubmittedFeedback } = useFeedback('signals', 'automatic');
 
   const { signalEndpoints, refetch } = useSignalEndpoints();
-  const { toggleSignalEndpoint, removeSignalEndpoint } =
-    useSignalEndpointsApi();
+  const { toggleSignalEndpoint, removeSignalEndpoint } = useSignalEndpointsApi();
 
-  const [selectedSignalEndpoint, setSelectedSignalEndpoint] =
-    useState<ISignalEndpoint>();
+  const [selectedSignalEndpoint, setSelectedSignalEndpoint] = useState<ISignalEndpoint>();
   const [modalOpen, setModalOpen] = useState(false);
 
   const [tokenDialog, setTokenDialog] = useState(false);
@@ -61,10 +56,7 @@ export const SignalEndpointsTable = () => {
     marginBottom: theme.spacing(2),
   }));
 
-  const onToggleSignalEndpoint = async (
-    { id, name }: ISignalEndpoint,
-    enabled: boolean,
-  ) => {
+  const onToggleSignalEndpoint = async ({ id, name }: ISignalEndpoint, enabled: boolean) => {
     try {
       await toggleSignalEndpoint(id, enabled);
       setToastData({
@@ -98,9 +90,7 @@ export const SignalEndpointsTable = () => {
       {
         Header: 'Name',
         accessor: 'name',
-        Cell: ({
-          row: { original: signalEndpoint },
-        }: { row: { original: ISignalEndpoint } }) => (
+        Cell: ({ row: { original: signalEndpoint } }: { row: { original: ISignalEndpoint } }) => (
           <LinkCell
             title={signalEndpoint.name}
             onClick={() => {
@@ -114,15 +104,13 @@ export const SignalEndpointsTable = () => {
       },
       {
         Header: 'URL',
-        accessor: (row: ISignalEndpoint) =>
-          `${uiConfig.unleashUrl}/api/signal-endpoint/${row.name}`,
+        accessor: (row: ISignalEndpoint) => `${uiConfig.unleashUrl}/api/signal-endpoint/${row.name}`,
         minWidth: 200,
       },
       {
         id: 'tokens',
         Header: 'Tokens',
-        accessor: (row: ISignalEndpoint) =>
-          row.tokens?.map(({ name }) => name).join('\n') || '',
+        accessor: (row: ISignalEndpoint) => row.tokens?.map(({ name }) => name).join('\n') || '',
         Cell: ({
           row: { original: signalEndpoint },
           value,
@@ -152,14 +140,10 @@ export const SignalEndpointsTable = () => {
       {
         Header: 'Enabled',
         accessor: 'enabled',
-        Cell: ({
-          row: { original: signalEndpoint },
-        }: { row: { original: ISignalEndpoint } }) => (
+        Cell: ({ row: { original: signalEndpoint } }: { row: { original: ISignalEndpoint } }) => (
           <ToggleCell
             checked={signalEndpoint.enabled}
-            setChecked={(enabled) =>
-              onToggleSignalEndpoint(signalEndpoint, enabled)
-            }
+            setChecked={(enabled) => onToggleSignalEndpoint(signalEndpoint, enabled)}
           />
         ),
         sortType: 'boolean',
@@ -170,15 +154,11 @@ export const SignalEndpointsTable = () => {
         Header: 'Actions',
         id: 'Actions',
         align: 'center',
-        Cell: ({
-          row: { original: signalEndpoint },
-        }: { row: { original: ISignalEndpoint } }) => (
+        Cell: ({ row: { original: signalEndpoint } }: { row: { original: ISignalEndpoint } }) => (
           <SignalEndpointsActionsCell
             signalEndpointId={signalEndpoint.id}
             onCopyToClipboard={() => {
-              copy(
-                `${uiConfig.unleashUrl}/api/signal-endpoint/${signalEndpoint.name}`,
-              );
+              copy(`${uiConfig.unleashUrl}/api/signal-endpoint/${signalEndpoint.name}`);
               setToastData({
                 type: 'success',
                 title: 'Copied to clipboard',
@@ -254,10 +234,8 @@ export const SignalEndpointsTable = () => {
                     onClick={() => {
                       openFeedback({
                         title: 'Do you find signals and actions easy to use?',
-                        positiveLabel:
-                          'What do you like most about signals and actions?',
-                        areasForImprovementsLabel:
-                          'What needs to change to use signals and actions the way you want?',
+                        positiveLabel: 'What do you like most about signals and actions?',
+                        areasForImprovementsLabel: 'What needs to change to use signals and actions the way you want?',
                       });
                     }}
                   >
@@ -283,41 +261,31 @@ export const SignalEndpointsTable = () => {
     >
       <StyledAlert severity='info'>
         <StyledParagraph>
-          Signals and actions allow you to respond to events in your real-time
-          monitoring system by automating tasks such as disabling a beta feature
-          in response to an increase in errors or a drop in conversion rates.
+          Signals and actions allow you to respond to events in your real-time monitoring system by automating tasks
+          such as disabling a beta feature in response to an increase in errors or a drop in conversion rates.
         </StyledParagraph>
 
         <StyledParagraph>
           <ul>
             <li>
-              <b>Signal endpoints</b> are used to send signals to Unleash. This
-              allows you to integrate Unleash with any external tool.
+              <b>Signal endpoints</b> are used to send signals to Unleash. This allows you to integrate Unleash with any
+              external tool.
             </li>
 
             <li>
-              <b>Actions</b>, which are configured inside projects, allow you to
-              react to those signals and enable or disable flags based on
-              certain conditions.
+              <b>Actions</b>, which are configured inside projects, allow you to react to those signals and enable or
+              disable flags based on certain conditions.
             </li>
           </ul>
         </StyledParagraph>
 
         <StyledParagraph>
           Read more about these features in our documentation:{' '}
-          <a
-            href='https://docs.getunleash.io/reference/signals'
-            target='_blank'
-            rel='noreferrer'
-          >
+          <a href='https://docs.getunleash.io/reference/signals' target='_blank' rel='noreferrer'>
             Signals
           </a>{' '}
           and{' '}
-          <a
-            href='https://docs.getunleash.io/reference/actions'
-            target='_blank'
-            rel='noreferrer'
-          >
+          <a href='https://docs.getunleash.io/reference/actions' target='_blank' rel='noreferrer'>
             Actions
           </a>
         </StyledParagraph>
@@ -325,18 +293,10 @@ export const SignalEndpointsTable = () => {
 
       <PermissionGuard permissions={ADMIN}>
         <>
-          <VirtualizedTable
-            rows={rows}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-          />
+          <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
           <ConditionallyRender
             condition={rows.length === 0}
-            show={
-              <TablePlaceholder>
-                No signal endpoints available. Get started by adding one.
-              </TablePlaceholder>
-            }
+            show={<TablePlaceholder>No signal endpoints available. Get started by adding one.</TablePlaceholder>}
           />
           <SignalEndpointsModal
             signalEndpoint={selectedSignalEndpoint}

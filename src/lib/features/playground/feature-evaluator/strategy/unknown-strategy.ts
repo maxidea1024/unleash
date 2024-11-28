@@ -23,9 +23,7 @@ export default class UnknownStrategy extends Strategy {
     const segmentResults = this.checkSegments(context, segments);
 
     const overallResult =
-      constraintResults.result && segmentResults.result
-        ? playgroundStrategyEvaluation.unknownResult
-        : false;
+      constraintResults.result && segmentResults.result ? playgroundStrategyEvaluation.unknownResult : false;
 
     return {
       result: {

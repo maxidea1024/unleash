@@ -6,15 +6,7 @@ import { variantSchema } from './variant-schema';
 export const integrationEventSchema = {
   $id: '#/components/schemas/integrationEventSchema',
   type: 'object',
-  required: [
-    'id',
-    'integrationId',
-    'createdAt',
-    'state',
-    'stateDetails',
-    'event',
-    'details',
-  ],
+  required: ['id', 'integrationId', 'createdAt', 'state', 'stateDetails', 'event', 'details'],
   description: 'An object describing an integration event.',
   additionalProperties: false,
   properties: {
@@ -27,8 +19,7 @@ export const integrationEventSchema = {
     },
     integrationId: {
       type: 'integer',
-      description:
-        'The ID of the integration that the integration event belongs to.',
+      description: 'The ID of the integration that the integration event belongs to.',
       example: 42,
     },
     createdAt: {
@@ -41,8 +32,7 @@ export const integrationEventSchema = {
     state: {
       type: 'string',
       enum: ['success', 'failed', 'successWithErrors'],
-      description:
-        'The state of the integration event. Can be one of `success`, `failed` or `successWithErrors`.',
+      description: 'The state of the integration event. Can be one of `success`, `failed` or `successWithErrors`.',
       example: 'failed',
     },
     stateDetails: {
@@ -60,8 +50,7 @@ export const integrationEventSchema = {
       description:
         'Detailed information about the integration event. The contents vary depending on the type of integration and the specific details.',
       example: {
-        message:
-          '*user@yourcompany.com* created a new *slack-app* integration configuration',
+        message: '*user@yourcompany.com* created a new *slack-app* integration configuration',
         channels: ['engineering', 'unleash-updates'],
       },
     },

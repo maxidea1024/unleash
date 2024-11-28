@@ -1,7 +1,4 @@
-import {
-  advancedPlaygroundViewModel,
-  playgroundViewModel,
-} from './playground-view-model';
+import { advancedPlaygroundViewModel, playgroundViewModel } from './playground-view-model';
 
 describe('playground result to view model', () => {
   it('adds edit links to playground models', () => {
@@ -116,8 +113,7 @@ describe('playground result to view model', () => {
     };
 
     const viewModel = advancedPlaygroundViewModel(input, [featureResult]);
-    const transformedStrategy =
-      viewModel.features[0].environments.development[0].strategies.data[0];
+    const transformedStrategy = viewModel.features[0].environments.development[0].strategies.data[0];
 
     // ensure that we're adding the required data
     expect(transformedStrategy).toMatchObject({

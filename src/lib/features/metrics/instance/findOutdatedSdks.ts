@@ -22,9 +22,7 @@ export const isOutdatedSdk = (sdkVersion: string | null): boolean => {
   const [sdkName, version] = sdkVersion.split(':');
   const minVersion = config[sdkName];
 
-  return Boolean(
-    minVersion && semver.valid(version) && semver.lt(version, minVersion),
-  );
+  return Boolean(minVersion && semver.valid(version) && semver.lt(version, minVersion));
 };
 
 export function findOutdatedSDKs(sdkVersions: (string | null)[]): string[] {

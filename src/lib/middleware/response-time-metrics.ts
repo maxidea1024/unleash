@@ -61,8 +61,7 @@ export function responseTimeMetrics(
     let appName: string | undefined;
     if (
       !flagResolver.isEnabled('responseTimeWithAppNameKillSwitch') &&
-      (instanceStatsService.getAppCountSnapshot('7d') ??
-        appNameReportingThreshold) < appNameReportingThreshold
+      (instanceStatsService.getAppCountSnapshot('7d') ?? appNameReportingThreshold) < appNameReportingThreshold
     ) {
       appName = req.headers['unleash-appname'] ?? req.query.appName;
     }

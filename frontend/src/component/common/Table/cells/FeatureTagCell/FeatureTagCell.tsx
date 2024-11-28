@@ -21,33 +21,23 @@ export const FeatureTagCell: VFC<IFeatureTagCellProps> = ({ row }) => {
 
   if (!row.original.tags || row.original.tags.length === 0) return <TextCell />;
 
-  const value =
-    row.original.tags
-      ?.map(({ type, value }) => `${type}:${value}`)
-      .join('\n') || '';
+  const value = row.original.tags?.map(({ type, value }) => `${type}:${value}`).join('\n') || '';
 
   return (
     <TextCell>
       <TooltipLink
-        highlighted={
-          searchQuery.length > 0 &&
-          value?.toLowerCase().includes(searchQuery.toLowerCase())
-        }
+        highlighted={searchQuery.length > 0 && value?.toLowerCase().includes(searchQuery.toLowerCase())}
         tooltip={
           <>
             {row.original.tags?.map((tag) => (
               <StyledTag key={tag.type + tag.value}>
-                <Highlighter search={searchQuery}>
-                  {`${tag.type}:${tag.value}`}
-                </Highlighter>
+                <Highlighter search={searchQuery}>{`${tag.type}:${tag.value}`}</Highlighter>
               </StyledTag>
             ))}
           </>
         }
       >
-        {row.original.tags?.length === 1
-          ? '1 tag'
-          : `${row.original.tags?.length} tags`}
+        {row.original.tags?.length === 1 ? '1 tag' : `${row.original.tags?.length} tags`}
       </TooltipLink>
     </TextCell>
   );

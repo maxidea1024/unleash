@@ -1,33 +1,19 @@
 import fc, { type Arbitrary } from 'fast-check';
-import {
-  strategyConstraint,
-  urlFriendlyString,
-  variants,
-} from '../../../test/arbitraries.test';
+import { strategyConstraint, urlFriendlyString, variants } from '../../../test/arbitraries.test';
 import { validateSchema } from '../validate';
 import type { PlaygroundConstraintSchema } from './playground-constraint-schema';
-import {
-  playgroundFeatureSchema,
-  type PlaygroundFeatureSchema,
-} from './playground-feature-schema';
+import { playgroundFeatureSchema, type PlaygroundFeatureSchema } from './playground-feature-schema';
 import type { PlaygroundSegmentSchema } from './playground-segment-schema';
-import {
-  playgroundStrategyEvaluation,
-  type PlaygroundStrategySchema,
-} from './playground-strategy-schema';
+import { playgroundStrategyEvaluation, type PlaygroundStrategySchema } from './playground-strategy-schema';
 
-const playgroundStrategyConstraint =
-  (): Arbitrary<PlaygroundConstraintSchema> =>
-    fc
-      .tuple(fc.boolean(), strategyConstraint())
-      .map(([result, constraint]) => ({
-        ...constraint,
-        result,
-      }));
+const playgroundStrategyConstraint = (): Arbitrary<PlaygroundConstraintSchema> =>
+  fc.tuple(fc.boolean(), strategyConstraint()).map(([result, constraint]) => ({
+    ...constraint,
+    result,
+  }));
 
-const playgroundStrategyConstraints = (): Arbitrary<
-  PlaygroundConstraintSchema[]
-> => fc.array(playgroundStrategyConstraint());
+const playgroundStrategyConstraints = (): Arbitrary<PlaygroundConstraintSchema[]> =>
+  fc.array(playgroundStrategyConstraint());
 
 const playgroundSegment = (): Arbitrary<PlaygroundSegmentSchema> =>
   fc.record({
@@ -46,19 +32,12 @@ const playgroundStrategy = (
     name: fc.constant(name),
     result: fc.oneof(
       fc.record({
-        evaluationStatus: fc.constant(
-          playgroundStrategyEvaluation.evaluationComplete,
-        ),
+        evaluationStatus: fc.constant(playgroundStrategyEvaluation.evaluationComplete),
         enabled: fc.boolean(),
       }),
       fc.record({
-        evaluationStatus: fc.constant(
-          playgroundStrategyEvaluation.evaluationIncomplete,
-        ),
-        enabled: fc.constantFrom(
-          playgroundStrategyEvaluation.unknownResult,
-          false as false,
-        ),
+        evaluationStatus: fc.constant(playgroundStrategyEvaluation.evaluationIncomplete),
+        enabled: fc.constantFrom(playgroundStrategyEvaluation.unknownResult, false as false),
       }),
     ),
     parameters,
@@ -85,18 +64,14 @@ const playgroundStrategies = (): Arbitrary<PlaygroundStrategySchema[]> =>
       playgroundStrategy(
         'applicationHostname',
         fc.record({
-          hostNames: fc
-            .uniqueArray(fc.domain())
-            .map((domains) => domains.join(',')),
+          hostNames: fc.uniqueArray(fc.domain()).map((domains) => domains.join(',')),
         }),
       ),
 
       playgroundStrategy(
         'userWithId',
         fc.record({
-          userIds: fc
-            .uniqueArray(fc.emailAddress())
-            .map((ids) => ids.join(',')),
+          userIds: fc.uniqueArray(fc.emailAddress()).map((ids) => ids.join(',')),
         }),
       ),
       playgroundStrategy(
@@ -127,16 +102,13 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
         if (strategies.some((strategy) => strategy.result.enabled === true)) {
           return true;
         }
-        if (
-          strategies.some((strategy) => strategy.result.enabled === 'unknown')
-        ) {
+        if (strategies.some((strategy) => strategy.result.enabled === 'unknown')) {
           return 'unknown';
         }
         return false;
       };
 
-      const isEnabled =
-        feature.isEnabledInCurrentEnvironment && strategyResult() === true;
+      const isEnabled = feature.isEnabledInCurrentEnvironment && strategyResult() === true;
 
       // the active variant is the disabled variant if the feature is
       // disabled or has no variants.
@@ -150,8 +122,7 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
       };
 
       if (generatedVariants.length && isEnabled) {
-        const targetVariant =
-          generatedVariants[activeVariantIndex % generatedVariants.length];
+        const targetVariant = generatedVariants[activeVariantIndex % generatedVariants.length];
         const targetPayload = targetVariant.payload
           ? (targetVariant.payload as {
               type: 'string' | 'json' | 'csv';
@@ -180,13 +151,9 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
 
 test('playgroundFeatureSchema', () =>
   fc.assert(
-    fc.property(
-      generate(),
-      fc.context(),
-      (data: PlaygroundFeatureSchema, ctx) => {
-        const results = validateSchema(playgroundFeatureSchema.$id, data);
-        ctx.log(JSON.stringify(results));
-        return results === undefined;
-      },
-    ),
+    fc.property(generate(), fc.context(), (data: PlaygroundFeatureSchema, ctx) => {
+      const results = validateSchema(playgroundFeatureSchema.$id, data);
+      ctx.log(JSON.stringify(results));
+      return results === undefined;
+    }),
   ));

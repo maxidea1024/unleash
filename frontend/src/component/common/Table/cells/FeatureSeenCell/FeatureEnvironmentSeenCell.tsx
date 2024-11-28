@@ -11,20 +11,11 @@ interface IFeatureSeenCellProps {
   };
 }
 
-export const FeatureEnvironmentSeenCell: VFC<IFeatureSeenCellProps> = ({
-  feature,
-  ...rest
-}) => {
-  const environments = feature.environments
-    ? Object.values(feature.environments)
-    : [];
+export const FeatureEnvironmentSeenCell: VFC<IFeatureSeenCellProps> = ({ feature, ...rest }) => {
+  const environments = feature.environments ? Object.values(feature.environments) : [];
 
   return (
-    <FeatureEnvironmentSeen
-      featureLastSeen={feature.lastSeenAt || undefined}
-      environments={environments}
-      {...rest}
-    />
+    <FeatureEnvironmentSeen featureLastSeen={feature.lastSeenAt || undefined} environments={environments} {...rest} />
   );
 };
 
@@ -47,22 +38,13 @@ export const FeatureLifecycleCell: VFC<IFeatureLifecycleProps> = ({
   onArchive,
   ...rest
 }) => {
-  const environments = feature.environments
-    ? Object.values(feature.environments)
-    : [];
+  const environments = feature.environments ? Object.values(feature.environments) : [];
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-      <FeatureLifecycle
-        onArchive={onArchive}
-        onComplete={onComplete}
-        onUncomplete={onUncomplete}
-        feature={feature}
-      />
+      <FeatureLifecycle onArchive={onArchive} onComplete={onComplete} onUncomplete={onUncomplete} feature={feature} />
     </Box>
   );
 };
 
-export const MemoizedFeatureEnvironmentSeenCell = React.memo(
-  FeatureEnvironmentSeenCell,
-);
+export const MemoizedFeatureEnvironmentSeenCell = React.memo(FeatureEnvironmentSeenCell);

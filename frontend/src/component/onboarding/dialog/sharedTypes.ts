@@ -16,23 +16,8 @@ import flutter from '../../../assets/icons/sdks/Logo-flutter.svg';
 
 export type SdkType = 'client' | 'frontend';
 export type Sdk = { name: SdkName; type: SdkType };
-export type ServerSdkName =
-  | 'Node.js'
-  | 'Go'
-  | '.NET'
-  | 'Ruby'
-  | 'PHP'
-  | 'Rust'
-  | 'Java'
-  | 'Python';
-export type ClientSdkName =
-  | 'JavaScript'
-  | 'React'
-  | 'Vue'
-  | 'Svelte'
-  | 'Swift'
-  | 'Android'
-  | 'Flutter';
+export type ServerSdkName = 'Node.js' | 'Go' | '.NET' | 'Ruby' | 'PHP' | 'Rust' | 'Java' | 'Python';
+export type ClientSdkName = 'JavaScript' | 'React' | 'Vue' | 'Svelte' | 'Swift' | 'Android' | 'Flutter';
 export type SdkName = ServerSdkName | ClientSdkName;
 
 export const serverSdks: { name: ServerSdkName; icon: string }[] = [
@@ -55,5 +40,4 @@ export const clientSdks: { name: ClientSdkName; icon: string }[] = [
   { name: 'Flutter', icon: flutter },
 ];
 
-export const allSdks: { name: ClientSdkName | ServerSdkName; icon: string }[] =
-  [...serverSdks, ...clientSdks];
+export const allSdks: { name: ClientSdkName | ServerSdkName; icon: string }[] = [...serverSdks, ...clientSdks];

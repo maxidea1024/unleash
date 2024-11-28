@@ -12,8 +12,7 @@ const createServiceWithLimit = (limit: number) => {
   });
   config.resourceLimits.apiTokens = limit;
 
-  const { apiTokenService, environmentStore } =
-    createFakeApiTokenService(config);
+  const { apiTokenService, environmentStore } = createFakeApiTokenService(config);
 
   environmentStore.create({
     name: 'production',

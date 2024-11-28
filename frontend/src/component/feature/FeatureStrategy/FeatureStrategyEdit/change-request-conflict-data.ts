@@ -1,7 +1,4 @@
-import type {
-  ChangeRequestState,
-  ChangeRequestType,
-} from 'component/changeRequest/changeRequest.types';
+import type { ChangeRequestState, ChangeRequestType } from 'component/changeRequest/changeRequest.types';
 import type { ScheduledChangeRequestViewModel } from 'hooks/api/getters/useScheduledChangeRequestsWithStrategy/useScheduledChangeRequestsWithStrategy';
 import type { IUiConfig } from 'interfaces/uiConfig';
 import { getUniqueChangeRequestId } from 'utils/unique-change-request-id';
@@ -21,11 +18,7 @@ export const getChangeRequestConflictCreatedData = (
     ?.filter((cr) =>
       cr.features
         .find((feature) => feature.name === featureId)
-        ?.changes.some(
-          (change) =>
-            change.action === 'updateStrategy' &&
-            change.payload.id === strategyId,
-        ),
+        ?.changes.some((change) => change.action === 'updateStrategy' && change.payload.id === strategyId),
     )
     .map((cr) => ({
       changeRequest: getUniqueChangeRequestId(uiConfig, cr.id),

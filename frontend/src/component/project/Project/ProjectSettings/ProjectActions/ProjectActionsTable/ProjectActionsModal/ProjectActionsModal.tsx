@@ -7,10 +7,7 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import type { IActionSet } from 'interfaces/action';
 import { useActions } from 'hooks/api/getters/useActions/useActions';
-import {
-  type ActionSetPayload,
-  useActionsApi,
-} from 'hooks/api/actions/useActionsApi/useActionsApi';
+import { type ActionSetPayload, useActionsApi } from 'hooks/api/actions/useActionsApi/useActionsApi';
 import { ProjectActionsForm } from './ProjectActionsForm/ProjectActionsForm';
 import { useProjectActionsForm } from './ProjectActionsForm/useProjectActionsForm';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
@@ -52,12 +49,7 @@ interface IProjectActionsModalProps {
   onOpenEvents: () => void;
 }
 
-export const ProjectActionsModal = ({
-  action,
-  open,
-  setOpen,
-  onOpenEvents,
-}: IProjectActionsModalProps) => {
+export const ProjectActionsModal = ({ action, open, setOpen, onOpenEvents }: IProjectActionsModalProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { refetch } = useActions(projectId);
   const { addActionSet, updateActionSet, loading } = useActionsApi(projectId);
@@ -105,10 +97,7 @@ export const ProjectActionsModal = ({
       payload: filters
         .filter((f) => f.parameter.length > 0)
         .reduce(
-          (
-            acc,
-            { parameter, inverted, operator, caseInsensitive, value, values },
-          ) => ({
+          (acc, { parameter, inverted, operator, caseInsensitive, value, values }) => ({
             ...acc,
             [parameter]: {
               inverted,
@@ -131,11 +120,8 @@ export const ProjectActionsModal = ({
       })),
   };
 
-  const formatApiCode = () => `curl --location --request ${
-    editing ? 'PUT' : 'POST'
-  } '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/actions${
-    editing ? `/${action.id}` : ''
-  }' \\
+  const formatApiCode =
+    () => `curl --location --request ${editing ? 'PUT' : 'POST'} '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/actions${editing ? `/${action.id}` : ''}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(payload, undefined, 2)}'`;
@@ -180,10 +166,7 @@ export const ProjectActionsModal = ({
       >
         <StyledHeader>
           <StyledTitle>{title}</StyledTitle>
-          <ConditionallyRender
-            condition={editing}
-            show={<Link onClick={onOpenEvents}>View events</Link>}
-          />
+          <ConditionallyRender condition={editing} show={<Link onClick={onOpenEvents}>View events</Link>} />
         </StyledHeader>
         <StyledForm onSubmit={onSubmit}>
           <ProjectActionsForm

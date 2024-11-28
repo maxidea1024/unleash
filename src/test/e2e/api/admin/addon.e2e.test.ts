@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
 const MASKED_VALUE = '*****';
@@ -40,10 +37,7 @@ test('gets all addons', async () => {
 
 test('should not be able to create invalid addon', async () => {
   expect.assertions(0);
-  return app.request
-    .post('/api/admin/addons')
-    .send({ invalid: 'field' })
-    .expect(400);
+  return app.request.post('/api/admin/addons').send({ invalid: 'field' }).expect(400);
 });
 
 test('should create addon configuration', async () => {
@@ -75,10 +69,7 @@ test('should delete addon configuration', async () => {
     events: ['feature-updated', 'feature-created'],
   };
 
-  const res = await app.request
-    .post('/api/admin/addons')
-    .send(config)
-    .expect(201);
+  const res = await app.request.post('/api/admin/addons').send(config).expect(201);
 
   const { id } = res.body;
   await app.request.delete(`/api/admin/addons/${id}`).expect(200);
@@ -97,10 +88,7 @@ test('should update addon configuration', async () => {
     events: ['feature-updated', 'feature-created'],
   };
 
-  const res = await app.request
-    .post('/api/admin/addons')
-    .send(config)
-    .expect(201);
+  const res = await app.request.post('/api/admin/addons').send(config).expect(201);
 
   const { id } = res.body;
 
@@ -112,10 +100,7 @@ test('should update addon configuration', async () => {
     },
   };
 
-  await app.request
-    .put(`/api/admin/addons/${id}`)
-    .send(updatedConfig)
-    .expect(200);
+  await app.request.put(`/api/admin/addons/${id}`).send(updatedConfig).expect(200);
 
   return app.request
     .get(`/api/admin/addons/${id}`)
@@ -123,9 +108,7 @@ test('should update addon configuration', async () => {
     .expect(200)
     .expect((r) => {
       expect(r.body.parameters.url).toBe(MASKED_VALUE);
-      expect(r.body.parameters.bodyTemplate).toBe(
-        updatedConfig.parameters.bodyTemplate,
-      );
+      expect(r.body.parameters.bodyTemplate).toBe(updatedConfig.parameters.bodyTemplate);
     });
 });
 
@@ -173,10 +156,7 @@ test('should get addon configuration', async () => {
     events: ['feature-updated', 'feature-created'],
   };
 
-  const res = await app.request
-    .post('/api/admin/addons')
-    .send(config)
-    .expect(201);
+  const res = await app.request.post('/api/admin/addons').send(config).expect(201);
 
   const { id } = res.body;
 
@@ -185,9 +165,7 @@ test('should get addon configuration', async () => {
     .expect(200)
     .expect((r) => {
       expect(r.body.provider).toBe(config.provider);
-      expect(r.body.parameters.bodyTemplate).toBe(
-        config.parameters.bodyTemplate,
-      );
+      expect(r.body.parameters.bodyTemplate).toBe(config.parameters.bodyTemplate);
       expect(r.body.parameters.url).toBe(MASKED_VALUE);
     });
 });
@@ -258,17 +236,13 @@ describe('missing descriptions', () => {
         expect(res.body.description).toBeNull();
       });
 
-    return app.request
-      .get(`/api/admin/addons/${body.id}`)
-      .expect((getResponse) => {
-        expect(getResponse.body.description).toBeNull();
-      });
+    return app.request.get(`/api/admin/addons/${body.id}`).expect((getResponse) => {
+      expect(getResponse.body.description).toBeNull();
+    });
   });
 
   it('updating an addon without touching `description` keeps the original value', async () => {
-    const { body } = await app.request
-      .post('/api/admin/addons')
-      .send(addonWithoutDescription);
+    const { body } = await app.request.post('/api/admin/addons').send(addonWithoutDescription);
 
     const newUrl = 'http://localhost:4242/newUrl';
     return app.request
@@ -282,9 +256,7 @@ describe('missing descriptions', () => {
   test.each(['', null])(
     'sending a description value of "%s", sets a `null` sets the description to an empty string',
     async (description) => {
-      const { body } = await app.request
-        .post('/api/admin/addons')
-        .send(addonWithoutDescription);
+      const { body } = await app.request.post('/api/admin/addons').send(addonWithoutDescription);
 
       return app.request
         .put(`/api/admin/addons/${body.id}`)

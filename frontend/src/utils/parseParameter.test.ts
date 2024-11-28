@@ -1,8 +1,4 @@
-import {
-  parseParameterNumber,
-  parseParameterString,
-  parseParameterStrings,
-} from 'utils/parseParameter';
+import { parseParameterNumber, parseParameterString, parseParameterStrings } from 'utils/parseParameter';
 
 test('parseParameterNumber', () => {
   expect(parseParameterNumber(undefined)).toEqual(0);

@@ -2,11 +2,7 @@ import { styled } from '@mui/material';
 import { Markdown } from 'component/common/Markdown/Markdown';
 import type { HTMLAttributes } from 'react';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import {
-  formatDateHMS,
-  formatDateYMDHMS,
-  formatDateYMD,
-} from 'utils/formatDate';
+import { formatDateHMS, formatDateYMDHMS, formatDateYMD } from 'utils/formatDate';
 import type { TimelineEventGroup } from '../../EventTimeline';
 import { EventTimelineEventCircle } from '../EventTimelineEventCircle';
 
@@ -48,24 +44,22 @@ const StyledTooltipItem = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const StyledEventTimelineEventCircle = styled(EventTimelineEventCircle)(
-  ({ theme }) => ({
-    flexShrink: 0,
-    marginTop: theme.spacing(0.125),
-    height: theme.spacing(2.5),
-    width: theme.spacing(2.5),
-    transition: 'none',
-    '& > svg': {
-      height: theme.spacing(1.75),
-    },
-    '& > span': {
-      fontSize: theme.fontSizes.smallBody,
-    },
-    '&:hover': {
-      transform: 'none',
-    },
-  }),
-);
+const StyledEventTimelineEventCircle = styled(EventTimelineEventCircle)(({ theme }) => ({
+  flexShrink: 0,
+  marginTop: theme.spacing(0.125),
+  height: theme.spacing(2.5),
+  width: theme.spacing(2.5),
+  transition: 'none',
+  '& > svg': {
+    height: theme.spacing(1.75),
+  },
+  '& > span': {
+    fontSize: theme.fontSizes.smallBody,
+  },
+  '&:hover': {
+    transform: 'none',
+  },
+}));
 
 const BoldToNormal = ({ children }: HTMLAttributes<HTMLElement>) => children;
 
@@ -73,17 +67,12 @@ interface IEventTimelineEventTooltipProps {
   group: TimelineEventGroup;
 }
 
-export const EventTimelineEventTooltip = ({
-  group,
-}: IEventTimelineEventTooltipProps) => {
+export const EventTimelineEventTooltip = ({ group }: IEventTimelineEventTooltipProps) => {
   const { locationSettings } = useLocationSettings();
 
   if (group.length === 1) {
     const event = group[0];
-    const eventDateTime = formatDateYMDHMS(
-      event.timestamp,
-      locationSettings?.locale,
-    );
+    const eventDateTime = formatDateYMDHMS(event.timestamp, locationSettings?.locale);
 
     return (
       <>
@@ -91,18 +80,13 @@ export const EventTimelineEventTooltip = ({
           <StyledTooltipTitle>{event.label}</StyledTooltipTitle>
           <StyledDateTime>{eventDateTime}</StyledDateTime>
         </StyledTooltipHeader>
-        <Markdown components={{ strong: BoldToNormal }}>
-          {event.summary}
-        </Markdown>
+        <Markdown components={{ strong: BoldToNormal }}>{event.summary}</Markdown>
       </>
     );
   }
 
   const firstEvent = group[0];
-  const eventDate = formatDateYMD(
-    firstEvent.timestamp,
-    locationSettings?.locale,
-  );
+  const eventDate = formatDateYMD(firstEvent.timestamp, locationSettings?.locale);
 
   return (
     <>
@@ -115,12 +99,8 @@ export const EventTimelineEventTooltip = ({
           <StyledTooltipItem key={event.id}>
             <StyledEventTimelineEventCircle group={[event]} />
             <div>
-              <StyledDate>
-                {formatDateHMS(event.timestamp, locationSettings?.locale)}
-              </StyledDate>
-              <Markdown components={{ strong: BoldToNormal }}>
-                {event.summary}
-              </Markdown>
+              <StyledDate>{formatDateHMS(event.timestamp, locationSettings?.locale)}</StyledDate>
+              <Markdown components={{ strong: BoldToNormal }}>{event.summary}</Markdown>
             </div>
           </StyledTooltipItem>
         ))}

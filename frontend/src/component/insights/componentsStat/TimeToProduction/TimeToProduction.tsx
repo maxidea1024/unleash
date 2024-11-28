@@ -34,9 +34,7 @@ const interpolate = (
     return toEnd;
   }
 
-  return (
-    ((value - fromStart) / (fromEnd - fromStart)) * (toEnd - toStart) + toStart
-  );
+  return ((value - fromStart) / (fromEnd - fromStart)) * (toEnd - toStart) + toStart;
 };
 
 const resolveValue = (
@@ -77,9 +75,7 @@ const resolveValue = (
   };
 };
 
-export const TimeToProduction: VFC<TimeToProductionProps> = ({
-  daysToProduction,
-}) => {
+export const TimeToProduction: VFC<TimeToProductionProps> = ({ daysToProduction }) => {
   const { value, gauge, score } = resolveValue(daysToProduction);
 
   return (
@@ -92,9 +88,7 @@ export const TimeToProduction: VFC<TimeToProductionProps> = ({
         <Typography
           variant='body2'
           sx={(theme) => ({
-            color: score
-              ? theme.palette.primary.main
-              : theme.palette.text.secondary,
+            color: score ? theme.palette.primary.main : theme.palette.text.secondary,
           })}
         >
           {score || 'No data'}

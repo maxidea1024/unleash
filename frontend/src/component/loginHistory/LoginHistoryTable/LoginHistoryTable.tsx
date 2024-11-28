@@ -5,12 +5,7 @@ import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { IconButton, Tooltip, useMediaQuery } from '@mui/material';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
-import {
-  type SortingRule,
-  useFlexLayout,
-  useSortBy,
-  useTable,
-} from 'react-table';
+import { type SortingRule, useFlexLayout, useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { HighlightCell } from 'component/common/Table/cells/HighlightCell/HighlightCell';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
@@ -28,16 +23,11 @@ import { useSearchParams } from 'react-router-dom';
 import { createLocalStorage } from 'utils/createLocalStorage';
 import Download from '@mui/icons-material/Download';
 
-export type PageQueryType = Partial<
-  Record<'sort' | 'order' | 'search', string>
->;
+export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
 
 const defaultSort: SortingRule<string> = { id: 'created_at', desc: true };
 
-const { value: storedParams, setValue: setStoredParams } = createLocalStorage(
-  'LoginHistoryTable:v1',
-  defaultSort,
-);
+const { value: storedParams, setValue: setStoredParams } = createLocalStorage('LoginHistoryTable:v1', defaultSort);
 
 const AUTH_TYPE_LABEL: { [key: string]: string } = {
   simple: 'Password',
@@ -55,9 +45,7 @@ export const LoginHistoryTable = () => {
     sortBy: [
       {
         id: searchParams.get('sort') || storedParams.id,
-        desc: searchParams.has('order')
-          ? searchParams.get('order') === 'desc'
-          : storedParams.desc,
+        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : storedParams.desc,
       },
     ],
     hiddenColumns: ['failure_reason'],
@@ -74,9 +62,7 @@ export const LoginHistoryTable = () => {
       {
         Header: 'Created',
         accessor: 'created_at',
-        Cell: ({ value }: { value: Date }) => (
-          <TimeAgoCell value={value} dateFormat={formatDateYMDHMS} />
-        ),
+        Cell: ({ value }: { value: Date }) => <TimeAgoCell value={value} dateFormat={formatDateYMDHMS} />,
         maxWidth: 150,
       },
       {
@@ -88,8 +74,7 @@ export const LoginHistoryTable = () => {
       },
       {
         Header: 'Authentication',
-        accessor: (event: ILoginEvent) =>
-          AUTH_TYPE_LABEL[event.auth_type] || event.auth_type,
+        accessor: (event: ILoginEvent) => AUTH_TYPE_LABEL[event.auth_type] || event.auth_type,
         width: 150,
         maxWidth: 150,
         Cell: HighlightCell,
@@ -120,11 +105,7 @@ export const LoginHistoryTable = () => {
     [],
   );
 
-  const { data, getSearchText, getSearchContext } = useSearch(
-    columns,
-    searchValue,
-    events,
-  );
+  const { data, getSearchText, getSearchContext } = useSearch(columns, searchValue, events);
 
   const {
     headerGroups,
@@ -207,10 +188,7 @@ export const LoginHistoryTable = () => {
                 condition={rows.length > 0}
                 show={
                   <>
-                    <ConditionallyRender
-                      condition={!isSmallScreen}
-                      show={<PageHeader.Divider />}
-                    />
+                    <ConditionallyRender condition={!isSmallScreen} show={<PageHeader.Divider />} />
                     <Tooltip title='Download login history' arrow>
                       <IconButton onClick={downloadCSV}>
                         <Download />
@@ -237,11 +215,7 @@ export const LoginHistoryTable = () => {
       }
     >
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -255,9 +229,7 @@ export const LoginHistoryTable = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={
-              <TablePlaceholder>No login events available.</TablePlaceholder>
-            }
+            elseShow={<TablePlaceholder>No login events available.</TablePlaceholder>}
           />
         }
       />

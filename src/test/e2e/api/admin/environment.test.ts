@@ -1,9 +1,6 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
 
 let app: IUnleashTest;
@@ -69,9 +66,7 @@ test('Can update sort order', async () => {
     .expect('Content-Type', /json/)
     .expect((res) => {
       const updatedSort = res.body.environments.find((t) => t.name === envName);
-      const defaultEnv = res.body.environments.find(
-        (t) => t.name === DEFAULT_ENV,
-      );
+      const defaultEnv = res.body.environments.find((t) => t.name === DEFAULT_ENV);
       expect(updatedSort.sortOrder).toBe(1);
       expect(defaultEnv.sortOrder).toBe(2);
     });
@@ -95,10 +90,7 @@ test('Can update environment enabled status', async () => {
     name: envName,
     type: 'production',
   });
-  await app.request
-    .post(`/api/admin/environments/${envName}/on`)
-    .set('Content-Type', 'application/json')
-    .expect(204);
+  await app.request.post(`/api/admin/environments/${envName}/on`).set('Content-Type', 'application/json').expect(204);
 });
 
 test('Can update environment disabled status', async () => {
@@ -109,28 +101,19 @@ test('Can update environment disabled status', async () => {
     type: 'production',
   });
 
-  await app.request
-    .post(`/api/admin/environments/${envName}/off`)
-    .set('Content-Type', 'application/json')
-    .expect(204);
+  await app.request.post(`/api/admin/environments/${envName}/off`).set('Content-Type', 'application/json').expect(204);
 });
 
 test('Can not update non-existing environment enabled status', async () => {
   const envName = 'non-existing-env';
 
-  await app.request
-    .post(`/api/admin/environments/${envName}/on`)
-    .set('Content-Type', 'application/json')
-    .expect(404);
+  await app.request.post(`/api/admin/environments/${envName}/on`).set('Content-Type', 'application/json').expect(404);
 });
 
 test('Can not update non-existing environment disabled status', async () => {
   const envName = 'non-existing-env';
 
-  await app.request
-    .post(`/api/admin/environments/${envName}/off`)
-    .set('Content-Type', 'application/json')
-    .expect(404);
+  await app.request.post(`/api/admin/environments/${envName}/off`).set('Content-Type', 'application/json').expect(404);
 });
 
 test('Can get specific environment', async () => {
@@ -151,7 +134,5 @@ test('Can get specific environment', async () => {
 });
 
 test('Getting a non existing environment yields 404', async () => {
-  await app.request
-    .get('/api/admin/environments/this-does-not-exist')
-    .expect(404);
+  await app.request.get('/api/admin/environments/this-does-not-exist').expect(404);
 });

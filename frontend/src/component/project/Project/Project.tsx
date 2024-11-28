@@ -15,15 +15,7 @@ import {
   StyledTabContainer,
   StyledTopRow,
 } from './Project.styles';
-import {
-  Badge as CounterBadge,
-  Box,
-  Paper,
-  Tabs,
-  Typography,
-  styled,
-  Button,
-} from '@mui/material';
+import { Badge as CounterBadge, Box, Paper, Tabs, Typography, styled, Button } from '@mui/material';
 import useToast from 'hooks/useToast';
 import useQueryParams from 'hooks/useQueryParams';
 import { useEffect, useState, type ReactNode } from 'react';
@@ -137,10 +129,7 @@ export const Project = () => {
 
   const [showDelDialog, setShowDelDialog] = useState(false);
 
-  const [
-    changeRequestChangesWillOverwrite,
-    setChangeRequestChangesWillOverwrite,
-  ] = useState(false);
+  const [changeRequestChangesWillOverwrite, setChangeRequestChangesWillOverwrite] = useState(false);
 
   const tabs: ITab[] = [
     {
@@ -201,9 +190,7 @@ export const Project = () => {
     })
     .filter((tab) => !(isOss() && tab.isEnterprise));
 
-  const activeTab = [...filteredTabs]
-    .reverse()
-    .find((tab) => pathname.startsWith(tab.path));
+  const activeTab = [...filteredTabs].reverse().find((tab) => pathname.startsWith(tab.path));
 
   useEffect(() => {
     const created = params.get('created');
@@ -264,24 +251,15 @@ export const Project = () => {
         <StyledInnerContainer>
           <StyledTopRow>
             <StyledDiv>
-              <StyledFavoriteIconButton
-                onClick={onFavorite}
-                isFavorite={project?.favorite}
-              />
+              <StyledFavoriteIconButton onClick={onFavorite} isFavorite={project?.favorite} />
               <StyledProjectTitle>
-                <ConditionallyRender
-                  condition={project?.mode === 'private'}
-                  show={<HiddenProjectIconWithTooltip />}
-                />
+                <ConditionallyRender condition={project?.mode === 'private'} show={<HiddenProjectIconWithTooltip />} />
                 <StyledName data-loading-project>{projectName}</StyledName>
               </StyledProjectTitle>
             </StyledDiv>
             <StyledDiv>
               <ConditionallyRender
-                condition={Boolean(
-                  !simplifyProjectOverview &&
-                    uiConfig?.flags?.featuresExportImport,
-                )}
+                condition={Boolean(!simplifyProjectOverview && uiConfig?.flags?.featuresExportImport)}
                 show={
                   <PermissionIconButton
                     permission={UPDATE_FEATURE}
@@ -347,8 +325,7 @@ export const Project = () => {
                           </span>
                         }
                       />
-                      {(tab.isEnterprise && isPro() && enterpriseIcon) ||
-                        undefined}
+                      {(tab.isEnterprise && isPro() && enterpriseIcon) || undefined}
                     </>
                   }
                 />
@@ -369,12 +346,7 @@ export const Project = () => {
       />
       <Routes>
         <Route path='health' element={<ProjectHealth />} />
-        <Route
-          path='access/*'
-          element={
-            <Navigate replace to={`/projects/${projectId}/settings/access`} />
-          }
-        />
+        <Route path='access/*' element={<Navigate replace to={`/projects/${projectId}/settings/access`} />} />
         <Route path='environments' element={<ProjectEnvironment />} />
         <Route path='archive' element={<ProjectFeaturesArchive />} />
         <Route path='insights' element={<ProjectInsights />} />
@@ -386,8 +358,7 @@ export const Project = () => {
             <ChangeRequestPlausibleProvider
               value={{
                 willOverwriteStrategyChanges: changeRequestChangesWillOverwrite,
-                registerWillOverwriteStrategyChanges: () =>
-                  setChangeRequestChangesWillOverwrite(true),
+                registerWillOverwriteStrategyChanges: () => setChangeRequestChangesWillOverwrite(true),
               }}
             >
               <ChangeRequestOverview />
@@ -398,15 +369,8 @@ export const Project = () => {
         <Route path='applications' element={<ProjectApplications />} />
         <Route path='*' element={<ProjectFlags />} />
       </Routes>
-      <ImportModal
-        open={modalOpen}
-        setOpen={setModalOpen}
-        project={projectId}
-      />
-      <ProjectStatusModal
-        open={projectStatusOpen}
-        close={() => setProjectStatusOpen(false)}
-      />
+      <ImportModal open={modalOpen} setOpen={setModalOpen} project={projectId} />
+      <ProjectStatusModal open={projectStatusOpen} close={() => setProjectStatusOpen(false)} />
     </div>
   );
 };

@@ -11,21 +11,11 @@ interface ISdkConnectionProps {
   onSdkChange: () => void;
 }
 
-export const SdkConnection = ({
-  sdk,
-  apiKey,
-  feature,
-  onSdkChange,
-}: ISdkConnectionProps) => {
+export const SdkConnection = ({ sdk, apiKey, feature, onSdkChange }: ISdkConnectionProps) => {
   return (
     <Suspense fallback={<Loader />}>
       {feature ? (
-        <TestSdkConnection
-          sdk={sdk}
-          apiKey={apiKey}
-          feature={feature}
-          onSdkChange={onSdkChange}
-        />
+        <TestSdkConnection sdk={sdk} apiKey={apiKey} feature={feature} onSdkChange={onSdkChange} />
       ) : (
         <SdkConnected sdk={sdk} />
       )}

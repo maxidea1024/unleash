@@ -8,24 +8,15 @@ import Controller from '../controller';
 import { anonymiseKeys } from '../../util/anonymise';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
-import {
-  eventsSchema,
-  type EventsSchema,
-} from '../../../lib/openapi/spec/events-schema';
+import { eventsSchema, type EventsSchema } from '../../../lib/openapi/spec/events-schema';
 import { serializeDates } from '../../../lib/types/serialize-dates';
-import {
-  featureEventsSchema,
-  type FeatureEventsSchema,
-} from '../../../lib/openapi/spec/feature-events-schema';
+import { featureEventsSchema, type FeatureEventsSchema } from '../../../lib/openapi/spec/feature-events-schema';
 import { getStandardResponses } from '../../../lib/openapi/util/standard-responses';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import type { DeprecatedSearchEventsSchema } from '../../openapi/spec/deprecated-search-events-schema';
 import type { IFlagResolver } from '../../types/experimental';
 import type { IAuthRequest } from '../unleash-types';
-import {
-  eventCreatorsSchema,
-  type ProjectFlagCreatorsSchema,
-} from '../../openapi';
+import { eventCreatorsSchema, type ProjectFlagCreatorsSchema } from '../../openapi';
 
 const ANON_KEYS = ['email', 'username', 'createdBy'];
 const version = 1 as const;
@@ -37,10 +28,7 @@ export default class EventController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      eventService,
-      openApiService,
-    }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
+    { eventService, openApiService }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -65,16 +53,14 @@ export default class EventController extends Controller {
           parameters: [
             {
               name: 'project',
-              description:
-                'The name of the project whose events you want to retrieve',
+              description: 'The name of the project whose events you want to retrieve',
               schema: { type: 'string' },
               in: 'query',
             },
           ],
           description:
             'Returns **the last 100** events from the Unleash instance when called without a query parameter. When called with a `project` parameter, returns **all events** for the specified project.\n\nIf the provided project does not exist, the list of events will be empty.',
-          summary:
-            'Get the most recent events from the Unleash instance or all events related to a project.',
+          summary: 'Get the most recent events from the Unleash instance or all events related to a project.',
         }),
       ],
     });
@@ -110,8 +96,7 @@ export default class EventController extends Controller {
           tags: ['Events'],
           deprecated: true,
           summary: 'Search for events (deprecated)',
-          description:
-            'Allows searching for events matching the search criteria in the request body',
+          description: 'Allows searching for events matching the search criteria in the request body',
           requestBody: createRequestSchema('deprecatedSearchEventsSchema'),
           responses: { 200: createResponseSchema('eventsSchema') },
         }),
@@ -128,8 +113,7 @@ export default class EventController extends Controller {
           tags: ['Events'],
           operationId: 'getEventCreators',
           summary: 'Get a list of all users that have created events',
-          description:
-            'Returns a list of all users that have created events in the system.',
+          description: 'Returns a list of all users that have created events in the system.',
           responses: {
             200: createResponseSchema('eventCreatorsSchema'),
             ...getStandardResponses(401, 403, 404),
@@ -146,10 +130,7 @@ export default class EventController extends Controller {
     return events;
   }
 
-  async getEvents(
-    req: Request<any, any, any, { project?: string }>,
-    res: Response<EventsSchema>,
-  ): Promise<void> {
+  async getEvents(req: Request<any, any, any, { project?: string }>, res: Response<EventsSchema>): Promise<void> {
     const { project } = req.query;
     let eventList: IEventList;
     if (project) {
@@ -166,18 +147,10 @@ export default class EventController extends Controller {
       totalEvents: eventList.totalEvents,
     };
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      eventsSchema.$id,
-      response,
-    );
+    this.openApiService.respondWithValidation(200, res, eventsSchema.$id, response);
   }
 
-  async getEventsForToggle(
-    req: Request<{ featureName: string }>,
-    res: Response<FeatureEventsSchema>,
-  ): Promise<void> {
+  async getEventsForToggle(req: Request<{ featureName: string }>, res: Response<FeatureEventsSchema>): Promise<void> {
     const feature = req.params.featureName;
     const eventList = await this.eventService.deprecatedSearchEvents({
       feature,
@@ -190,12 +163,7 @@ export default class EventController extends Controller {
       totalEvents: eventList.totalEvents,
     };
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      featureEventsSchema.$id,
-      response,
-    );
+    this.openApiService.respondWithValidation(200, res, featureEventsSchema.$id, response);
   }
 
   async deprecatedSearchEvents(
@@ -210,25 +178,12 @@ export default class EventController extends Controller {
       totalEvents: eventList.totalEvents,
     };
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      featureEventsSchema.$id,
-      response,
-    );
+    this.openApiService.respondWithValidation(200, res, featureEventsSchema.$id, response);
   }
 
-  async getEventCreators(
-    _: IAuthRequest,
-    res: Response<ProjectFlagCreatorsSchema>,
-  ): Promise<void> {
+  async getEventCreators(_: IAuthRequest, res: Response<ProjectFlagCreatorsSchema>): Promise<void> {
     const flagCreators = await this.eventService.getEventCreators();
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      eventCreatorsSchema.$id,
-      serializeDates(flagCreators),
-    );
+    this.openApiService.respondWithValidation(200, res, eventCreatorsSchema.$id, serializeDates(flagCreators));
   }
 }

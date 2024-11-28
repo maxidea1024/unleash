@@ -19,10 +19,7 @@ const ActiveStep = styled('div')(({ theme }) => ({
   height: theme.spacing(1),
 }));
 
-export const Stepper: FC<{ active: number; steps: number }> = ({
-  active,
-  steps,
-}) => {
+export const Stepper: FC<{ active: number; steps: number }> = ({ active, steps }) => {
   return (
     <StepContainer>
       {Array.from({ length: steps }, (_, index) =>

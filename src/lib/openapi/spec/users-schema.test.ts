@@ -7,7 +7,5 @@ test('usersSchema', () => {
     rootRoles: [{ id: 1, type: 'a', name: 'b' }],
   };
 
-  expect(
-    validateSchema('#/components/schemas/usersSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/usersSchema', data)).toBeUndefined();
 });

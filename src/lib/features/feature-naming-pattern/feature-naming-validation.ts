@@ -16,9 +16,7 @@ const invalidValueError = (valueName: string) =>
 
 export const checkFeatureNamingData = (
   featureNaming: IFeatureNaming,
-):
-  | { state: 'valid' }
-  | { state: 'invalid'; reasons: [string, ...string[]] } => {
+): { state: 'valid' } | { state: 'invalid'; reasons: [string, ...string[]] } => {
   const { pattern, example, description } = featureNaming;
   const errors: string[] = [];
 

@@ -1,8 +1,6 @@
 import type { InstanceInsightsSchema } from 'openapi';
 
-export function aggregateDataPerDate(
-  items: InstanceInsightsSchema['metricsSummaryTrends'],
-) {
+export function aggregateDataPerDate(items: InstanceInsightsSchema['metricsSummaryTrends']) {
   return items.reduce(
     (acc, item) => {
       if (!acc[item.date]) {

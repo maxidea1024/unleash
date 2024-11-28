@@ -2,11 +2,7 @@
 import type { RoleSchema } from '../../lib/openapi';
 import type { ICustomRole } from '../../lib/types/model';
 import type { IRole, IUserRole } from '../../lib/types/stores/access-store';
-import type {
-  ICustomRoleInsert,
-  ICustomRoleUpdate,
-  IRoleStore,
-} from '../../lib/types/stores/role-store';
+import type { ICustomRoleInsert, ICustomRoleUpdate, IRoleStore } from '../../lib/types/stores/role-store';
 
 export default class FakeRoleStore implements IRoleStore {
   count(): Promise<number> {
@@ -28,9 +24,7 @@ export default class FakeRoleStore implements IRoleStore {
   }
 
   nameInUse(name: string, existingId?: number): Promise<boolean> {
-    return Promise.resolve(
-      this.roles.find((r) => r.name === name) !== undefined,
-    );
+    return Promise.resolve(this.roles.find((r) => r.name === name) !== undefined);
   }
 
   async getAll(): Promise<ICustomRole[]> {

@@ -25,14 +25,10 @@ interface IErrorDetails {
 
 const LENGTH_ERROR = 'The password must be at least 10 characters long.';
 const NUMBER_ERROR = 'The password must contain at least one number.';
-const SYMBOL_ERROR =
-  'The password must contain at least one special character.';
-const UPPERCASE_ERROR =
-  'The password must contain at least one uppercase letter.';
-const LOWERCASE_ERROR =
-  'The password must contain at least one lowercase letter.';
-const REPEATING_CHARACTER_ERROR =
-  'The password may not contain sequences of three or more repeated characters.';
+const SYMBOL_ERROR = 'The password must contain at least one special character.';
+const UPPERCASE_ERROR = 'The password must contain at least one uppercase letter.';
+const LOWERCASE_ERROR = 'The password must contain at least one lowercase letter.';
+const REPEATING_CHARACTER_ERROR = 'The password may not contain sequences of three or more repeated characters.';
 export const PASSWORD_FORMAT_MESSAGE =
   'The password must be at least 10 characters long and must include an uppercase letter, a lowercase letter, a number, and a symbol.';
 
@@ -87,16 +83,10 @@ const StyledStatusBar = styled('div', {
   width: '50px',
   borderRadius: theme.shape.borderRadius,
   height: '6px',
-  backgroundColor: error
-    ? theme.palette.error.main
-    : theme.palette.primary.main,
+  backgroundColor: error ? theme.palette.error.main : theme.palette.primary.main,
 }));
 
-const PasswordChecker = ({
-  password,
-  callback,
-  style = {},
-}: IPasswordCheckerProps) => {
+const PasswordChecker = ({ password, callback, style = {} }: IPasswordCheckerProps) => {
   const [casingError, setCasingError] = useState(true);
   const [numberError, setNumberError] = useState(true);
   const [symbolError, setSymbolError] = useState(true);
@@ -241,11 +231,7 @@ const PasswordChecker = ({
         </StyledStatusBarContainer>
         <ConditionallyRender
           condition={repeatingCharError}
-          show={
-            <StyledError severity='error'>
-              You may not repeat three characters in a row.
-            </StyledError>
-          }
+          show={<StyledError severity='error'>You may not repeat three characters in a row.</StyledError>}
         />
       </StyledContainer>
     </>

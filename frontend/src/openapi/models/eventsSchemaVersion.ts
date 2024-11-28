@@ -8,8 +8,7 @@
  * The api version of this response. A natural increasing number. Only increases if format changes
  * @minimum 1
  */
-export type EventsSchemaVersion =
-  (typeof EventsSchemaVersion)[keyof typeof EventsSchemaVersion];
+export type EventsSchemaVersion = (typeof EventsSchemaVersion)[keyof typeof EventsSchemaVersion];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const EventsSchemaVersion = {

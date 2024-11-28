@@ -30,6 +30,4 @@ export const createDependentFeatureSchema = {
   components: {},
 } as const;
 
-export type CreateDependentFeatureSchema = FromSchema<
-  typeof createDependentFeatureSchema
->;
+export type CreateDependentFeatureSchema = FromSchema<typeof createDependentFeatureSchema>;

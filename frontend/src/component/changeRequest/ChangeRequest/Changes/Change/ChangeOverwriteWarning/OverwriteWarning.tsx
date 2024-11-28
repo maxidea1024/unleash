@@ -80,39 +80,33 @@ const DetailsTable: React.FC<{
       </thead>
 
       <tbody>
-        {changesThatWouldBeOverwritten.map(
-          ({ property, oldValue, newValue }) => (
-            <tr key={property}>
-              <td data-column='Property'>{property}</td>
-              <td data-column='Current value'>
-                <pre>
-                  <del>
-                    {JSON.stringify(oldValue, null, 2)
-                      .split('\n')
-                      .map((line, index) => (
-                        <code key={`${property}${line}${index}`}>
-                          {`${line}\n`}
-                        </code>
-                      ))}
-                  </del>
-                </pre>
-              </td>
-              <td data-column='Value after change'>
-                <pre>
-                  <ins>
-                    {JSON.stringify(newValue, null, 2)
-                      .split('\n')
-                      .map((line, index) => (
-                        <code key={`${property}${line}${index}`}>
-                          {`${line}\n`}
-                        </code>
-                      ))}
-                  </ins>
-                </pre>
-              </td>
-            </tr>
-          ),
-        )}
+        {changesThatWouldBeOverwritten.map(({ property, oldValue, newValue }) => (
+          <tr key={property}>
+            <td data-column='Property'>{property}</td>
+            <td data-column='Current value'>
+              <pre>
+                <del>
+                  {JSON.stringify(oldValue, null, 2)
+                    .split('\n')
+                    .map((line, index) => (
+                      <code key={`${property}${line}${index}`}>{`${line}\n`}</code>
+                    ))}
+                </del>
+              </pre>
+            </td>
+            <td data-column='Value after change'>
+              <pre>
+                <ins>
+                  {JSON.stringify(newValue, null, 2)
+                    .split('\n')
+                    .map((line, index) => (
+                      <code key={`${property}${line}${index}`}>{`${line}\n`}</code>
+                    ))}
+                </ins>
+              </pre>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </OverwriteTable>
   );
@@ -123,9 +117,7 @@ export const OverwriteWarning: React.FC<{
   changesThatWouldBeOverwritten: ChangesThatWouldBeOverwritten | null;
   changeRequestState: ChangeRequestState;
 }> = ({ changeType, changesThatWouldBeOverwritten, changeRequestState }) => {
-  const changeRequestIsClosed = ['Applied', 'Cancelled', 'Rejected'].includes(
-    changeRequestState,
-  );
+  const changeRequestIsClosed = ['Applied', 'Cancelled', 'Rejected'].includes(changeRequestState);
 
   if (!changesThatWouldBeOverwritten || changeRequestIsClosed) {
     return null;
@@ -134,15 +126,12 @@ export const OverwriteWarning: React.FC<{
   return (
     <ChangesToOverwriteContainer>
       <p>
-        <strong>Heads up!</strong> The {changeType} has been updated since you
-        made your changes. Applying this change now would overwrite the
-        configuration that is currently live.
+        <strong>Heads up!</strong> The {changeType} has been updated since you made your changes. Applying this change
+        now would overwrite the configuration that is currently live.
       </p>
       <details>
         <summary>Changes that would be overwritten</summary>
-        <DetailsTable
-          changesThatWouldBeOverwritten={changesThatWouldBeOverwritten}
-        />
+        <DetailsTable changesThatWouldBeOverwritten={changesThatWouldBeOverwritten} />
       </details>
     </ChangesToOverwriteContainer>
   );

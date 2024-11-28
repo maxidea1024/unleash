@@ -32,12 +32,7 @@ interface ITestSdkConnectionProps {
   onSdkChange: () => void;
 }
 
-export const TestSdkConnection: FC<ITestSdkConnectionProps> = ({
-  sdk,
-  apiKey,
-  feature,
-  onSdkChange,
-}) => {
+export const TestSdkConnection: FC<ITestSdkConnectionProps> = ({ sdk, apiKey, feature, onSdkChange }) => {
   const { uiConfig } = useUiConfig();
 
   const sdkIcon = allSdks.find((item) => item.name === sdk.name)?.icon;
@@ -49,8 +44,7 @@ export const TestSdkConnection: FC<ITestSdkConnectionProps> = ({
     .replace('<YOUR_API_TOKEN>', apiKey)
     .replace('<YOUR_API_URL>', apiUrl)
     .replaceAll('<YOUR_FLAG>', feature);
-  const [connectSnippet, _productionSnippet, _otherResourcesSnippet] =
-    snippet.split('---\n');
+  const [connectSnippet, _productionSnippet, _otherResourcesSnippet] = snippet.split('---\n');
 
   return (
     <SpacedContainer>
@@ -61,21 +55,13 @@ export const TestSdkConnection: FC<ITestSdkConnectionProps> = ({
       </StepperBox>
       <Box sx={{ mt: 2 }}>
         <ChangeSdk>
-          {sdkIcon ? (
-            <Avatar
-              variant='circular'
-              src={formatAssetPath(sdkIcon)}
-              alt={sdk.name}
-            />
-          ) : null}
+          {sdkIcon ? <Avatar variant='circular' src={formatAssetPath(sdkIcon)} alt={sdk.name} /> : null}
           <Link onClick={onSdkChange} component='button'>
             Change SDK
           </Link>
         </ChangeSdk>
         <SectionHeader>Setup the SDK</SectionHeader>
-        <Markdown components={{ code: CodeRenderer }}>
-          {connectSnippet}
-        </Markdown>
+        <Markdown components={{ code: CodeRenderer }}>{connectSnippet}</Markdown>
       </Box>
     </SpacedContainer>
   );

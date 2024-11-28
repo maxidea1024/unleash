@@ -22,14 +22,10 @@ export const useManageDependency = (
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(project, featureId);
   const environment = useHighestPermissionChangeRequestEnvironment(project)();
-  const { isChangeRequestConfiguredInAnyEnv } =
-    useChangeRequestsEnabled(project);
-  const { addDependency, removeDependencies } =
-    useDependentFeaturesApi(project);
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(project);
+  const { addDependency, removeDependencies } = useDependentFeaturesApi(project);
 
-  const handleAddChange = async (
-    actionType: 'addDependency' | 'deleteDependency',
-  ) => {
+  const handleAddChange = async (actionType: 'addDependency' | 'deleteDependency') => {
     if (!environment) {
       console.error('No change request environment');
       return;
@@ -42,10 +38,7 @@ export const useManageDependency = (
           payload: {
             feature: parent,
             enabled: parentValue.status !== 'disabled',
-            variants:
-              parentValue.status === 'enabled_with_variants'
-                ? parentValue.variants
-                : [],
+            variants: parentValue.status === 'enabled_with_variants' ? parentValue.variants : [],
           },
         },
       ]);
@@ -56,9 +49,7 @@ export const useManageDependency = (
       });
     }
     if (actionType === 'deleteDependency') {
-      await addChange(project, environment, [
-        { action: actionType, feature: featureId, payload: undefined },
-      ]);
+      await addChange(project, environment, [{ action: actionType, feature: featureId, payload: undefined }]);
     }
     void refetchChangeRequests();
     setToastData({
@@ -74,10 +65,7 @@ export const useManageDependency = (
   return async () => {
     try {
       if (isChangeRequestConfiguredInAnyEnv()) {
-        const actionType =
-          parent === REMOVE_DEPENDENCY_OPTION.key
-            ? 'deleteDependency'
-            : 'addDependency';
+        const actionType = parent === REMOVE_DEPENDENCY_OPTION.key ? 'deleteDependency' : 'addDependency';
         await handleAddChange(actionType);
         trackEvent('dependent_features', {
           props: {
@@ -99,10 +87,7 @@ export const useManageDependency = (
         await addDependency(featureId, {
           feature: parent,
           enabled: parentValue.status !== 'disabled',
-          variants:
-            parentValue.status === 'enabled_with_variants'
-              ? parentValue.variants
-              : [],
+          variants: parentValue.status === 'enabled_with_variants' ? parentValue.variants : [],
         });
         trackEvent('dependent_features', {
           props: {

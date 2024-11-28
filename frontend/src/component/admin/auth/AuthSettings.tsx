@@ -35,9 +35,7 @@ export const AuthSettings = () => {
       label: 'Google',
       component: <GoogleAuth />,
     },
-  ].filter(
-    (item) => uiConfig.flags?.googleAuthEnabled || item.label !== 'Google',
-  );
+  ].filter((item) => uiConfig.flags?.googleAuthEnabled || item.label !== 'Google');
 
   if (isEnterprise()) {
     tabs.push({
@@ -92,8 +90,8 @@ export const AuthSettings = () => {
             condition={authenticationType === 'demo'}
             show={
               <Alert severity='warning'>
-                You are running Unleash in demo mode. You have to use the
-                Enterprise edition in order configure Single Sign-on.
+                You are running Unleash in demo mode. You have to use the Enterprise edition in order configure Single
+                Sign-on.
               </Alert>
             }
           />
@@ -101,19 +99,14 @@ export const AuthSettings = () => {
             condition={authenticationType === 'custom'}
             show={
               <Alert severity='warning'>
-                You have decided to use custom authentication type. You have to
-                use the Enterprise edition in order configure Single Sign-on
-                from the user interface.
+                You have decided to use custom authentication type. You have to use the Enterprise edition in order
+                configure Single Sign-on from the user interface.
               </Alert>
             }
           />
           <ConditionallyRender
             condition={authenticationType === 'hosted'}
-            show={
-              <Alert severity='info'>
-                Your Unleash instance is managed by the Unleash team.
-              </Alert>
-            }
+            show={<Alert severity='info'>Your Unleash instance is managed by the Unleash team.</Alert>}
           />
           <ConditionallyRender
             condition={authenticationType === 'enterprise'}

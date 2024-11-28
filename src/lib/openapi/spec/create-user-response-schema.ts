@@ -29,6 +29,4 @@ export const createUserResponseSchema = {
   components: {},
 } as const;
 
-export type CreateUserResponseSchema = FromSchema<
-  typeof createUserResponseSchema
->;
+export type CreateUserResponseSchema = FromSchema<typeof createUserResponseSchema>;

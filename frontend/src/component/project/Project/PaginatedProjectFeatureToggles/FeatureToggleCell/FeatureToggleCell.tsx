@@ -51,10 +51,7 @@ const FeatureToggleCellComponent = ({
   onFeatureToggleSwitch,
 }: IFeatureToggleCellProps) => {
   const hasWarning = useMemo(
-    () =>
-      someEnabledEnvironmentHasVariants &&
-      environment?.variantCount === 0 &&
-      environment?.enabled,
+    () => someEnabledEnvironmentHasVariants && environment?.variantCount === 0 && environment?.enabled,
     [someEnabledEnvironmentHasVariants, environment],
   );
 
@@ -81,10 +78,7 @@ const FeatureToggleCellComponent = ({
         environmentName={environment?.name || ''}
         onToggle={onToggle}
       />
-      <ConditionallyRender
-        condition={hasWarning || false}
-        show={<VariantsWarningTooltip />}
-      />
+      <ConditionallyRender condition={hasWarning || false} show={<VariantsWarningTooltip />} />
     </StyledSwitchContainer>
   );
 };
@@ -96,6 +90,4 @@ export const PlaceholderFeatureToggleCell = () => (
     <div data-loading>toggle</div>
   </StyledSwitchContainer>
 );
-export const ArchivedFeatureToggleCell = () => (
-  <StyledDiv aria-hidden='true'>-</StyledDiv>
-);
+export const ArchivedFeatureToggleCell = () => <StyledDiv aria-hidden='true'>-</StyledDiv>;

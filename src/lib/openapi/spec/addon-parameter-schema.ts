@@ -16,8 +16,7 @@ export const addonParameterSchema = {
     displayName: {
       type: 'string',
       example: 'Emoji Icon',
-      description:
-        'The name of the parameter as it is shown to the end user in the Admin UI.',
+      description: 'The name of the parameter as it is shown to the end user in the Admin UI.',
     },
     type: {
       type: 'string',
@@ -27,16 +26,14 @@ export const addonParameterSchema = {
     },
     description: {
       type: 'string',
-      example:
-        'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
+      example: 'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
       description:
         'A description of the parameter. This should explain to the end user what the parameter is used for.',
     },
     placeholder: {
       type: 'string',
       example: ':unleash:',
-      description:
-        'The default value for this parameter. This value is used if no other value is provided.',
+      description: 'The default value for this parameter. This value is used if no other value is provided.',
     },
     required: {
       type: 'boolean',

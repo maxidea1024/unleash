@@ -13,12 +13,7 @@ export const formatCurrentVersion = (
   uiConfig: IPartialUiConfig,
 ): { name: string; version: string; buildNumber?: string } => {
   const current = uiConfig.versionInfo?.current;
-  const [version, buildNumber] = (
-    current?.enterprise ||
-    current?.oss ||
-    uiConfig.version ||
-    ''
-  ).split('+');
+  const [version, buildNumber] = (current?.enterprise || current?.oss || uiConfig.version || '').split('+');
   return {
     name: uiConfig.name,
     version,
@@ -26,9 +21,7 @@ export const formatCurrentVersion = (
   };
 };
 
-export const formatUpdateNotification = (
-  uiConfig: IPartialUiConfig,
-): string | undefined => {
+export const formatUpdateNotification = (uiConfig: IPartialUiConfig): string | undefined => {
   const latest = uiConfig.versionInfo?.latest;
   const isLatest = uiConfig.versionInfo?.isLatest;
 

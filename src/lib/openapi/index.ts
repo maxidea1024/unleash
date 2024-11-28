@@ -46,37 +46,24 @@ const {
 export const schemas: UnleashSchemas = exportedSchemas;
 
 // Remove JSONSchema keys that would result in an invalid OpenAPI spec.
-export const removeJsonSchemaProps = <T extends JsonSchemaProps>(
-  schema: T,
-): OpenAPIV3.SchemaObject => {
+export const removeJsonSchemaProps = <T extends JsonSchemaProps>(schema: T): OpenAPIV3.SchemaObject => {
   return omitKeys(schema, '$id', 'components');
 };
 
-const findRootUrl: (unleashUrl: string, baseUriPath: string) => string = (
-  unleashUrl: string,
-  baseUriPath?: string,
-) => {
+const findRootUrl: (unleashUrl: string, baseUriPath: string) => string = (unleashUrl: string, baseUriPath?: string) => {
   if (!baseUriPath) {
     return unleashUrl;
   }
   const baseUrl = new URL(unleashUrl);
-  const url =
-    baseUrl.pathname.indexOf(baseUriPath) >= 0
-      ? `${baseUrl.protocol}//${baseUrl.host}`
-      : baseUrl.toString();
+  const url = baseUrl.pathname.indexOf(baseUriPath) >= 0 ? `${baseUrl.protocol}//${baseUrl.host}` : baseUrl.toString();
 
-  return baseUriPath.startsWith('/')
-    ? new URL(baseUriPath, url).toString()
-    : url;
+  return baseUriPath.startsWith('/') ? new URL(baseUriPath, url).toString() : url;
 };
 
 export const createOpenApiSchema = ({
   unleashUrl,
   baseUriPath,
-}: Pick<IServerOption, 'unleashUrl' | 'baseUriPath'>): Omit<
-  OpenAPIV3DocumentWithServers,
-  'paths'
-> => {
+}: Pick<IServerOption, 'unleashUrl' | 'baseUriPath'>): Omit<OpenAPIV3DocumentWithServers, 'paths'> => {
   const url = findRootUrl(unleashUrl, baseUriPath);
 
   return {
@@ -100,8 +87,7 @@ export const createOpenApiSchema = ({
         bearerToken: {
           type: 'http',
           scheme: 'bearer',
-          description:
-            'API key needed to access this API, in Bearer token format',
+          description: 'API key needed to access this API, in Bearer token format',
         },
       },
       schemas: mapValues(schemas, removeJsonSchemaProps),

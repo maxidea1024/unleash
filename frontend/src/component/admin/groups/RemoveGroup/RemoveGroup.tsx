@@ -14,11 +14,7 @@ interface IRemoveGroupProps {
   group: IGroup;
 }
 
-export const RemoveGroup: FC<IRemoveGroupProps> = ({
-  open,
-  setOpen,
-  group,
-}) => {
+export const RemoveGroup: FC<IRemoveGroupProps> = ({ open, setOpen, group }) => {
   const { refetchGroups } = useGroups();
   const { removeGroup } = useGroupApi();
   const { setToastData, setToastApiError } = useToast();
@@ -51,9 +47,8 @@ export const RemoveGroup: FC<IRemoveGroupProps> = ({
       title='Delete group?'
     >
       <Typography>
-        Do you really want to delete <strong>{group.name}</strong>? Users who
-        are granted access to projects only via this group will lose access to
-        those projects.
+        Do you really want to delete <strong>{group.name}</strong>? Users who are granted access to projects only via
+        this group will lose access to those projects.
       </Typography>
     </Dialogue>
   );

@@ -38,9 +38,7 @@ export const App = () => {
 
   const { isOss, uiConfig } = useUiConfig();
 
-  const availableRoutes = isOss()
-    ? routes.filter((route) => !route.enterprise)
-    : routes;
+  const availableRoutes = isOss() ? routes.filter((route) => !route.enterprise) : routes;
 
   useEffect(() => {
     if (hasFetchedAuth && Boolean(user?.id)) {
@@ -59,10 +57,7 @@ export const App = () => {
           elseShow={
             <Demo>
               <>
-                <ConditionallyRender
-                  condition={Boolean(uiConfig?.maintenanceMode)}
-                  show={<MaintenanceBanner />}
-                />
+                <ConditionallyRender condition={Boolean(uiConfig?.maintenanceMode)} show={<MaintenanceBanner />} />
                 <LicenseBanner />
                 <ExternalBanners />
                 <InternalBanners />
@@ -74,19 +69,14 @@ export const App = () => {
                         key={route.path}
                         path={route.path}
                         element={
-                          <LayoutPicker
-                            isStandalone={route.isStandalone === true}
-                          >
+                          <LayoutPicker isStandalone={route.isStandalone === true}>
                             <ProtectedRoute route={route} />
                           </LayoutPicker>
                         }
                       />
                     ))}
                     <Route path='/' element={<InitialRedirect />} />
-                    <Route
-                      path='*'
-                      element={isLoggedIn ? <NotFound /> : <LoginRedirect />}
-                    />
+                    <Route path='*' element={isLoggedIn ? <NotFound /> : <LoginRedirect />} />
                   </Routes>
 
                   <FeedbackNPS openUrl='http://feedback.unleash.run' />

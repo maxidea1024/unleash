@@ -26,12 +26,7 @@ describe('SegmentDeleteUsedSegment', () => {
     const projectsUsed = [...new Set(strategies.map((s) => s.projectId))];
 
     render(
-      <SegmentProjectAlert
-        projects={[]}
-        availableProjects={[]}
-        projectsUsed={projectsUsed}
-        strategies={strategies}
-      />,
+      <SegmentProjectAlert projects={[]} availableProjects={[]} projectsUsed={projectsUsed} strategies={strategies} />,
     );
 
     const links = await screen.findAllByRole('link');
@@ -44,16 +39,10 @@ describe('SegmentDeleteUsedSegment', () => {
 
     expect(crLink1).toHaveTextContent('#1');
     expect(crLink1).toHaveAccessibleDescription('Change request 1');
-    expect(crLink1).toHaveAttribute(
-      'href',
-      `/projects/${projectId}/change-requests/1`,
-    );
+    expect(crLink1).toHaveAttribute('href', `/projects/${projectId}/change-requests/1`);
 
     expect(crLink2).toHaveTextContent('#2 (My cool CR)');
     expect(crLink2).toHaveAccessibleDescription('Change request 2');
-    expect(crLink2).toHaveAttribute(
-      'href',
-      `/projects/${projectId}/change-requests/2`,
-    );
+    expect(crLink2).toHaveAttribute('href', `/projects/${projectId}/change-requests/2`);
   });
 });

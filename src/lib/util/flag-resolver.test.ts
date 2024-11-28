@@ -1,8 +1,5 @@
 import { PayloadType } from 'unleash-client';
-import {
-  defaultExperimentalOptions,
-  type IFlagKey,
-} from '../types/experimental';
+import { defaultExperimentalOptions, type IFlagKey } from '../types/experimental';
 import FlagResolver, { getVariantValue } from './flag-resolver';
 import type { IExperimentalOptions } from '../types/experimental';
 import { getDefaultVariant } from 'unleash-client/lib/variant';
@@ -136,12 +133,8 @@ test('should support variant flags', () => {
 
   const resolver = new FlagResolver(config as IExperimentalOptions);
 
-  expect(resolver.getVariant('someFlag' as IFlagKey)).toStrictEqual(
-    getDefaultVariant(),
-  );
-  expect(resolver.getVariant('otherFlag' as IFlagKey)).toStrictEqual(
-    getDefaultVariant(),
-  );
+  expect(resolver.getVariant('someFlag' as IFlagKey)).toStrictEqual(getDefaultVariant());
+  expect(resolver.getVariant('otherFlag' as IFlagKey)).toStrictEqual(getDefaultVariant());
   expect(resolver.getVariant('extraFlag' as IFlagKey)).toStrictEqual(variant);
 });
 

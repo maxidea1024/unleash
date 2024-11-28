@@ -5,15 +5,9 @@ import type { IUnleashServices } from '../../types/services';
 import type { IUnleashConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';
-import type {
-  InstanceStatsService,
-  InstanceStatsSigned,
-} from '../../features/instance-stats/instance-stats-service';
+import type { InstanceStatsService, InstanceStatsSigned } from '../../features/instance-stats/instance-stats-service';
 import type { OpenApiService } from '../../services/openapi-service';
-import {
-  createCsvResponseSchema,
-  createResponseSchema,
-} from '../../openapi/util/create-response-schema';
+import { createCsvResponseSchema, createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { InstanceAdminStatsSchema } from '../../openapi';
 import { serializeDates } from '../../types';
 
@@ -24,10 +18,7 @@ export default class InstanceAdminController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      instanceStatsService,
-      openApiService,
-    }: Pick<IUnleashServices, 'instanceStatsService' | 'openApiService'>,
+    { instanceStatsService, openApiService }: Pick<IUnleashServices, 'instanceStatsService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -130,9 +121,7 @@ export default class InstanceAdminController extends Controller {
     };
   }
 
-  private serializeStats(
-    instanceStats: InstanceStatsSigned,
-  ): InstanceAdminStatsSchema {
+  private serializeStats(instanceStats: InstanceStatsSigned): InstanceAdminStatsSchema {
     const apiTokensObj = Object.fromEntries(instanceStats.apiTokens.entries());
     return serializeDates({
       ...instanceStats,
@@ -140,18 +129,12 @@ export default class InstanceAdminController extends Controller {
     });
   }
 
-  async getStatistics(
-    _: AuthedRequest,
-    res: Response<InstanceAdminStatsSchema>,
-  ): Promise<void> {
+  async getStatistics(_: AuthedRequest, res: Response<InstanceAdminStatsSchema>): Promise<void> {
     const instanceStats = await this.instanceStatsService.getSignedStats();
     res.json(this.serializeStats(instanceStats));
   }
 
-  async getStatisticsCSV(
-    _: AuthedRequest,
-    res: Response<InstanceAdminStatsSchema>,
-  ): Promise<void> {
+  async getStatisticsCSV(_: AuthedRequest, res: Response<InstanceAdminStatsSchema>): Promise<void> {
     const instanceStats = await this.instanceStatsService.getSignedStats();
     const fileName = `unleash-${instanceStats.instanceId}-${Date.now()}.csv`;
 

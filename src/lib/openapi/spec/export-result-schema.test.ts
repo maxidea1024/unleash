@@ -97,7 +97,5 @@ test('exportResultSchema', () => {
     tagTypes: [{ name: 'simple', description: 'test' }],
   };
 
-  expect(
-    validateSchema('#/components/schemas/exportResultSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/exportResultSchema', data)).toBeUndefined();
 });

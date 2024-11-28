@@ -1,8 +1,4 @@
-import {
-  type JSONEditorPropsOptional,
-  JSONEditor,
-  Mode,
-} from 'vanilla-jsoneditor';
+import { type JSONEditorPropsOptional, JSONEditor, Mode } from 'vanilla-jsoneditor';
 import { useContext, useEffect, useRef } from 'react';
 import 'vanilla-jsoneditor/themes/jse-theme-dark.css';
 import { styled } from '@mui/material';
@@ -100,16 +96,8 @@ const VanillaJSONEditor: React.FC<IReactJSONEditorProps> = (props) => {
 const ReactJSONEditor: React.FC<IReactJSONEditorProps> = (props) => {
   const { themeMode } = useContext(UIContext);
   return (
-    <JSONEditorThemeWrapper
-      className={themeMode === 'dark' ? 'jse-theme-dark' : ''}
-      editorStyle={props.editorStyle}
-    >
-      <VanillaJSONEditor
-        mainMenuBar={false}
-        navigationBar={false}
-        mode={Mode.text}
-        {...props}
-      />
+    <JSONEditorThemeWrapper className={themeMode === 'dark' ? 'jse-theme-dark' : ''} editorStyle={props.editorStyle}>
+      <VanillaJSONEditor mainMenuBar={false} navigationBar={false} mode={Mode.text} {...props} />
     </JSONEditorThemeWrapper>
   );
 };

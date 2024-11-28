@@ -6,10 +6,7 @@ import { Strategy, defaultStrategies } from './strategy';
 import type { ClientFeaturesResponse, FeatureInterface } from './feature';
 import type { Variant } from './variant';
 import { type FallbackFunction, createFallbackFunction } from './helpers';
-import {
-  type BootstrapOptions,
-  resolveBootstrapProvider,
-} from './repository/bootstrap-provider';
+import { type BootstrapOptions, resolveBootstrapProvider } from './repository/bootstrap-provider';
 import type { StorageProvider } from './repository/storage-provider';
 import InMemStorageProvider from './repository/storage-provider-in-mem';
 
@@ -67,56 +64,32 @@ export class FeatureEvaluator {
     this.repository.stop();
   }
 
-  isEnabled(
-    name: string,
-    context?: Context,
-    fallbackFunction?: FallbackFunction,
-  ): FeatureStrategiesEvaluationResult;
-  isEnabled(
-    name: string,
-    context?: Context,
-    fallbackValue?: boolean,
-  ): FeatureStrategiesEvaluationResult;
+  isEnabled(name: string, context?: Context, fallbackFunction?: FallbackFunction): FeatureStrategiesEvaluationResult;
+  isEnabled(name: string, context?: Context, fallbackValue?: boolean): FeatureStrategiesEvaluationResult;
   isEnabled(
     name: string,
     context: Context = {},
     fallback?: FallbackFunction | boolean,
   ): FeatureStrategiesEvaluationResult {
     const enhancedContext = { ...this.staticContext, ...context };
-    const fallbackFunc = createFallbackFunction(
-      name,
-      enhancedContext,
-      fallback,
-    );
+    const fallbackFunc = createFallbackFunction(name, enhancedContext, fallback);
 
     return this.client.isEnabled(name, enhancedContext, fallbackFunc);
   }
 
-  getVariant(
-    name: string,
-    context: Context = {},
-    fallbackVariant?: Variant,
-  ): Variant {
+  getVariant(name: string, context: Context = {}, fallbackVariant?: Variant): Variant {
     const enhancedContext = { ...this.staticContext, ...context };
     return this.client.getVariant(name, enhancedContext, fallbackVariant);
   }
 
   forceGetVariant(
     name: string,
-    forcedResults: Pick<
-      FeatureStrategiesEvaluationResult,
-      'result' | 'variant'
-    >,
+    forcedResults: Pick<FeatureStrategiesEvaluationResult, 'result' | 'variant'>,
     context: Context = {},
     fallbackVariant?: Variant,
   ): Variant {
     const enhancedContext = { ...this.staticContext, ...context };
-    return this.client.forceGetVariant(
-      name,
-      enhancedContext,
-      forcedResults,
-      fallbackVariant,
-    );
+    return this.client.forceGetVariant(name, enhancedContext, forcedResults, fallbackVariant);
   }
 
   getFeatureToggleDefinition(toggleName: string): FeatureInterface {

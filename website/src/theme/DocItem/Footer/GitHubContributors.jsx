@@ -68,16 +68,8 @@ const GitHubContributors = ({ owner, repo, filePath }) => {
             : contributor.login;
           return (
             <li key={contributor.login} className={styles.contributor}>
-              <a
-                href={contributor.html_url}
-                className={isUnleashTeam ? styles.unleash : ''}
-                title={`@${name}`}
-              >
-                <img
-                  src={contributor.avatar_url}
-                  alt={contributor.login}
-                  width={70}
-                />
+              <a href={contributor.html_url} className={isUnleashTeam ? styles.unleash : ''} title={`@${name}`}>
+                <img src={contributor.avatar_url} alt={contributor.login} width={70} />
               </a>
             </li>
           );

@@ -24,11 +24,7 @@ interface IFeatureMetricsChartProps {
   statsSectionId: string;
 }
 
-export const FeatureMetricsChart = ({
-  metrics,
-  hoursBack,
-  statsSectionId,
-}: IFeatureMetricsChartProps) => {
+export const FeatureMetricsChart = ({ metrics, hoursBack, statsSectionId }: IFeatureMetricsChartProps) => {
   const theme = useTheme();
   const { locationSettings } = useLocationSettings();
 
@@ -39,12 +35,7 @@ export const FeatureMetricsChart = ({
   }, [metrics]);
 
   const options = useMemo(() => {
-    return createChartOptions(
-      theme,
-      sortedMetrics,
-      hoursBack,
-      locationSettings,
-    );
+    return createChartOptions(theme, sortedMetrics, hoursBack, locationSettings);
   }, [theme, sortedMetrics, hoursBack, locationSettings]);
 
   const data = useMemo(() => {
@@ -64,16 +55,7 @@ export const FeatureMetricsChart = ({
 };
 
 // Register dependencies that we need to draw the chart.
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  TimeScale,
-  Legend,
-  Tooltip,
-  Title,
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, TimeScale, Legend, Tooltip, Title);
 
 // Use a default export to lazy-load the charting library.
 export default FeatureMetricsChart;

@@ -6,10 +6,7 @@ interface IConstraintValueSearchProps {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ConstraintValueSearch = ({
-  filter,
-  setFilter,
-}: IConstraintValueSearchProps) => {
+export const ConstraintValueSearch = ({ filter, setFilter }: IConstraintValueSearchProps) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ width: '100%' }}>

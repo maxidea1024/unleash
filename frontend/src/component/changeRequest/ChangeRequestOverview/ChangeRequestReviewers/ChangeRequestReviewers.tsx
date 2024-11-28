@@ -44,10 +44,7 @@ export const ChangeRequestReviewersWrapper: FC<{
 };
 
 export const ChangeRequestReviewers: FC<{
-  changeRequest: Pick<
-    ChangeRequestType,
-    'approvals' | 'rejections' | 'state' | 'minApprovals'
-  >;
+  changeRequest: Pick<ChangeRequestType, 'approvals' | 'rejections' | 'state' | 'minApprovals'>;
 }> = ({ changeRequest }) => (
   <ChangeRequestReviewersWrapper
     header={

@@ -6,23 +6,9 @@ import type { CreatePatSchema, PatSchema } from '../openapi';
 
 const TABLE = 'personal_access_tokens';
 
-const PAT_PUBLIC_COLUMNS = [
-  'id',
-  'description',
-  'user_id',
-  'expires_at',
-  'created_at',
-  'seen_at',
-];
+const PAT_PUBLIC_COLUMNS = ['id', 'description', 'user_id', 'expires_at', 'created_at', 'seen_at'];
 
-const rowToPat = ({
-  id,
-  description,
-  expires_at,
-  user_id,
-  created_at,
-  seen_at,
-}): PatSchema => ({
+const rowToPat = ({ id, description, expires_at, user_id, created_at, seen_at }): PatSchema => ({
   id,
   description,
   expiresAt: expires_at,
@@ -46,11 +32,7 @@ export default class PatStore implements IPatStore {
     this.db = db;
   }
 
-  async create(
-    pat: CreatePatSchema,
-    secret: string,
-    userId: number,
-  ): Promise<PatSchema> {
+  async create(pat: CreatePatSchema, secret: string, userId: number): Promise<PatSchema> {
     const rows = await this.db(TABLE)
       .insert({ ...patToRow(pat), secret, user_id: userId })
       .returning('*');
@@ -72,18 +54,12 @@ export default class PatStore implements IPatStore {
   destroy(): void {}
 
   async exists(id: number): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
-      [id],
-    );
+    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [id]);
     const { present } = result.rows[0];
     return present;
   }
 
-  async existsWithDescriptionByUser(
-    description: string,
-    userId: number,
-  ): Promise<boolean> {
+  async existsWithDescriptionByUser(description: string, userId: number): Promise<boolean> {
     const result = await this.db.raw(
       `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE description = ? AND user_id = ?) AS present`,
       [description, userId],
@@ -93,10 +69,7 @@ export default class PatStore implements IPatStore {
   }
 
   async countByUser(userId: number): Promise<number> {
-    const result = await this.db.raw(
-      `SELECT COUNT(*) AS count FROM ${TABLE} WHERE user_id = ?`,
-      [userId],
-    );
+    const result = await this.db.raw(`SELECT COUNT(*) AS count FROM ${TABLE} WHERE user_id = ?`, [userId]);
     const { count } = result.rows[0];
     return count;
   }
@@ -115,10 +88,7 @@ export default class PatStore implements IPatStore {
   }
 
   async getAllByUser(userId: number): Promise<PatSchema[]> {
-    const pats = await this.db
-      .select(PAT_PUBLIC_COLUMNS)
-      .from(TABLE)
-      .where('user_id', userId);
+    const pats = await this.db.select(PAT_PUBLIC_COLUMNS).from(TABLE).where('user_id', userId);
     return pats.map(rowToPat);
   }
 }

@@ -6,10 +6,7 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
-import type {
-  ChangeRequestSchedule,
-  ChangeRequestState,
-} from '../../changeRequest.types';
+import type { ChangeRequestSchedule, ChangeRequestState } from '../../changeRequest.types';
 import { HtmlTooltip } from '../../../common/HtmlTooltip/HtmlTooltip';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useLocationSettings } from 'hooks/useLocationSettings';
@@ -48,20 +45,9 @@ const StyledTimeline = styled(Timeline)(() => ({
   },
 }));
 
-const steps: ChangeRequestState[] = [
-  'Draft',
-  'In review',
-  'Approved',
-  'Applied',
-];
+const steps: ChangeRequestState[] = ['Draft', 'In review', 'Approved', 'Applied'];
 const rejectedSteps: ChangeRequestState[] = ['Draft', 'In review', 'Rejected'];
-const scheduledSteps: ChangeRequestState[] = [
-  'Draft',
-  'In review',
-  'Approved',
-  'Scheduled',
-  'Applied',
-];
+const scheduledSteps: ChangeRequestState[] = ['Draft', 'In review', 'Approved', 'Scheduled', 'Applied'];
 
 export const determineColor = (
   changeRequestState: ChangeRequestState,
@@ -71,22 +57,14 @@ export const determineColor = (
 ) => {
   if (changeRequestState === 'Cancelled') return 'grey';
 
-  if (changeRequestState === 'Rejected')
-    return displayStage === 'Rejected' ? 'error' : 'success';
-  if (
-    changeRequestStateIndex !== -1 &&
-    changeRequestStateIndex >= displayStageIndex
-  )
-    return 'success';
+  if (changeRequestState === 'Rejected') return displayStage === 'Rejected' ? 'error' : 'success';
+  if (changeRequestStateIndex !== -1 && changeRequestStateIndex >= displayStageIndex) return 'success';
 
   if (changeRequestStateIndex + 1 === displayStageIndex) return 'primary';
   return 'grey';
 };
 
-export const ChangeRequestTimeline: FC<ISuggestChangeTimelineProps> = ({
-  state,
-  schedule,
-}) => {
+export const ChangeRequestTimeline: FC<ISuggestChangeTimelineProps> = ({ state, schedule }) => {
   let data: ChangeRequestState[];
   switch (state) {
     case 'Rejected':
@@ -113,19 +91,11 @@ export const ChangeRequestTimeline: FC<ISuggestChangeTimelineProps> = ({
             let timelineDotProps = {};
 
             // Only add the outlined variant if it's the next step after the active one, but not for 'Draft' in 'Cancelled' state
-            if (
-              activeIndex + 1 === index &&
-              !(state === 'Cancelled' && title === 'Draft')
-            ) {
+            if (activeIndex + 1 === index && !(state === 'Cancelled' && title === 'Draft')) {
               timelineDotProps = { variant: 'outlined' };
             }
 
-            return createTimelineItem(
-              color,
-              title,
-              index < data.length - 1,
-              timelineDotProps,
-            );
+            return createTimelineItem(color, title, index < data.length - 1, timelineDotProps);
           })}
         </StyledTimeline>
       </StyledBox>
@@ -148,10 +118,7 @@ const createTimelineItem = (
   </TimelineItem>
 );
 
-export const getScheduleProps = (
-  schedule: ChangeRequestSchedule,
-  formattedTime: string,
-) => {
+export const getScheduleProps = (schedule: ChangeRequestSchedule, formattedTime: string) => {
   switch (schedule.status) {
     case 'suspended':
       return {
@@ -170,12 +137,7 @@ export const getScheduleProps = (
         subtitle: `at ${formattedTime}`,
         color: 'error' as const,
         reason: (
-          <HtmlTooltip
-            title={`Schedule failed because of ${
-              schedule.reason || schedule.failureReason
-            }`}
-            arrow
-          >
+          <HtmlTooltip title={`Schedule failed because of ${schedule.reason || schedule.failureReason}`} arrow>
             <ErrorIcon color={'error'} fontSize={'small'} />
           </HtmlTooltip>
         ),
@@ -193,10 +155,7 @@ export const getScheduleProps = (
 const createTimelineScheduleItem = (schedule: ChangeRequestSchedule) => {
   const { locationSettings } = useLocationSettings();
 
-  const time = formatDateYMDHMS(
-    new Date(schedule.scheduledAt),
-    locationSettings?.locale,
-  );
+  const time = formatDateYMDHMS(new Date(schedule.scheduledAt), locationSettings?.locale);
 
   const { title, subtitle, color, reason } = getScheduleProps(schedule, time);
 
@@ -209,10 +168,7 @@ const createTimelineScheduleItem = (schedule: ChangeRequestSchedule) => {
       <TimelineContent>
         {title}
         <StyledSubtitle>
-          <Typography
-            color={'text.secondary'}
-            sx={{ mr: 1 }}
-          >{`(${subtitle})`}</Typography>
+          <Typography color={'text.secondary'} sx={{ mr: 1 }}>{`(${subtitle})`}</Typography>
           {reason}
         </StyledSubtitle>
       </TimelineContent>

@@ -23,6 +23,4 @@ export const frontendApiFeaturesSchema = {
   },
 } as const;
 
-export type FrontendApiFeaturesSchema = FromSchema<
-  typeof frontendApiFeaturesSchema
->;
+export type FrontendApiFeaturesSchema = FromSchema<typeof frontendApiFeaturesSchema>;

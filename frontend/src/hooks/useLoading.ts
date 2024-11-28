@@ -1,9 +1,6 @@
 import { createRef, useLayoutEffect } from 'react';
 
-const useLoading = <T extends HTMLElement = HTMLDivElement>(
-  loading: boolean,
-  selector = '[data-loading=true]',
-) => {
+const useLoading = <T extends HTMLElement = HTMLDivElement>(loading: boolean, selector = '[data-loading=true]') => {
   const ref = createRef<T>();
   useLayoutEffect(() => {
     if (ref.current) {

@@ -8,18 +8,12 @@ const PLAUSIBLE_UNLEASH_API_HOST = 'https://plausible.getunleash.io';
 const PLAUSIBLE_UNLEASH_DOMAIN = 'app.unleash-hosted.com';
 const LOCAL_TESTING = false;
 
-export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
-  const [context, setContext] = useState<ReturnType<typeof Plausible> | null>(
-    null,
-  );
+export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
+  const [context, setContext] = useState<ReturnType<typeof Plausible> | null>(null);
 
   const getUIFlags = () => {
     try {
-      const uiFlagsStr =
-        (document.querySelector('meta[name="uiFlags"]') as HTMLMetaElement)
-          ?.content || '{}';
+      const uiFlagsStr = (document.querySelector('meta[name="uiFlags"]') as HTMLMetaElement)?.content || '{}';
       return JSON.parse(decodeURI(uiFlagsStr));
     } catch (e) {
       return {};
@@ -36,9 +30,7 @@ export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({
       try {
         const plausible = Plausible({
           domain: LOCAL_TESTING ? undefined : PLAUSIBLE_UNLEASH_DOMAIN,
-          apiHost: LOCAL_TESTING
-            ? 'http://localhost:8000'
-            : PLAUSIBLE_UNLEASH_API_HOST,
+          apiHost: LOCAL_TESTING ? 'http://localhost:8000' : PLAUSIBLE_UNLEASH_API_HOST,
           trackLocalhost: true,
         });
         setContext(() => plausible);
@@ -49,9 +41,5 @@ export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({
     }
   }, [isEnabled]);
 
-  return (
-    <PlausibleContext.Provider value={context}>
-      {children}
-    </PlausibleContext.Provider>
-  );
+  return <PlausibleContext.Provider value={context}>{children}</PlausibleContext.Provider>;
 };

@@ -1,33 +1,20 @@
-import type {
-  PlaygroundResponseSchema,
-  AdvancedPlaygroundResponseSchema,
-} from 'openapi';
+import type { PlaygroundResponseSchema, AdvancedPlaygroundResponseSchema } from 'openapi';
 import type { IEnvironment } from 'interfaces/environments';
 import { ensureArray } from '@server/util/ensureArray';
 
-export const resolveProjects = (
-  projects: string[] | string,
-): string[] | '*' => {
-  if (
-    !projects ||
-    projects.length === 0 ||
-    (projects.length === 1 && projects[0] === '*')
-  ) {
+export const resolveProjects = (projects: string[] | string): string[] | '*' => {
+  if (!projects || projects.length === 0 || (projects.length === 1 && projects[0] === '*')) {
     return '*';
   }
 
   return ensureArray(projects);
 };
 
-export const resolveEnvironments = (
-  envrironments: string[] | string,
-): string[] => {
+export const resolveEnvironments = (envrironments: string[] | string): string[] => {
   return ensureArray(envrironments);
 };
 
-export const resolveDefaultEnvironment = (
-  environmentOptions: IEnvironment[],
-) => {
+export const resolveDefaultEnvironment = (environmentOptions: IEnvironment[]) => {
   const options = getEnvironmentOptions(environmentOptions);
   if (options.length > 0) {
     return options[0];
@@ -44,10 +31,7 @@ export const getEnvironmentOptions = (environments: IEnvironment[]) => {
 
 export const resolveResultsWidth = (
   matches: boolean,
-  results:
-    | PlaygroundResponseSchema
-    | AdvancedPlaygroundResponseSchema
-    | undefined,
+  results: PlaygroundResponseSchema | AdvancedPlaygroundResponseSchema | undefined,
 ) => {
   if (matches) {
     return '100%';
@@ -60,9 +44,7 @@ export const resolveResultsWidth = (
   return '50%';
 };
 
-export const isStringOrStringArray = (
-  value: unknown,
-): value is string | string[] => {
+export const isStringOrStringArray = (value: unknown): value is string | string[] => {
   if (typeof value === 'string') {
     return true;
   }
@@ -85,16 +67,11 @@ type InputContextProperties = {
   [key: string]: any;
 };
 
-export type NormalizedContextProperties = Omit<
-  InputContextProperties,
-  'properties'
-> & {
+export type NormalizedContextProperties = Omit<InputContextProperties, 'properties'> & {
   properties?: { [key: string]: any };
 };
 
-export const normalizeCustomContextProperties = (
-  input: InputContextProperties,
-): NormalizedContextProperties => {
+export const normalizeCustomContextProperties = (input: InputContextProperties): NormalizedContextProperties => {
   const standardProps = new Set([
     'appName',
     'environment',

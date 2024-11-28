@@ -1,16 +1,8 @@
 import type { IFeatureLifecycleStage, StageName } from '../../types';
 
-const preferredOrder: StageName[] = [
-  'archived',
-  'completed',
-  'live',
-  'pre-live',
-  'initial',
-];
+const preferredOrder: StageName[] = ['archived', 'completed', 'live', 'pre-live', 'initial'];
 
-export function getCurrentStage(
-  stages: IFeatureLifecycleStage[],
-): IFeatureLifecycleStage | undefined {
+export function getCurrentStage(stages: IFeatureLifecycleStage[]): IFeatureLifecycleStage | undefined {
   for (const preferredStage of preferredOrder) {
     const foundStage = stages.find((stage) => stage.stage === preferredStage);
     if (foundStage) {

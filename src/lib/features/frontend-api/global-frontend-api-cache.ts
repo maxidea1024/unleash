@@ -2,15 +2,8 @@ import EventEmitter from 'events';
 import type { Segment } from 'unleash-client/lib/strategy/strategy';
 import type { FeatureInterface } from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
-import type {
-  IFeatureToggleClient,
-  ISegmentReadModel,
-  IUnleashConfig,
-} from '../../types';
-import {
-  mapFeatureForClient,
-  mapSegmentsForClient,
-} from '../playground/offline-unleash-client';
+import type { IFeatureToggleClient, ISegmentReadModel, IUnleashConfig } from '../../types';
+import { mapFeatureForClient, mapSegmentsForClient } from '../playground/offline-unleash-client';
 import { ALL_ENVS } from '../../util/constants';
 import type { Logger } from '../../logger';
 import { UPDATE_REVISION } from '../feature-toggle/configuration-revision-service';
@@ -57,10 +50,7 @@ export class GlobalFrontendApiCache extends EventEmitter {
       });
 
     this.refreshData();
-    this.configurationRevisionService.on(
-      UPDATE_REVISION,
-      this.onUpdateRevisionEvent,
-    );
+    this.configurationRevisionService.on(UPDATE_REVISION, this.onUpdateRevisionEvent);
   }
 
   getSegment(id: number): Segment | undefined {
@@ -68,34 +58,23 @@ export class GlobalFrontendApiCache extends EventEmitter {
   }
 
   getToggle(name: string, token: IApiUser): FeatureInterface {
-    const features = this.getTogglesByEnvironment(
-      this.environmentNameForToken(token),
-    );
+    const features = this.getTogglesByEnvironment(this.environmentNameForToken(token));
     return features[name];
   }
 
   getToggles(token: IApiUser): FeatureInterface[] {
-    const features = this.getTogglesByEnvironment(
-      this.environmentNameForToken(token),
-    );
+    const features = this.getTogglesByEnvironment(this.environmentNameForToken(token));
     return this.filterTogglesByProjects(features, token.projects);
   }
 
-  private filterTogglesByProjects(
-    features: Record<string, FeatureInterface>,
-    projects: string[],
-  ): FeatureInterface[] {
+  private filterTogglesByProjects(features: Record<string, FeatureInterface>, projects: string[]): FeatureInterface[] {
     if (projects.includes('*')) {
       return Object.values(features);
     }
-    return Object.values(features).filter(
-      (feature) => feature.project && projects.includes(feature.project),
-    );
+    return Object.values(features).filter((feature) => feature.project && projects.includes(feature.project));
   }
 
-  private getTogglesByEnvironment(
-    environment: string,
-  ): Record<string, FeatureInterface> {
+  private getTogglesByEnvironment(environment: string): Record<string, FeatureInterface> {
     const features = this.featuresByEnvironment[environment];
     if (features == null) {
       return {};
@@ -141,16 +120,11 @@ export class GlobalFrontendApiCache extends EventEmitter {
     return token.environment;
   }
 
-  private mapFeatures(
-    features: Record<string, Record<string, IFeatureToggleClient>>,
-  ): FrontendApiFeatureCache {
+  private mapFeatures(features: Record<string, Record<string, IFeatureToggleClient>>): FrontendApiFeatureCache {
     const entries = Object.entries(features).map(([key, value]) => [
       key,
       Object.fromEntries(
-        Object.entries(value).map(([innerKey, innerValue]) => [
-          innerKey,
-          mapFeatureForClient(innerValue),
-        ]),
+        Object.entries(value).map(([innerKey, innerValue]) => [innerKey, mapFeatureForClient(innerValue)]),
       ),
     ]);
 

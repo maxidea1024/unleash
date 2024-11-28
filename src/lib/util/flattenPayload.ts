@@ -1,21 +1,11 @@
-export const flattenPayload = (
-  payload: Record<string, unknown> = {},
-  parentKey = '',
-): Record<string, unknown> =>
+export const flattenPayload = (payload: Record<string, unknown> = {}, parentKey = ''): Record<string, unknown> =>
   Object.entries(payload).reduce(
     (acc, [key, value]) => {
       const newKey = parentKey ? `${parentKey}.${key}` : key;
 
-      if (
-        typeof value === 'object' &&
-        value !== null &&
-        !Array.isArray(value)
-      ) {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         // If it's an object, recurse and merge the results
-        Object.assign(
-          acc,
-          flattenPayload(value as Record<string, unknown>, newKey),
-        );
+        Object.assign(acc, flattenPayload(value as Record<string, unknown>, newKey));
       } else if (Array.isArray(value)) {
         // If it's an array, map through it and handle objects and non-objects differently
         value.forEach((item, index) => {

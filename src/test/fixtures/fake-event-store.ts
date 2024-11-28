@@ -2,10 +2,7 @@ import type { IEventStore } from '../../lib/types/stores/event-store';
 import type { IBaseEvent, IEvent } from '../../lib/types/events';
 import { sharedEventEmitter } from '../../lib/util/anyEventEmitter';
 import type { IQueryOperations } from '../../lib/features/events/event-store';
-import type {
-  DeprecatedSearchEventsSchema,
-  ProjectActivitySchema,
-} from '../../lib/openapi';
+import type { DeprecatedSearchEventsSchema, ProjectActivitySchema } from '../../lib/openapi';
 import type EventEmitter from 'events';
 
 class FakeEventStore implements IEventStore {
@@ -18,9 +15,7 @@ class FakeEventStore implements IEventStore {
     this.events = [];
   }
 
-  getProjectRecentEventActivity(
-    project: string,
-  ): Promise<ProjectActivitySchema> {
+  getProjectRecentEventActivity(project: string): Promise<ProjectActivitySchema> {
     throw new Error('Method not implemented.');
   }
 
@@ -78,9 +73,7 @@ class FakeEventStore implements IEventStore {
     return Promise.resolve(0);
   }
 
-  deprecatedFilteredCount(
-    search: DeprecatedSearchEventsSchema,
-  ): Promise<number> {
+  deprecatedFilteredCount(search: DeprecatedSearchEventsSchema): Promise<number> {
     return Promise.resolve(0);
   }
 
@@ -119,10 +112,7 @@ class FakeEventStore implements IEventStore {
     return this.eventEmitter.setMaxListeners(number);
   }
 
-  on(
-    eventName: string | symbol,
-    listener: (...args: any[]) => void,
-  ): EventEmitter {
+  on(eventName: string | symbol, listener: (...args: any[]) => void): EventEmitter {
     return this.eventEmitter.on(eventName, listener);
   }
 
@@ -130,10 +120,7 @@ class FakeEventStore implements IEventStore {
     return this.eventEmitter.emit(eventName, ...args);
   }
 
-  off(
-    eventName: string | symbol,
-    listener: (...args: any[]) => void,
-  ): EventEmitter {
+  off(eventName: string | symbol, listener: (...args: any[]) => void): EventEmitter {
     return this.eventEmitter.off(eventName, listener);
   }
 

@@ -13,8 +13,5 @@ export interface IProjectStatsStore {
 
   getTimeToProdDates(projectId: string): Promise<ICreateEnabledDates[]>;
 
-  getTimeToProdDatesForFeatureToggles(
-    projectId: string,
-    toggleNames: string[],
-  ): Promise<DoraFeaturesSchema[]>;
+  getTimeToProdDatesForFeatureToggles(projectId: string, toggleNames: string[]): Promise<DoraFeaturesSchema[]>;
 }

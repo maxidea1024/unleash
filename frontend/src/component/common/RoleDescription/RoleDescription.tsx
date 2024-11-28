@@ -2,14 +2,8 @@ import { type SxProps, type Theme, styled } from '@mui/material';
 import SupervisedUserCircle from '@mui/icons-material/SupervisedUserCircle';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import { useRole } from 'hooks/api/getters/useRole/useRole';
-import {
-  PREDEFINED_ROLE_TYPES,
-  PROJECT_ROLE_TYPES,
-} from '@server/util/constants';
-import {
-  getCategorizedProjectPermissions,
-  getCategorizedRootPermissions,
-} from 'utils/permissions';
+import { PREDEFINED_ROLE_TYPES, PROJECT_ROLE_TYPES } from '@server/util/constants';
+import { getCategorizedProjectPermissions, getCategorizedRootPermissions } from 'utils/permissions';
 
 const StyledDescription = styled('div', {
   shouldForwardProp: (prop) => prop !== 'tooltip',
@@ -17,9 +11,7 @@ const StyledDescription = styled('div', {
   width: '100%',
   maxWidth: theme.spacing(50),
   padding: tooltip ? theme.spacing(1) : theme.spacing(3),
-  backgroundColor: tooltip
-    ? theme.palette.background.paper
-    : theme.palette.neutral.light,
+  backgroundColor: tooltip ? theme.palette.background.paper : theme.palette.neutral.light,
   color: theme.palette.text.secondary,
   fontSize: theme.fontSizes.smallBody,
   borderRadius: tooltip ? 0 : theme.shape.borderRadiusMedium,
@@ -46,11 +38,9 @@ const StyledRoleHeader = styled('p')(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-const StyledSupervisedUserCircle = styled(SupervisedUserCircle)(
-  ({ theme }) => ({
-    fontSize: theme.fontSizes.mainHeader,
-  }),
-);
+const StyledSupervisedUserCircle = styled(SupervisedUserCircle)(({ theme }) => ({
+  fontSize: theme.fontSizes.mainHeader,
+}));
 
 const StyledDescriptionHeader = styled('p')(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -73,11 +63,7 @@ interface IRoleDescriptionProps {
   sx?: SxProps<Theme>;
 }
 
-export const RoleDescription = ({
-  roleId,
-  tooltip,
-  ...rest
-}: IRoleDescriptionProps) => {
+export const RoleDescription = ({ roleId, tooltip, ...rest }: IRoleDescriptionProps) => {
   const { role } = useRole(roleId.toString());
 
   if (!role) return null;

@@ -7,10 +7,7 @@ import useFeatureStrategyApi from 'hooks/api/actions/useFeatureStrategyApi/useFe
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useNavigate } from 'react-router-dom';
 import useToast from 'hooks/useToast';
-import type {
-  IFeatureStrategy,
-  IFeatureStrategyPayload,
-} from 'interfaces/strategy';
+import type { IFeatureStrategy, IFeatureStrategyPayload } from 'interfaces/strategy';
 import {
   createStrategyPayload,
   featureStrategyDocsLink,
@@ -40,8 +37,7 @@ import { Limit } from 'component/common/Limit/Limit';
 
 const useStrategyLimit = (strategyCount: number) => {
   const { uiConfig } = useUiConfig();
-  const featureEnvironmentStrategiesLimit =
-    uiConfig.resourceLimits?.featureEnvironmentStrategies || 100;
+  const featureEnvironmentStrategiesLimit = uiConfig.resourceLimits?.featureEnvironmentStrategies || 100;
   const limitReached = strategyCount >= featureEnvironmentStrategiesLimit;
 
   return {
@@ -56,11 +52,8 @@ export const FeatureStrategyCreate = () => {
   const featureId = useRequiredPathParam('featureId');
   const environmentId = useRequiredQueryParam('environmentId');
   const strategyName = useRequiredQueryParam('strategyName');
-  const { strategy: defaultStrategy, defaultStrategyFallback } =
-    useDefaultStrategy(projectId, environmentId);
-  const shouldUseDefaultStrategy: boolean = JSON.parse(
-    useQueryParams().get('defaultStrategy') || 'false',
-  );
+  const { strategy: defaultStrategy, defaultStrategyFallback } = useDefaultStrategy(projectId, environmentId);
+  const shouldUseDefaultStrategy: boolean = JSON.parse(useQueryParams().get('defaultStrategy') || 'false');
 
   const { segments: allSegments } = useSegments();
   const strategySegments = (allSegments || []).filter((segment) => {
@@ -69,9 +62,7 @@ export const FeatureStrategyCreate = () => {
 
   const [strategy, setStrategy] = useState<Partial<IFeatureStrategy>>({});
 
-  const [segments, setSegments] = useState<ISegment[]>(
-    shouldUseDefaultStrategy ? strategySegments : [],
-  );
+  const [segments, setSegments] = useState<ISegment[]>(shouldUseDefaultStrategy ? strategySegments : []);
   const { strategyDefinition } = useStrategy(strategyName);
   const errors = useFormErrors();
 
@@ -90,25 +81,23 @@ export const FeatureStrategyCreate = () => {
   const { limit, limitReached } = useStrategyLimit(strategyCount);
   const ref = useRef<IFeatureToggle>(feature);
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
   const { trackEvent } = usePlausibleTracker();
 
-  const { data, staleDataNotification, forceRefreshCache } =
-    useCollaborateData<IFeatureToggle>(
-      {
-        unleashGetter: useFeature,
-        params: [projectId, featureId],
-        dataKey: 'feature',
-        refetchFunctionKey: 'refetchFeature',
-        options: {},
-      },
-      feature,
-      {
-        afterSubmitAction: refetchFeature,
-      },
-      comparisonModerator,
-    );
+  const { data, staleDataNotification, forceRefreshCache } = useCollaborateData<IFeatureToggle>(
+    {
+      unleashGetter: useFeature,
+      params: [projectId, featureId],
+      dataKey: 'feature',
+      refetchFunctionKey: 'refetchFeature',
+      options: {},
+    },
+    feature,
+    {
+      afterSubmitAction: refetchFeature,
+    },
+    comparisonModerator,
+  );
 
   useEffect(() => {
     if (ref.current.name === '' && feature.name) {
@@ -134,12 +123,7 @@ export const FeatureStrategyCreate = () => {
     } else if (strategyDefinition) {
       setStrategy(createFeatureStrategy(featureId, strategyDefinition));
     }
-  }, [
-    featureId,
-    JSON.stringify(strategyDefinition),
-    JSON.stringify(defaultStrategy),
-    shouldUseDefaultStrategy,
-  ]);
+  }, [featureId, JSON.stringify(strategyDefinition), JSON.stringify(defaultStrategy), shouldUseDefaultStrategy]);
 
   const onAddStrategy = async (payload: IFeatureStrategyPayload) => {
     await addStrategyToFeature(projectId, featureId, environmentId, payload);
@@ -200,15 +184,7 @@ export const FeatureStrategyCreate = () => {
       documentationLink={featureStrategyDocsLink}
       documentationLinkLabel={featureStrategyDocsLinkLabel}
       disablePadding
-      formatApiCode={() =>
-        formatAddStrategyApiCode(
-          projectId,
-          featureId,
-          environmentId,
-          payload,
-          unleashUrl,
-        )
-      }
+      formatApiCode={() => formatAddStrategyApiCode(projectId, featureId, environmentId, payload, unleashUrl)}
     >
       <FeatureStrategyForm
         projectId={projectId}

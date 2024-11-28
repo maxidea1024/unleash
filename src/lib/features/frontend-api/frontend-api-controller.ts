@@ -23,19 +23,12 @@ import { minutesToMilliseconds } from 'date-fns';
 import metricsHelper from '../../util/metrics-helper';
 import { FUNCTION_TIME } from '../../metric-events';
 
-interface ApiUserRequest<
-  PARAM = any,
-  ResBody = any,
-  ReqBody = any,
-  ReqQuery = any,
-> extends Request<PARAM, ResBody, ReqBody, ReqQuery> {
+interface ApiUserRequest<PARAM = any, ResBody = any, ReqBody = any, ReqQuery = any>
+  extends Request<PARAM, ResBody, ReqBody, ReqQuery> {
   user: IApiUser;
 }
 
-type Services = Pick<
-  IUnleashServices,
-  'settingService' | 'frontendApiService' | 'openApiService'
->;
+type Services = Pick<IUnleashServices, 'settingService' | 'frontendApiService' | 'openApiService'>;
 
 export default class FrontendAPIController extends Controller {
   private readonly logger: Logger;
@@ -164,43 +157,26 @@ export default class FrontendAPIController extends Controller {
     });
   }
 
-  private static async endpointNotImplemented(
-    _: ApiUserRequest,
-    res: Response,
-  ) {
-    const error = new NotImplementedError(
-      'The frontend API does not support this endpoint.',
-    );
+  private static async endpointNotImplemented(_: ApiUserRequest, res: Response) {
+    const error = new NotImplementedError('The frontend API does not support this endpoint.');
     res.status(error.statusCode).json(error);
   }
 
-  private async getFrontendApiFeatures(
-    req: ApiUserRequest,
-    res: Response<FrontendApiFeaturesSchema>,
-  ) {
+  private async getFrontendApiFeatures(req: ApiUserRequest, res: Response<FrontendApiFeaturesSchema>) {
     if (!this.config.flagResolver.isEnabled('embedProxy')) {
       throw new NotFoundError();
     }
-    const toggles =
-      await this.services.frontendApiService.getFrontendApiFeatures(
-        req.user,
-        FrontendAPIController.createContext(req),
-      );
+    const toggles = await this.services.frontendApiService.getFrontendApiFeatures(
+      req.user,
+      FrontendAPIController.createContext(req),
+    );
 
     res.set('Cache-control', 'no-cache');
 
-    this.services.openApiService.respondWithValidation(
-      200,
-      res,
-      frontendApiFeaturesSchema.$id,
-      { toggles },
-    );
+    this.services.openApiService.respondWithValidation(200, res, frontendApiFeaturesSchema.$id, { toggles });
   }
 
-  private async registerFrontendApiMetrics(
-    req: ApiUserRequest<unknown, unknown, ClientMetricsSchema>,
-    res: Response,
-  ) {
+  private async registerFrontendApiMetrics(req: ApiUserRequest<unknown, unknown, ClientMetricsSchema>, res: Response) {
     if (!this.config.flagResolver.isEnabled('embedProxy')) {
       throw new NotFoundError();
     }
@@ -210,11 +186,7 @@ export default class FrontendAPIController extends Controller {
       return;
     }
 
-    await this.services.frontendApiService.registerFrontendApiMetrics(
-      req.user,
-      req.body,
-      req.ip,
-    );
+    await this.services.frontendApiService.registerFrontendApiMetrics(req.user, req.body, req.ip);
     res.sendStatus(200);
   }
 

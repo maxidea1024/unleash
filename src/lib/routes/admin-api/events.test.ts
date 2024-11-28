@@ -53,10 +53,7 @@ test('should get events list via admin', async () => {
       auditUser: TEST_AUDIT_USER,
     }),
   );
-  const { body } = await request
-    .get(`${base}/api/admin/events`)
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get(`${base}/api/admin/events`).expect('Content-Type', /json/).expect(200);
 
   expect(body.events.length).toBe(1);
   expect(body.events[0].createdBy).toBe('test@example.com');
@@ -72,10 +69,7 @@ test('should anonymise events list via admin', async () => {
       auditUser: TEST_AUDIT_USER,
     }),
   );
-  const { body } = await request
-    .get(`${base}/api/admin/events`)
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get(`${base}/api/admin/events`).expect('Content-Type', /json/).expect(200);
 
   expect(body.events.length).toBe(1);
   expect(body.events[0].createdBy).toBe('973dfe463@unleash.run');
@@ -100,10 +94,7 @@ test('should also anonymise email fields in data and preData properties', async 
       project: 'default',
     }),
   );
-  const { body } = await request
-    .get(`${base}/api/admin/events`)
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get(`${base}/api/admin/events`).expect('Content-Type', /json/).expect(200);
 
   expect(body.events.length).toBe(2);
   expect(body.events[0].data.email).not.toBe(email1);
@@ -131,10 +122,7 @@ test('should anonymise any PII fields, no matter the depth', async () => {
       project: 'default',
     }),
   );
-  const { body } = await request
-    .get(`${base}/api/admin/events`)
-    .expect('Content-Type', /json/)
-    .expect(200);
+  const { body } = await request.get(`${base}/api/admin/events`).expect('Content-Type', /json/).expect(200);
 
   expect(body.events.length).toBe(1);
   expect(body.events[0].data.roles[0].users[0].username).not.toBe(testUsername);

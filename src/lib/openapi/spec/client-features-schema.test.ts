@@ -2,9 +2,7 @@ import { validateSchema } from '../validate';
 import type { ClientFeaturesSchema } from './client-features-schema';
 
 test('clientFeaturesSchema no fields', () => {
-  expect(
-    validateSchema('#/components/schemas/clientFeaturesSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/clientFeaturesSchema', {})).toMatchSnapshot();
 });
 
 test('clientFeaturesSchema required fields', () => {
@@ -38,9 +36,7 @@ test('clientFeaturesSchema required fields', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/clientFeaturesSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesSchema', data)).toBeUndefined();
 });
 
 test('clientFeaturesSchema java-sdk expected response', () => {
@@ -136,12 +132,7 @@ test('clientFeaturesSchema java-sdk expected response', () => {
       ]
     }`;
 
-  expect(
-    validateSchema(
-      '#/components/schemas/clientFeaturesSchema',
-      JSON.parse(json),
-    ),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesSchema', JSON.parse(json))).toBeUndefined();
 });
 
 test('clientFeaturesSchema unleash-proxy expected response', () => {
@@ -239,12 +230,7 @@ test('clientFeaturesSchema unleash-proxy expected response', () => {
       ]
     }`;
 
-  expect(
-    validateSchema(
-      '#/components/schemas/clientFeaturesSchema',
-      JSON.parse(json),
-    ),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesSchema', JSON.parse(json))).toBeUndefined();
 });
 
 test('clientFeaturesSchema client specification test 15', () => {
@@ -407,10 +393,5 @@ test('clientFeaturesSchema client specification test 15', () => {
       ]
     }`;
 
-  expect(
-    validateSchema(
-      '#/components/schemas/clientFeaturesSchema',
-      JSON.parse(json),
-    ),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/clientFeaturesSchema', JSON.parse(json))).toBeUndefined();
 });

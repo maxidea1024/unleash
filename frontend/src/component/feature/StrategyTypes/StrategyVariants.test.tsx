@@ -26,8 +26,7 @@ test('should render variants', async () => {
     ],
   };
   const Parent = () => {
-    const [strategy, setStrategy] =
-      useState<Partial<IFeatureStrategy>>(initialStrategy);
+    const [strategy, setStrategy] = useState<Partial<IFeatureStrategy>>(initialStrategy);
 
     currentStrategy = strategy;
 
@@ -42,10 +41,7 @@ test('should render variants', async () => {
   };
   render(
     <Routes>
-      <Route
-        path={'/projects/:projectId/features/:featureId/strategies/edit'}
-        element={<Parent />}
-      />
+      <Route path={'/projects/:projectId/features/:featureId/strategies/edit'} element={<Parent />} />
     </Routes>,
     {
       route:

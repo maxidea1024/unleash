@@ -87,14 +87,10 @@ export const BillingPlan = () => {
           condition={inactive}
           show={
             <StyledAlert severity='info'>
-              After you have sent your billing information, your instance will
-              be upgraded - you don't have to do anything.{' '}
-              <a
-                href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}
-              >
-                Get in touch with us
-              </a>{' '}
-              for any clarification
+              After you have sent your billing information, your instance will be upgraded - you don't have to do
+              anything.{' '}
+              <a href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}>Get in touch with us</a> for
+              any clarification
             </StyledAlert>
           }
         />
@@ -108,16 +104,10 @@ export const BillingPlan = () => {
                 show={
                   <StyledTrialSpan
                     sx={(theme) => ({
-                      color: expired
-                        ? theme.palette.error.dark
-                        : theme.palette.warning.dark,
+                      color: expired ? theme.palette.error.dark : theme.palette.warning.dark,
                     })}
                   >
-                    {expired
-                      ? 'Trial expired'
-                      : instanceStatus.trialExtended
-                        ? 'Extended Trial'
-                        : 'Trial'}
+                    {expired ? 'Trial expired' : instanceStatus.trialExtended ? 'Extended Trial' : 'Trial'}
                   </StyledTrialSpan>
                 }
               />
@@ -125,17 +115,12 @@ export const BillingPlan = () => {
             <GridCol>
               <ConditionallyRender
                 condition={planPrice > 0}
-                show={
-                  <StyledPriceSpan>${planPrice.toFixed(2)}</StyledPriceSpan>
-                }
+                show={<StyledPriceSpan>${planPrice.toFixed(2)}</StyledPriceSpan>}
               />
             </GridCol>
           </GridRow>
           <GridRow>
-            <ConditionallyRender
-              condition={isPAYG}
-              show={<StyledPAYGSpan>Pay-as-You-Go</StyledPAYGSpan>}
-            />
+            <ConditionallyRender condition={isPAYG} show={<StyledPAYGSpan>Pay-as-You-Go</StyledPAYGSpan>} />
           </GridRow>
         </Grid>
         <BillingDetails instanceStatus={instanceStatus} isPAYG={isPAYG} />

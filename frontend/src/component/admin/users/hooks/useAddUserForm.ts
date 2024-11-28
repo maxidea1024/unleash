@@ -3,19 +3,13 @@ import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import type { IRole } from 'interfaces/role';
 
-const useCreateUserForm = (
-  initialName = '',
-  initialEmail = '',
-  initialRootRole = null,
-) => {
+const useCreateUserForm = (initialName = '', initialEmail = '', initialRootRole = null) => {
   const { uiConfig } = useUiConfig();
   const { users, roles } = useUsers();
   const [name, setName] = useState(initialName);
   const [email, setEmail] = useState(initialEmail);
   const [sendEmail, setSendEmail] = useState(false);
-  const [rootRole, setRootRole] = useState<IRole | null>(
-    roles.find(({ id }) => id === initialRootRole) || null,
-  );
+  const [rootRole, setRootRole] = useState<IRole | null>(roles.find(({ id }) => id === initialRootRole) || null);
   const [errors, setErrors] = useState({});
 
   useEffect(() => {

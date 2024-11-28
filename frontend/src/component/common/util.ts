@@ -9,32 +9,31 @@ import { formatDateYMD } from '../../utils/formatDate';
 /**
  * Handle feature flags and configuration for different plans.
  */
-export const filterByConfig =
-  (config: IUiConfig) => (r: INavigationMenuItem) => {
-    if (r.flag) {
-      // Check if the route's `flag` is enabled in IUiConfig.flags.
-      const flags = config.flags as unknown as Record<string, boolean>;
-      return Boolean(flags[r.flag]);
-    }
+export const filterByConfig = (config: IUiConfig) => (r: INavigationMenuItem) => {
+  if (r.flag) {
+    // Check if the route's `flag` is enabled in IUiConfig.flags.
+    const flags = config.flags as unknown as Record<string, boolean>;
+    return Boolean(flags[r.flag]);
+  }
 
-    if (r.notFlag) {
-      const flags = config.flags as unknown as Record<string, boolean>;
+  if (r.notFlag) {
+    const flags = config.flags as unknown as Record<string, boolean>;
 
-      return !(flags[r.notFlag] === true);
-    }
+    return !(flags[r.notFlag] === true);
+  }
 
-    if (r.configFlag) {
-      // Check if the route's `configFlag` is enabled in IUiConfig.
-      return Boolean(config[r.configFlag]);
-    }
+  if (r.configFlag) {
+    // Check if the route's `configFlag` is enabled in IUiConfig.
+    return Boolean(config[r.configFlag]);
+  }
 
-    const isOss = !config?.versionInfo?.current?.enterprise;
-    if (isOss && r.enterprise) {
-      return false;
-    }
+  const isOss = !config?.versionInfo?.current?.enterprise;
+  if (isOss && r.enterprise) {
+    return false;
+  }
 
-    return true;
-  };
+  return true;
+};
 
 export const scrollToTop = () => {
   window.scrollTo(0, 0);
@@ -54,10 +53,7 @@ export const trim = (value: string): string => {
   }
 };
 
-export const getLocalizedDateString = (
-  value: Date | string | null | undefined,
-  locale: string,
-) => {
+export const getLocalizedDateString = (value: Date | string | null | undefined, locale: string) => {
   const date = value
     ? value instanceof Date
       ? formatDateYMD(value, locale)
@@ -112,9 +108,7 @@ export function updateWeight(variants: IFeatureVariant[], totalWeight: number) {
     throw new Error('There must be at least one variable variant');
   }
 
-  const percentage = Number.parseInt(
-    String(remainingPercentage / variableVariantCount),
-  );
+  const percentage = Number.parseInt(String(remainingPercentage / variableVariantCount));
 
   return variants.map((variant) => {
     if (variant.weightType !== weightTypes.FIX) {
@@ -124,10 +118,7 @@ export function updateWeight(variants: IFeatureVariant[], totalWeight: number) {
   });
 }
 
-export function updateWeightEdit(
-  variants: IFeatureVariantEdit[],
-  totalWeight: number,
-) {
+export function updateWeightEdit(variants: IFeatureVariantEdit[], totalWeight: number) {
   if (variants.length === 0) {
     return [];
   }
@@ -147,8 +138,7 @@ export function updateWeightEdit(
     { remainingPercentage: totalWeight, variableVariantCount: 0 },
   );
 
-  const getPercentage = () =>
-    Math.max(Math.round(remainingPercentage / variableVariantCount), 0);
+  const getPercentage = () => Math.max(Math.round(remainingPercentage / variableVariantCount), 0);
 
   return variants.map((variant) => {
     if (variant.weightType !== weightTypes.FIX) {

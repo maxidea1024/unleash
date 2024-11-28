@@ -21,9 +21,7 @@ test('Should require password', async () => {
 
   app.use('/auth/simple', ctr.router);
 
-  const res = await request(app)
-    .post('/auth/simple/login')
-    .send({ name: 'john' });
+  const res = await request(app).post('/auth/simple/login').send({ name: 'john' });
 
   expect(400).toBe(res.status);
 });
@@ -60,9 +58,7 @@ test('Should login user', async () => {
 
   app.use('/auth/simple', ctr.router);
 
-  const res = await request(app)
-    .post('/auth/simple/login')
-    .send({ username, password });
+  const res = await request(app).post('/auth/simple/login').send({ username, password });
 
   expect(200).toBe(res.status);
   expect(user.username).toBe(res.body.username);
@@ -100,9 +96,7 @@ test('Should not login user with wrong password', async () => {
 
   app.use('/auth/simple', ctr.router);
 
-  const res = await request(app)
-    .post('/auth/simple/login')
-    .send({ username, password: 'not-correct' });
+  const res = await request(app).post('/auth/simple/login').send({ username, password: 'not-correct' });
 
   expect(res.status).toBe(401);
 });

@@ -9,9 +9,7 @@ interface ISegmentExecutionWithoutResultProps {
   segments?: PlaygroundSegmentSchema[];
 }
 
-export const SegmentExecutionWithoutResult: VFC<
-  ISegmentExecutionWithoutResultProps
-> = ({ segments }) => {
+export const SegmentExecutionWithoutResult: VFC<ISegmentExecutionWithoutResultProps> = ({ segments }) => {
   if (!segments) return null;
 
   return (
@@ -20,11 +18,7 @@ export const SegmentExecutionWithoutResult: VFC<
         <Fragment key={segment.id}>
           <SegmentItem
             segment={segment}
-            constraintList={
-              <ConstraintExecutionWithoutResults
-                constraints={segment.constraints}
-              />
-            }
+            constraintList={<ConstraintExecutionWithoutResults constraints={segment.constraints} />}
             isExpanded
             disabled
           />

@@ -32,7 +32,5 @@ test('addonsSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/addonsSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/addonsSchema', data)).toBeUndefined();
 });

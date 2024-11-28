@@ -1,11 +1,4 @@
-import {
-  Box,
-  Checkbox,
-  Divider,
-  IconButton,
-  MenuItem,
-  styled,
-} from '@mui/material';
+import { Box, Checkbox, Divider, IconButton, MenuItem, styled } from '@mui/material';
 
 import { flexRow } from 'themes/themeStyles';
 

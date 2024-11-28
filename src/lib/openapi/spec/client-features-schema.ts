@@ -15,8 +15,7 @@ export const clientFeaturesSchema = {
   $id: '#/components/schemas/clientFeaturesSchema',
   type: 'object',
   required: ['version', 'features'],
-  description:
-    'Configuration data for server-side SDKs for evaluating feature flags.',
+  description: 'Configuration data for server-side SDKs for evaluating feature flags.',
   properties: {
     version: {
       type: 'number',

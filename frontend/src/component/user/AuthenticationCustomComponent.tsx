@@ -6,18 +6,12 @@ interface IAuthenticationCustomComponentProps {
   authDetails: IAuthEndpointDetailsResponse;
 }
 
-export const AuthenticationCustomComponent: VFC<
-  IAuthenticationCustomComponentProps
-> = ({ authDetails }) => (
+export const AuthenticationCustomComponent: VFC<IAuthenticationCustomComponentProps> = ({ authDetails }) => (
   <div>
     <p>{authDetails.message}</p>
     <CardActions style={{ textAlign: 'center' }}>
       <a href={authDetails.path} style={{ width: '100%' }}>
-        <Button
-          variant='contained'
-          color='primary'
-          style={{ width: '150px', margin: '0 auto' }}
-        >
+        <Button variant='contained' color='primary' style={{ width: '150px', margin: '0 auto' }}>
           Sign In
         </Button>
       </a>

@@ -88,15 +88,10 @@ const StandaloneBanner: FC<IStandaloneBannerProps> = ({ title }) => {
   const smallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   return (
-    <StyledGradient
-      from={theme.palette.loginGradient.from}
-      to={theme.palette.loginGradient.to}
-    >
+    <StyledGradient from={theme.palette.loginGradient.from} to={theme.palette.loginGradient.to}>
       <StyledContainer>
         <StyledTitle variant='h1'>{title}</StyledTitle>
-        <StyledSubtitle>
-          Committed to creating new ways of developing software
-        </StyledSubtitle>
+        <StyledSubtitle>Committed to creating new ways of developing software</StyledSubtitle>
       </StyledContainer>
 
       <StyledLogoContainer>

@@ -1,12 +1,5 @@
 import { StyledContainer, StyledInputLabel } from '../ApiTokenForm.styles';
-import {
-  Box,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
+import { Box, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from '@mui/material';
 import type { TokenType } from 'interfaces/token';
 
 export type SelectOption = {
@@ -21,17 +14,11 @@ interface ITokenTypeSelectorProps {
   setType: (value: TokenType) => void;
   apiTokenTypes: SelectOption[];
 }
-export const TokenTypeSelector = ({
-  type,
-  setType,
-  apiTokenTypes,
-}: ITokenTypeSelectorProps) => {
+export const TokenTypeSelector = ({ type, setType, apiTokenTypes }: ITokenTypeSelectorProps) => {
   return (
     <StyledContainer>
       <FormControl sx={{ mb: 2, width: '100%' }}>
-        <StyledInputLabel id='token-type'>
-          What do you want to connect?
-        </StyledInputLabel>
+        <StyledInputLabel id='token-type'>What do you want to connect?</StyledInputLabel>
         <RadioGroup
           aria-labelledby='token-type'
           defaultValue='CLIENT'

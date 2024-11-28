@@ -6,13 +6,9 @@ test('validatePasswordSchema', () => {
     password: '',
   };
 
-  expect(
-    validateSchema('#/components/schemas/validatePasswordSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/validatePasswordSchema', data)).toBeUndefined();
 });
 
 test('validatePasswordSchema empty', () => {
-  expect(
-    validateSchema('#/components/schemas/validatePasswordSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/validatePasswordSchema', {})).toMatchSnapshot();
 });

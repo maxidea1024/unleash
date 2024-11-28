@@ -1,13 +1,8 @@
 import { addHours, set, subDays } from 'date-fns';
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
 import type { IUnleashStores } from '../../../types';
-import type {
-  IClientMetricsEnv,
-  IClientMetricsStoreV2,
-} from './client-metrics-store-v2-type';
+import type { IClientMetricsEnv, IClientMetricsStoreV2 } from './client-metrics-store-v2-type';
 
 let db: ITestDb;
 let stores: IUnleashStores;
@@ -190,8 +185,7 @@ test('Should get flag metrics', async () => {
   }
 
   await clientMetricsStore.batchInsertMetrics(metrics);
-  const savedMetrics =
-    await clientMetricsStore.getMetricsForFeatureToggle('demo');
+  const savedMetrics = await clientMetricsStore.getMetricsForFeatureToggle('demo');
 
   expect(savedMetrics).toHaveLength(1);
   expect(savedMetrics[0].yes).toBe(4950);

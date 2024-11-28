@@ -1,9 +1,6 @@
 import { render } from 'utils/testRenderer';
 import { screen } from '@testing-library/react';
-import {
-  FeatureStrategyRemoveDialogue,
-  SuggestFeatureStrategyRemoveDialogue,
-} from './DialogStrategyRemove';
+import { FeatureStrategyRemoveDialogue, SuggestFeatureStrategyRemoveDialogue } from './DialogStrategyRemove';
 
 const strategyId = 'c81e3a1d-e91c-4083-bd0f-75bb8a9e32a2';
 const projectId = 'default';
@@ -16,10 +13,7 @@ describe('Use in scheduled change requests', () => {
     async (changeRequestsEnabled) => {
       const changeRequestWithTitle = { id: 1, title: 'My CR' };
       const changeRequestWithoutTitle = { id: 2 };
-      const scheduledChangeRequests = [
-        changeRequestWithTitle,
-        changeRequestWithoutTitle,
-      ];
+      const scheduledChangeRequests = [changeRequestWithTitle, changeRequestWithoutTitle];
 
       if (changeRequestsEnabled === 'enabled') {
         render(
@@ -49,9 +43,7 @@ describe('Use in scheduled change requests', () => {
 
       const alerts = await screen.findAllByRole('alert');
 
-      expect(
-        alerts.find((alert) => alert.textContent!.startsWith('This strategy')),
-      ).toBeTruthy();
+      expect(alerts.find((alert) => alert.textContent!.startsWith('This strategy'))).toBeTruthy();
 
       const links = await screen.findAllByRole('link');
 
@@ -61,17 +53,11 @@ describe('Use in scheduled change requests', () => {
 
       expect(link1).toHaveTextContent('#1 (My CR)');
       expect(link1).toHaveAccessibleDescription('Change request 1');
-      expect(link1).toHaveAttribute(
-        'href',
-        `/projects/default/change-requests/1`,
-      );
+      expect(link1).toHaveAttribute('href', `/projects/default/change-requests/1`);
 
       expect(link2).toHaveTextContent('#2');
       expect(link2).toHaveAccessibleDescription('Change request 2');
-      expect(link2).toHaveAttribute(
-        'href',
-        `/projects/default/change-requests/2`,
-      );
+      expect(link2).toHaveAttribute('href', `/projects/default/change-requests/2`);
     },
   );
 
@@ -90,9 +76,7 @@ describe('Use in scheduled change requests', () => {
 
     const alerts = await screen.findAllByRole('alert');
 
-    expect(
-      alerts.find((alert) => alert.textContent!.startsWith('This strategy')),
-    ).toBeFalsy();
+    expect(alerts.find((alert) => alert.textContent!.startsWith('This strategy'))).toBeFalsy();
 
     expect(alerts).toHaveLength(1);
 
@@ -116,9 +100,7 @@ describe('Use in scheduled change requests', () => {
 
     const alerts = await screen.findAllByRole('alert');
 
-    expect(
-      alerts.find((alert) => alert.textContent!.startsWith('This strategy')),
-    ).toBeTruthy();
+    expect(alerts.find((alert) => alert.textContent!.startsWith('This strategy'))).toBeTruthy();
 
     expect(alerts).toHaveLength(2);
 

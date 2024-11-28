@@ -31,25 +31,16 @@ const StyledAvatar = styled(UserAvatar)(({ theme }) => ({
   height: theme.spacing(2),
 }));
 
-const AvatarComponent = ({ ...props }) => (
-  <StyledAvatar {...props} disableTooltip />
-);
+const AvatarComponent = ({ ...props }) => <StyledAvatar {...props} disableTooltip />;
 
-export const ProjectMembers: FC<ProjectMembersProps> = ({
-  count = 0,
-  members,
-}) => {
+export const ProjectMembers: FC<ProjectMembersProps> = ({ count = 0, members }) => {
   return (
     <StyledContainer>
       <StyledDescription data-loading>
         {count} member
         {count === 1 ? '' : 's'}
       </StyledDescription>
-      <AvatarGroup
-        users={members}
-        avatarLimit={4}
-        AvatarComponent={AvatarComponent}
-      />
+      <AvatarGroup users={members} avatarLimit={4} AvatarComponent={AvatarComponent} />
     </StyledContainer>
   );
 };

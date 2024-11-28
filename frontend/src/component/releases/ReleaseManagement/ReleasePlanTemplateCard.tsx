@@ -56,9 +56,7 @@ const StyledMenu = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const ReleasePlanTemplateCard = ({
-  template,
-}: { template: IReleasePlanTemplate }) => {
+export const ReleasePlanTemplateCard = ({ template }: { template: IReleasePlanTemplate }) => {
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/release-management/edit/${template.id}`);
@@ -74,19 +72,14 @@ export const ReleasePlanTemplateCard = ({
       <TemplateCardBody>
         <div>{template.name}</div>
         <StyledDiv>
-          <StyledCreatedBy>
-            Created by {template.createdByUserId}
-          </StyledCreatedBy>
+          <StyledCreatedBy>Created by {template.createdByUserId}</StyledCreatedBy>
           <StyledMenu
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
             }}
           >
-            <ReleasePlanTemplateCardMenu
-              template={template}
-              onClick={onClick}
-            />
+            <ReleasePlanTemplateCardMenu template={template} onClick={onClick} />
           </StyledMenu>
         </StyledDiv>
       </TemplateCardBody>

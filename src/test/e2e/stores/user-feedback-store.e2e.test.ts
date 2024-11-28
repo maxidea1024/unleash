@@ -33,9 +33,7 @@ test('should create userFeedback', async () => {
     neverShow: false,
     given: new Date(),
   });
-  const userFeedbacks = await userFeedbackStore.getAllUserFeedback(
-    currentUser.id,
-  );
+  const userFeedbacks = await userFeedbackStore.getAllUserFeedback(currentUser.id);
   expect(userFeedbacks).toHaveLength(1);
   expect(userFeedbacks[0].feedbackId).toBe('some-id');
 });
@@ -47,10 +45,7 @@ test('should get userFeedback', async () => {
     neverShow: false,
     given: new Date(),
   });
-  const userFeedback = await userFeedbackStore.getFeedback(
-    currentUser.id,
-    'some-id',
-  );
+  const userFeedback = await userFeedbackStore.getFeedback(currentUser.id, 'some-id');
   expect(userFeedback.feedbackId).toBe('some-id');
 });
 

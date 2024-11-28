@@ -1,9 +1,6 @@
 import type { FC } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import {
-  render as rtlRender,
-  type RenderOptions,
-} from '@testing-library/react';
+import { render as rtlRender, type RenderOptions } from '@testing-library/react';
 import { SWRConfig } from 'swr';
 import { ThemeProvider } from 'themes/ThemeProvider';
 import type { IPermission } from 'interfaces/user';
@@ -22,10 +19,7 @@ export const render = (
     route = '/',
     permissions = [],
     ...renderOptions
-  }: { route?: string; permissions?: IPermission[] } & Omit<
-    RenderOptions,
-    'queries'
-  > = {},
+  }: { route?: string; permissions?: IPermission[] } & Omit<RenderOptions, 'queries'> = {},
 ) => {
   if (!route.startsWith('/')) {
     throw new Error('Route must start with a /');

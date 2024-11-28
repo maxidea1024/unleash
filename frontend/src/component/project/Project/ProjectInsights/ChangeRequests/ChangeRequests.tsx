@@ -87,8 +87,7 @@ export const ChangeRequests = () => {
   const { isOss, isPro } = useUiConfig();
   const { data } = useChangeRequestsCount(projectId);
 
-  const { total, applied, rejected, reviewRequired, scheduled, approved } =
-    data;
+  const { total, applied, rejected, reviewRequired, scheduled, approved } = data;
   const toBeApplied = scheduled + approved;
 
   if (isOss() || isPro()) {
@@ -109,9 +108,7 @@ export const ChangeRequests = () => {
 
       <BoxesContainer data-loading>
         <OpenBox>
-          <ChangeRequestNavigation
-            to={`/projects/${projectId}/change-requests`}
-          >
+          <ChangeRequestNavigation to={`/projects/${projectId}/change-requests`}>
             <span>Open</span>
             <KeyboardArrowRight />
           </ChangeRequestNavigation>

@@ -1,10 +1,4 @@
-import {
-  IconButton,
-  Link,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { IconButton, Link, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import ArchiveIcon from '@mui/icons-material/Inventory2Outlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';

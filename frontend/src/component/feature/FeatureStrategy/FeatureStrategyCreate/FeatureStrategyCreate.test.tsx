@@ -71,13 +71,7 @@ beforeEach(() => {
 describe('NewFeatureStrategyCreate', () => {
   test('formatAddStrategyApiCode', () => {
     expect(
-      formatAddStrategyApiCode(
-        'projectId',
-        'featureId',
-        'environmentId',
-        { id: 'strategyId' },
-        'unleashUrl',
-      ),
+      formatAddStrategyApiCode('projectId', 'featureId', 'environmentId', { id: 'strategyId' }, 'unleashUrl'),
     ).toMatchInlineSnapshot(`
           "curl --location --request POST 'unleashUrl/api/admin/projects/projectId/features/featureId/environments/environmentId/strategies' \\
               --header 'Authorization: INSERT_API_KEY' \\
@@ -143,9 +137,7 @@ describe('NewFeatureStrategyCreate', () => {
     const addConstraintEl = await screen.findByText('Add constraint');
     fireEvent.click(addConstraintEl);
 
-    const inputElement = screen.getByPlaceholderText(
-      'value1, value2, value3...',
-    );
+    const inputElement = screen.getByPlaceholderText('value1, value2, value3...');
     fireEvent.change(inputElement, {
       target: { value: expectedConstraintValue },
     });
@@ -190,9 +182,7 @@ describe('NewFeatureStrategyCreate', () => {
 
     await waitFor(() => {
       const codeSnippet = document.querySelector('pre')?.innerHTML;
-      const variantNameMatches = (
-        codeSnippet!.match(new RegExp(expectedVariantName, 'g')) || []
-      ).length;
+      const variantNameMatches = (codeSnippet!.match(new RegExp(expectedVariantName, 'g')) || []).length;
       const metaDataMatches = (codeSnippet!.match(/isValid/g) || []).length;
       expect(variantNameMatches).toBe(1);
       expect(metaDataMatches).toBe(0);
@@ -267,9 +257,7 @@ describe('NewFeatureStrategyCreate', () => {
     const addConstraintEl = await screen.findByText('Add constraint');
     fireEvent.click(addConstraintEl);
 
-    const inputElement = screen.getByPlaceholderText(
-      'value1, value2, value3...',
-    );
+    const inputElement = screen.getByPlaceholderText('value1, value2, value3...');
     fireEvent.change(inputElement, {
       target: { value: expectedMultipleValues },
     });
@@ -303,9 +291,7 @@ describe('NewFeatureStrategyCreate', () => {
     fireEvent.click(addConstraintEl);
     fireEvent.click(addConstraintEl);
 
-    const inputElements = screen.getAllByPlaceholderText(
-      'value1, value2, value3...',
-    );
+    const inputElements = screen.getAllByPlaceholderText('value1, value2, value3...');
 
     fireEvent.change(inputElements[0], {
       target: { value: '123' },
@@ -345,9 +331,7 @@ describe('NewFeatureStrategyCreate', () => {
     fireEvent.click(addConstraintEl);
     fireEvent.click(addConstraintEl);
 
-    const inputElements = screen.getAllByPlaceholderText(
-      'value1, value2, value3...',
-    );
+    const inputElements = screen.getAllByPlaceholderText('value1, value2, value3...');
 
     fireEvent.change(inputElements[0], {
       target: { value: '123' },
@@ -369,9 +353,7 @@ describe('NewFeatureStrategyCreate', () => {
     const deleteBtns = screen.getAllByTestId('DELETE_CONSTRAINT_BUTTON');
     fireEvent.click(deleteBtns[0]);
 
-    const inputElements2 = screen.getAllByPlaceholderText(
-      'value1, value2, value3...',
-    );
+    const inputElements2 = screen.getAllByPlaceholderText('value1, value2, value3...');
 
     fireEvent.change(inputElements2[0], {
       target: { value: '666' },

@@ -46,15 +46,12 @@ export const FeatureOverviewSidePanelEnvironmentSwitch = ({
   const defaultContent = (
     <>
       {' '}
-      <span data-loading>
-        {environment.enabled ? 'enabled' : 'disabled'} in
-      </span>
+      <span data-loading>{environment.enabled ? 'enabled' : 'disabled'} in</span>
       &nbsp;
       <StringTruncator text={environment.name} maxWidth='120' maxLength={15} />
     </>
   );
-  const { onToggle: onFeatureToggle, modals: featureToggleModals } =
-    useFeatureToggleSwitch(projectId);
+  const { onToggle: onFeatureToggle, modals: featureToggleModals } = useFeatureToggleSwitch(projectId);
 
   const handleToggle = (newState: boolean, onRollback: () => void) =>
     onFeatureToggle(newState, {
@@ -63,9 +60,7 @@ export const FeatureOverviewSidePanelEnvironmentSwitch = ({
       environmentName: environment.name,
       environmentType: environment.type,
       hasStrategies: environment.strategies.length > 0,
-      hasEnabledStrategies: environment.strategies.some(
-        (strategy) => !strategy.disabled,
-      ),
+      hasEnabledStrategies: environment.strategies.some((strategy) => !strategy.disabled),
       isChangeRequestEnabled: isChangeRequestConfigured(environment.name),
       onRollback,
       onSuccess: () => {

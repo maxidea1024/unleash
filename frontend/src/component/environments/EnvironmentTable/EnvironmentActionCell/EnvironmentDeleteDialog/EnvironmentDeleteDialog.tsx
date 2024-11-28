@@ -22,12 +22,7 @@ interface IEnvironmentDeleteDialogProps {
   onConfirm: () => void;
 }
 
-export const EnvironmentDeleteDialog = ({
-  environment,
-  open,
-  setOpen,
-  onConfirm,
-}: IEnvironmentDeleteDialogProps) => {
+export const EnvironmentDeleteDialog = ({ environment, open, setOpen, onConfirm }: IEnvironmentDeleteDialogProps) => {
   const [confirmName, setConfirmName] = useState('');
 
   useEffect(() => {
@@ -47,24 +42,17 @@ export const EnvironmentDeleteDialog = ({
       }}
     >
       <Alert severity='error'>
-        <strong>
-          Danger! This action is not reversible. Please proceed with caution.
-        </strong>{' '}
-        Deleting this environment will result in removing all strategies that
-        are active in this environment across all feature flags.
+        <strong>Danger! This action is not reversible. Please proceed with caution.</strong> Deleting this environment
+        will result in removing all strategies that are active in this environment across all feature flags.
       </Alert>
 
       <EnvironmentTableSingle environment={environment} warnEnabledToggles />
 
       <StyledLabel>
-        In order to delete this environment, please enter the id of the
-        environment in the textfield below: <strong>{environment.name}</strong>
+        In order to delete this environment, please enter the id of the environment in the textfield below:{' '}
+        <strong>{environment.name}</strong>
       </StyledLabel>
-      <StyledInput
-        label='Environment name'
-        value={confirmName}
-        onChange={(e) => setConfirmName(e.target.value)}
-      />
+      <StyledInput label='Environment name' value={confirmName} onChange={(e) => setConfirmName(e.target.value)} />
     </Dialogue>
   );
 };

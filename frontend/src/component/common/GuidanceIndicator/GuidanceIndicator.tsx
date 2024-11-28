@@ -22,11 +22,7 @@ interface IGuidanceIndicatorProps {
 
 type guidanceIndicatorType = 'primary' | 'secondary';
 
-export const GuidanceIndicator: FC<IGuidanceIndicatorProps> = ({
-  style,
-  children,
-  type,
-}) => {
+export const GuidanceIndicator: FC<IGuidanceIndicatorProps> = ({ style, children, type }) => {
   const theme = useTheme();
 
   const defaults = {
@@ -38,9 +34,5 @@ export const GuidanceIndicator: FC<IGuidanceIndicatorProps> = ({
     defaults.color = theme.palette.text.secondary;
   }
 
-  return (
-    <StyledIndicator style={{ ...defaults, ...style }}>
-      {children}
-    </StyledIndicator>
-  );
+  return <StyledIndicator style={{ ...defaults, ...style }}>{children}</StyledIndicator>;
 };

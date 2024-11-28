@@ -10,12 +10,7 @@ import type {
   PlaygroundFeatureEvaluationResult,
 } from './playground-service';
 
-const buildStrategyLink = (
-  project: string,
-  feature: string,
-  environment: string,
-  strategyId: string,
-): string =>
+const buildStrategyLink = (project: string, feature: string, environment: string, strategyId: string): string =>
   `/projects/${project}/features/${feature}/strategies/edit?environmentId=${environment}&strategyId=${strategyId}`;
 
 const addStrategyEditLink = (
@@ -27,12 +22,7 @@ const addStrategyEditLink = (
   return {
     ...strategy,
     links: {
-      edit: buildStrategyLink(
-        projectId,
-        featureName,
-        environmentId,
-        strategy.id,
-      ),
+      edit: buildStrategyLink(projectId, featureName, environmentId, strategy.id),
     },
   };
 };
@@ -43,25 +33,19 @@ export const advancedPlaygroundViewModel = (
   invalidContextProperties?: string[],
 ): AdvancedPlaygroundResponseSchema => {
   const features = playgroundResult.map(({ environments, ...rest }) => {
-    const transformedEnvironments = Object.entries(environments).map(
-      ([envName, envFeatures]) => {
-        const transformedFeatures = envFeatures.map(
-          ({ name, strategies, environment, projectId, ...featRest }) => ({
-            ...featRest,
-            name,
-            environment,
-            projectId,
-            strategies: {
-              ...strategies,
-              data: strategies.data.map((strategy) =>
-                addStrategyEditLink(environment, projectId, name, strategy),
-              ),
-            },
-          }),
-        );
-        return [envName, transformedFeatures];
-      },
-    );
+    const transformedEnvironments = Object.entries(environments).map(([envName, envFeatures]) => {
+      const transformedFeatures = envFeatures.map(({ name, strategies, environment, projectId, ...featRest }) => ({
+        ...featRest,
+        name,
+        environment,
+        projectId,
+        strategies: {
+          ...strategies,
+          data: strategies.data.map((strategy) => addStrategyEditLink(environment, projectId, name, strategy)),
+        },
+      }));
+      return [envName, transformedFeatures];
+    });
 
     return {
       ...rest,
@@ -80,19 +64,15 @@ export const playgroundViewModel = (
   input: PlaygroundRequestSchema,
   playgroundResult: PlaygroundFeatureEvaluationResult[],
 ): PlaygroundResponseSchema => {
-  const features = playgroundResult.map(
-    ({ name, strategies, projectId, ...rest }) => ({
-      ...rest,
-      name,
-      projectId,
-      strategies: {
-        ...strategies,
-        data: strategies.data.map((strategy) =>
-          addStrategyEditLink(input.environment, projectId, name, strategy),
-        ),
-      },
-    }),
-  );
+  const features = playgroundResult.map(({ name, strategies, projectId, ...rest }) => ({
+    ...rest,
+    name,
+    projectId,
+    strategies: {
+      ...strategies,
+      data: strategies.data.map((strategy) => addStrategyEditLink(input.environment, projectId, name, strategy)),
+    },
+  }));
 
   return { input, features };
 };

@@ -8,8 +8,7 @@ export const validateQueryComplexity = (
   contextCombinationsCount: number,
   limit = MAX_COMPLEXITY,
 ): void => {
-  const totalCount =
-    environmentsCount * featuresCount * contextCombinationsCount;
+  const totalCount = environmentsCount * featuresCount * contextCombinationsCount;
 
   const reason = `Rejecting evaluation as it would generate ${totalCount} combinations exceeding ${limit} limit. `;
   const action = `Please reduce the number of selected environments (${environmentsCount}), features (${featuresCount}), context field combinations (${contextCombinationsCount}).`;

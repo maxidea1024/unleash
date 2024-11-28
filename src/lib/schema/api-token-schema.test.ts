@@ -11,9 +11,7 @@ test('should reject token with projects and project', async () => {
       projects: ['default'],
     });
   } catch (error) {
-    expect(error.details[0].message).toEqual(
-      '"project" must not exist simultaneously with [projects]',
-    );
+    expect(error.details[0].message).toEqual('"project" must not exist simultaneously with [projects]');
   }
 });
 

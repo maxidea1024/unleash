@@ -4,11 +4,7 @@ import { paginate } from 'utils/paginate';
 /**
  * @deprecated
  */
-const usePagination = <T>(
-  data: T[],
-  limit: number,
-  filterFunc?: (item: T) => boolean,
-) => {
+const usePagination = <T>(data: T[], limit: number, filterFunc?: (item: T) => boolean) => {
   const [paginatedData, setPaginatedData] = useState<T[][]>([[]]);
   const [pageIndex, setPageIndex] = useState(0);
 

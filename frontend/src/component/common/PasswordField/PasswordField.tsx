@@ -1,9 +1,4 @@
-import {
-  IconButton,
-  InputAdornment,
-  TextField,
-  type TextFieldProps,
-} from '@mui/material';
+import { IconButton, InputAdornment, TextField, type TextFieldProps } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import type React from 'react';
@@ -34,11 +29,7 @@ const PasswordField: VFC<TextFieldProps> = ({ ...rest }) => {
         },
         endAdornment: (
           <InputAdornment position='end'>
-            <IconButton
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-              size='large'
-            >
+            <IconButton onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} size='large'>
               <IconComponent titleAccess={iconTitle} />
             </IconButton>
           </InputAdornment>

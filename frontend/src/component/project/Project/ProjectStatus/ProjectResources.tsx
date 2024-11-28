@@ -114,19 +114,11 @@ export const ProjectResources = () => {
           Project resources
         </Typography>
         <ResourceList>
-          <ListItem
-            linkUrl={`/projects/${projectId}/settings/access`}
-            linkText='Add members'
-            icon={<UsersIcon />}
-          >
+          <ListItem linkUrl={`/projects/${projectId}/settings/access`} linkText='Add members' icon={<UsersIcon />}>
             {resources.members} project member(s)
           </ListItem>
 
-          <ListItem
-            linkUrl={`/projects/${projectId}/settings/api-access`}
-            linkText='Add new key'
-            icon={<ApiKeyIcon />}
-          >
+          <ListItem linkUrl={`/projects/${projectId}/settings/api-access`} linkText='Add new key' icon={<ApiKeyIcon />}>
             {resources.apiTokens} API key(s)
           </ListItem>
 

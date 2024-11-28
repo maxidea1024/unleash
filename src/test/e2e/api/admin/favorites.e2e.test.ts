@@ -67,17 +67,11 @@ const unfavoriteProject = async (projectName = 'default') => {
 };
 
 const getProject = async (projectName = 'default') => {
-  return app.request
-    .get(`/api/admin/projects/${projectName}`)
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  return app.request.get(`/api/admin/projects/${projectName}`).set('Content-Type', 'application/json').expect(200);
 };
 
 const getProjects = async () => {
-  return app.request
-    .get('/api/admin/projects')
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  return app.request.get('/api/admin/projects').set('Content-Type', 'application/json').expect(200);
 };
 
 beforeAll(async () => {
@@ -99,10 +93,7 @@ beforeAll(async () => {
   const roles = await accessService.getRootRoles();
   editorRole = roles.find((role) => role.name === RoleName.EDITOR)!;
 
-  await createUserEditorAccess(
-    regularUserName,
-    `${regularUserName}@getunleash.io`,
-  );
+  await createUserEditorAccess(regularUserName, `${regularUserName}@getunleash.io`);
 });
 
 afterAll(async () => {

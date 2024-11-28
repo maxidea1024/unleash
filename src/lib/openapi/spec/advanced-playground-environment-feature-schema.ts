@@ -2,10 +2,7 @@ import type { FromSchema } from 'json-schema-to-ts';
 import { parametersSchema } from './parameters-schema';
 import { variantSchema } from './variant-schema';
 import { overrideSchema } from './override-schema';
-import {
-  playgroundStrategyEvaluation,
-  playgroundStrategySchema,
-} from './playground-strategy-schema';
+import { playgroundStrategyEvaluation, playgroundStrategySchema } from './playground-strategy-schema';
 import { playgroundConstraintSchema } from './playground-constraint-schema';
 import { playgroundSegmentSchema } from './playground-segment-schema';
 import { sdkContextSchema } from './sdk-context-schema';
@@ -13,8 +10,7 @@ import { sdkFlatContextSchema } from './sdk-flat-context-schema';
 
 export const advancedPlaygroundEnvironmentFeatureSchema = {
   $id: '#/components/schemas/advancedPlaygroundEnvironmentFeatureSchema',
-  description:
-    'A simplified feature flag model intended for the Unleash playground.',
+  description: 'A simplified feature flag model intended for the Unleash playground.',
   type: 'object',
   additionalProperties: false,
   required: [
@@ -52,8 +48,7 @@ export const advancedPlaygroundEnvironmentFeatureSchema = {
       type: 'object',
       additionalProperties: false,
       required: ['result', 'data'],
-      description:
-        "Feature's applicable strategies and cumulative results of the strategies",
+      description: "Feature's applicable strategies and cumulative results of the strategies",
       properties: {
         result: {
           description: `The cumulative results of all the feature's strategies. Can be \`true\`,
@@ -101,8 +96,7 @@ export const advancedPlaygroundEnvironmentFeatureSchema = {
       properties: {
         name: {
           type: 'string',
-          description:
-            "The variant's name. If there is no variant or if the flag is disabled, this will be `disabled`",
+          description: "The variant's name. If there is no variant or if the flag is disabled, this will be `disabled`",
           example: 'red-variant',
         },
         enabled: {
@@ -157,6 +151,4 @@ export const advancedPlaygroundEnvironmentFeatureSchema = {
   },
 } as const;
 
-export type AdvancedPlaygroundEnvironmentFeatureSchema = FromSchema<
-  typeof advancedPlaygroundEnvironmentFeatureSchema
->;
+export type AdvancedPlaygroundEnvironmentFeatureSchema = FromSchema<typeof advancedPlaygroundEnvironmentFeatureSchema>;

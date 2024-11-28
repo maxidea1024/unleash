@@ -44,9 +44,7 @@ export const GroupsList: VFC = () => {
   const [activeGroup, setActiveGroup] = useState<IGroup | undefined>(undefined);
   const { groups = [], loading } = useGroups();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get('search') || '',
-  );
+  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -63,9 +61,7 @@ export const GroupsList: VFC = () => {
 
   const data = useMemo(() => {
     const sortedGroups = groups.sort((a, b) => a.name.localeCompare(b.name));
-    return searchValue
-      ? sortedGroups.filter((group) => groupsSearch(group, searchValue))
-      : sortedGroups;
+    return searchValue ? sortedGroups.filter((group) => groupsSearch(group, searchValue)) : sortedGroups;
   }, [groups, searchValue]);
 
   const onEditUsers = (group: IGroup) => {
@@ -90,10 +86,7 @@ export const GroupsList: VFC = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
+                    <Search initialValue={searchValue} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -112,9 +105,7 @@ export const GroupsList: VFC = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
+            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
@@ -123,11 +114,7 @@ export const GroupsList: VFC = () => {
         <Grid container spacing={2}>
           {data.map((group) => (
             <Grid key={group.id} item xs={12} md={6}>
-              <GroupCard
-                group={group}
-                onEditUsers={onEditUsers}
-                onRemoveGroup={onRemoveGroup}
-              />
+              <GroupCard group={group} onEditUsers={onEditUsers} onRemoveGroup={onRemoveGroup} />
             </Grid>
           ))}
         </Grid>
@@ -151,24 +138,12 @@ export const GroupsList: VFC = () => {
 
       <ConditionallyRender
         condition={Boolean(activeGroup)}
-        show={
-          <EditGroupUsers
-            open={editUsersOpen}
-            setOpen={setEditUsersOpen}
-            group={activeGroup!}
-          />
-        }
+        show={<EditGroupUsers open={editUsersOpen} setOpen={setEditUsersOpen} group={activeGroup!} />}
       />
 
       <ConditionallyRender
         condition={Boolean(activeGroup)}
-        show={
-          <RemoveGroup
-            open={removeOpen}
-            setOpen={setRemoveOpen}
-            group={activeGroup!}
-          />
-        }
+        show={<RemoveGroup open={removeOpen} setOpen={setRemoveOpen} group={activeGroup!} />}
       />
     </PageContent>
   );

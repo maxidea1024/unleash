@@ -8,13 +8,7 @@ export const featureUsageSchema = {
   additionalProperties: false,
   description:
     'How many applications have seen this feature flag, as well as how this feature was evaluated the last hour',
-  required: [
-    'version',
-    'maturity',
-    'featureName',
-    'lastHourUsage',
-    'seenApplications',
-  ],
+  required: ['version', 'maturity', 'featureName', 'lastHourUsage', 'seenApplications'],
   properties: {
     version: {
       description: 'The version of this schema',
@@ -22,8 +16,7 @@ export const featureUsageSchema = {
       minimum: 1,
     },
     maturity: {
-      description:
-        'The maturity level of this API (alpha, beta, stable, deprecated)',
+      description: 'The maturity level of this API (alpha, beta, stable, deprecated)',
       type: 'string',
       example: 'stable',
     },

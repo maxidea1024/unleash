@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { FEATURE_CREATED, type IBaseEvent } from '../../../../lib/types/events';
@@ -41,18 +38,12 @@ afterAll(async () => {
 
 test('returns events', async () => {
   expect.assertions(0);
-  return app.request
-    .get('/api/admin/events')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  return app.request.get('/api/admin/events').expect('Content-Type', /json/).expect(200);
 });
 
 test('returns events given a name', async () => {
   expect.assertions(0);
-  return app.request
-    .get('/api/admin/events/myname')
-    .expect('Content-Type', /json/)
-    .expect(200);
+  return app.request.get('/api/admin/events/myname').expect('Content-Type', /json/).expect(200);
 });
 
 test('Can filter by project', async () => {
@@ -185,9 +176,7 @@ test('event creators - if system user, return system name, else should return na
     }),
   );
 
-  const { body } = await app.request
-    .get('/api/admin/event-creators')
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/event-creators').expect(200);
   expect(body).toMatchObject([
     {
       id: SYSTEM_USER.id,
@@ -228,9 +217,7 @@ test('event creators - takes single distinct username, if 2 users have same id',
     }),
   );
 
-  const { body } = await app.request
-    .get('/api/admin/event-creators')
-    .expect(200);
+  const { body } = await app.request.get('/api/admin/event-creators').expect(200);
   expect(body).toMatchObject([
     {
       id: 2,

@@ -3,8 +3,7 @@ import { Alert } from '@mui/material';
 export const StrategyVariantsUpgradeAlert = () => {
   return (
     <Alert severity='warning' sx={{ mb: 3 }}>
-      Remember to update your Unleash client! Strategy variants require new SDK
-      versions. <DocsSdkSupportLink />.
+      Remember to update your Unleash client! Strategy variants require new SDK versions. <DocsSdkSupportLink />.
     </Alert>
   );
 };
@@ -12,8 +11,7 @@ export const StrategyVariantsUpgradeAlert = () => {
 export const StrategyVariantsPreferredAlert = () => {
   return (
     <Alert severity='warning' sx={{ mb: 4 }}>
-      If you want advanced targeting capabilities you should use{' '}
-      <b>variants inside strategies</b>. <DocsLink />
+      If you want advanced targeting capabilities you should use <b>variants inside strategies</b>. <DocsLink />
     </Alert>
   );
 };
@@ -32,11 +30,7 @@ const DocsSdkSupportLink = () => {
 
 const DocsLink = () => {
   return (
-    <a
-      href='https://docs.getunleash.io/reference/strategy-variants'
-      target='_blank'
-      rel='noreferrer'
-    >
+    <a href='https://docs.getunleash.io/reference/strategy-variants' target='_blank' rel='noreferrer'>
       Read more
     </a>
   );

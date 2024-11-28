@@ -63,13 +63,9 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
       .select(
         'feature_name',
         'environment',
-        this.db.raw(
-          "MAX(coalesce(jsonb_array_length(constraint_value->'values'), 0)) as max_values_count",
-        ),
+        this.db.raw("MAX(coalesce(jsonb_array_length(constraint_value->'values'), 0)) as max_values_count"),
       )
-      .crossJoin(
-        this.db.raw(`jsonb_array_elements(constraints) AS constraint_value`),
-      )
+      .crossJoin(this.db.raw(`jsonb_array_elements(constraints) AS constraint_value`))
       .groupBy('feature_name', 'environment')
       .orderBy('max_values_count', 'desc')
       .limit(1);
@@ -89,11 +85,7 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
     count: number;
   } | null> {
     const rows = await this.activeStrategies()
-      .select(
-        'feature_name',
-        'environment',
-        this.db.raw('jsonb_array_length(constraints) as constraint_count'),
-      )
+      .select('feature_name', 'environment', this.db.raw('jsonb_array_length(constraints) as constraint_count'))
 
       .orderBy('constraint_count', 'desc')
       .limit(1);

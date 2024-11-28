@@ -37,9 +37,7 @@ test('role schema rejects a role with a broken permission list', async () => {
   try {
     await roleSchema.validateAsync(role);
   } catch (error) {
-    expect(error.details[0].message).toBe(
-      '"permissions[0]" must contain at least one of [id, name]',
-    );
+    expect(error.details[0].message).toBe('"permissions[0]" must contain at least one of [id, name]');
   }
 });
 

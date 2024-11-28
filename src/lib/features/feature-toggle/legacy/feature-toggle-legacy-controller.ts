@@ -13,14 +13,8 @@ import type { TagSchema } from '../../../openapi/spec/tag-schema';
 import type { TagsSchema } from '../../../openapi/spec/tags-schema';
 import type { OpenApiService } from '../../../services/openapi-service';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
-import {
-  createResponseSchema,
-  resourceCreatedResponseSchema,
-} from '../../../openapi/util/create-response-schema';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../../openapi/util/standard-responses';
+import { createResponseSchema, resourceCreatedResponseSchema } from '../../../openapi/util/create-response-schema';
+import { emptyResponse, getStandardResponses } from '../../../openapi/util/standard-responses';
 import type { UpdateTagsSchema } from '../../../openapi/spec/update-tags-schema';
 import type { ValidateFeatureSchema } from '../../../openapi/spec/validate-feature-schema';
 
@@ -37,10 +31,7 @@ export default class FeatureController extends Controller {
       featureTagService,
       featureToggleServiceV2,
       openApiService,
-    }: Pick<
-      IUnleashServices,
-      'featureTagService' | 'featureToggleServiceV2' | 'openApiService'
-    >,
+    }: Pick<IUnleashServices, 'featureTagService' | 'featureToggleServiceV2' | 'openApiService'>,
   ) {
     super(config);
 
@@ -161,11 +152,7 @@ export default class FeatureController extends Controller {
     return Array.isArray(param) ? param : [param];
   }
 
-  async prepQuery({
-    tag,
-    project,
-    namePrefix,
-  }: any): Promise<IFeatureToggleQuery> {
+  async prepQuery({ tag, project, namePrefix }: any): Promise<IFeatureToggleQuery> {
     if (!tag && !project && !namePrefix) {
       return {};
     }
@@ -182,21 +169,13 @@ export default class FeatureController extends Controller {
     return query;
   }
 
-  async listTags(
-    req: Request<{ featureName: string }, any, any, any>,
-    res: Response<TagsSchema>,
-  ): Promise<void> {
+  async listTags(req: Request<{ featureName: string }, any, any, any>, res: Response<TagsSchema>): Promise<void> {
     const tags = await this.tagService.listTags(req.params.featureName);
     res.json({ version, tags });
   }
 
   async addTag(
-    req: IAuthRequest<
-      { featureName: string },
-      Response<TagSchema>,
-      TagSchema,
-      any
-    >,
+    req: IAuthRequest<{ featureName: string }, Response<TagSchema>, TagSchema, any>,
     res: Response<TagSchema>,
   ): Promise<void> {
     const { featureName } = req.params;
@@ -205,28 +184,15 @@ export default class FeatureController extends Controller {
   }
 
   async updateTags(
-    req: IAuthRequest<
-      { featureName: string },
-      Response<TagsSchema>,
-      UpdateTagsSchema,
-      any
-    >,
+    req: IAuthRequest<{ featureName: string }, Response<TagsSchema>, UpdateTagsSchema, any>,
     res: Response<TagsSchema>,
   ): Promise<void> {
     const { featureName } = req.params;
     const { addedTags, removedTags } = req.body;
 
-    await Promise.all(
-      addedTags.map((addedTag) =>
-        this.tagService.addTag(featureName, addedTag, req.audit),
-      ),
-    );
+    await Promise.all(addedTags.map((addedTag) => this.tagService.addTag(featureName, addedTag, req.audit)));
 
-    await Promise.all(
-      removedTags.map((removedTag) =>
-        this.tagService.removeTag(featureName, removedTag, req.audit),
-      ),
-    );
+    await Promise.all(removedTags.map((removedTag) => this.tagService.removeTag(featureName, removedTag, req.audit)));
 
     const tags = await this.tagService.listTags(featureName);
     res.json({ version, tags });
@@ -242,17 +208,11 @@ export default class FeatureController extends Controller {
     res.status(200).end();
   }
 
-  async validate(
-    req: Request<any, any, ValidateFeatureSchema, any>,
-    res: Response<void>,
-  ): Promise<void> {
+  async validate(req: Request<any, any, ValidateFeatureSchema, any>, res: Response<void>): Promise<void> {
     const { name, projectId } = req.body;
 
     await this.service.validateName(name);
-    await this.service.validateFeatureFlagNameAgainstPattern(
-      name,
-      projectId ?? undefined,
-    );
+    await this.service.validateFeatureFlagNameAgainstPattern(name, projectId ?? undefined);
     res.status(200).end();
   }
 }

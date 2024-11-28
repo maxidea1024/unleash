@@ -14,10 +14,7 @@ export const UsedInCell: VFC<IUsedInCellProps> = ({ original }) => {
   return (
     <TextCell
       sx={{
-        color:
-          original.usedInProjects === 0 && original.usedInFeatures === 0
-            ? theme.palette.text.disabled
-            : 'inherit',
+        color: original.usedInProjects === 0 && original.usedInFeatures === 0 ? theme.palette.text.disabled : 'inherit',
       }}
     >
       <Box>

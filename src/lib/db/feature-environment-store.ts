@@ -1,8 +1,5 @@
 import type EventEmitter from 'events';
-import type {
-  FeatureEnvironmentKey,
-  IFeatureEnvironmentStore,
-} from '../types/stores/feature-environment-store';
+import type { FeatureEnvironmentKey, IFeatureEnvironmentStore } from '../types/stores/feature-environment-store';
 import type { Logger, LogProvider } from '../logger';
 import metricsHelper from '../util/metrics-helper';
 import { DB_TIME } from '../metric-events';
@@ -45,14 +42,8 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
       });
   }
 
-  async delete({
-    featureName,
-    environment,
-  }: FeatureEnvironmentKey): Promise<void> {
-    await this.db(T.featureEnvs)
-      .where('feature_name', featureName)
-      .andWhere('environment', environment)
-      .del();
+  async delete({ featureName, environment }: FeatureEnvironmentKey): Promise<void> {
+    await this.db(T.featureEnvs).where('feature_name', featureName).andWhere('environment', environment).del();
   }
 
   async deleteAll(): Promise<void> {
@@ -61,10 +52,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
 
   destroy(): void {}
 
-  async exists({
-    featureName,
-    environment,
-  }: FeatureEnvironmentKey): Promise<boolean> {
+  async exists({ featureName, environment }: FeatureEnvironmentKey): Promise<boolean> {
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM ${T.featureEnvs} WHERE feature_name = ? AND environment = ?) AS present`,
       [featureName, environment],
@@ -73,10 +61,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     return present;
   }
 
-  async get({
-    featureName,
-    environment,
-  }: FeatureEnvironmentKey): Promise<IFeatureEnvironment> {
+  async get({ featureName, environment }: FeatureEnvironmentKey): Promise<IFeatureEnvironment> {
     const md = await this.db(T.featureEnvs)
       .where('feature_name', featureName)
       .andWhere('environment', environment)
@@ -108,13 +93,8 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     }));
   }
 
-  async getAllByFeatures(
-    features: string[],
-    environment?: string,
-  ): Promise<IFeatureEnvironment[]> {
-    let rows = this.db(T.featureEnvs)
-      .whereIn('feature_name', features)
-      .orderBy('feature_name', 'asc');
+  async getAllByFeatures(features: string[], environment?: string): Promise<IFeatureEnvironment[]> {
+    let rows = this.db(T.featureEnvs).whereIn('feature_name', features).orderBy('feature_name', 'asc');
     if (environment) {
       rows = rows.where({ environment });
     }
@@ -128,27 +108,18 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     }));
   }
 
-  async disableEnvironmentIfNoStrategies(
-    featureName: string,
-    environment: string,
-  ): Promise<void> {
+  async disableEnvironmentIfNoStrategies(featureName: string, environment: string): Promise<void> {
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM ${T.featureStrategies} WHERE feature_name = ? AND environment = ?) AS enabled`,
       [featureName, environment],
     );
     const { enabled } = result.rows[0];
     if (!enabled) {
-      await this.db(T.featureEnvs)
-        .update({ enabled: false })
-        .where({ feature_name: featureName, environment });
+      await this.db(T.featureEnvs).update({ enabled: false }).where({ feature_name: featureName, environment });
     }
   }
 
-  async addEnvironmentToFeature(
-    featureName: string,
-    environment: string,
-    enabled: boolean = false,
-  ): Promise<void> {
+  async addEnvironmentToFeature(featureName: string, environment: string, enabled: boolean = false): Promise<void> {
     await this.db('feature_environments')
       .insert({ feature_name: featureName, environment, enabled })
       .onConflict(['environment', 'feature_name'])
@@ -156,27 +127,16 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
   }
 
   // TODO: move to project store.
-  async disconnectFeatures(
-    environment: string,
-    project: string,
-  ): Promise<void> {
-    const featureSelector = this.db('features')
-      .where({ project })
-      .select('name');
-    await this.db(T.featureEnvs)
-      .where({ environment })
-      .andWhere('feature_name', 'IN', featureSelector)
-      .del();
+  async disconnectFeatures(environment: string, project: string): Promise<void> {
+    const featureSelector = this.db('features').where({ project }).select('name');
+    await this.db(T.featureEnvs).where({ environment }).andWhere('feature_name', 'IN', featureSelector).del();
     await this.db('feature_strategies').where({
       environment,
       project_name: project,
     });
   }
 
-  async featureHasEnvironment(
-    environment: string,
-    featureName: string,
-  ): Promise<boolean> {
+  async featureHasEnvironment(environment: string, featureName: string): Promise<boolean> {
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM ${T.featureEnvs} WHERE feature_name = ? AND environment = ?)  AS present`,
       [featureName, environment],
@@ -185,13 +145,8 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     return present;
   }
 
-  async getEnvironmentsForFeature(
-    featureName: string,
-  ): Promise<IFeatureEnvironment[]> {
-    const envs = await this.db(T.featureEnvs).where(
-      'feature_name',
-      featureName,
-    );
+  async getEnvironmentsForFeature(featureName: string): Promise<IFeatureEnvironment[]> {
+    const envs = await this.db(T.featureEnvs).where('feature_name', featureName);
     if (envs) {
       return envs.map((r) => ({
         featureName: r.feature_name,
@@ -204,10 +159,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     return [];
   }
 
-  async getEnvironmentMetaData(
-    environment: string,
-    featureName: string,
-  ): Promise<IFeatureEnvironment> {
+  async getEnvironmentMetaData(environment: string, featureName: string): Promise<IFeatureEnvironment> {
     const md = await this.db(T.featureEnvs)
       .where('feature_name', featureName)
       .andWhere('environment', environment)
@@ -222,10 +174,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     throw new NotFoundError(`Could not find ${featureName} in ${environment}`);
   }
 
-  async isEnvironmentEnabled(
-    featureName: string,
-    environment: string,
-  ): Promise<boolean> {
+  async isEnvironmentEnabled(featureName: string, environment: string): Promise<boolean> {
     const row = await this.db(T.featureEnvs)
       .select('enabled')
       .where({ feature_name: featureName, environment })
@@ -233,20 +182,11 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     return row.enabled;
   }
 
-  async removeEnvironmentForFeature(
-    featureName: string,
-    environment: string,
-  ): Promise<void> {
-    await this.db(T.featureEnvs)
-      .where({ feature_name: featureName, environment })
-      .del();
+  async removeEnvironmentForFeature(featureName: string, environment: string): Promise<void> {
+    await this.db(T.featureEnvs).where({ feature_name: featureName, environment }).del();
   }
 
-  async setEnvironmentEnabledStatus(
-    environment: string,
-    featureName: string,
-    enabled: boolean,
-  ): Promise<number> {
+  async setEnvironmentEnabledStatus(environment: string, featureName: string, enabled: boolean): Promise<number> {
     return this.db(T.featureEnvs).update({ enabled }).where({
       environment,
       feature_name: featureName,
@@ -287,13 +227,8 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     }
   }
 
-  async disconnectProject(
-    environment: string,
-    projectId: string,
-  ): Promise<void> {
-    await this.db('project_environments')
-      .where({ environment_name: environment, project_id: projectId })
-      .del();
+  async disconnectProject(environment: string, projectId: string): Promise<void> {
+    await this.db('project_environments').where({ environment_name: environment, project_id: projectId }).del();
   }
 
   async connectFeatureToEnvironmentsForProject(
@@ -333,16 +268,8 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     );
   }
 
-  async addVariantsToFeatureEnvironment(
-    featureName: string,
-    environment: string,
-    variants: IVariant[],
-  ): Promise<void> {
-    return this.setVariantsToFeatureEnvironments(
-      featureName,
-      [environment],
-      variants,
-    );
+  async addVariantsToFeatureEnvironment(featureName: string, environment: string, variants: IVariant[]): Promise<void> {
+    return this.setVariantsToFeatureEnvironments(featureName, [environment], variants);
   }
 
   async setVariantsToFeatureEnvironments(
@@ -359,15 +286,10 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
       feature_name: featureName,
       environment: env,
     }));
-    await this.db(T.featureEnvs)
-      .insert(records)
-      .onConflict(['feature_name', 'environment'])
-      .merge(['variants']);
+    await this.db(T.featureEnvs).insert(records).onConflict(['feature_name', 'environment']).merge(['variants']);
   }
 
-  async addFeatureEnvironment(
-    featureEnvironment: IFeatureEnvironment,
-  ): Promise<void> {
+  async addFeatureEnvironment(featureEnvironment: IFeatureEnvironment): Promise<void> {
     const v = featureEnvironment.variants || [];
     v.sort((a, b) => a.name.localeCompare(b.name));
     await this.db(T.featureEnvs)
@@ -381,29 +303,24 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
       .merge(['variants', 'enabled']);
   }
 
-  async cloneStrategies(
-    sourceEnvironment: string,
-    destinationEnvironment: string,
-  ): Promise<void> {
+  async cloneStrategies(sourceEnvironment: string, destinationEnvironment: string): Promise<void> {
     const sourceFeatureStrategies = await this.db('feature_strategies').where({
       environment: sourceEnvironment,
     });
 
-    const clonedStrategyRows = sourceFeatureStrategies.map(
-      (featureStrategy) => {
-        return {
-          id: uuidv4(),
-          feature_name: featureStrategy.feature_name,
-          project_name: featureStrategy.project_name,
-          environment: destinationEnvironment,
-          strategy_name: featureStrategy.strategy_name,
-          parameters: JSON.stringify(featureStrategy.parameters),
-          constraints: JSON.stringify(featureStrategy.constraints),
-          sort_order: featureStrategy.sort_order,
-          variants: JSON.stringify(featureStrategy.variants),
-        };
-      },
-    );
+    const clonedStrategyRows = sourceFeatureStrategies.map((featureStrategy) => {
+      return {
+        id: uuidv4(),
+        feature_name: featureStrategy.feature_name,
+        project_name: featureStrategy.project_name,
+        environment: destinationEnvironment,
+        strategy_name: featureStrategy.strategy_name,
+        parameters: JSON.stringify(featureStrategy.parameters),
+        constraints: JSON.stringify(featureStrategy.constraints),
+        sort_order: featureStrategy.sort_order,
+        variants: JSON.stringify(featureStrategy.variants),
+      };
+    });
 
     if (clonedStrategyRows.length === 0) {
       return Promise.resolve();
@@ -415,9 +332,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
       newStrategyMapping.set(sourceStrategy.id, clonedStrategyRows[index].id);
     });
 
-    const segmentsToClone: ISegmentRow[] = await this.db(
-      'feature_strategy_segment as fss',
-    )
+    const segmentsToClone: ISegmentRow[] = await this.db('feature_strategy_segment as fss')
       .select(['id', 'segment_id'])
       .join('feature_strategies AS fs', 'fss.feature_strategy_id', 'fs.id')
       .where('environment', sourceEnvironment);

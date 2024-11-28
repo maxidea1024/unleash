@@ -6,10 +6,7 @@ import type {
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 
 export const useCurrentStrategy = (
-  change:
-    | IChangeRequestAddStrategy
-    | IChangeRequestUpdateStrategy
-    | IChangeRequestDeleteStrategy,
+  change: IChangeRequestAddStrategy | IChangeRequestUpdateStrategy | IChangeRequestDeleteStrategy,
   project: string,
   feature: string,
   environmentName: string,
@@ -17,8 +14,6 @@ export const useCurrentStrategy = (
   const { feature: currentFeature } = useFeature(project, feature);
   const currentStrategy = currentFeature?.environments
     .find((environment) => environment.name === environmentName)
-    ?.strategies.find(
-      (strategy) => 'id' in change.payload && strategy.id === change.payload.id,
-    );
+    ?.strategies.find((strategy) => 'id' in change.payload && strategy.id === change.payload.id);
   return currentStrategy;
 };

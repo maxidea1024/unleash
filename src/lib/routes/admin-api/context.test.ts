@@ -141,11 +141,7 @@ test('should update a context field with new legal values', () => {
     .send({
       name: 'environment',
       description: 'Used target application envrionments',
-      legalValues: [
-        { value: 'local' },
-        { value: 'stage' },
-        { value: 'production' },
-      ],
+      legalValues: [{ value: 'local' }, { value: 'stage' }, { value: 'production' }],
     })
     .set('Content-Type', 'application/json')
     .expect(200);
@@ -154,17 +150,11 @@ test('should update a context field with new legal values', () => {
 test('should not delete a unknown context field', () => {
   expect.assertions(0);
 
-  return request
-    .delete(`${base}/api/admin/context/unknown`)
-    .set('Content-Type', 'application/json')
-    .expect(404);
+  return request.delete(`${base}/api/admin/context/unknown`).set('Content-Type', 'application/json').expect(404);
 });
 
 test('should delete a context field', () => {
   expect.assertions(0);
 
-  return request
-    .delete(`${base}/api/admin/context/appName`)
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  return request.delete(`${base}/api/admin/context/appName`).set('Content-Type', 'application/json').expect(200);
 });

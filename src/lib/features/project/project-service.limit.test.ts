@@ -20,8 +20,7 @@ test('Should not allow to exceed project limit on create', async () => {
     },
   } as unknown as IUnleashConfig);
 
-  const createProject = (name: string) =>
-    projectService.createProject({ name }, {} as IUser, {} as IAuditUser);
+  const createProject = (name: string) => projectService.createProject({ name }, {} as IUser, {} as IAuditUser);
 
   await createProject('projectA');
 
@@ -42,15 +41,9 @@ test('Should not allow to exceed project limit on revive', async () => {
   } as unknown as IUnleashConfig);
 
   const createProject = (name: string) =>
-    projectService.createProject(
-      { name, id: name },
-      {} as IUser,
-      {} as IAuditUser,
-    );
-  const archiveProject = (id: string) =>
-    projectService.archiveProject(id, {} as IAuditUser);
-  const reviveProject = (id: string) =>
-    projectService.reviveProject(id, {} as IAuditUser);
+    projectService.createProject({ name, id: name }, {} as IUser, {} as IAuditUser);
+  const archiveProject = (id: string) => projectService.archiveProject(id, {} as IAuditUser);
+  const reviveProject = (id: string) => projectService.reviveProject(id, {} as IAuditUser);
 
   await createProject('projectA');
   await archiveProject('projectA');

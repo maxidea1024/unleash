@@ -3,14 +3,7 @@ import useProjectApiTokensApi from 'hooks/api/actions/useProjectApiTokensApi/use
 import { parseToken } from './parseToken';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import {
-  Box,
-  Button,
-  styled,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, styled, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { SingleSelectConfigButton } from 'component/common/DialogFormTemplate/ConfigButtons/SingleSelectConfigButton';
 import EnvironmentsIcon from '@mui/icons-material/CloudCircle';
 import { ArcherContainer, ArcherElement } from 'react-archer';
@@ -29,9 +22,7 @@ const ChooseEnvironment = ({
   currentEnvironment: string;
   onSelect: (env: string) => void;
 }) => {
-  const longestEnv = Math.max(
-    ...environments.map((environment) => environment.length),
-  );
+  const longestEnv = Math.max(...environments.map((environment) => environment.length));
 
   return (
     <SingleSelectConfigButton
@@ -105,11 +96,7 @@ const TokenExplanation = ({
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
-    <ArcherContainer
-      strokeColor={theme.palette.secondary.border}
-      endMarker={false}
-      lineStyle='curve'
-    >
+    <ArcherContainer strokeColor={theme.palette.secondary.border} endMarker={false} lineStyle='curve'>
       <SecretExplanation>
         <Box sx={{ wordBreak: 'break-all' }}>
           <ArcherElement id='project'>
@@ -152,8 +139,7 @@ const TokenExplanation = ({
               ]}
             >
               <SecretExplanationDescription>
-                The environment this API key can retrieve feature flag
-                configuration from
+                The environment this API key can retrieve feature flag configuration from
               </SecretExplanationDescription>
             </ArcherElement>
             <ArcherElement
@@ -166,9 +152,7 @@ const TokenExplanation = ({
                 },
               ]}
             >
-              <SecretExplanationDescription>
-                The API key secret
-              </SecretExplanationDescription>
+              <SecretExplanationDescription>The API key secret</SecretExplanationDescription>
             </ArcherElement>
           </TokenExplanationBox>
         ) : null}
@@ -197,9 +181,7 @@ export const GenerateApiKey = ({
   const { trackEvent } = usePlausibleTracker();
   const { tokens, refetch: refreshTokens } = useProjectApiTokens(project);
   const { createToken, loading: creatingToken } = useProjectApiTokensApi();
-  const currentEnvironmentToken = tokens.find(
-    (token) => token.environment === environment && token.type === sdkType,
-  );
+  const currentEnvironmentToken = tokens.find((token) => token.environment === environment && token.type === sdkType);
 
   useEffect(() => {
     onApiKey(currentEnvironmentToken?.secret || null);
@@ -244,15 +226,9 @@ export const GenerateApiKey = ({
       </StepperBox>
       <Box sx={{ mt: 2 }}>
         <SectionHeader>Environment</SectionHeader>
-        <SectionDescription>
-          The environment the SDK connects to to retrieve configuration.
-        </SectionDescription>
+        <SectionDescription>The environment the SDK connects to to retrieve configuration.</SectionDescription>
         {environments.length > 0 ? (
-          <ChooseEnvironment
-            environments={environments}
-            currentEnvironment={environment}
-            onSelect={onEnvSelect}
-          />
+          <ChooseEnvironment environments={environments} currentEnvironment={environment} onSelect={onEnvSelect} />
         ) : null}
       </Box>
 
@@ -260,15 +236,13 @@ export const GenerateApiKey = ({
         <SectionHeader>API Key</SectionHeader>
         {parsedToken ? (
           <SectionDescription>
-            Here is your generated API key. We will use it to connect to the{' '}
-            <b>{parsedToken.project}</b> project in the{' '}
+            Here is your generated API key. We will use it to connect to the <b>{parsedToken.project}</b> project in the{' '}
             <b>{parsedToken.environment}</b> environment.
           </SectionDescription>
         ) : (
           <SectionDescription>
-            You currently have no active API keys for this project/environment
-            combination. Generate an API key to proceed with connecting your
-            SDK.
+            You currently have no active API keys for this project/environment combination. Generate an API key to
+            proceed with connecting your SDK.
           </SectionDescription>
         )}
         {parsedToken ? (
@@ -278,11 +252,7 @@ export const GenerateApiKey = ({
             secret={parsedToken.secret}
           />
         ) : (
-          <Button
-            variant='contained'
-            disabled={creatingToken}
-            onClick={generateAPIKey}
-          >
+          <Button variant='contained' disabled={creatingToken} onClick={generateAPIKey}>
             Generate API Key
           </Button>
         )}

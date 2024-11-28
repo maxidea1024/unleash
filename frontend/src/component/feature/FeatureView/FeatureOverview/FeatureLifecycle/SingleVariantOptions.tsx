@@ -14,10 +14,7 @@ export const SingleVariantOptions: FC<{
   parent: string;
   onSelect: (value: string) => void;
 }> = ({ project, parent, onSelect }) => {
-  const { parentVariantOptions: variantOptions } = useParentVariantOptions(
-    project,
-    parent,
-  );
+  const { parentVariantOptions: variantOptions } = useParentVariantOptions(project, parent);
   const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
   const checkedIcon = <CheckBoxIcon fontSize='small' />;
   return (
@@ -26,18 +23,11 @@ export const SingleVariantOptions: FC<{
       options={variantOptions}
       renderOption={(props, option, { selected }) => (
         <li {...props}>
-          <Checkbox
-            icon={icon}
-            checkedIcon={checkedIcon}
-            style={{ marginRight: 8 }}
-            checked={selected}
-          />
+          <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
           {option}
         </li>
       )}
-      renderInput={(params) => (
-        <TextField {...params} placeholder='Select variant' />
-      )}
+      renderInput={(params) => <TextField {...params} placeholder='Select variant' />}
       fullWidth
       onChange={(_, selectedValue) => {
         onSelect(String(selectedValue));

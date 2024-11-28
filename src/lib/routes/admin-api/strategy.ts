@@ -3,32 +3,15 @@ import type { IUnleashServices } from '../../types/services';
 import type StrategyService from '../../services/strategy-service';
 import type { Logger } from '../../logger';
 import Controller from '../controller';
-import {
-  CREATE_STRATEGY,
-  DELETE_STRATEGY,
-  NONE,
-  UPDATE_STRATEGY,
-} from '../../types/permissions';
+import { CREATE_STRATEGY, DELETE_STRATEGY, NONE, UPDATE_STRATEGY } from '../../types/permissions';
 import type { Request, Response } from 'express';
 import type { IAuthRequest } from '../unleash-types';
 import type { OpenApiService } from '../../services/openapi-service';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
-import {
-  createResponseSchema,
-  resourceCreatedResponseSchema,
-} from '../../openapi/util/create-response-schema';
-import {
-  strategySchema,
-  type StrategySchema,
-} from '../../openapi/spec/strategy-schema';
-import {
-  strategiesSchema,
-  type StrategiesSchema,
-} from '../../openapi/spec/strategies-schema';
+import { createResponseSchema, resourceCreatedResponseSchema } from '../../openapi/util/create-response-schema';
+import { strategySchema, type StrategySchema } from '../../openapi/spec/strategy-schema';
+import { strategiesSchema, type StrategiesSchema } from '../../openapi/spec/strategies-schema';
 import type { CreateStrategySchema } from '../../openapi/spec/create-strategy-schema';
 import type { UpdateStrategySchema } from '../../openapi/spec/update-strategy-schema';
 
@@ -41,10 +24,7 @@ export default class StrategyController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      strategyService,
-      openApiService,
-    }: Pick<IUnleashServices, 'strategyService' | 'openApiService'>,
+    { strategyService, openApiService }: Pick<IUnleashServices, 'strategyService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -81,8 +61,7 @@ export default class StrategyController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Get a strategy definition',
-          description:
-            'Retrieves the definition of the strategy specified in the URL',
+          description: 'Retrieves the definition of the strategy specified in the URL',
           tags: ['Strategies'],
           operationId: 'getStrategy',
           responses: {
@@ -198,10 +177,7 @@ export default class StrategyController extends Controller {
     });
   }
 
-  async getAllStrategies(
-    req: Request,
-    res: Response<StrategiesSchema>,
-  ): Promise<void> {
+  async getAllStrategies(req: Request, res: Response<StrategiesSchema>): Promise<void> {
     const strategies = await this.strategyService.getStrategies();
 
     this.openApiService.respondWithValidation(200, res, strategiesSchema.$id, {
@@ -210,18 +186,10 @@ export default class StrategyController extends Controller {
     });
   }
 
-  async getStrategy(
-    req: Request,
-    res: Response<StrategySchema>,
-  ): Promise<void> {
+  async getStrategy(req: Request, res: Response<StrategySchema>): Promise<void> {
     const strategy = await this.strategyService.getStrategy(req.params.name);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      strategySchema.$id,
-      strategy,
-    );
+    this.openApiService.respondWithValidation(200, res, strategySchema.$id, strategy);
   }
 
   async removeStrategy(req: IAuthRequest, res: Response): Promise<void> {
@@ -238,36 +206,20 @@ export default class StrategyController extends Controller {
   ): Promise<void> {
     // const userName = extractUsername(req);
 
-    const strategy = await this.strategyService.createStrategy(
-      req.body,
-      req.audit,
-    );
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      strategySchema.$id,
-      strategy,
-      { location: `strategies/${strategy.name}` },
-    );
+    const strategy = await this.strategyService.createStrategy(req.body, req.audit);
+    this.openApiService.respondWithValidation(201, res, strategySchema.$id, strategy, {
+      location: `strategies/${strategy.name}`,
+    });
   }
 
-  async updateStrategy(
-    req: IAuthRequest<{ name: string }, UpdateStrategySchema>,
-    res: Response<void>,
-  ): Promise<void> {
+  async updateStrategy(req: IAuthRequest<{ name: string }, UpdateStrategySchema>, res: Response<void>): Promise<void> {
     // const userName = extractUsername(req);
 
-    await this.strategyService.updateStrategy(
-      { ...req.body, name: req.params.name },
-      req.audit,
-    );
+    await this.strategyService.updateStrategy({ ...req.body, name: req.params.name }, req.audit);
     res.status(200).end();
   }
 
-  async deprecateStrategy(
-    req: IAuthRequest,
-    res: Response<void>,
-  ): Promise<void> {
+  async deprecateStrategy(req: IAuthRequest, res: Response<void>): Promise<void> {
     // const userName = extractUsername(req);
     const { strategyName } = req.params;
 
@@ -275,10 +227,7 @@ export default class StrategyController extends Controller {
     res.status(200).end();
   }
 
-  async reactivateStrategy(
-    req: IAuthRequest,
-    res: Response<void>,
-  ): Promise<void> {
+  async reactivateStrategy(req: IAuthRequest, res: Response<void>): Promise<void> {
     // const userName = extractUsername(req);
     const { strategyName } = req.params;
 

@@ -12,12 +12,7 @@ import IncompatibleProjectError from '../../error/incompatible-project-error';
 import type { ApiTokenService, EventService } from '../../services';
 import { FeatureEnvironmentEvent } from '../../types/events';
 import { addDays, subDays } from 'date-fns';
-import {
-  createAccessService,
-  createEventsService,
-  createFeatureToggleService,
-  createProjectService,
-} from '../index';
+import { createAccessService, createEventsService, createFeatureToggleService, createProjectService } from '../index';
 import {
   type IAuditUser,
   type IGroup,
@@ -48,14 +43,8 @@ let apiTokenService: ApiTokenService;
 let opsUser: IUser;
 let group: IGroup;
 
-const isProjectUser = async (
-  userId: number,
-  projectName: string,
-  condition: boolean,
-) => {
-  expect(await projectService.isProjectUser(userId, projectName)).toBe(
-    condition,
-  );
+const isProjectUser = async (userId: number, projectName: string, condition: boolean) => {
+  expect(await projectService.isProjectUser(userId, projectName)).toBe(condition);
 };
 
 beforeAll(async () => {
@@ -211,9 +200,7 @@ test('should not be able to delete project with flags', async () => {
   try {
     await projectService.deleteProject(project.id, user, auditUser);
   } catch (err) {
-    expect(err.message).toBe(
-      'You can not delete a project with active feature flags',
-    );
+    expect(err.message).toBe('You can not delete a project with active feature flags');
   }
 });
 
@@ -316,9 +303,7 @@ test('should archive project', async () => {
   const archivedProjects = await projectService.getProjects({
     archived: true,
   });
-  expect(archivedProjects).toMatchObject([
-    { id: 'test-archive', archivedAt: expect.any(Date) },
-  ]);
+  expect(archivedProjects).toMatchObject([{ id: 'test-archive', archivedAt: expect.any(Date) }]);
 
   const archivedProject = await projectService.getProject(project.id);
   expect(archivedProject).toMatchObject({ archivedAt: expect.any(Date) });
@@ -334,9 +319,7 @@ test('archive project removes it from user projects', async () => {
   };
   await projectService.createProject(project, user, TEST_AUDIT_USER);
 
-  const userProjectsBeforeArchive = await projectService.getProjectsByUser(
-    user.id,
-  );
+  const userProjectsBeforeArchive = await projectService.getProjectsByUser(user.id);
   expect(userProjectsBeforeArchive).toEqual(['test-user-archive']);
 
   await projectService.archiveProject(project.id, TEST_AUDIT_USER);
@@ -382,9 +365,7 @@ test('should not be able to archive project with flags', async () => {
   try {
     await projectService.archiveProject(project.id, auditUser);
   } catch (err) {
-    expect(err.message).toBe(
-      'You can not archive a project with active feature flags',
-    );
+    expect(err.message).toBe('You can not archive a project with active feature flags');
   }
 });
 
@@ -473,18 +454,8 @@ test('should add a member user to the project', async () => {
 
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember2.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
+  await projectService.addUser(project.id, memberRole.id, projectMember2.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
   const memberUsers = users.filter((u) => u.roleId === memberRole.id);
@@ -522,8 +493,7 @@ describe('Managing Project access', () => {
     const customRole = await stores.roleStore.create({
       name: 'my_custom_role_admin_user',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role when you are admin',
+      description: 'Used to prove that you can assign a role when you are admin',
     });
     const projectUserAdmin = await stores.userStore.insert({
       name: 'Some project user',
@@ -532,13 +502,7 @@ describe('Managing Project access', () => {
     const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
 
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id, ownerRole.id],
-        [],
-        [projectUserAdmin.id],
-        auditUser,
-      ),
+      projectService.addAccess(project.id, [customRole.id, ownerRole.id], [], [projectUserAdmin.id], auditUser),
     ).resolves.not.toThrow();
   });
 
@@ -554,11 +518,7 @@ describe('Managing Project access', () => {
       name: 'admin_group',
       rootRole: adminRole.id,
     });
-    await stores.groupStore.addUsersToGroup(
-      adminGroup.id,
-      [{ user: { id: viewerUser.id } }],
-      opsUser.username!,
-    );
+    await stores.groupStore.addUsersToGroup(adminGroup.id, [{ user: { id: viewerUser.id } }], opsUser.username!);
 
     const project = {
       id: 'some-project',
@@ -571,8 +531,7 @@ describe('Managing Project access', () => {
     const customRole = await stores.roleStore.create({
       name: 'my_custom_project_role_admin_user',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role when you are admin',
+      description: 'Used to prove that you can assign a role when you are admin',
     });
 
     await expect(
@@ -604,25 +563,14 @@ describe('Managing Project access', () => {
       email: 'some_project_customer@example.com',
     });
     const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
-    await accessService.addUserToRole(
-      projectAdmin.id,
-      ownerRole.id,
-      project.id,
-    );
+    await accessService.addUserToRole(projectAdmin.id, ownerRole.id, project.id);
     const customRole = await stores.roleStore.create({
       name: 'my_custom_project_role',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role the project owner does not have',
+      description: 'Used to prove that you can assign a role the project owner does not have',
     });
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id],
-        [],
-        [projectCustomer.id],
-        auditUser,
-      ),
+      projectService.addAccess(project.id, [customRole.id], [], [projectCustomer.id], auditUser),
     ).resolves.not.toThrow();
   });
   test('Users with project role should only be allowed to grant same role to others', async () => {
@@ -646,37 +594,16 @@ describe('Managing Project access', () => {
     const customRole = await stores.roleStore.create({
       name: 'my_custom_role_project_role',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role the project owner does not have',
+      description: 'Used to prove that you can assign a role the project owner does not have',
     });
-    await accessService.addUserToRole(
-      projectUser.id,
-      customRole.id,
-      project.id,
-    );
+    await accessService.addUserToRole(projectUser.id, customRole.id, project.id);
     const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id],
-        [],
-        [secondUser.id],
-        projectAuditUser,
-      ),
+      projectService.addAccess(project.id, [customRole.id], [], [secondUser.id], projectAuditUser),
     ).resolves.not.toThrow();
     await expect(async () =>
-      projectService.addAccess(
-        project.id,
-        [ownerRole.id],
-        [],
-        [secondUser.id],
-        projectAuditUser,
-      ),
-    ).rejects.toThrow(
-      new InvalidOperationError(
-        'User tried to grant role they did not have access to',
-      ),
-    );
+      projectService.addAccess(project.id, [ownerRole.id], [], [secondUser.id], projectAuditUser),
+    ).rejects.toThrow(new InvalidOperationError('User tried to grant role they did not have access to'));
   });
   test('Users that are members of a group with project role should only be allowed to grant same role to others', async () => {
     const project = {
@@ -695,11 +622,7 @@ describe('Managing Project access', () => {
     const group = await stores.groupStore.create({
       name: 'custom_group_for_role_access',
     });
-    await stores.groupStore.addUsersToGroup(
-      group.id,
-      [{ user: { id: projectUser.id } }],
-      opsUser.username!,
-    );
+    await stores.groupStore.addUsersToGroup(group.id, [{ user: { id: projectUser.id } }], opsUser.username!);
     const secondUser = await stores.userStore.insert({
       name: 'Some other user',
       email: 'otheruser_from_group_members@example.com',
@@ -707,50 +630,22 @@ describe('Managing Project access', () => {
     const customRole = await stores.roleStore.create({
       name: 'my_custom_role_from_group_members',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role via a group membership',
+      description: 'Used to prove that you can assign a role via a group membership',
     });
-    await accessService.addGroupToRole(
-      group.id,
-      customRole.id,
-      opsUser.username!,
-      project.id,
-    );
+    await accessService.addGroupToRole(group.id, customRole.id, opsUser.username!, project.id);
     const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
     const otherGroup = await stores.groupStore.create({
       name: 'custom_group_to_receive_new_access',
     });
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id],
-        [],
-        [secondUser.id],
-        projectAuditUser,
-      ),
+      projectService.addAccess(project.id, [customRole.id], [], [secondUser.id], projectAuditUser),
     ).resolves.not.toThrow();
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id],
-        [otherGroup.id],
-        [],
-        projectAuditUser,
-      ),
+      projectService.addAccess(project.id, [customRole.id], [otherGroup.id], [], projectAuditUser),
     ).resolves.not.toThrow();
     await expect(
-      projectService.addAccess(
-        project.id,
-        [ownerRole.id],
-        [],
-        [secondUser.id],
-        projectAuditUser,
-      ),
-    ).rejects.toThrow(
-      new InvalidOperationError(
-        'User tried to grant role they did not have access to',
-      ),
-    );
+      projectService.addAccess(project.id, [ownerRole.id], [], [secondUser.id], projectAuditUser),
+    ).rejects.toThrow(new InvalidOperationError('User tried to grant role they did not have access to'));
   });
   test('Users can assign roles they have to a group', async () => {
     const project = {
@@ -771,27 +666,12 @@ describe('Managing Project access', () => {
     const customRole = await stores.roleStore.create({
       name: 'role_assigned_to_group',
       roleType: 'custom',
-      description:
-        'Used to prove that you can assign a role via a group membership',
+      description: 'Used to prove that you can assign a role via a group membership',
     });
-    await accessService.addUserToRole(
-      projectUser.id,
-      customRole.id,
-      project.id,
-    );
+    await accessService.addUserToRole(projectUser.id, customRole.id, project.id);
     await expect(
-      projectService.addAccess(
-        project.id,
-        [customRole.id],
-        [secondGroup.id],
-        [],
-        auditUser,
-      ),
-    ).resolves.not.toThrow(
-      new InvalidOperationError(
-        'User tried to assign a role they did not have access to',
-      ),
-    );
+      projectService.addAccess(project.id, [customRole.id], [secondGroup.id], [], auditUser),
+    ).resolves.not.toThrow(new InvalidOperationError('User tried to assign a role they did not have access to'));
   });
 
   test('Users can not assign roles where they do not hold the same permissions', async () => {
@@ -847,44 +727,21 @@ describe('Managing Project access', () => {
       SYSTEM_USER_AUDIT,
     );
 
-    await projectService.setRolesForUser(
-      project.id,
-      projectUser.id,
-      [customRoleUserAccess.id],
-      auditUser,
-    );
+    await projectService.setRolesForUser(project.id, projectUser.id, [customRoleUserAccess.id], auditUser);
 
     const auditProjectUser = extractAuditInfoFromUser(projectUser);
 
     await expect(
-      projectService.setRolesForUser(
-        project.id,
-        secondUser.id,
-        [customRoleUpdateEnvironments.id],
-        auditProjectUser,
-      ),
-    ).rejects.toThrow(
-      new InvalidOperationError(
-        'User tried to assign a role they did not have access to',
-      ),
-    );
+      projectService.setRolesForUser(project.id, secondUser.id, [customRoleUpdateEnvironments.id], auditProjectUser),
+    ).rejects.toThrow(new InvalidOperationError('User tried to assign a role they did not have access to'));
 
     const group = await stores.groupStore.create({
       name: 'Some group_awaiting_role',
     });
 
     await expect(
-      projectService.setRolesForGroup(
-        project.id,
-        group.id,
-        [customRoleUpdateEnvironments.id],
-        auditProjectUser,
-      ),
-    ).rejects.toThrow(
-      new InvalidOperationError(
-        'User tried to assign a role they did not have access to',
-      ),
-    );
+      projectService.setRolesForGroup(project.id, group.id, [customRoleUpdateEnvironments.id], auditProjectUser),
+    ).rejects.toThrow(new InvalidOperationError('User tried to assign a role they did not have access to'));
   });
 });
 
@@ -909,18 +766,8 @@ test('should add admin users to the project', async () => {
 
   const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
 
-  await projectService.addUser(
-    project.id,
-    ownerRole.id,
-    projectAdmin1.id,
-    auditUser,
-  );
-  await projectService.addUser(
-    project.id,
-    ownerRole.id,
-    projectAdmin2.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, ownerRole.id, projectAdmin1.id, auditUser);
+  await projectService.addUser(project.id, ownerRole.id, projectAdmin2.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
 
@@ -953,23 +800,11 @@ test('add user should fail if user already have access', async () => {
 
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
 
   await expect(async () =>
-    projectService.addUser(
-      project.id,
-      memberRole.id,
-      projectMember1.id,
-      auditUser,
-    ),
-  ).rejects.toThrow(
-    new Error('User already has access to project=add-users-twice'),
-  );
+    projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser),
+  ).rejects.toThrow(new Error('User already has access to project=add-users-twice'));
 });
 
 test('should remove user from the project', async () => {
@@ -989,18 +824,8 @@ test('should remove user from the project', async () => {
 
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
-  await projectService.removeUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
+  await projectService.removeUser(project.id, memberRole.id, projectMember1.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
   const memberUsers = users.filter((u) => u.roleId === memberRole.id);
@@ -1023,13 +848,7 @@ test('should not change project if feature flag project does not match current p
   await featureToggleService.createFeatureToggle(project.id, flag, auditUser);
 
   try {
-    await projectService.changeProject(
-      'newProject',
-      flag.name,
-      user,
-      'wrong-project-id',
-      auditUser,
-    );
+    await projectService.changeProject('newProject', flag.name, user, 'wrong-project-id', auditUser);
   } catch (err) {
     expect(err.message.toLowerCase().includes('permission')).toBeTruthy();
     expect(err.message.includes(MOVE_FEATURE_TOGGLE)).toBeTruthy();
@@ -1051,17 +870,9 @@ test('should return 404 if no active project is found with the project id', asyn
   await featureToggleService.createFeatureToggle(project.id, flag, auditUser);
 
   try {
-    await projectService.changeProject(
-      'newProject',
-      flag.name,
-      user,
-      project.id,
-      auditUser,
-    );
+    await projectService.changeProject('newProject', flag.name, user, project.id, auditUser);
   } catch (err) {
-    expect(err.message).toBe(
-      `Active project with id newProject does not exist`,
-    );
+    expect(err.message).toBe(`Active project with id newProject does not exist`);
   }
 
   const newProject = {
@@ -1074,17 +885,9 @@ test('should return 404 if no active project is found with the project id', asyn
   await projectService.createProject(newProject, user, auditUser);
   await projectService.archiveProject(newProject.id, TEST_AUDIT_USER);
   try {
-    await projectService.changeProject(
-      'newProject',
-      flag.name,
-      user,
-      project.id,
-      auditUser,
-    );
+    await projectService.changeProject('newProject', flag.name, user, project.id, auditUser);
   } catch (err) {
-    expect(err.message).toBe(
-      `Active project with id newProject does not exist`,
-    );
+    expect(err.message).toBe(`Active project with id newProject does not exist`);
   }
 });
 
@@ -1112,21 +915,11 @@ test('should fail if user is not authorized', async () => {
   });
 
   await projectService.createProject(project, user, auditUser);
-  await projectService.createProject(
-    projectDestination,
-    projectAdmin1,
-    auditUser,
-  );
+  await projectService.createProject(projectDestination, projectAdmin1, auditUser);
   await featureToggleService.createFeatureToggle(project.id, flag, auditUser);
 
   try {
-    await projectService.changeProject(
-      projectDestination.id,
-      flag.name,
-      user,
-      project.id,
-      auditUser,
-    );
+    await projectService.changeProject(projectDestination.id, flag.name, user, project.id, auditUser);
   } catch (err) {
     expect(err.message.toLowerCase().includes('permission')).toBeTruthy();
     expect(err.message.includes(MOVE_FEATURE_TOGGLE)).toBeTruthy();
@@ -1151,13 +944,7 @@ test('should change project when checks pass', async () => {
   await projectService.createProject(projectA, user, auditUser);
   await projectService.createProject(projectB, user, auditUser);
   await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
-  await projectService.changeProject(
-    projectB.id,
-    flag.name,
-    user,
-    projectA.id,
-    auditUser,
-  );
+  await projectService.changeProject(projectB.id, flag.name, user, projectA.id, auditUser);
 
   const updatedFeature = await featureToggleService.getFeature({
     featureName: flag.name,
@@ -1183,13 +970,7 @@ test('changing project should emit event even if user does not have a username s
   await projectService.createProject(projectB, user, auditUser);
   await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
   const eventsBeforeChange = await stores.eventStore.getEvents();
-  await projectService.changeProject(
-    projectB.id,
-    flag.name,
-    user,
-    projectA.id,
-    auditUser,
-  );
+  await projectService.changeProject(projectB.id, flag.name, user, projectA.id, auditUser);
   const eventsAfterChange = await stores.eventStore.getEvents();
   expect(eventsAfterChange.length).toBe(eventsBeforeChange.length + 1);
 }, 10000);
@@ -1214,20 +995,10 @@ test('should require equal project environments to move features', async () => {
   await projectService.createProject(projectB, user, auditUser);
   await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
   await stores.environmentStore.create(environment);
-  await environmentService.addEnvironmentToProject(
-    environment.name,
-    projectB.id,
-    auditUser,
-  );
+  await environmentService.addEnvironmentToProject(environment.name, projectB.id, auditUser);
 
   await expect(() =>
-    projectService.changeProject(
-      projectB.id,
-      flag.name,
-      user,
-      projectA.id,
-      auditUser,
-    ),
+    projectService.changeProject(projectB.id, flag.name, user, projectA.id, auditUser),
   ).rejects.toThrowError(IncompatibleProjectError);
 });
 
@@ -1252,9 +1023,7 @@ test('A newly created project only gets connected to enabled environments', asyn
   });
 
   await projectService.createProject(project, user, auditUser);
-  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(
-    project.id,
-  );
+  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(project.id);
   expect(connectedEnvs).toHaveLength(2); // default, connection_test
   expect(connectedEnvs.some((e) => e.environment === enabledEnv)).toBeTruthy();
   expect(connectedEnvs.some((e) => e.environment === disabledEnv)).toBeFalsy();
@@ -1294,17 +1063,9 @@ test('should have environments sorted in order', async () => {
   });
 
   await projectService.createProject(project, user, auditUser);
-  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(
-    project.id,
-  );
+  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(project.id);
 
-  expect(connectedEnvs.map((e) => e.environment)).toEqual([
-    'default',
-    first,
-    second,
-    third,
-    fourth,
-  ]);
+  expect(connectedEnvs.map((e) => e.environment)).toEqual(['default', first, second, third, fourth]);
 });
 
 test('should add a user to the project with a custom role', async () => {
@@ -1339,12 +1100,7 @@ test('should add a user to the project with a custom role', async () => {
     SYSTEM_USER_AUDIT,
   );
 
-  await projectService.addUser(
-    project.id,
-    customRole.id,
-    projectMember1.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, customRole.id, projectMember1.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
 
@@ -1438,34 +1194,17 @@ test('should change a users role in the project', async () => {
   );
   const member = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-  await projectService.addUser(
-    project.id,
-    member.id,
-    projectUser.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, member.id, projectUser.id, auditUser);
   const { users } = await projectService.getAccessToProject(project.id);
   const memberUser = users.filter((u) => u.roleId === member.id);
 
   expect(memberUser).toHaveLength(1);
   expect(memberUser[0].id).toBe(projectUser.id);
   expect(memberUser[0].name).toBe(projectUser.name);
-  await projectService.removeUser(
-    project.id,
-    member.id,
-    projectUser.id,
-    auditUser,
-  );
-  await projectService.addUser(
-    project.id,
-    customRole.id,
-    projectUser.id,
-    auditUser,
-  );
+  await projectService.removeUser(project.id, member.id, projectUser.id, auditUser);
+  await projectService.addUser(project.id, customRole.id, projectUser.id, auditUser);
 
-  const { users: updatedUsers } = await projectService.getAccessToProject(
-    project.id,
-  );
+  const { users: updatedUsers } = await projectService.getAccessToProject(project.id);
   const customUser = updatedUsers.filter((u) => u.roleId === customRole.id);
 
   expect(customUser).toHaveLength(1);
@@ -1491,18 +1230,8 @@ test('should update role for user on project', async () => {
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
   const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
 
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
-  await projectService.changeRole(
-    project.id,
-    ownerRole.id,
-    projectMember1.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
+  await projectService.changeRole(project.id, ownerRole.id, projectMember1.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
   const memberUsers = users.filter((u) => u.roleId === memberRole.id);
@@ -1535,18 +1264,8 @@ test('should able to assign role without existing members', async () => {
 
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-  await projectService.addUser(
-    project.id,
-    memberRole.id,
-    projectMember1.id,
-    auditUser,
-  );
-  await projectService.changeRole(
-    project.id,
-    testRole.id,
-    projectMember1.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
+  await projectService.changeRole(project.id, testRole.id, projectMember1.id, auditUser);
 
   const { users } = await projectService.getAccessToProject(project.id);
   const memberUsers = users.filter((u) => u.roleId === memberRole.id);
@@ -1571,21 +1290,12 @@ describe('ensure project has at least one owner', () => {
     const ownerRole = roles.find((r) => r.name === RoleName.OWNER)!;
 
     await expect(async () => {
-      await projectService.removeUser(
-        project.id,
-        ownerRole.id,
-        user.id,
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.removeUser(project.id, ownerRole.id, user.id, auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
 
     await expect(async () => {
       await projectService.removeUserAccess(project.id, user.id, auditUser);
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
   });
 
   test('should be able to remove member user from the project when another is owner', async () => {
@@ -1605,13 +1315,7 @@ describe('ensure project has at least one owner', () => {
       email: 'member@getunleash.io',
     });
 
-    await projectService.addAccess(
-      project.id,
-      [memberRole.id],
-      [],
-      [memberUser.id],
-      auditUser,
-    );
+    await projectService.addAccess(project.id, [memberRole.id], [], [memberUser.id], auditUser);
 
     const usersBefore = await projectService.getProjectUsers(project.id);
     await projectService.removeUserAccess(project.id, memberUser.id, auditUser);
@@ -1637,34 +1341,15 @@ describe('ensure project has at least one owner', () => {
 
     const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
-    await projectService.addUser(
-      project.id,
-      memberRole.id,
-      projectMember1.id,
-      auditUser,
-    );
+    await projectService.addUser(project.id, memberRole.id, projectMember1.id, auditUser);
 
     await expect(async () => {
-      await projectService.changeRole(
-        project.id,
-        memberRole.id,
-        user.id,
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.changeRole(project.id, memberRole.id, user.id, auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
 
     await expect(async () => {
-      await projectService.setRolesForUser(
-        project.id,
-        user.id,
-        [memberRole.id],
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.setRolesForUser(project.id, user.id, [memberRole.id], auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
   });
 
   async function projectWithGroupOwner(projectId: string) {
@@ -1680,21 +1365,11 @@ describe('ensure project has at least one owner', () => {
     const roles = await stores.roleStore.getRolesForProject(project.id);
     const ownerRole = roles.find((r) => r.name === RoleName.OWNER)!;
 
-    await projectService.addGroup(
-      project.id,
-      ownerRole.id,
-      group.id,
-      auditUser,
-    );
+    await projectService.addGroup(project.id, ownerRole.id, group.id, auditUser);
 
     // this should be fine, leaving the group as the only owner
     // note group has zero members, but it still acts as an owner
-    await projectService.removeUser(
-      project.id,
-      ownerRole.id,
-      user.id,
-      auditUser,
-    );
+    await projectService.removeUser(project.id, ownerRole.id, user.id, auditUser);
 
     return {
       project,
@@ -1704,55 +1379,28 @@ describe('ensure project has at least one owner', () => {
   }
 
   test('should not remove group from the project', async () => {
-    const { project, group, ownerRole } = await projectWithGroupOwner(
-      'remove-group-not-allowed',
-    );
+    const { project, group, ownerRole } = await projectWithGroupOwner('remove-group-not-allowed');
 
     await expect(async () => {
-      await projectService.removeGroup(
-        project.id,
-        ownerRole.id,
-        group.id,
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.removeGroup(project.id, ownerRole.id, group.id, auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
 
     await expect(async () => {
       await projectService.removeGroupAccess(project.id, group.id, auditUser);
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
   });
 
   test('should not update role for group on project when she is the owner', async () => {
-    const { project, group } = await projectWithGroupOwner(
-      'update-group-not-allowed',
-    );
+    const { project, group } = await projectWithGroupOwner('update-group-not-allowed');
     const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
     await expect(async () => {
-      await projectService.changeGroupRole(
-        project.id,
-        memberRole.id,
-        group.id,
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.changeGroupRole(project.id, memberRole.id, group.id, auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
 
     await expect(async () => {
-      await projectService.setRolesForGroup(
-        project.id,
-        group.id,
-        [memberRole.id],
-        auditUser,
-      );
-    }).rejects.toThrowError(
-      new Error('A project must have at least one owner'),
-    );
+      await projectService.setRolesForGroup(project.id, group.id, [memberRole.id], auditUser);
+    }).rejects.toThrowError(new Error('A project must have at least one owner'));
   });
 });
 
@@ -1789,19 +1437,9 @@ test('Should allow bulk update of group permissions', async () => {
     },
     SYSTEM_USER_AUDIT,
   );
-  await stores.accessStore.addUserToRole(
-    opsUser.id,
-    createFeatureRole.id,
-    project.id,
-  );
+  await stores.accessStore.addUserToRole(opsUser.id, createFeatureRole.id, project.id);
 
-  await projectService.addAccess(
-    project.id,
-    [createFeatureRole.id],
-    [group1.id],
-    [user1.id],
-    auditUser,
-  );
+  await projectService.addAccess(project.id, [createFeatureRole.id], [group1.id], [user1.id], auditUser);
 });
 
 test('Should bulk update of only users', async () => {
@@ -1826,13 +1464,7 @@ test('Should bulk update of only users', async () => {
     SYSTEM_USER_AUDIT,
   );
   const auditUserFromOps = extractAuditInfoFromUser(opsUser);
-  await projectService.addAccess(
-    project,
-    [createFeatureRole.id],
-    [],
-    [user1.id],
-    auditUserFromOps,
-  );
+  await projectService.addAccess(project, [createFeatureRole.id], [], [user1.id], auditUserFromOps);
 });
 
 test('Should allow bulk update of only groups', async () => {
@@ -1865,13 +1497,7 @@ test('Should allow bulk update of only groups', async () => {
     SYSTEM_USER_AUDIT,
   );
 
-  await projectService.addAccess(
-    project.id,
-    [createFeatureRole.id],
-    [group1.id],
-    [],
-    auditUser,
-  );
+  await projectService.addAccess(project.id, [createFeatureRole.id], [group1.id], [], auditUser);
 });
 
 test('Should allow permutations of roles, groups and users when adding a new access', async () => {
@@ -2002,17 +1628,11 @@ test('should list projects with all features archived', async () => {
 });
 
 const updateEventCreatedAt = async (date: Date, featureName: string) => {
-  return db.rawDatabase
-    .table('events')
-    .update({ created_at: date })
-    .where({ feature_name: featureName });
+  return db.rawDatabase.table('events').update({ created_at: date }).where({ feature_name: featureName });
 };
 
 const updateFeature = async (featureName: string, update: any) => {
-  return db.rawDatabase
-    .table('features')
-    .update(update)
-    .where({ name: featureName });
+  return db.rawDatabase.table('features').update(update).where({ name: featureName });
 };
 
 test('should calculate average time to production', async () => {
@@ -2035,11 +1655,7 @@ test('should calculate average time to production', async () => {
 
   const featureFlags = await Promise.all(
     flags.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project.id, flag, auditUser);
     }),
   );
 
@@ -2059,11 +1675,7 @@ test('should calculate average time to production', async () => {
 
   await updateEventCreatedAt(subDays(new Date(), 31), 'average-prod-time-5');
 
-  await Promise.all(
-    featureFlags.map((flag) =>
-      updateFeature(flag.name, { created_at: subDays(new Date(), 15) }),
-    ),
-  );
+  await Promise.all(featureFlags.map((flag) => updateFeature(flag.name, { created_at: subDays(new Date(), 15) })));
 
   await updateFeature('average-prod-time-5', {
     created_at: subDays(new Date(), 33),
@@ -2094,11 +1706,7 @@ test('should calculate average time to production ignoring some items', async ()
     name: 'customEnv',
     type: 'development',
   });
-  await environmentService.addEnvironmentToProject(
-    'customEnv',
-    project.id,
-    SYSTEM_USER_AUDIT,
-  );
+  await environmentService.addEnvironmentToProject('customEnv', project.id, SYSTEM_USER_AUDIT);
 
   // actual flag we take for calculations
   const flag = { name: 'main-flag' };
@@ -2106,22 +1714,14 @@ test('should calculate average time to production ignoring some items', async ()
   await updateFeature(flag.name, {
     created_at: subDays(new Date(), 20),
   });
-  await eventService.storeEvent(
-    new FeatureEnvironmentEvent(makeEvent(flag.name)),
-  );
+  await eventService.storeEvent(new FeatureEnvironmentEvent(makeEvent(flag.name)));
   // ignore events added after first enabled
   await updateEventCreatedAt(addDays(new Date(), 1), flag.name);
-  await eventService.storeEvent(
-    new FeatureEnvironmentEvent(makeEvent(flag.name)),
-  );
+  await eventService.storeEvent(new FeatureEnvironmentEvent(makeEvent(flag.name)));
 
   // ignore flags enabled in non-prod envs
   const devFlag = { name: 'dev-flag' };
-  await featureToggleService.createFeatureToggle(
-    project.id,
-    devFlag,
-    auditUser,
-  );
+  await featureToggleService.createFeatureToggle(project.id, devFlag, auditUser);
   await eventService.storeEvent(
     new FeatureEnvironmentEvent({
       ...makeEvent(devFlag.name),
@@ -2131,40 +1731,19 @@ test('should calculate average time to production ignoring some items', async ()
 
   // ignore flags from other projects
   const otherProjectFlag = { name: 'other-project' };
-  await featureToggleService.createFeatureToggle(
-    'default',
-    otherProjectFlag,
-    auditUser,
-  );
-  await eventService.storeEvent(
-    new FeatureEnvironmentEvent(makeEvent(otherProjectFlag.name)),
-  );
+  await featureToggleService.createFeatureToggle('default', otherProjectFlag, auditUser);
+  await eventService.storeEvent(new FeatureEnvironmentEvent(makeEvent(otherProjectFlag.name)));
 
   // ignore non-release flags
   const nonReleaseFlag = { name: 'permission-flag', type: 'permission' };
-  await featureToggleService.createFeatureToggle(
-    project.id,
-    nonReleaseFlag,
-    auditUser,
-  );
-  await eventService.storeEvent(
-    new FeatureEnvironmentEvent(makeEvent(nonReleaseFlag.name)),
-  );
+  await featureToggleService.createFeatureToggle(project.id, nonReleaseFlag, auditUser);
+  await eventService.storeEvent(new FeatureEnvironmentEvent(makeEvent(nonReleaseFlag.name)));
 
   // ignore flags with events before flag creation time
   const previouslyDeleteFlag = { name: 'previously-deleted' };
-  await featureToggleService.createFeatureToggle(
-    project.id,
-    previouslyDeleteFlag,
-    auditUser,
-  );
-  await eventService.storeEvent(
-    new FeatureEnvironmentEvent(makeEvent(previouslyDeleteFlag.name)),
-  );
-  await updateEventCreatedAt(
-    subDays(new Date(), 30),
-    previouslyDeleteFlag.name,
-  );
+  await featureToggleService.createFeatureToggle(project.id, previouslyDeleteFlag, auditUser);
+  await eventService.storeEvent(new FeatureEnvironmentEvent(makeEvent(previouslyDeleteFlag.name)));
+  await updateEventCreatedAt(subDays(new Date(), 30), previouslyDeleteFlag.name);
 
   const result = await projectService.getStatusUpdates(project.id);
   expect(result.updates.avgTimeToProdCurrentWindow).toBe(20);
@@ -2189,11 +1768,7 @@ test('should get correct amount of features created in current and past window',
 
   await Promise.all(
     flags.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project.id, flag, auditUser);
     }),
   );
 
@@ -2226,11 +1801,7 @@ test('should get correct amount of features archived in current and past window'
 
   await Promise.all(
     flags.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project.id, flag, auditUser);
     }),
   );
 
@@ -2272,20 +1843,11 @@ test('should get correct amount of project members for current and past window',
     { name: 'memberFive', email: 'memberFive@getunleash.io' },
   ];
 
-  const createdUsers = await Promise.all(
-    users.map((userObj) => stores.userStore.insert(userObj)),
-  );
+  const createdUsers = await Promise.all(users.map((userObj) => stores.userStore.insert(userObj)));
   const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
   await Promise.all(
-    createdUsers.map((createdUser) =>
-      projectService.addUser(
-        project.id,
-        memberRole.id,
-        createdUser.id,
-        auditUser,
-      ),
-    ),
+    createdUsers.map((createdUser) => projectService.addUser(project.id, memberRole.id, createdUser.id, auditUser)),
   );
 
   const result = await projectService.getStatusUpdates(project.id);
@@ -2314,11 +1876,7 @@ test('should return average time to production per flag', async () => {
 
   const featureFlags = await Promise.all(
     flags.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project.id, flag, auditUser);
     }),
   );
 
@@ -2382,21 +1940,13 @@ test('should return average time to production per flag for a specific project',
 
   const featureFlagsProject1 = await Promise.all(
     flagsProject1.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project1.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project1.id, flag, auditUser);
     }),
   );
 
   const featureFlagsProject2 = await Promise.all(
     flagsProject2.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project2.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project2.id, flag, auditUser);
     }),
   );
 
@@ -2469,11 +2019,7 @@ test('should return average time to production per flag and include archived fla
 
   const featureFlagsProject1 = await Promise.all(
     flagsProject1.map((flag) => {
-      return featureToggleService.createFeatureToggle(
-        project1.id,
-        flag,
-        auditUser,
-      );
+      return featureToggleService.createFeatureToggle(project1.id, flag, auditUser);
     }),
   );
 
@@ -2499,11 +2045,7 @@ test('should return average time to production per flag and include archived fla
     ),
   );
 
-  await featureToggleService.archiveToggle(
-    'average-prod-time-pta-12',
-    user,
-    auditUser,
-  );
+  await featureToggleService.archiveToggle('average-prod-time-pta-12', user, auditUser);
 
   const resultProject1 = await projectService.getDoraMetrics(project1.id);
 
@@ -2529,14 +2071,9 @@ describe('feature flag naming patterns', () => {
 
     await projectService.createProject(project, user, auditUser);
 
-    await projectService.updateProjectEnterpriseSettings(
-      project,
-      extractAuditInfoFromUser(user),
-    );
+    await projectService.updateProjectEnterpriseSettings(project, extractAuditInfoFromUser(user));
 
-    expect(
-      (await projectService.getProject(project.id)).featureNaming,
-    ).toMatchObject(featureNaming);
+    expect((await projectService.getProject(project.id)).featureNaming).toMatchObject(featureNaming);
 
     const newPattern = 'new-pattern.+';
     await projectService.updateProjectEnterpriseSettings(
@@ -2729,18 +2266,11 @@ test('should get project settings with mode', async () => {
   await projectService.createProject(projectOne, user, auditUser);
   await projectService.createProject(projectTwo, user, auditUser);
   await projectService.updateProject({ id, ...rest }, auditUser);
-  await projectService.updateProjectEnterpriseSettings(
-    { mode, id },
-    extractAuditInfoFromUser(user),
-  );
+  await projectService.updateProjectEnterpriseSettings({ mode, id }, extractAuditInfoFromUser(user));
 
   const projects = await projectService.getProjects();
-  const foundProjectOne = projects.find(
-    (project) => projectOne.id === project.id,
-  );
-  const foundProjectTwo = projects.find(
-    (project) => projectTwo.id === project.id,
-  );
+  const foundProjectOne = projects.find((project) => projectOne.id === project.id);
+  const foundProjectTwo = projects.find((project) => projectTwo.id === project.id);
 
   expect(foundProjectOne!.mode).toBe('private');
   expect(foundProjectTwo!.mode).toBe('open');
@@ -2757,28 +2287,16 @@ describe('create project with environments', () => {
     disabledEnv,
   ];
 
-  const allEnabledEnvs = [
-    'QA',
-    'default',
-    'development',
-    'production',
-    'staging',
-  ];
+  const allEnabledEnvs = ['QA', 'default', 'development', 'production', 'staging'];
 
   beforeEach(async () => {
-    await Promise.all(
-      extraEnvs.map((env) => stores.environmentStore.create(env)),
-    );
+    await Promise.all(extraEnvs.map((env) => stores.environmentStore.create(env)));
 
-    await stores.environmentStore.disable([
-      { ...disabledEnv, enabled: true, protected: false, sortOrder: 5 },
-    ]);
+    await stores.environmentStore.disable([{ ...disabledEnv, enabled: true, protected: false, sortOrder: 5 }]);
   });
 
   afterAll(async () => {
-    await Promise.all(
-      extraEnvs.map((env) => stores.environmentStore.delete(env.name)),
-    );
+    await Promise.all(extraEnvs.map((env) => stores.environmentStore.delete(env.name)));
   });
 
   const createProjectWithEnvs = async (environments) => {
@@ -2794,9 +2312,9 @@ describe('create project with environments', () => {
       auditUser,
     );
 
-    const projectEnvs = (
-      await projectService.getProjectOverview(project.id)
-    ).environments.map(({ environment }) => environment);
+    const projectEnvs = (await projectService.getProjectOverview(project.id)).environments.map(
+      ({ environment }) => environment,
+    );
 
     projectEnvs.sort();
     return projectEnvs;
@@ -2830,12 +2348,8 @@ describe('create project with environments', () => {
   });
 
   test("envs that don't exist cause errors", async () => {
-    await expect(createProjectWithEnvs(['fake-project'])).rejects.toThrow(
-      BadDataError,
-    );
-    await expect(createProjectWithEnvs(['fake-project'])).rejects.toThrow(
-      /'fake-project'/,
-    );
+    await expect(createProjectWithEnvs(['fake-project'])).rejects.toThrow(BadDataError);
+    await expect(createProjectWithEnvs(['fake-project'])).rejects.toThrow(/'fake-project'/);
   });
 });
 
@@ -2853,8 +2367,7 @@ describe('automatic ID generation for create project', () => {
   });
 
   test('projects with the same name get ids with incrementing counters', async () => {
-    const createProject = async () =>
-      projectService.createProject({ name: 'some name' }, user, auditUser);
+    const createProject = async () => projectService.createProject({ name: 'some name' }, user, auditUser);
 
     const project1 = await createProject();
     const project2 = await createProject();
@@ -2869,11 +2382,7 @@ describe('automatic ID generation for create project', () => {
     'An id with the value `%s` is treated as missing (and the id is based on the name)',
     async (id) => {
       const name = randomId();
-      const project = await projectService.createProject(
-        { name, id },
-        user,
-        auditUser,
-      );
+      const project = await projectService.createProject({ name, id }, user, auditUser);
 
       expect(project.id).toBe(name);
     },

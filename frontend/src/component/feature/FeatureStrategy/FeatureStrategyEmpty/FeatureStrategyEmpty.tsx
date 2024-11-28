@@ -45,24 +45,14 @@ const StyledDescription = styled('p')(({ theme }) => ({
   },
 }));
 
-export const FeatureStrategyEmpty = ({
-  projectId,
-  featureId,
-  environmentId,
-}: IFeatureStrategyEmptyProps) => {
+export const FeatureStrategyEmpty = ({ projectId, featureId, environmentId }: IFeatureStrategyEmptyProps) => {
   const { addStrategyToFeature } = useFeatureStrategyApi();
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(projectId, featureId);
-  const { refetchFeature: refetchFeatureImmutable } = useFeatureImmutable(
-    projectId,
-    featureId,
-  );
+  const { refetchFeature: refetchFeatureImmutable } = useFeatureImmutable(projectId, featureId);
   const { feature } = useFeature(projectId, featureId);
   const otherAvailableEnvironments = feature?.environments.filter(
-    (environment) =>
-      environment.name !== environmentId &&
-      environment.strategies &&
-      environment.strategies.length > 0,
+    (environment) => environment.name !== environmentId && environment.strategies && environment.strategies.length > 0,
   );
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
 
@@ -79,25 +69,17 @@ export const FeatureStrategyEmpty = ({
 
     setToastData({
       title: multiple ? 'Strategies created' : 'Strategy created',
-      text: multiple
-        ? 'Successfully copied from another environment'
-        : 'Successfully created strategy',
+      text: multiple ? 'Successfully copied from another environment' : 'Successfully created strategy',
       type: 'success',
     });
   };
 
   const onCopyStrategies = async (fromEnvironmentName: string) => {
     const strategies =
-      otherAvailableEnvironments?.find(
-        (environment) => environment.name === fromEnvironmentName,
-      )?.strategies || [];
+      otherAvailableEnvironments?.find((environment) => environment.name === fromEnvironmentName)?.strategies || [];
 
     if (isChangeRequestConfigured(environmentId)) {
-      await onChangeRequestAddStrategies(
-        environmentId,
-        strategies,
-        fromEnvironmentName,
-      );
+      await onChangeRequestAddStrategies(environmentId, strategies, fromEnvironmentName);
       return;
     }
 
@@ -109,12 +91,7 @@ export const FeatureStrategyEmpty = ({
             environment: environmentId,
           };
 
-          return addStrategyToFeature(
-            projectId,
-            featureId,
-            environmentId,
-            strategyCopy,
-          );
+          return addStrategyToFeature(projectId, featureId, environmentId, strategyCopy);
         }),
       );
       onAfterAddStrategy(true);
@@ -123,8 +100,7 @@ export const FeatureStrategyEmpty = ({
     }
   };
 
-  const canCopyFromOtherEnvironment =
-    otherAvailableEnvironments && otherAvailableEnvironments.length > 0;
+  const canCopyFromOtherEnvironment = otherAvailableEnvironments && otherAvailableEnvironments.length > 0;
 
   return (
     <>
@@ -144,9 +120,8 @@ export const FeatureStrategyEmpty = ({
       <StyledContainer>
         <StyledTitle>You have not defined any strategies yet.</StyledTitle>
         <StyledDescription>
-          Strategies added in this environment will only be executed if the SDK
-          is using an <Link to='/admin/api'>API key configured</Link> for this
-          environment.
+          Strategies added in this environment will only be executed if the SDK is using an{' '}
+          <Link to='/admin/api'>API key configured</Link> for this environment.
         </StyledDescription>
         <Box
           sx={{
@@ -170,9 +145,7 @@ export const FeatureStrategyEmpty = ({
             show={
               <CopyButton
                 environmentId={environmentId}
-                environments={otherAvailableEnvironments.map(
-                  (environment) => environment.name,
-                )}
+                environments={otherAvailableEnvironments.map((environment) => environment.name)}
                 onClick={onCopyStrategies}
               />
             }

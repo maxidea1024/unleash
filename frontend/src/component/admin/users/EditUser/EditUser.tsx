@@ -41,9 +41,7 @@ const EditUser = () => {
   } = useAddUserForm(user?.name, user?.email, user?.rootRole);
 
   const formatApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/user-admin/${id}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/user-admin/${id}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getAddUserPayload(), undefined, 2)}'`;

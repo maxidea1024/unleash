@@ -17,14 +17,12 @@ export const environmentProjectSchema = {
     type: {
       type: 'string',
       example: 'production',
-      description:
-        'The [type of environment](https://docs.getunleash.io/reference/environments#environment-types).',
+      description: 'The [type of environment](https://docs.getunleash.io/reference/environments#environment-types).',
     },
     enabled: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the environment is enabled for the project, otherwise `false`',
+      description: '`true` if the environment is enabled for the project, otherwise `false`',
     },
     protected: {
       type: 'boolean',
@@ -42,19 +40,16 @@ export const environmentProjectSchema = {
       type: 'integer',
       minimum: 0,
       example: 5,
-      description:
-        'The number of client and front-end API tokens that have access to this project',
+      description: 'The number of client and front-end API tokens that have access to this project',
     },
     projectEnabledToggleCount: {
       type: 'integer',
       minimum: 0,
       example: 7,
-      description:
-        'The number of features enabled in this environment for this project',
+      description: 'The number of features enabled in this environment for this project',
     },
     defaultStrategy: {
-      description:
-        'The strategy configuration to add when enabling a feature environment by default',
+      description: 'The strategy configuration to add when enabling a feature environment by default',
       $ref: '#/components/schemas/createFeatureStrategySchema',
     },
   },
@@ -66,6 +61,4 @@ export const environmentProjectSchema = {
   },
 } as const;
 
-export type EnvironmentProjectSchema = FromSchema<
-  typeof environmentProjectSchema
->;
+export type EnvironmentProjectSchema = FromSchema<typeof environmentProjectSchema>;

@@ -19,11 +19,7 @@ import { FakeOnboardingReadModel } from '../onboarding/fake-onboarding-read-mode
 import { AccessStore } from '../../db/access-store';
 import FakeAccessStore from '../../../test/fixtures/fake-access-store';
 
-export const createPersonalDashboardService = (
-  db: Db,
-  config: IUnleashConfig,
-  stores: IUnleashStores,
-) => {
+export const createPersonalDashboardService = (db: Db, config: IUnleashConfig, stores: IUnleashStores) => {
   return new PersonalDashboardService(
     new PersonalDashboardReadModel(db),
     new ProjectOwnersReadModel(db),

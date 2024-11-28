@@ -1,12 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
 
-import type {
-  IAuthRequest,
-  IUnleashConfig,
-  IUnleashServices,
-  Logger,
-} from '../../server-impl';
+import type { IAuthRequest, IUnleashConfig, IUnleashServices, Logger } from '../../server-impl';
 import {
   type AdminSegmentSchema,
   adminSegmentSchema,
@@ -17,10 +12,7 @@ import {
   type UpdateFeatureStrategySegmentsSchema,
   type UpsertSegmentSchema,
 } from '../../openapi';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import type { ISegmentService } from './segment-service-interface';
 import type { SegmentStrategiesSchema } from '../../openapi/spec/segment-strategies-schema';
 import type { AccessService, OpenApiService } from '../../services';
@@ -34,20 +26,13 @@ import {
   UPDATE_PROJECT_SEGMENT,
   UPDATE_SEGMENT,
 } from '../../types';
-import {
-  segmentsSchema,
-  type SegmentsSchema,
-} from '../../openapi/spec/segments-schema';
+import { segmentsSchema, type SegmentsSchema } from '../../openapi/spec/segments-schema';
 
 import { anonymiseKeys, extractUserIdFromUser } from '../../util';
 import { BadDataError } from '../../error';
 import idNumberMiddleware from '../../middleware/id-number-middleware';
 
-type IUpdateFeatureStrategySegmentsRequest = IAuthRequest<
-  {},
-  undefined,
-  UpdateFeatureStrategySegmentsSchema
->;
+type IUpdateFeatureStrategySegmentsRequest = IAuthRequest<{}, undefined, UpdateFeatureStrategySegmentsSchema>;
 
 export class SegmentsController extends Controller {
   private readonly logger: Logger;
@@ -62,10 +47,7 @@ export class SegmentsController extends Controller {
       segmentService,
       accessService,
       openApiService,
-    }: Pick<
-      IUnleashServices,
-      'segmentService' | 'accessService' | 'openApiService'
-    >,
+    }: Pick<IUnleashServices, 'segmentService' | 'accessService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -85,8 +67,7 @@ export class SegmentsController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Validates if a segment name exists',
-          description:
-            'Uses the name provided in the body of the request to validate if the given name exists or not',
+          description: 'Uses the name provided in the body of the request to validate if the given name exists or not',
           tags: ['Segments'],
           operationId: 'validateSegment',
           requestBody: createRequestSchema('nameSchema'),
@@ -129,13 +110,9 @@ export class SegmentsController extends Controller {
             'Sets the segments of the strategy specified to be exactly the ones passed in the payload. Any segments that were used by the strategy before will be removed if they are not in the provided list of segments.',
           tags: ['Strategies'],
           operationId: 'updateFeatureStrategySegments',
-          requestBody: createRequestSchema(
-            'updateFeatureStrategySegmentsSchema',
-          ),
+          requestBody: createRequestSchema('updateFeatureStrategySegmentsSchema'),
           responses: {
-            201: resourceCreatedResponseSchema(
-              'updateFeatureStrategySegmentsSchema',
-            ),
+            201: resourceCreatedResponseSchema('updateFeatureStrategySegmentsSchema'),
             ...getStandardResponses(400, 401, 403, 415),
           },
         }),
@@ -152,8 +129,7 @@ export class SegmentsController extends Controller {
           tags: ['Segments'],
           operationId: 'getStrategiesBySegmentId',
           summary: 'Get strategies that reference segment',
-          description:
-            'Retrieve all strategies that reference the specified segment.',
+          description: 'Retrieve all strategies that reference the specified segment.',
           responses: {
             200: createResponseSchema('segmentStrategiesSchema'),
           },
@@ -171,8 +147,7 @@ export class SegmentsController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Deletes a segment by id',
-          description:
-            'Deletes a segment by its id, if not found returns a 409 error',
+          description: 'Deletes a segment by its id, if not found returns a 409 error',
           tags: ['Segments'],
           operationId: 'removeSegment',
           responses: {
@@ -254,8 +229,7 @@ export class SegmentsController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Get all segments',
-          description:
-            'Retrieves all segments that exist in this Unleash instance.',
+          description: 'Retrieves all segments that exist in this Unleash instance.',
           tags: ['Segments'],
           operationId: 'getSegments',
           responses: {
@@ -266,19 +240,13 @@ export class SegmentsController extends Controller {
     });
   }
 
-  async validate(
-    req: Request<unknown, unknown, { name: string }>,
-    res: Response,
-  ): Promise<void> {
+  async validate(req: Request<unknown, unknown, { name: string }>, res: Response): Promise<void> {
     const { name } = req.body;
     await this.segmentService.validateName(name);
     res.status(204).send();
   }
 
-  async getSegmentsByStrategy(
-    req: Request<{ strategyId: string }>,
-    res: Response<SegmentsSchema>,
-  ): Promise<void> {
+  async getSegmentsByStrategy(req: Request<{ strategyId: string }>, res: Response<SegmentsSchema>): Promise<void> {
     const { strategyId } = req.params;
     const segments = await this.segmentService.getByStrategy(strategyId);
 
@@ -288,12 +256,7 @@ export class SegmentsController extends Controller {
         }
       : { segments };
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      segmentsSchema.$id,
-      serializeDates(responseBody),
-    );
+    this.openApiService.respondWithValidation(200, res, segmentsSchema.$id, serializeDates(responseBody));
   }
 
   async updateFeatureStrategySegments(
@@ -333,15 +296,9 @@ export class SegmentsController extends Controller {
       segmentIds.filter((id) => !currentSegmentIds.includes(id)),
     );
 
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      updateFeatureStrategySchema.$id,
-      req.body,
-      {
-        location: `strategies/${strategyId}`,
-      },
-    );
+    this.openApiService.respondWithValidation(201, res, updateFeatureStrategySchema.$id, req.body, {
+      location: `strategies/${strategyId}`,
+    });
   }
 
   async getStrategiesBySegment(
@@ -350,10 +307,7 @@ export class SegmentsController extends Controller {
   ): Promise<void> {
     const id = Number(req.params.id);
     const { user } = req;
-    const strategies = await this.segmentService.getVisibleStrategies(
-      id,
-      extractUserIdFromUser(user),
-    );
+    const strategies = await this.segmentService.getVisibleStrategies(id, extractUserIdFromUser(user));
 
     const segmentStrategies = strategies.strategies.map((strategy) => ({
       id: strategy.id,
@@ -363,16 +317,14 @@ export class SegmentsController extends Controller {
       environment: strategy.environment,
     }));
 
-    const changeRequestStrategies = strategies.changeRequestStrategies.map(
-      (strategy) => ({
-        ...('id' in strategy ? { id: strategy.id } : {}),
-        projectId: strategy.projectId,
-        featureName: strategy.featureName,
-        strategyName: strategy.strategyName,
-        environment: strategy.environment,
-        changeRequest: strategy.changeRequest,
-      }),
-    );
+    const changeRequestStrategies = strategies.changeRequestStrategies.map((strategy) => ({
+      ...('id' in strategy ? { id: strategy.id } : {}),
+      projectId: strategy.projectId,
+      featureName: strategy.featureName,
+      strategyName: strategy.strategyName,
+      environment: strategy.environment,
+      changeRequest: strategy.changeRequest,
+    }));
 
     res.json({
       strategies: segmentStrategies,
@@ -380,10 +332,7 @@ export class SegmentsController extends Controller {
     });
   }
 
-  async removeSegment(
-    req: IAuthRequest<{ id: string }>,
-    res: Response,
-  ): Promise<void> {
+  async removeSegment(req: IAuthRequest<{ id: string }>, res: Response): Promise<void> {
     const id = Number(req.params.id);
 
     let segmentIsInUse = false;
@@ -397,10 +346,7 @@ export class SegmentsController extends Controller {
     }
   }
 
-  async updateSegment(
-    req: IAuthRequest<{ id: string }>,
-    res: Response,
-  ): Promise<void> {
+  async updateSegment(req: IAuthRequest<{ id: string }>, res: Response): Promise<void> {
     const id = Number(req.params.id);
     const updateRequest: UpsertSegmentSchema = {
       name: req.body.name,
@@ -428,52 +374,26 @@ export class SegmentsController extends Controller {
   ): Promise<void> {
     const createRequest = req.body;
     const segment = await this.segmentService.create(createRequest, req.audit);
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      adminSegmentSchema.$id,
-      serializeDates(segment),
-      { location: `segments/${segment.id}` },
-    );
+    this.openApiService.respondWithValidation(201, res, adminSegmentSchema.$id, serializeDates(segment), {
+      location: `segments/${segment.id}`,
+    });
   }
 
-  async getSegments(
-    req: IAuthRequest,
-    res: Response<SegmentsSchema>,
-  ): Promise<void> {
+  async getSegments(req: IAuthRequest, res: Response<SegmentsSchema>): Promise<void> {
     const segments = await this.segmentService.getAll();
 
     const response = {
-      segments: this.flagResolver.isEnabled('anonymiseEventLog')
-        ? anonymiseKeys(segments, ['createdBy'])
-        : segments,
+      segments: this.flagResolver.isEnabled('anonymiseEventLog') ? anonymiseKeys(segments, ['createdBy']) : segments,
     };
 
-    this.openApiService.respondWithValidation<SegmentsSchema>(
-      200,
-      res,
-      segmentsSchema.$id,
-      serializeDates(response),
-    );
+    this.openApiService.respondWithValidation<SegmentsSchema>(200, res, segmentsSchema.$id, serializeDates(response));
   }
 
-  private async removeFromStrategy(
-    strategyId: string,
-    segmentIds: number[],
-  ): Promise<void> {
-    await Promise.all(
-      segmentIds.map((id) =>
-        this.segmentService.removeFromStrategy(id, strategyId),
-      ),
-    );
+  private async removeFromStrategy(strategyId: string, segmentIds: number[]): Promise<void> {
+    await Promise.all(segmentIds.map((id) => this.segmentService.removeFromStrategy(id, strategyId)));
   }
 
-  private async addToStrategy(
-    strategyId: string,
-    segmentIds: number[],
-  ): Promise<void> {
-    await Promise.all(
-      segmentIds.map((id) => this.segmentService.addToStrategy(id, strategyId)),
-    );
+  private async addToStrategy(strategyId: string, segmentIds: number[]): Promise<void> {
+    await Promise.all(segmentIds.map((id) => this.segmentService.addToStrategy(id, strategyId)));
   }
 }

@@ -27,21 +27,18 @@ export const projectFeatureSchema = {
     type: {
       type: 'string',
       example: 'kill-switch',
-      description:
-        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     description: {
       type: 'string',
       nullable: true,
-      example:
-        'Controls disabling of the comments section in case of an incident',
+      example: 'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     stale: {
       type: 'boolean',
       example: false,
-      description:
-        '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
+      description: '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
     },
     favorite: {
       type: 'boolean',
@@ -51,8 +48,7 @@ export const projectFeatureSchema = {
     impressionData: {
       type: 'boolean',
       example: false,
-      description:
-        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     createdAt: {
       type: 'string',

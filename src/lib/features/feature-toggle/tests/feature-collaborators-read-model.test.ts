@@ -1,13 +1,6 @@
-import type {
-  IEventStore,
-  IFeatureCollaboratorsReadModel,
-  IUnleashStores,
-  IUserStore,
-} from '../../../types';
+import type { IEventStore, IFeatureCollaboratorsReadModel, IUnleashStores, IUserStore } from '../../../types';
 import getLogger from '../../../../test/fixtures/no-logger';
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 
 let stores: IUnleashStores;
 let db: ITestDb;
@@ -61,8 +54,7 @@ test('Should return collaborators according to their activity order', async () =
     ip: '::1',
   });
 
-  const collaborators =
-    await featureCollaboratorsReadModel.getFeatureCollaborators('featureA');
+  const collaborators = await featureCollaboratorsReadModel.getFeatureCollaborators('featureA');
 
   expect(collaborators).toMatchObject([
     { id: 2, name: 'User Two', imageUrl: expect.any(String) },

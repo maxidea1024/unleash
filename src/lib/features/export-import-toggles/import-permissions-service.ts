@@ -1,9 +1,5 @@
 import type { IImportTogglesStore } from './import-toggles-store-type';
-import type {
-  AccessService,
-  ContextService,
-  TagTypeService,
-} from '../../services';
+import type { AccessService, ContextService, TagTypeService } from '../../services';
 import type { ContextFieldSchema, ImportTogglesSchema } from '../../openapi';
 import type { ITagType } from '../tag-type/tag-type-store-type';
 import type { IUser } from '../../types/user';
@@ -27,26 +23,17 @@ export class ImportPermissionsService {
   private readonly contextService: ContextService;
 
   private async getNewTagTypes(dto: ImportTogglesSchema): Promise<ITagType[]> {
-    const existingTagTypes = (await this.tagTypeService.getAll()).map(
-      (tagType) => tagType.name,
-    );
-    const newTagTypes = dto.data.tagTypes?.filter(
-      (tagType) => !existingTagTypes.includes(tagType.name),
-    );
+    const existingTagTypes = (await this.tagTypeService.getAll()).map((tagType) => tagType.name);
+    const newTagTypes = dto.data.tagTypes?.filter((tagType) => !existingTagTypes.includes(tagType.name));
     return [...new Map(newTagTypes.map((item) => [item.name, item])).values()];
   }
 
-  private async getNewContextFields(
-    dto: ImportTogglesSchema,
-  ): Promise<ContextFieldSchema[]> {
+  private async getNewContextFields(dto: ImportTogglesSchema): Promise<ContextFieldSchema[]> {
     const availableContextFields = await this.contextService.getAll();
 
     return (
       dto.data.contextFields?.filter(
-        (contextField) =>
-          !availableContextFields.some(
-            (availableField) => availableField.name === contextField.name,
-          ),
+        (contextField) => !availableContextFields.some((availableField) => availableField.name === contextField.name),
       ) || []
     );
   }
@@ -63,33 +50,20 @@ export class ImportPermissionsService {
     this.contextService = contextService;
   }
 
-  async getMissingPermissions(
-    dto: ImportTogglesSchema,
-    user: IUser,
-    mode: Mode,
-  ): Promise<string[]> {
-    const [
-      newTagTypes,
-      newContextFields,
-      strategiesExistForFeatures,
-      featureEnvsWithVariants,
-      existingFeatures,
-    ] = await Promise.all([
-      this.getNewTagTypes(dto),
-      this.getNewContextFields(dto),
-      this.importTogglesStore.strategiesExistForFeatures(
-        dto.data.features.map((feature) => feature.name),
-        dto.environment,
-      ),
-      dto.data.featureEnvironments?.filter(
-        (featureEnvironment) =>
-          Array.isArray(featureEnvironment.variants) &&
-          featureEnvironment.variants.length > 0,
-      ) || Promise.resolve([]),
-      this.importTogglesStore.getExistingFeatures(
-        dto.data.features.map((feature) => feature.name),
-      ),
-    ]);
+  async getMissingPermissions(dto: ImportTogglesSchema, user: IUser, mode: Mode): Promise<string[]> {
+    const [newTagTypes, newContextFields, strategiesExistForFeatures, featureEnvsWithVariants, existingFeatures] =
+      await Promise.all([
+        this.getNewTagTypes(dto),
+        this.getNewContextFields(dto),
+        this.importTogglesStore.strategiesExistForFeatures(
+          dto.data.features.map((feature) => feature.name),
+          dto.environment,
+        ),
+        dto.data.featureEnvironments?.filter(
+          (featureEnvironment) => Array.isArray(featureEnvironment.variants) && featureEnvironment.variants.length > 0,
+        ) || Promise.resolve([]),
+        this.importTogglesStore.getExistingFeatures(dto.data.features.map((feature) => feature.name)),
+      ]);
     const permissions = [UPDATE_FEATURE];
     if (newTagTypes.length > 0) {
       permissions.push(CREATE_TAG_TYPE);
@@ -114,8 +88,7 @@ export class ImportPermissionsService {
       permissions.push(CREATE_FEATURE);
     }
 
-    const displayPermissions =
-      await this.importTogglesStore.getDisplayPermissions(permissions);
+    const displayPermissions = await this.importTogglesStore.getDisplayPermissions(permissions);
 
     const results = await Promise.all(
       displayPermissions.map((permission) =>
@@ -124,21 +97,11 @@ export class ImportPermissionsService {
           .then((hasPermission) => [permission, hasPermission] as const),
       ),
     );
-    return results
-      .filter(([, hasAccess]) => !hasAccess)
-      .map(([permission]) => permission.displayName);
+    return results.filter(([, hasAccess]) => !hasAccess).map(([permission]) => permission.displayName);
   }
 
-  async verifyPermissions(
-    dto: ImportTogglesSchema,
-    user: IUser,
-    mode: Mode,
-  ): Promise<void> {
-    const missingPermissions = await this.getMissingPermissions(
-      dto,
-      user,
-      mode,
-    );
+  async verifyPermissions(dto: ImportTogglesSchema, user: IUser, mode: Mode): Promise<void> {
+    const missingPermissions = await this.getMissingPermissions(dto, user, mode);
     if (missingPermissions.length > 0) {
       throw new PermissionError(missingPermissions);
     }

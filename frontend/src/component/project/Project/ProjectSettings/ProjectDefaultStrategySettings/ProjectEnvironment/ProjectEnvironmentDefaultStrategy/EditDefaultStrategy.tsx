@@ -21,10 +21,7 @@ import type { CreateFeatureStrategySchema } from 'openapi';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 import { UPDATE_PROJECT } from '@server/types/permissions';
 
-export const useDefaultStrategy = (
-  projectId: string,
-  environmentId: string,
-) => {
+export const useDefaultStrategy = (projectId: string, environmentId: string) => {
   const { project, refetch } = useProjectOverview(projectId);
 
   const defaultStrategyFallback = {
@@ -37,9 +34,7 @@ export const useDefaultStrategy = (
     },
   };
 
-  const strategy = project.environments.find(
-    (env) => env.environment === environmentId,
-  )?.defaultStrategy;
+  const strategy = project.environments.find((env) => env.environment === environmentId)?.defaultStrategy;
 
   return { defaultStrategyFallback, strategy, refetch };
 };
@@ -49,15 +44,11 @@ const EditDefaultStrategy = () => {
   const environmentId = useRequiredQueryParam('environmentId');
   const { refetch: refetchProjectOverview } = useProjectOverview(projectId);
 
-  const {
-    defaultStrategyFallback,
-    strategy,
-    refetch: refetchProject,
-  } = useDefaultStrategy(projectId, environmentId);
+  const { defaultStrategyFallback, strategy, refetch: refetchProject } = useDefaultStrategy(projectId, environmentId);
 
-  const [defaultStrategy, setDefaultStrategy] = useState<
-    CreateFeatureStrategySchema | undefined
-  >(strategy || defaultStrategyFallback);
+  const [defaultStrategy, setDefaultStrategy] = useState<CreateFeatureStrategySchema | undefined>(
+    strategy || defaultStrategyFallback,
+  );
 
   const [segments, setSegments] = useState<ISegment[]>([]);
   const { updateDefaultStrategy, loading } = useProjectApi();
@@ -70,10 +61,7 @@ const EditDefaultStrategy = () => {
 
   const { trackEvent } = usePlausibleTracker();
 
-  const {
-    segments: allSegments,
-    refetchSegments: refetchSavedStrategySegments,
-  } = useSegments();
+  const { segments: allSegments, refetchSegments: refetchSavedStrategySegments } = useSegments();
 
   useEffect(() => {
     // Fill in the selected segments once they've been fetched.
@@ -88,9 +76,7 @@ const EditDefaultStrategy = () => {
 
   const payload = createStrategyPayload(defaultStrategy as any, segments);
 
-  const onDefaultStrategyEdit = async (
-    payload: CreateFeatureStrategySchema,
-  ) => {
+  const onDefaultStrategyEdit = async (payload: CreateFeatureStrategySchema) => {
     await updateDefaultStrategy(projectId, environmentId, payload);
 
     trackEvent('default_strategy', {
@@ -133,13 +119,7 @@ const EditDefaultStrategy = () => {
       documentationLink={projectDefaultStrategyDocsLink}
       documentationLinkLabel={projectDefaultStrategyDocsLinkLabel}
       formatApiCode={() =>
-        formatUpdateStrategyApiCode(
-          projectId,
-          environmentId,
-          payload,
-          strategyDefinition,
-          unleashUrl,
-        )
+        formatUpdateStrategyApiCode(projectId, environmentId, payload, strategyDefinition, unleashUrl)
       }
     >
       <ProjectDefaultStrategyForm
@@ -187,10 +167,7 @@ export const formatUpdateStrategyApiCode = (
   // the order of the input fields in the form, for usability.
   const sortedStrategy = {
     ...strategy,
-    parameters: sortStrategyParameters(
-      strategy.parameters ?? {},
-      strategyDefinition,
-    ),
+    parameters: sortStrategyParameters(strategy.parameters ?? {}, strategyDefinition),
   };
 
   const url = `${unleashUrl}/api/admin/projects/${projectId}/environments/${environmentId}/default-strategy}`;
@@ -207,10 +184,8 @@ export const projectDefaultStrategyHelp = `
     If any of a feature flag's activation strategies returns true, the user will get access.
 `;
 
-export const projectDefaultStrategyDocsLink =
-  'https://docs.getunleash.io/reference/projects#project-default-strategy';
+export const projectDefaultStrategyDocsLink = 'https://docs.getunleash.io/reference/projects#project-default-strategy';
 
-export const projectDefaultStrategyDocsLinkLabel =
-  'Default strategy documentation';
+export const projectDefaultStrategyDocsLinkLabel = 'Default strategy documentation';
 
 export default EditDefaultStrategy;

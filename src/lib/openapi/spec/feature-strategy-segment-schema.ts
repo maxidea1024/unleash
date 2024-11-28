@@ -3,8 +3,7 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const featureStrategySegmentSchema = {
   $id: '#/components/schemas/featureStrategySegmentSchema',
   type: 'object',
-  description:
-    'An object containing a segment identifier and a strategy identifier.',
+  description: 'An object containing a segment identifier and a strategy identifier.',
   additionalProperties: false,
   required: ['segmentId', 'featureStrategyId'],
   properties: {
@@ -22,6 +21,4 @@ export const featureStrategySegmentSchema = {
   components: {},
 } as const;
 
-export type FeatureStrategySegmentSchema = FromSchema<
-  typeof featureStrategySegmentSchema
->;
+export type FeatureStrategySegmentSchema = FromSchema<typeof featureStrategySegmentSchema>;

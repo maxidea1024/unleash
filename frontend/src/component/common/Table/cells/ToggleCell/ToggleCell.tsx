@@ -7,17 +7,10 @@ interface IToggleCellProps {
   title?: string;
 }
 
-export const ToggleCell = ({
-  checked,
-  setChecked,
-  title,
-}: IToggleCellProps) => (
+export const ToggleCell = ({ checked, setChecked, title }: IToggleCellProps) => (
   <TextCell>
     <Tooltip title={title ? title : checked ? 'Disable' : 'Enable'} arrow>
-      <Switch
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-      />
+      <Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />
     </Tooltip>
   </TextCell>
 );

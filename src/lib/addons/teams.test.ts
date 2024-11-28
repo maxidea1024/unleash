@@ -1,22 +1,11 @@
 import type { Logger } from '../logger';
 
-import {
-  FEATURE_ARCHIVED,
-  FEATURE_CREATED,
-  FEATURE_ENVIRONMENT_DISABLED,
-  type IEvent,
-} from '../types/events';
+import { FEATURE_ARCHIVED, FEATURE_CREATED, FEATURE_ENVIRONMENT_DISABLED, type IEvent } from '../types/events';
 
 import TeamsAddon from './teams';
 
 import noLogger from '../../test/fixtures/no-logger';
-import {
-  type IAddonConfig,
-  type IFlagKey,
-  type IFlagResolver,
-  serializeDates,
-  SYSTEM_USER_ID,
-} from '../types';
+import { type IAddonConfig, type IFlagKey, type IFlagResolver, serializeDates, SYSTEM_USER_ID } from '../types';
 import type { IntegrationEventsService } from '../services';
 
 let fetchRetryCalls: any[];
@@ -221,8 +210,7 @@ describe('Teams integration', () => {
     expect(registerEventMock).toHaveBeenCalledWith({
       integrationId: INTEGRATION_ID,
       state: 'success',
-      stateDetails:
-        'Teams webhook request was successful with status code: 200.',
+      stateDetails: 'Teams webhook request was successful with status code: 200.',
       event: serializeDates(event),
       details: {
         url: parameters.url,

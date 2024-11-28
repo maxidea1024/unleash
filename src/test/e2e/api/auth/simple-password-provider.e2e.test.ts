@@ -1,9 +1,5 @@
 import { createTestConfig } from '../../../config/test-config';
-import {
-  type IUnleashConfig,
-  type IUnleashStores,
-  TEST_AUDIT_USER,
-} from '../../../../lib/types';
+import { type IUnleashConfig, type IUnleashStores, TEST_AUDIT_USER } from '../../../../lib/types';
 import UserService from '../../../../lib/services/user-service';
 import { AccessService } from '../../../../lib/services/access-service';
 import type { IUser } from '../../../../lib/types/user';
@@ -41,12 +37,7 @@ beforeAll(async () => {
   app = await setupApp(stores);
   const eventService = createEventsService(db.rawDatabase, config);
   const groupService = new GroupService(stores, config, eventService);
-  const accessService = new AccessService(
-    stores,
-    config,
-    groupService,
-    eventService,
-  );
+  const accessService = new AccessService(stores, config, groupService, eventService);
   const resetTokenService = new ResetTokenService(stores, config);
   const emailService = new EmailService(config);
   const sessionService = new SessionService(stores, config);

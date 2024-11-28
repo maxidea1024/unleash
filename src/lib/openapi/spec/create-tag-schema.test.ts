@@ -11,10 +11,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toBeUndefined();
   });
@@ -26,10 +23,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toMatchObject({
       errors: [{ keyword: 'pattern', instancePath: '/value' }],
@@ -43,10 +37,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toMatchObject({
       errors: [{ keyword: 'pattern', instancePath: '/value' }],
@@ -60,10 +51,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toMatchObject({
       errors: [{ keyword: 'pattern', instancePath: '/value' }],
@@ -77,10 +65,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toBeUndefined();
   });
@@ -91,10 +76,7 @@ describe('tag value validation', () => {
       type: 'simple',
     };
 
-    const validationResult = validateSchema(
-      '#/components/schemas/createTagSchema',
-      data,
-    );
+    const validationResult = validateSchema('#/components/schemas/createTagSchema', data);
 
     expect(validationResult).toBeUndefined();
   });

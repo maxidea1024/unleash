@@ -41,8 +41,7 @@ export const ServiceAccountsTable = () => {
   const [tokenDialog, setTokenDialog] = useState(false);
   const [newToken, setNewToken] = useState<INewPersonalAPIToken>();
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [selectedServiceAccount, setSelectedServiceAccount] =
-    useState<IServiceAccount>();
+  const [selectedServiceAccount, setSelectedServiceAccount] = useState<IServiceAccount>();
 
   const onDeleteConfirm = async (serviceAccount: IServiceAccount) => {
     try {
@@ -80,18 +79,14 @@ export const ServiceAccountsTable = () => {
         accessor: (row: any) => row.name || '',
         minWidth: 200,
         Cell: ({ row: { original: serviceAccount } }: any) => (
-          <HighlightCell
-            value={serviceAccount.name}
-            subtitle={serviceAccount.username}
-          />
+          <HighlightCell value={serviceAccount.name} subtitle={serviceAccount.username} />
         ),
         searchable: true,
       },
       {
         id: 'role',
         Header: 'Role',
-        accessor: (row: any) =>
-          roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
+        accessor: (row: any) => roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
         Cell: ({
           row: { original: serviceAccount },
           value,
@@ -104,8 +99,7 @@ export const ServiceAccountsTable = () => {
       {
         id: 'tokens',
         Header: 'Tokens',
-        accessor: (row: IServiceAccount) =>
-          row.tokens?.map(({ description }) => description).join('\n') || '',
+        accessor: (row: IServiceAccount) => row.tokens?.map(({ description }) => description).join('\n') || '',
         Cell: ({
           row: { original: serviceAccount },
           value,
@@ -177,11 +171,7 @@ export const ServiceAccountsTable = () => {
     hiddenColumns: ['username'],
   });
 
-  const { data, getSearchText } = useSearch(
-    columns,
-    searchValue,
-    serviceAccounts,
-  );
+  const { data, getSearchText } = useSearch(columns, searchValue, serviceAccounts);
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -228,10 +218,7 @@ export const ServiceAccountsTable = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
+                    <Search initialValue={searchValue} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -251,19 +238,13 @@ export const ServiceAccountsTable = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
+            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
     >
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -277,11 +258,7 @@ export const ServiceAccountsTable = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={
-              <TablePlaceholder>
-                No service accounts available. Get started by adding one.
-              </TablePlaceholder>
-            }
+            elseShow={<TablePlaceholder>No service accounts available. Get started by adding one.</TablePlaceholder>}
           />
         }
       />
@@ -294,11 +271,7 @@ export const ServiceAccountsTable = () => {
           setTokenDialog(true);
         }}
       />
-      <ServiceAccountTokenDialog
-        open={tokenDialog}
-        setOpen={setTokenDialog}
-        token={newToken}
-      />
+      <ServiceAccountTokenDialog open={tokenDialog} setOpen={setTokenDialog} token={newToken} />
       <ServiceAccountDeleteDialog
         serviceAccount={selectedServiceAccount}
         open={deleteOpen}

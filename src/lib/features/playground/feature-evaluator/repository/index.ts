@@ -31,11 +31,7 @@ export default class Repository extends EventEmitter {
   private data: FeatureToggleData = {};
   private segments: Map<number, Segment>;
 
-  constructor({
-    appName,
-    bootstrapProvider,
-    storageProvider,
-  }: RepositoryOptions) {
+  constructor({ appName, bootstrapProvider, storageProvider }: RepositoryOptions) {
     super();
 
     this.appName = appName;

@@ -13,8 +13,7 @@ export const featureTypesSchema = {
       type: 'integer',
       enum: [1],
       example: 1,
-      description:
-        'The schema version used to describe the feature flag types listed in the `types` property.',
+      description: 'The schema version used to describe the feature flag types listed in the `types` property.',
     },
     types: {
       type: 'array',
@@ -26,22 +25,19 @@ export const featureTypesSchema = {
         {
           id: 'release',
           name: 'Release',
-          description:
-            'Release feature flags are used to release new features.',
+          description: 'Release feature flags are used to release new features.',
           lifetimeDays: 40,
         },
         {
           id: 'experiment',
           name: 'Experiment',
-          description:
-            'Experiment feature flags are used to test and verify multiple different versions of a feature.',
+          description: 'Experiment feature flags are used to test and verify multiple different versions of a feature.',
           lifetimeDays: 40,
         },
         {
           id: 'operational',
           name: 'Operational',
-          description:
-            'Operational feature flags are used to control aspects of a rollout.',
+          description: 'Operational feature flags are used to control aspects of a rollout.',
           lifetimeDays: 7,
         },
         {
@@ -54,8 +50,7 @@ export const featureTypesSchema = {
         {
           id: 'permission',
           name: 'Permission',
-          description:
-            'Permission feature flags are used to control permissions in your system.',
+          description: 'Permission feature flags are used to control permissions in your system.',
           lifetimeDays: null,
         },
       ],

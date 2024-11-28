@@ -2,11 +2,7 @@ import type { Express } from 'express';
 import type EventEmitter from 'events';
 import type { LogLevel, LogProvider } from '../logger';
 import type { ILegacyApiTokenCreate } from './models/api-token';
-import type {
-  IExperimentalOptions,
-  IFlagResolver,
-  IFlags,
-} from './experimental';
+import type { IExperimentalOptions, IFlagResolver, IFlags } from './experimental';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
 import type { IUnleashServices } from './services';
 import type { ResourceLimitsSchema } from '../openapi/spec/resource-limits-schema';
@@ -61,11 +57,7 @@ export enum IAuthType {
   NONE = 'none',
 }
 
-export type CustomAuthHandler = (
-  app: Express,
-  config: Partial<IUnleashConfig>,
-  services?: IUnleashServices,
-) => void;
+export type CustomAuthHandler = (app: Express, config: Partial<IUnleashConfig>, services?: IUnleashServices) => void;
 
 export type UsernameAdminUser = {
   username: string;

@@ -1,13 +1,8 @@
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import ProjectForm from '../../../ProjectForm/ProjectForm';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
-import {
-  PROJECT_SETTINGS_WRITE,
-  UPDATE_PROJECT,
-} from 'component/providers/AccessProvider/permissions';
-import useProjectForm, {
-  DEFAULT_PROJECT_STICKINESS,
-} from '../../../hooks/useProjectForm';
+import { PROJECT_SETTINGS_WRITE, UPDATE_PROJECT } from 'component/providers/AccessProvider/permissions';
+import useProjectForm, { DEFAULT_PROJECT_STICKINESS } from '../../../hooks/useProjectForm';
 import { useDefaultProjectSettings } from 'hooks/useDefaultProjectSettings';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import useToast from 'hooks/useToast';
@@ -63,21 +58,13 @@ export const UpdateProject = ({ project }: IUpdateProject) => {
     validateProjectId,
     validateName,
     errors,
-  } = useProjectForm(
-    id,
-    project.name,
-    project.description,
-    defaultStickiness,
-    String(project.featureLimit),
-  );
+  } = useProjectForm(id, project.name, project.description, defaultStickiness, String(project.featureLimit));
 
   const { editProject, loading } = useProjectApi();
   const { refetch } = useProjectOverview(id);
 
   const formatProjectApiCode = () => {
-    return `curl --location --request PUT '${
-      uiConfig.unleashUrl
-    }/api/admin/projects/${id}' \\
+    return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/projects/${id}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getEditProjectPayload(), undefined, 2)}'`;

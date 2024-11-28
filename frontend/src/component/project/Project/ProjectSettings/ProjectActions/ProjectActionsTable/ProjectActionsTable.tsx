@@ -30,9 +30,7 @@ interface IProjectActionsTableProps {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedAction?: IActionSet;
-  setSelectedAction: React.Dispatch<
-    React.SetStateAction<IActionSet | undefined>
-  >;
+  setSelectedAction: React.Dispatch<React.SetStateAction<IActionSet | undefined>>;
 }
 
 export const ProjectActionsTable = ({
@@ -89,9 +87,7 @@ export const ProjectActionsTable = ({
         Header: 'Name',
         accessor: 'name',
         minWidth: 60,
-        Cell: ({
-          row: { original: action },
-        }: { row: { original: IActionSet } }) => (
+        Cell: ({ row: { original: action } }: { row: { original: IActionSet } }) => (
           <LinkCell
             title={action.name}
             subtitle={action.description}
@@ -105,13 +101,8 @@ export const ProjectActionsTable = ({
       {
         id: 'source',
         Header: 'Source',
-        Cell: ({
-          row: { original: action },
-        }: { row: { original: IActionSet } }) => (
-          <ProjectActionsSourceCell
-            action={action}
-            signalEndpoints={signalEndpoints}
-          />
+        Cell: ({ row: { original: action } }: { row: { original: IActionSet } }) => (
+          <ProjectActionsSourceCell action={action} signalEndpoints={signalEndpoints} />
         ),
       },
       {
@@ -131,12 +122,7 @@ export const ProjectActionsTable = ({
           row: { original: action },
         }: {
           row: { original: IActionSet };
-        }) => (
-          <ProjectActionsActorCell
-            action={action}
-            serviceAccounts={serviceAccounts}
-          />
-        ),
+        }) => <ProjectActionsActorCell action={action} serviceAccounts={serviceAccounts} />,
         minWidth: 160,
       },
       {
@@ -160,13 +146,8 @@ export const ProjectActionsTable = ({
       {
         Header: 'Enabled',
         accessor: 'enabled',
-        Cell: ({
-          row: { original: action },
-        }: { row: { original: IActionSet } }) => (
-          <ToggleCell
-            checked={action.enabled}
-            setChecked={(enabled) => onToggleAction(action, enabled)}
-          />
+        Cell: ({ row: { original: action } }: { row: { original: IActionSet } }) => (
+          <ToggleCell checked={action.enabled} setChecked={(enabled) => onToggleAction(action, enabled)} />
         ),
         sortType: 'boolean',
         width: 90,
@@ -176,9 +157,7 @@ export const ProjectActionsTable = ({
         id: 'table-actions',
         Header: '',
         align: 'center',
-        Cell: ({
-          row: { original: action },
-        }: { row: { original: IActionSet } }) => (
+        Cell: ({ row: { original: action } }: { row: { original: IActionSet } }) => (
           <ProjectActionsTableActionsCell
             actionId={action.id}
             onOpenEvents={() => {
@@ -241,18 +220,10 @@ export const ProjectActionsTable = ({
 
   return (
     <>
-      <VirtualizedTable
-        rows={rows}
-        headerGroups={headerGroups}
-        prepareRow={prepareRow}
-      />
+      <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       <ConditionallyRender
         condition={rows.length === 0}
-        show={
-          <TablePlaceholder>
-            No actions available. Get started by adding one.
-          </TablePlaceholder>
-        }
+        show={<TablePlaceholder>No actions available. Get started by adding one.</TablePlaceholder>}
       />
       <ProjectActionsModal
         action={selectedAction}

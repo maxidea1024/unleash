@@ -81,9 +81,7 @@ test('should add multiple standard properties without breaking custom properties
 describe('validateTokenFormat', () => {
   it('should throw an error for invalid token format without colon', () => {
     const invalidToken = 'invalidToken';
-    expect(() => validateTokenFormat(invalidToken)).toThrow(
-      'Invalid token format',
-    );
+    expect(() => validateTokenFormat(invalidToken)).toThrow('Invalid token format');
   });
 
   it('should not throw an error for invalid token format without period', () => {
@@ -93,23 +91,17 @@ describe('validateTokenFormat', () => {
 
   it('should throw an error for tokens with an empty project', () => {
     const invalidToken = ':environment.abc123';
-    expect(() => validateTokenFormat(invalidToken)).toThrow(
-      'Invalid token format',
-    );
+    expect(() => validateTokenFormat(invalidToken)).toThrow('Invalid token format');
   });
 
   it('should throw an error for tokens with an empty environment', () => {
     const invalidToken = 'project:.abc123';
-    expect(() => validateTokenFormat(invalidToken)).toThrow(
-      'Invalid token format',
-    );
+    expect(() => validateTokenFormat(invalidToken)).toThrow('Invalid token format');
   });
 
   it('should throw an error for admin tokens', () => {
     const adminToken = 'project:*.abc123';
-    expect(() => validateTokenFormat(adminToken)).toThrow(
-      'Admin tokens are not supported in the playground',
-    );
+    expect(() => validateTokenFormat(adminToken)).toThrow('Admin tokens are not supported in the playground');
   });
 
   it('should not throw an error for valid token formats', () => {

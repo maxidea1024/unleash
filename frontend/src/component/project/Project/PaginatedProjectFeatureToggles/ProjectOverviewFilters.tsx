@@ -1,10 +1,6 @@
 import { useEffect, useState, type VFC } from 'react';
 import useAllTags from 'hooks/api/getters/useAllTags/useAllTags';
-import {
-  type FilterItemParamHolder,
-  Filters,
-  type IFilterItem,
-} from 'component/filter/Filters/Filters';
+import { type FilterItemParamHolder, Filters, type IFilterItem } from 'component/filter/Filters/Filters';
 import { useProjectFlagCreators } from 'hooks/api/getters/useProjectFlagCreators/useProjectFlagCreators';
 import { useUiFlag } from 'hooks/useUiFlag';
 
@@ -14,11 +10,7 @@ interface IProjectOverviewFilters {
   project: string;
 }
 
-export const ProjectOverviewFilters: VFC<IProjectOverviewFilters> = ({
-  state,
-  onChange,
-  project,
-}) => {
+export const ProjectOverviewFilters: VFC<IProjectOverviewFilters> = ({ state, onChange, project }) => {
   const { tags } = useAllTags();
   const { flagCreators } = useProjectFlagCreators(project);
   const [availableFilters, setAvailableFilters] = useState<IFilterItem[]>([]);
@@ -61,12 +53,7 @@ export const ProjectOverviewFilters: VFC<IProjectOverviewFilters> = ({
         options: tagsOptions,
         filterKey: 'tag',
         singularOperators: ['INCLUDE', 'DO_NOT_INCLUDE'],
-        pluralOperators: [
-          'INCLUDE_ALL_OF',
-          'INCLUDE_ANY_OF',
-          'EXCLUDE_IF_ANY_OF',
-          'EXCLUDE_ALL',
-        ],
+        pluralOperators: ['INCLUDE_ALL_OF', 'INCLUDE_ANY_OF', 'EXCLUDE_IF_ANY_OF', 'EXCLUDE_ALL'],
       },
       {
         label: 'Created date',
@@ -114,11 +101,5 @@ export const ProjectOverviewFilters: VFC<IProjectOverviewFilters> = ({
     setAvailableFilters(availableFilters);
   }, [JSON.stringify(tags), JSON.stringify(flagCreators)]);
 
-  return (
-    <Filters
-      availableFilters={availableFilters}
-      state={state}
-      onChange={onChange}
-    />
-  );
+  return <Filters availableFilters={availableFilters} state={state} onChange={onChange} />;
 };

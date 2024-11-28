@@ -7,10 +7,7 @@ export default class GradualRolloutSessionIdStrategy extends Strategy {
     super('gradualRolloutSessionId');
   }
 
-  isEnabled(
-    parameters: { percentage: number | string; groupId?: string },
-    context: Context,
-  ): boolean {
+  isEnabled(parameters: { percentage: number | string; groupId?: string }, context: Context): boolean {
     const { sessionId } = context;
     if (!sessionId) {
       return false;

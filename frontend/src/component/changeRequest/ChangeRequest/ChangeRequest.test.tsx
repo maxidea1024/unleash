@@ -4,11 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import { render } from 'utils/testRenderer';
 import { ChangeRequest } from './ChangeRequest';
-import type {
-  ChangeRequestType,
-  IChangeRequestAddStrategy,
-  IChangeRequestEnabled,
-} from '../changeRequest.types';
+import type { ChangeRequestType, IChangeRequestAddStrategy, IChangeRequestEnabled } from '../changeRequest.types';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
 import type { StrategyVariantSchema } from 'openapi';
 
@@ -92,9 +88,7 @@ const feature = () =>
     ],
   });
 
-const changeRequestWithDefaultChange = (
-  defaultChange: IChangeRequestEnabled | IChangeRequestAddStrategy,
-) => {
+const changeRequestWithDefaultChange = (defaultChange: IChangeRequestEnabled | IChangeRequestAddStrategy) => {
   const changeRequest: ChangeRequestType = {
     approvals: [],
     rejections: [],
@@ -120,8 +114,7 @@ const changeRequestWithDefaultChange = (
             createdBy: {
               id: 1,
               username: 'admin',
-              imageUrl:
-                'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+              imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
             },
           },
         ],
@@ -203,9 +196,7 @@ test('Display default add strategy', async () => {
 
   expect(screen.getByText('feature1')).toBeInTheDocument();
   expect(screen.getByText('Enabled')).toBeInTheDocument();
-  expect(
-    screen.getByText('Default strategy will be added'),
-  ).toBeInTheDocument();
+  expect(screen.getByText('Default strategy will be added')).toBeInTheDocument();
 });
 
 test('Display default disable feature', async () => {

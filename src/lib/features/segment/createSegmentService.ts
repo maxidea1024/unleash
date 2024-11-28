@@ -17,30 +17,15 @@ import {
   createFakePrivateProjectChecker,
   createPrivateProjectChecker,
 } from '../private-project/createPrivateProjectChecker';
-import {
-  createEventsService,
-  createFakeEventsService,
-} from '../events/createEventsService';
+import { createEventsService, createFakeEventsService } from '../events/createEventsService';
 
-export const createSegmentService = (
-  db: Db,
-  config: IUnleashConfig,
-): SegmentService => {
+export const createSegmentService = (db: Db, config: IUnleashConfig): SegmentService => {
   const { eventBus, getLogger, flagResolver } = config;
   const segmentStore = new SegmentStore(db, eventBus, getLogger, flagResolver);
-  const featureStrategiesStore = new FeatureStrategiesStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
-  const changeRequestAccessReadModel = createChangeRequestAccessReadModel(
-    db,
-    config,
-  );
+  const featureStrategiesStore = new FeatureStrategiesStore(db, eventBus, getLogger, flagResolver);
+  const changeRequestAccessReadModel = createChangeRequestAccessReadModel(db, config);
 
-  const changeRequestSegmentUsageReadModel =
-    createChangeRequestSegmentUsageReadModel(db);
+  const changeRequestSegmentUsageReadModel = createChangeRequestSegmentUsageReadModel(db);
 
   const privateProjectChecker = createPrivateProjectChecker(db, config);
 
@@ -56,14 +41,11 @@ export const createSegmentService = (
   );
 };
 
-export const createFakeSegmentService = (
-  config: IUnleashConfig,
-): ISegmentService => {
+export const createFakeSegmentService = (config: IUnleashConfig): ISegmentService => {
   const segmentStore = new FakeSegmentStore();
   const featureStrategiesStore = new FakeFeatureStrategiesStore();
   const changeRequestAccessReadModel = createFakeChangeRequestAccessService();
-  const changeRequestSegmentUsageReadModel =
-    createFakeChangeRequestSegmentUsageReadModel();
+  const changeRequestSegmentUsageReadModel = createFakeChangeRequestSegmentUsageReadModel();
 
   const privateProjectChecker = createFakePrivateProjectChecker();
 

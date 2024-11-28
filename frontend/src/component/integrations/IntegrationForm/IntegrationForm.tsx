@@ -7,14 +7,7 @@ import {
   useState,
   type FC,
 } from 'react';
-import {
-  Alert,
-  Button,
-  Divider,
-  Link,
-  styled,
-  Typography,
-} from '@mui/material';
+import { Alert, Button, Divider, Link, styled, Typography } from '@mui/material';
 import produce from 'immer';
 import { trim } from 'component/common/util';
 import type { AddonSchema, AddonTypeSchema } from 'openapi';
@@ -31,10 +24,7 @@ import { IntegrationMultiSelector } from './IntegrationMultiSelector/Integration
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
-import {
-  CREATE_ADDON,
-  UPDATE_ADDON,
-} from '../../providers/AccessProvider/permissions';
+import { CREATE_ADDON, UPDATE_ADDON } from '../../providers/AccessProvider/permissions';
 import {
   StyledForm,
   StyledAlerts,
@@ -74,12 +64,7 @@ type IntegrationFormProps = {
   addon: AddonSchema | Omit<AddonSchema, 'id'>;
 };
 
-export const IntegrationForm: FC<IntegrationFormProps> = ({
-  editMode,
-  provider,
-  addon: initialValues,
-  fetch,
-}) => {
+export const IntegrationForm: FC<IntegrationFormProps> = ({ editMode, provider, addon: initialValues, fetch }) => {
   const { createAddon, updateAddon } = useAddonsApi();
   const { setToastData, setToastApiError } = useToast();
   const navigate = useNavigate();
@@ -117,9 +102,7 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
   const { isAdmin } = useContext(AccessContext);
 
   const submitText = editMode ? 'Update' : 'Create';
-  const url = `${uiConfig.unleashUrl}/api/admin/addons${
-    editMode ? `/${(formValues as AddonSchema).id}` : ``
-  }`;
+  const url = `${uiConfig.unleashUrl}/api/admin/addons${editMode ? `/${(formValues as AddonSchema).id}` : ``}`;
 
   const formatApiCode = () => {
     return `curl --location --request ${editMode ? 'PUT' : 'POST'} '${url}' \\
@@ -161,8 +144,7 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
     (param: string): ChangeEventHandler<HTMLInputElement> =>
     (event) => {
       event.preventDefault();
-      const value =
-        trim(event.target.value) === '' ? undefined : event.target.value;
+      const value = trim(event.target.value) === '' ? undefined : event.target.value;
       setFormValues(
         produce((draft) => {
           if (value === undefined) {
@@ -232,8 +214,7 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
       let value = formValues.parameters[parameterConfig.name];
       value = typeof value === 'string' ? trim(value) : value;
       if (parameterConfig.required && !value) {
-        updatedErrors.parameters[parameterConfig.name] =
-          'This field is required';
+        updatedErrors.parameters[parameterConfig.name] = 'This field is required';
         updatedErrors.containsErrors = true;
       }
     });
@@ -284,9 +265,7 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
     <FormTemplate
       description={description || ''}
       documentationLink={documentationUrl}
-      documentationLinkLabel={`${
-        displayName || capitalizeFirst(`${name} `)
-      } documentation`}
+      documentationLinkLabel={`${displayName || capitalizeFirst(`${name} `)} documentation`}
       formatApiCode={formatApiCode}
       footer={
         <StyledButtonContainer>
@@ -309,14 +288,11 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
     >
       <StyledHeader>
         <StyledHeaderTitle>
-          {submitText} {displayName || (name ? capitalizeFirst(name) : '')}{' '}
-          integration
+          {submitText} {displayName || (name ? capitalizeFirst(name) : '')} integration
         </StyledHeaderTitle>
         <ConditionallyRender
           condition={editMode && isAdmin}
-          show={
-            <Link onClick={() => setEventsModalOpen(true)}>View events</Link>
-          }
+          show={<Link onClick={() => setEventsModalOpen(true)}>View events</Link>}
         />
       </StyledHeader>
       <StyledForm onSubmit={onSubmit}>
@@ -344,10 +320,7 @@ export const IntegrationForm: FC<IntegrationFormProps> = ({
           />
           <IntegrationHowToSection provider={provider} />
           <StyledRaisedSection>
-            <IntegrationStateSwitch
-              checked={formValues.enabled}
-              onClick={onEnabled}
-            />
+            <IntegrationStateSwitch checked={formValues.enabled} onClick={onEnabled} />
           </StyledRaisedSection>
           <StyledRaisedSection>
             <ConditionallyRender

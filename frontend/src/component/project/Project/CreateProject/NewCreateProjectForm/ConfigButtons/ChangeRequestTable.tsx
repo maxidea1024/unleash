@@ -1,13 +1,7 @@
 import { useMemo } from 'react';
 import { type HeaderGroup, useGlobalFilter, useTable } from 'react-table';
 import { Box, Switch, styled } from '@mui/material';
-import {
-  SortableTableHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TableRow,
-} from 'component/common/Table';
+import { SortableTableHeader, Table, TableBody, TableCell, TableRow } from 'component/common/Table';
 import { sortTypes } from 'utils/sortTypes';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -47,20 +41,14 @@ type TableProps = {
 export const ChangeRequestTable = (props: TableProps) => {
   const theme = useTheme();
 
-  const onToggleEnvironment =
-    (
-      environmentName: string,
-      previousState: boolean,
-      requiredApprovals: number,
-    ) =>
-    () => {
-      const newState = !previousState;
-      if (newState) {
-        props.enableEnvironment(environmentName, requiredApprovals);
-      } else {
-        props.disableEnvironment(environmentName);
-      }
-    };
+  const onToggleEnvironment = (environmentName: string, previousState: boolean, requiredApprovals: number) => () => {
+    const newState = !previousState;
+    if (newState) {
+      props.enableEnvironment(environmentName, requiredApprovals);
+    } else {
+      props.disableEnvironment(environmentName);
+    }
+  };
 
   const approvalOptions = Array.from(Array(10).keys())
     .map((key) => String(key + 1))
@@ -132,9 +120,7 @@ export const ChangeRequestTable = (props: TableProps) => {
               <Switch
                 checked={value}
                 inputProps={{
-                  'aria-label': `${
-                    value ? 'Disable' : 'Enable'
-                  } change requests for ${original.environment}`,
+                  'aria-label': `${value ? 'Disable' : 'Enable'} change requests for ${original.environment}`,
                 }}
                 onClick={onToggleEnvironment(
                   original.environment,
@@ -153,34 +139,31 @@ export const ChangeRequestTable = (props: TableProps) => {
     [],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        // @ts-ignore
-        columns,
-        data: props.environments.map((env) => {
-          return {
-            environment: env.name,
-            type: env.type,
-            changeRequestEnabled: env.changeRequestEnabled,
-            requiredApprovals: env.requiredApprovals ?? 1,
-          };
-        }),
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
+    {
+      // @ts-ignore
+      columns,
+      data: props.environments.map((env) => {
+        return {
+          environment: env.name,
+          type: env.type,
+          changeRequestEnabled: env.changeRequestEnabled,
+          requiredApprovals: env.requiredApprovals ?? 1,
+        };
+      }),
 
-        sortTypes,
-        autoResetGlobalFilter: false,
-        disableSortRemove: true,
-        defaultColumn: {
-          Cell: TextCell,
-        },
+      sortTypes,
+      autoResetGlobalFilter: false,
+      disableSortRemove: true,
+      defaultColumn: {
+        Cell: TextCell,
       },
-      useGlobalFilter,
-    );
+    },
+    useGlobalFilter,
+  );
   return (
     <StyledTable {...getTableProps()}>
-      <SortableTableHeader
-        headerGroups={headerGroups as HeaderGroup<object>[]}
-      />
+      <SortableTableHeader headerGroups={headerGroups as HeaderGroup<object>[]} />
       <TableBody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);

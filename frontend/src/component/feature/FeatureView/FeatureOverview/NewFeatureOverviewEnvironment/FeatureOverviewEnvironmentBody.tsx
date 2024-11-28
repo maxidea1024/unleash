@@ -1,9 +1,4 @@
-import {
-  type DragEventHandler,
-  type RefObject,
-  useEffect,
-  useState,
-} from 'react';
+import { type DragEventHandler, type RefObject, useEffect, useState } from 'react';
 import { Alert, Pagination, styled } from '@mui/material';
 import useFeatureStrategyApi from 'hooks/api/actions/useFeatureStrategyApi/useFeatureStrategyApi';
 import { formatUnknownError } from 'utils/formatUnknownError';
@@ -51,14 +46,11 @@ export const FeatureOverviewEnvironmentBody = ({
   const { setStrategiesSortOrder } = useFeatureStrategyApi();
   const { addChange } = useChangeRequestApi();
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(projectId, featureId);
   const manyStrategiesPagination = useUiFlag('manyStrategiesPagination');
-  const [strategies, setStrategies] = useState(
-    featureEnvironment?.strategies || [],
-  );
+  const [strategies, setStrategies] = useState(featureEnvironment?.strategies || []);
   const { trackEvent } = usePlausibleTracker();
 
   const [dragItem, setDragItem] = useState<{
@@ -90,17 +82,11 @@ export const FeatureOverviewEnvironmentBody = ({
   }
 
   const pageSize = 20;
-  const { page, pages, setPageIndex, pageIndex } =
-    usePagination<IFeatureStrategy>(strategies, pageSize);
+  const { page, pages, setPageIndex, pageIndex } = usePagination<IFeatureStrategy>(strategies, pageSize);
 
   const onReorder = async (payload: { id: string; sortOrder: number }[]) => {
     try {
-      await setStrategiesSortOrder(
-        projectId,
-        featureId,
-        featureEnvironment.name,
-        payload,
-      );
+      await setStrategiesSortOrder(projectId, featureId, featureEnvironment.name, payload);
       refetchFeature();
       setToastData({
         title: 'Order of strategies updated',
@@ -111,9 +97,7 @@ export const FeatureOverviewEnvironmentBody = ({
     }
   };
 
-  const onChangeRequestReorder = async (
-    payload: { id: string; sortOrder: number }[],
-  ) => {
+  const onChangeRequestReorder = async (payload: { id: string; sortOrder: number }[]) => {
     await addChange(projectId, featureEnvironment.name, {
       action: 'reorderStrategy',
       feature: featureId,
@@ -128,9 +112,7 @@ export const FeatureOverviewEnvironmentBody = ({
     refetchChangeRequests();
   };
 
-  const onStrategyReorder = async (
-    payload: { id: string; sortOrder: number }[],
-  ) => {
+  const onStrategyReorder = async (payload: { id: string; sortOrder: number }[]) => {
     try {
       if (isChangeRequestConfigured(featureEnvironment.name)) {
         await onChangeRequestReorder(payload);
@@ -143,10 +125,7 @@ export const FeatureOverviewEnvironmentBody = ({
   };
 
   const onDragStartRef =
-    (
-      ref: RefObject<HTMLDivElement>,
-      index: number,
-    ): DragEventHandler<HTMLButtonElement> =>
+    (ref: RefObject<HTMLDivElement>, index: number): DragEventHandler<HTMLButtonElement> =>
     (event) => {
       setIsReordering(true);
       setDragItem({
@@ -164,10 +143,7 @@ export const FeatureOverviewEnvironmentBody = ({
 
   const onDragOver =
     (targetId: string) =>
-    (
-      ref: RefObject<HTMLDivElement>,
-      targetIndex: number,
-    ): DragEventHandler<HTMLDivElement> =>
+    (ref: RefObject<HTMLDivElement>, targetIndex: number): DragEventHandler<HTMLDivElement> =>
     (event) => {
       if (dragItem === null || ref.current === null) return;
       if (dragItem.index === targetIndex || targetId === dragItem.id) return;
@@ -200,9 +176,7 @@ export const FeatureOverviewEnvironmentBody = ({
     );
   };
 
-  const strategiesToDisplay = isReordering
-    ? strategies
-    : featureEnvironment.strategies;
+  const strategiesToDisplay = isReordering ? strategies : featureEnvironment.strategies;
 
   return (
     <StyledAccordionBody>
@@ -211,8 +185,7 @@ export const FeatureOverviewEnvironmentBody = ({
           condition={strategiesToDisplay.length > 0 && isDisabled}
           show={() => (
             <Alert severity='warning' sx={{ mb: 2 }}>
-              This environment is disabled, which means that none of your
-              strategies are executing.
+              This environment is disabled, which means that none of your strategies are executing.
             </Alert>
           )}
         />
@@ -220,9 +193,7 @@ export const FeatureOverviewEnvironmentBody = ({
           condition={strategiesToDisplay.length > 0}
           show={
             <ConditionallyRender
-              condition={
-                strategiesToDisplay.length < 50 || !manyStrategiesPagination
-              }
+              condition={strategiesToDisplay.length < 50 || !manyStrategiesPagination}
               show={
                 <>
                   {strategiesToDisplay.map((strategy, index) => (
@@ -243,9 +214,8 @@ export const FeatureOverviewEnvironmentBody = ({
               elseShow={
                 <>
                   <Alert severity='error'>
-                    We noticed you're using a high number of activation
-                    strategies. To ensure a more targeted approach, consider
-                    leveraging constraints or segments.
+                    We noticed you're using a high number of activation strategies. To ensure a more targeted approach,
+                    consider leveraging constraints or segments.
                   </Alert>
                   <br />
                   {page.map((strategy, index) => (
@@ -273,11 +243,7 @@ export const FeatureOverviewEnvironmentBody = ({
             />
           }
           elseShow={
-            <FeatureStrategyEmpty
-              projectId={projectId}
-              featureId={featureId}
-              environmentId={featureEnvironment.name}
-            />
+            <FeatureStrategyEmpty projectId={projectId} featureId={featureId} environmentId={featureEnvironment.name} />
           }
         />
       </StyledAccordionBodyInnerContainer>

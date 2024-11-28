@@ -45,10 +45,7 @@ interface IFeatureOverviewSidePanelTagsProps {
   header: React.ReactNode;
 }
 
-export const FeatureOverviewSidePanelTags = ({
-  feature,
-  header,
-}: IFeatureOverviewSidePanelTagsProps) => {
+export const FeatureOverviewSidePanelTags = ({ feature, header }: IFeatureOverviewSidePanelTagsProps) => {
   const { tags, refetch } = useFeatureTags(feature.name);
   const { deleteTagFromFeature } = useFeatureApi();
 
@@ -63,11 +60,7 @@ export const FeatureOverviewSidePanelTags = ({
   const handleDelete = async () => {
     if (!selectedTag) return;
     try {
-      await deleteTagFromFeature(
-        feature.name,
-        selectedTag.type,
-        selectedTag.value,
-      );
+      await deleteTagFromFeature(feature.name, selectedTag.type, selectedTag.value);
       refetch();
       setToastData({
         type: 'success',
@@ -106,16 +99,8 @@ export const FeatureOverviewSidePanelTags = ({
         condition={canUpdateTags}
         show={
           <>
-            <ConditionallyRender
-              condition={tags.length > 0}
-              show={<StyledDivider />}
-            />
-            <StyledButton
-              data-loading
-              variant='outlined'
-              startIcon={<Add />}
-              onClick={() => setOpenTagDialog(true)}
-            >
+            <ConditionallyRender condition={tags.length > 0} show={<StyledDivider />} />
+            <StyledButton data-loading variant='outlined' startIcon={<Add />} onClick={() => setOpenTagDialog(true)}>
               Add new tag
             </StyledButton>
           </>

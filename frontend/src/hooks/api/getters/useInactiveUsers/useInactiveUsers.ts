@@ -20,10 +20,7 @@ export interface IUseInactiveUsersOutput {
 }
 
 export const useInactiveUsers = (): IUseInactiveUsersOutput => {
-  const { data, error, mutate } = useSWR(
-    formatApiPath(`api/admin/user-admin/inactive`),
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/user-admin/inactive`), fetcher);
 
   return useMemo(
     () => ({

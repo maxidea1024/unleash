@@ -11,18 +11,9 @@ const placeHolderApplication: ApplicationOverviewSchema = {
     missingStrategies: [],
   },
 };
-export const useApplicationOverview = (
-  application: string,
-  options: SWRConfiguration = {},
-) => {
-  const path = formatApiPath(
-    `api/admin/metrics/applications/${application}/overview`,
-  );
-  const { data, error } = useSWR<ApplicationOverviewSchema>(
-    path,
-    fetcher,
-    options,
-  );
+export const useApplicationOverview = (application: string, options: SWRConfiguration = {}) => {
+  const path = formatApiPath(`api/admin/metrics/applications/${application}/overview`);
+  const { data, error } = useSWR<ApplicationOverviewSchema>(path, fetcher, options);
 
   return {
     data: data || placeHolderApplication,
@@ -32,9 +23,7 @@ export const useApplicationOverview = (
 };
 
 const fetcher = async (path: string): Promise<ApplicationOverviewSchema> => {
-  const res = await fetch(path).then(
-    handleErrorResponses('Application overview'),
-  );
+  const res = await fetch(path).then(handleErrorResponses('Application overview'));
   const data = await res.json();
   return data;
 };

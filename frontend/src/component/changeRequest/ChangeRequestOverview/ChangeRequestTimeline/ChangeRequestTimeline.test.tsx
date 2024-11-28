@@ -1,10 +1,6 @@
 import { screen } from '@testing-library/react';
 import { render } from 'utils/testRenderer';
-import {
-  ChangeRequestTimeline,
-  determineColor,
-  getScheduleProps,
-} from './ChangeRequestTimeline';
+import { ChangeRequestTimeline, determineColor, getScheduleProps } from './ChangeRequestTimeline';
 import type { ChangeRequestState } from '../../changeRequest.types';
 
 test('cancelled timeline shows all states', () => {
@@ -65,33 +61,19 @@ test('scheduled timeline shows all states', () => {
 const irrelevantIndex = -99; // Using a number that's unlikely to be a valid index
 
 test('returns grey for Cancelled state regardless of displayed stage', () => {
-  const stages: ChangeRequestState[] = [
-    'Draft',
-    'In review',
-    'Approved',
-    'Applied',
-    'Rejected',
-  ];
+  const stages: ChangeRequestState[] = ['Draft', 'In review', 'Approved', 'Applied', 'Rejected'];
   stages.forEach((stage) => {
-    expect(
-      determineColor('Cancelled', irrelevantIndex, stage, irrelevantIndex),
-    ).toBe('grey');
+    expect(determineColor('Cancelled', irrelevantIndex, stage, irrelevantIndex)).toBe('grey');
   });
 });
 
 test('returns error for Rejected stage in Rejected state', () => {
-  expect(
-    determineColor('Rejected', irrelevantIndex, 'Rejected', irrelevantIndex),
-  ).toBe('error');
+  expect(determineColor('Rejected', irrelevantIndex, 'Rejected', irrelevantIndex)).toBe('error');
 });
 
 test('returns success for stages other than Rejected in Rejected state', () => {
-  expect(
-    determineColor('Rejected', irrelevantIndex, 'Draft', irrelevantIndex),
-  ).toBe('success');
-  expect(
-    determineColor('Rejected', irrelevantIndex, 'In review', irrelevantIndex),
-  ).toBe('success');
+  expect(determineColor('Rejected', irrelevantIndex, 'Draft', irrelevantIndex)).toBe('success');
+  expect(determineColor('Rejected', irrelevantIndex, 'In review', irrelevantIndex)).toBe('success');
 });
 
 describe('changeRequestScheduleProps', () => {

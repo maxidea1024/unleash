@@ -8,8 +8,7 @@ export const resetPasswordSchema = {
   required: ['resetPasswordUrl'],
   properties: {
     resetPasswordUrl: {
-      description:
-        'A URL pointing to a location where the user can reset their password',
+      description: 'A URL pointing to a location where the user can reset their password',
       type: 'string',
       format: 'uri',
       example: 'https://unleash.reset.com',

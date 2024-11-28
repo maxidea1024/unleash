@@ -27,11 +27,9 @@ export const ChangeRequestDialogue: FC<IChangeRequestDialogueProps> = ({
 }) => {
   const projectId = useRequiredPathParam('projectId');
   const { data } = usePendingChangeRequests(projectId);
-  const { changeRequestInReviewOrApproved, alert } =
-    useChangeRequestInReviewWarning(data);
+  const { changeRequestInReviewOrApproved, alert } = useChangeRequestInReviewWarning(data);
 
-  const hasChangeRequestInReviewForEnvironment =
-    changeRequestInReviewOrApproved(environment || '');
+  const hasChangeRequestInReviewForEnvironment = changeRequestInReviewOrApproved(environment || '');
 
   const primaryButtonText = hasChangeRequestInReviewForEnvironment
     ? 'Add to existing change request'
@@ -48,17 +46,13 @@ export const ChangeRequestDialogue: FC<IChangeRequestDialogueProps> = ({
       title='Request changes'
       fullWidth
     >
-      <ConditionallyRender
-        condition={hasChangeRequestInReviewForEnvironment}
-        show={alert}
-      />
+      <ConditionallyRender condition={hasChangeRequestInReviewForEnvironment} show={alert} />
       <ConditionallyRender
         condition={Boolean(showBanner)}
         show={
           <Alert severity='info' sx={{ mb: 2 }}>
-            Change requests feature is enabled for {environment}. Your changes
-            need to be approved before they will be live. All the changes you do
-            now will be added into a draft that you can submit for review.
+            Change requests feature is enabled for {environment}. Your changes need to be approved before they will be
+            live. All the changes you do now will be added into a draft that you can submit for review.
           </Alert>
         }
       />

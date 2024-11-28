@@ -35,19 +35,11 @@ interface IBillingDetailsProProps {
   instanceStatus: IInstanceStatus;
 }
 
-export const BillingDetailsPro = ({
-  instanceStatus,
-}: IBillingDetailsProProps) => {
+export const BillingDetailsPro = ({ instanceStatus }: IBillingDetailsProProps) => {
   const { users, loading } = useUsers();
 
-  const {
-    currentPeriod,
-    toChartData,
-    toTrafficUsageSum,
-    endpointsInfo,
-    getDayLabels,
-    calculateOverageCost,
-  } = useTrafficDataEstimation();
+  const { currentPeriod, toChartData, toTrafficUsageSum, endpointsInfo, getDayLabels, calculateOverageCost } =
+    useTrafficDataEstimation();
 
   const eligibleUsers = users.filter((user) => user.email);
 
@@ -64,11 +56,7 @@ export const BillingDetailsPro = ({
     if (!includedTraffic) {
       return 0;
     }
-    const trafficData = toChartData(
-      getDayLabels(currentPeriod.dayCount),
-      traffic,
-      endpointsInfo,
-    );
+    const trafficData = toChartData(getDayLabels(currentPeriod.dayCount), traffic, endpointsInfo);
     const totalTraffic = toTrafficUsageSum(trafficData);
     return calculateOverageCost(totalTraffic, includedTraffic);
   }, [includedTraffic, traffic, currentPeriod, endpointsInfo]);
@@ -94,9 +82,7 @@ export const BillingDetailsPro = ({
                 </Link>
               </GridColLink>
             </Typography>
-            <StyledInfoLabel>
-              You have {seats} team members included in your PRO plan
-            </StyledInfoLabel>
+            <StyledInfoLabel>You have {seats} team members included in your PRO plan</StyledInfoLabel>
           </GridCol>
           <GridCol>
             <StyledCheckIcon />
@@ -115,9 +101,7 @@ export const BillingDetailsPro = ({
                 <Link to='/admin/users'>{paidAssigned} assigned</Link>
               </GridColLink>
             </Typography>
-            <StyledInfoLabel>
-              ${BILLING_PRO_USER_PRICE}/month per paid member
-            </StyledInfoLabel>
+            <StyledInfoLabel>${BILLING_PRO_USER_PRICE}/month per paid member</StyledInfoLabel>
           </GridCol>
           <GridCol>
             <Typography
@@ -140,9 +124,7 @@ export const BillingDetailsPro = ({
                     <Link to='/admin/network/data-usage'>view details</Link>
                   </GridColLink>
                 </Typography>
-                <StyledInfoLabel>
-                  $5 dollar per 1 million started above included data
-                </StyledInfoLabel>
+                <StyledInfoLabel>$5 dollar per 1 million started above included data</StyledInfoLabel>
               </GridCol>
               <GridCol>
                 <Typography

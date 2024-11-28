@@ -1,23 +1,12 @@
 import type React from 'react';
 import { type FC, useState } from 'react';
-import {
-  Box,
-  Button,
-  Divider,
-  styled,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Button, Divider, styled, Typography, useTheme } from '@mui/material';
 import type { ChangeRequestType } from '../../changeRequest.types';
 import { useNavigate } from 'react-router-dom';
 import { ChangeRequestStatusBadge } from '../../ChangeRequestStatusBadge/ChangeRequestStatusBadge';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { changesCount } from '../../changesCount';
-import {
-  Separator,
-  StyledFlexAlignCenterBox,
-  StyledSuccessIcon,
-} from '../ChangeRequestSidebar';
+import { Separator, StyledFlexAlignCenterBox, StyledSuccessIcon } from '../ChangeRequestSidebar';
 import CloudCircle from '@mui/icons-material/CloudCircle';
 import { AddCommentField } from '../../ChangeRequestOverview/ChangeRequestComments/AddCommentField';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
@@ -31,12 +20,7 @@ const SubmitChangeRequestButton: FC<{
   count: number;
   disabled?: boolean;
 }> = ({ onClick, count, disabled = false }) => (
-  <Button
-    sx={{ ml: 'auto' }}
-    variant='contained'
-    onClick={onClick}
-    disabled={disabled}
-  >
+  <Button sx={{ ml: 'auto' }} variant='contained' onClick={onClick} disabled={disabled}>
     Submit change request ({count})
   </Button>
 );
@@ -116,17 +100,11 @@ export const EnvironmentChangeRequest: FC<{
             />
           </Box>
           <Box sx={{ ml: 'auto' }}>
-            <ChangeRequestStatusBadge
-              changeRequest={environmentChangeRequest}
-            />
+            <ChangeRequestStatusBadge changeRequest={environmentChangeRequest} />
           </Box>
         </Box>
         <Divider sx={{ my: 3 }} />
-        <ChangeRequestTitle
-          environmentChangeRequest={environmentChangeRequest}
-          title={title}
-          setTitle={setTitle}
-        >
+        <ChangeRequestTitle environmentChangeRequest={environmentChangeRequest} title={title} setTitle={setTitle}>
           <Input
             label='Change request title'
             id='group-name'
@@ -141,13 +119,7 @@ export const EnvironmentChangeRequest: FC<{
         {children}
         <ConditionallyRender
           condition={environmentChangeRequest?.state === 'Draft'}
-          show={
-            <AddCommentField
-              user={user}
-              commentText={commentText}
-              onTypeComment={setCommentText}
-            />
-          }
+          show={<AddCommentField user={user} commentText={commentText} onTypeComment={setCommentText} />}
         />
         <Box sx={{ display: 'flex', mt: 3 }}>
           <ConditionallyRender
@@ -175,17 +147,12 @@ export const EnvironmentChangeRequest: FC<{
             }
           />
           <ConditionallyRender
-            condition={
-              environmentChangeRequest.state === 'In review' ||
-              environmentChangeRequest.state === 'Approved'
-            }
+            condition={environmentChangeRequest.state === 'In review' || environmentChangeRequest.state === 'Approved'}
             show={
               <>
                 <StyledFlexAlignCenterBox>
                   <StyledSuccessIcon />
-                  <Typography color={theme.palette.success.dark}>
-                    Draft successfully sent to review
-                  </Typography>
+                  <Typography color={theme.palette.success.dark}>Draft successfully sent to review</Typography>
                   <Button
                     sx={{ marginLeft: 2 }}
                     variant='outlined'

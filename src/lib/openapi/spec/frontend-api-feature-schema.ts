@@ -20,8 +20,7 @@ export const frontendApiFeatureSchema = {
     impressionData: {
       type: 'boolean',
       example: false,
-      description:
-        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     variant: {
       type: 'object',
@@ -74,6 +73,4 @@ export const frontendApiFeatureSchema = {
   components: {},
 } as const;
 
-export type FrontendApiFeatureSchema = FromSchema<
-  typeof frontendApiFeatureSchema
->;
+export type FrontendApiFeatureSchema = FromSchema<typeof frontendApiFeatureSchema>;

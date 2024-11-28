@@ -19,13 +19,7 @@ export default class AuthenticationRequired extends UnleashError {
   private readonly defaultHidden: boolean;
   private readonly options?: IBaseOptions[];
 
-  constructor({
-    type,
-    path,
-    message,
-    options,
-    defaultHidden = false,
-  }: IOptions) {
+  constructor({ type, path, message, options, defaultHidden = false }: IOptions) {
     super(message);
 
     this.type = type;

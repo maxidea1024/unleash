@@ -18,21 +18,11 @@ export interface IClientMetricsEnvVariant extends IClientMetricsEnvKey {
   count: number;
 }
 
-export interface IClientMetricsStoreV2
-  extends IStore<IClientMetricsEnv, IClientMetricsEnvKey> {
+export interface IClientMetricsStoreV2 extends IStore<IClientMetricsEnv, IClientMetricsEnvKey> {
   batchInsertMetrics(metrics: IClientMetricsEnv[]): Promise<void>;
-  getMetricsForFeatureToggle(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<IClientMetricsEnv[]>;
-  getMetricsForFeatureToggleV2(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<IClientMetricsEnv[]>;
-  getSeenAppsForFeatureToggle(
-    featureName: string,
-    hoursBack?: number,
-  ): Promise<string[]>;
+  getMetricsForFeatureToggle(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]>;
+  getMetricsForFeatureToggleV2(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]>;
+  getSeenAppsForFeatureToggle(featureName: string, hoursBack?: number): Promise<string[]>;
   getSeenTogglesForApp(appName: string, hoursBack?: number): Promise<string[]>;
   clearMetrics(hoursAgo: number): Promise<void>;
   clearDailyMetrics(daysAgo: number): Promise<void>;

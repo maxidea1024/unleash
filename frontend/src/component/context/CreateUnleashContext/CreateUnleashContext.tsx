@@ -15,11 +15,7 @@ interface ICreateContextProps {
   modal?: boolean;
 }
 
-export const CreateUnleashContext = ({
-  onSubmit,
-  onCancel,
-  modal,
-}: ICreateContextProps) => {
+export const CreateUnleashContext = ({ onSubmit, onCancel, modal }: ICreateContextProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const {

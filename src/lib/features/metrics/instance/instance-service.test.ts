@@ -193,9 +193,7 @@ test('No registrations during a time period will not call stores', async () => {
 
 test('filter out private projects from overview', async () => {
   const clientApplicationsStore = {
-    async getApplicationOverview(
-      appName: string,
-    ): Promise<IApplicationOverview> {
+    async getApplicationOverview(appName: string): Promise<IApplicationOverview> {
       return {
         environments: [
           {
@@ -218,10 +216,7 @@ test('filter out private projects from overview', async () => {
     },
   } as IClientApplicationsStore;
   const privateProjectsChecker = {
-    async filterUserAccessibleProjects(
-      userId: number,
-      projects: string[],
-    ): Promise<string[]> {
+    async filterUserAccessibleProjects(userId: number, projects: string[]): Promise<string[]> {
       return projects.filter((project) => !project.includes('private'));
     },
   } as FakePrivateProjectChecker;
@@ -231,10 +226,7 @@ test('filter out private projects from overview', async () => {
     privateProjectsChecker,
   );
 
-  const overview = await clientInstanceService.getApplicationOverview(
-    'appName',
-    123,
-  );
+  const overview = await clientInstanceService.getApplicationOverview('appName', 123);
 
   expect(overview).toMatchObject({
     environments: [

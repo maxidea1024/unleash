@@ -9,6 +9,4 @@ import type { OidcSettingsSchemaOneOfFour } from './oidcSettingsSchemaOneOfFour'
 /**
  * Settings for configuring OpenID Connect as a login provider for Unleash
  */
-export type OidcSettingsSchema =
-  | OidcSettingsSchemaOneOf
-  | OidcSettingsSchemaOneOfFour;
+export type OidcSettingsSchema = OidcSettingsSchemaOneOf | OidcSettingsSchemaOneOfFour;

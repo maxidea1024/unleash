@@ -1,20 +1,10 @@
 import type { Response } from 'express';
 import Controller from '../../controller';
 import type { Logger } from '../../../logger';
-import type {
-  IFlagResolver,
-  IUnleashConfig,
-  IUnleashServices,
-} from '../../../types';
+import type { IFlagResolver, IUnleashConfig, IUnleashServices } from '../../../types';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
-import {
-  createResponseSchema,
-  resourceCreatedResponseSchema,
-} from '../../../openapi/util/create-response-schema';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../../openapi/util/standard-responses';
+import { createResponseSchema, resourceCreatedResponseSchema } from '../../../openapi/util/create-response-schema';
+import { emptyResponse, getStandardResponses } from '../../../openapi/util/standard-responses';
 import type { OpenApiService } from '../../../services/openapi-service';
 
 import type PatService from '../../../services/pat-service';
@@ -23,10 +13,7 @@ import type { IAuthRequest } from '../../unleash-types';
 import { serializeDates } from '../../../types/serialize-dates';
 import { type PatSchema, patSchema } from '../../../openapi/spec/pat-schema';
 import { type PatsSchema, patsSchema } from '../../../openapi/spec/pats-schema';
-import {
-  type CreatePatSchema,
-  createPatSchema,
-} from '../../../openapi/spec/create-pat-schema';
+import { type CreatePatSchema, createPatSchema } from '../../../openapi/spec/create-pat-schema';
 import { ForbiddenError, NotFoundError } from '../../../error';
 import idNumberMiddleware from '../../../middleware/id-number-middleware';
 
@@ -38,10 +25,7 @@ export default class PatController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      openApiService,
-      patService,
-    }: Pick<IUnleashServices, 'openApiService' | 'patService'>,
+    { openApiService, patService }: Pick<IUnleashServices, 'openApiService' | 'patService'>,
   ) {
     super(config);
 
@@ -60,8 +44,7 @@ export default class PatController extends Controller {
         openApiService.validPath({
           tags: ['Personal access tokens'],
           operationId: 'getPats',
-          summary:
-            'Get all personal access tokens (PATs) for the current user.',
+          summary: 'Get all personal access tokens (PATs) for the current user.',
           description:
             'Returns all of the [personal access tokens](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PATs) belonging to the current user.',
           responses: {
@@ -81,8 +64,7 @@ export default class PatController extends Controller {
         openApiService.validPath({
           tags: ['Personal access tokens'],
           operationId: 'createPat',
-          summary:
-            'Create a new personal access token (PAT) for the current user.',
+          summary: 'Create a new personal access token (PAT) for the current user.',
           description:
             'Creates a new [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PAT) belonging to the current user.',
           requestBody: createRequestSchema(createPatSchema.$id),
@@ -117,10 +99,7 @@ export default class PatController extends Controller {
     });
   }
 
-  async createPat(
-    req: IAuthRequest<unknown, unknown, CreatePatSchema>,
-    res: Response<PatSchema>,
-  ): Promise<void> {
+  async createPat(req: IAuthRequest<unknown, unknown, CreatePatSchema>, res: Response<PatSchema>): Promise<void> {
     if (this.flagResolver.isEnabled('personalAccessTokensKillSwitch')) {
       throw new NotFoundError('PATs are disabled.');
     }
@@ -130,17 +109,8 @@ export default class PatController extends Controller {
     }
 
     const pat = req.body;
-    const createdPat = await this.patService.createPat(
-      pat,
-      req.user.id,
-      req.audit,
-    );
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      patSchema.$id,
-      serializeDates(createdPat),
-    );
+    const createdPat = await this.patService.createPat(pat, req.user.id, req.audit);
+    this.openApiService.respondWithValidation(201, res, patSchema.$id, serializeDates(createdPat));
   }
 
   async getPats(req: IAuthRequest, res: Response<PatsSchema>): Promise<void> {
@@ -158,10 +128,7 @@ export default class PatController extends Controller {
     });
   }
 
-  async deletePat(
-    req: IAuthRequest<{ id: number }>,
-    res: Response,
-  ): Promise<void> {
+  async deletePat(req: IAuthRequest<{ id: number }>, res: Response): Promise<void> {
     const { id } = req.params;
     await this.patService.deletePat(id, req.user.id, req.audit);
     res.status(200).end();

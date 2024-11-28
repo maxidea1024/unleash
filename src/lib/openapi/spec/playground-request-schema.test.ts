@@ -9,10 +9,7 @@ import { generate as generateContext } from './sdk-context-schema.test';
 
 export const generate = (): Arbitrary<PlaygroundRequestSchema> =>
   fc.record({
-    environment: fc.oneof(
-      fc.constantFrom('development', 'production', 'default'),
-      fc.lorem({ maxCount: 1 }),
-    ),
+    environment: fc.oneof(fc.constantFrom('development', 'production', 'default'), fc.lorem({ maxCount: 1 })),
     projects: fc.oneof(
       fc.uniqueArray(fc.oneof(fc.lorem({ maxCount: 1 }), urlFriendlyString())),
       fc.constant('*' as const),
@@ -24,7 +21,6 @@ test('playgroundRequestSchema', () =>
   fc.assert(
     fc.property(
       generate(),
-      (data: PlaygroundRequestSchema) =>
-        validateSchema(playgroundRequestSchema.$id, data) === undefined,
+      (data: PlaygroundRequestSchema) => validateSchema(playgroundRequestSchema.$id, data) === undefined,
     ),
   ));

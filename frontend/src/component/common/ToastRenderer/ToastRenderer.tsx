@@ -1,10 +1,6 @@
 import { Portal } from '@mui/material';
 import { useContext, useEffect, useMemo } from 'react';
-import {
-  fadeInBottomEnter,
-  fadeInBottomLeave,
-  fadeInBottomStartWithoutFixed,
-} from 'themes/themeStyles';
+import { fadeInBottomEnter, fadeInBottomLeave, fadeInBottomStartWithoutFixed } from 'themes/themeStyles';
 import UIContext from 'contexts/UIContext';
 import AnimateOnMount from '../AnimateOnMount/AnimateOnMount';
 import Toast from './Toast/Toast';

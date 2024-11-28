@@ -20,8 +20,7 @@ export const corsOriginMiddleware = (
 ): RequestHandler => {
   const corsFunc = cors(async (req, callback) => {
     try {
-      const { frontendApiOrigins = [] } =
-        await frontendApiService.getFrontendSettings();
+      const { frontendApiOrigins = [] } = await frontendApiService.getFrontendSettings();
       callback(null, {
         origin: resolveOrigin(frontendApiOrigins),
         maxAge: config.accessControlMaxAge,

@@ -41,8 +41,7 @@ export const variantSchema = {
       additionalProperties: false,
       properties: {
         type: {
-          description:
-            'The type of the value. Commonly used types are string, number, json and csv.',
+          description: 'The type of the value. Commonly used types are string, number, json and csv.',
           type: 'string',
           enum: ['json', 'csv', 'string', 'number'],
         },

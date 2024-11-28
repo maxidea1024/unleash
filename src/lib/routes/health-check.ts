@@ -13,10 +13,7 @@ export class HealthCheckController extends Controller {
   private readonly logger: Logger;
   private readonly openApiService: OpenApiService;
 
-  constructor(
-    config: IUnleashConfig,
-    { openApiService }: Pick<IUnleashServices, 'openApiService'>,
-  ) {
+  constructor(config: IUnleashConfig, { openApiService }: Pick<IUnleashServices, 'openApiService'>) {
     super(config);
 
     this.logger = config.getLogger('health-check.ts');
@@ -44,10 +41,7 @@ export class HealthCheckController extends Controller {
     });
   }
 
-  async getHealth(
-    req: Request,
-    res: Response<HealthCheckSchema>,
-  ): Promise<void> {
+  async getHealth(req: Request, res: Response<HealthCheckSchema>): Promise<void> {
     res.status(200).json({ health: 'GOOD' });
   }
 }

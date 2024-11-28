@@ -68,10 +68,7 @@ const getLeftOffset = (caretX = 0, align?: 'left' | 'right' | 'center') => {
   return caretX;
 };
 
-export const ChartTooltipContainer: FC<IChartTooltipProps> = ({
-  tooltip,
-  children,
-}) => (
+export const ChartTooltipContainer: FC<IChartTooltipProps> = ({ tooltip, children }) => (
   <Box
     sx={(theme) => ({
       top: (tooltip?.caretY || 0) + offset,

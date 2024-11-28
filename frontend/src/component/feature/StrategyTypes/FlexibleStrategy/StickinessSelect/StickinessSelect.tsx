@@ -9,13 +9,7 @@ interface IStickinessSelectProps {
   onChange: (event: SelectChangeEvent) => void;
   dataTestId?: string;
 }
-export const StickinessSelect = ({
-  label,
-  editable,
-  value,
-  onChange,
-  dataTestId,
-}: IStickinessSelectProps) => {
+export const StickinessSelect = ({ label, editable, value, onChange, dataTestId }: IStickinessSelectProps) => {
   const theme = useTheme();
   const stickinessOptions = useStickinessOptions(value);
 

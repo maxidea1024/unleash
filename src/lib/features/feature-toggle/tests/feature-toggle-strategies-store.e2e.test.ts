@@ -1,15 +1,8 @@
 import type { IFeatureStrategiesStore } from '../../../features/feature-toggle/types/feature-toggle-strategies-store-type';
 import type { IFeatureToggleStore } from '../../../features/feature-toggle/types/feature-toggle-store-type';
-import dbInit, {
-  type ITestDb,
-} from '../../../../test/e2e/helpers/database-init';
+import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
-import type {
-  IConstraint,
-  IFeatureStrategiesReadModel,
-  IProjectStore,
-  IUnleashStores,
-} from '../../../types';
+import type { IConstraint, IFeatureStrategiesReadModel, IProjectStore, IUnleashStores } from '../../../types';
 import { randomId } from '../../../util';
 
 let stores: IUnleashStores;
@@ -64,30 +57,21 @@ test('Can successfully update project for all strategies belonging to feature', 
     parameters: {},
     sortOrder: 20,
   });
-  const strats = await featureStrategiesStore.getStrategiesForFeatureEnv(
+  const strats = await featureStrategiesStore.getStrategiesForFeatureEnv(oldProjectId, featureName, environment);
+  expect(strats).toHaveLength(2);
+  await featureStrategiesStore.setProjectForStrategiesBelongingToFeature(featureName, newProjectId);
+  const newProjectStrats = await featureStrategiesStore.getStrategiesForFeatureEnv(
+    newProjectId,
+    featureName,
+    environment,
+  );
+  expect(newProjectStrats).toHaveLength(2);
+
+  const oldProjectStrats = await featureStrategiesStore.getStrategiesForFeatureEnv(
     oldProjectId,
     featureName,
     environment,
   );
-  expect(strats).toHaveLength(2);
-  await featureStrategiesStore.setProjectForStrategiesBelongingToFeature(
-    featureName,
-    newProjectId,
-  );
-  const newProjectStrats =
-    await featureStrategiesStore.getStrategiesForFeatureEnv(
-      newProjectId,
-      featureName,
-      environment,
-    );
-  expect(newProjectStrats).toHaveLength(2);
-
-  const oldProjectStrats =
-    await featureStrategiesStore.getStrategiesForFeatureEnv(
-      oldProjectId,
-      featureName,
-      environment,
-    );
   return expect(oldProjectStrats).toHaveLength(0);
 });
 
@@ -141,16 +125,8 @@ test('Can query for features with namePrefix and tags', async () => {
     name: 'tagged-but-not-hit-nameprefix-and-tags',
     createdByUserId: 9999,
   });
-  await stores.featureTagStore.tagFeature(
-    'to-be-tagged-nameprefix-and-tags',
-    tag,
-    9999,
-  );
-  await stores.featureTagStore.tagFeature(
-    'tagged-but-not-hit-nameprefix-and-tags',
-    tag,
-    9999,
-  );
+  await stores.featureTagStore.tagFeature('to-be-tagged-nameprefix-and-tags', tag, 9999);
+  await stores.featureTagStore.tagFeature('tagged-but-not-hit-nameprefix-and-tags', tag, 9999);
   const features = await featureStrategiesStore.getFeatureOverview({
     projectId: 'default',
     tag: [[tag.type, tag.value]],
@@ -229,10 +205,10 @@ describe('strategy parameters default to sane defaults', () => {
       id: 'custom_default_stickiness',
     });
     const defaultStickiness = 'userId';
-    await db.rawDatabase.raw(
-      `UPDATE project_settings SET default_stickiness = ? WHERE project = ?`,
-      [defaultStickiness, project.id],
-    );
+    await db.rawDatabase.raw(`UPDATE project_settings SET default_stickiness = ? WHERE project = ?`, [
+      defaultStickiness,
+      project.id,
+    ]);
     const toggle = await featureToggleStore.create(project.id, {
       name: 'testing-default-strategy-on-project',
       createdByUserId: 9999,
@@ -257,10 +233,8 @@ describe('max metrics collection', () => {
       createdByUserId: 9999,
     });
 
-    const maxStrategiesBefore =
-      await featureStrategiesReadModel.getMaxFeatureStrategies();
-    const maxEnvStrategiesBefore =
-      await featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies();
+    const maxStrategiesBefore = await featureStrategiesReadModel.getMaxFeatureStrategies();
+    const maxEnvStrategiesBefore = await featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies();
     expect(maxStrategiesBefore).toBe(null);
     expect(maxEnvStrategiesBefore).toBe(null);
 
@@ -283,10 +257,8 @@ describe('max metrics collection', () => {
       parameters: {},
     });
 
-    const maxStrategies =
-      await featureStrategiesReadModel.getMaxFeatureStrategies();
-    const maxEnvStrategies =
-      await featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies();
+    const maxStrategies = await featureStrategiesReadModel.getMaxFeatureStrategies();
+    const maxEnvStrategies = await featureStrategiesReadModel.getMaxFeatureEnvironmentStrategies();
     expect(maxStrategies).toEqual({ feature: 'featureA', count: 2 });
     expect(maxEnvStrategies).toEqual({
       feature: 'featureA',
@@ -303,10 +275,7 @@ describe('max metrics collection', () => {
     } as const;
   };
 
-  const strategyWithConstraints = (
-    feature: string,
-    constraint: IConstraint,
-  ) => {
+  const strategyWithConstraints = (feature: string, constraint: IConstraint) => {
     return {
       strategyName: 'gradualRollout',
       projectId: 'default',
@@ -335,8 +304,7 @@ describe('max metrics collection', () => {
       createdByUserId: 9999,
     });
 
-    const maxConstraintValuesBefore =
-      await featureStrategiesReadModel.getMaxConstraintValues();
+    const maxConstraintValuesBefore = await featureStrategiesReadModel.getMaxConstraintValues();
     expect(maxConstraintValuesBefore).toBe(null);
 
     const maxValueCount = 100;
@@ -355,8 +323,7 @@ describe('max metrics collection', () => {
 
     await featureToggleStore.archive(flagC.name);
 
-    const maxConstraintValues =
-      await featureStrategiesReadModel.getMaxConstraintValues();
+    const maxConstraintValues = await featureStrategiesReadModel.getMaxConstraintValues();
     expect(maxConstraintValues).toEqual({
       feature: flagA.name,
       environment: 'default',
@@ -375,8 +342,7 @@ describe('max metrics collection', () => {
       createdByUserId: 9999,
     });
 
-    const maxConstraintValuesBefore =
-      await featureStrategiesReadModel.getMaxConstraintsPerStrategy();
+    const maxConstraintValuesBefore = await featureStrategiesReadModel.getMaxConstraintsPerStrategy();
     expect(maxConstraintValuesBefore).toBe(null);
 
     await featureStrategiesStore.createStrategyFeatureEnv({
@@ -410,8 +376,7 @@ describe('max metrics collection', () => {
       parameters: {},
     });
 
-    const maxConstraintValues =
-      await featureStrategiesReadModel.getMaxConstraintsPerStrategy();
+    const maxConstraintValues = await featureStrategiesReadModel.getMaxConstraintsPerStrategy();
     expect(maxConstraintValues).toEqual({
       feature: flagA.name,
       environment: 'default',

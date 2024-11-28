@@ -1,16 +1,7 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../../test/e2e/helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
-import {
-  FEATURE_CREATED,
-  type IUser,
-  RoleName,
-  type IAuditUser,
-  type IUnleashConfig,
-} from '../../types';
+import { FEATURE_CREATED, type IUser, RoleName, type IAuditUser, type IUnleashConfig } from '../../types';
 import type { EventService } from '../../services';
 import { createEventsService } from '../events/createEventsService';
 import { createTestConfig } from '../../../test/config/test-config';
@@ -103,16 +94,11 @@ test('project insights should return correct count for each day', async () => {
 
   const { events } = await eventService.getEvents();
 
-  const yesterdayEvent = events.find(
-    (e) => e.data.featureName === 'yesterday-event',
-  );
+  const yesterdayEvent = events.find((e) => e.data.featureName === 'yesterday-event');
 
   const { todayString, yesterdayString } = getCurrentDateStrings();
 
-  await db.rawDatabase.raw(`UPDATE events SET created_at = ? where id = ?`, [
-    yesterdayString,
-    yesterdayEvent?.id,
-  ]);
+  await db.rawDatabase.raw(`UPDATE events SET created_at = ? where id = ?`, [yesterdayString, yesterdayEvent?.id]);
 
   const { body } = await app.request
     .get('/api/admin/projects/default/status')
@@ -131,8 +117,7 @@ test('project status should return environments with connected SDKs', async () =
   const flagName = randomId();
   await app.createFeature(flagName);
 
-  const envs =
-    await app.services.environmentService.getProjectEnvironments('default');
+  const envs = await app.services.environmentService.getProjectEnvironments('default');
   expect(envs.some((env) => env.name === 'default')).toBeTruthy();
 
   const appName = 'blah';
@@ -311,11 +296,7 @@ test('project status includes stale flags', async () => {
     {} as IUser,
     {} as IAuditUser,
   );
-  const createFlagInState = async (
-    name: string,
-    state?: Object,
-    projectId?: string,
-  ) => {
+  const createFlagInState = async (name: string, state?: Object, projectId?: string) => {
     await app.createFeature(name, projectId);
     if (state) {
       await db.rawDatabase('features').update(state).where({ name });
@@ -335,11 +316,7 @@ test('project status includes stale flags', async () => {
     archived: true,
     stale: true,
   });
-  await createFlagInState(
-    'stale-other-project',
-    { stale: true },
-    otherProject.id,
-  );
+  await createFlagInState('stale-other-project', { stale: true }, otherProject.id);
 
   const { body } = await app.request
     .get('/api/admin/projects/default/status')

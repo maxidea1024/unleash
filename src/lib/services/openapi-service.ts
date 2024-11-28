@@ -1,12 +1,7 @@
 import openapi, { type IExpressOpenApi } from '@wesleytodd/openapi';
 import type { Express, RequestHandler, Response } from 'express';
 import type { IUnleashConfig } from '../types/options';
-import {
-  createOpenApiSchema,
-  type JsonSchemaProps,
-  removeJsonSchemaProps,
-  type SchemaId,
-} from '../openapi';
+import { createOpenApiSchema, type JsonSchemaProps, removeJsonSchemaProps, type SchemaId } from '../openapi';
 import type { ApiOperation } from '../openapi/util/api-operation';
 import type { Logger } from '../logger';
 import { validateSchema } from '../openapi/validate';
@@ -46,9 +41,7 @@ export class OpenApiService {
     return `${baseUriPath}/docs/openapi`;
   }
 
-  registerCustomSchemas<T extends JsonSchemaProps>(
-    schemas: Record<string, T>,
-  ): void {
+  registerCustomSchemas<T extends JsonSchemaProps>(schemas: Record<string, T>): void {
     Object.entries(schemas).forEach(([name, schema]) => {
       this.api.schema(name, removeJsonSchemaProps(schema));
     });
@@ -82,9 +75,7 @@ export class OpenApiService {
       }
     }
 
-    Object.entries(headers).forEach(([header, value]) =>
-      res.header(header, value),
-    );
+    Object.entries(headers).forEach(([header, value]) => res.header(header, value));
 
     res.status(status).json(data);
   }

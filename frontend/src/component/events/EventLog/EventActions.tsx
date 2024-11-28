@@ -1,14 +1,5 @@
 import { type FC, useState } from 'react';
-import {
-  IconButton,
-  ListItemText,
-  MenuItem,
-  MenuList,
-  Popover,
-  styled,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { IconButton, ListItemText, MenuItem, MenuList, Popover, styled, Tooltip, Typography } from '@mui/material';
 import FileDownload from '@mui/icons-material/FileDownload';
 import type { EventSchema } from '../../../openapi';
 import { json2csv } from 'json-2-csv';

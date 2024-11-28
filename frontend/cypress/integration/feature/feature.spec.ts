@@ -14,11 +14,7 @@ describe('feature', () => {
 
   after(() => {
     cy.on('uncaught:exception', (err) => {
-      if (
-        err.message.includes(
-          'ResizeObserver loop completed with undelivered notifications',
-        )
-      ) {
+      if (err.message.includes('ResizeObserver loop completed with undelivered notifications')) {
         console.log('Ignored an uncaught resize observer error:', err.message);
         // ignore resize observer errors
         // https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver#observation_errors
@@ -54,16 +50,12 @@ describe('feature', () => {
 
   it('gives an error if a toggle exists with the same name', () => {
     cy.createFeature_UI(featureToggleName, false, projectName);
-    cy.get("[data-testid='INPUT_ERROR_TEXT']").contains(
-      'A flag with that name already exists',
-    );
+    cy.get("[data-testid='INPUT_ERROR_TEXT']").contains('A flag with that name already exists');
   });
 
   it('gives an error if a toggle name is url unsafe', () => {
     cy.createFeature_UI('featureToggleUnsafe####$#//', false, projectName);
-    cy.get("[data-testid='INPUT_ERROR_TEXT']").contains(
-      `"name" must be URL friendly`,
-    );
+    cy.get("[data-testid='INPUT_ERROR_TEXT']").contains(`"name" must be URL friendly`);
   });
 
   it('can add, update and delete a gradual rollout strategy to the development environment', () => {

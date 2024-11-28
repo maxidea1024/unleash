@@ -20,17 +20,11 @@ const StyledDiv = styled('div')(() => ({
   wordBreak: 'break-all',
 }));
 
-export const VariantCell: VFC<IVariantCellProps> = ({
-  variant,
-  variants,
-  feature,
-  isEnabled,
-}) => {
+export const VariantCell: VFC<IVariantCellProps> = ({ variant, variants, feature, isEnabled }) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
-  const onOpen = (event: React.FormEvent<HTMLButtonElement>) =>
-    setAnchorEl(event.currentTarget);
+  const onOpen = (event: React.FormEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
 
   const onClose = () => setAnchorEl(null);
 
@@ -62,10 +56,7 @@ export const VariantCell: VFC<IVariantCellProps> = ({
                 horizontal: -320,
               }}
             >
-              <VariantInformation
-                variants={variants}
-                selectedVariant={variant}
-              />
+              <VariantInformation variants={variants} selectedVariant={variant} />
             </Popover>
           </>
         }

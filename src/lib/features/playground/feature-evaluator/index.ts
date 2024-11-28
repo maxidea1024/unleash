@@ -1,7 +1,4 @@
-import {
-  FeatureEvaluator,
-  type FeatureEvaluatorConfig,
-} from './feature-evaluator';
+import { FeatureEvaluator, type FeatureEvaluatorConfig } from './feature-evaluator';
 import { Variant } from './variant';
 import { Context } from './context';
 import type { ClientFeaturesResponse } from './feature';

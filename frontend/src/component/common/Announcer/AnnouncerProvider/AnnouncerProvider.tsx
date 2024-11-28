@@ -6,9 +6,7 @@ interface IAnnouncerProviderProps {
   children: ReactNode;
 }
 
-export const AnnouncerProvider = ({
-  children,
-}: IAnnouncerProviderProps): ReactElement => {
+export const AnnouncerProvider = ({ children }: IAnnouncerProviderProps): ReactElement => {
   const [announcement, setAnnouncement] = useState<string>();
 
   const value = useMemo(

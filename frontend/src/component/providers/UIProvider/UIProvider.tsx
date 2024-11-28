@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import UIContext, {
-  createEmptyToast,
-  type themeMode,
-} from 'contexts/UIContext';
+import UIContext, { createEmptyToast, type themeMode } from 'contexts/UIContext';
 import type { IToast } from 'interfaces/toast';
 import { getLocalStorageItem } from 'utils/storage';
 

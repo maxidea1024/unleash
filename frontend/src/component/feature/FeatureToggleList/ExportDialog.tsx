@@ -92,25 +92,17 @@ export const ExportDialog = ({
           condition={data.length > 0}
           show={
             <span>
-              The current search filter will be used to export feature flags.
-              Currently {data.length} feature flags will be exported.
+              The current search filter will be used to export feature flags. Currently {data.length} feature flags will
+              be exported.
             </span>
           }
-          elseShow={
-            <span>You will export all feature flags from this project.</span>
-          }
+          elseShow={<span>You will export all feature flags from this project.</span>}
         />
 
         <br />
         <br />
-        <Typography>
-          Select which environment to export feature flag configuration from:
-        </Typography>
-        <StyledSelect
-          options={getOptions()}
-          value={selected}
-          onChange={(option: string) => setSelected(option)}
-        />
+        <Typography>Select which environment to export feature flag configuration from:</Typography>
+        <StyledSelect options={getOptions()} value={selected} onChange={(option: string) => setSelected(option)} />
       </Box>
     </Dialogue>
   );

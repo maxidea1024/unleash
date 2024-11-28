@@ -12,9 +12,7 @@ interface IArchiveFeatureChange {
   actions?: ReactNode;
 }
 
-export const ArchiveFeatureChange: FC<IArchiveFeatureChange> = ({
-  actions,
-}) => (
+export const ArchiveFeatureChange: FC<IArchiveFeatureChange> = ({ actions }) => (
   <ChangeItemWrapper>
     <ArchiveBox>Archiving feature</ArchiveBox>
     {actions}

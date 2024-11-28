@@ -35,12 +35,7 @@ export const VirtualizedTable = <T extends object>({
     [rowHeightOverride, theme.shape.tableRowHeight],
   );
 
-  const [firstRenderedIndex, lastRenderedIndex] = useVirtualizedRange(
-    rowHeight,
-    40,
-    5,
-    parentRef?.current,
-  );
+  const [firstRenderedIndex, lastRenderedIndex] = useVirtualizedRange(rowHeight, 40, 5, parentRef?.current);
 
   const tableHeight = useMemo(
     () => rowHeight * rows.length + theme.shape.tableRowHeightCompact,
@@ -75,8 +70,7 @@ export const VirtualizedTable = <T extends object>({
         {rows.map((row, index) => {
           const top = index * rowHeight + theme.shape.tableRowHeightCompact;
 
-          const isVirtual =
-            index < firstRenderedIndex || index > lastRenderedIndex;
+          const isVirtual = index < firstRenderedIndex || index > lastRenderedIndex;
 
           if (isVirtual) {
             return null;

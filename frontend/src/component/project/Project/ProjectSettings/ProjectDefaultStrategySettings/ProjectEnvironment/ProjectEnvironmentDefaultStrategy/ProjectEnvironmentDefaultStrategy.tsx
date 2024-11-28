@@ -7,10 +7,7 @@ import { StrategyExecution } from 'component/feature/FeatureView/FeatureOverview
 import type { ProjectEnvironmentType } from 'interfaces/environments';
 import { useMemo } from 'react';
 import type { CreateFeatureStrategySchema } from 'openapi';
-import {
-  PROJECT_DEFAULT_STRATEGY_WRITE,
-  UPDATE_PROJECT,
-} from '@server/types/permissions';
+import { PROJECT_DEFAULT_STRATEGY_WRITE, UPDATE_PROJECT } from '@server/types/permissions';
 import SplitPreviewSlider from 'component/feature/StrategyTypes/SplitPreviewSlider/SplitPreviewSlider';
 
 interface ProjectEnvironmentDefaultStrategyProps {
@@ -18,10 +15,7 @@ interface ProjectEnvironmentDefaultStrategyProps {
   description: string;
 }
 
-export const formatEditProjectEnvironmentStrategyPath = (
-  projectId: string,
-  environmentId: string,
-): string => {
+export const formatEditProjectEnvironmentStrategyPath = (projectId: string, environmentId: string): string => {
   const params = new URLSearchParams({ environmentId });
 
   return `/projects/${projectId}/settings/default-strategy/edit?${params}`;
@@ -39,17 +33,11 @@ const DEFAULT_STRATEGY: CreateFeatureStrategySchema = {
   },
 };
 
-const ProjectEnvironmentDefaultStrategy = ({
-  environment,
-  description,
-}: ProjectEnvironmentDefaultStrategyProps) => {
+const ProjectEnvironmentDefaultStrategy = ({ environment, description }: ProjectEnvironmentDefaultStrategyProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { environment: environmentId, defaultStrategy } = environment;
 
-  const editStrategyPath = formatEditProjectEnvironmentStrategyPath(
-    projectId,
-    environmentId,
-  );
+  const editStrategyPath = formatEditProjectEnvironmentStrategyPath(projectId, environmentId);
 
   const strategy: CreateFeatureStrategySchema = useMemo(() => {
     return defaultStrategy ? defaultStrategy : DEFAULT_STRATEGY;
@@ -80,9 +68,7 @@ const ProjectEnvironmentDefaultStrategy = ({
       >
         <StrategyExecution strategy={strategy} />
 
-        {strategy.variants && strategy.variants.length > 0 ? (
-          <SplitPreviewSlider variants={strategy.variants} />
-        ) : null}
+        {strategy.variants && strategy.variants.length > 0 ? <SplitPreviewSlider variants={strategy.variants} /> : null}
       </StrategyItemContainer>
     </>
   );

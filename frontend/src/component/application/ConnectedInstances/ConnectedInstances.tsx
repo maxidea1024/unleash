@@ -13,9 +13,7 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 const useEnvironments = (application: string) => {
   const { data: applicationOverview } = useApplicationOverview(application);
 
-  const applicationEnvironments = applicationOverview.environments
-    .map((env) => env.name)
-    .sort();
+  const applicationEnvironments = applicationOverview.environments.map((env) => env.name).sort();
   const [currentEnvironment, setCurrentEnvironment] = useQueryParam(
     'environment',
     withDefault(StringParam, applicationEnvironments[0]),
@@ -56,13 +54,9 @@ export const ConnectedInstances: FC = () => {
   const trackEnvironmentChange = useTracking();
   const name = useRequiredPathParam('name');
 
-  const { currentEnvironment, setCurrentEnvironment, environments } =
-    useEnvironments(name);
+  const { currentEnvironment, setCurrentEnvironment, environments } = useEnvironments(name);
 
-  const { data: connectedInstances, loading } = useConnectedInstances(
-    name,
-    currentEnvironment,
-  );
+  const { data: connectedInstances, loading } = useConnectedInstances(name, currentEnvironment);
 
   const tableData = useMemo(() => {
     const map = ({
@@ -82,15 +76,14 @@ export const ConnectedInstances: FC = () => {
     return connectedInstances.instances.map(map);
   }, [JSON.stringify(connectedInstances), currentEnvironment]);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useConnectedInstancesTable(tableData);
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useConnectedInstancesTable(tableData);
 
   return (
     <Box>
       <Box sx={{ mb: 3 }}>
         <Box sx={{ mb: 2 }}>
-          Select which environment to display data for. Only environments that
-          have received traffic for this application will be shown here.
+          Select which environment to display data for. Only environments that have received traffic for this
+          application will be shown here.
         </Box>
         <ConditionallyRender
           condition={Boolean(currentEnvironment)}

@@ -2,10 +2,7 @@ export const getTogglePath = (projectId: string, featureToggleName: string) => {
   return `/projects/${projectId}/features/${featureToggleName}`;
 };
 
-export const getCreateTogglePath = (
-  projectId: string,
-  query?: Record<string, string>,
-) => {
+export const getCreateTogglePath = (projectId: string, query?: Record<string, string>) => {
   const path = `/projects/${projectId}?create=true`;
 
   let queryString: string | undefined;

@@ -14,10 +14,7 @@ type OpenApiParam = {
   readonly description?: string;
 };
 
-type RecurseOnParams<
-  P extends readonly OpenApiParam[],
-  R extends O.Object = {},
-> = {
+type RecurseOnParams<P extends readonly OpenApiParam[], R extends O.Object = {}> = {
   continue: RecurseOnParams<
     L.Tail<P>,
     L.Head<P>['in'] extends 'query'
@@ -29,5 +26,4 @@ type RecurseOnParams<
   stop: A.Compute<R>;
 }[P extends readonly [OpenApiParam, ...OpenApiParam[]] ? 'continue' : 'stop'];
 
-export type FromQueryParams<P extends readonly OpenApiParam[]> =
-  RecurseOnParams<P>;
+export type FromQueryParams<P extends readonly OpenApiParam[]> = RecurseOnParams<P>;

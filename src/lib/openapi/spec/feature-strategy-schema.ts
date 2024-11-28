@@ -5,8 +5,7 @@ import { strategyVariantSchema } from './strategy-variant-schema';
 
 export const featureStrategySchema = {
   $id: '#/components/schemas/featureStrategySchema',
-  description:
-    'A single activation strategy configuration schema for a feature',
+  description: 'A single activation strategy configuration schema for a feature',
   type: 'object',
   additionalProperties: false,
   required: ['name'],

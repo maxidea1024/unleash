@@ -26,19 +26,13 @@ interface IImportOptionsProps {
   onChange: (value: string) => void;
 }
 
-export const ImportOptions: FC<IImportOptionsProps> = ({
-  project,
-  environment,
-  onChange,
-}) => {
+export const ImportOptions: FC<IImportOptionsProps> = ({ project, environment, onChange }) => {
   const { project: projectInfo } = useProjectOverview(project);
-  const environmentOptions = projectInfo.environments.map(
-    ({ environment }) => ({
-      key: environment,
-      label: environment,
-      title: environment,
-    }),
-  );
+  const environmentOptions = projectInfo.environments.map(({ environment }) => ({
+    key: environment,
+    label: environment,
+    title: environment,
+  }));
 
   useEffect(() => {
     if (environment === '' && environmentOptions[0]) {
@@ -49,9 +43,7 @@ export const ImportOptions: FC<IImportOptionsProps> = ({
   return (
     <ImportOptionsContainer>
       <ImportOptionsHeader>Import options</ImportOptionsHeader>
-      <ImportOptionsDescription>
-        Choose the environment to import the configuration for
-      </ImportOptionsDescription>
+      <ImportOptionsDescription>Choose the environment to import the configuration for</ImportOptionsDescription>
       <GeneralSelect
         sx={{ width: '180px' }}
         options={environmentOptions}

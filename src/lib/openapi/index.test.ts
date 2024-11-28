@@ -8,9 +8,7 @@ test('all schema files should be added to the schemas object', () => {
     .filter((fileName) => fileName.endsWith('-schema.ts'));
 
   const expectedSchemaNames = schemaFileNames.map((fileName) => {
-    return fileName
-      .replace(/\.ts$/, '')
-      .replace(/-./g, (x) => x[1].toUpperCase());
+    return fileName.replace(/\.ts$/, '').replace(/-./g, (x) => x[1].toUpperCase());
   });
 
   const addedSchemaNames = Object.keys(schemas);
@@ -18,9 +16,7 @@ test('all schema files should be added to the schemas object', () => {
 });
 
 test('removeJsonSchemaProps', () => {
-  expect(
-    removeJsonSchemaProps({ a: 'b', $id: 'c', components: {} }),
-  ).toMatchInlineSnapshot(`
+  expect(removeJsonSchemaProps({ a: 'b', $id: 'c', components: {} })).toMatchInlineSnapshot(`
         {
           "a": "b",
         }

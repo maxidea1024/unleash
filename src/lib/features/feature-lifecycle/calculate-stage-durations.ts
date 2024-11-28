@@ -3,12 +3,8 @@ import type { FeatureLifecycleProjectItem } from './feature-lifecycle-store-type
 import { differenceInMinutes } from 'date-fns';
 import { median } from '../../util/median';
 
-export function calculateStageDurations(
-  featureLifeCycles: FeatureLifecycleProjectItem[],
-) {
-  const sortedLifeCycles = featureLifeCycles.sort(
-    (a, b) => a.enteredStageAt.getTime() - b.enteredStageAt.getTime(),
-  );
+export function calculateStageDurations(featureLifeCycles: FeatureLifecycleProjectItem[]) {
+  const sortedLifeCycles = featureLifeCycles.sort((a, b) => a.enteredStageAt.getTime() - b.enteredStageAt.getTime());
 
   const groupedByProjectAndStage = sortedLifeCycles.reduce<{
     [key: string]: number[];
@@ -18,11 +14,7 @@ export function calculateStageDurations(
       acc[key] = [];
     }
 
-    const nextItem = array
-      .slice(index + 1)
-      .find(
-        (item) => item.feature === curr.feature && item.stage !== curr.stage,
-      );
+    const nextItem = array.slice(index + 1).find((item) => item.feature === curr.feature && item.stage !== curr.stage);
     const endTime = nextItem ? nextItem.enteredStageAt : new Date();
     const duration = differenceInMinutes(endTime, curr.enteredStageAt);
     acc[key].push(duration);

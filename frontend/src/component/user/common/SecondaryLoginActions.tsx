@@ -32,11 +32,7 @@ const SecondaryLoginActions = () => {
       </StyledLink>
       <Typography variant='body2'>
         Don't have an account?{' '}
-        <StyledRef
-          href='https://www.getunleash.io/plans'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
+        <StyledRef href='https://www.getunleash.io/plans' target='_blank' rel='noopener noreferrer'>
           Sign up
         </StyledRef>
       </Typography>

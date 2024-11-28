@@ -3,12 +3,9 @@ import { useEffect, useState } from 'react';
 
 // if you provided persistent id the query will be persisted in local storage
 export const useSavedQuery = (id?: string) => {
-  const { value, setValue } = createLocalStorage(
-    `Search:${id || 'default'}:v1`,
-    {
-      query: '',
-    },
-  );
+  const { value, setValue } = createLocalStorage(`Search:${id || 'default'}:v1`, {
+    query: '',
+  });
   const [savedQuery, setSavedQuery] = useState(value.query);
 
   useEffect(() => {

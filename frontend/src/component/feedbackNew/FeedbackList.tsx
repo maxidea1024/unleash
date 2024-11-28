@@ -29,17 +29,13 @@ export const FeedbackList = () => {
     {
       Header: 'Category',
       accessor: 'category',
-      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => (
-        <TextCell>{feedback.category}</TextCell>
-      ),
+      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => <TextCell>{feedback.category}</TextCell>,
       searchable: true,
     },
     {
       Header: 'UserType',
       accessor: 'userType',
-      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => (
-        <TextCell>{feedback.userType}</TextCell>
-      ),
+      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => <TextCell>{feedback.userType}</TextCell>,
       searchable: true,
     },
     {
@@ -53,9 +49,7 @@ export const FeedbackList = () => {
       Header: 'Positive',
       accessor: 'positive',
       minWidth: 100,
-      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => (
-        <TextCell>{feedback.positive}</TextCell>
-      ),
+      Cell: ({ row: { original: feedback } }: IFeedbackSchemaCellProps) => <TextCell>{feedback.positive}</TextCell>,
       disableSortBy: true,
       searchable: true,
     },
@@ -116,10 +110,7 @@ export const FeedbackList = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
+                    <Search initialValue={searchValue} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -129,19 +120,13 @@ export const FeedbackList = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
+            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
     >
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
     </PageContent>
   );

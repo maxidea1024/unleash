@@ -1,12 +1,4 @@
-import {
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  styled,
-  Tooltip,
-  Link,
-} from '@mui/material';
+import { Checkbox, Divider, FormControlLabel, IconButton, styled, Tooltip, Link } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import Input from 'component/common/Input/Input';
@@ -89,14 +81,7 @@ const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
   marginTop: theme.spacing(-1),
 }));
 
-export const StrategyParameter = ({
-  set,
-  input,
-  index,
-  params,
-  setParams,
-  errors,
-}: IStrategyParameterProps) => {
+export const StrategyParameter = ({ set, input, index, params, setParams, errors }: IStrategyParameterProps) => {
   const onTypeChange = (type: string) => {
     set({ type });
   };
@@ -108,8 +93,7 @@ export const StrategyParameter = ({
         condition={index === 0}
         show={
           <StyledParagraph>
-            Parameters let you provide arguments to your strategy that it can
-            access for evaluation. Read more in the{' '}
+            Parameters let you provide arguments to your strategy that it can access for evaluation. Read more in the{' '}
             <Link
               href='https://docs.getunleash.io/reference/custom-activation-strategies#parameter-types'
               target='_blank'
@@ -157,12 +141,7 @@ export const StrategyParameter = ({
         value={input.description}
       />
       <StyledFormControlLabel
-        control={
-          <Checkbox
-            checked={Boolean(input.required)}
-            onChange={() => set({ required: !input.required })}
-          />
-        }
+        control={<Checkbox checked={Boolean(input.required)} onChange={() => set({ required: !input.required })} />}
         label='Required'
       />
     </StyledParamsContainer>

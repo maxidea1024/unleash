@@ -90,80 +90,63 @@ const MainLayoutContentContainer = styled('div')(({ theme }) => ({
   zIndex: 200,
 }));
 
-export const MainLayout = forwardRef<HTMLDivElement, IMainLayoutProps>(
-  ({ children }, ref) => {
-    const { uiConfig } = useUiConfig();
-    const projectId = useOptionalPathParam('projectId');
-    const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(
-      projectId || '',
-    );
+export const MainLayout = forwardRef<HTMLDivElement, IMainLayoutProps>(({ children }, ref) => {
+  const { uiConfig } = useUiConfig();
+  const projectId = useOptionalPathParam('projectId');
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(projectId || '');
 
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('lg'));
 
-    return (
-      <EventTimelineProvider>
-        <SkipNavLink />
-        <Header />
+  return (
+    <EventTimelineProvider>
+      <SkipNavLink />
+      <Header />
 
-        <SkipNavTarget />
-        <MainLayoutContainer>
-          <MainLayoutContentWrapper>
-            <ConditionallyRender
-              condition={Boolean(
-                projectId && isChangeRequestConfiguredInAnyEnv(),
-              )}
-              show={<DraftBanner project={projectId || ''} />}
-            />
+      <SkipNavTarget />
+      <MainLayoutContainer>
+        <MainLayoutContentWrapper>
+          <ConditionallyRender
+            condition={Boolean(projectId && isChangeRequestConfiguredInAnyEnv())}
+            show={<DraftBanner project={projectId || ''} />}
+          />
+
+          <Box
+            sx={(theme) => ({
+              display: 'flex',
+              mt: theme.spacing(0.25),
+            })}
+          >
+            <ConditionallyRender condition={!isSmallScreen} show={<NavigationSidebar NewInUnleash={NewInUnleash} />} />
 
             <Box
-              sx={(theme) => ({
+              sx={{
                 display: 'flex',
-                mt: theme.spacing(0.25),
-              })}
+                flexDirection: 'column',
+                flexGrow: 1,
+                minWidth: 0,
+              }}
             >
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={<NavigationSidebar NewInUnleash={NewInUnleash} />}
-              />
+              <MainLayoutEventTimeline />
 
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flexGrow: 1,
-                  minWidth: 0,
-                }}
-              >
-                <MainLayoutEventTimeline />
-
-                <MainLayoutContent>
-                  <MainLayoutContentContainer ref={ref}>
-                    <BreadcrumbNav />
-                    <Proclamation toast={uiConfig.toast} />
-                    {children}
-                  </MainLayoutContentContainer>
-                </MainLayoutContent>
-              </Box>
+              <MainLayoutContent>
+                <MainLayoutContentContainer ref={ref}>
+                  <BreadcrumbNav />
+                  <Proclamation toast={uiConfig.toast} />
+                  {children}
+                </MainLayoutContentContainer>
+              </MainLayoutContent>
             </Box>
+          </Box>
 
-            <ThemeMode
-              darkmode={
-                <StyledImg
-                  style={{ opacity: 0.06 }}
-                  src={formatAssetPath(textureImage)}
-                  alt=''
-                />
-              }
-              lightmode={
-                <StyledImg src={formatAssetPath(textureImage)} alt='' />
-              }
-            />
-          </MainLayoutContentWrapper>
-          <AIChat />
-          <Footer />
-        </MainLayoutContainer>
-      </EventTimelineProvider>
-    );
-  },
-);
+          <ThemeMode
+            darkmode={<StyledImg style={{ opacity: 0.06 }} src={formatAssetPath(textureImage)} alt='' />}
+            lightmode={<StyledImg src={formatAssetPath(textureImage)} alt='' />}
+          />
+        </MainLayoutContentWrapper>
+        <AIChat />
+        <Footer />
+      </MainLayoutContainer>
+    </EventTimelineProvider>
+  );
+});

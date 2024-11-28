@@ -44,37 +44,30 @@ export const setupStrategyEndpoint = () => {
   });
 };
 
-export const setupFeaturesEndpoint = (
-  featureName: string,
-  variantName = 'Blue',
-) => {
-  testServerRoute(
-    server,
-    `/api/admin/projects/default/features/${featureName}`,
-    {
-      environments: [
-        {
-          name: 'development',
-          type: 'development',
-          strategies: [
-            {
-              id: '1',
-              constraints: [],
-              parameters: {
-                groupId: featureName,
-                rollout: '50',
-                stickiness: 'default',
-              },
-              name: 'flexibleRollout',
-              variants: [{ name: variantName, weight: 50 }],
+export const setupFeaturesEndpoint = (featureName: string, variantName = 'Blue') => {
+  testServerRoute(server, `/api/admin/projects/default/features/${featureName}`, {
+    environments: [
+      {
+        name: 'development',
+        type: 'development',
+        strategies: [
+          {
+            id: '1',
+            constraints: [],
+            parameters: {
+              groupId: featureName,
+              rollout: '50',
+              stickiness: 'default',
             },
-          ],
-        },
-      ],
-      name: featureName,
-      project: 'default',
-    },
-  );
+            name: 'flexibleRollout',
+            variants: [{ name: variantName, weight: 50 }],
+          },
+        ],
+      },
+    ],
+    name: featureName,
+    project: 'default',
+  });
 };
 
 export const setupUiConfigEndpoint = () => {

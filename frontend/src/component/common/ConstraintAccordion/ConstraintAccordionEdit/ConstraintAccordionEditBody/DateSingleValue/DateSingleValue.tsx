@@ -21,21 +21,13 @@ const StyledWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const DateSingleValue = ({
-  setValue,
-  value,
-  error,
-  setError,
-}: IDateSingleValueProps) => {
-  const timezones = Object.values(
-    TimezoneCountries.getAllTimezones({ deprecated: false }),
-  ).map((timezone) => ({
+export const DateSingleValue = ({ setValue, value, error, setError }: IDateSingleValueProps) => {
+  const timezones = Object.values(TimezoneCountries.getAllTimezones({ deprecated: false })).map((timezone) => ({
     key: timezone.name,
     label: `${timezone.name}`,
     utcOffset: timezone.utcOffsetStr,
   }));
-  const { timeZone: localTimezoneName } =
-    Intl.DateTimeFormat().resolvedOptions();
+  const { timeZone: localTimezoneName } = Intl.DateTimeFormat().resolvedOptions();
   const [pickedDate, setPickedDate] = useState(value || '');
 
   const timezoneText = useMemo<string>(() => {

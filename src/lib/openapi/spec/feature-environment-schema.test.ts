@@ -15,13 +15,9 @@ test('featureEnvironmentSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/featureEnvironmentSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/featureEnvironmentSchema', data)).toBeUndefined();
 });
 
 test('featureEnvironmentSchema empty', () => {
-  expect(
-    validateSchema('#/components/schemas/featureEnvironmentSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/featureEnvironmentSchema', {})).toMatchSnapshot();
 });

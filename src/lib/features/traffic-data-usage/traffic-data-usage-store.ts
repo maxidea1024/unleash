@@ -1,10 +1,6 @@
 import type { Db } from '../../db/db';
 import type { Logger, LogProvider } from '../../logger';
-import type {
-  IStatTrafficUsage,
-  IStatTrafficUsageKey,
-  ITrafficDataUsageStore,
-} from './traffic-data-usage-store-type';
+import type { IStatTrafficUsage, IStatTrafficUsageKey, ITrafficDataUsageStore } from './traffic-data-usage-store-type';
 
 const TABLE = 'stat_traffic_usage';
 const COLUMNS = ['day', 'traffic_group', 'status_code_series', 'count'];
@@ -92,13 +88,8 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
       });
   }
 
-  async getTrafficDataUsageForPeriod(
-    period: string,
-  ): Promise<IStatTrafficUsage[]> {
-    const rows = await this.db<IStatTrafficUsage>(TABLE).whereRaw(
-      `to_char(day, 'YYYY-MM') = ?`,
-      [period],
-    );
+  async getTrafficDataUsageForPeriod(period: string): Promise<IStatTrafficUsage[]> {
+    const rows = await this.db<IStatTrafficUsage>(TABLE).whereRaw(`to_char(day, 'YYYY-MM') = ?`, [period]);
     return rows.map(mapRow);
   }
 }

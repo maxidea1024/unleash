@@ -12,20 +12,17 @@ export const addonTypeSchema = {
   properties: {
     name: {
       type: 'string',
-      description:
-        "The name of the addon type. When creating new addons, this goes in the payload's `type` field.",
+      description: "The name of the addon type. When creating new addons, this goes in the payload's `type` field.",
       example: 'slack',
     },
     displayName: {
       type: 'string',
-      description:
-        "The addon type's name as it should be displayed in the admin UI.",
+      description: "The addon type's name as it should be displayed in the admin UI.",
       example: 'Slack',
     },
     documentationUrl: {
       type: 'string',
-      description:
-        'A URL to where you can find more information about using this addon type.',
+      description: 'A URL to where you can find more information about using this addon type.',
       example: 'https://docs.getunleash.io/docs/addons/slack',
     },
     description: {
@@ -37,8 +34,7 @@ export const addonTypeSchema = {
       type: 'string',
       description:
         'A long description of how to use this addon type. This will be displayed on the top of configuration page. Can contain markdown.',
-      example:
-        'This is **how you use** this addon type...\n  - Step 1\n  - Step 2\n  - Step 3',
+      example: 'This is **how you use** this addon type...\n  - Step 1\n  - Step 2\n  - Step 3',
     },
     tagTypes: {
       type: 'array',
@@ -46,8 +42,7 @@ export const addonTypeSchema = {
       example: [
         {
           name: 'slack',
-          description:
-            'Slack tag used by the slack-addon to specify the slack channel.',
+          description: 'Slack tag used by the slack-addon to specify the slack channel.',
           icon: 'S',
         },
       ],
@@ -75,8 +70,7 @@ export const addonTypeSchema = {
           name: 'username',
           displayName: 'Username',
           placeholder: 'Unleash',
-          description:
-            'The username to use when posting messages to slack. Defaults to "Unleash".',
+          description: 'The username to use when posting messages to slack. Defaults to "Unleash".',
           type: 'text',
           required: false,
           sensitive: false,
@@ -85,8 +79,7 @@ export const addonTypeSchema = {
           name: 'emojiIcon',
           displayName: 'Emoji Icon',
           placeholder: ':unleash:',
-          description:
-            'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
+          description: 'The emoji_icon to use when posting messages to slack. Defaults to ":unleash:".',
           type: 'text',
           required: false,
           sensitive: false,
@@ -94,8 +87,7 @@ export const addonTypeSchema = {
         {
           name: 'defaultChannel',
           displayName: 'Default channel',
-          description:
-            '(Required) Default channel to post updates to if not specified in the slack-tag',
+          description: '(Required) Default channel to post updates to if not specified in the slack-tag',
           type: 'text',
           required: true,
           sensitive: false,
@@ -134,8 +126,7 @@ export const addonTypeSchema = {
       properties: {
         url: {
           type: 'string',
-          description:
-            'A URL to where the addon configuration should redirect to install addons of this type.',
+          description: 'A URL to where the addon configuration should redirect to install addons of this type.',
           example: 'https://unleash-slack-app.vercel.app/install',
         },
         title: {
@@ -155,8 +146,7 @@ export const addonTypeSchema = {
     },
     alerts: {
       type: 'array',
-      description:
-        'A list of alerts to display to the user when installing addons of this type.',
+      description: 'A list of alerts to display to the user when installing addons of this type.',
       items: {
         type: 'object',
         additionalProperties: false,
@@ -165,14 +155,12 @@ export const addonTypeSchema = {
           type: {
             type: 'string',
             enum: ['success', 'info', 'warning', 'error'],
-            description:
-              'The type of alert. This determines the color of the alert.',
+            description: 'The type of alert. This determines the color of the alert.',
             example: 'info',
           },
           text: {
             type: 'string',
-            description:
-              'The text of the alert. This is what will be displayed to the user.',
+            description: 'The text of the alert. This is what will be displayed to the user.',
             example:
               "Please ensure you have the Unleash Slack App installed in your Slack workspace if you haven't installed it already. If you want the Unleash Slack App bot to post messages to private channels, you'll need to invite it to those channels.",
           },
@@ -183,8 +171,7 @@ export const addonTypeSchema = {
       type: 'string',
       description:
         'This should be used to inform the user that this addon type is deprecated and should not be used. Deprecated addons will show a badge with this information on the UI.',
-      example:
-        'This integration is deprecated. Please try the new integration instead.',
+      example: 'This integration is deprecated. Please try the new integration instead.',
     },
   },
   components: {

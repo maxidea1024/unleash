@@ -1,12 +1,6 @@
 import Authentication from 'component/user/Authentication/Authentication';
 import { screen } from '@testing-library/react';
-import {
-  LOGIN_PASSWORD_ID,
-  LOGIN_EMAIL_ID,
-  LOGIN_BUTTON,
-  AUTH_PAGE_ID,
-  SSO_LOGIN_BUTTON,
-} from 'utils/testIds';
+import { LOGIN_PASSWORD_ID, LOGIN_EMAIL_ID, LOGIN_BUTTON, AUTH_PAGE_ID, SSO_LOGIN_BUTTON } from 'utils/testIds';
 import { render } from 'utils/testRenderer';
 import { testServerSetup, testServerRoute } from 'utils/testServer';
 

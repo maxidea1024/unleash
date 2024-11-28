@@ -54,10 +54,7 @@ export const ProjectActionsFormItem = ({
 }: IProjectActionsFormItemProps) => {
   return (
     <StyledItem>
-      <ConditionallyRender
-        condition={index > 0}
-        show={<StyledItemSeparator>{separator}</StyledItemSeparator>}
-      />
+      <ConditionallyRender condition={index > 0} show={<StyledItemSeparator>{separator}</StyledItemSeparator>} />
       <StyledInnerBox>
         <StyledHeaderRow>{header}</StyledHeaderRow>
         <StyledRow>{children}</StyledRow>

@@ -48,14 +48,11 @@ export const NewStrategyVariants: FC<{
     id: uuidv4(),
     overrides: [],
   }));
-  const [variantsEdit, setVariantsEdit] =
-    useState<IFeatureVariantEdit[]>(initialVariants);
+  const [variantsEdit, setVariantsEdit] = useState<IFeatureVariantEdit[]>(initialVariants);
   const theme = useTheme();
 
   const stickiness =
-    strategy?.parameters && 'stickiness' in strategy?.parameters
-      ? String(strategy.parameters.stickiness)
-      : 'default';
+    strategy?.parameters && 'stickiness' in strategy?.parameters ? String(strategy.parameters.stickiness) : 'default';
 
   useEffect(() => {
     return () => {
@@ -82,9 +79,7 @@ export const NewStrategyVariants: FC<{
   const updateVariant = (updatedVariant: IFeatureVariantEdit, id: string) => {
     setVariantsEdit((prevVariants) =>
       updateWeightEdit(
-        prevVariants.map((prevVariant) =>
-          prevVariant.id === id ? updatedVariant : prevVariant,
-        ),
+        prevVariants.map((prevVariant) => (prevVariant.id === id ? updatedVariant : prevVariant)),
         1000,
       ),
     );
@@ -111,15 +106,12 @@ export const NewStrategyVariants: FC<{
     });
   };
 
-  const variantWeightsError =
-    variantsEdit.reduce((acc, variant) => acc + (variant.weight || 0), 0) !==
-    1000;
+  const variantWeightsError = variantsEdit.reduce((acc, variant) => acc + (variant.weight || 0), 0) !== 1000;
 
   return (
     <>
       <StyledVariantsHeader>
-        Variants enhance a feature flag by providing a version of the feature to
-        be enabled
+        Variants enhance a feature flag by providing a version of the feature to be enabled
       </StyledVariantsHeader>
       <StyledHelpIconBox>
         <Typography>Variants</Typography>
@@ -128,12 +120,10 @@ export const NewStrategyVariants: FC<{
           tooltip={
             <Box>
               <Typography variant='body2'>
-                Variants in feature toggling allow you to serve different
-                versions of a feature to different users. This can be used for
-                A/B testing, gradual rollouts, and canary releases. Variants
-                provide a way to control the user experience at a granular
-                level, enabling you to test and optimize different aspects of
-                your features. Read more about variants{' '}
+                Variants in feature toggling allow you to serve different versions of a feature to different users. This
+                can be used for A/B testing, gradual rollouts, and canary releases. Variants provide a way to control
+                the user experience at a granular level, enabling you to test and optimize different aspects of your
+                features. Read more about variants{' '}
                 <a
                   href='https://docs.getunleash.io/reference/strategy-variants'
                   target='_blank'
@@ -147,10 +137,7 @@ export const NewStrategyVariants: FC<{
         />
       </StyledHelpIconBox>
       <StyledVariantForms>
-        <ConditionallyRender
-          condition={variantsEdit.length > 0}
-          show={<StrategyVariantsUpgradeAlert />}
-        />
+        <ConditionallyRender condition={variantsEdit.length > 0} show={<StrategyVariantsUpgradeAlert />} />
 
         {variantsEdit.map((variant, i) => (
           <VariantForm
@@ -158,9 +145,7 @@ export const NewStrategyVariants: FC<{
             key={variant.id}
             variant={variant}
             variants={variantsEdit}
-            updateVariant={(updatedVariant) =>
-              updateVariant(updatedVariant, variant.id)
-            }
+            updateVariant={(updatedVariant) => updateVariant(updatedVariant, variant.id)}
             removeVariant={() =>
               setVariantsEdit((variantsEdit) =>
                 updateWeightEdit(
@@ -169,9 +154,7 @@ export const NewStrategyVariants: FC<{
                 ),
               )
             }
-            decorationColor={
-              theme.palette.variants[i % theme.palette.variants.length]
-            }
+            decorationColor={theme.palette.variants[i % theme.palette.variants.length]}
             weightsError={variantWeightsError}
           />
         ))}
@@ -187,10 +170,7 @@ export const NewStrategyVariants: FC<{
       >
         Add variant
       </PermissionButton>
-      <SplitPreviewSlider
-        variants={variantsEdit}
-        weightsError={variantWeightsError}
-      />
+      <SplitPreviewSlider variants={variantsEdit} weightsError={variantWeightsError} />
     </>
   );
 };

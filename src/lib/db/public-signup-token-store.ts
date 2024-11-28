@@ -32,15 +32,7 @@ interface ITokenUserRow {
 }
 
 const tokenRowReducer = (acc, tokenRow) => {
-  const {
-    userId,
-    userName,
-    userUsername,
-    roleId,
-    roleName,
-    roleType,
-    ...token
-  } = tokenRow;
+  const { userId, userName, userUsername, roleId, roleName, roleType, ...token } = tokenRow;
   if (!acc[tokenRow.secret]) {
     acc[tokenRow.secret] = {
       secret: token.secret,
@@ -110,11 +102,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
 
   private makeTokenUsersQuery() {
     return this.db<ITokenRow>(`${TABLE} as tokens`)
-      .leftJoin(
-        `${TOKEN_USERS_TABLE} as token_project_users`,
-        'tokens.secret',
-        'token_project_users.secret',
-      )
+      .leftJoin(`${TOKEN_USERS_TABLE} as token_project_users`, 'tokens.secret', 'token_project_users.secret')
       .leftJoin(`users`, 'token_project_users.user_id', 'users.id')
       .leftJoin(`roles`, 'tokens.role_id', 'roles.id')
       .select(
@@ -142,18 +130,11 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
   }
 
   async addTokenUser(secret: string, userId: number): Promise<void> {
-    await this.db<ITokenUserRow>(TOKEN_USERS_TABLE).insert(
-      { user_id: userId, secret },
-      ['created_at'],
-    );
+    await this.db<ITokenUserRow>(TOKEN_USERS_TABLE).insert({ user_id: userId, secret }, ['created_at']);
   }
 
-  async insert(
-    newToken: IPublicSignupTokenCreate,
-  ): Promise<PublicSignupTokenSchema> {
-    const response = await this.db<ITokenRow>(TABLE).insert(toRow(newToken), [
-      'secret',
-    ]);
+  async insert(newToken: IPublicSignupTokenCreate): Promise<PublicSignupTokenSchema> {
+    const response = await this.db<ITokenRow>(TABLE).insert(toRow(newToken), ['secret']);
     return this.get(response[0].secret);
   }
 
@@ -169,10 +150,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
   destroy(): void {}
 
   async exists(secret: string): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE secret = ?) AS present`,
-      [secret],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE secret = ?) AS present`, [secret]);
     const { present } = result.rows[0];
     return present;
   }

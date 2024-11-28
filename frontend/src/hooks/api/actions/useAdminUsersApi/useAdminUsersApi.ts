@@ -29,11 +29,7 @@ const useAdminUsersApi = () => {
 
   const removeUser = async (userId: number) => {
     const requestId = 'removeUser';
-    const req = createRequest(
-      `api/admin/user-admin/${userId}`,
-      { method: 'DELETE' },
-      requestId,
-    );
+    const req = createRequest(`api/admin/user-admin/${userId}`, { method: 'DELETE' }, requestId);
 
     return makeRequest(req.caller, req.id);
   };

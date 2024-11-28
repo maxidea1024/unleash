@@ -6,19 +6,12 @@ import type { IBanner } from 'interfaces/banner';
 export const ExternalBanners = () => {
   const { uiConfig } = useUiConfig();
 
-  const bannerVariantFromMessageBannerFlag = useVariant<IBanner | IBanner[]>(
-    uiConfig.flags.messageBanner,
-  );
-  const bannerVariantFromBannerFlag = useVariant<IBanner | IBanner[]>(
-    uiConfig.flags.banner,
-  );
+  const bannerVariantFromMessageBannerFlag = useVariant<IBanner | IBanner[]>(uiConfig.flags.messageBanner);
+  const bannerVariantFromBannerFlag = useVariant<IBanner | IBanner[]>(uiConfig.flags.banner);
 
-  const bannerVariant =
-    bannerVariantFromMessageBannerFlag || bannerVariantFromBannerFlag || [];
+  const bannerVariant = bannerVariantFromMessageBannerFlag || bannerVariantFromBannerFlag || [];
 
-  const banners: IBanner[] = Array.isArray(bannerVariant)
-    ? bannerVariant
-    : [bannerVariant];
+  const banners: IBanner[] = Array.isArray(bannerVariant) ? bannerVariant : [bannerVariant];
 
   return (
     <>

@@ -37,9 +37,7 @@ interface IProjectActionsLastEventProps {
   action: IActionSet;
 }
 
-export const ProjectActionsLastEvent = ({
-  action,
-}: IProjectActionsLastEventProps) => {
+export const ProjectActionsLastEvent = ({ action }: IProjectActionsLastEventProps) => {
   const { id, project } = action;
   const { actionEvents } = useActionEvents(id, project, 1, {
     refreshInterval: 5000,
@@ -71,12 +69,7 @@ export const ProjectActionsLastEvent = ({
         <>
           <StyledTitle>
             <StyledLastEventSpan>Last event</StyledLastEventSpan>
-            <span>
-              {formatDateYMDHMS(
-                actionSetEvent.createdAt,
-                locationSettings?.locale,
-              )}
-            </span>
+            <span>{formatDateYMDHMS(actionSetEvent.createdAt, locationSettings?.locale)}</span>
           </StyledTitle>
           <ProjectActionsEventsDetails {...actionSetEvent} />
         </>

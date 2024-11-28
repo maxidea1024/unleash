@@ -12,11 +12,7 @@ interface IDropdownButtonProps {
   onClick: ButtonProps['onClick'];
 }
 
-export const DropdownButton: VFC<IDropdownButtonProps> = ({
-  label,
-  icon,
-  ...rest
-}) => (
+export const DropdownButton: VFC<IDropdownButtonProps> = ({ label, icon, ...rest }) => (
   <Button {...rest} endIcon={<Icon>{icon}</Icon>}>
     {label}
   </Button>

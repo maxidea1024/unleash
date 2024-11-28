@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
 let app: IUnleashTest;
@@ -89,26 +86,17 @@ test('Can validate a tag', async () =>
     .expect(400)
     .expect((res) => {
       expect(res.body.details.length).toBe(1);
-      expect(res.body.details[0].message).toMatch(
-        '"type" must be URL friendly',
-      );
+      expect(res.body.details[0].message).toMatch('"type" must be URL friendly');
     }));
 test('Can delete a tag', async () => {
-  await app.request
-    .delete('/api/admin/tags/simple/Tester')
-    .set('Content-Type', 'application/json')
-    .expect(200);
+  await app.request.delete('/api/admin/tags/simple/Tester').set('Content-Type', 'application/json').expect(200);
   await new Promise((r) => setTimeout(r, 50));
   return app.request
     .get('/api/admin/tags')
     .expect('Content-Type', /json/)
     .expect(200)
     .expect((res) => {
-      expect(
-        res.body.tags.indexOf(
-          (tag) => tag.value === 'Tester' && tag.type === 'simple',
-        ),
-      ).toBe(-1);
+      expect(res.body.tags.indexOf((tag) => tag.value === 'Tester' && tag.type === 'simple')).toBe(-1);
     });
 });
 
@@ -133,9 +121,7 @@ test('Can tag features', async () => {
   await db.stores.tagStore.createTag(removedTag);
   await db.stores.featureTagStore.tagFeature(featureName, removedTag, -1337);
 
-  const initialTagState = await app.request.get(
-    `/api/admin/features/${featureName}/tags`,
-  );
+  const initialTagState = await app.request.get(`/api/admin/features/${featureName}/tags`);
 
   expect(initialTagState.body).toMatchObject({ tags: [removedTag] });
 
@@ -155,9 +141,7 @@ test('Can tag features', async () => {
   });
   const res = await app.request.get(`/api/admin/features/${featureName}/tags`);
 
-  const res2 = await app.request.get(
-    `/api/admin/features/${featureName2}/tags`,
-  );
+  const res2 = await app.request.get(`/api/admin/features/${featureName2}/tags`);
 
   expect(res.body).toMatchObject({ tags: [addedTag] });
   expect(res2.body).toMatchObject({ tags: [addedTag] });

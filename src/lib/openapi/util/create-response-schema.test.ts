@@ -1,9 +1,4 @@
-import {
-  createResponseSchema,
-  createResponseSchemas,
-  schemaNamed,
-  schemaTyped,
-} from './create-response-schema';
+import { createResponseSchema, createResponseSchemas, schemaNamed, schemaTyped } from './create-response-schema';
 
 test('createResponseSchema', () => {
   expect(createResponseSchema('schemaName')).toMatchInlineSnapshot(`

@@ -5,9 +5,7 @@ import { styled, TextField, Typography } from '@mui/material';
 import { trim } from 'component/common/util';
 import { modalStyles } from 'component/admin/users/util';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
-import PasswordChecker, {
-  PASSWORD_FORMAT_MESSAGE,
-} from 'component/user/common/ResetPasswordForm/PasswordChecker';
+import PasswordChecker, { PASSWORD_FORMAT_MESSAGE } from 'component/user/common/ResetPasswordForm/PasswordChecker';
 import { useThemeStyles } from 'themes/themeStyles';
 import PasswordMatcher from 'component/user/common/ResetPasswordForm/PasswordMatcher';
 import type { IUser } from 'interfaces/user';
@@ -28,11 +26,7 @@ interface IChangePasswordProps {
   user: IUser;
 }
 
-const ChangePassword = ({
-  showDialog,
-  closeDialog,
-  user,
-}: IChangePasswordProps) => {
+const ChangePassword = ({ showDialog, closeDialog, user }: IChangePasswordProps) => {
   const [data, setData] = useState<Record<string, string>>({});
   const [error, setError] = useState<string>();
   const [validPassword, setValidPassword] = useState(false);
@@ -91,13 +85,7 @@ const ChangePassword = ({
       secondaryButtonText='Cancel'
       maxWidth='xs'
     >
-      <form
-        onSubmit={submit}
-        className={classnames(
-          themeStyles.contentSpacingY,
-          themeStyles.flexColumn,
-        )}
-      >
+      <form onSubmit={submit} className={classnames(themeStyles.contentSpacingY, themeStyles.flexColumn)}>
         <Typography variant='subtitle1'>Changing password for user</Typography>
         <div className={themeStyles.flexRow}>
           <StyledUserAvatar user={user} variant='rounded' />

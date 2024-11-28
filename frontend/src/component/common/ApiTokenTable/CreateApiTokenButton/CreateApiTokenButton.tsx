@@ -15,25 +15,16 @@ const useApiTokenLimit = (apiTokenLimit: number, apiTokenCount: number) => {
 
   return {
     limitReached,
-    limitMessage: limitReached
-      ? `You have reached the limit of ${apiTokenLimit} API tokens`
-      : undefined,
+    limitMessage: limitReached ? `You have reached the limit of ${apiTokenLimit} API tokens` : undefined,
   };
 };
 
-export const CreateApiTokenButton = ({
-  path,
-  permission,
-  project,
-}: ICreateApiTokenButton) => {
+export const CreateApiTokenButton = ({ path, permission, project }: ICreateApiTokenButton) => {
   const navigate = useNavigate();
   const { tokens, loading } = useApiTokens();
   const { uiConfig } = useUiConfig();
 
-  const { limitReached, limitMessage } = useApiTokenLimit(
-    uiConfig.resourceLimits.apiTokens,
-    tokens.length,
-  );
+  const { limitReached, limitMessage } = useApiTokenLimit(uiConfig.resourceLimits.apiTokens, tokens.length);
 
   return (
     <ResponsiveButton

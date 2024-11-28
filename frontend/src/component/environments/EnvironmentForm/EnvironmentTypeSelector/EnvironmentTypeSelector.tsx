@@ -1,10 +1,4 @@
-import {
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  styled,
-} from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup, styled } from '@mui/material';
 import type React from 'react';
 
 interface IEnvironmentTypeSelectorProps {
@@ -21,32 +15,17 @@ const StyledRadioButtonGroup = styled('div')({
   flexDirection: 'column',
 });
 
-const EnvironmentTypeSelector = ({
-  onChange,
-  value,
-}: IEnvironmentTypeSelectorProps) => {
+const EnvironmentTypeSelector = ({ onChange, value }: IEnvironmentTypeSelectorProps) => {
   return (
     <FormControl component='fieldset'>
       <StyledRadioGroup data-loading value={value} onChange={onChange}>
         <StyledRadioButtonGroup>
-          <FormControlLabel
-            value='development'
-            label='Development'
-            control={<Radio />}
-          />
+          <FormControlLabel value='development' label='Development' control={<Radio />} />
           <FormControlLabel value='test' label='Test' control={<Radio />} />
         </StyledRadioButtonGroup>
         <StyledRadioButtonGroup>
-          <FormControlLabel
-            value='preproduction'
-            label='Pre production'
-            control={<Radio />}
-          />
-          <FormControlLabel
-            value='production'
-            label='Production'
-            control={<Radio />}
-          />
+          <FormControlLabel value='preproduction' label='Pre production' control={<Radio />} />
+          <FormControlLabel value='production' label='Production' control={<Radio />} />
         </StyledRadioButtonGroup>
       </StyledRadioGroup>
     </FormControl>

@@ -1,9 +1,6 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import {
-  createGetProductionChanges,
-  type GetProductionChanges,
-} from './getProductionChanges';
+import { createGetProductionChanges, type GetProductionChanges } from './getProductionChanges';
 import subDays from 'date-fns/subDays';
 
 let db: ITestDb;
@@ -19,10 +16,7 @@ const mockEventDaysAgo = (days: number, environment: string = 'production') => {
   };
 };
 
-const mockRawEventDaysAgo = (
-  days: number,
-  environment: string = 'production',
-) => {
+const mockRawEventDaysAgo = (days: number, environment: string = 'production') => {
   const date = subDays(new Date(), days);
   return {
     type: 'FEATURE_UPDATED',
@@ -100,10 +94,7 @@ test('should handle intervals of activity', async () => {
 });
 
 test('an event being saved should add a count to the table', async () => {
-  await db.rawDatabase
-    .table('events')
-    .insert(mockRawEventDaysAgo(70))
-    .returning('id');
+  await db.rawDatabase.table('events').insert(mockRawEventDaysAgo(70)).returning('id');
 
   await expect(getProductionChanges()).resolves.toEqual({
     last30: 0,
@@ -141,9 +132,7 @@ test('Events posted to a non production environment should not be included in co
     enabled: true,
     protected: false,
   });
-  await db.rawDatabase
-    .table('events')
-    .insert(mockRawEventDaysAgo(1, 'development'));
+  await db.rawDatabase.table('events').insert(mockRawEventDaysAgo(1, 'development'));
   await expect(getProductionChanges()).resolves.toEqual({
     last30: 0,
     last60: 0,

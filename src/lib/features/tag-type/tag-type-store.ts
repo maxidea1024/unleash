@@ -56,10 +56,7 @@ export default class TagTypeStore implements ITagTypeStore {
 
   async exists(name: string): Promise<boolean> {
     const stopTimer = this.timer('exists');
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`,
-      [name],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`, [name]);
     const { present } = result.rows[0];
     stopTimer();
     return present;
@@ -84,11 +81,7 @@ export default class TagTypeStore implements ITagTypeStore {
   }
 
   async bulkImport(tagTypes: ITagType[]): Promise<ITagType[]> {
-    const rows = await this.db(TABLE)
-      .insert(tagTypes)
-      .returning(COLUMNS)
-      .onConflict('name')
-      .ignore();
+    const rows = await this.db(TABLE).insert(tagTypes).returning(COLUMNS).onConflict('name').ignore();
     if (rows.length > 0) {
       return rows;
     }

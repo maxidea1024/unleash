@@ -33,11 +33,7 @@ export const ContextFieldUsage = ({ contextName }: IContextFieldUsageProps) => {
     });
   };
 
-  const projectsUsed = Array.from(
-    new Set<string>(
-      strategies.map(({ projectId }) => projectId!).filter(Boolean),
-    ),
-  );
+  const projectsUsed = Array.from(new Set<string>(strategies.map(({ projectId }) => projectId!).filter(Boolean)));
 
   const projectList = (
     <StyledUl>

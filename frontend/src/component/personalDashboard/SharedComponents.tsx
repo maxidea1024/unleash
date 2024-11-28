@@ -113,22 +113,20 @@ export const StyledList = styled(List)(({ theme }) => ({
   })({ theme }),
 }));
 
-export const StyledCardTitle = styled('div')<{ lines?: number }>(
-  ({ theme, lines = 2 }) => ({
-    fontWeight: theme.typography.fontWeightRegular,
-    fontSize: theme.typography.body1.fontSize,
-    lineClamp: `${lines}`,
-    WebkitLineClamp: lines,
-    lineHeight: '1.2',
-    display: '-webkit-box',
-    boxOrient: 'vertical',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    alignItems: 'flex-start',
-    WebkitBoxOrient: 'vertical',
-    wordBreak: 'break-word',
-  }),
-);
+export const StyledCardTitle = styled('div')<{ lines?: number }>(({ theme, lines = 2 }) => ({
+  fontWeight: theme.typography.fontWeightRegular,
+  fontSize: theme.typography.body1.fontSize,
+  lineClamp: `${lines}`,
+  WebkitLineClamp: lines,
+  lineHeight: '1.2',
+  display: '-webkit-box',
+  boxOrient: 'vertical',
+  textOverflow: 'ellipsis',
+  overflow: 'hidden',
+  alignItems: 'flex-start',
+  WebkitBoxOrient: 'vertical',
+  wordBreak: 'break-word',
+}));
 
 export const NeutralCircleContainer = styled('span')(({ theme }) => ({
   width: '28px',

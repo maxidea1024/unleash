@@ -18,8 +18,7 @@ export const OverridesCell = ({ value: overrides }: IOverridesCellProps) => {
 
   if (!overrides || overrides.length === 0) return <TextCell />;
 
-  const overrideToString = (override: IOverride) =>
-    `${override.contextName}:${override.values.join()}`;
+  const overrideToString = (override: IOverride) => `${override.contextName}:${override.values.join()}`;
 
   return (
     <TextCell>
@@ -28,25 +27,17 @@ export const OverridesCell = ({ value: overrides }: IOverridesCellProps) => {
           <>
             {overrides.map((override, index) => (
               <StyledItem key={override.contextName + index}>
-                <Highlighter search={searchQuery}>
-                  {overrideToString(override)}
-                </Highlighter>
+                <Highlighter search={searchQuery}>{overrideToString(override)}</Highlighter>
               </StyledItem>
             ))}
           </>
         }
         highlighted={
           searchQuery.length > 0 &&
-          overrides
-            ?.map(overrideToString)
-            .join('\n')
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase())
+          overrides?.map(overrideToString).join('\n').toLowerCase().includes(searchQuery.toLowerCase())
         }
       >
-        {overrides.length === 1
-          ? '1 override'
-          : `${overrides.length} overrides`}
+        {overrides.length === 1 ? '1 override' : `${overrides.length} overrides`}
       </TooltipLink>
     </TextCell>
   );

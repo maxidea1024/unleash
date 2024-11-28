@@ -2,18 +2,10 @@ import FilterList from '@mui/icons-material/FilterList';
 import History from '@mui/icons-material/History';
 import { Box, Divider, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import {
-  getColumnValues,
-  getFilterableColumns,
-  getFilterValues,
-  type IGetSearchContextOutput,
-} from 'hooks/useSearch';
+import { getColumnValues, getFilterableColumns, getFilterValues, type IGetSearchContextOutput } from 'hooks/useSearch';
 import type { VFC } from 'react';
 import { SearchDescription } from './SearchDescription/SearchDescription';
-import {
-  SearchInstructions,
-  StyledCode,
-} from './SearchInstructions/SearchInstructions';
+import { SearchInstructions, StyledCode } from './SearchInstructions/SearchInstructions';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { onEnter } from './onEnter';
 import { SearchHistory } from './SearchHistory';
@@ -45,19 +37,13 @@ interface SearchSuggestionsProps {
 
 const quote = (item: string) => (item.includes(' ') ? `"${item}"` : item);
 
-export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({
-  getSearchContext,
-  onSuggestion,
-  savedQuery,
-}) => {
+export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({ getSearchContext, onSuggestion, savedQuery }) => {
   const { trackEvent } = usePlausibleTracker();
   const searchContext = getSearchContext();
 
   const filters = getFilterableColumns(searchContext.columns)
     .map((column) => {
-      const filterOptions = searchContext.data.map((row) =>
-        getColumnValues(column, row),
-      );
+      const filterOptions = searchContext.data.map((row) => getColumnValues(column, row));
 
       const options = [...new Set(filterOptions)]
         .filter(Boolean)
@@ -76,13 +62,9 @@ export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({
     })
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const searchableColumns = searchContext.columns.filter(
-    (column) => column.searchable && column.accessor,
-  );
+  const searchableColumns = searchContext.columns.filter((column) => column.searchable && column.accessor);
 
-  const searchableColumnsString = searchableColumns
-    .map((column) => column.Header ?? column.accessor)
-    .join(', ');
+  const searchableColumnsString = searchableColumns.map((column) => column.Header ?? column.accessor).join(', ');
 
   const suggestedTextSearch =
     searchContext.data.length && searchableColumns.length
@@ -90,9 +72,7 @@ export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({
       : 'example-search-text';
 
   const selectedFilter =
-    filters.length === 0
-      ? ''
-      : filters.map((filter) => `${filter.name}:${filter.suggestedOption}`)[0];
+    filters.length === 0 ? '' : filters.map((filter) => `${filter.name}:${filter.suggestedOption}`)[0];
 
   const onFilter = (suggestion: string) => {
     onSuggestion(suggestion);
@@ -117,10 +97,7 @@ export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({
         condition={Boolean(savedQuery)}
         show={
           <>
-            <SearchHistory
-              onSuggestion={onSuggestion}
-              savedQuery={savedQuery}
-            />
+            <SearchHistory onSuggestion={onSuggestion} savedQuery={savedQuery} />
             <StyledDivider />
           </>
         }
@@ -149,17 +126,9 @@ export const SearchSuggestions: VFC<SearchSuggestionsProps> = ({
       </StyledBox>
       <StyledDivider />
       <Box sx={{ lineHeight: 1.75 }}>
-        <ConditionallyRender
-          condition={filters.length > 0}
-          show='Combine filters and search: '
-        />
-        <StyledCode
-          tabIndex={0}
-          onClick={onSearchAndFilter}
-          onKeyDown={onEnter(onSearchAndFilter)}
-        >
-          <span key={selectedFilter}>{selectedFilter}</span>{' '}
-          <span>{suggestedTextSearch}</span>
+        <ConditionallyRender condition={filters.length > 0} show='Combine filters and search: ' />
+        <StyledCode tabIndex={0} onClick={onSearchAndFilter} onKeyDown={onEnter(onSearchAndFilter)}>
+          <span key={selectedFilter}>{selectedFilter}</span> <span>{suggestedTextSearch}</span>
         </StyledCode>
       </Box>
     </SearchPaper>

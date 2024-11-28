@@ -103,8 +103,7 @@ const RELEVANT_EVENT_TYPES: EventSchemaType[] = [
 
 const toISODateString = (date: Date) => date.toISOString().split('T')[0];
 
-const isSignal = (event: RawTimelineEvent): event is ISignalQuerySignal =>
-  'sourceId' in event;
+const isSignal = (event: RawTimelineEvent): event is ISignalQuerySignal => 'sourceId' in event;
 
 const getTimestamp = (event: RawTimelineEvent) => {
   return new Date(event.createdAt).getTime();
@@ -113,8 +112,7 @@ const getTimestamp = (event: RawTimelineEvent) => {
 const isInRange = (timestamp: number, startTime: number, endTime: number) =>
   timestamp >= startTime && timestamp <= endTime;
 
-const isValidString = (str: unknown): str is string =>
-  typeof str === 'string' && str.trim().length > 0;
+const isValidString = (str: unknown): str is string => typeof str === 'string' && str.trim().length > 0;
 
 const getTimelineEvent = (
   event: RawTimelineEvent,
@@ -127,12 +125,7 @@ const getTimelineEvent = (
       sourceName = 'unknown source',
       sourceDescription,
       tokenName,
-      payload: {
-        unleashTitle,
-        unleashDescription,
-        unleashIcon,
-        unleashVariant,
-      },
+      payload: { unleashTitle, unleashDescription, unleashIcon, unleashVariant },
     } = event;
 
     const title = unleashTitle || sourceName;
@@ -152,18 +145,8 @@ const getTimelineEvent = (
     };
   }
 
-  if (
-    !event.environment ||
-    !environment ||
-    event.environment === environment.name
-  ) {
-    const {
-      id,
-      type,
-      label: eventLabel,
-      summary: eventSummary,
-      createdBy,
-    } = event;
+  if (!event.environment || !environment || event.environment === environment.name) {
+    const { id, type, label: eventLabel, summary: eventSummary, createdBy } = event;
 
     const label = eventLabel || type;
     const summary = eventSummary || `**${createdBy}** triggered **${type}**`;
@@ -201,11 +184,7 @@ export const EventTimeline = () => {
         .reduce<TimelineEvent[]>((acc, event) => {
           const timestamp = getTimestamp(event);
           if (isInRange(timestamp, startTime, endTime)) {
-            const timelineEvent = getTimelineEvent(
-              event,
-              timestamp,
-              environment,
-            );
+            const timelineEvent = getTimelineEvent(event, timestamp, environment);
             if (timelineEvent) {
               acc.push(timelineEvent);
             }
@@ -217,10 +196,7 @@ export const EventTimeline = () => {
   );
 
   const timespanInMs = endTime - startTime;
-  const groupingThresholdInMs = useMemo(
-    () => timespanInMs * 0.02,
-    [timespanInMs],
-  );
+  const groupingThresholdInMs = useMemo(() => timespanInMs * 0.02, [timespanInMs]);
 
   const groups = useMemo(
     () =>
@@ -231,10 +207,7 @@ export const EventTimeline = () => {
           const lastGroup = groups[groups.length - 1];
           const lastEventInGroup = lastGroup[lastGroup.length - 1];
 
-          if (
-            event.timestamp - lastEventInGroup.timestamp <=
-            groupingThresholdInMs
-          ) {
+          if (event.timestamp - lastEventInGroup.timestamp <= groupingThresholdInMs) {
             lastGroup.push(event);
           } else {
             groups.push([event]);
@@ -255,12 +228,7 @@ export const EventTimeline = () => {
           <StyledTimeline />
           <StyledStart />
           {groups.map((group) => (
-            <EventTimelineEventGroup
-              key={group[0].id}
-              group={group}
-              startTime={startTime}
-              endTime={endTime}
-            />
+            <EventTimelineEventGroup key={group[0].id} group={group} startTime={startTime} endTime={endTime} />
           ))}
           <StyledEnd />
         </StyledTimelineContainer>

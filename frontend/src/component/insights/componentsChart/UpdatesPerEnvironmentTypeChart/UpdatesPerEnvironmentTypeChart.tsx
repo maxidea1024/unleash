@@ -1,14 +1,8 @@
 import { useMemo, type VFC } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
-import type {
-  InstanceInsightsSchema,
-  InstanceInsightsSchemaEnvironmentTypeTrendsItem,
-} from 'openapi';
-import {
-  LineChart,
-  NotEnoughData,
-} from 'component/insights/components/LineChart/LineChart';
+import type { InstanceInsightsSchema, InstanceInsightsSchemaEnvironmentTypeTrendsItem } from 'openapi';
+import { LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 import { UpdatesPerEnvironmentTypeChartTooltip } from './UpdatesPerEnvironmentTypeChartTooltip/UpdatesPerEnvironmentTypeChartTooltip';
 
@@ -24,10 +18,7 @@ export const groupByDateAndFillMissingDatapoints = (
     return {};
   }
 
-  const initialGrouping: Record<
-    string,
-    InstanceInsightsSchemaEnvironmentTypeTrendsItem[]
-  > = {};
+  const initialGrouping: Record<string, InstanceInsightsSchemaEnvironmentTypeTrendsItem[]> = {};
   for (const item of items) {
     if (!initialGrouping[item.date]) {
       initialGrouping[item.date] = [];
@@ -35,19 +26,12 @@ export const groupByDateAndFillMissingDatapoints = (
     initialGrouping[item.date].push(item);
   }
 
-  const allEnvironmentTypes = Array.from(
-    new Set(items.map((item) => item.environmentType)),
-  );
+  const allEnvironmentTypes = Array.from(new Set(items.map((item) => item.environmentType)));
 
-  const finalGrouping: Record<
-    string,
-    InstanceInsightsSchemaEnvironmentTypeTrendsItem[]
-  > = {};
+  const finalGrouping: Record<string, InstanceInsightsSchemaEnvironmentTypeTrendsItem[]> = {};
   Object.entries(initialGrouping).forEach(([date, environmentItems]) => {
     const fullSetForDate = allEnvironmentTypes.map((envType) => {
-      const existingItem = environmentItems.find(
-        (item) => item.environmentType === envType,
-      );
+      const existingItem = environmentItems.find((item) => item.environmentType === envType);
       if (existingItem) {
         return existingItem;
       } else {
@@ -86,23 +70,19 @@ const useEnvironmentTypeColor = () => {
   };
 };
 
-export const UpdatesPerEnvironmentTypeChart: VFC<
-  IUpdatesPerEnvironmnetTypeChart
-> = ({ environmentTypeTrends, isLoading }) => {
+export const UpdatesPerEnvironmentTypeChart: VFC<IUpdatesPerEnvironmnetTypeChart> = ({
+  environmentTypeTrends,
+  isLoading,
+}) => {
   const theme = useTheme();
   const getEnvironmentTypeColor = useEnvironmentTypeColor();
   const notEnoughData = !isLoading && environmentTypeTrends?.length < 2;
   const placeholderData = usePlaceholderData({ fill: true, type: 'double' });
 
   const data = useMemo(() => {
-    const groupedByDate = groupByDateAndFillMissingDatapoints(
-      environmentTypeTrends,
-    );
+    const groupedByDate = groupByDateAndFillMissingDatapoints(environmentTypeTrends);
 
-    const aggregatedByType: Record<
-      string,
-      InstanceInsightsSchemaEnvironmentTypeTrendsItem[]
-    > = {};
+    const aggregatedByType: Record<string, InstanceInsightsSchemaEnvironmentTypeTrendsItem[]> = {};
 
     Object.entries(groupedByDate).forEach(([date, trends]) => {
       trends.forEach((trend) => {
@@ -114,18 +94,16 @@ export const UpdatesPerEnvironmentTypeChart: VFC<
       });
     });
 
-    const datasets = Object.entries(aggregatedByType).map(
-      ([environmentType, dataPoints]) => {
-        const color = getEnvironmentTypeColor(environmentType);
-        return {
-          label: environmentType,
-          data: dataPoints,
-          borderColor: color,
-          backgroundColor: color,
-          fill: false,
-        };
-      },
-    );
+    const datasets = Object.entries(aggregatedByType).map(([environmentType, dataPoints]) => {
+      const color = getEnvironmentTypeColor(environmentType);
+      return {
+        label: environmentType,
+        data: dataPoints,
+        borderColor: color,
+        backgroundColor: color,
+        fill: false,
+      };
+    });
 
     return { datasets };
   }, [theme, environmentTypeTrends]);

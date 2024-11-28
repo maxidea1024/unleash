@@ -3,8 +3,7 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const contextFieldStrategiesSchema = {
   $id: '#/components/schemas/contextFieldStrategiesSchema',
   type: 'object',
-  description:
-    'A wrapper object containing all strategies that use a specific context field',
+  description: 'A wrapper object containing all strategies that use a specific context field',
   required: ['strategies'],
   properties: {
     strategies: {
@@ -12,13 +11,7 @@ export const contextFieldStrategiesSchema = {
       description: 'List of strategies using the context field',
       items: {
         type: 'object',
-        required: [
-          'id',
-          'featureName',
-          'projectId',
-          'environment',
-          'strategyName',
-        ],
+        required: ['id', 'featureName', 'projectId', 'environment', 'strategyName'],
         properties: {
           id: {
             type: 'string',
@@ -49,6 +42,4 @@ export const contextFieldStrategiesSchema = {
   components: {},
 } as const;
 
-export type ContextFieldStrategiesSchema = FromSchema<
-  typeof contextFieldStrategiesSchema
->;
+export type ContextFieldStrategiesSchema = FromSchema<typeof contextFieldStrategiesSchema>;

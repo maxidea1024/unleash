@@ -25,11 +25,5 @@ export const FavoriteAction: FC<FavoriteActionProps> = ({ id, isFavorite }) => {
     }
   };
 
-  return (
-    <FavoriteIconButton
-      onClick={onFavorite}
-      isFavorite={Boolean(isFavorite)}
-      size='medium'
-    />
-  );
+  return <FavoriteIconButton onClick={onFavorite} isFavorite={Boolean(isFavorite)} size='medium' />;
 };

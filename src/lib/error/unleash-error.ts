@@ -91,26 +91,22 @@ export const apiErrorSchema = {
   $id: '#/components/schemas/apiError',
   type: 'object',
   required: ['id', 'name', 'message'],
-  description:
-    'An Unleash API error. Contains information about what went wrong.',
+  description: 'An Unleash API error. Contains information about what went wrong.',
   properties: {
     name: {
       type: 'string',
-      description:
-        'The kind of error that occurred. Meant for machine consumption.',
+      description: 'The kind of error that occurred. Meant for machine consumption.',
       example: 'ValidationError',
     },
     id: {
       type: 'string',
-      description:
-        'A unique identifier for this error instance. Can be used to search logs etc.',
+      description: 'A unique identifier for this error instance. Can be used to search logs etc.',
       example: '0b84c7fd-5278-4087-832d-0b502c7929b3',
     },
     message: {
       type: 'string',
       description: 'A human-readable explanation of what went wrong.',
-      example:
-        "We couldn't find an addon provider with the name that you are trying to add ('bogus-addon')",
+      example: "We couldn't find an addon provider with the name that you are trying to add ('bogus-addon')",
     },
   },
   components: {},

@@ -30,9 +30,7 @@ interface IFeatureStrategyIconsProps {
   strategies: IFeatureStrategy[] | undefined;
 }
 
-export const FeatureStrategyIcons = ({
-  strategies,
-}: IFeatureStrategyIconsProps) => {
+export const FeatureStrategyIcons = ({ strategies }: IFeatureStrategyIconsProps) => {
   if (!strategies?.length) {
     return null;
   }
@@ -50,8 +48,7 @@ export const FeatureStrategyIcons = ({
             <StyledListItem key={strategy.id}>
               <StyledItem>
                 <FeatureStrategyIcon strategy={strategy} />{' '}
-                {formatStrategyName(strategy.name) +
-                  (strategy.title ? ` - ${strategy.title}` : '')}
+                {formatStrategyName(strategy.name) + (strategy.title ? ` - ${strategy.title}` : '')}
               </StyledItem>
             </StyledListItem>
           ))}

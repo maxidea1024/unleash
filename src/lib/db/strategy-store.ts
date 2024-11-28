@@ -10,15 +10,7 @@ import type {
 } from '../types/stores/strategy-store';
 import type { Db } from './db';
 
-const STRATEGY_COLUMNS = [
-  'title',
-  'name',
-  'description',
-  'parameters',
-  'built_in',
-  'deprecated',
-  'display_name',
-];
+const STRATEGY_COLUMNS = ['title', 'name', 'description', 'parameters', 'built_in', 'deprecated', 'display_name'];
 
 const TABLE = 'strategies';
 
@@ -43,11 +35,7 @@ export default class StrategyStore implements IStrategyStore {
   }
 
   async getAll(): Promise<IStrategy[]> {
-    const rows = await this.db
-      .select(STRATEGY_COLUMNS)
-      .from(TABLE)
-      .orderBy('sort_order', 'asc')
-      .orderBy('name', 'asc');
+    const rows = await this.db.select(STRATEGY_COLUMNS).from(TABLE).orderBy('sort_order', 'asc').orderBy('name', 'asc');
 
     return rows.map(this.rowToStrategy);
   }
@@ -64,11 +52,7 @@ export default class StrategyStore implements IStrategyStore {
   }
 
   async getStrategy(name: string): Promise<IStrategy> {
-    return this.db
-      .first(STRATEGY_COLUMNS)
-      .from(TABLE)
-      .where({ name })
-      .then(this.rowToStrategy);
+    return this.db.first(STRATEGY_COLUMNS).from(TABLE).where({ name }).then(this.rowToStrategy);
   }
 
   async delete(name: string): Promise<void> {
@@ -89,10 +73,7 @@ export default class StrategyStore implements IStrategyStore {
   destroy(): void {}
 
   async exists(name: string): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`,
-      [name],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`, [name]);
     const { present } = result.rows[0];
     return present;
   }
@@ -147,9 +128,7 @@ export default class StrategyStore implements IStrategyStore {
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async updateStrategy(data): Promise<void> {
-    await this.db(TABLE)
-      .where({ name: data.name })
-      .update(this.eventDataToRow(data));
+    await this.db(TABLE).where({ name: data.name }).update(this.eventDataToRow(data));
   }
 
   async deprecateStrategy({ name }: Pick<IStrategy, 'name'>): Promise<void> {

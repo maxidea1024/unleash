@@ -17,14 +17,12 @@ export const projectEnvironmentSchema = {
     },
     changeRequestsEnabled: {
       type: 'boolean',
-      description:
-        'Whether change requests should be enabled or for this environment on the project or not',
+      description: 'Whether change requests should be enabled or for this environment on the project or not',
       example: true,
     },
     defaultStrategy: {
       $ref: '#/components/schemas/createFeatureStrategySchema',
-      description:
-        'A default strategy to create for this environment on the project.',
+      description: 'A default strategy to create for this environment on the project.',
     },
   },
   components: {
@@ -35,6 +33,4 @@ export const projectEnvironmentSchema = {
   },
 } as const;
 
-export type ProjectEnvironmentSchema = FromSchema<
-  typeof projectEnvironmentSchema
->;
+export type ProjectEnvironmentSchema = FromSchema<typeof projectEnvironmentSchema>;

@@ -20,10 +20,7 @@ interface IGroupFormUsersTableProps {
   setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
 }
 
-export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({
-  users,
-  setUsers,
-}) => {
+export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({ users, setUsers }) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const columns = useMemo(
@@ -57,11 +54,7 @@ export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({
           <ActionCell>
             <Tooltip title='Remove user from group' arrow describeChild>
               <IconButton
-                onClick={() =>
-                  setUsers((users: IGroupUser[]) =>
-                    users.filter((user) => user.id !== rowUser.id),
-                  )
-                }
+                onClick={() => setUsers((users: IGroupUser[]) => users.filter((user) => user.id !== rowUser.id))}
               >
                 <Delete />
               </IconButton>
@@ -120,13 +113,7 @@ export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({
   return (
     <ConditionallyRender
       condition={rows.length > 0}
-      show={
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
-      }
+      show={<VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />}
     />
   );
 };

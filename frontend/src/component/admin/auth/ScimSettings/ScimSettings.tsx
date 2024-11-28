@@ -33,8 +33,7 @@ export const ScimSettings = () => {
     setEnabled(settings.enabled ?? false);
   }, [settings]);
 
-  const { saveSettings, generateNewToken, errors, loading } =
-    useScimSettingsApi();
+  const { saveSettings, generateNewToken, errors, loading } = useScimSettingsApi();
 
   const onGenerateNewToken = async () => {
     setTokenGenerationDialog(true);
@@ -73,15 +72,10 @@ export const ScimSettings = () => {
         <Grid item md={12}>
           <Alert severity='info'>
             Please read the{' '}
-            <a
-              href='https://docs.getunleash.io/reference/scim'
-              target='_blank'
-              rel='noreferrer'
-            >
+            <a href='https://docs.getunleash.io/reference/scim' target='_blank' rel='noreferrer'>
               documentation
             </a>{' '}
-            to learn how to integrate with specific SCIM clients (Microsoft
-            Entra, Okta, etc). <br />
+            to learn how to integrate with specific SCIM clients (Microsoft Entra, Okta, etc). <br />
             SCIM API URL: <code>{uiConfig.unleashUrl}/scim</code>
           </Alert>
         </Grid>
@@ -93,13 +87,11 @@ export const ScimSettings = () => {
               <strong>SCIM provisioning</strong>
             </StyledTitleDiv>
             <p>
-              Enables SCIM provisioning. If SCIM provisioning has not previously
-              been enabled here this will also set up a new auth token to use
-              with your SCIM client, and display it to the user. After the
-              dialog has been closed, this token will not be displayed again. If
-              you need a new token you can click the Generate new token button
-              below which will replace the old token with a new token, and
-              similarly display the new token one time to the user.
+              Enables SCIM provisioning. If SCIM provisioning has not previously been enabled here this will also set up
+              a new auth token to use with your SCIM client, and display it to the user. After the dialog has been
+              closed, this token will not be displayed again. If you need a new token you can click the Generate new
+              token button below which will replace the old token with a new token, and similarly display the new token
+              one time to the user.
             </p>
           </Grid>
           <Grid item md={1.5}>
@@ -124,12 +116,7 @@ export const ScimSettings = () => {
             <ConditionallyRender
               condition={Boolean(settings.hasToken)}
               show={
-                <Button
-                  variant='outlined'
-                  color='error'
-                  disabled={loading}
-                  onClick={onGenerateNewToken}
-                >
+                <Button variant='outlined' color='error' disabled={loading} onClick={onGenerateNewToken}>
                   Generate new token
                 </Button>
               }
@@ -141,11 +128,7 @@ export const ScimSettings = () => {
           setOpen={setTokenGenerationDialog}
           onConfirm={onGenerateNewTokenConfirm}
         />
-        <ScimTokenDialog
-          open={tokenDialog}
-          setOpen={setTokenDialog}
-          token={newToken}
-        />
+        <ScimTokenDialog open={tokenDialog} setOpen={setTokenDialog} token={newToken} />
       </StyledContainer>
     </>
   );

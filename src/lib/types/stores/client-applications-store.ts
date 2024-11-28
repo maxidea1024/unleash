@@ -34,15 +34,12 @@ export interface IClientApplicationsSearchParams {
   sortOrder: 'asc' | 'desc';
 }
 
-export interface IClientApplicationsStore
-  extends IStore<IClientApplication, string> {
+export interface IClientApplicationsStore extends IStore<IClientApplication, string> {
   upsert(details: Partial<IClientApplication>): Promise<void>;
 
   bulkUpsert(details: Partial<IClientApplication>[]): Promise<void>;
 
-  getApplications(
-    params: IClientApplicationsSearchParams,
-  ): Promise<IClientApplications>;
+  getApplications(params: IClientApplicationsSearchParams): Promise<IClientApplications>;
 
   getUnannounced(): Promise<IClientApplication[]>;
 

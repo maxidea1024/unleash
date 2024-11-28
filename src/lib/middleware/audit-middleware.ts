@@ -2,9 +2,7 @@ import type { IUnleashConfig } from '../types';
 import type { IApiRequest, IAuthRequest } from '../routes/unleash-types';
 import { extractAuditInfo } from '../util';
 
-export const auditAccessMiddleware = ({
-  getLogger,
-}: Pick<IUnleashConfig, 'getLogger'>): any => {
+export const auditAccessMiddleware = ({ getLogger }: Pick<IUnleashConfig, 'getLogger'>): any => {
   const logger = getLogger('audit-middleware.ts');
 
   return (req: IAuthRequest | IApiRequest, res, next) => {

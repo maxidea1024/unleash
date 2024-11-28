@@ -10,9 +10,7 @@ export const useAdminRoutes = () => {
   const routes = [...adminRoutes];
 
   if (uiConfig.flags.UNLEASH_CLOUD) {
-    const adminBillingMenuItem = adminRoutes.findIndex(
-      (route) => route.title === 'Billing & invoices',
-    );
+    const adminBillingMenuItem = adminRoutes.findIndex((route) => route.title === 'Billing & invoices');
     routes[adminBillingMenuItem] = {
       ...routes[adminBillingMenuItem],
       path: '/admin/billing',

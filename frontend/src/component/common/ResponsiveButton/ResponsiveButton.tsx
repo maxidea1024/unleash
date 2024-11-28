@@ -17,10 +17,7 @@ interface IResponsiveButtonProps {
   projectId?: string;
   environmentId?: string;
   maxWidth: string;
-  variant?: OverridableStringUnion<
-    'text' | 'outlined' | 'contained',
-    ButtonPropsVariantOverrides
-  >;
+  variant?: OverridableStringUnion<'text' | 'outlined' | 'contained', ButtonPropsVariantOverrides>;
   className?: string;
   children?: React.ReactNode;
 }

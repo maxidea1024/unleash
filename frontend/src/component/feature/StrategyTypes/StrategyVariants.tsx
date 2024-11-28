@@ -39,9 +39,7 @@ export const StrategyVariants: FC<{
   const theme = useTheme();
 
   const stickiness =
-    strategy?.parameters && 'stickiness' in strategy?.parameters
-      ? String(strategy.parameters.stickiness)
-      : 'default';
+    strategy?.parameters && 'stickiness' in strategy?.parameters ? String(strategy.parameters.stickiness) : 'default';
 
   useEffect(() => {
     setVariantsEdit(
@@ -71,9 +69,7 @@ export const StrategyVariants: FC<{
   const updateVariant = (updatedVariant: IFeatureVariantEdit, id: string) => {
     setVariantsEdit((prevVariants) =>
       updateWeightEdit(
-        prevVariants.map((prevVariant) =>
-          prevVariant.id === id ? updatedVariant : prevVariant,
-        ),
+        prevVariants.map((prevVariant) => (prevVariant.id === id ? updatedVariant : prevVariant)),
         1000,
       ),
     );
@@ -102,25 +98,17 @@ export const StrategyVariants: FC<{
 
   return (
     <>
-      <Typography
-        component='h3'
-        sx={{ m: 0, display: 'flex', gap: '1ch' }}
-        variant='h3'
-      >
+      <Typography component='h3' sx={{ m: 0, display: 'flex', gap: '1ch' }} variant='h3'>
         Variants
         <HelpIcon
           htmlTooltip={true}
           tooltip={
             <>
               <span>
-                Variants allow to attach one or more values to this strategy.
-                Variants at the strategy level override variants at the feature
-                level.
+                Variants allow to attach one or more values to this strategy. Variants at the strategy level override
+                variants at the feature level.
               </span>
-              <Link
-                target='_blank'
-                href='https://docs.getunleash.io/reference/strategy-variants'
-              >
+              <Link target='_blank' href='https://docs.getunleash.io/reference/strategy-variants'>
                 Learn more
               </Link>
             </>
@@ -135,9 +123,7 @@ export const StrategyVariants: FC<{
             key={variant.id}
             variant={variant}
             variants={variantsEdit}
-            updateVariant={(updatedVariant) =>
-              updateVariant(updatedVariant, variant.id)
-            }
+            updateVariant={(updatedVariant) => updateVariant(updatedVariant, variant.id)}
             removeVariant={() =>
               setVariantsEdit((variantsEdit) =>
                 updateWeightEdit(
@@ -146,9 +132,7 @@ export const StrategyVariants: FC<{
                 ),
               )
             }
-            decorationColor={
-              theme.palette.variants[i % theme.palette.variants.length]
-            }
+            decorationColor={theme.palette.variants[i % theme.palette.variants.length]}
           />
         ))}
       </StyledVariantForms>

@@ -13,11 +13,7 @@ interface IDeletePersonalAPITokenProps {
   token?: IPersonalAPIToken;
 }
 
-export const DeletePersonalAPIToken: FC<IDeletePersonalAPITokenProps> = ({
-  open,
-  setOpen,
-  token,
-}) => {
+export const DeletePersonalAPIToken: FC<IDeletePersonalAPITokenProps> = ({ open, setOpen, token }) => {
   const { refetchTokens } = usePersonalAPITokens();
   const { deletePersonalAPIToken } = usePersonalAPITokensApi();
   const { setToastData, setToastApiError } = useToast();
@@ -50,9 +46,8 @@ export const DeletePersonalAPIToken: FC<IDeletePersonalAPITokenProps> = ({
       title='Delete token?'
     >
       <Typography>
-        Any applications or scripts using this token "
-        <strong>{token?.description}</strong>" will no longer be able to access
-        the Unleash API. You cannot undo this action.
+        Any applications or scripts using this token "<strong>{token?.description}</strong>" will no longer be able to
+        access the Unleash API. You cannot undo this action.
       </Typography>
     </Dialogue>
   );

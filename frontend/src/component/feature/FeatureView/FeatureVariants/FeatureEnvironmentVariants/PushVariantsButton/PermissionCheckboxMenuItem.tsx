@@ -10,14 +10,15 @@ interface PermissionCheckboxMenuItemProps {
   onClick: () => void;
 }
 
-export const PermissionCheckboxMenuItem: FC<
-  PermissionCheckboxMenuItemProps
-> = ({ permission, projectId, environment, checked, onClick, ...props }) => {
-  const hasPermissions = useHasProjectEnvironmentAccess(
-    permission,
-    projectId,
-    environment,
-  );
+export const PermissionCheckboxMenuItem: FC<PermissionCheckboxMenuItemProps> = ({
+  permission,
+  projectId,
+  environment,
+  checked,
+  onClick,
+  ...props
+}) => {
+  const hasPermissions = useHasProjectEnvironmentAccess(permission, projectId, environment);
 
   return (
     <MenuItem disabled={!hasPermissions} onClick={onClick} {...props}>

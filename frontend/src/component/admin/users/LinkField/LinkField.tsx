@@ -12,31 +12,29 @@ interface ILinkFieldProps {
   isExpired?: boolean;
 }
 
-const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(
-  ({ theme, small, isExpired }) => ({
-    backgroundColor: theme.palette.background.elevation2,
-    padding: theme.spacing(4),
-    borderRadius: `${theme.shape.borderRadius}px`,
-    marginTop: theme.spacing(2),
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    wordBreak: 'break-all',
-    ...(small
-      ? {
-          marginTop: 0,
-          padding: theme.spacing(0.5, 0.5, 0.5, 1.5),
-          fontSize: theme.typography.body2.fontSize,
-        }
-      : {}),
-    ...(isExpired
-      ? {
-          textDecoration: 'line-through',
-          color: theme.palette.text.disabled,
-        }
-      : {}),
-  }),
-);
+const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(({ theme, small, isExpired }) => ({
+  backgroundColor: theme.palette.background.elevation2,
+  padding: theme.spacing(4),
+  borderRadius: `${theme.shape.borderRadius}px`,
+  marginTop: theme.spacing(2),
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  wordBreak: 'break-all',
+  ...(small
+    ? {
+        marginTop: 0,
+        padding: theme.spacing(0.5, 0.5, 0.5, 1.5),
+        fontSize: theme.typography.body2.fontSize,
+      }
+    : {}),
+  ...(isExpired
+    ? {
+        textDecoration: 'line-through',
+        color: theme.palette.text.disabled,
+      }
+    : {}),
+}));
 
 export const LinkField: FC<ILinkFieldProps> = ({
   inviteLink,

@@ -20,40 +20,25 @@ interface IDemoDialogFinishProps {
   onRestart: () => void;
 }
 
-export const DemoDialogFinish = ({
-  open,
-  onClose,
-  onRestart,
-}: IDemoDialogFinishProps) => (
+export const DemoDialogFinish = ({ open, onClose, onRestart }: IDemoDialogFinishProps) => (
   <>
     <ConditionallyRender
       condition={open}
       show={
-        <Confetti
-          recycle={false}
-          numberOfPieces={1000}
-          initialVelocityY={50}
-          gravity={0.3}
-          style={{ zIndex: 3000 }}
-        />
+        <Confetti recycle={false} numberOfPieces={1000} initialVelocityY={50} gravity={0.3} style={{ zIndex: 3000 }} />
       }
     />
     <DemoDialog open={open} onClose={onClose}>
       <DemoDialog.Header>You finished the demo</DemoDialog.Header>
       <Typography color='textSecondary' sx={{ mt: 4 }}>
-        Great job! Keep exploring Unleash, as this was just a small example of
-        its full potential. You can do the demo again at any moment.
+        Great job! Keep exploring Unleash, as this was just a small example of its full potential. You can do the demo
+        again at any moment.
       </Typography>
       <StyledActions>
         <StyledButton variant='outlined' color='primary' onClick={onRestart}>
           Restart demo
         </StyledButton>
-        <StyledButton
-          variant='contained'
-          color='primary'
-          onClick={onClose}
-          data-testid='DEMO_FINISH_BUTTON'
-        >
+        <StyledButton variant='contained' color='primary' onClick={onClose} data-testid='DEMO_FINISH_BUTTON'>
           Continue
         </StyledButton>
       </StyledActions>

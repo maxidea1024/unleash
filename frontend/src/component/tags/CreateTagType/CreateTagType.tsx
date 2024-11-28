@@ -14,16 +14,8 @@ const CreateTagType = () => {
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const navigate = useNavigate();
-  const {
-    tagName,
-    tagDesc,
-    setTagName,
-    setTagDesc,
-    getTagPayload,
-    validateNameUniqueness,
-    errors,
-    clearErrors,
-  } = useTagTypeForm();
+  const { tagName, tagDesc, setTagName, setTagDesc, getTagPayload, validateNameUniqueness, errors, clearErrors } =
+    useTagTypeForm();
   const { createTag, loading } = useTagTypesApi();
 
   const handleSubmit = async (e: Event) => {

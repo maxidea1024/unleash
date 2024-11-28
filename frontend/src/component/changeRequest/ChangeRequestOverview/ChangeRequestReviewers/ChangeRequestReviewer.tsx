@@ -34,10 +34,7 @@ export const ReviewerName = styled(Typography)({
   color: 'text.primary',
 });
 
-export const ChangeRequestApprover: FC<IChangeRequestReviewerProps> = ({
-  name,
-  imageUrl,
-}) => {
+export const ChangeRequestApprover: FC<IChangeRequestReviewerProps> = ({ name, imageUrl }) => {
   return (
     <StyledBox>
       <StyledAvatar user={{ name, imageUrl }} />
@@ -47,10 +44,7 @@ export const ChangeRequestApprover: FC<IChangeRequestReviewerProps> = ({
   );
 };
 
-export const ChangeRequestRejector: FC<IChangeRequestReviewerProps> = ({
-  name,
-  imageUrl,
-}) => {
+export const ChangeRequestRejector: FC<IChangeRequestReviewerProps> = ({ name, imageUrl }) => {
   return (
     <StyledBox>
       <StyledAvatar user={{ name, imageUrl }} />

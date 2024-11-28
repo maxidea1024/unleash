@@ -7,17 +7,13 @@ import { sortTypes } from 'utils/sortTypes';
 import type { IGroup } from 'interfaces/group';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 
-export type PageQueryType = Partial<
-  Record<'sort' | 'order' | 'search', string>
->;
+export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
 
 interface IRoleDeleteDialogGroupsProps {
   groups: IGroup[];
 }
 
-export const RoleDeleteDialogGroups = ({
-  groups,
-}: IRoleDeleteDialogGroupsProps) => {
+export const RoleDeleteDialogGroups = ({ groups }: IRoleDeleteDialogGroupsProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'createdAt', desc: true }],
   }));
@@ -44,8 +40,7 @@ export const RoleDeleteDialogGroups = ({
         {
           id: 'users',
           Header: 'Users',
-          accessor: (row: IGroup) =>
-            row.users.length === 1 ? '1 user' : `${row.users.length} users`,
+          accessor: (row: IGroup) => (row.users.length === 1 ? '1 user' : `${row.users.length} users`),
           Cell: TextCell,
           maxWidth: 150,
         },
@@ -68,11 +63,5 @@ export const RoleDeleteDialogGroups = ({
     useFlexLayout,
   );
 
-  return (
-    <VirtualizedTable
-      rows={rows}
-      headerGroups={headerGroups}
-      prepareRow={prepareRow}
-    />
-  );
+  return <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />;
 };

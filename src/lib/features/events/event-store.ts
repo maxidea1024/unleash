@@ -7,20 +7,14 @@ import {
   SEGMENT_UPDATED,
 } from '../../types/events';
 import type { Logger, LogProvider } from '../../logger';
-import type {
-  IEventSearchParams,
-  IEventStore,
-} from '../../types/stores/event-store';
+import type { IEventSearchParams, IEventStore } from '../../types/stores/event-store';
 import type { ITag } from '../../types/model';
 import { sharedEventEmitter } from '../../util/anyEventEmitter';
 import type { Db } from '../../db/db';
 import type { Knex } from 'knex';
 import type EventEmitter from 'events';
 import { ADMIN_TOKEN_USER, SYSTEM_USER, SYSTEM_USER_ID } from '../../types';
-import type {
-  DeprecatedSearchEventsSchema,
-  ProjectActivitySchema,
-} from '../../openapi';
+import type { DeprecatedSearchEventsSchema, ProjectActivitySchema } from '../../openapi';
 import type { IQueryParam } from '../feature-toggle/types/feature-toggle-strategies-store-type';
 import { applyGenericQueryParams } from '../feature-search/search-utils';
 
@@ -38,11 +32,7 @@ const EVENT_COLUMNS = [
   'environment',
 ] as const;
 
-export type IQueryOperations =
-  | IWhereOperation
-  | IBeforeDateOperation
-  | IBetweenDatesOperation
-  | IForFeaturesOperation;
+export type IQueryOperations = IWhereOperation | IBeforeDateOperation | IBetweenDatesOperation | IForFeaturesOperation;
 
 interface IWhereOperation {
   op: 'where';
@@ -110,9 +100,7 @@ export default class EventStore implements IEventStore {
 
   async store(event: IBaseEvent): Promise<void> {
     try {
-      await this.db(TABLE)
-        .insert(this.eventToDbRow(event))
-        .returning(EVENT_COLUMNS);
+      await this.db(TABLE).insert(this.eventToDbRow(event)).returning(EVENT_COLUMNS);
     } catch (error: unknown) {
       this.logger.warn(`Failed to store "${event.type}" event: ${error}`);
     }
@@ -130,9 +118,7 @@ export default class EventStore implements IEventStore {
     }
   }
 
-  async deprecatedFilteredCount(
-    eventSearch: DeprecatedSearchEventsSchema,
-  ): Promise<number> {
+  async deprecatedFilteredCount(eventSearch: DeprecatedSearchEventsSchema): Promise<number> {
     let query = this.db(TABLE);
     if (eventSearch.type) {
       query = query.andWhere({ type: eventSearch.type });
@@ -154,10 +140,7 @@ export default class EventStore implements IEventStore {
     }
   }
 
-  async searchEventsCount(
-    params: IEventSearchParams,
-    queryParams: IQueryParam[],
-  ): Promise<number> {
+  async searchEventsCount(params: IEventSearchParams, queryParams: IQueryParam[]): Promise<number> {
     const query = this.buildSearchQuery(params, queryParams);
     const count = await query.count().first();
     if (!count) {
@@ -174,10 +157,7 @@ export default class EventStore implements IEventStore {
     try {
       await this.db(TABLE).insert(events.map(this.eventToDbRow));
     } catch (error: unknown) {
-      this.logger.warn(
-        `Failed to store events: ${JSON.stringify(events)}`,
-        error,
-      );
+      this.logger.warn(`Failed to store events: ${JSON.stringify(events)}`, error);
     }
   }
 
@@ -185,13 +165,7 @@ export default class EventStore implements IEventStore {
     const row = await this.db(TABLE)
       .max('id')
       .where((builder) =>
-        builder
-          .whereNotNull('feature_name')
-          .orWhereIn('type', [
-            SEGMENT_UPDATED,
-            FEATURE_IMPORT,
-            FEATURES_IMPORTED,
-          ]),
+        builder.whereNotNull('feature_name').orWhereIn('type', [SEGMENT_UPDATED, FEATURE_IMPORT, FEATURES_IMPORTED]),
       )
       .andWhere('id', '>=', largerThan)
       .first();
@@ -209,10 +183,7 @@ export default class EventStore implements IEventStore {
   destroy(): void {}
 
   async exists(key: number): Promise<boolean> {
-    const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
-      [key],
-    );
+    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [key]);
     const { present } = result.rows[0];
     return present;
   }
@@ -275,29 +246,17 @@ export default class EventStore implements IEventStore {
     }
   }
 
-  where(
-    query: Knex.QueryBuilder,
-    parameters: { [key: string]: string },
-  ): Knex.QueryBuilder {
+  where(query: Knex.QueryBuilder, parameters: { [key: string]: string }): Knex.QueryBuilder {
     return query.where(parameters);
   }
 
-  beforeDate(
-    query: Knex.QueryBuilder,
-    parameters: { dateAccessor: string; date: string },
-  ): Knex.QueryBuilder {
+  beforeDate(query: Knex.QueryBuilder, parameters: { dateAccessor: string; date: string }): Knex.QueryBuilder {
     return query.andWhere(parameters.dateAccessor, '>=', parameters.date);
   }
 
-  betweenDate(
-    query: Knex.QueryBuilder,
-    parameters: { dateAccessor: string; range: string[] },
-  ): Knex.QueryBuilder {
+  betweenDate(query: Knex.QueryBuilder, parameters: { dateAccessor: string; range: string[] }): Knex.QueryBuilder {
     if (parameters.range && parameters.range.length === 2) {
-      return query.andWhereBetween(parameters.dateAccessor, [
-        parameters.range[0],
-        parameters.range[1],
-      ]);
+      return query.andWhereBetween(parameters.dateAccessor, [parameters.range[0], parameters.range[1]]);
     }
 
     return query;
@@ -307,10 +266,7 @@ export default class EventStore implements IEventStore {
     return this.db.select(EVENT_COLUMNS).from(TABLE);
   }
 
-  forFeatures(
-    query: Knex.QueryBuilder,
-    parameters: IForFeaturesParams,
-  ): Knex.QueryBuilder {
+  forFeatures(query: Knex.QueryBuilder, parameters: IForFeaturesParams): Knex.QueryBuilder {
     return query
       .where({ type: parameters.type, project: parameters.projectId })
       .whereIn('feature_name', parameters.features)
@@ -328,11 +284,7 @@ export default class EventStore implements IEventStore {
 
   async getEvents(query?: Object): Promise<IEvent[]> {
     try {
-      let qB = this.db
-        .select(EVENT_COLUMNS)
-        .from(TABLE)
-        .limit(100)
-        .orderBy('created_at', 'desc');
+      let qB = this.db.select(EVENT_COLUMNS).from(TABLE).limit(100).orderBy('created_at', 'desc');
       if (query) {
         qB = qB.where(query);
       }
@@ -343,10 +295,7 @@ export default class EventStore implements IEventStore {
     }
   }
 
-  async searchEvents(
-    params: IEventSearchParams,
-    queryParams: IQueryParam[],
-  ): Promise<IEvent[]> {
+  async searchEvents(params: IEventSearchParams, queryParams: IQueryParam[]): Promise<IEvent[]> {
     const query = this.buildSearchQuery(params, queryParams)
       .select(EVENT_COLUMNS)
       .orderBy('created_at', 'desc')
@@ -360,10 +309,7 @@ export default class EventStore implements IEventStore {
     }
   }
 
-  private buildSearchQuery(
-    params: IEventSearchParams,
-    queryParams: IQueryParam[],
-  ) {
+  private buildSearchQuery(params: IEventSearchParams, queryParams: IQueryParam[]) {
     let query = this.db.from<IEventTable>(TABLE);
 
     applyGenericQueryParams(query, queryParams);
@@ -406,9 +352,7 @@ export default class EventStore implements IEventStore {
       }));
   }
 
-  async getProjectRecentEventActivity(
-    project: string,
-  ): Promise<ProjectActivitySchema> {
+  async getProjectRecentEventActivity(project: string): Promise<ProjectActivitySchema> {
     const result = await this.db('events')
       .select(this.db.raw("TO_CHAR(created_at::date, 'YYYY-MM-DD') AS date"))
       .count('* AS count')
@@ -423,9 +367,7 @@ export default class EventStore implements IEventStore {
     }));
   }
 
-  async deprecatedSearchEvents(
-    search: DeprecatedSearchEventsSchema = {},
-  ): Promise<IEvent[]> {
+  async deprecatedSearchEvents(search: DeprecatedSearchEventsSchema = {}): Promise<IEvent[]> {
     let query = this.db
       .select(EVENT_COLUMNS)
       .from<IEventTable>(TABLE)
@@ -491,9 +433,7 @@ export default class EventStore implements IEventStore {
       created_by: e.createdBy ?? 'admin',
       created_by_user_id: e.createdByUserId,
       data: Array.isArray(e.data) ? JSON.stringify(e.data) : e.data,
-      pre_data: Array.isArray(e.preData)
-        ? JSON.stringify(e.preData)
-        : e.preData,
+      pre_data: Array.isArray(e.preData) ? JSON.stringify(e.preData) : e.preData,
       // @ts-expect-error workaround for json-array
       tags: JSON.stringify(e.tags),
       feature_name: e.featureName,
@@ -507,10 +447,7 @@ export default class EventStore implements IEventStore {
     return this.eventEmitter.setMaxListeners(number);
   }
 
-  on(
-    eventName: string | symbol,
-    listener: (...args: any[]) => void,
-  ): EventEmitter {
+  on(eventName: string | symbol, listener: (...args: any[]) => void): EventEmitter {
     return this.eventEmitter.on(eventName, listener);
   }
 
@@ -518,18 +455,12 @@ export default class EventStore implements IEventStore {
     return this.eventEmitter.emit(eventName, ...args);
   }
 
-  off(
-    eventName: string | symbol,
-    listener: (...args: any[]) => void,
-  ): EventEmitter {
+  off(eventName: string | symbol, listener: (...args: any[]) => void): EventEmitter {
     return this.eventEmitter.off(eventName, listener);
   }
 
   async setUnannouncedToAnnounced(): Promise<IEvent[]> {
-    const rows = await this.db(TABLE)
-      .update({ announced: true })
-      .where('announced', false)
-      .returning(EVENT_COLUMNS);
+    const rows = await this.db(TABLE).update({ announced: true }).where('announced', false).returning(EVENT_COLUMNS);
     return rows.map(this.rowToEvent);
   }
 
@@ -543,12 +474,8 @@ export default class EventStore implements IEventStore {
     const API_TOKEN_TABLE = 'api_tokens';
 
     const toUpdate = await this.db(`${TABLE} as e`)
-      .joinRaw(
-        'LEFT OUTER JOIN users AS u ON e.created_by = u.username OR e.created_by = u.email',
-      )
-      .joinRaw(
-        `LEFT OUTER JOIN ${API_TOKEN_TABLE} AS t on e.created_by = t.username`,
-      )
+      .joinRaw('LEFT OUTER JOIN users AS u ON e.created_by = u.username OR e.created_by = u.email')
+      .joinRaw(`LEFT OUTER JOIN ${API_TOKEN_TABLE} AS t on e.created_by = t.username`)
       .whereRaw(
         `e.created_by_user_id IS null AND
                  e.created_by IS NOT null AND
@@ -565,22 +492,15 @@ export default class EventStore implements IEventStore {
       if (
         row.created_by === 'unknown' ||
         row.created_by === 'migration' ||
-        (row.created_by === 'init-api-tokens' &&
-          row.type === 'api-token-created')
+        (row.created_by === 'init-api-tokens' && row.type === 'api-token-created')
       ) {
-        return this.db(TABLE)
-          .update({ created_by_user_id: SYSTEM_USER_ID })
-          .where({ id: row.id });
+        return this.db(TABLE).update({ created_by_user_id: SYSTEM_USER_ID }).where({ id: row.id });
       }
       if (row.userid) {
-        return this.db(TABLE)
-          .update({ created_by_user_id: row.userid })
-          .where({ id: row.id });
+        return this.db(TABLE).update({ created_by_user_id: row.userid }).where({ id: row.id });
       }
       if (row.username) {
-        return this.db(TABLE)
-          .update({ created_by_user_id: ADMIN_TOKEN_USER.id })
-          .where({ id: row.id });
+        return this.db(TABLE).update({ created_by_user_id: ADMIN_TOKEN_USER.id }).where({ id: row.id });
       }
       this.logger.warn(`Could not find user for event ${row.id}`);
       return Promise.resolve();

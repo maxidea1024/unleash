@@ -11,8 +11,7 @@ export const feedbackUpdateSchema = {
       example: 2,
     },
     neverShow: {
-      description:
-        '`true` if the user has asked never to see this feedback questionnaire again.',
+      description: '`true` if the user has asked never to see this feedback questionnaire again.',
       type: 'boolean',
       example: false,
     },

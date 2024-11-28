@@ -27,11 +27,7 @@ export const EnvironmentRow = ({ row, moveListItem }: IEnvironmentRowProps) => {
   const { searchQuery } = useSearchHighlightContext();
   const draggable = !searchQuery && hasAccess(UPDATE_ENVIRONMENT);
 
-  const dragItemRef = useDragItem<HTMLTableRowElement>(
-    row.index,
-    moveListItem,
-    dragHandleRef,
-  );
+  const dragItemRef = useDragItem<HTMLTableRowElement>(row.index, moveListItem, dragHandleRef);
 
   const renderCell = (cell: any, ref: ForwardedRef<HTMLElement>) => {
     if (draggable && cell.column.isDragHandle) {
@@ -41,9 +37,7 @@ export const EnvironmentRow = ({ row, moveListItem }: IEnvironmentRowProps) => {
         </TableCell>
       );
     } else {
-      return (
-        <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>
-      );
+      return <TableCell {...cell.getCellProps()}>{cell.render('Cell')}</TableCell>;
     }
   };
 

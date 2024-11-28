@@ -1,10 +1,7 @@
 import faker from 'faker';
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
-import type {
-  IClientApplicationsStore,
-  IUnleashStores,
-} from '../../../lib/types';
+import type { IClientApplicationsStore, IUnleashStores } from '../../../lib/types';
 import type { IClientApplication } from '../../../lib/types/stores/client-applications-store';
 
 let db: ITestDb;
@@ -66,10 +63,7 @@ test('Multiple instances should still only announce once per app', async () => {
 });
 
 test('Multiple applications should also be possible to announce', async () => {
-  const clients: Omit<
-    IClientApplication,
-    'createdAt' | 'updatedAt' | 'lastSeen' | 'announced' | 'url'
-  >[] = [];
+  const clients: Omit<IClientApplication, 'createdAt' | 'updatedAt' | 'lastSeen' | 'announced' | 'url'>[] = [];
   while (clients.length < 10) {
     const clientRegistration = {
       appName: `${faker.internet.domainName()}_${clients.length}`,
@@ -141,10 +135,7 @@ test('Merge keeps value for single row in database', async () => {
 });
 
 test('Multi row merge also works', async () => {
-  const clients: Omit<
-    IClientApplication,
-    'createdAt' | 'updatedAt' | 'lastSeen' | 'announced' | 'url'
-  >[] = [];
+  const clients: Omit<IClientApplication, 'createdAt' | 'updatedAt' | 'lastSeen' | 'announced' | 'url'>[] = [];
   while (clients.length < 10) {
     const clientRegistration = {
       appName: `${faker.internet.domainName()}_${clients.length}`,
@@ -165,9 +156,7 @@ test('Multi row merge also works', async () => {
     icon: 'red',
   }));
   await clientApplicationsStore.bulkUpsert(alteredClients);
-  const stored = await Promise.all(
-    clients.map(async (c) => clientApplicationsStore.get(c.appName!)),
-  );
+  const stored = await Promise.all(clients.map(async (c) => clientApplicationsStore.get(c.appName!)));
   stored.forEach((s, i) => {
     expect(s.description).toBe(clients[i].description);
     expect(s.icon).toBe('red');

@@ -76,13 +76,7 @@ export const FeedbackCESScore = ({ form, setForm }: IFeedbackCESScoreProps) => {
       <StyledScoreHelp>Very difficult</StyledScoreHelp>
       {[1, 2, 3, 4, 5, 6, 7].map((score) => (
         <StyledScoreValue key={score}>
-          <input
-            type='radio'
-            name='score'
-            value={score}
-            checked={form.score === score}
-            onChange={onScoreChange}
-          />
+          <input type='radio' name='score' value={score} checked={form.score === score} onChange={onScoreChange} />
           <span>{score}</span>
         </StyledScoreValue>
       ))}

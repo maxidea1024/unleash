@@ -11,17 +11,10 @@ interface IUseHealthReportOutput {
   error?: Error;
 }
 
-export const useHealthReport = (
-  projectId: string,
-  options?: SWRConfiguration,
-): IUseHealthReportOutput => {
+export const useHealthReport = (projectId: string, options?: SWRConfiguration): IUseHealthReportOutput => {
   const path = formatApiPath(`api/admin/projects/${projectId}/health-report`);
 
-  const { data, error } = useSWR<IProjectHealthReport>(
-    path,
-    fetchHealthReport,
-    options,
-  );
+  const { data, error } = useSWR<IProjectHealthReport>(path, fetchHealthReport, options);
 
   const refetchHealthReport = useCallback(() => {
     mutate(path).catch(console.warn);

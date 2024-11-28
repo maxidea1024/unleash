@@ -58,9 +58,7 @@ test('should insert new user with username', async () => {
 test('Should require email or username', async () => {
   await expect(async () => {
     await stores.userStore.upsert({});
-  }).rejects.toThrow(
-    new Error('Can only find users with id, username or email.'),
-  );
+  }).rejects.toThrow(new Error('Can only find users with id, username or email.'));
 });
 
 test('should set password_hash for user', async () => {
@@ -74,9 +72,7 @@ test('should set password_hash for user', async () => {
 
 test('should not get password_hash for unknown userId', async () => {
   const store = stores.userStore;
-  await expect(async () => store.getPasswordHash(-12)).rejects.toThrow(
-    new NotFoundError('User not found'),
-  );
+  await expect(async () => store.getPasswordHash(-12)).rejects.toThrow(new NotFoundError('User not found'));
 });
 
 test('should update loginAttempts for user', async () => {
@@ -189,9 +185,7 @@ test('should delete user', async () => {
 
   await stores.userStore.delete(user.id);
 
-  await expect(() => stores.userStore.get(user.id)).rejects.toThrow(
-    new NotFoundError('No user found'),
-  );
+  await expect(() => stores.userStore.get(user.id)).rejects.toThrow(new NotFoundError('No user found'));
 
   const deletedCount = await stores.userStore.countRecentlyDeleted();
   expect(deletedCount).toBe(1);

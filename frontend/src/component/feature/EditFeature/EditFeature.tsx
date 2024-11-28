@@ -22,23 +22,8 @@ const EditFeature = () => {
   const { patchFeatureToggle: patchFeatureFlag, loading } = useFeatureApi();
   const { feature } = useFeature(projectId, featureId);
 
-  const {
-    type,
-    setType,
-    name,
-    project,
-    description,
-    setDescription,
-    impressionData,
-    setImpressionData,
-    clearErrors,
-  } = useFeatureForm(
-    feature?.name,
-    feature?.type,
-    feature?.project,
-    feature?.description,
-    feature?.impressionData,
-  );
+  const { type, setType, name, project, description, setDescription, impressionData, setImpressionData, clearErrors } =
+    useFeatureForm(feature?.name, feature?.type, feature?.project, feature?.description, feature?.impressionData);
 
   const createPatch = () => {
     const comparison = { ...feature, type, description, impressionData };
@@ -63,9 +48,7 @@ const EditFeature = () => {
   };
 
   const formatApiCode = () => {
-    return `curl --location --request PATCH '${
-      uiConfig.unleashUrl
-    }/api/admin/projects/${projectId}/features/${featureId}' \\
+    return `curl --location --request PATCH '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/features/${featureId}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(createPatch(), undefined, 2)}'`;

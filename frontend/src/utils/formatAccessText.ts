@@ -1,9 +1,6 @@
 export const ACCESS_DENIED_TEXT = 'Access denied';
 
-export const formatAccessText = (
-  hasAccess: boolean,
-  hasAccessText?: string | null,
-): string | undefined | null => {
+export const formatAccessText = (hasAccess: boolean, hasAccessText?: string | null): string | undefined | null => {
   if (hasAccess) {
     return hasAccessText;
   }

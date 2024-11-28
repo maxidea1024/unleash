@@ -2,12 +2,7 @@ import type React from 'react';
 import { type FC, useCallback } from 'react';
 import type { INavigationMenuItem } from 'interfaces/route';
 import type { NavigationMode } from './NavigationMode';
-import {
-  ExternalFullListItem,
-  FullListItem,
-  MiniListItem,
-  SignOutItem,
-} from './ListItems';
+import { ExternalFullListItem, FullListItem, MiniListItem, SignOutItem } from './ListItems';
 import { Box, List, styled, Tooltip, Typography } from '@mui/material';
 import { IconRenderer } from './IconRenderer';
 import { EnterpriseBadge } from 'component/common/EnterpriseBadge/EnterpriseBadge';
@@ -44,11 +39,7 @@ const useShowBadge = () => {
 
   const showBadge = useCallback(
     (mode?: INavigationMenuItem['menu']['mode']) => {
-      return !!(
-        isPro() &&
-        !mode?.includes('pro') &&
-        mode?.includes('enterprise')
-      );
+      return !!(isPro() && !mode?.includes('pro') && mode?.includes('enterprise'));
     },
     [isPro],
   );
@@ -88,11 +79,7 @@ export const OtherLinksList = () => {
   return (
     <List>
       {uiConfig.links.map((link) => (
-        <ExternalFullListItem
-          href={link.href}
-          text={link.value}
-          key={link.value}
-        >
+        <ExternalFullListItem href={link.href} text={link.value} key={link.value}>
           <IconRenderer path={link.value} />
         </ExternalFullListItem>
       ))}
@@ -111,12 +98,7 @@ export const RecentProjectsList: FC<{
 
   return (
     <List>
-      <DynamicListItem
-        href={`/projects/${projectId}`}
-        text={projectName}
-        onClick={onClick}
-        selected={false}
-      >
+      <DynamicListItem href={`/projects/${projectId}`} text={projectName} onClick={onClick} selected={false}>
         <ProjectIcon />
       </DynamicListItem>
     </List>
@@ -212,14 +194,8 @@ export const PrimaryNavigationList: FC<{
 
 const AccordionHeader: FC<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-      aria-controls='configure-content'
-      id='configure-header'
-    >
-      <Typography sx={{ fontWeight: 'bold', fontSize: 'small' }}>
-        {children}
-      </Typography>
+    <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='configure-content' id='configure-header'>
+      <Typography sx={{ fontWeight: 'bold', fontSize: 'small' }}>{children}</Typography>
     </AccordionSummary>
   );
 };
@@ -274,12 +250,7 @@ export const RecentProjectsNavigation: FC<{
           Recent project
         </Typography>
       )}
-      <RecentProjectsList
-        projectId={projectId}
-        projectName={project.name}
-        mode={mode}
-        onClick={onClick}
-      />
+      <RecentProjectsList projectId={projectId} projectName={project.name} mode={mode} onClick={onClick} />
     </Box>
   );
 };
@@ -291,11 +262,7 @@ export const RecentFlagsNavigation: FC<{
 }> = ({ mode, onClick, flags }) => {
   return (
     <Box>
-      {mode === 'full' && (
-        <Typography sx={{ fontWeight: 'bold', fontSize: 'small', ml: 2 }}>
-          Recent flags
-        </Typography>
-      )}
+      {mode === 'full' && <Typography sx={{ fontWeight: 'bold', fontSize: 'small', ml: 2 }}>Recent flags</Typography>}
       <RecentFlagsList flags={flags} mode={mode} onClick={onClick} />
     </Box>
   );

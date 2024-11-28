@@ -15,17 +15,11 @@ import { Separator } from '../../ChangeRequestSidebar/ChangeRequestSidebar';
 import { ChangeRequestTitle } from '../../ChangeRequestSidebar/EnvironmentChangeRequest/ChangeRequestTitle';
 import { UpdateCount } from 'component/changeRequest/UpdateCount';
 
-export const ChangeRequestHeader: FC<{ changeRequest: ChangeRequestType }> = ({
-  changeRequest,
-}) => {
+export const ChangeRequestHeader: FC<{ changeRequest: ChangeRequestType }> = ({ changeRequest }) => {
   const [title, setTitle] = useState(changeRequest.title);
   return (
     <StyledPaper elevation={0}>
-      <ChangeRequestTitle
-        environmentChangeRequest={changeRequest}
-        title={title}
-        setTitle={setTitle}
-      >
+      <ChangeRequestTitle environmentChangeRequest={changeRequest} title={title} setTitle={setTitle}>
         <StyledHeader variant='h1' sx={{ mr: 1.5 }}>
           {title}
         </StyledHeader>
@@ -49,22 +43,14 @@ export const ChangeRequestHeader: FC<{ changeRequest: ChangeRequestType }> = ({
             <StyledAvatar user={changeRequest?.createdBy} />
           </Tooltip>
         </Box>
-        <Typography
-          variant='body2'
-          sx={(theme) => ({ marginLeft: theme.spacing(0.5) })}
-        >
+        <Typography variant='body2' sx={(theme) => ({ marginLeft: theme.spacing(0.5) })}>
           {changeRequest?.createdBy?.username}
         </Typography>
         <Box sx={(theme) => ({ marginLeft: theme.spacing(1.5) })}>
           <StyledCard variant='outlined'>
             <Typography variant='body2' sx={{ lineHeight: 1 }}>
               Environment:{' '}
-              <Typography
-                display='inline'
-                fontWeight='bold'
-                variant='body2'
-                component='span'
-              >
+              <Typography display='inline' fontWeight='bold' variant='body2' component='span'>
                 {changeRequest?.environment}
               </Typography>{' '}
               <Separator />

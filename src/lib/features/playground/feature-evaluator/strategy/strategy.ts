@@ -94,10 +94,7 @@ export class Strategy {
     segments: SegmentForEvaluation[],
   ): { result: boolean; segments: PlaygroundSegmentSchema[] } {
     const resolvedSegments = segments.map((segment) => {
-      const { result, constraints } = this.checkConstraints(
-        context,
-        segment.constraints,
-      );
+      const { result, constraints } = this.checkConstraints(context, segment.constraints);
       return {
         name: segment.name,
         id: segment.id,
@@ -124,15 +121,10 @@ export class Strategy {
     const enabledResult = this.isEnabled(parameters, context);
     const segmentResults = this.checkSegments(context, segments);
 
-    const overallResult =
-      constraintResults.result && enabledResult && segmentResults.result;
+    const overallResult = constraintResults.result && enabledResult && segmentResults.result;
 
     const variantDefinition = variantDefinitions
-      ? selectVariantDefinition(
-          parameters.groupId as string,
-          variantDefinitions,
-          context,
-        )
+      ? selectVariantDefinition(parameters.groupId as string, variantDefinitions, context)
       : undefined;
     const variant = variantDefinition
       ? {

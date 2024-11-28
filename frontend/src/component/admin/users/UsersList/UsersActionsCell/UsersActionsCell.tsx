@@ -31,8 +31,7 @@ export const UsersActionsCell: VFC<IUsersActionsCellProps> = ({
   onDelete,
   isScimUser,
 }) => {
-  const scimTooltip =
-    'This user is managed by your SCIM provider and cannot be changed manually';
+  const scimTooltip = 'This user is managed by your SCIM provider and cannot be changed manually';
 
   return (
     <StyledBox>

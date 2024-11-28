@@ -48,9 +48,7 @@ export const ProjectCard = ({
           condition={id !== DEFAULT_PROJECT_ID}
           show={
             <div>
-              <StyledParagraphInfo data-loading>
-                {memberCount}
-              </StyledParagraphInfo>
+              <StyledParagraphInfo data-loading>{memberCount}</StyledParagraphInfo>
               <p data-loading>{memberCount === 1 ? 'member' : 'members'}</p>
             </div>
           }

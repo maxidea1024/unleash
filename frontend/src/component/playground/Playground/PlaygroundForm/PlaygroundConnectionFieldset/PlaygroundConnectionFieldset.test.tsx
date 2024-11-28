@@ -94,9 +94,7 @@ test(
   'should parse project and environment from token input',
   async () => {
     const { container } = render(<Component />);
-    const projectAutocomplete = await screen.findByTestId(
-      'PLAYGROUND_PROJECT_SELECT',
-    );
+    const projectAutocomplete = await screen.findByTestId('PLAYGROUND_PROJECT_SELECT');
     const button = await within(projectAutocomplete).findByRole('button');
     fireEvent.click(button);
     await within(container).findByText('Default');
@@ -110,16 +108,10 @@ test(
 
     const projectInput = within(projectAutocomplete).getByRole('combobox');
 
-    const environmentAutocomplete = await screen.findByTestId(
-      'PLAYGROUND_ENVIRONMENT_SELECT',
-    );
-    const environmentInput = within(environmentAutocomplete).getByRole(
-      'combobox',
-    );
+    const environmentAutocomplete = await screen.findByTestId('PLAYGROUND_ENVIRONMENT_SELECT');
+    const environmentInput = within(environmentAutocomplete).getByRole('combobox');
 
-    expect(tokenInput).toHaveValue(
-      'default:development.964a287e1b728cb5f4f3e0120df92cb5',
-    );
+    expect(tokenInput).toHaveValue('default:development.964a287e1b728cb5f4f3e0120df92cb5');
     expect(projectInput).toBeDisabled();
     expect(environmentInput).toBeDisabled();
     await within(projectAutocomplete).findByText('Default');
@@ -130,9 +122,7 @@ test(
 
 test('should load projects from token definition if project is []', async () => {
   const { container } = render(<Component />);
-  const projectAutocomplete = await screen.findByTestId(
-    'PLAYGROUND_PROJECT_SELECT',
-  );
+  const projectAutocomplete = await screen.findByTestId('PLAYGROUND_PROJECT_SELECT');
   const button = await within(projectAutocomplete).findByRole('button');
   fireEvent.click(button);
   await within(container).findByText('Default');
@@ -144,12 +134,8 @@ test('should load projects from token definition if project is []', async () => 
 
   const projectInput = within(projectAutocomplete).getByRole('combobox');
 
-  const environmentAutocomplete = await screen.findByTestId(
-    'PLAYGROUND_ENVIRONMENT_SELECT',
-  );
-  const environmentInput = within(environmentAutocomplete).getByRole(
-    'combobox',
-  );
+  const environmentAutocomplete = await screen.findByTestId('PLAYGROUND_ENVIRONMENT_SELECT');
+  const environmentInput = within(environmentAutocomplete).getByRole('combobox');
 
   expect(projectInput).toBeDisabled();
   expect(environmentInput).toBeDisabled();
@@ -160,9 +146,7 @@ test('should load projects from token definition if project is []', async () => 
 
 test('should show an error when admin token', async () => {
   const { container } = render(<Component />);
-  const projectAutocomplete = await screen.findByTestId(
-    'PLAYGROUND_PROJECT_SELECT',
-  );
+  const projectAutocomplete = await screen.findByTestId('PLAYGROUND_PROJECT_SELECT');
   const button = await within(projectAutocomplete).findByRole('button');
   fireEvent.click(button);
   await within(container).findByText('Default');
@@ -174,12 +158,8 @@ test('should show an error when admin token', async () => {
 
   const projectInput = within(projectAutocomplete).getByRole('combobox');
 
-  const environmentAutocomplete = await screen.findByTestId(
-    'PLAYGROUND_ENVIRONMENT_SELECT',
-  );
-  const environmentInput = within(environmentAutocomplete).getByRole(
-    'combobox',
-  );
+  const environmentAutocomplete = await screen.findByTestId('PLAYGROUND_ENVIRONMENT_SELECT');
+  const environmentInput = within(environmentAutocomplete).getByRole('combobox');
 
   expect(projectInput).toBeDisabled();
   expect(environmentInput).toBeDisabled();
@@ -188,9 +168,7 @@ test('should show an error when admin token', async () => {
 
 test('should have a working clear button when token is filled', async () => {
   const { container } = render(<Component />);
-  const projectAutocomplete = await screen.findByTestId(
-    'PLAYGROUND_PROJECT_SELECT',
-  );
+  const projectAutocomplete = await screen.findByTestId('PLAYGROUND_PROJECT_SELECT');
   const button = await within(projectAutocomplete).findByRole('button');
   fireEvent.click(button);
   await within(container).findByText('Default');
@@ -234,13 +212,9 @@ test('should show change request and disable other fields until removed', async 
   };
   render(<Component />);
 
-  const changeRequestInput =
-    await screen.findByDisplayValue('Change request #1');
+  const changeRequestInput = await screen.findByDisplayValue('Change request #1');
   const viewButton = await screen.findByText(/View change request/);
-  expect(viewButton).toHaveProperty(
-    'href',
-    'http://localhost:3000/projects/test-project/change-requests/1',
-  );
+  expect(viewButton).toHaveProperty('href', 'http://localhost:3000/projects/test-project/change-requests/1');
   const tokenInput = await screen.findByLabelText('API token');
   expect(tokenInput).toBeDisabled();
 

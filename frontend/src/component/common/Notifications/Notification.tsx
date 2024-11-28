@@ -1,15 +1,5 @@
-import {
-  Box,
-  Typography,
-  styled,
-  Avatar,
-  ListItemButton,
-  useTheme,
-} from '@mui/material';
-import type {
-  NotificationsSchemaItem,
-  NotificationsSchemaItemNotificationType,
-} from 'openapi';
+import { Box, Typography, styled, Avatar, ListItemButton, useTheme } from '@mui/material';
+import type { NotificationsSchemaItem, NotificationsSchemaItemNotificationType } from 'openapi';
 import { ReactComponent as ChangesAppliedIcon } from 'assets/icons/merge.svg';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import ToggleOffOutlined from '@mui/icons-material/ToggleOffOutlined';
@@ -20,9 +10,7 @@ const StyledContainerBox = styled(Box, {
 })<{ readAt: boolean }>(({ theme, readAt }) => ({
   padding: theme.spacing(0.5),
   marginRight: theme.spacing(1.5),
-  backgroundColor: readAt
-    ? theme.palette.neutral.light
-    : theme.palette.secondary.light,
+  backgroundColor: readAt ? theme.palette.neutral.light : theme.palette.secondary.light,
   width: '30px',
   height: '30px',
   display: 'flex',
@@ -99,10 +87,7 @@ interface INotificationProps {
   onNotificationClick: (notification: NotificationsSchemaItem) => void;
 }
 
-export const Notification = ({
-  notification,
-  onNotificationClick,
-}: INotificationProps) => {
+export const Notification = ({ notification, onNotificationClick }: INotificationProps) => {
   const theme = useTheme();
   const { readAt } = notification;
 
@@ -111,11 +96,7 @@ export const Notification = ({
       return (
         <StyledContainerBox readAt={Boolean(readAt)}>
           <ChangesAppliedIcon
-            color={
-              notification.readAt
-                ? theme.palette.neutral.main
-                : theme.palette.primary.main
-            }
+            color={notification.readAt ? theme.palette.neutral.main : theme.palette.primary.main}
             style={{ transform: 'scale(0.8)' }}
           />
         </StyledContainerBox>
@@ -129,9 +110,7 @@ export const Notification = ({
             sx={(theme) => ({
               height: '20px',
               width: '20px',
-              color: readAt
-                ? theme.palette.neutral.main
-                : theme.palette.primary.main,
+              color: readAt ? theme.palette.neutral.main : theme.palette.primary.main,
             })}
           />
         </StyledContainerBox>
@@ -148,9 +127,7 @@ export const Notification = ({
         <StyledSecondaryInfoBox>
           <StyledUserContainer>
             <StyledAvatar src={notification.createdBy.imageUrl || ''} />
-            <StyledCreatedBy>
-              Created by {notification.createdBy.username}
-            </StyledCreatedBy>
+            <StyledCreatedBy>Created by {notification.createdBy.username}</StyledCreatedBy>
           </StyledUserContainer>
 
           <StyledTimeAgoTypography>

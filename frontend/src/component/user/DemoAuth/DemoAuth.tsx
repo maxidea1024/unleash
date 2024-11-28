@@ -1,9 +1,4 @@
-import {
-  type ChangeEventHandler,
-  type FormEventHandler,
-  useState,
-  type VFC,
-} from 'react';
+import { type ChangeEventHandler, type FormEventHandler, useState, type VFC } from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from './DemoAuth.module.scss';
 import { ReactComponent as Logo } from 'assets/img/logo.svg';
@@ -78,19 +73,11 @@ const DemoAuth: VFC<IDemoAuthProps> = ({ authDetails, redirect }) => {
         </div>
         <p>
           By accessing our demo instance, you agree to the Unleash&nbsp;
-          <a
-            href='https://www.unleash-hosted.com/tos/'
-            target='_blank'
-            rel='noreferrer'
-          >
+          <a href='https://www.unleash-hosted.com/tos/' target='_blank' rel='noreferrer'>
             Customer Terms of Service
           </a>{' '}
           and&nbsp;
-          <a
-            href='https://www.unleash-hosted.com/privacy-policy/'
-            target='_blank'
-            rel='noreferrer'
-          >
+          <a href='https://www.unleash-hosted.com/privacy-policy/' target='_blank' rel='noreferrer'>
             Privacy Policy
           </a>
         </p>

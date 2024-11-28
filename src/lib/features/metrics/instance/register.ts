@@ -24,10 +24,7 @@ export default class RegisterController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    {
-      clientInstanceService,
-      openApiService,
-    }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
+    { clientInstanceService, openApiService }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
     config: IUnleashConfig,
   ) {
     super(config);
@@ -64,10 +61,7 @@ export default class RegisterController extends Controller {
     });
   }
 
-  private resolveEnvironment(
-    user: IUser | IApiUser,
-    data: Partial<IClientApp>,
-  ) {
+  private resolveEnvironment(user: IUser | IApiUser, data: Partial<IClientApp>) {
     if (user instanceof ApiUser) {
       if (user.environment !== ALL) {
         return user.environment;

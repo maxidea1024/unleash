@@ -5,8 +5,7 @@ export const importTogglesValidateItemSchema = {
   type: 'object',
   required: ['message', 'affectedItems'],
   additionalProperties: false,
-  description:
-    'A description of an error or warning pertaining to a feature flag import job.',
+  description: 'A description of an error or warning pertaining to a feature flag import job.',
   properties: {
     message: {
       type: 'string',
@@ -28,6 +27,4 @@ export const importTogglesValidateItemSchema = {
   },
 } as const;
 
-export type ImportTogglesValidateItemSchema = FromSchema<
-  typeof importTogglesValidateItemSchema
->;
+export type ImportTogglesValidateItemSchema = FromSchema<typeof importTogglesValidateItemSchema>;

@@ -10,9 +10,7 @@ describe('getBrowserTimezoneInHumanReadableUTCOffset', () => {
     const expectedHours = Math.floor(Math.abs(expectedOffset) / 60)
       .toString()
       .padStart(2, '0');
-    const expectedMinutes = (Math.abs(expectedOffset) % 60)
-      .toString()
-      .padStart(2, '0');
+    const expectedMinutes = (Math.abs(expectedOffset) % 60).toString().padStart(2, '0');
     const expected = `UTC${sign}${expectedHours}:${expectedMinutes}`;
 
     const result = getBrowserTimezoneInHumanReadableUTCOffset(date);

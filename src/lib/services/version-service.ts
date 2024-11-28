@@ -127,10 +127,7 @@ export default class VersionService {
       versionCheck,
       enterpriseVersion,
       telemetry,
-    }: Pick<
-      IUnleashConfig,
-      'getLogger' | 'versionCheck' | 'enterpriseVersion' | 'telemetry'
-    >,
+    }: Pick<IUnleashConfig, 'getLogger' | 'versionCheck' | 'enterpriseVersion' | 'telemetry'>,
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,
   ) {
@@ -162,9 +159,7 @@ export default class VersionService {
 
   private async readInstanceId(): Promise<string | undefined> {
     try {
-      const { id } = (await this.settingStore.get<{ id: string }>(
-        'instanceInfo',
-      )) ?? { id: undefined };
+      const { id } = (await this.settingStore.get<{ id: string }>('instanceInfo')) ?? { id: undefined };
       return id;
     } catch (err) {
       this.logger.warn('Could not find instanceInfo', err);
@@ -180,9 +175,7 @@ export default class VersionService {
 
   async checkLatestVersion(): Promise<void> {
     const instanceId = await this.getInstanceId();
-    this.logger.debug(
-      `Checking for newest version for instanceId=${instanceId}`,
-    );
+    this.logger.debug(`Checking for newest version for instanceId=${instanceId}`);
     if (this.enabled) {
       try {
         const versionPayload: any = {
@@ -207,9 +200,7 @@ export default class VersionService {
             };
             this.isLatest = data.latest;
           } else {
-            this.logger.info(
-              `Could not check newest version. Status: ${res.status}`,
-            );
+            this.logger.info(`Could not check newest version. Status: ${res.status}`);
           }
         } else {
           this.logger.info('Had no URL to check newest version');
@@ -270,8 +261,7 @@ export default class VersionService {
     ]);
     const versionInfo = await this.getVersionInfo();
     const customStrategies = await this.strategyStore.getEditableStrategies();
-    const customStrategiesInUse =
-      await this.featureStrategiesStore.getCustomStrategiesInUseCount();
+    const customStrategiesInUse = await this.featureStrategiesStore.getCustomStrategiesInUseCount();
     const featureInfo = {
       featureToggles,
       users,
@@ -326,17 +316,13 @@ export default class VersionService {
   }
 
   async hasOIDC(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ enabled: boolean }>(
-      'unleash.enterprise.auth.oidc',
-    );
+    const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.oidc');
 
     return settings?.enabled || false;
   }
 
   async hasSAML(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ enabled: boolean }>(
-      'unleash.enterprise.auth.saml',
-    );
+    const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.saml');
 
     return settings?.enabled || false;
   }

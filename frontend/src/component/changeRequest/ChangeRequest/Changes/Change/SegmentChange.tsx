@@ -1,10 +1,7 @@
 import type { FC, ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Card, Typography, Link } from '@mui/material';
-import type {
-  ChangeRequestState,
-  ISegmentChange,
-} from '../../../changeRequest.types';
+import type { ChangeRequestState, ISegmentChange } from '../../../changeRequest.types';
 import { SegmentChangeDetails } from './SegmentChangeDetails';
 import { ConflictWarning } from './ConflictWarning';
 
@@ -15,12 +12,7 @@ interface ISegmentChangeProps {
   changeRequestState: ChangeRequestState;
 }
 
-export const SegmentChange: FC<ISegmentChangeProps> = ({
-  segmentChange,
-  onNavigate,
-  actions,
-  changeRequestState,
-}) => (
+export const SegmentChange: FC<ISegmentChangeProps> = ({ segmentChange, onNavigate, actions, changeRequestState }) => (
   <Card
     elevation={0}
     sx={(theme) => ({
@@ -32,13 +24,9 @@ export const SegmentChange: FC<ISegmentChangeProps> = ({
     <Box
       sx={(theme) => ({
         backgroundColor: theme.palette.neutral.light,
-        borderRadius: (theme) =>
-          `${theme.shape.borderRadiusLarge}px ${theme.shape.borderRadiusLarge}px 0 0`,
+        borderRadius: (theme) => `${theme.shape.borderRadiusLarge}px ${theme.shape.borderRadiusLarge}px 0 0`,
         border: '1px solid',
-        borderColor: (theme) =>
-          segmentChange.conflict
-            ? theme.palette.warning.border
-            : theme.palette.divider,
+        borderColor: (theme) => (segmentChange.conflict ? theme.palette.warning.border : theme.palette.divider),
         borderBottom: 'none',
         overflow: 'hidden',
       })}
@@ -71,10 +59,6 @@ export const SegmentChange: FC<ISegmentChangeProps> = ({
         </Link>
       </Box>
     </Box>
-    <SegmentChangeDetails
-      change={segmentChange}
-      actions={actions}
-      changeRequestState={changeRequestState}
-    />
+    <SegmentChangeDetails change={segmentChange} actions={actions} changeRequestState={changeRequestState} />
   </Card>
 );

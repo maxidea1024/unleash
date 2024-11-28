@@ -9,10 +9,7 @@ import type { OpenApiService } from '../services/openapi-service';
 import { createRequestSchema } from '../openapi/util/create-request-schema';
 import { createResponseSchema } from '../openapi/util/create-response-schema';
 import { serializeDates } from '../types/serialize-dates';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../openapi/util/standard-responses';
 import type { PublicSignupTokenService } from '../services/public-signup-token-service';
 import { type UserSchema, userSchema } from '../openapi/spec/user-schema';
 import type { CreateInvitedUserSchema } from '../openapi/spec/create-invited-user-schema';
@@ -28,10 +25,7 @@ export class PublicInviteController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      publicSignupTokenService,
-      openApiService,
-    }: Pick<IUnleashServices, 'publicSignupTokenService' | 'openApiService'>,
+    { publicSignupTokenService, openApiService }: Pick<IUnleashServices, 'publicSignupTokenService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -69,8 +63,7 @@ export class PublicInviteController extends Controller {
           tags: ['Public signup tokens'],
           operationId: 'addPublicSignupTokenUser',
           summary: 'Add a user via a signup token',
-          description:
-            'Create a user with the viewer root role and link them to the provided signup token',
+          description: 'Create a user with the viewer root role and link them to the provided signup token',
           requestBody: createRequestSchema('createInvitedUserSchema'),
           responses: {
             200: createResponseSchema('userSchema'),
@@ -81,10 +74,7 @@ export class PublicInviteController extends Controller {
     });
   }
 
-  async validate(
-    req: IAuthRequest<TokenParam, void>,
-    res: Response,
-  ): Promise<void> {
+  async validate(req: IAuthRequest<TokenParam, void>, res: Response): Promise<void> {
     const { token } = req.params;
     const valid = await this.publicSignupTokenService.validate(token);
     if (valid) {
@@ -105,16 +95,7 @@ export class PublicInviteController extends Controller {
       return;
     }
 
-    const user = await this.publicSignupTokenService.addTokenUser(
-      token,
-      req.body,
-      req.audit,
-    );
-    this.openApiService.respondWithValidation(
-      201,
-      res,
-      userSchema.$id,
-      serializeDates(user),
-    );
+    const user = await this.publicSignupTokenService.addTokenUser(token, req.body, req.audit);
+    this.openApiService.respondWithValidation(201, res, userSchema.$id, serializeDates(user));
   }
 }

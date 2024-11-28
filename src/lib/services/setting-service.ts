@@ -2,11 +2,7 @@ import type { IUnleashConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { ISettingStore } from '../types/stores/settings-store';
-import {
-  SettingCreatedEvent,
-  SettingDeletedEvent,
-  SettingUpdatedEvent,
-} from '../types/events';
+import { SettingCreatedEvent, SettingDeletedEvent, SettingUpdatedEvent } from '../types/events';
 import type EventService from '../features/events/event-service';
 import type { IAuditUser } from '../types';
 
@@ -41,12 +37,7 @@ export default class SettingService {
     return value || defaultValue;
   }
 
-  async insert(
-    id: string,
-    value: object,
-    auditUser: IAuditUser,
-    hideEventDetails: boolean = true,
-  ): Promise<void> {
+  async insert(id: string, value: object, auditUser: IAuditUser, hideEventDetails: boolean = true): Promise<void> {
     const existingSettings = await this.settingStore.get<object>(id);
 
     let data: object = { id, ...value };

@@ -29,11 +29,7 @@ export const ApplicationUpdate = ({ application }: IApplicationUpdateProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { classes: themeStyles } = useThemeStyles();
 
-  const onChange = async (
-    field: string,
-    value: string,
-    event?: ChangeEvent,
-  ) => {
+  const onChange = async (field: string, value: string, event?: ChangeEvent) => {
     event?.preventDefault();
     try {
       await storeApplicationMetaData(appName, field, value);
@@ -69,11 +65,7 @@ export const ApplicationUpdate = ({ application }: IApplicationUpdateProps) => {
                 <>
                   <p>Unleash is using Material Icons</p>
                   <br />
-                  <a
-                    href='https://mui.com/material-ui/material-icons/'
-                    target='_blank'
-                    rel='noreferrer'
-                  >
+                  <a href='https://mui.com/material-ui/material-icons/' target='_blank' rel='noreferrer'>
                     Preview icons on MUI.com
                   </a>
                 </>

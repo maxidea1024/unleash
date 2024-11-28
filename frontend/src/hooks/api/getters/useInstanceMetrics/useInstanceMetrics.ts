@@ -14,14 +14,8 @@ export interface IInstanceMetricsResponse {
   error?: Error;
 }
 
-export const useInstanceMetrics = (
-  options: SWRConfiguration = {},
-): IInstanceMetricsResponse => {
-  const { data, error, mutate } = useSWR(
-    formatApiPath(`api/admin/metrics/rps`),
-    fetcher,
-    options,
-  );
+export const useInstanceMetrics = (options: SWRConfiguration = {}): IInstanceMetricsResponse => {
+  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/metrics/rps`), fetcher, options);
 
   return useMemo(
     () => ({

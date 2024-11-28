@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 import type { IUnleashStores } from '../../../../lib/types';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
@@ -122,9 +119,7 @@ test('should return signed instance statistics', async () => {
     .expect(200)
     .expect((res) => {
       expect(res.body.instanceId).toBe('test-static');
-      expect(res.body.sum).toBe(
-        '5ba2cb7c3e29f4e5b3382c560b92b837f3603dc7db73a501ec331c7f0ed17bd0',
-      );
+      expect(res.body.sum).toBe('5ba2cb7c3e29f4e5b3382c560b92b837f3603dc7db73a501ec331c7f0ed17bd0');
     });
 });
 

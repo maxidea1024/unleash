@@ -22,11 +22,7 @@ type ConfiguredIntegrationsProps = {
   providers: AddonTypeSchema[];
 };
 
-export const ConfiguredIntegrations: VFC<ConfiguredIntegrationsProps> = ({
-  loading,
-  addons,
-  providers,
-}) => {
+export const ConfiguredIntegrations: VFC<ConfiguredIntegrationsProps> = ({ loading, addons, providers }) => {
   const { signalEndpoints } = useSignalEndpoints();
   const signalsEnabled = useUiFlag('signals');
   const { isEnterprise } = useUiConfig();
@@ -40,8 +36,7 @@ export const ConfiguredIntegrations: VFC<ConfiguredIntegrationsProps> = ({
           Configured integrations
         </Typography>
         <Typography variant='body2' color='text.secondary'>
-          These are the integrations that are currently configured for your
-          Unleash instance.
+          These are the integrations that are currently configured for your Unleash instance.
         </Typography>
       </div>
       <StyledCardsGrid ref={ref}>
@@ -56,9 +51,7 @@ export const ConfiguredIntegrations: VFC<ConfiguredIntegrationsProps> = ({
               // events,
               // projects,
             } = addon;
-            const providerConfig = providers.find(
-              (item) => item.name === provider,
-            );
+            const providerConfig = providers.find((item) => item.name === provider);
 
             return (
               <IntegrationCard
@@ -74,17 +67,13 @@ export const ConfiguredIntegrations: VFC<ConfiguredIntegrationsProps> = ({
             );
           })}
         <ConditionallyRender
-          condition={
-            isEnterprise() && signalsEnabled && signalEndpoints.length > 0
-          }
+          condition={isEnterprise() && signalsEnabled && signalEndpoints.length > 0}
           show={
             <IntegrationCard
               variant='stacked'
               icon='signals'
               title='Signals'
-              description={`${signalEndpoints.length} signal endpoint${
-                signalEndpoints.length === 1 ? '' : 's'
-              } configured`}
+              description={`${signalEndpoints.length} signal endpoint${signalEndpoints.length === 1 ? '' : 's'} configured`}
               link='/integrations/signals'
               configureActionText='View signal endpoints'
             />

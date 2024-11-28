@@ -12,12 +12,7 @@ import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 import { ApplicationUsageCell } from './ApplicationUsageCell/ApplicationUsageCell';
 import type { ApplicationSchema } from 'openapi';
-import {
-  encodeQueryParams,
-  NumberParam,
-  StringParam,
-  withDefault,
-} from 'use-query-params';
+import { encodeQueryParams, NumberParam, StringParam, withDefault } from 'use-query-params';
 import { DEFAULT_PAGE_LIMIT } from 'hooks/api/getters/useProjectApplications/useProjectApplications';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import { createColumnHelper, useReactTable } from '@tanstack/react-table';
@@ -37,8 +32,7 @@ const renderNoResults = (query: string | null | undefined) => {
   }
   return (
     <InfoMessage>
-      You don't have have any connected applications. To connect your
-      application to Unleash you will require a{' '}
+      You don't have have any connected applications. To connect your application to Unleash you will require a{' '}
       <Link href='https://docs.getunleash.io/docs/sdks/'>Client SDK</Link>
       .
       <br />
@@ -48,9 +42,7 @@ const renderNoResults = (query: string | null | undefined) => {
   );
 };
 
-const renderNoMatchingSearch = (query: string) => (
-  <InfoMessage>No application found matching "{query}"</InfoMessage>
-);
+const renderNoMatchingSearch = (query: string) => <InfoMessage>No application found matching "{query}"</InfoMessage>;
 
 const columnHelper = createColumnHelper<ApplicationSchema>();
 
@@ -62,18 +54,13 @@ export const PaginatedApplicationList = () => {
     sortBy: withDefault(StringParam, 'appName'),
     sortOrder: withDefault(StringParam, 'asc'),
   };
-  const [tableState, setTableState] = usePersistentTableState(
-    `applications-table`,
-    stateConfig,
-  );
+  const [tableState, setTableState] = usePersistentTableState(`applications-table`, stateConfig);
   const {
     applications: data,
     total,
     loading,
   } = useApplications(
-    mapValues(encodeQueryParams(stateConfig, tableState), (value) =>
-      value ? `${value}` : undefined,
-    ),
+    mapValues(encodeQueryParams(stateConfig, tableState), (value) => (value ? `${value}` : undefined)),
   );
 
   const columns = useMemo(
@@ -103,13 +90,7 @@ export const PaginatedApplicationList = () => {
           row: {
             original: { appName, description },
           },
-        }: any) => (
-          <LinkCell
-            title={appName}
-            to={`/applications/${appName}`}
-            subtitle={description}
-          />
-        ),
+        }: any) => <LinkCell title={appName} to={`/applications/${appName}`} subtitle={description} />,
       }),
       columnHelper.accessor('usage', {
         header: 'Project(environment)',
@@ -132,8 +113,7 @@ export const PaginatedApplicationList = () => {
     }),
   );
 
-  const { offset, limit, query, sortBy, sortOrder, ...filterState } =
-    tableState;
+  const { offset, limit, query, sortBy, sortOrder, ...filterState } = tableState;
 
   const setSearchValue = (query = '') => {
     setTableState({ query });
@@ -148,9 +128,7 @@ export const PaginatedApplicationList = () => {
         header={
           <PageHeader
             title={`Applications (${total})`}
-            actions={
-              <Search initialValue={query || ''} onChange={setSearchValue} />
-            }
+            actions={<Search initialValue={query || ''} onChange={setSearchValue} />}
           />
         }
       >

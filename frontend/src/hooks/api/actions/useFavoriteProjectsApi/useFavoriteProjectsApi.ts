@@ -38,11 +38,7 @@ export const useFavoriteProjectsApi = () => {
   const unfavorite = useCallback(
     async (projectId: string) => {
       const path = `api/admin/projects/${projectId}/favorites`;
-      const req = createRequest(
-        path,
-        { method: 'DELETE' },
-        'removeFavoriteProject',
-      );
+      const req = createRequest(path, { method: 'DELETE' }, 'removeFavoriteProject');
 
       try {
         await makeLightRequest(req.caller, req.id);

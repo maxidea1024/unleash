@@ -1,9 +1,4 @@
-import {
-  type IAuditUser,
-  type IUnleashConfig,
-  type IUnleashStores,
-  serializeDates,
-} from '../../types';
+import { type IAuditUser, type IUnleashConfig, type IUnleashStores, serializeDates } from '../../types';
 import type { IInactiveUsersStore } from './types/inactive-users-store-type';
 import type { Logger } from '../../logger';
 import type { InactiveUserSchema } from '../../openapi';
@@ -17,10 +12,7 @@ export class InactiveUsersService {
 
   constructor(
     { inactiveUsersStore }: Pick<IUnleashStores, 'inactiveUsersStore'>,
-    {
-      getLogger,
-      userInactivityThresholdInDays,
-    }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
+    { getLogger, userInactivityThresholdInDays }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
     services: {
       userService: UserService;
     },
@@ -33,9 +25,7 @@ export class InactiveUsersService {
   }
 
   async getInactiveUsers(): Promise<InactiveUserSchema[]> {
-    const users = await this.inactiveUsersStore.getInactiveUsers(
-      this.userInactivityThresholdInDays,
-    );
+    const users = await this.inactiveUsersStore.getInactiveUsers(this.userInactivityThresholdInDays);
     if (users.length === 0) {
       return [];
     }
@@ -53,10 +43,7 @@ export class InactiveUsersService {
     });
   }
 
-  async deleteInactiveUsers(
-    calledByUser: IAuditUser,
-    userIds: number[],
-  ): Promise<void> {
+  async deleteInactiveUsers(calledByUser: IAuditUser, userIds: number[]): Promise<void> {
     this.logger.info('Deleting inactive users');
 
     for (const userid of userIds) {

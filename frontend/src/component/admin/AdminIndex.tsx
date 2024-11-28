@@ -39,10 +39,7 @@ export const AdminIndex: VFC = () => {
   return (
     <PageContent header={<PageHeader title='Manage Unleash' />}>
       {routeGroups.map((group) => (
-        <Box
-          key={group.name}
-          sx={(theme) => ({ marginBottom: theme.spacing(2) })}
-        >
+        <Box key={group.name} sx={(theme) => ({ marginBottom: theme.spacing(2) })}>
           <Typography variant='h2'>{group.description}</Typography>
           <ul>
             {group.items.map((route) => (

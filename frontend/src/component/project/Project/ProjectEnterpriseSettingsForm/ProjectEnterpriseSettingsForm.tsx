@@ -118,9 +118,7 @@ const useFeatureNamePatternTracking = () => {
   return { trackPattern, setPreviousPattern };
 };
 
-const ProjectEnterpriseSettingsForm: React.FC<
-  IProjectEnterpriseSettingsForm
-> = ({
+const ProjectEnterpriseSettingsForm: React.FC<IProjectEnterpriseSettingsForm> = ({
   children,
   handleSubmit,
   projectId,
@@ -171,11 +169,8 @@ const ProjectEnterpriseSettingsForm: React.FC<
 
   const onSetFeatureNamingPattern = (regex: string) => {
     const disallowedStrings = [' ', '\\t', '\\s', '\\n', '\\r', '\\f', '\\v'];
-    if (
-      disallowedStrings.some((blockedString) => regex.includes(blockedString))
-    ) {
-      errors.featureNamingPattern =
-        'Whitespace is not allowed in the expression';
+    if (disallowedStrings.some((blockedString) => regex.includes(blockedString))) {
+      errors.featureNamingPattern = 'Whitespace is not allowed in the expression';
     } else {
       try {
         new RegExp(regex);
@@ -256,9 +251,8 @@ const ProjectEnterpriseSettingsForm: React.FC<
               >
                 JavaScript RegEx
               </a>{' '}
-              used to enforce feature flag names within this project. The regex
-              will be surrounded by a leading <code>^</code> and a trailing{' '}
-              <code>$</code>.
+              used to enforce feature flag names within this project. The regex will be surrounded by a leading{' '}
+              <code>^</code> and a trailing <code>$</code>.
             </p>
             <p>Leave it empty if you don’t want to add a naming pattern.</p>
           </StyledPatternNamingExplanation>
@@ -270,9 +264,7 @@ const ProjectEnterpriseSettingsForm: React.FC<
             aria-describedby='pattern-naming-description'
             placeholder='[A-Za-z]+.[A-Za-z]+.[A-Za-z0-9-]+'
             InputProps={{
-              startAdornment: (
-                <InputAdornment position='start'>^</InputAdornment>
-              ),
+              startAdornment: <InputAdornment position='start'>^</InputAdornment>,
               endAdornment: <InputAdornment position='end'>$</InputAdornment>,
             }}
             type={'text'}
@@ -283,8 +275,7 @@ const ProjectEnterpriseSettingsForm: React.FC<
           />
           <StyledSubtitle>
             <p id='pattern-additional-description'>
-              The example and description will be shown to users when they
-              create a new feature flag in this project.
+              The example and description will be shown to users when they create a new feature flag in this project.
             </p>
           </StyledSubtitle>
 

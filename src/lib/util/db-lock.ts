@@ -34,10 +34,7 @@ export const withDbLock =
 
       const promise = fn(...args);
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(
-          () => reject(new Error('Query read timeout')),
-          config.timeout,
-        ),
+        setTimeout(() => reject(new Error('Query read timeout')), config.timeout),
       );
       const result = (await Promise.race([promise, timeoutPromise])) as R;
       return result;

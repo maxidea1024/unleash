@@ -7,10 +7,7 @@ interface IConstraintValueSearchProps {
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const ConstraintValueSearch = ({
-  filter,
-  setFilter,
-}: IConstraintValueSearchProps) => {
+export const ConstraintValueSearch = ({ filter, setFilter }: IConstraintValueSearchProps) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ width: '300px' }}>
@@ -37,13 +34,7 @@ export const ConstraintValueSearch = ({
       </div>
       <ConditionallyRender
         condition={Boolean(filter)}
-        show={
-          <Chip
-            style={{ marginLeft: '1rem' }}
-            label={`filter active: ${filter}`}
-            onDelete={() => setFilter('')}
-          />
-        }
+        show={<Chip style={{ marginLeft: '1rem' }} label={`filter active: ${filter}`} onDelete={() => setFilter('')} />}
       />
     </div>
   );

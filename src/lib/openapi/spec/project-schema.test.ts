@@ -12,13 +12,9 @@ test('projectSchema', () => {
     updatedAt: '2022-06-28T17:33:53.963Z',
   };
 
-  expect(
-    validateSchema('#/components/schemas/projectSchema', {}),
-  ).not.toBeUndefined();
+  expect(validateSchema('#/components/schemas/projectSchema', {})).not.toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/projectSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/projectSchema', data)).toBeUndefined();
 });
 
 test('projectSchema with only required', () => {
@@ -27,11 +23,7 @@ test('projectSchema with only required', () => {
     id: 'default',
   };
 
-  expect(
-    validateSchema('#/components/schemas/projectSchema', {}),
-  ).not.toBeUndefined();
+  expect(validateSchema('#/components/schemas/projectSchema', {})).not.toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/projectSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/projectSchema', data)).toBeUndefined();
 });

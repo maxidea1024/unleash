@@ -25,10 +25,7 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import Grid from '@mui/material/Grid';
 import { NetworkTrafficUsagePlanSummary } from './NetworkTrafficUsagePlanSummary';
 import annotationPlugin from 'chartjs-plugin-annotation';
-import {
-  type ChartDatasetType,
-  useTrafficDataEstimation,
-} from 'hooks/useTrafficData';
+import { type ChartDatasetType, useTrafficDataEstimation } from 'hooks/useTrafficData';
 import { customHighlightPlugin } from 'component/common/Chart/customHighlightPlugin';
 import { formatTickValue } from 'component/common/Chart/formatTickValue';
 import { useTrafficLimit } from './hooks/useTrafficLimit';
@@ -163,11 +160,7 @@ export const NetworkTrafficUsage: VFC = () => {
       theme,
       (tooltipItems: any) => {
         const periodItem = record[period];
-        const tooltipDate = new Date(
-          periodItem.year,
-          periodItem.month,
-          Number.parseInt(tooltipItems[0].label),
-        );
+        const tooltipDate = new Date(periodItem.year, periodItem.month, Number.parseInt(tooltipItems[0].label));
         return tooltipDate.toLocaleDateString('en-US', {
           month: 'long',
           day: 'numeric',
@@ -211,20 +204,10 @@ export const NetworkTrafficUsage: VFC = () => {
       const usage = toTrafficUsageSum(data.datasets);
       setUsageTotal(usage);
       if (includedTraffic > 0) {
-        const calculatedOverageCost = calculateOverageCost(
-          usage,
-          includedTraffic,
-        );
+        const calculatedOverageCost = calculateOverageCost(usage, includedTraffic);
         setOverageCost(calculatedOverageCost);
 
-        setEstimatedMonthlyCost(
-          calculateEstimatedMonthlyCost(
-            period,
-            data.datasets,
-            includedTraffic,
-            new Date(),
-          ),
-        );
+        setEstimatedMonthlyCost(calculateEstimatedMonthlyCost(period, data.datasets, includedTraffic, new Date()));
       }
     }
   }, [data]);
@@ -239,21 +222,13 @@ export const NetworkTrafficUsage: VFC = () => {
             condition={includedTraffic > 0 && overageCost > 0}
             show={
               <Alert severity='warning' sx={{ mb: 4 }}>
-                <b>Heads up!</b> You are currently consuming more requests than
-                your plan includes and will be billed according to our terms.
-                Please see{' '}
-                <Link
-                  component={RouterLink}
-                  to='https://www.getunleash.io/pricing'
-                >
+                <b>Heads up!</b> You are currently consuming more requests than your plan includes and will be billed
+                according to our terms. Please see{' '}
+                <Link component={RouterLink} to='https://www.getunleash.io/pricing'>
                   this page
                 </Link>{' '}
-                for more information. In order to reduce your traffic
-                consumption, you may configure an{' '}
-                <Link
-                  component={RouterLink}
-                  to='https://docs.getunleash.io/reference/unleash-edge'
-                >
+                for more information. In order to reduce your traffic consumption, you may configure an{' '}
+                <Link component={RouterLink} to='https://docs.getunleash.io/reference/unleash-edge'>
                   Unleash Edge instance
                 </Link>{' '}
                 in your own datacenter.
@@ -301,15 +276,7 @@ export const NetworkTrafficUsage: VFC = () => {
 };
 
 // Register dependencies that we need to draw the chart.
-ChartJS.register(
-  annotationPlugin,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-);
+ChartJS.register(annotationPlugin, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 // Use a default export to lazy-load the charting library.
 export default NetworkTrafficUsage;

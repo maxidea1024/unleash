@@ -1,9 +1,5 @@
 import { Fragment, type VFC } from 'react';
-import {
-  parseParameterNumber,
-  parseParameterString,
-  parseParameterStrings,
-} from 'utils/parseParameter';
+import { parseParameterNumber, parseParameterString, parseParameterStrings } from 'utils/parseParameter';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { useStrategies } from 'hooks/api/getters/useStrategies/useStrategies';
@@ -14,10 +10,7 @@ interface ICustomStrategyProps {
   strategyName: string;
 }
 
-export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({
-  strategyName,
-  parameters,
-}) => {
+export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({ strategyName, parameters }) => {
   const { strategies } = useStrategies();
   const definition = strategies.find((strategyDefinition) => {
     return strategyDefinition.name === strategyName;
@@ -59,9 +52,7 @@ export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({
         );
       }
       case 'boolean': {
-        const bool = ['true', 'false'].includes(paramValue)
-          ? paramValue
-          : undefined;
+        const bool = ['true', 'false'].includes(paramValue) ? paramValue : undefined;
         return (
           <CustomParameterItem
             isRequired={isRequired}
@@ -84,11 +75,7 @@ export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({
         const isCorrect = !(paramValue === undefined || paramValue === '');
         const number = parseParameterNumber(paramValue);
         return (
-          <CustomParameterItem
-            text={param.name}
-            isRequired={isRequired}
-            input={isCorrect ? `${number}` : undefined}
-          />
+          <CustomParameterItem text={param.name} isRequired={isRequired} input={isCorrect ? `${number}` : undefined} />
         );
       }
       case 'default':
@@ -101,10 +88,7 @@ export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({
     <>
       {items.map((item, index) => (
         <Fragment key={index}>
-          <ConditionallyRender
-            condition={index > 0}
-            show={<StrategySeparator text='AND' />}
-          />
+          <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
           {item}
         </Fragment>
       ))}

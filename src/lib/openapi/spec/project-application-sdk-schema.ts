@@ -24,6 +24,4 @@ export const projectApplicationSdkSchema = {
   components: {},
 } as const;
 
-export type ProjectApplicationSdkSchema = FromSchema<
-  typeof projectApplicationSdkSchema
->;
+export type ProjectApplicationSdkSchema = FromSchema<typeof projectApplicationSdkSchema>;

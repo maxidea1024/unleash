@@ -37,13 +37,7 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   right: theme.spacing(3),
 }));
 
-export const BaseModal: FC<ISidebarModalProps> = ({
-  open,
-  onClose,
-  onClick,
-  label,
-  children,
-}) => {
+export const BaseModal: FC<ISidebarModalProps> = ({ open, onClose, onClick, label, children }) => {
   return (
     <Modal
       open={open}

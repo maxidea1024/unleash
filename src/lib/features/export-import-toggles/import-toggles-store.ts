@@ -1,7 +1,4 @@
-import type {
-  IImportTogglesStore,
-  ProjectFeaturesLimit,
-} from './import-toggles-store-type';
+import type { IImportTogglesStore, ProjectFeaturesLimit } from './import-toggles-store-type';
 import type { Db } from '../../db/db';
 
 const T = {
@@ -18,9 +15,7 @@ export class ImportTogglesStore implements IImportTogglesStore {
     this.db = db;
   }
 
-  async getDisplayPermissions(
-    names: string[],
-  ): Promise<{ name: string; displayName: string }[]> {
+  async getDisplayPermissions(names: string[]): Promise<{ name: string; displayName: string }[]> {
     const rows = await this.db.from('permissions').whereIn('permission', names);
     return rows.map((row) => ({
       name: row.permission,
@@ -28,20 +23,11 @@ export class ImportTogglesStore implements IImportTogglesStore {
     }));
   }
 
-  async deleteStrategiesForFeatures(
-    featureNames: string[],
-    environment: string,
-  ): Promise<void> {
-    return this.db(T.featureStrategies)
-      .where({ environment })
-      .whereIn('feature_name', featureNames)
-      .del();
+  async deleteStrategiesForFeatures(featureNames: string[], environment: string): Promise<void> {
+    return this.db(T.featureStrategies).where({ environment }).whereIn('feature_name', featureNames).del();
   }
 
-  async strategiesExistForFeatures(
-    featureNames: string[],
-    environment: string,
-  ): Promise<boolean> {
+  async strategiesExistForFeatures(featureNames: string[], environment: string): Promise<boolean> {
     if (featureNames.length === 0) {
       return true;
     }
@@ -55,10 +41,7 @@ export class ImportTogglesStore implements IImportTogglesStore {
   }
 
   async getArchivedFeatures(featureNames: string[]): Promise<string[]> {
-    const rows = await this.db(T.features)
-      .select('name')
-      .whereNot('archived_at', null)
-      .whereIn('name', featureNames);
+    const rows = await this.db(T.features).select('name').whereNot('archived_at', null).whereIn('name', featureNames);
     return rows.map((row) => row.name);
   }
 
@@ -78,10 +61,7 @@ export class ImportTogglesStore implements IImportTogglesStore {
     return rows.map((row) => ({ name: row.name, project: row.project }));
   }
 
-  async getFeaturesInProject(
-    featureNames: string[],
-    project: string,
-  ): Promise<string[]> {
+  async getFeaturesInProject(featureNames: string[], project: string): Promise<string[]> {
     const rows = await this.db(T.features)
       .select(['name', 'project'])
       .where('project', project)
@@ -90,14 +70,8 @@ export class ImportTogglesStore implements IImportTogglesStore {
     return rows.map((row) => row.name);
   }
 
-  async getProjectFeaturesLimit(
-    featureNames: string[],
-    project: string,
-  ): Promise<ProjectFeaturesLimit> {
-    const row = await this.db(T.projectSettings)
-      .select(['feature_limit'])
-      .where('project', project)
-      .first();
+  async getProjectFeaturesLimit(featureNames: string[], project: string): Promise<ProjectFeaturesLimit> {
+    const row = await this.db(T.projectSettings).select(['feature_limit']).where('project', project).first();
     const limit: number = row?.feature_limit ?? Number.MAX_SAFE_INTEGER;
 
     const existingFeaturesCount = await this.db(T.features)

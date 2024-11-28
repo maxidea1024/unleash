@@ -11,9 +11,7 @@ type PurchasableFeatureProps = {
   onClick: () => void;
 };
 
-const Icon = () => (
-  <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />
-);
+const Icon = () => <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />;
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2, 3),
@@ -46,11 +44,7 @@ const StyledButtonContainer = styled(Box)(() => ({
   whiteSpace: 'nowrap',
 }));
 
-export const PurchasableFeature: FC<PurchasableFeatureProps> = ({
-  title,
-  description,
-  onClick,
-}) => {
+export const PurchasableFeature: FC<PurchasableFeatureProps> = ({ title, description, onClick }) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onViewPricingClick = () => {

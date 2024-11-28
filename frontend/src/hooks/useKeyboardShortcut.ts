@@ -64,10 +64,7 @@ export const useKeyboardShortcut = (
   );
 
   const hotkeyDescription = useMemo(
-    () =>
-      [...formattedModifiers, `${key[0].toUpperCase()}${key.slice(1)}`].join(
-        '+',
-      ),
+    () => [...formattedModifiers, `${key[0].toUpperCase()}${key.slice(1)}`].join('+'),
     [formattedModifiers, key],
   );
 

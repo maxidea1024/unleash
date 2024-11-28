@@ -44,12 +44,9 @@ export const BulkDisableDialog = ({
   const { addChange } = useChangeRequestApi();
   const { setToastApiError, setToastData } = useToast();
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
   const alreadyDisabledCount = data.filter(
-    (feature) =>
-      feature.environments?.find((environment) => selected === environment.name)
-        ?.enabled === false,
+    (feature) => feature.environments?.find((environment) => selected === environment.name)?.enabled === false,
   ).length;
 
   const getOptions = () =>
@@ -95,9 +92,7 @@ export const BulkDisableDialog = ({
     }
   };
 
-  const buttonText = isChangeRequestConfigured(selected)
-    ? 'Add to change request'
-    : 'Disable flags';
+  const buttonText = isChangeRequestConfigured(selected) ? 'Add to change request' : 'Disable flags';
 
   return (
     <Dialogue
@@ -112,28 +107,17 @@ export const BulkDisableDialog = ({
         You have selected <b>{data.length}</b> feature flags to disable.
         <br />
         <br />
-        <Typography>
-          Select which environment to disable the features for:
-        </Typography>
-        <StyledSelect
-          options={getOptions()}
-          value={selected}
-          onChange={(option: string) => setSelected(option)}
-        />
+        <Typography>Select which environment to disable the features for:</Typography>
+        <StyledSelect options={getOptions()} value={selected} onChange={(option: string) => setSelected(option)} />
         <ConditionallyRender
           condition={isChangeRequestConfigured(selected)}
-          show={
-            <SpacedAlert severity='warning'>
-              Change requests are enabled for this environment.
-            </SpacedAlert>
-          }
+          show={<SpacedAlert severity='warning'>Change requests are enabled for this environment.</SpacedAlert>}
         />
         <ConditionallyRender
           condition={alreadyDisabledCount > 0}
           show={
             <SpacedAlert severity='info'>
-              {alreadyDisabledCount} feature{' '}
-              {alreadyDisabledCount > 1 ? 'flags are ' : 'flag is '}
+              {alreadyDisabledCount} feature {alreadyDisabledCount > 1 ? 'flags are ' : 'flag is '}
               already disabled.
             </SpacedAlert>
           }

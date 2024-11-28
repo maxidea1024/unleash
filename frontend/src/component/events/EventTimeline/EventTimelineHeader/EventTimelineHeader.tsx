@@ -1,10 +1,4 @@
-import {
-  IconButton,
-  MenuItem,
-  styled,
-  TextField,
-  Tooltip,
-} from '@mui/material';
+import { IconButton, MenuItem, styled, TextField, Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 import { useEffect, useMemo } from 'react';
@@ -43,24 +37,16 @@ interface IEventTimelineHeaderProps {
   totalEvents: number;
 }
 
-export const EventTimelineHeader = ({
-  totalEvents,
-}: IEventTimelineHeaderProps) => {
-  const { timeSpan, environment, setOpen, setTimeSpan, setEnvironment } =
-    useEventTimelineContext();
+export const EventTimelineHeader = ({ totalEvents }: IEventTimelineHeaderProps) => {
+  const { timeSpan, environment, setOpen, setTimeSpan, setEnvironment } = useEventTimelineContext();
   const { environments } = useEnvironments();
 
-  const activeEnvironments = useMemo(
-    () => environments.filter(({ enabled }) => enabled),
-    [environments],
-  );
+  const activeEnvironments = useMemo(() => environments.filter(({ enabled }) => enabled), [environments]);
   const { trackEvent } = usePlausibleTracker();
 
   useEffect(() => {
     if (activeEnvironments.length > 0 && !environment) {
-      const defaultEnvironment =
-        activeEnvironments.find(({ type }) => type === 'production') ||
-        activeEnvironments[0];
+      const defaultEnvironment = activeEnvironments.find(({ type }) => type === 'production') || activeEnvironments[0];
       setEnvironment(defaultEnvironment);
     }
   }, [activeEnvironments]);
@@ -78,12 +64,7 @@ export const EventTimelineHeader = ({
           size='small'
           variant='outlined'
           value={timeSpan.key}
-          onChange={(e) =>
-            setTimeSpan(
-              timeSpanOptions.find(({ key }) => key === e.target.value) ||
-                timeSpanOptions[0],
-            )
-          }
+          onChange={(e) => setTimeSpan(timeSpanOptions.find(({ key }) => key === e.target.value) || timeSpanOptions[0])}
         >
           {timeSpanOptions.map(({ key, label }) => (
             <MenuItem key={key} value={key}>
@@ -103,10 +84,7 @@ export const EventTimelineHeader = ({
               variant='outlined'
               value={environment!.name}
               onChange={(e) =>
-                setEnvironment(
-                  environments.find(({ name }) => name === e.target.value) ||
-                    environments[0],
-                )
+                setEnvironment(environments.find(({ name }) => name === e.target.value) || environments[0])
               }
             >
               {environments.map(({ name }) => (

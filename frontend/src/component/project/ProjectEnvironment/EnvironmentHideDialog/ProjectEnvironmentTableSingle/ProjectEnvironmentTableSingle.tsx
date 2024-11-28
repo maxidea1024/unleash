@@ -63,12 +63,11 @@ export const ProjectEnvironmentTableSingle = ({
     [warnEnabledToggles],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns: COLUMNS as any,
-      data: [environment],
-      disableSortBy: true,
-    });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+    columns: COLUMNS as any,
+    data: [environment],
+    disableSortBy: true,
+  });
 
   return (
     <StyledTable {...getTableProps()} rowHeight='compact'>

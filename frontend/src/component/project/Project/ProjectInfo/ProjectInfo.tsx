@@ -37,21 +37,13 @@ const StyledProjectInfoSidebarContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const ProjectInfo = ({
-  id,
-  description,
-  memberCount,
-  health,
-  featureTypeCounts,
-  stats,
-}: IProjectInfoProps) => {
+const ProjectInfo = ({ id, description, memberCount, health, featureTypeCounts, stats }: IProjectInfoProps) => {
   const { isEnterprise } = useUiConfig();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(id);
 
-  const showChangeRequestsWidget =
-    isEnterprise() && isChangeRequestConfiguredInAnyEnv();
+  const showChangeRequestsWidget = isEnterprise() && isChangeRequestConfiguredInAnyEnv();
   const showProjectMembersWidget = id !== DEFAULT_PROJECT_ID;
   const fitMoreColumns =
     (!showChangeRequestsWidget && !showProjectMembersWidget) ||

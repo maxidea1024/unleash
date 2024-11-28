@@ -1,19 +1,11 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  IconButton,
-  styled,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, IconButton, styled } from '@mui/material';
 import { useSignalEndpoints } from 'hooks/api/getters/useSignalEndpoints/useSignalEndpoints';
 import type { ISignal } from 'interfaces/signal';
 import { Suspense, lazy, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-const LazyReactJSONEditor = lazy(
-  () => import('component/common/ReactJSONEditor/ReactJSONEditor'),
-);
+const LazyReactJSONEditor = lazy(() => import('component/common/ReactJSONEditor/ReactJSONEditor'));
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   boxShadow: 'none',
@@ -42,9 +34,7 @@ export const ProjectActionsEventsDetailsSourceSignalEndpoint = ({
   const { signalEndpoints } = useSignalEndpoints();
 
   const signalEndpointName = useMemo(() => {
-    const signalEndpoint = signalEndpoints.find(
-      ({ id }) => id === signal.sourceId,
-    );
+    const signalEndpoint = signalEndpoints.find(({ id }) => id === signal.sourceId);
 
     return signalEndpoint?.name;
   }, [signalEndpoints, signal.sourceId]);
@@ -63,12 +53,7 @@ export const ProjectActionsEventsDetailsSourceSignalEndpoint = ({
       </StyledAccordionSummary>
       <AccordionDetails>
         <Suspense fallback={null}>
-          <LazyReactJSONEditor
-            content={{ json: signal.payload }}
-            readOnly
-            statusBar={false}
-            editorStyle='sidePanel'
-          />
+          <LazyReactJSONEditor content={{ json: signal.payload }} readOnly statusBar={false} editorStyle='sidePanel' />
         </Suspense>
       </AccordionDetails>
     </StyledAccordion>

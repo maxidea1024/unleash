@@ -21,10 +21,7 @@ export const createInactiveUsersService = (
 };
 
 export const createFakeInactiveUsersService = (
-  {
-    getLogger,
-    userInactivityThresholdInDays,
-  }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
+  { getLogger, userInactivityThresholdInDays }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
   userService: UserService,
 ): InactiveUsersService => {
   const fakeStore = new FakeInactiveUsersStore();

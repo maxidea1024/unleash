@@ -16,18 +16,9 @@ const StyledBoxCell = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(1),
 }));
 
-export const RowSelectCell: FC<IRowSelectCellProps> = ({
-  onChange,
-  checked,
-  title,
-}) => (
+export const RowSelectCell: FC<IRowSelectCellProps> = ({ onChange, checked, title }) => (
   <StyledBoxCell data-testid={BATCH_SELECT}>
-    <Checkbox
-      onChange={onChange}
-      title={title}
-      checked={checked}
-      data-loading
-    />
+    <Checkbox onChange={onChange} title={title} checked={checked} data-loading />
   </StyledBoxCell>
 );
 

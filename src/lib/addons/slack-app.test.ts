@@ -1,13 +1,7 @@
 import { type IEvent, FEATURE_ENVIRONMENT_ENABLED } from '../types/events';
 import SlackAppAddon from './slack-app';
 import { type ChatPostMessageArguments, ErrorCode } from '@slack/web-api';
-import {
-  type IAddonConfig,
-  type IFlagKey,
-  type IFlagResolver,
-  serializeDates,
-  SYSTEM_USER_ID,
-} from '../types';
+import { type IAddonConfig, type IFlagKey, type IFlagResolver, serializeDates, SYSTEM_USER_ID } from '../types';
 import type { IntegrationEventsService } from '../services';
 import type { Logger } from '../logger';
 

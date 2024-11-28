@@ -24,8 +24,7 @@ afterAll(async () => {
 
 test(`Should indicate change request enabled status`, async () => {
   // no change requests
-  const defaultStatus =
-    await readModel.isChangeRequestsEnabledForProject('default');
+  const defaultStatus = await readModel.isChangeRequestsEnabledForProject('default');
   expect(defaultStatus).toBe(false);
 
   // change request enabled in enabled environment
@@ -34,16 +33,11 @@ test(`Should indicate change request enabled status`, async () => {
     environment: 'default',
     required_approvals: 1,
   });
-  const enabledStatus =
-    await readModel.isChangeRequestsEnabledForProject('default');
+  const enabledStatus = await readModel.isChangeRequestsEnabledForProject('default');
   expect(enabledStatus).toBe(true);
 
   // change request enabled in disabled environment
-  await db.stores.projectStore.deleteEnvironmentForProject(
-    'default',
-    'default',
-  );
-  const disabledStatus =
-    await readModel.isChangeRequestsEnabledForProject('default');
+  await db.stores.projectStore.deleteEnvironmentForProject('default', 'default');
+  const disabledStatus = await readModel.isChangeRequestsEnabledForProject('default');
   expect(disabledStatus).toBe(false);
 });

@@ -18,10 +18,7 @@ export interface IActionSet {
   createdByUserId: number;
 }
 
-export type ParameterMatch = Pick<
-  IConstraint,
-  'inverted' | 'operator' | 'caseInsensitive' | 'value' | 'values'
->;
+export type ParameterMatch = Pick<IConstraint, 'inverted' | 'operator' | 'caseInsensitive' | 'value' | 'values'>;
 
 export interface IMatch {
   source: SignalSource;
@@ -72,9 +69,7 @@ type ActionConfigurationSelectParameter = BaseParameter & {
   options: string[];
 };
 
-export type ActionConfigurationParameter =
-  | ActionConfigurationHiddenParameter
-  | ActionConfigurationSelectParameter;
+export type ActionConfigurationParameter = ActionConfigurationHiddenParameter | ActionConfigurationSelectParameter;
 
 export type ActionConfiguration = {
   label: string;

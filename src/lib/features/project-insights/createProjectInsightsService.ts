@@ -11,27 +11,14 @@ import ProjectStore from '../project/project-store';
 import FeatureStrategiesStore from '../feature-toggle/feature-toggle-strategies-store';
 import FakeFeatureStrategiesStore from '../feature-toggle/fakes/fake-feature-strategies-store';
 
-export const createProjectInsightsService = (
-  db: Db,
-  config: IUnleashConfig,
-): ProjectInsightsService => {
+export const createProjectInsightsService = (db: Db, config: IUnleashConfig): ProjectInsightsService => {
   const { eventBus, getLogger, flagResolver } = config;
   const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);
-  const featureToggleStore = new FeatureToggleStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const featureToggleStore = new FeatureToggleStore(db, eventBus, getLogger, flagResolver);
 
   const featureTypeStore = new FeatureTypeStore(db, getLogger);
   const projectStatsStore = new ProjectStatsStore(db, eventBus, getLogger);
-  const featureStrategiesStore = new FeatureStrategiesStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const featureStrategiesStore = new FeatureStrategiesStore(db, eventBus, getLogger, flagResolver);
 
   return new ProjectInsightsService({
     projectStore,

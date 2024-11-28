@@ -1,34 +1,20 @@
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
 
-import {
-  CREATE_TAG_TYPE,
-  DELETE_TAG_TYPE,
-  NONE,
-  UPDATE_TAG_TYPE,
-} from '../../types/permissions';
+import { CREATE_TAG_TYPE, DELETE_TAG_TYPE, NONE, UPDATE_TAG_TYPE } from '../../types/permissions';
 import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type TagTypeService from './tag-type-service';
 import type { Logger } from '../../logger';
 import type { IAuthRequest } from '../../routes/unleash-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
-import {
-  createResponseSchema,
-  resourceCreatedResponseSchema,
-} from '../../openapi/util/create-response-schema';
+import { createResponseSchema, resourceCreatedResponseSchema } from '../../openapi/util/create-response-schema';
 import type { TagTypesSchema } from '../../openapi/spec/tag-types-schema';
-import {
-  validateTagTypeSchema,
-  type ValidateTagTypeSchema,
-} from '../../openapi/spec/validate-tag-type-schema';
+import { validateTagTypeSchema, type ValidateTagTypeSchema } from '../../openapi/spec/validate-tag-type-schema';
 import type { TagTypeSchema } from '../../openapi/spec/tag-type-schema';
 import type { UpdateTagTypeSchema } from '../../openapi/spec/update-tag-type-schema';
 import type { OpenApiService } from '../../services/openapi-service';
-import {
-  emptyResponse,
-  getStandardResponses,
-} from '../../openapi/util/standard-responses';
+import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
 import type { WithTransactional } from '../../db/transaction';
 
 const version = 1;
@@ -162,8 +148,7 @@ export default class TagTypeController extends Controller {
           tags: ['Tags'],
           operationId: 'deleteTagType',
           summary: 'Delete a tag type',
-          description:
-            'Deletes a tag type. If any features have tags of this type, those tags will be deleted.',
+          description: 'Deletes a tag type. If any features have tags of this type, those tags will be deleted.',
           responses: {
             200: emptyResponse,
             ...getStandardResponses(401, 403),
@@ -184,40 +169,22 @@ export default class TagTypeController extends Controller {
   ): Promise<void> {
     await this.tagTypeService.validate(req.body);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      validateTagTypeSchema.$id,
-      {
-        valid: true,
-        tagType: req.body,
-      },
-    );
+    this.openApiService.respondWithValidation(200, res, validateTagTypeSchema.$id, {
+      valid: true,
+      tagType: req.body,
+    });
   }
 
-  async createTagType(
-    req: IAuthRequest<unknown, unknown, TagTypeSchema>,
-    res: Response,
-  ): Promise<void> {
-    const tagType = await this.tagTypeService.transactional((service) =>
-      service.createTagType(req.body, req.audit),
-    );
-    res
-      .status(201)
-      .header('location', `tag-types/${tagType.name}`)
-      .json(tagType);
+  async createTagType(req: IAuthRequest<unknown, unknown, TagTypeSchema>, res: Response): Promise<void> {
+    const tagType = await this.tagTypeService.transactional((service) => service.createTagType(req.body, req.audit));
+    res.status(201).header('location', `tag-types/${tagType.name}`).json(tagType);
   }
 
-  async updateTagType(
-    req: IAuthRequest<{ name: string }, unknown, UpdateTagTypeSchema>,
-    res: Response,
-  ): Promise<void> {
+  async updateTagType(req: IAuthRequest<{ name: string }, unknown, UpdateTagTypeSchema>, res: Response): Promise<void> {
     const { description, icon } = req.body;
     const { name } = req.params;
 
-    await this.tagTypeService.transactional((service) =>
-      service.updateTagType({ name, description, icon }, req.audit),
-    );
+    await this.tagTypeService.transactional((service) => service.updateTagType({ name, description, icon }, req.audit));
     res.status(200).end();
   }
 
@@ -231,9 +198,7 @@ export default class TagTypeController extends Controller {
   async deleteTagType(req: IAuthRequest, res: Response): Promise<void> {
     const { name } = req.params;
 
-    await this.tagTypeService.transactional((service) =>
-      service.deleteTagType(name, req.audit),
-    );
+    await this.tagTypeService.transactional((service) => service.deleteTagType(name, req.audit));
     res.status(200).end();
   }
 }

@@ -26,11 +26,7 @@ const StyledMatcherErrorIcon = styled(CloseIcon)({
   marginRight: '5px',
 });
 
-const PasswordMatcher = ({
-  started,
-  passwordsDoNotMatch,
-  sameAsOldPassword = false,
-}: IPasswordMatcherProps) => {
+const PasswordMatcher = ({ started, passwordsDoNotMatch, sameAsOldPassword = false }: IPasswordMatcherProps) => {
   const error = passwordsDoNotMatch || sameAsOldPassword;
 
   if (!started) return null;
@@ -43,11 +39,7 @@ const PasswordMatcher = ({
 
   return (
     <StyledMatcher data-loading error={error}>
-      <ConditionallyRender
-        condition={error}
-        show={<StyledMatcherErrorIcon />}
-        elseShow={<StyledMatcherCheckIcon />}
-      />{' '}
+      <ConditionallyRender condition={error} show={<StyledMatcherErrorIcon />} elseShow={<StyledMatcherCheckIcon />} />{' '}
       <span>{label}</span>
     </StyledMatcher>
   );

@@ -6,11 +6,7 @@ import type { NotificationsSchema } from 'openapi';
 
 export const useNotifications = (options: SWRConfiguration = {}) => {
   const path = formatApiPath(`api/admin/notifications`);
-  const { data, error, mutate } = useSWR<NotificationsSchema>(
-    path,
-    fetcher,
-    options,
-  );
+  const { data, error, mutate } = useSWR<NotificationsSchema>(path, fetcher, options);
 
   const refetchNotifications = useCallback(() => {
     mutate().catch(console.warn);

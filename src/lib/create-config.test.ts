@@ -49,9 +49,7 @@ test('should add initApiToken for admin token from options', async () => {
   });
 
   expect(config.authentication.initApiTokens).toHaveLength(1);
-  expect(config.authentication.initApiTokens[0].environment).toBe(
-    token.environment,
-  );
+  expect(config.authentication.initApiTokens[0].environment).toBe(token.environment);
   expect(config.authentication.initApiTokens[0].project).toBe(token.project);
   expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.ADMIN);
 });
@@ -81,9 +79,7 @@ test('should add initApiToken for client token from options', async () => {
   });
 
   expect(config.authentication.initApiTokens).toHaveLength(1);
-  expect(config.authentication.initApiTokens[0].environment).toBe(
-    token.environment,
-  );
+  expect(config.authentication.initApiTokens[0].environment).toBe(token.environment);
   expect(config.authentication.initApiTokens[0].project).toBe(token.project);
   expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.CLIENT);
 });
@@ -116,9 +112,7 @@ test('should add initApiToken for admin token from env var', async () => {
 test('should validate initApiToken for admin token from env var', async () => {
   process.env.INIT_ADMIN_API_TOKENS = 'invalidProject:*:some-token1';
 
-  expect(() => createConfig({})).toThrow(
-    'Admin token cannot be scoped to single project',
-  );
+  expect(() => createConfig({})).toThrow('Admin token cannot be scoped to single project');
 
   delete process.env.INIT_ADMIN_API_TOKENS;
 });
@@ -126,9 +120,7 @@ test('should validate initApiToken for admin token from env var', async () => {
 test('should validate initApiToken for client token from env var', async () => {
   process.env.INIT_CLIENT_API_TOKENS = '*:*:some-token1';
 
-  expect(() => createConfig({})).toThrow(
-    'Client token cannot be scoped to all environments',
-  );
+  expect(() => createConfig({})).toThrow('Client token cannot be scoped to all environments');
 
   delete process.env.INIT_CLIENT_API_TOKENS;
 });
@@ -165,8 +157,7 @@ test('should merge initApiToken from options and env vars', async () => {
 });
 
 test('should add initApiToken for client token from env var', async () => {
-  process.env.INIT_CLIENT_API_TOKENS =
-    'default:development.some-token1, default:development.some-token2';
+  process.env.INIT_CLIENT_API_TOKENS = 'default:development.some-token1, default:development.some-token2';
 
   const config = createConfig({
     db: {
@@ -182,14 +173,10 @@ test('should add initApiToken for client token from env var', async () => {
   });
 
   expect(config.authentication.initApiTokens).toHaveLength(2);
-  expect(config.authentication.initApiTokens[0].environment).toBe(
-    'development',
-  );
+  expect(config.authentication.initApiTokens[0].environment).toBe('development');
   expect(config.authentication.initApiTokens[0].project).toBe('default');
   expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.CLIENT);
-  expect(config.authentication.initApiTokens[0].secret).toBe(
-    'default:development.some-token1',
-  );
+  expect(config.authentication.initApiTokens[0].secret).toBe('default:development.some-token1');
 
   delete process.env.INIT_CLIENT_API_TOKENS;
 });
@@ -293,9 +280,7 @@ test('If additionalCspAllowedDomains is set in config map, passes through', asyn
     },
   });
   expect(config.additionalCspAllowedDomains).toBeDefined();
-  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual([
-    'googlefonts.com',
-  ]);
+  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual(['googlefonts.com']);
   expect(config.additionalCspAllowedDomains.fontSrc).toStrictEqual([]);
   expect(config.additionalCspAllowedDomains.styleSrc).toStrictEqual([]);
   expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual([]);
@@ -310,9 +295,7 @@ test('Can set partial additionalCspDomains', () => {
     },
   });
   expect(config.additionalCspAllowedDomains).toBeDefined();
-  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual([
-    'googlefonts.com',
-  ]);
+  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual(['googlefonts.com']);
   expect(config.additionalCspAllowedDomains.fontSrc).toStrictEqual([]);
   expect(config.additionalCspAllowedDomains.styleSrc).toStrictEqual([]);
   expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual([]);
@@ -326,20 +309,17 @@ test.each([
   ['CSP_ALLOWED_SCRIPT', 'googlefonts.com', 'scriptSrc'],
   ['CSP_ALLOWED_IMG', 'googlefonts.com', 'imgSrc'],
   ['CSP_ALLOWED_CONNECT', 'googlefonts.com', 'connectSrc'],
-])(
-  'When %s is set to %s. %s should include passed in domain',
-  (env, domain, key) => {
-    process.env[env] = domain;
-    const config = createConfig({});
-    expect(config.additionalCspAllowedDomains[key][0]).toBe(domain);
-    Object.keys(config.additionalCspAllowedDomains)
-      .filter((objKey) => objKey !== key)
-      .forEach((otherKey) => {
-        expect(config.additionalCspAllowedDomains[otherKey]).toStrictEqual([]);
-      });
-    delete process.env[env];
-  },
-);
+])('When %s is set to %s. %s should include passed in domain', (env, domain, key) => {
+  process.env[env] = domain;
+  const config = createConfig({});
+  expect(config.additionalCspAllowedDomains[key][0]).toBe(domain);
+  Object.keys(config.additionalCspAllowedDomains)
+    .filter((objKey) => objKey !== key)
+    .forEach((otherKey) => {
+      expect(config.additionalCspAllowedDomains[otherKey]).toStrictEqual([]);
+    });
+  delete process.env[env];
+});
 
 test('When multiple CSP environment variables are set, respects them all', () => {
   process.env.CSP_ALLOWED_DEFAULT = 'googlefonts.com';
@@ -347,18 +327,10 @@ test('When multiple CSP environment variables are set, respects them all', () =>
   process.env.CSP_ALLOWED_SCRIPT = 'plausible.getunleash.io';
   process.env.CSP_ALLOWED_CONNECT = 'plausible.getunleash.io';
   const config = createConfig({});
-  expect(config.additionalCspAllowedDomains.imgSrc).toStrictEqual([
-    'googlefonts.com',
-  ]);
-  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual([
-    'googlefonts.com',
-  ]);
-  expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual([
-    'plausible.getunleash.io',
-  ]);
-  expect(config.additionalCspAllowedDomains.connectSrc).toStrictEqual([
-    'plausible.getunleash.io',
-  ]);
+  expect(config.additionalCspAllowedDomains.imgSrc).toStrictEqual(['googlefonts.com']);
+  expect(config.additionalCspAllowedDomains.defaultSrc).toStrictEqual(['googlefonts.com']);
+  expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual(['plausible.getunleash.io']);
+  expect(config.additionalCspAllowedDomains.connectSrc).toStrictEqual(['plausible.getunleash.io']);
   delete process.env.CSP_ALLOWED_DEFAULT;
   delete process.env.CSP_ALLOWED_IMG;
   delete process.env.CSP_ALLOWED_SCRIPT;
@@ -368,10 +340,7 @@ test('When multiple CSP environment variables are set, respects them all', () =>
 test('Supports multiple domains comma separated in environment variables', () => {
   process.env.CSP_ALLOWED_SCRIPT = 'plausible.getunleash.io,googlefonts.com';
   const config = createConfig({});
-  expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual([
-    'plausible.getunleash.io',
-    'googlefonts.com',
-  ]);
+  expect(config.additionalCspAllowedDomains.scriptSrc).toStrictEqual(['plausible.getunleash.io', 'googlefonts.com']);
 });
 
 test('Should enable client feature caching with .6 seconds max age by default', () => {

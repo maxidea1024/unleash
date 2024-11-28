@@ -21,9 +21,7 @@ const ReviewRequiredBadge: VFC = () => (
 
 const DraftBadge: VFC = () => <Badge color='warning'>Draft</Badge>;
 
-export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({
-  changeRequest,
-}) => {
+export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({ changeRequest }) => {
   if (!changeRequest) {
     return null;
   }
@@ -67,9 +65,7 @@ export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({
             return {
               color: 'error' as const,
               icon: <ErrorIcon fontSize={'small'} />,
-              tooltipTitle: `Failed on ${scheduledAt} because of ${
-                schedule.reason ?? schedule.failureReason
-              }`,
+              tooltipTitle: `Failed on ${scheduledAt} because of ${schedule.reason ?? schedule.failureReason}`,
             };
           case 'suspended':
             return {

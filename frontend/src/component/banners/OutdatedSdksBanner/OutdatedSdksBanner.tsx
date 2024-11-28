@@ -69,10 +69,7 @@ export const OutdatedSdksBanner = ({ project }: IOutdatedSdksBannerProps) => {
   };
   return (
     <>
-      <ConditionallyRender
-        condition={sdks.length > 0}
-        show={<Banner banner={outdatedSdksBanner} inline />}
-      />
+      <ConditionallyRender condition={sdks.length > 0} show={<Banner banner={outdatedSdksBanner} inline />} />
     </>
   );
 };

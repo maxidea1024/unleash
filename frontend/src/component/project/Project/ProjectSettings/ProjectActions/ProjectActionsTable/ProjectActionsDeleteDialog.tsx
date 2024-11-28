@@ -8,12 +8,7 @@ interface IProjectActionsDeleteDialogProps {
   onConfirm: (action: IActionSet) => void;
 }
 
-export const ProjectActionsDeleteDialog = ({
-  action,
-  open,
-  setOpen,
-  onConfirm,
-}: IProjectActionsDeleteDialogProps) => (
+export const ProjectActionsDeleteDialog = ({ action, open, setOpen, onConfirm }: IProjectActionsDeleteDialogProps) => (
   <Dialogue
     title='Delete action?'
     open={open}

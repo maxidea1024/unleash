@@ -17,10 +17,7 @@ interface IFeatureTagCellProps {
 }
 
 export const ApplicationsCell: VFC<IFeatureTagCellProps> = ({ row }) => {
-  if (
-    row.original.selectedApplications &&
-    row.original.selectedApplications.length > 1
-  ) {
+  if (row.original.selectedApplications && row.original.selectedApplications.length > 1) {
     return (
       <TextCell>
         <TooltipLink

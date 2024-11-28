@@ -16,6 +16,4 @@ export const createContextFieldSchema = {
   },
 } as const;
 
-export type CreateContextFieldSchema = FromSchema<
-  typeof createContextFieldSchema
->;
+export type CreateContextFieldSchema = FromSchema<typeof createContextFieldSchema>;

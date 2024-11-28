@@ -5,10 +5,7 @@ import getLogger from '../../../../test/fixtures/no-logger';
 import createStores from '../../../../test/fixtures/store';
 import EventEmitter from 'events';
 import { LastSeenService } from '../last-seen/last-seen-service';
-import type {
-  IClientMetricsStoreV2,
-  IUnleashConfig,
-} from '../../../../lib/types';
+import type { IClientMetricsStoreV2, IUnleashConfig } from '../../../../lib/types';
 import { endOfDay, startOfHour, subDays, subHours } from 'date-fns';
 import type { IClientMetricsEnv } from './client-metrics-store-v2-type';
 
@@ -41,8 +38,7 @@ function initClientMetrics(flagEnabled = true) {
 }
 
 test('process metrics properly', async () => {
-  const { clientMetricsService, eventBus, lastSeenService } =
-    initClientMetrics();
+  const { clientMetricsService, eventBus, lastSeenService } = initClientMetrics();
   await clientMetricsService.registerClientMetrics(
     {
       appName: 'test',
@@ -75,8 +71,7 @@ test('process metrics properly', async () => {
 });
 
 test('process metrics properly even when some names are not url friendly, filtering out invalid names when flag is on', async () => {
-  const { clientMetricsService, eventBus, lastSeenService } =
-    initClientMetrics();
+  const { clientMetricsService, eventBus, lastSeenService } = initClientMetrics();
   await clientMetricsService.registerClientMetrics(
     {
       appName: 'test',
@@ -101,8 +96,7 @@ test('process metrics properly even when some names are not url friendly, filter
 });
 
 test('process metrics properly even when some names are not url friendly, with default behavior when flag is off', async () => {
-  const { clientMetricsService, eventBus, lastSeenService } =
-    initClientMetrics(false);
+  const { clientMetricsService, eventBus, lastSeenService } = initClientMetrics(false);
   await clientMetricsService.registerClientMetrics(
     {
       appName: 'test',
@@ -137,10 +131,7 @@ test('get daily client metrics for a toggle', async () => {
     no: 0,
   };
   const clientMetricsStoreV2 = {
-    getMetricsForFeatureToggleV2(
-      featureName: string,
-      hoursBack?: number,
-    ): Promise<IClientMetricsEnv[]> {
+    getMetricsForFeatureToggleV2(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]> {
       return Promise.resolve([
         {
           ...baseData,
@@ -161,11 +152,7 @@ test('get daily client metrics for a toggle', async () => {
     getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
-    { clientMetricsStoreV2 },
-    config,
-    lastSeenService,
-  );
+  const service = new ClientMetricsServiceV2({ clientMetricsStoreV2 }, config, lastSeenService);
 
   const metrics = await service.getClientMetricsForToggle('feature', 3 * 24);
 
@@ -193,10 +180,7 @@ test('get hourly client metrics for a toggle', async () => {
     no: 0,
   };
   const clientMetricsStoreV2 = {
-    getMetricsForFeatureToggleV2(
-      featureName: string,
-      hoursBack?: number,
-    ): Promise<IClientMetricsEnv[]> {
+    getMetricsForFeatureToggleV2(featureName: string, hoursBack?: number): Promise<IClientMetricsEnv[]> {
       return Promise.resolve([
         {
           ...baseData,
@@ -217,11 +201,7 @@ test('get hourly client metrics for a toggle', async () => {
     getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
-    { clientMetricsStoreV2 },
-    config,
-    lastSeenService,
-  );
+  const service = new ClientMetricsServiceV2({ clientMetricsStoreV2 }, config, lastSeenService);
 
   const metrics = await service.getClientMetricsForToggle('feature', 2);
 
@@ -287,11 +267,7 @@ const setupMetricsService = ({
     },
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
-    { clientMetricsStoreV2 },
-    config,
-    lastSeenService,
-  );
+  const service = new ClientMetricsServiceV2({ clientMetricsStoreV2 }, config, lastSeenService);
   return {
     service,
     aggregationCalled: () => aggregationCalled,

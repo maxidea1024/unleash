@@ -1,8 +1,5 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import {
-  type IUnleashTest,
-  setupAppWithAuth,
-} from '../../../test/e2e/helpers/test-helper';
+import { type IUnleashTest, setupAppWithAuth } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { IUser } from '../../types';
 import { randomId } from '../../util';
@@ -233,9 +230,7 @@ test('should return personal dashboard project details', async () => {
   await app.createFeature('log_feature_b', project.id);
   await app.createFeature('log_feature_c', project.id);
 
-  const { body } = await app.request.get(
-    `/api/admin/personal-dashboard/${project.id}`,
-  );
+  const { body } = await app.request.get(`/api/admin/personal-dashboard/${project.id}`);
 
   const timestampPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
 
@@ -272,23 +267,17 @@ test('should return personal dashboard project details', async () => {
       {
         createdAt: expect.stringMatching(timestampPattern),
         createdBy: 'new_user@test.com',
-        summary: expect.stringContaining(
-          '**new_user@test.com** created **[log_feature_c]',
-        ),
+        summary: expect.stringContaining('**new_user@test.com** created **[log_feature_c]'),
       },
       {
         createdAt: expect.stringMatching(timestampPattern),
         createdBy: 'new_user@test.com',
-        summary: expect.stringContaining(
-          '**new_user@test.com** created **[log_feature_b]',
-        ),
+        summary: expect.stringContaining('**new_user@test.com** created **[log_feature_b]'),
       },
       {
         createdAt: expect.stringMatching(timestampPattern),
         createdBy: 'new_user@test.com',
-        summary: expect.stringContaining(
-          '**new_user@test.com** created **[log_feature_a]',
-        ),
+        summary: expect.stringContaining('**new_user@test.com** created **[log_feature_a]'),
       },
       {
         createdAt: expect.stringMatching(timestampPattern),
@@ -327,9 +316,7 @@ test('should return personal dashboard project details', async () => {
   await insertHealthScore('2024-07', 91);
   await insertHealthScore('2024-08', 91);
 
-  const { body: bodyWithHealthScores } = await app.request.get(
-    `/api/admin/personal-dashboard/${project.id}`,
-  );
+  const { body: bodyWithHealthScores } = await app.request.get(`/api/admin/personal-dashboard/${project.id}`);
 
   expect(bodyWithHealthScores).toMatchObject({
     insights: {
@@ -347,9 +334,7 @@ test('should return personal dashboard project details', async () => {
 test("should return 404 if the project doesn't exist", async () => {
   await loginUser('new_user@test.com');
 
-  await app.request
-    .get(`/api/admin/personal-dashboard/${randomId()}`)
-    .expect(404);
+  await app.request.get(`/api/admin/personal-dashboard/${randomId()}`).expect(404);
 });
 
 test('should return Unleash admins', async () => {
@@ -399,9 +384,7 @@ test('should return Unleash admins', async () => {
 test('should return System owner for default project if nothing else is set', async () => {
   await loginUser('new_user@test.com');
 
-  const { body } = await app.request.get(
-    `/api/admin/personal-dashboard/default`,
-  );
+  const { body } = await app.request.get(`/api/admin/personal-dashboard/default`);
 
   expect(body.owners).toMatchObject([
     {

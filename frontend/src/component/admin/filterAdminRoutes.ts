@@ -2,11 +2,7 @@ import type { INavigationMenuItem } from 'interfaces/route';
 
 export const filterAdminRoutes = (
   menu: INavigationMenuItem['menu'],
-  {
-    pro,
-    enterprise,
-    billing,
-  }: { pro?: boolean; enterprise?: boolean; billing?: boolean },
+  { pro, enterprise, billing }: { pro?: boolean; enterprise?: boolean; billing?: boolean },
 ): boolean => {
   const mode = menu?.mode;
   if (menu?.billing && !billing) return false;

@@ -2,11 +2,7 @@ import dbInit from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import assert from 'assert';
 import { randomId } from '../../../lib/util/random-id';
-import type {
-  IConstraint,
-  IFeatureToggleClient,
-  ISegment,
-} from '../../../lib/types/model';
+import type { IConstraint, IFeatureToggleClient, ISegment } from '../../../lib/types/model';
 import { type IUnleashTest, setupApp } from '../helpers/test-helper';
 import type { UpsertSegmentSchema } from '../../../lib/openapi';
 import { TEST_AUDIT_USER } from '../../../lib/types';
@@ -33,10 +29,7 @@ const fetchSegments = (app: IUnleashTest): Promise<ISegment[]> => {
   return app.services.segmentService.getAll();
 };
 
-const createSegment = (
-  app: IUnleashTest,
-  postData: UpsertSegmentSchema,
-): Promise<unknown> => {
+const createSegment = (app: IUnleashTest, postData: UpsertSegmentSchema): Promise<unknown> => {
   return app.services.segmentService.create(postData, TEST_AUDIT_USER);
 };
 
@@ -52,17 +45,11 @@ const createFeatureToggle = (
     .then((res) => res.body);
 };
 
-const addSegmentToStrategy = (
-  app: IUnleashTest,
-  segmentId: number,
-  strategyId: string,
-): Promise<unknown> => {
+const addSegmentToStrategy = (app: IUnleashTest, segmentId: number, strategyId: string): Promise<unknown> => {
   return app.services.segmentService.addToStrategy(segmentId, strategyId);
 };
 
-const mockFeatureToggle = (
-  overrides?: Partial<IFeatureToggleClient>,
-): Partial<IFeatureToggleClient> => {
+const mockFeatureToggle = (overrides?: Partial<IFeatureToggleClient>): Partial<IFeatureToggleClient> => {
   return {
     name: randomId(),
     strategies: [{ name: randomId(), constraints: [], parameters: {} }],
@@ -72,9 +59,7 @@ const mockFeatureToggle = (
 
 const seedConstraints = (spec: ISeedSegmentSpec): IConstraint[] => {
   return Array.from({ length: spec.constraintsPerSegment }).map(() => ({
-    values: Array.from({ length: spec.valuesPerConstraint }).map(() =>
-      randomId().substring(0, 16),
-    ),
+    values: Array.from({ length: spec.valuesPerConstraint }).map(() => randomId().substring(0, 16)),
     operator: 'IN',
     contextName: 'x',
   }));
@@ -89,9 +74,7 @@ const seedSegments = (spec: ISeedSegmentSpec): UpsertSegmentSchema[] => {
   });
 };
 
-const seedFeatures = (
-  spec: ISeedSegmentSpec,
-): Partial<IFeatureToggleClient>[] => {
+const seedFeatures = (spec: ISeedSegmentSpec): Partial<IFeatureToggleClient>[] => {
   return Array.from({ length: spec.featuresCount }).map((v, i) => {
     return mockFeatureToggle({
       name: `${seedSchema}_feature_${i}`,
@@ -99,10 +82,7 @@ const seedFeatures = (
   });
 };
 
-const seedSegmentsDatabase = async (
-  app: IUnleashTest,
-  spec: ISeedSegmentSpec,
-): Promise<void> => {
+const seedSegmentsDatabase = async (app: IUnleashTest, spec: ISeedSegmentSpec): Promise<void> => {
   await Promise.all(
     seedSegments(spec).map((seed) => {
       return createSegment(app, seed);

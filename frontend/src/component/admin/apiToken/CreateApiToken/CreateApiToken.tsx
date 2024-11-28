@@ -18,11 +18,7 @@ import { TokenInfo } from '../ApiTokenForm/TokenInfo/TokenInfo';
 import { TokenTypeSelector } from '../ApiTokenForm/TokenTypeSelector/TokenTypeSelector';
 import { ProjectSelector } from '../ApiTokenForm/ProjectSelector/ProjectSelector';
 import { EnvironmentSelector } from '../ApiTokenForm/EnvironmentSelector/EnvironmentSelector';
-import {
-  ADMIN,
-  CREATE_CLIENT_API_TOKEN,
-  CREATE_FRONTEND_API_TOKEN,
-} from '@server/types/permissions';
+import { ADMIN, CREATE_CLIENT_API_TOKEN, CREATE_FRONTEND_API_TOKEN } from '@server/types/permissions';
 import { Limit } from 'component/common/Limit/Limit';
 
 const pageTitle = 'Create API token';
@@ -53,12 +49,7 @@ export const CreateApiToken = ({ modal = false }: ICreateApiTokenProps) => {
   const navigate = useNavigate();
   const [showConfirm, setShowConfirm] = useState(false);
   const [token, setToken] = useState('');
-  const {
-    limit,
-    currentValue,
-    limitReached,
-    loading: loadingLimit,
-  } = useApiTokenLimit();
+  const { limit, currentValue, limitReached, loading: loadingLimit } = useApiTokenLimit();
 
   const {
     getApiTokenPayload,
@@ -137,26 +128,13 @@ export const CreateApiToken = ({ modal = false }: ICreateApiTokenProps) => {
         actions={
           <CreateButton
             name='token'
-            permission={[
-              ADMIN,
-              CREATE_CLIENT_API_TOKEN,
-              CREATE_FRONTEND_API_TOKEN,
-            ]}
+            permission={[ADMIN, CREATE_CLIENT_API_TOKEN, CREATE_FRONTEND_API_TOKEN]}
             disabled={limitReached || loadingLimit || loadingCreateToken}
           />
         }
       >
-        <TokenInfo
-          username={username}
-          setUsername={setUsername}
-          errors={errors}
-          clearErrors={clearErrors}
-        />
-        <TokenTypeSelector
-          type={type}
-          setType={setTokenType}
-          apiTokenTypes={apiTokenTypes}
-        />
+        <TokenInfo username={username} setUsername={setUsername} errors={errors} clearErrors={clearErrors} />
+        <TokenTypeSelector type={type} setType={setTokenType} apiTokenTypes={apiTokenTypes} />
         <ProjectSelector
           type={type}
           projects={projects}
@@ -164,25 +142,10 @@ export const CreateApiToken = ({ modal = false }: ICreateApiTokenProps) => {
           errors={errors}
           clearErrors={clearErrors}
         />
-        <EnvironmentSelector
-          type={type}
-          environment={environment}
-          setEnvironment={setEnvironment}
-        />
-        <StyledLimit
-          name='API tokens'
-          shortName='tokens'
-          currentValue={currentValue}
-          limit={limit}
-        />
+        <EnvironmentSelector type={type} environment={environment} setEnvironment={setEnvironment} />
+        <StyledLimit name='API tokens' shortName='tokens' currentValue={currentValue} limit={limit} />
       </ApiTokenForm>
-      <ConfirmToken
-        open={showConfirm}
-        setOpen={setShowConfirm}
-        closeConfirm={closeConfirm}
-        token={token}
-        type={type}
-      />
+      <ConfirmToken open={showConfirm} setOpen={setShowConfirm} closeConfirm={closeConfirm} token={token} type={type} />
     </FormTemplate>
   );
 };

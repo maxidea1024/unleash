@@ -8,5 +8,4 @@ import type { ScheduledChangeRequestViewModelSchema } from './scheduledChangeReq
 /**
  * A list of scheduled change request view models
  */
-export type ChangeRequestScheduledResultSchema =
-  ScheduledChangeRequestViewModelSchema[];
+export type ChangeRequestScheduledResultSchema = ScheduledChangeRequestViewModelSchema[];

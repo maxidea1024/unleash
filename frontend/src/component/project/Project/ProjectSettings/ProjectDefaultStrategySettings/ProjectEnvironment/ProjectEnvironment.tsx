@@ -1,10 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  styled,
-  useTheme,
-} from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, styled, useTheme } from '@mui/material';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { PROJECT_ENVIRONMENT_ACCORDION } from 'utils/testIds';
@@ -20,9 +14,7 @@ const StyledProjectEnvironmentOverview = styled('div', {
 })<{ enabled: boolean }>(({ theme, enabled }) => ({
   borderRadius: theme.shape.borderRadiusLarge,
   marginBottom: theme.spacing(2),
-  backgroundColor: enabled
-    ? theme.palette.background.paper
-    : theme.palette.envAccordion.disabled,
+  backgroundColor: enabled ? theme.palette.background.paper : theme.palette.envAccordion.disabled,
 }));
 
 const StyledAccordion = styled(Accordion)({
@@ -109,9 +101,7 @@ const ProjectEnvironment = ({ environment }: IProjectEnvironmentProps) => {
         expanded={true}
         onChange={(e) => e.stopPropagation()}
         data-testid={`${PROJECT_ENVIRONMENT_ACCORDION}_${name}`}
-        className={`environment-accordion ${
-          enabled ? '' : 'accordion-disabled'
-        }`}
+        className={`environment-accordion ${enabled ? '' : 'accordion-disabled'}`}
         style={{
           outline: `2px solid ${theme.palette.divider}`,
           backgroundColor: theme.palette.background.paper,
@@ -122,11 +112,7 @@ const ProjectEnvironment = ({ environment }: IProjectEnvironmentProps) => {
             <StyledHeaderTitle>
               <StyledEnvironmentIcon enabled />
               <div>
-                <StyledStringTruncator
-                  text={name}
-                  maxWidth='100'
-                  maxLength={15}
-                />
+                <StyledStringTruncator text={name} maxWidth='100' maxLength={15} />
               </div>
             </StyledHeaderTitle>
           </StyledHeader>
@@ -135,10 +121,7 @@ const ProjectEnvironment = ({ environment }: IProjectEnvironmentProps) => {
         <StyledAccordionDetails enabled>
           <StyledAccordionBody>
             <StyledAccordionBodyInnerContainer>
-              <ProjectEnvironmentDefaultStrategy
-                environment={environment}
-                description={description}
-              />
+              <ProjectEnvironmentDefaultStrategy environment={environment} description={description} />
             </StyledAccordionBodyInnerContainer>
           </StyledAccordionBody>
         </StyledAccordionDetails>

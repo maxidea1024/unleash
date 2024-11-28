@@ -18,18 +18,16 @@ const StyledInput = styled(Input)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-const StyledExpirationPicker = styled('div')<{ custom?: boolean }>(
-  ({ theme, custom }) => ({
-    display: 'flex',
-    alignItems: custom ? 'start' : 'center',
-    gap: theme.spacing(1.5),
-    marginBottom: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
-  }),
-);
+const StyledExpirationPicker = styled('div')<{ custom?: boolean }>(({ theme, custom }) => ({
+  display: 'flex',
+  alignItems: custom ? 'start' : 'center',
+  gap: theme.spacing(1.5),
+  marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+}));
 
 const StyledSelectMenu = styled(SelectMenu)(({ theme }) => ({
   minWidth: theme.spacing(20),
@@ -87,9 +85,7 @@ export const expirationOptions = [
 
 export const calculateExpirationDate = (expiration: ExpirationOption) => {
   const expiresAt = new Date();
-  const expirationOption = expirationOptions.find(
-    ({ key }) => key === expiration,
-  );
+  const expirationOption = expirationOptions.find(({ key }) => key === expiration);
   if (expiration === ExpirationOption.NEVER) {
     expiresAt.setFullYear(expiresAt.getFullYear() + 1000);
   } else if (expiration === ExpirationOption.CUSTOM) {
@@ -151,10 +147,7 @@ export const PersonalAPITokenForm = ({
   const onSetDescription = (description: string) => {
     clearError(ErrorField.DESCRIPTION);
     if (isDescriptionUnique && !isDescriptionUnique(description)) {
-      setError(
-        ErrorField.DESCRIPTION,
-        'A token with that description already exists.',
-      );
+      setError(ErrorField.DESCRIPTION, 'A token with that description already exists.');
     }
     setDescription(description);
   };
@@ -165,9 +158,7 @@ export const PersonalAPITokenForm = ({
 
   return (
     <>
-      <StyledInputDescription>
-        Describe what this token will be used for
-      </StyledInputDescription>
+      <StyledInputDescription>Describe what this token will be used for</StyledInputDescription>
       <StyledInput
         autoFocus
         label='Description'
@@ -196,10 +187,7 @@ export const PersonalAPITokenForm = ({
               onChange={(date) => {
                 clearError(ErrorField.EXPIRES_AT);
                 if (date < new Date()) {
-                  setError(
-                    ErrorField.EXPIRES_AT,
-                    'Invalid date, must be in the future',
-                  );
+                  setError(ErrorField.EXPIRES_AT, 'Invalid date, must be in the future');
                 }
                 setExpiresAt(date);
               }}
@@ -219,10 +207,7 @@ export const PersonalAPITokenForm = ({
               }
               elseShow={() => (
                 <Typography variant='body2'>
-                  Token will expire on{' '}
-                  <strong>
-                    {formatDateYMD(expiresAt!, locationSettings.locale)}
-                  </strong>
+                  Token will expire on <strong>{formatDateYMD(expiresAt!, locationSettings.locale)}</strong>
                 </Typography>
               )}
             />
@@ -233,8 +218,7 @@ export const PersonalAPITokenForm = ({
         condition={neverExpires}
         show={
           <StyledAlert severity='warning'>
-            We strongly recommend that you set an expiration date for your token
-            to help keep your information secure.
+            We strongly recommend that you set an expiration date for your token to help keep your information secure.
           </StyledAlert>
         }
       />

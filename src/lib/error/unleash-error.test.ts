@@ -2,10 +2,7 @@ import owasp from 'owasp-password-strength-test';
 import type { ErrorObject } from 'ajv';
 import AuthenticationRequired from '../types/authentication-required';
 import type { ApiErrorSchema } from './unleash-error';
-import BadDataError, {
-  fromOpenApiValidationError,
-  fromOpenApiValidationErrors,
-} from './bad-data-error';
+import BadDataError, { fromOpenApiValidationError, fromOpenApiValidationErrors } from './bad-data-error';
 import PermissionError from './permission-error';
 import OwaspValidationError from './owasp-validation-error';
 import IncompatibleProjectError from './incompatible-project-error';
@@ -73,8 +70,7 @@ describe('OpenAPI error conversion', () => {
     const error = {
       keyword: 'type',
       instancePath: '/body/parameters',
-      schemaPath:
-        '#/components/schemas/addonCreateUpdateSchema/properties/parameters/type',
+      schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/parameters/type',
       params: {
         type: 'object',
       },
@@ -100,48 +96,44 @@ describe('OpenAPI error conversion', () => {
     expect(result.message).toContain(JSON.stringify(parameterValue));
   });
 
-  it.each(['/body', '/body/subObject'])(
-    'Gives useful error messages for oneOf errors in %s',
-    (instancePath) => {
-      const error = {
-        keyword: 'oneOf',
-        instancePath,
-        schemaPath: '#/components/schemas/createApiTokenSchema/oneOf',
-        params: {
-          passingSchemas: null,
-        },
-        message: 'should match exactly one schema in oneOf',
-      };
+  it.each(['/body', '/body/subObject'])('Gives useful error messages for oneOf errors in %s', (instancePath) => {
+    const error = {
+      keyword: 'oneOf',
+      instancePath,
+      schemaPath: '#/components/schemas/createApiTokenSchema/oneOf',
+      params: {
+        passingSchemas: null,
+      },
+      message: 'should match exactly one schema in oneOf',
+    };
 
-      const result = fromOpenApiValidationError({
-        body: {
-          secret: 'blah',
-          username: 'string2',
-          type: 'admin',
-        },
-        query: {},
-      })(error);
+    const result = fromOpenApiValidationError({
+      body: {
+        secret: 'blah',
+        username: 'string2',
+        type: 'admin',
+      },
+      query: {},
+    })(error);
 
-      expect(result).toMatchObject({
-        message:
-          // it provides the message
-          expect.stringContaining(error.message),
-        path: instancePath,
-      });
+    expect(result).toMatchObject({
+      message:
+        // it provides the message
+        expect.stringContaining(error.message),
+      path: instancePath,
+    });
 
-      // it tells the user what happened
-      expect(result.message).toContain('matches more than one option');
-      // it tells the user what part of the request body this pertains to
-      expect(result.message).toContain(`"${instancePath}" property`);
-    },
-  );
+    // it tells the user what happened
+    expect(result.message).toContain('matches more than one option');
+    // it tells the user what part of the request body this pertains to
+    expect(result.message).toContain(`"${instancePath}" property`);
+  });
 
   it('Gives useful pattern error messages', () => {
     const error = {
       keyword: 'pattern',
       instancePath: '/body/description',
-      schemaPath:
-        '#/components/schemas/addonCreateUpdateSchema/properties/description/pattern',
+      schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/description/pattern',
       params: {
         pattern: '^this is',
       },
@@ -200,8 +192,7 @@ describe('OpenAPI error conversion', () => {
     const error = {
       keyword: 'maxLength',
       instancePath: '/body/description',
-      schemaPath:
-        '#/components/schemas/addonCreateUpdateSchema/properties/description/maxLength',
+      schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/description/maxLength',
       params: {
         limit: 5,
       },
@@ -232,8 +223,7 @@ describe('OpenAPI error conversion', () => {
     const error = {
       keyword: 'maximum',
       instancePath: '/body/newprop',
-      schemaPath:
-        '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
+      schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
       params: {
         comparison: '<=',
         limit: 5,
@@ -269,8 +259,7 @@ describe('OpenAPI error conversion', () => {
       {
         keyword: 'maximum',
         instancePath: '/body/newprop',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
         params: {
           comparison: '<=',
           limit: 5,
@@ -314,8 +303,7 @@ describe('OpenAPI error conversion', () => {
       {
         keyword: 'maximum',
         instancePath: '/newprop',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/newprop/maximum',
         params: {
           comparison: '<=',
           limit: 5,
@@ -334,10 +322,7 @@ describe('OpenAPI error conversion', () => {
       },
     ];
 
-    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors(
-      { newprop: 7 },
-      errors,
-    ).toJSON();
+    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors({ newprop: 7 }, errors).toJSON();
 
     expect(serializedUnleashError).toMatchObject({
       name: 'BadDataError',
@@ -358,8 +343,7 @@ describe('OpenAPI error conversion', () => {
       {
         keyword: 'maximum',
         instancePath: '/body/newprop',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/properties/body/newprop/maximum',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/body/newprop/maximum',
         params: {
           comparison: '<=',
           limit: 5,
@@ -369,10 +353,7 @@ describe('OpenAPI error conversion', () => {
       },
     ];
 
-    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors(
-      {},
-      errors,
-    ).toJSON();
+    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors({}, errors).toJSON();
 
     expect(serializedUnleashError).toMatchObject({
       name: 'BadDataError',
@@ -390,8 +371,7 @@ describe('OpenAPI error conversion', () => {
       const openApiError = {
         keyword: 'additionalProperties',
         instancePath: '/body',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/additionalProperties',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/additionalProperties',
         params: { additionalProperty: 'bogus' },
         message: 'should NOT have additional properties',
       };
@@ -402,9 +382,7 @@ describe('OpenAPI error conversion', () => {
       })(openApiError);
 
       expect(error).toMatchObject({
-        message: expect.stringContaining(
-          openApiError.params.additionalProperty,
-        ),
+        message: expect.stringContaining(openApiError.params.additionalProperty),
         path: '/body/bogus',
       });
 
@@ -446,8 +424,7 @@ describe('OpenAPI error conversion', () => {
     const error = {
       keyword: 'type',
       instancePath: '/body/nestedObject/a/b',
-      schemaPath:
-        '#/components/schemas/addonCreateUpdateSchema/properties/nestedObject/properties/a/properties/b/type',
+      schemaPath: '#/components/schemas/addonCreateUpdateSchema/properties/nestedObject/properties/a/properties/b/type',
       params: { type: 'string' },
       message: 'should be string',
     };

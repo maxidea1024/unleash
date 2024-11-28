@@ -14,11 +14,7 @@ test('publicSignupTokenSchema', () => {
     enabled: true,
   };
 
-  expect(
-    validateSchema('#/components/schemas/publicSignupTokenSchema', {}),
-  ).not.toBeUndefined();
+  expect(validateSchema('#/components/schemas/publicSignupTokenSchema', {})).not.toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/publicSignupTokenSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/publicSignupTokenSchema', data)).toBeUndefined();
 });

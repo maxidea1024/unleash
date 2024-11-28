@@ -85,9 +85,7 @@ export const ConstraintAccordionViewHeaderMultipleValues = ({
           condition={expandable}
           show={
             <StyledHeaderValuesExpand className={'valuesExpandLabel'}>
-              {!expanded
-                ? `View all (${constraint?.values?.length})`
-                : 'View less'}
+              {!expanded ? `View all (${constraint?.values?.length})` : 'View less'}
             </StyledHeaderValuesExpand>
           }
         />

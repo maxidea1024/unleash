@@ -15,7 +15,5 @@ test('featureMetricsSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/featureMetricsSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/featureMetricsSchema', data)).toBeUndefined();
 });

@@ -84,10 +84,7 @@ beforeAll(async () => {
   const roles = await accessService.getRootRoles();
   adminRole = roles.find((role) => role.name === RoleName.ADMIN)!;
 
-  await createUserEditorAccess(
-    regularUserName,
-    `${regularUserName}@getunleash.io`,
-  );
+  await createUserEditorAccess(regularUserName, `${regularUserName}@getunleash.io`);
   await createUserAdminAccess(adminUserName, `${adminUserName}@getunleash.io`);
 });
 
@@ -103,14 +100,9 @@ beforeEach(async () => {
   await db.stores.eventStore.deleteAll();
 });
 
-const searchEvents = async (
-  queryParams: EventSearchQueryParameters,
-  expectedCode = 200,
-) => {
+const searchEvents = async (queryParams: EventSearchQueryParameters, expectedCode = 200) => {
   const query = new URLSearchParams(queryParams as any).toString();
-  return app.request
-    .get(`/api/admin/search/events?${query}`)
-    .expect(expectedCode);
+  return app.request.get(`/api/admin/search/events?${query}`).expect(expectedCode);
 };
 
 test('should search events by query', async () => {
@@ -366,16 +358,14 @@ test('should not include events before `from` or after `to`', async () => {
 
   const { events } = await eventService.getEvents();
   const earlyEvent = events.find((e) => e.data.featureName === 'early-event');
-  await db.rawDatabase.raw(
-    `UPDATE events SET created_at = created_at - interval '1 day' where id = ?`,
-    [earlyEvent?.id],
-  );
+  await db.rawDatabase.raw(`UPDATE events SET created_at = created_at - interval '1 day' where id = ?`, [
+    earlyEvent?.id,
+  ]);
 
   const lateEvent = events.find((e) => e.data.featureName === 'late-event');
-  await db.rawDatabase.raw(
-    `UPDATE events SET created_at = created_at + interval '1 day' where id = ?`,
-    [lateEvent?.id],
-  );
+  await db.rawDatabase.raw(`UPDATE events SET created_at = created_at + interval '1 day' where id = ?`, [
+    lateEvent?.id,
+  ]);
 
   const today = new Date();
   const todayString = today.toISOString().split('T')[0];

@@ -9,12 +9,8 @@ export const useRoutes = () => {
   const adminRoutes = useAdminRoutes();
 
   const filteredMainRoutes = {
-    mainNavRoutes: getCondensedRoutes(routes.mainNavRoutes)
-      .filter(filterByConfig(uiConfig))
-      .map(mapRouteLink),
-    mobileRoutes: getCondensedRoutes(routes.mobileRoutes)
-      .filter(filterByConfig(uiConfig))
-      .map(mapRouteLink),
+    mainNavRoutes: getCondensedRoutes(routes.mainNavRoutes).filter(filterByConfig(uiConfig)).map(mapRouteLink),
+    mobileRoutes: getCondensedRoutes(routes.mobileRoutes).filter(filterByConfig(uiConfig)).map(mapRouteLink),
     adminRoutes,
   };
 

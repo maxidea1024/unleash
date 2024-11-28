@@ -1,14 +1,5 @@
 import Delete from '@mui/icons-material/Delete';
-import {
-  Alert,
-  Button,
-  IconButton,
-  styled,
-  Tooltip,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material';
+import { Alert, Button, IconButton, styled, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
@@ -22,19 +13,10 @@ import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightC
 import { PAT_LIMIT } from '@server/util/constants';
 import { usePersonalAPITokens } from 'hooks/api/getters/usePersonalAPITokens/usePersonalAPITokens';
 import { useSearch } from 'hooks/useSearch';
-import type {
-  INewPersonalAPIToken,
-  IPersonalAPIToken,
-} from 'interfaces/personalAPIToken';
+import type { INewPersonalAPIToken, IPersonalAPIToken } from 'interfaces/personalAPIToken';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import {
-  useTable,
-  type SortingRule,
-  useSortBy,
-  useFlexLayout,
-  type Column,
-} from 'react-table';
+import { useTable, type SortingRule, useSortBy, useFlexLayout, type Column } from 'react-table';
 import { createLocalStorage } from 'utils/createLocalStorage';
 import { sortTypes } from 'utils/sortTypes';
 import { CreatePersonalAPIToken } from './CreatePersonalAPIToken/CreatePersonalAPIToken';
@@ -71,16 +53,11 @@ export const tokensPlaceholder: IPersonalAPIToken[] = Array(15).fill({
   project: 'projectID',
 });
 
-export type PageQueryType = Partial<
-  Record<'sort' | 'order' | 'search', string>
->;
+export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
 
 const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 
-const { value: storedParams, setValue: setStoredParams } = createLocalStorage(
-  'PersonalAPITokensTable:v1',
-  defaultSort,
-);
+const { value: storedParams, setValue: setStoredParams } = createLocalStorage('PersonalAPITokensTable:v1', defaultSort);
 
 export const PersonalAPITokensTab = () => {
   const theme = useTheme();
@@ -94,9 +71,7 @@ export const PersonalAPITokensTab = () => {
     sortBy: [
       {
         id: searchParams.get('sort') || storedParams.id,
-        desc: searchParams.has('order')
-          ? searchParams.get('order') === 'desc'
-          : storedParams.desc,
+        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : storedParams.desc,
       },
     ],
     globalFilter: searchParams.get('search') || '',
@@ -170,15 +145,10 @@ export const PersonalAPITokensTab = () => {
     [setSelectedToken, setDeleteOpen],
   );
 
-  const {
-    data: searchedData,
-    getSearchText,
-    getSearchContext,
-  } = useSearch(columns, searchValue, tokens);
+  const { data: searchedData, getSearchText, getSearchContext } = useSearch(columns, searchValue, tokens);
 
   const data = useMemo(
-    () =>
-      searchedData?.length === 0 && loading ? tokensPlaceholder : searchedData,
+    () => (searchedData?.length === 0 && loading ? tokensPlaceholder : searchedData),
     [searchedData, loading],
   );
 
@@ -239,22 +209,14 @@ export const PersonalAPITokensTab = () => {
       isLoading={loading}
       header={
         <PageHeader
-          title={`Personal API tokens (${
-            rows.length < data.length
-              ? `${rows.length} of ${data.length}`
-              : data.length
-          })`}
+          title={`Personal API tokens (${rows.length < data.length ? `${rows.length} of ${data.length}` : data.length})`}
           actions={
             <>
               <ConditionallyRender
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                      getSearchContext={getSearchContext}
-                    />
+                    <Search initialValue={searchValue} onChange={setSearchValue} getSearchContext={getSearchContext} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -285,15 +247,11 @@ export const PersonalAPITokensTab = () => {
       }
     >
       <StyledAlert severity='info'>
-        Use personal API tokens to authenticate to the Unleash API as yourself.
-        A personal API token has the same access privileges as your user.
+        Use personal API tokens to authenticate to the Unleash API as yourself. A personal API token has the same access
+        privileges as your user.
       </StyledAlert>
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -309,12 +267,10 @@ export const PersonalAPITokensTab = () => {
             }
             elseShow={
               <StyledTablePlaceholder>
-                <StyledPlaceholderTitle>
-                  You have no personal API tokens yet.
-                </StyledPlaceholderTitle>
+                <StyledPlaceholderTitle>You have no personal API tokens yet.</StyledPlaceholderTitle>
                 <StyledPlaceholderSubtitle variant='body2'>
-                  Need an API token for scripts or testing? Create a personal
-                  API token for quick access to the Unleash API.
+                  Need an API token for scripts or testing? Create a personal API token for quick access to the Unleash
+                  API.
                 </StyledPlaceholderSubtitle>
                 <Button variant='outlined' onClick={() => setCreateOpen(true)}>
                   Create your first token
@@ -332,16 +288,8 @@ export const PersonalAPITokensTab = () => {
           setDialogOpen(true);
         }}
       />
-      <PersonalAPITokenDialog
-        open={dialogOpen}
-        setOpen={setDialogOpen}
-        token={newToken}
-      />
-      <DeletePersonalAPIToken
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
-        token={selectedToken}
-      />
+      <PersonalAPITokenDialog open={dialogOpen} setOpen={setDialogOpen} token={newToken} />
+      <DeletePersonalAPIToken open={deleteOpen} setOpen={setDeleteOpen} token={selectedToken} />
     </PageContent>
   );
 };

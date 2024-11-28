@@ -27,14 +27,9 @@ export type ProjectForInsights = {
 };
 
 export interface IProjectReadModel {
-  getProjectsForAdminUi(
-    query?: IProjectQuery & IProjectsQuery,
-    userId?: number,
-  ): Promise<ProjectForUi[]>;
+  getProjectsForAdminUi(query?: IProjectQuery & IProjectsQuery, userId?: number): Promise<ProjectForUi[]>;
   getProjectsForInsights(query?: IProjectQuery): Promise<ProjectForInsights[]>;
-  getFeatureProject(
-    featureName: string,
-  ): Promise<{ project: string; createdAt: Date } | null>;
+  getFeatureProject(featureName: string): Promise<{ project: string; createdAt: Date } | null>;
   getProjectsByUser(userId: number): Promise<string[]>;
   getProjectsFavoritedByUser(userId: number): Promise<string[]>;
 }

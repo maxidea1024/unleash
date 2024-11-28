@@ -7,8 +7,7 @@
 /**
  * Version of the strategies schema
  */
-export type StrategiesSchemaVersion =
-  (typeof StrategiesSchemaVersion)[keyof typeof StrategiesSchemaVersion];
+export type StrategiesSchemaVersion = (typeof StrategiesSchemaVersion)[keyof typeof StrategiesSchemaVersion];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const StrategiesSchemaVersion = {

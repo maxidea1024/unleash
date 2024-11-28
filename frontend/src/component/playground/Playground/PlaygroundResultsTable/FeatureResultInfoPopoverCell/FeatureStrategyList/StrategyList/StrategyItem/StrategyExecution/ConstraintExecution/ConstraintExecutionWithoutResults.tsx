@@ -16,19 +16,14 @@ export const ConstraintExecutionWrapper = styled('div')(() => ({
   flexDirection: 'column',
 }));
 
-export const ConstraintExecutionWithoutResults: VFC<
-  IConstraintExecutionWithoutResultsProps
-> = ({ constraints }) => {
+export const ConstraintExecutionWithoutResults: VFC<IConstraintExecutionWithoutResultsProps> = ({ constraints }) => {
   if (!constraints) return null;
 
   return (
     <ConstraintExecutionWrapper>
       {constraints?.map((constraint, index) => (
         <Fragment key={objectId(constraint)}>
-          <ConditionallyRender
-            condition={index > 0}
-            show={<StrategySeparator text='AND' />}
-          />
+          <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
           <ConstraintAccordionView constraint={constraint} compact disabled />
         </Fragment>
       ))}

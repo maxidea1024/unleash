@@ -5,10 +5,7 @@ import { GridCol } from 'component/common/GridCol/GridCol';
 import { GridColLink } from './GridColLink/GridColLink';
 import type { IInstanceStatus } from 'interfaces/instance';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
-import {
-  BILLING_PAYG_DEFAULT_MINIMUM_SEATS,
-  BILLING_PAYG_USER_PRICE,
-} from './BillingPlan';
+import { BILLING_PAYG_DEFAULT_MINIMUM_SEATS, BILLING_PAYG_USER_PRICE } from './BillingPlan';
 
 const StyledInfoLabel = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
@@ -23,15 +20,12 @@ interface IBillingDetailsPAYGProps {
   instanceStatus: IInstanceStatus;
 }
 
-export const BillingDetailsPAYG = ({
-  instanceStatus,
-}: IBillingDetailsPAYGProps) => {
+export const BillingDetailsPAYG = ({ instanceStatus }: IBillingDetailsPAYGProps) => {
   const { users, loading } = useUsers();
 
   const eligibleUsers = users.filter((user) => user.email);
 
-  const minSeats =
-    instanceStatus.minSeats ?? BILLING_PAYG_DEFAULT_MINIMUM_SEATS;
+  const minSeats = instanceStatus.minSeats ?? BILLING_PAYG_DEFAULT_MINIMUM_SEATS;
 
   const billableUsers = Math.max(eligibleUsers.length, minSeats);
   const usersCost = BILLING_PAYG_USER_PRICE * billableUsers;
@@ -57,9 +51,7 @@ export const BillingDetailsPAYG = ({
                 </Link>
               </GridColLink>
             </Typography>
-            <StyledInfoLabel>
-              ${BILLING_PAYG_USER_PRICE}/month per paid member
-            </StyledInfoLabel>
+            <StyledInfoLabel>${BILLING_PAYG_USER_PRICE}/month per paid member</StyledInfoLabel>
           </GridCol>
           <GridCol>
             <Typography

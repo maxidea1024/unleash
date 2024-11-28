@@ -4,8 +4,7 @@ export const instanceAdminStatsSchema = {
   $id: '#/components/schemas/instanceAdminStatsSchema',
   type: 'object',
   additionalProperties: false,
-  description:
-    'Information about an instance and statistics about usage of various features of Unleash',
+  description: 'Information about an instance and statistics about usage of various features of Unleash',
   required: ['instanceId'],
   properties: {
     instanceId: {
@@ -23,14 +22,12 @@ export const instanceAdminStatsSchema = {
     },
     versionOSS: {
       type: 'string',
-      description:
-        'The version of Unleash OSS that is bundled in this instance',
+      description: 'The version of Unleash OSS that is bundled in this instance',
       example: '5.1.7',
     },
     versionEnterprise: {
       type: 'string',
-      description:
-        'The version of Unleash Enterprise that is bundled in this instance',
+      description: 'The version of Unleash Enterprise that is bundled in this instance',
       example: '5.1.7',
     },
     users: {
@@ -46,15 +43,13 @@ export const instanceAdminStatsSchema = {
       properties: {
         enabledCount: {
           type: 'integer',
-          description:
-            'The number of enabled/disabled metrics buckets recorded in the previous day',
+          description: 'The number of enabled/disabled metrics buckets recorded in the previous day',
           example: 10,
           minimum: 0,
         },
         variantCount: {
           type: 'integer',
-          description:
-            'The number of variant metrics buckets recorded in the previous day',
+          description: 'The number of variant metrics buckets recorded in the previous day',
           example: 10,
           minimum: 0,
         },
@@ -99,27 +94,23 @@ export const instanceAdminStatsSchema = {
     },
     productionChanges: {
       type: 'object',
-      description:
-        'The number of changes to the production environment in the last 30, 60 and 90 days',
+      description: 'The number of changes to the production environment in the last 30, 60 and 90 days',
       properties: {
         last30: {
           type: 'integer',
-          description:
-            'The number of changes in production in the last 30 days',
+          description: 'The number of changes in production in the last 30 days',
           example: 10,
           minimum: 0,
         },
         last60: {
           type: 'integer',
-          description:
-            'The number of changes in production in the last 60 days',
+          description: 'The number of changes in production in the last 60 days',
           example: 12,
           minimum: 0,
         },
         last90: {
           type: 'integer',
-          description:
-            'The number of changes in production in the last 90 days',
+          description: 'The number of changes in production in the last 90 days',
           example: 15,
           minimum: 0,
         },
@@ -175,24 +166,20 @@ export const instanceAdminStatsSchema = {
     },
     SAMLenabled: {
       type: 'boolean',
-      description:
-        'Whether or not SAML authentication is enabled for this instance',
+      description: 'Whether or not SAML authentication is enabled for this instance',
       example: false,
     },
     OIDCenabled: {
       type: 'boolean',
-      description:
-        'Whether or not OIDC authentication is enabled for this instance',
+      description: 'Whether or not OIDC authentication is enabled for this instance',
       example: true,
     },
     clientApps: {
       type: 'array',
-      description:
-        'A count of connected applications in the last week, last month and all time since last restart',
+      description: 'A count of connected applications in the last week, last month and all time since last restart',
       items: {
         type: 'object',
-        description:
-          'An entry describing how many client applications has been observed over the defined range',
+        description: 'An entry describing how many client applications has been observed over the defined range',
         properties: {
           range: {
             type: 'string',
@@ -202,8 +189,7 @@ export const instanceAdminStatsSchema = {
           },
           count: {
             type: 'integer',
-            description:
-              'The number of client applications that have been observed in this period',
+            description: 'The number of client applications that have been observed in this period',
             example: 1,
           },
         },
@@ -249,34 +235,28 @@ export const instanceAdminStatsSchema = {
       type: 'integer',
       minimum: 0,
       example: 3,
-      description:
-        'The highest number of strategies used on a single feature flag in a single environment.',
+      description: 'The highest number of strategies used on a single feature flag in a single environment.',
     },
     maxConstraints: {
       type: 'integer',
       minimum: 0,
       example: 4,
-      description:
-        'The highest number of constraints used on a single strategy.',
+      description: 'The highest number of constraints used on a single strategy.',
     },
     maxConstraintValues: {
       type: 'integer',
       minimum: 0,
       example: 17,
-      description:
-        'The highest number of constraint values used on a single constraint.',
+      description: 'The highest number of constraint values used on a single constraint.',
     },
     sum: {
       type: 'string',
       description:
         'A SHA-256 checksum of the instance statistics to be used to verify that the data in this object has not been tampered with',
-      example:
-        'b023323477abb1eb145bebf3cdb30a1c2063e3edc1f7ae474ed8ed6c80de9a3b',
+      example: 'b023323477abb1eb145bebf3cdb30a1c2063e3edc1f7ae474ed8ed6c80de9a3b',
     },
   },
   components: {},
 } as const;
 
-export type InstanceAdminStatsSchema = FromSchema<
-  typeof instanceAdminStatsSchema
->;
+export type InstanceAdminStatsSchema = FromSchema<typeof instanceAdminStatsSchema>;

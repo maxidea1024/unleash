@@ -1,8 +1,4 @@
-import type {
-  IClientSegment,
-  IFeatureStrategySegment,
-  ISegment,
-} from '../../types';
+import type { IClientSegment, IFeatureStrategySegment, ISegment } from '../../types';
 import type { ISegmentReadModel } from './segment-read-model-type';
 
 export class FakeSegmentReadModel implements ISegmentReadModel {

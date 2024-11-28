@@ -11,10 +11,7 @@ import {
 } from '../change-request-access-service/createChangeRequestAccessReadModel';
 import { FeaturesReadModel } from '../feature-toggle/features-read-model';
 import { FakeFeaturesReadModel } from '../feature-toggle/fakes/fake-features-read-model';
-import {
-  createEventsService,
-  createFakeEventsService,
-} from '../events/createEventsService';
+import { createEventsService, createFakeEventsService } from '../events/createEventsService';
 
 export const createDependentFeaturesService =
   (config: IUnleashConfig) =>
@@ -22,10 +19,7 @@ export const createDependentFeaturesService =
     const eventService = createEventsService(db, config);
     const dependentFeaturesStore = new DependentFeaturesStore(db);
     const dependentFeaturesReadModel = new DependentFeaturesReadModel(db);
-    const changeRequestAccessReadModel = createChangeRequestAccessReadModel(
-      db,
-      config,
-    );
+    const changeRequestAccessReadModel = createChangeRequestAccessReadModel(db, config);
     const featuresReadModel = new FeaturesReadModel(db);
     return new DependentFeaturesService({
       dependentFeaturesStore,
@@ -36,9 +30,7 @@ export const createDependentFeaturesService =
     });
   };
 
-export const createFakeDependentFeaturesService = (
-  config: IUnleashConfig,
-): DependentFeaturesService => {
+export const createFakeDependentFeaturesService = (config: IUnleashConfig): DependentFeaturesService => {
   const eventService = createFakeEventsService(config);
   const dependentFeaturesStore = new FakeDependentFeaturesStore();
   const dependentFeaturesReadModel = new FakeDependentFeaturesReadModel();

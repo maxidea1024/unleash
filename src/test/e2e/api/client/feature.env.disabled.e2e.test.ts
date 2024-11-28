@@ -1,7 +1,4 @@
-import {
-  type IUnleashTest,
-  setupAppWithCustomConfig,
-} from '../../helpers/test-helper';
+import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
@@ -32,7 +29,9 @@ beforeAll(async () => {
     { name: 'default', constraints: [], parameters: {} },
     { projectId, featureName, environment: DEFAULT_ENV },
     TEST_AUDIT_USER,
-    { id: userId } as IUser,
+    {
+      id: userId,
+    } as IUser,
   );
 });
 
@@ -62,15 +61,9 @@ test('returns feature flag for default env', async () => {
 });
 
 test('returns feature flag for default env even if it is removed from project', async () => {
-  await db.stores.featureEnvironmentStore.disconnectFeatures(
-    'default',
-    'default',
-  );
+  await db.stores.featureEnvironmentStore.disconnectFeatures('default', 'default');
 
-  await db.stores.featureEnvironmentStore.disconnectProject(
-    'default',
-    'default',
-  );
+  await db.stores.featureEnvironmentStore.disconnectProject('default', 'default');
 
   await app.request
     .get('/api/client/features')

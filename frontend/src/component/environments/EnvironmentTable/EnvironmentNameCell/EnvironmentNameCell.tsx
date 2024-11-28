@@ -24,9 +24,7 @@ interface IEnvironmentNameCellProps {
   environment: IEnvironment;
 }
 
-export const EnvironmentNameCell = ({
-  environment,
-}: IEnvironmentNameCellProps) => {
+export const EnvironmentNameCell = ({ environment }: IEnvironmentNameCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   return (
@@ -51,8 +49,8 @@ export const EnvironmentNameCell = ({
               <>
                 <StyledTooltipTitle>Deprecated environment</StyledTooltipTitle>
                 <StyledTooltipDescription>
-                  This environment is not auto-enabled for new projects. The
-                  project owner will need to manually enable it in the project.
+                  This environment is not auto-enabled for new projects. The project owner will need to manually enable
+                  it in the project.
                 </StyledTooltipDescription>
               </>
             }

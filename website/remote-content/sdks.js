@@ -1,9 +1,4 @@
-import {
-  enrichAdditional,
-  modifyContent,
-  getRepoData,
-  getUrls,
-} from './shared';
+import { enrichAdditional, modifyContent, getRepoData, getUrls } from './shared';
 
 // Type definitions
 //
@@ -89,12 +84,8 @@ const clientSideSdks = {
 };
 
 const SDKS = (() => {
-  const serverSide = Object.entries(serverSideSdks).map(
-    enrichAdditional({ type: SERVER_SIDE_SDK }),
-  );
-  const clientSide = Object.entries(clientSideSdks).map(
-    enrichAdditional({ type: CLIENT_SIDE_SDK }),
-  );
+  const serverSide = Object.entries(serverSideSdks).map(enrichAdditional({ type: SERVER_SIDE_SDK }));
+  const clientSide = Object.entries(clientSideSdks).map(enrichAdditional({ type: CLIENT_SIDE_SDK }));
 
   return Object.fromEntries(serverSide.concat(clientSide));
 })();

@@ -1,11 +1,5 @@
 import { useInstanceStatus } from 'hooks/api/getters/useInstanceStatus/useInstanceStatus';
-import React, {
-  type FC,
-  type VFC,
-  useEffect,
-  useState,
-  useContext,
-} from 'react';
+import React, { type FC, type VFC, useEffect, useState, useContext } from 'react';
 import { InstanceStatusBar } from 'component/common/InstanceStatus/InstanceStatusBar';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -24,10 +18,7 @@ interface ITrialDialogProps {
   onExtendTrial: () => Promise<void>;
 }
 
-const TrialDialog: VFC<ITrialDialogProps> = ({
-  instanceStatus,
-  onExtendTrial,
-}) => {
+const TrialDialog: VFC<ITrialDialogProps> = ({ instanceStatus, onExtendTrial }) => {
   const { hasAccess } = useContext(AccessContext);
   const navigate = useNavigate();
   const expired = trialHasExpired(instanceStatus);
@@ -61,8 +52,7 @@ const TrialDialog: VFC<ITrialDialogProps> = ({
         title={`Your free ${instanceStatus.plan} trial has expired!`}
       >
         <Typography>
-          Please contact your Unleash sales representative to avoid{' '}
-          <strong>deletion of your Unleash account.</strong>
+          Please contact your Unleash sales representative to avoid <strong>deletion of your Unleash account.</strong>
         </Typography>
       </Dialogue>
     );
@@ -73,11 +63,7 @@ const TrialDialog: VFC<ITrialDialogProps> = ({
       <Dialogue
         open={dialogOpen}
         primaryButtonText='Upgrade trial'
-        secondaryButtonText={
-          canExtendTrial(instanceStatus)
-            ? 'Extend trial (5 days)'
-            : 'Remind me later'
-        }
+        secondaryButtonText={canExtendTrial(instanceStatus) ? 'Extend trial (5 days)' : 'Remind me later'}
         onClick={() => {
           navigate('/admin/billing');
           setDialogOpen(false);
@@ -86,8 +72,7 @@ const TrialDialog: VFC<ITrialDialogProps> = ({
         title={`Your free ${instanceStatus.plan} trial has expired!`}
       >
         <Typography>
-          <strong>Upgrade trial</strong> otherwise your{' '}
-          <strong>account will be deleted.</strong>
+          <strong>Upgrade trial</strong> otherwise your <strong>account will be deleted.</strong>
         </Typography>
       </Dialogue>
     );
@@ -103,16 +88,13 @@ const TrialDialog: VFC<ITrialDialogProps> = ({
       title={`Your free ${instanceStatus.plan} trial has expired!`}
     >
       <Typography>
-        Please inform your admin to <strong>Upgrade trial</strong> or your{' '}
-        <strong>account will be deleted.</strong>
+        Please inform your admin to <strong>Upgrade trial</strong> or your <strong>account will be deleted.</strong>
       </Typography>
     </Dialogue>
   );
 };
 
-export const InstanceStatus: FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+export const InstanceStatus: FC<{ children?: React.ReactNode }> = ({ children }) => {
   const { instanceStatus, refetchInstanceStatus } = useInstanceStatus();
   const { extendTrial } = useInstanceStatusApi();
   const { setToastApiError } = useToast();
@@ -133,10 +115,7 @@ export const InstanceStatus: FC<{ children?: React.ReactNode }> = ({
         show={() => (
           <>
             <InstanceStatusBarMemo instanceStatus={instanceStatus!} />
-            <TrialDialog
-              instanceStatus={instanceStatus!}
-              onExtendTrial={onExtendTrial}
-            />
+            <TrialDialog instanceStatus={instanceStatus!} onExtendTrial={onExtendTrial} />
           </>
         )}
       />

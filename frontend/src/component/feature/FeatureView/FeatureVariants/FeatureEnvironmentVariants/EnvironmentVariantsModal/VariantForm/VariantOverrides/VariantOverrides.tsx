@@ -49,10 +49,7 @@ interface IOverrideConfigProps {
   overridesDispatch: OverridesDispatchType;
 }
 
-export const OverrideConfig: VFC<IOverrideConfigProps> = ({
-  overrides,
-  overridesDispatch,
-}) => {
+export const OverrideConfig: VFC<IOverrideConfigProps> = ({ overrides, overridesDispatch }) => {
   const { context } = useUnleashContext();
   const contextNames = context.map(({ name }) => ({
     key: name,
@@ -66,26 +63,20 @@ export const OverrideConfig: VFC<IOverrideConfigProps> = ({
     });
   };
 
-  const updateSelectValues =
-    (index: number) => (event: ChangeEvent<unknown>, options: string[]) => {
-      event?.preventDefault();
-      overridesDispatch({
-        type: 'UPDATE_VALUES_AT',
-        payload: [index, options ? options : []],
-      });
-    };
+  const updateSelectValues = (index: number) => (event: ChangeEvent<unknown>, options: string[]) => {
+    event?.preventDefault();
+    overridesDispatch({
+      type: 'UPDATE_VALUES_AT',
+      payload: [index, options ? options : []],
+    });
+  };
 
   return (
     <>
       {overrides.map((override, index) => {
-        const definition = context.find(
-          ({ name }) => name === override.contextName,
-        );
-        const legalValues =
-          definition?.legalValues?.map(({ value }) => value) || [];
-        const filteredValues = override.values.filter((value) =>
-          legalValues.includes(value),
-        );
+        const definition = context.find(({ name }) => name === override.contextName);
+        const legalValues = definition?.legalValues?.map(({ value }) => value) || [];
+        const filteredValues = override.values.filter((value) => legalValues.includes(value));
 
         return (
           <StyledRow key={`override=${index}`}>
@@ -120,13 +111,7 @@ export const OverrideConfig: VFC<IOverrideConfigProps> = ({
                     style={{ width: '100%' }}
                     filterSelectedOptions
                     size='small'
-                    renderInput={(params) => (
-                      <StyledTextField
-                        {...params}
-                        variant='outlined'
-                        label='Legal values'
-                      />
-                    )}
+                    renderInput={(params) => <StyledTextField {...params} variant='outlined' label='Legal values' />}
                   />
                 }
                 elseShow={

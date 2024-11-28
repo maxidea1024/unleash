@@ -16,7 +16,5 @@ test('profileSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/profileSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/profileSchema', data)).toBeUndefined();
 });

@@ -12,9 +12,7 @@ export const useActionConfigurations = (project: string) => {
   const { isEnterprise } = useUiConfig();
   const actionsEnabled = useUiFlag('automatedActions');
 
-  const { data, error, mutate } = useConditionalSWR<
-    Record<string, ActionConfiguration>
-  >(
+  const { data, error, mutate } = useConditionalSWR<Record<string, ActionConfiguration>>(
     isEnterprise() && actionsEnabled,
     DEFAULT_DATA,
     formatApiPath(`api/admin/projects/${project}/actions/config`),
@@ -23,9 +21,7 @@ export const useActionConfigurations = (project: string) => {
 
   return useMemo(
     () => ({
-      actionConfigurations: new Map<string, ActionConfiguration>(
-        Object.entries(data || {}),
-      ),
+      actionConfigurations: new Map<string, ActionConfiguration>(Object.entries(data || {})),
       loading: !error && !data,
       refetch: () => mutate(),
       error,

@@ -8,10 +8,7 @@ interface IWidgetFooterLinkProps {
   children?: React.ReactNode;
 }
 
-export const WidgetFooterLink: FC<IWidgetFooterLinkProps> = ({
-  children,
-  to,
-}) => {
+export const WidgetFooterLink: FC<IWidgetFooterLinkProps> = ({ children, to }) => {
   return (
     <Typography
       data-loading

@@ -13,10 +13,7 @@ import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import {
-  StyledMetaDataItem,
-  StyledMetaDataItemLabel,
-} from './FeatureOverviewMetaData';
+import { StyledMetaDataItem, StyledMetaDataItemLabel } from './FeatureOverviewMetaData';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 
 const StyledPermissionButton = styled(PermissionButton)(({ theme }) => ({
@@ -84,11 +81,7 @@ export const TagRow = ({ feature }: IFeatureOverviewSidePanelTagsProps) => {
   const handleRemove = async () => {
     if (!selectedTag) return;
     try {
-      await deleteTagFromFeature(
-        feature.name,
-        selectedTag.type,
-        selectedTag.value,
-      );
+      await deleteTagFromFeature(feature.name, selectedTag.type, selectedTag.value);
       refetch();
       setToastData({
         type: 'success',
@@ -127,11 +120,7 @@ export const TagRow = ({ feature }: IFeatureOverviewSidePanelTagsProps) => {
               {tags.map((tag) => {
                 const tagLabel = `${tag.type}:${tag.value}`;
                 return (
-                  <Tooltip
-                    key={tagLabel}
-                    title={tagLabel.length > 35 ? tagLabel : ''}
-                    arrow
-                  >
+                  <Tooltip key={tagLabel} title={tagLabel.length > 35 ? tagLabel : ''} arrow>
                     <StyledAddedTag
                       label={tagLabel}
                       size='small'
@@ -155,12 +144,7 @@ export const TagRow = ({ feature }: IFeatureOverviewSidePanelTagsProps) => {
               <ConditionallyRender
                 condition={canUpdateTags}
                 show={
-                  <StyledChip
-                    icon={<Add />}
-                    label='Add tag'
-                    size='small'
-                    onClick={() => setManageTagsOpen(true)}
-                  />
+                  <StyledChip icon={<Add />} label='Add tag' size='small' onClick={() => setManageTagsOpen(true)} />
                 }
               />
             </StyledTagContainer>

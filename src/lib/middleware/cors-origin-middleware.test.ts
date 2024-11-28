@@ -51,10 +51,7 @@ test('corsOriginMiddleware origin validation', async () => {
   const { frontendApiService } = createSettingService([]);
   const userName = randomId();
   await expect(() =>
-    frontendApiService.setFrontendSettings(
-      { frontendApiOrigins: ['a'] },
-      TEST_AUDIT_USER,
-    ),
+    frontendApiService.setFrontendSettings({ frontendApiOrigins: ['a'] }, TEST_AUDIT_USER),
   ).rejects.toThrow('Invalid origin: a');
 });
 
@@ -64,17 +61,11 @@ test('corsOriginMiddleware without config', async () => {
   expect(await frontendApiService.getFrontendSettings(false)).toEqual({
     frontendApiOrigins: [],
   });
-  await frontendApiService.setFrontendSettings(
-    { frontendApiOrigins: [] },
-    TEST_AUDIT_USER,
-  );
+  await frontendApiService.setFrontendSettings({ frontendApiOrigins: [] }, TEST_AUDIT_USER);
   expect(await frontendApiService.getFrontendSettings(false)).toEqual({
     frontendApiOrigins: [],
   });
-  await frontendApiService.setFrontendSettings(
-    { frontendApiOrigins: ['*'] },
-    TEST_AUDIT_USER,
-  );
+  await frontendApiService.setFrontendSettings({ frontendApiOrigins: ['*'] }, TEST_AUDIT_USER);
   expect(await frontendApiService.getFrontendSettings(false)).toEqual({
     frontendApiOrigins: ['*'],
   });
@@ -90,10 +81,7 @@ test('corsOriginMiddleware with config', async () => {
   expect(await frontendApiService.getFrontendSettings(false)).toEqual({
     frontendApiOrigins: ['*'],
   });
-  await frontendApiService.setFrontendSettings(
-    { frontendApiOrigins: [] },
-    TEST_AUDIT_USER,
-  );
+  await frontendApiService.setFrontendSettings({ frontendApiOrigins: [] }, TEST_AUDIT_USER);
   expect(await frontendApiService.getFrontendSettings(false)).toEqual({
     frontendApiOrigins: [],
   });
@@ -119,10 +107,7 @@ test('corsOriginMiddleware with caching enabled', async () => {
   });
 
   //setting
-  await frontendApiService.setFrontendSettings(
-    { frontendApiOrigins: ['*'] },
-    TEST_AUDIT_USER,
-  );
+  await frontendApiService.setFrontendSettings({ frontendApiOrigins: ['*'] }, TEST_AUDIT_USER);
 
   //still get cached value
   expect(await frontendApiService.getFrontendSettings()).toEqual({

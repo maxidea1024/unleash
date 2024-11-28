@@ -62,16 +62,11 @@ export const RolePermissionCategory = ({
     [permissions],
   );
   const permissionCount = useMemo(
-    () =>
-      Object.keys(checkedPermissions).filter((key) => permissionMap[key])
-        .length || 0,
+    () => Object.keys(checkedPermissions).filter((key) => permissionMap[key]).length || 0,
     [checkedPermissions, permissionMap],
   );
 
-  const isAllChecked = useMemo(
-    () => permissionCount === permissions?.length,
-    [permissionCount, permissions],
-  );
+  const isAllChecked = useMemo(() => permissionCount === permissions?.length, [permissionCount, permissions]);
 
   return (
     <Box
@@ -142,9 +137,7 @@ export const RolePermissionCategory = ({
                 key={getRoleKey(permission)}
                 control={
                   <Checkbox
-                    checked={Boolean(
-                      checkedPermissions[getRoleKey(permission)],
-                    )}
+                    checked={Boolean(checkedPermissions[getRoleKey(permission)])}
                     onChange={() => onPermissionChange(permission)}
                     color='primary'
                   />

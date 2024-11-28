@@ -19,33 +19,27 @@ const server = testServerSetup();
 const projectWithCollaborationMode = (mode: ProjectMode) =>
   testServerRoute(server, '/api/admin/projects/default/overview', { mode });
 
-const changeRequestsEnabledIn = (
-  env: 'development' | 'production' | 'custom',
-) =>
-  testServerRoute(
-    server,
-    '/api/admin/projects/default/change-requests/config',
-    [
-      {
-        environment: 'development',
-        type: 'development',
-        requiredApprovals: null,
-        changeRequestEnabled: env === 'development',
-      },
-      {
-        environment: 'production',
-        type: 'production',
-        requiredApprovals: 1,
-        changeRequestEnabled: env === 'production',
-      },
-      {
-        environment: 'custom',
-        type: 'production',
-        requiredApprovals: null,
-        changeRequestEnabled: env === 'custom',
-      },
-    ],
-  );
+const changeRequestsEnabledIn = (env: 'development' | 'production' | 'custom') =>
+  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
+    {
+      environment: 'development',
+      type: 'development',
+      requiredApprovals: null,
+      changeRequestEnabled: env === 'development',
+    },
+    {
+      environment: 'production',
+      type: 'production',
+      requiredApprovals: 1,
+      changeRequestEnabled: env === 'production',
+    },
+    {
+      environment: 'custom',
+      type: 'production',
+      requiredApprovals: null,
+      changeRequestEnabled: env === 'custom',
+    },
+  ]);
 
 const uiConfigForEnterprise = () =>
   testServerRoute(server, '/api/admin/ui-config', {
@@ -60,11 +54,7 @@ const uiConfigForEnterprise = () =>
   });
 
 const setupOtherRoutes = (feature: string) => {
-  testServerRoute(
-    server,
-    'api/admin/projects/default/change-requests/pending',
-    [],
-  );
+  testServerRoute(server, 'api/admin/projects/default/change-requests/pending', []);
   testServerRoute(server, `api/admin/client-metrics/features/${feature}`, {
     version: 1,
     maturity: 'stable',
@@ -92,8 +82,7 @@ const setupOtherRoutes = (feature: string) => {
         displayName: 'Standard',
         name: 'default',
         editable: false,
-        description:
-          'The standard strategy is strictly on / off for your entire userbase.',
+        description: 'The standard strategy is strictly on / off for your entire userbase.',
         parameters: [],
         deprecated: false,
       },
@@ -123,8 +112,7 @@ const userHasPermissions = (permissions: Array<IPermission>) => {
       id: 2,
       name: 'Test',
       email: 'test@getunleash.ai',
-      imageUrl:
-        'https://gravatar.com/avatar/e55646b526ff342ff8b43721f0cbdd8e?size=42&default=retro',
+      imageUrl: 'https://gravatar.com/avatar/e55646b526ff342ff8b43721f0cbdd8e?size=42&default=retro',
       seenAt: '2022-11-29T08:21:52.581Z',
       loginAttempts: 0,
       createdAt: '2022-11-21T10:10:33.074Z',
@@ -144,10 +132,7 @@ const userIsMemberOfProjects = (projects: string[]) => {
   );
 };
 
-const featureEnvironments = (
-  feature: string,
-  environments: Array<{ name: string; strategies: Array<string> }>,
-) => {
+const featureEnvironments = (feature: string, environments: Array<{ name: string; strategies: Array<string> }>) => {
   testServerRoute(server, `/api/admin/projects/default/features/${feature}`, {
     environments: environments.map((env) => ({
       name: env.name,
@@ -210,10 +195,7 @@ const UnleashUiSetup: FC<{
   </SWRConfig>
 );
 
-const strategiesAreDisplayed = async (
-  firstStrategy: string,
-  secondStrategy: string,
-) => {
+const strategiesAreDisplayed = async (firstStrategy: string, secondStrategy: string) => {
   await screen.findByText(firstStrategy);
   await screen.findByText(secondStrategy);
 };
@@ -225,9 +207,7 @@ const getDeleteButtons = async () => {
   await Promise.all(
     removeMenus.map(async (menu) => {
       fireEvent.click(menu);
-      const removeButton = await screen.findAllByTestId(
-        'STRATEGY_FORM_REMOVE_ID',
-      );
+      const removeButton = await screen.findAllByTestId('STRATEGY_FORM_REMOVE_ID');
       deleteButtons.push(...removeButton);
     }),
   );

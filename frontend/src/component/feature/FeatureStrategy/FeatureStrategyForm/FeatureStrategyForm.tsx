@@ -1,22 +1,8 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  Alert,
-  Button,
-  styled,
-  Tabs,
-  Tab,
-  Box,
-  Divider,
-  Typography,
-  Link,
-} from '@mui/material';
-import type {
-  IFeatureStrategy,
-  IFeatureStrategyParameters,
-  IStrategyParameter,
-} from 'interfaces/strategy';
+import { Alert, Button, styled, Tabs, Tab, Box, Divider, Typography, Link } from '@mui/material';
+import type { IFeatureStrategy, IFeatureStrategyParameters, IStrategyParameter } from 'interfaces/strategy';
 import { FeatureStrategyType } from '../FeatureStrategyType/FeatureStrategyType';
 import { FeatureStrategyEnabled } from './FeatureStrategyEnabled/FeatureStrategyEnabled';
 import { FeatureStrategyConstraints } from '../FeatureStrategyConstraints/FeatureStrategyConstraints';
@@ -212,11 +198,7 @@ export const FeatureStrategyForm = ({
   const [showProdGuard, setShowProdGuard] = useState(false);
   const hasValidConstraints = useConstraintsValidation(strategy.constraints);
   const enableProdGuard = useFeatureStrategyProdGuard(feature, environmentId);
-  const access = useHasProjectEnvironmentAccess(
-    permission,
-    projectId,
-    environmentId,
-  );
+  const access = useHasProjectEnvironmentAccess(permission, projectId, environmentId);
   const { strategyDefinition } = useStrategy(strategy?.name);
 
   useEffect(() => {
@@ -228,9 +210,7 @@ export const FeatureStrategyForm = ({
   }, []);
 
   const stickiness =
-    strategy?.parameters && 'stickiness' in strategy?.parameters
-      ? String(strategy.parameters.stickiness)
-      : 'default';
+    strategy?.parameters && 'stickiness' in strategy?.parameters ? String(strategy.parameters.stickiness) : 'default';
 
   useEffect(() => {
     setStrategy((prev) => ({
@@ -245,16 +225,12 @@ export const FeatureStrategyForm = ({
     }));
   }, [stickiness, JSON.stringify(strategy.variants)]);
 
-  const foundEnvironment = feature.environments.find(
-    (environment) => environment.name === environmentId,
-  );
+  const foundEnvironment = feature.environments.find((environment) => environment.name === environmentId);
 
   const { data } = usePendingChangeRequests(feature.project);
-  const { changeRequestInReviewOrApproved, alert } =
-    useChangeRequestInReviewWarning(data);
+  const { changeRequestInReviewOrApproved, alert } = useChangeRequestInReviewWarning(data);
 
-  const hasChangeRequestInReviewForEnvironment =
-    changeRequestInReviewOrApproved(environmentId || '');
+  const hasChangeRequestInReviewForEnvironment = changeRequestInReviewOrApproved(environmentId || '');
 
   const changeRequestButtonText = hasChangeRequestInReviewForEnvironment
     ? 'Add to existing change request'
@@ -278,14 +254,8 @@ export const FeatureStrategyForm = ({
     })!;
   };
 
-  const validateParameter = (
-    name: string,
-    value: IFeatureStrategyParameters[string],
-  ): boolean => {
-    const parameterValueError = validateParameterValue(
-      findParameterDefinition(name),
-      value,
-    );
+  const validateParameter = (name: string, value: IFeatureStrategyParameters[string]): boolean => {
+    const parameterValueError = validateParameterValue(findParameterDefinition(name), value);
     if (parameterValueError) {
       errors.setFormError(name, parameterValueError);
       return false;
@@ -343,9 +313,7 @@ export const FeatureStrategyForm = ({
     return constraintCount + segmentCount;
   };
 
-  const showVariants = Boolean(
-    strategy.parameters && 'stickiness' in strategy.parameters,
-  );
+  const showVariants = Boolean(strategy.parameters && 'stickiness' in strategy.parameters);
 
   return (
     <>
@@ -363,14 +331,10 @@ export const FeatureStrategyForm = ({
         </StyledTitle>
         {foundEnvironment ? (
           <StyledEnvironmentBox>
-            <EnvironmentTypographyHeader>
-              Environment:
-            </EnvironmentTypographyHeader>
+            <EnvironmentTypographyHeader>Environment:</EnvironmentTypographyHeader>
             <EnvironmentIconBox>
               <EnvironmentIcon enabled={foundEnvironment.enabled} />{' '}
-              <EnvironmentTypography enabled={foundEnvironment.enabled}>
-                {foundEnvironment.name}
-              </EnvironmentTypography>
+              <EnvironmentTypography enabled={foundEnvironment.enabled}>{foundEnvironment.name}</EnvironmentTypography>
             </EnvironmentIconBox>
           </StyledEnvironmentBox>
         ) : null}
@@ -383,11 +347,7 @@ export const FeatureStrategyForm = ({
           elseShow={
             <ConditionallyRender
               condition={isChangeRequest}
-              show={
-                <FeatureStrategyChangeRequestAlert
-                  environment={environmentId}
-                />
-              }
+              show={<FeatureStrategyChangeRequestAlert environment={environmentId} />}
             />
           }
         />
@@ -396,16 +356,9 @@ export const FeatureStrategyForm = ({
           condition={!BuiltInStrategies.includes(strategy.name || 'default')}
           show={
             <Alert severity='warning'>
-              Custom strategies are deprecated. We recommend not adding them to
-              any flags going forward and using the predefined strategies like
-              Gradual rollout with{' '}
-              <Link
-                href={
-                  'https://docs.getunleash.io/reference/strategy-constraints'
-                }
-                target='_blank'
-                variant='body2'
-              >
+              Custom strategies are deprecated. We recommend not adding them to any flags going forward and using the
+              predefined strategies like Gradual rollout with{' '}
+              <Link href={'https://docs.getunleash.io/reference/strategy-constraints'} target='_blank' variant='body2'>
                 constraints
               </Link>{' '}
               instead.
@@ -489,15 +442,10 @@ export const FeatureStrategyForm = ({
           show={
             <>
               <StyledTargetingHeader>
-                Segmentation and constraints allow you to set filters on your
-                strategies, so that they will only be evaluated for users and
-                applications that match the specified preconditions.
+                Segmentation and constraints allow you to set filters on your strategies, so that they will only be
+                evaluated for users and applications that match the specified preconditions.
               </StyledTargetingHeader>
-              <FeatureStrategySegment
-                segments={segments}
-                setSegments={setSegments}
-                projectId={projectId}
-              />
+              <FeatureStrategySegment segments={segments} setSegments={setSegments} projectId={projectId} />
 
               <StyledBox>
                 <StyledDivider />
@@ -515,17 +463,10 @@ export const FeatureStrategyForm = ({
 
         <ConditionallyRender
           condition={tab === 2}
-          show={
-            <ConditionallyRender
-              condition={showVariants}
-              show={StrategyVariants}
-            />
-          }
+          show={<ConditionallyRender condition={showVariants} show={StrategyVariants} />}
         />
 
-        <Box sx={{ flex: 1, display: 'flex', alignItems: 'flex-end' }}>
-          {Limit}
-        </Box>
+        <Box sx={{ flex: 1, display: 'flex', alignItems: 'flex-end' }}>{Limit}</Box>
 
         <StyledButtons>
           <PermissionButton
@@ -535,22 +476,12 @@ export const FeatureStrategyForm = ({
             variant='contained'
             color='primary'
             type='submit'
-            disabled={
-              disabled ||
-              loading ||
-              !hasValidConstraints ||
-              errors.hasFormErrors()
-            }
+            disabled={disabled || loading || !hasValidConstraints || errors.hasFormErrors()}
             data-testid={STRATEGY_FORM_SUBMIT_ID}
           >
             {isChangeRequest ? changeRequestButtonText : 'Save strategy'}
           </PermissionButton>
-          <Button
-            type='button'
-            color='primary'
-            onClick={onCancel ? onCancel : onDefaultCancel}
-            disabled={loading}
-          >
+          <Button type='button' color='primary' onClick={onCancel ? onCancel : onDefaultCancel} disabled={loading}>
             Cancel
           </Button>
           <FeatureStrategyProdGuard

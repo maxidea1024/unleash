@@ -1,13 +1,6 @@
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import {
-  SortableTableHeader,
-  Table,
-  TableBody,
-  TableCell,
-  TablePlaceholder,
-  TableRow,
-} from 'component/common/Table';
+import { SortableTableHeader, Table, TableBody, TableCell, TablePlaceholder, TableRow } from 'component/common/Table';
 import { type SortingRule, useSortBy, useTable } from 'react-table';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Box, styled, Tab, Tabs, useMediaQuery } from '@mui/material';
@@ -60,18 +53,12 @@ const ConftigurationLinkBox = styled(Box)(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-export const ChangeRequestsTabs = ({
-  changeRequests = [],
-  loading,
-  projectId,
-}: IChangeRequestTableProps) => {
+export const ChangeRequestsTabs = ({ changeRequests = [], loading, projectId }: IChangeRequestTableProps) => {
   const { classes } = useStyles();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [searchValue, setSearchValue] = useState(
-    searchParams.get('search') || '',
-  );
+  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
 
   const { value: storedParams, setValue: setStoredParams } = createLocalStorage(
     `${projectId}:ProjectChangeRequest`,
@@ -81,15 +68,11 @@ export const ChangeRequestsTabs = ({
   const [openChangeRequests, closedChangeRequests] = useMemo(() => {
     const open = changeRequests.filter(
       (changeRequest) =>
-        changeRequest.state !== 'Cancelled' &&
-        changeRequest.state !== 'Rejected' &&
-        changeRequest.state !== 'Applied',
+        changeRequest.state !== 'Cancelled' && changeRequest.state !== 'Rejected' && changeRequest.state !== 'Applied',
     );
     const closed = changeRequests.filter(
       (changeRequest) =>
-        changeRequest.state === 'Cancelled' ||
-        changeRequest.state === 'Rejected' ||
-        changeRequest.state === 'Applied',
+        changeRequest.state === 'Cancelled' || changeRequest.state === 'Rejected' || changeRequest.state === 'Applied',
     );
 
     return [open, closed];
@@ -129,14 +112,9 @@ export const ChangeRequestsTabs = ({
         filterParsing: (values: Array<{ name: string }>) => {
           return values?.map(({ name }) => name).join('\n') || '';
         },
-        filterBy: (
-          row: { features: Array<{ name: string }> },
-          values: Array<string>,
-        ) => {
+        filterBy: (row: { features: Array<{ name: string }> }, values: Array<string>) => {
           return row.features.find((feature) =>
-            values
-              .map((value) => value.toLowerCase())
-              .includes(feature.name.toLowerCase()),
+            values.map((value) => value.toLowerCase()).includes(feature.name.toLowerCase()),
           );
         },
         Cell: ({
@@ -144,9 +122,7 @@ export const ChangeRequestsTabs = ({
           row: {
             original: { title },
           },
-        }: any) => (
-          <FeaturesCell project={projectId} value={value} key={title} />
-        ),
+        }: any) => <FeaturesCell project={projectId} value={value} key={title} />,
       },
       {
         Header: 'By',
@@ -192,18 +168,13 @@ export const ChangeRequestsTabs = ({
     getSearchContext,
   } = useSearch(columns, searchValue, tabs[activeTab]?.data);
 
-  const data = useMemo(
-    () => (loading ? featuresPlaceholder : searchedData),
-    [searchedData, loading],
-  );
+  const data = useMemo(() => (loading ? featuresPlaceholder : searchedData), [searchedData, loading]);
 
   const [initialState] = useState(() => ({
     sortBy: [
       {
         id: searchParams.get('sort') || storedParams.id,
-        desc: searchParams.has('order')
-          ? searchParams.get('order') === 'desc'
-          : storedParams.desc,
+        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : storedParams.desc,
       },
     ],
     hiddenColumns: [],
@@ -310,9 +281,7 @@ export const ChangeRequestsTabs = ({
       }
     >
       <ConftigurationLinkBox>
-        <Link to={`/projects/${projectId}/settings/change-requests`}>
-          Change request configuration
-        </Link>
+        <Link to={`/projects/${projectId}/settings/change-requests`}>Change request configuration</Link>
       </ConftigurationLinkBox>
       <SearchHighlightProvider value={getSearchText(searchValue)}>
         <Table {...getTableProps()}>
@@ -349,11 +318,7 @@ export const ChangeRequestsTabs = ({
                 {searchValue}&rdquo;
               </TablePlaceholder>
             }
-            elseShow={
-              <TablePlaceholder>
-                None of the changes were submitted yet.
-              </TablePlaceholder>
-            }
+            elseShow={<TablePlaceholder>None of the changes were submitted yet.</TablePlaceholder>}
           />
         )}
       />

@@ -31,9 +31,7 @@ test('frontend api service fetching features from global cache', async () => {
       ];
     },
     getToggle(name: string, token: IApiUser): FeatureInterface {
-      return this.getToggles(token).find(
-        (t) => t.name === name,
-      ) as FeatureInterface;
+      return this.getToggles(token).find((t) => t.name === name) as FeatureInterface;
     },
   } as GlobalFrontendApiCache;
   const eventBus = new EventEmitter();

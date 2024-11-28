@@ -1,14 +1,6 @@
-import type {
-  IEnvironment,
-  IProject,
-  IProjectApplications,
-  IProjectStore,
-} from '../../lib/types';
+import type { IEnvironment, IProject, IProjectApplications, IProjectStore } from '../../lib/types';
 import NotFoundError from '../../lib/error/notfound-error';
-import type {
-  IEnvironmentProjectLink,
-  ProjectModeCount,
-} from '../../lib/features/project/project-store';
+import type { IEnvironmentProjectLink, ProjectModeCount } from '../../lib/features/project/project-store';
 import type { CreateFeatureStrategySchema } from '../../lib/openapi';
 import type {
   IProjectApplicationsSearchParams,
@@ -74,10 +66,7 @@ export default class FakeProjectStore implements IProjectStore {
     this.projects = [];
   }
 
-  async deleteEnvironmentForProject(
-    id: string,
-    environment: string,
-  ): Promise<void> {
+  async deleteEnvironmentForProject(id: string, environment: string): Promise<void> {
     const environments = this.projectEnvironment.get(id);
     if (environments) {
       environments.delete(environment);
@@ -88,8 +77,7 @@ export default class FakeProjectStore implements IProjectStore {
   destroy(): void {}
 
   async count(): Promise<number> {
-    return this.projects.filter((project) => project.archivedAt === null)
-      .length;
+    return this.projects.filter((project) => project.archivedAt === null).length;
   }
 
   async get(key: string): Promise<IProject> {
@@ -118,9 +106,7 @@ export default class FakeProjectStore implements IProjectStore {
   }
 
   async hasActiveProject(id: string): Promise<boolean> {
-    return this.projects.some(
-      (project) => project.id === id && project.archivedAt === null,
-    );
+    return this.projects.some((project) => project.id === id && project.archivedAt === null);
   }
 
   async importProjects(
@@ -138,8 +124,7 @@ export default class FakeProjectStore implements IProjectStore {
   }
 
   async updateHealth(healthUpdate: IProjectHealthUpdate): Promise<void> {
-    this.projects.find((project) => project.id === healthUpdate.id)!.health =
-      healthUpdate.health;
+    this.projects.find((project) => project.id === healthUpdate.id)!.health = healthUpdate.health;
   }
 
   addEnvironmentToProjects(
@@ -194,9 +179,7 @@ export default class FakeProjectStore implements IProjectStore {
     throw new Error('Method not implemented.');
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getApplicationsByProject(
-    searchParams: IProjectApplicationsSearchParams,
-  ): Promise<IProjectApplications> {
+  getApplicationsByProject(searchParams: IProjectApplicationsSearchParams): Promise<IProjectApplications> {
     throw new Error('Method not implemented.');
   }
 
@@ -207,9 +190,7 @@ export default class FakeProjectStore implements IProjectStore {
   }
 
   async revive(id: string): Promise<void> {
-    this.projects = this.projects.map((project) =>
-      project.id === id ? { ...project, archivedAt: null } : project,
-    );
+    this.projects = this.projects.map((project) => (project.id === id ? { ...project, archivedAt: null } : project));
   }
 
   async getConnectedEnvironmentCountForProject(): Promise<number> {

@@ -3,22 +3,11 @@ import getLogger from '../../../test/fixtures/no-logger';
 import type FeatureToggleService from '../../../lib/features/feature-toggle/feature-toggle-service';
 import type ProjectService from '../../../lib/features/project/project-service';
 import { createTestConfig } from '../../../test/config/test-config';
-import type {
-  EventService,
-  ProjectInsightsService,
-} from '../../../lib/services';
+import type { EventService, ProjectInsightsService } from '../../../lib/services';
 import { FeatureEnvironmentEvent } from '../../../lib/types/events';
 import { subDays } from 'date-fns';
-import {
-  createEventsService,
-  createFeatureToggleService,
-  createProjectService,
-} from '../../../lib/features';
-import {
-  type IUnleashStores,
-  type IUser,
-  TEST_AUDIT_USER,
-} from '../../../lib/types';
+import { createEventsService, createFeatureToggleService, createProjectService } from '../../../lib/features';
+import { type IUnleashStores, type IUser, TEST_AUDIT_USER } from '../../../lib/types';
 import type { User } from '../../../lib/server-impl';
 import { createProjectInsightsService } from './createProjectInsightsService';
 import { extractAuditInfoFromUser } from '../../util';
@@ -66,10 +55,7 @@ afterEach(async () => {
 });
 
 const updateFeature = async (featureName: string, update: any) => {
-  return db.rawDatabase
-    .table('features')
-    .update(update)
-    .where({ name: featureName });
+  return db.rawDatabase.table('features').update(update).where({ name: featureName });
 };
 
 test('should return average time to production per toggle', async () => {
@@ -80,11 +66,7 @@ test('should return average time to production per toggle', async () => {
     defaultStickiness: 'clientId',
   };
 
-  await projectService.createProject(
-    project,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await projectService.createProject(project, user, extractAuditInfoFromUser(user));
 
   const toggles = [
     { name: 'average-prod-time-pt', subdays: 7 },
@@ -96,11 +78,7 @@ test('should return average time to production per toggle', async () => {
 
   const featureToggles = await Promise.all(
     toggles.map((toggle) => {
-      return featureToggleService.createFeatureToggle(
-        project.id,
-        toggle,
-        extractAuditInfoFromUser(opsUser),
-      );
+      return featureToggleService.createFeatureToggle(project.id, toggle, extractAuditInfoFromUser(opsUser));
     }),
   );
 
@@ -148,16 +126,8 @@ test('should return average time to production per toggle for a specific project
     defaultStickiness: 'clientId',
   };
 
-  await projectService.createProject(
-    project1,
-    user,
-    extractAuditInfoFromUser(user),
-  );
-  await projectService.createProject(
-    project2,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await projectService.createProject(project1, user, extractAuditInfoFromUser(user));
+  await projectService.createProject(project2, user, extractAuditInfoFromUser(user));
 
   const togglesProject1 = [
     { name: 'average-prod-time-pt-10', subdays: 7 },
@@ -172,21 +142,13 @@ test('should return average time to production per toggle for a specific project
 
   const featureTogglesProject1 = await Promise.all(
     togglesProject1.map((toggle) => {
-      return featureToggleService.createFeatureToggle(
-        project1.id,
-        toggle,
-        extractAuditInfoFromUser(opsUser),
-      );
+      return featureToggleService.createFeatureToggle(project1.id, toggle, extractAuditInfoFromUser(opsUser));
     }),
   );
 
   const featureTogglesProject2 = await Promise.all(
     togglesProject2.map((toggle) => {
-      return featureToggleService.createFeatureToggle(
-        project2.id,
-        toggle,
-        extractAuditInfoFromUser(opsUser),
-      );
+      return featureToggleService.createFeatureToggle(project2.id, toggle, extractAuditInfoFromUser(opsUser));
     }),
   );
 
@@ -234,12 +196,8 @@ test('should return average time to production per toggle for a specific project
     ),
   );
 
-  const resultProject1 = await projectInsightsService.getDoraMetrics(
-    project1.id,
-  );
-  const resultProject2 = await projectInsightsService.getDoraMetrics(
-    project2.id,
-  );
+  const resultProject1 = await projectInsightsService.getDoraMetrics(project1.id);
+  const resultProject2 = await projectInsightsService.getDoraMetrics(project2.id);
 
   expect(resultProject1.features).toHaveLength(3);
   expect(resultProject2.features).toHaveLength(2);
@@ -253,11 +211,7 @@ test('should return average time to production per toggle and include archived t
     defaultStickiness: 'clientId',
   };
 
-  await projectService.createProject(
-    project1,
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await projectService.createProject(project1, user, extractAuditInfoFromUser(user));
 
   const togglesProject1 = [
     { name: 'average-prod-time-pta-10', subdays: 7 },
@@ -267,11 +221,7 @@ test('should return average time to production per toggle and include archived t
 
   const featureTogglesProject1 = await Promise.all(
     togglesProject1.map((toggle) => {
-      return featureToggleService.createFeatureToggle(
-        project1.id,
-        toggle,
-        extractAuditInfoFromUser(opsUser),
-      );
+      return featureToggleService.createFeatureToggle(project1.id, toggle, extractAuditInfoFromUser(opsUser));
     }),
   );
 
@@ -297,15 +247,9 @@ test('should return average time to production per toggle and include archived t
     ),
   );
 
-  await featureToggleService.archiveToggle(
-    'average-prod-time-pta-12',
-    user,
-    extractAuditInfoFromUser(user),
-  );
+  await featureToggleService.archiveToggle('average-prod-time-pta-12', user, extractAuditInfoFromUser(user));
 
-  const resultProject1 = await projectInsightsService.getDoraMetrics(
-    project1.id,
-  );
+  const resultProject1 = await projectInsightsService.getDoraMetrics(project1.id);
 
   expect(resultProject1.features).toHaveLength(3);
 });

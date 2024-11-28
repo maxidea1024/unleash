@@ -7,10 +7,7 @@ import { createTestConfig } from '../../../test/config/test-config';
 import createStores from '../../../test/fixtures/store';
 
 import getApp from '../../app';
-import {
-  playgroundRequestSchema,
-  type PlaygroundRequestSchema,
-} from '../../openapi/spec/playground-request-schema';
+import { playgroundRequestSchema, type PlaygroundRequestSchema } from '../../openapi/spec/playground-request-schema';
 
 import { generate as generateRequest } from '../../openapi/spec/playground-request-schema.test';
 import { clientFeatures } from '../../../test/arbitraries.test';
@@ -31,9 +28,7 @@ describe('toggle generator', () => {
     fc.assert(
       fc.property(
         clientFeatures({ minLength: 2 }),
-        (toggles) =>
-          toggles.length ===
-          [...new Set(toggles.map((feature) => feature.name))].length,
+        (toggles) => toggles.length === [...new Set(toggles.map((feature) => feature.name))].length,
       ),
     );
   });
@@ -46,21 +41,18 @@ const testParams = {
 describe('the playground API', () => {
   it('should return the provided input arguments as part of the response', async () => {
     await fc.assert(
-      fc.asyncProperty(
-        generateRequest(),
-        async (payload: PlaygroundRequestSchema) => {
-          const { request, base } = await getSetup();
-          const { body } = await request
-            .post(`${base}/api/admin/playground`)
-            .send(payload)
-            .expect('Content-Type', /json/)
-            .expect(200);
+      fc.asyncProperty(generateRequest(), async (payload: PlaygroundRequestSchema) => {
+        const { request, base } = await getSetup();
+        const { body } = await request
+          .post(`${base}/api/admin/playground`)
+          .send(payload)
+          .expect('Content-Type', /json/)
+          .expect(200);
 
-          expect(body.input).toStrictEqual(payload);
+        expect(body.input).toStrictEqual(payload);
 
-          return true;
-        },
-      ),
+        return true;
+      }),
       testParams,
     );
   });

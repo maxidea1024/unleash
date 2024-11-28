@@ -49,10 +49,7 @@ export const isAllProjects = (projects: string[]): boolean => {
   return projects && projects.length === 1 && projects[0] === ALL;
 };
 
-export const mapLegacyProjects = (
-  project?: string,
-  projects?: string[],
-): string[] => {
+export const mapLegacyProjects = (project?: string, projects?: string[]): string[] => {
   let cleanedProjects: string[];
   if (project) {
     cleanedProjects = [project];
@@ -62,16 +59,12 @@ export const mapLegacyProjects = (
       cleanedProjects = ['*'];
     }
   } else {
-    throw new BadDataError(
-      'API tokens must either contain a project or projects field',
-    );
+    throw new BadDataError('API tokens must either contain a project or projects field');
   }
   return cleanedProjects;
 };
 
-export const mapLegacyToken = (
-  token: Omit<ILegacyApiTokenCreate, 'secret'>,
-): Omit<IApiTokenCreate, 'secret'> => {
+export const mapLegacyToken = (token: Omit<ILegacyApiTokenCreate, 'secret'>): Omit<IApiTokenCreate, 'secret'> => {
   const cleanedProjects = mapLegacyProjects(token.project, token.projects);
   return {
     tokenName: token.username ?? token.tokenName!,
@@ -82,28 +75,20 @@ export const mapLegacyToken = (
   };
 };
 
-export const mapLegacyTokenWithSecret = (
-  token: ILegacyApiTokenCreate,
-): IApiTokenCreate => {
+export const mapLegacyTokenWithSecret = (token: ILegacyApiTokenCreate): IApiTokenCreate => {
   return {
     ...mapLegacyToken(token),
     secret: token.secret,
   };
 };
 
-export const validateApiToken = ({
-  type,
-  projects,
-  environment,
-}: Omit<IApiTokenCreate, 'secret'>): void => {
+export const validateApiToken = ({ type, projects, environment }: Omit<IApiTokenCreate, 'secret'>): void => {
   if (type === ApiTokenType.ADMIN && !isAllProjects(projects)) {
     throw new BadDataError('Admin token cannot be scoped to single project');
   }
 
   if (type === ApiTokenType.ADMIN && environment !== ALL) {
-    throw new BadDataError(
-      'Admin token cannot be scoped to single environment',
-    );
+    throw new BadDataError('Admin token cannot be scoped to single environment');
   }
 
   if (type === ApiTokenType.CLIENT && environment === ALL) {
@@ -111,9 +96,7 @@ export const validateApiToken = ({
   }
 
   if (type === ApiTokenType.FRONTEND && environment === ALL) {
-    throw new BadDataError(
-      'Frontend token cannot be scoped to all environments',
-    );
+    throw new BadDataError('Frontend token cannot be scoped to all environments');
   }
 };
 
@@ -125,9 +108,7 @@ export const validateApiTokenEnvironment = (
     return;
   }
 
-  const selectedEnvironment = environments.find(
-    (env) => env.name === environment,
-  );
+  const selectedEnvironment = environments.find((env) => env.name === environment);
 
   if (!selectedEnvironment) {
     throw new BadDataError(`Environment=${environment} does not exist`);

@@ -39,9 +39,7 @@ export const BannersTable = () => {
     try {
       await toggleBanner(banner.id, enabled);
       setToastData({
-        title: `"${banner.message}" has been ${
-          enabled ? 'enabled' : 'disabled'
-        }`,
+        title: `"${banner.message}" has been ${enabled ? 'enabled' : 'disabled'}`,
         type: 'success',
       });
       refetch();
@@ -88,13 +86,8 @@ export const BannersTable = () => {
       {
         Header: 'Enabled',
         accessor: 'enabled',
-        Cell: ({
-          row: { original: banner },
-        }: { row: { original: IInternalBanner } }) => (
-          <ToggleCell
-            checked={banner.enabled}
-            setChecked={(enabled) => onToggleBanner(banner, enabled)}
-          />
+        Cell: ({ row: { original: banner } }: { row: { original: IInternalBanner } }) => (
+          <ToggleCell checked={banner.enabled} setChecked={(enabled) => onToggleBanner(banner, enabled)} />
         ),
         sortType: 'boolean',
         width: 90,
@@ -170,10 +163,7 @@ export const BannersTable = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
+                    <Search initialValue={searchValue} onChange={setSearchValue} />
                     <PageHeader.Divider />
                   </>
                 }
@@ -193,19 +183,13 @@ export const BannersTable = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
+            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
           />
         </PageHeader>
       }
     >
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
+        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -219,19 +203,11 @@ export const BannersTable = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={
-              <TablePlaceholder>
-                No banners available. Get started by adding one.
-              </TablePlaceholder>
-            }
+            elseShow={<TablePlaceholder>No banners available. Get started by adding one.</TablePlaceholder>}
           />
         }
       />
-      <BannerModal
-        banner={selectedBanner}
-        open={modalOpen}
-        setOpen={setModalOpen}
-      />
+      <BannerModal banner={selectedBanner} open={modalOpen} setOpen={setModalOpen} />
       <BannerDeleteDialog
         banner={selectedBanner}
         open={deleteOpen}

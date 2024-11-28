@@ -39,13 +39,7 @@ const Toast = ({ title, text, type, confetti }: IToast) => {
         animationEase: `${getRandomNumber(2)}s`,
       };
 
-      return (
-        <div
-          key={index}
-          style={style}
-          className={classnames(styles.starting, styles.anim)}
-        />
-      );
+      return <div key={index} style={style} className={classnames(styles.starting, styles.anim)} />;
     });
 
     return styledElements;
@@ -68,18 +62,11 @@ const Toast = ({ title, text, type, confetti }: IToast) => {
               <div className={styles.textContainer}>
                 <h3 className={styles.headerStyles}>{title}</h3>
 
-                <ConditionallyRender
-                  condition={Boolean(text)}
-                  show={<p data-testid={TOAST_TEXT}>{text}</p>}
-                />
+                <ConditionallyRender condition={Boolean(text)} show={<p data-testid={TOAST_TEXT}>{text}</p>} />
               </div>
             </div>
             <Tooltip title='Close' arrow>
-              <IconButton
-                onClick={hide}
-                className={styles.buttonStyle}
-                size='large'
-              >
+              <IconButton onClick={hide} className={styles.buttonStyle} size='large'>
                 <Close />
               </IconButton>
             </Tooltip>

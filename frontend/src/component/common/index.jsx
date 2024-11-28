@@ -70,18 +70,9 @@ DataTableHeader.propTypes = {
   actions: PropTypes.any,
 };
 
-export const FormButtons = ({
-  submitText = 'Create',
-  onCancel,
-  primaryButtonTestId,
-}) => (
+export const FormButtons = ({ submitText = 'Create', onCancel, primaryButtonTestId }) => (
   <div>
-    <Button
-      data-testid={primaryButtonTestId}
-      type='submit'
-      color='primary'
-      variant='contained'
-    >
+    <Button data-testid={primaryButtonTestId} type='submit' color='primary' variant='contained'>
       {submitText}
     </Button>
     &nbsp;
@@ -97,12 +88,7 @@ FormButtons.propTypes = {
 };
 
 export const IconLink = ({ url, icon: IconComponent }) => (
-  <a
-    href={url}
-    target='_blank'
-    rel='noreferrer'
-    className='mdl-color-text--grey-600'
-  >
+  <a href={url} target='_blank' rel='noreferrer' className='mdl-color-text--grey-600'>
     <IconComponent />
   </a>
 );
@@ -111,35 +97,21 @@ IconLink.propTypes = {
   icon: PropTypes.object,
 };
 
-export const MenuItemWithIcon = React.forwardRef(
-  ({ icon: IconComponent, label, disabled, ...menuItemProps }, ref) => (
-    <MenuItem
-      disabled={disabled}
-      style={{ display: 'flex', alignItems: 'center' }}
-      {...menuItemProps}
-    >
-      <IconComponent />
-      {label}
-    </MenuItem>
-  ),
-);
+export const MenuItemWithIcon = React.forwardRef(({ icon: IconComponent, label, disabled, ...menuItemProps }, ref) => (
+  <MenuItem disabled={disabled} style={{ display: 'flex', alignItems: 'center' }} {...menuItemProps}>
+    <IconComponent />
+    {label}
+  </MenuItem>
+));
 MenuItemWithIcon.propTypes = {
   icon: PropTypes.object,
   label: PropTypes.string,
   disabled: PropTypes.bool,
 };
 
-const badNumbers = [
-  Number.NaN,
-  Number.POSITIVE_INFINITY,
-  Number.NEGATIVE_INFINITY,
-];
+const badNumbers = [Number.NaN, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY];
 export function calc(value, total, decimal) {
-  if (
-    typeof value !== 'number' ||
-    typeof total !== 'number' ||
-    typeof decimal !== 'number'
-  ) {
+  if (typeof value !== 'number' || typeof total !== 'number' || typeof decimal !== 'number') {
     return null;
   }
 

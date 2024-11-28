@@ -38,10 +38,7 @@ import type MaintenanceService from '../features/maintenance/maintenance-service
 import type { AccountService } from '../services/account-service';
 import type { SchedulerService } from '../features/scheduler/scheduler-service';
 import type { Knex } from 'knex';
-import type {
-  IExportService,
-  IImportService,
-} from '../features/export-import-toggles/export-import-service';
+import type { IExportService, IImportService } from '../features/export-import-toggles/export-import-service';
 import type { ISegmentService } from '../features/segment/segment-service-interface';
 import type ConfigurationRevisionService from '../features/feature-toggle/configuration-revision-service';
 import type EventAnnouncerService from '../services/event-announcer-service';
@@ -111,9 +108,7 @@ export interface IUnleashServices {
   configurationRevisionService: ConfigurationRevisionService;
   schedulerService: SchedulerService;
   eventAnnouncerService: EventAnnouncerService;
-  transactionalFeatureToggleService: (
-    db: Knex.Transaction,
-  ) => FeatureToggleService;
+  transactionalFeatureToggleService: (db: Knex.Transaction) => FeatureToggleService;
   transactionalGroupService: (db: Knex.Transaction) => GroupService;
   privateProjectChecker: IPrivateProjectChecker;
   dependentFeaturesService: DependentFeaturesService;

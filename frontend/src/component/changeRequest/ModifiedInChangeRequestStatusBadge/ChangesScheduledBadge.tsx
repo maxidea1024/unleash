@@ -7,9 +7,7 @@ import { Badge } from 'component/common/Badge/Badge';
 export interface IChangesScheduledBadgeProps {
   scheduledChangeRequestIds: number[];
 }
-export const ChangesScheduledBadge = ({
-  scheduledChangeRequestIds,
-}: IChangesScheduledBadgeProps) => {
+export const ChangesScheduledBadge = ({ scheduledChangeRequestIds }: IChangesScheduledBadgeProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const project = useRequiredPathParam('projectId');
@@ -23,10 +21,7 @@ export const ChangesScheduledBadge = ({
         tooltip={
           <>
             {scheduledChangeRequestIds?.map((id, index) => (
-              <StyledLink
-                key={`${project}-${index}`}
-                to={`/projects/${project}/change-requests/${id}`}
-              >
+              <StyledLink key={`${project}-${index}`} to={`/projects/${project}/change-requests/${id}`}>
                 Change request #{id}
               </StyledLink>
             ))}

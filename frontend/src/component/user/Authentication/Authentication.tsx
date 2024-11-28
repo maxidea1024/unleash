@@ -3,12 +3,7 @@ import { AuthenticationCustomComponent } from 'component/user/AuthenticationCust
 import PasswordAuth from '../PasswordAuth';
 import HostedAuth from '../HostedAuth';
 import DemoAuth from '../DemoAuth/DemoAuth';
-import {
-  SIMPLE_TYPE,
-  DEMO_TYPE,
-  PASSWORD_TYPE,
-  HOSTED_TYPE,
-} from 'constants/authTypes';
+import { SIMPLE_TYPE, DEMO_TYPE, PASSWORD_TYPE, HOSTED_TYPE } from 'constants/authTypes';
 import SecondaryLoginActions from '../common/SecondaryLoginActions';
 import useQueryParams from 'hooks/useQueryParams';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -24,10 +19,7 @@ interface IAuthenticationProps {
   invited?: boolean;
 }
 
-const Authentication = ({
-  redirect,
-  invited = false,
-}: IAuthenticationProps) => {
+const Authentication = ({ redirect, invited = false }: IAuthenticationProps) => {
   const { authDetails } = useAuthDetails();
   const params = useQueryParams();
   const error = params.get('errorMsg');
@@ -58,10 +50,7 @@ const Authentication = ({
     content = (
       <>
         <PasswordAuth authDetails={authDetails} redirect={redirect} />
-        <ConditionallyRender
-          condition={!authDetails.defaultHidden}
-          show={<SecondaryLoginActions />}
-        />
+        <ConditionallyRender condition={!authDetails.defaultHidden} show={<SecondaryLoginActions />} />
       </>
     );
   } else if (authDetails.type === SIMPLE_TYPE) {
@@ -72,10 +61,7 @@ const Authentication = ({
     content = (
       <>
         <HostedAuth authDetails={authDetails} redirect={redirect} />
-        <ConditionallyRender
-          condition={!authDetails.defaultHidden}
-          show={<SecondaryLoginActions />}
-        />
+        <ConditionallyRender condition={!authDetails.defaultHidden} show={<SecondaryLoginActions />} />
       </>
     );
   } else {
@@ -85,10 +71,7 @@ const Authentication = ({
   return (
     <>
       <div style={{ maxWidth: '350px' }} data-testid={AUTH_PAGE_ID}>
-        <ConditionallyRender
-          condition={Boolean(error)}
-          show={<Alert severity='error'>{error}</Alert>}
-        />
+        <ConditionallyRender condition={Boolean(error)} show={<Alert severity='error'>{error}</Alert>} />
       </div>
       {content}
     </>

@@ -6,10 +6,7 @@ import type { IFeatureToggleStore } from '../features/feature-toggle/types/featu
 import type { IFeatureTypeStore } from '../types/stores/feature-type-store';
 import type { IProjectStore } from '../features/project/project-store-type';
 import type ProjectService from '../features/project/project-service';
-import {
-  calculateHealthRating,
-  calculateProjectHealth,
-} from '../domain/project-health/project-health';
+import { calculateHealthRating, calculateProjectHealth } from '../domain/project-health/project-health';
 
 export default class ProjectHealthService {
   private readonly logger: Logger;
@@ -23,10 +20,7 @@ export default class ProjectHealthService {
       projectStore,
       featureTypeStore,
       featureToggleStore,
-    }: Pick<
-      IUnleashStores,
-      'projectStore' | 'featureTypeStore' | 'featureToggleStore'
-    >,
+    }: Pick<IUnleashStores, 'projectStore' | 'featureTypeStore' | 'featureToggleStore'>,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     projectService: ProjectService,
   ) {
@@ -38,21 +32,12 @@ export default class ProjectHealthService {
     this.projectService = projectService;
   }
 
-  async getProjectHealthReport(
-    projectId: string,
-  ): Promise<IProjectHealthReport> {
+  async getProjectHealthReport(projectId: string): Promise<IProjectHealthReport> {
     const featureTypes = await this.featureTypeStore.getAll();
 
-    const overview = await this.projectService.getProjectHealth(
-      projectId,
-      false,
-      undefined,
-    );
+    const overview = await this.projectService.getProjectHealth(projectId, false, undefined);
 
-    const healthRating = calculateProjectHealth(
-      overview.features,
-      featureTypes,
-    );
+    const healthRating = calculateProjectHealth(overview.features, featureTypes);
 
     return {
       ...overview,

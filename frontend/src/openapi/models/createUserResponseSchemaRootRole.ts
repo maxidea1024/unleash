@@ -7,10 +7,4 @@
 /**
  * Which [root role](https://docs.getunleash.io/reference/rbac#predefined-roles) this user is assigned. Usually a numeric role ID, but can be a string when returning newly created user with an explicit string role.
  */
-export type CreateUserResponseSchemaRootRole =
-  | number
-  | 'Admin'
-  | 'Editor'
-  | 'Viewer'
-  | 'Owner'
-  | 'Member';
+export type CreateUserResponseSchemaRootRole = number | 'Admin' | 'Editor' | 'Viewer' | 'Owner' | 'Member';

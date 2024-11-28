@@ -49,39 +49,18 @@ export const allOperators: Operator[] = [
   SEMVER_LT,
 ];
 
-export const stringOperators: Operator[] = [
-  STR_CONTAINS,
-  STR_STARTS_WITH,
-  STR_ENDS_WITH,
-];
+export const stringOperators: Operator[] = [STR_CONTAINS, STR_STARTS_WITH, STR_ENDS_WITH];
 
 export const inOperators: Operator[] = [IN, NOT_IN];
 
-export const numOperators: Operator[] = [
-  NUM_EQ,
-  NUM_GT,
-  NUM_GTE,
-  NUM_LT,
-  NUM_LTE,
-];
+export const numOperators: Operator[] = [NUM_EQ, NUM_GT, NUM_GTE, NUM_LT, NUM_LTE];
 
 export const dateOperators: Operator[] = [DATE_BEFORE, DATE_AFTER];
 
 export const semVerOperators: Operator[] = [SEMVER_EQ, SEMVER_GT, SEMVER_LT];
 
-export const singleValueOperators: Operator[] = [
-  ...semVerOperators,
-  ...dateOperators,
-  ...numOperators,
-];
+export const singleValueOperators: Operator[] = [...semVerOperators, ...dateOperators, ...numOperators];
 
-export const multipleValueOperators: Operator[] = [
-  ...stringOperators,
-  ...inOperators,
-];
+export const multipleValueOperators: Operator[] = [...stringOperators, ...inOperators];
 
-export const newOperators: Operator[] = [
-  ...stringOperators,
-  ...dateOperators,
-  ...singleValueOperators,
-];
+export const newOperators: Operator[] = [...stringOperators, ...dateOperators, ...singleValueOperators];

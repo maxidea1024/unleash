@@ -16,11 +16,7 @@ test('tokenUserSchema', () => {
     },
   };
 
-  expect(
-    validateSchema('#/components/schemas/tokenUserSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/tokenUserSchema', data)).toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/tokenUserSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/tokenUserSchema', {})).toMatchSnapshot();
 });

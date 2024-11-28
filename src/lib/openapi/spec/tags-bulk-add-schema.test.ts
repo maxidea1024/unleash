@@ -20,7 +20,5 @@ test('tagsBulkAddSchema', () => {
     },
   };
 
-  expect(
-    validateSchema('#/components/schemas/tagsBulkAddSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/tagsBulkAddSchema', data)).toBeUndefined();
 });

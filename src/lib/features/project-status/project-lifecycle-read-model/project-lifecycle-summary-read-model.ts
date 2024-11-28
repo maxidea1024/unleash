@@ -1,10 +1,7 @@
 import type { Db } from '../../../db/db';
 import type { IFeatureToggleStore } from '../../../types';
 import { subDays } from 'date-fns';
-import type {
-  IProjectLifecycleSummaryReadModel,
-  ProjectLifecycleSummary,
-} from './project-lifecycle-read-model-type';
+import type { IProjectLifecycleSummaryReadModel, ProjectLifecycleSummary } from './project-lifecycle-read-model-type';
 
 type FlagsInStage = {
   initial: number;
@@ -21,9 +18,7 @@ type AverageTimeInStage = {
   completed: number | null;
 };
 
-export class ProjectLifecycleSummaryReadModel
-  implements IProjectLifecycleSummaryReadModel
-{
+export class ProjectLifecycleSummaryReadModel implements IProjectLifecycleSummaryReadModel {
   private readonly db: Db;
   private readonly featureToggleStore: IFeatureToggleStore;
 
@@ -32,9 +27,7 @@ export class ProjectLifecycleSummaryReadModel
     this.featureToggleStore = featureToggleStore;
   }
 
-  async getAverageTimeInEachStage(
-    projectId: string,
-  ): Promise<AverageTimeInStage> {
+  async getAverageTimeInEachStage(projectId: string): Promise<AverageTimeInStage> {
     const q = this.db
       .with(
         'stage_durations',
@@ -42,16 +35,10 @@ export class ProjectLifecycleSummaryReadModel
           .select(
             'fl1.feature',
             'fl1.stage',
-            this.db.raw(
-              'EXTRACT(EPOCH FROM (MIN(fl2.created_at) - fl1.created_at)) / 86400 AS days_in_stage',
-            ),
+            this.db.raw('EXTRACT(EPOCH FROM (MIN(fl2.created_at) - fl1.created_at)) / 86400 AS days_in_stage'),
           )
           .join('feature_lifecycles as fl2', function () {
-            this.on('fl1.feature', '=', 'fl2.feature').andOn(
-              'fl2.created_at',
-              '>',
-              'fl1.created_at',
-            );
+            this.on('fl1.feature', '=', 'fl2.feature').andOn('fl2.created_at', '>', 'fl1.created_at');
           })
           .innerJoin('features as f', 'fl1.feature', 'f.name')
           .where('f.project', projectId)
@@ -114,14 +101,8 @@ export class ProjectLifecycleSummaryReadModel
     });
   }
 
-  async getProjectLifecycleSummary(
-    projectId: string,
-  ): Promise<ProjectLifecycleSummary> {
-    const [
-      averageTimeInEachStage,
-      currentFlagsInEachStage,
-      archivedFlagsLast30Days,
-    ] = await Promise.all([
+  async getProjectLifecycleSummary(projectId: string): Promise<ProjectLifecycleSummary> {
+    const [averageTimeInEachStage, currentFlagsInEachStage, archivedFlagsLast30Days] = await Promise.all([
       this.getAverageTimeInEachStage(projectId),
       this.getCurrentFlagsInEachStage(projectId),
       this.getArchivedFlagsLast30Days(projectId),

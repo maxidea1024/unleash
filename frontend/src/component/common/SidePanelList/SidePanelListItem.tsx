@@ -11,9 +11,7 @@ const StyledItem = styled(Button, {
   '&.MuiButton-root': {
     width: '100%',
     backgroundColor: selected ? theme.palette.secondary.light : 'transparent',
-    borderRight: `${theme.spacing(0.5)} solid ${
-      selected ? theme.palette.background.alternative : 'transparent'
-    }`,
+    borderRight: `${theme.spacing(0.5)} solid ${selected ? theme.palette.background.alternative : 'transparent'}`,
     padding: 0,
     borderRadius: 0,
     justifyContent: 'start',
@@ -25,9 +23,7 @@ const StyledItem = styled(Button, {
     overflow: 'auto',
   },
   '&:hover': {
-    backgroundColor: selected
-      ? theme.palette.secondary.light
-      : theme.palette.neutral.light,
+    backgroundColor: selected ? theme.palette.secondary.light : theme.palette.neutral.light,
   },
   '&.Mui-disabled': {
     pointerEvents: 'auto',
@@ -43,11 +39,7 @@ interface ISidePanelListItemProps {
   children: ReactNode;
 }
 
-export const SidePanelListItem = ({
-  selected,
-  onClick,
-  children,
-}: ISidePanelListItemProps) => (
+export const SidePanelListItem = ({ selected, onClick, children }: ISidePanelListItemProps) => (
   <StyledItemRow>
     <StyledItem selected={selected} onClick={onClick}>
       {children}

@@ -8,22 +8,11 @@ export const customHighlightPlugin = (width = 46, bottomOverflow = 34) => ({
       const yAxis = chart.scales.y;
       const ctx = chart.ctx;
       ctx.save();
-      const gradient = ctx.createLinearGradient(
-        x,
-        yAxis.top,
-        x,
-        yAxis.bottom + 34,
-      );
+      const gradient = ctx.createLinearGradient(x, yAxis.top, x, yAxis.bottom + 34);
       gradient.addColorStop(0, 'rgba(129, 122, 254, 0)');
       gradient.addColorStop(1, 'rgba(129, 122, 254, 0.12)');
       ctx.fillStyle = gradient;
-      ctx.roundRect(
-        x - width / 2,
-        yAxis.top,
-        width,
-        yAxis.bottom - yAxis.top + bottomOverflow,
-        5,
-      );
+      ctx.roundRect(x - width / 2, yAxis.top, width, yAxis.bottom - yAxis.top + bottomOverflow, 5);
       ctx.fill();
       ctx.restore();
     }

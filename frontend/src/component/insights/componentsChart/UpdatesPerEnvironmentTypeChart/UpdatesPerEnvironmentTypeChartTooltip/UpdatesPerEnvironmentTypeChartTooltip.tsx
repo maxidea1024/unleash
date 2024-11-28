@@ -80,10 +80,7 @@ export const UpdatesPerEnvironmentTypeChartTooltip: VFC<{
       })}
     >
       {limitedData?.map((point, index) => (
-        <StyledTooltipItemContainer
-          elevation={3}
-          key={`${point.title}-${index}`}
-        >
+        <StyledTooltipItemContainer elevation={3} key={`${point.title}-${index}`}>
           <StyledItemHeader>
             <Typography variant='body2' component='span'>
               <Typography sx={{ color: point.color }} component='span'>
@@ -96,11 +93,7 @@ export const UpdatesPerEnvironmentTypeChartTooltip: VFC<{
             </Typography>
           </StyledItemHeader>
           <Divider sx={(theme) => ({ margin: theme.spacing(1.5, 0) })} />
-          <InfoLine
-            iconChar={'● '}
-            title={`Total updates: ${point.value.totalUpdates}`}
-            color={'info'}
-          />
+          <InfoLine iconChar={'● '} title={`Total updates: ${point.value.totalUpdates}`} color={'info'} />
         </StyledTooltipItemContainer>
       )) || null}
     </Box>

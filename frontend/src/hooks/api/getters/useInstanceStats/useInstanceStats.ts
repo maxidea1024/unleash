@@ -12,10 +12,7 @@ export interface IInstanceStatsResponse {
 }
 
 export const useInstanceStats = (): IInstanceStatsResponse => {
-  const { data, error, mutate } = useSWR(
-    formatApiPath(`api/admin/instance-admin/statistics`),
-    fetcher,
-  );
+  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/instance-admin/statistics`), fetcher);
 
   return useMemo(
     () => ({

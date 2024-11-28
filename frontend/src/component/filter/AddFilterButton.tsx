@@ -59,9 +59,7 @@ export const AddFilterButton = ({
   const { splash } = useAuthSplash();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [archiveTooltipOpen, setArchiveTooltipOpen] = useState(
-    !splash?.simplifyProjectOverview,
-  );
+  const [archiveTooltipOpen, setArchiveTooltipOpen] = useState(!splash?.simplifyProjectOverview);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -85,15 +83,13 @@ export const AddFilterButton = ({
     return new Date(createdAt) < cutoffDate;
   };
 
-  const showArchiveTooltip =
-    simplifyProjectOverview && projectId && isOldCustomer(user?.createdAt);
+  const showArchiveTooltip = simplifyProjectOverview && projectId && isOldCustomer(user?.createdAt);
 
   const ArchiveTooltip = () => {
     return (
       <Box>
         <Box>
-          Archived flags are now accessible via the <b>Show only archived</b>{' '}
-          filter option.
+          Archived flags are now accessible via the <b>Show only archived</b> filter option.
         </Box>
         <Box
           onClick={() => {
@@ -113,13 +109,7 @@ export const AddFilterButton = ({
   return (
     <div>
       {showArchiveTooltip ? (
-        <StyledHtmlTooltip
-          placement='right'
-          arrow
-          title={<ArchiveTooltip />}
-          describeChild
-          open={archiveTooltipOpen}
-        >
+        <StyledHtmlTooltip placement='right' arrow title={<ArchiveTooltip />} describeChild open={archiveTooltipOpen}>
           <StyledButton onClick={handleClick} startIcon={<Add />}>
             Add Filter
           </StyledButton>

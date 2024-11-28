@@ -37,12 +37,7 @@ interface IRoleModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const RoleModal = ({
-  type = ROOT_ROLE_TYPE,
-  roleId,
-  open,
-  setOpen,
-}: IRoleModalProps) => {
+export const RoleModal = ({ type = ROOT_ROLE_TYPE, roleId, open, setOpen }: IRoleModalProps) => {
   const { role, refetch: refetchRole } = useRole(roleId?.toString());
 
   const {
@@ -71,9 +66,7 @@ export const RoleModal = ({
   const payload = getRolePayload(type);
 
   const formatApiCode = () => {
-    return `curl --location --request ${editing ? 'PUT' : 'POST'} '${
-      uiConfig.unleashUrl
-    }/api/admin/roles${editing ? `/${role.id}` : ''}' \\
+    return `curl --location --request ${editing ? 'PUT' : 'POST'} '${uiConfig.unleashUrl}/api/admin/roles${editing ? `/${role.id}` : ''}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(payload, undefined, 2)}'`;
@@ -125,11 +118,7 @@ export const RoleModal = ({
         modal
         title={editing ? `Edit ${type} role` : `New ${type} role`}
         description={`${titleCasedType} roles allow you to control access to ${type} resources. Besides the built-in ${type} roles, you can create and manage custom ${type} roles to fit your needs.`}
-        documentationLink={`https://docs.getunleash.io/reference/rbac${
-          type === ROOT_ROLE_TYPE
-            ? '#custom-root-roles'
-            : '#custom-project-roles'
-        }`}
+        documentationLink={`https://docs.getunleash.io/reference/rbac${type === ROOT_ROLE_TYPE ? '#custom-root-roles' : '#custom-project-roles'}`}
         documentationLinkLabel='Roles documentation'
         formatApiCode={formatApiCode}
       >

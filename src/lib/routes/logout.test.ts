@@ -14,10 +14,7 @@ test('should redirect to "/" after logout', async () => {
   const app = express();
   const config = createTestConfig({ server: { baseUriPath } });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
   app.use(
     '/logout',
     new LogoutController(config, {
@@ -26,10 +23,7 @@ test('should redirect to "/" after logout', async () => {
   );
   const request = supertest(app);
   expect.assertions(0);
-  await request
-    .post(`${baseUriPath}/logout`)
-    .expect(302)
-    .expect('Location', `${baseUriPath}/`);
+  await request.post(`${baseUriPath}/logout`).expect(302).expect('Location', `${baseUriPath}/`);
 });
 
 test('should redirect to "/basePath" after logout when baseUriPath is set', async () => {
@@ -37,17 +31,11 @@ test('should redirect to "/basePath" after logout when baseUriPath is set', asyn
   const app = express();
   const config = createTestConfig({ server: { baseUriPath } });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
   app.use('/logout', new LogoutController(config, { sessionService }).router);
   const request = supertest(app);
   expect.assertions(0);
-  await request
-    .post('/logout')
-    .expect(302)
-    .expect('Location', `${baseUriPath}/`);
+  await request.post('/logout').expect(302).expect('Location', `${baseUriPath}/`);
 });
 
 test('should set "Clear-Site-Data" header', async () => {
@@ -55,18 +43,12 @@ test('should set "Clear-Site-Data" header', async () => {
   const app = express();
   const config = createTestConfig({ server: { baseUriPath } });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
   const request = supertest(app);
   expect.assertions(0);
-  await request
-    .post(`${baseUriPath}/logout`)
-    .expect(302)
-    .expect('Clear-Site-Data', '"cookies", "storage"');
+  await request.post(`${baseUriPath}/logout`).expect(302).expect('Clear-Site-Data', '"cookies", "storage"');
 });
 
 test('should not set "Clear-Site-Data" header', async () => {
@@ -77,10 +59,7 @@ test('should not set "Clear-Site-Data" header', async () => {
     session: { clearSiteDataOnLogout: false },
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
   const request = supertest(app);
@@ -96,10 +75,7 @@ test('should clear "unleash-session" cookies', async () => {
   const app = express();
   const config = createTestConfig({ server: { baseUriPath } });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
@@ -108,10 +84,7 @@ test('should clear "unleash-session" cookies', async () => {
   await request
     .post(`${baseUriPath}/logout`)
     .expect(302)
-    .expect(
-      'Set-Cookie',
-      'unleash-session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
-    );
+    .expect('Set-Cookie', 'unleash-session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
 });
 
 test('should clear "unleash-session" cookie even when disabled clear site data', async () => {
@@ -122,10 +95,7 @@ test('should clear "unleash-session" cookie even when disabled clear site data',
     session: { clearSiteDataOnLogout: false },
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
@@ -134,10 +104,7 @@ test('should clear "unleash-session" cookie even when disabled clear site data',
   await request
     .post(`${baseUriPath}/logout`)
     .expect(302)
-    .expect(
-      'Set-Cookie',
-      'unleash-session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT',
-    );
+    .expect('Set-Cookie', 'unleash-session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT');
 });
 
 test('should call destroy on session', async () => {
@@ -152,10 +119,7 @@ test('should call destroy on session', async () => {
     next();
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
@@ -176,10 +140,7 @@ test('should handle req.logout with callback function', async () => {
     next();
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
@@ -201,10 +162,7 @@ test('should handle req.logout without callback function', async () => {
     next();
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
@@ -227,18 +185,12 @@ test('should redirect to alternative logoutUrl', async () => {
     next();
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
 
   app.use('/logout', new LogoutController(config, { sessionService }).router);
 
   const request = supertest(app);
-  await request
-    .post('/logout')
-    .expect(302)
-    .expect('Location', '/some-other-path');
+  await request.post('/logout').expect(302).expect('Location', '/some-other-path');
 });
 
 test('Should destroy sessions for user', async () => {
@@ -255,10 +207,7 @@ test('Should destroy sessions for user', async () => {
     next();
   });
   const sessionStore = new FakeSessionStore();
-  const sessionService = new SessionService(
-    { sessionStore },
-    { getLogger: noLogger },
-  );
+  const sessionService = new SessionService({ sessionStore }, { getLogger: noLogger });
   await sessionStore.insertSession({
     sid: '1',
     sess: {

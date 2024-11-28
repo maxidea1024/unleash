@@ -4,14 +4,7 @@ export const addonSchema = {
   $id: '#/components/schemas/addonSchema',
   type: 'object',
   description: `An [addon](https://docs.getunleash.io/reference/addons) instance description. Contains data about what kind of provider it uses, whether it's enabled or not, what events it listens for, and more.`,
-  required: [
-    'id',
-    'description',
-    'provider',
-    'enabled',
-    'parameters',
-    'events',
-  ],
+  required: ['id', 'description', 'provider', 'enabled', 'parameters', 'events'],
   properties: {
     id: {
       type: 'integer',
@@ -26,8 +19,7 @@ export const addonSchema = {
     },
     description: {
       type: 'string',
-      description:
-        'A description of the addon. `null` if no description exists.',
+      description: 'A description of the addon. `null` if no description exists.',
       example:
         'This addon posts updates to our internal feature tracking system whenever a feature is created or updated.',
       nullable: true,

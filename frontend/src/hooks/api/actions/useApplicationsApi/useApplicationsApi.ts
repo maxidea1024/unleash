@@ -7,11 +7,7 @@ const useApplicationsApi = () => {
 
   const URI = 'api/admin/metrics/applications';
 
-  const storeApplicationMetaData = async (
-    appName: string,
-    key: string,
-    value: string,
-  ) => {
+  const storeApplicationMetaData = async (appName: string, key: string, value: string) => {
     const data: { [key: string]: any } = {};
     data[key] = value;
     const path = `${URI}/${appName}`;

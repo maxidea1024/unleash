@@ -66,8 +66,7 @@ const createEventSearch = () => {
       initCache(params.project || '');
     }, []);
 
-    const { data, error, mutate, isLoading } =
-      useSWR<EventSearchResponseSchema>(swrKey, fetcher, options);
+    const { data, error, mutate, isLoading } = useSWR<EventSearchResponseSchema>(swrKey, fetcher, options);
 
     const refetch = useCallback(() => {
       mutate();

@@ -4,14 +4,7 @@ export const projectFeatureEnvironmentSchema = {
   $id: '#/components/schemas/projectFeatureEnvironmentSchema',
   type: 'object',
   additionalProperties: false,
-  required: [
-    'name',
-    'type',
-    'enabled',
-    'sortOrder',
-    'variantCount',
-    'lastSeenAt',
-  ],
+  required: ['name', 'type', 'enabled', 'sortOrder', 'variantCount', 'lastSeenAt'],
   description: 'A detailed description of the feature environment',
   properties: {
     name: {
@@ -27,14 +20,12 @@ export const projectFeatureEnvironmentSchema = {
     enabled: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the feature is enabled for the environment, otherwise `false`.',
+      description: '`true` if the feature is enabled for the environment, otherwise `false`.',
     },
     sortOrder: {
       type: 'number',
       example: 3,
-      description:
-        'The sort order of the feature environment in the feature environments list',
+      description: 'The sort order of the feature environment in the feature environments list',
     },
     variantCount: {
       type: 'number',
@@ -45,8 +36,7 @@ export const projectFeatureEnvironmentSchema = {
       format: 'date-time',
       nullable: true,
       example: '2023-01-28T16:21:39.975Z',
-      description:
-        'The date when metrics where last collected for the feature environment',
+      description: 'The date when metrics where last collected for the feature environment',
     },
     hasStrategies: {
       type: 'boolean',
@@ -62,6 +52,4 @@ export const projectFeatureEnvironmentSchema = {
   },
 } as const;
 
-export type ProjectFeatureEnvironmentSchema = FromSchema<
-  typeof projectFeatureEnvironmentSchema
->;
+export type ProjectFeatureEnvironmentSchema = FromSchema<typeof projectFeatureEnvironmentSchema>;

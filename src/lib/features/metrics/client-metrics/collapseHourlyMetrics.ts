@@ -1,16 +1,8 @@
-import type {
-  IClientMetricsEnv,
-  IClientMetricsEnvVariant,
-} from './client-metrics-store-v2-type';
+import type { IClientMetricsEnv, IClientMetricsEnvVariant } from './client-metrics-store-v2-type';
 import { startOfHour } from 'date-fns';
 
 const createMetricKey = (metric: IClientMetricsEnv): string => {
-  return [
-    metric.featureName,
-    metric.appName,
-    metric.environment,
-    metric.timestamp.getTime(),
-  ].join();
+  return [metric.featureName, metric.appName, metric.environment, metric.timestamp.getTime()].join();
 };
 
 const mergeRecords = (
@@ -32,9 +24,7 @@ const mergeRecords = (
   return result;
 };
 
-export const collapseHourlyMetrics = (
-  metrics: IClientMetricsEnv[],
-): IClientMetricsEnv[] => {
+export const collapseHourlyMetrics = (metrics: IClientMetricsEnv[]): IClientMetricsEnv[] => {
   const grouped = new Map<string, IClientMetricsEnv>();
   metrics.forEach((metric) => {
     const hourlyMetric = {
@@ -49,19 +39,14 @@ export const collapseHourlyMetrics = (
       grouped[key].no = metric.no + (grouped[key].no || 0);
 
       if (metric.variants) {
-        grouped[key].variants = mergeRecords(
-          metric.variants,
-          grouped[key].variants ?? {},
-        );
+        grouped[key].variants = mergeRecords(metric.variants, grouped[key].variants ?? {});
       }
     }
   });
   return Object.values(grouped);
 };
 
-export const spreadVariants = (
-  metrics: IClientMetricsEnv[],
-): IClientMetricsEnvVariant[] => {
+export const spreadVariants = (metrics: IClientMetricsEnv[]): IClientMetricsEnvVariant[] => {
   return metrics.flatMap((item) => {
     if (!item.variants) {
       return [];

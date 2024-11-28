@@ -9,8 +9,7 @@ export const inactiveUsersSchema = {
   required: ['version', 'inactiveUsers'],
   properties: {
     version: {
-      description:
-        'The version of this schema. Used to keep track of compatibility',
+      description: 'The version of this schema. Used to keep track of compatibility',
       type: 'integer',
       minimum: 1,
       example: 1,

@@ -13,11 +13,7 @@ export const formatStrategyName = (strategyName: string): string => {
 };
 
 const RolloutSvgIcon: FC = (props) => (
-  <SvgIcon
-    {...props}
-    component={(rest: SVGProps<SVGSVGElement>) => <RolloutIcon {...rest} />}
-    inheritViewBox
-  />
+  <SvgIcon {...props} component={(rest: SVGProps<SVGSVGElement>) => <RolloutIcon {...rest} />} inheritViewBox />
 );
 
 export const getFeatureStrategyIcon = (strategyName: string) => {
@@ -50,9 +46,7 @@ export const BuiltInStrategies = [
   'userWithId',
 ];
 
-export const GetFeatureStrategyIcon: FC<{ strategyName: string }> = ({
-  strategyName,
-}) => {
+export const GetFeatureStrategyIcon: FC<{ strategyName: string }> = ({ strategyName }) => {
   const theme = useTheme();
   const Icon = getFeatureStrategyIcon(strategyName);
   return <Icon style={{ color: theme.palette.neutral.main }} />;

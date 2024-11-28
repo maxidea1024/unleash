@@ -1,9 +1,5 @@
 import type { FC, ReactNode } from 'react';
-import type {
-  IFeatureChange,
-  ChangeRequestType,
-  IChangeRequestFeature,
-} from '../../../changeRequest.types';
+import type { IFeatureChange, ChangeRequestType, IChangeRequestFeature } from '../../../changeRequest.types';
 import { objectId } from 'utils/objectId';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Alert, Box, styled } from '@mui/material';
@@ -22,32 +18,19 @@ const StyledSingleChangeBox = styled(Box, {
   $isAfterWarning: boolean;
   $isLast: boolean;
   $isInConflictFeature: boolean;
-}>(
-  ({
-    theme,
-    $hasConflict,
-    $isInConflictFeature,
-    $isAfterWarning,
-    $isLast,
-  }) => ({
-    borderLeft: '1px solid',
-    borderRight: '1px solid',
-    borderTop: '1px solid',
-    borderBottom: $isLast ? '1px solid' : 'none',
-    borderRadius: $isLast
-      ? `0 0
+}>(({ theme, $hasConflict, $isInConflictFeature, $isAfterWarning, $isLast }) => ({
+  borderLeft: '1px solid',
+  borderRight: '1px solid',
+  borderTop: '1px solid',
+  borderBottom: $isLast ? '1px solid' : 'none',
+  borderRadius: $isLast
+    ? `0 0
                 ${theme.shape.borderRadiusLarge}px ${theme.shape.borderRadiusLarge}px`
-      : 0,
-    borderColor:
-      $hasConflict || $isInConflictFeature
-        ? theme.palette.warning.border
-        : theme.palette.divider,
-    borderTopColor:
-      ($hasConflict || $isAfterWarning) && !$isInConflictFeature
-        ? theme.palette.warning.border
-        : theme.palette.divider,
-  }),
-);
+    : 0,
+  borderColor: $hasConflict || $isInConflictFeature ? theme.palette.warning.border : theme.palette.divider,
+  borderTopColor:
+    ($hasConflict || $isAfterWarning) && !$isInConflictFeature ? theme.palette.warning.border : theme.palette.divider,
+}));
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
   borderRadius: 0,
@@ -81,27 +64,21 @@ export const FeatureChange: FC<{
   feature: IChangeRequestFeature;
   onNavigate?: () => void;
 }> = ({ index, change, feature, changeRequest, actions, onNavigate }) => {
-  const lastIndex = feature.defaultChange
-    ? feature.changes.length + 1
-    : feature.changes.length;
+  const lastIndex = feature.defaultChange ? feature.changes.length + 1 : feature.changes.length;
 
   return (
     <StyledSingleChangeBox
       key={objectId(change)}
       $hasConflict={Boolean(change.conflict || change.scheduleConflicts)}
       $isInConflictFeature={Boolean(feature.conflict)}
-      $isAfterWarning={Boolean(
-        feature.changes[index - 1]?.conflict ||
-          feature.changes[index - 1]?.scheduleConflicts,
-      )}
+      $isAfterWarning={Boolean(feature.changes[index - 1]?.conflict || feature.changes[index - 1]?.scheduleConflicts)}
       $isLast={index + 1 === lastIndex}
     >
       <ConditionallyRender
         condition={Boolean(change.conflict) && !feature.conflict}
         show={
           <StyledAlert severity='warning'>
-            <strong>Conflict!</strong> This change can’t be applied.{' '}
-            {change.conflict}.
+            <strong>Conflict!</strong> This change can’t be applied. {change.conflict}.
           </StyledAlert>
         }
       />
@@ -110,8 +87,8 @@ export const FeatureChange: FC<{
         condition={Boolean(change.scheduleConflicts)}
         show={
           <StyledAlert severity='warning'>
-            <strong>Potential conflict!</strong> This change would create
-            conflicts with the following scheduled change request(s):{' '}
+            <strong>Potential conflict!</strong> This change would create conflicts with the following scheduled change
+            request(s):{' '}
             <InlineList>
               {(
                 change.scheduleConflicts ?? {
@@ -139,8 +116,7 @@ export const FeatureChange: FC<{
       />
 
       <ChangeInnerBox>
-        {(change.action === 'addDependency' ||
-          change.action === 'deleteDependency') && (
+        {(change.action === 'addDependency' || change.action === 'deleteDependency') && (
           <DependencyChange
             actions={actions}
             change={change}
@@ -148,19 +124,10 @@ export const FeatureChange: FC<{
             onNavigate={onNavigate}
           />
         )}
-        {change.action === 'updateEnabled' && (
-          <ToggleStatusChange
-            enabled={change.payload.enabled}
-            actions={actions}
-          />
-        )}
-        {change.action === 'archiveFeature' && (
-          <ArchiveFeatureChange actions={actions} />
-        )}
+        {change.action === 'updateEnabled' && <ToggleStatusChange enabled={change.payload.enabled} actions={actions} />}
+        {change.action === 'archiveFeature' && <ArchiveFeatureChange actions={actions} />}
 
-        {change.action === 'addStrategy' ||
-        change.action === 'deleteStrategy' ||
-        change.action === 'updateStrategy' ? (
+        {change.action === 'addStrategy' || change.action === 'deleteStrategy' || change.action === 'updateStrategy' ? (
           <StrategyChange
             actions={actions}
             change={change}

@@ -19,11 +19,7 @@ const iconStyle = (theme: Theme) => ({
   verticalAlign: 'middle',
 });
 
-export const SortArrow: VFC<ISortArrowProps> = ({
-  isSorted: sorted,
-  isDesc: desc = false,
-  className,
-}) => (
+export const SortArrow: VFC<ISortArrowProps> = ({ isSorted: sorted, isDesc: desc = false, className }) => (
   <ConditionallyRender
     condition={Boolean(sorted)}
     show={

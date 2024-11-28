@@ -45,18 +45,9 @@ Cypress.Commands.add('updateUserPassword_API', updateUserPassword_API);
 Cypress.Commands.add('createFeature_UI', createFeature_UI);
 Cypress.Commands.add('deleteFeatureStrategy_UI', deleteFeatureStrategy_UI);
 Cypress.Commands.add('createFeature_API', createFeature_API);
-Cypress.Commands.add(
-  'addUserIdStrategyToFeature_UI',
-  addUserIdStrategyToFeature_UI,
-);
-Cypress.Commands.add(
-  'addFlexibleRolloutStrategyToFeature_UI',
-  addFlexibleRolloutStrategyToFeature_UI,
-);
-Cypress.Commands.add(
-  'updateFlexibleRolloutStrategy_UI',
-  updateFlexibleRolloutStrategy_UI,
-);
+Cypress.Commands.add('addUserIdStrategyToFeature_UI', addUserIdStrategyToFeature_UI);
+Cypress.Commands.add('addFlexibleRolloutStrategyToFeature_UI', addFlexibleRolloutStrategyToFeature_UI);
+Cypress.Commands.add('updateFlexibleRolloutStrategy_UI', updateFlexibleRolloutStrategy_UI);
 Cypress.Commands.add('createEnvironment_API', createEnvironment_API);
 Cypress.Commands.overwrite('visit', (originalFn, url, options = {}) => {
   if (!options.headers) {

@@ -1,9 +1,7 @@
 import type { IFeatureMetricsRaw } from 'interfaces/featureToggle';
 
 // multiple applications may have metrics for the same timestamp
-export const aggregateFeatureMetrics = (
-  metrics: IFeatureMetricsRaw[],
-): IFeatureMetricsRaw[] => {
+export const aggregateFeatureMetrics = (metrics: IFeatureMetricsRaw[]): IFeatureMetricsRaw[] => {
   const resultMap = new Map<string, IFeatureMetricsRaw>();
 
   metrics.forEach((obj) => {
@@ -26,9 +24,6 @@ export const aggregateFeatureMetrics = (
 
   return Array.from(resultMap.values()).map((item) => ({
     ...item,
-    variants:
-      item.variants && Object.keys(item.variants).length === 0
-        ? undefined
-        : item.variants,
+    variants: item.variants && Object.keys(item.variants).length === 0 ? undefined : item.variants,
   }));
 };

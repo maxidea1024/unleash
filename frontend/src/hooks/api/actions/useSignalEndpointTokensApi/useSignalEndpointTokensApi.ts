@@ -53,10 +53,7 @@ export const useSignalEndpointTokensApi = () => {
     await makeRequest(req.caller, req.id);
   };
 
-  const removeSignalEndpointToken = async (
-    signalEndpointId: number,
-    signalEndpointTokenId: number,
-  ) => {
+  const removeSignalEndpointToken = async (signalEndpointId: number, signalEndpointTokenId: number) => {
     const requestId = 'removeSignalEndpointToken';
     const req = createRequest(
       `${ENDPOINT}/${signalEndpointId}/tokens/${signalEndpointTokenId}`,

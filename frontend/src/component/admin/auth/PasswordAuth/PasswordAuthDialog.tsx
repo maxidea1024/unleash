@@ -11,13 +11,7 @@ interface IPasswordAuthDialogProps {
   tokens: IApiToken[];
 }
 
-export const PasswordAuthDialog = ({
-  open,
-  setOpen,
-  onClick,
-  adminCount,
-  tokens,
-}: IPasswordAuthDialogProps) => (
+export const PasswordAuthDialog = ({ open, setOpen, onClick, adminCount, tokens }: IPasswordAuthDialogProps) => (
   <Dialogue
     open={open}
     onClose={() => {
@@ -29,10 +23,8 @@ export const PasswordAuthDialog = ({
     secondaryButtonText='Cancel'
   >
     <Alert severity='warning'>
-      <strong>Warning!</strong> Disabling password based login may lock you out
-      of the system permanently if you do not have any alternative admin
-      credentials (such as an admin SSO account or admin API token) secured
-      beforehand.
+      <strong>Warning!</strong> Disabling password based login may lock you out of the system permanently if you do not
+      have any alternative admin credentials (such as an admin SSO account or admin API token) secured beforehand.
       <br />
       <br />
       <strong>Password based administrators: </strong> {adminCount?.password}
@@ -41,12 +33,10 @@ export const PasswordAuthDialog = ({
       <br />
       <strong>Admin service accounts: </strong> {adminCount?.service}
       <br />
-      <strong>Admin API tokens: </strong>{' '}
-      {tokens.filter(({ type }) => type === 'admin').length}
+      <strong>Admin API tokens: </strong> {tokens.filter(({ type }) => type === 'admin').length}
     </Alert>
     <Typography sx={{ mt: 3 }}>
-      You are about to disable password based login. Are you sure you want to
-      proceed?
+      You are about to disable password based login. Are you sure you want to proceed?
     </Typography>
   </Dialogue>
 );

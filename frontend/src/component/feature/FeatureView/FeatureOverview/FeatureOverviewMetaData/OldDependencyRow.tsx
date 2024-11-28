@@ -31,8 +31,7 @@ const useDeleteDependency = (project: string, featureId: string) => {
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(project, featureId);
   const environment = useHighestPermissionChangeRequestEnvironment(project)();
-  const { isChangeRequestConfiguredInAnyEnv } =
-    useChangeRequestsEnabled(project);
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(project);
   const { removeDependencies } = useDependentFeaturesApi(project);
 
   const handleAddChange = async () => {
@@ -82,20 +81,13 @@ const useDeleteDependency = (project: string, featureId: string) => {
   return deleteDependency;
 };
 
-export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({
-  feature,
-}) => {
+export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({ feature }) => {
   const [showDependencyDialogue, setShowDependencyDialogue] = useState(false);
   const canAddParentDependency =
-    Boolean(feature.project) &&
-    feature.dependencies.length === 0 &&
-    feature.children.length === 0;
-  const hasParentDependency =
-    Boolean(feature.project) && Boolean(feature.dependencies.length > 0);
+    Boolean(feature.project) && feature.dependencies.length === 0 && feature.children.length === 0;
+  const hasParentDependency = Boolean(feature.project) && Boolean(feature.dependencies.length > 0);
   const hasChildren = Boolean(feature.project) && feature.children.length > 0;
-  const environment = useHighestPermissionChangeRequestEnvironment(
-    feature.project,
-  )();
+  const environment = useHighestPermissionChangeRequestEnvironment(feature.project)();
   const checkAccess = useCheckProjectAccess(feature.project);
   const deleteDependency = useDeleteDependency(feature.project, feature.name);
 
@@ -131,9 +123,7 @@ export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({
           <FlexRow>
             <StyledDetail>
               <StyledLabel>Dependency:</StyledLabel>
-              <StyledLink
-                to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
-              >
+              <StyledLink to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}>
                 {feature.dependencies[0]?.feature}
               </StyledLink>
             </StyledDetail>
@@ -162,17 +152,12 @@ export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({
         }
       />
       <ConditionallyRender
-        condition={
-          hasParentDependency &&
-          Boolean(feature.dependencies[0]?.variants?.length)
-        }
+        condition={hasParentDependency && Boolean(feature.dependencies[0]?.variants?.length)}
         show={
           <FlexRow>
             <StyledDetail>
               <StyledLabel>Dependency value:</StyledLabel>
-              <VariantsTooltip
-                variants={feature.dependencies[0]?.variants || []}
-              />
+              <VariantsTooltip variants={feature.dependencies[0]?.variants || []} />
             </StyledDetail>
           </FlexRow>
         }
@@ -183,10 +168,7 @@ export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({
           <FlexRow>
             <StyledDetail>
               <StyledLabel>Children:</StyledLabel>
-              <ChildrenTooltip
-                childFeatures={feature.children}
-                project={feature.project}
-              />
+              <ChildrenTooltip childFeatures={feature.children} project={feature.project} />
             </StyledDetail>
           </FlexRow>
         }

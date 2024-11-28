@@ -33,12 +33,7 @@ test('manipulates the rollout slider', async () => {
         <Route
           path='/projects/:projectId/features/:featureId'
           element={
-            <FlexibleStrategy
-              parameters={parameters}
-              updateParameter={updateParameter}
-              context={{}}
-              editable={true}
-            />
+            <FlexibleStrategy parameters={parameters} updateParameter={updateParameter} context={{}} editable={true} />
           }
         />
       </Routes>

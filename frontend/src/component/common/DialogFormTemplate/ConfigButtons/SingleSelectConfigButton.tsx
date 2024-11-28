@@ -8,10 +8,7 @@ type SingleSelectConfigButtonProps<T> = Pick<
 > &
   Pick<DropdownListProps<T>, 'search' | 'onChange' | 'options'>;
 
-export function SingleSelectConfigButton<T = string>({
-  onChange,
-  ...props
-}: SingleSelectConfigButtonProps<T>) {
+export function SingleSelectConfigButton<T = string>({ onChange, ...props }: SingleSelectConfigButtonProps<T>) {
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>();
   const [recentlyClosed, setRecentlyClosed] = useState(false);
 
@@ -28,12 +25,7 @@ export function SingleSelectConfigButton<T = string>({
   };
 
   return (
-    <ConfigButton
-      {...props}
-      preventOpen={recentlyClosed}
-      anchorEl={anchorEl}
-      setAnchorEl={setAnchorEl}
-    >
+    <ConfigButton {...props} preventOpen={recentlyClosed} anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
       <DropdownList<T> {...props} onChange={handleChange} />
     </ConfigButton>
   );

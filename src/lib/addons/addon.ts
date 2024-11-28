@@ -19,21 +19,13 @@ export default abstract class Addon {
 
   constructor(
     definition: IAddonDefinition,
-    {
-      getLogger,
-      integrationEventsService,
-      flagResolver,
-      eventBus,
-    }: IAddonConfig,
+    { getLogger, integrationEventsService, flagResolver, eventBus }: IAddonConfig,
   ) {
     this.logger = getLogger(`addon/${definition.name}`);
 
     const { error } = addonDefinitionSchema.validate(definition);
     if (error) {
-      this.logger.warn(
-        `Could not load addon provider ${definition.name}`,
-        error,
-      );
+      this.logger.warn(`Could not load addon provider ${definition.name}`, error);
 
       throw error;
     }
@@ -53,11 +45,7 @@ export default abstract class Addon {
     return this._definition;
   }
 
-  async fetchRetry(
-    url: string,
-    options: any = {},
-    retries: number = 1,
-  ): Promise<Response> {
+  async fetchRetry(url: string, options: any = {}, retries: number = 1): Promise<Response> {
     // biome-ignore lint/suspicious/noImplicitAnyLet: Due to calling upstream, it's not easy knowing the real type here
     let res;
     try {
@@ -70,12 +58,7 @@ export default abstract class Addon {
       return res;
     } catch (e) {
       const { method } = options;
-      this.logger.warn(
-        `Error querying ${url} with method ${
-          method || 'GET'
-        } status code ${e.code}`,
-        e,
-      );
+      this.logger.warn(`Error querying ${url} with method ${method || 'GET'} status code ${e.code}`, e);
       res = { status: e.code, ok: false };
     }
 
@@ -83,15 +66,9 @@ export default abstract class Addon {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  abstract handleEvent(
-    event: IEvent,
-    parameters: any,
-    integrationId: number,
-  ): Promise<void>;
+  abstract handleEvent(event: IEvent, parameters: any, integrationId: number): Promise<void>;
 
-  async registerEvent(
-    integrationEvent: IntegrationEventWriteModel,
-  ): Promise<void> {
+  async registerEvent(integrationEvent: IntegrationEventWriteModel): Promise<void> {
     await this.integrationEventsService.registerEvent(integrationEvent);
     this.eventBus.emit(ADDON_EVENTS_HANDLED, {
       result: integrationEvent.state,

@@ -13,11 +13,7 @@ interface IFeatureStrategyEnabledProps {
   isChangeRequest?: boolean;
 }
 
-export const FeatureStrategyEnabled: FC<IFeatureStrategyEnabledProps> = ({
-  projectId,
-  featureId,
-  environmentId,
-}) => {
+export const FeatureStrategyEnabled: FC<IFeatureStrategyEnabledProps> = ({ projectId, featureId, environmentId }) => {
   const featurePagePath = formatFeaturePath(projectId, featureId);
   const { feature } = useFeature(projectId, featureId);
 
@@ -28,27 +24,21 @@ export const FeatureStrategyEnabled: FC<IFeatureStrategyEnabledProps> = ({
       condition={isFeatureEnabledInEnvironment(feature, environmentId)}
       show={
         <Alert severity='success'>
-          This feature flag is currently enabled in the{' '}
-          <strong>{environmentId}</strong> environment. Any changes made here
-          will be available to users as soon as you hit <strong>save</strong>.
+          This feature flag is currently enabled in the <strong>{environmentId}</strong> environment. Any changes made
+          here will be available to users as soon as you hit <strong>save</strong>.
         </Alert>
       }
       elseShow={
         <Alert severity='warning'>
-          This feature flag is currently disabled in the{' '}
-          <strong>{environmentId}</strong> environment. Any changes made here
-          will not take effect until the flag has been enabled on the{' '}
-          {featurePageLink}.
+          This feature flag is currently disabled in the <strong>{environmentId}</strong> environment. Any changes made
+          here will not take effect until the flag has been enabled on the {featurePageLink}.
         </Alert>
       }
     />
   );
 };
 
-const isFeatureEnabledInEnvironment = (
-  feature: IFeatureToggle,
-  environmentId: string,
-): boolean => {
+const isFeatureEnabledInEnvironment = (feature: IFeatureToggle, environmentId: string): boolean => {
   const environment = feature.environments.find((environment) => {
     return environment.name === environmentId;
   });

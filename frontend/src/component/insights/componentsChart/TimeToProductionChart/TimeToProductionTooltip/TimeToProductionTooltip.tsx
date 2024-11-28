@@ -54,9 +54,7 @@ const resolveBadge = (input?: number) => {
   }
 };
 
-export const TimeToProductionTooltip: VFC<{ tooltip: TooltipState | null }> = ({
-  tooltip,
-}) => {
+export const TimeToProductionTooltip: VFC<{ tooltip: TooltipState | null }> = ({ tooltip }) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,
@@ -78,10 +76,7 @@ export const TimeToProductionTooltip: VFC<{ tooltip: TooltipState | null }> = ({
       })}
     >
       {limitedData?.map((point, index) => (
-        <StyledTooltipItemContainer
-          elevation={3}
-          key={`${point.title}-${index}`}
-        >
+        <StyledTooltipItemContainer elevation={3} key={`${point.title}-${index}`}>
           <StyledItemHeader>
             <Typography variant='body2' color='textSecondary' component='span'>
               {point.label}
@@ -94,11 +89,7 @@ export const TimeToProductionTooltip: VFC<{ tooltip: TooltipState | null }> = ({
               </Typography>
               <strong>{point.title}</strong>
             </Typography>
-            <Typography
-              variant='body2'
-              component='span'
-              sx={{ mr: (theme) => theme.spacing(1), pt: 0.25 }}
-            >
+            <Typography variant='body2' component='span' sx={{ mr: (theme) => theme.spacing(1), pt: 0.25 }}>
               {getInterval(point.value.timeToProduction)}
             </Typography>
             {resolveBadge(point.value.timeToProduction)}

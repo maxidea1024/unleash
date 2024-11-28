@@ -1,9 +1,7 @@
 import type React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PermissionButton, {
-  type IPermissionButtonProps,
-} from 'component/common/PermissionButton/PermissionButton';
+import PermissionButton, { type IPermissionButtonProps } from 'component/common/PermissionButton/PermissionButton';
 import { CREATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import { Popover, styled } from '@mui/material';
 import { FeatureStrategyMenuCards } from './FeatureStrategyMenuCards/FeatureStrategyMenuCards';
@@ -71,13 +69,7 @@ export const FeatureStrategyMenu = ({
     setAnchor(event.currentTarget);
   };
 
-  const createStrategyPath = formatCreateStrategyPath(
-    projectId,
-    featureId,
-    environmentId,
-    'flexibleRollout',
-    true,
-  );
+  const createStrategyPath = formatCreateStrategyPath(projectId, featureId, environmentId, 'flexibleRollout', true);
 
   if (flagOverviewRedesignEnabled) {
     return (
@@ -111,11 +103,7 @@ export const FeatureStrategyMenu = ({
             }),
           }}
         >
-          <FeatureStrategyMenuCards
-            projectId={projectId}
-            featureId={featureId}
-            environmentId={environmentId}
-          />
+          <FeatureStrategyMenuCards projectId={projectId} featureId={featureId} environmentId={environmentId} />
         </Popover>
       </StyledStrategyMenu>
     );
@@ -169,11 +157,7 @@ export const FeatureStrategyMenu = ({
           }),
         }}
       >
-        <FeatureStrategyMenuCards
-          projectId={projectId}
-          featureId={featureId}
-          environmentId={environmentId}
-        />
+        <FeatureStrategyMenuCards projectId={projectId} featureId={featureId} environmentId={environmentId} />
       </Popover>
     </StyledStrategyMenu>
   );

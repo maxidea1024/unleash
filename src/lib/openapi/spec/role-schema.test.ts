@@ -9,11 +9,7 @@ test('roleSchema', () => {
     type: '',
   };
 
-  expect(
-    validateSchema('#/components/schemas/roleSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/roleSchema', data)).toBeUndefined();
 
-  expect(
-    validateSchema('#/components/schemas/roleSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/roleSchema', {})).toMatchSnapshot();
 });

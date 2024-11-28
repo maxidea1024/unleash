@@ -38,9 +38,7 @@ export const StaleFlags = () => {
         <BigNumber value={data?.staleFlags.total ?? 0} />{' '}
         <Link to={`/projects/${projectId}?state=IS%3Astale`}>stale flags</Link>
       </Typography>
-      <Typography variant='body2'>
-        Remember to archive your stale feature flags to keep the project healthy
-      </Typography>
+      <Typography variant='body2'>Remember to archive your stale feature flags to keep the project healthy</Typography>
     </Wrapper>
   );
 };

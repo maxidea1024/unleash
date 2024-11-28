@@ -14,17 +14,10 @@ interface IPermissionGuardProps {
   children: JSX.Element;
 }
 
-export const PermissionGuard = ({
-  permissions,
-  project,
-  environment,
-  children,
-}: IPermissionGuardProps) => {
+export const PermissionGuard = ({ permissions, project, environment, children }: IPermissionGuardProps) => {
   const { hasAccess } = useContext(AccessContext);
 
-  const permissionsArray = Array.isArray(permissions)
-    ? permissions
-    : [permissions];
+  const permissionsArray = Array.isArray(permissions) ? permissions : [permissions];
 
   if (!permissionsArray.includes(ADMIN)) {
     permissionsArray.push(ADMIN);
@@ -37,8 +30,7 @@ export const PermissionGuard = ({
   if (permissionsArray.length === 1) {
     return (
       <Alert severity='error'>
-        You need the <strong>{permissionsArray[0]}</strong> permission to access
-        this section.
+        You need the <strong>{permissionsArray[0]}</strong> permission to access this section.
       </Alert>
     );
   }

@@ -12,9 +12,7 @@ interface ILoginHistoryActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const LoginHistoryActionsCell = ({
-  onDelete,
-}: ILoginHistoryActionsCellProps) => {
+export const LoginHistoryActionsCell = ({ onDelete }: ILoginHistoryActionsCellProps) => {
   return (
     <StyledBox>
       <PermissionIconButton

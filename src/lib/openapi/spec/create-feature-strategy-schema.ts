@@ -83,6 +83,4 @@ export const createFeatureStrategySchema = {
   },
 } as const;
 
-export type CreateFeatureStrategySchema = FromSchema<
-  typeof createFeatureStrategySchema
->;
+export type CreateFeatureStrategySchema = FromSchema<typeof createFeatureStrategySchema>;

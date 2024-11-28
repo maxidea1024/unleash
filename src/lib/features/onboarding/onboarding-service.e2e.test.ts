@@ -61,9 +61,7 @@ test('Default project should take first user created instead of project created 
   await onboardingService.insert({ type: 'pre-live', flag: 'test-default' });
   await onboardingService.insert({ type: 'live', flag: 'test-default' });
 
-  const { rows: projectEvents } = await db.rawDatabase.raw(
-    'SELECT * FROM onboarding_events_project',
-  );
+  const { rows: projectEvents } = await db.rawDatabase.raw('SELECT * FROM onboarding_events_project');
   expect(projectEvents).toMatchObject([
     { event: 'first-flag', time_to_event: 60, project: 'default' },
     {
@@ -84,9 +82,7 @@ test('Ignore events for existing customers', async () => {
   jest.setSystemTime(new Date());
   await onboardingService.insert({ type: 'first-user-login' });
 
-  const { rows: instanceEvents } = await db.rawDatabase.raw(
-    'SELECT * FROM onboarding_events_instance',
-  );
+  const { rows: instanceEvents } = await db.rawDatabase.raw('SELECT * FROM onboarding_events_instance');
   expect(instanceEvents).toMatchObject([]);
 });
 
@@ -96,9 +92,7 @@ test('Ignore system user in onboarding events', async () => {
 
   await onboardingService.insert({ type: 'first-user-login' });
 
-  const { rows: instanceEvents } = await db.rawDatabase.raw(
-    'SELECT * FROM onboarding_events_instance',
-  );
+  const { rows: instanceEvents } = await db.rawDatabase.raw('SELECT * FROM onboarding_events_instance');
   expect(instanceEvents).toMatchObject([]);
 });
 
@@ -132,9 +126,7 @@ test('Storing onboarding events', async () => {
   jest.advanceTimersByTime(minutesToMilliseconds(1));
   await onboardingService.insert({ type: 'live', flag: 'invalid' });
 
-  const { rows: instanceEvents } = await db.rawDatabase.raw(
-    'SELECT * FROM onboarding_events_instance',
-  );
+  const { rows: instanceEvents } = await db.rawDatabase.raw('SELECT * FROM onboarding_events_instance');
   expect(instanceEvents).toMatchObject([
     { event: 'first-user-login', time_to_event: 60 },
     { event: 'second-user-login', time_to_event: 120 },
@@ -143,9 +135,7 @@ test('Storing onboarding events', async () => {
     { event: 'first-live', time_to_event: 300 },
   ]);
 
-  const { rows: projectEvents } = await db.rawDatabase.raw(
-    'SELECT * FROM onboarding_events_project',
-  );
+  const { rows: projectEvents } = await db.rawDatabase.raw('SELECT * FROM onboarding_events_project');
   expect(projectEvents).toMatchObject([
     { event: 'first-flag', time_to_event: 180, project: 'test_project' },
     {
@@ -186,10 +176,8 @@ test('Reacting to events', async () => {
   eventBus.emit(STAGE_ENTERED, { stage: 'live', feature: 'test' });
   await reachedOnboardingEvents(5);
 
-  const instanceMetrics =
-    await onboardingReadModel.getInstanceOnboardingMetrics();
-  const projectMetrics =
-    await onboardingReadModel.getProjectsOnboardingMetrics();
+  const instanceMetrics = await onboardingReadModel.getInstanceOnboardingMetrics();
+  const projectMetrics = await onboardingReadModel.getProjectsOnboardingMetrics();
 
   expect(instanceMetrics).toMatchObject({
     firstLogin: 60,

@@ -1,10 +1,4 @@
-import {
-  useState,
-  type ReactNode,
-  useMemo,
-  useCallback,
-  useEffect,
-} from 'react';
+import { useState, type ReactNode, useMemo, useCallback, useEffect } from 'react';
 import { FeedbackCES } from 'component/feedback/FeedbackCES/FeedbackCES';
 import {
   feedbackCESContext,

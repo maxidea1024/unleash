@@ -35,9 +35,7 @@ const ResetPasswordForm = ({ onSubmit }: IResetPasswordProps) => {
 
   const submittable = matchingPasswords && validOwaspPassword;
 
-  const setValidOwaspPasswordMemo = useCallback(setValidOwaspPassword, [
-    setValidOwaspPassword,
-  ]);
+  const setValidOwaspPasswordMemo = useCallback(setValidOwaspPassword, [setValidOwaspPassword]);
 
   useEffect(() => {
     if (!password) {
@@ -66,9 +64,7 @@ const ResetPasswordForm = ({ onSubmit }: IResetPasswordProps) => {
       <PasswordField
         placeholder='Password'
         value={password || ''}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setPassword(e.target.value)
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
         onFocus={() => setShowPasswordChecker(true)}
         autoComplete='new-password'
         data-loading
@@ -76,34 +72,19 @@ const ResetPasswordForm = ({ onSubmit }: IResetPasswordProps) => {
       <PasswordField
         value={confirmPassword || ''}
         placeholder='Confirm password'
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setConfirmPassword(e.target.value)
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
         autoComplete='new-password'
         data-loading
       />
       <ConditionallyRender
         condition={showPasswordChecker}
         show={
-          <PasswordChecker
-            password={password}
-            callback={setValidOwaspPasswordMemo}
-            style={{ marginBottom: '1rem' }}
-          />
+          <PasswordChecker password={password} callback={setValidOwaspPasswordMemo} style={{ marginBottom: '1rem' }} />
         }
       />
 
-      <PasswordMatcher
-        started={started}
-        passwordsDoNotMatch={!matchingPasswords}
-      />
-      <StyledButton
-        variant='contained'
-        color='primary'
-        type='submit'
-        data-loading
-        disabled={!submittable}
-      >
+      <PasswordMatcher started={started} passwordsDoNotMatch={!matchingPasswords} />
+      <StyledButton variant='contained' color='primary' type='submit' data-loading disabled={!submittable}>
         Submit
       </StyledButton>
     </StyledForm>

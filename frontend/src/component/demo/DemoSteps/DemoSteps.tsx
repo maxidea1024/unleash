@@ -1,8 +1,4 @@
-import Joyride, {
-  ACTIONS,
-  type CallBackProps,
-  type TooltipRenderProps,
-} from 'react-joyride';
+import Joyride, { ACTIONS, type CallBackProps, type TooltipRenderProps } from 'react-joyride';
 import { useTheme } from '@mui/material';
 import type { ITutorialTopic, ITutorialTopicStep } from '../demo-topics';
 import { useEffect, useState } from 'react';
@@ -83,10 +79,7 @@ export const DemoSteps = ({
     const currentTopic = topic;
 
     const nextUnfinishedTopic =
-      topics.findIndex(
-        (topic, index) =>
-          index !== currentTopic && stepsCompletion[index] < topic.steps.length,
-      ) ?? -1;
+      topics.findIndex((topic, index) => index !== currentTopic && stepsCompletion[index] < topic.steps.length) ?? -1;
 
     if (nextUnfinishedTopic === -1) {
       setTopicStep(-1);
@@ -117,9 +110,7 @@ export const DemoSteps = ({
     }
 
     if (action === ACTIONS.UPDATE) {
-      const el = document.querySelector(
-        step.target as string,
-      ) as HTMLElement | null;
+      const el = document.querySelector(step.target as string) as HTMLElement | null;
       if (el) {
         el.scrollIntoView({
           block: 'center',
@@ -148,10 +139,7 @@ export const DemoSteps = ({
               'click',
               (e) => {
                 const targetEl = e.target as HTMLElement;
-                if (
-                  !targetEl.closest('.__floater') &&
-                  !targetEl.className.includes('react-joyride__overlay')
-                )
+                if (!targetEl.closest('.__floater') && !targetEl.className.includes('react-joyride__overlay'))
                   clickHandler(e);
               },
               {
@@ -173,9 +161,7 @@ export const DemoSteps = ({
       (document.querySelector('.MuiModal-backdrop') as HTMLElement)?.click();
     }
     if (step.backCollapseExpanded) {
-      (
-        document.querySelector('.Mui-expanded[role="button"]') as HTMLElement
-      )?.click();
+      (document.querySelector('.Mui-expanded[role="button"]') as HTMLElement)?.click();
     }
     back();
   };
@@ -203,10 +189,7 @@ export const DemoSteps = ({
     if (!currentStep) return;
 
     setTimeout(() => {
-      if (
-        currentStep.href &&
-        !location.pathname.endsWith(currentStep.href.split('?')[0])
-      ) {
+      if (currentStep.href && !location.pathname.endsWith(currentStep.href.split('?')[0])) {
         navigate(currentStep.href);
       }
       waitForLoad(currentStep);

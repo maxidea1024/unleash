@@ -46,7 +46,5 @@ test('should render text preview of template', async () => {
 test('Requesting a non-existing template should yield 404', async () => {
   expect.assertions(0);
   const { request, base } = await getSetup();
-  return request
-    .get(`${base}/api/admin/email/preview/text/some-non-existing-template`)
-    .expect(404);
+  return request.get(`${base}/api/admin/email/preview/text/some-non-existing-template`).expect(404);
 });

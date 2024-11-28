@@ -14,12 +14,7 @@ interface IRemoveGroupUserProps {
   group: IGroup;
 }
 
-export const RemoveGroupUser: FC<IRemoveGroupUserProps> = ({
-  open,
-  setOpen,
-  user,
-  group,
-}) => {
+export const RemoveGroupUser: FC<IRemoveGroupUserProps> = ({ open, setOpen, user, group }) => {
   const { refetchGroup } = useGroup(group.id);
   const { updateGroup } = useGroupApi();
   const { setToastData, setToastApiError } = useToast();
@@ -59,9 +54,8 @@ export const RemoveGroupUser: FC<IRemoveGroupUserProps> = ({
       title='Remove user from group?'
     >
       <Typography>
-        Do you really want to remove <strong>{userName}</strong> from{' '}
-        <strong>{group.name}</strong>? <strong>{userName}</strong> will lose all
-        access rights granted by this group.
+        Do you really want to remove <strong>{userName}</strong> from <strong>{group.name}</strong>?{' '}
+        <strong>{userName}</strong> will lose all access rights granted by this group.
       </Typography>
     </Dialogue>
   );

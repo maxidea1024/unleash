@@ -32,11 +32,7 @@ interface IDependencyActionsProps {
   onDelete: () => void;
 }
 
-export const DependencyActions = ({
-  feature,
-  onEdit,
-  onDelete,
-}: IDependencyActionsProps) => {
+export const DependencyActions = ({ feature, onEdit, onDelete }: IDependencyActionsProps) => {
   const id = `dependency-${feature}-actions`;
   const menuId = `${id}-menu`;
 

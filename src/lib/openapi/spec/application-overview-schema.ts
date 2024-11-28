@@ -6,8 +6,7 @@ import { applicationEnvironmentIssuesSchema } from './application-environment-is
 export const applicationOverviewSchema = {
   $id: '#/components/schemas/applicationOverviewSchema',
   type: 'object',
-  description:
-    "Data about an application that's connected to Unleash via an SDK.",
+  description: "Data about an application that's connected to Unleash via an SDK.",
   additionalProperties: false,
   required: ['projects', 'featureCount', 'environments', 'issues'],
   properties: {
@@ -32,8 +31,7 @@ export const applicationOverviewSchema = {
       },
     },
     issues: {
-      description:
-        'This list of issues that might be wrong with the application',
+      description: 'This list of issues that might be wrong with the application',
       $ref: '#/components/schemas/applicationOverviewIssuesSchema',
     },
   },
@@ -46,6 +44,4 @@ export const applicationOverviewSchema = {
   },
 } as const;
 
-export type ApplicationOverviewSchema = FromSchema<
-  typeof applicationOverviewSchema
->;
+export type ApplicationOverviewSchema = FromSchema<typeof applicationOverviewSchema>;

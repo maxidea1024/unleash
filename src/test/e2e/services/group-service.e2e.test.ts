@@ -3,12 +3,7 @@ import getLogger from '../../fixtures/no-logger';
 import { createTestConfig } from '../../config/test-config';
 import { GroupService } from '../../../lib/services/group-service';
 import type { EventService } from '../../../lib/services';
-import {
-  type IGroupStore,
-  type IUnleashStores,
-  type IUser,
-  TEST_AUDIT_USER,
-} from '../../../lib/types';
+import { type IGroupStore, type IUnleashStores, type IUser, TEST_AUDIT_USER } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
 let stores: IUnleashStores;
@@ -59,9 +54,7 @@ afterEach(async () => {});
 
 // Note: events come in reverse order, the first in the list is the last pushed
 const getTestEvents = async () => {
-  return (await eventService.getEvents()).events.filter(
-    (e) => e.createdBy !== 'migration',
-  );
+  return (await eventService.getEvents()).events.filter((e) => e.createdBy !== 'migration');
 };
 
 test('should have three group', async () => {
@@ -113,9 +106,7 @@ test('should remove person from one group', async () => {
 
 // this test depends on the other tests being executed
 test('should add person to completely new group with new name', async () => {
-  const removedGroups = (await groupService.getGroupsForUser(user.id)).filter(
-    (g) => !g.mappingsSSO?.includes('dev'),
-  );
+  const removedGroups = (await groupService.getGroupsForUser(user.id)).filter((g) => !g.mappingsSSO?.includes('dev'));
   await groupService.syncExternalGroups(user.id, ['dev']);
   const groups = await groupService.getGroupsForUser(user.id);
   expect(groups.length).toBe(1);

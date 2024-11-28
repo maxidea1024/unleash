@@ -30,10 +30,7 @@ interface ISegmentDeleteUsedSegmentProps {
   changeRequestStrategies: ChangeRequestStrategy[] | undefined;
 }
 
-export const formatChangeRequestPath = (
-  projectId: string,
-  changeRequestId: number,
-): string => {
+export const formatChangeRequestPath = (projectId: string, changeRequestId: number): string => {
   return `/projects/${projectId}/change-requests/${changeRequestId}`;
 };
 
@@ -58,14 +55,9 @@ export const SegmentDeleteUsedSegment = ({
       onClick={onClose}
     >
       <p>
-        The following feature flags are using the{' '}
-        <strong>{segment.name}</strong> segment for their strategies:
+        The following feature flags are using the <strong>{segment.name}</strong> segment for their strategies:
       </p>
-      <StyledUl>
-        {sortedStrategies.map((strategy, index) =>
-          strategyListItem(strategy, index),
-        )}
-      </StyledUl>
+      <StyledUl>{sortedStrategies.map((strategy, index) => strategyListItem(strategy, index))}</StyledUl>
     </Dialogue>
   );
 };
@@ -81,15 +73,11 @@ const formatStrategyNameParens = (strategy: {
 };
 
 const strategyListItem = (
-  strategy:
-    | IFeatureStrategy
-    | ChangeRequestUpdatedStrategy
-    | ChangeRequestNewStrategy,
+  strategy: IFeatureStrategy | ChangeRequestUpdatedStrategy | ChangeRequestNewStrategy,
   index: number,
 ) => {
-  const isChangeRequest = (
-    strategy: IFeatureStrategy | ChangeRequestStrategy,
-  ): strategy is ChangeRequestStrategy => 'changeRequest' in strategy;
+  const isChangeRequest = (strategy: IFeatureStrategy | ChangeRequestStrategy): strategy is ChangeRequestStrategy =>
+    'changeRequest' in strategy;
 
   if (isChangeRequest(strategy)) {
     const { id, title } = strategy.changeRequest;
@@ -98,8 +86,7 @@ const strategyListItem = (
     return (
       <li key={`#${strategy.changeRequest.id}@${index}`}>
         <p>
-          {strategy.featureName}{' '}
-          {`${formatStrategyNameParens(strategy)} — in change request `}
+          {strategy.featureName} {`${formatStrategyNameParens(strategy)} — in change request `}
           <StyledLink
             to={formatChangeRequestPath(strategy.projectId, id)}
             target='_blank'
@@ -115,12 +102,7 @@ const strategyListItem = (
     return (
       <li key={strategy.id}>
         <StyledLink
-          to={formatEditStrategyPath(
-            strategy.projectId!,
-            strategy.featureName!,
-            strategy.environment!,
-            strategy.id,
-          )}
+          to={formatEditStrategyPath(strategy.projectId!, strategy.featureName!, strategy.environment!, strategy.id)}
           target='_blank'
           rel='noopener noreferrer'
         >

@@ -28,10 +28,7 @@ interface IIntegrationEventsLastEventProps extends BoxProps {
   integration?: AddonSchema;
 }
 
-export const IntegrationEventsLastEvent = ({
-  integration,
-  ...props
-}: IIntegrationEventsLastEventProps) => {
+export const IntegrationEventsLastEvent = ({ integration, ...props }: IIntegrationEventsLastEventProps) => {
   const { integrationEvents } = useIntegrationEvents(integration?.id, 1, {
     refreshInterval: 5000,
   });
@@ -54,12 +51,7 @@ export const IntegrationEventsLastEvent = ({
           <>
             <StyledTitle>
               <StyledLastEventSpan>Last event</StyledLastEventSpan>
-              <span>
-                {formatDateYMDHMS(
-                  integrationEvent.createdAt,
-                  locationSettings?.locale,
-                )}
-              </span>
+              <span>{formatDateYMDHMS(integrationEvent.createdAt, locationSettings?.locale)}</span>
             </StyledTitle>
             <IntegrationEventsDetails {...integrationEvent} />
           </>

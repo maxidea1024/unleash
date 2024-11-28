@@ -60,9 +60,7 @@ export const ProjectInsightsStats = ({ stats }: IProjectStatsProps) => {
         boxText={String(projectActivityCurrentWindow)}
         change={projectActivityCurrentWindow - projectActivityPastWindow}
       >
-        <HelpPopper id='total-changes'>
-          Sum of all configuration and state modifications in the project.
-        </HelpPopper>
+        <HelpPopper id='total-changes'>Sum of all configuration and state modifications in the project.</HelpPopper>
       </StatusBox>
       <StatusBox
         title='Avg. time to production'
@@ -74,21 +72,15 @@ export const ProjectInsightsStats = ({ stats }: IProjectStatsProps) => {
               gap: (theme) => theme.spacing(1),
             }}
           >
-            {avgTimeToProdCurrentWindow}{' '}
-            <Typography component='span'>days</Typography>
+            {avgTimeToProdCurrentWindow} <Typography component='span'>days</Typography>
           </Box>
         }
-        customChangeElement={
-          <StyledTimeToProductionDescription>
-            In project life
-          </StyledTimeToProductionDescription>
-        }
+        customChangeElement={<StyledTimeToProductionDescription>In project life</StyledTimeToProductionDescription>}
         percentage
       >
         <HelpPopper id='avg-time-to-prod'>
-          How long did it take on average from a feature flag was created until
-          it was enabled in an environment of type production. This is
-          calculated only from feature flags with the type of "release".
+          How long did it take on average from a feature flag was created until it was enabled in an environment of type
+          production. This is calculated only from feature flags with the type of "release".
         </HelpPopper>
       </StatusBox>
       <StatusBox

@@ -18,7 +18,5 @@ test('groupsSchema', () => {
     ],
   };
 
-  expect(
-    validateSchema('#/components/schemas/groupsSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/groupsSchema', data)).toBeUndefined();
 });

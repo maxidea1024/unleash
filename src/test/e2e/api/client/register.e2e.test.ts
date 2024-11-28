@@ -50,15 +50,9 @@ test('should allow client to register multiple times', async () => {
     interval: 10,
   };
 
-  await app.request
-    .post('/api/client/register')
-    .send(clientRegistration)
-    .expect(202);
+  await app.request.post('/api/client/register').send(clientRegistration).expect(202);
 
-  await app.request
-    .post('/api/client/register')
-    .send(clientRegistration)
-    .expect(202);
+  await app.request.post('/api/client/register').send(clientRegistration).expect(202);
 
   jest.advanceTimersByTime(6000);
   // @ts-expect-error - Incomplete client registration
@@ -95,10 +89,7 @@ test.skip('Should handle a massive bulk registration', async () => {
     };
     clients.push(clientRegistration);
     // eslint-disable-next-line no-await-in-loop
-    await app.request
-      .post('/api/client/register')
-      .send(clientRegistration)
-      .expect(202);
+    await app.request.post('/api/client/register').send(clientRegistration).expect(202);
   }
   expect(clients.length).toBe(2000);
   await new Promise((res) => setTimeout(res, 5500));

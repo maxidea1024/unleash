@@ -22,8 +22,7 @@ const teamsDefinition: IAddonDefinition = {
   displayName: 'Microsoft Teams',
   description: 'Allows Unleash to post updates to Microsoft Teams.',
   documentationUrl: 'https://docs.getunleash.io/docs/addons/teams',
-  howTo:
-    'The Microsoft Teams integration allows Unleash to post Updates when a feature flag is updated.',
+  howTo: 'The Microsoft Teams integration allows Unleash to post Updates when a feature flag is updated.',
   parameters: [
     {
       name: 'url',

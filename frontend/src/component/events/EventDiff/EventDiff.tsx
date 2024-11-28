@@ -20,10 +20,7 @@ interface IEventDiffProps {
   sort?: (a: IEventDiffResult, b: IEventDiffResult) => number;
 }
 
-const EventDiff = ({
-  entry,
-  sort = (a, b) => a.key.localeCompare(b.key),
-}: IEventDiffProps) => {
+const EventDiff = ({ entry, sort = (a, b) => a.key.localeCompare(b.key) }: IEventDiffProps) => {
   const theme = useTheme();
 
   const styles: Record<string, CSSProperties> = {
@@ -33,8 +30,7 @@ const EventDiff = ({
     N: { color: theme.palette.eventLog.diffAdd }, // added
   };
 
-  const diffs =
-    entry.data && entry.preData ? diff(entry.preData, entry.data) : undefined;
+  const diffs = entry.data && entry.preData ? diff(entry.preData, entry.data) : undefined;
 
   const buildItemDiff = (diff: any, key: string) => {
     let change: JSX.Element | undefined;
@@ -77,11 +73,7 @@ const EventDiff = ({
       change = (
         <div style={styles[diff.kind]}>
           {DIFF_PREFIXES[diff.kind]} {key}
-          {changeValue
-            ? `: ${changeValue}`
-            : diff.kind === 'D'
-              ? ' (deleted)'
-              : ''}
+          {changeValue ? `: ${changeValue}` : diff.kind === 'D' ? ' (deleted)' : ''}
         </div>
       );
     }

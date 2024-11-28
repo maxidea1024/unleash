@@ -1,10 +1,6 @@
 import type { EventEmitter } from 'events';
 import type { LogProvider, Logger } from '../logger';
-import type {
-  IUserSplash,
-  IUserSplashKey,
-  IUserSplashStore,
-} from '../types/stores/user-splash-store';
+import type { IUserSplash, IUserSplashKey, IUserSplashStore } from '../types/stores/user-splash-store';
 import type { Db } from './db';
 
 const COLUMNS = ['user_id', 'splash_id', 'seen'];
@@ -39,10 +35,7 @@ export default class UserSplashStore implements IUserSplashStore {
   }
 
   async getAllUserSplashes(userId: number): Promise<IUserSplash[]> {
-    const userSplash = await this.db
-      .table<IUserSplashTable>(TABLE)
-      .select()
-      .where({ user_id: userId });
+    const userSplash = await this.db.table<IUserSplashTable>(TABLE).select().where({ user_id: userId });
 
     return userSplash.map(rowToField);
   }

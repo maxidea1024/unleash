@@ -24,10 +24,7 @@ export default class UserFeedbackController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      userFeedbackService,
-      openApiService,
-    }: Pick<IUnleashServices, 'userFeedbackService' | 'openApiService'>,
+    { userFeedbackService, openApiService }: Pick<IUnleashServices, 'userFeedbackService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -94,12 +91,7 @@ export default class UserFeedbackController extends Controller {
       neverShow: req.body.neverShow || false,
     });
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      feedbackResponseSchema.$id,
-      serializeDates(updated),
-    );
+    this.openApiService.respondWithValidation(200, res, feedbackResponseSchema.$id, serializeDates(updated));
   }
 
   private async updateFeedback(
@@ -113,11 +105,6 @@ export default class UserFeedbackController extends Controller {
       given: (req.body.given && parseISO(req.body.given)) || undefined,
     });
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      feedbackResponseSchema.$id,
-      serializeDates(updated),
-    );
+    this.openApiService.respondWithValidation(200, res, feedbackResponseSchema.$id, serializeDates(updated));
   }
 }

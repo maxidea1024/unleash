@@ -47,16 +47,10 @@ export const DisableEnableStrategyDialog = ({
       title={
         isChangeRequest
           ? `Add ${disabled ? 'enable' : 'disable'} strategy to change request?`
-          : `Are you sure you want to ${
-              disabled ? 'enable' : 'disable'
-            } this strategy?`
+          : `Are you sure you want to ${disabled ? 'enable' : 'disable'} this strategy?`
       }
       open={isOpen}
-      primaryButtonText={
-        isChangeRequest
-          ? 'Add to draft'
-          : `${disabled ? 'Enable' : 'Disable'} strategy`
-      }
+      primaryButtonText={isChangeRequest ? 'Add to draft' : `${disabled ? 'Enable' : 'Disable'} strategy`}
       secondaryButtonText='Cancel'
       onClick={onClick}
       onClose={() => onClose()}
@@ -66,8 +60,7 @@ export const DisableEnableStrategyDialog = ({
         show={<FeatureStrategyChangeRequestAlert environment={environmentId} />}
         elseShow={
           <Alert severity='error'>
-            {disabled ? 'Enabling' : 'Disabling'} the strategy will change which
-            users receive access to the feature.
+            {disabled ? 'Enabling' : 'Disabling'} the strategy will change which users receive access to the feature.
           </Alert>
         }
       />

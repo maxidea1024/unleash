@@ -43,13 +43,7 @@ const StyledBadgeContainer = styled('div')(({ theme }) => ({
   display: 'flex',
 }));
 
-export const NavigationMenu = ({
-  options,
-  id,
-  handleClose,
-  anchorEl,
-  style,
-}: INavigationMenuProps) => {
+export const NavigationMenu = ({ options, id, handleClose, anchorEl, style }: INavigationMenuProps) => {
   const { isPro, isOss } = useUiConfig();
 
   const showBadge = useCallback(
@@ -64,38 +58,21 @@ export const NavigationMenu = ({
   );
 
   return (
-    <Menu
-      id={id}
-      onClose={handleClose}
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      style={style}
-    >
+    <Menu id={id} onClose={handleClose} anchorEl={anchorEl} open={Boolean(anchorEl)} style={style}>
       {options
         .flatMap((option, i) => {
           const previousGroup = options[i - 1]?.group;
-          const addDivider =
-            previousGroup &&
-            previousGroup !== option.group &&
-            (!isOss() || option.group === 'log');
+          const addDivider = previousGroup && previousGroup !== option.group && (!isOss() || option.group === 'log');
 
           return [
             addDivider ? <Divider variant='middle' key={option.group} /> : null,
             <Tooltip
-              title={
-                showBadge(option?.menu?.mode)
-                  ? 'This is an Enterprise feature'
-                  : ''
-              }
+              title={showBadge(option?.menu?.mode) ? 'This is an Enterprise feature' : ''}
               arrow
               placement='left'
               key={option.path}
             >
-              <MenuItem
-                component={StyledLink}
-                to={option.path}
-                onClick={handleClose}
-              >
+              <MenuItem component={StyledLink} to={option.path} onClick={handleClose}>
                 <StyledSpan />
                 {option.title}
                 <ConditionallyRender

@@ -135,8 +135,7 @@ describe('New Relic integration', () => {
         environment: 'development',
       },
       partialParameters: {
-        bodyTemplate:
-          '{\n  "eventType": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
+        bodyTemplate: '{\n  "eventType": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
       },
       test: 'custom body template',
     },
@@ -144,43 +143,40 @@ describe('New Relic integration', () => {
     partialEvent: Partial<IEvent>;
     partialParameters?: Partial<INewRelicParameters>;
     test: String;
-  }>)(
-    'Should call New Relic Event API for $test',
-    async ({ partialEvent, partialParameters }) => {
-      const event = {
-        ...defaultEvent,
-        ...partialEvent,
-      };
+  }>)('Should call New Relic Event API for $test', async ({ partialEvent, partialParameters }) => {
+    const event = {
+      ...defaultEvent,
+      ...partialEvent,
+    };
 
-      const parameters = {
-        ...defaultParameters,
-        ...partialParameters,
-      };
+    const parameters = {
+      ...defaultParameters,
+      ...partialParameters,
+    };
 
-      const handleEvent = makeAddHandleEvent(event, parameters);
+    const handleEvent = makeAddHandleEvent(event, parameters);
 
-      await handleEvent();
-      expect(fetchRetryCalls.length).toBe(1);
+    await handleEvent();
+    expect(fetchRetryCalls.length).toBe(1);
 
-      const { url, options } = fetchRetryCalls[0];
-      const jsonBody = JSON.parse((await asyncGunzip(options.body)).toString());
+    const { url, options } = fetchRetryCalls[0];
+    const jsonBody = JSON.parse((await asyncGunzip(options.body)).toString());
 
-      expect(url).toBe(parameters.url);
-      expect(options.method).toBe('POST');
-      expect(options.headers['Api-Key']).toBe(parameters.licenseKey);
-      expect(options.headers['Content-Type']).toBe('application/json');
-      expect(options.headers['Content-Encoding']).toBe('gzip');
-      expect(options.headers).toMatchSnapshot();
+    expect(url).toBe(parameters.url);
+    expect(options.method).toBe('POST');
+    expect(options.headers['Api-Key']).toBe(parameters.licenseKey);
+    expect(options.headers['Content-Type']).toBe('application/json');
+    expect(options.headers['Content-Encoding']).toBe('gzip');
+    expect(options.headers).toMatchSnapshot();
 
-      expect(jsonBody.eventType).toBe('UnleashServiceEvent');
-      expect(jsonBody.unleashEventType).toBe(event.type);
-      expect(jsonBody.featureName).toBe(event.data.name);
-      expect(jsonBody.environment).toBe(event.environment);
-      expect(jsonBody.createdBy).toBe(event.createdBy);
-      expect(jsonBody.createdByUserId).toBe(event.createdByUserId);
-      expect(jsonBody.createdAt).toBe(event.createdAt.getTime());
-    },
-  );
+    expect(jsonBody.eventType).toBe('UnleashServiceEvent');
+    expect(jsonBody.unleashEventType).toBe(event.type);
+    expect(jsonBody.featureName).toBe(event.data.name);
+    expect(jsonBody.environment).toBe(event.environment);
+    expect(jsonBody.createdBy).toBe(event.createdBy);
+    expect(jsonBody.createdByUserId).toBe(event.createdByUserId);
+    expect(jsonBody.createdAt).toBe(event.createdAt.getTime());
+  });
 
   test('Should call registerEvent', async () => {
     const handleEvent = makeAddHandleEvent(defaultEvent, defaultParameters);
@@ -191,8 +187,7 @@ describe('New Relic integration', () => {
     expect(registerEventMock).toHaveBeenCalledWith({
       integrationId: INTEGRATION_ID,
       state: 'success',
-      stateDetails:
-        'New Relic Events API request was successful with status code: 200.',
+      stateDetails: 'New Relic Events API request was successful with status code: 200.',
       event: serializeDates(defaultEvent),
       details: {
         url: defaultParameters.url,

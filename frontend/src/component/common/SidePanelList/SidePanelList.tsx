@@ -42,18 +42,16 @@ type ColumnAlignment = 'start' | 'end' | 'center';
 
 export const StyledSidePanelListColumn = styled('div', {
   shouldForwardProp: (prop) => prop !== 'maxWidth' && prop !== 'align',
-})<{ maxWidth?: number; align?: ColumnAlignment }>(
-  ({ theme, maxWidth, align = 'start' }) => ({
-    display: 'flex',
-    flex: 1,
-    padding: theme.spacing(2),
-    fontSize: theme.fontSizes.smallBody,
-    justifyContent: align,
-    ...(maxWidth && { maxWidth }),
-    textAlign: align,
-    alignItems: 'center',
-  }),
-);
+})<{ maxWidth?: number; align?: ColumnAlignment }>(({ theme, maxWidth, align = 'start' }) => ({
+  display: 'flex',
+  flex: 1,
+  padding: theme.spacing(2),
+  fontSize: theme.fontSizes.smallBody,
+  justifyContent: align,
+  ...(maxWidth && { maxWidth }),
+  textAlign: align,
+  alignItems: 'center',
+}));
 
 export type SidePanelListColumn<T> = {
   header: string;
@@ -94,11 +92,7 @@ export const SidePanelList = <T extends { id: string | number }>({
 
   return (
     <StyledSidePanelListWrapper>
-      <SidePanelListHeader
-        columns={columns}
-        sidePanelHeader={sidePanelHeader}
-        leftPanelMaxWidth={leftPanelMaxWidth}
-      />
+      <SidePanelListHeader columns={columns} sidePanelHeader={sidePanelHeader} leftPanelMaxWidth={leftPanelMaxWidth} />
       <StyledSidePanelListBody>
         <StyledSidePanelHalfLeft height={height} maxWidth={leftPanelMaxWidth}>
           {items.map((item) =>
@@ -110,11 +104,7 @@ export const SidePanelList = <T extends { id: string | number }>({
                 onClick={() => setSelectedItem(item)}
               >
                 {columns.map(({ header, maxWidth, align, cell }) => (
-                  <StyledSidePanelListColumn
-                    key={header}
-                    maxWidth={maxWidth}
-                    align={align}
-                  >
+                  <StyledSidePanelListColumn key={header} maxWidth={maxWidth} align={align}>
                     {cell(item)}
                   </StyledSidePanelListColumn>
                 ))}
@@ -123,9 +113,7 @@ export const SidePanelList = <T extends { id: string | number }>({
           )}
           {listEnd}
         </StyledSidePanelHalfLeft>
-        <StyledSidePanelHalfRight>
-          {renderContent(activeItem)}
-        </StyledSidePanelHalfRight>
+        <StyledSidePanelHalfRight>{renderContent(activeItem)}</StyledSidePanelHalfRight>
       </StyledSidePanelListBody>
     </StyledSidePanelListWrapper>
   );

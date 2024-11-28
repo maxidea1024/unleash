@@ -6,13 +6,9 @@ interface UpdateEnabledMsg {
   environment: string;
 }
 
-export const UpdateEnabledMessage = ({
-  enabled,
-  featureName,
-  environment,
-}: UpdateEnabledMsg) => (
+export const UpdateEnabledMessage = ({ enabled, featureName, environment }: UpdateEnabledMsg) => (
   <Typography data-testid='update-enabled-message'>
-    <strong>{enabled ? 'Enable' : 'Disable'}</strong> feature flag{' '}
-    <strong>{featureName}</strong> in <strong>{environment}</strong>
+    <strong>{enabled ? 'Enable' : 'Disable'}</strong> feature flag <strong>{featureName}</strong> in{' '}
+    <strong>{environment}</strong>
   </Typography>
 );

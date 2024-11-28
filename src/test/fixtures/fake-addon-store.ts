@@ -1,8 +1,4 @@
-import type {
-  IAddon,
-  IAddonDto,
-  IAddonStore,
-} from '../../lib/types/stores/addon-store';
+import type { IAddon, IAddonDto, IAddonStore } from '../../lib/types/stores/addon-store';
 import NotFoundError from '../../lib/error/notfound-error';
 
 export default class FakeAddonStore implements IAddonStore {
