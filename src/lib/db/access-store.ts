@@ -449,33 +449,33 @@ export class AccessStore implements IAccessStore {
   ): Promise<IProjectRoleUsage[]> {
     const query = await this.db.raw(
       `
-            SELECT
-                uq.project,
-                sum(uq.user_count) AS user_count,
-                sum(uq.svc_account_count) AS svc_account_count,
-                sum(uq.group_count) AS group_count
-            FROM (
-                SELECT
-                    project,
-                    0 AS user_count,
-                    0 AS svc_account_count,
-                    count(project) AS group_count
-                FROM group_role
-                WHERE role_id = ?
-                GROUP BY project
+      SELECT
+          uq.project,
+          sum(uq.user_count) AS user_count,
+          sum(uq.svc_account_count) AS svc_account_count,
+          sum(uq.group_count) AS group_count
+      FROM (
+          SELECT
+              project,
+              0 AS user_count,
+              0 AS svc_account_count,
+              count(project) AS group_count
+          FROM group_role
+          WHERE role_id = ?
+          GROUP BY project
 
-                UNION SELECT
-                    project,
-                    count(us.id) AS user_count,
-                    count(svc.id) AS svc_account_count,
-                    0 AS group_count
-                FROM role_user AS usr_r
-                LEFT OUTER JOIN public.users AS us ON us.id = usr_r.user_id AND us.is_service = 'false'
-                LEFT OUTER JOIN public.users AS svc ON svc.id = usr_r.user_id AND svc.is_service = 'true'
-                WHERE usr_r.role_id = ?
-                GROUP BY usr_r.project
-            ) AS uq
-            GROUP BY uq.project
+          UNION SELECT
+              project,
+              count(us.id) AS user_count,
+              count(svc.id) AS svc_account_count,
+              0 AS group_count
+          FROM role_user AS usr_r
+          LEFT OUTER JOIN public.users AS us ON us.id = usr_r.user_id AND us.is_service = 'false'
+          LEFT OUTER JOIN public.users AS svc ON svc.id = usr_r.user_id AND svc.is_service = 'true'
+          WHERE usr_r.role_id = ?
+          GROUP BY usr_r.project
+      ) AS uq
+      GROUP BY uq.project
         `,
       [roleId, roleId],
     );
