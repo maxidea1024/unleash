@@ -61,6 +61,7 @@ export const mapLegacyProjects = (project?: string, projects?: string[]): string
   } else {
     throw new BadDataError('API tokens must either contain a project or projects field');
   }
+
   return cleanedProjects;
 };
 
