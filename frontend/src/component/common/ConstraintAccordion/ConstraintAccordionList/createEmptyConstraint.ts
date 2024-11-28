@@ -7,19 +7,17 @@ import { v4 as uuidv4 } from 'uuid';
 export const constraintId = Symbol('id');
 
 export const createEmptyConstraint = (contextName: string): IConstraint => {
-    const operator = operatorsForContext(contextName)[0];
+  const operator = operatorsForContext(contextName)[0];
 
-    const value = oneOf(dateOperators, operator)
-        ? new Date().toISOString()
-        : '';
+  const value = oneOf(dateOperators, operator) ? new Date().toISOString() : '';
 
-    return {
-        contextName,
-        operator,
-        value,
-        values: [],
-        caseInsensitive: false,
-        inverted: false,
-        [constraintId]: uuidv4(),
-    };
+  return {
+    contextName,
+    operator,
+    value,
+    values: [],
+    caseInsensitive: false,
+    inverted: false,
+    [constraintId]: uuidv4(),
+  };
 };

@@ -1,4 +1,4 @@
 export enum WeightType {
-    FIX = 'fix',
-    VARIABLE = 'variable',
+  FIX = 'fix',
+  VARIABLE = 'variable',
 }

@@ -6,7 +6,8 @@ import type {
 } from './personal-dashboard-read-model-type';
 
 export class FakePersonalDashboardReadModel
-  implements IPersonalDashboardReadModel {
+  implements IPersonalDashboardReadModel
+{
   async getLatestHealthScores(
     project: string,
     count: number,

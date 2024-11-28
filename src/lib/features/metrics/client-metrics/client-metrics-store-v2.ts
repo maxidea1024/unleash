@@ -104,8 +104,9 @@ const variantRowReducerV2 = (acc, tokenRow) => {
     variant,
     count,
   } = tokenRow;
-  const key = `${featureName}_${appName}_${environment}_${timestamp || date
-    }_${yes}_${no}`;
+  const key = `${featureName}_${appName}_${environment}_${
+    timestamp || date
+  }_${yes}_${no}`;
   if (!acc[key]) {
     acc[key] = {
       featureName,
@@ -242,10 +243,7 @@ export class ClientMetricsStoreV2 implements IClientMetricsStoreV2 {
           `${HOURLY_TABLE_VARIANTS}.feature_name`,
           `${HOURLY_TABLE}.feature_name`,
         )
-          .on(
-            `${HOURLY_TABLE_VARIANTS}.app_name`,
-            `${HOURLY_TABLE}.app_name`,
-          )
+          .on(`${HOURLY_TABLE_VARIANTS}.app_name`, `${HOURLY_TABLE}.app_name`)
           .on(
             `${HOURLY_TABLE_VARIANTS}.environment`,
             `${HOURLY_TABLE}.environment`,
@@ -276,19 +274,10 @@ export class ClientMetricsStoreV2 implements IClientMetricsStoreV2 {
     const rows = await this.db<ClientMetricsEnvTable>(mainTable)
       .select([`${mainTable}.*`, 'variant', 'count'])
       .leftJoin(variantsTable, function () {
-        this.on(
-          `${variantsTable}.feature_name`,
-          `${mainTable}.feature_name`,
-        )
+        this.on(`${variantsTable}.feature_name`, `${mainTable}.feature_name`)
           .on(`${variantsTable}.app_name`, `${mainTable}.app_name`)
-          .on(
-            `${variantsTable}.environment`,
-            `${mainTable}.environment`,
-          )
-          .on(
-            `${variantsTable}.${dateTime}`,
-            `${mainTable}.${dateTime}`,
-          );
+          .on(`${variantsTable}.environment`, `${mainTable}.environment`)
+          .on(`${variantsTable}.${dateTime}`, `${mainTable}.${dateTime}`);
       })
       .where(`${mainTable}.feature_name`, featureName)
       .andWhereRaw(

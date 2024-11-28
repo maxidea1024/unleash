@@ -214,8 +214,7 @@ export const deferredExportImportTogglesService = (
 
     const segmentReadModel = new SegmentReadModel(db);
 
-    const dependentFeaturesService =
-      createDependentFeaturesService(config)(db);
+    const dependentFeaturesService = createDependentFeaturesService(config)(db);
 
     const exportImportService = new ExportImportService(
       {

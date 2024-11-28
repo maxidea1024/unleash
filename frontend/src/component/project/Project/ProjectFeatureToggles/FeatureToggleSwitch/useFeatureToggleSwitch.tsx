@@ -6,252 +6,248 @@ import { useChangeRequestToggle } from 'hooks/useChangeRequestToggle';
 import { UpdateEnabledMessage } from 'component/changeRequest/ChangeRequestConfirmDialog/ChangeRequestMessages/UpdateEnabledMessage';
 import { ChangeRequestDialogue } from 'component/changeRequest/ChangeRequestConfirmDialog/ChangeRequestConfirmDialog';
 import {
-    FeatureStrategyProdGuard,
-    isProdGuardEnabled,
+  FeatureStrategyProdGuard,
+  isProdGuardEnabled,
 } from 'component/feature/FeatureStrategy/FeatureStrategyProdGuard/FeatureStrategyProdGuard';
 import { EnableEnvironmentDialog } from './EnableEnvironmentDialog/EnableEnvironmentDialog';
 import type {
-    OnFeatureToggleSwitchArgs,
-    UseFeatureToggleSwitchType,
+  OnFeatureToggleSwitchArgs,
+  UseFeatureToggleSwitchType,
 } from './FeatureToggleSwitch.types';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 type Middleware = (next: () => void) => void;
 
 const composeAndRunMiddlewares = (middlewares: Middleware[]) => {
-    const runMiddleware = (currentIndex: number) => {
-        if (currentIndex < middlewares.length) {
-            middlewares[currentIndex](() => runMiddleware(currentIndex + 1));
-        }
-    };
+  const runMiddleware = (currentIndex: number) => {
+    if (currentIndex < middlewares.length) {
+      middlewares[currentIndex](() => runMiddleware(currentIndex + 1));
+    }
+  };
 
-    runMiddleware(0);
+  runMiddleware(0);
 };
 
 export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (
-    projectId: string,
+  projectId: string,
 ) => {
-    const { toggleFeatureEnvironmentOn, toggleFeatureEnvironmentOff } =
-        useFeatureApi();
-    const { setToastData, setToastApiError } = useToast();
-    const [prodGuardModalState, setProdGuardModalState] = useState<
-        ComponentProps<typeof FeatureStrategyProdGuard>
-    >({
-        open: false,
-        label: '',
-        loading: false,
-        onClose: () => {},
-        onClick: () => {},
+  const { toggleFeatureEnvironmentOn, toggleFeatureEnvironmentOff } =
+    useFeatureApi();
+  const { setToastData, setToastApiError } = useToast();
+  const [prodGuardModalState, setProdGuardModalState] = useState<
+    ComponentProps<typeof FeatureStrategyProdGuard>
+  >({
+    open: false,
+    label: '',
+    loading: false,
+    onClose: () => {},
+    onClick: () => {},
+  });
+  const [enableEnvironmentDialogState, setEnableEnvironmentDialogState] =
+    useState<ComponentProps<typeof EnableEnvironmentDialog>>({
+      isOpen: false,
+      environment: '',
+      featureId: '',
+      onClose: () => {},
+      onActivateDisabledStrategies: () => {},
+      onAddDefaultStrategy: () => {},
     });
-    const [enableEnvironmentDialogState, setEnableEnvironmentDialogState] =
-        useState<ComponentProps<typeof EnableEnvironmentDialog>>({
-            isOpen: false,
-            environment: '',
-            featureId: '',
-            onClose: () => {},
-            onActivateDisabledStrategies: () => {},
-            onAddDefaultStrategy: () => {},
+  const {
+    pending,
+    onChangeRequestToggle,
+    onChangeRequestToggleClose,
+    onChangeRequestToggleConfirm,
+    changeRequestDialogDetails,
+  } = useChangeRequestToggle(projectId);
+  const [changeRequestDialogCallback, setChangeRequestDialogCallback] =
+    useState<() => void>();
+
+  const onToggle = useCallback(
+    async (newState: boolean, config: OnFeatureToggleSwitchArgs) => {
+      let shouldActivateDisabledStrategies = false;
+
+      const confirmProductionChanges: Middleware = (next) => {
+        if (config.isChangeRequestEnabled) {
+          // skip if change requests are enabled
+          return next();
+        }
+
+        if (!isProdGuardEnabled(config.environmentType || '')) {
+          return next();
+        }
+
+        setProdGuardModalState({
+          open: true,
+          label: `${!newState ? 'Disable' : 'Enable'} Environment`,
+          loading: false,
+          onClose: () => {
+            setProdGuardModalState((prev) => ({
+              ...prev,
+              open: false,
+            }));
+            config.onRollback?.();
+          },
+          onClick: () => {
+            setProdGuardModalState((prev) => ({
+              ...prev,
+              open: false,
+              loading: true,
+            }));
+            next();
+          },
         });
-    const {
-        pending,
-        onChangeRequestToggle,
-        onChangeRequestToggleClose,
-        onChangeRequestToggleConfirm,
-        changeRequestDialogDetails,
-    } = useChangeRequestToggle(projectId);
-    const [changeRequestDialogCallback, setChangeRequestDialogCallback] =
-        useState<() => void>();
+      };
 
-    const onToggle = useCallback(
-        async (newState: boolean, config: OnFeatureToggleSwitchArgs) => {
-            let shouldActivateDisabledStrategies = false;
+      const ensureActiveStrategies: Middleware = (next) => {
+        if (
+          newState === false ||
+          !config.hasStrategies ||
+          config.hasEnabledStrategies
+        ) {
+          return next();
+        }
 
-            const confirmProductionChanges: Middleware = (next) => {
-                if (config.isChangeRequestEnabled) {
-                    // skip if change requests are enabled
-                    return next();
-                }
+        setEnableEnvironmentDialogState({
+          isOpen: true,
+          environment: config.environmentName,
+          featureId: config.featureId,
+          onClose: () => {
+            setEnableEnvironmentDialogState((prev) => ({
+              ...prev,
+              isOpen: false,
+            }));
+            config.onRollback?.();
+          },
+          onActivateDisabledStrategies: () => {
+            setEnableEnvironmentDialogState((prev) => ({
+              ...prev,
+              isOpen: false,
+            }));
+            shouldActivateDisabledStrategies = true;
+            next();
+          },
+          onAddDefaultStrategy: () => {
+            setEnableEnvironmentDialogState((prev) => ({
+              ...prev,
+              isOpen: false,
+            }));
+            next();
+          },
+        });
+      };
 
-                if (!isProdGuardEnabled(config.environmentType || '')) {
-                    return next();
-                }
+      const addToChangeRequest: Middleware = (next) => {
+        if (!config.isChangeRequestEnabled) {
+          return next();
+        }
 
-                setProdGuardModalState({
-                    open: true,
-                    label: `${!newState ? 'Disable' : 'Enable'} Environment`,
-                    loading: false,
-                    onClose: () => {
-                        setProdGuardModalState((prev) => ({
-                            ...prev,
-                            open: false,
-                        }));
-                        config.onRollback?.();
-                    },
-                    onClick: () => {
-                        setProdGuardModalState((prev) => ({
-                            ...prev,
-                            open: false,
-                            loading: true,
-                        }));
-                        next();
-                    },
-                });
-            };
+        setChangeRequestDialogCallback(() => {
+          setChangeRequestDialogCallback(undefined);
+          // always reset to previous state when using change requests
+          config.onRollback?.();
+        });
 
-            const ensureActiveStrategies: Middleware = (next) => {
-                if (
-                    newState === false ||
-                    !config.hasStrategies ||
-                    config.hasEnabledStrategies
-                ) {
-                    return next();
-                }
+        onChangeRequestToggle(
+          config.featureId,
+          config.environmentName,
+          newState,
+          shouldActivateDisabledStrategies,
+        );
+      };
 
-                setEnableEnvironmentDialogState({
-                    isOpen: true,
-                    environment: config.environmentName,
-                    featureId: config.featureId,
-                    onClose: () => {
-                        setEnableEnvironmentDialogState((prev) => ({
-                            ...prev,
-                            isOpen: false,
-                        }));
-                        config.onRollback?.();
-                    },
-                    onActivateDisabledStrategies: () => {
-                        setEnableEnvironmentDialogState((prev) => ({
-                            ...prev,
-                            isOpen: false,
-                        }));
-                        shouldActivateDisabledStrategies = true;
-                        next();
-                    },
-                    onAddDefaultStrategy: () => {
-                        setEnableEnvironmentDialogState((prev) => ({
-                            ...prev,
-                            isOpen: false,
-                        }));
-                        next();
-                    },
-                });
-            };
+      const handleToggleEnvironmentOn: Middleware = async (next) => {
+        if (newState !== true) {
+          return next();
+        }
 
-            const addToChangeRequest: Middleware = (next) => {
-                if (!config.isChangeRequestEnabled) {
-                    return next();
-                }
+        try {
+          await toggleFeatureEnvironmentOn(
+            config.projectId,
+            config.featureId,
+            config.environmentName,
+            shouldActivateDisabledStrategies,
+          );
 
-                setChangeRequestDialogCallback(() => {
-                    setChangeRequestDialogCallback(undefined);
-                    // always reset to previous state when using change requests
-                    config.onRollback?.();
-                });
+          setToastData({
+            type: 'success',
+            title: `Enabled in ${config.environmentName}`,
+            text: `${config.featureId} is now available in ${config.environmentName} based on its defined strategies.`,
+          });
+          config.onSuccess?.();
+        } catch (error: unknown) {
+          setToastApiError(formatUnknownError(error));
+          config.onRollback?.();
+        }
+      };
 
-                onChangeRequestToggle(
-                    config.featureId,
-                    config.environmentName,
-                    newState,
-                    shouldActivateDisabledStrategies,
-                );
-            };
+      const handleToggleEnvironmentOff: Middleware = async (next) => {
+        if (newState !== false) {
+          return next();
+        }
 
-            const handleToggleEnvironmentOn: Middleware = async (next) => {
-                if (newState !== true) {
-                    return next();
-                }
+        try {
+          await toggleFeatureEnvironmentOff(
+            config.projectId,
+            config.featureId,
+            config.environmentName,
+          );
+          setToastData({
+            type: 'success',
+            title: `Disabled in ${config.environmentName}`,
+            text: `${config.featureId} is unavailable in ${config.environmentName} and its strategies will no longer have any effect.`,
+          });
+          config.onSuccess?.();
+        } catch (error: unknown) {
+          setToastApiError(formatUnknownError(error));
+          config.onRollback?.();
+        }
+      };
 
-                try {
-                    await toggleFeatureEnvironmentOn(
-                        config.projectId,
-                        config.featureId,
-                        config.environmentName,
-                        shouldActivateDisabledStrategies,
-                    );
+      return composeAndRunMiddlewares([
+        confirmProductionChanges,
+        ensureActiveStrategies,
+        addToChangeRequest,
+        handleToggleEnvironmentOff,
+        handleToggleEnvironmentOn,
+      ]);
+    },
+    [setProdGuardModalState],
+  );
 
-                    setToastData({
-                        type: 'success',
-                        title: `Enabled in ${config.environmentName}`,
-                        text: `${config.featureId} is now available in ${config.environmentName} based on its defined strategies.`,
-                    });
-                    config.onSuccess?.();
-                } catch (error: unknown) {
-                    setToastApiError(formatUnknownError(error));
-                    config.onRollback?.();
-                }
-            };
+  const featureSelected = enableEnvironmentDialogState.featureId.length !== 0;
 
-            const handleToggleEnvironmentOff: Middleware = async (next) => {
-                if (newState !== false) {
-                    return next();
-                }
+  const modals = (
+    <>
+      <FeatureStrategyProdGuard {...prodGuardModalState} />
+      <ConditionallyRender
+        condition={featureSelected}
+        show={<EnableEnvironmentDialog {...enableEnvironmentDialogState} />}
+      />
+      <ChangeRequestDialogue
+        isOpen={changeRequestDialogDetails.isOpen}
+        onClose={() => {
+          changeRequestDialogCallback?.();
+          onChangeRequestToggleClose();
+        }}
+        environment={changeRequestDialogDetails?.environment}
+        disabled={pending}
+        onConfirm={() => {
+          changeRequestDialogCallback?.();
+          onChangeRequestToggleConfirm();
+        }}
+        messageComponent={
+          <UpdateEnabledMessage
+            enabled={changeRequestDialogDetails?.enabled!}
+            featureName={changeRequestDialogDetails?.featureName!}
+            environment={changeRequestDialogDetails.environment!}
+          />
+        }
+      />
+    </>
+  );
 
-                try {
-                    await toggleFeatureEnvironmentOff(
-                        config.projectId,
-                        config.featureId,
-                        config.environmentName,
-                    );
-                    setToastData({
-                        type: 'success',
-                        title: `Disabled in ${config.environmentName}`,
-                        text: `${config.featureId} is unavailable in ${config.environmentName} and its strategies will no longer have any effect.`,
-                    });
-                    config.onSuccess?.();
-                } catch (error: unknown) {
-                    setToastApiError(formatUnknownError(error));
-                    config.onRollback?.();
-                }
-            };
-
-            return composeAndRunMiddlewares([
-                confirmProductionChanges,
-                ensureActiveStrategies,
-                addToChangeRequest,
-                handleToggleEnvironmentOff,
-                handleToggleEnvironmentOn,
-            ]);
-        },
-        [setProdGuardModalState],
-    );
-
-    const featureSelected = enableEnvironmentDialogState.featureId.length !== 0;
-
-    const modals = (
-        <>
-            <FeatureStrategyProdGuard {...prodGuardModalState} />
-            <ConditionallyRender
-                condition={featureSelected}
-                show={
-                    <EnableEnvironmentDialog
-                        {...enableEnvironmentDialogState}
-                    />
-                }
-            />
-            <ChangeRequestDialogue
-                isOpen={changeRequestDialogDetails.isOpen}
-                onClose={() => {
-                    changeRequestDialogCallback?.();
-                    onChangeRequestToggleClose();
-                }}
-                environment={changeRequestDialogDetails?.environment}
-                disabled={pending}
-                onConfirm={() => {
-                    changeRequestDialogCallback?.();
-                    onChangeRequestToggleConfirm();
-                }}
-                messageComponent={
-                    <UpdateEnabledMessage
-                        enabled={changeRequestDialogDetails?.enabled!}
-                        featureName={changeRequestDialogDetails?.featureName!}
-                        environment={changeRequestDialogDetails.environment!}
-                    />
-                }
-            />
-        </>
-    );
-
-    return {
-        onToggle,
-        modals,
-    };
+  return {
+    onToggle,
+    modals,
+  };
 };

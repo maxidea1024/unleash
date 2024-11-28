@@ -202,8 +202,7 @@ export default class UserAdminController extends Controller {
           parameters: [
             {
               name: 'q',
-              description:
-                'The pattern to search in the username or email',
+              description: 'The pattern to search in the username or email',
               schema: { type: 'string' },
               in: 'query',
             },
@@ -307,9 +306,7 @@ export default class UserAdminController extends Controller {
           description: 'Creates a new user with the given root role.',
           requestBody: createRequestSchema('createUserSchema'),
           responses: {
-            201: resourceCreatedResponseSchema(
-              'createUserResponseSchema',
-            ),
+            201: resourceCreatedResponseSchema('createUserResponseSchema'),
             ...getStandardResponses(400, 401, 403),
           },
         }),
@@ -353,8 +350,7 @@ export default class UserAdminController extends Controller {
           tags: ['Users'],
           operationId: 'updateUser',
           summary: 'Update a user',
-          description:
-            'Only the explicitly specified fields get updated.',
+          description: 'Only the explicitly specified fields get updated.',
           requestBody: createRequestSchema('updateUserSchema'),
           parameters: [
             {
@@ -404,8 +400,10 @@ export default class UserAdminController extends Controller {
     const receiver = req.body.id;
     const receiverUser = await this.userService.getByEmail(receiver);
     await this.throwIfScimUser(receiverUser);
-    const resetPasswordUrl =
-      await this.userService.createResetPasswordEmail(receiver, user);
+    const resetPasswordUrl = await this.userService.createResetPasswordEmail(
+      receiver,
+      user,
+    );
 
     this.openApiService.respondWithValidation(
       200,
@@ -516,8 +514,7 @@ export default class UserAdminController extends Controller {
     req: IAuthRequest<unknown, unknown, CreateUserSchema>,
     res: Response<CreateUserResponseSchema>,
   ): Promise<void> {
-    const { username, email, name, rootRole, sendEmail, password } =
-      req.body;
+    const { username, email, name, rootRole, sendEmail, password } = req.body;
     const normalizedRootRole = Number.isInteger(Number(rootRole))
       ? Number(rootRole)
       : (rootRole as RoleName);
@@ -658,16 +655,13 @@ export default class UserAdminController extends Controller {
     const rootRole = await this.accessService.getRootRoleForUser(user.id);
     let projectRoles: IRoleWithPermissions[] = [];
     if (project) {
-      const projectRoleIds =
-        await this.accessService.getProjectRolesForUser(
-          project,
-          user.id,
-        );
+      const projectRoleIds = await this.accessService.getProjectRolesForUser(
+        project,
+        user.id,
+      );
 
       projectRoles = await Promise.all(
-        projectRoleIds.map((roleId) =>
-          this.accessService.getRole(roleId),
-        ),
+        projectRoleIds.map((roleId) => this.accessService.getRole(roleId)),
       );
     }
     const matrix = await this.accessService.permissionsMatrixForUser(
@@ -709,8 +703,7 @@ export default class UserAdminController extends Controller {
     scimId,
   }: Pick<IUser, 'id' | 'scimId'>): Promise<boolean> {
     return (
-      Boolean(scimId) ||
-      Boolean((await this.userService.getUser(id)).scimId)
+      Boolean(scimId) || Boolean((await this.userService.getUser(id)).scimId)
     );
   }
 }

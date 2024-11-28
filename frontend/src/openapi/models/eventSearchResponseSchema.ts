@@ -9,11 +9,11 @@ import type { EventSchema } from './eventSchema';
  * A list of events that have been registered by the system
  */
 export interface EventSearchResponseSchema {
-    /** The list of events */
-    events: EventSchema[];
-    /**
-     * The total count of events
-     * @minimum 0
-     */
-    total: number;
+  /** The list of events */
+  events: EventSchema[];
+  /**
+   * The total count of events
+   * @minimum 0
+   */
+  total: number;
 }

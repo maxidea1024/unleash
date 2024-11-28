@@ -108,7 +108,8 @@ export interface AccessWithRoles {
   users: IUserWithProjectRoles[];
 }
 
-const isProjectPermission = (permission: string) => PROJECT_ADMIN.includes(permission);
+const isProjectPermission = (permission: string) =>
+  PROJECT_ADMIN.includes(permission);
 
 export const cleanPermissionEnvironment = (
   permissions: PermissionRef[] | undefined,
@@ -163,9 +164,7 @@ export class AccessService {
     return userP
       .filter(
         (p) =>
-          !p.project ||
-          p.project === projectId ||
-          p.project === ALL_PROJECTS,
+          !p.project || p.project === projectId || p.project === ALL_PROJECTS,
       )
       .filter(
         (p) =>
@@ -175,8 +174,7 @@ export class AccessService {
       )
       .some(
         (p) =>
-          permissionsArray.includes(p.permission) ||
-          p.permission === ADMIN,
+          permissionsArray.includes(p.permission) || p.permission === ADMIN,
       );
   }
 
@@ -258,11 +256,7 @@ export class AccessService {
       })),
       project: permissions.project.map((p) => ({
         ...p,
-        hasPermission: this.meetsAllPermissions(
-          userP,
-          [p.name],
-          projectId,
-        ),
+        hasPermission: this.meetsAllPermissions(userP, [p.name], projectId),
       })),
       environment:
         permissions.environments
@@ -433,16 +427,9 @@ export class AccessService {
     const newRootRole = await this.resolveRootRole(role);
     if (newRootRole) {
       try {
-        await this.store.removeRolesOfTypeForUser(
-          userId,
-          ROOT_ROLE_TYPES,
-        );
+        await this.store.removeRolesOfTypeForUser(userId, ROOT_ROLE_TYPES);
 
-        await this.store.addUserToRole(
-          userId,
-          newRootRole.id,
-          DEFAULT_PROJECT,
-        );
+        await this.store.addUserToRole(userId, newRootRole.id, DEFAULT_PROJECT);
       } catch (error) {
         const message = `Could not add role=${newRootRole.name} to userId=${userId}`;
         this.logger.error(message, error);
@@ -502,9 +489,7 @@ export class AccessService {
     environment?: string,
   ): Promise<void> {
     if (isProjectPermission(permission) && !environment) {
-      throw new Error(
-        `ProjectId cannot be empty for permission=${permission}`,
-      );
+      throw new Error(`ProjectId cannot be empty for permission=${permission}`);
     }
 
     return this.store.addPermissionsToRole(
@@ -521,16 +506,10 @@ export class AccessService {
     environment?: string,
   ): Promise<void> {
     if (isProjectPermission(permission) && !environment) {
-      throw new Error(
-        `ProjectId cannot be empty for permission=${permission}`,
-      );
+      throw new Error(`ProjectId cannot be empty for permission=${permission}`);
     }
 
-    return this.store.removePermissionFromRole(
-      roleId,
-      permission,
-      environment,
-    );
+    return this.store.removePermissionFromRole(roleId, permission, environment);
   }
 
   async getRoles(): Promise<IRole[]> {
@@ -745,10 +724,7 @@ export class AccessService {
     if (rolePermissions) {
       if (roleType === CUSTOM_ROOT_ROLE_TYPE) {
         // this branch uses named permissions
-        await this.store.addPermissionsToRole(
-          newRole.id,
-          rolePermissions,
-        );
+        await this.store.addPermissionsToRole(newRole.id, rolePermissions);
       } else {
         // this branch uses id permissions
         await this.store.addEnvironmentPermissionsToRole(
@@ -758,9 +734,7 @@ export class AccessService {
       }
     }
 
-    const addedPermissions = await this.store.getPermissionsForRole(
-      newRole.id,
-    );
+    const addedPermissions = await this.store.getPermissionsForRole(newRole.id);
     await this.eventService.storeEvent(
       new RoleCreatedEvent({
         data: {
@@ -793,16 +767,11 @@ export class AccessService {
     };
     const rolePermissions = cleanPermissionEnvironment(role.permissions);
     const updatedRole = await this.roleStore.update(baseRole);
-    const existingPermissions = await this.store.getPermissionsForRole(
-      role.id,
-    );
+    const existingPermissions = await this.store.getPermissionsForRole(role.id);
     if (rolePermissions) {
       await this.store.wipePermissionsFromRole(updatedRole.id);
       if (roleType === CUSTOM_ROOT_ROLE_TYPE) {
-        await this.store.addPermissionsToRole(
-          updatedRole.id,
-          rolePermissions,
-        );
+        await this.store.addPermissionsToRole(updatedRole.id, rolePermissions);
       } else {
         await this.store.addEnvironmentPermissionsToRole(
           updatedRole.id,
@@ -810,9 +779,7 @@ export class AccessService {
         );
       }
     }
-    const updatedPermissions = await this.store.getPermissionsForRole(
-      role.id,
-    );
+    const updatedPermissions = await this.store.getPermissionsForRole(role.id);
     await this.eventService.storeEvent(
       new RoleUpdatedEvent({
         data: {
@@ -887,9 +854,7 @@ export class AccessService {
       role.type !== CUSTOM_PROJECT_ROLE_TYPE &&
       role.type !== CUSTOM_ROOT_ROLE_TYPE
     ) {
-      throw new InvalidOperationError(
-        'You cannot change built in roles.',
-      );
+      throw new InvalidOperationError('You cannot change built in roles.');
     }
   }
 

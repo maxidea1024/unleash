@@ -1,4 +1,4 @@
 export const weightTypes = {
-    FIX: 'fix',
-    VARIABLE: 'variable',
+  FIX: 'fix',
+  VARIABLE: 'variable',
 };

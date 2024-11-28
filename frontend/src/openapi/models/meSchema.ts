@@ -12,11 +12,11 @@ import type { UserSchema } from './userSchema';
  * Detailed user information
  */
 export interface MeSchema {
-    /** User feedback information */
-    feedback: FeedbackResponseSchema[];
-    /** User permissions for projects and environments */
-    permissions: PermissionSchema[];
-    /** Splash screen configuration */
-    splash: MeSchemaSplash;
-    user: UserSchema;
+  /** User feedback information */
+  feedback: FeedbackResponseSchema[];
+  /** User permissions for projects and environments */
+  permissions: PermissionSchema[];
+  /** Splash screen configuration */
+  splash: MeSchemaSplash;
+  user: UserSchema;
 }

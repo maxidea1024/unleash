@@ -85,14 +85,12 @@ export default class UnleashClient {
           );
         }
         return (
-          this.isEnabled(parent.feature, context, () => false)
-            .result === true
+          this.isEnabled(parent.feature, context, () => false).result === true
         );
       }
 
       return !(
-        this.isEnabled(parent.feature, context, () => false).result ===
-        true
+        this.isEnabled(parent.feature, context, () => false).result === true
       );
     });
   }
@@ -143,9 +141,7 @@ export default class UnleashClient {
       (strategySelector): EvaluatedPlaygroundStrategy => {
         const getStrategy = (): Strategy => {
           // assume that 'unknown' strategy is always present
-          const unknownStrategy = this.getStrategy(
-            'unknown',
-          ) as Strategy;
+          const unknownStrategy = this.getStrategy('unknown') as Strategy;
 
           // the application hostname strategy relies on external
           // variables to calculate its result. As such, we can't
@@ -155,10 +151,7 @@ export default class UnleashClient {
             return unknownStrategy;
           }
 
-          return (
-            this.getStrategy(strategySelector.name) ??
-            unknownStrategy
-          );
+          return this.getStrategy(strategySelector.name) ?? unknownStrategy;
         };
 
         const strategy = getStrategy();
@@ -211,9 +204,7 @@ export default class UnleashClient {
 
       // if at least one strategy is unknown, then the feature _may_ be enabled
       if (
-        strategies.some(
-          (strategy) => strategy.result.enabled === 'unknown',
-        )
+        strategies.some((strategy) => strategy.result.enabled === 'unknown')
       ) {
         return [
           playgroundStrategyEvaluation.unknownResult,
@@ -264,18 +255,10 @@ export default class UnleashClient {
   forceGetVariant(
     name: string,
     context: Context,
-    forcedResult: Pick<
-      FeatureStrategiesEvaluationResult,
-      'result' | 'variant'
-    >,
+    forcedResult: Pick<FeatureStrategiesEvaluationResult, 'result' | 'variant'>,
     fallbackVariant?: Variant,
   ): Variant {
-    return this.resolveVariant(
-      name,
-      context,
-      fallbackVariant,
-      forcedResult,
-    );
+    return this.resolveVariant(name, context, fallbackVariant, forcedResult);
   }
 
   private resolveVariant(
@@ -326,10 +309,7 @@ export default class UnleashClient {
       return fallback;
     }
 
-    const variant: VariantDefinition | null = selectVariant(
-      feature,
-      context,
-    );
+    const variant: VariantDefinition | null = selectVariant(feature, context);
     if (variant === null) {
       return fallback;
     }

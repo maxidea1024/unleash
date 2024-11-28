@@ -9,6 +9,6 @@ import type { FrontendApiFeatureSchema } from './frontendApiFeatureSchema';
  * Frontend SDK features list
  */
 export interface FrontendApiFeaturesSchema {
-    /** The actual features returned to the Frontend SDK */
-    toggles: FrontendApiFeatureSchema[];
+  /** The actual features returned to the Frontend SDK */
+  toggles: FrontendApiFeatureSchema[];
 }

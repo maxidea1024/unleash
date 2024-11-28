@@ -7,46 +7,46 @@ import userEvent from '@testing-library/user-event';
 const server = testServerSetup();
 
 const setupApi = () => {
-    testServerRoute(server, '/api/admin/projects', {
-        projects: [
-            { id: 'testid-1', name: 'Project One', archived: true },
-            { id: 'testid-2', name: 'Project Two', archived: true },
-        ],
-    });
+  testServerRoute(server, '/api/admin/projects', {
+    projects: [
+      { id: 'testid-1', name: 'Project One', archived: true },
+      { id: 'testid-2', name: 'Project Two', archived: true },
+    ],
+  });
 
-    testServerRoute(server, '/api/admin/ui-config', {
-        flags: {
-            archiveFeature: true,
-        },
-        versionInfo: {
-            current: { enterprise: 'version' },
-        },
-    });
+  testServerRoute(server, '/api/admin/ui-config', {
+    flags: {
+      archiveFeature: true,
+    },
+    versionInfo: {
+      current: { enterprise: 'version' },
+    },
+  });
 };
 
 beforeEach(() => {
-    setupApi();
+  setupApi();
 });
 
 test('displays archived projects correctly', async () => {
-    render(<ArchiveProjectList />);
+  render(<ArchiveProjectList />);
 
-    await waitFor(() => {
-        expect(screen.getByText('Project One')).toBeInTheDocument();
-        expect(screen.getByText('Project Two')).toBeInTheDocument();
-    });
+  await waitFor(() => {
+    expect(screen.getByText('Project One')).toBeInTheDocument();
+    expect(screen.getByText('Project Two')).toBeInTheDocument();
+  });
 });
 
 test('search in header works', async () => {
-    render(<ArchiveProjectList />);
+  render(<ArchiveProjectList />);
 
-    const searchInput = screen.getByPlaceholderText(/^Search/);
-    expect(searchInput).toBeInTheDocument();
+  const searchInput = screen.getByPlaceholderText(/^Search/);
+  expect(searchInput).toBeInTheDocument();
 
-    await userEvent.type(searchInput, 'One');
+  await userEvent.type(searchInput, 'One');
 
-    await waitFor(() => {
-        expect(screen.queryByTestId('testid-1')).toBeInTheDocument();
-        expect(screen.queryByTestId('testid-2')).not.toBeInTheDocument();
-    });
+  await waitFor(() => {
+    expect(screen.queryByTestId('testid-1')).toBeInTheDocument();
+    expect(screen.queryByTestId('testid-2')).not.toBeInTheDocument();
+  });
 });

@@ -154,9 +154,7 @@ export default class ClientInstanceService {
       try {
         if (uniqueRegistrations.length > 0) {
           await this.clientApplicationsStore.bulkUpsert(uniqueApps);
-          await this.clientInstanceStore.bulkUpsert(
-            uniqueRegistrations,
-          );
+          await this.clientInstanceStore.bulkUpsert(uniqueRegistrations);
         }
       } catch (err) {
         this.logger.warn('Failed to register clients', err);
@@ -168,9 +166,10 @@ export default class ClientInstanceService {
     query: IClientApplicationsSearchParams,
     userId: number,
   ): Promise<IClientApplications> {
-    const applications = await this.clientApplicationsStore.getApplications(
-      { ...query, sortBy: query.sortBy || 'appName' },
-    );
+    const applications = await this.clientApplicationsStore.getApplications({
+      ...query,
+      sortBy: query.sortBy || 'appName',
+    });
     const accessibleProjects =
       await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (accessibleProjects.mode === 'all') {
@@ -183,9 +182,7 @@ export default class ClientInstanceService {
             usage: application.usage?.filter(
               (usageItem) =>
                 usageItem.project === ALL_PROJECTS ||
-                accessibleProjects.projects.includes(
-                  usageItem.project,
-                ),
+                accessibleProjects.projects.includes(usageItem.project),
             ),
           };
         }),
@@ -239,9 +236,7 @@ export default class ClientInstanceService {
       );
     result.projects = accessibleProjects;
     result.environments.forEach((environment) => {
-      environment.issues.outdatedSdks = findOutdatedSDKs(
-        environment.sdks,
-      );
+      environment.issues.outdatedSdks = findOutdatedSDKs(environment.sdks);
     });
     return result;
   }
@@ -250,11 +245,10 @@ export default class ClientInstanceService {
     appName: string,
     environment: string,
   ) {
-    const instances =
-      await this.clientInstanceStore.getByAppNameAndEnvironment(
-        appName,
-        environment,
-      );
+    const instances = await this.clientInstanceStore.getByAppNameAndEnvironment(
+      appName,
+      environment,
+    );
 
     return instances.map((instance) => ({
       instanceId: instance.instanceId,
@@ -299,8 +293,7 @@ export default class ClientInstanceService {
     sdkVersion: string,
   ): Promise<boolean> {
     const semver = parseStrictSemVer(sdkVersion);
-    const instancesOfSdk =
-      await this.clientInstanceStore.getBySdkName(sdkName);
+    const instancesOfSdk = await this.clientInstanceStore.getBySdkName(sdkName);
     return instancesOfSdk.some((instance) => {
       if (instance.sdkVersion) {
         const [_sdkName, sdkVersion] = instance.sdkVersion.split(':');

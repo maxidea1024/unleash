@@ -6,17 +6,17 @@ import { READ_ROLE } from '@server/types/permissions';
 import { RolesPage } from './RolesPage';
 
 export const Roles = () => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    if (!isEnterprise()) {
-        return <PremiumFeature feature='project-roles' page />;
-    }
+  if (!isEnterprise()) {
+    return <PremiumFeature feature='project-roles' page />;
+  }
 
-    return (
-        <div>
-            <PermissionGuard permissions={[READ_ROLE, ADMIN]}>
-                <RolesPage />
-            </PermissionGuard>
-        </div>
-    );
+  return (
+    <div>
+      <PermissionGuard permissions={[READ_ROLE, ADMIN]}>
+        <RolesPage />
+      </PermissionGuard>
+    </div>
+  );
 };

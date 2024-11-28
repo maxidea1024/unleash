@@ -4,18 +4,18 @@ import type { FeatureTypeSchema } from 'openapi';
 import { FeatureTypeForm } from './FeatureTypeForm/FeatureTypeForm';
 
 type FeatureTypeEditProps = {
-    featureTypes: FeatureTypeSchema[];
-    loading: boolean;
+  featureTypes: FeatureTypeSchema[];
+  loading: boolean;
 };
 
 export const FeatureTypeEdit: VFC<FeatureTypeEditProps> = ({
-    featureTypes,
-    loading,
+  featureTypes,
+  loading,
 }) => {
-    const { featureTypeId } = useParams();
-    const featureType = featureTypes.find(
-        (featureType) => featureType.id === featureTypeId,
-    );
+  const { featureTypeId } = useParams();
+  const featureType = featureTypes.find(
+    (featureType) => featureType.id === featureTypeId,
+  );
 
-    return <FeatureTypeForm featureType={featureType} loading={loading} />;
+  return <FeatureTypeForm featureType={featureType} loading={loading} />;
 };

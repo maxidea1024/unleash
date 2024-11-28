@@ -6,62 +6,62 @@ import { IMPORT_ENVIRONMENT } from 'utils/testIds';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 
 const ImportOptionsContainer = styled(Box)(({ theme }) => ({
-    backgroundColor: theme.palette.background.elevation2,
-    borderRadius: theme.shape.borderRadiusLarge,
-    padding: theme.spacing(3),
+  backgroundColor: theme.palette.background.elevation2,
+  borderRadius: theme.shape.borderRadiusLarge,
+  padding: theme.spacing(3),
 }));
 
 const ImportOptionsHeader = styled(Typography)(({ theme }) => ({
-    marginBottom: theme.spacing(3),
-    fontWeight: theme.fontWeight.bold,
+  marginBottom: theme.spacing(3),
+  fontWeight: theme.fontWeight.bold,
 }));
 
 const ImportOptionsDescription = styled(Typography)(({ theme }) => ({
-    marginBottom: theme.spacing(1.5),
+  marginBottom: theme.spacing(1.5),
 }));
 
 interface IImportOptionsProps {
-    project: string;
-    environment: string;
-    onChange: (value: string) => void;
+  project: string;
+  environment: string;
+  onChange: (value: string) => void;
 }
 
 export const ImportOptions: FC<IImportOptionsProps> = ({
-    project,
-    environment,
-    onChange,
+  project,
+  environment,
+  onChange,
 }) => {
-    const { project: projectInfo } = useProjectOverview(project);
-    const environmentOptions = projectInfo.environments.map(
-        ({ environment }) => ({
-            key: environment,
-            label: environment,
-            title: environment,
-        }),
-    );
+  const { project: projectInfo } = useProjectOverview(project);
+  const environmentOptions = projectInfo.environments.map(
+    ({ environment }) => ({
+      key: environment,
+      label: environment,
+      title: environment,
+    }),
+  );
 
-    useEffect(() => {
-        if (environment === '' && environmentOptions[0]) {
-            onChange(environmentOptions[0].key);
-        }
-    }, [JSON.stringify(environmentOptions)]);
+  useEffect(() => {
+    if (environment === '' && environmentOptions[0]) {
+      onChange(environmentOptions[0].key);
+    }
+  }, [JSON.stringify(environmentOptions)]);
 
-    return (
-        <ImportOptionsContainer>
-            <ImportOptionsHeader>Import options</ImportOptionsHeader>
-            <ImportOptionsDescription>
-                Choose the environment to import the configuration for
-            </ImportOptionsDescription>
-            <GeneralSelect
-                sx={{ width: '180px' }}
-                options={environmentOptions}
-                onChange={onChange}
-                label={'Environment'}
-                value={environment}
-                data-testid={IMPORT_ENVIRONMENT}
-                IconComponent={KeyboardArrowDownOutlined}
-                fullWidth
-            />
-        </ImportOptionsContainer>
-    );
+  return (
+    <ImportOptionsContainer>
+      <ImportOptionsHeader>Import options</ImportOptionsHeader>
+      <ImportOptionsDescription>
+        Choose the environment to import the configuration for
+      </ImportOptionsDescription>
+      <GeneralSelect
+        sx={{ width: '180px' }}
+        options={environmentOptions}
+        onChange={onChange}
+        label={'Environment'}
+        value={environment}
+        data-testid={IMPORT_ENVIRONMENT}
+        IconComponent={KeyboardArrowDownOutlined}
+        fullWidth
+      />
+    </ImportOptionsContainer>
+  );
 };

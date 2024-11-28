@@ -16,126 +16,117 @@ import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColum
 const hiddenColumnsSmall = ['imageUrl', 'name'];
 
 interface IGroupFormUsersTableProps {
-    users: IGroupUser[];
-    setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
+  users: IGroupUser[];
+  setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
 }
 
 export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({
-    users,
-    setUsers,
+  users,
+  setUsers,
 }) => {
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-    const columns = useMemo(
-        () => [
-            {
-                Header: 'Avatar',
-                accessor: 'imageUrl',
-                Cell: ({ row: { original: user } }: any) => (
-                    <TextCell>
-                        <UserAvatar user={user} />
-                    </TextCell>
-                ),
-                maxWidth: 85,
-                disableSortBy: true,
-            },
-            {
-                id: 'name',
-                Header: 'Name',
-                accessor: (row: IGroupUser) => row.name || '',
-                Cell: ({ value, row: { original: row } }: any) => (
-                    <HighlightCell
-                        value={value}
-                        subtitle={row.email || row.username}
-                    />
-                ),
-                minWidth: 100,
-                searchable: true,
-            },
-            {
-                Header: 'Action',
-                id: 'Action',
-                align: 'center',
-                Cell: ({ row: { original: rowUser } }: any) => (
-                    <ActionCell>
-                        <Tooltip
-                            title='Remove user from group'
-                            arrow
-                            describeChild
-                        >
-                            <IconButton
-                                onClick={() =>
-                                    setUsers((users: IGroupUser[]) =>
-                                        users.filter(
-                                            (user) => user.id !== rowUser.id,
-                                        ),
-                                    )
-                                }
-                            >
-                                <Delete />
-                            </IconButton>
-                        </Tooltip>
-                    </ActionCell>
-                ),
-                maxWidth: 100,
-                disableSortBy: true,
-            },
-            // Always hidden -- for search
-            {
-                accessor: (row: IGroupUser) => row.username || '',
-                Header: 'Username',
-                searchable: true,
-            },
-            // Always hidden -- for search
-            {
-                accessor: (row: IGroupUser) => row.email || '',
-                Header: 'Email',
-                searchable: true,
-            },
-        ],
-        [setUsers],
-    );
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Avatar',
+        accessor: 'imageUrl',
+        Cell: ({ row: { original: user } }: any) => (
+          <TextCell>
+            <UserAvatar user={user} />
+          </TextCell>
+        ),
+        maxWidth: 85,
+        disableSortBy: true,
+      },
+      {
+        id: 'name',
+        Header: 'Name',
+        accessor: (row: IGroupUser) => row.name || '',
+        Cell: ({ value, row: { original: row } }: any) => (
+          <HighlightCell value={value} subtitle={row.email || row.username} />
+        ),
+        minWidth: 100,
+        searchable: true,
+      },
+      {
+        Header: 'Action',
+        id: 'Action',
+        align: 'center',
+        Cell: ({ row: { original: rowUser } }: any) => (
+          <ActionCell>
+            <Tooltip title='Remove user from group' arrow describeChild>
+              <IconButton
+                onClick={() =>
+                  setUsers((users: IGroupUser[]) =>
+                    users.filter((user) => user.id !== rowUser.id),
+                  )
+                }
+              >
+                <Delete />
+              </IconButton>
+            </Tooltip>
+          </ActionCell>
+        ),
+        maxWidth: 100,
+        disableSortBy: true,
+      },
+      // Always hidden -- for search
+      {
+        accessor: (row: IGroupUser) => row.username || '',
+        Header: 'Username',
+        searchable: true,
+      },
+      // Always hidden -- for search
+      {
+        accessor: (row: IGroupUser) => row.email || '',
+        Header: 'Email',
+        searchable: true,
+      },
+    ],
+    [setUsers],
+  );
 
-    const [initialState] = useState(() => ({
-        hiddenColumns: ['Username', 'Email'],
-    }));
+  const [initialState] = useState(() => ({
+    hiddenColumns: ['Username', 'Email'],
+  }));
 
-    const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
-        {
-            columns: columns as any[],
-            data: users as any[],
-            initialState,
-            sortTypes,
-            autoResetHiddenColumns: false,
-            autoResetSortBy: false,
-            disableSortRemove: true,
-            disableMultiSort: true,
-        },
-        useSortBy,
-        useFlexLayout,
-    );
+  const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
+    {
+      columns: columns as any[],
+      data: users as any[],
+      initialState,
+      sortTypes,
+      autoResetHiddenColumns: false,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+      disableMultiSort: true,
+    },
+    useSortBy,
+    useFlexLayout,
+  );
 
-    useConditionallyHiddenColumns(
-        [
-            {
-                condition: isSmallScreen,
-                columns: hiddenColumnsSmall,
-            },
-        ],
-        setHiddenColumns,
-        columns,
-    );
+  useConditionallyHiddenColumns(
+    [
+      {
+        condition: isSmallScreen,
+        columns: hiddenColumnsSmall,
+      },
+    ],
+    setHiddenColumns,
+    columns,
+  );
 
-    return (
-        <ConditionallyRender
-            condition={rows.length > 0}
-            show={
-                <VirtualizedTable
-                    rows={rows}
-                    headerGroups={headerGroups}
-                    prepareRow={prepareRow}
-                />
-            }
+  return (
+    <ConditionallyRender
+      condition={rows.length > 0}
+      show={
+        <VirtualizedTable
+          rows={rows}
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
         />
-    );
+      }
+    />
+  );
 };

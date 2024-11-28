@@ -19,10 +19,7 @@ export interface JsonSchemaProps {
 }
 
 type SchemaWithMandatoryFields = Partial<
-  Omit<
-    OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject,
-    '$id' | 'components'
-  >
+  Omit<OpenAPIV3.ReferenceObject | OpenAPIV3.SchemaObject, '$id' | 'components'>
 > &
   JsonSchemaProps;
 

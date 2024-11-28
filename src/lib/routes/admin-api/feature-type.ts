@@ -81,9 +81,7 @@ When a feature flag type's expected lifetime is changed, this will also cause an
             200: createResponseSchema('featureTypeSchema'),
             ...getStandardResponses(400, 401, 403, 404, 409, 415),
           },
-          requestBody: createRequestSchema(
-            'updateFeatureTypeLifetimeSchema',
-          ),
+          requestBody: createRequestSchema('updateFeatureTypeLifetimeSchema'),
         }),
       ],
     });
@@ -105,11 +103,7 @@ When a feature flag type's expected lifetime is changed, this will also cause an
   }
 
   async updateLifetime(
-    req: IAuthRequest<
-      { id: string },
-      unknown,
-      UpdateFeatureTypeLifetimeSchema
-    >,
+    req: IAuthRequest<{ id: string }, unknown, UpdateFeatureTypeLifetimeSchema>,
     res: Response<FeatureTypeSchema>,
   ): Promise<void> {
     const result = await this.featureTypeService.updateLifetime(

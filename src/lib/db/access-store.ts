@@ -152,7 +152,7 @@ export class AccessStore implements IAccessStore {
     await this.db(T.ROLES).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(key: number): Promise<boolean> {
     const result = await this.db.raw(
@@ -203,13 +203,7 @@ export class AccessStore implements IAccessStore {
   async getPermissionsForUser(userId: number): Promise<IUserPermission[]> {
     const stopTimer = this.timer('getPermissionsForUser');
     let userPermissionQuery = this.db
-      .select(
-        'project',
-        'rp.permission',
-        'environment',
-        'type',
-        'ur.role_id',
-      )
+      .select('project', 'rp.permission', 'environment', 'type', 'ur.role_id')
       .from<IPermissionRow>(`${T.ROLE_PERMISSION} AS rp`)
       .join(`${T.ROLE_USER} AS ur`, 'ur.role_id', 'rp.role_id')
       .join(`${T.PERMISSIONS} AS p`, 'p.permission', 'rp.permission')
@@ -241,11 +235,7 @@ export class AccessStore implements IAccessStore {
       )
         .from<IPermissionRow>(`${T.GROUP_USER} as gu`)
         .join(`${T.GROUPS} AS g`, 'g.id', 'gu.group_id')
-        .join(
-          `${T.ROLE_PERMISSION} as rp`,
-          'rp.role_id',
-          'g.root_role_id',
-        )
+        .join(`${T.ROLE_PERMISSION} as rp`, 'rp.role_id', 'g.root_role_id')
         .join(`${T.PERMISSIONS} as p`, 'p.permission', 'rp.permission')
         .whereNotNull('g.root_role_id')
         .andWhere('gu.user_id', '=', userId);
@@ -265,9 +255,7 @@ export class AccessStore implements IAccessStore {
     }
 
     const environment =
-      row.type === ENVIRONMENT_PERMISSION_TYPE
-        ? row.environment
-        : undefined;
+      row.type === ENVIRONMENT_PERMISSION_TYPE ? row.environment : undefined;
 
     return {
       project,
@@ -366,9 +354,7 @@ export class AccessStore implements IAccessStore {
     }));
   }
 
-  async getProjectUsers(
-    projectId?: string,
-  ): Promise<IUserWithProjectRoles[]> {
+  async getProjectUsers(projectId?: string): Promise<IUserWithProjectRoles[]> {
     const rows = await this.db
       .select(['user_id', 'ru.created_at', 'ru.role_id'])
       .from<IRole>(`${T.ROLE_USER} AS ru`)
@@ -413,20 +399,14 @@ export class AccessStore implements IAccessStore {
       .innerJoin(`${T.ROLE_USER} as ru`, 'ru.role_id', 'id')
       .where('ru.user_id', '=', userId)
       .andWhere((builder) => {
-        builder
-          .where('ru.project', '=', project)
-          .orWhere('type', '=', 'root');
+        builder.where('ru.project', '=', project).orWhere('type', '=', 'root');
       })
       .union([
         this.db
           .select(['id', 'name', 'type', 'project', 'description'])
           .from<IRole[]>(T.ROLES)
           .innerJoin(`${T.GROUP_ROLE} as gr`, 'gr.role_id', 'id')
-          .innerJoin(
-            `${T.GROUP_USER} as gu`,
-            'gu.group_id',
-            'gr.group_id',
-          )
+          .innerJoin(`${T.GROUP_USER} as gu`, 'gu.group_id', 'gr.group_id')
           .where('gu.user_id', '=', userId)
           .andWhere((builder) => {
             builder
@@ -955,8 +935,8 @@ export class AccessStore implements IAccessStore {
                     FROM   role_user ru
                     INNER JOIN roles r on ru.role_id = r.id
                     WHERE ru.user_id = u.id and r.type IN (${ROOT_ROLE_TYPES.map(
-        (type) => `'${type}'`,
-      ).join(',')})
+                      (type) => `'${type}'`,
+                    ).join(',')})
                 ) r, LATERAL (
                 SELECT ARRAY (
                     SELECT g.name FROM group_user gu

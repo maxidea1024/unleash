@@ -38,7 +38,8 @@ type Services = Pick<
 // TODO: remove after finished migration to global frontend api cache
 export class ProxyRepository
   extends EventEmitter
-  implements RepositoryInterface {
+  implements RepositoryInterface
+{
   private readonly config: Config;
   private readonly logger: Logger;
   private readonly stores: Stores;
@@ -124,9 +125,7 @@ export class ProxyRepository
         if (!this.running) {
           clearTimeout(this.timer!);
           this.timer = null;
-          this.logger.debug(
-            'Shutting down data polling for proxy repository',
-          );
+          this.logger.debug('Shutting down data polling for proxy repository');
           return;
         }
         await this.dataPolling();
@@ -170,9 +169,7 @@ export class ProxyRepository
   }
 
   private async segmentsForToken(): Promise<Segment[]> {
-    return mapSegmentsForClient(
-      await this.stores.segmentReadModel.getAll(),
-    );
+    return mapSegmentsForClient(await this.stores.segmentReadModel.getAll());
   }
 
   private environmentNameForToken(): string {

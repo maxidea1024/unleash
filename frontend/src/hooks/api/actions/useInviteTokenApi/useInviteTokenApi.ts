@@ -31,9 +31,7 @@ export const useInviteTokenApi = () => {
         method: 'PUT',
         body: JSON.stringify({
           ...(value.expiresAt ? { expiresAt: value.expiresAt } : {}),
-          ...(value.enabled !== undefined
-            ? { enabled: value.enabled }
-            : {}),
+          ...(value.enabled !== undefined ? { enabled: value.enabled } : {}),
         }),
       });
 

@@ -19,9 +19,8 @@ export const useVirtualizedRange = (
 
   const [scrollIndex, setScrollIndex] = useState(
     Math.floor(
-      (parent instanceof HTMLElement
-        ? parent.scrollTop
-        : parent.pageYOffset) / rowHeight,
+      (parent instanceof HTMLElement ? parent.scrollTop : parent.pageYOffset) /
+        rowHeight,
     ),
   );
 
@@ -33,7 +32,7 @@ export const useVirtualizedRange = (
             (parent instanceof HTMLElement
               ? parent.scrollTop
               : parent.pageYOffset) /
-            (rowHeight * dampening),
+              (rowHeight * dampening),
           ) * dampening,
         );
       });

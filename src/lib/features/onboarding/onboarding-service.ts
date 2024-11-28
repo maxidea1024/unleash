@@ -129,9 +129,7 @@ export class OnboardingService {
     },
     firstInstanceUserDate: Date | null,
   ): Promise<void> {
-    const project = await this.projectReadModel.getFeatureProject(
-      event.flag,
-    );
+    const project = await this.projectReadModel.getFeatureProject(event.flag);
     if (!project) {
       return;
     }
@@ -145,9 +143,7 @@ export class OnboardingService {
       return;
     }
 
-    const timeToEvent = millisecondsToSeconds(
-      Date.now() - startDate.getTime(),
-    );
+    const timeToEvent = millisecondsToSeconds(Date.now() - startDate.getTime());
     await this.onboardingStore.insertProjectEvent({
       type: event.type,
       timeToEvent,

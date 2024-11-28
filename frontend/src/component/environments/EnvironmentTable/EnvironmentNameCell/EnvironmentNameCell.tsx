@@ -8,64 +8,61 @@ import { styled, Typography } from '@mui/material';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
 const StyledTooltipTitle = styled(Typography)(({ theme }) => ({
-    fontWeight: 'bold',
-    fontSize: theme.fontSizes.smallerBody,
+  fontWeight: 'bold',
+  fontSize: theme.fontSizes.smallerBody,
 }));
 
 const StyledTooltipDescription = styled(Typography)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallerBody,
+  fontSize: theme.fontSizes.smallerBody,
 }));
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
-    marginLeft: theme.spacing(1),
+  marginLeft: theme.spacing(1),
 }));
 
 interface IEnvironmentNameCellProps {
-    environment: IEnvironment;
+  environment: IEnvironment;
 }
 
 export const EnvironmentNameCell = ({
-    environment,
+  environment,
 }: IEnvironmentNameCellProps) => {
-    const { searchQuery } = useSearchHighlightContext();
+  const { searchQuery } = useSearchHighlightContext();
 
-    return (
-        <TextCell
-            sx={(theme) => ({
-                [theme.breakpoints.up('sm')]: {
-                    minWidth: '350px',
-                },
-            })}
-        >
-            <Highlighter search={searchQuery}>{environment.name}</Highlighter>
-            <ConditionallyRender
-                condition={environment.protected}
-                show={<StyledBadge color='success'>Predefined</StyledBadge>}
-            />
-            <ConditionallyRender
-                condition={!environment.enabled}
-                show={
-                    <HtmlTooltip
-                        maxWidth='270px'
-                        title={
-                            <>
-                                <StyledTooltipTitle>
-                                    Deprecated environment
-                                </StyledTooltipTitle>
-                                <StyledTooltipDescription>
-                                    This environment is not auto-enabled for new
-                                    projects. The project owner will need to
-                                    manually enable it in the project.
-                                </StyledTooltipDescription>
-                            </>
-                        }
-                        describeChild
-                        arrow
-                    >
-                        <StyledBadge color='neutral'>Deprecated</StyledBadge>
-                    </HtmlTooltip>
-                }
-            />
-        </TextCell>
-    );
+  return (
+    <TextCell
+      sx={(theme) => ({
+        [theme.breakpoints.up('sm')]: {
+          minWidth: '350px',
+        },
+      })}
+    >
+      <Highlighter search={searchQuery}>{environment.name}</Highlighter>
+      <ConditionallyRender
+        condition={environment.protected}
+        show={<StyledBadge color='success'>Predefined</StyledBadge>}
+      />
+      <ConditionallyRender
+        condition={!environment.enabled}
+        show={
+          <HtmlTooltip
+            maxWidth='270px'
+            title={
+              <>
+                <StyledTooltipTitle>Deprecated environment</StyledTooltipTitle>
+                <StyledTooltipDescription>
+                  This environment is not auto-enabled for new projects. The
+                  project owner will need to manually enable it in the project.
+                </StyledTooltipDescription>
+              </>
+            }
+            describeChild
+            arrow
+          >
+            <StyledBadge color='neutral'>Deprecated</StyledBadge>
+          </HtmlTooltip>
+        }
+      />
+    </TextCell>
+  );
 };

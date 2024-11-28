@@ -43,11 +43,7 @@ test('it returns the names of all the properties it removed', async () => {
   const invalidProperties = Object.keys(invalidJsonTypes);
 
   // verify that the two lists contain all the same elements
-  expect(removedProperties).toEqual(
-    expect.arrayContaining(invalidProperties),
-  );
+  expect(removedProperties).toEqual(expect.arrayContaining(invalidProperties));
 
-  expect(invalidProperties).toEqual(
-    expect.arrayContaining(removedProperties),
-  );
+  expect(invalidProperties).toEqual(expect.arrayContaining(removedProperties));
 });

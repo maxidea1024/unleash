@@ -7,49 +7,49 @@ import type { Lifecycle } from 'interfaces/featureToggle';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
 export interface LifecycleFeature {
-    lifecycle?: Lifecycle;
-    project: string;
+  lifecycle?: Lifecycle;
+  project: string;
+  name: string;
+  environments?: Array<{
+    type: string;
     name: string;
-    environments?: Array<{
-        type: string;
-        name: string;
-        lastSeenAt?: string | null;
-        enabled: boolean;
-    }>;
+    lastSeenAt?: string | null;
+    enabled: boolean;
+  }>;
 }
 
 export const FeatureLifecycle: FC<{
-    onArchive: () => void;
-    onComplete: () => void;
-    onUncomplete: () => void;
-    feature: LifecycleFeature;
+  onArchive: () => void;
+  onComplete: () => void;
+  onUncomplete: () => void;
+  feature: LifecycleFeature;
 }> = ({ feature, onComplete, onUncomplete, onArchive }) => {
-    const currentStage = populateCurrentStage(feature);
+  const currentStage = populateCurrentStage(feature);
 
-    const { markFeatureUncompleted, loading } = useFeatureLifecycleApi();
+  const { markFeatureUncompleted, loading } = useFeatureLifecycleApi();
 
-    const { trackEvent } = usePlausibleTracker();
+  const { trackEvent } = usePlausibleTracker();
 
-    const onUncompleteHandler = async () => {
-        await markFeatureUncompleted(feature.name, feature.project);
-        onUncomplete();
-        trackEvent('feature-lifecycle', {
-            props: {
-                eventType: 'uncomplete',
-            },
-        });
-    };
+  const onUncompleteHandler = async () => {
+    await markFeatureUncompleted(feature.name, feature.project);
+    onUncomplete();
+    trackEvent('feature-lifecycle', {
+      props: {
+        eventType: 'uncomplete',
+      },
+    });
+  };
 
-    return currentStage ? (
-        <FeatureLifecycleTooltip
-            stage={currentStage!}
-            project={feature.project}
-            onArchive={onArchive}
-            onComplete={onComplete}
-            onUncomplete={onUncompleteHandler}
-            loading={loading}
-        >
-            <FeatureLifecycleStageIcon stage={currentStage!} />
-        </FeatureLifecycleTooltip>
-    ) : null;
+  return currentStage ? (
+    <FeatureLifecycleTooltip
+      stage={currentStage!}
+      project={feature.project}
+      onArchive={onArchive}
+      onComplete={onComplete}
+      onUncomplete={onUncompleteHandler}
+      loading={loading}
+    >
+      <FeatureLifecycleStageIcon stage={currentStage!} />
+    </FeatureLifecycleTooltip>
+  ) : null;
 };

@@ -69,8 +69,7 @@ export const featureSearchResponseSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the feature was favorited, otherwise `false`.',
+      description: '`true` if the feature was favorited, otherwise `false`.',
     },
     impressionData: {
       type: 'boolean',
@@ -106,8 +105,7 @@ export const featureSearchResponseSchema = {
       items: {
         $ref: '#/components/schemas/featureSearchEnvironmentSchema',
       },
-      description:
-        'The list of environments where the feature can be used',
+      description: 'The list of environments where the feature can be used',
     },
     segments: {
       type: 'array',
@@ -151,13 +149,7 @@ export const featureSearchResponseSchema = {
         stage: {
           description: 'The name of the current lifecycle stage',
           type: 'string',
-          enum: [
-            'initial',
-            'pre-live',
-            'live',
-            'completed',
-            'archived',
-          ],
+          enum: ['initial', 'pre-live', 'live', 'completed', 'archived'],
           example: 'initial',
         },
         status: {

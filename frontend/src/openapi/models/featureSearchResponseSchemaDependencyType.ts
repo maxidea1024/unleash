@@ -9,11 +9,11 @@
  * @nullable
  */
 export type FeatureSearchResponseSchemaDependencyType =
-    | (typeof FeatureSearchResponseSchemaDependencyType)[keyof typeof FeatureSearchResponseSchemaDependencyType]
-    | null;
+  | (typeof FeatureSearchResponseSchemaDependencyType)[keyof typeof FeatureSearchResponseSchemaDependencyType]
+  | null;
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const FeatureSearchResponseSchemaDependencyType = {
-    parent: 'parent',
-    child: 'child',
+  parent: 'parent',
+  child: 'child',
 } as const;

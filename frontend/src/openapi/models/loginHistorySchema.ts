@@ -9,6 +9,6 @@ import type { LoginEventSchema } from './loginEventSchema';
  * A response model with a list of login events.
  */
 export interface LoginHistorySchema {
-    /** A list of login events */
-    events: LoginEventSchema[];
+  /** A list of login events */
+  events: LoginEventSchema[];
 }

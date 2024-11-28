@@ -9,8 +9,7 @@ export const clientMetricsSchema = {
     'Client usage metrics, accumulated in buckets of hour by hour by default',
   properties: {
     appName: {
-      description:
-        'The name of the application that is evaluating toggles',
+      description: 'The name of the application that is evaluating toggles',
       type: 'string',
       example: 'insurance-selector',
     },
@@ -98,15 +97,13 @@ export const clientMetricsSchema = {
             type: 'object',
             properties: {
               yes: {
-                description:
-                  'How many times the toggle evaluated to true',
+                description: 'How many times the toggle evaluated to true',
                 type: 'number',
                 example: 974,
                 minimum: 0,
               },
               no: {
-                description:
-                  'How many times the toggle evaluated to false',
+                description: 'How many times the toggle evaluated to false',
                 type: 'integer',
                 example: 50,
                 minimum: 0,

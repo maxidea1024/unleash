@@ -45,8 +45,7 @@ The provider you choose for your addon dictates what properties the \`parameters
     },
     events: {
       type: 'array',
-      description:
-        'The event types that will trigger this specific addon.',
+      description: 'The event types that will trigger this specific addon.',
       items: {
         type: 'string',
       },

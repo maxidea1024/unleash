@@ -2,7 +2,8 @@ import type { Db } from '../../db/db';
 import type { IProjectFlagCreatorsReadModel } from './project-flag-creators-read-model.type';
 
 export class ProjectFlagCreatorsReadModel
-  implements IProjectFlagCreatorsReadModel {
+  implements IProjectFlagCreatorsReadModel
+{
   private readonly db: Db;
 
   constructor(db: Db) {
@@ -17,12 +18,7 @@ export class ProjectFlagCreatorsReadModel
       .join('features', 'users.id', '=', 'features.created_by_user_id')
       .where('features.project', project)
       .where('features.archived_at', null)
-      .select([
-        'users.id',
-        'users.name',
-        'users.username',
-        'users.email',
-      ]);
+      .select(['users.id', 'users.name', 'users.username', 'users.email']);
     return result
       .filter((row) => row.name || row.username || row.email)
       .map((row) => ({

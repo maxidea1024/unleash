@@ -26,18 +26,14 @@ export class ImportPermissionsService {
   private readonly tagTypeService: TagTypeService;
   private readonly contextService: ContextService;
 
-  private async getNewTagTypes(
-    dto: ImportTogglesSchema,
-  ): Promise<ITagType[]> {
+  private async getNewTagTypes(dto: ImportTogglesSchema): Promise<ITagType[]> {
     const existingTagTypes = (await this.tagTypeService.getAll()).map(
       (tagType) => tagType.name,
     );
     const newTagTypes = dto.data.tagTypes?.filter(
       (tagType) => !existingTagTypes.includes(tagType.name),
     );
-    return [
-      ...new Map(newTagTypes.map((item) => [item.name, item])).values(),
-    ];
+    return [...new Map(newTagTypes.map((item) => [item.name, item])).values()];
   }
 
   private async getNewContextFields(
@@ -45,13 +41,14 @@ export class ImportPermissionsService {
   ): Promise<ContextFieldSchema[]> {
     const availableContextFields = await this.contextService.getAll();
 
-    return dto.data.contextFields?.filter(
-      (contextField) =>
-        !availableContextFields.some(
-          (availableField) =>
-            availableField.name === contextField.name,
-        ),
-    ) || [];
+    return (
+      dto.data.contextFields?.filter(
+        (contextField) =>
+          !availableContextFields.some(
+            (availableField) => availableField.name === contextField.name,
+          ),
+      ) || []
+    );
   }
 
   constructor(
@@ -123,15 +120,8 @@ export class ImportPermissionsService {
     const results = await Promise.all(
       displayPermissions.map((permission) =>
         this.accessService
-          .hasPermission(
-            user,
-            permission.name,
-            dto.project,
-            dto.environment,
-          )
-          .then(
-            (hasPermission) => [permission, hasPermission] as const,
-          ),
+          .hasPermission(user, permission.name, dto.project, dto.environment)
+          .then((hasPermission) => [permission, hasPermission] as const),
       ),
     );
     return results

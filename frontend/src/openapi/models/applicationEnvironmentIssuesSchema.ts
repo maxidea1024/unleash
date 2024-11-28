@@ -8,8 +8,8 @@
  * This list of issues that might be wrong with the application
  */
 export interface ApplicationEnvironmentIssuesSchema {
-    /** The list of features that are missing in Unleash */
-    missingFeatures: string[];
-    /** The list of used SDKs that are outdated */
-    outdatedSdks: string[];
+  /** The list of features that are missing in Unleash */
+  missingFeatures: string[];
+  /** The list of used SDKs that are outdated */
+  outdatedSdks: string[];
 }

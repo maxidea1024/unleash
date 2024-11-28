@@ -29,10 +29,7 @@ export default class PersonalDashboardController extends Controller {
     {
       openApiService,
       personalDashboardService,
-    }: Pick<
-      IUnleashServices,
-      'openApiService' | 'personalDashboardService'
-    >,
+    }: Pick<IUnleashServices, 'openApiService' | 'personalDashboardService'>,
   ) {
     super(config);
 
@@ -72,9 +69,7 @@ export default class PersonalDashboardController extends Controller {
             'Return personal dashboard project events, owners, user roles and onboarding status',
           operationId: 'getPersonalDashboardProjectDetails',
           responses: {
-            200: createResponseSchema(
-              'personalDashboardProjectDetailsSchema',
-            ),
+            200: createResponseSchema('personalDashboardProjectDetailsSchema'),
             ...getStandardResponses(401, 403, 404),
           },
         }),

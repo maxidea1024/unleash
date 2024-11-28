@@ -47,15 +47,13 @@ export const strategyEvaluationResults = {
       required: ['evaluationStatus', 'enabled'],
       properties: {
         evaluationStatus: {
-          description:
-            'Signals that this strategy was evaluated successfully.',
+          description: 'Signals that this strategy was evaluated successfully.',
           type: 'string',
           enum: ['complete'],
         },
         enabled: {
           type: 'boolean',
-          description:
-            'Whether this strategy evaluates to true or not.',
+          description: 'Whether this strategy evaluates to true or not.',
         },
         variant: {
           description: `The feature variant you receive based on the provided context or the _disabled
@@ -81,8 +79,7 @@ export const strategyEvaluationResults = {
               type: 'object',
               additionalProperties: false,
               required: ['type', 'value'],
-              description:
-                'An optional payload attached to the variant.',
+              description: 'An optional payload attached to the variant.',
               properties: {
                 type: {
                   description: 'The format of the payload.',
@@ -91,8 +88,7 @@ export const strategyEvaluationResults = {
                 },
                 value: {
                   type: 'string',
-                  description:
-                    'The payload value stringified.',
+                  description: 'The payload value stringified.',
                   example: '{"property": "value"}',
                 },
               },
@@ -154,31 +150,27 @@ export const playgroundStrategySchema = {
     },
     segments: {
       type: 'array',
-      description:
-        "The strategy's segments and their evaluation results.",
+      description: "The strategy's segments and their evaluation results.",
       items: {
         $ref: playgroundSegmentSchema.$id,
       },
     },
     constraints: {
       type: 'array',
-      description:
-        "The strategy's constraints and their evaluation results.",
+      description: "The strategy's constraints and their evaluation results.",
       items: {
         $ref: playgroundConstraintSchema.$id,
       },
     },
     parameters: {
-      description:
-        "The strategy's constraints and their evaluation results.",
+      description: "The strategy's constraints and their evaluation results.",
       example: {
         myParam1: 'param value',
       },
       $ref: parametersSchema.$id,
     },
     links: {
-      description:
-        'A set of links to actions you can perform on this strategy',
+      description: 'A set of links to actions you can perform on this strategy',
       type: 'object',
       required: ['edit'],
       properties: {

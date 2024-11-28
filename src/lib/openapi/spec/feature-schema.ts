@@ -57,8 +57,7 @@ export const featureSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the feature was favorited, otherwise `false`.',
+      description: '`true` if the feature was favorited, otherwise `false`.',
     },
     impressionData: {
       type: 'boolean',
@@ -117,8 +116,7 @@ export const featureSchema = {
       items: {
         $ref: '#/components/schemas/featureEnvironmentSchema',
       },
-      description:
-        'The list of environments where the feature can be used',
+      description: 'The list of environments where the feature can be used',
     },
     variants: {
       type: 'array',
@@ -163,13 +161,7 @@ export const featureSchema = {
         stage: {
           description: 'The name of the current lifecycle stage',
           type: 'string',
-          enum: [
-            'initial',
-            'pre-live',
-            'live',
-            'completed',
-            'archived',
-          ],
+          enum: ['initial', 'pre-live', 'live', 'completed', 'archived'],
           example: 'initial',
         },
         enteredStageAt: {
@@ -193,8 +185,7 @@ export const featureSchema = {
             example: 'some-feature',
           },
           enabled: {
-            description:
-              'Whether the parent feature is enabled or not',
+            description: 'Whether the parent feature is enabled or not',
             type: 'boolean',
             example: true,
           },

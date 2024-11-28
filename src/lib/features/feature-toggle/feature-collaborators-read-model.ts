@@ -6,16 +6,15 @@ import type {
 import { generateImageUrl } from '../../util';
 
 export class FeatureCollaboratorsReadModel
-  implements IFeatureCollaboratorsReadModel {
+  implements IFeatureCollaboratorsReadModel
+{
   private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;
   }
 
-  async getFeatureCollaborators(
-    feature: string,
-  ): Promise<Array<Collaborator>> {
+  async getFeatureCollaborators(feature: string): Promise<Array<Collaborator>> {
     const query = this.db
       .with('recent_events', (queryBuilder) => {
         queryBuilder

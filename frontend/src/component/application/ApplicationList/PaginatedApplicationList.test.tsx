@@ -7,30 +7,30 @@ import type { ApplicationSchema } from 'openapi';
 const server = testServerSetup();
 
 const setupApi = (applications: ApplicationSchema[]) => {
-    testServerRoute(server, '/api/admin/metrics/applications', {
-        applications,
-        total: applications.length,
-    });
-    testServerRoute(server, '/api/admin/ui-config', {});
+  testServerRoute(server, '/api/admin/metrics/applications', {
+    applications,
+    total: applications.length,
+  });
+  testServerRoute(server, '/api/admin/ui-config', {});
 };
 
 test('Display applications list', async () => {
-    setupApi([{ appName: 'myApp1' }, { appName: 'myApp2' }]);
-    render(<PaginatedApplicationList />);
+  setupApi([{ appName: 'myApp1' }, { appName: 'myApp2' }]);
+  render(<PaginatedApplicationList />);
 
-    await screen.findByText('myApp1');
-    await screen.findByText('myApp2');
-    const nameColumn = screen.queryAllByText('Name')[0];
+  await screen.findByText('myApp1');
+  await screen.findByText('myApp2');
+  const nameColumn = screen.queryAllByText('Name')[0];
 
-    nameColumn.click();
-    expect(window.location.href).toContain(
-        '?offset=0&sortBy=appName&sortOrder=desc',
-    );
+  nameColumn.click();
+  expect(window.location.href).toContain(
+    '?offset=0&sortBy=appName&sortOrder=desc',
+  );
 });
 
 test('Display no applications connected', async () => {
-    setupApi([]);
-    render(<PaginatedApplicationList />);
+  setupApi([]);
+  render(<PaginatedApplicationList />);
 
-    await screen.findByText(/To connect your application to Unleash/);
+  await screen.findByText(/To connect your application to Unleash/);
 });

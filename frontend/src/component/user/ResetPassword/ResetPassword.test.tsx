@@ -8,13 +8,13 @@ import { render } from 'utils/testRenderer';
 const server = testServerSetup();
 
 test('should render password auth', async () => {
-    testServerRoute(server, '/api/admin/ui-config', {});
-    testServerRoute(server, '/api/admin/user', {});
-    testServerRoute(server, '/auth/reset/validate', {
-        name: INVALID_TOKEN_ERROR,
-    });
+  testServerRoute(server, '/api/admin/ui-config', {});
+  testServerRoute(server, '/api/admin/user', {});
+  testServerRoute(server, '/auth/reset/validate', {
+    name: INVALID_TOKEN_ERROR,
+  });
 
-    render(<ResetPassword />, { route: '/new-user?token=invalid' });
+  render(<ResetPassword />, { route: '/new-user?token=invalid' });
 
-    await screen.findByTestId(INVALID_TOKEN_BUTTON);
+  await screen.findByTestId(INVALID_TOKEN_BUTTON);
 });

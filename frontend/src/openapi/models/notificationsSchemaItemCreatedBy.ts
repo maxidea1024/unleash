@@ -5,14 +5,14 @@
  */
 
 export type NotificationsSchemaItemCreatedBy = {
-    /**
-     * The avatar url of the user who triggered the notification
-     * @nullable
-     */
-    imageUrl?: string | null;
-    /**
-     * The name of the user who triggered the notification
-     * @nullable
-     */
-    username?: string | null;
+  /**
+   * The avatar url of the user who triggered the notification
+   * @nullable
+   */
+  imageUrl?: string | null;
+  /**
+   * The name of the user who triggered the notification
+   * @nullable
+   */
+  username?: string | null;
 };

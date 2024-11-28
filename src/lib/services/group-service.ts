@@ -65,11 +65,7 @@ export class GroupService {
     );
 
     return groups.map((group) => {
-      const mappedGroup = this.mapGroupWithUsers(
-        group,
-        allGroupUsers,
-        users,
-      );
+      const mappedGroup = this.mapGroupWithUsers(group, allGroupUsers, users);
       return this.mapGroupWithProjects(groupProjects, mappedGroup);
     });
   }
@@ -142,9 +138,7 @@ export class GroupService {
 
     const newGroup = await this.groupStore.update(group);
 
-    const existingUsers = await this.groupStore.getAllUsersByGroups([
-      group.id,
-    ]);
+    const existingUsers = await this.groupStore.getAllUsersByGroups([group.id]);
     const existingUserIds = existingUsers.map((g) => g.userId);
 
     const deletableUsers = existingUsers.filter(
@@ -156,9 +150,7 @@ export class GroupService {
 
     await this.groupStore.updateGroupUsers(
       newGroup.id,
-      group.users.filter(
-        (user) => !existingUserIds.includes(user.user.id),
-      ),
+      group.users.filter((user) => !existingUserIds.includes(user.user.id)),
       deletableUsers,
       auditUser.username,
     );
@@ -175,9 +167,7 @@ export class GroupService {
     return newGroup;
   }
 
-  async getProjectGroups(
-    projectId: string,
-  ): Promise<IGroupWithProjectRoles[]> {
+  async getProjectGroups(projectId: string): Promise<IGroupWithProjectRoles[]> {
     const projectGroups = await this.groupStore.getProjectGroups(projectId);
 
     if (projectGroups.length > 0) {
@@ -205,9 +195,7 @@ export class GroupService {
   async deleteGroup(id: number, auditUser: IAuditUser): Promise<void> {
     const group = await this.groupStore.get(id);
 
-    const existingUsers = await this.groupStore.getAllUsersByGroups([
-      group.id,
-    ]);
+    const existingUsers = await this.groupStore.getAllUsersByGroups([group.id]);
     const existingUserIds = existingUsers.map((g) => g.userId);
 
     await this.groupStore.delete(id);
@@ -236,17 +224,13 @@ export class GroupService {
 
     if (existingGroup && Boolean(existingGroup.scimId)) {
       if (existingGroup.name !== group.name) {
-        throw new BadDataError(
-          'Cannot update the name of a SCIM group',
-        );
+        throw new BadDataError('Cannot update the name of a SCIM group');
       }
 
       const existingUsers = new Set(
-        (
-          await this.groupStore.getAllUsersByGroups([
-            existingGroup.id,
-          ])
-        ).map((g) => g.userId),
+        (await this.groupStore.getAllUsersByGroups([existingGroup.id])).map(
+          (g) => g.userId,
+        ),
       );
 
       const newUsers = new Set(group.users?.map((g) => g.user.id) || []);

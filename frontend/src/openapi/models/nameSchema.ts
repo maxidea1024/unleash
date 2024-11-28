@@ -8,6 +8,6 @@
  * An object with a name
  */
 export interface NameSchema {
-    /** The name of the represented object. */
-    name: string;
+  /** The name of the represented object. */
+  name: string;
 }

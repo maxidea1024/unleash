@@ -9,7 +9,7 @@ const config: IUnleashConfig = createTestConfig();
 test('should trim tag values before saving them', async () => {
   const tagStore = new FakeTagStore();
   const service = new TagService({ tagStore }, config, {
-    storeEvent: async () => { },
+    storeEvent: async () => {},
   } as unknown as EventService);
 
   await service.createTag(

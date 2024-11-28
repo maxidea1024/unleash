@@ -14,92 +14,92 @@ import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { GO_BACK } from 'constants/navigate';
 
 const EditFeature = () => {
-    const projectId = useRequiredPathParam('projectId');
-    const featureId = useRequiredPathParam('featureId');
-    const { setToastData, setToastApiError } = useToast();
-    const { uiConfig } = useUiConfig();
-    const navigate = useNavigate();
-    const { patchFeatureToggle: patchFeatureFlag, loading } = useFeatureApi();
-    const { feature } = useFeature(projectId, featureId);
+  const projectId = useRequiredPathParam('projectId');
+  const featureId = useRequiredPathParam('featureId');
+  const { setToastData, setToastApiError } = useToast();
+  const { uiConfig } = useUiConfig();
+  const navigate = useNavigate();
+  const { patchFeatureToggle: patchFeatureFlag, loading } = useFeatureApi();
+  const { feature } = useFeature(projectId, featureId);
 
-    const {
-        type,
-        setType,
-        name,
-        project,
-        description,
-        setDescription,
-        impressionData,
-        setImpressionData,
-        clearErrors,
-    } = useFeatureForm(
-        feature?.name,
-        feature?.type,
-        feature?.project,
-        feature?.description,
-        feature?.impressionData,
-    );
+  const {
+    type,
+    setType,
+    name,
+    project,
+    description,
+    setDescription,
+    impressionData,
+    setImpressionData,
+    clearErrors,
+  } = useFeatureForm(
+    feature?.name,
+    feature?.type,
+    feature?.project,
+    feature?.description,
+    feature?.impressionData,
+  );
 
-    const createPatch = () => {
-        const comparison = { ...feature, type, description, impressionData };
-        const patch = jsonpatch.compare(feature, comparison);
-        return patch;
-    };
+  const createPatch = () => {
+    const comparison = { ...feature, type, description, impressionData };
+    const patch = jsonpatch.compare(feature, comparison);
+    return patch;
+  };
 
-    const handleSubmit = async (e: Event) => {
-        e.preventDefault();
-        clearErrors();
-        const patch = createPatch();
-        try {
-            await patchFeatureFlag(project, featureId, patch);
-            navigate(`/projects/${project}/features/${name}`);
-            setToastData({
-                title: 'Flag updated successfully',
-                type: 'success',
-            });
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    clearErrors();
+    const patch = createPatch();
+    try {
+      await patchFeatureFlag(project, featureId, patch);
+      navigate(`/projects/${project}/features/${name}`);
+      setToastData({
+        title: 'Flag updated successfully',
+        type: 'success',
+      });
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
+    }
+  };
 
-    const formatApiCode = () => {
-        return `curl --location --request PATCH '${
-            uiConfig.unleashUrl
-        }/api/admin/projects/${projectId}/features/${featureId}' \\
+  const formatApiCode = () => {
+    return `curl --location --request PATCH '${
+      uiConfig.unleashUrl
+    }/api/admin/projects/${projectId}/features/${featureId}' \\
     --header 'Authorization: INSERT_API_KEY' \\
     --header 'Content-Type: application/json' \\
     --data-raw '${JSON.stringify(createPatch(), undefined, 2)}'`;
-    };
+  };
 
-    const handleCancel = () => {
-        navigate(GO_BACK);
-    };
+  const handleCancel = () => {
+    navigate(GO_BACK);
+  };
 
-    return (
-        <FormTemplate
-            loading={loading}
-            title='Edit Feature flag'
-            description='Feature flags support different use cases, each with their own specific needs such as simple static routing or more complex routing.
+  return (
+    <FormTemplate
+      loading={loading}
+      title='Edit Feature flag'
+      description='Feature flags support different use cases, each with their own specific needs such as simple static routing or more complex routing.
             The feature flag is disabled when created and you decide when to enable'
-            documentationLink='https://docs.getunleash.io/reference/feature-toggles#feature-flag-types'
-            documentationLinkLabel='Feature flag types documentation'
-            formatApiCode={formatApiCode}
-        >
-            <EditFeatureForm
-                type={type}
-                name={name}
-                description={description}
-                setType={setType}
-                setDescription={setDescription}
-                handleSubmit={handleSubmit}
-                handleCancel={handleCancel}
-                impressionData={impressionData}
-                setImpressionData={setImpressionData}
-            >
-                <UpdateButton permission={UPDATE_FEATURE} projectId={project} />
-            </EditFeatureForm>
-        </FormTemplate>
-    );
+      documentationLink='https://docs.getunleash.io/reference/feature-toggles#feature-flag-types'
+      documentationLinkLabel='Feature flag types documentation'
+      formatApiCode={formatApiCode}
+    >
+      <EditFeatureForm
+        type={type}
+        name={name}
+        description={description}
+        setType={setType}
+        setDescription={setDescription}
+        handleSubmit={handleSubmit}
+        handleCancel={handleCancel}
+        impressionData={impressionData}
+        setImpressionData={setImpressionData}
+      >
+        <UpdateButton permission={UPDATE_FEATURE} projectId={project} />
+      </EditFeatureForm>
+    </FormTemplate>
+  );
 };
 
 export default EditFeature;

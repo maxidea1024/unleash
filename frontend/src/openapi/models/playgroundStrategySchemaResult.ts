@@ -10,5 +10,5 @@ import type { PlaygroundStrategySchemaResultAnyOfFour } from './playgroundStrate
  * The strategy's evaluation result. If the strategy is a custom strategy that Unleash can't evaluate, `evaluationStatus` will be `unknown`. Otherwise, it will be `true` or `false`
  */
 export type PlaygroundStrategySchemaResult =
-    | PlaygroundStrategySchemaResultAnyOf
-    | PlaygroundStrategySchemaResultAnyOfFour;
+  | PlaygroundStrategySchemaResultAnyOf
+  | PlaygroundStrategySchemaResultAnyOfFour;

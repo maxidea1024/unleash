@@ -5,5 +5,5 @@
  */
 
 export type FeatureSearchResponseSchemaStrategiesItem = {
-    [key: string]: unknown;
+  [key: string]: unknown;
 };

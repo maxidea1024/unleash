@@ -93,8 +93,7 @@ const flags: IFlags = {
     ),
     payload: {
       type: PayloadType.JSON,
-      value:
-        process.env.UNLEASH_EXPERIMENTAL_MESSAGE_BANNER_PAYLOAD ?? '',
+      value: process.env.UNLEASH_EXPERIMENTAL_MESSAGE_BANNER_PAYLOAD ?? '',
     },
   },
   featuresExportImport: parseEnvVarBoolean(
@@ -115,14 +114,8 @@ const flags: IFlags = {
   ),
   migrationLock: parseEnvVarBoolean(process.env.MIGRATION_LOCK, true),
   demo: parseEnvVarBoolean(process.env.UNLEASH_DEMO, false),
-  googleAuthEnabled: parseEnvVarBoolean(
-    process.env.GOOGLE_AUTH_ENABLED,
-    false,
-  ),
-  disableBulkToggle: parseEnvVarBoolean(
-    process.env.DISABLE_BULK_TOGGLE,
-    false,
-  ),
+  googleAuthEnabled: parseEnvVarBoolean(process.env.GOOGLE_AUTH_ENABLED, false),
+  disableBulkToggle: parseEnvVarBoolean(process.env.DISABLE_BULK_TOGGLE, false),
   disableNotifications: parseEnvVarBoolean(
     process.env.DISABLE_NOTIFICATIONS,
     false,
@@ -135,10 +128,7 @@ const flags: IFlags = {
     process.env.UNLEASH_EXPERIMENTAL_DISABLE_METRICS,
     false,
   ),
-  signals: parseEnvVarBoolean(
-    process.env.UNLEASH_EXPERIMENTAL_SIGNALS,
-    false,
-  ),
+  signals: parseEnvVarBoolean(process.env.UNLEASH_EXPERIMENTAL_SIGNALS, false),
   automatedActions: parseEnvVarBoolean(
     process.env.UNLEASH_EXPERIMENTAL_AUTOMATED_ACTIONS,
     false,
@@ -175,9 +165,7 @@ const flags: IFlags = {
     ),
     payload: {
       type: PayloadType.JSON,
-      value:
-        process.env.UNLEASH_EXPERIMENTAL_FEEDBACK_COMMENTS_PAYLOAD ??
-        '',
+      value: process.env.UNLEASH_EXPERIMENTAL_FEEDBACK_COMMENTS_PAYLOAD ?? '',
     },
   },
   showInactiveUsers: parseEnvVarBoolean(

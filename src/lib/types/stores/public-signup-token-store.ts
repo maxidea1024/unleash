@@ -4,9 +4,7 @@ import type { IPublicSignupTokenCreate } from '../models/public-signup-token';
 
 export interface IPublicSignupTokenStore
   extends IStore<PublicSignupTokenSchema, string> {
-  insert(
-    newToken: IPublicSignupTokenCreate,
-  ): Promise<PublicSignupTokenSchema>;
+  insert(newToken: IPublicSignupTokenCreate): Promise<PublicSignupTokenSchema>;
 
   addTokenUser(secret: string, userId: number): Promise<void>;
 

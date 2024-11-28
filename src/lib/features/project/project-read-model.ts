@@ -90,17 +90,11 @@ export class ProjectReadModel implements IProjectReadModel {
         'features.name',
         'last_seen_at_metrics.feature_name',
       )
-      .leftJoin(
-        'project_settings',
-        'project_settings.project',
-        'projects.id',
-      )
+      .leftJoin('project_settings', 'project_settings.project', 'projects.id')
       .leftJoin('events', (join) => {
-        join.on('events.feature_name', '=', 'features.name').andOn(
-          'events.project',
-          '=',
-          'projects.id',
-        );
+        join
+          .on('events.feature_name', '=', 'features.name')
+          .andOn('events.project', '=', 'projects.id');
       })
       .orderBy('projects.name', 'asc');
 
@@ -120,9 +114,9 @@ export class ProjectReadModel implements IProjectReadModel {
     let selectColumns = [
       this.db.raw(
         'projects.id, projects.name, projects.description, projects.health, projects.created_at, ' +
-        'count(DISTINCT features.name) FILTER (WHERE features.archived_at is null) AS number_of_features, ' +
-        'MAX(last_seen_at_metrics.last_seen_at) AS last_usage, ' +
-        'MAX(events.created_at) AS last_updated',
+          'count(DISTINCT features.name) FILTER (WHERE features.archived_at is null) AS number_of_features, ' +
+          'MAX(last_seen_at_metrics.last_seen_at) AS last_usage, ' +
+          'MAX(events.created_at) AS last_updated',
       ),
       'project_settings.project_mode',
       'projects.archived_at',
@@ -140,9 +134,7 @@ export class ProjectReadModel implements IProjectReadModel {
       });
       selectColumns = [
         ...selectColumns,
-        this.db.raw(
-          'favorite_projects.project is not null as favorite',
-        ),
+        this.db.raw('favorite_projects.project is not null as favorite'),
       ];
       groupByColumns = [...groupByColumns, 'favorite_projects.project'];
     }
@@ -190,9 +182,9 @@ export class ProjectReadModel implements IProjectReadModel {
     const selectColumns = [
       this.db.raw(
         'projects.id, projects.health, ' +
-        'count(features.name) FILTER (WHERE features.archived_at is null) AS number_of_features, ' +
-        'count(features.name) FILTER (WHERE features.archived_at is null and features.stale IS TRUE) AS stale_feature_count, ' +
-        'count(features.name) FILTER (WHERE features.archived_at is null and features.potentially_stale IS TRUE and features.stale IS FALSE) AS potentially_stale_feature_count',
+          'count(features.name) FILTER (WHERE features.archived_at is null) AS number_of_features, ' +
+          'count(features.name) FILTER (WHERE features.archived_at is null and features.stale IS TRUE) AS stale_feature_count, ' +
+          'count(features.name) FILTER (WHERE features.archived_at is null and features.potentially_stale IS TRUE and features.stale IS FALSE) AS potentially_stale_feature_count',
       ),
       'project_stats.avg_time_to_prod_current_window',
       'projects.archived_at',
@@ -271,11 +263,7 @@ export class ProjectReadModel implements IProjectReadModel {
                 'group_user.group_id',
                 'group_role.group_id',
               )
-              .leftJoin(
-                'projects',
-                'group_role.project',
-                'projects.id',
-              )
+              .leftJoin('projects', 'group_role.project', 'projects.id')
               .where('group_user.user_id', userId)
               .andWhere('projects.archived_at', null);
           })

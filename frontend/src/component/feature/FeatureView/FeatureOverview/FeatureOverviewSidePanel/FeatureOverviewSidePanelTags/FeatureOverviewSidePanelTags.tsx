@@ -15,133 +15,133 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(3),
+  display: 'flex',
+  flexDirection: 'column',
+  padding: theme.spacing(3),
 }));
 
 const StyledTagContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    gap: theme.spacing(1),
-    flexWrap: 'wrap',
+  display: 'flex',
+  gap: theme.spacing(1),
+  flexWrap: 'wrap',
 }));
 
 const StyledChip = styled(Chip)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallBody,
+  fontSize: theme.fontSizes.smallBody,
 }));
 
 const StyledDivider = styled(Divider)(({ theme }) => ({
-    margin: theme.spacing(3),
-    borderStyle: 'dashed',
+  margin: theme.spacing(3),
+  borderStyle: 'dashed',
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-    maxWidth: theme.spacing(20),
-    alignSelf: 'center',
+  maxWidth: theme.spacing(20),
+  alignSelf: 'center',
 }));
 
 interface IFeatureOverviewSidePanelTagsProps {
-    feature: IFeatureToggle;
-    header: React.ReactNode;
+  feature: IFeatureToggle;
+  header: React.ReactNode;
 }
 
 export const FeatureOverviewSidePanelTags = ({
-    feature,
-    header,
+  feature,
+  header,
 }: IFeatureOverviewSidePanelTagsProps) => {
-    const { tags, refetch } = useFeatureTags(feature.name);
-    const { deleteTagFromFeature } = useFeatureApi();
+  const { tags, refetch } = useFeatureTags(feature.name);
+  const { deleteTagFromFeature } = useFeatureApi();
 
-    const [openTagDialog, setOpenTagDialog] = useState(false);
-    const [showDelDialog, setShowDelDialog] = useState(false);
-    const [selectedTag, setSelectedTag] = useState<ITag>();
+  const [openTagDialog, setOpenTagDialog] = useState(false);
+  const [showDelDialog, setShowDelDialog] = useState(false);
+  const [selectedTag, setSelectedTag] = useState<ITag>();
 
-    const { setToastData, setToastApiError } = useToast();
-    const { hasAccess } = useContext(AccessContext);
-    const canUpdateTags = hasAccess(UPDATE_FEATURE, feature.project);
+  const { setToastData, setToastApiError } = useToast();
+  const { hasAccess } = useContext(AccessContext);
+  const canUpdateTags = hasAccess(UPDATE_FEATURE, feature.project);
 
-    const handleDelete = async () => {
-        if (!selectedTag) return;
-        try {
-            await deleteTagFromFeature(
-                feature.name,
-                selectedTag.type,
-                selectedTag.value,
-            );
-            refetch();
-            setToastData({
-                type: 'success',
-                title: 'Tag deleted',
-                text: 'Successfully deleted tag',
-            });
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
+  const handleDelete = async () => {
+    if (!selectedTag) return;
+    try {
+      await deleteTagFromFeature(
+        feature.name,
+        selectedTag.type,
+        selectedTag.value,
+      );
+      refetch();
+      setToastData({
+        type: 'success',
+        title: 'Tag deleted',
+        text: 'Successfully deleted tag',
+      });
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
+    }
+  };
 
-    return (
-        <StyledContainer>
-            {header}
-            <StyledTagContainer>
-                {tags.map((tag) => {
-                    const tagLabel = `${tag.type}:${tag.value}`;
-                    return (
-                        <StyledChip
-                            key={tagLabel}
-                            label={tagLabel}
-                            deleteIcon={<Cancel titleAccess='Remove' />}
-                            onDelete={
-                                canUpdateTags
-                                    ? () => {
-                                          setShowDelDialog(true);
-                                          setSelectedTag(tag);
-                                      }
-                                    : undefined
-                            }
-                        />
-                    );
-                })}
-            </StyledTagContainer>
-            <ConditionallyRender
-                condition={canUpdateTags}
-                show={
-                    <>
-                        <ConditionallyRender
-                            condition={tags.length > 0}
-                            show={<StyledDivider />}
-                        />
-                        <StyledButton
-                            data-loading
-                            variant='outlined'
-                            startIcon={<Add />}
-                            onClick={() => setOpenTagDialog(true)}
-                        >
-                            Add new tag
-                        </StyledButton>
-                    </>
-                }
+  return (
+    <StyledContainer>
+      {header}
+      <StyledTagContainer>
+        {tags.map((tag) => {
+          const tagLabel = `${tag.type}:${tag.value}`;
+          return (
+            <StyledChip
+              key={tagLabel}
+              label={tagLabel}
+              deleteIcon={<Cancel titleAccess='Remove' />}
+              onDelete={
+                canUpdateTags
+                  ? () => {
+                      setShowDelDialog(true);
+                      setSelectedTag(tag);
+                    }
+                  : undefined
+              }
             />
-            <ManageTagsDialog open={openTagDialog} setOpen={setOpenTagDialog} />
-            <Dialogue
-                open={showDelDialog}
-                primaryButtonText='Delete tag'
-                secondaryButtonText='Cancel'
-                onClose={() => {
-                    setShowDelDialog(false);
-                    setSelectedTag(undefined);
-                }}
-                onClick={() => {
-                    setShowDelDialog(false);
-                    handleDelete();
-                    setSelectedTag(undefined);
-                }}
-                title='Delete tag?'
+          );
+        })}
+      </StyledTagContainer>
+      <ConditionallyRender
+        condition={canUpdateTags}
+        show={
+          <>
+            <ConditionallyRender
+              condition={tags.length > 0}
+              show={<StyledDivider />}
+            />
+            <StyledButton
+              data-loading
+              variant='outlined'
+              startIcon={<Add />}
+              onClick={() => setOpenTagDialog(true)}
             >
-                You are about to delete tag:{' '}
-                <strong>
-                    {selectedTag?.type}:{selectedTag?.value}
-                </strong>
-            </Dialogue>
-        </StyledContainer>
-    );
+              Add new tag
+            </StyledButton>
+          </>
+        }
+      />
+      <ManageTagsDialog open={openTagDialog} setOpen={setOpenTagDialog} />
+      <Dialogue
+        open={showDelDialog}
+        primaryButtonText='Delete tag'
+        secondaryButtonText='Cancel'
+        onClose={() => {
+          setShowDelDialog(false);
+          setSelectedTag(undefined);
+        }}
+        onClick={() => {
+          setShowDelDialog(false);
+          handleDelete();
+          setSelectedTag(undefined);
+        }}
+        title='Delete tag?'
+      >
+        You are about to delete tag:{' '}
+        <strong>
+          {selectedTag?.type}:{selectedTag?.value}
+        </strong>
+      </Dialogue>
+    </StyledContainer>
+  );
 };

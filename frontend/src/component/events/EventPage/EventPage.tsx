@@ -3,7 +3,7 @@ import { PermissionGuard } from 'component/common/PermissionGuard/PermissionGuar
 import { EventLog } from 'component/events/EventLog/EventLog';
 
 export const EventPage = () => (
-    <PermissionGuard permissions={ADMIN}>
-        <EventLog title='Event log' />
-    </PermissionGuard>
+  <PermissionGuard permissions={ADMIN}>
+    <EventLog title='Event log' />
+  </PermissionGuard>
 );

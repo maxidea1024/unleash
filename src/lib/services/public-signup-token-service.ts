@@ -51,9 +51,7 @@ export class PublicSignupTokenService {
   }
 
   private getUrl(secret: string): string {
-    return new URL(
-      `${this.unleashBase}/new-user?invite=${secret}`,
-    ).toString();
+    return new URL(`${this.unleashBase}/new-user?invite=${secret}`).toString();
   }
 
   async get(secret: string): Promise<PublicSignupTokenSchema> {

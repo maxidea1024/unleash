@@ -9,6 +9,6 @@ import type { EdgeTokenSchema } from './edgeTokenSchema';
  * A object containing a list of valid Unleash tokens.
  */
 export interface ValidatedEdgeTokensSchema {
-    /** The list of Unleash token objects. Each object contains the token itself and some additional metadata. */
-    tokens: EdgeTokenSchema[];
+  /** The list of Unleash token objects. Each object contains the token itself and some additional metadata. */
+  tokens: EdgeTokenSchema[];
 }

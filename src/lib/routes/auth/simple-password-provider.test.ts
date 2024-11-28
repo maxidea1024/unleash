@@ -11,7 +11,7 @@ test('Should require password', async () => {
   const openApiService = new OpenApiService(config);
   const app = express();
   app.use(express.json());
-  const userService = () => { };
+  const userService = () => {};
 
   const ctr = new SimplePasswordProvider(config, {
     // @ts-expect-error

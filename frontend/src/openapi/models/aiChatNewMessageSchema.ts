@@ -8,6 +8,6 @@
  * Describes a new Unleash AI chat message sent by the user.
  */
 export interface AiChatNewMessageSchema {
-    /** The message content. */
-    message: string;
+  /** The message content. */
+  message: string;
 }

@@ -32,12 +32,7 @@ export const useActionEvents = (
     previousPageData: ActionEventsResponse,
   ) => {
     // Does not meet conditions
-    if (
-      !actionSetId ||
-      !projectId ||
-      !isEnterprise ||
-      !automatedActionsEnabled
-    )
+    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled)
       return null;
 
     // Reached the end
@@ -46,7 +41,8 @@ export const useActionEvents = (
     }
 
     return formatApiPath(
-      `api/admin/projects/${projectId}/actions/${actionSetId}/events?limit=${limit}&offset=${pageIndex * limit
+      `api/admin/projects/${projectId}/actions/${actionSetId}/events?limit=${limit}&offset=${
+        pageIndex * limit
       }`,
     );
   };

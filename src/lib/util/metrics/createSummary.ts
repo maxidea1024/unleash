@@ -31,8 +31,7 @@ export const createSummary = <T extends string>(
    * @param labels - An object where keys are label names and values are the label values.
    * @returns The Summary instance with the applied labels, allowing for method chaining.
    */
-  const labels = (labels: Record<T, string | number>) =>
-    summary.labels(labels);
+  const labels = (labels: Record<T, string | number>) => summary.labels(labels);
 
   /**
    * Observes a value in the summary.

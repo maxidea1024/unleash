@@ -5,36 +5,36 @@ import type { INewPersonalAPIToken } from 'interfaces/personalAPIToken';
 import type { FC } from 'react';
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
-    marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(3),
 }));
 
 interface IPersonalAPITokenDialogProps {
-    open: boolean;
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    token?: INewPersonalAPIToken;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  token?: INewPersonalAPIToken;
 }
 
 export const PersonalAPITokenDialog: FC<IPersonalAPITokenDialogProps> = ({
-    open,
-    setOpen,
-    token,
+  open,
+  setOpen,
+  token,
 }) => (
-    <Dialogue
-        open={open}
-        setOpen={setOpen}
-        secondaryButtonText='Close'
-        onClose={(_, muiCloseReason?: string) => {
-            if (!muiCloseReason) {
-                setOpen(false);
-            }
-        }}
-        title='Personal API token created'
-    >
-        <StyledAlert severity='info'>
-            Make sure to copy your personal API token now. You won't be able to
-            see it again!
-        </StyledAlert>
-        <Typography variant='body1'>Your token:</Typography>
-        <UserToken token={token?.secret || ''} />
-    </Dialogue>
+  <Dialogue
+    open={open}
+    setOpen={setOpen}
+    secondaryButtonText='Close'
+    onClose={(_, muiCloseReason?: string) => {
+      if (!muiCloseReason) {
+        setOpen(false);
+      }
+    }}
+    title='Personal API token created'
+  >
+    <StyledAlert severity='info'>
+      Make sure to copy your personal API token now. You won't be able to see it
+      again!
+    </StyledAlert>
+    <Typography variant='body1'>Your token:</Typography>
+    <UserToken token={token?.secret || ''} />
+  </Dialogue>
 );

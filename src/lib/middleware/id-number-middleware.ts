@@ -6,9 +6,9 @@ const idNumberMiddleware = (): any => {
     const { id } = req.params;
 
     if (!Number.isInteger(Number(id))) {
-      res.status(400).send(
-        new BadDataError('ID should be an integer').toJSON(),
-      );
+      res
+        .status(400)
+        .send(new BadDataError('ID should be an integer').toJSON());
       return;
     }
 

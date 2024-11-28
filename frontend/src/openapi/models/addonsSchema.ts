@@ -12,8 +12,8 @@ import type { AddonTypeSchema } from './addonTypeSchema';
 2. A list of all addon providers defined on this instance
  */
 export interface AddonsSchema {
-    /** All the addons that exist on this instance of Unleash. */
-    addons: AddonSchema[];
-    /** A list of  all available addon providers, along with their parameters and descriptions. */
-    providers: AddonTypeSchema[];
+  /** All the addons that exist on this instance of Unleash. */
+  addons: AddonSchema[];
+  /** A list of  all available addon providers, along with their parameters and descriptions. */
+  providers: AddonTypeSchema[];
 }

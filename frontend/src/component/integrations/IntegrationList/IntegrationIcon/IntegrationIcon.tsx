@@ -30,80 +30,80 @@ import svelte from 'assets/icons/sdks/Logo-svelte.svg';
 import vue from 'assets/icons/sdks/Logo-vue.svg';
 
 interface IIntegrationIconProps {
-    name: string;
+  name: string;
 }
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
-    background: 'transparent',
-    marginRight: theme.spacing(2),
-    borderRadius: theme.shape.borderRadius,
-    overflow: 'hidden',
-    width: theme.spacing(4),
-    height: theme.spacing(4),
-    fontSize: '28px',
+  background: 'transparent',
+  marginRight: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius,
+  overflow: 'hidden',
+  width: theme.spacing(4),
+  height: theme.spacing(4),
+  fontSize: '28px',
 }));
 
 const integrations: Record<
-    string,
-    {
-        icon: string | ReactNode;
-        title: string;
-    }
+  string,
+  {
+    icon: string | ReactNode;
+    title: string;
+  }
 > = {
-    datadog: { title: 'Datadog', icon: dataDogIcon },
-    'new-relic': { title: 'New Relic', icon: newRelicIcon },
-    jira: { title: 'Jira', icon: jiraIcon },
-    'jira-comment': { title: 'Jira', icon: jiraCommentIcon },
-    signals: { title: 'Signals', icon: signals },
-    slack: { title: 'Slack', icon: slackIcon },
-    'slack-app': { title: 'Slack', icon: slackIcon },
-    teams: { title: 'Teams', icon: teamsIcon },
-    webhook: { title: 'Webhook', icon: webhooksIcon },
-    unleash: { title: 'Unleash', icon: unleashIcon },
-    android: { title: 'Android', icon: android },
-    dotnet: { title: 'Dotnet', icon: dotnet },
-    flutter: { title: 'Flutter', icon: flutter },
-    go: { title: 'Go', icon: go },
-    swift: { title: 'Swift', icon: swift },
-    java: { title: 'Java', icon: java },
-    javascript: { title: 'Javascript', icon: javascript },
-    node: { title: 'Node', icon: node },
-    php: { title: 'PHP', icon: php },
-    python: { title: 'Python', icon: python },
-    react: { title: 'React', icon: react },
-    ruby: { title: 'Ruby', icon: ruby },
-    rust: { title: 'Rust', icon: rust },
-    svelte: { title: 'Svelte', icon: svelte },
-    vue: { title: 'Vue', icon: vue },
+  datadog: { title: 'Datadog', icon: dataDogIcon },
+  'new-relic': { title: 'New Relic', icon: newRelicIcon },
+  jira: { title: 'Jira', icon: jiraIcon },
+  'jira-comment': { title: 'Jira', icon: jiraCommentIcon },
+  signals: { title: 'Signals', icon: signals },
+  slack: { title: 'Slack', icon: slackIcon },
+  'slack-app': { title: 'Slack', icon: slackIcon },
+  teams: { title: 'Teams', icon: teamsIcon },
+  webhook: { title: 'Webhook', icon: webhooksIcon },
+  unleash: { title: 'Unleash', icon: unleashIcon },
+  android: { title: 'Android', icon: android },
+  dotnet: { title: 'Dotnet', icon: dotnet },
+  flutter: { title: 'Flutter', icon: flutter },
+  go: { title: 'Go', icon: go },
+  swift: { title: 'Swift', icon: swift },
+  java: { title: 'Java', icon: java },
+  javascript: { title: 'Javascript', icon: javascript },
+  node: { title: 'Node', icon: node },
+  php: { title: 'PHP', icon: php },
+  python: { title: 'Python', icon: python },
+  react: { title: 'React', icon: react },
+  ruby: { title: 'Ruby', icon: ruby },
+  rust: { title: 'Rust', icon: rust },
+  svelte: { title: 'Svelte', icon: svelte },
+  vue: { title: 'Vue', icon: vue },
 };
 
 export const IntegrationIcon = ({ name }: IIntegrationIconProps) => {
-    const integration = integrations[name];
+  const integration = integrations[name];
 
-    if (!integration) {
-        return (
-            <StyledAvatar variant='rounded'>
-                <DeviceHub />
-            </StyledAvatar>
-        );
-    }
-
-    if (typeof integration.icon === 'string') {
-        return (
-            <StyledAvatar
-                src={formatAssetPath(integration.icon)}
-                alt={`${capitalizeFirst(integration.title)} icon`}
-                variant='rounded'
-            />
-        );
-    }
-
+  if (!integration) {
     return (
-        <StyledAvatar
-            alt={`${capitalizeFirst(integration.title)} icon`}
-            variant='rounded'
-        >
-            {integration.icon}
-        </StyledAvatar>
+      <StyledAvatar variant='rounded'>
+        <DeviceHub />
+      </StyledAvatar>
     );
+  }
+
+  if (typeof integration.icon === 'string') {
+    return (
+      <StyledAvatar
+        src={formatAssetPath(integration.icon)}
+        alt={`${capitalizeFirst(integration.title)} icon`}
+        variant='rounded'
+      />
+    );
+  }
+
+  return (
+    <StyledAvatar
+      alt={`${capitalizeFirst(integration.title)} icon`}
+      variant='rounded'
+    >
+      {integration.icon}
+    </StyledAvatar>
+  );
 };

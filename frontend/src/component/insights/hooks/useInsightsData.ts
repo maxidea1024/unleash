@@ -6,46 +6,46 @@ import { useFilteredFlagsSummary } from './useFilteredFlagsSummary';
 import { useAllDatapoints } from './useAllDatapoints';
 
 export const useInsightsData = (
-    instanceInsights: InstanceInsightsSchema,
-    projects: string[],
+  instanceInsights: InstanceInsightsSchema,
+  projects: string[],
 ) => {
-    const allMetricsDatapoints = useAllDatapoints(
-        instanceInsights.metricsSummaryTrends,
-    );
-    const projectsData = useFilteredTrends(
-        instanceInsights.projectFlagTrends,
-        projects,
-    );
+  const allMetricsDatapoints = useAllDatapoints(
+    instanceInsights.metricsSummaryTrends,
+  );
+  const projectsData = useFilteredTrends(
+    instanceInsights.projectFlagTrends,
+    projects,
+  );
 
-    const groupedProjectsData = useGroupedProjectTrends(projectsData);
+  const groupedProjectsData = useGroupedProjectTrends(projectsData);
 
-    const metricsData = useFilteredTrends(
-        instanceInsights.metricsSummaryTrends,
-        projects,
-    );
-    const groupedMetricsData = useGroupedProjectTrends(metricsData);
+  const metricsData = useFilteredTrends(
+    instanceInsights.metricsSummaryTrends,
+    projects,
+  );
+  const groupedMetricsData = useGroupedProjectTrends(metricsData);
 
-    const summary = useFilteredFlagsSummary(projectsData);
+  const summary = useFilteredFlagsSummary(projectsData);
 
-    return useMemo(
-        () => ({
-            ...instanceInsights,
-            projectsData,
-            groupedProjectsData,
-            metricsData,
-            groupedMetricsData,
-            environmentTypeTrends: instanceInsights.environmentTypeTrends,
-            summary,
-            allMetricsDatapoints,
-        }),
-        [
-            instanceInsights,
-            projects,
-            projectsData,
-            groupedProjectsData,
-            metricsData,
-            groupedMetricsData,
-            summary,
-        ],
-    );
+  return useMemo(
+    () => ({
+      ...instanceInsights,
+      projectsData,
+      groupedProjectsData,
+      metricsData,
+      groupedMetricsData,
+      environmentTypeTrends: instanceInsights.environmentTypeTrends,
+      summary,
+      allMetricsDatapoints,
+    }),
+    [
+      instanceInsights,
+      projects,
+      projectsData,
+      groupedProjectsData,
+      metricsData,
+      groupedMetricsData,
+      summary,
+    ],
+  );
 };

@@ -84,7 +84,7 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({ userId, feedbackId }: IUserFeedbackKey): Promise<boolean> {
     const result = await this.db.raw(
@@ -95,10 +95,7 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
     return present;
   }
 
-  async get({
-    userId,
-    feedbackId,
-  }: IUserFeedbackKey): Promise<IUserFeedback> {
+  async get({ userId, feedbackId }: IUserFeedbackKey): Promise<IUserFeedback> {
     return this.getFeedback(userId, feedbackId);
   }
 

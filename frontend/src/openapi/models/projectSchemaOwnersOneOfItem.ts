@@ -7,5 +7,5 @@ import type { ProjectSchemaOwnersOneOfItemAnyOf } from './projectSchemaOwnersOne
 import type { ProjectSchemaOwnersOneOfItemAnyOfThree } from './projectSchemaOwnersOneOfItemAnyOfThree';
 
 export type ProjectSchemaOwnersOneOfItem =
-    | ProjectSchemaOwnersOneOfItemAnyOf
-    | ProjectSchemaOwnersOneOfItemAnyOfThree;
+  | ProjectSchemaOwnersOneOfItemAnyOf
+  | ProjectSchemaOwnersOneOfItemAnyOfThree;

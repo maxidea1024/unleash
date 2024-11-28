@@ -23,8 +23,7 @@ export const projectApplicationSchema = {
       example: ['development', 'production'],
     },
     instances: {
-      description:
-        'The instances of the application that are using the SDK.',
+      description: 'The instances of the application that are using the SDK.',
       type: 'array',
       items: {
         type: 'string',

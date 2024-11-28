@@ -8,12 +8,12 @@
  * The type of alert. This determines the color of the alert.
  */
 export type AddonTypeSchemaAlertsItemType =
-    (typeof AddonTypeSchemaAlertsItemType)[keyof typeof AddonTypeSchemaAlertsItemType];
+  (typeof AddonTypeSchemaAlertsItemType)[keyof typeof AddonTypeSchemaAlertsItemType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AddonTypeSchemaAlertsItemType = {
-    success: 'success',
-    info: 'info',
-    warning: 'warning',
-    error: 'error',
+  success: 'success',
+  info: 'info',
+  warning: 'warning',
+  error: 'error',
 } as const;

@@ -40,7 +40,7 @@ export default class AddonStore implements IAddonStore {
       });
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async getAll(query = {}): Promise<IAddon[]> {
     const stopTimer = this.timer('getAll');

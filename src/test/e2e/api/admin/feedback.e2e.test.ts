@@ -28,10 +28,7 @@ beforeAll(async () => {
       '/api/admin/',
       async (req: Request, res: Response, next: NextFunction) => {
         // @ts-ignore
-        req.user = await userService.loginUserWithoutPassword(
-          email,
-          true,
-        );
+        req.user = await userService.loginUserWithoutPassword(email, true);
         next();
       },
     );

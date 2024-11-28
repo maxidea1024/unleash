@@ -8,6 +8,6 @@
  * An object describing settings for SCIM provisioning.
  */
 export interface SetScimSettingsSchema {
-    /** Whether SCIM provisioning is currently enabled. */
-    enabled: boolean;
+  /** Whether SCIM provisioning is currently enabled. */
+  enabled: boolean;
 }

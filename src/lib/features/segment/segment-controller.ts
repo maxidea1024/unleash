@@ -234,15 +234,12 @@ export class SegmentsController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Create a new segment',
-          description:
-            'Creates a new segment using the payload provided',
+          description: 'Creates a new segment using the payload provided',
           tags: ['Segments'],
           operationId: 'createSegment',
           requestBody: createRequestSchema('upsertSegmentSchema'),
           responses: {
-            201: resourceCreatedResponseSchema(
-              'adminSegmentSchema',
-            ),
+            201: resourceCreatedResponseSchema('adminSegmentSchema'),
             ...getStandardResponses(400, 401, 403, 409, 415),
           },
         }),
@@ -287,8 +284,8 @@ export class SegmentsController extends Controller {
 
     const responseBody = this.flagResolver.isEnabled('anonymiseEventLog')
       ? {
-        segments: anonymiseKeys(segments, ['createdBy']),
-      }
+          segments: anonymiseKeys(segments, ['createdBy']),
+        }
       : { segments };
 
     this.openApiService.respondWithValidation(
@@ -411,19 +408,11 @@ export class SegmentsController extends Controller {
       project: req.body.project,
       constraints: req.body.constraints,
     };
-    await this.segmentService.update(
-      id,
-      updateRequest,
-      req.user,
-      req.audit,
-    );
+    await this.segmentService.update(id, updateRequest, req.user, req.audit);
     res.status(204).send();
   }
 
-  async getSegment(
-    req: Request<{ id: string }>,
-    res: Response,
-  ): Promise<void> {
+  async getSegment(req: Request<{ id: string }>, res: Response): Promise<void> {
     const id = Number(req.params.id);
     const segment = await this.segmentService.get(id);
     if (this.flagResolver.isEnabled('anonymiseEventLog')) {
@@ -438,10 +427,7 @@ export class SegmentsController extends Controller {
     res: Response<AdminSegmentSchema>,
   ): Promise<void> {
     const createRequest = req.body;
-    const segment = await this.segmentService.create(
-      createRequest,
-      req.audit,
-    );
+    const segment = await this.segmentService.create(createRequest, req.audit);
     this.openApiService.respondWithValidation(
       201,
       res,
@@ -487,9 +473,7 @@ export class SegmentsController extends Controller {
     segmentIds: number[],
   ): Promise<void> {
     await Promise.all(
-      segmentIds.map((id) =>
-        this.segmentService.addToStrategy(id, strategyId),
-      ),
+      segmentIds.map((id) => this.segmentService.addToStrategy(id, strategyId)),
     );
   }
 }

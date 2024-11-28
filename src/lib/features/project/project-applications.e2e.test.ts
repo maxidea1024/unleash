@@ -43,13 +43,12 @@ beforeAll(async () => {
     },
     db.rawDatabase,
   );
-  defaultToken =
-    await app.services.apiTokenService.createApiTokenWithProjects({
-      type: ApiTokenType.CLIENT,
-      projects: ['default'],
-      environment: 'default',
-      tokenName: 'tester',
-    });
+  defaultToken = await app.services.apiTokenService.createApiTokenWithProjects({
+    type: ApiTokenType.CLIENT,
+    projects: ['default'],
+    environment: 'default',
+    tokenName: 'tester',
+  });
 });
 
 afterEach(async () => {

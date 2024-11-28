@@ -1,42 +1,42 @@
 import {
-    getFeatureStrategyIcon,
-    formatStrategyName,
+  getFeatureStrategyIcon,
+  formatStrategyName,
 } from 'utils/strategyNames';
 import { styled, Tooltip } from '@mui/material';
 import type { IFeatureStrategy } from 'interfaces/strategy';
 
 interface IFeatureStrategyIconProps {
-    strategy: IFeatureStrategy;
+  strategy: IFeatureStrategy;
 }
 
 export const FeatureStrategyIcon = ({
-    strategy,
+  strategy,
 }: IFeatureStrategyIconProps) => {
-    const Icon = getFeatureStrategyIcon(strategy.name);
+  const Icon = getFeatureStrategyIcon(strategy.name);
 
-    return (
-        <Tooltip
-            title={
-                formatStrategyName(strategy.name) +
-                (strategy.title ? ` - ${strategy.title}` : '')
-            }
-            arrow
-        >
-            <StyledIcon>
-                <Icon />
-            </StyledIcon>
-        </Tooltip>
-    );
+  return (
+    <Tooltip
+      title={
+        formatStrategyName(strategy.name) +
+        (strategy.title ? ` - ${strategy.title}` : '')
+      }
+      arrow
+    >
+      <StyledIcon>
+        <Icon />
+      </StyledIcon>
+    </Tooltip>
+  );
 };
 
 const StyledIcon = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: theme.palette.action.disabled,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: theme.palette.action.disabled,
 
-    '& svg': {
-        width: theme.spacing(2.5),
-        height: theme.spacing(2.5),
-    },
+  '& svg': {
+    width: theme.spacing(2.5),
+    height: theme.spacing(2.5),
+  },
 }));

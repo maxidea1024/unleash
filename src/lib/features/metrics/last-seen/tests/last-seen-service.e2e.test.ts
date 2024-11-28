@@ -66,9 +66,7 @@ test('should clean unknown feature flag names from last seen store', async () =>
   await lastSeenService.store();
 
   // We have no method to get these from the last seen service or any other service or store
-  let stored = await db.rawDatabase.raw(
-    'SELECT * FROM last_seen_at_metrics;',
-  );
+  let stored = await db.rawDatabase.raw('SELECT * FROM last_seen_at_metrics;');
 
   expect(stored.rows.length).toBe(8);
 
@@ -121,9 +119,7 @@ test('should clean unknown feature flag environments from last seen store', asyn
   await lastSeenService.store();
 
   // We have no method to get these from the last seen service or any other service or store
-  let stored = await db.rawDatabase.raw(
-    'SELECT * FROM last_seen_at_metrics;',
-  );
+  let stored = await db.rawDatabase.raw('SELECT * FROM last_seen_at_metrics;');
 
   expect(stored.rows.length).toBe(4);
 

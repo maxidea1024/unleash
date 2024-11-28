@@ -9,8 +9,8 @@ import type { FrontendApiFeatureSchemaVariantPayloadType } from './frontendApiFe
  * Extra data configured for this variant
  */
 export type FrontendApiFeatureSchemaVariantPayload = {
-    /** The format of the payload. */
-    type: FrontendApiFeatureSchemaVariantPayloadType;
-    /** The payload value stringified. */
-    value: string;
+  /** The format of the payload. */
+  type: FrontendApiFeatureSchemaVariantPayloadType;
+  /** The payload value stringified. */
+  value: string;
 };

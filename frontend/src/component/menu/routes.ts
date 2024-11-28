@@ -53,501 +53,501 @@ import { CreateReleasePlanTemplate } from 'component/releases/ReleasePlanTemplat
 import { EditReleasePlanTemplate } from 'component/releases/ReleasePlanTemplate/EditReleasePlanTemplate';
 
 export const routes: IRoute[] = [
-    // Splash
-    {
-        path: '/splash/:splashId',
-        title: 'Unleash',
-        component: SplashPage,
-        type: 'protected',
-        menu: {},
-        isStandalone: true,
-    },
-    // Personal Dashboard
-    {
-        path: '/personal',
-        title: 'Dashboard',
-        component: PersonalDashboard,
-        type: 'protected',
-        menu: { mobile: true },
-    },
+  // Splash
+  {
+    path: '/splash/:splashId',
+    title: 'Unleash',
+    component: SplashPage,
+    type: 'protected',
+    menu: {},
+    isStandalone: true,
+  },
+  // Personal Dashboard
+  {
+    path: '/personal',
+    title: 'Dashboard',
+    component: PersonalDashboard,
+    type: 'protected',
+    menu: { mobile: true },
+  },
 
-    // Project
-    {
-        path: '/projects/create',
-        parent: '/projects',
-        title: 'Create',
-        component: LazyCreateProject,
-        type: 'protected',
-        enterprise: true,
-        menu: {},
-    },
-    {
-        path: '/projects/:projectId/archived',
-        title: ':projectId',
-        parent: '/archive',
-        component: RedirectArchive,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/projects/:projectId/features/:featureId/copy',
-        parent: '/projects/:projectId/features/:featureId/',
-        title: 'Copy',
-        component: CopyFeatureToggle,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/projects/:projectId/features/:featureId/edit',
-        parent: '/projects',
-        title: 'Edit feature',
-        component: EditFeature,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/projects/:projectId/features/:featureId/*',
-        parent: '/projects',
-        title: 'FeatureView',
-        component: LazyFeatureView,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/projects/:projectId/*',
-        parent: '/projects',
-        title: ':projectId',
-        component: LazyProject,
-        flag: P,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/projects',
-        title: 'Projects',
-        component: ProjectList,
-        type: 'protected',
-        menu: { mobile: true },
-    },
-    {
-        path: '/projects-archive',
-        title: 'Projects archive',
-        component: ArchiveProjectList,
-        type: 'protected',
-        menu: {},
-    },
+  // Project
+  {
+    path: '/projects/create',
+    parent: '/projects',
+    title: 'Create',
+    component: LazyCreateProject,
+    type: 'protected',
+    enterprise: true,
+    menu: {},
+  },
+  {
+    path: '/projects/:projectId/archived',
+    title: ':projectId',
+    parent: '/archive',
+    component: RedirectArchive,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/projects/:projectId/features/:featureId/copy',
+    parent: '/projects/:projectId/features/:featureId/',
+    title: 'Copy',
+    component: CopyFeatureToggle,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/projects/:projectId/features/:featureId/edit',
+    parent: '/projects',
+    title: 'Edit feature',
+    component: EditFeature,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/projects/:projectId/features/:featureId/*',
+    parent: '/projects',
+    title: 'FeatureView',
+    component: LazyFeatureView,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/projects/:projectId/*',
+    parent: '/projects',
+    title: ':projectId',
+    component: LazyProject,
+    flag: P,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/projects',
+    title: 'Projects',
+    component: ProjectList,
+    type: 'protected',
+    menu: { mobile: true },
+  },
+  {
+    path: '/projects-archive',
+    title: 'Projects archive',
+    component: ArchiveProjectList,
+    type: 'protected',
+    menu: {},
+  },
 
-    // Features
-    {
-        path: '/search',
-        title: 'Search',
-        component: FeatureToggleListTable,
-        type: 'protected',
-        menu: { mobile: true },
-    },
+  // Features
+  {
+    path: '/search',
+    title: 'Search',
+    component: FeatureToggleListTable,
+    type: 'protected',
+    menu: { mobile: true },
+  },
 
-    // Playground
-    {
-        path: '/playground',
-        title: 'Playground',
-        component: LazyPlayground,
-        hidden: false,
-        type: 'protected',
-        menu: { mobile: true },
-    },
+  // Playground
+  {
+    path: '/playground',
+    title: 'Playground',
+    component: LazyPlayground,
+    hidden: false,
+    type: 'protected',
+    menu: { mobile: true },
+  },
 
-    // Insights
-    {
-        path: '/insights',
-        title: 'Insights',
-        component: Insights,
-        type: 'protected',
-        menu: { mobile: true },
-        enterprise: true,
-    },
+  // Insights
+  {
+    path: '/insights',
+    title: 'Insights',
+    component: Insights,
+    type: 'protected',
+    menu: { mobile: true },
+    enterprise: true,
+  },
 
-    // Applications
-    {
-        path: '/applications/:name/*',
-        title: ':name',
-        parent: '/applications',
-        component: Application,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/applications',
-        title: 'Applications',
-        component: PaginatedApplicationList,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
+  // Applications
+  {
+    path: '/applications/:name/*',
+    title: ':name',
+    parent: '/applications',
+    component: Application,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/applications',
+    title: 'Applications',
+    component: PaginatedApplicationList,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
 
-    // Context
-    {
-        path: '/context/create',
-        parent: '/context',
-        title: 'Create',
-        component: CreateUnleashContextPage,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/context/edit/:name',
-        parent: '/context',
-        title: ':name',
-        component: EditContext,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/context',
-        title: 'Context fields',
-        component: ContextList,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
+  // Context
+  {
+    path: '/context/create',
+    parent: '/context',
+    title: 'Create',
+    component: CreateUnleashContextPage,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/context/edit/:name',
+    parent: '/context',
+    title: ':name',
+    component: EditContext,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/context',
+    title: 'Context fields',
+    component: ContextList,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
 
-    // Feature types
-    {
-        path: '/feature-toggle-type/*',
-        title: 'Feature flag types',
-        component: FeatureTypesList,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
+  // Feature types
+  {
+    path: '/feature-toggle-type/*',
+    title: 'Feature flag types',
+    component: FeatureTypesList,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
 
-    // Strategies
-    {
-        path: '/strategies/create',
-        title: 'Create',
-        parent: '/strategies',
-        component: CreateStrategy,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/strategies/:name/edit',
-        title: ':name',
-        parent: '/strategies',
-        component: EditStrategy,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/strategies/:name',
-        title: ':name',
-        parent: '/strategies',
-        component: StrategyView,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/strategies',
-        title: 'Strategy types',
-        component: StrategiesList,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
-    {
-        path: '/environments/create',
-        title: 'Environments',
-        component: CreateEnvironment,
-        parent: '/environments',
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/environments/:id',
-        title: 'Edit',
-        component: EditEnvironment,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/environments',
-        title: 'Environments',
-        component: EnvironmentTable,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-        enterprise: true,
-    },
-    {
-        path: '/feedback',
-        title: 'Feedback',
-        component: FeedbackList,
-        type: 'protected',
-        flag: 'feedbackPosting',
-        menu: {},
-    },
+  // Strategies
+  {
+    path: '/strategies/create',
+    title: 'Create',
+    parent: '/strategies',
+    component: CreateStrategy,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/strategies/:name/edit',
+    title: ':name',
+    parent: '/strategies',
+    component: EditStrategy,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/strategies/:name',
+    title: ':name',
+    parent: '/strategies',
+    component: StrategyView,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/strategies',
+    title: 'Strategy types',
+    component: StrategiesList,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
+  {
+    path: '/environments/create',
+    title: 'Environments',
+    component: CreateEnvironment,
+    parent: '/environments',
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/environments/:id',
+    title: 'Edit',
+    component: EditEnvironment,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/environments',
+    title: 'Environments',
+    component: EnvironmentTable,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+    enterprise: true,
+  },
+  {
+    path: '/feedback',
+    title: 'Feedback',
+    component: FeedbackList,
+    type: 'protected',
+    flag: 'feedbackPosting',
+    menu: {},
+  },
 
-    // Release management/plans
-    {
-        path: '/release-management',
-        title: 'Release management',
-        component: ReleaseManagement,
-        type: 'protected',
-        menu: { advanced: true, mode: ['enterprise'] },
-        flag: 'releasePlans',
-        enterprise: true,
-    },
-    {
-        path: '/release-management/create-template',
-        title: 'Create release plan template',
-        parent: '/release-management',
-        component: CreateReleasePlanTemplate,
-        type: 'protected',
-        menu: { mode: ['enterprise'] },
-        flag: 'releasePlans',
-        enterprise: true,
-    },
-    {
-        path: '/release-management/edit/:templateId',
-        title: 'Edit release plan template',
-        parent: '/release-management',
-        component: EditReleasePlanTemplate,
-        type: 'protected',
-        menu: { mode: ['enterprise'] },
-        flag: 'releasePlans',
-        enterprise: true,
-    },
+  // Release management/plans
+  {
+    path: '/release-management',
+    title: 'Release management',
+    component: ReleaseManagement,
+    type: 'protected',
+    menu: { advanced: true, mode: ['enterprise'] },
+    flag: 'releasePlans',
+    enterprise: true,
+  },
+  {
+    path: '/release-management/create-template',
+    title: 'Create release plan template',
+    parent: '/release-management',
+    component: CreateReleasePlanTemplate,
+    type: 'protected',
+    menu: { mode: ['enterprise'] },
+    flag: 'releasePlans',
+    enterprise: true,
+  },
+  {
+    path: '/release-management/edit/:templateId',
+    title: 'Edit release plan template',
+    parent: '/release-management',
+    component: EditReleasePlanTemplate,
+    type: 'protected',
+    menu: { mode: ['enterprise'] },
+    flag: 'releasePlans',
+    enterprise: true,
+  },
 
-    // Tags
-    {
-        path: '/tag-types/create',
-        parent: '/tag-types',
-        title: 'Create',
-        component: CreateTagType,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/tag-types/edit/:name',
-        parent: '/tag-types',
-        title: ':name',
-        component: EditTagType,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/tag-types',
-        title: 'Tag types',
-        component: TagTypeList,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
+  // Tags
+  {
+    path: '/tag-types/create',
+    parent: '/tag-types',
+    title: 'Create',
+    component: CreateTagType,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/tag-types/edit/:name',
+    parent: '/tag-types',
+    title: ':name',
+    component: EditTagType,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/tag-types',
+    title: 'Tag types',
+    component: TagTypeList,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
 
-    // Integrations
-    {
-        path: '/addons/create/:providerId',
-        parent: '/addons',
-        title: 'Create',
-        component: AddonRedirect,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/addons/edit/:addonId',
-        parent: '/addons',
-        title: 'Edit',
-        component: AddonRedirect,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/addons',
-        title: 'Addons',
-        component: AddonRedirect,
-        hidden: false,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/integrations/create/:providerId',
-        parent: '/integrations',
-        title: 'Create',
-        component: CreateIntegration,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/integrations/view/:providerId',
-        parent: '/integrations',
-        title: 'View',
-        component: ViewIntegration,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/integrations/edit/:addonId',
-        parent: '/integrations',
-        title: 'Edit',
-        component: EditIntegration,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/integrations',
-        title: 'Integrations',
-        component: IntegrationList,
-        hidden: false,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
-    {
-        path: '/integrations/signals',
-        title: 'Signals',
-        component: Signals,
-        hidden: true,
-        type: 'protected',
-        menu: {},
-    },
+  // Integrations
+  {
+    path: '/addons/create/:providerId',
+    parent: '/addons',
+    title: 'Create',
+    component: AddonRedirect,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/addons/edit/:addonId',
+    parent: '/addons',
+    title: 'Edit',
+    component: AddonRedirect,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/addons',
+    title: 'Addons',
+    component: AddonRedirect,
+    hidden: false,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/integrations/create/:providerId',
+    parent: '/integrations',
+    title: 'Create',
+    component: CreateIntegration,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/integrations/view/:providerId',
+    parent: '/integrations',
+    title: 'View',
+    component: ViewIntegration,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/integrations/edit/:addonId',
+    parent: '/integrations',
+    title: 'Edit',
+    component: EditIntegration,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/integrations',
+    title: 'Integrations',
+    component: IntegrationList,
+    hidden: false,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
+  {
+    path: '/integrations/signals',
+    title: 'Signals',
+    component: Signals,
+    hidden: true,
+    type: 'protected',
+    menu: {},
+  },
 
-    // Segments
-    {
-        path: '/segments/create',
-        title: 'Segments',
-        component: CreateSegment,
-        hidden: false,
-        type: 'protected',
-        layout: 'main',
-        menu: {},
-    },
-    {
-        path: '/segments/edit/:segmentId',
-        title: 'Segments',
-        component: EditSegment,
-        hidden: false,
-        type: 'protected',
-        layout: 'main',
-        menu: {},
-    },
-    {
-        path: '/segments',
-        title: 'Segments',
-        component: SegmentTable,
-        hidden: false,
-        type: 'protected',
-        menu: { mobile: true, advanced: true },
-    },
+  // Segments
+  {
+    path: '/segments/create',
+    title: 'Segments',
+    component: CreateSegment,
+    hidden: false,
+    type: 'protected',
+    layout: 'main',
+    menu: {},
+  },
+  {
+    path: '/segments/edit/:segmentId',
+    title: 'Segments',
+    component: EditSegment,
+    hidden: false,
+    type: 'protected',
+    layout: 'main',
+    menu: {},
+  },
+  {
+    path: '/segments',
+    title: 'Segments',
+    component: SegmentTable,
+    hidden: false,
+    type: 'protected',
+    menu: { mobile: true, advanced: true },
+  },
 
-    // History
-    {
-        path: '/history',
-        title: 'Event log',
-        component: EventPage,
-        type: 'protected',
-        menu: { adminSettings: true },
-    },
+  // History
+  {
+    path: '/history',
+    title: 'Event log',
+    component: EventPage,
+    type: 'protected',
+    menu: { adminSettings: true },
+  },
 
-    {
-        path: '/admin/logins',
-        title: 'Login history',
-        component: LoginHistory,
-        type: 'protected',
-        menu: { adminSettings: true },
-    },
+  {
+    path: '/admin/logins',
+    title: 'Login history',
+    component: LoginHistory,
+    type: 'protected',
+    menu: { adminSettings: true },
+  },
 
-    // Archive
-    {
-        path: '/archive',
-        title: 'Archived flags',
-        component: FeaturesArchiveTable,
-        type: 'protected',
-        menu: {},
-    },
+  // Archive
+  {
+    path: '/archive',
+    title: 'Archived flags',
+    component: FeaturesArchiveTable,
+    type: 'protected',
+    menu: {},
+  },
 
-    // Admin
-    {
-        path: '/admin/*',
-        title: 'Admin',
-        component: LazyAdmin,
-        hidden: false,
-        type: 'protected',
-        menu: {},
-    },
-    {
-        path: '/profile/*',
-        title: 'Profile',
-        component: Profile,
-        type: 'protected',
-        menu: {},
-    },
+  // Admin
+  {
+    path: '/admin/*',
+    title: 'Admin',
+    component: LazyAdmin,
+    hidden: false,
+    type: 'protected',
+    menu: {},
+  },
+  {
+    path: '/profile/*',
+    title: 'Profile',
+    component: Profile,
+    type: 'protected',
+    menu: {},
+  },
 
-    /* If you update this route path, make sure you update the path in SWRProvider.tsx */
-    {
-        path: '/login',
-        title: 'Log in',
-        component: Login,
-        type: 'unprotected',
-        hidden: true,
-        menu: {},
-        isStandalone: true,
-    },
-    /* If you update this route path, make sure you update the path in SWRProvider.tsx */
-    {
-        path: '/new-user',
-        title: 'New user',
-        hidden: true,
-        component: NewUser,
-        type: 'unprotected',
-        menu: {},
-        isStandalone: true,
-    },
-    /* If you update this route path, make sure you update the path in SWRProvider.tsx */
-    {
-        path: '/reset-password',
-        title: 'Reset password',
-        hidden: true,
-        component: ResetPassword,
-        type: 'unprotected',
-        menu: {},
-        isStandalone: true,
-    },
-    /* If you update this route path, make sure you update the path in SWRProvider.tsx */
-    {
-        path: '/forgotten-password',
-        title: 'Forgotten password',
-        hidden: true,
-        component: ForgottenPassword,
-        type: 'unprotected',
-        menu: {},
-        isStandalone: true,
-    },
+  /* If you update this route path, make sure you update the path in SWRProvider.tsx */
+  {
+    path: '/login',
+    title: 'Log in',
+    component: Login,
+    type: 'unprotected',
+    hidden: true,
+    menu: {},
+    isStandalone: true,
+  },
+  /* If you update this route path, make sure you update the path in SWRProvider.tsx */
+  {
+    path: '/new-user',
+    title: 'New user',
+    hidden: true,
+    component: NewUser,
+    type: 'unprotected',
+    menu: {},
+    isStandalone: true,
+  },
+  /* If you update this route path, make sure you update the path in SWRProvider.tsx */
+  {
+    path: '/reset-password',
+    title: 'Reset password',
+    hidden: true,
+    component: ResetPassword,
+    type: 'unprotected',
+    menu: {},
+    isStandalone: true,
+  },
+  /* If you update this route path, make sure you update the path in SWRProvider.tsx */
+  {
+    path: '/forgotten-password',
+    title: 'Forgotten password',
+    hidden: true,
+    component: ForgottenPassword,
+    type: 'unprotected',
+    menu: {},
+    isStandalone: true,
+  },
 ];
 
 export const getRoute = (path: string) =>
-    routes.find((route) => route.path === path);
+  routes.find((route) => route.path === path);
 
 export const baseRoutes = routes.filter((route) => !route.hidden);
 
 const computeRoutes = () => {
-    const mainNavRoutes = baseRoutes.filter((route) => route.menu.advanced);
-    const adminRoutes = routes.filter((route) => route.menu.adminSettings);
-    const mobileRoutes = routes.filter((route) => route.menu.mobile);
+  const mainNavRoutes = baseRoutes.filter((route) => route.menu.advanced);
+  const adminRoutes = routes.filter((route) => route.menu.adminSettings);
+  const mobileRoutes = routes.filter((route) => route.menu.mobile);
 
-    const computedRoutes = {
-        mainNavRoutes,
-        adminRoutes,
-        mobileRoutes,
-    };
-    return () => {
-        return computedRoutes;
-    };
+  const computedRoutes = {
+    mainNavRoutes,
+    adminRoutes,
+    mobileRoutes,
+  };
+  return () => {
+    return computedRoutes;
+  };
 };
 
 export const getCondensedRoutes = (routes: IRoute[]): INavigationMenuItem[] => {
-    return routes.map((route) => {
-        return {
-            path: route.path,
-            flag: route.flag,
-            title: route.title,
-            menu: route.menu,
-            configFlag: route.configFlag,
-            notFlag: route.notFlag,
-            enterprise: route.enterprise,
-        };
-    });
+  return routes.map((route) => {
+    return {
+      path: route.path,
+      flag: route.flag,
+      title: route.title,
+      menu: route.menu,
+      configFlag: route.configFlag,
+      notFlag: route.notFlag,
+      enterprise: route.enterprise,
+    };
+  });
 };
 
 export const getRoutes = computeRoutes();

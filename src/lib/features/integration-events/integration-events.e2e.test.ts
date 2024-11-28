@@ -216,18 +216,20 @@ test('clean up events, keeping the latest event for each integration', async () 
 
   await integrationEventsService.cleanUpEvents();
 
-  const eventsIntegration1 =
-    await integrationEventsService.getPaginatedEvents(integrationId, 10, 0);
+  const eventsIntegration1 = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    10,
+    0,
+  );
 
   expect(eventsIntegration1).toHaveLength(1);
   expect(eventsIntegration1[0].state).toBe('failed');
 
-  const eventsIntegration2 =
-    await integrationEventsService.getPaginatedEvents(
-      integrationId2,
-      10,
-      0,
-    );
+  const eventsIntegration2 = await integrationEventsService.getPaginatedEvents(
+    integrationId2,
+    10,
+    0,
+  );
 
   expect(eventsIntegration2).toHaveLength(1);
   expect(eventsIntegration2[0].state).toBe('failed');

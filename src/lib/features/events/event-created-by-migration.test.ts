@@ -44,8 +44,7 @@ test('sets created_by_user_id on events with user username/email set as created_
     (e) => !e.created_by_user_id && e.data.test === 'data-migrate',
   );
   const test1 = events.filter(
-    (e) =>
-      e.created_by_user_id === user.id && e.data.test === 'data-migrate',
+    (e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate',
   );
   expect(notSet).toHaveLength(0);
   expect(test1).toHaveLength(1);
@@ -115,8 +114,7 @@ test('sets created_by_user_id on a mix of events and created_bys', async () => {
     (e) => !e.created_by_user_id && e.data.test === 'data-migrate',
   );
   const test = events.filter(
-    (e) =>
-      e.created_by_user_id === user.id && e.data.test === 'data-migrate',
+    (e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate',
   );
   expect(notSet).toHaveLength(1);
   expect(test).toHaveLength(1);

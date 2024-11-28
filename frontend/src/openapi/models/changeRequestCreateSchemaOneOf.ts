@@ -7,7 +7,7 @@ import type { ChangeRequestCreateSchemaOneOfAction } from './changeRequestCreate
 import type { UpsertSegmentSchema } from './upsertSegmentSchema';
 
 export type ChangeRequestCreateSchemaOneOf = {
-    /** The name of this action. */
-    action: ChangeRequestCreateSchemaOneOfAction;
-    payload: UpsertSegmentSchema;
+  /** The name of this action. */
+  action: ChangeRequestCreateSchemaOneOfAction;
+  payload: UpsertSegmentSchema;
 };

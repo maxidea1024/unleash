@@ -8,59 +8,59 @@ import type { IAuthOptions } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 import { SSO_LOGIN_BUTTON } from 'utils/testIds';
 
 interface IAuthOptionProps {
-    options?: IAuthOptions[];
+  options?: IAuthOptions[];
 }
 
 const AuthOptions = ({ options }: IAuthOptionProps) => {
-    const { classes: themeStyles } = useThemeStyles();
-    return (
-        <>
-            {options?.map((o) => (
-                <div
-                    key={o.type}
-                    className={classnames(
-                        themeStyles.flexColumn,
-                        themeStyles.contentSpacingY,
-                    )}
-                >
-                    <Button
-                        color='primary'
-                        data-loading
-                        variant='outlined'
-                        href={o.path}
-                        size='small'
-                        data-testid={`${SSO_LOGIN_BUTTON}-${o.type}`}
-                        style={{
-                            height: '40px',
-                        }}
-                        startIcon={
-                            <ConditionallyRender
-                                condition={o.type === 'google'}
-                                show={
-                                    <GoogleSvg
-                                        style={{
-                                            height: '35px',
-                                            width: '35px',
-                                        }}
-                                    />
-                                }
-                                elseShow={
-                                    <LockRounded
-                                        style={{
-                                            height: '25px',
-                                            width: '25px',
-                                        }}
-                                    />
-                                }
-                            />
-                        }
-                    >
-                        {o.message}
-                    </Button>
-                </div>
-            ))}
-        </>
-    );
+  const { classes: themeStyles } = useThemeStyles();
+  return (
+    <>
+      {options?.map((o) => (
+        <div
+          key={o.type}
+          className={classnames(
+            themeStyles.flexColumn,
+            themeStyles.contentSpacingY,
+          )}
+        >
+          <Button
+            color='primary'
+            data-loading
+            variant='outlined'
+            href={o.path}
+            size='small'
+            data-testid={`${SSO_LOGIN_BUTTON}-${o.type}`}
+            style={{
+              height: '40px',
+            }}
+            startIcon={
+              <ConditionallyRender
+                condition={o.type === 'google'}
+                show={
+                  <GoogleSvg
+                    style={{
+                      height: '35px',
+                      width: '35px',
+                    }}
+                  />
+                }
+                elseShow={
+                  <LockRounded
+                    style={{
+                      height: '25px',
+                      width: '25px',
+                    }}
+                  />
+                }
+              />
+            }
+          >
+            {o.message}
+          </Button>
+        </div>
+      ))}
+    </>
+  );
 };
 
 export default AuthOptions;

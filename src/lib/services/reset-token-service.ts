@@ -46,8 +46,7 @@ export default class ResetTokenService {
     try {
       const tokens = await this.store.getActiveTokens();
       const links = tokens.reduce((acc, token) => {
-        const inviteLink =
-          this.getExistingInvitationUrl(token).toString();
+        const inviteLink = this.getExistingInvitationUrl(token).toString();
 
         acc[token.userId] = inviteLink;
 
@@ -92,10 +91,7 @@ export default class ResetTokenService {
     );
   }
 
-  async createResetPasswordUrl(
-    forUser: number,
-    creator: string,
-  ): Promise<URL> {
+  async createResetPasswordUrl(forUser: number, creator: string): Promise<URL> {
     const path = '/reset-password';
     return this.createResetUrl(forUser, creator, path);
   }

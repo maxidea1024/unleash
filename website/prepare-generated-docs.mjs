@@ -24,15 +24,15 @@ const url = 'https://us.app.unleash-hosted.com/ushosted/docs/openapi.json';
 // Fetch the OpenAPI spec
 const response = await fetch(url);
 if (!response.ok) {
-    throw new Error(`Failed to fetch OpenAPI spec: ${response.statusText}`);
+  throw new Error(`Failed to fetch OpenAPI spec: ${response.statusText}`);
 }
 
 const data = await response.json();
 
 data.servers = [
-    {
-        url: '<your-unleash-url>',
-    },
+  {
+    url: '<your-unleash-url>',
+  },
 ];
 
 const outputDir = './docs/generated/';

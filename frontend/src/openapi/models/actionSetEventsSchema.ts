@@ -9,6 +9,6 @@ import type { ActionSetEventSchema } from './actionSetEventSchema';
  * A response model with a list of action set events.
  */
 export interface ActionSetEventsSchema {
-    /** A list of action set events. */
-    actionSetEvents: ActionSetEventSchema[];
+  /** A list of action set events. */
+  actionSetEvents: ActionSetEventSchema[];
 }

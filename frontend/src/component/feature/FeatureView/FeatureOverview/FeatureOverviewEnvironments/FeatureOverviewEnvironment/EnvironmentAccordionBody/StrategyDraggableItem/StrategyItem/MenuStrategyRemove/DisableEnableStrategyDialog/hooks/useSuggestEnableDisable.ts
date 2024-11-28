@@ -5,36 +5,36 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import type { IDisableEnableStrategyProps } from '../IDisableEnableStrategyProps';
 
 export const useSuggestEnableDisable = ({
-    projectId,
-    environmentId,
-    featureId,
-    strategy,
+  projectId,
+  environmentId,
+  featureId,
+  strategy,
 }: IDisableEnableStrategyProps) => {
-    const { addChange } = useChangeRequestApi();
-    const { refetch: refetchChangeRequests } =
-        usePendingChangeRequests(projectId);
-    const { setToastData, setToastApiError } = useToast();
-    const onSuggestEnableDisable = (enabled: boolean) => async () => {
-        try {
-            await addChange(projectId, environmentId, {
-                action: 'updateStrategy',
-                feature: featureId,
-                payload: {
-                    ...strategy,
-                    disabled: !enabled,
-                },
-            });
-            setToastData({
-                title: 'Changes added to the draft!',
-                type: 'success',
-            });
-            await refetchChangeRequests();
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
-    return {
-        onSuggestDisable: onSuggestEnableDisable(false),
-        onSuggestEnable: onSuggestEnableDisable(true),
-    };
+  const { addChange } = useChangeRequestApi();
+  const { refetch: refetchChangeRequests } =
+    usePendingChangeRequests(projectId);
+  const { setToastData, setToastApiError } = useToast();
+  const onSuggestEnableDisable = (enabled: boolean) => async () => {
+    try {
+      await addChange(projectId, environmentId, {
+        action: 'updateStrategy',
+        feature: featureId,
+        payload: {
+          ...strategy,
+          disabled: !enabled,
+        },
+      });
+      setToastData({
+        title: 'Changes added to the draft!',
+        type: 'success',
+      });
+      await refetchChangeRequests();
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
+    }
+  };
+  return {
+    onSuggestDisable: onSuggestEnableDisable(false),
+    onSuggestEnable: onSuggestEnableDisable(true),
+  };
 };

@@ -10,26 +10,22 @@ import { FakeOnboardingStore } from './fake-onboarding-store';
 
 export const createOnboardingService =
   (config: IUnleashConfig) =>
-    (db: Db): OnboardingService => {
-      const { eventBus, flagResolver, getLogger } = config;
-      const onboardingStore = new OnboardingStore(db);
-      const projectReadModel = new ProjectReadModel(
-        db,
-        eventBus,
-        flagResolver,
-      );
-      const userStore = new UserStore(db, getLogger, flagResolver);
-      const onboardingService = new OnboardingService(
-        {
-          onboardingStore,
-          projectReadModel,
-          userStore,
-        },
-        config,
-      );
+  (db: Db): OnboardingService => {
+    const { eventBus, flagResolver, getLogger } = config;
+    const onboardingStore = new OnboardingStore(db);
+    const projectReadModel = new ProjectReadModel(db, eventBus, flagResolver);
+    const userStore = new UserStore(db, getLogger, flagResolver);
+    const onboardingService = new OnboardingService(
+      {
+        onboardingStore,
+        projectReadModel,
+        userStore,
+      },
+      config,
+    );
 
-      return onboardingService;
-    };
+    return onboardingService;
+  };
 
 export const createFakeOnboardingService = (config: IUnleashConfig) => {
   const onboardingStore = new FakeOnboardingStore();

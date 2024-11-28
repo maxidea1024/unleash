@@ -16,10 +16,7 @@ export function deepOmit<T, K extends keyof any>(
     const result: Partial<DeepOmit<T, K>> = {};
     for (const [key, value] of Object.entries(obj)) {
       if (!omitSet.has(key as K)) {
-        result[key as Exclude<keyof T, K>] = deepOmit(
-          value,
-          ...keysToOmit,
-        );
+        result[key as Exclude<keyof T, K>] = deepOmit(value, ...keysToOmit);
       }
     }
     return result as DeepOmit<T, K>;

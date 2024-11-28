@@ -3,19 +3,19 @@ import { ReleasePlanTemplateCard } from './ReleasePlanTemplateCard';
 import type { IReleasePlanTemplate } from 'interfaces/releasePlans';
 
 interface ITemplateList {
-    templates: IReleasePlanTemplate[];
+  templates: IReleasePlanTemplate[];
 }
 
 export const ReleasePlanTemplateList: React.FC<ITemplateList> = ({
-    templates,
+  templates,
 }) => {
-    return (
-        <>
-            {templates.map((template) => (
-                <Grid key={template.id} item xs={6} md={4}>
-                    <ReleasePlanTemplateCard template={template} />
-                </Grid>
-            ))}
-        </>
-    );
+  return (
+    <>
+      {templates.map((template) => (
+        <Grid key={template.id} item xs={6} md={4}>
+          <ReleasePlanTemplateCard template={template} />
+        </Grid>
+      ))}
+    </>
+  );
 };

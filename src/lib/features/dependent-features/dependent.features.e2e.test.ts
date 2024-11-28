@@ -66,9 +66,7 @@ const addFeatureDependency = async (
   expectedCode = 200,
 ) => {
   return app.request
-    .post(
-      `/api/admin/projects/default/features/${childFeature}/dependencies`,
-    )
+    .post(`/api/admin/projects/default/features/${childFeature}/dependencies`)
     .send(payload)
     .expect(expectedCode);
 };
@@ -90,9 +88,7 @@ const deleteFeatureDependencies = async (
   expectedCode = 200,
 ) => {
   return app.request
-    .delete(
-      `/api/admin/projects/default/features/${childFeature}/dependencies`,
-    )
+    .delete(`/api/admin/projects/default/features/${childFeature}/dependencies`)
     .expect(expectedCode);
 };
 

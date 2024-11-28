@@ -10,12 +10,12 @@ import type { AdvancedPlaygroundRequestSchemaProjects } from './advancedPlaygrou
  * Data for the playground API to evaluate toggles in advanced mode with environment and context multi selection
  */
 export interface AdvancedPlaygroundRequestSchema {
-    context: SdkContextSchema;
-    /**
-     * The environments to evaluate toggles in.
-     * @minItems 1
-     */
-    environments: string[];
-    /** A list of projects to check for toggles in. */
-    projects?: AdvancedPlaygroundRequestSchemaProjects;
+  context: SdkContextSchema;
+  /**
+   * The environments to evaluate toggles in.
+   * @minItems 1
+   */
+  environments: string[];
+  /** A list of projects to check for toggles in. */
+  projects?: AdvancedPlaygroundRequestSchemaProjects;
 }

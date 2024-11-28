@@ -140,12 +140,7 @@ export default async function getApp(
     }
     case IAuthType.DEMO: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
-      demoAuthentication(
-        app,
-        config.server.baseUriPath,
-        services,
-        config,
-      );
+      demoAuthentication(app, config.server.baseUriPath, services, config);
       break;
     }
     case IAuthType.CUSTOM: {
@@ -166,20 +161,12 @@ export default async function getApp(
     }
     default: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
-      demoAuthentication(
-        app,
-        config.server.baseUriPath,
-        services,
-        config,
-      );
+      demoAuthentication(app, config.server.baseUriPath, services, config);
       break;
     }
   }
 
-  app.use(
-    baseUriPath,
-    rbacMiddleware(config, stores, services.accessService),
-  );
+  app.use(baseUriPath, rbacMiddleware(config, stores, services.accessService));
 
   app.use(`${baseUriPath}/api/admin`, originMiddleware(config));
 

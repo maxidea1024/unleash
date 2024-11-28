@@ -5,8 +5,7 @@ import { clientSegmentSchema } from './client-segment-schema';
 export const segmentSchema = {
   $id: '#/components/schemas/segmentSchema',
   type: 'object',
-  description:
-    'Represents a segment of users defined by a set of constraints.',
+  description: 'Represents a segment of users defined by a set of constraints.',
   additionalProperties: false,
   required: ['id', 'constraints'],
   properties: {

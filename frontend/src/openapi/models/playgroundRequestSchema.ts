@@ -10,9 +10,9 @@ import type { PlaygroundRequestSchemaProjects } from './playgroundRequestSchemaP
  * Data for the playground API to evaluate toggles
  */
 export interface PlaygroundRequestSchema {
-    context: SdkContextSchema;
-    /** The environment to evaluate toggles in. */
-    environment: string;
-    /** A list of projects to check for toggles in. */
-    projects?: PlaygroundRequestSchemaProjects;
+  context: SdkContextSchema;
+  /** The environment to evaluate toggles in. */
+  environment: string;
+  /** A list of projects to check for toggles in. */
+  projects?: PlaygroundRequestSchemaProjects;
 }

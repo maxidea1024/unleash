@@ -5,17 +5,17 @@ import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';
 import { BannersTable } from './BannersTable/BannersTable';
 
 export const Banners = () => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    if (!isEnterprise()) {
-        return <PremiumFeature feature='banners' page />;
-    }
+  if (!isEnterprise()) {
+    return <PremiumFeature feature='banners' page />;
+  }
 
-    return (
-        <div>
-            <PermissionGuard permissions={ADMIN}>
-                <BannersTable />
-            </PermissionGuard>
-        </div>
-    );
+  return (
+    <div>
+      <PermissionGuard permissions={ADMIN}>
+        <BannersTable />
+      </PermissionGuard>
+    </div>
+  );
 };

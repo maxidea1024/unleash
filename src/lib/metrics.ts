@@ -199,8 +199,7 @@ export function registerPrometheusMetrics(
     name: 'max_feature_strategies',
     help: 'Maximum number of strategies in one feature',
     labelNames: ['feature'],
-    query: () =>
-      stores.featureStrategiesReadModel.getMaxFeatureStrategies(),
+    query: () => stores.featureStrategiesReadModel.getMaxFeatureStrategies(),
     map: (result) => ({
       value: result.count,
       labels: { feature: result.feature },
@@ -564,17 +563,16 @@ export function registerPrometheusMetrics(
     help: 'firstFeatureFlag, firstPreLive, firstLive from project creation',
     query: () => stores.onboardingReadModel.getProjectsOnboardingMetrics(),
     map: (projectsOnboardingMetrics) =>
-      projectsOnboardingMetrics.flatMap(
-        ({ project, ...projectMetrics }) =>
-          Object.keys(projectMetrics)
-            .filter((key) => Number.isInteger(projectMetrics[key]))
-            .map((key) => ({
-              value: projectMetrics[key],
-              labels: {
-                event: key,
-                project,
-              },
-            })),
+      projectsOnboardingMetrics.flatMap(({ project, ...projectMetrics }) =>
+        Object.keys(projectMetrics)
+          .filter((key) => Number.isInteger(projectMetrics[key]))
+          .map((key) => ({
+            value: projectMetrics[key],
+            labels: {
+              event: key,
+              project,
+            },
+          })),
       ),
   });
 
@@ -675,9 +673,7 @@ export function registerPrometheusMetrics(
     events.STAGE_ENTERED,
     (entered: { stage: string; feature: string }) => {
       if (flagResolver.isEnabled('trackLifecycleMetrics')) {
-        logger.info(
-          `STAGE_ENTERED listened ${JSON.stringify(entered)}`,
-        );
+        logger.info(`STAGE_ENTERED listened ${JSON.stringify(entered)}`);
       }
       featureLifecycleStageEnteredCounter.increment({
         stage: entered.stage,
@@ -931,10 +927,8 @@ export function registerPrometheusMetrics(
       clientSdkVersionUsage.increment({
         sdk_name: heartbeatEvent.sdkName,
         sdk_version: heartbeatEvent.sdkVersion,
-        platform_name:
-          heartbeatEvent.metadata?.platformName ?? 'not-set',
-        platform_version:
-          heartbeatEvent.metadata?.platformVersion ?? 'not-set',
+        platform_name: heartbeatEvent.metadata?.platformName ?? 'not-set',
+        platform_version: heartbeatEvent.metadata?.platformVersion ?? 'not-set',
         yggdrasil_version:
           heartbeatEvent.metadata?.yggdrasilVersion ?? 'not-set',
         spec_version: heartbeatEvent.metadata?.specVersion ?? 'not-set',
@@ -972,14 +966,10 @@ export function registerPrometheusMetrics(
         usersTotal.set(await instanceStatsService.getRegisteredUsers());
 
         serviceAccounts.reset();
-        serviceAccounts.set(
-          await instanceStatsService.countServiceAccounts(),
-        );
+        serviceAccounts.set(await instanceStatsService.countServiceAccounts());
 
         trafficTotal.reset();
-        trafficTotal.set(
-          await instanceStatsService.getCurrentTrafficData(),
-        );
+        trafficTotal.set(await instanceStatsService.getCurrentTrafficData());
 
         apiTokens.reset();
 
@@ -1025,8 +1015,7 @@ export function registerPrometheusMetrics(
         usersActive90days.reset();
         usersActive90days.set(activeUsers.last90);
 
-        const licensedUsersStat =
-          await instanceStatsService.getLicencedUsers();
+        const licensedUsersStat = await instanceStatsService.getLicencedUsers();
         licensedUsers.reset();
         licensedUsers.set(licensedUsersStat);
 
@@ -1038,12 +1027,12 @@ export function registerPrometheusMetrics(
         productionChanges60.set(productionChanges.last60);
         productionChanges90.reset();
         productionChanges90.set(productionChanges.last90);
-      } catch (e) { }
+      } catch (e) {}
     },
   };
 }
 export default class MetricsMonitor {
-  constructor() { }
+  constructor() {}
 
   async startMonitoring(
     config: IUnleashConfig,
@@ -1073,14 +1062,12 @@ export default class MetricsMonitor {
     registerPrometheusPostgresMetrics(db, eventBus, postgresVersion);
 
     await schedulerService.schedule(
-      async () =>
-        Promise.all([collectStaticCounters(), collectAggDbMetrics()]),
+      async () => Promise.all([collectStaticCounters(), collectAggDbMetrics()]),
       hoursToMilliseconds(2),
       'collectStaticCounters',
     );
     await schedulerService.schedule(
-      async () =>
-        this.registerPoolMetrics.bind(this, db.client.pool, eventBus),
+      async () => this.registerPoolMetrics.bind(this, db.client.pool, eventBus),
       minutesToMilliseconds(1),
       'registerPoolMetrics',
     );
@@ -1098,7 +1085,7 @@ export default class MetricsMonitor {
         pendingAcquires: pool.numPendingAcquires(),
       });
       // eslint-disable-next-line no-empty
-    } catch (e) { }
+    } catch (e) {}
   }
 }
 

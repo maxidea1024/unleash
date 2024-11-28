@@ -74,9 +74,7 @@ export default class ContextFieldStore implements IContextFieldStore {
     return columns.map((c) => `${T.contextFields}.${c}`);
   }
 
-  fieldToRow(
-    data: IContextFieldDto,
-  ): Omit<ICreateContextField, 'updated_at'> {
+  fieldToRow(data: IContextFieldDto): Omit<ICreateContextField, 'updated_at'> {
     return {
       name: data.name,
       description: data.description || '',
@@ -88,17 +86,9 @@ export default class ContextFieldStore implements IContextFieldStore {
 
   async getAll(): Promise<IContextField[]> {
     const rows = await this.db
-      .select(
-        this.prefixColumns(),
-        'used_in_projects',
-        'used_in_features',
-      )
-      .countDistinct(
-        `${T.featureStrategies}.project_name AS used_in_projects`,
-      )
-      .countDistinct(
-        `${T.featureStrategies}.feature_name AS used_in_features`,
-      )
+      .select(this.prefixColumns(), 'used_in_projects', 'used_in_features')
+      .countDistinct(`${T.featureStrategies}.project_name AS used_in_projects`)
+      .countDistinct(`${T.featureStrategies}.feature_name AS used_in_features`)
       .from(T.contextFields)
       .joinRaw(
         `LEFT JOIN ${T.featureStrategies} ON EXISTS (
@@ -122,9 +112,7 @@ export default class ContextFieldStore implements IContextFieldStore {
       .from(T.contextFields)
       .where({ name: key });
     if (!row) {
-      throw new NotFoundError(
-        `Could not find Context field with name ${key}`,
-      );
+      throw new NotFoundError(`Could not find Context field with name ${key}`);
     }
     return mapRow(row);
   }
@@ -133,7 +121,7 @@ export default class ContextFieldStore implements IContextFieldStore {
     await this.db(T.contextFields).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
     const result = await this.db.raw(

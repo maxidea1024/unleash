@@ -9,6 +9,6 @@ import type { FeatureSchemaCollaboratorsUsersItem } from './featureSchemaCollabo
  * Information related to users who have made changes to this feature flage.
  */
 export type FeatureSchemaCollaborators = {
-    /** Users who have made any changes to this feature flags. The list is sorted in reverse chronological order (most recent changes first) */
-    users: FeatureSchemaCollaboratorsUsersItem[];
+  /** Users who have made any changes to this feature flags. The list is sorted in reverse chronological order (most recent changes first) */
+  users: FeatureSchemaCollaboratorsUsersItem[];
 };

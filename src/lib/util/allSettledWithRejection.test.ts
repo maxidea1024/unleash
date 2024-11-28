@@ -7,9 +7,7 @@ describe('allSettledWithRejection', () => {
       Promise.resolve(2),
       Promise.resolve(3),
     ];
-    await expect(allSettledWithRejection(promises)).resolves.toEqual([
-      1, 2, 3,
-    ]);
+    await expect(allSettledWithRejection(promises)).resolves.toEqual([1, 2, 3]);
   });
 
   it('should reject with the reason of the first rejected promise', async () => {
@@ -30,9 +28,7 @@ describe('allSettledWithRejection', () => {
       Promise.reject(secondError),
       Promise.resolve(1),
     ];
-    await expect(allSettledWithRejection(promises)).rejects.toEqual(
-      firstError,
-    );
+    await expect(allSettledWithRejection(promises)).rejects.toEqual(firstError);
   });
 
   it('should reject with the reason of the first rejected promise in mixed scenarios', async () => {

@@ -9,6 +9,6 @@ import type { OutdatedSdksSchemaSdksItem } from './outdatedSdksSchemaSdksItem';
  * Data about outdated SDKs that should be upgraded.
  */
 export interface OutdatedSdksSchema {
-    /** A list of SDKs */
-    sdks: OutdatedSdksSchemaSdksItem[];
+  /** A list of SDKs */
+  sdks: OutdatedSdksSchemaSdksItem[];
 }

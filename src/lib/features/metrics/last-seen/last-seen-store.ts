@@ -66,10 +66,7 @@ export default class LastSeenStore implements ILastSeenStore {
   async cleanLastSeen() {
     await this.db(TABLE)
       .whereNotIn('feature_name', this.db.select('name').from('features'))
-      .or.whereNotIn(
-        'environment',
-        this.db.select('name').from('environments'),
-      )
+      .or.whereNotIn('environment', this.db.select('name').from('environments'))
       .del();
   }
 }

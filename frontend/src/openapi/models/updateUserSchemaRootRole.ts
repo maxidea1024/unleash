@@ -8,9 +8,9 @@
  * The role to assign to the user. Can be either the role's ID or its unique name.
  */
 export type UpdateUserSchemaRootRole =
-    | number
-    | 'Admin'
-    | 'Editor'
-    | 'Viewer'
-    | 'Owner'
-    | 'Member';
+  | number
+  | 'Admin'
+  | 'Editor'
+  | 'Viewer'
+  | 'Owner'
+  | 'Member';

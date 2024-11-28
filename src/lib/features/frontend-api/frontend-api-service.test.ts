@@ -18,9 +18,7 @@ test('frontend api service fetching features from global cache', async () => {
           project: 'projectA',
           type: 'release',
           variants: [],
-          strategies: [
-            { name: 'default', parameters: [], constraints: [] },
-          ],
+          strategies: [{ name: 'default', parameters: [], constraints: [] }],
         },
         {
           name: 'toggleB',
@@ -28,9 +26,7 @@ test('frontend api service fetching features from global cache', async () => {
           project: 'projectA',
           type: 'release',
           variants: [],
-          strategies: [
-            { name: 'default', parameters: [], constraints: [] },
-          ],
+          strategies: [{ name: 'default', parameters: [], constraints: [] }],
         },
       ];
     },

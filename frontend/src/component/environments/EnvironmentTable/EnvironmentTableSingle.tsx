@@ -8,112 +8,109 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useMemo } from 'react';
 
 const StyledTable = styled(Table)(({ theme }) => ({
-    marginTop: theme.spacing(3),
+  marginTop: theme.spacing(3),
 }));
 
 const StyledToggleWarning = styled('p', {
-    shouldForwardProp: (prop) => prop !== 'warning',
+  shouldForwardProp: (prop) => prop !== 'warning',
 })<{ warning?: boolean }>(({ theme, warning }) => ({
-    color: warning ? theme.palette.error.dark : theme.palette.text.primary,
+  color: warning ? theme.palette.error.dark : theme.palette.text.primary,
 }));
 
 interface IEnvironmentTableSingleProps {
-    environment: IEnvironment;
-    warnEnabledToggles?: boolean;
+  environment: IEnvironment;
+  warnEnabledToggles?: boolean;
 }
 
 export const EnvironmentTableSingle = ({
-    environment,
-    warnEnabledToggles,
+  environment,
+  warnEnabledToggles,
 }: IEnvironmentTableSingleProps) => {
-    const COLUMNS = useMemo(
-        () => [
-            {
-                id: 'Icon',
-                width: '1%',
-                Cell: ({
-                    row: { original },
-                }: {
-                    row: { original: IEnvironment };
-                }) => <EnvironmentIconCell environment={original} />,
-            },
-            {
-                Header: 'Name',
-                accessor: 'name',
-                Cell: TextCell,
-            },
-            {
-                Header: 'Type',
-                accessor: 'type',
-                Cell: TextCell,
-            },
-            {
-                Header: 'Visible in',
-                accessor: (row: IEnvironment) =>
-                    row.projectCount === 1
-                        ? '1 project'
-                        : `${row.projectCount} projects`,
-                Cell: ({
-                    row: { original },
-                    value,
-                }: {
-                    row: { original: IEnvironment };
-                    value: string;
-                }) => (
-                    <TextCell>
-                        {value}
-                        <ConditionallyRender
-                            condition={Boolean(warnEnabledToggles)}
-                            show={
-                                <StyledToggleWarning
-                                    warning={Boolean(
-                                        original.enabledToggleCount &&
-                                            original.enabledToggleCount > 0,
-                                    )}
-                                >
-                                    {original.enabledToggleCount === 1
-                                        ? '1 toggle enabled'
-                                        : `${original.enabledToggleCount} toggles enabled`}
-                                </StyledToggleWarning>
-                            }
-                        />
-                    </TextCell>
-                ),
-            },
-        ],
-        [warnEnabledToggles],
-    );
+  const COLUMNS = useMemo(
+    () => [
+      {
+        id: 'Icon',
+        width: '1%',
+        Cell: ({
+          row: { original },
+        }: {
+          row: { original: IEnvironment };
+        }) => <EnvironmentIconCell environment={original} />,
+      },
+      {
+        Header: 'Name',
+        accessor: 'name',
+        Cell: TextCell,
+      },
+      {
+        Header: 'Type',
+        accessor: 'type',
+        Cell: TextCell,
+      },
+      {
+        Header: 'Visible in',
+        accessor: (row: IEnvironment) =>
+          row.projectCount === 1 ? '1 project' : `${row.projectCount} projects`,
+        Cell: ({
+          row: { original },
+          value,
+        }: {
+          row: { original: IEnvironment };
+          value: string;
+        }) => (
+          <TextCell>
+            {value}
+            <ConditionallyRender
+              condition={Boolean(warnEnabledToggles)}
+              show={
+                <StyledToggleWarning
+                  warning={Boolean(
+                    original.enabledToggleCount &&
+                      original.enabledToggleCount > 0,
+                  )}
+                >
+                  {original.enabledToggleCount === 1
+                    ? '1 toggle enabled'
+                    : `${original.enabledToggleCount} toggles enabled`}
+                </StyledToggleWarning>
+              }
+            />
+          </TextCell>
+        ),
+      },
+    ],
+    [warnEnabledToggles],
+  );
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-        useTable({
-            columns: COLUMNS as any,
-            data: [environment],
-            disableSortBy: true,
-        });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns: COLUMNS as any,
+      data: [environment],
+      disableSortBy: true,
+    });
 
-    return (
-        <StyledTable {...getTableProps()} rowHeight='compact'>
-            <SortableTableHeader headerGroups={headerGroups as any} />
-            <TableBody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                    prepareRow(row);
-                    const { key, ...rowProps } = row.getRowProps();
-                    return (
-                        <TableRow hover key={key} {...rowProps}>
-                            {row.cells.map((cell) => {
-                                const { key, ...cellProps } =
-                                    cell.getCellProps();
+  return (
+    <StyledTable {...getTableProps()} rowHeight='compact'>
+      <SortableTableHeader headerGroups={headerGroups as any} />
+      <TableBody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          const { key, ...rowProps } = row.getRowProps();
+          return (
+            <TableRow hover key={key} {...rowProps}>
+              {row.cells.map((cell) => {
+                const { key, ...cellProps } = cell.getCellProps();
 
-                                return (
-                                    <TableCell key={key} {...cellProps}>
-                                        {cell.render('Cell')}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    );
-                })}
-            </TableBody>
-        </StyledTable>
-    );
+                return (
+                  <TableCell key={key} {...cellProps}>
+                    {cell.render('Cell')}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </StyledTable>
+  );
 };

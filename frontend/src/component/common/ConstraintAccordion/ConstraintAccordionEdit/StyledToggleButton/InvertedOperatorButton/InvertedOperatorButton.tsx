@@ -3,45 +3,42 @@ import { ReactComponent as NegatedOnIcon } from 'assets/icons/not_operator_selec
 import { ReactComponent as NegatedOffIcon } from 'assets/icons/not_operator_unselected.svg';
 import type { IConstraint } from 'interfaces/strategy';
 import {
-    StyledToggleButtonOff,
-    StyledToggleButtonOn,
+  StyledToggleButtonOff,
+  StyledToggleButtonOn,
 } from '../StyledToggleButton';
 import { ConditionallyRender } from '../../../../ConditionallyRender/ConditionallyRender';
 
 interface InvertedOperatorButtonProps {
-    localConstraint: IConstraint;
-    setInvertedOperator: () => void;
+  localConstraint: IConstraint;
+  setInvertedOperator: () => void;
 }
 
 export const InvertedOperatorButton = ({
-    localConstraint,
-    setInvertedOperator,
+  localConstraint,
+  setInvertedOperator,
 }: InvertedOperatorButtonProps) => (
-    <Tooltip
-        title={localConstraint.inverted ? 'Remove negation' : 'Negate operator'}
-        arrow
-    >
-        <Box sx={{ display: 'flex', alignItems: 'stretch' }}>
-            <ConditionallyRender
-                condition={Boolean(localConstraint.inverted)}
-                show={
-                    <StyledToggleButtonOn
-                        className='operator-is-active'
-                        onClick={setInvertedOperator}
-                        disableRipple
-                    >
-                        <NegatedOnIcon />
-                    </StyledToggleButtonOn>
-                }
-                elseShow={
-                    <StyledToggleButtonOff
-                        onClick={setInvertedOperator}
-                        disableRipple
-                    >
-                        <NegatedOffIcon />
-                    </StyledToggleButtonOff>
-                }
-            />
-        </Box>
-    </Tooltip>
+  <Tooltip
+    title={localConstraint.inverted ? 'Remove negation' : 'Negate operator'}
+    arrow
+  >
+    <Box sx={{ display: 'flex', alignItems: 'stretch' }}>
+      <ConditionallyRender
+        condition={Boolean(localConstraint.inverted)}
+        show={
+          <StyledToggleButtonOn
+            className='operator-is-active'
+            onClick={setInvertedOperator}
+            disableRipple
+          >
+            <NegatedOnIcon />
+          </StyledToggleButtonOn>
+        }
+        elseShow={
+          <StyledToggleButtonOff onClick={setInvertedOperator} disableRipple>
+            <NegatedOffIcon />
+          </StyledToggleButtonOff>
+        }
+      />
+    </Box>
+  </Tooltip>
 );

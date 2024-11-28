@@ -33,5 +33,5 @@ export class UserUnsubscribeStore implements IUserUnsubscribeStore {
       .del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 }

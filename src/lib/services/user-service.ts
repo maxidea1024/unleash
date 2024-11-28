@@ -82,7 +82,8 @@ export default class UserService {
   private readonly emailService: EmailService;
   private readonly settingService: SettingService;
   private readonly flagResolver: IFlagResolver;
-  private readonly passwordResetTimeouts: { [key: string]: NodeJS.Timeout } = {};
+  private readonly passwordResetTimeouts: { [key: string]: NodeJS.Timeout } =
+    {};
   private readonly baseUriPath: string;
   private readonly unleashUrl: string;
 
@@ -96,11 +97,7 @@ export default class UserService {
       flagResolver,
     }: Pick<
       IUnleashConfig,
-      | 'getLogger'
-      | 'authentication'
-      | 'server'
-      | 'eventBus'
-      | 'flagResolver'
+      'getLogger' | 'authentication' | 'server' | 'eventBus' | 'flagResolver'
     >,
     services: {
       accessService: AccessService;
@@ -143,10 +140,7 @@ export default class UserService {
   async initAdminUser({
     createAdminUser,
     initialAdminUser,
-  }: Pick<
-    IAuthOption,
-    'createAdminUser' | 'initialAdminUser'
-  >): Promise<void> {
+  }: Pick<IAuthOption, 'createAdminUser' | 'initialAdminUser'>): Promise<void> {
     if (!createAdminUser) return Promise.resolve();
 
     return this.initAdminUsernameUser(initialAdminUser);
@@ -175,14 +169,9 @@ export default class UserService {
           passwordHash,
           disallowNPreviousPasswords,
         );
-        await this.accessService.setUserRootRole(
-          user.id,
-          RoleName.ADMIN,
-        );
+        await this.accessService.setUserRootRole(user.id, RoleName.ADMIN);
       } catch (e) {
-        this.logger.error(
-          `Unable to create default user '${username}'`,
-        );
+        this.logger.error(`Unable to create default user '${username}'`);
       }
     }
   }
@@ -233,11 +222,7 @@ export default class UserService {
     }
 
     if (email) {
-      Joi.assert(
-        email,
-        Joi.string().email({ ignoreLength: true }),
-        'Email',
-      );
+      Joi.assert(email, Joi.string().email({ ignoreLength: true }), 'Email');
     }
 
     const exists = await this.store.hasUser({ username, email });
@@ -333,11 +318,7 @@ export default class UserService {
     const preUser = await this.getUser(id);
 
     if (email) {
-      Joi.assert(
-        email,
-        Joi.string().email({ ignoreLength: true }),
-        'Email',
-      );
+      Joi.assert(email, Joi.string().email({ ignoreLength: true }), 'Email');
     }
 
     if (rootRole) {
@@ -401,7 +382,7 @@ export default class UserService {
     try {
       user = await this.store.getByQuery(idQuery);
       passwordHash = await this.store.getPasswordHash(user.id);
-    } catch (error) { }
+    } catch (error) {}
     if (user && passwordHash) {
       const match = await bcrypt.compare(password, passwordHash);
       if (match) {
@@ -504,8 +485,7 @@ export default class UserService {
     userId: number,
     password: string,
   ): Promise<void> {
-    const previouslyUsed =
-      await this.store.getPasswordsPreviouslyUsed(userId);
+    const previouslyUsed = await this.store.getPasswordsPreviouslyUsed(userId);
     const usedBefore = previouslyUsed.some((previouslyUsed) =>
       bcrypt.compareSync(password, previouslyUsed),
     );
@@ -536,8 +516,7 @@ export default class UserService {
   }
 
   async getUserForToken(token: string): Promise<TokenUserSchema> {
-    const { createdBy, userId } =
-      await this.resetTokenService.isValid(token);
+    const { createdBy, userId } = await this.resetTokenService.isValid(token);
     const user = await this.getUser(userId);
     const role = await this.accessService.getRoleData(user.rootRole);
     return {
@@ -564,10 +543,7 @@ export default class UserService {
     this.validatePassword(password);
     const user = await this.getUserForToken(token);
 
-    await this.changePasswordWithPreviouslyUsedPasswordCheck(
-      user.id,
-      password,
-    );
+    await this.changePasswordWithPreviouslyUsedPasswordCheck(user.id, password);
 
     await this.resetTokenService.useAccessToken({
       userId: user.id,

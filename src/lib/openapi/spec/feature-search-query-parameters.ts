@@ -15,8 +15,7 @@ export const featureSearchQueryParameters = [
     schema: {
       type: 'string',
       example: 'IS:default',
-      pattern:
-        '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
+      pattern: '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
     description:
       'Id of the project where search and filter is performed. The project id can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF.',
@@ -27,8 +26,7 @@ export const featureSearchQueryParameters = [
     schema: {
       type: 'string',
       example: 'IS:active',
-      pattern:
-        '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
+      pattern: '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
     description:
       'The state of the feature active/stale. The state can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF.',
@@ -39,8 +37,7 @@ export const featureSearchQueryParameters = [
     schema: {
       type: 'string',
       example: 'IS:release',
-      pattern:
-        '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
+      pattern: '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
     description:
       'The feature flag type to filter by. The type can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF.',
@@ -51,8 +48,7 @@ export const featureSearchQueryParameters = [
     schema: {
       type: 'string',
       example: 'IS:1',
-      pattern:
-        '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
+      pattern: '^(IS|IS_NOT|IS_ANY_OF|IS_NONE_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
     description:
       'The feature flag creator to filter by. The creators can be specified with an operator. The supported operators are IS, IS_NOT, IS_ANY_OF, IS_NONE_OF.',

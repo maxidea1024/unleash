@@ -10,8 +10,8 @@ import type { SegmentStrategiesSchemaStrategiesItem } from './segmentStrategiesS
  * A collection of strategies belonging to a specified segment.
  */
 export interface SegmentStrategiesSchema {
-    /** A list of strategies that use this segment in active change requests. */
-    changeRequestStrategies?: SegmentStrategiesSchemaChangeRequestStrategiesItem[];
-    /** The list of strategies */
-    strategies: SegmentStrategiesSchemaStrategiesItem[];
+  /** A list of strategies that use this segment in active change requests. */
+  changeRequestStrategies?: SegmentStrategiesSchemaChangeRequestStrategiesItem[];
+  /** The list of strategies */
+  strategies: SegmentStrategiesSchemaStrategiesItem[];
 }

@@ -10,18 +10,18 @@ import type { FeatureEventsSchemaVersion } from './featureEventsSchemaVersion';
  * One or more events happening to a specific feature flag
  */
 export interface FeatureEventsSchema {
-    /** The list of events */
-    events: EventSchema[];
-    /** The name of the feature flag these events relate to */
-    toggleName?: string;
-    /**
-     * How many events are there for this feature flag
-     * @minimum 0
-     */
-    totalEvents?: number;
-    /**
-     * An API versioning number
-     * @minimum 1
-     */
-    version?: FeatureEventsSchemaVersion;
+  /** The list of events */
+  events: EventSchema[];
+  /** The name of the feature flag these events relate to */
+  toggleName?: string;
+  /**
+   * How many events are there for this feature flag
+   * @minimum 0
+   */
+  totalEvents?: number;
+  /**
+   * An API versioning number
+   * @minimum 1
+   */
+  version?: FeatureEventsSchemaVersion;
 }

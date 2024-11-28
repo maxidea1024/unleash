@@ -5,12 +5,12 @@ import { ADMIN_TOKEN_USER } from '../../types';
 
 export type ProjectAccess =
   | {
-    mode: 'all';
-  }
+      mode: 'all';
+    }
   | {
-    mode: 'limited';
-    projects: string[];
-  };
+      mode: 'limited';
+      projects: string[];
+    };
 
 export const ALL_PROJECT_ACCESS: ProjectAccess = {
   mode: 'all',
@@ -26,7 +26,7 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
     this.db = db;
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async getUserAccessibleProjects(userId: number): Promise<ProjectAccess> {
     if (userId === ADMIN_TOKEN_USER.id) {
@@ -60,11 +60,7 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
           .where((builder) => {
             builder
               .whereNull('project_settings.project')
-              .orWhere(
-                'project_settings.project_mode',
-                '!=',
-                'private',
-              );
+              .orWhere('project_settings.project_mode', '!=', 'private');
           })
           .unionAll((queryBuilder) => {
             queryBuilder
@@ -75,20 +71,12 @@ export default class PrivateProjectStore implements IPrivateProjectStore {
                 'projects.id',
                 'project_settings.project',
               )
-              .where(
-                'project_settings.project_mode',
-                '=',
-                'private',
-              )
+              .where('project_settings.project_mode', '=', 'private')
               .whereIn('projects.id', (whereBuilder) => {
                 whereBuilder
                   .select('role_user.project')
                   .from('role_user')
-                  .leftJoin(
-                    'roles',
-                    'role_user.role_id',
-                    'roles.id',
-                  )
+                  .leftJoin('roles', 'role_user.role_id', 'roles.id')
                   .where('role_user.user_id', userId);
               })
               .orWhereIn('projects.id', (whereBuilder) => {

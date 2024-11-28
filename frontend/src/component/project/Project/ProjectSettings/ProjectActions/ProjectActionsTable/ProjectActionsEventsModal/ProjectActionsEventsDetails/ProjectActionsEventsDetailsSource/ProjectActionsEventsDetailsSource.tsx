@@ -2,19 +2,17 @@ import type { ISignal } from 'interfaces/signal';
 import { ProjectActionsEventsDetailsSourceSignalEndpoint } from './ProjectActionsEventsDetailsSourceSignalEndpoint';
 
 interface IProjectActionsEventsDetailsSourceProps {
-    signal: ISignal;
+  signal: ISignal;
 }
 
 export const ProjectActionsEventsDetailsSource = ({
-    signal,
+  signal,
 }: IProjectActionsEventsDetailsSourceProps) => {
-    const { source } = signal;
+  const { source } = signal;
 
-    if (source === 'signal-endpoint') {
-        return (
-            <ProjectActionsEventsDetailsSourceSignalEndpoint signal={signal} />
-        );
-    }
+  if (source === 'signal-endpoint') {
+    return <ProjectActionsEventsDetailsSourceSignalEndpoint signal={signal} />;
+  }
 
-    return null;
+  return null;
 };

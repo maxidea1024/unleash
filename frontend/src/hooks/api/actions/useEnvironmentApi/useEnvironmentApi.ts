@@ -36,11 +36,7 @@ const useEnvironmentApi = () => {
 
   const deleteEnvironment = async (name: string) => {
     const path = `api/admin/environments/${name}`;
-    const req = createRequest(
-      path,
-      { method: 'DELETE' },
-      'deleteEnvironment',
-    );
+    const req = createRequest(path, { method: 'DELETE' }, 'deleteEnvironment');
 
     return makeRequest(req.caller, req.id);
   };
@@ -86,22 +82,14 @@ const useEnvironmentApi = () => {
 
   const toggleEnvironmentOn = async (name: string) => {
     const path = `api/admin/environments/${name}/on`;
-    const req = createRequest(
-      path,
-      { method: 'POST' },
-      'toggleEnvironmentOn',
-    );
+    const req = createRequest(path, { method: 'POST' }, 'toggleEnvironmentOn');
 
     return makeRequest(req.caller, req.id);
   };
 
   const toggleEnvironmentOff = async (name: string) => {
     const path = `api/admin/environments/${name}/off`;
-    const req = createRequest(
-      path,
-      { method: 'POST' },
-      'toggleEnvironmentOff',
-    );
+    const req = createRequest(path, { method: 'POST' }, 'toggleEnvironmentOff');
 
     return makeRequest(req.caller, req.id);
   };

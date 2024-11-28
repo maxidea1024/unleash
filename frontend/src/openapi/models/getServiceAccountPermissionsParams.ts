@@ -5,6 +5,6 @@
  */
 
 export type GetServiceAccountPermissionsParams = {
-    project?: string;
-    environment?: string;
+  project?: string;
+  environment?: string;
 };

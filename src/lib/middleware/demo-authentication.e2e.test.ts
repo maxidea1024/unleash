@@ -17,7 +17,7 @@ afterAll(async () => {
 });
 
 const getApp = (adminLoginEnabled: boolean) =>
-  setupAppWithCustomAuth(stores, () => { }, {
+  setupAppWithCustomAuth(stores, () => {}, {
     authentication: {
       demoAllowAdminLogin: adminLoginEnabled,
       type: IAuthType.DEMO,

@@ -101,9 +101,7 @@ export default class EventSearchController extends Controller {
       res,
       eventSearchResponseSchema.$id,
       serializeDates({
-        events: serializeDates(
-          this.maybeAnonymiseEvents(enrichedEvents),
-        ),
+        events: serializeDates(this.maybeAnonymiseEvents(enrichedEvents)),
         total: totalEvents,
       }),
     );

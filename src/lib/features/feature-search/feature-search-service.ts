@@ -25,15 +25,14 @@ export class FeatureSearchService {
 
   async search(params: IFeatureSearchParams) {
     const queryParams = this.convertToQueryParams(params);
-    const { features, total } =
-      await this.featureSearchStore.searchFeatures(
-        {
-          ...params,
-          limit: params.limit,
-          sortBy: params.sortBy || 'createdAt',
-        },
-        queryParams,
-      );
+    const { features, total } = await this.featureSearchStore.searchFeatures(
+      {
+        ...params,
+        limit: params.limit,
+        sortBy: params.sortBy || 'createdAt',
+      },
+      queryParams,
+    );
 
     return {
       features,
@@ -63,18 +62,12 @@ export class FeatureSearchService {
     }
 
     if (params.createdBy) {
-      const parsed = parseSearchOperatorValue(
-        'users.id',
-        params.createdBy,
-      );
+      const parsed = parseSearchOperatorValue('users.id', params.createdBy);
       if (parsed) queryParams.push(parsed);
     }
 
     if (params.type) {
-      const parsed = parseSearchOperatorValue(
-        'features.type',
-        params.type,
-      );
+      const parsed = parseSearchOperatorValue('features.type', params.type);
       if (parsed) queryParams.push(parsed);
     }
 

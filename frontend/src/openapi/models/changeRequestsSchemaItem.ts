@@ -10,5 +10,5 @@ import type { ChangeRequestsSchemaItemOneOfFour } from './changeRequestsSchemaIt
  * A simplified change request overview
  */
 export type ChangeRequestsSchemaItem =
-    | ChangeRequestsSchemaItemOneOf
-    | ChangeRequestsSchemaItemOneOfFour;
+  | ChangeRequestsSchemaItemOneOf
+  | ChangeRequestsSchemaItemOneOfFour;

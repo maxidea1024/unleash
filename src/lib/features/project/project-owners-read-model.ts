@@ -135,8 +135,8 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
 
     const owners = projects
       ? Object.entries(allOwners)
-        .filter(([projectId]) => projects.has(projectId))
-        .map(([_, owners]) => owners)
+          .filter(([projectId]) => projects.has(projectId))
+          .map(([_, owners]) => owners)
       : Object.values(allOwners);
 
     const ownersDict = owners.flat().reduce(

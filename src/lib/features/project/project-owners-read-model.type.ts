@@ -35,7 +35,5 @@ export interface IProjectOwnersReadModel {
 
   getProjectOwners(projectId: string): Promise<ProjectOwners>;
 
-  getAllUserProjectOwners(
-    projects?: Set<string>,
-  ): Promise<UserProjectOwner[]>;
+  getAllUserProjectOwners(projects?: Set<string>): Promise<UserProjectOwner[]>;
 }

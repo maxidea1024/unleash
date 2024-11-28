@@ -56,7 +56,7 @@ export const canExtendTrial = (
 ): boolean => {
   return Boolean(
     instanceStatus &&
-    instanceStatus.state === InstanceState.EXPIRED &&
-    !instanceStatus.trialExtended,
+      instanceStatus.state === InstanceState.EXPIRED &&
+      !instanceStatus.trialExtended,
   );
 };

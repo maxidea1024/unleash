@@ -380,10 +380,9 @@ test('show matching variant from variants selection only for enabled toggles', a
   const enabledFeatures = typedResult.features[0].environments.default.filter(
     (item) => item.isEnabled,
   );
-  const disabledFeatures =
-    typedResult.features[0].environments.default.filter(
-      (item) => !item.isEnabled,
-    );
+  const disabledFeatures = typedResult.features[0].environments.default.filter(
+    (item) => !item.isEnabled,
+  );
 
   enabledFeatures.forEach((feature) => {
     expect(feature.variant?.name).toBe('a');
@@ -428,7 +427,6 @@ test('should return disabled strategies with unevaluated result', async () => {
   );
 
   expect(
-    feature?.environments.default[0].strategies.data[0].result
-      .evaluationStatus,
+    feature?.environments.default[0].strategies.data[0].result.evaluationStatus,
   ).toBe('unevaluated');
 });

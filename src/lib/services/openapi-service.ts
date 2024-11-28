@@ -25,15 +25,11 @@ export class OpenApiService {
     this.config = config;
     this.flagResolver = config.flagResolver;
 
-    this.api = openapi(
-      this.docsPath(),
-      createOpenApiSchema(config.server),
-      {
-        coerce: true,
-        extendRefs: true,
-        basePath: config.server.baseUriPath,
-      },
-    );
+    this.api = openapi(this.docsPath(), createOpenApiSchema(config.server), {
+      coerce: true,
+      extendRefs: true,
+      basePath: config.server.baseUriPath,
+    });
   }
 
   validPath(op: ApiOperation): RequestHandler {
@@ -61,10 +57,7 @@ export class OpenApiService {
   useErrorHandler(app: Express): void {
     app.use((err, req, res, next) => {
       if (err?.status && err.validationErrors) {
-        const apiError = fromOpenApiValidationErrors(
-          req,
-          err.validationErrors,
-        );
+        const apiError = fromOpenApiValidationErrors(req, err.validationErrors);
 
         res.status(apiError.statusCode).json(apiError);
       } else {
@@ -83,10 +76,7 @@ export class OpenApiService {
     const errors = validateSchema<S>(schema, data);
 
     if (errors) {
-      this.logger.debug(
-        'Invalid response:',
-        JSON.stringify(errors, null, 4),
-      );
+      this.logger.debug('Invalid response:', JSON.stringify(errors, null, 4));
       if (this.flagResolver.isEnabled('strictSchemaValidation')) {
         throw new Error(JSON.stringify(errors, null, 4));
       }

@@ -9,5 +9,5 @@ import type { AdvancedPlaygroundEnvironmentFeatureSchema } from './advancedPlayg
  * The lists of features that have been evaluated grouped by environment.
  */
 export type AdvancedPlaygroundFeatureSchemaEnvironments = {
-    [key: string]: AdvancedPlaygroundEnvironmentFeatureSchema[];
+  [key: string]: AdvancedPlaygroundEnvironmentFeatureSchema[];
 };

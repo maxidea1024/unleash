@@ -4,9 +4,7 @@ import { useChangeRequestConfig } from './api/getters/useChangeRequestConfig/use
 
 export const getHighestChangeRequestEnv =
   (data: IChangeRequestEnvironmentConfig[]) => (): string | undefined => {
-    const changeRequestEnvs = data.filter(
-      (env) => env.changeRequestEnabled,
-    );
+    const changeRequestEnvs = data.filter((env) => env.changeRequestEnabled);
 
     const env =
       changeRequestEnvs.find((env) => env.type === 'production') ??

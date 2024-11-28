@@ -200,11 +200,7 @@ export default class FeatureController extends Controller {
     res: Response<TagSchema>,
   ): Promise<void> {
     const { featureName } = req.params;
-    const tag = await this.tagService.addTag(
-      featureName,
-      req.body,
-      req.audit,
-    );
+    const tag = await this.tagService.addTag(featureName, req.body, req.audit);
     res.status(201).header('location', `${featureName}/tags`).json(tag);
   }
 
@@ -242,11 +238,7 @@ export default class FeatureController extends Controller {
     res: Response<void>,
   ): Promise<void> {
     const { featureName, type, value } = req.params;
-    await this.tagService.removeTag(
-      featureName,
-      { type, value },
-      req.audit,
-    );
+    await this.tagService.removeTag(featureName, { type, value }, req.audit);
     res.status(200).end();
   }
 

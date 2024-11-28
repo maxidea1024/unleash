@@ -178,10 +178,7 @@ test('should return user with multiple projects', async () => {
   const multiProjectUser = await apiTokenService.getUserForToken(secret1);
   const singleProjectUser = await apiTokenService.getUserForToken(secret2);
 
-  expect(multiProjectUser!.projects).toStrictEqual([
-    'test-project',
-    'default',
-  ]);
+  expect(multiProjectUser!.projects).toStrictEqual(['test-project', 'default']);
   expect(singleProjectUser!.projects).toStrictEqual(['test-project']);
 });
 
@@ -193,7 +190,7 @@ test('should not partially create token if projects are invalid', async () => {
       projects: ['non-existent-project'],
       environment: DEFAULT_ENV,
     });
-  } catch (e) { }
+  } catch (e) {}
   const allTokens = await apiTokenService.getAllTokens();
 
   expect(allTokens.length).toBe(0);

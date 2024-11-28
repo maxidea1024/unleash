@@ -69,8 +69,7 @@ export default class MetricsController extends Controller {
         openApiService.validPath({
           tags: ['Metrics'],
           operationId: 'createApplication',
-          summary:
-            'Create an application to connect reported metrics',
+          summary: 'Create an application to connect reported metrics',
           description:
             'Is used to report usage as well which sdk the application uses',
           responses: {
@@ -175,9 +174,7 @@ export default class MetricsController extends Controller {
           description:
             'Returns an overview of the instances for the given `appName` and `environment` that receive traffic.',
           responses: {
-            200: createResponseSchema(
-              'applicationEnvironmentInstancesSchema',
-            ),
+            200: createResponseSchema('applicationEnvironmentInstancesSchema'),
             ...getStandardResponses(404),
           },
         }),
@@ -277,8 +274,7 @@ export default class MetricsController extends Controller {
   ): Promise<void> {
     const { appName } = req.params;
 
-    const appDetails =
-      await this.clientInstanceService.getApplication(appName);
+    const appDetails = await this.clientInstanceService.getApplication(appName);
     res.json(appDetails);
   }
 
@@ -288,11 +284,10 @@ export default class MetricsController extends Controller {
   ): Promise<void> {
     const { appName } = req.params;
     const { user } = req;
-    const overview =
-      await this.clientInstanceService.getApplicationOverview(
-        appName,
-        extractUserIdFromUser(user),
-      );
+    const overview = await this.clientInstanceService.getApplicationOverview(
+      appName,
+      extractUserIdFromUser(user),
+    );
 
     this.openApiService.respondWithValidation(
       200,

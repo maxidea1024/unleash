@@ -381,14 +381,11 @@ export default createTheme({
             border: 0,
             '&:first-of-type': {
               borderTopLeftRadius: theme.shape.borderRadiusMedium,
-              borderBottomLeftRadius:
-                theme.shape.borderRadiusMedium,
+              borderBottomLeftRadius: theme.shape.borderRadiusMedium,
             },
             '&:last-of-type': {
-              borderTopRightRadius:
-                theme.shape.borderRadiusMedium,
-              borderBottomRightRadius:
-                theme.shape.borderRadiusMedium,
+              borderTopRightRadius: theme.shape.borderRadiusMedium,
+              borderBottomRightRadius: theme.shape.borderRadiusMedium,
             },
           },
         }),
@@ -518,17 +515,13 @@ export default createTheme({
               theme.palette.background.alternative,
               0.6,
             )}`,
-            boxShadow: `0px 2px 8px ${alpha(
-              theme.palette.primary.main,
-              0.2,
-            )}`,
+            boxShadow: `0px 2px 8px ${alpha(theme.palette.primary.main, 0.2)}`,
           },
           '&.accordion-disabled': {
             outline: `1px solid ${alpha('#39384C', 0.5)}`,
             backgroundColor: theme.palette.background.application,
           },
-          '&.accordion-disabled.Mui-expanded .MuiAccordionSummary-root':
-          {
+          '&.accordion-disabled.Mui-expanded .MuiAccordionSummary-root': {
             borderBottom: `1px solid ${theme.palette.divider}`,
           },
         }),

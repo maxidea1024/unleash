@@ -13,94 +13,91 @@ import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import type { FeatureTypeCount } from 'interfaces/project';
 
 interface IProjectInfoProps {
-    id: string;
-    memberCount: number;
-    featureTypeCounts: FeatureTypeCount[];
-    health: number;
-    description?: string;
-    stats: ProjectStatsSchema;
+  id: string;
+  memberCount: number;
+  featureTypeCounts: FeatureTypeCount[];
+  health: number;
+  description?: string;
+  stats: ProjectStatsSchema;
 }
 
 const StyledProjectInfoSidebarContainer = styled(Box)(({ theme }) => ({
-    ...flexRow,
-    width: '225px',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
-    boxShadow: 'none',
-    [theme.breakpoints.down('md')]: {
-        display: 'grid',
-        width: '100%',
-        alignItems: 'stretch',
-    },
-    [theme.breakpoints.down('sm')]: {
-        display: 'flex',
-    },
+  ...flexRow,
+  width: '225px',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+  boxShadow: 'none',
+  [theme.breakpoints.down('md')]: {
+    display: 'grid',
+    width: '100%',
+    alignItems: 'stretch',
+  },
+  [theme.breakpoints.down('sm')]: {
+    display: 'flex',
+  },
 }));
 
 const ProjectInfo = ({
-    id,
-    description,
-    memberCount,
-    health,
-    featureTypeCounts,
-    stats,
+  id,
+  description,
+  memberCount,
+  health,
+  featureTypeCounts,
+  stats,
 }: IProjectInfoProps) => {
-    const { isEnterprise } = useUiConfig();
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-    const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(id);
+  const { isEnterprise } = useUiConfig();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(id);
 
-    const showChangeRequestsWidget =
-        isEnterprise() && isChangeRequestConfiguredInAnyEnv();
-    const showProjectMembersWidget = id !== DEFAULT_PROJECT_ID;
-    const fitMoreColumns =
-        (!showChangeRequestsWidget && !showProjectMembersWidget) ||
-        (isSmallScreen && showChangeRequestsWidget && showProjectMembersWidget);
+  const showChangeRequestsWidget =
+    isEnterprise() && isChangeRequestConfiguredInAnyEnv();
+  const showProjectMembersWidget = id !== DEFAULT_PROJECT_ID;
+  const fitMoreColumns =
+    (!showChangeRequestsWidget && !showProjectMembersWidget) ||
+    (isSmallScreen && showChangeRequestsWidget && showProjectMembersWidget);
 
-    return (
-        <aside>
-            <StyledProjectInfoSidebarContainer
-                sx={
-                    fitMoreColumns
-                        ? {
-                              gridTemplateColumns:
-                                  'repeat(auto-fill, minmax(225px, 1fr))',
-                          }
-                        : { gridTemplateColumns: 'repeat(2, 1fr)' }
-                }
+  return (
+    <aside>
+      <StyledProjectInfoSidebarContainer
+        sx={
+          fitMoreColumns
+            ? {
+                gridTemplateColumns: 'repeat(auto-fill, minmax(225px, 1fr))',
+              }
+            : { gridTemplateColumns: 'repeat(2, 1fr)' }
+        }
+      >
+        <ConditionallyRender
+          condition={showChangeRequestsWidget}
+          show={
+            <Box
+              sx={{
+                gridColumnStart: showProjectMembersWidget ? 'span 2' : 'span 1',
+                flex: 1,
+                display: 'flex',
+              }}
             >
-                <ConditionallyRender
-                    condition={showChangeRequestsWidget}
-                    show={
-                        <Box
-                            sx={{
-                                gridColumnStart: showProjectMembersWidget
-                                    ? 'span 2'
-                                    : 'span 1',
-                                flex: 1,
-                                display: 'flex',
-                            }}
-                        >
-                            <ChangeRequestsWidget projectId={id} />
-                        </Box>
-                    }
-                />
-                <MetaWidget id={id} description={description} />
-                <HealthWidget projectId={id} health={health} />
-                <ConditionallyRender
-                    condition={showProjectMembersWidget}
-                    show={
-                        <ProjectMembersWidget
-                            projectId={id}
-                            memberCount={memberCount}
-                            change={stats?.projectMembersAddedCurrentWindow}
-                        />
-                    }
-                />
-                <FlagTypesWidget featureTypeCounts={featureTypeCounts} />
-            </StyledProjectInfoSidebarContainer>
-        </aside>
-    );
+              <ChangeRequestsWidget projectId={id} />
+            </Box>
+          }
+        />
+        <MetaWidget id={id} description={description} />
+        <HealthWidget projectId={id} health={health} />
+        <ConditionallyRender
+          condition={showProjectMembersWidget}
+          show={
+            <ProjectMembersWidget
+              projectId={id}
+              memberCount={memberCount}
+              change={stats?.projectMembersAddedCurrentWindow}
+            />
+          }
+        />
+        <FlagTypesWidget featureTypeCounts={featureTypeCounts} />
+      </StyledProjectInfoSidebarContainer>
+    </aside>
+  );
 };
 
 export default ProjectInfo;

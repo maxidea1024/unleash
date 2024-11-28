@@ -12,50 +12,47 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 
 export const StrategyView = () => {
-    const name = useRequiredPathParam('name');
-    const { strategies } = useStrategies();
-    const { applications } = useApplications();
-    const navigate = useNavigate();
+  const name = useRequiredPathParam('name');
+  const { strategies } = useStrategies();
+  const { applications } = useApplications();
+  const navigate = useNavigate();
 
-    const strategy = strategies.find((strategy) => strategy.name === name);
+  const strategy = strategies.find((strategy) => strategy.name === name);
 
-    const handleEdit = () => {
-        navigate(`/strategies/${name}/edit`);
-    };
+  const handleEdit = () => {
+    navigate(`/strategies/${name}/edit`);
+  };
 
-    if (!strategy) return null;
-    return (
-        <PageContent
-            header={
-                <PageHeader
-                    title={strategy?.name}
-                    subtitle={strategy?.description}
-                    actions={
-                        <ConditionallyRender
-                            condition={strategy.editable}
-                            show={
-                                <PermissionIconButton
-                                    permission={UPDATE_STRATEGY}
-                                    data-loading
-                                    onClick={handleEdit}
-                                    tooltipProps={{ title: 'Edit strategy' }}
-                                >
-                                    <Edit />
-                                </PermissionIconButton>
-                            }
-                        />
-                    }
-                />
-            }
-        >
-            <Grid container>
-                <Grid item xs={12} sm={12}>
-                    <StrategyDetails
-                        strategy={strategy}
-                        applications={applications}
-                    />
-                </Grid>
-            </Grid>
-        </PageContent>
-    );
+  if (!strategy) return null;
+  return (
+    <PageContent
+      header={
+        <PageHeader
+          title={strategy?.name}
+          subtitle={strategy?.description}
+          actions={
+            <ConditionallyRender
+              condition={strategy.editable}
+              show={
+                <PermissionIconButton
+                  permission={UPDATE_STRATEGY}
+                  data-loading
+                  onClick={handleEdit}
+                  tooltipProps={{ title: 'Edit strategy' }}
+                >
+                  <Edit />
+                </PermissionIconButton>
+              }
+            />
+          }
+        />
+      }
+    >
+      <Grid container>
+        <Grid item xs={12} sm={12}>
+          <StrategyDetails strategy={strategy} applications={applications} />
+        </Grid>
+      </Grid>
+    </PageContent>
+  );
 };

@@ -11,10 +11,10 @@ import type { UserWithProjectRoleSchema } from './userWithProjectRoleSchema';
  * An object describing access permissions for a given project.
  */
 export interface ProjectAccessSchema {
-    /** A list of groups that have access to this project */
-    groups: GroupWithProjectRoleSchema[];
-    /** A list of roles that are available within this project. */
-    roles: RoleSchema[];
-    /** A list of users and their roles within this project */
-    users: UserWithProjectRoleSchema[];
+  /** A list of groups that have access to this project */
+  groups: GroupWithProjectRoleSchema[];
+  /** A list of roles that are available within this project. */
+  roles: RoleSchema[];
+  /** A list of users and their roles within this project */
+  users: UserWithProjectRoleSchema[];
 }

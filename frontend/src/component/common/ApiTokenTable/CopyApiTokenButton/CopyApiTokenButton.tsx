@@ -5,42 +5,42 @@ import FileCopy from '@mui/icons-material/FileCopy';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 
 interface ICopyApiTokenButtonProps {
-    token: IApiToken;
-    permission: string;
-    project?: string;
-    track?: () => void;
+  token: IApiToken;
+  permission: string;
+  project?: string;
+  track?: () => void;
 }
 
 export const CopyApiTokenButton = ({
-    token,
-    project,
-    permission,
-    track,
+  token,
+  project,
+  permission,
+  track,
 }: ICopyApiTokenButtonProps) => {
-    const { setToastData } = useToast();
+  const { setToastData } = useToast();
 
-    const copyToken = (value: string) => {
-        if (copy(value)) {
-            setToastData({
-                type: 'success',
-                title: `Token copied to clipboard`,
-            });
+  const copyToken = (value: string) => {
+    if (copy(value)) {
+      setToastData({
+        type: 'success',
+        title: `Token copied to clipboard`,
+      });
 
-            if (track && typeof track === 'function') {
-                track();
-            }
-        }
-    };
+      if (track && typeof track === 'function') {
+        track();
+      }
+    }
+  };
 
-    return (
-        <PermissionIconButton
-            permission={permission}
-            projectId={project}
-            tooltipProps={{ title: 'Copy token', arrow: true }}
-            onClick={() => copyToken(token.secret)}
-            size='large'
-        >
-            <FileCopy />
-        </PermissionIconButton>
-    );
+  return (
+    <PermissionIconButton
+      permission={permission}
+      projectId={project}
+      tooltipProps={{ title: 'Copy token', arrow: true }}
+      onClick={() => copyToken(token.secret)}
+      size='large'
+    >
+      <FileCopy />
+    </PermissionIconButton>
+  );
 };

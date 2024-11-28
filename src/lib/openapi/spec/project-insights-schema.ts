@@ -38,8 +38,7 @@ export const projectInsightsSchema = {
         },
         potentiallyStaleCount: {
           type: 'number',
-          description:
-            'The number of potentially stale feature flags.',
+          description: 'The number of potentially stale feature flags.',
           example: 5,
         },
         staleCount: {

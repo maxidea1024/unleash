@@ -31,9 +31,7 @@ export interface IProjectReadModel {
     query?: IProjectQuery & IProjectsQuery,
     userId?: number,
   ): Promise<ProjectForUi[]>;
-  getProjectsForInsights(
-    query?: IProjectQuery,
-  ): Promise<ProjectForInsights[]>;
+  getProjectsForInsights(query?: IProjectQuery): Promise<ProjectForInsights[]>;
   getFeatureProject(
     featureName: string,
   ): Promise<{ project: string; createdAt: Date } | null>;

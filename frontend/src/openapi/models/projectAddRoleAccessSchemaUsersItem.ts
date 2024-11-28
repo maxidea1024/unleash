@@ -5,9 +5,9 @@
  */
 
 export type ProjectAddRoleAccessSchemaUsersItem = {
-    /**
-     * A user ID
-     * @minimum 0
-     */
-    id: number;
+  /**
+   * A user ID
+   * @minimum 0
+   */
+  id: number;
 };

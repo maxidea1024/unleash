@@ -11,8 +11,7 @@ export const changePasswordSchema = {
       description:
         'A reset token used to validate that the user is allowed to change the password.',
       type: 'string',
-      example:
-        '$2a$15$QzeW/y5/MEppCWVEkoX5euejobYOLSd4We21LQjjKlWH9l2I3wCke',
+      example: '$2a$15$QzeW/y5/MEppCWVEkoX5euejobYOLSd4We21LQjjKlWH9l2I3wCke',
     },
     password: {
       type: 'string',

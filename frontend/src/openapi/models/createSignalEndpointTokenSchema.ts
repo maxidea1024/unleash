@@ -8,6 +8,6 @@
  * Describes the properties required to create or update a signal endpoint token.
  */
 export interface CreateSignalEndpointTokenSchema {
-    /** The signal endpoint token name. */
-    name: string;
+  /** The signal endpoint token name. */
+  name: string;
 }

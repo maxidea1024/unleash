@@ -297,9 +297,7 @@ describe('max metrics collection', () => {
 
   const bigConstraint = (maxValueCount: number) => {
     return {
-      values: Array.from({ length: maxValueCount }, (_, i) =>
-        i.toString(),
-      ),
+      values: Array.from({ length: maxValueCount }, (_, i) => i.toString()),
       operator: 'IN',
       contextName: 'appName',
     } as const;
@@ -352,10 +350,7 @@ describe('max metrics collection', () => {
       }),
     );
     await featureStrategiesStore.createStrategyFeatureEnv(
-      strategyWithConstraints(
-        flagC.name,
-        bigConstraint(maxValueCount + 1),
-      ),
+      strategyWithConstraints(flagC.name, bigConstraint(maxValueCount + 1)),
     );
 
     await featureToggleStore.archive(flagC.name);

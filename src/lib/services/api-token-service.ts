@@ -205,9 +205,7 @@ export class ApiTokenService {
     }
   }
 
-  async getUserForToken(
-    secret: string,
-  ): Promise<IApiUser | undefined> {
+  async getUserForToken(secret: string): Promise<IApiUser | undefined> {
     const token = await this.getTokenWithCache(secret);
     if (token) {
       this.lastSeenSecrets.add(token.secret);
@@ -221,9 +219,7 @@ export class ApiTokenService {
       });
 
       apiUser.internalAdminTokenUserId =
-        token.type === ApiTokenType.ADMIN
-          ? ADMIN_TOKEN_USER.id
-          : undefined;
+        token.type === ApiTokenType.ADMIN ? ADMIN_TOKEN_USER.id : undefined;
       return apiUser;
     }
 

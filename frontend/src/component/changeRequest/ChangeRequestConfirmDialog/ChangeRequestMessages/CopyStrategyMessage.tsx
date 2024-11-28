@@ -3,20 +3,18 @@ import { formatStrategyName } from 'utils/strategyNames';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 
 export interface CopyStrategyMsg {
-    payload?: IFeatureStrategyPayload;
-    fromEnvironment?: string;
-    environment?: string;
+  payload?: IFeatureStrategyPayload;
+  fromEnvironment?: string;
+  environment?: string;
 }
 
 export const CopyStrategyMessage = ({
-    payload,
-    fromEnvironment,
-    environment,
+  payload,
+  fromEnvironment,
+  environment,
 }: CopyStrategyMsg) => (
-    <Typography>
-        <strong>
-            Copy {formatStrategyName(payload?.name || '')} strategy{' '}
-        </strong>{' '}
-        from {fromEnvironment} to {environment}
-    </Typography>
+  <Typography>
+    <strong>Copy {formatStrategyName(payload?.name || '')} strategy </strong>{' '}
+    from {fromEnvironment} to {environment}
+  </Typography>
 );

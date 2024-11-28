@@ -8,9 +8,9 @@
  * Match the source of the signal
  */
 export type CreateActionsSchemaMatchSource =
-    (typeof CreateActionsSchemaMatchSource)[keyof typeof CreateActionsSchemaMatchSource];
+  (typeof CreateActionsSchemaMatchSource)[keyof typeof CreateActionsSchemaMatchSource];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateActionsSchemaMatchSource = {
-    'signal-endpoint': 'signal-endpoint',
+  'signal-endpoint': 'signal-endpoint',
 } as const;

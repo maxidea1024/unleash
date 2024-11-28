@@ -3,7 +3,6 @@ import type { IUnleashServices } from '../../types/services';
 import type StrategyService from '../../services/strategy-service';
 import type { Logger } from '../../logger';
 import Controller from '../controller';
-import { extractUsername } from '../../util/extract-user';
 import {
   CREATE_STRATEGY,
   DELETE_STRATEGY,
@@ -205,21 +204,17 @@ export default class StrategyController extends Controller {
   ): Promise<void> {
     const strategies = await this.strategyService.getStrategies();
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      strategiesSchema.$id,
-      { version, strategies },
-    );
+    this.openApiService.respondWithValidation(200, res, strategiesSchema.$id, {
+      version,
+      strategies,
+    });
   }
 
   async getStrategy(
     req: Request,
     res: Response<StrategySchema>,
   ): Promise<void> {
-    const strategy = await this.strategyService.getStrategy(
-      req.params.name,
-    );
+    const strategy = await this.strategyService.getStrategy(req.params.name);
 
     this.openApiService.respondWithValidation(
       200,

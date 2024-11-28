@@ -47,10 +47,7 @@ export default class TagStore implements ITagStore {
 
   async getTag(type: string, value: string): Promise<ITag> {
     const stopTimer = this.timer('getTag');
-    const tag = await this.db
-      .first(COLUMNS)
-      .from(TABLE)
-      .where({ type, value });
+    const tag = await this.db.first(COLUMNS).from(TABLE).where({ type, value });
     stopTimer();
     if (!tag) {
       throw new NotFoundError(
@@ -97,14 +94,11 @@ export default class TagStore implements ITagStore {
       .ignore();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async get({ type, value }: ITag): Promise<ITag> {
     const stopTimer = this.timer('getTag');
-    const tag = await this.db
-      .first(COLUMNS)
-      .from(TABLE)
-      .where({ type, value });
+    const tag = await this.db.first(COLUMNS).from(TABLE).where({ type, value });
     stopTimer();
     if (!tag) {
       throw new NotFoundError(

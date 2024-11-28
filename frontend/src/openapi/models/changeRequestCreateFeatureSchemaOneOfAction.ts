@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestCreateFeatureSchemaOneOfAction =
-    (typeof ChangeRequestCreateFeatureSchemaOneOfAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfAction];
+  (typeof ChangeRequestCreateFeatureSchemaOneOfAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestCreateFeatureSchemaOneOfAction = {
-    updateEnabled: 'updateEnabled',
+  updateEnabled: 'updateEnabled',
 } as const;

@@ -132,16 +132,12 @@ export default class EnvironmentStore implements IEnvironmentStore {
   }
 
   async count(): Promise<number> {
-    const res = await this.db
-      .from(TABLE)
-      .count('*');
+    const res = await this.db.from(TABLE).count('*');
     return Number(res[0].count);
   }
 
   async getMaxSortOrder(): Promise<number> {
-    const res = await this.db
-      .from(TABLE)
-      .max('sort_order');
+    const res = await this.db.from(TABLE).max('sort_order');
     return Number(res[0].max);
   }
 
@@ -255,9 +251,7 @@ export default class EnvironmentStore implements IEnvironmentStore {
       .first();
     stopTimer();
     if (!row) {
-      throw new NotFoundError(
-        `Could not find environment with name ${name}`,
-      );
+      throw new NotFoundError(`Could not find environment with name ${name}`);
     }
     return mapRow(row);
   }
@@ -328,5 +322,5 @@ export default class EnvironmentStore implements IEnvironmentStore {
     await this.db(TABLE).where({ name, protected: false }).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 }

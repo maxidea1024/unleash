@@ -9,8 +9,7 @@ export const createStrategyVariantSchema = {
   properties: {
     name: {
       type: 'string',
-      description:
-        'The variant name. Must be unique for this feature flag',
+      description: 'The variant name. Must be unique for this feature flag',
       example: 'blue_group',
     },
     weight: {

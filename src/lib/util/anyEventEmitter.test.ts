@@ -4,7 +4,7 @@ test('AnyEventEmitter', () => {
   const events = [];
   const results = [];
 
-  class MyEventEmitter extends AnyEventEmitter { }
+  class MyEventEmitter extends AnyEventEmitter {}
   const myEventEmitter = new MyEventEmitter();
 
   myEventEmitter.on('a', () => events.push('a'));

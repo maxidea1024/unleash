@@ -351,9 +351,7 @@ test('cloning a feature flag copies variant environments correctly', async () =>
       clonedFlagName,
     );
 
-  const defaultEnv = clonedFlag.environments.find(
-    (x) => x.name === 'default',
-  );
+  const defaultEnv = clonedFlag.environments.find((x) => x.name === 'default');
   const newEnv = clonedFlag.environments.find((x) => x.name === targetEnv);
 
   expect(defaultEnv!!.variants).toHaveLength(0);
@@ -650,19 +648,13 @@ describe('flag name validation', () => {
 
     for (const feature of invalidFeatures) {
       await expect(
-        service.validateFeatureFlagNameAgainstPattern(
-          feature,
-          projectId,
-        ),
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
       ).rejects.toBeInstanceOf(PatternError);
     }
 
     for (const feature of validFeatures) {
       await expect(
-        service.validateFeatureFlagNameAgainstPattern(
-          feature,
-          projectId,
-        ),
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
       ).resolves.toBeFalsy();
     }
   });
@@ -673,10 +665,7 @@ describe('flag name validation', () => {
 
     for (const feature of validFeatures) {
       await expect(
-        service.validateFeatureFlagNameAgainstPattern(
-          feature,
-          projectId,
-        ),
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
       ).resolves.toBeFalsy();
     }
   });
@@ -761,9 +750,7 @@ test('Should not allow to add flags to archived projects', async () => {
       TEST_AUDIT_USER,
     ),
   ).rejects.toEqual(
-    new NotFoundError(
-      `Active project with id archivedProject does not exist`,
-    ),
+    new NotFoundError(`Active project with id archivedProject does not exist`),
   );
 });
 

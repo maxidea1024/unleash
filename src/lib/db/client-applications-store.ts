@@ -76,11 +76,11 @@ const reduceRows = (rows: any[]): IClientApplication[] => {
         usage:
           project && environment
             ? [
-              {
-                project,
-                environments: [environment],
-              },
-            ]
+                {
+                  project,
+                  environments: [environment],
+                },
+              ]
             : [],
       };
     }
@@ -114,7 +114,8 @@ const remapRow = (input) => {
 };
 
 export default class ClientApplicationsStore
-  implements IClientApplicationsStore {
+  implements IClientApplicationsStore
+{
   private readonly db: Db;
   private readonly logger: Logger;
   private readonly timer: Function;
@@ -202,9 +203,7 @@ export default class ClientApplicationsStore
 
     const query = this.db
       .with('applications', (qb) => {
-        applySearchFilters(qb, searchParams, [
-          'client_applications.app_name',
-        ]);
+        applySearchFilters(qb, searchParams, ['client_applications.app_name']);
         qb.select([
           ...COLUMNS.map((column) => `${TABLE}.${column}`),
           'project',
@@ -226,10 +225,7 @@ export default class ClientApplicationsStore
           'select row_number() over (order by min(rank)) as final_rank from applications group by app_name',
         ),
       )
-      .with(
-        'total',
-        this.db.raw('select count(*) as total from final_ranks'),
-      )
+      .with('total', this.db.raw('select count(*) as total from final_ranks'))
       .select('*')
       .from('applications')
       .joinRaw('CROSS JOIN total')
@@ -252,9 +248,7 @@ export default class ClientApplicationsStore
   }
 
   async getUnannounced(): Promise<IClientApplication[]> {
-    const rows = await this.db(TABLE)
-      .select(COLUMNS)
-      .where('announced', false);
+    const rows = await this.db(TABLE).select(COLUMNS).where('announced', false);
     return rows.map(mapRow);
   }
 
@@ -279,7 +273,7 @@ export default class ClientApplicationsStore
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async get(appName: string): Promise<IClientApplication> {
     const row = await this.db
@@ -295,9 +289,7 @@ export default class ClientApplicationsStore
     return mapRow(row);
   }
 
-  async getApplicationOverview(
-    appName: string,
-  ): Promise<IApplicationOverview> {
+  async getApplicationOverview(appName: string): Promise<IApplicationOverview> {
     const stopTimer = this.timer('getApplicationOverview');
     const query = this.db
       .with('metrics', (qb) => {
@@ -305,9 +297,7 @@ export default class ClientApplicationsStore
           'cme.app_name',
           'cme.environment',
           'f.project',
-          this.db.raw(
-            'array_agg(DISTINCT cme.feature_name) as features',
-          ),
+          this.db.raw('array_agg(DISTINCT cme.feature_name) as features'),
         ])
           .from('client_metrics_env as cme')
           .where('cme.app_name', appName)
@@ -321,9 +311,7 @@ export default class ClientApplicationsStore
           this.db.raw(
             'COUNT(DISTINCT ci.instance_id) as unique_instance_count',
           ),
-          this.db.raw(
-            'ARRAY_AGG(DISTINCT ci.sdk_version) as sdk_versions',
-          ),
+          this.db.raw('ARRAY_AGG(DISTINCT ci.sdk_version) as sdk_versions'),
           this.db.raw('MAX(ci.last_seen) as latest_last_seen'),
         ])
           .from('client_instances as ci')
@@ -396,9 +384,7 @@ export default class ClientApplicationsStore
           sdks: sdk_versions,
           lastSeen: latest_last_seen,
           issues: {
-            missingFeatures: featuresNotMappedToProject
-              ? features
-              : [],
+            missingFeatures: featuresNotMappedToProject ? features : [],
           },
         };
         acc.push(env);
@@ -417,9 +403,7 @@ export default class ClientApplicationsStore
     return {
       projects: [
         ...new Set(
-          rows
-            .filter((row) => row.project != null)
-            .map((row) => row.project),
+          rows.filter((row) => row.project != null).map((row) => row.project),
         ),
       ],
       featureCount,

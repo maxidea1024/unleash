@@ -20,10 +20,7 @@ export const flattenPayload = (
         // If it's an array, map through it and handle objects and non-objects differently
         value.forEach((item, index) => {
           if (typeof item === 'object' && item !== null) {
-            Object.assign(
-              acc,
-              flattenPayload(item, `${newKey}[${index}]`),
-            );
+            Object.assign(acc, flattenPayload(item, `${newKey}[${index}]`));
           } else {
             acc[`${newKey}[${index}]`] = item;
           }

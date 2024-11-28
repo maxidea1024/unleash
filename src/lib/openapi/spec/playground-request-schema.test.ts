@@ -14,9 +14,7 @@ export const generate = (): Arbitrary<PlaygroundRequestSchema> =>
       fc.lorem({ maxCount: 1 }),
     ),
     projects: fc.oneof(
-      fc.uniqueArray(
-        fc.oneof(fc.lorem({ maxCount: 1 }), urlFriendlyString()),
-      ),
+      fc.uniqueArray(fc.oneof(fc.lorem({ maxCount: 1 }), urlFriendlyString())),
       fc.constant('*' as const),
     ),
     context: generateContext(),

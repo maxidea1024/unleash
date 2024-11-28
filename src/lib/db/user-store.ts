@@ -100,16 +100,12 @@ export default class UserStore implements IUserStore {
   }
 
   async update(id: number, fields: IUserUpdateFields): Promise<User> {
-    await this.activeUsers()
-      .where('id', id)
-      .update(mapUserToColumns(fields));
+    await this.activeUsers().where('id', id).update(mapUserToColumns(fields));
     return this.get(id);
   }
 
   async insert(user: ICreateUser): Promise<User> {
-    const emailHash = user.email
-      ? this.db.raw('md5(?)', [user.email])
-      : null;
+    const emailHash = user.email ? this.db.raw('md5(?)', [user.email]) : null;
     const rows = await this.db(TABLE)
       .insert({
         ...mapUserToColumns(user),
@@ -289,17 +285,13 @@ export default class UserStore implements IUserStore {
   async countRecentlyDeleted(): Promise<number> {
     return this.db(TABLE)
       .whereNotNull('deleted_at')
-      .andWhere(
-        'deleted_at',
-        '>=',
-        this.db.raw(`NOW() - INTERVAL '1 month'`),
-      )
+      .andWhere('deleted_at', '>=', this.db.raw(`NOW() - INTERVAL '1 month'`))
       .andWhere({ is_service: false, is_system: false })
       .count('*')
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(

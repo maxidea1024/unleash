@@ -8,13 +8,13 @@
  * Type of the flag e.g. experiment, kill-switch, release, operational, permission
  */
 export type UpdateFeatureSchemaType =
-    (typeof UpdateFeatureSchemaType)[keyof typeof UpdateFeatureSchemaType];
+  (typeof UpdateFeatureSchemaType)[keyof typeof UpdateFeatureSchemaType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UpdateFeatureSchemaType = {
-    experiment: 'experiment',
-    'kill-switch': 'kill-switch',
-    release: 'release',
-    operational: 'operational',
-    permission: 'permission',
+  experiment: 'experiment',
+  'kill-switch': 'kill-switch',
+  release: 'release',
+  operational: 'operational',
+  permission: 'permission',
 } as const;

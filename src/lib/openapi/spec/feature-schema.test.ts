@@ -49,9 +49,7 @@ test('featureSchema constraints', () => {
         name: 'a',
         type: 'b',
         enabled: true,
-        strategies: [
-          { name: 'a', constraints: [{ contextName: 'a' }] },
-        ],
+        strategies: [{ name: 'a', constraints: [{ contextName: 'a' }] }],
       },
     ],
   };

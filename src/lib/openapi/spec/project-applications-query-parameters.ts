@@ -7,8 +7,7 @@ export const projectApplicationsQueryParameters = [
       type: 'string',
       example: 'first_app',
     },
-    description:
-      'The search query for the application name, sdk, environment',
+    description: 'The search query for the application name, sdk, environment',
     in: 'query',
   },
   {

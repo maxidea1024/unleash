@@ -15,7 +15,7 @@ test('Should not allow to exceed segment limit', async () => {
     flagResolver: alwaysOnFlagResolver,
     resourceLimits: { segments: LIMIT },
     eventBus: {
-      emit: () => { },
+      emit: () => {},
     },
   } as unknown as IUnleashConfig);
 

@@ -104,8 +104,7 @@ export default class PatController extends Controller {
         openApiService.validPath({
           tags: ['Personal access tokens'],
           operationId: 'deletePat',
-          summary:
-            'Delete a personal access token (PAT) for the current user.',
+          summary: 'Delete a personal access token (PAT) for the current user.',
           description:
             'Deletes a [personal access token](https://docs.getunleash.io/how-to/how-to-create-personal-access-tokens) (PAT) belonging to the current user.',
           responses: {

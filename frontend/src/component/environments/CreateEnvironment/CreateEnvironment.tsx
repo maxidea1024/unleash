@@ -14,62 +14,62 @@ import { GO_BACK } from 'constants/navigate';
 import { Limit } from 'component/common/Limit/Limit';
 
 const CreateEnvironment = () => {
-    const { setToastApiError, setToastData } = useToast();
-    const { uiConfig } = useUiConfig();
-    const environmentLimit = uiConfig.resourceLimits.environments;
-    const navigate = useNavigate();
-    const { environments } = useEnvironments();
-    const canCreateMoreEnvs = environments.length < environmentLimit;
-    const { createEnvironment, loading } = useEnvironmentApi();
-    const { refetch } = usePermissions();
-    const {
-        name,
-        setName,
-        type,
-        setType,
-        getEnvPayload,
-        validateEnvironmentName,
-        clearErrors,
-        errors,
-    } = useEnvironmentForm();
+  const { setToastApiError, setToastData } = useToast();
+  const { uiConfig } = useUiConfig();
+  const environmentLimit = uiConfig.resourceLimits.environments;
+  const navigate = useNavigate();
+  const { environments } = useEnvironments();
+  const canCreateMoreEnvs = environments.length < environmentLimit;
+  const { createEnvironment, loading } = useEnvironmentApi();
+  const { refetch } = usePermissions();
+  const {
+    name,
+    setName,
+    type,
+    setType,
+    getEnvPayload,
+    validateEnvironmentName,
+    clearErrors,
+    errors,
+  } = useEnvironmentForm();
 
-    const handleSubmit = async (e: Event) => {
-        e.preventDefault();
-        clearErrors();
-        const validName = await validateEnvironmentName();
-        if (validName) {
-            const payload = getEnvPayload();
-            try {
-                await createEnvironment(payload);
-                refetch();
-                setToastData({
-                    title: 'Environment created',
-                    type: 'success',
-                    confetti: true,
-                });
-                navigate('/environments');
-            } catch (error: unknown) {
-                setToastApiError(formatUnknownError(error));
-            }
-        }
-    };
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    clearErrors();
+    const validName = await validateEnvironmentName();
+    if (validName) {
+      const payload = getEnvPayload();
+      try {
+        await createEnvironment(payload);
+        refetch();
+        setToastData({
+          title: 'Environment created',
+          type: 'success',
+          confetti: true,
+        });
+        navigate('/environments');
+      } catch (error: unknown) {
+        setToastApiError(formatUnknownError(error));
+      }
+    }
+  };
 
-    const formatApiCode = () => {
-        return `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/environments' \\
+  const formatApiCode = () => {
+    return `curl --location --request POST '${uiConfig.unleashUrl}/api/admin/environments' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(getEnvPayload(), undefined, 2)}'`;
-    };
+  };
 
-    const handleCancel = () => {
-        navigate(GO_BACK);
-    };
+  const handleCancel = () => {
+    navigate(GO_BACK);
+  };
 
-    return (
-        <FormTemplate
-            loading={loading}
-            title='Create environment'
-            description='Environments allow you to manage your
+  return (
+    <FormTemplate
+      loading={loading}
+      title='Create environment'
+      description='Environments allow you to manage your
                             product lifecycle from local development
                             through production. Your projects and
                             feature flags are accessible in all your
@@ -79,37 +79,37 @@ const CreateEnvironment = () => {
                             development or test environment without
                             enabling the feature flag in the
                             production environment.'
-            documentationLink='https://docs.getunleash.io/reference/environments'
-            documentationLinkLabel='Environments documentation'
-            formatApiCode={formatApiCode}
-        >
-            <EnvironmentForm
-                errors={errors}
-                handleSubmit={handleSubmit}
-                handleCancel={handleCancel}
-                validateEnvironmentName={validateEnvironmentName}
-                name={name}
-                type={type}
-                setName={setName}
-                setType={setType}
-                mode='Create'
-                clearErrors={clearErrors}
-                Limit={
-                    <Limit
-                        name='environments'
-                        limit={environmentLimit}
-                        currentValue={environments.length}
-                    />
-                }
-            >
-                <CreateButton
-                    name='environment'
-                    permission={ADMIN}
-                    disabled={!canCreateMoreEnvs}
-                />
-            </EnvironmentForm>
-        </FormTemplate>
-    );
+      documentationLink='https://docs.getunleash.io/reference/environments'
+      documentationLinkLabel='Environments documentation'
+      formatApiCode={formatApiCode}
+    >
+      <EnvironmentForm
+        errors={errors}
+        handleSubmit={handleSubmit}
+        handleCancel={handleCancel}
+        validateEnvironmentName={validateEnvironmentName}
+        name={name}
+        type={type}
+        setName={setName}
+        setType={setType}
+        mode='Create'
+        clearErrors={clearErrors}
+        Limit={
+          <Limit
+            name='environments'
+            limit={environmentLimit}
+            currentValue={environments.length}
+          />
+        }
+      >
+        <CreateButton
+          name='environment'
+          permission={ADMIN}
+          disabled={!canCreateMoreEnvs}
+        />
+      </EnvironmentForm>
+    </FormTemplate>
+  );
 };
 
 export default CreateEnvironment;

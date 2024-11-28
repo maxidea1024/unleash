@@ -79,11 +79,7 @@ const playgroundStrategies = (): Arbitrary<PlaygroundStrategySchema[]> =>
         fc.record({
           groupId: fc.lorem({ maxCount: 1 }),
           rollout: fc.nat({ max: 100 }).map(String),
-          stickiness: fc.constantFrom(
-            'default',
-            'userId',
-            'sessionId',
-          ),
+          stickiness: fc.constantFrom('default', 'userId', 'sessionId'),
         }),
       ),
       playgroundStrategy(
@@ -128,17 +124,11 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
       const strategyResult = () => {
         const { strategies } = feature;
 
-        if (
-          strategies.some(
-            (strategy) => strategy.result.enabled === true,
-          )
-        ) {
+        if (strategies.some((strategy) => strategy.result.enabled === true)) {
           return true;
         }
         if (
-          strategies.some(
-            (strategy) => strategy.result.enabled === 'unknown',
-          )
+          strategies.some((strategy) => strategy.result.enabled === 'unknown')
         ) {
           return 'unknown';
         }
@@ -146,8 +136,7 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
       };
 
       const isEnabled =
-        feature.isEnabledInCurrentEnvironment &&
-        strategyResult() === true;
+        feature.isEnabledInCurrentEnvironment && strategyResult() === true;
 
       // the active variant is the disabled variant if the feature is
       // disabled or has no variants.
@@ -162,14 +151,12 @@ export const generate = (): Arbitrary<PlaygroundFeatureSchema> =>
 
       if (generatedVariants.length && isEnabled) {
         const targetVariant =
-          generatedVariants[
-          activeVariantIndex % generatedVariants.length
-          ];
+          generatedVariants[activeVariantIndex % generatedVariants.length];
         const targetPayload = targetVariant.payload
           ? (targetVariant.payload as {
-            type: 'string' | 'json' | 'csv';
-            value: string;
-          })
+              type: 'string' | 'json' | 'csv';
+              value: string;
+            })
           : undefined;
 
         activeVariant = {
@@ -197,10 +184,7 @@ test('playgroundFeatureSchema', () =>
       generate(),
       fc.context(),
       (data: PlaygroundFeatureSchema, ctx) => {
-        const results = validateSchema(
-          playgroundFeatureSchema.$id,
-          data,
-        );
+        const results = validateSchema(playgroundFeatureSchema.$id, data);
         ctx.log(JSON.stringify(results));
         return results === undefined;
       },

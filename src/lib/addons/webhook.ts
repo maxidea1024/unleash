@@ -2,10 +2,7 @@ import Mustache from 'mustache';
 import Addon from './addon';
 import definition from './webhook-definition';
 import type { IEvent } from '../types/events';
-import {
-  type IAddonConfig,
-  serializeDates,
-} from '../types';
+import { type IAddonConfig, serializeDates } from '../types';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
 import {
   type FeatureEventFormatter,
@@ -69,7 +66,8 @@ export default class Webhook extends Addon {
         extraHeaders = JSON.parse(customHeaders);
       } catch (e) {
         state = 'successWithErrors';
-        const badHeadersMessage = 'Could not parse the JSON in the customHeaders parameter.';
+        const badHeadersMessage =
+          'Could not parse the JSON in the customHeaders parameter.';
         stateDetails.push(badHeadersMessage);
         this.logger.warn(badHeadersMessage);
       }

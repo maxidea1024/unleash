@@ -15,7 +15,8 @@ type Config = Pick<IUnleashConfig, 'getLogger'>;
 
 export class FrontendApiRepository
   extends EventEmitter
-  implements RepositoryInterface {
+  implements RepositoryInterface
+{
   private readonly config: Config;
   private readonly logger: Logger;
   private readonly token: IApiUser;

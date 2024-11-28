@@ -6,8 +6,8 @@
 import type { AdminPermissionSchema } from './adminPermissionSchema';
 
 export type AdminPermissionsSchemaPermissionsEnvironmentsItem = {
-    /** The name of the environment */
-    name: string;
-    /** Permissions available for this environment */
-    permissions: AdminPermissionSchema[];
+  /** The name of the environment */
+  name: string;
+  /** Permissions available for this environment */
+  permissions: AdminPermissionSchema[];
 };

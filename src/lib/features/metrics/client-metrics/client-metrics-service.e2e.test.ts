@@ -64,8 +64,6 @@ test('Apps registered should be announced', async () => {
   const second = await stores.clientApplicationsStore.getUnannounced();
   expect(second.length).toBe(0);
   const events = await stores.eventStore.getEvents();
-  const appCreatedEvents = events.filter(
-    (e) => e.type === APPLICATION_CREATED,
-  );
+  const appCreatedEvents = events.filter((e) => e.type === APPLICATION_CREATED);
   expect(appCreatedEvents.length).toBe(2);
 });

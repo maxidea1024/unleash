@@ -41,16 +41,14 @@ export const contextFieldSchema = {
     },
     usedInFeatures: {
       type: 'integer',
-      description:
-        'Number of projects where this context field is used in',
+      description: 'Number of projects where this context field is used in',
       example: 3,
       nullable: true,
       minimum: 0,
     },
     usedInProjects: {
       type: 'integer',
-      description:
-        'Number of projects where this context field is used in',
+      description: 'Number of projects where this context field is used in',
       example: 2,
       nullable: true,
       minimum: 0,

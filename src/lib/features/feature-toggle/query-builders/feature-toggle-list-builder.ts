@@ -77,11 +77,7 @@ export class FeatureToggleListBuilder {
   };
 
   withSegments = () => {
-    this.internalQuery.leftJoin(
-      'segments',
-      `segments.id`,
-      `fss.segment_id`,
-    );
+    this.internalQuery.leftJoin('segments', `segments.id`, `fss.segment_id`);
 
     return this;
   };

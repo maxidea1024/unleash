@@ -57,7 +57,8 @@ export class SegmentService implements ISegmentService {
     this.featureStrategiesStore = featureStrategiesStore;
     this.eventService = eventService;
     this.changeRequestAccessReadModel = changeRequestAccessReadModel;
-    this.changeRequestSegmentUsageReadModel = changeRequestSegmentUsageReadModel;
+    this.changeRequestSegmentUsageReadModel =
+      changeRequestSegmentUsageReadModel;
     this.privateProjectChecker = privateProjectChecker;
     this.flagResolver = config.flagResolver;
     this.resourceLimits = config.resourceLimits;
@@ -81,7 +82,8 @@ export class SegmentService implements ISegmentService {
     userId: number,
   ): Promise<StrategiesUsingSegment> {
     const allStrategies = await this.getAllStrategies(id);
-    const accessibleProjects = await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const accessibleProjects =
+      await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (accessibleProjects.mode === 'all') {
       return allStrategies;
     } else {
@@ -216,14 +218,10 @@ export class SegmentService implements ISegmentService {
     sourceStrategyId: string,
     targetStrategyId: string,
   ): Promise<void> {
-    const sourceStrategySegments =
-      await this.getByStrategy(sourceStrategyId);
+    const sourceStrategySegments = await this.getByStrategy(sourceStrategyId);
     await Promise.all(
       sourceStrategySegments.map((sourceStrategySegment) => {
-        return this.addToStrategy(
-          sourceStrategySegment.id,
-          targetStrategyId,
-        );
+        return this.addToStrategy(sourceStrategySegment.id, targetStrategyId);
       }),
     );
   }
@@ -289,8 +287,7 @@ export class SegmentService implements ISegmentService {
     const { strategySegmentsLimit } = this.config;
 
     if (
-      (await this.getByStrategy(strategyId)).length >=
-      strategySegmentsLimit
+      (await this.getByStrategy(strategyId)).length >= strategySegmentsLimit
     ) {
       throw new BadDataError(
         `Strategies may not have more than ${strategySegmentsLimit} segments`,

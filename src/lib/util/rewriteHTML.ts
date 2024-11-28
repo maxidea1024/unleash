@@ -13,10 +13,7 @@ export const rewriteHTML = (
 
   result = result.replace(/::uiFlags::/gi, uiFlags || '{}');
 
-  result = result.replace(
-    /\/static/gi,
-    `${cdnPrefix || rewriteValue}/static`,
-  );
+  result = result.replace(/\/static/gi, `${cdnPrefix || rewriteValue}/static`);
 
   return result;
 };

@@ -8,6 +8,6 @@
  * A list of unleash tokens to validate against known tokens
  */
 export interface TokenStringListSchema {
-    /** Tokens that we want to get access information about */
-    tokens: string[];
+  /** Tokens that we want to get access information about */
+  tokens: string[];
 }

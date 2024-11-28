@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestCreateSchemaOneOfOnethreeAction =
-    (typeof ChangeRequestCreateSchemaOneOfOnethreeAction)[keyof typeof ChangeRequestCreateSchemaOneOfOnethreeAction];
+  (typeof ChangeRequestCreateSchemaOneOfOnethreeAction)[keyof typeof ChangeRequestCreateSchemaOneOfOnethreeAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestCreateSchemaOneOfOnethreeAction = {
-    deleteStrategy: 'deleteStrategy',
+  deleteStrategy: 'deleteStrategy',
 } as const;

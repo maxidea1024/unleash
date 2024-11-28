@@ -158,9 +158,7 @@ describe('enterprise extension: enable change requests', () => {
       {
         id: projectId,
         name: 'fake-project-name',
-        changeRequestEnvironments: [
-          { name: 'dev', requiredApprovals: 1 },
-        ],
+        changeRequestEnvironments: [{ name: 'dev', requiredApprovals: 1 }],
       },
       {
         id: 5,
@@ -185,9 +183,7 @@ describe('enterprise extension: enable change requests', () => {
       {
         id: projectId,
         name: 'fake-project-name',
-        changeRequestEnvironments: [
-          { name: 'dev', requiredApprovals: 1 },
-        ],
+        changeRequestEnvironments: [{ name: 'dev', requiredApprovals: 1 }],
       },
       {
         id: 5,
@@ -234,9 +230,7 @@ describe('enterprise extension: enable change requests', () => {
       {
         id: projectId,
         name: 'fake-project-name',
-        changeRequestEnvironments: [
-          { name: 'dev', requiredApprovals: 1 },
-        ],
+        changeRequestEnvironments: [{ name: 'dev', requiredApprovals: 1 }],
       },
       {
         id: 5,
@@ -261,9 +255,7 @@ describe('enterprise extension: enable change requests', () => {
         {
           id: projectId,
           name: 'fake-project-name',
-          changeRequestEnvironments: [
-            { name: 'dev', requiredApprovals: 1 },
-          ],
+          changeRequestEnvironments: [{ name: 'dev', requiredApprovals: 1 }],
         },
         {
           id: 5,
@@ -288,9 +280,7 @@ describe('enterprise extension: enable change requests', () => {
         {
           id: projectId,
           name: 'fake-project-name',
-          changeRequestEnvironments: [
-            { name: 'dev', requiredApprovals: 1 },
-          ],
+          changeRequestEnvironments: [{ name: 'dev', requiredApprovals: 1 }],
         },
         {
           id: 5,
@@ -321,8 +311,7 @@ describe('enterprise extension: enable change requests', () => {
       },
       config,
       {
-        getProjectUsersForRole: async () =>
-          Promise.resolve([{ id: 1 } as any]),
+        getProjectUsersForRole: async () => Promise.resolve([{ id: 1 } as any]),
       } as any,
       {} as any,
       {

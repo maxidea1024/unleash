@@ -54,10 +54,7 @@ beforeAll(async () => {
 
   projectService = createProjectService(db.rawDatabase, config);
 
-  projectInsightsService = createProjectInsightsService(
-    db.rawDatabase,
-    config,
-  );
+  projectInsightsService = createProjectInsightsService(db.rawDatabase, config);
 });
 
 afterAll(async () => {

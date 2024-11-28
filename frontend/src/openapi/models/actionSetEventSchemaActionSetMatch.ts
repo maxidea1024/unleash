@@ -10,10 +10,10 @@ import type { ActionSetEventSchemaActionSetMatchSource } from './actionSetEventS
  * Defines a matching rule for the signal that will trigger the action set
  */
 export type ActionSetEventSchemaActionSetMatch = {
-    /** Match the payload of the signal */
-    payload: ActionSetEventSchemaActionSetMatchPayload;
-    /** Match the source of the signal */
-    source: ActionSetEventSchemaActionSetMatchSource;
-    /** Match the source id of the signal */
-    sourceId: number;
+  /** Match the payload of the signal */
+  payload: ActionSetEventSchemaActionSetMatchPayload;
+  /** Match the source of the signal */
+  source: ActionSetEventSchemaActionSetMatchSource;
+  /** Match the source id of the signal */
+  sourceId: number;
 };

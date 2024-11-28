@@ -6,21 +6,21 @@ import { CacheProvider } from '@emotion/react';
 import { useThemeMode } from 'hooks/useThemeMode';
 
 export const muiCache = createCache({
-    key: 'mui',
-    prepend: true,
+  key: 'mui',
+  prepend: true,
 });
 
 export const ThemeProvider: FC<{ children?: React.ReactNode }> = ({
-    children,
+  children,
 }) => {
-    const { resolveTheme } = useThemeMode();
+  const { resolveTheme } = useThemeMode();
 
-    return (
-        <CacheProvider value={muiCache}>
-            <MuiThemeProvider theme={resolveTheme()}>
-                <CssBaseline />
-                {children}
-            </MuiThemeProvider>
-        </CacheProvider>
-    );
+  return (
+    <CacheProvider value={muiCache}>
+      <MuiThemeProvider theme={resolveTheme()}>
+        <CssBaseline />
+        {children}
+      </MuiThemeProvider>
+    </CacheProvider>
+  );
 };

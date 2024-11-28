@@ -20,9 +20,6 @@ test('deprecatedProjectOverviewSchema', () => {
   ).toBeUndefined();
 
   expect(
-    validateSchema(
-      '#/components/schemas/deprecatedProjectOverviewSchema',
-      {},
-    ),
+    validateSchema('#/components/schemas/deprecatedProjectOverviewSchema', {}),
   ).toMatchSnapshot();
 });

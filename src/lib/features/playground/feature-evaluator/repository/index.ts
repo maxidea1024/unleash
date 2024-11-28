@@ -83,10 +83,7 @@ export default class Repository extends EventEmitter {
 
   private convertToMap(features: FeatureInterface[]): FeatureToggleData {
     const obj = features.reduce(
-      (
-        o: { [s: string]: FeatureInterface },
-        feature: FeatureInterface,
-      ) => {
+      (o: { [s: string]: FeatureInterface }, feature: FeatureInterface) => {
         const a = { ...o };
         a[feature.name] = feature;
         return a;

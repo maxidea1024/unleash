@@ -11,19 +11,19 @@ import { FakeUserSubscriptionsReadModel } from './fake-user-subscriptions-read-m
 
 export const createUserSubscriptionsService =
   (config: IUnleashConfig) =>
-    (db: Db): UserSubscriptionsService => {
-      const userUnsubscribeStore = new UserUnsubscribeStore(db);
-      const userSubscriptionsReadModel = new UserSubscriptionsReadModel(db);
-      const eventService = createEventsService(db, config);
+  (db: Db): UserSubscriptionsService => {
+    const userUnsubscribeStore = new UserUnsubscribeStore(db);
+    const userSubscriptionsReadModel = new UserSubscriptionsReadModel(db);
+    const eventService = createEventsService(db, config);
 
-      const userSubscriptionsService = new UserSubscriptionsService(
-        { userUnsubscribeStore, userSubscriptionsReadModel },
-        config,
-        eventService,
-      );
+    const userSubscriptionsService = new UserSubscriptionsService(
+      { userUnsubscribeStore, userSubscriptionsReadModel },
+      config,
+      eventService,
+    );
 
-      return userSubscriptionsService;
-    };
+    return userSubscriptionsService;
+  };
 
 export const createFakeUserSubscriptionsService = (
   config: IUnleashConfig,

@@ -31,8 +31,7 @@ export class ImportValidationMessages {
     const errors: ImportTogglesValidateItemSchema[] = [];
     if (missingPermissions.length > 0) {
       errors.push({
-        message:
-          'We detected you are missing the following permissions:',
+        message: 'We detected you are missing the following permissions:',
         affectedItems: missingPermissions,
       });
     }
@@ -64,9 +63,7 @@ export class ImportValidationMessages {
       errors.push({
         message:
           'We detected the following context fields that do not have matching legal values with the imported ones:',
-        affectedItems: contextFields.map(
-          (contextField) => contextField.name,
-        ),
+        affectedItems: contextFields.map((contextField) => contextField.name),
       });
     }
     if (otherProjectFeatures.length > 0) {
@@ -89,8 +86,7 @@ export class ImportValidationMessages {
         ? ` For example: "${featureNameCheckResult.featureNaming.example}".`
         : '';
 
-      const descriptionInfo = featureNameCheckResult.featureNaming
-        .description
+      const descriptionInfo = featureNameCheckResult.featureNaming.description
         ? ` The pattern is described as follows: "${featureNameCheckResult.featureNaming.description}"`
         : '';
 
@@ -101,7 +97,7 @@ export class ImportValidationMessages {
     }
     if (
       featureLimitResult.currentFeaturesCount +
-      featureLimitResult.newFeaturesCount >
+        featureLimitResult.newFeaturesCount >
       featureLimitResult.limit
     ) {
       errors.push({

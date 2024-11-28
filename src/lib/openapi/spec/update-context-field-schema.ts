@@ -26,11 +26,7 @@ export const updateContextFieldSchema = {
     legalValues: {
       type: 'array',
       description: 'A list of allowed values for this context field',
-      example: [
-        { value: 'gold' },
-        { value: 'silver' },
-        { value: 'crystal' },
-      ],
+      example: [{ value: 'gold' }, { value: 'silver' }, { value: 'crystal' }],
       items: {
         $ref: '#/components/schemas/legalValueSchema',
       },
@@ -43,4 +39,6 @@ export const updateContextFieldSchema = {
   },
 } as const;
 
-export type UpdateContextFieldSchema = FromSchema<typeof updateContextFieldSchema>;
+export type UpdateContextFieldSchema = FromSchema<
+  typeof updateContextFieldSchema
+>;

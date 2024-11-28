@@ -13,14 +13,14 @@ export type DBProjectEvent = {
 
 export type DBInstanceEvent =
   | {
-    event: 'first-flag' | 'first-pre-live' | 'first-live';
-    time_to_event: number;
-    project?: string;
-  }
+      event: 'first-flag' | 'first-pre-live' | 'first-live';
+      time_to_event: number;
+      project?: string;
+    }
   | {
-    event: 'first-user-login' | 'second-user-login';
-    time_to_event: number;
-  };
+      event: 'first-user-login' | 'second-user-login';
+      time_to_event: number;
+    };
 
 const projectEventLookup: Record<
   ProjectEvent['type'],

@@ -3,21 +3,21 @@ import FeatureOverviewEnvironment from './FeatureOverviewEnvironment/FeatureOver
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 
 const FeatureOverviewEnvironments = () => {
-    const projectId = useRequiredPathParam('projectId');
-    const featureId = useRequiredPathParam('featureId');
-    const { feature } = useFeature(projectId, featureId);
+  const projectId = useRequiredPathParam('projectId');
+  const featureId = useRequiredPathParam('featureId');
+  const { feature } = useFeature(projectId, featureId);
 
-    if (!feature) return null;
+  if (!feature) return null;
 
-    const { environments } = feature;
+  const { environments } = feature;
 
-    return (
-        <>
-            {environments?.map((env) => (
-                <FeatureOverviewEnvironment env={env} key={env.name} />
-            ))}
-        </>
-    );
+  return (
+    <>
+      {environments?.map((env) => (
+        <FeatureOverviewEnvironment env={env} key={env.name} />
+      ))}
+    </>
+  );
 };
 
 export default FeatureOverviewEnvironments;

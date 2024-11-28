@@ -16,10 +16,10 @@ const getLogger = () => {
     error(...args: any[]) {
       records.push(args);
     },
-    debug() { },
-    info() { },
-    warn() { },
-    fatal() { },
+    debug() {},
+    info() {},
+    warn() {},
+    fatal() {},
   });
   const getRecords = () => {
     return records;
@@ -35,7 +35,7 @@ beforeEach(() => {
   const config = createTestConfig();
   const settingStore = new FakeSettingStore();
   const settingService = new SettingService({ settingStore }, config, {
-    storeEvent() { },
+    storeEvent() {},
   } as unknown as EventService);
   const maintenanceService = new MaintenanceService(config, settingService);
   const { logger, getRecords: getRecordsFn } = getLogger();

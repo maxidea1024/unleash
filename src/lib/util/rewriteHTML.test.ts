@@ -8,16 +8,14 @@ const input = fs
 
 test('rewriteHTML substitutes meta tag with existing rewrite value', () => {
   const result = rewriteHTML(input, '/hosted');
-  expect(
-    result.includes('<meta name="baseUriPath" content="/hosted" />'),
-  ).toBe(true);
+  expect(result.includes('<meta name="baseUriPath" content="/hosted" />')).toBe(
+    true,
+  );
 });
 
 test('rewriteHTML substitutes meta tag with empty value', () => {
   const result = rewriteHTML(input, '');
-  expect(result.includes('<meta name="baseUriPath" content="" />')).toBe(
-    true,
-  );
+  expect(result.includes('<meta name="baseUriPath" content="" />')).toBe(true);
 });
 
 test('rewriteHTML substitutes asset paths correctly with baseUriPath', () => {
@@ -56,7 +54,5 @@ test('rewriteHTML swaps out faviconPath if cdnPrefix is set', () => {
 
 test('rewriteHTML sets favicon path to root', () => {
   const result = rewriteHTML(input, '');
-  expect(result.includes('<link rel="icon" href="/favicon.ico" />')).toBe(
-    true,
-  );
+  expect(result.includes('<link rel="icon" href="/favicon.ico" />')).toBe(true);
 });

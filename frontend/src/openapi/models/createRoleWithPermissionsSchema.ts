@@ -10,5 +10,5 @@ import type { CreateRoleWithPermissionsSchemaAnyOfFour } from './createRoleWithP
  * A write model for the custom role and permissions to allow Unleash to decide what actions a role holder is allowed to perform
  */
 export type CreateRoleWithPermissionsSchema =
-    | CreateRoleWithPermissionsSchemaAnyOf
-    | CreateRoleWithPermissionsSchemaAnyOfFour;
+  | CreateRoleWithPermissionsSchemaAnyOf
+  | CreateRoleWithPermissionsSchemaAnyOfFour;

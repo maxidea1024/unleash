@@ -126,7 +126,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async get(name: string): Promise<FeatureToggle> {
     return this.db
@@ -192,15 +192,11 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     if (userId) {
       builder.withFavorites(userId);
       builder.addSelectColumn(
-        this.db.raw(
-          'favorite_features.feature is not null as favorite',
-        ),
+        this.db.raw('favorite_features.feature is not null as favorite'),
       );
     }
 
-    const rows = await builder.internalQuery.select(
-      builder.getSelectColumns(),
-    );
+    const rows = await builder.internalQuery.select(builder.getSelectColumns());
 
     return this.featureToggleRowConverter.buildFeatureToggleListFromRows(
       rows,
@@ -227,9 +223,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
       builder.forProject(featureQuery.project);
     }
 
-    const rows = await builder.internalQuery.select(
-      builder.getSelectColumns(),
-    );
+    const rows = await builder.internalQuery.select(builder.getSelectColumns());
 
     return this.featureToggleRowConverter.buildPlaygroundFeaturesFromRows(
       rows,
@@ -517,9 +511,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
         typeof err.detail === 'string' &&
         err.detail.includes('already exists')
       ) {
-        throw new NameExistsError(
-          `Feature ${data.name} already exists`,
-        );
+        throw new NameExistsError(`Feature ${data.name} already exists`);
       }
       throw err;
     }
@@ -555,10 +547,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     return rows.map((row) => this.rowToFeature(row));
   }
 
-  async batchStale(
-    names: string[],
-    stale: boolean,
-  ): Promise<FeatureToggle[]> {
+  async batchStale(names: string[], stale: boolean): Promise<FeatureToggle[]> {
     const rows = await this.db(TABLE)
       .whereIn('name', names)
       .update({ stale })
@@ -610,11 +599,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     }
     const row = await this.db(`${TABLE} as f`)
       .select('fe.variants')
-      .join(
-        `${FEATURE_ENVIRONMENTS_TABLE} as fe`,
-        'fe.feature_name',
-        'f.name',
-      )
+      .join(`${FEATURE_ENVIRONMENTS_TABLE} as fe`, 'fe.feature_name', 'f.name')
       .where({ name: featureName })
       .limit(1);
 
@@ -683,8 +668,7 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     const featuresToUpdate = (await query).rows
       .filter(
         ({ potentially_stale, current_staleness }) =>
-          (potentially_stale ?? false) !==
-          (current_staleness ?? false),
+          (potentially_stale ?? false) !== (current_staleness ?? false),
       )
       .map(({ current_staleness, name, project }) => ({
         potentiallyStale: current_staleness ?? false,

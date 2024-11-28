@@ -4,22 +4,22 @@ import type { ChangeRequestType } from 'component/changeRequest/changeRequest.ty
 import { ChangeRequestStatusBadge } from 'component/changeRequest/ChangeRequestStatusBadge/ChangeRequestStatusBadge';
 
 interface IChangeRequestStatusCellProps {
-    value?: string | null; // FIXME: proper type
-    row: { original: ChangeRequestType };
+  value?: string | null; // FIXME: proper type
+  row: { original: ChangeRequestType };
 }
 
 export const ChangeRequestStatusCell: VFC<IChangeRequestStatusCellProps> = ({
-    value,
-    row: { original },
+  value,
+  row: { original },
 }) => {
-    const renderState = () => {
-        if (!value) return null;
-        return <ChangeRequestStatusBadge changeRequest={original} />;
-    };
+  const renderState = () => {
+    if (!value) return null;
+    return <ChangeRequestStatusBadge changeRequest={original} />;
+  };
 
-    if (!value) {
-        return <TextCell />;
-    }
+  if (!value) {
+    return <TextCell />;
+  }
 
-    return <TextCell>{renderState()}</TextCell>;
+  return <TextCell>{renderState()}</TextCell>;
 };

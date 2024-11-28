@@ -8,33 +8,33 @@
  * A Unleash user that has been flagged as inactive
  */
 export interface InactiveUserSchema {
-    /** The user was created at this time */
-    createdAt?: string;
-    /** Email of the user */
-    email?: string;
-    /**
-     * The user id
-     * @minimum 0
-     */
-    id: number;
-    /**
-     * Name of the user
-     * @nullable
-     */
-    name?: string | null;
-    /**
-     * The last time this user's PAT token (if any) was used
-     * @nullable
-     */
-    patSeenAt?: string | null;
-    /**
-     * The last time this user logged in
-     * @nullable
-     */
-    seenAt?: string | null;
-    /**
-     * A unique username for the user
-     * @nullable
-     */
-    username?: string | null;
+  /** The user was created at this time */
+  createdAt?: string;
+  /** Email of the user */
+  email?: string;
+  /**
+   * The user id
+   * @minimum 0
+   */
+  id: number;
+  /**
+   * Name of the user
+   * @nullable
+   */
+  name?: string | null;
+  /**
+   * The last time this user's PAT token (if any) was used
+   * @nullable
+   */
+  patSeenAt?: string | null;
+  /**
+   * The last time this user logged in
+   * @nullable
+   */
+  seenAt?: string | null;
+  /**
+   * A unique username for the user
+   * @nullable
+   */
+  username?: string | null;
 }

@@ -66,8 +66,7 @@ test.each([ApiTokenType.ADMIN, ApiTokenType.CLIENT, ApiTokenType.FRONTEND])(
       auditUser,
     );
 
-    const environment =
-      tokenType === ApiTokenType.ADMIN ? '*' : 'production';
+    const environment = tokenType === ApiTokenType.ADMIN ? '*' : 'production';
 
     await expect(
       service.createApiTokenWithProjects(

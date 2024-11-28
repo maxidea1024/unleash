@@ -17,15 +17,13 @@ const toRow = (data: Partial<JobModel>) =>
   defaultToRow<JobModel, Row<JobModel>>(data);
 
 export class JobStore
-  implements IStore<JobModel, { name: string; bucket: Date }> {
+  implements IStore<JobModel, { name: string; bucket: Date }>
+{
   private readonly logger: Logger;
   protected readonly timer: (action: string) => Function;
   private readonly db: Db;
 
-  constructor(
-    db: Db,
-    config: Pick<IUnleashConfig, 'eventBus' | 'getLogger'>,
-  ) {
+  constructor(db: Db, config: Pick<IUnleashConfig, 'eventBus' | 'getLogger'>) {
     this.logger = config.getLogger('job-store.ts');
 
     this.db = db;
@@ -100,7 +98,7 @@ export class JobStore
     return this.db(TABLE).delete();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async count(): Promise<number> {
     return this.db(TABLE)

@@ -12,7 +12,7 @@ import type { CreateApiTokenSchemaOneOfFour } from './createApiTokenSchemaOneOfF
  * The data required to create an [Unleash API token](https://docs.getunleash.io/reference/api-tokens-and-client-keys).
  */
 export type CreateApiTokenSchema =
-    | CreateApiTokenSchemaOneOf
-    | CreateApiTokenSchemaOneOfTwo
-    | CreateApiTokenSchemaOneOfThree
-    | CreateApiTokenSchemaOneOfFour;
+  | CreateApiTokenSchemaOneOf
+  | CreateApiTokenSchemaOneOfTwo
+  | CreateApiTokenSchemaOneOfThree
+  | CreateApiTokenSchemaOneOfFour;

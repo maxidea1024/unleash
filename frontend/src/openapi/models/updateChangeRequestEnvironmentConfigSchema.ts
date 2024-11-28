@@ -8,11 +8,11 @@
  * Data used to update change request in an environment
  */
 export interface UpdateChangeRequestEnvironmentConfigSchema {
-    /** `true` if change requests should be enabled, otherwise `false`. */
-    changeRequestsEnabled: boolean;
-    /**
-     * The number of approvals required before a change request can be applied in this environment.
-     * @minimum 0
-     */
-    requiredApprovals?: number;
+  /** `true` if change requests should be enabled, otherwise `false`. */
+  changeRequestsEnabled: boolean;
+  /**
+   * The number of approvals required before a change request can be applied in this environment.
+   * @minimum 0
+   */
+  requiredApprovals?: number;
 }

@@ -189,9 +189,6 @@ describe('Public Signup API', () => {
     });
     stores.publicSignupTokenStore.update('some-secret', { enabled: false });
 
-    return request
-      .post('/invite/some-secret/signup')
-      .send(user)
-      .expect(400);
+    return request.post('/invite/some-secret/signup').send(user).expect(400);
   });
 });

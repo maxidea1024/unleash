@@ -2,29 +2,29 @@ import type React from 'react';
 import { createContext } from 'react';
 
 export type ShowFeedbackCES = React.Dispatch<
-    React.SetStateAction<IFeedbackCESState | undefined>
+  React.SetStateAction<IFeedbackCESState | undefined>
 >;
 
 export interface IFeedbackCESContext {
-    showFeedbackCES: ShowFeedbackCES;
-    hideFeedbackCES: () => void;
+  showFeedbackCES: ShowFeedbackCES;
+  hideFeedbackCES: () => void;
 }
 
 export interface IFeedbackCESState {
-    path: `/${string}`;
-    title: string;
-    text: string;
+  path: `/${string}`;
+  title: string;
+  text: string;
 }
 
 const showFeedbackCESPlaceholder = () => {
-    throw new Error('showFeedbackCES called outside feedbackCESContext');
+  throw new Error('showFeedbackCES called outside feedbackCESContext');
 };
 
 const hideFeedbackCESPlaceholder = () => {
-    throw new Error('hideFeedbackCES called outside feedbackCESContext');
+  throw new Error('hideFeedbackCES called outside feedbackCESContext');
 };
 
 export const feedbackCESContext = createContext<IFeedbackCESContext>({
-    showFeedbackCES: showFeedbackCESPlaceholder,
-    hideFeedbackCES: hideFeedbackCESPlaceholder,
+  showFeedbackCES: showFeedbackCESPlaceholder,
+  hideFeedbackCES: hideFeedbackCESPlaceholder,
 });

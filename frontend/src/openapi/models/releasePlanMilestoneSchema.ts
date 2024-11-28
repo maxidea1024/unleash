@@ -9,16 +9,16 @@ import type { ReleasePlanMilestoneStrategySchema } from './releasePlanMilestoneS
  * Schema representing the creation of a release plan milestone.
  */
 export interface ReleasePlanMilestoneSchema {
-    /**
-     * The milestone's ID. Milestone IDs are ulids.
-     */
-    id: string;
-    /** The name of the milestone. */
-    name: string;
-    /** The ID of the release plan/template that this milestone belongs to. */
-    releasePlanDefinitionId: string;
-    /** The order of the milestone in the release plan. */
-    sortOrder: number;
-    /** A list of strategies that are attached to this milestone. */
-    strategies?: ReleasePlanMilestoneStrategySchema[];
+  /**
+   * The milestone's ID. Milestone IDs are ulids.
+   */
+  id: string;
+  /** The name of the milestone. */
+  name: string;
+  /** The ID of the release plan/template that this milestone belongs to. */
+  releasePlanDefinitionId: string;
+  /** The order of the milestone in the release plan. */
+  sortOrder: number;
+  /** A list of strategies that are attached to this milestone. */
+  strategies?: ReleasePlanMilestoneStrategySchema[];
 }

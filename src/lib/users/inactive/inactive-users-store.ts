@@ -40,11 +40,7 @@ export class InactiveUsersStore implements IInactiveUsersStore {
         'pat.seen_at AS pat_seen_at',
         'users.created_at AS created_at',
       )
-      .leftJoin(
-        'personal_access_tokens AS pat',
-        'pat.user_id',
-        'users.id',
-      )
+      .leftJoin('personal_access_tokens AS pat', 'pat.user_id', 'users.id')
       .where('deleted_at', null)
       .andWhere('is_service', false)
       .andWhere('is_system', false)

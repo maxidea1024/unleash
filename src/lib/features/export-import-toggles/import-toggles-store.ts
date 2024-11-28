@@ -21,9 +21,7 @@ export class ImportTogglesStore implements IImportTogglesStore {
   async getDisplayPermissions(
     names: string[],
   ): Promise<{ name: string; displayName: string }[]> {
-    const rows = await this.db
-      .from('permissions')
-      .whereIn('permission', names);
+    const rows = await this.db.from('permissions').whereIn('permission', names);
     return rows.map((row) => ({
       name: row.permission,
       displayName: row.display_name,

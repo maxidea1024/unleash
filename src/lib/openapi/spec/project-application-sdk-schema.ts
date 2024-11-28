@@ -9,13 +9,11 @@ export const projectApplicationSdkSchema = {
   properties: {
     name: {
       type: 'string',
-      description:
-        'Name of the SDK package that the application is using.',
+      description: 'Name of the SDK package that the application is using.',
       example: 'unleash-client-node',
     },
     versions: {
-      description:
-        'The versions of the SDK that the application is using.',
+      description: 'The versions of the SDK that the application is using.',
       type: 'array',
       items: {
         type: 'string',

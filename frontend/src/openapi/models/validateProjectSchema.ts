@@ -8,6 +8,6 @@
  * Data used to validate a project ID
  */
 export interface ValidateProjectSchema {
-    /** The project ID to validate */
-    id: string;
+  /** The project ID to validate */
+  id: string;
 }

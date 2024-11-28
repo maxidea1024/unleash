@@ -25,16 +25,13 @@ export const useAIApi = () => {
   const chat = async (message: string): Promise<Chat> => {
     const requestId = 'chat';
 
-    const req = createRequest(
-      `${ENDPOINT}/chat${chatId ? `/${chatId}` : ''}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({
-          message,
-        }),
-        requestId,
-      },
-    );
+    const req = createRequest(`${ENDPOINT}/chat${chatId ? `/${chatId}` : ''}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        message,
+      }),
+      requestId,
+    });
 
     const response = await makeRequest(req.caller, req.id);
     const chat: Chat = await response.json();

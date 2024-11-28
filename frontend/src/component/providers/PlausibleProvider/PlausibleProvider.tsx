@@ -9,54 +9,49 @@ const PLAUSIBLE_UNLEASH_DOMAIN = 'app.unleash-hosted.com';
 const LOCAL_TESTING = false;
 
 export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({
-    children,
+  children,
 }) => {
-    const [context, setContext] = useState<ReturnType<typeof Plausible> | null>(
-        null,
-    );
+  const [context, setContext] = useState<ReturnType<typeof Plausible> | null>(
+    null,
+  );
 
-    const getUIFlags = () => {
-        try {
-            const uiFlagsStr =
-                (
-                    document.querySelector(
-                        'meta[name="uiFlags"]',
-                    ) as HTMLMetaElement
-                )?.content || '{}';
-            return JSON.parse(decodeURI(uiFlagsStr));
-        } catch (e) {
-            return {};
-        }
-    };
+  const getUIFlags = () => {
+    try {
+      const uiFlagsStr =
+        (document.querySelector('meta[name="uiFlags"]') as HTMLMetaElement)
+          ?.content || '{}';
+      return JSON.parse(decodeURI(uiFlagsStr));
+    } catch (e) {
+      return {};
+    }
+  };
 
-    const uiFlags = getUIFlags();
+  const uiFlags = getUIFlags();
 
-    const { uiConfig } = useUiConfig();
-    const isEnabled = Boolean(uiConfig?.flags?.T || uiFlags.T || LOCAL_TESTING);
+  const { uiConfig } = useUiConfig();
+  const isEnabled = Boolean(uiConfig?.flags?.T || uiFlags.T || LOCAL_TESTING);
 
-    useEffect(() => {
-        if (isEnabled) {
-            try {
-                const plausible = Plausible({
-                    domain: LOCAL_TESTING
-                        ? undefined
-                        : PLAUSIBLE_UNLEASH_DOMAIN,
-                    apiHost: LOCAL_TESTING
-                        ? 'http://localhost:8000'
-                        : PLAUSIBLE_UNLEASH_API_HOST,
-                    trackLocalhost: true,
-                });
-                setContext(() => plausible);
-                return plausible.enableAutoPageviews();
-            } catch (error) {
-                console.warn(error);
-            }
-        }
-    }, [isEnabled]);
+  useEffect(() => {
+    if (isEnabled) {
+      try {
+        const plausible = Plausible({
+          domain: LOCAL_TESTING ? undefined : PLAUSIBLE_UNLEASH_DOMAIN,
+          apiHost: LOCAL_TESTING
+            ? 'http://localhost:8000'
+            : PLAUSIBLE_UNLEASH_API_HOST,
+          trackLocalhost: true,
+        });
+        setContext(() => plausible);
+        return plausible.enableAutoPageviews();
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+  }, [isEnabled]);
 
-    return (
-        <PlausibleContext.Provider value={context}>
-            {children}
-        </PlausibleContext.Provider>
-    );
+  return (
+    <PlausibleContext.Provider value={context}>
+      {children}
+    </PlausibleContext.Provider>
+  );
 };

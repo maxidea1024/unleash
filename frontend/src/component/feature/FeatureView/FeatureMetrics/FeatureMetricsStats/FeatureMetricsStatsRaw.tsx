@@ -1,28 +1,28 @@
 import type { IFeatureMetricsRaw } from 'interfaces/featureToggle';
 import { useMemo } from 'react';
 import {
-    FeatureMetricsStats,
-    type IFeatureMetricsStatsProps,
+  FeatureMetricsStats,
+  type IFeatureMetricsStatsProps,
 } from './FeatureMetricsStats';
 
 interface IFeatureMetricsStatsRawProps
-    extends Omit<IFeatureMetricsStatsProps, 'totalYes' | 'totalNo'> {
-    metrics: IFeatureMetricsRaw[];
+  extends Omit<IFeatureMetricsStatsProps, 'totalYes' | 'totalNo'> {
+  metrics: IFeatureMetricsRaw[];
 }
 
 export const FeatureMetricsStatsRaw = ({
-    metrics,
-    ...rest
+  metrics,
+  ...rest
 }: IFeatureMetricsStatsRawProps) => {
-    const totalYes = useMemo(() => {
-        return metrics.reduce((acc, m) => acc + m.yes, 0);
-    }, [metrics]);
+  const totalYes = useMemo(() => {
+    return metrics.reduce((acc, m) => acc + m.yes, 0);
+  }, [metrics]);
 
-    const totalNo = useMemo(() => {
-        return metrics.reduce((acc, m) => acc + m.no, 0);
-    }, [metrics]);
+  const totalNo = useMemo(() => {
+    return metrics.reduce((acc, m) => acc + m.no, 0);
+  }, [metrics]);
 
-    return (
-        <FeatureMetricsStats {...rest} totalYes={totalYes} totalNo={totalNo} />
-    );
+  return (
+    <FeatureMetricsStats {...rest} totalYes={totalYes} totalNo={totalNo} />
+  );
 };

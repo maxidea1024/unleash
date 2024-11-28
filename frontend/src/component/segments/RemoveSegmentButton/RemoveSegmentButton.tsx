@@ -1,8 +1,8 @@
 import type { ISegment } from 'interfaces/segment';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import {
-    DELETE_SEGMENT,
-    UPDATE_PROJECT_SEGMENT,
+  DELETE_SEGMENT,
+  UPDATE_PROJECT_SEGMENT,
 } from 'component/providers/AccessProvider/permissions';
 import Delete from '@mui/icons-material/Delete';
 import { SEGMENT_DELETE_BTN_ID } from 'utils/testIds';
@@ -16,53 +16,53 @@ import { useState } from 'react';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 
 interface IRemoveSegmentButtonProps {
-    segment: ISegment;
+  segment: ISegment;
 }
 
 export const RemoveSegmentButton = ({ segment }: IRemoveSegmentButtonProps) => {
-    const projectId = useOptionalPathParam('projectId');
-    const { refetchSegments } = useSegments();
-    const { deleteSegment } = useSegmentsApi();
-    const { setToastData, setToastApiError } = useToast();
-    const [showModal, toggleModal] = useState(false);
+  const projectId = useOptionalPathParam('projectId');
+  const { refetchSegments } = useSegments();
+  const { deleteSegment } = useSegmentsApi();
+  const { setToastData, setToastApiError } = useToast();
+  const [showModal, toggleModal] = useState(false);
 
-    const onRemove = async () => {
-        try {
-            await deleteSegment(segment.id);
-            await refetchSegments();
-            setToastData({
-                type: 'success',
-                title: 'Successfully deleted segment',
-            });
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        } finally {
-            toggleModal(false);
-        }
-    };
+  const onRemove = async () => {
+    try {
+      await deleteSegment(segment.id);
+      await refetchSegments();
+      setToastData({
+        type: 'success',
+        title: 'Successfully deleted segment',
+      });
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
+    } finally {
+      toggleModal(false);
+    }
+  };
 
-    return (
-        <>
-            <PermissionIconButton
-                onClick={() => toggleModal(true)}
-                permission={[DELETE_SEGMENT, UPDATE_PROJECT_SEGMENT]}
-                projectId={projectId}
-                tooltipProps={{ title: 'Remove segment' }}
-                data-testid={`${SEGMENT_DELETE_BTN_ID}_${segment.name}`}
-            >
-                <Delete data-loading />
-            </PermissionIconButton>
-            <ConditionallyRender
-                condition={showModal}
-                show={() => (
-                    <SegmentDelete
-                        segment={segment}
-                        open={showModal}
-                        onClose={() => toggleModal(false)}
-                        onRemove={onRemove}
-                    />
-                )}
-            />
-        </>
-    );
+  return (
+    <>
+      <PermissionIconButton
+        onClick={() => toggleModal(true)}
+        permission={[DELETE_SEGMENT, UPDATE_PROJECT_SEGMENT]}
+        projectId={projectId}
+        tooltipProps={{ title: 'Remove segment' }}
+        data-testid={`${SEGMENT_DELETE_BTN_ID}_${segment.name}`}
+      >
+        <Delete data-loading />
+      </PermissionIconButton>
+      <ConditionallyRender
+        condition={showModal}
+        show={() => (
+          <SegmentDelete
+            segment={segment}
+            open={showModal}
+            onClose={() => toggleModal(false)}
+            onRemove={onRemove}
+          />
+        )}
+      />
+    </>
+  );
 };

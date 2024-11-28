@@ -27,7 +27,7 @@ import type { IAddonDefinition } from '../types/model';
 import { minutesToMilliseconds } from 'date-fns';
 import type EventService from '../features/events/event-service';
 import { omitKeys } from '../util';
-import { IntegrationEventsService } from '../internals';
+import type { IntegrationEventsService } from '../internals';
 
 const SUPPORTED_EVENTS = Object.keys(events).map((k) => events[k]);
 
@@ -105,9 +105,9 @@ export default class AddonService {
       (p) => p.definition,
     );
     return providerDefinitions.reduce((obj, definition) => {
-      const sensitiveParams = definition.parameters
-        ?.filter((p) => p.sensitive)
-        .map((p) => p.name) || [];
+      const sensitiveParams =
+        definition.parameters?.filter((p) => p.sensitive).map((p) => p.name) ||
+        [];
 
       const o = { ...obj };
       o[definition.name] = sensitiveParams;
@@ -194,10 +194,7 @@ export default class AddonService {
       const createTags = tagTypes.map(async (tagType) => {
         try {
           await this.tagTypeService.validateUnique(tagType.name);
-          await this.tagTypeService.createTagType(
-            tagType,
-            SYSTEM_USER_AUDIT,
-          );
+          await this.tagTypeService.createTagType(tagType, SYSTEM_USER_AUDIT);
         } catch (err) {
           if (!(err instanceof NameExistsError)) {
             this.logger.error(err);
@@ -300,24 +297,19 @@ export default class AddonService {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async validateRequiredParameters({
-    provider,
-    parameters,
-  }): Promise<boolean> {
+  async validateRequiredParameters({ provider, parameters }): Promise<boolean> {
     const providerDefinition = this.addonProviders[provider].definition;
 
-    const requiredParamsMissing = providerDefinition.parameters
-      ?.filter((p) => p.required)
-      .map((p) => p.name)
-      .filter(
-        (requiredParam) =>
-          !Object.keys(parameters).includes(requiredParam),
-      ) || [];
+    const requiredParamsMissing =
+      providerDefinition.parameters
+        ?.filter((p) => p.required)
+        .map((p) => p.name)
+        .filter(
+          (requiredParam) => !Object.keys(parameters).includes(requiredParam),
+        ) || [];
     if (requiredParamsMissing.length > 0) {
       throw new ValidationError(
-        `Missing required parameters: ${requiredParamsMissing.join(
-          ',',
-        )} `,
+        `Missing required parameters: ${requiredParamsMissing.join(',')} `,
         [],
         undefined,
       );
@@ -326,8 +318,6 @@ export default class AddonService {
   }
 
   destroy(): void {
-    Object.values(this.addonProviders).forEach((addon) =>
-      addon.destroy?.(),
-    );
+    Object.values(this.addonProviders).forEach((addon) => addon.destroy?.());
   }
 }

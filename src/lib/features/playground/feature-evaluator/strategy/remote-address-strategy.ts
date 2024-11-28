@@ -12,24 +12,20 @@ export default class RemoteAddressStrategy extends Strategy {
       return false;
     }
 
-    return parameters.IPs.split(/\s*,\s*/).some(
-      (range: string): Boolean => {
-        if (range === context.remoteAddress) {
-          return true;
+    return parameters.IPs.split(/\s*,\s*/).some((range: string): Boolean => {
+      if (range === context.remoteAddress) {
+        return true;
+      }
+      if (Address4.isValid(range)) {
+        try {
+          const subnetRange = new Address4(range);
+          const remoteAddress = new Address4(context.remoteAddress || '');
+          return remoteAddress.isInSubnet(subnetRange);
+        } catch (err) {
+          return false;
         }
-        if (Address4.isValid(range)) {
-          try {
-            const subnetRange = new Address4(range);
-            const remoteAddress = new Address4(
-              context.remoteAddress || '',
-            );
-            return remoteAddress.isInSubnet(subnetRange);
-          } catch (err) {
-            return false;
-          }
-        }
-        return false;
-      },
-    );
+      }
+      return false;
+    });
   }
 }

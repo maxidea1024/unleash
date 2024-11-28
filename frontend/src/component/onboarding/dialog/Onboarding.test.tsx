@@ -7,69 +7,69 @@ import { resizeScreen } from 'utils/resizeScreen';
 const server = testServerSetup();
 
 const setupApi = () => {
-    testServerRoute(server, '/api/admin/projects/default/api-tokens', {
-        tokens: [
-            {
-                environment: 'production',
-                type: 'client',
-                secret: 'default:development.5c4150866d',
-            },
-        ],
-    });
+  testServerRoute(server, '/api/admin/projects/default/api-tokens', {
+    tokens: [
+      {
+        environment: 'production',
+        type: 'client',
+        secret: 'default:development.5c4150866d',
+      },
+    ],
+  });
 
-    testServerRoute(server, '/api/admin/ui-config', {
-        versionInfo: {
-            current: { oss: 'irrelevant', enterprise: 'some value' },
-        },
-    });
+  testServerRoute(server, '/api/admin/ui-config', {
+    versionInfo: {
+      current: { oss: 'irrelevant', enterprise: 'some value' },
+    },
+  });
 };
 
 test('Onboarding for SDK', async () => {
-    setupApi();
-    // on smaller screens we don't show concepts definitions
-    resizeScreen(2000);
+  setupApi();
+  // on smaller screens we don't show concepts definitions
+  resizeScreen(2000);
 
-    render(
-        <ConnectSdkDialog
-            project='default'
-            onClose={() => {}}
-            open={true}
-            environments={['development', 'production']}
-            feature='featureA'
-            onFinish={() => {}}
-        />,
-    );
+  render(
+    <ConnectSdkDialog
+      project='default'
+      onClose={() => {}}
+      open={true}
+      environments={['development', 'production']}
+      feature='featureA'
+      onFinish={() => {}}
+    />,
+  );
 
-    screen.getByText('1/3 - Choose SDK');
-    screen.getByText('Select SDK');
-    screen.getByText('SDKs and Unleash');
+  screen.getByText('1/3 - Choose SDK');
+  screen.getByText('Select SDK');
+  screen.getByText('SDKs and Unleash');
 
-    const node = screen.getAllByText('Select')[0];
+  const node = screen.getAllByText('Select')[0];
 
-    fireEvent.click(node);
+  fireEvent.click(node);
 
-    screen.getByText('2/3 - Generate API Key');
-    screen.getByText('API Key');
-    screen.getByText('Flags live in projects');
-    screen.getByText('development');
-    await screen.findByText('Generate API Key');
+  screen.getByText('2/3 - Generate API Key');
+  screen.getByText('API Key');
+  screen.getByText('Flags live in projects');
+  screen.getByText('development');
+  await screen.findByText('Generate API Key');
 
-    const envWithoutKey = screen.getByText('development');
-    fireEvent.click(envWithoutKey);
+  const envWithoutKey = screen.getByText('development');
+  fireEvent.click(envWithoutKey);
 
-    const envWithKey = screen.getByText('production');
-    fireEvent.click(envWithKey);
-    await screen.findByText('The API key secret');
-    await screen.findByText('5c4150866d');
+  const envWithKey = screen.getByText('production');
+  fireEvent.click(envWithKey);
+  await screen.findByText('The API key secret');
+  await screen.findByText('5c4150866d');
 
-    const next = screen.getByText('Next');
+  const next = screen.getByText('Next');
 
-    await waitFor(() => {
-        expect(next).toBeEnabled();
-    });
+  await waitFor(() => {
+    expect(next).toBeEnabled();
+  });
 
-    fireEvent.click(next);
+  fireEvent.click(next);
 
-    await screen.findByText('npm install unleash-client');
-    await screen.findByText('Connection status');
+  await screen.findByText('npm install unleash-client');
+  await screen.findByText('Connection status');
 });

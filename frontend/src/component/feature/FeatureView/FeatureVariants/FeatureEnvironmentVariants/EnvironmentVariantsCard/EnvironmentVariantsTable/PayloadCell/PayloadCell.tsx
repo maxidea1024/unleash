@@ -6,48 +6,44 @@ import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import type { IPayload } from 'interfaces/featureToggle';
 
 const StyledItem = styled(Typography)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallerBody,
-    whiteSpace: 'pre-wrap',
+  fontSize: theme.fontSizes.smallerBody,
+  whiteSpace: 'pre-wrap',
 }));
 
 interface IPayloadCellProps {
-    value?: IPayload;
+  value?: IPayload;
 }
 
 export const PayloadCell = ({ value: payload }: IPayloadCellProps) => {
-    const { searchQuery } = useSearchHighlightContext();
+  const { searchQuery } = useSearchHighlightContext();
 
-    if (!payload) return <TextCell />;
+  if (!payload) return <TextCell />;
 
-    if (payload.type === 'string' && payload.value.length < 20) {
-        return (
-            <TextCell>
-                <Highlighter search={searchQuery}>{payload.value}</Highlighter>
-            </TextCell>
-        );
-    }
-
+  if (payload.type === 'string' && payload.value.length < 20) {
     return (
-        <TextCell>
-            <TooltipLink
-                tooltip={
-                    <>
-                        <StyledItem>
-                            <Highlighter search={searchQuery}>
-                                {payload.value}
-                            </Highlighter>
-                        </StyledItem>
-                    </>
-                }
-                highlighted={
-                    searchQuery.length > 0 &&
-                    payload.value
-                        .toLowerCase()
-                        .includes(searchQuery.toLowerCase())
-                }
-            >
-                {payload.type}
-            </TooltipLink>
-        </TextCell>
+      <TextCell>
+        <Highlighter search={searchQuery}>{payload.value}</Highlighter>
+      </TextCell>
     );
+  }
+
+  return (
+    <TextCell>
+      <TooltipLink
+        tooltip={
+          <>
+            <StyledItem>
+              <Highlighter search={searchQuery}>{payload.value}</Highlighter>
+            </StyledItem>
+          </>
+        }
+        highlighted={
+          searchQuery.length > 0 &&
+          payload.value.toLowerCase().includes(searchQuery.toLowerCase())
+        }
+      >
+        {payload.type}
+      </TooltipLink>
+    </TextCell>
+  );
 };

@@ -1,8 +1,8 @@
 import { createTestConfig } from '../../../config/test-config';
 import {
-    type IUnleashConfig,
-    type IUnleashStores,
-    TEST_AUDIT_USER,
+  type IUnleashConfig,
+  type IUnleashStores,
+  TEST_AUDIT_USER,
 } from '../../../../lib/types';
 import UserService from '../../../../lib/services/user-service';
 import { AccessService } from '../../../../lib/services/access-service';
@@ -22,86 +22,86 @@ let app: IUnleashTest;
 let stores: IUnleashStores;
 let db: ITestDb;
 const config: IUnleashConfig = createTestConfig({
-    getLogger,
-    server: {
-        unleashUrl: 'http://localhost:3000',
-        baseUriPath: '',
-    },
-    email: {
-        host: 'test',
-    },
+  getLogger,
+  server: {
+    unleashUrl: 'http://localhost:3000',
+    baseUriPath: '',
+  },
+  email: {
+    host: 'test',
+  },
 });
 const password = 'DtUYwi&l5I1KX4@Le';
 let userService: UserService;
 let adminUser: IUser;
 
 beforeAll(async () => {
-    db = await dbInit('simple_password_provider_api_serial', getLogger);
-    stores = db.stores;
-    app = await setupApp(stores);
-    const eventService = createEventsService(db.rawDatabase, config);
-    const groupService = new GroupService(stores, config, eventService);
-    const accessService = new AccessService(
-        stores,
-        config,
-        groupService,
-        eventService,
-    );
-    const resetTokenService = new ResetTokenService(stores, config);
-    const emailService = new EmailService(config);
-    const sessionService = new SessionService(stores, config);
-    const settingService = new SettingService(stores, config, eventService);
+  db = await dbInit('simple_password_provider_api_serial', getLogger);
+  stores = db.stores;
+  app = await setupApp(stores);
+  const eventService = createEventsService(db.rawDatabase, config);
+  const groupService = new GroupService(stores, config, eventService);
+  const accessService = new AccessService(
+    stores,
+    config,
+    groupService,
+    eventService,
+  );
+  const resetTokenService = new ResetTokenService(stores, config);
+  const emailService = new EmailService(config);
+  const sessionService = new SessionService(stores, config);
+  const settingService = new SettingService(stores, config, eventService);
 
-    userService = new UserService(stores, config, {
-        accessService,
-        resetTokenService,
-        emailService,
-        eventService,
-        sessionService,
-        settingService,
-    });
-    const adminRole = await accessService.getPredefinedRole(RoleName.ADMIN);
-    adminUser = await userService.createUser(
-        {
-            username: 'admin@test.com',
-            email: 'admin@test.com',
-            rootRole: adminRole!.id,
-            password: password,
-        },
-        TEST_AUDIT_USER,
-    );
+  userService = new UserService(stores, config, {
+    accessService,
+    resetTokenService,
+    emailService,
+    eventService,
+    sessionService,
+    settingService,
+  });
+  const adminRole = await accessService.getPredefinedRole(RoleName.ADMIN);
+  adminUser = await userService.createUser(
+    {
+      username: 'admin@test.com',
+      email: 'admin@test.com',
+      rootRole: adminRole!.id,
+      password: password,
+    },
+    TEST_AUDIT_USER,
+  );
 });
 
 beforeEach(async () => {
-    app = await setupApp(stores);
+  app = await setupApp(stores);
 });
 
 afterEach(async () => {
-    await app.destroy();
+  await app.destroy();
 });
 
 afterAll(async () => {
-    await db.destroy();
+  await db.destroy();
 });
 
 test('Can log in', async () => {
-    await app.request
-        .post('/auth/simple/login')
-        .send({
-            username: adminUser.username,
-            password,
-        })
-        .expect(200);
+  await app.request
+    .post('/auth/simple/login')
+    .send({
+      username: adminUser.username,
+      password,
+    })
+    .expect(200);
 });
 
 test('Gets rate limited after 10 tries', async () => {
-    for (const statusCode of [...Array(10).fill(200), 429]) {
-        await app.request
-            .post('/auth/simple/login')
-            .send({
-                username: adminUser.username,
-                password,
-            })
-            .expect(statusCode);
-    }
+  for (const statusCode of [...Array(10).fill(200), 429]) {
+    await app.request
+      .post('/auth/simple/login')
+      .send({
+        username: adminUser.username,
+        password,
+      })
+      .expect(statusCode);
+  }
 });

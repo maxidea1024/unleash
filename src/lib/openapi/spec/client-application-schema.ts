@@ -56,18 +56,14 @@ export const clientApplicationSchema = {
     },
     interval: {
       type: 'number',
-      description:
-        'How often (in seconds) does the client refresh its toggles',
+      description: 'How often (in seconds) does the client refresh its toggles',
       example: 10,
       minimum: 0,
     },
     started: {
       description:
         'Either an RFC-3339 timestamp or a unix timestamp in seconds',
-      oneOf: [
-        { type: 'string', format: 'date-time' },
-        { type: 'number' },
-      ],
+      oneOf: [{ type: 'string', format: 'date-time' }, { type: 'number' }],
       example: '2023-06-13T16:35:00.000Z',
     },
     strategies: {

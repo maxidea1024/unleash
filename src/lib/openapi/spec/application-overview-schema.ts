@@ -20,15 +20,13 @@ export const applicationOverviewSchema = {
       example: ['default', 'payment'],
     },
     featureCount: {
-      description:
-        'The number of features the application has been using.',
+      description: 'The number of features the application has been using.',
       type: 'number',
       example: 5,
     },
     environments: {
       type: 'array',
-      description:
-        'The list of environments the application has been using.',
+      description: 'The list of environments the application has been using.',
       items: {
         $ref: '#/components/schemas/applicationOverviewEnvironmentSchema',
       },

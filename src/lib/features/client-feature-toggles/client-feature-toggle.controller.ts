@@ -156,9 +156,7 @@ export default class FeatureController extends Controller {
     ]);
   }
 
-  private async resolveQuery(
-    req: IAuthRequest,
-  ): Promise<IFeatureToggleQuery> {
+  private async resolveQuery(req: IAuthRequest): Promise<IFeatureToggleQuery> {
     const { user, query } = req;
 
     const override: QueryOverride = {};
@@ -246,10 +244,7 @@ export default class FeatureController extends Controller {
       );
     }
 
-    const [features, segments] = await this.featuresAndSegments(
-      query,
-      etag,
-    );
+    const [features, segments] = await this.featuresAndSegments(query, etag);
 
     if (this.clientSpecService.requestSupportsSpec(req, 'segments')) {
       this.openApiService.respondWithValidation(
@@ -293,8 +288,7 @@ export default class FeatureController extends Controller {
     const featureQuery = await this.resolveQuery(req);
     const q = { ...featureQuery, namePrefix: name };
 
-    const toggles =
-      await this.clientFeatureToggleService.getClientFeatures(q);
+    const toggles = await this.clientFeatureToggleService.getClientFeatures(q);
 
     const toggle = toggles.find((t) => t.name === name);
     if (!toggle) {

@@ -11,72 +11,68 @@ import { MobileNavigationSidebar } from 'component/layout/MainLayout/NavigationS
 import { NewInUnleash } from 'component/layout/MainLayout/NavigationSidebar/NewInUnleash/NewInUnleash';
 
 const StyledDrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'start',
-    '& svg': {
-        width: '100%',
-        height: '100%',
-        maxHeight: theme.spacing(8),
-        padding: theme.spacing(0.5),
-    },
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'start',
+  '& svg': {
+    width: '100%',
+    height: '100%',
+    maxHeight: theme.spacing(8),
+    padding: theme.spacing(0.5),
+  },
 }));
 
 interface IDrawerMenuProps {
-    title?: string;
-    open?: boolean;
-    toggleDrawer: () => void;
-    links: Array<{
-        value: string;
-        icon: ReactNode;
-        href: string;
-        title: string;
-    }>;
-    routes: {
-        mainNavRoutes: INavigationMenuItem[];
-        mobileRoutes: INavigationMenuItem[];
-        adminRoutes: INavigationMenuItem[];
-    };
+  title?: string;
+  open?: boolean;
+  toggleDrawer: () => void;
+  links: Array<{
+    value: string;
+    icon: ReactNode;
+    href: string;
+    title: string;
+  }>;
+  routes: {
+    mainNavRoutes: INavigationMenuItem[];
+    mobileRoutes: INavigationMenuItem[];
+    adminRoutes: INavigationMenuItem[];
+  };
 }
 
 export const DrawerMenu: VFC<IDrawerMenuProps> = ({
-    links = [],
-    open = false,
-    toggleDrawer,
-    routes,
+  links = [],
+  open = false,
+  toggleDrawer,
+  routes,
 }) => {
-    return (
-        <Drawer
-            className={styles.drawer}
-            open={open}
-            anchor='left'
-            onClose={toggleDrawer}
-            style={{ zIndex: theme.zIndex.snackbar + 1 }}
-        >
-            <nav id='header-drawer' className={styles.drawerContainer}>
-                <StyledDrawerHeader>
-                    <Link
-                        to='/'
-                        className={styles.drawerTitle}
-                        aria-label='Home'
-                        onClick={() => toggleDrawer()}
-                    >
-                        <ThemeMode
-                            darkmode={
-                                <UnleashLogoWhite aria-label='Unleash logo' />
-                            }
-                            lightmode={
-                                <UnleashLogo aria-label='Unleash logo' />
-                            }
-                        />
-                    </Link>
-                </StyledDrawerHeader>
-                <Divider />
-                <MobileNavigationSidebar
-                    onClick={toggleDrawer}
-                    NewInUnleash={NewInUnleash}
-                />
-            </nav>
-        </Drawer>
-    );
+  return (
+    <Drawer
+      className={styles.drawer}
+      open={open}
+      anchor='left'
+      onClose={toggleDrawer}
+      style={{ zIndex: theme.zIndex.snackbar + 1 }}
+    >
+      <nav id='header-drawer' className={styles.drawerContainer}>
+        <StyledDrawerHeader>
+          <Link
+            to='/'
+            className={styles.drawerTitle}
+            aria-label='Home'
+            onClick={() => toggleDrawer()}
+          >
+            <ThemeMode
+              darkmode={<UnleashLogoWhite aria-label='Unleash logo' />}
+              lightmode={<UnleashLogo aria-label='Unleash logo' />}
+            />
+          </Link>
+        </StyledDrawerHeader>
+        <Divider />
+        <MobileNavigationSidebar
+          onClick={toggleDrawer}
+          NewInUnleash={NewInUnleash}
+        />
+      </nav>
+    </Drawer>
+  );
 };

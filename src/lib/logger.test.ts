@@ -2,9 +2,9 @@ import * as logger from './logger';
 
 test('should require custom logger to implement info', () => {
   const loggerImpl = {
-    debug: () => { },
-    warn: () => { },
-    error: () => { },
+    debug: () => {},
+    warn: () => {},
+    error: () => {},
   };
   const provider = () => loggerImpl;
   expect(() => {
@@ -15,9 +15,9 @@ test('should require custom logger to implement info', () => {
 
 test('should require custom logger to implement error', () => {
   const loggerImpl = {
-    debug: () => { },
-    warn: () => { },
-    info: () => { },
+    debug: () => {},
+    warn: () => {},
+    info: () => {},
   };
   const provider = () => loggerImpl;
   expect(() => {

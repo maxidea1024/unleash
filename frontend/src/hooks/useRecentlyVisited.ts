@@ -40,8 +40,7 @@ export const useRecentlyVisited = () => {
   const pageEquals = (existing: LastViewedPage, page: LastViewedPage) => {
     if (existing.featureId && existing.featureId === page.featureId)
       return true;
-    if (existing.pathName && existing.pathName === page.pathName)
-      return true;
+    if (existing.pathName && existing.pathName === page.pathName) return true;
     if (
       existing.projectId &&
       !existing.featureId &&
@@ -55,9 +54,7 @@ export const useRecentlyVisited = () => {
   const setCappedLastVisited = useCallback(
     (page: LastViewedPage) => {
       if (page.featureId && !page.projectId) return;
-      const filtered = lastVisited.filter(
-        (item) => !pageEquals(item, page),
-      );
+      const filtered = lastVisited.filter((item) => !pageEquals(item, page));
       const updatedLastVisited = [page, ...filtered];
 
       const sliced =

@@ -70,8 +70,7 @@ const toRow = (newToken: IApiTokenCreate) => ({
   token_name: newToken.tokenName ?? newToken.username,
   secret: newToken.secret,
   type: newToken.type,
-  environment:
-    newToken.environment === ALL ? undefined : newToken.environment,
+  environment: newToken.environment === ALL ? undefined : newToken.environment,
   expires_at: newToken.expiresAt,
   alias: newToken.alias || null,
 });
@@ -173,20 +172,19 @@ export class ApiTokenStore implements IApiTokenStore {
 
   async insert(newToken: IApiTokenCreate): Promise<IApiToken> {
     const response = await inTransaction(this.db, async (tx) => {
-      const [row] = await tx<ITokenInsert>(TABLE).insert(
-        toRow(newToken),
-        ['created_at'],
-      );
+      const [row] = await tx<ITokenInsert>(TABLE).insert(toRow(newToken), [
+        'created_at',
+      ]);
 
       const updateProjectTasks = (newToken.projects || [])
         .filter((project) => {
           return project !== ALL_PROJECTS;
         })
         .map((project) => {
-          return tx.raw(
-            `INSERT INTO ${API_LINK_TABLE} VALUES (?, ?)`,
-            [newToken.secret, project],
-          );
+          return tx.raw(`INSERT INTO ${API_LINK_TABLE} VALUES (?, ?)`, [
+            newToken.secret,
+            project,
+          ]);
         });
       await Promise.all(updateProjectTasks);
       return {
@@ -200,7 +198,7 @@ export class ApiTokenStore implements IApiTokenStore {
     return response;
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(secret: string): Promise<boolean> {
     const result = await this.db.raw(
@@ -213,10 +211,7 @@ export class ApiTokenStore implements IApiTokenStore {
 
   async get(key: string): Promise<IApiToken> {
     const stopTimer = this.timer('get-by-secret');
-    const row = await this.makeTokenProjectQuery().where(
-      'tokens.secret',
-      key,
-    );
+    const row = await this.makeTokenProjectQuery().where('tokens.secret', key);
     stopTimer();
     return toTokens(row)[0];
   }
@@ -243,9 +238,7 @@ export class ApiTokenStore implements IApiTokenStore {
   async markSeenAt(secrets: string[]): Promise<void> {
     const now = new Date();
     try {
-      await this.db(TABLE)
-        .whereIn('secret', secrets)
-        .update({ seen_at: now });
+      await this.db(TABLE).whereIn('secret', secrets).update({ seen_at: now });
     } catch (err) {
       this.logger.error('Could not update lastSeen, error: ', err);
     }

@@ -108,9 +108,7 @@ export default class ProjectController extends Controller {
           description:
             'This endpoint returns an overview of the specified projects stats, project health, number of members, which environments are configured, and the features in the project.',
           responses: {
-            200: createResponseSchema(
-              'deprecatedProjectOverviewSchema',
-            ),
+            200: createResponseSchema('deprecatedProjectOverviewSchema'),
             ...getStandardResponses(401, 403, 404),
           },
         }),
@@ -260,12 +258,10 @@ export default class ProjectController extends Controller {
     const projectsWithOwners =
       await this.projectService.addOwnersToProjects(projects);
 
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      projectsSchema.$id,
-      { version: 1, projects: serializeDates(projectsWithOwners) },
-    );
+    this.openApiService.respondWithValidation(200, res, projectsSchema.$id, {
+      version: 1,
+      projects: serializeDates(projectsWithOwners),
+    });
   }
 
   async getDeprecatedProjectOverview(
@@ -383,9 +379,7 @@ export default class ProjectController extends Controller {
   ) {
     const { projectId } = req.params;
     const outdatedSdks =
-      await this.clientInstanceService.getOutdatedSdksByProject(
-        projectId,
-      );
+      await this.clientInstanceService.getOutdatedSdksByProject(projectId);
 
     this.openApiService.respondWithValidation(
       200,

@@ -8,6 +8,6 @@
  * The feature list used for bulk toggle operations
  */
 export interface BulkToggleFeaturesSchema {
-    /** The features that we want to bulk toggle */
-    features: string[];
+  /** The features that we want to bulk toggle */
+  features: string[];
 }

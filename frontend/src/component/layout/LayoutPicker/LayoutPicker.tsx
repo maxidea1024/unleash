@@ -3,17 +3,17 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { MainLayout } from '../MainLayout/MainLayout';
 
 interface ILayoutPickerProps {
-    children: ReactNode;
-    isStandalone?: boolean;
+  children: ReactNode;
+  isStandalone?: boolean;
 }
 
 export const LayoutPicker: FC<ILayoutPickerProps> = ({
-    isStandalone,
-    children,
+  isStandalone,
+  children,
 }) => (
-    <ConditionallyRender
-        condition={isStandalone === true}
-        show={children}
-        elseShow={<MainLayout>{children}</MainLayout>}
-    />
+  <ConditionallyRender
+    condition={isStandalone === true}
+    show={children}
+    elseShow={<MainLayout>{children}</MainLayout>}
+  />
 );

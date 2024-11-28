@@ -80,7 +80,7 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
   async deleteAll(): Promise<void> {
     await this.db(TABLE).del();
   }
-  destroy(): void { }
+  destroy(): void {}
 
   async upsert(trafficDataUsage: IStatTrafficUsage): Promise<void> {
     const row = toRow(trafficDataUsage);

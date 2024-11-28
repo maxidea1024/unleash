@@ -60,7 +60,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
     await this.db(T.FAVORITE_FEATURES).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({ userId, feature }: IFavoriteFeatureKey): Promise<boolean> {
     const result = await this.db.raw(

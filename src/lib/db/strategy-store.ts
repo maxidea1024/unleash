@@ -86,7 +86,7 @@ export default class StrategyStore implements IStrategyStore {
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(name: string): Promise<boolean> {
     const result = await this.db.raw(

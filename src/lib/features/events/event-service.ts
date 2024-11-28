@@ -56,8 +56,7 @@ export default class EventService {
   async deprecatedSearchEvents(
     search: DeprecatedSearchEventsSchema,
   ): Promise<IEventList> {
-    const totalEvents =
-      await this.eventStore.deprecatedFilteredCount(search);
+    const totalEvents = await this.eventStore.deprecatedFilteredCount(search);
     const events = await this.eventStore.deprecatedSearchEvents(search);
     return {
       events,
@@ -69,12 +68,10 @@ export default class EventService {
     search: IEventSearchParams,
     userId: number,
   ): Promise<IEventList> {
-    const projectAccess = await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const projectAccess =
+      await this.privateProjectChecker.getUserAccessibleProjects(userId);
 
-    search.project = filterAccessibleProjects(
-      search.project,
-      projectAccess,
-    );
+    search.project = filterAccessibleProjects(search.project, projectAccess);
 
     const queryParams = this.convertToDbParams(search);
     const projectFilter = await this.getProjectFilterForNonAdmins(userId);
@@ -206,10 +203,7 @@ export default class EventService {
     }
 
     if (params.feature) {
-      const parsed = parseSearchOperatorValue(
-        'feature_name',
-        params.feature,
-      );
+      const parsed = parseSearchOperatorValue('feature_name', params.feature);
       if (parsed) queryParams.push(parsed);
     }
 
@@ -249,16 +243,12 @@ export const filterAccessibleProjects = (
       const searchProjectList = projectParam.split(',');
       const filteredProjects = searchProjectList
         .filter((proj) =>
-          allowedProjects.includes(
-            proj.replace(/^(IS|IS_ANY_OF):/, ''),
-          ),
+          allowedProjects.includes(proj.replace(/^(IS|IS_ANY_OF):/, '')),
         )
         .join(',');
 
       if (!filteredProjects) {
-        throw new Error(
-          'No accessible projects in the search parameters',
-        );
+        throw new Error('No accessible projects in the search parameters');
       }
 
       return filteredProjects;

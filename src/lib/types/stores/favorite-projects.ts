@@ -8,7 +8,5 @@ export interface IFavoriteProjectKey {
 
 export interface IFavoriteProjectsStore
   extends IStore<IFavoriteProject, IFavoriteProjectKey> {
-  addFavoriteProject(
-    favorite: IFavoriteProjectKey,
-  ): Promise<IFavoriteProject>;
+  addFavoriteProject(favorite: IFavoriteProjectKey): Promise<IFavoriteProject>;
 }

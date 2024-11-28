@@ -8,9 +8,9 @@
  * A minimal user object
  */
 export type CreateGroupSchemaUsersItemUser = {
-    /**
-     * The user id
-     * @minimum 0
-     */
-    id: number;
+  /**
+   * The user id
+   * @minimum 0
+   */
+  id: number;
 };

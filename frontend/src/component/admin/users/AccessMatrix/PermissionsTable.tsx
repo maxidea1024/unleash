@@ -10,72 +10,64 @@ import { Box } from '@mui/material';
 import type { IMatrixPermission } from 'interfaces/permissions';
 
 export const PermissionsTable = ({
-    permissions,
+  permissions,
 }: {
-    permissions: IMatrixPermission[];
+  permissions: IMatrixPermission[];
 }) => {
-    const columns = useMemo(
-        () => [
-            {
-                Header: 'Permission',
-                accessor: 'name',
-                minWidth: 100,
-            },
-            {
-                Header: 'Description',
-                accessor: 'displayName',
-                minWidth: 180,
-            },
-            {
-                Header: 'Has permission',
-                accessor: 'hasPermission',
-                Cell: ({ value }: { value: boolean }) => (
-                    <IconCell
-                        icon={
-                            value ? (
-                                <Check color='success' />
-                            ) : (
-                                <Close color='error' />
-                            )
-                        }
-                    />
-                ),
-            },
-        ],
-        [permissions],
-    );
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Permission',
+        accessor: 'name',
+        minWidth: 100,
+      },
+      {
+        Header: 'Description',
+        accessor: 'displayName',
+        minWidth: 180,
+      },
+      {
+        Header: 'Has permission',
+        accessor: 'hasPermission',
+        Cell: ({ value }: { value: boolean }) => (
+          <IconCell
+            icon={value ? <Check color='success' /> : <Close color='error' />}
+          />
+        ),
+      },
+    ],
+    [permissions],
+  );
 
-    const initialState = {
-        sortBy: [{ id: 'name', desc: true }],
-    };
+  const initialState = {
+    sortBy: [{ id: 'name', desc: true }],
+  };
 
-    const { headerGroups, rows, prepareRow } = useTable(
-        {
-            columns: columns as any,
-            data: permissions ?? [],
-            initialState,
-            sortTypes,
-        },
-        useSortBy,
-        useFlexLayout,
-    );
+  const { headerGroups, rows, prepareRow } = useTable(
+    {
+      columns: columns as any,
+      data: permissions ?? [],
+      initialState,
+      sortTypes,
+    },
+    useSortBy,
+    useFlexLayout,
+  );
 
-    const parentRef = useRef<HTMLElement | null>(null);
+  const parentRef = useRef<HTMLElement | null>(null);
 
-    return (
-        <Box sx={{ maxHeight: 500, overflow: 'auto' }} ref={parentRef}>
-            <VirtualizedTable
-                rows={rows}
-                headerGroups={headerGroups}
-                prepareRow={prepareRow}
-                parentRef={parentRef}
-            />
-            <ConditionallyRender
-                condition={rows.length === 0}
-                show={
-                    <TablePlaceholder>No permissions found.</TablePlaceholder>
-                }
-            />
-        </Box>
-    );
+  return (
+    <Box sx={{ maxHeight: 500, overflow: 'auto' }} ref={parentRef}>
+      <VirtualizedTable
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+        parentRef={parentRef}
+      />
+      <ConditionallyRender
+        condition={rows.length === 0}
+        show={<TablePlaceholder>No permissions found.</TablePlaceholder>}
+      />
+    </Box>
+  );
 };

@@ -28,8 +28,7 @@ export const outdatedSdksSchema = {
               type: 'string',
               example: 'accounting',
             },
-            description:
-              'A list of applications using the SDK version',
+            description: 'A list of applications using the SDK version',
           },
         },
       },

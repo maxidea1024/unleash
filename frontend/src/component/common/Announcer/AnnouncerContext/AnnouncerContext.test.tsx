@@ -5,20 +5,20 @@ import { screen } from '@testing-library/react';
 import { ANNOUNCER_ELEMENT_TEST_ID } from 'utils/testIds';
 
 test('AnnouncerContext', async () => {
-    const TestComponent = () => {
-        const { setAnnouncement } = useContext(AnnouncerContext);
+  const TestComponent = () => {
+    const { setAnnouncement } = useContext(AnnouncerContext);
 
-        useEffect(() => {
-            setAnnouncement('Foo');
-            setAnnouncement('Bar');
-        }, [setAnnouncement]);
+    useEffect(() => {
+      setAnnouncement('Foo');
+      setAnnouncement('Bar');
+    }, [setAnnouncement]);
 
-        return null;
-    };
+    return null;
+  };
 
-    render(<TestComponent />);
+  render(<TestComponent />);
 
-    const el = screen.getByTestId(ANNOUNCER_ELEMENT_TEST_ID);
-    expect(el).not.toHaveTextContent('Foo');
-    expect(el).toHaveTextContent('Bar');
+  const el = screen.getByTestId(ANNOUNCER_ELEMENT_TEST_ID);
+  expect(el).not.toHaveTextContent('Foo');
+  expect(el).toHaveTextContent('Bar');
 });

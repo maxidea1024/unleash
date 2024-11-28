@@ -1,6 +1,6 @@
 import {
-    PROJECT_SETTINGS_WRITE,
-    UPDATE_PROJECT,
+  PROJECT_SETTINGS_WRITE,
+  UPDATE_PROJECT,
 } from 'component/providers/AccessProvider/permissions';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
@@ -11,48 +11,48 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { UpdateEnterpriseSettings } from './UpdateEnterpriseSettings';
 import { UpdateProject } from './UpdateProject';
 import useProjectOverview, {
-    featuresCount,
+  featuresCount,
 } from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 import { ArchiveProjectForm } from './ArchiveProjectForm';
 
 const StyledFormContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
 }));
 
 const EditProject = () => {
-    const { isEnterprise } = useUiConfig();
-    const { hasAccess } = useContext(AccessContext);
-    const id = useRequiredPathParam('projectId');
-    const { project } = useProjectOverview(id);
+  const { isEnterprise } = useUiConfig();
+  const { hasAccess } = useContext(AccessContext);
+  const id = useRequiredPathParam('projectId');
+  const { project } = useProjectOverview(id);
 
-    if (!project.name) {
-        return null;
-    }
+  if (!project.name) {
+    return null;
+  }
 
-    const accessDeniedAlert = !hasAccess(
-        [UPDATE_PROJECT, PROJECT_SETTINGS_WRITE],
-        id,
-    ) && (
-        <Alert severity='error' sx={{ mb: 4 }}>
-            You do not have the required permissions to edit this project.
-        </Alert>
-    );
+  const accessDeniedAlert = !hasAccess(
+    [UPDATE_PROJECT, PROJECT_SETTINGS_WRITE],
+    id,
+  ) && (
+    <Alert severity='error' sx={{ mb: 4 }}>
+      You do not have the required permissions to edit this project.
+    </Alert>
+  );
 
-    return (
-        <>
-            {accessDeniedAlert}
-            <StyledFormContainer>
-                <UpdateProject project={project} />
-                <ConditionallyRender
-                    condition={isEnterprise()}
-                    show={<UpdateEnterpriseSettings project={project} />}
-                />
-                <ArchiveProjectForm featureCount={featuresCount(project)} />
-            </StyledFormContainer>
-        </>
-    );
+  return (
+    <>
+      {accessDeniedAlert}
+      <StyledFormContainer>
+        <UpdateProject project={project} />
+        <ConditionallyRender
+          condition={isEnterprise()}
+          show={<UpdateEnterpriseSettings project={project} />}
+        />
+        <ArchiveProjectForm featureCount={featuresCount(project)} />
+      </StyledFormContainer>
+    </>
+  );
 };
 
 export default EditProject;

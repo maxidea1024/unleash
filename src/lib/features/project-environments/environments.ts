@@ -43,9 +43,7 @@ export default class EnvironmentsController extends Controller {
       projectService,
     }: Pick<
       IUnleashServices,
-      | 'transactionalEnvironmentService'
-      | 'openApiService'
-      | 'projectService'
+      'transactionalEnvironmentService' | 'openApiService' | 'projectService'
     >,
   ) {
     super(config);
@@ -68,9 +66,7 @@ export default class EnvironmentsController extends Controller {
           summary: 'Add an environment to a project.',
           description:
             'This endpoint adds the provided environment to the specified project, with optional support for enabling and disabling change requests for the environment and project.',
-          requestBody: createRequestSchema(
-            'projectEnvironmentSchema',
-          ),
+          requestBody: createRequestSchema('projectEnvironmentSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(401, 403, 409),
@@ -112,13 +108,9 @@ export default class EnvironmentsController extends Controller {
           summary: 'Set environment-default strategy',
           description:
             'Sets a default strategy for this environment. Unleash will use this strategy by default when enabling a toggle. Use the wild card "*" for `:environment` to add to all environments. ',
-          requestBody: createRequestSchema(
-            'createFeatureStrategySchema',
-          ),
+          requestBody: createRequestSchema('createFeatureStrategySchema'),
           responses: {
-            200: createResponseSchema(
-              'createFeatureStrategySchema',
-            ),
+            200: createResponseSchema('createFeatureStrategySchema'),
             ...getStandardResponses(400),
           },
         }),
@@ -152,21 +144,14 @@ export default class EnvironmentsController extends Controller {
     const { projectId, environment } = req.params;
 
     await this.environmentService.transactional((service) =>
-      service.removeEnvironmentFromProject(
-        environment,
-        projectId,
-        req.audit,
-      ),
+      service.removeEnvironmentFromProject(environment, projectId, req.audit),
     );
 
     res.status(200).end();
   }
 
   async updateDefaultStrategyForProjectEnvironment(
-    req: IAuthRequest<
-      IProjectEnvironmentParams,
-      CreateFeatureStrategySchema
-    >,
+    req: IAuthRequest<IProjectEnvironmentParams, CreateFeatureStrategySchema>,
     res: Response<CreateFeatureStrategySchema>,
   ): Promise<void> {
     const { projectId, environment } = req.params;

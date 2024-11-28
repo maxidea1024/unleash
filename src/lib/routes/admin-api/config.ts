@@ -95,8 +95,7 @@ export default class ConfigController extends Controller {
         openApiService.validPath({
           tags: ['Admin UI'],
           summary: 'Set UI configuration',
-          description:
-            'Sets the UI configuration for this Unleash instance.',
+          description: 'Sets the UI configuration for this Unleash instance.',
           operationId: 'setUiConfig',
           requestBody: createRequestSchema('setUiConfigSchema'),
           responses: { 200: emptyResponse },
@@ -112,9 +111,7 @@ export default class ConfigController extends Controller {
     const [frontendSettings, simpleAuthSettings, maintenanceMode] =
       await Promise.all([
         this.frontendApiService.getFrontendSettings(false),
-        this.settingService.get<SimpleAuthSettings>(
-          simpleAuthSettingsKey,
-        ),
+        this.settingService.get<SimpleAuthSettings>(simpleAuthSettingsKey),
         this.maintenanceService.isMaintenanceMode(),
       ]);
 

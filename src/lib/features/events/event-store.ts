@@ -119,9 +119,7 @@ export default class EventStore implements IEventStore {
   }
 
   async count(): Promise<number> {
-    const count = await this.db(TABLE)
-      .count<Record<string, number>>()
-      .first();
+    const count = await this.db(TABLE).count<Record<string, number>>().first();
     if (!count) {
       return 0;
     }
@@ -208,7 +206,7 @@ export default class EventStore implements IEventStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(key: number): Promise<boolean> {
     const result = await this.db.raw(
@@ -412,16 +410,10 @@ export default class EventStore implements IEventStore {
     project: string,
   ): Promise<ProjectActivitySchema> {
     const result = await this.db('events')
-      .select(
-        this.db.raw("TO_CHAR(created_at::date, 'YYYY-MM-DD') AS date"),
-      )
+      .select(this.db.raw("TO_CHAR(created_at::date, 'YYYY-MM-DD') AS date"))
       .count('* AS count')
       .where('project', project)
-      .andWhere(
-        'created_at',
-        '>=',
-        this.db.raw("NOW() - INTERVAL '1 year'"),
-      )
+      .andWhere('created_at', '>=', this.db.raw("NOW() - INTERVAL '1 year'"))
       .groupBy(this.db.raw("TO_CHAR(created_at::date, 'YYYY-MM-DD')"))
       .orderBy('date', 'asc');
 

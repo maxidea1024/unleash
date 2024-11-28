@@ -101,7 +101,7 @@ export default class TagTypeStore implements ITagTypeStore {
     stopTimer();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   rowToTagType(row: ITagTypeTable): ITagType {
     return {

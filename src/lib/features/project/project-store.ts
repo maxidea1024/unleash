@@ -95,7 +95,7 @@ export default class ProjectStore implements IProjectStore {
     };
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async isFeatureLimitReached(id: string): Promise<boolean> {
     const result = await this.db.raw(
@@ -132,11 +132,7 @@ export default class ProjectStore implements IProjectStore {
     return this.db
       .first([...COLUMNS, ...SETTINGS_COLUMNS, ...extraColumns])
       .from(TABLE)
-      .leftJoin(
-        SETTINGS_TABLE,
-        `${SETTINGS_TABLE}.project`,
-        `${TABLE}.id`,
-      )
+      .leftJoin(SETTINGS_TABLE, `${SETTINGS_TABLE}.project`, `${TABLE}.id`)
       .where({ id })
       .then(this.mapRow);
   }
@@ -175,9 +171,7 @@ export default class ProjectStore implements IProjectStore {
     });
   }
 
-  async create(
-    project: IProjectInsert & IProjectSettings,
-  ): Promise<IProject> {
+  async create(project: IProjectInsert & IProjectSettings): Promise<IProject> {
     const row = await this.db(TABLE)
       .insert({ ...this.fieldToRow(project), created_at: new Date() })
       .returning('*');
@@ -203,21 +197,17 @@ export default class ProjectStore implements IProjectStore {
 
   async update(data: IProjectUpdate): Promise<void> {
     try {
-      await this.db(TABLE)
-        .where({ id: data.id })
-        .update(this.fieldToRow(data));
+      await this.db(TABLE).where({ id: data.id }).update(this.fieldToRow(data));
 
       if (
         data.defaultStickiness !== undefined ||
         data.featureLimit !== undefined
       ) {
         if (await this.hasProjectSettings(data.id)) {
-          await this.db(SETTINGS_TABLE)
-            .where({ project: data.id })
-            .update({
-              default_stickiness: data.defaultStickiness,
-              feature_limit: data.featureLimit,
-            });
+          await this.db(SETTINGS_TABLE).where({ project: data.id }).update({
+            default_stickiness: data.defaultStickiness,
+            feature_limit: data.featureLimit,
+          });
         } else {
           await this.db(SETTINGS_TABLE).insert({
             project: data.id,
@@ -237,15 +227,12 @@ export default class ProjectStore implements IProjectStore {
   ): Promise<void> {
     try {
       if (await this.hasProjectSettings(data.id)) {
-        await this.db(SETTINGS_TABLE)
-          .where({ project: data.id })
-          .update({
-            project_mode: data.mode,
-            feature_naming_pattern: data.featureNaming?.pattern,
-            feature_naming_example: data.featureNaming?.example,
-            feature_naming_description:
-              data.featureNaming?.description,
-          });
+        await this.db(SETTINGS_TABLE).where({ project: data.id }).update({
+          project_mode: data.mode,
+          feature_naming_pattern: data.featureNaming?.pattern,
+          feature_naming_example: data.featureNaming?.example,
+          feature_naming_description: data.featureNaming?.description,
+        });
       } else {
         await this.db(SETTINGS_TABLE).insert({
           project: data.id,
@@ -256,10 +243,7 @@ export default class ProjectStore implements IProjectStore {
         });
       }
     } catch (err) {
-      this.logger.error(
-        'Could not update project settings, error: ',
-        err,
-      );
+      this.logger.error('Could not update project settings, error: ', err);
     }
   }
 
@@ -411,9 +395,7 @@ export default class ProjectStore implements IProjectStore {
           .from('role_user')
           .leftJoin('roles', 'role_user.role_id', 'roles.id')
           .where((builder) =>
-            builder
-              .where('project', projectId)
-              .whereNot('type', 'root'),
+            builder.where('project', projectId).whereNot('type', 'root'),
           )
           .union((queryBuilder) => {
             queryBuilder
@@ -499,11 +481,7 @@ export default class ProjectStore implements IProjectStore {
           ),
         )
           .from('applications as a')
-          .innerJoin(
-            'client_applications as ca',
-            'a.app_name',
-            'ca.app_name',
-          )
+          .innerJoin('client_applications as ca', 'a.app_name', 'ca.app_name')
           .leftJoin('client_instances as ci', function () {
             this.on('ci.app_name', '=', 'a.app_name').andOn(
               'ci.environment',
@@ -518,10 +496,7 @@ export default class ProjectStore implements IProjectStore {
           'select row_number() over (order by min(rank)) as final_rank from ranked group by app_name',
         ),
       )
-      .with(
-        'total',
-        this.db.raw('select count(*) as total from final_ranks'),
-      )
+      .with('total', this.db.raw('select count(*) as total from final_ranks'))
       .select('*')
       .from('ranked')
       .joinRaw('CROSS JOIN total')
@@ -584,20 +559,12 @@ export default class ProjectStore implements IProjectStore {
   async getProjectModeCounts(): Promise<ProjectModeCount[]> {
     let query = this.db
       .select(
-        this.db.raw(
-          `COALESCE(${SETTINGS_TABLE}.project_mode, 'open') as mode`,
-        ),
+        this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open') as mode`),
       )
       .count(`${TABLE}.id as count`)
       .from(`${TABLE}`)
-      .leftJoin(
-        `${SETTINGS_TABLE}`,
-        `${TABLE}.id`,
-        `${SETTINGS_TABLE}.project`,
-      )
-      .groupBy(
-        this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open')`),
-      );
+      .leftJoin(`${SETTINGS_TABLE}`, `${TABLE}.id`, `${SETTINGS_TABLE}.project`)
+      .groupBy(this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open')`));
 
     query = query.where(`${TABLE}.archived_at`, null);
 
@@ -654,9 +621,7 @@ export default class ProjectStore implements IProjectStore {
     return {
       environment: row.environment_name,
       defaultStrategy:
-        row.default_strategy === null
-          ? undefined
-          : row.default_strategy,
+        row.default_strategy === null ? undefined : row.default_strategy,
     };
   }
 

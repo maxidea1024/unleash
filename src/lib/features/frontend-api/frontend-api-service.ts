@@ -81,7 +81,8 @@ export class FrontendApiService {
   ): Promise<FrontendApiFeatureSchema[]> {
     const client = await this.clientForFrontendApiToken(token);
     const definitions = client.getFeatureToggleDefinitions() || [];
-    const sessionId = context.sessionId || crypto.randomBytes(18).toString('hex');
+    const sessionId =
+      context.sessionId || crypto.randomBytes(18).toString('hex');
 
     const resultDefinitions = definitions
       .filter((feature) => {
@@ -206,10 +207,12 @@ export class FrontendApiService {
 
   async fetchFrontendSettings(): Promise<FrontendSettings> {
     try {
-      this.cachedFrontendSettings =
-        await this.services.settingService.get(frontendSettingsKey, {
+      this.cachedFrontendSettings = await this.services.settingService.get(
+        frontendSettingsKey,
+        {
           frontendApiOrigins: this.config.frontendApiOrigins,
-        });
+        },
+      );
     } catch (error) {
       this.logger.debug('Unable to fetch frontend settings', error);
     }

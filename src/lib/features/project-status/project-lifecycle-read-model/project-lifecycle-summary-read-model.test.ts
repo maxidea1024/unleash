@@ -57,13 +57,10 @@ describe('Average time calculation', () => {
     ];
 
     for (const { name, offsets } of flags) {
-      const created = await db.stores.featureToggleStore.create(
-        project.id,
-        {
-          name,
-          createdByUserId: 1,
-        },
-      );
+      const created = await db.stores.featureToggleStore.create(project.id, {
+        name,
+        createdByUserId: 1,
+      });
       await db.stores.featureLifecycleStore.insert([
         {
           feature: name,
@@ -92,10 +89,7 @@ describe('Average time calculation', () => {
         await updateFeatureStageDate(
           created.name,
           stage,
-          addMinutes(
-            addDays(now, offsetFromInitial),
-            1 * (index + 1),
-          ),
+          addMinutes(addDays(now, offsetFromInitial), 1 * (index + 1)),
         );
       }
     }
@@ -143,11 +137,7 @@ describe('Average time calculation', () => {
       },
     ]);
 
-    await updateFeatureStageDate(
-      flag.name,
-      'pre-live',
-      addDays(new Date(), 5),
-    );
+    await updateFeatureStageDate(flag.name, 'pre-live', addDays(new Date(), 5));
 
     const result2 = await readModel.getAverageTimeInEachStage(project.id);
 
@@ -183,11 +173,7 @@ describe('Average time calculation', () => {
       },
     ]);
 
-    await updateFeatureStageDate(
-      flag.name,
-      'pre-live',
-      addDays(new Date(), 5),
-    );
+    await updateFeatureStageDate(flag.name, 'pre-live', addDays(new Date(), 5));
 
     const result =
       await readModel.getAverageTimeInEachStage('some-other-project');

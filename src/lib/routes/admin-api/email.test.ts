@@ -27,9 +27,7 @@ test('should render html preview of template', async () => {
   expect.assertions(0);
   const { request, base } = await getSetup();
   return request
-    .get(
-      `${base}/api/admin/email/preview/html/reset-password?name=Test%20Test`,
-    )
+    .get(`${base}/api/admin/email/preview/html/reset-password?name=Test%20Test`)
     .expect('Content-Type', /html/)
     .expect(200)
     .expect((res) => 'Test Test' in res.body);
@@ -39,9 +37,7 @@ test('should render text preview of template', async () => {
   expect.assertions(0);
   const { request, base } = await getSetup();
   return request
-    .get(
-      `${base}/api/admin/email/preview/text/reset-password?name=Test%20Test`,
-    )
+    .get(`${base}/api/admin/email/preview/text/reset-password?name=Test%20Test`)
     .expect('Content-Type', /plain/)
     .expect(200)
     .expect((res) => 'Test Test' in res.body);

@@ -26,9 +26,9 @@ beforeEach(() => {
         error: (message: string) => {
           errorMessages.push(message);
         },
-        warn: (message: string) => { },
-        debug: (message: string) => { },
-        fatal(message: any, ...args) { },
+        warn: (message: string) => {},
+        debug: (message: string) => {},
+        fatal(message: any, ...args) {},
       };
     },
   });

@@ -66,9 +66,7 @@ export function setLocalStorageItem<T>(
     const item: Expirable<T> = {
       value,
       expiry:
-        timeToLive !== undefined
-          ? new Date().getTime() + timeToLive
-          : null,
+        timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
     };
     window.localStorage.setItem(key, JSON.stringify(item, customReplacer));
   } catch (err: unknown) {
@@ -86,14 +84,9 @@ export function setSessionStorageItem<T>(
     const item: Expirable<T> = {
       value,
       expiry:
-        timeToLive !== undefined
-          ? new Date().getTime() + timeToLive
-          : null,
+        timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
     };
-    window.sessionStorage.setItem(
-      key,
-      JSON.stringify(item, customReplacer),
-    );
+    window.sessionStorage.setItem(key, JSON.stringify(item, customReplacer));
   } catch (err: unknown) {
     console.warn(err);
   }

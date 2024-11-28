@@ -54,9 +54,7 @@ describe('playground result to view model', () => {
             `/projects/${featureResult.projectId}/features/${featureResult.name}/strategies/edit?`,
           ) &&
           expect.stringMatching(`environmentId=development`) &&
-          expect.stringMatching(
-            `strategyId=${transformedStrategy.id}`,
-          ),
+          expect.stringMatching(`strategyId=${transformedStrategy.id}`),
       },
     });
 
@@ -119,8 +117,7 @@ describe('playground result to view model', () => {
 
     const viewModel = advancedPlaygroundViewModel(input, [featureResult]);
     const transformedStrategy =
-      viewModel.features[0].environments.development[0].strategies
-        .data[0];
+      viewModel.features[0].environments.development[0].strategies.data[0];
 
     // ensure that we're adding the required data
     expect(transformedStrategy).toMatchObject({
@@ -130,9 +127,7 @@ describe('playground result to view model', () => {
             `/projects/${featureResult.projectId}/features/${featureResult.name}/strategies/edit?`,
           ) &&
           expect.stringMatching(`environmentId=development`) &&
-          expect.stringMatching(
-            `strategyId=${transformedStrategy.id}`,
-          ),
+          expect.stringMatching(`strategyId=${transformedStrategy.id}`),
       },
     });
 

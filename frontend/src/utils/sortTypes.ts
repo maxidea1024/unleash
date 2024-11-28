@@ -58,11 +58,9 @@ export const sortTypes = {
     _desc?: boolean,
   ) => {
     const aVal =
-      Number.parseInt(`${a?.values?.[id] || 0}`, 10) ||
-      Number.MAX_SAFE_INTEGER;
+      Number.parseInt(`${a?.values?.[id] || 0}`, 10) || Number.MAX_SAFE_INTEGER;
     const bVal =
-      Number.parseInt(`${b?.values?.[id] || 0}`, 10) ||
-      Number.MAX_SAFE_INTEGER;
+      Number.parseInt(`${b?.values?.[id] || 0}`, 10) || Number.MAX_SAFE_INTEGER;
     return aVal - bVal;
   },
 };

@@ -114,9 +114,7 @@ export class ContextController extends Controller {
           description:
             "Retrieves a list of all strategies that use the specified context field. If the context field doesn't exist, returns an empty list of strategies",
           responses: {
-            200: createResponseSchema(
-              'contextFieldStrategiesSchema',
-            ),
+            200: createResponseSchema('contextFieldStrategiesSchema'),
             ...getStandardResponses(401),
           },
         }),
@@ -135,13 +133,9 @@ export class ContextController extends Controller {
           summary: 'Create a context field',
           description:
             'Endpoint that allows creation of [custom context fields](https://docs.getunleash.io/reference/unleash-context#custom-context-fields)',
-          requestBody: createRequestSchema(
-            'createContextFieldSchema',
-          ),
+          requestBody: createRequestSchema('createContextFieldSchema'),
           responses: {
-            201: resourceCreatedResponseSchema(
-              'contextFieldSchema',
-            ),
+            201: resourceCreatedResponseSchema('contextFieldSchema'),
           },
         }),
       ],
@@ -158,9 +152,7 @@ export class ContextController extends Controller {
           summary: 'Update an existing context field',
           description: `Endpoint that allows updating a custom context field. Used to toggle stickiness and add/remove legal values for this context field`,
           operationId: 'updateContextField',
-          requestBody: createRequestSchema(
-            'updateContextFieldSchema',
-          ),
+          requestBody: createRequestSchema('updateContextFieldSchema'),
           responses: {
             200: emptyResponse,
           },
@@ -213,7 +205,8 @@ export class ContextController extends Controller {
     _: Request,
     res: Response<ContextFieldsSchema>,
   ): Promise<void> {
-    res.status(200)
+    res
+      .status(200)
       .json(serializeDates(await this.contextService.getAll()))
       .end();
   }
@@ -224,8 +217,7 @@ export class ContextController extends Controller {
   ): Promise<void> {
     try {
       const name = req.params.contextField;
-      const contextField =
-        await this.contextService.getContextField(name);
+      const contextField = await this.contextService.getContextField(name);
       this.openApiService.respondWithValidation(
         200,
         res,
@@ -297,11 +289,10 @@ export class ContextController extends Controller {
   ): Promise<void> {
     const { contextField } = req.params;
     const { user } = req;
-    const contextFields =
-      await this.contextService.getStrategiesByContextField(
-        contextField,
-        extractUserIdFromUser(user),
-      );
+    const contextFields = await this.contextService.getStrategiesByContextField(
+      contextField,
+      extractUserIdFromUser(user),
+    );
 
     this.openApiService.respondWithValidation(
       200,

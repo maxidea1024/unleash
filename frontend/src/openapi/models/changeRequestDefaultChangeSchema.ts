@@ -11,8 +11,8 @@ import type { ChangeRequestDefaultChangeSchemaPayload } from './changeRequestDef
 Default changes are changes that are applied in addition to explicit user-specified changes when a change request is applied. Any default changes are applied in the background and are not a real part of the change request.
  */
 export interface ChangeRequestDefaultChangeSchema {
-    /** The kind of action this is. */
-    action: string;
-    /** The necessary data to perform this change. */
-    payload: ChangeRequestDefaultChangeSchemaPayload;
+  /** The kind of action this is. */
+  action: string;
+  /** The necessary data to perform this change. */
+  payload: ChangeRequestDefaultChangeSchemaPayload;
 }

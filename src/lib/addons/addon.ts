@@ -71,7 +71,8 @@ export default abstract class Addon {
     } catch (e) {
       const { method } = options;
       this.logger.warn(
-        `Error querying ${url} with method ${method || 'GET'
+        `Error querying ${url} with method ${
+          method || 'GET'
         } status code ${e.code}`,
         e,
       );

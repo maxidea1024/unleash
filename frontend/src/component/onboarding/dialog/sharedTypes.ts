@@ -17,43 +17,43 @@ import flutter from '../../../assets/icons/sdks/Logo-flutter.svg';
 export type SdkType = 'client' | 'frontend';
 export type Sdk = { name: SdkName; type: SdkType };
 export type ServerSdkName =
-    | 'Node.js'
-    | 'Go'
-    | '.NET'
-    | 'Ruby'
-    | 'PHP'
-    | 'Rust'
-    | 'Java'
-    | 'Python';
+  | 'Node.js'
+  | 'Go'
+  | '.NET'
+  | 'Ruby'
+  | 'PHP'
+  | 'Rust'
+  | 'Java'
+  | 'Python';
 export type ClientSdkName =
-    | 'JavaScript'
-    | 'React'
-    | 'Vue'
-    | 'Svelte'
-    | 'Swift'
-    | 'Android'
-    | 'Flutter';
+  | 'JavaScript'
+  | 'React'
+  | 'Vue'
+  | 'Svelte'
+  | 'Swift'
+  | 'Android'
+  | 'Flutter';
 export type SdkName = ServerSdkName | ClientSdkName;
 
 export const serverSdks: { name: ServerSdkName; icon: string }[] = [
-    { name: 'Node.js', icon: node },
-    { name: 'Go', icon: go },
-    { name: 'Ruby', icon: ruby },
-    { name: 'PHP', icon: php },
-    { name: 'Rust', icon: rust },
-    { name: '.NET', icon: dotnet },
-    { name: 'Java', icon: java },
-    { name: 'Python', icon: python },
+  { name: 'Node.js', icon: node },
+  { name: 'Go', icon: go },
+  { name: 'Ruby', icon: ruby },
+  { name: 'PHP', icon: php },
+  { name: 'Rust', icon: rust },
+  { name: '.NET', icon: dotnet },
+  { name: 'Java', icon: java },
+  { name: 'Python', icon: python },
 ];
 export const clientSdks: { name: ClientSdkName; icon: string }[] = [
-    { name: 'JavaScript', icon: javascript },
-    { name: 'React', icon: react },
-    { name: 'Vue', icon: vue },
-    { name: 'Svelte', icon: svelte },
-    { name: 'Swift', icon: swift },
-    { name: 'Android', icon: android },
-    { name: 'Flutter', icon: flutter },
+  { name: 'JavaScript', icon: javascript },
+  { name: 'React', icon: react },
+  { name: 'Vue', icon: vue },
+  { name: 'Svelte', icon: svelte },
+  { name: 'Swift', icon: swift },
+  { name: 'Android', icon: android },
+  { name: 'Flutter', icon: flutter },
 ];
 
 export const allSdks: { name: ClientSdkName | ServerSdkName; icon: string }[] =
-    [...serverSdks, ...clientSdks];
+  [...serverSdks, ...clientSdks];

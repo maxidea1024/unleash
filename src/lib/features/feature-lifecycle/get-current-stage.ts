@@ -12,9 +12,7 @@ export function getCurrentStage(
   stages: IFeatureLifecycleStage[],
 ): IFeatureLifecycleStage | undefined {
   for (const preferredStage of preferredOrder) {
-    const foundStage = stages.find(
-      (stage) => stage.stage === preferredStage,
-    );
+    const foundStage = stages.find((stage) => stage.stage === preferredStage);
     if (foundStage) {
       return foundStage;
     }

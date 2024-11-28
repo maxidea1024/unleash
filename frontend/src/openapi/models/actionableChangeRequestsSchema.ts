@@ -8,9 +8,9 @@
  * Data related to actionable change requests in a project.
  */
 export interface ActionableChangeRequestsSchema {
-    /**
-     * The number of actionable change requests in the project.
-     * @minimum 0
-     */
-    total: number;
+  /**
+   * The number of actionable change requests in the project.
+   * @minimum 0
+   */
+  total: number;
 }

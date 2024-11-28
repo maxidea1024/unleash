@@ -94,8 +94,7 @@ export default class EventController extends Controller {
           },
           description:
             'Returns all events related to the specified feature flag. If the feature flag does not exist, the list of events will be empty.',
-          summary:
-            'Get all events related to a specific feature flag.',
+          summary: 'Get all events related to a specific feature flag.',
         }),
       ],
     });
@@ -113,9 +112,7 @@ export default class EventController extends Controller {
           summary: 'Search for events (deprecated)',
           description:
             'Allows searching for events matching the search criteria in the request body',
-          requestBody: createRequestSchema(
-            'deprecatedSearchEventsSchema',
-          ),
+          requestBody: createRequestSchema('deprecatedSearchEventsSchema'),
           responses: { 200: createResponseSchema('eventsSchema') },
         }),
       ],
@@ -205,9 +202,7 @@ export default class EventController extends Controller {
     req: Request<unknown, unknown, DeprecatedSearchEventsSchema>,
     res: Response<EventsSchema>,
   ): Promise<void> {
-    const eventList = await this.eventService.deprecatedSearchEvents(
-      req.body,
-    );
+    const eventList = await this.eventService.deprecatedSearchEvents(req.body);
 
     const response = {
       version,

@@ -110,9 +110,7 @@ export const scheduleServices = async (
   );
 
   schedulerService.schedule(
-    eventAnnouncerService.publishUnannouncedEvents.bind(
-      eventAnnouncerService,
-    ),
+    eventAnnouncerService.publishUnannouncedEvents.bind(eventAnnouncerService),
     secondsToMilliseconds(1),
     'publishUnannouncedEvents',
   );

@@ -76,9 +76,7 @@ export const offlineUnleashClient = async ({
     storageProvider: new InMemStorageProvider(),
     bootstrap: {
       // FIXME: mismatch between playground and proxy types
-      data: mapFeaturesForClient(
-        features,
-      ) as PlaygroundFeatureInterface[],
+      data: mapFeaturesForClient(features) as PlaygroundFeatureInterface[],
       segments: mapSegmentsForClient(segments || []),
     },
   });

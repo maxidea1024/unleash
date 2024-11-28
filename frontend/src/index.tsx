@@ -26,55 +26,55 @@ import { HighlightProvider } from 'component/common/Highlight/HighlightProvider'
 window.global ||= window;
 
 const ApplicationRoot = () => {
-    const { recordUiError } = useRecordUIErrorApi();
+  const { recordUiError } = useRecordUIErrorApi();
 
-    const sendErrorToApi = async (
-        error: Error,
-        info: { componentStack: string },
-    ) => {
-        try {
-            await recordUiError({
-                errorMessage: error.message,
-                errorStack: error.stack || '',
-            });
-        } catch (e) {
-            console.error('Unable to log error');
-        }
-    };
+  const sendErrorToApi = async (
+    error: Error,
+    info: { componentStack: string },
+  ) => {
+    try {
+      await recordUiError({
+        errorMessage: error.message,
+        errorStack: error.stack || '',
+      });
+    } catch (e) {
+      console.error('Unable to log error');
+    }
+  };
 
-    return (
-        <UIProviderContainer>
-            <AccessProvider>
-                <BrowserRouter basename={basePath}>
-                    <QueryParamProvider adapter={ReactRouter6Adapter}>
-                        <ThemeProvider>
-                            <AnnouncerProvider>
-                                <PlausibleProvider>
-                                    <ErrorBoundary
-                                        FallbackComponent={LayoutError}
-                                        onError={sendErrorToApi}
-                                    >
-                                        <FeedbackProvider>
-                                            <FeedbackCESProvider>
-                                                <StickyProvider>
-                                                    <HighlightProvider>
-                                                        <InstanceStatus>
-                                                            <ScrollTop />
-                                                            <App />
-                                                        </InstanceStatus>
-                                                    </HighlightProvider>
-                                                </StickyProvider>
-                                            </FeedbackCESProvider>
-                                        </FeedbackProvider>
-                                    </ErrorBoundary>
-                                </PlausibleProvider>
-                            </AnnouncerProvider>
-                        </ThemeProvider>
-                    </QueryParamProvider>
-                </BrowserRouter>
-            </AccessProvider>
-        </UIProviderContainer>
-    );
+  return (
+    <UIProviderContainer>
+      <AccessProvider>
+        <BrowserRouter basename={basePath}>
+          <QueryParamProvider adapter={ReactRouter6Adapter}>
+            <ThemeProvider>
+              <AnnouncerProvider>
+                <PlausibleProvider>
+                  <ErrorBoundary
+                    FallbackComponent={LayoutError}
+                    onError={sendErrorToApi}
+                  >
+                    <FeedbackProvider>
+                      <FeedbackCESProvider>
+                        <StickyProvider>
+                          <HighlightProvider>
+                            <InstanceStatus>
+                              <ScrollTop />
+                              <App />
+                            </InstanceStatus>
+                          </HighlightProvider>
+                        </StickyProvider>
+                      </FeedbackCESProvider>
+                    </FeedbackProvider>
+                  </ErrorBoundary>
+                </PlausibleProvider>
+              </AnnouncerProvider>
+            </ThemeProvider>
+          </QueryParamProvider>
+        </BrowserRouter>
+      </AccessProvider>
+    </UIProviderContainer>
+  );
 };
 
 const root = ReactDOM.createRoot(document.getElementById('app')!);

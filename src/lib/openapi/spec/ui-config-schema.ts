@@ -52,14 +52,12 @@ export const uiConfigSchema = {
     },
     feedbackUriPath: {
       type: 'string',
-      description:
-        'The URI path at which the feedback endpoint is listening.',
+      description: 'The URI path at which the feedback endpoint is listening.',
       example: '/feedback',
     },
     disablePasswordAuth: {
       type: 'boolean',
-      description:
-        'Whether password authentication should be disabled or not.',
+      description: 'Whether password authentication should be disabled or not.',
       example: false,
     },
     emailEnabled: {
@@ -162,14 +160,7 @@ export const uiConfigSchema = {
       description:
         'The type of authentication enabled for this Unleash instance',
       example: 'enterprise',
-      enum: [
-        'open-source',
-        'demo',
-        'enterprise',
-        'hosted',
-        'custom',
-        'none',
-      ],
+      enum: ['open-source', 'demo', 'enterprise', 'hosted', 'custom', 'none'],
     },
     versionInfo: {
       $ref: '#/components/schemas/versionSchema',

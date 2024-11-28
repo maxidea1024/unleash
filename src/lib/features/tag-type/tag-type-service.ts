@@ -43,9 +43,7 @@ export default class TagTypeService {
     newTagType: ITagType,
     auditUser: IAuditUser,
   ): Promise<ITagType> {
-    const data = (await tagTypeSchema.validateAsync(
-      newTagType,
-    )) as ITagType;
+    const data = (await tagTypeSchema.validateAsync(newTagType)) as ITagType;
     await this.validateUnique(data.name);
     await this.tagTypeStore.createTagType(data);
     await this.eventService.storeEvent(

@@ -5,8 +5,7 @@ export const projectSchema = {
   type: 'object',
   additionalProperties: false,
   required: ['id', 'name'],
-  description:
-    'A definition of the project used for projects listing purposes',
+  description: 'A definition of the project used for projects listing purposes',
   properties: {
     id: {
       type: 'string',
@@ -46,8 +45,7 @@ export const projectSchema = {
       deprecated: true,
       type: 'number',
       example: 10,
-      description:
-        'The number of potentially stale features this project has',
+      description: 'The number of potentially stale features this project has',
     },
     memberCount: {
       type: 'number',
@@ -85,8 +83,7 @@ export const projectSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the project was favorited, otherwise `false`.',
+      description: '`true` if the project was favorited, otherwise `false`.',
     },
     mode: {
       type: 'string',
@@ -141,8 +138,7 @@ export const projectSchema = {
                   imageUrl: {
                     type: 'string',
                     nullable: true,
-                    example:
-                      'https://example.com/image.jpg',
+                    example: 'https://example.com/image.jpg',
                   },
                   email: {
                     type: 'string',

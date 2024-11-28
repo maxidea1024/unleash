@@ -35,9 +35,7 @@ export class ClientFeatureToggleService {
   async getClientFeatures(
     query?: IFeatureToggleQuery,
   ): Promise<FeatureConfigurationClient[]> {
-    const result = await this.clientFeatureToggleStore.getClient(
-      query || {},
-    );
+    const result = await this.clientFeatureToggleStore.getClient(query || {});
 
     return result.map(
       ({

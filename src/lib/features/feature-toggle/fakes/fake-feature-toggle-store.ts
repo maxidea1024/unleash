@@ -18,7 +18,6 @@ import type {
 } from '../feature-toggle-store';
 import type { FeatureConfigurationClient } from '../types/feature-toggle-strategies-store-type';
 import type { IFeatureProjectUserParams } from '../feature-toggle-controller';
-import { BadDataError } from '../../../error';
 
 export default class FakeFeatureToggleStore implements IFeatureToggleStore {
   features: FeatureToggle[] = [];
@@ -65,9 +64,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
   }
 
   async batchRevive(featureNames: string[]): Promise<FeatureToggle[]> {
-    const features = this.features.filter((f) =>
-      featureNames.includes(f.name),
-    );
+    const features = this.features.filter((f) => featureNames.includes(f.name));
     for (const feature of features) {
       feature.archived = false;
     }
@@ -130,7 +127,7 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     this.features = [];
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
     return this.features.some((f) => f.name === key);
@@ -165,7 +162,9 @@ export default class FakeFeatureToggleStore implements IFeatureToggleStore {
     if (revive) {
       revive.archived = false;
     } else {
-      throw new NotFoundError(`Could not find feature with name ${featureName}`);
+      throw new NotFoundError(
+        `Could not find feature with name ${featureName}`,
+      );
     }
 
     return this.update(revive.project, revive);

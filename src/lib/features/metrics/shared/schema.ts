@@ -58,10 +58,7 @@ export const applicationSchema = joi
   .keys({
     appName: joi.string().required(),
     sdkVersion: joi.string().optional(),
-    strategies: joi
-      .array()
-      .optional()
-      .items(joi.string(), joi.any().strip()),
+    strategies: joi.array().optional().items(joi.string(), joi.any().strip()),
     description: joi.string().allow('').optional(),
     url: joi.string().allow('').optional(),
     color: joi.string().allow('').optional(),
@@ -84,10 +81,7 @@ export const clientRegisterSchema = joi
     appName: joi.string().required(),
     instanceId: joi.string().empty(['', null]).default('default'),
     sdkVersion: joi.string().optional(),
-    strategies: joi
-      .array()
-      .required()
-      .items(joi.string(), joi.any().strip()),
+    strategies: joi.array().required().items(joi.string(), joi.any().strip()),
     started: joi.date().required(),
     interval: joi.number().required(),
     environment: joi.string().optional(),

@@ -8,27 +8,27 @@ import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';
 import { useProjectOverviewNameOrId } from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 
 export const ProjectChangeRequests = () => {
-    const projectId = useRequiredPathParam('projectId');
-    const projectName = useProjectOverviewNameOrId(projectId);
-    const { isOss, isPro } = useUiConfig();
+  const projectId = useRequiredPathParam('projectId');
+  const projectName = useProjectOverviewNameOrId(projectId);
+  const { isOss, isPro } = useUiConfig();
 
-    usePageTitle(`Change requests – ${projectName}`);
+  usePageTitle(`Change requests – ${projectName}`);
 
-    const { changeRequests, loading } = useProjectChangeRequests(projectId);
+  const { changeRequests, loading } = useProjectChangeRequests(projectId);
 
-    if (isOss() || isPro()) {
-        return (
-            <PageContent sx={{ justifyContent: 'center' }}>
-                <PremiumFeature feature='change-requests' />
-            </PageContent>
-        );
-    }
-
+  if (isOss() || isPro()) {
     return (
-        <ChangeRequestsTabs
-            changeRequests={changeRequests}
-            projectId={projectId}
-            loading={loading}
-        />
+      <PageContent sx={{ justifyContent: 'center' }}>
+        <PremiumFeature feature='change-requests' />
+      </PageContent>
     );
+  }
+
+  return (
+    <ChangeRequestsTabs
+      changeRequests={changeRequests}
+      projectId={projectId}
+      loading={loading}
+    />
+  );
 };

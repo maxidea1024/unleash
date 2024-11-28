@@ -4,41 +4,41 @@ import { GuidanceIndicator } from 'component/common/GuidanceIndicator/GuidanceIn
 import type { VFC } from 'react';
 
 interface IPlaygroundGuidanceSectionProps {
-    headerText: string;
-    bodyText?: string;
-    sectionNumber: string;
+  headerText: string;
+  bodyText?: string;
+  sectionNumber: string;
 }
 
 export const PlaygroundGuidanceSection: VFC<
-    IPlaygroundGuidanceSectionProps
+  IPlaygroundGuidanceSectionProps
 > = ({ headerText, bodyText, sectionNumber }) => {
-    return (
-        <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                mt: 2,
-                flexDirection: 'column',
-            }}
-        >
-            <Box sx={{ display: 'flex' }}>
-                <Box>
-                    <GuidanceIndicator>{sectionNumber}</GuidanceIndicator>
-                </Box>
-                <Box sx={{ ml: 2, display: 'flex', flexDirection: 'column' }}>
-                    <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
-                        {headerText}
-                    </Typography>
-                    <ConditionallyRender
-                        condition={Boolean(bodyText)}
-                        show={
-                            <Typography variant='body1' sx={{ mt: 1 }}>
-                                {bodyText}
-                            </Typography>
-                        }
-                    />
-                </Box>
-            </Box>
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        mt: 2,
+        flexDirection: 'column',
+      }}
+    >
+      <Box sx={{ display: 'flex' }}>
+        <Box>
+          <GuidanceIndicator>{sectionNumber}</GuidanceIndicator>
         </Box>
-    );
+        <Box sx={{ ml: 2, display: 'flex', flexDirection: 'column' }}>
+          <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
+            {headerText}
+          </Typography>
+          <ConditionallyRender
+            condition={Boolean(bodyText)}
+            show={
+              <Typography variant='body1' sx={{ mt: 1 }}>
+                {bodyText}
+              </Typography>
+            }
+          />
+        </Box>
+      </Box>
+    </Box>
+  );
 };

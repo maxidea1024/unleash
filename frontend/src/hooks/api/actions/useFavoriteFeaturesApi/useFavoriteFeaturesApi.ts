@@ -14,11 +14,7 @@ export const useFavoriteFeaturesApi = () => {
   const favorite = useCallback(
     async (projectId: string, featureName: string) => {
       const path = `api/admin/projects/${projectId}/features/${featureName}/favorites`;
-      const req = createRequest(
-        path,
-        { method: 'POST' },
-        'addFavoriteFeature',
-      );
+      const req = createRequest(path, { method: 'POST' }, 'addFavoriteFeature');
 
       try {
         await makeLightRequest(req.caller, req.id);

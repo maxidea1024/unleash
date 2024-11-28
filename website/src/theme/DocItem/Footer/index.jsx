@@ -6,20 +6,20 @@ import GitHubContributors from './GitHubContributors';
 import GitUrlParse from 'git-url-parse';
 
 export default function FooterWrapper(props) {
-    const { metadata } = useDoc();
-    const file = metadata.editUrl;
+  const { metadata } = useDoc();
+  const file = metadata.editUrl;
 
-    if (!file) {
-        return <Footer {...props} />;
-    }
+  if (!file) {
+    return <Footer {...props} />;
+  }
 
-    const info = GitUrlParse(file);
-    const { name, owner, filepath } = info;
+  const info = GitUrlParse(file);
+  const { name, owner, filepath } = info;
 
-    return (
-        <>
-            <Footer {...props} />
-            <GitHubContributors repo={name} owner={owner} filePath={filepath} />
-        </>
-    );
+  return (
+    <>
+      <Footer {...props} />
+      <GitHubContributors repo={name} owner={owner} filePath={filepath} />
+    </>
+  );
 }

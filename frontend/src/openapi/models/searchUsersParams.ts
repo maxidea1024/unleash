@@ -5,8 +5,8 @@
  */
 
 export type SearchUsersParams = {
-    /**
-     * The pattern to search in the username or email
-     */
-    q?: string;
+  /**
+   * The pattern to search in the username or email
+   */
+  q?: string;
 };

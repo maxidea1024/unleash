@@ -7,52 +7,51 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { FlagCounts } from './FlagCounts';
 
 const Container = styled(Box)(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    gap: theme.spacing(2),
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
 }));
 
 export const ProjectHealth: FC<{ health: ProjectInsightsSchemaHealth }> = ({
-    health,
+  health,
 }) => {
-    const projectId = useRequiredPathParam('projectId');
-    const { staleCount, potentiallyStaleCount, activeCount, rating } = health;
+  const projectId = useRequiredPathParam('projectId');
+  const { staleCount, potentiallyStaleCount, activeCount, rating } = health;
 
-    return (
-        <Container>
-            <Typography variant='h3'>Project Health</Typography>
-            <ConditionallyRender
-                condition={staleCount > 0}
-                show={
-                    <Alert severity='warning'>
-                        <b>Health alert!</b> Review your flags and delete the
-                        stale flags
-                    </Alert>
-                }
-            />
+  return (
+    <Container>
+      <Typography variant='h3'>Project Health</Typography>
+      <ConditionallyRender
+        condition={staleCount > 0}
+        show={
+          <Alert severity='warning'>
+            <b>Health alert!</b> Review your flags and delete the stale flags
+          </Alert>
+        }
+      />
 
-            <Box
-                data-loading
-                sx={(theme) => ({
-                    display: 'flex',
-                    gap: theme.spacing(4),
-                    marginTop: theme.spacing(3),
-                })}
-            >
-                <ProjectHealthChart
-                    active={activeCount}
-                    stale={staleCount}
-                    potentiallyStale={potentiallyStaleCount}
-                    health={rating}
-                />
+      <Box
+        data-loading
+        sx={(theme) => ({
+          display: 'flex',
+          gap: theme.spacing(4),
+          marginTop: theme.spacing(3),
+        })}
+      >
+        <ProjectHealthChart
+          active={activeCount}
+          stale={staleCount}
+          potentiallyStale={potentiallyStaleCount}
+          health={rating}
+        />
 
-                <FlagCounts
-                    projectId={projectId}
-                    activeCount={activeCount}
-                    potentiallyStaleCount={potentiallyStaleCount}
-                    staleCount={staleCount}
-                />
-            </Box>
-        </Container>
-    );
+        <FlagCounts
+          projectId={projectId}
+          activeCount={activeCount}
+          potentiallyStaleCount={potentiallyStaleCount}
+          staleCount={staleCount}
+        />
+      </Box>
+    </Container>
+  );
 };

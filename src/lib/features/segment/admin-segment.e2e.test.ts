@@ -733,9 +733,7 @@ describe('detect strategy usage in change requests', () => {
     expect((await enterpriseFetchSegments()).length).toEqual(1);
 
     // check that it can be deleted in OSS
-    await app.request
-      .delete(`${SEGMENTS_BASE_PATH}/${segment.id}`)
-      .expect(204);
+    await app.request.delete(`${SEGMENTS_BASE_PATH}/${segment.id}`).expect(204);
   });
 
   test('Should show segment usage in addStrategy events', async () => {
@@ -938,9 +936,7 @@ describe('detect strategy usage in change requests', () => {
     });
 
     const segments = await enterpriseFetchSegments();
-    expect(segments).toMatchObject([
-      { usedInFeatures: 1, usedInProjects: 1 },
-    ]);
+    expect(segments).toMatchObject([{ usedInFeatures: 1, usedInProjects: 1 }]);
 
     // check that OSS gets no CR usage
     const ossSegments = await fetchSegments();
@@ -972,9 +968,7 @@ describe('detect strategy usage in change requests', () => {
     await addSegmentsToStrategy([segment.id], strategyId!);
 
     const segments = await enterpriseFetchSegments();
-    expect(segments).toMatchObject([
-      { usedInFeatures: 1, usedInProjects: 1 },
-    ]);
+    expect(segments).toMatchObject([{ usedInFeatures: 1, usedInProjects: 1 }]);
 
     await enterpriseApp.archiveFeature(flag.name, 'default');
 

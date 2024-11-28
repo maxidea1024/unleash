@@ -5,10 +5,10 @@
  */
 
 export type DeleteReleasePlanTemplate403 = {
-    /** The ID of the error instance */
-    id?: string;
-    /** A description of what went wrong. */
-    message?: string;
-    /** The name of the error kind */
-    name?: string;
+  /** The ID of the error instance */
+  id?: string;
+  /** A description of what went wrong. */
+  message?: string;
+  /** The name of the error kind */
+  name?: string;
 };

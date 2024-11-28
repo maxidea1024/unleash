@@ -16,11 +16,10 @@ export const useChangeRequestsEnabled = (projectId: string) => {
       return canSkipChangeRequest
         ? false
         : data.some((draft) => {
-          return (
-            draft.environment === environment &&
-            draft.changeRequestEnabled
-          );
-        });
+            return (
+              draft.environment === environment && draft.changeRequestEnabled
+            );
+          });
     },
     [JSON.stringify(data)],
   );
@@ -28,10 +27,7 @@ export const useChangeRequestsEnabled = (projectId: string) => {
   const isChangeRequestConfiguredForReview = React.useCallback(
     (environment: string): boolean => {
       return data.some((draft) => {
-        return (
-          draft.environment === environment &&
-          draft.changeRequestEnabled
-        );
+        return draft.environment === environment && draft.changeRequestEnabled;
       });
     },
     [JSON.stringify(data)],

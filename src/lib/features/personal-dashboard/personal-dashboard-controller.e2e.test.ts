@@ -293,16 +293,12 @@ test('should return personal dashboard project details', async () => {
       {
         createdAt: expect.stringMatching(timestampPattern),
         createdBy: 'unknown',
-        summary: expect.stringContaining(
-          'triggered **project-access-added**',
-        ),
+        summary: expect.stringContaining('triggered **project-access-added**'),
       },
       {
         createdAt: expect.stringMatching(timestampPattern),
         createdBy: 'audit user',
-        summary: expect.stringContaining(
-          '**audit user** created project',
-        ),
+        summary: expect.stringContaining('**audit user** created project'),
       },
     ],
   });
@@ -381,10 +377,7 @@ test('should return Unleash admins', async () => {
       is_service: true,
     })
     .returning('*');
-  await app.services.accessService.setUserRootRole(
-    serviceAdminId,
-    adminRoleId,
-  );
+  await app.services.accessService.setUserRootRole(serviceAdminId, adminRoleId);
 
   const { body } = await app.request.get(`/api/admin/personal-dashboard`);
 

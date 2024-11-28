@@ -9,10 +9,10 @@
  * @minimum 1
  */
 export type AdminPermissionsSchemaVersion =
-    (typeof AdminPermissionsSchemaVersion)[keyof typeof AdminPermissionsSchemaVersion];
+  (typeof AdminPermissionsSchemaVersion)[keyof typeof AdminPermissionsSchemaVersion];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AdminPermissionsSchemaVersion = {
-    NUMBER_1: 1,
-    NUMBER_2: 2,
+  NUMBER_1: 1,
+  NUMBER_2: 2,
 } as const;

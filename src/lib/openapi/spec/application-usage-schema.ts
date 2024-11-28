@@ -13,8 +13,7 @@ export const applicationUsageSchema = {
       example: 'main-project',
     },
     environments: {
-      description:
-        'Which environments have been accessed in this project.',
+      description: 'Which environments have been accessed in this project.',
       type: 'array',
       items: {
         type: 'string',

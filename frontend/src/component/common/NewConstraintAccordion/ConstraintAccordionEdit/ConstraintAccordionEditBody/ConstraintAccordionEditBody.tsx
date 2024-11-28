@@ -4,61 +4,61 @@ import type { IConstraint } from 'interfaces/strategy';
 import type React from 'react';
 
 interface IConstraintAccordionBody {
-    localConstraint: IConstraint;
-    setValues: (values: string[]) => void;
-    triggerTransition: () => void;
-    setValue: (value: string) => void;
-    setAction: React.Dispatch<React.SetStateAction<string>>;
-    onSubmit: () => void;
-    children?: React.ReactNode;
+  localConstraint: IConstraint;
+  setValues: (values: string[]) => void;
+  triggerTransition: () => void;
+  setValue: (value: string) => void;
+  setAction: React.Dispatch<React.SetStateAction<string>>;
+  onSubmit: () => void;
+  children?: React.ReactNode;
 }
 
 const StyledInputContainer = styled('div')(({ theme }) => ({
-    padding: theme.spacing(2),
+  padding: theme.spacing(2),
 }));
 
 const StyledButtonContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-    borderTop: `1px solid ${theme.palette.divider}`,
-    width: '100%',
-    padding: theme.spacing(2),
+  display: 'flex',
+  alignItems: 'center',
+  marginTop: theme.spacing(2),
+  borderTop: `1px solid ${theme.palette.divider}`,
+  width: '100%',
+  padding: theme.spacing(2),
 }));
 
 const StyledInputButtonContainer = styled('div')({
-    marginLeft: 'auto',
+  marginLeft: 'auto',
 });
 
 const StyledLeftButton = styled(Button)(({ theme }) => ({
-    marginRight: theme.spacing(1),
-    minWidth: '125px',
+  marginRight: theme.spacing(1),
+  minWidth: '125px',
 }));
 
 const StyledRightButton = styled(Button)(({ theme }) => ({
-    marginLeft: theme.spacing(1),
-    minWidth: '125px',
+  marginLeft: theme.spacing(1),
+  minWidth: '125px',
 }));
 
 export const ConstraintAccordionEditBody: React.FC<
-    IConstraintAccordionBody
+  IConstraintAccordionBody
 > = ({ localConstraint, children, triggerTransition, setAction, onSubmit }) => {
-    return (
-        <>
-            <StyledInputContainer>{children}</StyledInputContainer>
-            <StyledButtonContainer>
-                <StyledInputButtonContainer>
-                    <StyledLeftButton
-                        type='button'
-                        onClick={onSubmit}
-                        variant='outlined'
-                        color='primary'
-                        data-testid='CONSTRAINT_SAVE_BUTTON'
-                    >
-                        Done
-                    </StyledLeftButton>
-                </StyledInputButtonContainer>
-            </StyledButtonContainer>
-        </>
-    );
+  return (
+    <>
+      <StyledInputContainer>{children}</StyledInputContainer>
+      <StyledButtonContainer>
+        <StyledInputButtonContainer>
+          <StyledLeftButton
+            type='button'
+            onClick={onSubmit}
+            variant='outlined'
+            color='primary'
+            data-testid='CONSTRAINT_SAVE_BUTTON'
+          >
+            Done
+          </StyledLeftButton>
+        </StyledInputButtonContainer>
+      </StyledButtonContainer>
+    </>
+  );
 };

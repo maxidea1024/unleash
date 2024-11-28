@@ -20,7 +20,6 @@ test('playgroundResponseSchema', () =>
     fc.property(
       generate(),
       (data: PlaygroundResponseSchema) =>
-        validateSchema(playgroundResponseSchema.$id, data) ===
-        undefined,
+        validateSchema(playgroundResponseSchema.$id, data) === undefined,
     ),
   ));

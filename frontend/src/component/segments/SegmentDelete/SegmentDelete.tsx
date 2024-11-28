@@ -5,46 +5,46 @@ import { SegmentDeleteConfirm } from './SegmentDeleteConfirm/SegmentDeleteConfir
 import { SegmentDeleteUsedSegment } from './SegmentDeleteUsedSegment/SegmentDeleteUsedSegment';
 
 interface ISegmentDeleteProps {
-    segment: ISegment;
-    open: boolean;
-    onClose: () => void;
-    onRemove: () => void;
+  segment: ISegment;
+  open: boolean;
+  onClose: () => void;
+  onRemove: () => void;
 }
 
 export const SegmentDelete = ({
-    segment,
-    open,
-    onClose,
-    onRemove,
+  segment,
+  open,
+  onClose,
+  onRemove,
 }: ISegmentDeleteProps) => {
-    const { strategies, changeRequestStrategies, loading } =
-        useStrategiesBySegment(segment.id);
-    const canDeleteSegment =
-        strategies?.length === 0 && changeRequestStrategies?.length === 0;
-    if (loading) {
-        return null;
-    }
+  const { strategies, changeRequestStrategies, loading } =
+    useStrategiesBySegment(segment.id);
+  const canDeleteSegment =
+    strategies?.length === 0 && changeRequestStrategies?.length === 0;
+  if (loading) {
+    return null;
+  }
 
-    return (
-        <ConditionallyRender
-            condition={canDeleteSegment}
-            show={
-                <SegmentDeleteConfirm
-                    segment={segment}
-                    open={open}
-                    onClose={onClose}
-                    onRemove={onRemove}
-                />
-            }
-            elseShow={
-                <SegmentDeleteUsedSegment
-                    segment={segment}
-                    open={open}
-                    onClose={onClose}
-                    strategies={strategies}
-                    changeRequestStrategies={changeRequestStrategies}
-                />
-            }
+  return (
+    <ConditionallyRender
+      condition={canDeleteSegment}
+      show={
+        <SegmentDeleteConfirm
+          segment={segment}
+          open={open}
+          onClose={onClose}
+          onRemove={onRemove}
         />
-    );
+      }
+      elseShow={
+        <SegmentDeleteUsedSegment
+          segment={segment}
+          open={open}
+          onClose={onClose}
+          strategies={strategies}
+          changeRequestStrategies={changeRequestStrategies}
+        />
+      }
+    />
+  );
 };

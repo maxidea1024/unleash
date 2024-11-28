@@ -8,9 +8,9 @@
  * Signals that this strategy was evaluated successfully.
  */
 export type PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus =
-    (typeof PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus)[keyof typeof PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus];
+  (typeof PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus)[keyof typeof PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PlaygroundStrategySchemaResultAnyOfFourEvaluationStatus = {
-    complete: 'complete',
+  complete: 'complete',
 } as const;

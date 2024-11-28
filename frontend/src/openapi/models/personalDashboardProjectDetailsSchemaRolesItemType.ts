@@ -8,10 +8,10 @@
  * The type of the role
  */
 export type PersonalDashboardProjectDetailsSchemaRolesItemType =
-    (typeof PersonalDashboardProjectDetailsSchemaRolesItemType)[keyof typeof PersonalDashboardProjectDetailsSchemaRolesItemType];
+  (typeof PersonalDashboardProjectDetailsSchemaRolesItemType)[keyof typeof PersonalDashboardProjectDetailsSchemaRolesItemType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PersonalDashboardProjectDetailsSchemaRolesItemType = {
-    custom: 'custom',
-    project: 'project',
+  custom: 'custom',
+  project: 'project',
 } as const;

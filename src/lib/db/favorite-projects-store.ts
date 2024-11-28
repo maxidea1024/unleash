@@ -62,7 +62,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
     await this.db(T.FAVORITE_PROJECTS).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({ userId, project }: IFavoriteProjectKey): Promise<boolean> {
     const result = await this.db.raw(

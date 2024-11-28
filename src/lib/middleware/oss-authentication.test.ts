@@ -10,7 +10,7 @@ import sessionDb from './session-db';
 import type { Knex } from 'knex';
 import type { LogProvider } from '../logger';
 
-const getLogger = (() => ({ debug() { } })) as unknown as LogProvider;
+const getLogger = (() => ({ debug() {} })) as unknown as LogProvider;
 
 async function getSetup(preRouterHook) {
   const base = `/random${Math.round(Math.random() * 1000)}`;
@@ -38,7 +38,7 @@ async function getSetup(preRouterHook) {
 
 test('should return 401 when missing user', async () => {
   expect.assertions(0);
-  const { base, request } = await getSetup(() => { });
+  const { base, request } = await getSetup(() => {});
 
   return request.get(`${base}/api/protectedResource`).expect(401);
 });

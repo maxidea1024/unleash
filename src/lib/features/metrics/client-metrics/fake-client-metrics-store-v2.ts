@@ -9,17 +9,15 @@ import type {
 
 export default class FakeClientMetricsStoreV2
   extends EventEmitter
-  implements IClientMetricsStoreV2 {
+  implements IClientMetricsStoreV2
+{
   metrics: IClientMetricsEnv[] = [];
 
   constructor() {
     super();
     this.setMaxListeners(0);
   }
-  getSeenTogglesForApp(
-    appName: string,
-    hoursBack?: number,
-  ): Promise<string[]> {
+  getSeenTogglesForApp(appName: string, hoursBack?: number): Promise<string[]> {
     throw new Error('Method not implemented.');
   }
   clearMetrics(hoursBack: number): Promise<void> {
@@ -90,5 +88,5 @@ export default class FakeClientMetricsStoreV2
     return Promise.resolve(undefined);
   }
 
-  destroy(): void { }
+  destroy(): void {}
 }

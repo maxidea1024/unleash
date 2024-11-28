@@ -9,82 +9,82 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { useId } from 'hooks/useId';
 
 interface ICorsFormProps {
-    frontendApiOrigins: string[] | undefined;
+  frontendApiOrigins: string[] | undefined;
 }
 
 export const CorsForm = ({ frontendApiOrigins }: ICorsFormProps) => {
-    const { setFrontendSettings } = useUiConfigApi();
-    const { setToastData, setToastApiError } = useToast();
-    const [value, setValue] = useState(formatInputValue(frontendApiOrigins));
-    const inputFieldId = useId();
-    const helpTextId = useId();
+  const { setFrontendSettings } = useUiConfigApi();
+  const { setToastData, setToastApiError } = useToast();
+  const [value, setValue] = useState(formatInputValue(frontendApiOrigins));
+  const inputFieldId = useId();
+  const helpTextId = useId();
 
-    const onSubmit = async (event: React.FormEvent) => {
-        try {
-            const split = parseInputValue(value);
-            event.preventDefault();
-            await setFrontendSettings(split);
-            setValue(formatInputValue(split));
-            setToastData({ title: 'Settings saved', type: 'success' });
-        } catch (error) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
+  const onSubmit = async (event: React.FormEvent) => {
+    try {
+      const split = parseInputValue(value);
+      event.preventDefault();
+      await setFrontendSettings(split);
+      setValue(formatInputValue(split));
+      setToastData({ title: 'Settings saved', type: 'success' });
+    } catch (error) {
+      setToastApiError(formatUnknownError(error));
+    }
+  };
 
-    return (
-        <form onSubmit={onSubmit}>
-            <Box sx={{ display: 'grid', gap: 1 }}>
-                <label htmlFor={inputFieldId}>
-                    Which origins should be allowed to call the Frontend API?
-                    Add only one origin per line. The CORS specification does
-                    not support wildcard for subdomains, it needs to be a fully
-                    qualified domain, including the protocol.
-                    <br />
-                    <br />
-                    If you specify "*" it will be the chosen origin.
-                    <br />
-                    <br />
-                    Example:
-                </label>
+  return (
+    <form onSubmit={onSubmit}>
+      <Box sx={{ display: 'grid', gap: 1 }}>
+        <label htmlFor={inputFieldId}>
+          Which origins should be allowed to call the Frontend API? Add only one
+          origin per line. The CORS specification does not support wildcard for
+          subdomains, it needs to be a fully qualified domain, including the
+          protocol.
+          <br />
+          <br />
+          If you specify "*" it will be the chosen origin.
+          <br />
+          <br />
+          Example:
+        </label>
 
-                <code style={{ fontSize: '0.7em' }}>
-                    https://www.example.com
-                    <br />
-                    https://www.example2.com
-                </code>
+        <code style={{ fontSize: '0.7em' }}>
+          https://www.example.com
+          <br />
+          https://www.example2.com
+        </code>
 
-                <TextField
-                    id={inputFieldId}
-                    aria-describedby={helpTextId}
-                    placeholder={textareaDomainsPlaceholder}
-                    value={value}
-                    onChange={(event) => setValue(event.target.value)}
-                    multiline
-                    rows={12}
-                    variant='outlined'
-                    fullWidth
-                    InputProps={{
-                        style: { fontFamily: 'monospace', fontSize: '0.8em' },
-                    }}
-                />
-                <UpdateButton permission={ADMIN} />
-            </Box>
-        </form>
-    );
+        <TextField
+          id={inputFieldId}
+          aria-describedby={helpTextId}
+          placeholder={textareaDomainsPlaceholder}
+          value={value}
+          onChange={(event) => setValue(event.target.value)}
+          multiline
+          rows={12}
+          variant='outlined'
+          fullWidth
+          InputProps={{
+            style: { fontFamily: 'monospace', fontSize: '0.8em' },
+          }}
+        />
+        <UpdateButton permission={ADMIN} />
+      </Box>
+    </form>
+  );
 };
 
 export const parseInputValue = (value: string): string[] => {
-    return value
-        .split(/[,\n\s]+/) // Split by commas/newlines/spaces.
-        .map((value) => value.replace(/\/$/, '')) // Remove trailing slashes.
-        .filter(Boolean); // Remove empty values from (e.g.) double newlines.
+  return value
+    .split(/[,\n\s]+/) // Split by commas/newlines/spaces.
+    .map((value) => value.replace(/\/$/, '')) // Remove trailing slashes.
+    .filter(Boolean); // Remove empty values from (e.g.) double newlines.
 };
 
 export const formatInputValue = (values: string[] | undefined): string => {
-    return values?.join('\n') ?? '';
+  return values?.join('\n') ?? '';
 };
 
 const textareaDomainsPlaceholder = [
-    'https://example.com',
-    'https://example.org',
+  'https://example.com',
+  'https://example.org',
 ].join('\n');

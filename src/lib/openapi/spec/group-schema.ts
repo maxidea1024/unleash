@@ -26,8 +26,7 @@ export const groupSchema = {
       example: 'Current members of the DX squad',
     },
     mappingsSSO: {
-      description:
-        'A list of SSO groups that should map to this Unleash group',
+      description: 'A list of SSO groups that should map to this Unleash group',
       type: 'array',
       items: {
         type: 'string',
@@ -76,8 +75,7 @@ export const groupSchema = {
       minimum: 0,
     },
     scimId: {
-      description:
-        'The SCIM ID of the group, only present if managed by SCIM',
+      description: 'The SCIM ID of the group, only present if managed by SCIM',
       type: 'string',
       nullable: true,
       example: '01HTMEXAMPLESCIMID7SWWGHN7',

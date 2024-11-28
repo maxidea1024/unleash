@@ -3,15 +3,15 @@ import type React from 'react';
 import type { FC } from 'react';
 
 const StyledListContainer = styled(List)(({ theme }) => ({
-    padding: theme.spacing(1, 1, 3, 1),
+  padding: theme.spacing(1, 1, 3, 1),
 }));
 
 export const NotificationsList: FC<{ children?: React.ReactNode }> = ({
-    children,
+  children,
 }) => {
-    return (
-        <StyledListContainer data-testid='NOTIFICATIONS_LIST'>
-            {children}
-        </StyledListContainer>
-    );
+  return (
+    <StyledListContainer data-testid='NOTIFICATIONS_LIST'>
+      {children}
+    </StyledListContainer>
+  );
 };

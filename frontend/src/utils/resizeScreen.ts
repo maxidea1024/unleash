@@ -5,11 +5,11 @@ const createMatchMedia = (width: number) => {
     return {
       matches: mediaQuery.match(query, { width }),
       media: '',
-      addListener: () => { },
-      removeListener: () => { },
-      onchange: () => { },
-      addEventListener: () => { },
-      removeEventListener: () => { },
+      addListener: () => {},
+      removeListener: () => {},
+      onchange: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {},
       dispatchEvent: () => true,
     };
   };

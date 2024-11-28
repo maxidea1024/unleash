@@ -3,12 +3,12 @@ import { CreateUnleashContext } from 'component/context/CreateUnleashContext/Cre
 import { GO_BACK } from 'constants/navigate';
 
 export const CreateUnleashContextPage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (
-        <CreateUnleashContext
-            onSubmit={() => navigate('/context')}
-            onCancel={() => navigate(GO_BACK)}
-        />
-    );
+  return (
+    <CreateUnleashContext
+      onSubmit={() => navigate('/context')}
+      onCancel={() => navigate(GO_BACK)}
+    />
+  );
 };

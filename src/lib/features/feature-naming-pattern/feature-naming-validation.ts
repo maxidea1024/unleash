@@ -47,9 +47,9 @@ export const checkFeatureNamingData = (
 export type FeatureNameCheckResult =
   | { state: 'valid' }
   | {
-    state: 'invalid';
-    invalidNames: Set<string>;
-  };
+      state: 'invalid';
+      invalidNames: Set<string>;
+    };
 
 export const checkFeatureFlagNamesAgainstPattern = (
   featureNames: string[],
@@ -57,9 +57,7 @@ export const checkFeatureFlagNamesAgainstPattern = (
 ): FeatureNameCheckResult => {
   if (pattern) {
     const regex = compileRegex(pattern);
-    const mismatchedNames = featureNames.filter(
-      (name) => !regex.test(name),
-    );
+    const mismatchedNames = featureNames.filter((name) => !regex.test(name));
 
     if (mismatchedNames.length > 0) {
       return {

@@ -31,7 +31,10 @@ export default class ClientMetricsServiceV2 {
   private unsavedMetrics: IClientMetricsEnv[] = [];
   private readonly clientMetricsStoreV2: IClientMetricsStoreV2;
   private readonly lastSeenService: LastSeenService;
-  private readonly flagResolver: Pick<IFlagResolver, 'isEnabled' | 'getVariant'>;
+  private readonly flagResolver: Pick<
+    IFlagResolver,
+    'isEnabled' | 'getVariant'
+  >;
   private readonly logger: Logger;
 
   constructor(
@@ -67,15 +70,11 @@ export default class ClientMetricsServiceV2 {
       const {
         enabledCount: dailyEnabledCount,
         variantCount: dailyVariantCount,
-      } =
-        await this.clientMetricsStoreV2.countPreviousDayMetricsBuckets();
-      const { payload } = this.flagResolver.getVariant(
-        'extendedUsageMetrics',
-      );
+      } = await this.clientMetricsStoreV2.countPreviousDayMetricsBuckets();
+      const { payload } = this.flagResolver.getVariant('extendedUsageMetrics');
 
       const limit =
-        payload?.value &&
-          Number.isInteger(Number.parseInt(payload?.value))
+        payload?.value && Number.isInteger(Number.parseInt(payload?.value))
           ? Number.parseInt(payload?.value)
           : 3600000;
 
@@ -108,9 +107,7 @@ export default class ClientMetricsServiceV2 {
     );
     if (badNames.length > 0) {
       this.logger.warn(
-        `Got a few toggles with invalid names: ${JSON.stringify(
-          badNames,
-        )}`,
+        `Got a few toggles with invalid names: ${JSON.stringify(badNames)}`,
       );
 
       if (this.flagResolver.isEnabled('filterInvalidClientMetrics')) {
@@ -144,8 +141,7 @@ export default class ClientMetricsServiceV2 {
         ),
     );
 
-    const validatedToggleNames =
-      await this.filterValidToggleNames(toggleNames);
+    const validatedToggleNames = await this.filterValidToggleNames(toggleNames);
 
     this.logger.debug(
       `Got ${toggleNames.length} (${validatedToggleNames.length} valid) metrics from ${clientIp}`,
@@ -200,15 +196,12 @@ export default class ClientMetricsServiceV2 {
   async getFeatureToggleMetricsSummary(
     featureName: string,
   ): Promise<ToggleMetricsSummary> {
-    const metrics =
-      await this.clientMetricsStoreV2.getMetricsForFeatureToggle(
-        featureName,
-        1,
-      );
+    const metrics = await this.clientMetricsStoreV2.getMetricsForFeatureToggle(
+      featureName,
+      1,
+    );
     const seenApplications =
-      await this.clientMetricsStoreV2.getSeenAppsForFeatureToggle(
-        featureName,
-      );
+      await this.clientMetricsStoreV2.getSeenAppsForFeatureToggle(featureName);
 
     const groupedMetrics = metrics.reduce((prev, curr) => {
       if (prev[curr.environment]) {
@@ -240,23 +233,20 @@ export default class ClientMetricsServiceV2 {
     let metrics: IClientMetricsEnv[];
     if (this.flagResolver.isEnabled('extendedUsageMetrics')) {
       // if we're in the daily range we need to add one more day
-      const normalizedHoursBack =
-        hoursBack > 48 ? hoursBack + 24 : hoursBack;
-      metrics =
-        await this.clientMetricsStoreV2.getMetricsForFeatureToggleV2(
-          featureName,
-          normalizedHoursBack,
-        );
+      const normalizedHoursBack = hoursBack > 48 ? hoursBack + 24 : hoursBack;
+      metrics = await this.clientMetricsStoreV2.getMetricsForFeatureToggleV2(
+        featureName,
+        normalizedHoursBack,
+      );
       hours =
         hoursBack > 48
           ? generateDayBuckets(Math.floor(hoursBack / 24))
           : generateHourBuckets(hoursBack);
     } else {
-      metrics =
-        await this.clientMetricsStoreV2.getMetricsForFeatureToggle(
-          featureName,
-          hoursBack,
-        );
+      metrics = await this.clientMetricsStoreV2.getMetricsForFeatureToggle(
+        featureName,
+        hoursBack,
+      );
       hours = generateHourBuckets(hoursBack);
     }
 
@@ -277,9 +267,7 @@ export default class ClientMetricsServiceV2 {
         );
         return hours.flatMap((hourBucket) => {
           const metric = applicationMetrics.find(
-            (item) =>
-              compareAsc(hourBucket.timestamp, item.timestamp) ===
-              0,
+            (item) => compareAsc(hourBucket.timestamp, item.timestamp) === 0,
           );
           return (
             metric || {

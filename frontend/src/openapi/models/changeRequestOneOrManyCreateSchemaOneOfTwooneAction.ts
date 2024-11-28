@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction =
-    (typeof ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction)[keyof typeof ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction];
+  (typeof ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction)[keyof typeof ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestOneOrManyCreateSchemaOneOfTwooneAction = {
-    reorderStrategy: 'reorderStrategy',
+  reorderStrategy: 'reorderStrategy',
 } as const;

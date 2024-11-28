@@ -132,13 +132,13 @@ export interface IGetFeatureParams {
 
 export type FeatureNameCheckResultWithFeaturePattern =
   | {
-    state: 'valid';
-  }
+      state: 'valid';
+    }
   | {
-    state: 'invalid';
-    invalidNames: Set<string>;
-    featureNaming: IFeatureNaming;
-  };
+      state: 'invalid';
+      invalidNames: Set<string>;
+      featureNaming: IFeatureNaming;
+    };
 
 const oneOf = (values: string[], match: string) => {
   return values.some((value) => value === match);
@@ -259,9 +259,10 @@ export default class FeatureToggleService {
 
     if (id !== projectId) {
       throw new NotFoundError(
-        `There's no feature named "${featureName}" in project "${projectId}"${id === undefined
-          ? '.'
-          : `, but there's a feature with that name in project "${id}"`
+        `There's no feature named "${featureName}" in project "${projectId}"${
+          id === undefined
+            ? '.'
+            : `, but there's a feature with that name in project "${id}"`
         }`,
       );
     }
@@ -292,9 +293,7 @@ export default class FeatureToggleService {
   async validateNoOrphanParents(featureNames: string[]): Promise<void> {
     if (featureNames.length === 0) return;
     const parents =
-      await this.dependentFeaturesReadModel.getOrphanParents(
-        featureNames,
-      );
+      await this.dependentFeaturesReadModel.getOrphanParents(featureNames);
     if (parents.length > 0) {
       throw new InvalidOperationError(
         featureNames.length > 1
@@ -337,9 +336,7 @@ export default class FeatureToggleService {
   ): Promise<void> {
     if (segmentIds && segmentIds.length > 0) {
       await Promise.all(
-        segmentIds.map((segmentId) =>
-          this.segmentService.get(segmentId),
-        ),
+        segmentIds.map((segmentId) => this.segmentService.get(segmentId)),
       ).then((segments) =>
         segments.map((segment) => {
           if (segment.project && segment.project !== projectId) {
@@ -394,21 +391,17 @@ export default class FeatureToggleService {
 
     const isSameLength =
       constraints.existing.length === constraints.updated.length;
-    const constraintOverLimit = constraints.updated.find(
-      (constraint, i) => {
-        const updatedCount = constraint.values?.length ?? 0;
-        const existingCount =
-          constraints.existing[i]?.values?.length ?? 0;
+    const constraintOverLimit = constraints.updated.find((constraint, i) => {
+      const updatedCount = constraint.values?.length ?? 0;
+      const existingCount = constraints.existing[i]?.values?.length ?? 0;
 
-        const isOverLimit =
-          Array.isArray(constraint.values) &&
-          updatedCount > constraintValuesLimit;
-        const allowAnyway =
-          isSameLength && existingCount >= updatedCount;
+      const isOverLimit =
+        Array.isArray(constraint.values) &&
+        updatedCount > constraintValuesLimit;
+      const allowAnyway = isSameLength && existingCount >= updatedCount;
 
-        return isOverLimit && !allowAnyway;
-      },
-    );
+      return isOverLimit && !allowAnyway;
+    });
 
     if (constraintOverLimit) {
       throwExceedsLimitError(this.eventBus, {
@@ -418,9 +411,7 @@ export default class FeatureToggleService {
       });
     }
   }
-  async validateStrategyType(
-    strategyName: string | undefined,
-  ): Promise<void> {
+  async validateStrategyType(strategyName: string | undefined): Promise<void> {
     if (strategyName !== undefined) {
       const exists = await this.strategyStore.exists(strategyName);
       if (!exists) {
@@ -476,10 +467,7 @@ export default class FeatureToggleService {
       )
         ? constraint.value
         : constraint.values;
-      validateLegalValues(
-        contextDefinition.legalValues,
-        valuesToValidate,
-      );
+      validateLegalValues(contextDefinition.legalValues, valuesToValidate);
     }
 
     return constraint;
@@ -498,10 +486,7 @@ export default class FeatureToggleService {
         `Changing variants is done via PATCH operation to /api/admin/projects/:project/features/:feature/variants`,
       );
     }
-    const { newDocument } = applyPatch(
-      deepClone(featureToggle),
-      operations,
-    );
+    const { newDocument } = applyPatch(deepClone(featureToggle), operations);
 
     const updated = await this.updateFeatureToggle(
       project,
@@ -569,11 +554,7 @@ export default class FeatureToggleService {
   ): Promise<Saved<any>> {
     const { featureName, environment, projectId: project } = context;
     const existingOrder = (
-      await this.getStrategiesForEnvironment(
-        project,
-        featureName,
-        environment,
-      )
+      await this.getStrategiesForEnvironment(project, featureName, environment)
     )
       .sort((strategy1, strategy2) => {
         if (
@@ -590,18 +571,11 @@ export default class FeatureToggleService {
 
     await Promise.all(
       sortOrders.map(async ({ id, sortOrder }) => {
-        await this.featureStrategiesStore.updateSortOrder(
-          id,
-          sortOrder,
-        );
+        await this.featureStrategiesStore.updateSortOrder(id, sortOrder);
       }),
     );
     const newOrder = (
-      await this.getStrategiesForEnvironment(
-        project,
-        featureName,
-        environment,
-      )
+      await this.getStrategiesForEnvironment(project, featureName, environment)
     )
       .sort((strategy1, strategy2) => {
         if (
@@ -638,11 +612,7 @@ export default class FeatureToggleService {
       context.environment,
       user,
     );
-    return this.unprotectedCreateStrategy(
-      strategyConfig,
-      context,
-      auditUser,
-    );
+    return this.unprotectedCreateStrategy(strategyConfig, context, auditUser);
   }
 
   async unprotectedCreateStrategy(
@@ -659,10 +629,7 @@ export default class FeatureToggleService {
       strategyConfig.segments,
     );
 
-    if (
-      strategyConfig.constraints &&
-      strategyConfig.constraints.length > 0
-    ) {
+    if (strategyConfig.constraints && strategyConfig.constraints.length > 0) {
       this.validateConstraintsLimit({
         updated: strategyConfig.constraints,
         existing: [],
@@ -682,9 +649,7 @@ export default class FeatureToggleService {
 
     if (strategyConfig.variants && strategyConfig.variants.length > 0) {
       await variantsArraySchema.validateAsync(strategyConfig.variants);
-      const fixedVariants = this.fixVariantWeights(
-        strategyConfig.variants,
-      );
+      const fixedVariants = this.fixVariantWeights(strategyConfig.variants);
       strategyConfig.variants = fixedVariants;
     }
 
@@ -709,10 +674,7 @@ export default class FeatureToggleService {
           environment,
         });
 
-      if (
-        strategyConfig.segments &&
-        Array.isArray(strategyConfig.segments)
-      ) {
+      if (strategyConfig.segments && Array.isArray(strategyConfig.segments)) {
         await this.segmentService.updateStrategySegments(
           newFeatureStrategy.id,
           strategyConfig.segments,
@@ -817,10 +779,7 @@ export default class FeatureToggleService {
 
     this.validateUpdatedProperties(context, existingStrategy);
     await this.validateStrategyType(updates.name);
-    await this.validateProjectCanAccessSegments(
-      projectId,
-      updates.segments,
-    );
+    await this.validateProjectCanAccessSegments(projectId, updates.segments);
     const existingSegments = await this.segmentService.getByStrategy(id);
 
     if (existingStrategy.id === id) {
@@ -852,9 +811,7 @@ export default class FeatureToggleService {
         );
       }
 
-      const segments = await this.segmentService.getByStrategy(
-        strategy.id,
-      );
+      const segments = await this.segmentService.getByStrategy(strategy.id);
 
       // Store event!
       const data = this.featureStrategyToPublic(strategy, segments);
@@ -898,15 +855,12 @@ export default class FeatureToggleService {
 
     if (existingStrategy.id === id) {
       existingStrategy.parameters[name] = String(value);
-      const existingSegments =
-        await this.segmentService.getByStrategy(id);
+      const existingSegments = await this.segmentService.getByStrategy(id);
       const strategy = await this.featureStrategiesStore.updateStrategy(
         id,
         existingStrategy,
       );
-      const segments = await this.segmentService.getByStrategy(
-        strategy.id,
-      );
+      const segments = await this.segmentService.getByStrategy(strategy.id);
       const data = this.featureStrategyToPublic(strategy, segments);
       const preData = this.featureStrategyToPublic(
         existingStrategy,
@@ -1074,9 +1028,7 @@ export default class FeatureToggleService {
       this.dependentFeaturesReadModel.getParents(featureName),
       this.dependentFeaturesReadModel.getChildren([featureName]),
       this.featureLifecycleReadModel.findCurrentStage(featureName),
-      this.featureCollaboratorsReadModel.getFeatureCollaborators(
-        featureName,
-      ),
+      this.featureCollaboratorsReadModel.getFeatureCollaborators(featureName),
     ]);
 
     if (environmentVariants) {
@@ -1094,12 +1046,11 @@ export default class FeatureToggleService {
         collaborators: { users: collaborators },
       };
     } else {
-      const result =
-        await this.featureStrategiesStore.getFeatureToggleWithEnvs(
-          featureName,
-          userId,
-          archived,
-        );
+      const result = await this.featureStrategiesStore.getFeatureToggleWithEnvs(
+        featureName,
+        userId,
+        archived,
+      );
       return {
         ...result,
         dependencies,
@@ -1171,8 +1122,7 @@ export default class FeatureToggleService {
   async getPlaygroundFeatures(
     query?: IFeatureToggleQuery,
   ): Promise<FeatureConfigurationClient[]> {
-    const features =
-      await this.featureToggleStore.getPlaygroundFeatures(query);
+    const features = await this.featureToggleStore.getPlaygroundFeatures(query);
 
     return features as FeatureConfigurationClient[];
   }
@@ -1192,9 +1142,7 @@ export default class FeatureToggleService {
   async getFeatureToggle(
     featureName: string,
   ): Promise<FeatureToggleWithEnvironment> {
-    return this.featureStrategiesStore.getFeatureToggleWithEnvs(
-      featureName,
-    );
+    return this.featureStrategiesStore.getFeatureToggleWithEnvs(featureName);
   }
 
   private async validateFeatureFlagLimit() {
@@ -1230,8 +1178,7 @@ export default class FeatureToggleService {
     await this.validateName(value.name);
     await this.validateFeatureFlagNameAgainstPattern(value.name, projectId);
 
-    const projectExists =
-      await this.projectStore.hasActiveProject(projectId);
+    const projectExists = await this.projectStore.hasActiveProject(projectId);
 
     if (await this.projectStore.isFeatureLimitReached(projectId)) {
       throw new InvalidOperationError(
@@ -1246,8 +1193,7 @@ export default class FeatureToggleService {
       if (isValidated) {
         featureData = { createdByUserId: auditUser.id, ...value };
       } else {
-        const validated =
-          await featureMetadataSchema.validateAsync(value);
+        const validated = await featureMetadataSchema.validateAsync(value);
         featureData = {
           createdByUserId: auditUser.id,
           ...validated,
@@ -1344,11 +1290,10 @@ export default class FeatureToggleService {
     projectId?: string,
   ): Promise<void> {
     if (projectId) {
-      const result =
-        await this.checkFeatureFlagNamesAgainstProjectPattern(
-          projectId,
-          [featureName],
-        );
+      const result = await this.checkFeatureFlagNamesAgainstProjectPattern(
+        projectId,
+        [featureName],
+      );
 
       if (result.state === 'invalid') {
         const namingPattern = result.featureNaming.pattern;
@@ -1433,21 +1378,16 @@ export default class FeatureToggleService {
       }),
     );
 
-    const cloneDependencies =
-      this.dependentFeaturesService.cloneDependencies(
-        {
-          featureName,
-          newFeatureName,
-          projectId,
-        },
-        auditUser,
-      );
+    const cloneDependencies = this.dependentFeaturesService.cloneDependencies(
+      {
+        featureName,
+        newFeatureName,
+        projectId,
+      },
+      auditUser,
+    );
 
-    await Promise.all([
-      ...strategyTasks,
-      ...variantTasks,
-      cloneDependencies,
-    ]);
+    await Promise.all([...strategyTasks, ...variantTasks, cloneDependencies]);
 
     return created;
   }
@@ -1570,10 +1510,7 @@ export default class FeatureToggleService {
       projectId,
       environment,
     );
-    await this.projectStore.deleteEnvironmentForProject(
-      projectId,
-      environment,
-    );
+    await this.projectStore.deleteEnvironmentForProject(projectId, environment);
   }
 
   /** Validations  */
@@ -1629,11 +1566,7 @@ export default class FeatureToggleService {
     projectId?: string,
   ): Promise<void> {
     if (projectId) {
-      await this.stopWhenChangeRequestsEnabled(
-        projectId,
-        undefined,
-        user,
-      );
+      await this.stopWhenChangeRequestsEnabled(projectId, undefined, user);
     }
     await this.unprotectedArchiveToggle(featureName, auditUser, projectId);
   }
@@ -1680,11 +1613,7 @@ export default class FeatureToggleService {
     projectId: string,
   ): Promise<void> {
     await this.stopWhenChangeRequestsEnabled(projectId, undefined, user);
-    await this.unprotectedArchiveToggles(
-      featureNames,
-      projectId,
-      auditUser,
-    );
+    await this.unprotectedArchiveToggles(featureNames, projectId, auditUser);
   }
 
   async validateArchiveToggles(featureNames: string[]): Promise<{
@@ -1692,13 +1621,9 @@ export default class FeatureToggleService {
     parentsWithChildFeatures: string[];
   }> {
     const hasDeletedDependencies =
-      await this.dependentFeaturesReadModel.haveDependencies(
-        featureNames,
-      );
+      await this.dependentFeaturesReadModel.haveDependencies(featureNames);
     const parentsWithChildFeatures =
-      await this.dependentFeaturesReadModel.getOrphanParents(
-        featureNames,
-      );
+      await this.dependentFeaturesReadModel.getOrphanParents(featureNames);
     return {
       hasDeletedDependencies,
       parentsWithChildFeatures,
@@ -1715,8 +1640,7 @@ export default class FeatureToggleService {
       this.validateNoOrphanParents(featureNames),
     ]);
 
-    const features =
-      await this.featureToggleStore.getAllByNames(featureNames);
+    const features = await this.featureToggleStore.getAllByNames(featureNames);
     await this.featureToggleStore.batchArchive(featureNames);
     await this.dependentFeaturesService.unprotectedDeleteFeaturesDependencies(
       featureNames,
@@ -1744,8 +1668,7 @@ export default class FeatureToggleService {
   ): Promise<void> {
     await this.validateFeaturesContext(featureNames, projectId);
 
-    const features =
-      await this.featureToggleStore.getAllByNames(featureNames);
+    const features = await this.featureToggleStore.getAllByNames(featureNames);
     const relevantFeatures = features.filter(
       (feature) => feature.stale !== stale,
     );
@@ -1885,16 +1808,13 @@ export default class FeatureToggleService {
 
       if (strategies.length === 0 || shouldCreate) {
         const projectEnvironmentDefaultStrategy =
-          await this.projectStore.getDefaultStrategy(
-            project,
-            environment,
-          );
+          await this.projectStore.getDefaultStrategy(project, environment);
         const strategy =
           projectEnvironmentDefaultStrategy != null
             ? getProjectDefaultStrategy(
-              projectEnvironmentDefaultStrategy,
-              featureName,
-            )
+                projectEnvironmentDefaultStrategy,
+                featureName,
+              )
             : getDefaultStrategy(featureName);
 
         await this.unprotectedCreateStrategy(
@@ -1944,11 +1864,7 @@ export default class FeatureToggleService {
         `Changing project not allowed. Project ${newProject} has change requests enabled.`,
       );
     }
-    if (
-      await this.dependentFeaturesReadModel.haveDependencies([
-        featureName,
-      ])
-    ) {
+    if (await this.dependentFeaturesReadModel.haveDependencies([featureName])) {
       throw new ForbiddenError(
         'Changing project not allowed. Feature has dependencies.',
       );
@@ -1997,14 +1913,11 @@ export default class FeatureToggleService {
     await this.validateFeaturesContext(featureNames, projectId);
     await this.validateNoOrphanParents(featureNames);
 
-    const features =
-      await this.featureToggleStore.getAllByNames(featureNames);
+    const features = await this.featureToggleStore.getAllByNames(featureNames);
     const eligibleFeatures = features.filter(
       (toggle) => toggle.archivedAt !== null,
     );
-    const eligibleFeatureNames = eligibleFeatures.map(
-      (toggle) => toggle.name,
-    );
+    const eligibleFeatureNames = eligibleFeatures.map((toggle) => toggle.name);
 
     if (eligibleFeatures.length === 0) {
       return;
@@ -2040,14 +1953,11 @@ export default class FeatureToggleService {
     await this.validateActiveProject(projectId);
     await this.validateFeaturesContext(featureNames, projectId);
 
-    const features =
-      await this.featureToggleStore.getAllByNames(featureNames);
+    const features = await this.featureToggleStore.getAllByNames(featureNames);
     const eligibleFeatures = features.filter(
       (toggle) => toggle.archivedAt !== null,
     );
-    const eligibleFeatureNames = eligibleFeatures.map(
-      (toggle) => toggle.name,
-    );
+    const eligibleFeatureNames = eligibleFeatures.map((toggle) => toggle.name);
     await this.featureToggleStore.batchRevive(eligibleFeatureNames);
 
     await this.featureToggleStore.disableAllEnvironmentsForFeatures(
@@ -2100,9 +2010,7 @@ export default class FeatureToggleService {
     if (projectAccess.mode === 'all') {
       return features;
     } else {
-      return features.filter((f) =>
-        projectAccess.projects.includes(f.project),
-      );
+      return features.filter((f) => projectAccess.projects.includes(f.project));
     }
   }
 
@@ -2163,10 +2071,7 @@ export default class FeatureToggleService {
     user: IUser,
     auditUser: IAuditUser,
   ): Promise<IVariant[]> {
-    const oldVariants = await this.getVariantsForEnv(
-      featureName,
-      environment,
-    );
+    const oldVariants = await this.getVariantsForEnv(featureName, environment);
     const { newDocument } = await applyPatch(
       deepClone(oldVariants),
       newVariants,
@@ -2190,8 +2095,7 @@ export default class FeatureToggleService {
   ): Promise<FeatureToggle> {
     await variantsArraySchema.validateAsync(newVariants);
     const fixedVariants = this.fixVariantWeights(newVariants);
-    const oldVariants =
-      await this.featureToggleStore.getVariants(featureName);
+    const oldVariants = await this.featureToggleStore.getVariants(featureName);
     const featureToggle = await this.featureToggleStore.saveVariants(
       project,
       featureName,
@@ -2369,9 +2273,7 @@ export default class FeatureToggleService {
     });
 
     if (variants.length > 0 && variableVariants.length === 0) {
-      throw new BadDataError(
-        'There must be at least one "variable" variant',
-      );
+      throw new BadDataError('There must be at least one "variable" variant');
     }
 
     const fixedVariants = variants.filter((x) => {
@@ -2381,9 +2283,7 @@ export default class FeatureToggleService {
     const fixedWeights = fixedVariants.reduce((a, v) => a + v.weight, 0);
 
     if (fixedWeights > 1000) {
-      throw new BadDataError(
-        'The traffic distribution total must equal 100%',
-      );
+      throw new BadDataError('The traffic distribution total must equal 100%');
     }
 
     const averageWeight = Math.floor(
@@ -2411,14 +2311,14 @@ export default class FeatureToggleService {
   ) {
     const canBypass = environment
       ? await this.changeRequestAccessReadModel.canBypassChangeRequest(
-        project,
-        environment,
-        user,
-      )
+          project,
+          environment,
+          user,
+        )
       : await this.changeRequestAccessReadModel.canBypassChangeRequestForProject(
-        project,
-        user,
-      );
+          project,
+          user,
+        );
     if (!canBypass) {
       throw new PermissionError(SKIP_CHANGE_REQUEST);
     }

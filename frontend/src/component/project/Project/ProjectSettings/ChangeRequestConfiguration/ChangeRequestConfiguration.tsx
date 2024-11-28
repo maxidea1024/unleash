@@ -5,8 +5,8 @@ import { Alert } from '@mui/material';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import AccessContext from 'contexts/AccessContext';
 import {
-    PROJECT_CHANGE_REQUEST_READ,
-    UPDATE_PROJECT,
+  PROJECT_CHANGE_REQUEST_READ,
+  UPDATE_PROJECT,
 } from 'component/providers/AccessProvider/permissions';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { usePageTitle } from 'hooks/usePageTitle';
@@ -16,40 +16,38 @@ import { ChangeRequestProcessHelp } from './ChangeRequestProcessHelp/ChangeReque
 import { useProjectOverviewNameOrId } from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 
 export const ChangeRequestConfiguration = () => {
-    const projectId = useRequiredPathParam('projectId');
-    const projectName = useProjectOverviewNameOrId(projectId);
-    const { hasAccess } = useContext(AccessContext);
-    const { isOss, isPro } = useUiConfig();
+  const projectId = useRequiredPathParam('projectId');
+  const projectName = useProjectOverviewNameOrId(projectId);
+  const { hasAccess } = useContext(AccessContext);
+  const { isOss, isPro } = useUiConfig();
 
-    usePageTitle(`Project change request configuration – ${projectName}`);
+  usePageTitle(`Project change request configuration – ${projectName}`);
 
-    if (isOss() || isPro()) {
-        return (
-            <PageContent
-                header={
-                    <PageHeader
-                        titleElement='Change request configuration'
-                        actions={<ChangeRequestProcessHelp />}
-                    />
-                }
-                sx={{ justifyContent: 'center' }}
-            >
-                <PremiumFeature feature='change-requests' />
-            </PageContent>
-        );
-    }
+  if (isOss() || isPro()) {
+    return (
+      <PageContent
+        header={
+          <PageHeader
+            titleElement='Change request configuration'
+            actions={<ChangeRequestProcessHelp />}
+          />
+        }
+        sx={{ justifyContent: 'center' }}
+      >
+        <PremiumFeature feature='change-requests' />
+      </PageContent>
+    );
+  }
 
-    if (!hasAccess([UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_READ], projectId)) {
-        return (
-            <PageContent
-                header={<PageHeader title='Change request configuration' />}
-            >
-                <Alert severity='error'>
-                    You need project owner permissions to access this section.
-                </Alert>
-            </PageContent>
-        );
-    }
+  if (!hasAccess([UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_READ], projectId)) {
+    return (
+      <PageContent header={<PageHeader title='Change request configuration' />}>
+        <Alert severity='error'>
+          You need project owner permissions to access this section.
+        </Alert>
+      </PageContent>
+    );
+  }
 
-    return <ChangeRequestTable />;
+  return <ChangeRequestTable />;
 };

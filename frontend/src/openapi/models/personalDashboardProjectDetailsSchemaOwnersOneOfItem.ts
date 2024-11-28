@@ -7,5 +7,5 @@ import type { PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOf } from '
 import type { PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThree } from './personalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThree';
 
 export type PersonalDashboardProjectDetailsSchemaOwnersOneOfItem =
-    | PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOf
-    | PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThree;
+  | PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOf
+  | PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThree;

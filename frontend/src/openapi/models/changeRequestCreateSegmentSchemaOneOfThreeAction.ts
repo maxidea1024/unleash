@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestCreateSegmentSchemaOneOfThreeAction =
-    (typeof ChangeRequestCreateSegmentSchemaOneOfThreeAction)[keyof typeof ChangeRequestCreateSegmentSchemaOneOfThreeAction];
+  (typeof ChangeRequestCreateSegmentSchemaOneOfThreeAction)[keyof typeof ChangeRequestCreateSegmentSchemaOneOfThreeAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestCreateSegmentSchemaOneOfThreeAction = {
-    deleteSegment: 'deleteSegment',
+  deleteSegment: 'deleteSegment',
 } as const;

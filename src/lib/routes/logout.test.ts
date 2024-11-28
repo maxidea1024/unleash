@@ -88,9 +88,7 @@ test('should not set "Clear-Site-Data" header', async () => {
   await request
     .post(`${baseUriPath}/logout`)
     .expect(302)
-    .expect((res) =>
-      expect(res.headers['Clear-Site-Data']).toBeUndefined(),
-    );
+    .expect((res) => expect(res.headers['Clear-Site-Data']).toBeUndefined());
 });
 
 test('should clear "unleash-session" cookies', async () => {

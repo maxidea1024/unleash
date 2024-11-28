@@ -138,9 +138,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
           case 'remoteAddress':
             return this.remoteAddressStrategyChangeText(event);
           case 'applicationHostname':
-            return this.applicationHostnameStrategyChangeText(
-              event,
-            );
+            return this.applicationHostnameStrategyChangeText(event);
           default:
             return `by updating strategy ${this.bold(
               this.getStrategyTitle(event),
@@ -164,25 +162,18 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
     return this.listOfValuesStrategyChangeText(event, 'userIds');
   }
 
-  private listOfValuesStrategyChangeText(
-    event: IEvent,
-    propertyName: string,
-  ) {
+  private listOfValuesStrategyChangeText(event: IEvent, propertyName: string) {
     const { preData, data, environment } = event;
     const userIdText = (values) =>
-      values.length === 0
-        ? `empty set of ${propertyName}`
-        : `[${values}]`;
+      values.length === 0 ? `empty set of ${propertyName}` : `[${values}]`;
     const usersText =
       preData?.parameters[propertyName] === data?.parameters[propertyName]
         ? ''
         : !preData
-          ? ` ${propertyName} to ${userIdText(
-            data?.parameters[propertyName],
-          )}`
+          ? ` ${propertyName} to ${userIdText(data?.parameters[propertyName])}`
           : ` ${propertyName} from ${userIdText(
-            preData.parameters[propertyName],
-          )} to ${userIdText(data?.parameters[propertyName])}`;
+              preData.parameters[propertyName],
+            )} to ${userIdText(data?.parameters[propertyName])}`;
     const constraintText = this.constraintChangeText(
       preData?.constraints,
       data?.constraints,
@@ -297,8 +288,9 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
           ? constraintOperatorDescriptions[constraint.operator]
           : constraint.operator;
 
-        return `${constraint.contextName} ${constraint.inverted ? 'not ' : ''
-          }${operator} ${val}`;
+        return `${constraint.contextName} ${
+          constraint.inverted ? 'not ' : ''
+        }${operator} ${val}`;
       };
 
       return constraints.length === 0

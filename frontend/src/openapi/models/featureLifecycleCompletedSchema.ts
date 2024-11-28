@@ -9,8 +9,8 @@ import type { FeatureLifecycleCompletedSchemaStatus } from './featureLifecycleCo
  * A feature that has been marked as completed
  */
 export interface FeatureLifecycleCompletedSchema {
-    /** The status of the feature after it has been marked as completed */
-    status: FeatureLifecycleCompletedSchemaStatus;
-    /** The metadata value passed in together with status */
-    statusValue?: string;
+  /** The status of the feature after it has been marked as completed */
+  status: FeatureLifecycleCompletedSchemaStatus;
+  /** The metadata value passed in together with status */
+  statusValue?: string;
 }

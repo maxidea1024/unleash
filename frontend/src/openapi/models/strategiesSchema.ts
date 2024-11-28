@@ -10,8 +10,8 @@ import type { StrategiesSchemaVersion } from './strategiesSchemaVersion';
  * List of strategies
  */
 export interface StrategiesSchema {
-    /** List of strategies */
-    strategies: StrategySchema[];
-    /** Version of the strategies schema */
-    version: StrategiesSchemaVersion;
+  /** List of strategies */
+  strategies: StrategySchema[];
+  /** Version of the strategies schema */
+  version: StrategiesSchemaVersion;
 }

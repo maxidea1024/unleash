@@ -92,9 +92,7 @@ export default class PatService {
       );
     }
 
-    if (
-      await this.patStore.existsWithDescriptionByUser(description, userId)
-    ) {
+    if (await this.patStore.existsWithDescriptionByUser(description, userId)) {
       throw new NameExistsError('PAT description already exists.');
     }
   }

@@ -709,10 +709,7 @@ test('should hide sensitive fields when fetching', async () => {
     events: [FEATURE_CREATED],
   };
 
-  const createdConfig = await addonService.createAddon(
-    config,
-    TEST_AUDIT_USER,
-  );
+  const createdConfig = await addonService.createAddon(config, TEST_AUDIT_USER);
   const addons = await addonService.getAddons();
   const addonRetrieved = await addonService.getAddon(createdConfig.id);
 

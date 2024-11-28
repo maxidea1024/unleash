@@ -5,6 +5,6 @@
  */
 
 export type BulkRegistrationSchemaConnectViaItem = {
-    appName: string;
-    instanceId: string;
+  appName: string;
+  instanceId: string;
 };

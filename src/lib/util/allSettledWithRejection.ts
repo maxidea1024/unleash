@@ -10,8 +10,6 @@ export const allSettledWithRejection = (
         }
       }
 
-      resolve(
-        results.map((r) => (r as PromiseFulfilledResult<any>).value),
-      );
+      resolve(results.map((r) => (r as PromiseFulfilledResult<any>).value));
     });
   });

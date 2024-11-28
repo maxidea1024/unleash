@@ -20,10 +20,7 @@ const usePersistentSearchParams = <T extends QueryParamConfigMap>(
       return;
     }
     setSearchParams(
-      encodeQueryParams(queryParamsDefinition, value) as Record<
-        string,
-        string
-      >,
+      encodeQueryParams(queryParamsDefinition, value) as Record<string, string>,
       { replace: true },
     );
   }, []);
@@ -51,9 +48,7 @@ export const usePersistentTableState = <T extends QueryParamConfigMap>(
     return reorderObject(tableState, [...searchParams.keys()]);
   }, [searchParams, tableState, reorderObject]);
 
-  type SetTableStateInternalParam = Parameters<
-    typeof setTableStateInternal
-  >[0];
+  type SetTableStateInternalParam = Parameters<typeof setTableStateInternal>[0];
 
   const setTableState = useCallback(
     (newState: SetTableStateInternalParam) => {
@@ -65,17 +60,17 @@ export const usePersistentTableState = <T extends QueryParamConfigMap>(
           const updatedState = (newState as Function)(prevState);
           return queryParamsDefinition.offset
             ? {
-              offset: queryParamsDefinition.offset.decode('0'),
-              ...updatedState,
-            }
+                offset: queryParamsDefinition.offset.decode('0'),
+                ...updatedState,
+              }
             : updatedState;
         });
       } else {
         const updatedState = queryParamsDefinition.offset
           ? {
-            offset: queryParamsDefinition.offset.decode('0'),
-            ...newState,
-          }
+              offset: queryParamsDefinition.offset.decode('0'),
+              ...newState,
+            }
           : newState;
         setTableStateInternal(updatedState);
       }

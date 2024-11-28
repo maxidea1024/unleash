@@ -518,12 +518,7 @@ export type CreateProject = Pick<IProject, 'name'> & {
 // Create project aligns with #/components/schemas/projectCreatedSchema
 export type ProjectCreated = Pick<
   IProject,
-  | 'id'
-  | 'name'
-  | 'mode'
-  | 'defaultStickiness'
-  | 'description'
-  | 'featureLimit'
+  'id' | 'name' | 'mode' | 'defaultStickiness' | 'description' | 'featureLimit'
 > & {
   environments: string[];
   changeRequestEnvironments?: { name: string; requiredApprovals: number }[];

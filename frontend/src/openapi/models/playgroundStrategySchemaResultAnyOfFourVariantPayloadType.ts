@@ -8,12 +8,12 @@
  * The format of the payload.
  */
 export type PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType =
-    (typeof PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType)[keyof typeof PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType];
+  (typeof PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType)[keyof typeof PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType = {
-    json: 'json',
-    csv: 'csv',
-    string: 'string',
-    number: 'number',
+  json: 'json',
+  csv: 'csv',
+  string: 'string',
+  number: 'number',
 } as const;

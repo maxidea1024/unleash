@@ -152,12 +152,12 @@ declare module '@mui/material/styles' {
       series: string[];
     };
   }
-  interface Theme extends CustomTheme { }
-  interface ThemeOptions extends CustomTheme { }
+  interface Theme extends CustomTheme {}
+  interface ThemeOptions extends CustomTheme {}
 
-  interface Palette extends CustomPalette { }
-  interface PaletteOptions extends CustomPalette { }
-  interface TypeBackground extends CustomTypeBackground { }
+  interface Palette extends CustomPalette {}
+  interface PaletteOptions extends CustomPalette {}
+  interface TypeBackground extends CustomTypeBackground {}
 
   /* Extend the action object from MUI */
   interface CustomTypeAction {
@@ -169,7 +169,7 @@ declare module '@mui/material/styles' {
     alternative: string;
   }
 
-  interface TypeAction extends CustomTypeAction { }
+  interface TypeAction extends CustomTypeAction {}
 
   /* Extend the background object from MUI */
   interface CustomTypeBackground {

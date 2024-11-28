@@ -72,9 +72,7 @@ const createFeatureFlagWithStrategy = async (featureName: string) => {
 
 const archiveFeature = async (featureName: string) => {
   await app.request
-    .delete(
-      `/api/admin/projects/${DEFAULT_PROJECT}/features/${featureName}`,
-    )
+    .delete(`/api/admin/projects/${DEFAULT_PROJECT}/features/${featureName}`)
     .set('Content-Type', 'application/json')
     .expect(202);
 };
@@ -270,10 +268,7 @@ beforeAll(async () => {
     regularUserName,
     `${regularUserName}@getunleash.io`,
   );
-  await createUserAdminAccess(
-    adminUserName,
-    `${adminUserName}@getunleash.io`,
-  );
+  await createUserAdminAccess(adminUserName, `${adminUserName}@getunleash.io`);
 });
 
 beforeEach(async () => {
@@ -369,8 +364,7 @@ test('validate import data', async () => {
     ],
     permissions: [
       {
-        message:
-          'We detected you are missing the following permissions:',
+        message: 'We detected you are missing the following permissions:',
         affectedItems: [
           'Create context fields',
           'Create activation strategies',

@@ -8,8 +8,7 @@ export const requestsPerSecondSchema = {
   properties: {
     status: {
       type: 'string',
-      description:
-        'Whether the query against prometheus succeeded or failed',
+      description: 'Whether the query against prometheus succeeded or failed',
       enum: ['success', 'failure'],
       example: 'success',
     },
@@ -33,8 +32,7 @@ export const requestsPerSecondSchema = {
               'A representation of a single metric to build a line in a graph',
             properties: {
               metric: {
-                description:
-                  'A key value set representing the metric',
+                description: 'A key value set representing the metric',
                 type: 'object',
                 properties: {
                   appName: {
@@ -44,8 +42,7 @@ export const requestsPerSecondSchema = {
                     example: 'mySdk',
                   },
                   endpoint: {
-                    description:
-                      'Which endpoint has been accessed',
+                    description: 'Which endpoint has been accessed',
                     type: 'string',
                     example: '/api/frontend',
                   },
@@ -63,8 +60,7 @@ export const requestsPerSecondSchema = {
                     anyOf: [
                       {
                         type: 'string',
-                        description:
-                          'An identifier for the line in the graph',
+                        description: 'An identifier for the line in the graph',
                       },
                       {
                         type: 'number',

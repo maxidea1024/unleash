@@ -42,8 +42,7 @@ export class SimplePasswordProvider extends Controller {
         openApiService.validPath({
           tags: ['Auth'],
           summary: 'Log in',
-          description:
-            'Logs in the user and creates an active session',
+          description: 'Logs in the user and creates an active session',
           operationId: 'login',
           requestBody: createRequestSchema('loginSchema'),
           responses: {

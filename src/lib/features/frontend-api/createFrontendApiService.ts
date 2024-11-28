@@ -76,7 +76,8 @@ export const createFakeFrontendApiService = (
   );
 
   // TODO: remove this dependency after we migrate frontend API
-  const featureToggleServiceV2 = createFakeFeatureToggleService(config).featureToggleService;
+  const featureToggleServiceV2 =
+    createFakeFeatureToggleService(config).featureToggleService;
   const clientFeatureToggleReadModel = new FakeClientFeatureToggleReadModel();
   const globalFrontendApiCache = new GlobalFrontendApiCache(
     config,

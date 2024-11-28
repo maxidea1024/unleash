@@ -49,8 +49,7 @@ test('strips invalid context properties from input before using it', async () =>
     })
     .expect(200);
 
-  const evaluatedContext =
-    body.features[0].environments.production[0].context;
+  const evaluatedContext = body.features[0].environments.production[0].context;
 
   expect(evaluatedContext).toStrictEqual(validData);
 });

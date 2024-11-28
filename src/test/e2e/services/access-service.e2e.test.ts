@@ -231,11 +231,7 @@ const hasFullProjectAccess = async (user, projectName: string, condition) => {
     await accessService.hasPermission(user, UPDATE_PROJECT, projectName),
   ).toBe(condition);
   expect(
-    await accessService.hasPermission(
-      user,
-      MOVE_FEATURE_TOGGLE,
-      projectName,
-    ),
+    await accessService.hasPermission(user, MOVE_FEATURE_TOGGLE, projectName),
   );
   await hasCommonProjectAccess(user, projectName, condition);
 };
@@ -508,9 +504,7 @@ test('should return role with users', async () => {
   expect(roleWithUsers.role.name).toBe(RoleName.EDITOR);
   expect(roleWithUsers.users.length >= 2).toBe(true);
   expect(roleWithUsers.users.find((u) => u.id === user.id)).toBeTruthy();
-  expect(
-    roleWithUsers.users.find((u) => u.email === user.email),
-  ).toBeTruthy();
+  expect(roleWithUsers.users.find((u) => u.email === user.email)).toBeTruthy();
 });
 
 test('should return role with permissions and users', async () => {
@@ -781,11 +775,7 @@ test('Should be denied move feature flag to project where the user does not have
     description: 'Blah',
   };
   await projectService.createProject(projectOrigin, user, TEST_AUDIT_USER);
-  await projectService.createProject(
-    projectDest,
-    editorUser2,
-    TEST_AUDIT_USER,
-  );
+  await projectService.createProject(projectDest, editorUser2, TEST_AUDIT_USER);
 
   const featureFlag = { name: 'moveableFlag' };
 
@@ -806,9 +796,7 @@ test('Should be denied move feature flag to project where the user does not have
   } catch (e) {
     expect(e.name).toContain('Permission');
     expect(e.message.includes('permission')).toBeTruthy();
-    expect(
-      e.message.includes(permissions.MOVE_FEATURE_TOGGLE),
-    ).toBeTruthy();
+    expect(e.message.includes(permissions.MOVE_FEATURE_TOGGLE)).toBeTruthy();
   }
 });
 
@@ -1074,9 +1062,9 @@ test('Should allow user to take on root role through a group that has a root rol
     users: [{ user: viewerUser }],
   });
 
-  expect(
-    await accessService.hasPermission(viewerUser, permissions.ADMIN),
-  ).toBe(true);
+  expect(await accessService.hasPermission(viewerUser, permissions.ADMIN)).toBe(
+    true,
+  );
 });
 
 test('Should not elevate permissions for a user that is not present in a root role group', async () => {
@@ -1089,15 +1077,12 @@ test('Should not elevate permissions for a user that is not present in a root ro
     users: [{ user: viewerUser }],
   });
 
-  expect(
-    await accessService.hasPermission(viewerUser, permissions.ADMIN),
-  ).toBe(true);
+  expect(await accessService.hasPermission(viewerUser, permissions.ADMIN)).toBe(
+    true,
+  );
 
   expect(
-    await accessService.hasPermission(
-      viewerUserNotInGroup,
-      permissions.ADMIN,
-    ),
+    await accessService.hasPermission(viewerUserNotInGroup, permissions.ADMIN),
   ).toBe(false);
 });
 
@@ -1109,9 +1094,9 @@ test('Should not reduce permissions for an admin user that enters an editor grou
     users: [{ user: adminUser }],
   });
 
-  expect(
-    await accessService.hasPermission(adminUser, permissions.ADMIN),
-  ).toBe(true);
+  expect(await accessService.hasPermission(adminUser, permissions.ADMIN)).toBe(
+    true,
+  );
 });
 
 test('Should not change permissions for a user in a group without a root role', async () => {
@@ -1138,7 +1123,7 @@ test('Should not change permissions for a user in a group without a root role', 
 
   expect(
     JSON.stringify(preAddedToGroupPermissions) ===
-    JSON.stringify(postAddedToGroupPermissions),
+      JSON.stringify(postAddedToGroupPermissions),
   ).toBe(true);
 });
 
@@ -1151,9 +1136,9 @@ test('Should add permissions to user when a group is given a root role after the
     users: [{ user: viewerUser }],
   });
 
-  expect(
-    await accessService.hasPermission(viewerUser, permissions.ADMIN),
-  ).toBe(false);
+  expect(await accessService.hasPermission(viewerUser, permissions.ADMIN)).toBe(
+    false,
+  );
 
   await groupStore.update({
     id: groupWithoutRootRole.id!,
@@ -1162,9 +1147,9 @@ test('Should add permissions to user when a group is given a root role after the
     users: [{ user: viewerUser }],
   });
 
-  expect(
-    await accessService.hasPermission(viewerUser, permissions.ADMIN),
-  ).toBe(true);
+  expect(await accessService.hasPermission(viewerUser, permissions.ADMIN)).toBe(
+    true,
+  );
 });
 
 test('Should give full project access to the default project to user in a group with an editor root role', async () => {

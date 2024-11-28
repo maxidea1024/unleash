@@ -1,12 +1,12 @@
 import { useMemo, useState, type VFC } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import {
-    Table,
-    SortableTableHeader,
-    TableBody,
-    TableCell,
-    TableRow,
-    TablePlaceholder,
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
 } from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
@@ -27,229 +27,218 @@ import { Search } from 'component/common/Search/Search';
 import { UsedInCell } from '../UsedInCell';
 
 const ContextList: VFC = () => {
-    const [showDelDialogue, setShowDelDialogue] = useState(false);
-    const [name, setName] = useState<string>();
-    const { context, refetchUnleashContext, loading } = useUnleashContext();
-    const { removeContext } = useContextsApi();
-    const { setToastData, setToastApiError } = useToast();
+  const [showDelDialogue, setShowDelDialogue] = useState(false);
+  const [name, setName] = useState<string>();
+  const { context, refetchUnleashContext, loading } = useUnleashContext();
+  const { removeContext } = useContextsApi();
+  const { setToastData, setToastApiError } = useToast();
 
-    const data = useMemo(() => {
-        if (loading) {
-            return Array(5).fill({
-                name: 'Context name',
-                description: 'Context description when loading',
-            });
-        }
+  const data = useMemo(() => {
+    if (loading) {
+      return Array(5).fill({
+        name: 'Context name',
+        description: 'Context description when loading',
+      });
+    }
 
-        return context
-            .map(
-                ({
-                    name,
-                    description,
-                    sortOrder,
-                    usedInProjects,
-                    usedInFeatures,
-                }) => ({
-                    name,
-                    description,
-                    sortOrder,
-                    usedInProjects,
-                    usedInFeatures,
-                }),
-            )
-            .sort((a, b) => a.sortOrder - b.sortOrder);
-    }, [context, loading]);
-
-    const columns = useMemo(
-        () => [
-            {
-                id: 'Icon',
-                Cell: () => <IconCell icon={<Adjust color='disabled' />} />,
-                disableGlobalFilter: true,
-            },
-            {
-                Header: 'Name',
-                accessor: 'name',
-                width: '70%',
-                Cell: ({
-                    row: {
-                        original: { name, description },
-                    },
-                }: any) => (
-                    <LinkCell
-                        title={name}
-                        to={`/context/edit/${name}`}
-                        subtitle={description}
-                    />
-                ),
-                sortType: 'alphanumeric',
-            },
-            {
-                Header: 'Used in',
-                width: '60%',
-                Cell: ({ row: { original } }: any) => (
-                    <UsedInCell original={original} />
-                ),
-            },
-            {
-                Header: 'Actions',
-                id: 'Actions',
-                align: 'center',
-                Cell: ({
-                    row: {
-                        original: { name },
-                    },
-                }: any) => (
-                    <ContextActionsCell
-                        name={name}
-                        onDelete={() => {
-                            setName(name);
-                            setShowDelDialogue(true);
-                        }}
-                    />
-                ),
-                width: 150,
-                disableGlobalFilter: true,
-                disableSortBy: true,
-            },
-            {
-                accessor: 'description',
-                disableSortBy: true,
-            },
-            {
-                accessor: 'sortOrder',
-                disableGlobalFilter: true,
-                sortType: 'number',
-            },
-        ],
-        [],
-    );
-
-    const initialState = useMemo(
-        () => ({
-            sortBy: [{ id: 'name', desc: false }],
-            hiddenColumns: ['description', 'sortOrder'],
+    return context
+      .map(
+        ({ name, description, sortOrder, usedInProjects, usedInFeatures }) => ({
+          name,
+          description,
+          sortOrder,
+          usedInProjects,
+          usedInFeatures,
         }),
-        [],
-    );
+      )
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+  }, [context, loading]);
 
-    const onDeleteContext = async () => {
-        try {
-            if (name === undefined) {
-                throw new Error();
+  const columns = useMemo(
+    () => [
+      {
+        id: 'Icon',
+        Cell: () => <IconCell icon={<Adjust color='disabled' />} />,
+        disableGlobalFilter: true,
+      },
+      {
+        Header: 'Name',
+        accessor: 'name',
+        width: '70%',
+        Cell: ({
+          row: {
+            original: { name, description },
+          },
+        }: any) => (
+          <LinkCell
+            title={name}
+            to={`/context/edit/${name}`}
+            subtitle={description}
+          />
+        ),
+        sortType: 'alphanumeric',
+      },
+      {
+        Header: 'Used in',
+        width: '60%',
+        Cell: ({ row: { original } }: any) => (
+          <UsedInCell original={original} />
+        ),
+      },
+      {
+        Header: 'Actions',
+        id: 'Actions',
+        align: 'center',
+        Cell: ({
+          row: {
+            original: { name },
+          },
+        }: any) => (
+          <ContextActionsCell
+            name={name}
+            onDelete={() => {
+              setName(name);
+              setShowDelDialogue(true);
+            }}
+          />
+        ),
+        width: 150,
+        disableGlobalFilter: true,
+        disableSortBy: true,
+      },
+      {
+        accessor: 'description',
+        disableSortBy: true,
+      },
+      {
+        accessor: 'sortOrder',
+        disableGlobalFilter: true,
+        sortType: 'number',
+      },
+    ],
+    [],
+  );
+
+  const initialState = useMemo(
+    () => ({
+      sortBy: [{ id: 'name', desc: false }],
+      hiddenColumns: ['description', 'sortOrder'],
+    }),
+    [],
+  );
+
+  const onDeleteContext = async () => {
+    try {
+      if (name === undefined) {
+        throw new Error();
+      }
+      await removeContext(name);
+      refetchUnleashContext();
+      setToastData({
+        type: 'success',
+        title: 'Successfully deleted context',
+        text: 'Your context is now deleted',
+      });
+    } catch (error) {
+      setToastApiError(formatUnknownError(error));
+    }
+    setName(undefined);
+    setShowDelDialogue(false);
+  };
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state: { globalFilter },
+    setGlobalFilter,
+  } = useTable(
+    {
+      columns: columns as any[], // TODO: fix after `react-table` v8 update
+      data,
+      initialState,
+      sortTypes,
+      autoResetGlobalFilter: false,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+    },
+    useGlobalFilter,
+    useSortBy,
+  );
+
+  return (
+    <PageContent
+      isLoading={loading}
+      header={
+        <PageHeader
+          title={`Context fields (${rows.length})`}
+          actions={
+            <>
+              <Search initialValue={globalFilter} onChange={setGlobalFilter} />
+              <PageHeader.Divider />
+              <AddContextButton />
+            </>
+          }
+        />
+      }
+    >
+      <SearchHighlightProvider value={globalFilter}>
+        <Table {...getTableProps()}>
+          <SortableTableHeader headerGroups={headerGroups} />
+          <TableBody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              const { key, ...rowProps } = row.getRowProps();
+              return (
+                <TableRow hover key={key} {...rowProps}>
+                  {row.cells.map((cell) => {
+                    const { key, ...cellProps } = cell.getCellProps();
+
+                    return (
+                      <TableCell key={key} {...cellProps}>
+                        {cell.render('Cell')}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </SearchHighlightProvider>
+      <ConditionallyRender
+        condition={rows.length === 0}
+        show={
+          <ConditionallyRender
+            condition={globalFilter?.length > 0}
+            show={
+              <TablePlaceholder>
+                No contexts found matching &ldquo;
+                {globalFilter}
+                &rdquo;
+              </TablePlaceholder>
             }
-            await removeContext(name);
-            refetchUnleashContext();
-            setToastData({
-                type: 'success',
-                title: 'Successfully deleted context',
-                text: 'Your context is now deleted',
-            });
-        } catch (error) {
-            setToastApiError(formatUnknownError(error));
+            elseShow={
+              <TablePlaceholder>
+                No contexts available. Get started by adding one.
+              </TablePlaceholder>
+            }
+          />
         }
-        setName(undefined);
-        setShowDelDialogue(false);
-    };
-
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-        state: { globalFilter },
-        setGlobalFilter,
-    } = useTable(
-        {
-            columns: columns as any[], // TODO: fix after `react-table` v8 update
-            data,
-            initialState,
-            sortTypes,
-            autoResetGlobalFilter: false,
-            autoResetSortBy: false,
-            disableSortRemove: true,
-        },
-        useGlobalFilter,
-        useSortBy,
-    );
-
-    return (
-        <PageContent
-            isLoading={loading}
-            header={
-                <PageHeader
-                    title={`Context fields (${rows.length})`}
-                    actions={
-                        <>
-                            <Search
-                                initialValue={globalFilter}
-                                onChange={setGlobalFilter}
-                            />
-                            <PageHeader.Divider />
-                            <AddContextButton />
-                        </>
-                    }
-                />
-            }
-        >
-            <SearchHighlightProvider value={globalFilter}>
-                <Table {...getTableProps()}>
-                    <SortableTableHeader headerGroups={headerGroups} />
-                    <TableBody {...getTableBodyProps()}>
-                        {rows.map((row) => {
-                            prepareRow(row);
-                            const { key, ...rowProps } = row.getRowProps();
-                            return (
-                                <TableRow hover key={key} {...rowProps}>
-                                    {row.cells.map((cell) => {
-                                        const { key, ...cellProps } =
-                                            cell.getCellProps();
-
-                                        return (
-                                            <TableCell key={key} {...cellProps}>
-                                                {cell.render('Cell')}
-                                            </TableCell>
-                                        );
-                                    })}
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </SearchHighlightProvider>
-            <ConditionallyRender
-                condition={rows.length === 0}
-                show={
-                    <ConditionallyRender
-                        condition={globalFilter?.length > 0}
-                        show={
-                            <TablePlaceholder>
-                                No contexts found matching &ldquo;
-                                {globalFilter}
-                                &rdquo;
-                            </TablePlaceholder>
-                        }
-                        elseShow={
-                            <TablePlaceholder>
-                                No contexts available. Get started by adding
-                                one.
-                            </TablePlaceholder>
-                        }
-                    />
-                }
-            />
-            <ConfirmDialogue
-                open={showDelDialogue}
-                onClick={onDeleteContext}
-                onClose={() => {
-                    setName(undefined);
-                    setShowDelDialogue(false);
-                }}
-                title='Really delete context field'
-            />
-        </PageContent>
-    );
+      />
+      <ConfirmDialogue
+        open={showDelDialogue}
+        onClick={onDeleteContext}
+        onClose={() => {
+          setName(undefined);
+          setShowDelDialogue(false);
+        }}
+        title='Really delete context field'
+      />
+    </PageContent>
+  );
 };
 
 export default ContextList;

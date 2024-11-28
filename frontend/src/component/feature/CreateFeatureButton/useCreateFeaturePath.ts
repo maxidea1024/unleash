@@ -2,27 +2,27 @@ import { useDefaultProjectId } from 'hooks/api/getters/useDefaultProject/useDefa
 import { getCreateTogglePath } from 'utils/routePathHelpers';
 
 interface IUseCreateFeaturePathOutput {
-    path: string;
-    projectId: string;
+  path: string;
+  projectId: string;
 }
 
 export const useCreateFeaturePath = (filter: {
-    query?: string;
-    project: string;
+  query?: string;
+  project: string;
 }): IUseCreateFeaturePathOutput | undefined => {
-    const defaultProjectId = useDefaultProjectId();
+  const defaultProjectId = useDefaultProjectId();
 
-    const projectId =
-        filter.project === '*' || !filter.project
-            ? defaultProjectId
-            : filter.project;
+  const projectId =
+    filter.project === '*' || !filter.project
+      ? defaultProjectId
+      : filter.project;
 
-    if (!projectId) {
-        return;
-    }
+  if (!projectId) {
+    return;
+  }
 
-    return {
-        path: getCreateTogglePath(projectId),
-        projectId,
-    };
+  return {
+    path: getCreateTogglePath(projectId),
+    projectId,
+  };
 };

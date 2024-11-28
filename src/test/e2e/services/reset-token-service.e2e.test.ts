@@ -31,12 +31,7 @@ beforeAll(async () => {
   stores = db.stores;
   const eventService = createEventsService(db.rawDatabase, config);
   const groupService = new GroupService(stores, config, eventService);
-  accessService = new AccessService(
-    stores,
-    config,
-    groupService,
-    eventService,
-  );
+  accessService = new AccessService(stores, config, groupService, eventService);
   resetTokenService = new ResetTokenService(stores, config);
   sessionService = new SessionService(stores, config);
   const emailService = new EmailService(config);

@@ -8,8 +8,8 @@
  * The representation of a dora time to production feature metric
  */
 export interface DoraFeaturesSchema {
-    /** The name of a feature flag */
-    name: string;
-    /** The average number of days it takes a feature flag to get into production */
-    timeToProduction: number;
+  /** The name of a feature flag */
+  name: string;
+  /** The average number of days it takes a feature flag to get into production */
+  timeToProduction: number;
 }

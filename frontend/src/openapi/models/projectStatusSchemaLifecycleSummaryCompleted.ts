@@ -8,11 +8,11 @@
  * Statistics on feature flags in a given stage in this project.
  */
 export type ProjectStatusSchemaLifecycleSummaryCompleted = {
-    /**
-     * The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
-     * @nullable
-     */
-    averageDays: number | null;
-    /** The number of feature flags currently in a stage in this project. */
-    currentFlags: number;
+  /**
+   * The average number of days a feature flag remains in a stage in this project. Will be null if Unleash doesn't have any data for this stage yet.
+   * @nullable
+   */
+  averageDays: number | null;
+  /** The number of feature flags currently in a stage in this project. */
+  currentFlags: number;
 };

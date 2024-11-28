@@ -62,34 +62,29 @@ export const instanceAdminStatsSchema = {
     },
     activeUsers: {
       type: 'object',
-      description:
-        'The number of active users in the last 7, 30 and 90 days',
+      description: 'The number of active users in the last 7, 30 and 90 days',
       properties: {
         last7: {
           type: 'integer',
-          description:
-            'The number of active users in the last 7 days',
+          description: 'The number of active users in the last 7 days',
           example: 5,
           minimum: 0,
         },
         last30: {
           type: 'integer',
-          description:
-            'The number of active users in the last 30 days',
+          description: 'The number of active users in the last 30 days',
           example: 10,
           minimum: 0,
         },
         last60: {
           type: 'integer',
-          description:
-            'The number of active users in the last 60 days',
+          description: 'The number of active users in the last 60 days',
           example: 12,
           minimum: 0,
         },
         last90: {
           type: 'integer',
-          description:
-            'The number of active users in the last 90 days',
+          description: 'The number of active users in the last 90 days',
           example: 15,
           minimum: 0,
         },
@@ -144,8 +139,7 @@ export const instanceAdminStatsSchema = {
     },
     contextFields: {
       type: 'integer',
-      description:
-        'The number of context fields defined in this instance.',
+      description: 'The number of context fields defined in this instance.',
       example: 7,
       minimum: 0,
     },

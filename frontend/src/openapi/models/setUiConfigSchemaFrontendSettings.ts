@@ -8,6 +8,6 @@
  * Settings related to the front-end API.
  */
 export type SetUiConfigSchemaFrontendSettings = {
-    /** The list of origins that the front-end API should accept requests from. */
-    frontendApiOrigins: string[];
+  /** The list of origins that the front-end API should accept requests from. */
+  frontendApiOrigins: string[];
 };

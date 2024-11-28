@@ -14,56 +14,56 @@ import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { GO_BACK } from 'constants/navigate';
 
 const EditEnvironment = () => {
-    const { uiConfig } = useUiConfig();
-    const { setToastData, setToastApiError } = useToast();
-    const id = useRequiredPathParam('id');
-    const { environment } = useEnvironment(id);
-    const { updateEnvironment } = useEnvironmentApi();
+  const { uiConfig } = useUiConfig();
+  const { setToastData, setToastApiError } = useToast();
+  const id = useRequiredPathParam('id');
+  const { environment } = useEnvironment(id);
+  const { updateEnvironment } = useEnvironmentApi();
 
-    const navigate = useNavigate();
-    const { name, type, setName, setType, errors, clearErrors } =
-        useEnvironmentForm(environment.name, environment.type);
-    const { refetch } = usePermissions();
+  const navigate = useNavigate();
+  const { name, type, setName, setType, errors, clearErrors } =
+    useEnvironmentForm(environment.name, environment.type);
+  const { refetch } = usePermissions();
 
-    const editPayload = () => {
-        return {
-            type,
-            sortOrder: environment.sortOrder,
-        };
+  const editPayload = () => {
+    return {
+      type,
+      sortOrder: environment.sortOrder,
     };
+  };
 
-    const formatApiCode = () => {
-        return `curl --location --request PUT '${
-            uiConfig.unleashUrl
-        }/api/admin/environments/update/${id}' \\
+  const formatApiCode = () => {
+    return `curl --location --request PUT '${
+      uiConfig.unleashUrl
+    }/api/admin/environments/update/${id}' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
 --data-raw '${JSON.stringify(editPayload(), undefined, 2)}'`;
-    };
+  };
 
-    const handleSubmit = async (e: Event) => {
-        e.preventDefault();
-        try {
-            await updateEnvironment(id, editPayload());
-            refetch();
-            navigate('/environments');
-            setToastData({
-                type: 'success',
-                title: 'Successfully updated environment.',
-            });
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
+  const handleSubmit = async (e: Event) => {
+    e.preventDefault();
+    try {
+      await updateEnvironment(id, editPayload());
+      refetch();
+      navigate('/environments');
+      setToastData({
+        type: 'success',
+        title: 'Successfully updated environment.',
+      });
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
+    }
+  };
 
-    const handleCancel = () => {
-        navigate(GO_BACK);
-    };
+  const handleCancel = () => {
+    navigate(GO_BACK);
+  };
 
-    return (
-        <FormTemplate
-            title='Edit environment'
-            description='Environments allow you to manage your
+  return (
+    <FormTemplate
+      title='Edit environment'
+      description='Environments allow you to manage your
             product lifecycle from local development
             through production. Your projects and
             feature flags are accessible in all your
@@ -73,25 +73,25 @@ const EditEnvironment = () => {
             development or test environment without
             enabling the feature flag in the
             production environment.'
-            documentationLink='https://docs.getunleash.io/reference/environments'
-            documentationLinkLabel='Environments documentation'
-            formatApiCode={formatApiCode}
-        >
-            <EnvironmentForm
-                handleSubmit={handleSubmit}
-                handleCancel={handleCancel}
-                name={name}
-                type={type}
-                setName={setName}
-                setType={setType}
-                mode='Edit'
-                errors={errors}
-                clearErrors={clearErrors}
-            >
-                <UpdateButton permission={ADMIN} />
-            </EnvironmentForm>
-        </FormTemplate>
-    );
+      documentationLink='https://docs.getunleash.io/reference/environments'
+      documentationLinkLabel='Environments documentation'
+      formatApiCode={formatApiCode}
+    >
+      <EnvironmentForm
+        handleSubmit={handleSubmit}
+        handleCancel={handleCancel}
+        name={name}
+        type={type}
+        setName={setName}
+        setType={setType}
+        mode='Edit'
+        errors={errors}
+        clearErrors={clearErrors}
+      >
+        <UpdateButton permission={ADMIN} />
+      </EnvironmentForm>
+    </FormTemplate>
+  );
 };
 
 export default EditEnvironment;

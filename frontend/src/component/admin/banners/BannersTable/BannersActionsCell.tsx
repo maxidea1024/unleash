@@ -5,41 +5,41 @@ import PermissionIconButton from 'component/common/PermissionIconButton/Permissi
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
 
 const StyledBox = styled(Box)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 
 interface IBannersActionsCellProps {
-    onEdit: (event: React.SyntheticEvent) => void;
-    onDelete: (event: React.SyntheticEvent) => void;
+  onEdit: (event: React.SyntheticEvent) => void;
+  onDelete: (event: React.SyntheticEvent) => void;
 }
 
 export const BannersActionsCell = ({
-    onEdit,
-    onDelete,
+  onEdit,
+  onDelete,
 }: IBannersActionsCellProps) => {
-    return (
-        <StyledBox>
-            <PermissionIconButton
-                data-loading
-                onClick={onEdit}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Edit banner',
-                }}
-            >
-                <Edit />
-            </PermissionIconButton>
-            <PermissionIconButton
-                data-loading
-                onClick={onDelete}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Remove banner',
-                }}
-            >
-                <Delete />
-            </PermissionIconButton>
-        </StyledBox>
-    );
+  return (
+    <StyledBox>
+      <PermissionIconButton
+        data-loading
+        onClick={onEdit}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Edit banner',
+        }}
+      >
+        <Edit />
+      </PermissionIconButton>
+      <PermissionIconButton
+        data-loading
+        onClick={onDelete}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Remove banner',
+        }}
+      >
+        <Delete />
+      </PermissionIconButton>
+    </StyledBox>
+  );
 };

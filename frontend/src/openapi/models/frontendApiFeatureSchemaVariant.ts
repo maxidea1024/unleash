@@ -9,17 +9,17 @@ import type { FrontendApiFeatureSchemaVariantPayload } from './frontendApiFeatur
  * Variant details
  */
 export type FrontendApiFeatureSchemaVariant = {
-    /** Whether the variant is enabled or not. */
-    enabled: boolean;
-    /** Whether the feature is enabled or not. */
-    feature_enabled?: boolean;
-    /**
-     * Use `feature_enabled` instead.
-     * @deprecated
-     */
-    featureEnabled?: boolean;
-    /** The variants name. Is unique for this feature flag */
-    name: string;
-    /** Extra data configured for this variant */
-    payload?: FrontendApiFeatureSchemaVariantPayload;
+  /** Whether the variant is enabled or not. */
+  enabled: boolean;
+  /** Whether the feature is enabled or not. */
+  feature_enabled?: boolean;
+  /**
+   * Use `feature_enabled` instead.
+   * @deprecated
+   */
+  featureEnabled?: boolean;
+  /** The variants name. Is unique for this feature flag */
+  name: string;
+  /** Extra data configured for this variant */
+  payload?: FrontendApiFeatureSchemaVariantPayload;
 };

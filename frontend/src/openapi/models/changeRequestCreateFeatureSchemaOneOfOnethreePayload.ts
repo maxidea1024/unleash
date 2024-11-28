@@ -6,5 +6,5 @@
 import type { VariantSchema } from './variantSchema';
 
 export type ChangeRequestCreateFeatureSchemaOneOfOnethreePayload = {
-    variants: VariantSchema[];
+  variants: VariantSchema[];
 };

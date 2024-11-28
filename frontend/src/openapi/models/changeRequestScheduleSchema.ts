@@ -11,6 +11,6 @@ import type { ChangeRequestScheduleSchemaOneOfFive } from './changeRequestSchedu
  * A schedule for a change request's application. The schedule can either be pending, failed, or suspended. The schedule will always contain the state of the schedule and the last scheduled time, but other data varies between the different states.
  */
 export type ChangeRequestScheduleSchema =
-    | ChangeRequestScheduleSchemaOneOf
-    | ChangeRequestScheduleSchemaOneOfThree
-    | ChangeRequestScheduleSchemaOneOfFive;
+  | ChangeRequestScheduleSchemaOneOf
+  | ChangeRequestScheduleSchemaOneOfThree
+  | ChangeRequestScheduleSchemaOneOfFive;

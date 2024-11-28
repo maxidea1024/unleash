@@ -75,7 +75,7 @@ export default class SettingStore implements ISettingStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async getAll(): Promise<any[]> {
     const rows = await this.db(TABLE).select();

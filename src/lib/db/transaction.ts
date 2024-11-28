@@ -14,9 +14,7 @@ export type TransactionCreator<S> = <T>(
 export const createKnexTransactionStarter = (
   knex: Knex,
 ): TransactionCreator<UnleashTransaction> => {
-  function transaction<T>(
-    scope: (trx: KnexTransaction) => void | Promise<T>,
-  ) {
+  function transaction<T>(scope: (trx: KnexTransaction) => void | Promise<T>) {
     if (!knex) {
       console.warn(
         'It looks like your DB is not provided. Very often it is a test setup problem in setupAppWithCustomConfig',

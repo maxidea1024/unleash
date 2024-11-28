@@ -101,7 +101,7 @@ describe('responseTimeMetrics new behavior', () => {
     };
 
     // @ts-expect-error req and res doesn't have all properties
-    storeRequestedRoute(req, res, () => { });
+    storeRequestedRoute(req, res, () => {});
     // @ts-expect-error req and res doesn't have all properties
     middleware(reqWithoutRoute, res);
 
@@ -135,7 +135,7 @@ describe('responseTimeMetrics new behavior', () => {
     };
 
     // @ts-expect-error req and res doesn't have all properties
-    storeRequestedRoute(req, res, () => { });
+    storeRequestedRoute(req, res, () => {});
     // @ts-expect-error req and res doesn't have all properties
     middleware(reqWithoutRoute, res);
 
@@ -169,7 +169,7 @@ describe('responseTimeMetrics new behavior', () => {
       };
 
       // @ts-expect-error req and res doesn't have all properties
-      storeRequestedRoute(req, res, () => { });
+      storeRequestedRoute(req, res, () => {});
       // @ts-expect-error req and res doesn't have all properties
       middleware(reqWithoutRoute, res);
 
@@ -213,7 +213,7 @@ describe('responseTimeMetrics new behavior', () => {
       };
 
       // @ts-expect-error req and res doesn't have all properties
-      storeRequestedRoute(req, res, () => { });
+      storeRequestedRoute(req, res, () => {});
       // @ts-expect-error req and res doesn't have all properties
       middleware(reqWithoutRoute, res);
 

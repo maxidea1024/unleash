@@ -4,35 +4,35 @@ import { formatStrategyName } from 'utils/strategyNames';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 
 interface ICopyStrategiesMessageProps {
-    payload?: IFeatureStrategyPayload[];
-    fromEnvironment?: string;
-    environment?: string;
+  payload?: IFeatureStrategyPayload[];
+  fromEnvironment?: string;
+  environment?: string;
 }
 
 const MsgContainer = styled('div')(({ theme }) => ({
-    '&>*:nth-child(n)': {
-        margin: theme.spacing(1, 0),
-    },
+  '&>*:nth-child(n)': {
+    margin: theme.spacing(1, 0),
+  },
 }));
 
 export const CopyStrategiesMessage: VFC<ICopyStrategiesMessageProps> = ({
-    payload,
-    fromEnvironment,
-    environment,
+  payload,
+  fromEnvironment,
+  environment,
 }) => (
-    <MsgContainer>
-        <Typography>
-            <strong>Copy: </strong>
-        </Typography>
-        {payload?.map((strategy) => (
-            <Typography>
-                <strong>
-                    {formatStrategyName(strategy?.name || '')} strategy{' '}
-                </strong>{' '}
-            </Typography>
-        ))}
-        <Typography>
-            from {fromEnvironment} to {environment}
-        </Typography>
-    </MsgContainer>
+  <MsgContainer>
+    <Typography>
+      <strong>Copy: </strong>
+    </Typography>
+    {payload?.map((strategy) => (
+      <Typography>
+        <strong>
+          {formatStrategyName(strategy?.name || '')} strategy{' '}
+        </strong>{' '}
+      </Typography>
+    ))}
+    <Typography>
+      from {fromEnvironment} to {environment}
+    </Typography>
+  </MsgContainer>
 );

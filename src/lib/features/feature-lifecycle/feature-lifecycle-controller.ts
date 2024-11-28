@@ -59,8 +59,7 @@ export default class FeatureLifecycleController extends Controller {
         openApiService.validPath({
           tags: ['Unstable'],
           summary: 'Get feature lifecycle',
-          description:
-            'Information about the lifecycle stages of the feature.',
+          description: 'Information about the lifecycle stages of the feature.',
           operationId: 'getFeatureLifecycle',
           responses: {
             200: createResponseSchema('featureLifecycleSchema'),
@@ -82,9 +81,7 @@ export default class FeatureLifecycleController extends Controller {
           summary: 'Set feature completed',
           description: 'This will set the feature as completed.',
           operationId: 'complete',
-          requestBody: createRequestSchema(
-            'featureLifecycleCompletedSchema',
-          ),
+          requestBody: createRequestSchema('featureLifecycleCompletedSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(401, 403, 404),
@@ -120,7 +117,8 @@ export default class FeatureLifecycleController extends Controller {
   ): Promise<void> {
     const { featureName } = req.params;
 
-    const result = await this.featureLifecycleService.getFeatureLifecycle(featureName);
+    const result =
+      await this.featureLifecycleService.getFeatureLifecycle(featureName);
 
     this.openApiService.respondWithValidation(
       200,

@@ -4,36 +4,36 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { textTruncated } from 'themes/themeStyles';
 
 const Truncated = styled('div')(() => ({
-    ...textTruncated,
-    maxWidth: 500,
+  ...textTruncated,
+  maxWidth: 500,
 }));
 
 export const NameWithChangeInfo: FC<{
-    newName: string | undefined;
-    previousName: string | undefined;
+  newName: string | undefined;
+  previousName: string | undefined;
 }> = ({ newName, previousName }) => {
-    const titleHasChanged = Boolean(previousName && previousName !== newName);
+  const titleHasChanged = Boolean(previousName && previousName !== newName);
 
-    return (
-        <>
-            <ConditionallyRender
-                condition={titleHasChanged}
-                show={
-                    <Truncated>
-                        <Typography component='del' color='text.secondary'>
-                            {previousName}
-                        </Typography>
-                    </Truncated>
-                }
-            />
-            <ConditionallyRender
-                condition={Boolean(newName)}
-                show={
-                    <Truncated>
-                        <Typography>{newName}</Typography>
-                    </Truncated>
-                }
-            />
-        </>
-    );
+  return (
+    <>
+      <ConditionallyRender
+        condition={titleHasChanged}
+        show={
+          <Truncated>
+            <Typography component='del' color='text.secondary'>
+              {previousName}
+            </Typography>
+          </Truncated>
+        }
+      />
+      <ConditionallyRender
+        condition={Boolean(newName)}
+        show={
+          <Truncated>
+            <Typography>{newName}</Typography>
+          </Truncated>
+        }
+      />
+    </>
+  );
 };

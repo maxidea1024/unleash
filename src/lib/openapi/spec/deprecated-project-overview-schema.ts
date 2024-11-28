@@ -29,8 +29,7 @@ export const deprecatedProjectOverviewSchema = {
     version: {
       type: 'integer',
       example: 1,
-      description:
-        'The schema version used to describe the project overview',
+      description: 'The schema version used to describe the project overview',
     },
     name: {
       type: 'string',
@@ -124,8 +123,7 @@ export const deprecatedProjectOverviewSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the project was favorited, otherwise `false`.',
+      description: '`true` if the project was favorited, otherwise `false`.',
     },
   },
   components: {

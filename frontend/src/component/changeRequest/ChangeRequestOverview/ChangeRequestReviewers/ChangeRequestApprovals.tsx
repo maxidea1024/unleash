@@ -5,26 +5,26 @@ import { ChangeRequestApprover } from './ChangeRequestReviewer';
 import type { IChangeRequestApproval } from '../../changeRequest.types';
 
 interface ChangeRequestApprovalProps {
-    approvals: IChangeRequestApproval[];
+  approvals: IChangeRequestApproval[];
 }
 
 export const ChangeRequestApprovals: FC<ChangeRequestApprovalProps> = ({
-    approvals = [],
+  approvals = [],
 }) => (
-    <>
-        <Typography variant='body1' color='text.secondary'>
-            <ConditionallyRender
-                condition={approvals?.length > 0}
-                show={'Approved by'}
-                elseShow={'No approvals yet'}
-            />
-        </Typography>
-        {approvals.map((approver) => (
-            <ChangeRequestApprover
-                key={approver.createdBy.username}
-                name={approver.createdBy.username || 'Unknown user'}
-                imageUrl={approver.createdBy.imageUrl}
-            />
-        ))}
-    </>
+  <>
+    <Typography variant='body1' color='text.secondary'>
+      <ConditionallyRender
+        condition={approvals?.length > 0}
+        show={'Approved by'}
+        elseShow={'No approvals yet'}
+      />
+    </Typography>
+    {approvals.map((approver) => (
+      <ChangeRequestApprover
+        key={approver.createdBy.username}
+        name={approver.createdBy.username || 'Unknown user'}
+        imageUrl={approver.createdBy.imageUrl}
+      />
+    ))}
+  </>
 );

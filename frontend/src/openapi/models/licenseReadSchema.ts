@@ -8,14 +8,14 @@
  * A model representing a license response.
  */
 export interface LicenseReadSchema {
-    /** Name of the customer that owns the license. This is the name of the company that purchased the license. */
-    customer?: string;
-    /** Date when the license expires. */
-    expireAt?: string;
-    /** Name of plan that the license is for. */
-    plan?: string;
-    /** Number of seats in the license. */
-    seats?: number;
-    /** The actual license token. */
-    token: string;
+  /** Name of the customer that owns the license. This is the name of the company that purchased the license. */
+  customer?: string;
+  /** Date when the license expires. */
+  expireAt?: string;
+  /** Name of plan that the license is for. */
+  plan?: string;
+  /** Number of seats in the license. */
+  seats?: number;
+  /** The actual license token. */
+  token: string;
 }

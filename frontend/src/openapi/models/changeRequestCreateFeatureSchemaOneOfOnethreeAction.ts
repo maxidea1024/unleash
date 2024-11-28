@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestCreateFeatureSchemaOneOfOnethreeAction =
-    (typeof ChangeRequestCreateFeatureSchemaOneOfOnethreeAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfOnethreeAction];
+  (typeof ChangeRequestCreateFeatureSchemaOneOfOnethreeAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfOnethreeAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestCreateFeatureSchemaOneOfOnethreeAction = {
-    patchVariant: 'patchVariant',
+  patchVariant: 'patchVariant',
 } as const;

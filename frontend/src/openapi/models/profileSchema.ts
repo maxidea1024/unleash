@@ -10,11 +10,11 @@ import type { RoleSchema } from './roleSchema';
  * User profile overview
  */
 export interface ProfileSchema {
-    /** Deprecated, always returns empty array */
-    features: FeatureSchema[];
-    /** Which projects this user is a member of */
-    projects: string[];
-    rootRole: RoleSchema;
-    /** Which email subscriptions this user is subscribed to */
-    subscriptions: string[];
+  /** Deprecated, always returns empty array */
+  features: FeatureSchema[];
+  /** Which projects this user is a member of */
+  projects: string[];
+  rootRole: RoleSchema;
+  /** Which email subscriptions this user is subscribed to */
+  subscriptions: string[];
 }

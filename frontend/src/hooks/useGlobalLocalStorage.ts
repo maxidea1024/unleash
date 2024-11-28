@@ -6,10 +6,7 @@ interface IGlobalStore {
 }
 
 export const useGlobalLocalStorage = () => {
-  const { value, setValue } = createLocalStorage<IGlobalStore>(
-    'global:v1',
-    {},
-  );
+  const { value, setValue } = createLocalStorage<IGlobalStore>('global:v1', {});
 
   // fix incorrect values introduced by a bug
   const parsedValue = {

@@ -101,10 +101,7 @@ export default class EnvironmentService {
     auditUser: IAuditUser,
   ): Promise<void> {
     try {
-      await this.featureEnvironmentStore.connectProject(
-        environment,
-        projectId,
-      );
+      await this.featureEnvironmentStore.connectProject(environment, projectId);
       await this.featureEnvironmentStore.connectFeatures(
         environment,
         projectId,
@@ -137,8 +134,10 @@ export default class EnvironmentService {
         'Only "flexibleRollout" strategy can be used as a default strategy for an environment',
       );
     }
-    const previousDefaultStrategy =
-      await this.projectStore.getDefaultStrategy(projectId, environment);
+    const previousDefaultStrategy = await this.projectStore.getDefaultStrategy(
+      projectId,
+      environment,
+    );
     const defaultStrategy = await this.projectStore.updateDefaultStrategy(
       projectId,
       environment,
@@ -170,8 +169,7 @@ export default class EnvironmentService {
     );
 
     if (
-      existingEnvironmentsToEnable.length !==
-      environmentNamesToEnable.length
+      existingEnvironmentsToEnable.length !== environmentNamesToEnable.length
     ) {
       this.logger.warn(
         "Found environment enabled overrides but some of the specified environments don't exist, no overrides will be executed",
@@ -179,8 +177,9 @@ export default class EnvironmentService {
       return Promise.resolve();
     }
 
-    const environmentsNotAlreadyEnabled =
-      existingEnvironmentsToEnable.filter((env) => !env.enabled);
+    const environmentsNotAlreadyEnabled = existingEnvironmentsToEnable.filter(
+      (env) => !env.enabled,
+    );
     const environmentsToDisable = allEnvironments.filter((env) => {
       return !environmentNamesToEnable.includes(env.name) && env.enabled;
     });
@@ -198,10 +197,9 @@ export default class EnvironmentService {
     toDisable: IEnvironment[],
     toEnable: IEnvironment[],
   ) {
-    const projectLinks =
-      await this.projectStore.getProjectLinksForEnvironments(
-        toDisable.map((env) => env.name),
-      );
+    const projectLinks = await this.projectStore.getProjectLinksForEnvironments(
+      toDisable.map((env) => env.name),
+    );
 
     const unlinkTasks = projectLinks.map((link) => {
       return this.forceRemoveEnvironmentFromProject(
@@ -251,10 +249,7 @@ export default class EnvironmentService {
       await this.projectStore.getEnvironmentsForProject(projectId);
 
     if (projectEnvs.length > 1) {
-      await this.forceRemoveEnvironmentFromProject(
-        environment,
-        projectId,
-      );
+      await this.forceRemoveEnvironmentFromProject(environment, projectId);
       await this.eventService.storeEvent(
         new ProjectEnvironmentRemoved({
           project: projectId,

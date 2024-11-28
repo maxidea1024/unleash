@@ -14,8 +14,7 @@ export const addonsSchema = {
   properties: {
     addons: {
       type: 'array',
-      description:
-        'All the addons that exist on this instance of Unleash.',
+      description: 'All the addons that exist on this instance of Unleash.',
       items: {
         $ref: '#/components/schemas/addonSchema',
       },
@@ -30,8 +29,7 @@ export const addonsSchema = {
           displayName: 'Webhook',
           description:
             'A Webhook is a generic way to post messages from Unleash to third party services.',
-          documentationUrl:
-            'https://docs.getunleash.io/docs/addons/webhook',
+          documentationUrl: 'https://docs.getunleash.io/docs/addons/webhook',
           parameters: [
             {
               name: 'url',
@@ -110,8 +108,7 @@ export const addonsSchema = {
           name: 'slack',
           displayName: 'Slack',
           description: 'Allows Unleash to post updates to Slack.',
-          documentationUrl:
-            'https://docs.getunleash.io/docs/addons/slack',
+          documentationUrl: 'https://docs.getunleash.io/docs/addons/slack',
           parameters: [
             {
               name: 'url',
@@ -179,10 +176,8 @@ export const addonsSchema = {
         {
           name: 'teams',
           displayName: 'Microsoft Teams',
-          description:
-            'Allows Unleash to post updates to Microsoft Teams.',
-          documentationUrl:
-            'https://docs.getunleash.io/docs/addons/teams',
+          description: 'Allows Unleash to post updates to Microsoft Teams.',
+          documentationUrl: 'https://docs.getunleash.io/docs/addons/teams',
           parameters: [
             {
               name: 'url',
@@ -214,8 +209,7 @@ export const addonsSchema = {
           name: 'datadog',
           displayName: 'Datadog',
           description: 'Allows Unleash to post updates to Datadog.',
-          documentationUrl:
-            'https://docs.getunleash.io/docs/addons/datadog',
+          documentationUrl: 'https://docs.getunleash.io/docs/addons/datadog',
           parameters: [
             {
               name: 'url',
@@ -230,8 +224,7 @@ export const addonsSchema = {
               name: 'apiKey',
               displayName: 'Datadog API key',
               placeholder: 'j96c23b0f12a6b3434a8d710110bd862',
-              description:
-                '(Required) API key to connect to Datadog',
+              description: '(Required) API key to connect to Datadog',
               type: 'text',
               required: true,
               sensitive: true,

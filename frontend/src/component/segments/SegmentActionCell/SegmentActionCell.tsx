@@ -4,14 +4,14 @@ import { RemoveSegmentButton } from 'component/segments/RemoveSegmentButton/Remo
 import { EditSegmentButton } from 'component/segments/EditSegmentButton/EditSegmentButton';
 
 interface ISegmentActionCellProps {
-    segment: ISegment;
+  segment: ISegment;
 }
 
 export const SegmentActionCell = ({ segment }: ISegmentActionCellProps) => {
-    return (
-        <ActionCell>
-            <EditSegmentButton segment={segment} />
-            <RemoveSegmentButton segment={segment} />
-        </ActionCell>
-    );
+  return (
+    <ActionCell>
+      <EditSegmentButton segment={segment} />
+      <RemoveSegmentButton segment={segment} />
+    </ActionCell>
+  );
 };

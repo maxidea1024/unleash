@@ -8,6 +8,6 @@
  * An object with fields to updated for a given API token.
  */
 export interface UpdateApiTokenSchema {
-    /** The new time when this token should expire. */
-    expiresAt: string;
+  /** The new time when this token should expire. */
+  expiresAt: string;
 }

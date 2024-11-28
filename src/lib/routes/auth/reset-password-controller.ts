@@ -188,7 +188,7 @@ export default class ResetPasswordController extends Controller {
 
   private async logout(req: SessionRequest<any, any, any, any>) {
     if (req.session) {
-      req.session.destroy(() => { });
+      req.session.destroy(() => {});
     }
   }
 }

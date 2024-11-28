@@ -6,40 +6,40 @@ import { ADMIN } from 'component/providers/AccessProvider/permissions';
 import type { VFC } from 'react';
 
 const StyledBox = styled(Box)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 
 interface IServiceAccountsActionsCellProps {
-    onEdit: (event: React.SyntheticEvent) => void;
-    onDelete: (event: React.SyntheticEvent) => void;
+  onEdit: (event: React.SyntheticEvent) => void;
+  onDelete: (event: React.SyntheticEvent) => void;
 }
 
 export const ServiceAccountsActionsCell: VFC<
-    IServiceAccountsActionsCellProps
+  IServiceAccountsActionsCellProps
 > = ({ onEdit, onDelete }) => {
-    return (
-        <StyledBox>
-            <PermissionIconButton
-                data-loading
-                onClick={onEdit}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Edit service account',
-                }}
-            >
-                <Edit />
-            </PermissionIconButton>
-            <PermissionIconButton
-                data-loading
-                onClick={onDelete}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Remove service account',
-                }}
-            >
-                <Delete />
-            </PermissionIconButton>
-        </StyledBox>
-    );
+  return (
+    <StyledBox>
+      <PermissionIconButton
+        data-loading
+        onClick={onEdit}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Edit service account',
+        }}
+      >
+        <Edit />
+      </PermissionIconButton>
+      <PermissionIconButton
+        data-loading
+        onClick={onDelete}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Remove service account',
+        }}
+      >
+        <Delete />
+      </PermissionIconButton>
+    </StyledBox>
+  );
 };

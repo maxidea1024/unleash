@@ -7,15 +7,15 @@ import { EdgeIntegration } from './EdgeIntegration/EdgeIntegration';
 type IViewIntegrationProps = {};
 
 export const ViewIntegration: VFC<IViewIntegrationProps> = () => {
-    const { providerId } = useParams<{ providerId: string }>();
+  const { providerId } = useParams<{ providerId: string }>();
 
-    if (providerId === 'jira') {
-        return <JiraIntegration />;
-    }
+  if (providerId === 'jira') {
+    return <JiraIntegration />;
+  }
 
-    if (providerId === 'edge') {
-        return <EdgeIntegration />;
-    }
+  if (providerId === 'edge') {
+    return <EdgeIntegration />;
+  }
 
-    return <NotFound />;
+  return <NotFound />;
 };

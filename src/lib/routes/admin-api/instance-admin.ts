@@ -50,9 +50,7 @@ export default class InstanceAdminController extends Controller {
           responses: {
             200: createCsvResponseSchema(
               'instanceAdminStatsSchemaCsv',
-              this.jsonCsvParser.parse(
-                this.instanceStatsExample(),
-              ),
+              this.jsonCsvParser.parse(this.instanceStatsExample()),
             ),
           },
         }),
@@ -135,9 +133,7 @@ export default class InstanceAdminController extends Controller {
   private serializeStats(
     instanceStats: InstanceStatsSigned,
   ): InstanceAdminStatsSchema {
-    const apiTokensObj = Object.fromEntries(
-      instanceStats.apiTokens.entries(),
-    );
+    const apiTokensObj = Object.fromEntries(instanceStats.apiTokens.entries());
     return serializeDates({
       ...instanceStats,
       apiTokens: apiTokensObj,
@@ -157,8 +153,7 @@ export default class InstanceAdminController extends Controller {
     res: Response<InstanceAdminStatsSchema>,
   ): Promise<void> {
     const instanceStats = await this.instanceStatsService.getSignedStats();
-    const fileName = `unleash-${instanceStats.instanceId
-      }-${Date.now()}.csv`;
+    const fileName = `unleash-${instanceStats.instanceId}-${Date.now()}.csv`;
 
     const json2csvParser = new Parser();
     const csv = json2csvParser.parse(this.serializeStats(instanceStats));

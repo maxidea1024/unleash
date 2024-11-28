@@ -8,6 +8,6 @@
  * Data required to move a feature flag to a project.
  */
 export interface ChangeProjectSchema {
-    /** The project to move the feature flag to. */
-    newProjectId: string;
+  /** The project to move the feature flag to. */
+  newProjectId: string;
 }

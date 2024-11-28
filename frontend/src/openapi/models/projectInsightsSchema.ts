@@ -13,14 +13,14 @@ import type { ProjectStatsSchema } from './projectStatsSchema';
  * A high-level overview of a project insights. It contains information such as project statistics, overall health, types of flags, members overview, change requests overview.
  */
 export interface ProjectInsightsSchema {
-    /** The number of features of each type */
-    featureTypeCounts: FeatureTypeCountSchema[];
-    /** Health summary of the project */
-    health: ProjectInsightsSchemaHealth;
-    /** Lead time (DORA) metrics */
-    leadTime: ProjectDoraMetricsSchema;
-    /** Active/inactive users summary */
-    members: ProjectInsightsSchemaMembers;
-    /** Project statistics */
-    stats: ProjectStatsSchema;
+  /** The number of features of each type */
+  featureTypeCounts: FeatureTypeCountSchema[];
+  /** Health summary of the project */
+  health: ProjectInsightsSchemaHealth;
+  /** Lead time (DORA) metrics */
+  leadTime: ProjectDoraMetricsSchema;
+  /** Active/inactive users summary */
+  members: ProjectInsightsSchemaMembers;
+  /** Project statistics */
+  stats: ProjectStatsSchema;
 }

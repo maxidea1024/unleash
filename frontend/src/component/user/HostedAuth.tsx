@@ -15,162 +15,149 @@ import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 
 interface IHostedAuthProps {
-    authDetails: IAuthEndpointDetailsResponse;
-    redirect: string;
+  authDetails: IAuthEndpointDetailsResponse;
+  redirect: string;
 }
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
-    color: theme.palette.error.main,
+  color: theme.palette.error.main,
 }));
 
 const StyledDiv = styled('div')(({ theme }) => ({
-    ...contentSpacingY(theme),
-    display: 'flex',
-    flexDirection: 'column',
+  ...contentSpacingY(theme),
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
-    width: '150px',
-    margin: theme.spacing(2, 'auto', 0, 'auto'),
-    display: 'block',
-    textAlign: 'center',
+  width: '150px',
+  margin: theme.spacing(2, 'auto', 0, 'auto'),
+  display: 'block',
+  textAlign: 'center',
 }));
 
 const HostedAuth: VFC<IHostedAuthProps> = ({ authDetails, redirect }) => {
-    const { refetchUser } = useAuthUser();
-    const navigate = useNavigate();
-    const params = useQueryParams();
-    const { passwordAuth } = useAuthApi();
-    const [username, setUsername] = useState(params.get('email') || '');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState<{
-        usernameError?: string;
-        passwordError?: string;
-        apiError?: string;
-    }>({});
-    const { setToastData } = useToast();
+  const { refetchUser } = useAuthUser();
+  const navigate = useNavigate();
+  const params = useQueryParams();
+  const { passwordAuth } = useAuthApi();
+  const [username, setUsername] = useState(params.get('email') || '');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState<{
+    usernameError?: string;
+    passwordError?: string;
+    apiError?: string;
+  }>({});
+  const { setToastData } = useToast();
 
-    const handleSubmit: FormEventHandler<HTMLFormElement> = async (evt) => {
-        evt.preventDefault();
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (evt) => {
+    evt.preventDefault();
 
-        if (!username) {
-            setErrors((prev) => ({
-                ...prev,
-                usernameError: 'This is a required field',
-            }));
+    if (!username) {
+      setErrors((prev) => ({
+        ...prev,
+        usernameError: 'This is a required field',
+      }));
+    }
+    if (!password) {
+      setErrors((prev) => ({
+        ...prev,
+        passwordError: 'This is a required field',
+      }));
+    }
+
+    if (!password || !username) {
+      return;
+    }
+
+    try {
+      const data = await passwordAuth(authDetails.path, username, password);
+      if (data.deletedSessions && data.activeSessions) {
+        setToastData({
+          type: 'success',
+          title: 'Maximum Session Limit Reached',
+          text: `You can have up to ${data.activeSessions} active sessions at a time. To allow this login, we’ve logged out ${data.deletedSessions} session(s) from other browsers.`,
+        });
+      }
+      refetchUser();
+      navigate(redirect, { replace: true });
+    } catch (error: any) {
+      if (error instanceof NotFoundError || error instanceof BadRequestError) {
+        setErrors((prev) => ({
+          ...prev,
+          apiError: 'Invalid login details',
+        }));
+        setPassword('');
+        setUsername('');
+      } else {
+        setErrors({
+          apiError: 'Unknown error while trying to authenticate.',
+        });
+      }
+    }
+  };
+
+  const { usernameError, passwordError, apiError } = errors;
+  const { options = [] } = authDetails;
+
+  return (
+    <>
+      <ConditionallyRender
+        condition={options.length > 0}
+        show={
+          <>
+            <AuthOptions options={options} />
+            <DividerText text='or signin with username' />
+          </>
         }
-        if (!password) {
-            setErrors((prev) => ({
-                ...prev,
-                passwordError: 'This is a required field',
-            }));
+      />
+
+      <ConditionallyRender
+        condition={!authDetails.defaultHidden}
+        show={
+          <form onSubmit={handleSubmit}>
+            <StyledTypography variant='subtitle2'>{apiError}</StyledTypography>
+            <StyledDiv>
+              <TextField
+                label='Username or email'
+                name='username'
+                id='username'
+                type='text'
+                onChange={(evt) => setUsername(evt.target.value)}
+                value={username}
+                error={Boolean(usernameError)}
+                helperText={usernameError}
+                variant='outlined'
+                size='small'
+                data-testid={LOGIN_EMAIL_ID}
+              />
+              <PasswordField
+                label='Password'
+                onChange={(evt) => setPassword(evt.target.value)}
+                name='password'
+                id='password'
+                value={password}
+                error={Boolean(passwordError)}
+                helperText={passwordError}
+                autoComplete='current-password'
+                data-testid={LOGIN_PASSWORD_ID}
+              />
+              <Grid container>
+                <StyledButton
+                  variant='contained'
+                  color='primary'
+                  type='submit'
+                  data-testid={LOGIN_BUTTON}
+                >
+                  Sign in
+                </StyledButton>
+              </Grid>
+            </StyledDiv>
+          </form>
         }
-
-        if (!password || !username) {
-            return;
-        }
-
-        try {
-            const data = await passwordAuth(
-                authDetails.path,
-                username,
-                password,
-            );
-            if (data.deletedSessions && data.activeSessions) {
-                setToastData({
-                    type: 'success',
-                    title: 'Maximum Session Limit Reached',
-                    text: `You can have up to ${data.activeSessions} active sessions at a time. To allow this login, we’ve logged out ${data.deletedSessions} session(s) from other browsers.`,
-                });
-            }
-            refetchUser();
-            navigate(redirect, { replace: true });
-        } catch (error: any) {
-            if (
-                error instanceof NotFoundError ||
-                error instanceof BadRequestError
-            ) {
-                setErrors((prev) => ({
-                    ...prev,
-                    apiError: 'Invalid login details',
-                }));
-                setPassword('');
-                setUsername('');
-            } else {
-                setErrors({
-                    apiError: 'Unknown error while trying to authenticate.',
-                });
-            }
-        }
-    };
-
-    const { usernameError, passwordError, apiError } = errors;
-    const { options = [] } = authDetails;
-
-    return (
-        <>
-            <ConditionallyRender
-                condition={options.length > 0}
-                show={
-                    <>
-                        <AuthOptions options={options} />
-                        <DividerText text='or signin with username' />
-                    </>
-                }
-            />
-
-            <ConditionallyRender
-                condition={!authDetails.defaultHidden}
-                show={
-                    <form onSubmit={handleSubmit}>
-                        <StyledTypography variant='subtitle2'>
-                            {apiError}
-                        </StyledTypography>
-                        <StyledDiv>
-                            <TextField
-                                label='Username or email'
-                                name='username'
-                                id='username'
-                                type='text'
-                                onChange={(evt) =>
-                                    setUsername(evt.target.value)
-                                }
-                                value={username}
-                                error={Boolean(usernameError)}
-                                helperText={usernameError}
-                                variant='outlined'
-                                size='small'
-                                data-testid={LOGIN_EMAIL_ID}
-                            />
-                            <PasswordField
-                                label='Password'
-                                onChange={(evt) =>
-                                    setPassword(evt.target.value)
-                                }
-                                name='password'
-                                id='password'
-                                value={password}
-                                error={Boolean(passwordError)}
-                                helperText={passwordError}
-                                autoComplete='current-password'
-                                data-testid={LOGIN_PASSWORD_ID}
-                            />
-                            <Grid container>
-                                <StyledButton
-                                    variant='contained'
-                                    color='primary'
-                                    type='submit'
-                                    data-testid={LOGIN_BUTTON}
-                                >
-                                    Sign in
-                                </StyledButton>
-                            </Grid>
-                        </StyledDiv>
-                    </form>
-                }
-            />
-        </>
-    );
+      />
+    </>
+  );
 };
 
 export default HostedAuth;

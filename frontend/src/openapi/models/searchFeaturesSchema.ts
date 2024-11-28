@@ -9,8 +9,8 @@ import type { FeatureSearchResponseSchema } from './featureSearchResponseSchema'
  * A list of features matching search and filter criteria.
  */
 export interface SearchFeaturesSchema {
-    /** The full list of features in this project matching search and filter criteria. */
-    features: FeatureSearchResponseSchema[];
-    /** Total count of the features matching search and filter criteria */
-    total?: number;
+  /** The full list of features in this project matching search and filter criteria. */
+  features: FeatureSearchResponseSchema[];
+  /** Total count of the features matching search and filter criteria */
+  total?: number;
 }

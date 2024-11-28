@@ -5,25 +5,25 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 
 export const WidgetTitle: FC<{
-    title: ReactNode;
-    tooltip?: ReactNode;
+  title: ReactNode;
+  tooltip?: ReactNode;
 }> = ({ title, tooltip }) => (
-    <Typography
-        variant='h3'
-        sx={(theme) => ({
-            display: 'flex',
-            alignItems: 'center',
-            gap: theme.spacing(0.5),
-        })}
-    >
-        {title}
-        <ConditionallyRender
-            condition={Boolean(tooltip)}
-            show={
-                <HelpIcon htmlTooltip tooltip={tooltip}>
-                    <InfoOutlined />
-                </HelpIcon>
-            }
-        />
-    </Typography>
+  <Typography
+    variant='h3'
+    sx={(theme) => ({
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(0.5),
+    })}
+  >
+    {title}
+    <ConditionallyRender
+      condition={Boolean(tooltip)}
+      show={
+        <HelpIcon htmlTooltip tooltip={tooltip}>
+          <InfoOutlined />
+        </HelpIcon>
+      }
+    />
+  </Typography>
 );

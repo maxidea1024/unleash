@@ -75,25 +75,18 @@ export class SchedulerService {
             await runScheduledFunctionWithEvent();
           }
         } catch (e) {
-          this.logger.error(
-            `interval scheduled job failed | id: ${id}`,
-            e,
-          );
+          this.logger.error(`interval scheduled job failed | id: ${id}`, e);
         }
       }, timeMs).unref(),
     );
 
     // initial run with jitter
     try {
-      const maintenanceMode =
-        await this.maintenanceStatus.isMaintenanceMode();
+      const maintenanceMode = await this.maintenanceStatus.isMaintenanceMode();
 
       if (!maintenanceMode) {
         if (jitter) {
-          const id = setTimeout(
-            () => runScheduledFunctionWithEvent(),
-            jitter,
-          );
+          const id = setTimeout(() => runScheduledFunctionWithEvent(), jitter);
           this.intervalIds.push(id);
         } else {
           await runScheduledFunctionWithEvent();

@@ -102,8 +102,7 @@ export default class ProjectArchiveController extends Controller {
         openApiService.validPath({
           tags: ['Archive'],
           operationId: 'reviveFeatures',
-          description:
-            'This endpoint revives the specified features.',
+          description: 'This endpoint revives the specified features.',
           summary: 'Revives a list of features',
           requestBody: createRequestSchema('batchFeaturesSchema'),
           responses: {
@@ -128,9 +127,7 @@ export default class ProjectArchiveController extends Controller {
           summary: 'Validates archive features',
           requestBody: createRequestSchema('batchFeaturesSchema'),
           responses: {
-            200: createResponseSchema(
-              'validateArchiveFeaturesSchema',
-            ),
+            200: createResponseSchema('validateArchiveFeaturesSchema'),
             ...getStandardResponses(400, 401, 403, 415),
           },
         }),
@@ -165,11 +162,7 @@ export default class ProjectArchiveController extends Controller {
   ): Promise<void> {
     const { projectId } = req.params;
     const { features } = req.body;
-    await this.featureService.deleteFeatures(
-      features,
-      projectId,
-      req.audit,
-    );
+    await this.featureService.deleteFeatures(features, projectId, req.audit);
     res.status(200).end();
   }
 

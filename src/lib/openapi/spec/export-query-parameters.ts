@@ -48,8 +48,7 @@ export const exportQueryParameters = [
         },
       ],
     },
-    description:
-      'Whether strategies should be included in the exported data.',
+    description: 'Whether strategies should be included in the exported data.',
     in: 'query',
   },
   {
@@ -90,8 +89,7 @@ export const exportQueryParameters = [
       ],
       default: true,
     },
-    description:
-      'Whether projects should be included in the exported data.',
+    description: 'Whether projects should be included in the exported data.',
     in: 'query',
   },
   {

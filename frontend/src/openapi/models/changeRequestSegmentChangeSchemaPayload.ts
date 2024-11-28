@@ -10,8 +10,8 @@ import type { SetStrategySortOrderSchema } from './setStrategySortOrderSchema';
  * The data required to perform this action.
  */
 export type ChangeRequestSegmentChangeSchemaPayload =
-    | string
-    | boolean
-    | ChangeRequestSegmentChangeSchemaPayloadOneOf
-    | number
-    | SetStrategySortOrderSchema;
+  | string
+  | boolean
+  | ChangeRequestSegmentChangeSchemaPayloadOneOf
+  | number
+  | SetStrategySortOrderSchema;

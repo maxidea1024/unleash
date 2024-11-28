@@ -33,7 +33,9 @@ export class InactiveUsersService {
   }
 
   async getInactiveUsers(): Promise<InactiveUserSchema[]> {
-    const users = await this.inactiveUsersStore.getInactiveUsers(this.userInactivityThresholdInDays);
+    const users = await this.inactiveUsersStore.getInactiveUsers(
+      this.userInactivityThresholdInDays,
+    );
     if (users.length === 0) {
       return [];
     }

@@ -17,8 +17,7 @@ export const sortStrategyParameters = (
   return Object.fromEntries(
     Object.entries(parameters).sort(
       (a, b) =>
-        sortedParameterNames.indexOf(a[0]) -
-        sortedParameterNames.indexOf(b[0]),
+        sortedParameterNames.indexOf(a[0]) - sortedParameterNames.indexOf(b[0]),
     ),
   );
 };

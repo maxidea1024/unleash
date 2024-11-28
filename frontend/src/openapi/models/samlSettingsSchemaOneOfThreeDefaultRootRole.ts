@@ -8,11 +8,11 @@
  * Assign this root role to auto created users
  */
 export type SamlSettingsSchemaOneOfThreeDefaultRootRole =
-    (typeof SamlSettingsSchemaOneOfThreeDefaultRootRole)[keyof typeof SamlSettingsSchemaOneOfThreeDefaultRootRole];
+  (typeof SamlSettingsSchemaOneOfThreeDefaultRootRole)[keyof typeof SamlSettingsSchemaOneOfThreeDefaultRootRole];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SamlSettingsSchemaOneOfThreeDefaultRootRole = {
-    Viewer: 'Viewer',
-    Editor: 'Editor',
-    Admin: 'Admin',
+  Viewer: 'Viewer',
+  Editor: 'Editor',
+  Admin: 'Admin',
 } as const;

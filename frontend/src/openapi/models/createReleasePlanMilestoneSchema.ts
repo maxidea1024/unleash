@@ -9,10 +9,10 @@ import type { CreateReleasePlanMilestoneStrategySchema } from './createReleasePl
  * Schema representing the creation of a release plan milestone.
  */
 export interface CreateReleasePlanMilestoneSchema {
-    /** The name of the milestone. */
-    name: string;
-    /** The order of the milestone in the release plan. */
-    sortOrder: number;
-    /** A list of strategies that are attached to this milestone. */
-    strategies?: CreateReleasePlanMilestoneStrategySchema[];
+  /** The name of the milestone. */
+  name: string;
+  /** The order of the milestone in the release plan. */
+  sortOrder: number;
+  /** A list of strategies that are attached to this milestone. */
+  strategies?: CreateReleasePlanMilestoneStrategySchema[];
 }

@@ -8,9 +8,9 @@
  * A field to distinguish between release plans and release templates.
  */
 export type ReleasePlanSchemaDiscriminator =
-    (typeof ReleasePlanSchemaDiscriminator)[keyof typeof ReleasePlanSchemaDiscriminator];
+  (typeof ReleasePlanSchemaDiscriminator)[keyof typeof ReleasePlanSchemaDiscriminator];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ReleasePlanSchemaDiscriminator = {
-    plan: 'plan',
+  plan: 'plan',
 } as const;

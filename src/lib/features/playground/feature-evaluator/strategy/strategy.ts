@@ -76,9 +76,7 @@ export class Strategy {
       }
     }
 
-    const result = mappedConstraints.every(
-      (constraint) => constraint.result,
-    );
+    const result = mappedConstraints.every((constraint) => constraint.result);
 
     return {
       result,
@@ -131,17 +129,17 @@ export class Strategy {
 
     const variantDefinition = variantDefinitions
       ? selectVariantDefinition(
-        parameters.groupId as string,
-        variantDefinitions,
-        context,
-      )
+          parameters.groupId as string,
+          variantDefinitions,
+          context,
+        )
       : undefined;
     const variant = variantDefinition
       ? {
-        name: variantDefinition.name,
-        enabled: true,
-        payload: variantDefinition.payload,
-      }
+          name: variantDefinition.name,
+          enabled: true,
+          payload: variantDefinition.payload,
+        }
       : undefined;
 
     if (disabled) {

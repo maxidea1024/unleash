@@ -15,10 +15,7 @@ export const useSegmentsApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const updateSegment = async (
-    segmentId: number,
-    segment: ISegmentPayload,
-  ) => {
+  const updateSegment = async (segmentId: number, segment: ISegmentPayload) => {
     const req = createRequest(formatSegmentPath(segmentId), {
       method: 'PUT',
       body: JSON.stringify(segment),

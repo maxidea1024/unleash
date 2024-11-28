@@ -1,10 +1,7 @@
 import Addon from './addon';
 
 import teamsDefinition from './teams-definition';
-import {
-  type IAddonConfig,
-  serializeDates,
-} from '../types';
+import { type IAddonConfig, serializeDates } from '../types';
 import {
   type FeatureEventFormatter,
   FeatureEventFormatterMd,

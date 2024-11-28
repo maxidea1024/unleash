@@ -57,11 +57,7 @@ export default class AddonController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    {
-      addonService,
-      openApiService,
-      integrationEventsService,
-    }: AddonServices,
+    { addonService, openApiService, integrationEventsService }: AddonServices,
   ) {
     super(config);
 

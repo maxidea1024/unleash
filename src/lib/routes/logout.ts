@@ -55,9 +55,7 @@ export default class LogoutController extends Controller {
 
     if (req.session) {
       if (req.session.user?.id) {
-        await this.sessionService.deleteSessionsForUser(
-          req.session.user.id,
-        );
+        await this.sessionService.deleteSessionsForUser(req.session.user.id);
       }
       req.session.destroy();
     }

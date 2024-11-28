@@ -5,8 +5,8 @@
  */
 
 export type GetUserRolesParams = {
-    /**
-     * The id of the project you want to check permissions for
-     */
-    projectId?: string;
+  /**
+   * The id of the project you want to check permissions for
+   */
+  projectId?: string;
 };

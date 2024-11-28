@@ -8,8 +8,8 @@
  * An optional payload attached to the variant.
  */
 export type PlaygroundFeatureSchemaVariantPayload = {
-    /** The format of the payload. */
-    type: string;
-    /** The payload value stringified. */
-    value: string;
+  /** The format of the payload. */
+  type: string;
+  /** The payload value stringified. */
+  value: string;
 };

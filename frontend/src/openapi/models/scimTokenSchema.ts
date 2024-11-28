@@ -8,6 +8,6 @@
  * An object describing a SCIM provisioning API token.
  */
 export interface ScimTokenSchema {
-    /** The token used for SCIM API authentication. Can be revoked at a later stage by generating a new one. */
-    token: string;
+  /** The token used for SCIM API authentication. Can be revoked at a later stage by generating a new one. */
+  token: string;
 }

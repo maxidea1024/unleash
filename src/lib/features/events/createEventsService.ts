@@ -46,8 +46,7 @@ export const createFakeEventsService: (
   },
 ) => EventService = (config, stores) => {
   const eventStore = stores?.eventStore || new FakeEventStore();
-  const featureTagStore =
-    stores?.featureTagStore || new FakeFeatureTagStore();
+  const featureTagStore = stores?.featureTagStore || new FakeFeatureTagStore();
   const fakePrivateProjectChecker = createFakePrivateProjectChecker();
   const fakeAccessReadModel = createFakeAccessReadModel();
   return new EventService(

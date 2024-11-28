@@ -83,13 +83,8 @@ export class FeatureLifecycleService {
           for (const [environment, metrics] of Object.entries(
             groupedByEnvironment,
           )) {
-            const features = metrics.map(
-              (metric) => metric.featureName,
-            );
-            await this.featuresReceivedMetrics(
-              features,
-              environment,
-            );
+            const features = metrics.map((metric) => metric.featureName);
+            await this.featuresReceivedMetrics(features, environment);
           }
         }
       },
@@ -154,11 +149,10 @@ export class FeatureLifecycleService {
       }
       await this.stageReceivedMetrics(features, 'pre-live');
       if (env.type === 'production') {
-        const featureEnv =
-          await this.featureEnvironmentStore.getAllByFeatures(
-            features,
-            env.name,
-          );
+        const featureEnv = await this.featureEnvironmentStore.getAllByFeatures(
+          features,
+          env.name,
+        );
         const enabledFeatures = featureEnv
           .filter((feature) => feature.enabled)
           .map((feature) => feature.featureName);

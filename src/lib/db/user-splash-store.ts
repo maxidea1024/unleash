@@ -69,16 +69,14 @@ export default class UserSplashStore implements IUserSplashStore {
   }
 
   async delete({ userId, splashId }: IUserSplashKey): Promise<void> {
-    await this.db(TABLE)
-      .where({ user_id: userId, splash_id: splashId })
-      .del();
+    await this.db(TABLE).where({ user_id: userId, splash_id: splashId }).del();
   }
 
   async deleteAll(): Promise<void> {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({ userId, splashId }: IUserSplashKey): Promise<boolean> {
     const result = await this.db.raw(
@@ -94,9 +92,7 @@ export default class UserSplashStore implements IUserSplashStore {
   }
 
   async getAll(): Promise<IUserSplash[]> {
-    const userSplashs = await this.db
-      .table<IUserSplashTable>(TABLE)
-      .select();
+    const userSplashs = await this.db.table<IUserSplashTable>(TABLE).select();
 
     return userSplashs.map(rowToField);
   }

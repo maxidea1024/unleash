@@ -158,7 +158,7 @@ test('get daily client metrics for a toggle', async () => {
         return true;
       },
     },
-    getLogger() { },
+    getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
   const service = new ClientMetricsServiceV2(
@@ -214,7 +214,7 @@ test('get hourly client metrics for a toggle', async () => {
         return true;
       },
     },
-    getLogger() { },
+    getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
   const service = new ClientMetricsServiceV2(
@@ -300,15 +300,13 @@ const setupMetricsService = ({
 };
 
 test('do not aggregate previous day metrics when metrics already calculated', async () => {
-  const { service, recordedWarning, aggregationCalled } = setupMetricsService(
-    {
-      enabledCount: 2,
-      variantCount: 4,
-      enabledDailyCount: 2,
-      variantDailyCount: 4,
-      limit: 6,
-    },
-  );
+  const { service, recordedWarning, aggregationCalled } = setupMetricsService({
+    enabledCount: 2,
+    variantCount: 4,
+    enabledDailyCount: 2,
+    variantDailyCount: 4,
+    limit: 6,
+  });
 
   await service.aggregateDailyMetrics();
 
@@ -317,15 +315,13 @@ test('do not aggregate previous day metrics when metrics already calculated', as
 });
 
 test('do not aggregate previous day metrics when metrics count is below limit', async () => {
-  const { service, recordedWarning, aggregationCalled } = setupMetricsService(
-    {
-      enabledCount: 2,
-      variantCount: 4,
-      enabledDailyCount: 0,
-      variantDailyCount: 0,
-      limit: 5,
-    },
-  );
+  const { service, recordedWarning, aggregationCalled } = setupMetricsService({
+    enabledCount: 2,
+    variantCount: 4,
+    enabledDailyCount: 0,
+    variantDailyCount: 0,
+    limit: 5,
+  });
 
   await service.aggregateDailyMetrics();
 
@@ -336,15 +332,13 @@ test('do not aggregate previous day metrics when metrics count is below limit', 
 });
 
 test('aggregate previous day metrics', async () => {
-  const { service, recordedWarning, aggregationCalled } = setupMetricsService(
-    {
-      enabledCount: 2,
-      variantCount: 4,
-      enabledDailyCount: 0,
-      variantDailyCount: 0,
-      limit: 6,
-    },
-  );
+  const { service, recordedWarning, aggregationCalled } = setupMetricsService({
+    enabledCount: 2,
+    variantCount: 4,
+    enabledDailyCount: 0,
+    variantDailyCount: 0,
+    limit: 6,
+  });
 
   await service.aggregateDailyMetrics();
 

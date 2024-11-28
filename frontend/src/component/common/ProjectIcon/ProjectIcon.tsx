@@ -3,12 +3,12 @@ import { SvgIcon } from '@mui/material';
 import { ReactComponent as Svg } from 'assets/icons/projectIconSmall.svg';
 
 export const ProjectIcon: FC<ComponentProps<typeof SvgIcon>> = ({
-    ...props
+  ...props
 }) => (
-    <SvgIcon
-        component={Svg}
-        viewBox={'0 0 14 10'}
-        data-testid='UnleashProjectIcon'
-        {...props}
-    />
+  <SvgIcon
+    component={Svg}
+    viewBox={'0 0 14 10'}
+    data-testid='UnleashProjectIcon'
+    {...props}
+  />
 );

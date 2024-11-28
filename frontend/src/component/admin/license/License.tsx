@@ -3,8 +3,8 @@ import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Box, Button, Grid, TextField, styled } from '@mui/material';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import {
-    useLicense,
-    useLicenseCheck,
+  useLicense,
+  useLicenseCheck,
 } from 'hooks/api/getters/useLicense/useLicense';
 import { formatDateYMD } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
@@ -15,147 +15,129 @@ import useLicenseKeyApi from 'hooks/api/actions/useLicenseAPI/useLicenseApi';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledBox = styled(Box)(({ theme }) => ({
-    display: 'grid',
-    gap: theme.spacing(4),
+  display: 'grid',
+  gap: theme.spacing(4),
 }));
 
 const StyledDataCollectionPropertyRow = styled('div')(() => ({
-    display: 'table-row',
+  display: 'table-row',
 }));
 
 const StyledPropertyName = styled('p')(({ theme }) => ({
-    display: 'table-cell',
-    fontWeight: theme.fontWeight.bold,
-    paddingTop: theme.spacing(2),
+  display: 'table-cell',
+  fontWeight: theme.fontWeight.bold,
+  paddingTop: theme.spacing(2),
 }));
 
 const StyledPropertyDetails = styled('p')(({ theme }) => ({
-    display: 'table-cell',
-    paddingTop: theme.spacing(2),
-    paddingLeft: theme.spacing(4),
+  display: 'table-cell',
+  paddingTop: theme.spacing(2),
+  paddingLeft: theme.spacing(4),
 }));
 
 export const License = () => {
-    const { setToastData, setToastApiError } = useToast();
-    const { license, error, refetchLicense } = useLicense();
-    const { reCheckLicense } = useLicenseCheck();
-    const { loading } = useUiConfig();
-    const { locationSettings } = useLocationSettings();
-    const [token, setToken] = useState('');
-    const { updateLicenseKey } = useLicenseKeyApi();
+  const { setToastData, setToastApiError } = useToast();
+  const { license, error, refetchLicense } = useLicense();
+  const { reCheckLicense } = useLicenseCheck();
+  const { loading } = useUiConfig();
+  const { locationSettings } = useLocationSettings();
+  const [token, setToken] = useState('');
+  const { updateLicenseKey } = useLicenseKeyApi();
 
-    const updateToken = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setToken(event.target.value.trim());
-    };
+  const updateToken = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setToken(event.target.value.trim());
+  };
 
-    if (loading || !license) {
-        return null;
+  if (loading || !license) {
+    return null;
+  }
+
+  const onSubmit = async (event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    try {
+      await updateLicenseKey(token);
+      setToastData({
+        title: 'License key updated',
+        type: 'success',
+      });
+      refetchLicense();
+      reCheckLicense();
+    } catch (error: unknown) {
+      setToastApiError(formatUnknownError(error));
     }
+  };
 
-    const onSubmit = async (event: React.SyntheticEvent) => {
-        event.preventDefault();
+  return (
+    <PageContent header={<PageHeader title='Unleash Enterprise License' />}>
+      <StyledBox>
+        <ConditionallyRender
+          condition={!!license.token}
+          show={
+            <div>
+              <StyledDataCollectionPropertyRow>
+                <StyledPropertyName>Customer</StyledPropertyName>
+                <StyledPropertyDetails>
+                  {license.customer}
+                </StyledPropertyDetails>
+              </StyledDataCollectionPropertyRow>
+              <StyledDataCollectionPropertyRow>
+                <StyledPropertyName>Instance Name</StyledPropertyName>
+                <StyledPropertyDetails>
+                  {license.instanceName}
+                </StyledPropertyDetails>
+              </StyledDataCollectionPropertyRow>
+              <StyledDataCollectionPropertyRow>
+                <StyledPropertyName>Plan</StyledPropertyName>
+                <StyledPropertyDetails>{license.plan}</StyledPropertyDetails>
+              </StyledDataCollectionPropertyRow>
+              <StyledDataCollectionPropertyRow>
+                <StyledPropertyName>Seats</StyledPropertyName>
+                <StyledPropertyDetails>{license.seats}</StyledPropertyDetails>
+              </StyledDataCollectionPropertyRow>
+              <StyledDataCollectionPropertyRow>
+                <StyledPropertyName>Expire at</StyledPropertyName>
+                <StyledPropertyDetails>
+                  {formatDateYMD(license.expireAt, locationSettings.locale)}
+                </StyledPropertyDetails>
+              </StyledDataCollectionPropertyRow>
+            </div>
+          }
+          elseShow={
+            <p>You do not have a registered Unleash Enterprise License.</p>
+          }
+        />
 
-        try {
-            await updateLicenseKey(token);
-            setToastData({
-                title: 'License key updated',
-                type: 'success',
-            });
-            refetchLicense();
-            reCheckLicense();
-        } catch (error: unknown) {
-            setToastApiError(formatUnknownError(error));
-        }
-    };
-
-    return (
-        <PageContent header={<PageHeader title='Unleash Enterprise License' />}>
-            <StyledBox>
-                <ConditionallyRender
-                    condition={!!license.token}
-                    show={
-                        <div>
-                            <StyledDataCollectionPropertyRow>
-                                <StyledPropertyName>
-                                    Customer
-                                </StyledPropertyName>
-                                <StyledPropertyDetails>
-                                    {license.customer}
-                                </StyledPropertyDetails>
-                            </StyledDataCollectionPropertyRow>
-                            <StyledDataCollectionPropertyRow>
-                                <StyledPropertyName>
-                                    Instance Name
-                                </StyledPropertyName>
-                                <StyledPropertyDetails>
-                                    {license.instanceName}
-                                </StyledPropertyDetails>
-                            </StyledDataCollectionPropertyRow>
-                            <StyledDataCollectionPropertyRow>
-                                <StyledPropertyName>Plan</StyledPropertyName>
-                                <StyledPropertyDetails>
-                                    {license.plan}
-                                </StyledPropertyDetails>
-                            </StyledDataCollectionPropertyRow>
-                            <StyledDataCollectionPropertyRow>
-                                <StyledPropertyName>Seats</StyledPropertyName>
-                                <StyledPropertyDetails>
-                                    {license.seats}
-                                </StyledPropertyDetails>
-                            </StyledDataCollectionPropertyRow>
-                            <StyledDataCollectionPropertyRow>
-                                <StyledPropertyName>
-                                    Expire at
-                                </StyledPropertyName>
-                                <StyledPropertyDetails>
-                                    {formatDateYMD(
-                                        license.expireAt,
-                                        locationSettings.locale,
-                                    )}
-                                </StyledPropertyDetails>
-                            </StyledDataCollectionPropertyRow>
-                        </div>
-                    }
-                    elseShow={
-                        <p>
-                            You do not have a registered Unleash Enterprise
-                            License.
-                        </p>
-                    }
-                />
-
-                <form onSubmit={onSubmit}>
-                    <TextField
-                        onChange={updateToken}
-                        label='New license key'
-                        name='licenseKey'
-                        value={token}
-                        style={{ width: '100%' }}
-                        variant='outlined'
-                        size='small'
-                        multiline
-                        rows={6}
-                        required
-                    />
-                    <Grid container spacing={3} marginTop={2}>
-                        <Grid item md={5}>
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                type='submit'
-                                disabled={loading}
-                            >
-                                Update license key
-                            </Button>{' '}
-                            <p>
-                                <small style={{ color: 'red' }}>
-                                    {error?.message}
-                                </small>
-                            </p>
-                        </Grid>
-                    </Grid>
-                </form>
-            </StyledBox>
-        </PageContent>
-    );
+        <form onSubmit={onSubmit}>
+          <TextField
+            onChange={updateToken}
+            label='New license key'
+            name='licenseKey'
+            value={token}
+            style={{ width: '100%' }}
+            variant='outlined'
+            size='small'
+            multiline
+            rows={6}
+            required
+          />
+          <Grid container spacing={3} marginTop={2}>
+            <Grid item md={5}>
+              <Button
+                variant='contained'
+                color='primary'
+                type='submit'
+                disabled={loading}
+              >
+                Update license key
+              </Button>{' '}
+              <p>
+                <small style={{ color: 'red' }}>{error?.message}</small>
+              </p>
+            </Grid>
+          </Grid>
+        </form>
+      </StyledBox>
+    </PageContent>
+  );
 };

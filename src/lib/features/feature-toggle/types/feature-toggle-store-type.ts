@@ -33,10 +33,7 @@ export interface IFeatureToggleStore extends IStore<FeatureToggle, string> {
 
   batchArchive(featureNames: string[]): Promise<FeatureToggle[]>;
 
-  batchStale(
-    featureNames: string[],
-    stale: boolean,
-  ): Promise<FeatureToggle[]>;
+  batchStale(featureNames: string[], stale: boolean): Promise<FeatureToggle[]>;
 
   batchDelete(featureNames: string[]): Promise<void>;
 

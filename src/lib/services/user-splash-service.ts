@@ -25,9 +25,7 @@ export default class UserSplashService {
       return {};
     }
     try {
-      return (
-        await this.userSplashStore.getAllUserSplashes(user.id)
-      ).reduce(
+      return (await this.userSplashStore.getAllUserSplashes(user.id)).reduce(
         (splashObject, splash) => ({
           ...splashObject,
           [splash.splashId]: splash.seen,

@@ -7,49 +7,48 @@ import { useSearchHighlightContext } from 'component/common/Table/SearchHighligh
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 
 const StyledTag = styled(Typography)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallerBody,
+  fontSize: theme.fontSizes.smallerBody,
 }));
 
 interface IFeatureTagCellProps {
-    row: {
-        original: FeatureSchema;
-    };
+  row: {
+    original: FeatureSchema;
+  };
 }
 
 export const FeatureTagCell: VFC<IFeatureTagCellProps> = ({ row }) => {
-    const { searchQuery } = useSearchHighlightContext();
+  const { searchQuery } = useSearchHighlightContext();
 
-    if (!row.original.tags || row.original.tags.length === 0)
-        return <TextCell />;
+  if (!row.original.tags || row.original.tags.length === 0) return <TextCell />;
 
-    const value =
-        row.original.tags
-            ?.map(({ type, value }) => `${type}:${value}`)
-            .join('\n') || '';
+  const value =
+    row.original.tags
+      ?.map(({ type, value }) => `${type}:${value}`)
+      .join('\n') || '';
 
-    return (
-        <TextCell>
-            <TooltipLink
-                highlighted={
-                    searchQuery.length > 0 &&
-                    value?.toLowerCase().includes(searchQuery.toLowerCase())
-                }
-                tooltip={
-                    <>
-                        {row.original.tags?.map((tag) => (
-                            <StyledTag key={tag.type + tag.value}>
-                                <Highlighter search={searchQuery}>
-                                    {`${tag.type}:${tag.value}`}
-                                </Highlighter>
-                            </StyledTag>
-                        ))}
-                    </>
-                }
-            >
-                {row.original.tags?.length === 1
-                    ? '1 tag'
-                    : `${row.original.tags?.length} tags`}
-            </TooltipLink>
-        </TextCell>
-    );
+  return (
+    <TextCell>
+      <TooltipLink
+        highlighted={
+          searchQuery.length > 0 &&
+          value?.toLowerCase().includes(searchQuery.toLowerCase())
+        }
+        tooltip={
+          <>
+            {row.original.tags?.map((tag) => (
+              <StyledTag key={tag.type + tag.value}>
+                <Highlighter search={searchQuery}>
+                  {`${tag.type}:${tag.value}`}
+                </Highlighter>
+              </StyledTag>
+            ))}
+          </>
+        }
+      >
+        {row.original.tags?.length === 1
+          ? '1 tag'
+          : `${row.original.tags?.length} tags`}
+      </TooltipLink>
+    </TextCell>
+  );
 };

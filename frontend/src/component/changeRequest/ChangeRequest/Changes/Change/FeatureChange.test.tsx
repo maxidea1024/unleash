@@ -2,152 +2,149 @@ import { render } from 'utils/testRenderer';
 import { screen } from '@testing-library/react';
 import { FeatureChange } from './FeatureChange';
 import type {
-    ChangeRequestState,
-    ChangeRequestType,
-    IChangeRequestFeature,
-    IFeatureChange,
+  ChangeRequestState,
+  ChangeRequestType,
+  IChangeRequestFeature,
+  IFeatureChange,
 } from 'component/changeRequest/changeRequest.types';
 
 describe('Schedule conflicts', () => {
-    const change = {
-        id: 15,
-        action: 'deleteStrategy' as const,
-        payload: {
-            id: 'b3ac8595-8ad3-419e-aa18-4d82f2b6bc4c',
-            name: 'flexibleRollout',
+  const change = {
+    id: 15,
+    action: 'deleteStrategy' as const,
+    payload: {
+      id: 'b3ac8595-8ad3-419e-aa18-4d82f2b6bc4c',
+      name: 'flexibleRollout',
+    },
+    createdAt: new Date(),
+    createdBy: {
+      id: 1,
+      username: 'admin',
+      imageUrl: '',
+    },
+    scheduleConflicts: {
+      changeRequests: [
+        {
+          id: 73,
         },
+        {
+          id: 80,
+          title: 'Adjust rollout percentage',
+        },
+      ],
+    },
+  };
+
+  const feature = (change: IFeatureChange): IChangeRequestFeature => ({
+    name: 'conflict-test',
+    changes: [change],
+  });
+
+  const changeRequest =
+    (feature: IChangeRequestFeature) =>
+    (state: ChangeRequestState): ChangeRequestType => {
+      const shared = {
+        id: 1,
+        title: '',
+        project: 'default',
+        environment: 'default',
+        minApprovals: 1,
+        createdBy: { id: 1, username: 'user1', imageUrl: '' },
         createdAt: new Date(),
-        createdBy: {
-            id: 1,
-            username: 'admin',
-            imageUrl: '',
-        },
-        scheduleConflicts: {
-            changeRequests: [
-                {
-                    id: 73,
-                },
-                {
-                    id: 80,
-                    title: 'Adjust rollout percentage',
-                },
-            ],
-        },
+        features: [feature],
+        segments: [],
+        approvals: [],
+        rejections: [],
+        comments: [],
+      };
+
+      if (state === 'Scheduled') {
+        return {
+          ...shared,
+          state,
+          schedule: {
+            scheduledAt: '2024-01-12T09:46:51+05:30',
+            status: 'pending',
+          },
+        };
+      }
+
+      return {
+        ...shared,
+        state,
+      };
     };
 
-    const feature = (change: IFeatureChange): IChangeRequestFeature => ({
-        name: 'conflict-test',
-        changes: [change],
-    });
+  it.each(['Draft', 'Scheduled', 'In review', 'Approved'])(
+    'should show schedule conflicts (when they exist) for change request in the %s state',
+    async (changeRequestState) => {
+      const flag = feature(change);
+      render(
+        <FeatureChange
+          actions={null}
+          index={0}
+          changeRequest={changeRequest(flag)(
+            changeRequestState as ChangeRequestState,
+          )}
+          change={change}
+          feature={flag}
+        />,
+      );
 
-    const changeRequest =
-        (feature: IChangeRequestFeature) =>
-        (state: ChangeRequestState): ChangeRequestType => {
-            const shared = {
-                id: 1,
-                title: '',
-                project: 'default',
-                environment: 'default',
-                minApprovals: 1,
-                createdBy: { id: 1, username: 'user1', imageUrl: '' },
-                createdAt: new Date(),
-                features: [feature],
-                segments: [],
-                approvals: [],
-                rejections: [],
-                comments: [],
-            };
+      const alert = await screen.findByRole('alert');
 
-            if (state === 'Scheduled') {
-                return {
-                    ...shared,
-                    state,
-                    schedule: {
-                        scheduledAt: '2024-01-12T09:46:51+05:30',
-                        status: 'pending',
-                    },
-                };
-            }
+      expect(alert.textContent!.startsWith('Potential conflict')).toBeTruthy();
 
-            return {
-                ...shared,
-                state,
-            };
-        };
+      const links = await screen.findAllByRole('link');
 
-    it.each(['Draft', 'Scheduled', 'In review', 'Approved'])(
-        'should show schedule conflicts (when they exist) for change request in the %s state',
-        async (changeRequestState) => {
-            const flag = feature(change);
-            render(
-                <FeatureChange
-                    actions={null}
-                    index={0}
-                    changeRequest={changeRequest(flag)(
-                        changeRequestState as ChangeRequestState,
-                    )}
-                    change={change}
-                    feature={flag}
-                />,
-            );
+      expect(links).toHaveLength(
+        change.scheduleConflicts.changeRequests.length,
+      );
 
-            const alert = await screen.findByRole('alert');
+      const [link1, link2] = links;
 
-            expect(
-                alert.textContent!.startsWith('Potential conflict'),
-            ).toBeTruthy();
+      expect(link1).toHaveTextContent('#73');
+      expect(link1).toHaveAccessibleDescription('Change request 73');
+      expect(link1).toHaveAttribute(
+        'href',
+        `/projects/default/change-requests/73`,
+      );
 
-            const links = await screen.findAllByRole('link');
+      expect(link2).toHaveTextContent('#80 (Adjust rollout percentage)');
+      expect(link2).toHaveAccessibleDescription('Change request 80');
+      expect(link2).toHaveAttribute(
+        'href',
+        `/projects/default/change-requests/80`,
+      );
+    },
+  );
 
-            expect(links).toHaveLength(
-                change.scheduleConflicts.changeRequests.length,
-            );
+  it.each(['Draft', 'Scheduled', 'In review', 'Approved'])(
+    'should not show schedule conflicts when they do not exist for change request in the %s state',
+    async (changeRequestState) => {
+      const { scheduleConflicts, ...changeWithNoScheduleConflicts } = change;
 
-            const [link1, link2] = links;
+      const flag = feature(changeWithNoScheduleConflicts);
 
-            expect(link1).toHaveTextContent('#73');
-            expect(link1).toHaveAccessibleDescription('Change request 73');
-            expect(link1).toHaveAttribute(
-                'href',
-                `/projects/default/change-requests/73`,
-            );
+      render(
+        <FeatureChange
+          actions={null}
+          index={0}
+          changeRequest={changeRequest(flag)(
+            changeRequestState as ChangeRequestState,
+          )}
+          change={changeWithNoScheduleConflicts}
+          feature={flag}
+        />,
+      );
 
-            expect(link2).toHaveTextContent('#80 (Adjust rollout percentage)');
-            expect(link2).toHaveAccessibleDescription('Change request 80');
-            expect(link2).toHaveAttribute(
-                'href',
-                `/projects/default/change-requests/80`,
-            );
-        },
-    );
+      const links = screen.queryByRole('link');
 
-    it.each(['Draft', 'Scheduled', 'In review', 'Approved'])(
-        'should not show schedule conflicts when they do not exist for change request in the %s state',
-        async (changeRequestState) => {
-            const { scheduleConflicts, ...changeWithNoScheduleConflicts } =
-                change;
+      expect(links).toBe(null);
 
-            const flag = feature(changeWithNoScheduleConflicts);
+      const alert = screen.queryByRole('alert');
 
-            render(
-                <FeatureChange
-                    actions={null}
-                    index={0}
-                    changeRequest={changeRequest(flag)(
-                        changeRequestState as ChangeRequestState,
-                    )}
-                    change={changeWithNoScheduleConflicts}
-                    feature={flag}
-                />,
-            );
-
-            const links = screen.queryByRole('link');
-
-            expect(links).toBe(null);
-
-            const alert = screen.queryByRole('alert');
-
-            expect(alert).toBe(null);
-        },
-    );
+      expect(alert).toBe(null);
+    },
+  );
 });

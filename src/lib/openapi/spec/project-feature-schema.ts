@@ -46,8 +46,7 @@ export const projectFeatureSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the feature was favorited, otherwise `false`.',
+      description: '`true` if the feature was favorited, otherwise `false`.',
     },
     impressionData: {
       type: 'boolean',
@@ -75,8 +74,7 @@ export const projectFeatureSchema = {
       items: {
         $ref: '#/components/schemas/projectFeatureEnvironmentSchema',
       },
-      description:
-        'The list of environments where the feature can be used',
+      description: 'The list of environments where the feature can be used',
     },
     tags: {
       type: 'array',

@@ -10,8 +10,8 @@ import type { RequestsPerSecondSchemaStatus } from './requestsPerSecondSchemaSta
  * Statistics for usage of Unleash, formatted so it can easily be used in a graph
  */
 export interface RequestsPerSecondSchema {
-    /** The query result from prometheus */
-    data?: RequestsPerSecondSchemaData;
-    /** Whether the query against prometheus succeeded or failed */
-    status?: RequestsPerSecondSchemaStatus;
+  /** The query result from prometheus */
+  data?: RequestsPerSecondSchemaData;
+  /** Whether the query against prometheus succeeded or failed */
+  status?: RequestsPerSecondSchemaStatus;
 }

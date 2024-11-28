@@ -24,10 +24,7 @@ export const useGroupApi = () => {
     return response.json();
   };
 
-  const updateGroup = async (
-    groupId: number,
-    payload: ICreateGroupPayload,
-  ) => {
+  const updateGroup = async (groupId: number, payload: ICreateGroupPayload) => {
     const path = `api/admin/groups/${groupId}`;
     const req = createRequest(path, {
       method: 'PUT',

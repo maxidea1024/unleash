@@ -38,11 +38,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
       });
   }
 
-  async delete({
-    featureName,
-    tagType,
-    tagValue,
-  }: IFeatureTag): Promise<void> {
+  async delete({ featureName, tagType, tagValue }: IFeatureTag): Promise<void> {
     await this.db(TABLE)
       .where({
         feature_name: featureName,
@@ -52,7 +48,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
       .del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({
     featureName,

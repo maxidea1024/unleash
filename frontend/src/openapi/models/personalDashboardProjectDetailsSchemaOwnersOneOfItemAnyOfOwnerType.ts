@@ -5,10 +5,10 @@
  */
 
 export type PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType =
-    (typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType)[keyof typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType];
+  (typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType)[keyof typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfOwnerType =
-    {
-        user: 'user',
-    } as const;
+  {
+    user: 'user',
+  } as const;

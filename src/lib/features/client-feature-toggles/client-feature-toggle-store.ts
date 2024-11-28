@@ -36,7 +36,8 @@ export interface IGetAdminFeatures {
 }
 
 export default class FeatureToggleClientStore
-  implements IFeatureToggleClientStore {
+  implements IFeatureToggleClientStore
+{
   private readonly db: Db;
   private readonly logger: Logger;
   private readonly timer: Function;
@@ -144,16 +145,15 @@ export default class FeatureToggleClientStore
 
       if (userId) {
         query = query.leftJoin(`favorite_features`, function () {
-          this.on(
-            'favorite_features.feature',
-            'features.name',
-          ).andOnVal('favorite_features.user_id', '=', userId);
+          this.on('favorite_features.feature', 'features.name').andOnVal(
+            'favorite_features.user_id',
+            '=',
+            userId,
+          );
         });
         selectColumns = [
           ...selectColumns,
-          this.db.raw(
-            'favorite_features.feature is not null as favorite',
-          ),
+          this.db.raw('favorite_features.feature is not null as favorite'),
         ];
       }
     }
@@ -198,10 +198,7 @@ export default class FeatureToggleClientStore
       }
       if (featureQuery?.inlineSegmentConstraints && r.segment_id) {
         this.addSegmentToStrategy(feature, r);
-      } else if (
-        !featureQuery?.inlineSegmentConstraints &&
-        r.segment_id
-      ) {
+      } else if (!featureQuery?.inlineSegmentConstraints && r.segment_id) {
         this.addSegmentIdsToStrategy(feature, r);
       }
       if (r.parent && !isAdmin) {
@@ -209,9 +206,7 @@ export default class FeatureToggleClientStore
         feature.dependencies.push({
           feature: r.parent,
           enabled: r.parent_enabled,
-          ...(r.parent_enabled
-            ? { variants: r.parent_variants }
-            : {}),
+          ...(r.parent_enabled ? { variants: r.parent_variants } : {}),
         });
       }
       feature.impressionData = r.impression_data;
@@ -293,10 +288,7 @@ export default class FeatureToggleClientStore
     );
   }
 
-  private addTag(
-    feature: Record<string, any>,
-    row: Record<string, any>,
-  ): void {
+  private addTag(feature: Record<string, any>, row: Record<string, any>): void {
     const tags = feature.tags || [];
     const newTag = FeatureToggleClientStore.rowToTag(row);
     feature.tags = [...tags, newTag];
@@ -310,8 +302,7 @@ export default class FeatureToggleClientStore
       row.tag_type &&
       row.tag_value &&
       !feature.tags?.some(
-        (tag) =>
-          tag?.type === row.tag_type && tag?.value === row.tag_value,
+        (tag) => tag?.type === row.tag_type && tag?.value === row.tag_value,
       )
     );
   }
@@ -329,9 +320,7 @@ export default class FeatureToggleClientStore
     feature: PartialDeep<IFeatureToggleClient>,
     row: Record<string, any>,
   ) {
-    const strategy = feature.strategies?.find(
-      (s) => s?.id === row.strategy_id,
-    );
+    const strategy = feature.strategies?.find((s) => s?.id === row.strategy_id);
     if (!strategy) {
       return;
     }

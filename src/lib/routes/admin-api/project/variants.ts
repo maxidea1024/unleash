@@ -11,7 +11,6 @@ import {
   UPDATE_FEATURE_VARIANTS,
 } from '../../../types/permissions';
 import { type IVariant, WeightType } from '../../../types/model';
-import { extractUsername } from '../../../util/extract-user';
 import type { IAuthRequest } from '../../unleash-types';
 import type { FeatureVariantsSchema } from '../../../openapi/spec/feature-variants-schema';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
@@ -274,12 +273,7 @@ The backend will also distribute remaining weight up to 1000 after adding the va
   }
 
   async pushVariantsToEnvironments(
-    req: IAuthRequest<
-      FeatureEnvironmentParams,
-      any,
-      PushVariantsSchema,
-      any
-    >,
+    req: IAuthRequest<FeatureEnvironmentParams, any, PushVariantsSchema, any>,
     res: Response<FeatureVariantsSchema>,
   ): Promise<void> {
     const { projectId, featureName } = req.params;

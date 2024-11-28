@@ -8,31 +8,31 @@ import { MaintenanceTooltip } from './MaintenanceTooltip';
 import { MaintenanceToggle } from './MaintenanceToggle';
 
 export const MaintenanceAdmin = () => (
-    <div>
-        <PermissionGuard permissions={ADMIN}>
-            <MaintenancePage />
-        </PermissionGuard>
-    </div>
+  <div>
+    <PermissionGuard permissions={ADMIN}>
+      <MaintenancePage />
+    </PermissionGuard>
+  </div>
 );
 
 const StyledBox = styled(Box)(({ theme }) => ({
-    display: 'grid',
-    gap: theme.spacing(4),
+  display: 'grid',
+  gap: theme.spacing(4),
 }));
 
 const MaintenancePage = () => {
-    const { loading } = useUiConfig();
+  const { loading } = useUiConfig();
 
-    if (loading) {
-        return null;
-    }
+  if (loading) {
+    return null;
+  }
 
-    return (
-        <PageContent header={<PageHeader title='Maintenance' />}>
-            <StyledBox>
-                <MaintenanceTooltip />
-                <MaintenanceToggle />
-            </StyledBox>
-        </PageContent>
-    );
+  return (
+    <PageContent header={<PageHeader title='Maintenance' />}>
+      <StyledBox>
+        <MaintenanceTooltip />
+        <MaintenanceToggle />
+      </StyledBox>
+    </PageContent>
+  );
 };

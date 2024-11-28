@@ -10,5 +10,5 @@ import type { ProjectOverviewSchemaOnboardingStatusOneOfThree } from './projectO
  * The current onboarding status of the project.
  */
 export type ProjectOverviewSchemaOnboardingStatus =
-    | ProjectOverviewSchemaOnboardingStatusOneOf
-    | ProjectOverviewSchemaOnboardingStatusOneOfThree;
+  | ProjectOverviewSchemaOnboardingStatusOneOf
+  | ProjectOverviewSchemaOnboardingStatusOneOfThree;

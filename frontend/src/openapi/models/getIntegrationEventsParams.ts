@@ -5,12 +5,12 @@
  */
 
 export type GetIntegrationEventsParams = {
-    /**
-     * The number of results to return in a page. By default it is set to 50.
-     */
-    limit?: string;
-    /**
-     * The number of results to skip when returning a page. By default it is set to 0.
-     */
-    offset?: string;
+  /**
+   * The number of results to return in a page. By default it is set to 50.
+   */
+  limit?: string;
+  /**
+   * The number of results to skip when returning a page. By default it is set to 0.
+   */
+  offset?: string;
 };

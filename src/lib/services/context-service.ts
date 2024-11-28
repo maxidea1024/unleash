@@ -140,10 +140,7 @@ export default class ContextService {
     });
   }
 
-  async deleteContextField(
-    name: string,
-    auditUser: IAuditUser,
-  ): Promise<void> {
+  async deleteContextField(name: string, auditUser: IAuditUser): Promise<void> {
     const contextField = await this.contextFieldStore.get(name);
 
     // delete

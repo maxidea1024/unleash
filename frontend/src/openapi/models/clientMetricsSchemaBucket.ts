@@ -10,10 +10,10 @@ import type { ClientMetricsSchemaBucketToggles } from './clientMetricsSchemaBuck
  * Holds all metrics gathered over a window of time. Typically 1 hour wide
  */
 export type ClientMetricsSchemaBucket = {
-    /** The start of the time window these metrics are valid for. The window is usually 1 hour wide */
-    start: DateSchema;
-    /** The end of the time window these metrics are valid for. The window is 1 hour wide */
-    stop: DateSchema;
-    /** an object containing feature names with yes/no plus variant usage */
-    toggles: ClientMetricsSchemaBucketToggles;
+  /** The start of the time window these metrics are valid for. The window is usually 1 hour wide */
+  start: DateSchema;
+  /** The end of the time window these metrics are valid for. The window is 1 hour wide */
+  stop: DateSchema;
+  /** an object containing feature names with yes/no plus variant usage */
+  toggles: ClientMetricsSchemaBucketToggles;
 };

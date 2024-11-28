@@ -114,7 +114,7 @@ export class ResetTokenStore implements IResetTokenStore {
     await this.db(TABLE).where({ reset_token }).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(reset_token: string): Promise<boolean> {
     const result = await this.db.raw(

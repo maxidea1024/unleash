@@ -9,8 +9,8 @@ import type { AiChatMessageSchemaRole } from './aiChatMessageSchemaRole';
  * Describes an Unleash AI chat message.
  */
 export interface AiChatMessageSchema {
-    /** The message content. */
-    content: string;
-    /** The role of the message sender. */
-    role: AiChatMessageSchemaRole;
+  /** The message content. */
+  content: string;
+  /** The role of the message sender. */
+  role: AiChatMessageSchemaRole;
 }

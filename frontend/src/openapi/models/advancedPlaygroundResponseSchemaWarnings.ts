@@ -8,6 +8,6 @@
  * Warnings that occurred during evaluation.
  */
 export type AdvancedPlaygroundResponseSchemaWarnings = {
-    /** A list of top-level context properties that were provided as input that are not valid due to being the wrong type. */
-    invalidContextProperties?: string[];
+  /** A list of top-level context properties that were provided as input that are not valid due to being the wrong type. */
+  invalidContextProperties?: string[];
 };

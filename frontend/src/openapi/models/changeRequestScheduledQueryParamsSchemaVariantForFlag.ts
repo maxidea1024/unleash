@@ -8,5 +8,5 @@
  * One or more features whose variants have been changed in a scheduled change request. This applies to flag-level variants. For changes to strategy variants, use the `strategyId` query parameter with the relevant strategy's ID.
  */
 export type ChangeRequestScheduledQueryParamsSchemaVariantForFlag =
-    | string[]
-    | string;
+  | string[]
+  | string;

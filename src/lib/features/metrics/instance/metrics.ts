@@ -37,9 +37,7 @@ export default class ClientMetricsController extends Controller {
       openApiService,
     }: Pick<
       IUnleashServices,
-      | 'clientInstanceService'
-      | 'clientMetricsServiceV2'
-      | 'openApiService'
+      'clientInstanceService' | 'clientMetricsServiceV2' | 'openApiService'
     >,
     config: IUnleashConfig,
   ) {
@@ -109,19 +107,11 @@ export default class ClientMetricsController extends Controller {
     } else {
       try {
         const { body: data, ip: clientIp, user } = req;
-        data.environment = this.metricsV2.resolveMetricsEnvironment(
-          user,
-          data,
-        );
-        await this.clientInstanceService.registerInstance(
-          data,
-          clientIp,
-        );
+        data.environment = this.metricsV2.resolveMetricsEnvironment(user, data);
+        await this.clientInstanceService.registerInstance(data, clientIp);
 
         await this.metricsV2.registerClientMetrics(data, clientIp);
-        res.getHeaderNames().forEach((header) =>
-          res.removeHeader(header),
-        );
+        res.getHeaderNames().forEach((header) => res.removeHeader(header));
         res.status(202).end();
       } catch (e) {
         res.status(400).end();
@@ -142,10 +132,7 @@ export default class ClientMetricsController extends Controller {
         const promises: Promise<void>[] = [];
         for (const app of applications) {
           promises.push(
-            this.clientInstanceService.registerClient(
-              app,
-              clientIp,
-            ),
+            this.clientInstanceService.registerClient(app, clientIp),
           );
         }
         if (metrics && metrics.length > 0) {
@@ -157,9 +144,7 @@ export default class ClientMetricsController extends Controller {
           const filteredData = data.filter(
             (metric) => metric.environment === acceptedEnvironment,
           );
-          promises.push(
-            this.metricsV2.registerBulkMetrics(filteredData),
-          );
+          promises.push(this.metricsV2.registerBulkMetrics(filteredData));
           this.config.eventBus.emit(CLIENT_METRICS, data);
         }
         await Promise.all(promises);

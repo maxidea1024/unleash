@@ -8,7 +8,12 @@ import type {
 } from '../server-impl';
 
 export function extractUsernameFromUser(user: IUser | IApiUser): string {
-  return (user as IUser)?.email || user?.username || SYSTEM_USER.username || '<non-username>';
+  return (
+    (user as IUser)?.email ||
+    user?.username ||
+    SYSTEM_USER.username ||
+    '<non-username>'
+  );
 }
 
 export function extractUsername(req: IAuthRequest | IApiRequest): string {

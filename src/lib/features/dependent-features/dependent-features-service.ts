@@ -54,7 +54,8 @@ export class DependentFeaturesService {
     }: { featureName: string; newFeatureName: string; projectId: string },
     auditUser: IAuditUser,
   ) {
-    const parents = await this.dependentFeaturesReadModel.getParents(featureName);
+    const parents =
+      await this.dependentFeaturesReadModel.getParents(featureName);
     await Promise.all(
       parents.map((parent) =>
         this.unprotectedUpsertFeatureDependency(
@@ -119,9 +120,7 @@ export class DependentFeaturesService {
     }
 
     if (!parentExists) {
-      throw new InvalidOperationError(
-        `No active feature ${parent} exists`,
-      );
+      throw new InvalidOperationError(`No active feature ${parent} exists`);
     }
 
     if (!sameProject) {
@@ -133,16 +132,16 @@ export class DependentFeaturesService {
     const featureDependency: FeatureDependency =
       enabled === false
         ? {
-          parent,
-          child,
-          enabled,
-        }
+            parent,
+            child,
+            enabled,
+          }
         : {
-          parent,
-          child,
-          enabled: true,
-          variants,
-        };
+            parent,
+            child,
+            enabled: true,
+            variants,
+          };
     await this.dependentFeaturesStore.upsert(featureDependency);
     await this.eventService.storeEvent(
       new FeatureDependencyAddedEvent({
@@ -223,9 +222,7 @@ export class DependentFeaturesService {
   }
 
   async getPossibleParentFeatures(feature: string): Promise<string[]> {
-    return this.dependentFeaturesReadModel.getPossibleParentFeatures(
-      feature,
-    );
+    return this.dependentFeaturesReadModel.getPossibleParentFeatures(feature);
   }
 
   async getPossibleParentVariants(parentFeature: string): Promise<string[]> {

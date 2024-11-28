@@ -83,7 +83,7 @@ export default class SessionStore implements ISessionStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(sid: string): Promise<boolean> {
     const result = await this.db.raw(

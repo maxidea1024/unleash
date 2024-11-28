@@ -8,13 +8,13 @@
  * The name of the current lifecycle stage
  */
 export type FeatureSearchResponseSchemaLifecycleStage =
-    (typeof FeatureSearchResponseSchemaLifecycleStage)[keyof typeof FeatureSearchResponseSchemaLifecycleStage];
+  (typeof FeatureSearchResponseSchemaLifecycleStage)[keyof typeof FeatureSearchResponseSchemaLifecycleStage];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const FeatureSearchResponseSchemaLifecycleStage = {
-    initial: 'initial',
-    'pre-live': 'pre-live',
-    live: 'live',
-    completed: 'completed',
-    archived: 'archived',
+  initial: 'initial',
+  'pre-live': 'pre-live',
+  live: 'live',
+  completed: 'completed',
+  archived: 'archived',
 } as const;

@@ -1,7 +1,8 @@
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
 
 export class FakeUserSubscriptionsReadModel
-  implements IUserSubscriptionsReadModel {
+  implements IUserSubscriptionsReadModel
+{
   async getSubscribedUsers(subscription: string) {
     return [];
   }

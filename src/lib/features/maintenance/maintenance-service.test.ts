@@ -10,7 +10,7 @@ test('Scheduler should run scheduled functions if maintenance mode is off', asyn
   const config = createTestConfig();
   const settingStore = new FakeSettingStore();
   const settingService = new SettingService({ settingStore }, config, {
-    storeEvent() { },
+    storeEvent() {},
   } as unknown as EventService);
   const maintenanceService = new MaintenanceService(config, settingService);
   const schedulerService = new SchedulerService(
@@ -31,7 +31,7 @@ test('Scheduler should not run scheduled functions if maintenance mode is on', a
   const config = createTestConfig();
   const settingStore = new FakeSettingStore();
   const settingService = new SettingService({ settingStore }, config, {
-    storeEvent() { },
+    storeEvent() {},
   } as unknown as EventService);
   const maintenanceService = new MaintenanceService(config, settingService);
   const schedulerService = new SchedulerService(

@@ -62,14 +62,11 @@ export class ProjectStatusService {
       this.projectLifecycleSummaryReadModel.getProjectLifecycleSummary(
         projectId,
       ),
-      this.projectStaleFlagsReadModel.getStaleFlagCountForProject(
-        projectId,
-      ),
+      this.projectStaleFlagsReadModel.getStaleFlagCountForProject(projectId),
     ]);
 
     const averageHealth = healthScores.length
-      ? healthScores.reduce((acc, num) => acc + num, 0) /
-      healthScores.length
+      ? healthScores.reduce((acc, num) => acc + num, 0) / healthScores.length
       : 0;
 
     return {

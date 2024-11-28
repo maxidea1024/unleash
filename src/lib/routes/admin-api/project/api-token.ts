@@ -150,12 +150,9 @@ export class ProjectApiTokenController extends Controller {
     // TODO: 이걸 지원해야하지 않을까? 필요없나?
     // const project = await this.projectService.getProject(projectId); // Validates that the project exists
     const projectTokens = await this.accessibleTokens(user, projectId);
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      apiTokensSchema.$id,
-      { tokens: serializeDates(projectTokens) },
-    );
+    this.openApiService.respondWithValidation(200, res, apiTokensSchema.$id, {
+      tokens: serializeDates(projectTokens),
+    });
   }
 
   async createProjectApiToken(
@@ -222,9 +219,7 @@ export class ProjectApiTokenController extends Controller {
           storedToken.project[0] === projectId))
     ) {
       await this.apiTokenService.delete(token, req.audit);
-      await this.frontendApiService.deleteClientForFrontendApiToken(
-        token,
-      );
+      await this.frontendApiService.deleteClientForFrontendApiToken(token);
       res.status(200).end();
     } else if (!storedToken) {
       res.status(404).end();

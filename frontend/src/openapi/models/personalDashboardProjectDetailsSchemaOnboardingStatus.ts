@@ -10,5 +10,5 @@ import type { PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfThree } 
  * The current onboarding status of the project.
  */
 export type PersonalDashboardProjectDetailsSchemaOnboardingStatus =
-    | PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOf
-    | PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfThree;
+  | PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOf
+  | PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfThree;

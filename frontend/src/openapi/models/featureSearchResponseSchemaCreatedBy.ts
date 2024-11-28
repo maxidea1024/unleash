@@ -8,10 +8,10 @@
  * User who created the feature flag
  */
 export type FeatureSearchResponseSchemaCreatedBy = {
-    /** The user id */
-    id: number;
-    /** URL used for the user profile image */
-    imageUrl: string;
-    /** Name of the user */
-    name: string;
+  /** The user id */
+  id: number;
+  /** URL used for the user profile image */
+  imageUrl: string;
+  /** Name of the user */
+  name: string;
 };

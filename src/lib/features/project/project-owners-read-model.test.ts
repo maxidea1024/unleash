@@ -144,11 +144,7 @@ describe('integration tests', () => {
     const projectId = randomId();
     await db.stores.projectStore.create({ id: projectId, name: projectId });
 
-    await db.stores.accessStore.addUserToRole(
-      owner.id,
-      ownerRoleId,
-      projectId,
-    );
+    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
     const owners = await readModel.getProjectOwnersDictionary();
     expect(owners).toMatchObject({
@@ -162,11 +158,7 @@ describe('integration tests', () => {
     const projectId = randomId();
     await db.stores.projectStore.create({ id: projectId, name: projectId });
 
-    await db.stores.accessStore.addUserToRole(
-      owner.id,
-      ownerRoleId,
-      projectId,
-    );
+    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
     const owners = await readModel.getProjectOwnersDictionary();
 
@@ -186,14 +178,8 @@ describe('integration tests', () => {
     const projectId = randomId();
     await db.stores.projectStore.create({ id: projectId, name: projectId });
 
-    const memberRole = await db.stores.roleStore.getRoleByName(
-      RoleName.MEMBER,
-    );
-    await db.stores.accessStore.addUserToRole(
-      owner.id,
-      ownerRoleId,
-      projectId,
-    );
+    const memberRole = await db.stores.roleStore.getRoleByName(RoleName.MEMBER);
+    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
     await db.stores.accessStore.addUserToRole(
       member.id,
@@ -242,11 +228,7 @@ describe('integration tests', () => {
       projectId,
     );
 
-    await db.stores.accessStore.addUserToRole(
-      owner.id,
-      ownerRoleId,
-      projectId,
-    );
+    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
     const owners = await readModel.getProjectOwnersDictionary();
 
@@ -293,11 +275,7 @@ describe('integration tests', () => {
       projectId,
     );
 
-    await db.stores.accessStore.addUserToRole(
-      owner.id,
-      ownerRoleId,
-      projectId,
-    );
+    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
     const owners = await readModel.getProjectOwnersDictionary();
 

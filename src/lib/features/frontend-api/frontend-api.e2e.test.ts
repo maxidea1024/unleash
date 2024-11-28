@@ -888,18 +888,14 @@ test('should filter features by segment', async () => {
     .expect('Content-Type', /json/)
     .expect(200)
     .expect((res) => expect(res.body.toggles).toHaveLength(1))
-    .expect((res) =>
-      expect(res.body.toggles[0].name).toEqual(featureA.name),
-    );
+    .expect((res) => expect(res.body.toggles[0].name).toEqual(featureA.name));
   await app.request
     .get('/api/frontend?appName=b')
     .set('Authorization', frontendToken.secret)
     .expect('Content-Type', /json/)
     .expect(200)
     .expect((res) => expect(res.body.toggles).toHaveLength(1))
-    .expect((res) =>
-      expect(res.body.toggles[0].name).toEqual(featureB.name),
-    );
+    .expect((res) => expect(res.body.toggles[0].name).toEqual(featureB.name));
   await app.request
     .get('/api/frontend?appName=c')
     .set('Authorization', frontendToken.secret)

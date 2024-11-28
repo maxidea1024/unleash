@@ -9,8 +9,8 @@ import type { UpdateStrategySchemaParametersItem } from './updateStrategySchemaP
  * The data required to update a strategy type.
  */
 export interface UpdateStrategySchema {
-    /** A description of the strategy type. */
-    description?: string;
-    /** The parameter list lets you pass arguments to your custom activation strategy. These will be made available to your custom strategy implementation. */
-    parameters: UpdateStrategySchemaParametersItem[];
+  /** A description of the strategy type. */
+  description?: string;
+  /** The parameter list lets you pass arguments to your custom activation strategy. These will be made available to your custom strategy implementation. */
+  parameters: UpdateStrategySchemaParametersItem[];
 }

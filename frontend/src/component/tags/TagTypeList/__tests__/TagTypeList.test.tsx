@@ -8,20 +8,18 @@ import { AccessProviderMock } from 'component/providers/AccessProvider/AccessPro
 import { AnnouncerProvider } from 'component/common/Announcer/AnnouncerProvider/AnnouncerProvider';
 
 test('renders an empty list correctly', () => {
-    const tree = renderer.create(
-        <MemoryRouter>
-            <ThemeProvider>
-                <AnnouncerProvider>
-                    <UIProvider>
-                        <AccessProviderMock
-                            permissions={[{ permission: ADMIN }]}
-                        >
-                            <TagTypeList />
-                        </AccessProviderMock>
-                    </UIProvider>
-                </AnnouncerProvider>
-            </ThemeProvider>
-        </MemoryRouter>,
-    );
-    expect(tree).toMatchSnapshot();
+  const tree = renderer.create(
+    <MemoryRouter>
+      <ThemeProvider>
+        <AnnouncerProvider>
+          <UIProvider>
+            <AccessProviderMock permissions={[{ permission: ADMIN }]}>
+              <TagTypeList />
+            </AccessProviderMock>
+          </UIProvider>
+        </AnnouncerProvider>
+      </ThemeProvider>
+    </MemoryRouter>,
+  );
+  expect(tree).toMatchSnapshot();
 });

@@ -48,9 +48,7 @@ test('exportResultSchema', () => {
           {
             name: 'blue',
             weight: 500,
-            overrides: [
-              { values: ['best'], contextName: 'appName' },
-            ],
+            overrides: [{ values: ['best'], contextName: 'appName' }],
             stickiness: 'default',
             weightType: 'variable',
           },
@@ -58,9 +56,7 @@ test('exportResultSchema', () => {
             name: 'red',
             weight: 500,
             payload: { type: 'string', value: 'dsfsd' },
-            overrides: [
-              { values: ['worst'], contextName: 'appName' },
-            ],
+            overrides: [{ values: ['worst'], contextName: 'appName' }],
             stickiness: 'default',
             weightType: 'variable',
           },

@@ -11,9 +11,7 @@ export const useServiceAccountsApi = () => {
     propagateErrors: true,
   });
 
-  const addServiceAccount = async (
-    serviceAccount: IServiceAccountPayload,
-  ) => {
+  const addServiceAccount = async (serviceAccount: IServiceAccountPayload) => {
     const requestId = 'addServiceAccount';
     const req = createRequest(
       'api/admin/service-account',

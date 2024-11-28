@@ -8,6 +8,6 @@
  * A model representing a set license token.
  */
 export interface LicenseUpdateSchema {
-    /** The actual license token. */
-    token: string;
+  /** The actual license token. */
+  token: string;
 }

@@ -9,6 +9,6 @@ import type { ProjectAccessConfigurationSchemaRolesItem } from './projectAccessC
  * An object describing roles for a project and what users and groups are part of that role.
  */
 export interface ProjectAccessConfigurationSchema {
-    /** A list of roles that are available within this project. */
-    roles: ProjectAccessConfigurationSchemaRolesItem[];
+  /** A list of roles that are available within this project. */
+  roles: ProjectAccessConfigurationSchemaRolesItem[];
 }

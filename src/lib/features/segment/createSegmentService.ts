@@ -27,12 +27,7 @@ export const createSegmentService = (
   config: IUnleashConfig,
 ): SegmentService => {
   const { eventBus, getLogger, flagResolver } = config;
-  const segmentStore = new SegmentStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const segmentStore = new SegmentStore(db, eventBus, getLogger, flagResolver);
   const featureStrategiesStore = new FeatureStrategiesStore(
     db,
     eventBus,

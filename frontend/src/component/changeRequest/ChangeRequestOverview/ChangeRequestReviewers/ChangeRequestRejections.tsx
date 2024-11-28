@@ -4,22 +4,22 @@ import { Typography } from '@mui/material';
 import { ChangeRequestRejector } from './ChangeRequestReviewer';
 
 interface ChangeRequestRejectionProps {
-    rejections: IChangeRequestApproval[];
+  rejections: IChangeRequestApproval[];
 }
 
 export const ChangeRequestRejections: FC<ChangeRequestRejectionProps> = ({
-    rejections = [],
+  rejections = [],
 }) => (
-    <>
-        <Typography variant='body1' color='text.secondary'>
-            Rejected by
-        </Typography>
-        {rejections.map((rejector) => (
-            <ChangeRequestRejector
-                key={rejector.createdBy.username}
-                name={rejector.createdBy.username || 'Unknown user'}
-                imageUrl={rejector.createdBy.imageUrl}
-            />
-        ))}
-    </>
+  <>
+    <Typography variant='body1' color='text.secondary'>
+      Rejected by
+    </Typography>
+    {rejections.map((rejector) => (
+      <ChangeRequestRejector
+        key={rejector.createdBy.username}
+        name={rejector.createdBy.username || 'Unknown user'}
+        imageUrl={rejector.createdBy.imageUrl}
+      />
+    ))}
+  </>
 );

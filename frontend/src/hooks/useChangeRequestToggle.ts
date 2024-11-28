@@ -7,18 +7,16 @@ import { usePendingChangeRequests } from './api/getters/usePendingChangeRequests
 export const useChangeRequestToggle = (project: string) => {
   const { setToastData, setToastApiError } = useToast();
   const { addChange } = useChangeRequestApi();
-  const { refetch: refetchChangeRequests } =
-    usePendingChangeRequests(project);
+  const { refetch: refetchChangeRequests } = usePendingChangeRequests(project);
   const [pending, setPending] = useState(false);
 
-  const [changeRequestDialogDetails, setChangeRequestDialogDetails] =
-    useState<{
-      enabled?: boolean;
-      shouldActivateDisabledStrategies?: boolean;
-      featureName?: string;
-      environment?: string;
-      isOpen: boolean;
-    }>({ isOpen: false });
+  const [changeRequestDialogDetails, setChangeRequestDialogDetails] = useState<{
+    enabled?: boolean;
+    shouldActivateDisabledStrategies?: boolean;
+    featureName?: string;
+    environment?: string;
+    isOpen: boolean;
+  }>({ isOpen: false });
 
   const onChangeRequestToggle = useCallback(
     (

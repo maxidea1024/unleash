@@ -6,7 +6,6 @@ import {
   type IAddonConfig,
   type IEvent,
   type IEventType,
-  type IFlagResolver,
   serializeDates,
 } from '../types';
 import {

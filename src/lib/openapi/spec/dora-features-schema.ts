@@ -5,8 +5,7 @@ export const doraFeaturesSchema = {
   type: 'object',
   additionalProperties: false,
   required: ['name', 'timeToProduction'],
-  description:
-    'The representation of a dora time to production feature metric',
+  description: 'The representation of a dora time to production feature metric',
   properties: {
     name: {
       type: 'string',

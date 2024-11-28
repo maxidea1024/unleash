@@ -67,9 +67,7 @@ test('Can get variants for a feature', async () => {
 
 test('Trying to do operations on a non-existing feature yields 404', async () => {
   await app.request
-    .get(
-      '/api/admin/projects/default/features/non-existing-feature/variants',
-    )
+    .get('/api/admin/projects/default/features/non-existing-feature/variants')
     .expect(404);
   const variants = [
     {
@@ -272,17 +270,12 @@ test('Can push variants to multiple environments', async () => {
   );
 
   const overrideWith = {
-    variants: [
-      variant('new-variant-1', 500),
-      variant('new-variant-2', 500),
-    ],
+    variants: [variant('new-variant-1', 500), variant('new-variant-2', 500)],
     environments: ['development', 'production'],
   };
 
   await app.request
-    .put(
-      `/api/admin/projects/default/features/${featureName}/variants-batch`,
-    )
+    .put(`/api/admin/projects/default/features/${featureName}/variants-batch`)
     .send(overrideWith)
     .expect(200)
     .expect((res) => {
@@ -314,9 +307,7 @@ test('Can push variants to multiple environments', async () => {
 
 test("Returns proper error if project and/or feature flag doesn't exist", async () => {
   await app.request
-    .put(
-      `/api/admin/projects/nonexistent/features/undefined/variants-batch`,
-    )
+    .put(`/api/admin/projects/nonexistent/features/undefined/variants-batch`)
     .send({
       variants: [
         {
@@ -492,9 +483,7 @@ test('PUT overwrites current variant on feature', async () => {
     .expect(200)
     .expect((res) => {
       expect(res.body.variants).toHaveLength(3);
-      expect(res.body.variants.reduce((a, v) => a + v.weight, 0)).toEqual(
-        1000,
-      );
+      expect(res.body.variants.reduce((a, v) => a + v.weight, 0)).toEqual(1000);
     });
 });
 
@@ -609,9 +598,7 @@ test('PATCHING with all variable weightTypes forces weights to sum to no less th
     .expect(200)
     .expect((res) => {
       expect(res.body.variants).toHaveLength(2);
-      expect(
-        res.body.variants.every((x) => x.weight === 500),
-      ).toBeTruthy();
+      expect(res.body.variants.every((x) => x.weight === 500)).toBeTruthy();
     });
 
   newVariants.push({
@@ -650,9 +637,7 @@ test('PATCHING with all variable weightTypes forces weights to sum to no less th
     .expect(200)
     .expect((res) => {
       expect(res.body.variants).toHaveLength(4);
-      expect(
-        res.body.variants.every((x) => x.weight === 250),
-      ).toBeTruthy();
+      expect(res.body.variants.every((x) => x.weight === 250)).toBeTruthy();
     });
 });
 
@@ -761,31 +746,31 @@ test('Patching with a fixed variant and variable variants splits remaining weigh
     .expect((res) => {
       const body = res.body;
       expect(body.variants).toHaveLength(7);
-      expect(
-        body.variants.reduce((total, v) => total + v.weight, 0),
-      ).toEqual(1000);
+      expect(body.variants.reduce((total, v) => total + v.weight, 0)).toEqual(
+        1000,
+      );
       body.variants.sort((a, b) => b.weight - a.weight);
-      expect(
-        body.variants.find((v) => v.name === 'variant1').weight,
-      ).toEqual(900);
-      expect(
-        body.variants.find((v) => v.name === 'variant2').weight,
-      ).toEqual(17);
-      expect(
-        body.variants.find((v) => v.name === 'variant3').weight,
-      ).toEqual(17);
-      expect(
-        body.variants.find((v) => v.name === 'variant4').weight,
-      ).toEqual(17);
-      expect(
-        body.variants.find((v) => v.name === 'variant5').weight,
-      ).toEqual(17);
-      expect(
-        body.variants.find((v) => v.name === 'variant6').weight,
-      ).toEqual(16);
-      expect(
-        body.variants.find((v) => v.name === 'variant7').weight,
-      ).toEqual(16);
+      expect(body.variants.find((v) => v.name === 'variant1').weight).toEqual(
+        900,
+      );
+      expect(body.variants.find((v) => v.name === 'variant2').weight).toEqual(
+        17,
+      );
+      expect(body.variants.find((v) => v.name === 'variant3').weight).toEqual(
+        17,
+      );
+      expect(body.variants.find((v) => v.name === 'variant4').weight).toEqual(
+        17,
+      );
+      expect(body.variants.find((v) => v.name === 'variant5').weight).toEqual(
+        17,
+      );
+      expect(body.variants.find((v) => v.name === 'variant6').weight).toEqual(
+        16,
+      );
+      expect(body.variants.find((v) => v.name === 'variant7').weight).toEqual(
+        16,
+      );
     });
 });
 
@@ -835,9 +820,9 @@ test('Multiple fixed variants gets added together to decide how much weight vari
     .expect((res) => {
       const body = res.body;
       expect(body.variants).toHaveLength(3);
-      expect(
-        body.variants.find((v) => v.name === 'variant3').weight,
-      ).toEqual(50);
+      expect(body.variants.find((v) => v.name === 'variant3').weight).toEqual(
+        50,
+      );
     });
 });
 
@@ -941,12 +926,12 @@ test('If sum of fixed variant weight equals 1000 variable variants gets weight 0
     .expect((res) => {
       const body = res.body;
       expect(body.variants).toHaveLength(4);
-      expect(
-        body.variants.find((v) => v.name === 'variant3').weight,
-      ).toEqual(0);
-      expect(
-        body.variants.find((v) => v.name === 'variant4').weight,
-      ).toEqual(0);
+      expect(body.variants.find((v) => v.name === 'variant3').weight).toEqual(
+        0,
+      );
+      expect(body.variants.find((v) => v.name === 'variant4').weight).toEqual(
+        0,
+      );
     });
 });
 
@@ -998,9 +983,7 @@ test('PATCH endpoint validates uniqueness of variant names', async () => {
     .send(patch)
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toMatch(
-        /contains a duplicate value/,
-      );
+      expect(res.body.details[0].message).toMatch(/contains a duplicate value/);
     });
 });
 
@@ -1035,9 +1018,7 @@ test('PUT endpoint validates uniqueness of variant names', async () => {
     ])
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toMatch(
-        /contains a duplicate value/,
-      );
+      expect(res.body.details[0].message).toMatch(/contains a duplicate value/);
     });
 });
 

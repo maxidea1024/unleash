@@ -6,18 +6,18 @@ import { testServerRoute, testServerSetup } from 'utils/testServer';
 
 const server = testServerSetup();
 test('all options are drawn', async () => {
-    testServerRoute(server, '/api/admin/ui-config', {
-        flags: {
-            featuresExportImport: true,
-        },
-    });
+  testServerRoute(server, '/api/admin/ui-config', {
+    flags: {
+      featuresExportImport: true,
+    },
+  });
 
-    render(<FeatureToggleListActions onExportClick={() => {}} />);
+  render(<FeatureToggleListActions onExportClick={() => {}} />);
 
-    const batchReviveButton = await screen.findByTitle('Options');
+  const batchReviveButton = await screen.findByTitle('Options');
 
-    await userEvent.click(batchReviveButton!);
+  await userEvent.click(batchReviveButton!);
 
-    await screen.findByText('New feature flag');
-    await screen.findByText('Export');
+  await screen.findByText('New feature flag');
+  await screen.findByText('Export');
 });

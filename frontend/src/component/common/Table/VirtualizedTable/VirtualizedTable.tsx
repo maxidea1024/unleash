@@ -17,103 +17,96 @@ import type { HeaderGroup, Row } from 'react-table';
  * (more at: https://react-table-v7.tanstack.com/docs/api/useFlexLayout)
  */
 export const VirtualizedTable = <T extends object>({
-    rowHeight: rowHeightOverride,
-    headerGroups,
-    rows,
-    prepareRow,
-    parentRef,
+  rowHeight: rowHeightOverride,
+  headerGroups,
+  rows,
+  prepareRow,
+  parentRef,
 }: {
-    rowHeight?: number;
-    headerGroups: HeaderGroup<T>[];
-    rows: Row<T>[];
-    prepareRow: (row: Row<T>) => void;
-    parentRef?: RefObject<HTMLElement | null>;
+  rowHeight?: number;
+  headerGroups: HeaderGroup<T>[];
+  rows: Row<T>[];
+  prepareRow: (row: Row<T>) => void;
+  parentRef?: RefObject<HTMLElement | null>;
 }) => {
-    const theme = useTheme();
-    const rowHeight = useMemo(
-        () => rowHeightOverride || theme.shape.tableRowHeight,
-        [rowHeightOverride, theme.shape.tableRowHeight],
-    );
+  const theme = useTheme();
+  const rowHeight = useMemo(
+    () => rowHeightOverride || theme.shape.tableRowHeight,
+    [rowHeightOverride, theme.shape.tableRowHeight],
+  );
 
-    const [firstRenderedIndex, lastRenderedIndex] = useVirtualizedRange(
-        rowHeight,
-        40,
-        5,
-        parentRef?.current,
-    );
+  const [firstRenderedIndex, lastRenderedIndex] = useVirtualizedRange(
+    rowHeight,
+    40,
+    5,
+    parentRef?.current,
+  );
 
-    const tableHeight = useMemo(
-        () => rowHeight * rows.length + theme.shape.tableRowHeightCompact,
-        [rowHeight, rows.length, theme.shape.tableRowHeightCompact],
-    );
+  const tableHeight = useMemo(
+    () => rowHeight * rows.length + theme.shape.tableRowHeightCompact,
+    [rowHeight, rows.length, theme.shape.tableRowHeightCompact],
+  );
 
-    return (
-        <Table
-            role='table'
-            rowHeight={rowHeight}
-            style={{ height: tableHeight }}
-        >
-            <SortableTableHeader headerGroups={headerGroups} flex />
-            <TableBody
-                role='rowgroup'
-                sx={{
-                    '& tr': {
-                        position: 'absolute',
-                        width: '100%',
-                        '&:hover': {
-                            '.show-row-hover': {
-                                opacity: 1,
-                            },
-                        },
-                    },
-                    '& tr td': {
-                        alignItems: 'center',
-                        display: 'flex',
-                        flexShrink: 0,
-                        '& > *': {
-                            flexGrow: 1,
-                        },
-                    },
-                }}
-            >
-                {rows.map((row, index) => {
-                    const top =
-                        index * rowHeight + theme.shape.tableRowHeightCompact;
+  return (
+    <Table role='table' rowHeight={rowHeight} style={{ height: tableHeight }}>
+      <SortableTableHeader headerGroups={headerGroups} flex />
+      <TableBody
+        role='rowgroup'
+        sx={{
+          '& tr': {
+            position: 'absolute',
+            width: '100%',
+            '&:hover': {
+              '.show-row-hover': {
+                opacity: 1,
+              },
+            },
+          },
+          '& tr td': {
+            alignItems: 'center',
+            display: 'flex',
+            flexShrink: 0,
+            '& > *': {
+              flexGrow: 1,
+            },
+          },
+        }}
+      >
+        {rows.map((row, index) => {
+          const top = index * rowHeight + theme.shape.tableRowHeightCompact;
 
-                    const isVirtual =
-                        index < firstRenderedIndex || index > lastRenderedIndex;
+          const isVirtual =
+            index < firstRenderedIndex || index > lastRenderedIndex;
 
-                    if (isVirtual) {
-                        return null;
-                    }
+          if (isVirtual) {
+            return null;
+          }
 
-                    prepareRow(row);
+          prepareRow(row);
 
-                    const { key, ...props } = row.getRowProps({
-                        style: { display: 'flex', top },
-                    });
+          const { key, ...props } = row.getRowProps({
+            style: { display: 'flex', top },
+          });
 
-                    return (
-                        <TableRow {...props} hover key={key || row.id}>
-                            {row.cells.map((cell) => {
-                                const { key, ...props } = cell.getCellProps({
-                                    style: {
-                                        flex: cell.column.minWidth
-                                            ? '1 0 auto'
-                                            : undefined,
-                                    },
-                                });
+          return (
+            <TableRow {...props} hover key={key || row.id}>
+              {row.cells.map((cell) => {
+                const { key, ...props } = cell.getCellProps({
+                  style: {
+                    flex: cell.column.minWidth ? '1 0 auto' : undefined,
+                  },
+                });
 
-                                return (
-                                    <TableCell key={key} {...props}>
-                                        {cell.render('Cell')}
-                                    </TableCell>
-                                );
-                            })}
-                        </TableRow>
-                    );
-                })}
-            </TableBody>
-        </Table>
-    );
+                return (
+                  <TableCell key={key} {...props}>
+                    {cell.render('Cell')}
+                  </TableCell>
+                );
+              })}
+            </TableRow>
+          );
+        })}
+      </TableBody>
+    </Table>
+  );
 };

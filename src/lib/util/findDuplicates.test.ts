@@ -14,9 +14,7 @@ test('should handle arrays with all identical elements', () => {
 });
 
 test('should handle multiple duplicates', () => {
-  expect(findDuplicates([1, 2, 2, 1])).toEqual(
-    expect.arrayContaining([1, 2]),
-  );
+  expect(findDuplicates([1, 2, 2, 1])).toEqual(expect.arrayContaining([1, 2]));
 });
 
 test('should handle an empty array', () => {

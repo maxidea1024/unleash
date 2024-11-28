@@ -11,63 +11,59 @@ import { parseRedirectParam } from 'component/user/Login/parseRedirectParam';
 import { getSessionStorageItem, setSessionStorageItem } from 'utils/storage';
 
 const StyledDiv = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 const StyledHeader = styled('h2')(({ theme }) => ({
-    fontSize: theme.fontSizes.mainHeader,
-    marginBottom: theme.spacing(2),
-    textAlign: 'center',
+  fontSize: theme.fontSizes.mainHeader,
+  marginBottom: theme.spacing(2),
+  textAlign: 'center',
 }));
 
 const Login = () => {
-    const { authDetails } = useAuthDetails();
-    const { user } = useAuthUser();
-    const query = useQueryParams();
-    const resetPassword = query.get('reset') === 'true';
-    const invited = query.get('invited') === 'true';
-    const redirect =
-        query.get('redirect') || getSessionStorageItem('login-redirect') || '/';
+  const { authDetails } = useAuthDetails();
+  const { user } = useAuthUser();
+  const query = useQueryParams();
+  const resetPassword = query.get('reset') === 'true';
+  const invited = query.get('invited') === 'true';
+  const redirect =
+    query.get('redirect') || getSessionStorageItem('login-redirect') || '/';
 
-    if (user) {
-        setSessionStorageItem('login-redirect');
-        return <Navigate to={parseRedirectParam(redirect)} replace />;
-    }
+  if (user) {
+    setSessionStorageItem('login-redirect');
+    return <Navigate to={parseRedirectParam(redirect)} replace />;
+  }
 
-    return (
-        <StandaloneLayout>
-            <StyledDiv>
-                <ConditionallyRender
-                    condition={resetPassword}
-                    show={
-                        <Alert severity='success' sx={{ mb: 4 }}>
-                            <AlertTitle>Success</AlertTitle>
-                            You successfully reset your password.
-                        </Alert>
-                    }
-                />
-                <ConditionallyRender
-                    condition={invited}
-                    show={
-                        <Alert severity='success' sx={{ mb: 4 }}>
-                            <AlertTitle>Success</AlertTitle>
-                            Your account has been created.
-                        </Alert>
-                    }
-                />
-                <ConditionallyRender
-                    condition={authDetails?.type !== DEMO_TYPE}
-                    show={
-                        <StyledHeader>
-                            Log in to continue the great work
-                        </StyledHeader>
-                    }
-                />
-                <Authentication redirect={redirect} invited={invited} />
-            </StyledDiv>
-        </StandaloneLayout>
-    );
+  return (
+    <StandaloneLayout>
+      <StyledDiv>
+        <ConditionallyRender
+          condition={resetPassword}
+          show={
+            <Alert severity='success' sx={{ mb: 4 }}>
+              <AlertTitle>Success</AlertTitle>
+              You successfully reset your password.
+            </Alert>
+          }
+        />
+        <ConditionallyRender
+          condition={invited}
+          show={
+            <Alert severity='success' sx={{ mb: 4 }}>
+              <AlertTitle>Success</AlertTitle>
+              Your account has been created.
+            </Alert>
+          }
+        />
+        <ConditionallyRender
+          condition={authDetails?.type !== DEMO_TYPE}
+          show={<StyledHeader>Log in to continue the great work</StyledHeader>}
+        />
+        <Authentication redirect={redirect} invited={invited} />
+      </StyledDiv>
+    </StandaloneLayout>
+  );
 };
 
 export default Login;

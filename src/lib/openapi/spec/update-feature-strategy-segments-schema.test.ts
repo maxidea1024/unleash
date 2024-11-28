@@ -25,12 +25,9 @@ test('updateFeatureStrategySegmentsSchema schema', () => {
   ).toMatchSnapshot();
 
   expect(
-    validateSchema(
-      '#/components/schemas/updateFeatureStrategySegmentsSchema',
-      {
-        strategyId: '1',
-        segmentIds: [],
-      },
-    ),
+    validateSchema('#/components/schemas/updateFeatureStrategySegmentsSchema', {
+      strategyId: '1',
+      segmentIds: [],
+    }),
   ).toMatchSnapshot();
 });

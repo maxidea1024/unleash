@@ -93,13 +93,9 @@ export class PublicSignupController extends Controller {
           summary: 'Create a public signup token',
           description:
             'Lets administrators create a invite link to share with colleagues.  People that join using the public invite are assigned the `Viewer` role',
-          requestBody: createRequestSchema(
-            'publicSignupTokenCreateSchema',
-          ),
+          requestBody: createRequestSchema('publicSignupTokenCreateSchema'),
           responses: {
-            201: resourceCreatedResponseSchema(
-              'publicSignupTokenSchema',
-            ),
+            201: resourceCreatedResponseSchema('publicSignupTokenSchema'),
             ...getStandardResponses(400, 401, 403),
           },
         }),
@@ -139,9 +135,7 @@ export class PublicSignupController extends Controller {
           description:
             "Update information about a specific token. The `:token` part of the URL should be the token's secret.",
 
-          requestBody: createRequestSchema(
-            'publicSignupTokenUpdateSchema',
-          ),
+          requestBody: createRequestSchema('publicSignupTokenUpdateSchema'),
           responses: {
             200: createResponseSchema('publicSignupTokenSchema'),
             ...getStandardResponses(400, 401, 403),

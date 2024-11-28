@@ -6,38 +6,38 @@ import { Link } from 'react-router-dom';
 import type { ProjectInsightsSchemaMembers } from '../../../../../openapi';
 
 interface IProjectMembersProps {
-    members: ProjectInsightsSchemaMembers;
-    projectId: string;
+  members: ProjectInsightsSchemaMembers;
+  projectId: string;
 }
 
 const NavigationBar = styled(Link)(({ theme }) => ({
-    marginLeft: 'auto',
-    display: 'flex',
-    justifyContent: 'space-between',
-    textDecoration: 'none',
-    color: theme.palette.text.primary,
+  marginLeft: 'auto',
+  display: 'flex',
+  justifyContent: 'space-between',
+  textDecoration: 'none',
+  color: theme.palette.text.primary,
 }));
 
 export const ProjectMembers = ({
-    members,
-    projectId,
+  members,
+  projectId,
 }: IProjectMembersProps) => {
-    const { uiConfig } = useUiConfig();
+  const { uiConfig } = useUiConfig();
 
-    const link = uiConfig?.versionInfo?.current?.enterprise
-        ? `/projects/${projectId}/settings/access`
-        : `/admin/users`;
+  const link = uiConfig?.versionInfo?.current?.enterprise
+    ? `/projects/${projectId}/settings/access`
+    : `/admin/users`;
 
-    const { currentMembers, change } = members;
-    return (
-        <StatusBox
-            title={'Project members'}
-            boxText={`${currentMembers}`}
-            change={change}
-        >
-            <NavigationBar to={link}>
-                <KeyboardArrowRight />
-            </NavigationBar>
-        </StatusBox>
-    );
+  const { currentMembers, change } = members;
+  return (
+    <StatusBox
+      title={'Project members'}
+      boxText={`${currentMembers}`}
+      change={change}
+    >
+      <NavigationBar to={link}>
+        <KeyboardArrowRight />
+      </NavigationBar>
+    </StatusBox>
+  );
 };

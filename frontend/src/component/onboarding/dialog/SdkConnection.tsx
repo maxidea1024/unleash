@@ -5,30 +5,30 @@ import type { Sdk } from './sharedTypes';
 import { SdkConnected } from './SdkConnected';
 
 interface ISdkConnectionProps {
-    sdk: Sdk;
-    apiKey: string;
-    feature?: string;
-    onSdkChange: () => void;
+  sdk: Sdk;
+  apiKey: string;
+  feature?: string;
+  onSdkChange: () => void;
 }
 
 export const SdkConnection = ({
-    sdk,
-    apiKey,
-    feature,
-    onSdkChange,
+  sdk,
+  apiKey,
+  feature,
+  onSdkChange,
 }: ISdkConnectionProps) => {
-    return (
-        <Suspense fallback={<Loader />}>
-            {feature ? (
-                <TestSdkConnection
-                    sdk={sdk}
-                    apiKey={apiKey}
-                    feature={feature}
-                    onSdkChange={onSdkChange}
-                />
-            ) : (
-                <SdkConnected sdk={sdk} />
-            )}
-        </Suspense>
-    );
+  return (
+    <Suspense fallback={<Loader />}>
+      {feature ? (
+        <TestSdkConnection
+          sdk={sdk}
+          apiKey={apiKey}
+          feature={feature}
+          onSdkChange={onSdkChange}
+        />
+      ) : (
+        <SdkConnected sdk={sdk} />
+      )}
+    </Suspense>
+  );
 };

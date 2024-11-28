@@ -194,11 +194,7 @@ export class ApiTokenController extends Controller {
       method: 'post',
       path: '',
       handler: this.createApiToken,
-      permission: [
-        ADMIN,
-        CREATE_CLIENT_API_TOKEN,
-        CREATE_FRONTEND_API_TOKEN,
-      ],
+      permission: [ADMIN, CREATE_CLIENT_API_TOKEN, CREATE_FRONTEND_API_TOKEN],
       middleware: [
         openApiService.validPath({
           tags: ['API tokens'],
@@ -220,11 +216,7 @@ export class ApiTokenController extends Controller {
       method: 'put',
       path: '/:token',
       handler: this.updateApiToken,
-      permission: [
-        ADMIN,
-        UPDATE_CLIENT_API_TOKEN,
-        UPDATE_FRONTEND_API_TOKEN,
-      ],
+      permission: [ADMIN, UPDATE_CLIENT_API_TOKEN, UPDATE_FRONTEND_API_TOKEN],
       middleware: [
         openApiService.validPath({
           tags: ['API tokens'],
@@ -246,11 +238,7 @@ export class ApiTokenController extends Controller {
       path: '/:token',
       handler: this.deleteApiToken,
       acceptAnyContentType: true,
-      permission: [
-        ADMIN,
-        DELETE_CLIENT_API_TOKEN,
-        DELETE_FRONTEND_API_TOKEN,
-      ],
+      permission: [ADMIN, DELETE_CLIENT_API_TOKEN, DELETE_FRONTEND_API_TOKEN],
       middleware: [
         openApiService.validPath({
           tags: ['API tokens'],
@@ -273,12 +261,9 @@ export class ApiTokenController extends Controller {
   ): Promise<void> {
     const { user } = req;
     const tokens = await this.accessibleTokens(user);
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      apiTokensSchema.$id,
-      { tokens: serializeDates(tokens) },
-    );
+    this.openApiService.respondWithValidation(200, res, apiTokensSchema.$id, {
+      tokens: serializeDates(tokens),
+    });
   }
 
   async getApiTokensByName(
@@ -289,12 +274,9 @@ export class ApiTokenController extends Controller {
     const { name } = req.params;
 
     const tokens = await this.accessibleTokensByName(name, user);
-    this.openApiService.respondWithValidation(
-      200,
-      res,
-      apiTokensSchema.$id,
-      { tokens: serializeDates(tokens) },
-    );
+    this.openApiService.respondWithValidation(200, res, apiTokensSchema.$id, {
+      tokens: serializeDates(tokens),
+    });
   }
 
   async createApiToken(
@@ -302,9 +284,7 @@ export class ApiTokenController extends Controller {
     res: Response<ApiTokenSchema>,
   ): Promise<any> {
     const createToken = await createApiToken.validateAsync(req.body);
-    const permissionRequired = tokenTypeToCreatePermission(
-      createToken.type,
-    );
+    const permissionRequired = tokenTypeToCreatePermission(createToken.type);
     if (
       createToken.type.toUpperCase() === 'ADMIN' &&
       this.flagResolver.isEnabled('adminTokenKillSwitch')
@@ -350,14 +330,12 @@ export class ApiTokenController extends Controller {
     let tokenToUpdate: IApiToken | undefined;
     try {
       tokenToUpdate = await this.apiTokenService.getToken(token);
-    } catch (error) { }
+    } catch (error) {}
     if (!tokenToUpdate) {
       res.status(200).end();
       return;
     }
-    const permissionRequired = tokenTypeToUpdatePermission(
-      tokenToUpdate.type,
-    );
+    const permissionRequired = tokenTypeToUpdatePermission(tokenToUpdate.type);
     const hasPermission = await this.accessService.hasPermission(
       req.user,
       permissionRequired,
@@ -385,14 +363,12 @@ export class ApiTokenController extends Controller {
     let tokenToUpdate: IApiToken | undefined;
     try {
       tokenToUpdate = await this.apiTokenService.getToken(token);
-    } catch (error) { }
+    } catch (error) {}
     if (!tokenToUpdate) {
       res.status(200).end();
       return;
     }
-    const permissionRequired = tokenTypeToDeletePermission(
-      tokenToUpdate.type,
-    );
+    const permissionRequired = tokenTypeToDeletePermission(tokenToUpdate.type);
     const hasPermission = await this.accessService.hasPermission(
       req.user,
       permissionRequired,
@@ -437,8 +413,6 @@ export class ApiTokenController extends Controller {
       )
       .map(permissionToTokenType)
       .filter((t) => t);
-    return allTokens.filter((token) =>
-      allowedTokenTypes.includes(token.type),
-    );
+    return allTokens.filter((token) => allowedTokenTypes.includes(token.type));
   }
 }

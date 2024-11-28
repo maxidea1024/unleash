@@ -12,45 +12,43 @@ import { EmptyTemplatesListMessage } from './EmptyTemplatesListMessage';
 import { ReleasePlanTemplateList } from './ReleasePlanTemplateList';
 
 export const ReleaseManagement = () => {
-    usePageTitle('Release management');
-    const navigate = useNavigate();
-    const data = useReleasePlanTemplates();
+  usePageTitle('Release management');
+  const navigate = useNavigate();
+  const data = useReleasePlanTemplates();
 
-    return (
-        <>
-            <PageContent
-                header={
-                    <PageHeader
-                        title={`Release templates`}
-                        actions={
-                            <ResponsiveButton
-                                Icon={Add}
-                                onClick={() => {
-                                    navigate(
-                                        '/release-management/create-template',
-                                    );
-                                }}
-                                maxWidth='700px'
-                                permission={CREATE_RELEASE_TEMPLATE}
-                                disabled={false}
-                            >
-                                New template
-                            </ResponsiveButton>
-                        }
-                    />
-                }
-            >
-                {data.templates.length > 0 && (
-                    <Grid container spacing={2}>
-                        <ReleasePlanTemplateList templates={data.templates} />
-                    </Grid>
-                )}
-                {data.templates.length === 0 && (
-                    <div className={themeStyles.fullwidth}>
-                        <EmptyTemplatesListMessage />
-                    </div>
-                )}
-            </PageContent>
-        </>
-    );
+  return (
+    <>
+      <PageContent
+        header={
+          <PageHeader
+            title={`Release templates`}
+            actions={
+              <ResponsiveButton
+                Icon={Add}
+                onClick={() => {
+                  navigate('/release-management/create-template');
+                }}
+                maxWidth='700px'
+                permission={CREATE_RELEASE_TEMPLATE}
+                disabled={false}
+              >
+                New template
+              </ResponsiveButton>
+            }
+          />
+        }
+      >
+        {data.templates.length > 0 && (
+          <Grid container spacing={2}>
+            <ReleasePlanTemplateList templates={data.templates} />
+          </Grid>
+        )}
+        {data.templates.length === 0 && (
+          <div className={themeStyles.fullwidth}>
+            <EmptyTemplatesListMessage />
+          </div>
+        )}
+      </PageContent>
+    </>
+  );
 };

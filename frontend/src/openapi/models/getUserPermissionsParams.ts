@@ -5,6 +5,6 @@
  */
 
 export type GetUserPermissionsParams = {
-    project?: string;
-    environment?: string;
+  project?: string;
+  environment?: string;
 };

@@ -3,11 +3,11 @@ import Download from '@mui/icons-material/Download';
 import { useAccessOverviewApi } from 'hooks/api/actions/useAccessOverviewApi/useAccessOverviewApi';
 
 export const AccessOverview = () => {
-    const { downloadCSV } = useAccessOverviewApi();
+  const { downloadCSV } = useAccessOverviewApi();
 
-    return (
-        <IconButton onClick={downloadCSV}>
-            <Download />
-        </IconButton>
-    );
+  return (
+    <IconButton onClick={downloadCSV}>
+      <Download />
+    </IconButton>
+  );
 };

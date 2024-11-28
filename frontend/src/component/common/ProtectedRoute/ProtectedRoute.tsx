@@ -3,16 +3,16 @@ import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import { LoginRedirect } from 'component/common/LoginRedirect/LoginRedirect';
 
 interface IProtectedRouteProps {
-    route: IRoute;
+  route: IRoute;
 }
 
 export const ProtectedRoute = ({ route }: IProtectedRouteProps) => {
-    const { user } = useAuthUser();
-    const isLoggedIn = Boolean(user?.id);
+  const { user } = useAuthUser();
+  const isLoggedIn = Boolean(user?.id);
 
-    if (!isLoggedIn && route.type === 'protected') {
-        return <LoginRedirect />;
-    }
+  if (!isLoggedIn && route.type === 'protected') {
+    return <LoginRedirect />;
+  }
 
-    return <route.component />;
+  return <route.component />;
 };

@@ -5,5 +5,5 @@
  */
 
 export type GetProjectsParams = {
-    archived?: boolean;
+  archived?: boolean;
 };

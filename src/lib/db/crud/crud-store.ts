@@ -28,7 +28,8 @@ export abstract class CRUDStore<
   OutputRowModel = Row<OutputModel>,
   InputRowModel = Row<InputModel>,
   IdType = number,
-> implements IStore<OutputModel, IdType> {
+> implements IStore<OutputModel, IdType>
+{
   protected readonly db: Db;
   protected readonly tableName: string;
   protected readonly timer: (action: string) => Function;
@@ -53,7 +54,8 @@ export abstract class CRUDStore<
         action,
       });
     this.toRow = options?.toRow ?? defaultToRow<InputModel, InputRowModel>;
-    this.fromRow = options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
+    this.fromRow =
+      options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
   }
 
   async getAll(query?: Partial<InputModel>): Promise<OutputModel[]> {
@@ -103,7 +105,7 @@ export abstract class CRUDStore<
     return this.db(this.tableName).delete();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(id: IdType): Promise<boolean> {
     const endTimer = this.timer('exists');
@@ -120,9 +122,7 @@ export abstract class CRUDStore<
     const endTimer = this.timer('count');
     let countQuery = this.db(this.tableName).count('*');
     if (query) {
-      countQuery = countQuery.where(
-        this.toRow(query) as Record<string, any>,
-      );
+      countQuery = countQuery.where(this.toRow(query) as Record<string, any>);
     }
     const { count } = (await countQuery.first()) ?? { count: 0 };
     endTimer();

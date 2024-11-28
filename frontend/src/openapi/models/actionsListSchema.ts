@@ -9,6 +9,6 @@ import type { ActionsSchema } from './actionsSchema';
  * A response model with a list of action sets.
  */
 export interface ActionsListSchema {
-    /** A list of action sets. */
-    actions: ActionsSchema[];
+  /** A list of action sets. */
+  actions: ActionsSchema[];
 }

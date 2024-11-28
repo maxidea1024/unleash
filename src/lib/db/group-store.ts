@@ -122,9 +122,7 @@ export default class GroupStore implements IGroupStore {
     });
   }
 
-  async getProjectGroups(
-    projectId: string,
-  ): Promise<IGroupWithProjectRoles[]> {
+  async getProjectGroups(projectId: string): Promise<IGroupWithProjectRoles[]> {
     const rows = await this.db
       .select(['gr.group_id', 'gr.created_at', 'gr.role_id'])
       .from(`${T.GROUP_ROLE} AS gr`)
@@ -133,9 +131,7 @@ export default class GroupStore implements IGroupStore {
       .andWhere('project', projectId);
 
     return rows.reduce((acc, row) => {
-      const existingGroup = acc.find(
-        (group) => group.id === row.group_id,
-      );
+      const existingGroup = acc.find((group) => group.id === row.group_id);
 
       if (existingGroup) {
         existingGroup.roles.push(row.role_id);
@@ -195,7 +191,7 @@ export default class GroupStore implements IGroupStore {
     await this.db(T.GROUPS).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(
@@ -293,11 +289,7 @@ export default class GroupStore implements IGroupStore {
   ): Promise<IGroup[]> {
     const rows = await this.db(`${T.GROUPS} as g`)
       .leftJoin(`${T.GROUP_USER} as gs`, function () {
-        this.on('g.id', 'gs.group_id').andOnVal(
-          'gs.user_id',
-          '=',
-          userId,
-        );
+        this.on('g.id', 'gs.group_id').andOnVal('gs.user_id', '=', userId);
       })
       .where('gs.user_id', null)
       .whereRaw('mappings_sso \\?| :groups', { groups: externalGroups });

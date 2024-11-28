@@ -9,8 +9,7 @@ export const overrideSchema = {
     'An override for deciding which variant should be assigned to a user based on the context name',
   properties: {
     contextName: {
-      description:
-        'The name of the context field used to determine overrides',
+      description: 'The name of the context field used to determine overrides',
       type: 'string',
       example: 'userId',
     },

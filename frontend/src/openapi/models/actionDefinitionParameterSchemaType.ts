@@ -8,10 +8,10 @@
  * The parameter type.
  */
 export type ActionDefinitionParameterSchemaType =
-    (typeof ActionDefinitionParameterSchemaType)[keyof typeof ActionDefinitionParameterSchemaType];
+  (typeof ActionDefinitionParameterSchemaType)[keyof typeof ActionDefinitionParameterSchemaType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ActionDefinitionParameterSchemaType = {
-    select: 'select',
-    hidden: 'hidden',
+  select: 'select',
+  hidden: 'hidden',
 } as const;

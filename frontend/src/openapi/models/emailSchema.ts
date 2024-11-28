@@ -8,6 +8,6 @@
  * Represents the email of a user. Used to send email communication (reset password, welcome mail etc)
  */
 export interface EmailSchema {
-    /** The email address */
-    email: string;
+  /** The email address */
+  email: string;
 }

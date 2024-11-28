@@ -5,11 +5,11 @@
  */
 
 export type ProjectCreatedSchemaChangeRequestEnvironmentsItem = {
-    /** The name of the environment this change request configuration applies to. */
-    name: string;
-    /**
-     * The number of approvals required for a change request to be fully approved and ready to applied in this environment. If no value is provided, it will be set to the default number, which is 1. The value must be greater than or equal to 1.
-     * @minimum 1
-     */
-    requiredApprovals: number;
+  /** The name of the environment this change request configuration applies to. */
+  name: string;
+  /**
+   * The number of approvals required for a change request to be fully approved and ready to applied in this environment. If no value is provided, it will be set to the default number, which is 1. The value must be greater than or equal to 1.
+   * @minimum 1
+   */
+  requiredApprovals: number;
 };

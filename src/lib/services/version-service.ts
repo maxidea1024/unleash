@@ -270,7 +270,8 @@ export default class VersionService {
     ]);
     const versionInfo = await this.getVersionInfo();
     const customStrategies = await this.strategyStore.getEditableStrategies();
-    const customStrategiesInUse = await this.featureStrategiesStore.getCustomStrategiesInUseCount();
+    const customStrategiesInUse =
+      await this.featureStrategiesStore.getCustomStrategiesInUseCount();
     const featureInfo = {
       featureToggles,
       users,

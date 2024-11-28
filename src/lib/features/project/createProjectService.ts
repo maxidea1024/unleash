@@ -63,12 +63,7 @@ export const createProjectService = (
 ): ProjectService => {
   const { eventBus, getLogger, flagResolver } = config;
   const eventStore = new EventStore(db, getLogger);
-  const projectStore = new ProjectStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);
   const projectOwnersReadModel = new ProjectOwnersReadModel(db);
   const projectFlagCreatorsReadModel = new ProjectFlagCreatorsReadModel(db);
   const groupStore = new GroupStore(db);

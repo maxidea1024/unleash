@@ -95,9 +95,7 @@ export interface IFeatureEnvironmentStore
     variants: IVariant[],
   ): Promise<void>;
 
-  addFeatureEnvironment(
-    featureEnvironment: IFeatureEnvironment,
-  ): Promise<void>;
+  addFeatureEnvironment(featureEnvironment: IFeatureEnvironment): Promise<void>;
 
   variantExists(featureName: string): Promise<boolean>;
 }

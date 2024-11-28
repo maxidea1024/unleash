@@ -20,8 +20,7 @@ export const createStrategySchema = {
     description: {
       type: 'string',
       description: 'A description of the strategy type.',
-      example:
-        'Enable the feature for users who have not logged in before.',
+      example: 'Enable the feature for users who have not logged in before.',
     },
     editable: {
       type: 'boolean',
@@ -52,21 +51,14 @@ export const createStrategySchema = {
             type: 'string',
             description:
               'The [type of the parameter](https://docs.getunleash.io/reference/custom-activation-strategies#parameter-types)',
-            enum: [
-              'string',
-              'percentage',
-              'list',
-              'number',
-              'boolean',
-            ],
+            enum: ['string', 'percentage', 'list', 'number', 'boolean'],
             example: 'percentage',
           },
           description: {
             type: 'string',
             description:
               'A description of this strategy parameter. Use this to indicate to the users what the parameter does.',
-            example:
-              'How many percent of users should see this feature?',
+            example: 'How many percent of users should see this feature?',
           },
           required: {
             type: 'boolean',

@@ -31,11 +31,7 @@ export class IntegrationEventsService {
     limit: number,
     offset: number,
   ): Promise<IntegrationEventSchema[]> {
-    return this.integrationEventsStore.getPaginatedEvents(
-      id,
-      limit,
-      offset,
-    );
+    return this.integrationEventsStore.getPaginatedEvents(id, limit, offset);
   }
 
   async registerEvent(

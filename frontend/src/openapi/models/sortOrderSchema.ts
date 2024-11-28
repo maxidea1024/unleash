@@ -8,5 +8,5 @@
  * A map of object IDs and their corresponding sort orders.
  */
 export interface SortOrderSchema {
-    [key: string]: number;
+  [key: string]: number;
 }

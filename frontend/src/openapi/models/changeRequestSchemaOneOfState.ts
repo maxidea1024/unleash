@@ -8,14 +8,14 @@
  * The current state of the change request.
  */
 export type ChangeRequestSchemaOneOfState =
-    (typeof ChangeRequestSchemaOneOfState)[keyof typeof ChangeRequestSchemaOneOfState];
+  (typeof ChangeRequestSchemaOneOfState)[keyof typeof ChangeRequestSchemaOneOfState];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestSchemaOneOfState = {
-    Draft: 'Draft',
-    In_review: 'In review',
-    Approved: 'Approved',
-    Applied: 'Applied',
-    Cancelled: 'Cancelled',
-    Rejected: 'Rejected',
+  Draft: 'Draft',
+  In_review: 'In review',
+  Approved: 'Approved',
+  Applied: 'Applied',
+  Cancelled: 'Cancelled',
+  Rejected: 'Rejected',
 } as const;

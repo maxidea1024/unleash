@@ -9,6 +9,6 @@ import type { BannerSchema } from './bannerSchema';
  * A response model with a list of banners.
  */
 export interface BannersSchema {
-    /** A list of banners. */
-    banners: BannerSchema[];
+  /** A list of banners. */
+  banners: BannerSchema[];
 }

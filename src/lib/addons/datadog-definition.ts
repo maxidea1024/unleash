@@ -22,7 +22,8 @@ const dataDogDefinition: IAddonDefinition = {
   displayName: 'Datadog',
   description: 'Allows Unleash to post updates to Datadog.',
   documentationUrl: 'https://docs.getunleash.io/docs/addons/datadog',
-  howTo: 'The Datadog integration allows Unleash to post Updates to Datadog when a feature flag is updated.',
+  howTo:
+    'The Datadog integration allows Unleash to post Updates to Datadog when a feature flag is updated.',
   parameters: [
     {
       name: 'url',

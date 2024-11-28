@@ -53,8 +53,7 @@ export const toggleAllPermissions = (
   const checkedPermissionsCopy = cloneDeep(checkedPermissions);
 
   const allChecked = toggledPermissions.every(
-    (permission: IPermission) =>
-      checkedPermissionsCopy[getRoleKey(permission)],
+    (permission: IPermission) => checkedPermissionsCopy[getRoleKey(permission)],
   );
 
   if (allChecked) {
@@ -82,9 +81,7 @@ export const getCategorizedRootPermissions = (permissions: IPermission[]) => {
           category.permissions.includes(permission.name),
         )?.label || 'Other';
 
-      const category = categories.find(
-        ({ label }) => label === categoryLabel,
-      );
+      const category = categories.find(({ label }) => label === categoryLabel);
 
       if (category) {
         category.permissions.push(permission);
@@ -176,9 +173,9 @@ export const flattenProjectPermissions = (
   projectPermissions: IPermission[],
   environmentPermissions: IProjectEnvironmentPermissions[],
 ) => [
-    ...projectPermissions,
-    ...environmentPermissions.flatMap(({ permissions }) => permissions),
-  ];
+  ...projectPermissions,
+  ...environmentPermissions.flatMap(({ permissions }) => permissions),
+];
 
 const sortCategories = (
   { label: aLabel }: IPermissionCategory,

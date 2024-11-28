@@ -11,41 +11,41 @@ import AccessContext from 'contexts/AccessContext';
 import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRequest';
 
 export const ReviewButton: FC<{
-    disabled: boolean;
-    onReject: () => void;
-    onApprove: () => void;
-    children?: React.ReactNode;
+  disabled: boolean;
+  onReject: () => void;
+  onApprove: () => void;
+  children?: React.ReactNode;
 }> = ({ disabled, onReject, onApprove, children }) => {
-    const { isAdmin } = useContext(AccessContext);
-    const projectId = useRequiredPathParam('projectId');
-    const id = useRequiredPathParam('id');
-    const { user } = useAuthUser();
-    const { data } = useChangeRequest(projectId, id);
+  const { isAdmin } = useContext(AccessContext);
+  const projectId = useRequiredPathParam('projectId');
+  const id = useRequiredPathParam('id');
+  const { user } = useAuthUser();
+  const { data } = useChangeRequest(projectId, id);
 
-    const approverIsCreator = data?.createdBy.id === user?.id;
-    const disableApprove = disabled || (approverIsCreator && !isAdmin);
+  const approverIsCreator = data?.createdBy.id === user?.id;
+  const disableApprove = disabled || (approverIsCreator && !isAdmin);
 
-    return (
-        <MultiActionButton
-            permission={APPROVE_CHANGE_REQUEST}
-            disabled={disableApprove}
-            actions={[
-                {
-                    label: 'Approve',
-                    onSelect: onApprove,
-                    icon: <CheckBox fontSize='small' />,
-                },
-                {
-                    label: 'Reject',
-                    onSelect: onReject,
-                    icon: <Clear fontSize='small' />,
-                },
-            ]}
-            environmentId={data?.environment}
-            projectId={projectId}
-            ariaLabel='review or reject changes'
-        >
-            {children}
-        </MultiActionButton>
-    );
+  return (
+    <MultiActionButton
+      permission={APPROVE_CHANGE_REQUEST}
+      disabled={disableApprove}
+      actions={[
+        {
+          label: 'Approve',
+          onSelect: onApprove,
+          icon: <CheckBox fontSize='small' />,
+        },
+        {
+          label: 'Reject',
+          onSelect: onReject,
+          icon: <Clear fontSize='small' />,
+        },
+      ]}
+      environmentId={data?.environment}
+      projectId={projectId}
+      ariaLabel='review or reject changes'
+    >
+      {children}
+    </MultiActionButton>
+  );
 };

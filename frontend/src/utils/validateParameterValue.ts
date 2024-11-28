@@ -28,8 +28,6 @@ export const validateParameterValue = (
 
 const isValidNumberOrEmpty = (value: string | number | undefined): boolean => {
   return (
-    typeof value === 'undefined' ||
-    value === '' ||
-    /^\d+$/.test(String(value))
+    typeof value === 'undefined' || value === '' || /^\d+$/.test(String(value))
   );
 };

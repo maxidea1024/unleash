@@ -45,16 +45,8 @@ export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
       .leftJoin('group_user', (join) => {
         join.on('group_user.user_id', '=', this.db.raw('?', [userId]));
       })
-      .leftJoin(
-        'group_role',
-        'group_role.group_id',
-        'group_user.group_id',
-      )
-      .leftJoin(
-        'roles as group_roles',
-        'group_role.role_id',
-        'group_roles.id',
-      )
+      .leftJoin('group_role', 'group_role.group_id', 'group_user.group_id')
+      .leftJoin('roles as group_roles', 'group_role.role_id', 'group_roles.id')
       .where('role_user.user_id', userId)
       .orWhere('group_user.user_id', userId)
       .whereNull('projects.archived_at')

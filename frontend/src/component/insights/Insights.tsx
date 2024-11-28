@@ -11,68 +11,66 @@ import { InsightsFilters } from './InsightsFilters';
 import { FilterItemParam } from '../../utils/serializeQueryParams';
 
 const StyledWrapper = styled('div')(({ theme }) => ({
-    paddingTop: theme.spacing(2),
+  paddingTop: theme.spacing(2),
 }));
 
 const StickyContainer = styled(Sticky)(({ theme }) => ({
-    position: 'sticky',
-    top: 0,
-    zIndex: theme.zIndex.sticky,
-    padding: theme.spacing(2, 0),
-    background: theme.palette.background.application,
-    transition: 'padding 0.3s ease',
+  position: 'sticky',
+  top: 0,
+  zIndex: theme.zIndex.sticky,
+  padding: theme.spacing(2, 0),
+  background: theme.palette.background.application,
+  transition: 'padding 0.3s ease',
 }));
 
 interface InsightsProps {
-    withCharts?: boolean;
+  withCharts?: boolean;
 }
 
 export const Insights: FC<InsightsProps> = ({ withCharts = true }) => {
-    const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    const stateConfig = {
-        project: FilterItemParam,
-        from: FilterItemParam,
-        to: FilterItemParam,
-    };
-    const [state, setState] = usePersistentTableState('insights', stateConfig);
-    const { insights, loading } = useInsights(
-        state.from?.values[0],
-        state.to?.values[0],
-    );
+  const stateConfig = {
+    project: FilterItemParam,
+    from: FilterItemParam,
+    to: FilterItemParam,
+  };
+  const [state, setState] = usePersistentTableState('insights', stateConfig);
+  const { insights, loading } = useInsights(
+    state.from?.values[0],
+    state.to?.values[0],
+  );
 
-    const projects = state.project?.values ?? [allOption.id];
+  const projects = state.project?.values ?? [allOption.id];
 
-    const insightsData = useInsightsData(insights, projects);
+  const insightsData = useInsightsData(insights, projects);
 
-    const handleScroll = () => {
-        if (!scrolled && window.scrollY > 0) {
-            setScrolled(true);
-        } else if (scrolled && window.scrollY === 0) {
-            setScrolled(false);
-        }
-    };
-
-    if (typeof window !== 'undefined') {
-        window.addEventListener('scroll', handleScroll);
+  const handleScroll = () => {
+    if (!scrolled && window.scrollY > 0) {
+      setScrolled(true);
+    } else if (scrolled && window.scrollY === 0) {
+      setScrolled(false);
     }
+  };
 
-    return (
-        <StyledWrapper>
-            <StickyContainer>
-                <InsightsHeader
-                    actions={
-                        <InsightsFilters state={state} onChange={setState} />
-                    }
-                />
-            </StickyContainer>
-            {withCharts && (
-                <InsightsCharts
-                    loading={loading}
-                    projects={projects}
-                    {...insightsData}
-                />
-            )}
-        </StyledWrapper>
-    );
+  if (typeof window !== 'undefined') {
+    window.addEventListener('scroll', handleScroll);
+  }
+
+  return (
+    <StyledWrapper>
+      <StickyContainer>
+        <InsightsHeader
+          actions={<InsightsFilters state={state} onChange={setState} />}
+        />
+      </StickyContainer>
+      {withCharts && (
+        <InsightsCharts
+          loading={loading}
+          projects={projects}
+          {...insightsData}
+        />
+      )}
+    </StyledWrapper>
+  );
 };

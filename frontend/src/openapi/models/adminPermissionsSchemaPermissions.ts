@@ -10,10 +10,10 @@ import type { AdminPermissionSchema } from './adminPermissionSchema';
  * Returns permissions available at all three levels (root|project|environment)
  */
 export type AdminPermissionsSchemaPermissions = {
-    /** A list of environments with available permissions per environment */
-    environments: AdminPermissionsSchemaPermissionsEnvironmentsItem[];
-    /** Permissions available at the project level */
-    project: AdminPermissionSchema[];
-    /** Permissions available at the root level, i.e. not connected to any specific project or environment */
-    root?: AdminPermissionSchema[];
+  /** A list of environments with available permissions per environment */
+  environments: AdminPermissionsSchemaPermissionsEnvironmentsItem[];
+  /** Permissions available at the project level */
+  project: AdminPermissionSchema[];
+  /** Permissions available at the root level, i.e. not connected to any specific project or environment */
+  root?: AdminPermissionSchema[];
 };

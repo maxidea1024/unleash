@@ -36,8 +36,7 @@ export default class FeatureTypeService {
   ): Promise<IFeatureType> {
     // because our OpenAPI library does type coercion, any `null` values you
     // pass in get converted to `0`.
-    const translatedLifetime =
-      newLifetimeDays === 0 ? null : newLifetimeDays;
+    const translatedLifetime = newLifetimeDays === 0 ? null : newLifetimeDays;
 
     const featureType = await this.featureTypeStore.get(id);
 

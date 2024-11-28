@@ -66,8 +66,7 @@ export const archivedFeatureSchema = {
     environments: {
       type: 'array',
       deprecated: true,
-      description:
-        'The list of environments where the feature can be used',
+      description: 'The list of environments where the feature can be used',
       items: {
         type: 'object',
         properties: {

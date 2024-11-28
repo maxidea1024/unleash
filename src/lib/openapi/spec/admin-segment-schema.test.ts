@@ -51,9 +51,6 @@ test('updateEnvironmentSchema', () => {
   ).toMatchSnapshot();
 
   expect(
-    validateSchema(
-      '#/components/schemas/adminSegmentSchema',
-      'not an object',
-    ),
+    validateSchema('#/components/schemas/adminSegmentSchema', 'not an object'),
   ).toMatchSnapshot();
 });

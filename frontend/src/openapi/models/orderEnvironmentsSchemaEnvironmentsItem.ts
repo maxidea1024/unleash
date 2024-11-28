@@ -5,8 +5,8 @@
  */
 
 export type OrderEnvironmentsSchemaEnvironmentsItem = {
-    /** The name of the environment. */
-    name: string;
-    /** The type of the environment. */
-    type: string;
+  /** The name of the environment. */
+  name: string;
+  /** The type of the environment. */
+  type: string;
 };

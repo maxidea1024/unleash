@@ -12,5 +12,5 @@
                                   all resolve to `false`.
  */
 export type AdvancedPlaygroundEnvironmentFeatureSchemaStrategiesResult =
-    | boolean
-    | 'unknown';
+  | boolean
+  | 'unknown';

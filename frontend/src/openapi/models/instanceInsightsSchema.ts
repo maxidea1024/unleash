@@ -13,14 +13,14 @@ import type { InstanceInsightsSchemaUserTrendsItem } from './instanceInsightsSch
  * A summary of this Unleash instance's usage statistics, including user and flag counts, and trends over time.
  */
 export interface InstanceInsightsSchema {
-    /** How updates per environment type changed over time */
-    environmentTypeTrends: InstanceInsightsSchemaEnvironmentTypeTrendsItem[];
-    /** How number of flags changed over time */
-    flagTrends: InstanceInsightsSchemaFlagTrendsItem[];
-    /** How metrics data per project changed over time */
-    metricsSummaryTrends: InstanceInsightsSchemaMetricsSummaryTrendsItem[];
-    /** How number of flags per project changed over time */
-    projectFlagTrends: InstanceInsightsSchemaProjectFlagTrendsItem[];
-    /** How number of users changed over time */
-    userTrends: InstanceInsightsSchemaUserTrendsItem[];
+  /** How updates per environment type changed over time */
+  environmentTypeTrends: InstanceInsightsSchemaEnvironmentTypeTrendsItem[];
+  /** How number of flags changed over time */
+  flagTrends: InstanceInsightsSchemaFlagTrendsItem[];
+  /** How metrics data per project changed over time */
+  metricsSummaryTrends: InstanceInsightsSchemaMetricsSummaryTrendsItem[];
+  /** How number of flags per project changed over time */
+  projectFlagTrends: InstanceInsightsSchemaProjectFlagTrendsItem[];
+  /** How number of users changed over time */
+  userTrends: InstanceInsightsSchemaUserTrendsItem[];
 }

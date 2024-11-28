@@ -33,8 +33,7 @@ export const segmentStrategiesSchema = {
           },
           projectId: {
             type: 'string',
-            description:
-              'The ID of the project that the strategy belongs to.',
+            description: 'The ID of the project that the strategy belongs to.',
             example: 'red-vista',
           },
           environment: {
@@ -57,12 +56,7 @@ export const segmentStrategiesSchema = {
       type: 'array',
       items: {
         type: 'object',
-        required: [
-          'featureName',
-          'projectId',
-          'environment',
-          'strategyName',
-        ],
+        required: ['featureName', 'projectId', 'environment', 'strategyName'],
         properties: {
           id: {
             type: 'string',
@@ -78,8 +72,7 @@ export const segmentStrategiesSchema = {
           },
           projectId: {
             type: 'string',
-            description:
-              'The ID of the project that the strategy belongs to.',
+            description: 'The ID of the project that the strategy belongs to.',
             example: 'red-vista',
           },
           environment: {

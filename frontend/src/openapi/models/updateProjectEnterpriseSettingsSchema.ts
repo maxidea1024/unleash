@@ -10,7 +10,7 @@ import type { UpdateProjectEnterpriseSettingsSchemaMode } from './updateProjectE
  * Data used to update a [project](https://docs.getunleash.io/reference/projects) settings
  */
 export interface UpdateProjectEnterpriseSettingsSchema {
-    featureNaming?: CreateFeatureNamingPatternSchema;
-    /** A mode of the project affecting what actions are possible in this project */
-    mode?: UpdateProjectEnterpriseSettingsSchemaMode;
+  featureNaming?: CreateFeatureNamingPatternSchema;
+  /** A mode of the project affecting what actions are possible in this project */
+  mode?: UpdateProjectEnterpriseSettingsSchemaMode;
 }

@@ -38,8 +38,7 @@ export const versionSchema = {
           example: '5.1.5',
         },
         enterprise: {
-          description:
-            'The latest available Enterprise version of Unleash',
+          description: 'The latest available Enterprise version of Unleash',
           type: 'string',
           example: '5.1.5',
         },

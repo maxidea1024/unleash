@@ -127,9 +127,7 @@ export class PlaygroundService {
     }
 
     const environmentFeatures = await Promise.all(
-      environments.map((env) =>
-        this.resolveFeatures(filteredProjects, env),
-      ),
+      environments.map((env) => this.resolveFeatures(filteredProjects, env)),
     );
 
     const { context: cleanedContext, removedProperties } =
@@ -144,17 +142,16 @@ export class PlaygroundService {
     );
 
     const results = await Promise.all(
-      environmentFeatures.flatMap(
-        ({ features, featureProject, environment }) =>
-          contexts.map((singleContext) =>
-            this.evaluate({
-              features,
-              featureProject,
-              context: singleContext,
-              segments,
-              environment,
-            }),
-          ),
+      environmentFeatures.flatMap(({ features, featureProject, environment }) =>
+        contexts.map((singleContext) =>
+          this.evaluate({
+            features,
+            featureProject,
+            context: singleContext,
+            segments,
+            environment,
+          }),
+        ),
       ),
     );
     const items = results.flat();
@@ -225,10 +222,10 @@ export class PlaygroundService {
           const variant = {
             ...(isEnabled
               ? client.forceGetVariant(
-                feature.name,
-                strategyEvaluationResult,
-                clientContext,
-              )
+                  feature.name,
+                  strategyEvaluationResult,
+                  clientContext,
+                )
               : getDefaultVariant()),
             feature_enabled: isEnabled,
           };

@@ -10,11 +10,7 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
 
   private activeStrategies() {
     return this.db('feature_strategies')
-      .leftJoin(
-        'features',
-        'features.name',
-        'feature_strategies.feature_name',
-      )
+      .leftJoin('features', 'features.name', 'feature_strategies.feature_name')
       .where('features.archived_at', null);
   }
 
@@ -32,10 +28,10 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
 
     return rows.length > 0
       ? {
-        feature: String(rows[0].feature_name),
-        environment: String(rows[0].environment),
-        count: Number(rows[0].strategy_count),
-      }
+          feature: String(rows[0].feature_name),
+          environment: String(rows[0].environment),
+          count: Number(rows[0].strategy_count),
+        }
       : null;
   }
 
@@ -52,9 +48,9 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
 
     return rows.length > 0
       ? {
-        feature: String(rows[0].feature_name),
-        count: Number(rows[0].strategy_count),
-      }
+          feature: String(rows[0].feature_name),
+          count: Number(rows[0].strategy_count),
+        }
       : null;
   }
 
@@ -72,9 +68,7 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
         ),
       )
       .crossJoin(
-        this.db.raw(
-          `jsonb_array_elements(constraints) AS constraint_value`,
-        ),
+        this.db.raw(`jsonb_array_elements(constraints) AS constraint_value`),
       )
       .groupBy('feature_name', 'environment')
       .orderBy('max_values_count', 'desc')
@@ -82,10 +76,10 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
 
     return rows.length > 0
       ? {
-        feature: String(rows[0].feature_name),
-        environment: String(rows[0].environment),
-        count: Number(rows[0].max_values_count),
-      }
+          feature: String(rows[0].feature_name),
+          environment: String(rows[0].environment),
+          count: Number(rows[0].max_values_count),
+        }
       : null;
   }
 
@@ -98,9 +92,7 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
       .select(
         'feature_name',
         'environment',
-        this.db.raw(
-          'jsonb_array_length(constraints) as constraint_count',
-        ),
+        this.db.raw('jsonb_array_length(constraints) as constraint_count'),
       )
 
       .orderBy('constraint_count', 'desc')
@@ -108,10 +100,10 @@ export class FeatureStrategiesReadModel implements IFeatureStrategiesReadModel {
 
     return rows.length > 0
       ? {
-        feature: String(rows[0].feature_name),
-        environment: String(rows[0].environment),
-        count: Number(rows[0].constraint_count),
-      }
+          feature: String(rows[0].feature_name),
+          environment: String(rows[0].environment),
+          count: Number(rows[0].constraint_count),
+        }
       : null;
   }
 }

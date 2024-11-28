@@ -30,8 +30,7 @@ export const projectOverviewSchema = {
     version: {
       type: 'integer',
       example: 1,
-      description:
-        'The schema version used to describe the project overview',
+      description: 'The schema version used to describe the project overview',
     },
     name: {
       type: 'string',
@@ -132,8 +131,7 @@ export const projectOverviewSchema = {
     favorite: {
       type: 'boolean',
       example: true,
-      description:
-        '`true` if the project was favorited, otherwise `false`.',
+      description: '`true` if the project was favorited, otherwise `false`.',
     },
     onboardingStatus: {
       type: 'object',

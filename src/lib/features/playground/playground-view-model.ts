@@ -46,13 +46,7 @@ export const advancedPlaygroundViewModel = (
     const transformedEnvironments = Object.entries(environments).map(
       ([envName, envFeatures]) => {
         const transformedFeatures = envFeatures.map(
-          ({
-            name,
-            strategies,
-            environment,
-            projectId,
-            ...featRest
-          }) => ({
+          ({ name, strategies, environment, projectId, ...featRest }) => ({
             ...featRest,
             name,
             environment,
@@ -60,12 +54,7 @@ export const advancedPlaygroundViewModel = (
             strategies: {
               ...strategies,
               data: strategies.data.map((strategy) =>
-                addStrategyEditLink(
-                  environment,
-                  projectId,
-                  name,
-                  strategy,
-                ),
+                addStrategyEditLink(environment, projectId, name, strategy),
               ),
             },
           }),
@@ -99,12 +88,7 @@ export const playgroundViewModel = (
       strategies: {
         ...strategies,
         data: strategies.data.map((strategy) =>
-          addStrategyEditLink(
-            input.environment,
-            projectId,
-            name,
-            strategy,
-          ),
+          addStrategyEditLink(input.environment, projectId, name, strategy),
         ),
       },
     }),

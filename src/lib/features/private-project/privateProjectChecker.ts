@@ -44,8 +44,7 @@ export class PrivateProjectChecker implements IPrivateProjectChecker {
   ): Promise<boolean> {
     const projectAccess = await this.getUserAccessibleProjects(userId);
     return (
-      projectAccess.mode === 'all' ||
-      projectAccess.projects.includes(projectId)
+      projectAccess.mode === 'all' || projectAccess.projects.includes(projectId)
     );
   }
 }

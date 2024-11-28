@@ -8,76 +8,71 @@ import type { IGroup } from 'interfaces/group';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 
 export type PageQueryType = Partial<
-    Record<'sort' | 'order' | 'search', string>
+  Record<'sort' | 'order' | 'search', string>
 >;
 
 interface IRoleDeleteDialogGroupsProps {
-    groups: IGroup[];
+  groups: IGroup[];
 }
 
 export const RoleDeleteDialogGroups = ({
-    groups,
+  groups,
 }: IRoleDeleteDialogGroupsProps) => {
-    const [initialState] = useState(() => ({
-        sortBy: [{ id: 'createdAt', desc: true }],
-    }));
+  const [initialState] = useState(() => ({
+    sortBy: [{ id: 'createdAt', desc: true }],
+  }));
 
-    const columns = useMemo(
-        () =>
-            [
-                {
-                    id: 'name',
-                    Header: 'Name',
-                    accessor: (row: any) => row.name || '',
-                    minWidth: 200,
-                    Cell: ({ row: { original: group } }: any) => (
-                        <HighlightCell
-                            value={group.name}
-                            subtitle={group.description}
-                        />
-                    ),
-                },
-                {
-                    Header: 'Created',
-                    accessor: 'createdAt',
-                    Cell: DateCell,
-                    width: 120,
-                    maxWidth: 120,
-                },
-                {
-                    id: 'users',
-                    Header: 'Users',
-                    accessor: (row: IGroup) =>
-                        row.users.length === 1
-                            ? '1 user'
-                            : `${row.users.length} users`,
-                    Cell: TextCell,
-                    maxWidth: 150,
-                },
-            ] as Column<IGroup>[],
-        [],
-    );
-
-    const { headerGroups, rows, prepareRow } = useTable(
+  const columns = useMemo(
+    () =>
+      [
         {
-            columns,
-            data: groups,
-            initialState,
-            sortTypes,
-            autoResetHiddenColumns: false,
-            autoResetSortBy: false,
-            disableSortRemove: true,
-            disableMultiSort: true,
+          id: 'name',
+          Header: 'Name',
+          accessor: (row: any) => row.name || '',
+          minWidth: 200,
+          Cell: ({ row: { original: group } }: any) => (
+            <HighlightCell value={group.name} subtitle={group.description} />
+          ),
         },
-        useSortBy,
-        useFlexLayout,
-    );
+        {
+          Header: 'Created',
+          accessor: 'createdAt',
+          Cell: DateCell,
+          width: 120,
+          maxWidth: 120,
+        },
+        {
+          id: 'users',
+          Header: 'Users',
+          accessor: (row: IGroup) =>
+            row.users.length === 1 ? '1 user' : `${row.users.length} users`,
+          Cell: TextCell,
+          maxWidth: 150,
+        },
+      ] as Column<IGroup>[],
+    [],
+  );
 
-    return (
-        <VirtualizedTable
-            rows={rows}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-        />
-    );
+  const { headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data: groups,
+      initialState,
+      sortTypes,
+      autoResetHiddenColumns: false,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+      disableMultiSort: true,
+    },
+    useSortBy,
+    useFlexLayout,
+  );
+
+  return (
+    <VirtualizedTable
+      rows={rows}
+      headerGroups={headerGroups}
+      prepareRow={prepareRow}
+    />
+  );
 };

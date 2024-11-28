@@ -2,10 +2,7 @@ import Addon from './addon';
 
 import definition from './datadog-definition';
 import Mustache from 'mustache';
-import {
-  type IAddonConfig,
-  serializeDates,
-} from '../types';
+import { type IAddonConfig, serializeDates } from '../types';
 import {
   type FeatureEventFormatter,
   FeatureEventFormatterMd,

@@ -83,9 +83,7 @@ test('trying to get non-existing tag by name and type should not be found', () =
 test('should be able to delete a tag', () => {
   expect.assertions(0);
   tagStore.createTag({ type: 'simple', value: 'TeamRed' });
-  return request
-    .delete(`${base}/api/admin/tags/simple/TeamGreen`)
-    .expect(200);
+  return request.delete(`${base}/api/admin/tags/simple/TeamGreen`).expect(200);
 });
 
 test('should get empty tags of type', () => {

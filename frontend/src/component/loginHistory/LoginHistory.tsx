@@ -5,17 +5,17 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';
 
 export const LoginHistory = () => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    if (!isEnterprise()) {
-        return <PremiumFeature feature='login-history' page />;
-    }
+  if (!isEnterprise()) {
+    return <PremiumFeature feature='login-history' page />;
+  }
 
-    return (
-        <div>
-            <PermissionGuard permissions={ADMIN}>
-                <LoginHistoryTable />
-            </PermissionGuard>
-        </div>
-    );
+  return (
+    <div>
+      <PermissionGuard permissions={ADMIN}>
+        <LoginHistoryTable />
+      </PermissionGuard>
+    </div>
+  );
 };

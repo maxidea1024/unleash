@@ -56,9 +56,7 @@ describe('OpenAPI error conversion', () => {
       message: "should have required property 'enabled'",
     };
 
-    const result = fromOpenApiValidationError({ body: {}, query: {} })(
-      error,
-    );
+    const result = fromOpenApiValidationError({ body: {}, query: {} })(error);
 
     expect(result).toMatchObject({
       message:
@@ -283,8 +281,7 @@ describe('OpenAPI error conversion', () => {
       {
         keyword: 'required',
         instancePath: '/body',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/required',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/required',
         params: {
           missingProperty: 'enabled',
         },
@@ -293,11 +290,10 @@ describe('OpenAPI error conversion', () => {
     ];
 
     // create an error and serialize it as it would be shown to the end user.
-    const serializedUnleashError: ApiErrorSchema =
-      fromOpenApiValidationErrors(
-        { body: { newprop: 7 }, query: {} },
-        errors,
-      ).toJSON();
+    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors(
+      { body: { newprop: 7 }, query: {} },
+      errors,
+    ).toJSON();
 
     expect(serializedUnleashError).toMatchObject({
       name: 'BadDataError',
@@ -330,8 +326,7 @@ describe('OpenAPI error conversion', () => {
       {
         keyword: 'required',
         instancePath: '/',
-        schemaPath:
-          '#/components/schemas/addonCreateUpdateSchema/required',
+        schemaPath: '#/components/schemas/addonCreateUpdateSchema/required',
         params: {
           missingProperty: 'enabled',
         },
@@ -339,8 +334,10 @@ describe('OpenAPI error conversion', () => {
       },
     ];
 
-    const serializedUnleashError: ApiErrorSchema =
-      fromOpenApiValidationErrors({ newprop: 7 }, errors).toJSON();
+    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors(
+      { newprop: 7 },
+      errors,
+    ).toJSON();
 
     expect(serializedUnleashError).toMatchObject({
       name: 'BadDataError',
@@ -372,8 +369,10 @@ describe('OpenAPI error conversion', () => {
       },
     ];
 
-    const serializedUnleashError: ApiErrorSchema =
-      fromOpenApiValidationErrors({}, errors).toJSON();
+    const serializedUnleashError: ApiErrorSchema = fromOpenApiValidationErrors(
+      {},
+      errors,
+    ).toJSON();
 
     expect(serializedUnleashError).toMatchObject({
       name: 'BadDataError',
@@ -438,9 +437,7 @@ describe('OpenAPI error conversion', () => {
         path: '/body/nestedObject/nested2/extraPropertyName',
       });
 
-      expect(error.message).toContain(
-        openApiError.params.additionalProperty,
-      );
+      expect(error.message).toContain(openApiError.params.additionalProperty);
       expect(error.message).toMatch(/\badditional properties\b/i);
     });
   });
@@ -551,8 +548,7 @@ describe('Error serialization special cases', () => {
         message: expect.stringContaining('details'),
         details: [
           {
-            message:
-              '"value" must contain at least 1 items. You provided [].',
+            message: '"value" must contain at least 1 items. You provided [].',
           },
         ],
       });

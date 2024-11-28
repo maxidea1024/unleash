@@ -8,16 +8,16 @@ import { useChangeRequestPlausibleContext } from 'component/changeRequest/Change
 export interface IChangeSchema {
   feature: string | null;
   action:
-  | 'updateEnabled'
-  | 'addStrategy'
-  | 'updateStrategy'
-  | 'deleteStrategy'
-  | 'patchVariant'
-  | 'reorderStrategy'
-  | 'archiveFeature'
-  | 'updateSegment'
-  | 'addDependency'
-  | 'deleteDependency';
+    | 'updateEnabled'
+    | 'addStrategy'
+    | 'updateStrategy'
+    | 'deleteStrategy'
+    | 'patchVariant'
+    | 'reorderStrategy'
+    | 'archiveFeature'
+    | 'updateSegment'
+    | 'addDependency'
+    | 'deleteDependency';
   payload: string | boolean | object | number | undefined;
 }
 
@@ -63,12 +63,12 @@ export const useChangeRequestApi = () => {
     previousState: PlausibleChangeRequestState,
     payload: {
       state:
-      | 'Approved'
-      | 'Applied'
-      | 'Scheduled'
-      | 'Cancelled'
-      | 'In review'
-      | 'Rejected';
+        | 'Approved'
+        | 'Applied'
+        | 'Scheduled'
+        | 'Cancelled'
+        | 'In review'
+        | 'Rejected';
       comment?: string;
       scheduledAt?: string;
     },

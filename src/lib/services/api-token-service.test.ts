@@ -93,11 +93,7 @@ test('Api token operations should all have events attached', async () => {
 
   const saved = await apiTokenService.createApiTokenWithProjects(token);
   const newExpiry = addDays(new Date(), 30);
-  await apiTokenService.updateExpiry(
-    saved.secret,
-    newExpiry,
-    TEST_AUDIT_USER,
-  );
+  await apiTokenService.updateExpiry(saved.secret, newExpiry, TEST_AUDIT_USER);
   await apiTokenService.delete(saved.secret, TEST_AUDIT_USER);
   const { events } = await eventService.getEvents();
   const createdApiTokenEvents = events.filter(

@@ -9,6 +9,6 @@ import type { ApplicationEnvironmentInstancesSchemaInstancesItem } from './appli
  * Data about an application environment instances that are connected to Unleash via an SDK.
  */
 export interface ApplicationEnvironmentInstancesSchema {
-    /** A list of instances */
-    instances: ApplicationEnvironmentInstancesSchemaInstancesItem[];
+  /** A list of instances */
+  instances: ApplicationEnvironmentInstancesSchemaInstancesItem[];
 }

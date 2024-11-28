@@ -21,33 +21,30 @@ import { Banners } from './banners/Banners';
 import { License } from './license/License';
 
 export const Admin = () => {
-    return (
-        <>
-            <Routes>
-                <Route index element={<AdminIndex />} />
-                <Route path='users/*' element={<UsersAdmin />} />
-                <Route path='api' element={<ApiTokenPage />} />
-                <Route path='api/create-token' element={<CreateApiToken />} />
-                <Route path='service-accounts' element={<ServiceAccounts />} />
-                <Route path='create-user' element={<CreateUser />} />
-                <Route path='invite-link' element={<InviteLink />} />
-                <Route path='groups/*' element={<GroupsAdmin />} />
-                <Route path='roles/*' element={<Roles />} />
-                <Route path='instance' element={<InstanceAdmin />} />
-                <Route path='network/*' element={<Network />} />
-                <Route path='maintenance' element={<MaintenanceAdmin />} />
-                <Route path='banners' element={<Banners />} />
-                <Route path='license' element={<License />} />
-                <Route path='cors' element={<CorsAdmin />} />
-                <Route path='auth' element={<AuthSettings />} />
-                <Route
-                    path='admin-invoices'
-                    element={<FlaggedBillingRedirect />}
-                />
-                <Route path='billing' element={<Billing />} />
-                <Route path='instance-privacy' element={<InstancePrivacy />} />
-                <Route path='*' element={<NotFound />} />
-            </Routes>
-        </>
-    );
+  return (
+    <>
+      <Routes>
+        <Route index element={<AdminIndex />} />
+        <Route path='users/*' element={<UsersAdmin />} />
+        <Route path='api' element={<ApiTokenPage />} />
+        <Route path='api/create-token' element={<CreateApiToken />} />
+        <Route path='service-accounts' element={<ServiceAccounts />} />
+        <Route path='create-user' element={<CreateUser />} />
+        <Route path='invite-link' element={<InviteLink />} />
+        <Route path='groups/*' element={<GroupsAdmin />} />
+        <Route path='roles/*' element={<Roles />} />
+        <Route path='instance' element={<InstanceAdmin />} />
+        <Route path='network/*' element={<Network />} />
+        <Route path='maintenance' element={<MaintenanceAdmin />} />
+        <Route path='banners' element={<Banners />} />
+        <Route path='license' element={<License />} />
+        <Route path='cors' element={<CorsAdmin />} />
+        <Route path='auth' element={<AuthSettings />} />
+        <Route path='admin-invoices' element={<FlaggedBillingRedirect />} />
+        <Route path='billing' element={<Billing />} />
+        <Route path='instance-privacy' element={<InstancePrivacy />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </>
+  );
 };

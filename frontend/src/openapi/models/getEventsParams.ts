@@ -5,8 +5,8 @@
  */
 
 export type GetEventsParams = {
-    /**
-     * The name of the project whose events you want to retrieve
-     */
-    project?: string;
+  /**
+   * The name of the project whose events you want to retrieve
+   */
+  project?: string;
 };

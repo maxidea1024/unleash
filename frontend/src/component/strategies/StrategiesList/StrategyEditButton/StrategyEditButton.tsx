@@ -8,37 +8,37 @@ import type { IStrategy } from 'interfaces/strategy';
 import { useId } from 'hooks/useId';
 
 interface IStrategyEditButtonProps {
-    strategy: IStrategy;
-    onClick: () => void;
+  strategy: IStrategy;
+  onClick: () => void;
 }
 
 export const StrategyEditButton: VFC<IStrategyEditButtonProps> = ({
-    strategy,
-    onClick,
+  strategy,
+  onClick,
 }) => {
-    const id = useId();
+  const id = useId();
 
-    return (
-        <ConditionallyRender
-            condition={strategy?.editable}
-            show={
-                <PermissionIconButton
-                    onClick={onClick}
-                    permission={UPDATE_STRATEGY}
-                    tooltipProps={{ title: 'Edit strategy' }}
-                >
-                    <Edit />
-                </PermissionIconButton>
-            }
-            elseShow={
-                <Tooltip title='You cannot edit a built-in strategy' arrow>
-                    <div id={id}>
-                        <IconButton disabled size='large'>
-                            <Edit aria-labelledby={id} />
-                        </IconButton>
-                    </div>
-                </Tooltip>
-            }
-        />
-    );
+  return (
+    <ConditionallyRender
+      condition={strategy?.editable}
+      show={
+        <PermissionIconButton
+          onClick={onClick}
+          permission={UPDATE_STRATEGY}
+          tooltipProps={{ title: 'Edit strategy' }}
+        >
+          <Edit />
+        </PermissionIconButton>
+      }
+      elseShow={
+        <Tooltip title='You cannot edit a built-in strategy' arrow>
+          <div id={id}>
+            <IconButton disabled size='large'>
+              <Edit aria-labelledby={id} />
+            </IconButton>
+          </div>
+        </Tooltip>
+      }
+    />
+  );
 };

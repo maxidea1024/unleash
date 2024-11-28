@@ -9,8 +9,8 @@ import type { PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType } from '
  * An optional payload attached to the variant.
  */
 export type PlaygroundStrategySchemaResultAnyOfFourVariantPayload = {
-    /** The format of the payload. */
-    type: PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType;
-    /** The payload value stringified. */
-    value: string;
+  /** The format of the payload. */
+  type: PlaygroundStrategySchemaResultAnyOfFourVariantPayloadType;
+  /** The payload value stringified. */
+  value: string;
 };

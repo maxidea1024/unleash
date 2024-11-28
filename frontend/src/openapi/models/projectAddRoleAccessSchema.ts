@@ -10,8 +10,8 @@ import type { ProjectAddRoleAccessSchemaUsersItem } from './projectAddRoleAccess
  * An object containing a collection of users and a collection of groups.
  */
 export interface ProjectAddRoleAccessSchema {
-    /** A list of groups IDs */
-    groups: ProjectAddRoleAccessSchemaGroupsItem[];
-    /** A list of user IDs */
-    users: ProjectAddRoleAccessSchemaUsersItem[];
+  /** A list of groups IDs */
+  groups: ProjectAddRoleAccessSchemaGroupsItem[];
+  /** A list of user IDs */
+  users: ProjectAddRoleAccessSchemaUsersItem[];
 }

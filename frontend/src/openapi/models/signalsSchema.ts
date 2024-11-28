@@ -9,6 +9,6 @@ import type { SignalSchema } from './signalSchema';
  * A response model with a list of signals.
  */
 export interface SignalsSchema {
-    /** A list of signals. */
-    signals: SignalSchema[];
+  /** A list of signals. */
+  signals: SignalSchema[];
 }

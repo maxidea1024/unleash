@@ -24,9 +24,7 @@ export class FeatureToggleRowConverter {
   ): boolean => {
     return (
       row.strategy_id &&
-      !feature.strategies?.find(
-        (strategy) => strategy?.id === row.strategy_id,
-      )
+      !feature.strategies?.find((strategy) => strategy?.id === row.strategy_id)
     );
   };
 
@@ -38,8 +36,7 @@ export class FeatureToggleRowConverter {
       row.tag_type &&
       row.tag_value &&
       !feature.tags?.some(
-        (tag) =>
-          tag?.type === row.tag_type && tag?.value === row.tag_value,
+        (tag) => tag?.type === row.tag_type && tag?.value === row.tag_value,
       )
     );
   };
@@ -214,9 +211,7 @@ export class FeatureToggleRowConverter {
         feature.dependencies.push({
           feature: r.parent,
           enabled: r.parent_enabled,
-          ...(r.parent_enabled
-            ? { variants: r.parent_variants }
-            : {}),
+          ...(r.parent_enabled ? { variants: r.parent_variants } : {}),
         });
       }
 
@@ -231,8 +226,7 @@ export class FeatureToggleRowConverter {
     rows: any[],
   ): IFeatureToggleListItem[] => {
     const result = rows.reduce((acc, row) => {
-      const feature: PartialDeep<IFeatureToggleListItem> =
-        acc[row.name] ?? {};
+      const feature: PartialDeep<IFeatureToggleListItem> = acc[row.name] ?? {};
 
       feature.name = row.name;
       feature.description = row.description;

@@ -6,59 +6,59 @@ import { useSearchHighlightContext } from 'component/common/Table/SearchHighligh
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 
 interface IChangeRequestTitleCellProps {
-    value?: any;
-    row: { original: any };
+  value?: any;
+  row: { original: any };
 }
 
 export const StyledLink = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'row',
-    margin: 0,
+  display: 'flex',
+  flexDirection: 'row',
+  margin: 0,
 }));
 
 export const ChangeRequestTitleCell = ({
-    value,
-    row: { original },
+  value,
+  row: { original },
 }: IChangeRequestTitleCellProps) => {
-    const { searchQuery } = useSearchHighlightContext();
-    const projectId = useRequiredPathParam('projectId');
-    const {
-        id,
-        title,
-        features: featureChanges,
-        segments: segmentChanges,
-    } = original;
-    const totalChanges =
-        (featureChanges || []).length + (segmentChanges || []).length;
-    const path = `/projects/${projectId}/change-requests/${id}`;
+  const { searchQuery } = useSearchHighlightContext();
+  const projectId = useRequiredPathParam('projectId');
+  const {
+    id,
+    title,
+    features: featureChanges,
+    segments: segmentChanges,
+  } = original;
+  const totalChanges =
+    (featureChanges || []).length + (segmentChanges || []).length;
+  const path = `/projects/${projectId}/change-requests/${id}`;
 
-    if (!value) {
-        return <TextCell />;
-    }
+  if (!value) {
+    return <TextCell />;
+  }
 
-    return (
-        <TextCell sx={{ minWidth: '200px' }}>
-            <StyledLink>
-                <Typography variant={'body2'}>
-                    <Link
-                        component={RouterLink}
-                        underline={'hover'}
-                        to={path}
-                        sx={(theme) => ({
-                            paddingTop: theme.spacing(0.2),
-                            marginRight: theme.spacing(1),
-                            '&:hover': {
-                                textDecoration: 'underline',
-                            },
-                        })}
-                    >
-                        <Highlighter search={searchQuery}>{title}</Highlighter>
-                    </Link>
-                </Typography>
-            </StyledLink>
-            <span>
-                {`${totalChanges}`} {totalChanges <= 1 ? `update` : 'updates'}
-            </span>
-        </TextCell>
-    );
+  return (
+    <TextCell sx={{ minWidth: '200px' }}>
+      <StyledLink>
+        <Typography variant={'body2'}>
+          <Link
+            component={RouterLink}
+            underline={'hover'}
+            to={path}
+            sx={(theme) => ({
+              paddingTop: theme.spacing(0.2),
+              marginRight: theme.spacing(1),
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            })}
+          >
+            <Highlighter search={searchQuery}>{title}</Highlighter>
+          </Link>
+        </Typography>
+      </StyledLink>
+      <span>
+        {`${totalChanges}`} {totalChanges <= 1 ? `update` : 'updates'}
+      </span>
+    </TextCell>
+  );
 };

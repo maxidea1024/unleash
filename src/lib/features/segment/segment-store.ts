@@ -162,11 +162,7 @@ export default class SegmentStore implements ISegmentStore {
     const pendingChangeRequestIds = pendingCRs.map((cr) => cr.id);
 
     const crFeatures = await this.db
-      .select(
-        'payload',
-        'feature',
-        'change_request_id as changeRequestId',
-      )
+      .select('payload', 'feature', 'change_request_id as changeRequestId')
       .from('change_request_events')
       .whereIn('change_request_id', pendingChangeRequestIds)
       .whereIn('action', ['addStrategy', 'updateStrategy'])
@@ -275,20 +271,18 @@ export default class SegmentStore implements ISegmentStore {
     combinedUsageData: any,
     currentSegmentUsage: any[],
   ) {
-    currentSegmentUsage.forEach(
-      ({ segmentId, featureName, projectName }) => {
-        const usage = combinedUsageData[segmentId];
-        if (usage) {
-          usage.features.add(featureName);
-          usage.projects.add(projectName);
-        } else {
-          combinedUsageData[segmentId] = {
-            features: new Set([featureName]),
-            projects: new Set([projectName]),
-          };
-        }
-      },
-    );
+    currentSegmentUsage.forEach(({ segmentId, featureName, projectName }) => {
+      const usage = combinedUsageData[segmentId];
+      if (usage) {
+        usage.features.add(featureName);
+        usage.projects.add(projectName);
+      } else {
+        combinedUsageData[segmentId] = {
+          features: new Set([featureName]),
+          projects: new Set([projectName]),
+        };
+      }
+    });
   }
 
   async getByStrategy(strategyId: string): Promise<ISegment[]> {
@@ -403,5 +397,5 @@ export default class SegmentStore implements ISegmentStore {
     };
   }
 
-  destroy(): void { }
+  destroy(): void {}
 }

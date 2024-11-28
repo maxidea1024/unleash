@@ -43,10 +43,7 @@ export default class TagTypeController extends Controller {
     {
       transactionalTagTypeService,
       openApiService,
-    }: Pick<
-      IUnleashServices,
-      'transactionalTagTypeService' | 'openApiService'
-    >,
+    }: Pick<IUnleashServices, 'transactionalTagTypeService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -144,8 +141,7 @@ export default class TagTypeController extends Controller {
           tags: ['Tags'],
           operationId: 'updateTagType',
           summary: 'Update a tag type',
-          description:
-            'Update the configuration for the specified tag type.',
+          description: 'Update the configuration for the specified tag type.',
           responses: {
             200: emptyResponse,
             ...getStandardResponses(400, 401, 403, 415),
@@ -177,10 +173,7 @@ export default class TagTypeController extends Controller {
     });
   }
 
-  async getTagTypes(
-    _: Request,
-    res: Response<TagTypesSchema>,
-  ): Promise<void> {
+  async getTagTypes(_: Request, res: Response<TagTypesSchema>): Promise<void> {
     const tagTypes = await this.tagTypeService.getAll();
     res.json({ version, tagTypes });
   }
@@ -209,7 +202,8 @@ export default class TagTypeController extends Controller {
     const tagType = await this.tagTypeService.transactional((service) =>
       service.createTagType(req.body, req.audit),
     );
-    res.status(201)
+    res
+      .status(201)
       .header('location', `tag-types/${tagType.name}`)
       .json(tagType);
   }

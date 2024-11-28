@@ -47,7 +47,8 @@ test('Should allow long emails on demo', () => {
   expect(() => {
     new User({
       id: 11,
-      email: '0a1c1b6a59a582fdbe853739eefc599dxd1eb365eee385e345b5fc41f59172022a8f69c09f61121d8b4a155b792314ee@unleash.run',
+      email:
+        '0a1c1b6a59a582fdbe853739eefc599dxd1eb365eee385e345b5fc41f59172022a8f69c09f61121d8b4a155b792314ee@unleash.run',
     });
   }).not.toThrow();
 });

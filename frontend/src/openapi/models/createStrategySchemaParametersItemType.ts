@@ -8,13 +8,13 @@
  * The [type of the parameter](https://docs.getunleash.io/reference/custom-activation-strategies#parameter-types)
  */
 export type CreateStrategySchemaParametersItemType =
-    (typeof CreateStrategySchemaParametersItemType)[keyof typeof CreateStrategySchemaParametersItemType];
+  (typeof CreateStrategySchemaParametersItemType)[keyof typeof CreateStrategySchemaParametersItemType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateStrategySchemaParametersItemType = {
-    string: 'string',
-    percentage: 'percentage',
-    list: 'list',
-    number: 'number',
-    boolean: 'boolean',
+  string: 'string',
+  percentage: 'percentage',
+  list: 'list',
+  number: 'number',
+  boolean: 'boolean',
 } as const;

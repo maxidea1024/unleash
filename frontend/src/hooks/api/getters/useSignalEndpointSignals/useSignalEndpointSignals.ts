@@ -40,7 +40,8 @@ export const useSignalEndpointSignals = (
       return null;
 
     return formatApiPath(
-      `${ENDPOINT}/${signalEndpointId}/signals?limit=${limit}&offset=${pageIndex * limit
+      `${ENDPOINT}/${signalEndpointId}/signals?limit=${limit}&offset=${
+        pageIndex * limit
       }`,
     );
   };

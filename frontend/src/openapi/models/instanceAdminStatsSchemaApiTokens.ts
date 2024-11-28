@@ -8,19 +8,19 @@
  * The number of API tokens in Unleash, split by type
  */
 export type InstanceAdminStatsSchemaApiTokens = {
-    /**
-     * The number of admin tokens.
-     * @minimum 0
-     */
-    admin?: number;
-    /**
-     * The number of client tokens.
-     * @minimum 0
-     */
-    client?: number;
-    /**
-     * The number of frontend tokens.
-     * @minimum 0
-     */
-    frontend?: number;
+  /**
+   * The number of admin tokens.
+   * @minimum 0
+   */
+  admin?: number;
+  /**
+   * The number of client tokens.
+   * @minimum 0
+   */
+  client?: number;
+  /**
+   * The number of frontend tokens.
+   * @minimum 0
+   */
+  frontend?: number;
 };

@@ -20,26 +20,26 @@ const createOnSortingChange =
       sortOrder?: string;
     }) => void,
   ): OnChangeFn<SortingState> =>
-    (newSortBy) => {
-      if (typeof newSortBy === 'function') {
-        const computedSortBy = newSortBy([
-          {
-            id: tableState.sortBy,
-            desc: tableState.sortOrder === 'desc',
-          },
-        ])[0];
-        setTableState({
-          sortBy: computedSortBy?.id,
-          sortOrder: computedSortBy?.desc ? 'desc' : 'asc',
-        });
-      } else {
-        const sortBy = newSortBy[0];
-        setTableState({
-          sortBy: sortBy?.id,
-          sortOrder: sortBy?.desc ? 'desc' : 'asc',
-        });
-      }
-    };
+  (newSortBy) => {
+    if (typeof newSortBy === 'function') {
+      const computedSortBy = newSortBy([
+        {
+          id: tableState.sortBy,
+          desc: tableState.sortOrder === 'desc',
+        },
+      ])[0];
+      setTableState({
+        sortBy: computedSortBy?.id,
+        sortOrder: computedSortBy?.desc ? 'desc' : 'asc',
+      });
+    } else {
+      const sortBy = newSortBy[0];
+      setTableState({
+        sortBy: sortBy?.id,
+        sortOrder: sortBy?.desc ? 'desc' : 'asc',
+      });
+    }
+  };
 
 const createOnPaginationChange =
   (
@@ -52,29 +52,28 @@ const createOnPaginationChange =
       offset?: number;
     }) => void,
   ): OnChangeFn<PaginationState> =>
-    (newPagination) => {
-      if (typeof newPagination === 'function') {
-        const computedPagination = newPagination({
-          pageSize: tableState.limit,
-          pageIndex: tableState.offset
-            ? Math.floor(tableState.offset / tableState.limit)
-            : 0,
-        });
-        setTableState({
-          limit: computedPagination?.pageSize,
-          offset: computedPagination?.pageIndex
-            ? computedPagination?.pageIndex *
-            computedPagination?.pageSize
-            : 0,
-        });
-      } else {
-        const { pageSize, pageIndex } = newPagination;
-        setTableState({
-          limit: pageSize,
-          offset: pageIndex ? pageIndex * pageSize : 0,
-        });
-      }
-    };
+  (newPagination) => {
+    if (typeof newPagination === 'function') {
+      const computedPagination = newPagination({
+        pageSize: tableState.limit,
+        pageIndex: tableState.offset
+          ? Math.floor(tableState.offset / tableState.limit)
+          : 0,
+      });
+      setTableState({
+        limit: computedPagination?.pageSize,
+        offset: computedPagination?.pageIndex
+          ? computedPagination?.pageIndex * computedPagination?.pageSize
+          : 0,
+      });
+    } else {
+      const { pageSize, pageIndex } = newPagination;
+      setTableState({
+        limit: pageSize,
+        offset: pageIndex ? pageIndex * pageSize : 0,
+      });
+    }
+  };
 
 const createOnColumnVisibilityChange =
   (
@@ -85,29 +84,29 @@ const createOnColumnVisibilityChange =
       columns?: TableStateColumns;
     }) => void,
   ): OnChangeFn<VisibilityState> =>
-    (newVisibility) => {
-      const columnsObject = tableState.columns?.reduce(
-        (acc, column) => ({
-          ...acc,
-          ...(column && { [column]: true }),
-        }),
-        {},
+  (newVisibility) => {
+    const columnsObject = tableState.columns?.reduce(
+      (acc, column) => ({
+        ...acc,
+        ...(column && { [column]: true }),
+      }),
+      {},
+    );
+
+    if (typeof newVisibility === 'function') {
+      const computedVisibility = newVisibility(columnsObject || {});
+      const columns = Object.keys(computedVisibility).filter(
+        (column) => computedVisibility[column],
       );
 
-      if (typeof newVisibility === 'function') {
-        const computedVisibility = newVisibility(columnsObject || {});
-        const columns = Object.keys(computedVisibility).filter(
-          (column) => computedVisibility[column],
-        );
-
-        setTableState({ columns });
-      } else {
-        const columns = Object.keys(newVisibility).filter(
-          (column) => newVisibility[column],
-        );
-        setTableState({ columns });
-      }
-    };
+      setTableState({ columns });
+    } else {
+      const columns = Object.keys(newVisibility).filter(
+        (column) => newVisibility[column],
+      );
+      setTableState({ columns });
+    }
+  };
 
 const createSortingState = (tableState: {
   sortBy: string;
@@ -136,14 +135,14 @@ const createColumnVisibilityState = (tableState: {
 }) =>
   tableState.columns
     ? {
-      columnVisibility: tableState.columns?.reduce(
-        (acc, column) => ({
-          ...acc,
-          ...(column && { [column]: true }),
-        }),
-        {},
-      ),
-    }
+        columnVisibility: tableState.columns?.reduce(
+          (acc, column) => ({
+            ...acc,
+            ...(column && { [column]: true }),
+          }),
+          {},
+        ),
+      }
     : {};
 
 export const withTableState = <T extends Object>(
@@ -176,10 +175,10 @@ export const withTableState = <T extends Object>(
   );
   const columnVisibility = tableState.columns
     ? {
-      ...hideAllColumns,
-      ...createColumnVisibilityState(tableState).columnVisibility,
-      ...showAlwaysVisibleColumns,
-    }
+        ...hideAllColumns,
+        ...createColumnVisibilityState(tableState).columnVisibility,
+        ...showAlwaysVisibleColumns,
+      }
     : options.state?.columnVisibility;
 
   return {

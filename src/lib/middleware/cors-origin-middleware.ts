@@ -5,8 +5,7 @@ import type { IUnleashConfig, IUnleashServices } from '../types';
 export const resolveOrigin = (allowedOrigins: string[]): string | string[] => {
   if (allowedOrigins.length === 0) {
     return '*';
-  }
-  else if (allowedOrigins.some((origin: string) => origin === '*')) {
+  } else if (allowedOrigins.some((origin: string) => origin === '*')) {
     return '*';
   } else {
     return allowedOrigins;

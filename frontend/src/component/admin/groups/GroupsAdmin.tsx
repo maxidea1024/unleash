@@ -10,25 +10,22 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';
 
 export const GroupsAdmin = () => {
-    const { uiConfig, isEnterprise } = useUiConfig();
+  const { uiConfig, isEnterprise } = useUiConfig();
 
-    if (isEnterprise() || uiConfig.flags[UG] === true) {
-        return (
-            <div>
-                <PermissionGuard permissions={ADMIN}>
-                    <Routes>
-                        <Route index element={<GroupsList />} />
-                        <Route path='create-group' element={<CreateGroup />} />
-                        <Route
-                            path=':groupId/edit'
-                            element={<EditGroupContainer />}
-                        />
-                        <Route path=':groupId' element={<Group />} />
-                    </Routes>
-                </PermissionGuard>
-            </div>
-        );
-    }
+  if (isEnterprise() || uiConfig.flags[UG] === true) {
+    return (
+      <div>
+        <PermissionGuard permissions={ADMIN}>
+          <Routes>
+            <Route index element={<GroupsList />} />
+            <Route path='create-group' element={<CreateGroup />} />
+            <Route path=':groupId/edit' element={<EditGroupContainer />} />
+            <Route path=':groupId' element={<Group />} />
+          </Routes>
+        </PermissionGuard>
+      </div>
+    );
+  }
 
-    return <PremiumFeature feature='groups' page />;
+  return <PremiumFeature feature='groups' page />;
 };

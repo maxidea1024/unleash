@@ -51,8 +51,7 @@ export const personalDashboardSchema = {
           ownerType: {
             type: 'string',
             enum: ['user'],
-            description:
-              'The type of the owner; will always be `user`.',
+            description: 'The type of the owner; will always be `user`.',
           },
           name: {
             type: 'string',
@@ -80,13 +79,7 @@ export const personalDashboardSchema = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: [
-          'id',
-          'name',
-          'health',
-          'memberCount',
-          'featureCount',
-        ],
+        required: ['id', 'name', 'health', 'memberCount', 'featureCount'],
         properties: {
           id: {
             type: 'string',

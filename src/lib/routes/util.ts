@@ -42,7 +42,8 @@ export const handleErrors: (
       .json({ message: error.message });
   }
 
-  const finalError = error instanceof UnleashError ? error : fromLegacyError(error);
+  const finalError =
+    error instanceof UnleashError ? error : fromLegacyError(error);
 
   const format = (thing: object) => JSON.stringify(thing, null, 2);
 
@@ -55,10 +56,7 @@ export const handleErrors: (
   }
 
   if (finalError.statusCode === 500) {
-    logger.error(
-      `Server failed executing request: ${format(error)}`,
-      error,
-    );
+    logger.error(`Server failed executing request: ${format(error)}`, error);
   }
 
   return res.status(finalError.statusCode).json(finalError).end();

@@ -8,9 +8,9 @@
  * The current state of the change request.
  */
 export type ChangeRequestsSchemaItemOneOfFourState =
-    (typeof ChangeRequestsSchemaItemOneOfFourState)[keyof typeof ChangeRequestsSchemaItemOneOfFourState];
+  (typeof ChangeRequestsSchemaItemOneOfFourState)[keyof typeof ChangeRequestsSchemaItemOneOfFourState];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestsSchemaItemOneOfFourState = {
-    Scheduled: 'Scheduled',
+  Scheduled: 'Scheduled',
 } as const;

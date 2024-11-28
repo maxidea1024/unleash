@@ -353,9 +353,7 @@ describe('offline client', () => {
         playgroundStrategyEvaluation.unknownResult,
       ),
     );
-    expect(result.result).toEqual(
-      playgroundStrategyEvaluation.unknownResult,
-    );
+    expect(result.result).toEqual(playgroundStrategyEvaluation.unknownResult);
   });
 
   it(`returns '${playgroundStrategyEvaluation.unknownResult}' for the application hostname strategy`, async () => {
@@ -390,9 +388,7 @@ describe('offline client', () => {
         playgroundStrategyEvaluation.unknownResult,
       ),
     );
-    expect(result.result).toEqual(
-      playgroundStrategyEvaluation.unknownResult,
-    );
+    expect(result.result).toEqual(playgroundStrategyEvaluation.unknownResult);
   });
 
   it('returns strategies in the order they are provided', async () => {

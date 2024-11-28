@@ -9,8 +9,8 @@ import type { ChangeRequestScheduleSchemaOneOfStatus } from './changeRequestSche
  * A pending schedule for a change request.
  */
 export type ChangeRequestScheduleSchemaOneOf = {
-    /** When this change request will be applied. */
-    scheduledAt: string;
-    /** The status of the schedule. */
-    status: ChangeRequestScheduleSchemaOneOfStatus;
+  /** When this change request will be applied. */
+  scheduledAt: string;
+  /** The status of the schedule. */
+  status: ChangeRequestScheduleSchemaOneOfStatus;
 };

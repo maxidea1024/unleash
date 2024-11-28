@@ -7,8 +7,8 @@ import type { ChangeRequestCreateSchemaOneOfThreeAction } from './changeRequestC
 import type { ChangeRequestCreateSchemaOneOfThreePayload } from './changeRequestCreateSchemaOneOfThreePayload';
 
 export type ChangeRequestCreateSchemaOneOfThree = {
-    /** The name of this action. */
-    action: ChangeRequestCreateSchemaOneOfThreeAction;
-    /** Required data to delete a segment. */
-    payload: ChangeRequestCreateSchemaOneOfThreePayload;
+  /** The name of this action. */
+  action: ChangeRequestCreateSchemaOneOfThreeAction;
+  /** Required data to delete a segment. */
+  payload: ChangeRequestCreateSchemaOneOfThreePayload;
 };

@@ -82,9 +82,7 @@ export default class ExportImportController extends Controller {
           operationId: 'validateImport',
           requestBody: createRequestSchema('importTogglesSchema'),
           responses: {
-            200: createResponseSchema(
-              'importTogglesValidateSchema',
-            ),
+            200: createResponseSchema('importTogglesValidateSchema'),
             ...getStandardResponses(404),
           },
           summary: 'Validate feature import data',
@@ -176,9 +174,7 @@ export default class ExportImportController extends Controller {
 
   private verifyExportImportEnabled() {
     if (!this.config.flagResolver.isEnabled('featuresExportImport')) {
-      throw new InvalidOperationError(
-        'Feature export/import is not enabled',
-      );
+      throw new InvalidOperationError('Feature export/import is not enabled');
     }
   }
 }

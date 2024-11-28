@@ -5,7 +5,7 @@ export const validateJsonString = (value: string): boolean => {
     if (parsedStr && typeof parsedStr === 'object') {
       return true;
     }
-  } catch (error) { }
+  } catch (error) {}
 
   // an error is considered a non valid json
   return false;

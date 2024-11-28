@@ -9,129 +9,126 @@ import { testServerSetup, testServerRoute } from 'utils/testServer';
 const server = testServerSetup();
 
 const setupApi = () => {
-    testServerRoute(server, '/api/admin/projects/default', {});
-    testServerRoute(server, '/api/admin/projects/default/overview', {});
+  testServerRoute(server, '/api/admin/projects/default', {});
+  testServerRoute(server, '/api/admin/projects/default/overview', {});
 };
 
 test('manipulates the rollout slider', async () => {
-    const Wrapper = () => {
-        const [parameters, setParameters] = useState({
-            groupId: 'testid',
-            rollout: '0',
-            stickiness: 'default',
-        });
-
-        const updateParameter = (parameter: string, value: string) => {
-            setParameters((prevParameters) => ({
-                ...prevParameters,
-                [parameter]: value,
-            }));
-        };
-
-        return (
-            <Routes>
-                <Route
-                    path='/projects/:projectId/features/:featureId'
-                    element={
-                        <FlexibleStrategy
-                            parameters={parameters}
-                            updateParameter={updateParameter}
-                            context={{}}
-                            editable={true}
-                        />
-                    }
-                />
-            </Routes>
-        );
-    };
-
-    setupApi();
-
-    render(<Wrapper />, {
-        route: '/projects/default/features/test',
+  const Wrapper = () => {
+    const [parameters, setParameters] = useState({
+      groupId: 'testid',
+      rollout: '0',
+      stickiness: 'default',
     });
 
-    const slider = await screen.findByRole('slider', { name: /rollout/i });
-    const groupIdInput = await screen.getByLabelText('groupId');
+    const updateParameter = (parameter: string, value: string) => {
+      setParameters((prevParameters) => ({
+        ...prevParameters,
+        [parameter]: value,
+      }));
+    };
 
-    expect(slider).toHaveValue('0');
-    expect(groupIdInput).toHaveValue('testid');
+    return (
+      <Routes>
+        <Route
+          path='/projects/:projectId/features/:featureId'
+          element={
+            <FlexibleStrategy
+              parameters={parameters}
+              updateParameter={updateParameter}
+              context={{}}
+              editable={true}
+            />
+          }
+        />
+      </Routes>
+    );
+  };
 
-    fireEvent.change(slider, { target: { value: '50' } });
-    fireEvent.change(groupIdInput, { target: { value: 'newGroupId' } });
+  setupApi();
 
-    expect(slider).toHaveValue('50');
-    expect(groupIdInput).toHaveValue('newGroupId');
+  render(<Wrapper />, {
+    route: '/projects/default/features/test',
+  });
+
+  const slider = await screen.findByRole('slider', { name: /rollout/i });
+  const groupIdInput = await screen.getByLabelText('groupId');
+
+  expect(slider).toHaveValue('0');
+  expect(groupIdInput).toHaveValue('testid');
+
+  fireEvent.change(slider, { target: { value: '50' } });
+  fireEvent.change(groupIdInput, { target: { value: 'newGroupId' } });
+
+  expect(slider).toHaveValue('50');
+  expect(groupIdInput).toHaveValue('newGroupId');
 });
 
 test('if stickiness or groupId not present, fill it with defaults', async () => {
-    const updateParameter = vi.fn();
-    const Wrapper = () => (
-        <Routes>
-            <Route
-                path='/projects/:projectId/features/:featureId'
-                element={
-                    <FlexibleStrategy
-                        parameters={{
-                            rollout: '50',
-                        }}
-                        updateParameter={updateParameter}
-                        context={{}}
-                        editable={true}
-                    />
-                }
-            />
-        </Routes>
-    );
+  const updateParameter = vi.fn();
+  const Wrapper = () => (
+    <Routes>
+      <Route
+        path='/projects/:projectId/features/:featureId'
+        element={
+          <FlexibleStrategy
+            parameters={{
+              rollout: '50',
+            }}
+            updateParameter={updateParameter}
+            context={{}}
+            editable={true}
+          />
+        }
+      />
+    </Routes>
+  );
 
-    setupApi();
+  setupApi();
 
-    render(<Wrapper />, {
-        route: '/projects/default/features/test',
-    });
+  render(<Wrapper />, {
+    route: '/projects/default/features/test',
+  });
 
-    await waitFor(() => {
-        expect(updateParameter).toHaveBeenCalledWith('stickiness', 'default');
-        expect(updateParameter).toHaveBeenCalledWith('groupId', 'test');
-    });
+  await waitFor(() => {
+    expect(updateParameter).toHaveBeenCalledWith('stickiness', 'default');
+    expect(updateParameter).toHaveBeenCalledWith('groupId', 'test');
+  });
 });
 
 test('displays groupId error', async () => {
-    const Wrapper = () => (
-        <Routes>
-            <Route
-                path='/projects/:projectId/features/:featureId'
-                element={
-                    <FlexibleStrategy
-                        parameters={{
-                            rollout: '50',
-                            stickiness: 'default',
-                        }}
-                        updateParameter={(
-                            parameter: string,
-                            value: string,
-                        ) => {}}
-                        context={{}}
-                        editable={true}
-                        errors={
-                            {
-                                getFormError: () => 'Field required test',
-                            } as any
-                        }
-                    />
-                }
-            />
-        </Routes>
-    );
+  const Wrapper = () => (
+    <Routes>
+      <Route
+        path='/projects/:projectId/features/:featureId'
+        element={
+          <FlexibleStrategy
+            parameters={{
+              rollout: '50',
+              stickiness: 'default',
+            }}
+            updateParameter={(parameter: string, value: string) => {}}
+            context={{}}
+            editable={true}
+            errors={
+              {
+                getFormError: () => 'Field required test',
+              } as any
+            }
+          />
+        }
+      />
+    </Routes>
+  );
 
-    setupApi();
+  setupApi();
 
-    render(<Wrapper />, {
-        route: '/projects/default/features/test',
-    });
+  render(<Wrapper />, {
+    route: '/projects/default/features/test',
+  });
 
-    await waitFor(async () => {
-        const errorText = await screen.queryByText('Field required test');
-        expect(errorText).toBeInTheDocument();
-    });
+  await waitFor(async () => {
+    const errorText = await screen.queryByText('Field required test');
+    expect(errorText).toBeInTheDocument();
+  });
 });

@@ -163,9 +163,7 @@ describe('New Relic integration', () => {
       expect(fetchRetryCalls.length).toBe(1);
 
       const { url, options } = fetchRetryCalls[0];
-      const jsonBody = JSON.parse(
-        (await asyncGunzip(options.body)).toString(),
-      );
+      const jsonBody = JSON.parse((await asyncGunzip(options.body)).toString());
 
       expect(url).toBe(parameters.url);
       expect(options.method).toBe('POST');

@@ -34,8 +34,9 @@ export const useServiceAccountAccessMatrix = (
   project?: string,
   environment?: string,
 ): IServiceAccountAccessMatrixOutput => {
-  const queryParams = `${project ? `?project=${project}` : ''}${environment ? `${project ? '&' : '?'}environment=${environment}` : ''
-    }`;
+  const queryParams = `${project ? `?project=${project}` : ''}${
+    environment ? `${project ? '&' : '?'}environment=${environment}` : ''
+  }`;
   const url = `api/admin/service-account/${id}/permissions${queryParams}`;
 
   const { data, error, mutate } = useConditionalSWR<

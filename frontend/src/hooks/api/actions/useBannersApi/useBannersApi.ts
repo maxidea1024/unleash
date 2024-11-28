@@ -25,10 +25,7 @@ export const useBannersApi = () => {
     return response.json();
   };
 
-  const updateBanner = async (
-    bannerId: number,
-    banner: AddOrUpdateBanner,
-  ) => {
+  const updateBanner = async (bannerId: number, banner: AddOrUpdateBanner) => {
     const requestId = 'updateBanner';
     const req = createRequest(
       `${ENDPOINT}/${bannerId}`,

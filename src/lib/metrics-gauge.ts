@@ -106,10 +106,10 @@ export class DbMetricsMonitor {
     if (gauge && gauge.values.length > 0) {
       const values = labels
         ? gauge.values.filter(({ labels: l }) => {
-          return Object.entries(labels).every(
-            ([key, value]) => l[key] === value,
-          );
-        })
+            return Object.entries(labels).every(
+              ([key, value]) => l[key] === value,
+            );
+          })
         : gauge.values;
       // return first value
       return values.map(({ value }) => value).shift();

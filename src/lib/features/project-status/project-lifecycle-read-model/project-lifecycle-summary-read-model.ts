@@ -22,7 +22,8 @@ type AverageTimeInStage = {
 };
 
 export class ProjectLifecycleSummaryReadModel
-  implements IProjectLifecycleSummaryReadModel {
+  implements IProjectLifecycleSummaryReadModel
+{
   private readonly db: Db;
   private readonly featureToggleStore: IFeatureToggleStore;
 
@@ -58,9 +59,7 @@ export class ProjectLifecycleSummaryReadModel
           .groupBy('fl1.feature', 'fl1.stage'),
       )
       .select('stage_durations.stage')
-      .select(
-        this.db.raw('ROUND(AVG(days_in_stage)) AS avg_days_in_stage'),
-      )
+      .select(this.db.raw('ROUND(AVG(days_in_stage)) AS avg_days_in_stage'))
       .from('stage_durations')
       .groupBy('stage_durations.stage');
 

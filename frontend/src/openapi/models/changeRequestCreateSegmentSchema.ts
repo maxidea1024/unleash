@@ -10,5 +10,5 @@ import type { ChangeRequestCreateSegmentSchemaOneOfThree } from './changeRequest
  * Data used to create a [change request](https://docs.getunleash.io/reference/change-requests) for a single segment change.
  */
 export type ChangeRequestCreateSegmentSchema =
-    | ChangeRequestCreateSegmentSchemaOneOf
-    | ChangeRequestCreateSegmentSchemaOneOfThree;
+  | ChangeRequestCreateSegmentSchemaOneOf
+  | ChangeRequestCreateSegmentSchemaOneOfThree;

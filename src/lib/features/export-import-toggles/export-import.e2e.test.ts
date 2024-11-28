@@ -780,10 +780,7 @@ test('import features to existing project and environment', async () => {
     ...defaultImportPayload,
     data: {
       ...defaultImportPayload.data,
-      features: [
-        ...defaultImportPayload.data.features,
-        anotherExportedFeature,
-      ],
+      features: [...defaultImportPayload.data.features, anotherExportedFeature],
       featureStrategies: [
         {
           ...exportedStrategy,
@@ -961,10 +958,7 @@ test('reject import with unknown context fields', async () => {
     },
   };
 
-  const { body } = await app.importToggles(
-    importPayloadWithContextFields,
-    400,
-  );
+  const { body } = await app.importToggles(importPayloadWithContextFields, 400);
 
   expect(body.details[0].message).toMatch(/\bContextField1\b/);
 });
@@ -984,10 +978,7 @@ test('reject import with unsupported strategies', async () => {
     },
   };
 
-  const { body } = await app.importToggles(
-    importPayloadWithContextFields,
-    400,
-  );
+  const { body } = await app.importToggles(importPayloadWithContextFields, 400);
 
   expect(body.details[0].message).toMatch(/\bcustomStrategy\b/);
 });
@@ -1002,14 +993,9 @@ test('reject import with duplicate features', async () => {
     },
   };
 
-  const { body } = await app.importToggles(
-    importPayloadWithContextFields,
-    409,
-  );
+  const { body } = await app.importToggles(importPayloadWithContextFields, 409);
 
-  expect(body.details[0].message).toBe(
-    'A flag with that name already exists',
-  );
+  expect(body.details[0].message).toBe('A flag with that name already exists');
 });
 
 test('validate import data', async () => {
@@ -1034,11 +1020,7 @@ test('validate import data', async () => {
     ...defaultImportPayload,
     data: {
       ...defaultImportPayload.data,
-      features: [
-        exportedFeature,
-        exportedFeature,
-        anotherExportedFeature,
-      ],
+      features: [exportedFeature, exportedFeature, anotherExportedFeature],
       featureStrategies: [{ name: 'customStrategy' }],
       segments: [
         {
@@ -1096,10 +1078,7 @@ test('validate import data', async () => {
 
       {
         message: expect.stringMatching(/\btestpattern.+\b/),
-        affectedItems: [
-          defaultFeatureName,
-          anotherExportedFeature.name,
-        ],
+        affectedItems: [defaultFeatureName, anotherExportedFeature.name],
       },
       {
         message:

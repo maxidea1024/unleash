@@ -33,7 +33,8 @@ export const useIntegrationEvents = (
       return null;
 
     return formatApiPath(
-      `api/admin/addons/${integrationId}/events?limit=${limit}&offset=${pageIndex * limit
+      `api/admin/addons/${integrationId}/events?limit=${limit}&offset=${
+        pageIndex * limit
       }`,
     );
   };

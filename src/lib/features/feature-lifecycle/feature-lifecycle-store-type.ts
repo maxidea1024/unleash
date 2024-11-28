@@ -17,9 +17,7 @@ export type FeatureLifecycleProjectItem = FeatureLifecycleStage & {
 export type NewStage = Pick<FeatureLifecycleStage, 'feature' | 'stage'>;
 
 export interface IFeatureLifecycleStore {
-  insert(
-    featureLifecycleStages: FeatureLifecycleStage[],
-  ): Promise<NewStage[]>;
+  insert(featureLifecycleStages: FeatureLifecycleStage[]): Promise<NewStage[]>;
   get(feature: string): Promise<FeatureLifecycleView>;
   stageExists(stage: FeatureLifecycleStage): Promise<boolean>;
   delete(feature: string): Promise<void>;

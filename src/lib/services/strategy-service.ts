@@ -19,7 +19,6 @@ import {
 
 import strategySchema from './strategy-schema';
 import NameExistsError from '../error/name-exists-error';
-import { STRATEGY_CREATED, STRATEGY_DELETED, STRATEGY_DEPRECATED, STRATEGY_REACTIVATED, STRATEGY_UPDATED } from '../types/events';
 
 export default class StrategyService {
   private readonly logger: Logger;

@@ -9,40 +9,37 @@ import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRe
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 
 export const ApplyButton: FC<{
-    disabled: boolean;
-    onSchedule: () => void;
-    onApply: () => void;
-    variant?: 'create' | 'update';
-    children?: React.ReactNode;
+  disabled: boolean;
+  onSchedule: () => void;
+  onApply: () => void;
+  variant?: 'create' | 'update';
+  children?: React.ReactNode;
 }> = ({ disabled, onSchedule, onApply, variant = 'create', children }) => {
-    const projectId = useRequiredPathParam('projectId');
-    const id = useRequiredPathParam('id');
-    const { data } = useChangeRequest(projectId, id);
+  const projectId = useRequiredPathParam('projectId');
+  const id = useRequiredPathParam('id');
+  const { data } = useChangeRequest(projectId, id);
 
-    return (
-        <MultiActionButton
-            permission={APPLY_CHANGE_REQUEST}
-            disabled={disabled}
-            actions={[
-                {
-                    label: 'Apply changes',
-                    onSelect: onApply,
-                    icon: <CheckBox fontSize='small' />,
-                },
-                {
-                    label:
-                        variant === 'create'
-                            ? 'Schedule changes'
-                            : 'Update schedule',
-                    onSelect: onSchedule,
-                    icon: <Today fontSize='small' />,
-                },
-            ]}
-            environmentId={data?.environment}
-            projectId={projectId}
-            ariaLabel='apply or schedule changes'
-        >
-            {children}
-        </MultiActionButton>
-    );
+  return (
+    <MultiActionButton
+      permission={APPLY_CHANGE_REQUEST}
+      disabled={disabled}
+      actions={[
+        {
+          label: 'Apply changes',
+          onSelect: onApply,
+          icon: <CheckBox fontSize='small' />,
+        },
+        {
+          label: variant === 'create' ? 'Schedule changes' : 'Update schedule',
+          onSelect: onSchedule,
+          icon: <Today fontSize='small' />,
+        },
+      ]}
+      environmentId={data?.environment}
+      projectId={projectId}
+      ariaLabel='apply or schedule changes'
+    >
+      {children}
+    </MultiActionButton>
+  );
 };

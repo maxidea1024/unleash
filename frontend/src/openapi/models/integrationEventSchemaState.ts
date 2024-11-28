@@ -8,11 +8,11 @@
  * The state of the integration event. Can be one of `success`, `failed` or `successWithErrors`.
  */
 export type IntegrationEventSchemaState =
-    (typeof IntegrationEventSchemaState)[keyof typeof IntegrationEventSchemaState];
+  (typeof IntegrationEventSchemaState)[keyof typeof IntegrationEventSchemaState];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const IntegrationEventSchemaState = {
-    success: 'success',
-    failed: 'failed',
-    successWithErrors: 'successWithErrors',
+  success: 'success',
+  failed: 'failed',
+  successWithErrors: 'successWithErrors',
 } as const;

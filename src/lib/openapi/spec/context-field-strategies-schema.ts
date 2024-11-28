@@ -28,18 +28,15 @@ export const contextFieldStrategiesSchema = {
           featureName: {
             type: 'string',
             example: 'best-feature',
-            description:
-              'The name of the feature that contains this strategy.',
+            description: 'The name of the feature that contains this strategy.',
           },
           projectId: {
             type: 'string',
-            description:
-              'The ID of the project that contains this feature.',
+            description: 'The ID of the project that contains this feature.',
           },
           environment: {
             type: 'string',
-            description:
-              'The ID of the environment where this strategy is in.',
+            description: 'The ID of the environment where this strategy is in.',
           },
           strategyName: {
             type: 'string',

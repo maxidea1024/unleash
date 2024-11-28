@@ -18,7 +18,8 @@ interface ProjectEnvironment {
 }
 
 export default class FakeFeatureStrategiesStore
-  implements IFeatureStrategiesStore {
+  implements IFeatureStrategiesStore
+{
   private readonly environmentAndFeature: Map<string, any[]> = new Map();
   private projectToEnvironment: ProjectEnvironment[] = [];
   private featureStrategies: IFeatureStrategy[] = [];
@@ -100,16 +101,13 @@ export default class FakeFeatureStrategiesStore
     environment: string,
   ): Promise<void> {
     const toRemove = this.featureStrategies.filter(
-      (fS) =>
-        fS.featureName === feature_name &&
-        fS.environment === environment,
+      (fS) => fS.featureName === feature_name && fS.environment === environment,
     );
     this.featureStrategies = this.featureStrategies.filter(
       (f) =>
         !toRemove.some(
           (r) =>
-            r.featureName === f.featureName &&
-            r.environment === f.environment,
+            r.featureName === f.featureName && r.environment === f.environment,
         ),
     );
     return Promise.resolve();
@@ -142,9 +140,7 @@ export default class FakeFeatureStrategiesStore
     if (toggle) {
       return { ...toggle, environments: [] };
     }
-    throw new NotFoundError(
-      `Could not find feature with name ${featureName}`,
-    );
+    throw new NotFoundError(`Could not find feature with name ${featureName}`);
   }
 
   async getFeatureToggleWithEnvs(
@@ -158,9 +154,7 @@ export default class FakeFeatureStrategiesStore
     if (toggle) {
       return { ...toggle, environments: [] };
     }
-    throw new NotFoundError(
-      `Could not find feature with name ${featureName}`,
-    );
+    throw new NotFoundError(`Could not find feature with name ${featureName}`);
   }
 
   getFeatureToggleWithVariantEnvs(

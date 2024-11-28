@@ -8,5 +8,5 @@
  * A list of parameters for a strategy
  */
 export interface ParametersSchema {
-    [key: string]: string;
+  [key: string]: string;
 }

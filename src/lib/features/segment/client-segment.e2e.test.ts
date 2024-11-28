@@ -188,9 +188,7 @@ const createTestSegments = async () => {
   await createFeatureToggle(mockFeatureToggle(), [
     mockStrategy([segment1.id, segment2.id]),
   ]);
-  await createFeatureToggle(mockFeatureToggle(), [
-    mockStrategy([segment2.id]),
-  ]);
+  await createFeatureToggle(mockFeatureToggle(), [mockStrategy([segment2.id])]);
   await createFeatureToggle(mockFeatureToggle());
 
   return [segment1, segment2, segment3];
@@ -281,9 +279,7 @@ test('should validate feature strategy segment limit', async () => {
 test('should clone feature strategy segments', async () => {
   const constraints = mockConstraints();
   const segment1 = await createSegment({ name: 'S1', constraints });
-  await createFeatureToggle(mockFeatureToggle(), [
-    mockStrategy([segment1.id]),
-  ]);
+  await createFeatureToggle(mockFeatureToggle(), [mockStrategy([segment1.id])]);
   await createFeatureToggle(mockFeatureToggle());
 
   const [feature1, feature2] = await fetchFeatures();
@@ -419,9 +415,7 @@ test('should send all segments that are in use by feature', async () => {
     .flat()
     .filter((x) => !!x);
   const toggleSegmentIds = [...new Set(allSegmentIds)];
-  expect(arraysHaveSameItems(globalSegmentIds, toggleSegmentIds)).toEqual(
-    true,
-  );
+  expect(arraysHaveSameItems(globalSegmentIds, toggleSegmentIds)).toEqual(true);
 });
 
 describe('project-specific segments', () => {

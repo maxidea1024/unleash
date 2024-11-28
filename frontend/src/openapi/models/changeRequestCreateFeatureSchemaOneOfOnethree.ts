@@ -10,9 +10,9 @@ import type { ChangeRequestCreateFeatureSchemaOneOfOnethreePayload } from './cha
  * Update variants for this feature.
  */
 export type ChangeRequestCreateFeatureSchemaOneOfOnethree = {
-    /** The name of this action. */
-    action: ChangeRequestCreateFeatureSchemaOneOfOnethreeAction;
-    /** The name of the feature that this change applies to. */
-    feature: string;
-    payload: ChangeRequestCreateFeatureSchemaOneOfOnethreePayload;
+  /** The name of this action. */
+  action: ChangeRequestCreateFeatureSchemaOneOfOnethreeAction;
+  /** The name of the feature that this change applies to. */
+  feature: string;
+  payload: ChangeRequestCreateFeatureSchemaOneOfOnethreePayload;
 };

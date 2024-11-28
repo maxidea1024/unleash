@@ -26,16 +26,14 @@ export class LastSeenService {
   async store(): Promise<number> {
     const count = this.lastSeenToggles.size;
     if (count > 0) {
-      const lastSeenToggles = Array.from(
-        this.lastSeenToggles.values(),
-      ).filter((lastSeen) => lastSeen.featureName.length <= 255);
+      const lastSeenToggles = Array.from(this.lastSeenToggles.values()).filter(
+        (lastSeen) => lastSeen.featureName.length <= 255,
+      );
       if (lastSeenToggles.length < this.lastSeenToggles.size) {
         this.logger.warn(
           `Toggles with long names ${JSON.stringify(
             Array.from(this.lastSeenToggles.values())
-              .filter(
-                (lastSeen) => lastSeen.featureName.length > 255,
-              )
+              .filter((lastSeen) => lastSeen.featureName.length > 255)
               .map((lastSeen) => lastSeen.featureName),
           )}`,
         );
@@ -58,9 +56,7 @@ export class LastSeenService {
             `${clientMetric.featureName}:${clientMetric.environment}`,
           ),
       )
-      .filter(
-        (clientMetric) => clientMetric.yes > 0 || clientMetric.no > 0,
-      )
+      .filter((clientMetric) => clientMetric.yes > 0 || clientMetric.no > 0)
       .forEach((clientMetric) => {
         const key = `${clientMetric.featureName}:${clientMetric.environment}`;
         this.lastSeenToggles.set(key, {

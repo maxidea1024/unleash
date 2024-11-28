@@ -4,33 +4,33 @@ import type { IFeedbackCESState } from 'component/feedback/FeedbackCESContext/Fe
 import { useCallback } from 'react';
 
 interface IUseFeedbackCESSeen {
-    setSeen: (state: IFeedbackCESState) => void;
-    isSeen: (state: IFeedbackCESState) => boolean;
+  setSeen: (state: IFeedbackCESState) => void;
+  isSeen: (state: IFeedbackCESState) => boolean;
 }
 
 export const useFeedbackCESSeen = (): IUseFeedbackCESSeen => {
-    const { createFeedback } = useAuthFeedbackApi();
-    const { feedback } = useAuthFeedback();
+  const { createFeedback } = useAuthFeedbackApi();
+  const { feedback } = useAuthFeedback();
 
-    const isSeen = useCallback(
-        (state: IFeedbackCESState) =>
-            !!feedback &&
-            feedback.some((f) => f.feedbackId === formatFeedbackCESId(state)),
-        [feedback],
-    );
+  const isSeen = useCallback(
+    (state: IFeedbackCESState) =>
+      !!feedback &&
+      feedback.some((f) => f.feedbackId === formatFeedbackCESId(state)),
+    [feedback],
+  );
 
-    const setSeen = useCallback(
-        (state: IFeedbackCESState) =>
-            createFeedback({ feedbackId: formatFeedbackCESId(state) }),
-        [createFeedback],
-    );
+  const setSeen = useCallback(
+    (state: IFeedbackCESState) =>
+      createFeedback({ feedbackId: formatFeedbackCESId(state) }),
+    [createFeedback],
+  );
 
-    return {
-        isSeen,
-        setSeen,
-    };
+  return {
+    isSeen,
+    setSeen,
+  };
 };
 
 const formatFeedbackCESId = (state: IFeedbackCESState): string => {
-    return `ces${state.path}`;
+  return `ces${state.path}`;
 };

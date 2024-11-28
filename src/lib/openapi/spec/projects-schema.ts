@@ -10,8 +10,7 @@ export const projectsSchema = {
   properties: {
     version: {
       type: 'integer',
-      description:
-        'The schema version used to represent the project data.',
+      description: 'The schema version used to represent the project data.',
       example: 1,
     },
     projects: {

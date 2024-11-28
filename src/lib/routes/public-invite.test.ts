@@ -159,10 +159,7 @@ describe('Public Signup API', () => {
       expiresAt: expireAt(-1),
     });
 
-    return request
-      .post('/invite/some-secret/signup')
-      .send(user)
-      .expect(400);
+    return request.post('/invite/some-secret/signup').send(user).expect(400);
   });
 
   test('should not allow a user to register disabled token', async () => {
@@ -176,10 +173,7 @@ describe('Public Signup API', () => {
     });
     stores.publicSignupTokenStore.update('some-secret', { enabled: false });
 
-    return request
-      .post('/invite/some-secret/signup')
-      .send(user)
-      .expect(400);
+    return request.post('/invite/some-secret/signup').send(user).expect(400);
   });
 
   test('should return 200 if token is valid', async () => {

@@ -8,8 +8,8 @@
  * A strategy with its new sort order
  */
 export type SetStrategySortOrderSchemaItem = {
-    /** The ID of the strategy */
-    id: string;
-    /** The new sort order of the strategy */
-    sortOrder: number;
+  /** The ID of the strategy */
+  id: string;
+  /** The new sort order of the strategy */
+  sortOrder: number;
 };

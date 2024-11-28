@@ -8,51 +8,51 @@ import type { IRole } from 'interfaces/role';
 import type { VFC } from 'react';
 
 const StyledBox = styled(Box)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 
 interface IRolesActionsCellProps {
-    role: IRole;
-    onEdit: (event: React.SyntheticEvent) => void;
-    onDelete: (event: React.SyntheticEvent) => void;
+  role: IRole;
+  onEdit: (event: React.SyntheticEvent) => void;
+  onDelete: (event: React.SyntheticEvent) => void;
 }
 
 export const RolesActionsCell: VFC<IRolesActionsCellProps> = ({
-    role,
-    onEdit,
-    onDelete,
+  role,
+  onEdit,
+  onDelete,
 }) => {
-    const defaultRole = PREDEFINED_ROLE_TYPES.includes(role.type);
+  const defaultRole = PREDEFINED_ROLE_TYPES.includes(role.type);
 
-    return (
-        <StyledBox>
-            <PermissionIconButton
-                data-loading
-                onClick={onEdit}
-                permission={ADMIN}
-                disabled={defaultRole}
-                tooltipProps={{
-                    title: defaultRole
-                        ? 'You cannot edit a predefined role'
-                        : 'Edit role',
-                }}
-            >
-                <Edit />
-            </PermissionIconButton>
-            <PermissionIconButton
-                data-loading
-                onClick={onDelete}
-                permission={ADMIN}
-                disabled={defaultRole}
-                tooltipProps={{
-                    title: defaultRole
-                        ? 'You cannot remove a predefined role'
-                        : 'Remove role',
-                }}
-            >
-                <Delete />
-            </PermissionIconButton>
-        </StyledBox>
-    );
+  return (
+    <StyledBox>
+      <PermissionIconButton
+        data-loading
+        onClick={onEdit}
+        permission={ADMIN}
+        disabled={defaultRole}
+        tooltipProps={{
+          title: defaultRole
+            ? 'You cannot edit a predefined role'
+            : 'Edit role',
+        }}
+      >
+        <Edit />
+      </PermissionIconButton>
+      <PermissionIconButton
+        data-loading
+        onClick={onDelete}
+        permission={ADMIN}
+        disabled={defaultRole}
+        tooltipProps={{
+          title: defaultRole
+            ? 'You cannot remove a predefined role'
+            : 'Remove role',
+        }}
+      >
+        <Delete />
+      </PermissionIconButton>
+    </StyledBox>
+  );
 };

@@ -77,8 +77,7 @@ export const featureEnvironmentSchema = {
     },
     hasEnabledStrategies: {
       type: 'boolean',
-      description:
-        'Whether the feature has any enabled strategies defined.',
+      description: 'Whether the feature has any enabled strategies defined.',
     },
   },
   components: {

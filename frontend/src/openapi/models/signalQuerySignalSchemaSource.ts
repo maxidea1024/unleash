@@ -8,9 +8,9 @@
  * The signal source type. Should be used along with `sourceId` to uniquely identify the resource that created this signal.
  */
 export type SignalQuerySignalSchemaSource =
-    (typeof SignalQuerySignalSchemaSource)[keyof typeof SignalQuerySignalSchemaSource];
+  (typeof SignalQuerySignalSchemaSource)[keyof typeof SignalQuerySignalSchemaSource];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SignalQuerySignalSchemaSource = {
-    'signal-endpoint': 'signal-endpoint',
+  'signal-endpoint': 'signal-endpoint',
 } as const;

@@ -7,34 +7,31 @@ import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 const userLimit = 20;
 
 export const UserLimitWarning: VFC = () => {
-    const { users } = useUsers();
-    const { isBillingUsers, planUsers } = useUsersPlan(users);
+  const { users } = useUsers();
+  const { isBillingUsers, planUsers } = useUsersPlan(users);
 
-    if (!isBillingUsers) {
-        return null;
-    }
+  if (!isBillingUsers) {
+    return null;
+  }
 
-    if (planUsers?.length < userLimit) {
-        return null;
-    }
+  if (planUsers?.length < userLimit) {
+    return null;
+  }
 
-    return (
-        <Alert
-            severity='info'
-            sx={{ marginBottom: (theme) => theme.spacing(3) }}
+  return (
+    <Alert severity='info' sx={{ marginBottom: (theme) => theme.spacing(3) }}>
+      <p>
+        <strong>Heads up!</strong> You have reached your maximum number of
+        registered users for you PRO account (up to max {userLimit} users). If
+        you need more users please{' '}
+        <Link
+          component={RouterLink}
+          to='https://www.getunleash.io/signup-enterprise'
         >
-            <p>
-                <strong>Heads up!</strong> You have reached your maximum number
-                of registered users for you PRO account (up to max {userLimit}{' '}
-                users). If you need more users please{' '}
-                <Link
-                    component={RouterLink}
-                    to='https://www.getunleash.io/signup-enterprise'
-                >
-                    get in touch with us
-                </Link>
-                .
-            </p>
-        </Alert>
-    );
+          get in touch with us
+        </Link>
+        .
+      </p>
+    </Alert>
+  );
 };

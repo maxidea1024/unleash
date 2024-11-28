@@ -11,30 +11,30 @@ import type { ChangeRequestSegmentChangeSchema } from './changeRequestSegmentCha
 import type { ChangeRequestSchemaOneOfState } from './changeRequestSchemaOneOfState';
 
 export type ChangeRequestSchemaOneOf = {
-    /** A list of approvals that this change request has received. */
-    approvals?: ChangeRequestApprovalSchema[];
-    /** All comments that have been made on this change request. */
-    comments?: ChangeRequestCommentSchema[];
-    /** When this change request was created. */
-    createdAt: string;
-    /** The user who created this change request. */
-    createdBy: ChangeRequestSchemaOneOfCreatedBy;
-    /** The environment in which the changes should be applied. */
-    environment: string;
-    /** The list of features and their changes that relate to this change request. */
-    features: ChangeRequestFeatureSchema[];
-    /** This change requests's ID. */
-    id: number;
-    /** The minimum number of approvals required before this change request can be applied. */
-    minApprovals: number;
-    /** The project this change request belongs to. */
-    project: string;
-    /** A list of rejections that this change request has received.  */
-    rejections?: ChangeRequestApprovalSchema[];
-    /** The list of segments and their changes that relate to this change request. */
-    segments: ChangeRequestSegmentChangeSchema[];
-    /** The current state of the change request. */
-    state: ChangeRequestSchemaOneOfState;
-    /** A title describing the change request's content. */
-    title?: string;
+  /** A list of approvals that this change request has received. */
+  approvals?: ChangeRequestApprovalSchema[];
+  /** All comments that have been made on this change request. */
+  comments?: ChangeRequestCommentSchema[];
+  /** When this change request was created. */
+  createdAt: string;
+  /** The user who created this change request. */
+  createdBy: ChangeRequestSchemaOneOfCreatedBy;
+  /** The environment in which the changes should be applied. */
+  environment: string;
+  /** The list of features and their changes that relate to this change request. */
+  features: ChangeRequestFeatureSchema[];
+  /** This change requests's ID. */
+  id: number;
+  /** The minimum number of approvals required before this change request can be applied. */
+  minApprovals: number;
+  /** The project this change request belongs to. */
+  project: string;
+  /** A list of rejections that this change request has received.  */
+  rejections?: ChangeRequestApprovalSchema[];
+  /** The list of segments and their changes that relate to this change request. */
+  segments: ChangeRequestSegmentChangeSchema[];
+  /** The current state of the change request. */
+  state: ChangeRequestSchemaOneOfState;
+  /** A title describing the change request's content. */
+  title?: string;
 };

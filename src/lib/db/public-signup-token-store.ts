@@ -151,10 +151,9 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
   async insert(
     newToken: IPublicSignupTokenCreate,
   ): Promise<PublicSignupTokenSchema> {
-    const response = await this.db<ITokenRow>(TABLE).insert(
-      toRow(newToken),
-      ['secret'],
-    );
+    const response = await this.db<ITokenRow>(TABLE).insert(toRow(newToken), [
+      'secret',
+    ]);
     return this.get(response[0].secret);
   }
 
@@ -167,7 +166,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
     return valid;
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(secret: string): Promise<boolean> {
     const result = await this.db.raw(
@@ -179,10 +178,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
   }
 
   async get(key: string): Promise<PublicSignupTokenSchema> {
-    const rows = await this.makeTokenUsersQuery().where(
-      'tokens.secret',
-      key,
-    );
+    const rows = await this.makeTokenUsersQuery().where('tokens.secret', key);
 
     if (rows.length > 0) {
       return toTokens(rows)[0];

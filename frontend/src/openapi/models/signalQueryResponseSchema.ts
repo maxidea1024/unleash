@@ -9,11 +9,11 @@ import type { SignalQuerySignalSchema } from './signalQuerySignalSchema';
  * A list of signals that have been registered by the system
  */
 export interface SignalQueryResponseSchema {
-    /** The list of signals */
-    signals: SignalQuerySignalSchema[];
-    /**
-     * The total count of signals
-     * @minimum 0
-     */
-    total: number;
+  /** The list of signals */
+  signals: SignalQuerySignalSchema[];
+  /**
+   * The total count of signals
+   * @minimum 0
+   */
+  total: number;
 }

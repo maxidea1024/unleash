@@ -453,9 +453,7 @@ export class FeatureEnvironmentEvent extends BaseEvent {
     auditUser: IAuditUser;
   }) {
     super(
-      p.enabled
-        ? FEATURE_ENVIRONMENT_ENABLED
-        : FEATURE_ENVIRONMENT_DISABLED,
+      p.enabled ? FEATURE_ENVIRONMENT_ENABLED : FEATURE_ENVIRONMENT_DISABLED,
       p.auditUser,
     );
 
@@ -2155,7 +2153,7 @@ interface IUserEventData
   extends Pick<
     IUserWithRootRole,
     'id' | 'name' | 'username' | 'email' | 'rootRole'
-  > { }
+  > {}
 
 function mapUserToData(user: IUserEventData): any {
   return {

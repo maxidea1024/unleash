@@ -49,9 +49,7 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
   }
 
   async create(env: IEnvironment): Promise<IEnvironment> {
-    this.environments = this.environments.filter(
-      (e) => e.name !== env.name,
-    );
+    this.environments = this.environments.filter((e) => e.name !== env.name);
     this.environments.push(env);
     return Promise.resolve(env);
   }
@@ -119,7 +117,7 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
     this.environments = [];
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async get(key: string): Promise<IEnvironment> {
     return this.environments.find((e) => e.name === key);

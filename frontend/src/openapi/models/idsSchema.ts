@@ -8,6 +8,6 @@
  * Used for bulk deleting multiple ids
  */
 export interface IdsSchema {
-    /** Ids, for instance userid */
-    ids: number[];
+  /** Ids, for instance userid */
+  ids: number[];
 }

@@ -10,177 +10,177 @@ import { formatDateYMD } from '../../utils/formatDate';
  * Handle feature flags and configuration for different plans.
  */
 export const filterByConfig =
-    (config: IUiConfig) => (r: INavigationMenuItem) => {
-        if (r.flag) {
-            // Check if the route's `flag` is enabled in IUiConfig.flags.
-            const flags = config.flags as unknown as Record<string, boolean>;
-            return Boolean(flags[r.flag]);
-        }
+  (config: IUiConfig) => (r: INavigationMenuItem) => {
+    if (r.flag) {
+      // Check if the route's `flag` is enabled in IUiConfig.flags.
+      const flags = config.flags as unknown as Record<string, boolean>;
+      return Boolean(flags[r.flag]);
+    }
 
-        if (r.notFlag) {
-            const flags = config.flags as unknown as Record<string, boolean>;
+    if (r.notFlag) {
+      const flags = config.flags as unknown as Record<string, boolean>;
 
-            return !(flags[r.notFlag] === true);
-        }
+      return !(flags[r.notFlag] === true);
+    }
 
-        if (r.configFlag) {
-            // Check if the route's `configFlag` is enabled in IUiConfig.
-            return Boolean(config[r.configFlag]);
-        }
+    if (r.configFlag) {
+      // Check if the route's `configFlag` is enabled in IUiConfig.
+      return Boolean(config[r.configFlag]);
+    }
 
-        const isOss = !config?.versionInfo?.current?.enterprise;
-        if (isOss && r.enterprise) {
-            return false;
-        }
+    const isOss = !config?.versionInfo?.current?.enterprise;
+    if (isOss && r.enterprise) {
+      return false;
+    }
 
-        return true;
-    };
+    return true;
+  };
 
 export const scrollToTop = () => {
-    window.scrollTo(0, 0);
+  window.scrollTo(0, 0);
 };
 
 export const mapRouteLink = (route: INavigationMenuItem) => ({
-    ...route,
-    path: route.path.replace('/*', ''),
-    route: route.path,
+  ...route,
+  path: route.path.replace('/*', ''),
+  route: route.path,
 });
 
 export const trim = (value: string): string => {
-    if (value?.trim) {
-        return value.trim();
-    } else {
-        return value;
-    }
+  if (value?.trim) {
+    return value.trim();
+  } else {
+    return value;
+  }
 };
 
 export const getLocalizedDateString = (
-    value: Date | string | null | undefined,
-    locale: string,
+  value: Date | string | null | undefined,
+  locale: string,
 ) => {
-    const date = value
-        ? value instanceof Date
-            ? formatDateYMD(value, locale)
-            : formatDateYMD(parseISO(value), locale)
-        : undefined;
-    return date;
+  const date = value
+    ? value instanceof Date
+      ? formatDateYMD(value, locale)
+      : formatDateYMD(parseISO(value), locale)
+    : undefined;
+  return date;
 };
 
 export const parseDateValue = (value: string) => {
-    const date = new Date(value);
-    return `${format(date, 'yyyy-MM-dd')}T${format(date, 'HH:mm')}`;
+  const date = new Date(value);
+  return `${format(date, 'yyyy-MM-dd')}T${format(date, 'HH:mm')}`;
 };
 
 export const parseValidDate = (value: string): Date | undefined => {
-    const parsed = new Date(value);
+  const parsed = new Date(value);
 
-    if (isValid(parsed)) {
-        return parsed;
-    }
+  if (isValid(parsed)) {
+    return parsed;
+  }
 };
 
 export const calculateVariantWeight = (weight: number) => {
-    return weight / 10.0;
+  return weight / 10.0;
 };
 
 export function updateWeight(variants: IFeatureVariant[], totalWeight: number) {
-    if (variants.length === 0) {
-        return [];
+  if (variants.length === 0) {
+    return [];
+  }
+  const variantMetadata = variants.reduce(
+    ({ remainingPercentage, variableVariantCount }, variant) => {
+      if (variant.weight && variant.weightType === weightTypes.FIX) {
+        remainingPercentage -= Number(variant.weight);
+      } else {
+        variableVariantCount += 1;
+      }
+      return {
+        remainingPercentage,
+        variableVariantCount,
+      };
+    },
+    { remainingPercentage: totalWeight, variableVariantCount: 0 },
+  );
+
+  const { remainingPercentage, variableVariantCount } = variantMetadata;
+
+  if (remainingPercentage < 0) {
+    throw new Error('The traffic distribution total must equal 100%');
+  }
+
+  if (!variableVariantCount) {
+    throw new Error('There must be at least one variable variant');
+  }
+
+  const percentage = Number.parseInt(
+    String(remainingPercentage / variableVariantCount),
+  );
+
+  return variants.map((variant) => {
+    if (variant.weightType !== weightTypes.FIX) {
+      variant.weight = percentage;
     }
-    const variantMetadata = variants.reduce(
-        ({ remainingPercentage, variableVariantCount }, variant) => {
-            if (variant.weight && variant.weightType === weightTypes.FIX) {
-                remainingPercentage -= Number(variant.weight);
-            } else {
-                variableVariantCount += 1;
-            }
-            return {
-                remainingPercentage,
-                variableVariantCount,
-            };
-        },
-        { remainingPercentage: totalWeight, variableVariantCount: 0 },
-    );
-
-    const { remainingPercentage, variableVariantCount } = variantMetadata;
-
-    if (remainingPercentage < 0) {
-        throw new Error('The traffic distribution total must equal 100%');
-    }
-
-    if (!variableVariantCount) {
-        throw new Error('There must be at least one variable variant');
-    }
-
-    const percentage = Number.parseInt(
-        String(remainingPercentage / variableVariantCount),
-    );
-
-    return variants.map((variant) => {
-        if (variant.weightType !== weightTypes.FIX) {
-            variant.weight = percentage;
-        }
-        return variant;
-    });
+    return variant;
+  });
 }
 
 export function updateWeightEdit(
-    variants: IFeatureVariantEdit[],
-    totalWeight: number,
+  variants: IFeatureVariantEdit[],
+  totalWeight: number,
 ) {
-    if (variants.length === 0) {
-        return [];
+  if (variants.length === 0) {
+    return [];
+  }
+  let { remainingPercentage, variableVariantCount } = variants.reduce(
+    ({ remainingPercentage, variableVariantCount }, variant) => {
+      if (variant.weight && variant.weightType === weightTypes.FIX) {
+        remainingPercentage -= Number(variant.weight);
+      }
+      if (variant.weightType === weightTypes.VARIABLE) {
+        variableVariantCount += 1;
+      }
+      return {
+        remainingPercentage,
+        variableVariantCount,
+      };
+    },
+    { remainingPercentage: totalWeight, variableVariantCount: 0 },
+  );
+
+  const getPercentage = () =>
+    Math.max(Math.round(remainingPercentage / variableVariantCount), 0);
+
+  return variants.map((variant) => {
+    if (variant.weightType !== weightTypes.FIX) {
+      const percentage = getPercentage(); // round "as we go" - clean best effort approach
+      remainingPercentage -= percentage;
+      variableVariantCount -= 1;
+
+      variant.weight = percentage;
     }
-    let { remainingPercentage, variableVariantCount } = variants.reduce(
-        ({ remainingPercentage, variableVariantCount }, variant) => {
-            if (variant.weight && variant.weightType === weightTypes.FIX) {
-                remainingPercentage -= Number(variant.weight);
-            }
-            if (variant.weightType === weightTypes.VARIABLE) {
-                variableVariantCount += 1;
-            }
-            return {
-                remainingPercentage,
-                variableVariantCount,
-            };
-        },
-        { remainingPercentage: totalWeight, variableVariantCount: 0 },
-    );
 
-    const getPercentage = () =>
-        Math.max(Math.round(remainingPercentage / variableVariantCount), 0);
-
-    return variants.map((variant) => {
-        if (variant.weightType !== weightTypes.FIX) {
-            const percentage = getPercentage(); // round "as we go" - clean best effort approach
-            remainingPercentage -= percentage;
-            variableVariantCount -= 1;
-
-            variant.weight = percentage;
-        }
-
-        return variant;
-    });
+    return variant;
+  });
 }
 
 export const modalStyles = {
-    overlay: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.25)',
-        zIndex: 5,
-    },
-    content: {
-        width: '500px',
-        maxWidth: '90%',
-        margin: '0',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        transform: 'translate(-50%, -50%)',
-    },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    zIndex: 5,
+  },
+  content: {
+    width: '500px',
+    maxWidth: '90%',
+    margin: '0',
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    transform: 'translate(-50%, -50%)',
+  },
 };

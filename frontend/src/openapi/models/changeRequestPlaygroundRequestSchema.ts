@@ -9,5 +9,5 @@ import type { SdkContextSchema } from './sdkContextSchema';
  * Data for the playground API to evaluate flags with change request applied in preview mode
  */
 export interface ChangeRequestPlaygroundRequestSchema {
-    context: SdkContextSchema;
+  context: SdkContextSchema;
 }

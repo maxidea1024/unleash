@@ -8,6 +8,6 @@
  * Email id used for password reset
  */
 export interface IdSchema {
-    /** User email */
-    id: string;
+  /** User email */
+  id: string;
 }

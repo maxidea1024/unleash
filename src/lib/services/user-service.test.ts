@@ -26,10 +26,7 @@ test('Should create new user', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
   const emailService = new EmailService(config);
@@ -132,10 +129,7 @@ describe('Default admin initialization', () => {
     });
 
     await expect(
-      userService.loginUser(
-        DEFAULT_ADMIN_USERNAME,
-        DEFAULT_ADMIN_PASSWORD,
-      ),
+      userService.loginUser(DEFAULT_ADMIN_USERNAME, DEFAULT_ADMIN_PASSWORD),
     ).rejects.toThrow(
       'The combination of password and username you provided is invalid',
     );
@@ -207,10 +201,7 @@ test('Should be a valid password', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
 
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
@@ -243,10 +234,7 @@ test('Password must be at least 10 chars', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
@@ -280,10 +268,7 @@ test('The password must contain at least one uppercase letter.', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
@@ -318,10 +303,7 @@ test('The password must contain at least one number', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
 
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
@@ -357,10 +339,7 @@ test('The password must contain at least one special character', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
@@ -395,10 +374,7 @@ test('Should be a valid password with special chars', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
@@ -430,10 +406,7 @@ test('Should send password reset email if user exists', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);
@@ -481,10 +454,7 @@ test('Should throttle password reset email', async () => {
   const eventStore = new EventStoreMock();
   const accessService = new AccessServiceMock();
   const resetTokenStore = new FakeResetTokenStore();
-  const resetTokenService = new ResetTokenService(
-    { resetTokenStore },
-    config,
-  );
+  const resetTokenService = new ResetTokenService({ resetTokenStore }, config);
   const emailService = new EmailService(config);
   const sessionStore = new FakeSessionStore();
   const sessionService = new SessionService({ sessionStore }, config);

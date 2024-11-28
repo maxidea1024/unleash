@@ -55,8 +55,7 @@ test('Project with no stale toggles should have 100% health rating', async () =>
     stale: false,
     createdByUserId: 9999,
   });
-  const rating =
-    await projectHealthService.calculateHealthRating(savedProject);
+  const rating = await projectHealthService.calculateHealthRating(savedProject);
   expect(rating).toBe(100);
 });
 
@@ -95,8 +94,7 @@ test('Project with two stale toggles and two non stale should have 50% health ra
     stale: true,
     createdByUserId: 9999,
   });
-  const rating =
-    await projectHealthService.calculateHealthRating(savedProject);
+  const rating = await projectHealthService.calculateHealthRating(savedProject);
   expect(rating).toBe(50);
 });
 
@@ -131,7 +129,6 @@ test('Project with one non-stale, one potentially stale and one stale should hav
     stale: true,
     createdByUserId: 9999,
   });
-  const rating =
-    await projectHealthService.calculateHealthRating(savedProject);
+  const rating = await projectHealthService.calculateHealthRating(savedProject);
   expect(rating).toBe(33);
 });

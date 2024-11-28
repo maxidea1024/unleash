@@ -7,21 +7,21 @@ let stores: IUnleashStores;
 let db: ITestDb;
 
 beforeAll(async () => {
-    db = await dbInit('health_api', getLogger);
-    stores = db.stores;
+  db = await dbInit('health_api', getLogger);
+  stores = db.stores;
 });
 
 afterAll(async () => {
-    await db.destroy();
+  await db.destroy();
 });
 
 test('returns health good', async () => {
-    expect.assertions(0);
-    const { request, destroy } = await setupApp(stores);
-    await request
-        .get('/health')
-        .expect('Content-Type', /json/)
-        .expect(200)
-        .expect('{"health":"GOOD"}');
-    await destroy();
+  expect.assertions(0);
+  const { request, destroy } = await setupApp(stores);
+  await request
+    .get('/health')
+    .expect('Content-Type', /json/)
+    .expect(200)
+    .expect('{"health":"GOOD"}');
+  await destroy();
 });

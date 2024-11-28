@@ -3,11 +3,11 @@ import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';
 import { SignalEndpointsTable } from './SignalEndpointsTable/SignalEndpointsTable';
 
 export const Signals = () => {
-    const { isEnterprise } = useUiConfig();
+  const { isEnterprise } = useUiConfig();
 
-    if (!isEnterprise()) {
-        return <PremiumFeature feature='signals' />;
-    }
+  if (!isEnterprise()) {
+    return <PremiumFeature feature='signals' />;
+  }
 
-    return <SignalEndpointsTable />;
+  return <SignalEndpointsTable />;
 };

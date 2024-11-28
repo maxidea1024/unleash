@@ -46,9 +46,7 @@ test('should collect registered metrics with labels', async () => {
   await dbMetrics.refreshMetrics();
 
   const metrics = await prometheusRegister.metrics();
-  expect(metrics).toMatch(
-    /life_the_universe_and_everything\{test="case"\} 42/,
-  );
+  expect(metrics).toMatch(/life_the_universe_and_everything\{test="case"\} 42/);
 });
 
 test('should collect multiple registered metrics with and without labels', async () => {

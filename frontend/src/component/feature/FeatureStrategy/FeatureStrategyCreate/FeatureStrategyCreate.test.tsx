@@ -4,83 +4,81 @@ import { render } from 'utils/testRenderer';
 import { Route, Routes } from 'react-router-dom';
 
 import {
-    CREATE_FEATURE_STRATEGY,
-    UPDATE_FEATURE_ENVIRONMENT_VARIANTS,
-    UPDATE_FEATURE_STRATEGY,
+  CREATE_FEATURE_STRATEGY,
+  UPDATE_FEATURE_ENVIRONMENT_VARIANTS,
+  UPDATE_FEATURE_STRATEGY,
 } from 'component/providers/AccessProvider/permissions';
 import { FeatureStrategyCreate } from './FeatureStrategyCreate';
 import {
-    setupProjectEndpoint,
-    setupSegmentsEndpoint,
-    setupStrategyEndpoint,
-    setupFeaturesEndpoint,
-    setupUiConfigEndpoint,
-    setupContextEndpoint,
+  setupProjectEndpoint,
+  setupSegmentsEndpoint,
+  setupStrategyEndpoint,
+  setupFeaturesEndpoint,
+  setupUiConfigEndpoint,
+  setupContextEndpoint,
 } from './featureStrategyFormTestSetup';
 
 const featureName = 'my-new-feature';
 
 const setupComponent = () => {
-    return {
-        wrapper: render(
-            <Routes>
-                <Route
-                    path={
-                        '/projects/:projectId/features/:featureId/strategies/create'
-                    }
-                    element={<FeatureStrategyCreate />}
-                />
-            </Routes>,
-            {
-                route: `/projects/default/features/${featureName}/strategies/create?environmentId=development&strategyName=flexibleRollout&defaultStrategy=true`,
-                permissions: [
-                    {
-                        permission: CREATE_FEATURE_STRATEGY,
-                        project: 'default',
-                        environment: 'development',
-                    },
-                    {
-                        permission: UPDATE_FEATURE_STRATEGY,
-                        project: 'default',
-                        environment: 'development',
-                    },
-                    {
-                        permission: UPDATE_FEATURE_ENVIRONMENT_VARIANTS,
-                        project: 'default',
-                        environment: 'development',
-                    },
-                ],
-            },
-        ),
-        expectedSegmentName: 'test',
-        expectedGroupId: 'newGroupId',
-        expectedVariantName: 'Blue',
-        expectedSliderValue: '50',
-        expectedConstraintValue: 'new value',
-        expectedMultipleValues: '1234,4141,51515',
-    };
+  return {
+    wrapper: render(
+      <Routes>
+        <Route
+          path={'/projects/:projectId/features/:featureId/strategies/create'}
+          element={<FeatureStrategyCreate />}
+        />
+      </Routes>,
+      {
+        route: `/projects/default/features/${featureName}/strategies/create?environmentId=development&strategyName=flexibleRollout&defaultStrategy=true`,
+        permissions: [
+          {
+            permission: CREATE_FEATURE_STRATEGY,
+            project: 'default',
+            environment: 'development',
+          },
+          {
+            permission: UPDATE_FEATURE_STRATEGY,
+            project: 'default',
+            environment: 'development',
+          },
+          {
+            permission: UPDATE_FEATURE_ENVIRONMENT_VARIANTS,
+            project: 'default',
+            environment: 'development',
+          },
+        ],
+      },
+    ),
+    expectedSegmentName: 'test',
+    expectedGroupId: 'newGroupId',
+    expectedVariantName: 'Blue',
+    expectedSliderValue: '50',
+    expectedConstraintValue: 'new value',
+    expectedMultipleValues: '1234,4141,51515',
+  };
 };
 
 beforeEach(() => {
-    setupProjectEndpoint();
-    setupSegmentsEndpoint();
-    setupStrategyEndpoint();
-    setupFeaturesEndpoint(featureName);
-    setupUiConfigEndpoint();
-    setupContextEndpoint();
+  setupProjectEndpoint();
+  setupSegmentsEndpoint();
+  setupStrategyEndpoint();
+  setupFeaturesEndpoint(featureName);
+  setupUiConfigEndpoint();
+  setupContextEndpoint();
 });
 
 describe('NewFeatureStrategyCreate', () => {
-    test('formatAddStrategyApiCode', () => {
-        expect(
-            formatAddStrategyApiCode(
-                'projectId',
-                'featureId',
-                'environmentId',
-                { id: 'strategyId' },
-                'unleashUrl',
-            ),
-        ).toMatchInlineSnapshot(`
+  test('formatAddStrategyApiCode', () => {
+    expect(
+      formatAddStrategyApiCode(
+        'projectId',
+        'featureId',
+        'environmentId',
+        { id: 'strategyId' },
+        'unleashUrl',
+      ),
+    ).toMatchInlineSnapshot(`
           "curl --location --request POST 'unleashUrl/api/admin/projects/projectId/features/featureId/environments/environmentId/strategies' \\
               --header 'Authorization: INSERT_API_KEY' \\
               --header 'Content-Type: application/json' \\
@@ -88,363 +86,357 @@ describe('NewFeatureStrategyCreate', () => {
             "id": "strategyId"
           }'"
         `);
+  });
+
+  test('should navigate tabs', async () => {
+    setupComponent();
+
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
+    const saveButton = await screen.findByText('Save strategy');
+    expect(saveButton).not.toBeDisabled();
+
+    const slider = await screen.findByRole('slider', { name: /rollout/i });
+    expect(slider).toHaveValue('100');
+
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
+
+    const segmentsEl = await screen.findByText('Segments');
+    expect(segmentsEl).toBeInTheDocument();
+
+    const variantEl = screen.getByText('Variants');
+    fireEvent.click(variantEl);
+
+    const addVariantEl = await screen.findByText('Add variant');
+    expect(addVariantEl).toBeInTheDocument();
+  });
+
+  test('should change general settings', async () => {
+    const { expectedGroupId, expectedSliderValue } = setupComponent();
+
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
+
+    const slider = await screen.findByRole('slider', { name: /rollout/i });
+    const groupIdInput = await screen.findByLabelText('groupId');
+
+    expect(slider).toHaveValue('100');
+    expect(groupIdInput).toHaveValue(featureName);
+
+    fireEvent.change(slider, { target: { value: expectedSliderValue } });
+    fireEvent.change(groupIdInput, { target: { value: expectedGroupId } });
+
+    expect(slider).toHaveValue(expectedSliderValue);
+    expect(groupIdInput).toHaveValue(expectedGroupId);
+  });
+
+  test('should change targeting settings', async () => {
+    const { expectedConstraintValue, expectedSegmentName } = setupComponent();
+
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
+
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
+
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
+
+    const inputElement = screen.getByPlaceholderText(
+      'value1, value2, value3...',
+    );
+    fireEvent.change(inputElement, {
+      target: { value: expectedConstraintValue },
     });
 
-    test('should navigate tabs', async () => {
-        setupComponent();
+    const addValueEl = screen.getByText('Add values');
+    fireEvent.click(addValueEl);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
-        const saveButton = await screen.findByText('Save strategy');
-        expect(saveButton).not.toBeDisabled();
+    const doneEl = screen.getByText('Done');
+    fireEvent.click(doneEl);
 
-        const slider = await screen.findByRole('slider', { name: /rollout/i });
-        expect(slider).toHaveValue('100');
+    const selectElement = screen.getByPlaceholderText('Select segments');
+    fireEvent.mouseDown(selectElement);
 
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
+    const optionElement = await screen.findByText(expectedSegmentName);
+    fireEvent.click(optionElement);
 
-        const segmentsEl = await screen.findByText('Segments');
-        expect(segmentsEl).toBeInTheDocument();
+    expect(screen.getByText(expectedSegmentName)).toBeInTheDocument();
+    expect(screen.getByText(expectedConstraintValue)).toBeInTheDocument();
+  }, 10000);
 
-        const variantEl = screen.getByText('Variants');
-        fireEvent.click(variantEl);
+  test('should change variants settings', async () => {
+    const { expectedVariantName } = setupComponent();
 
-        const addVariantEl = await screen.findByText('Add variant');
-        expect(addVariantEl).toBeInTheDocument();
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
+
+    const variantsEl = screen.getByText('Variants');
+    fireEvent.click(variantsEl);
+
+    const addVariantEl = await screen.findByText('Add variant');
+    fireEvent.click(addVariantEl);
+
+    const inputElement = screen.getAllByRole('textbox')[0];
+    fireEvent.change(inputElement, {
+      target: { value: expectedVariantName },
     });
 
-    test('should change general settings', async () => {
-        const { expectedGroupId, expectedSliderValue } = setupComponent();
+    expect(screen.getByText(expectedVariantName)).toBeInTheDocument();
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    const generalSettingsEl = screen.getByText('General');
+    fireEvent.click(generalSettingsEl);
 
-        const slider = await screen.findByRole('slider', { name: /rollout/i });
-        const groupIdInput = await screen.findByLabelText('groupId');
+    await waitFor(() => {
+      const codeSnippet = document.querySelector('pre')?.innerHTML;
+      const variantNameMatches = (
+        codeSnippet!.match(new RegExp(expectedVariantName, 'g')) || []
+      ).length;
+      const metaDataMatches = (codeSnippet!.match(/isValid/g) || []).length;
+      expect(variantNameMatches).toBe(1);
+      expect(metaDataMatches).toBe(0);
+    });
+  });
 
-        expect(slider).toHaveValue('100');
-        expect(groupIdInput).toHaveValue(featureName);
+  test('should change variant name after changing tab', async () => {
+    const { expectedVariantName } = setupComponent();
 
-        fireEvent.change(slider, { target: { value: expectedSliderValue } });
-        fireEvent.change(groupIdInput, { target: { value: expectedGroupId } });
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        expect(slider).toHaveValue(expectedSliderValue);
-        expect(groupIdInput).toHaveValue(expectedGroupId);
+    const variantsEl = screen.getByText('Variants');
+    fireEvent.click(variantsEl);
+
+    const addVariantEl = await screen.findByText('Add variant');
+    fireEvent.click(addVariantEl);
+
+    const inputElement = screen.getAllByRole('textbox')[0];
+    fireEvent.change(inputElement, {
+      target: { value: expectedVariantName },
     });
 
-    test('should change targeting settings', async () => {
-        const { expectedConstraintValue, expectedSegmentName } =
-            setupComponent();
+    const targetingEl = await screen.findByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    const addConstraintEl = await screen.findByText('Add constraint');
+    expect(addConstraintEl).toBeInTheDocument();
 
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
+    fireEvent.click(variantsEl);
+    const inputElement2 = screen.getAllByRole('textbox')[0];
 
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
+    expect(inputElement2).not.toBeDisabled();
+  });
 
-        const inputElement = screen.getByPlaceholderText(
-            'value1, value2, value3...',
-        );
-        fireEvent.change(inputElement, {
-            target: { value: expectedConstraintValue },
-        });
+  test('should remove empty variants when changing tabs', async () => {
+    setupComponent();
 
-        const addValueEl = screen.getByText('Add values');
-        fireEvent.click(addValueEl);
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        const doneEl = screen.getByText('Done');
-        fireEvent.click(doneEl);
+    const variantsEl = screen.getByText('Variants');
+    fireEvent.click(variantsEl);
 
-        const selectElement = screen.getByPlaceholderText('Select segments');
-        fireEvent.mouseDown(selectElement);
+    const addVariantEl = await screen.findByText('Add variant');
+    fireEvent.click(addVariantEl);
 
-        const optionElement = await screen.findByText(expectedSegmentName);
-        fireEvent.click(optionElement);
+    const variants = screen.queryAllByTestId('VARIANT');
+    expect(variants.length).toBe(1);
 
-        expect(screen.getByText(expectedSegmentName)).toBeInTheDocument();
-        expect(screen.getByText(expectedConstraintValue)).toBeInTheDocument();
-    }, 10000);
+    const targetingEl = await screen.findByText('Targeting');
+    fireEvent.click(targetingEl);
 
-    test('should change variants settings', async () => {
-        const { expectedVariantName } = setupComponent();
+    const addConstraintEl = await screen.findByText('Add constraint');
+    expect(addConstraintEl).toBeInTheDocument();
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    fireEvent.click(variantsEl);
 
-        const variantsEl = screen.getByText('Variants');
-        fireEvent.click(variantsEl);
+    const variants2 = screen.queryAllByTestId('VARIANT');
+    expect(variants2.length).toBe(0);
+  });
 
-        const addVariantEl = await screen.findByText('Add variant');
-        fireEvent.click(addVariantEl);
+  test('Should autosave constraint settings when navigating between tabs', async () => {
+    const { expectedMultipleValues } = setupComponent();
 
-        const inputElement = screen.getAllByRole('textbox')[0];
-        fireEvent.change(inputElement, {
-            target: { value: expectedVariantName },
-        });
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        expect(screen.getByText(expectedVariantName)).toBeInTheDocument();
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        const generalSettingsEl = screen.getByText('General');
-        fireEvent.click(generalSettingsEl);
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
 
-        await waitFor(() => {
-            const codeSnippet = document.querySelector('pre')?.innerHTML;
-            const variantNameMatches = (
-                codeSnippet!.match(new RegExp(expectedVariantName, 'g')) || []
-            ).length;
-            const metaDataMatches = (codeSnippet!.match(/isValid/g) || [])
-                .length;
-            expect(variantNameMatches).toBe(1);
-            expect(metaDataMatches).toBe(0);
-        });
+    const inputElement = screen.getByPlaceholderText(
+      'value1, value2, value3...',
+    );
+    fireEvent.change(inputElement, {
+      target: { value: expectedMultipleValues },
     });
 
-    test('should change variant name after changing tab', async () => {
-        const { expectedVariantName } = setupComponent();
+    const addValueEl = await screen.findByText('Add values');
+    fireEvent.click(addValueEl);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    const variantsEl = screen.getByText('Variants');
+    fireEvent.click(variantsEl);
 
-        const variantsEl = screen.getByText('Variants');
-        fireEvent.click(variantsEl);
+    fireEvent.click(targetingEl);
 
-        const addVariantEl = await screen.findByText('Add variant');
-        fireEvent.click(addVariantEl);
+    const values = expectedMultipleValues.split(',');
 
-        const inputElement = screen.getAllByRole('textbox')[0];
-        fireEvent.change(inputElement, {
-            target: { value: expectedVariantName },
-        });
+    expect(screen.getByText(values[0])).toBeInTheDocument();
+    expect(screen.getByText(values[1])).toBeInTheDocument();
+    expect(screen.getByText(values[2])).toBeInTheDocument();
+  });
 
-        const targetingEl = await screen.findByText('Targeting');
-        fireEvent.click(targetingEl);
+  test('Should update multiple constraints correctly', async () => {
+    setupComponent();
 
-        const addConstraintEl = await screen.findByText('Add constraint');
-        expect(addConstraintEl).toBeInTheDocument();
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        fireEvent.click(variantsEl);
-        const inputElement2 = screen.getAllByRole('textbox')[0];
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        expect(inputElement2).not.toBeDisabled();
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
+    fireEvent.click(addConstraintEl);
+    fireEvent.click(addConstraintEl);
+
+    const inputElements = screen.getAllByPlaceholderText(
+      'value1, value2, value3...',
+    );
+
+    fireEvent.change(inputElements[0], {
+      target: { value: '123' },
+    });
+    fireEvent.change(inputElements[1], {
+      target: { value: '456' },
+    });
+    fireEvent.change(inputElements[2], {
+      target: { value: '789' },
     });
 
-    test('should remove empty variants when changing tabs', async () => {
-        setupComponent();
+    const addValueEls = await screen.findAllByText('Add values');
+    fireEvent.click(addValueEls[0]);
+    fireEvent.click(addValueEls[1]);
+    fireEvent.click(addValueEls[2]);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    expect(screen.queryByText('123')).toBeInTheDocument();
+    const deleteBtns = await screen.findAllByTestId('CancelIcon');
+    fireEvent.click(deleteBtns[0]);
 
-        const variantsEl = screen.getByText('Variants');
-        fireEvent.click(variantsEl);
+    expect(screen.queryByText('123')).not.toBeInTheDocument();
+    expect(screen.queryByText('456')).toBeInTheDocument();
+    expect(screen.queryByText('789')).toBeInTheDocument();
+  });
 
-        const addVariantEl = await screen.findByText('Add variant');
-        fireEvent.click(addVariantEl);
+  test('Should update multiple constraints with the correct react key', async () => {
+    setupComponent();
 
-        const variants = screen.queryAllByTestId('VARIANT');
-        expect(variants.length).toBe(1);
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        const targetingEl = await screen.findByText('Targeting');
-        fireEvent.click(targetingEl);
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        const addConstraintEl = await screen.findByText('Add constraint');
-        expect(addConstraintEl).toBeInTheDocument();
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
+    fireEvent.click(addConstraintEl);
+    fireEvent.click(addConstraintEl);
 
-        fireEvent.click(variantsEl);
+    const inputElements = screen.getAllByPlaceholderText(
+      'value1, value2, value3...',
+    );
 
-        const variants2 = screen.queryAllByTestId('VARIANT');
-        expect(variants2.length).toBe(0);
+    fireEvent.change(inputElements[0], {
+      target: { value: '123' },
+    });
+    fireEvent.change(inputElements[1], {
+      target: { value: '456' },
+    });
+    fireEvent.change(inputElements[2], {
+      target: { value: '789' },
     });
 
-    test('Should autosave constraint settings when navigating between tabs', async () => {
-        const { expectedMultipleValues } = setupComponent();
+    const addValueEls = await screen.findAllByText('Add values');
+    fireEvent.click(addValueEls[0]);
+    fireEvent.click(addValueEls[1]);
+    fireEvent.click(addValueEls[2]);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    expect(screen.queryByText('123')).toBeInTheDocument();
 
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
+    const deleteBtns = screen.getAllByTestId('DELETE_CONSTRAINT_BUTTON');
+    fireEvent.click(deleteBtns[0]);
 
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
+    const inputElements2 = screen.getAllByPlaceholderText(
+      'value1, value2, value3...',
+    );
 
-        const inputElement = screen.getByPlaceholderText(
-            'value1, value2, value3...',
-        );
-        fireEvent.change(inputElement, {
-            target: { value: expectedMultipleValues },
-        });
+    fireEvent.change(inputElements2[0], {
+      target: { value: '666' },
+    });
+    const addValueEls2 = screen.getAllByText('Add values');
+    fireEvent.click(addValueEls2[0]);
 
-        const addValueEl = await screen.findByText('Add values');
-        fireEvent.click(addValueEl);
+    expect(screen.queryByText('123')).not.toBeInTheDocument();
+    expect(screen.queryByText('456')).toBeInTheDocument();
+    expect(screen.queryByText('789')).toBeInTheDocument();
+  });
 
-        const variantsEl = screen.getByText('Variants');
-        fireEvent.click(variantsEl);
+  test('Should undo changes made to constraints', async () => {
+    setupComponent();
 
-        fireEvent.click(targetingEl);
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        const values = expectedMultipleValues.split(',');
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        expect(screen.getByText(values[0])).toBeInTheDocument();
-        expect(screen.getByText(values[1])).toBeInTheDocument();
-        expect(screen.getByText(values[2])).toBeInTheDocument();
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
+
+    const inputEl = screen.getByPlaceholderText('value1, value2, value3...');
+
+    fireEvent.change(inputEl, {
+      target: { value: '6, 7, 8' },
     });
 
-    test('Should update multiple constraints correctly', async () => {
-        setupComponent();
+    const addBtn = await screen.findByText('Add values');
+    fireEvent.click(addBtn);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    expect(screen.queryByText('6')).toBeInTheDocument();
+    expect(screen.queryByText('7')).toBeInTheDocument();
+    expect(screen.queryByText('8')).toBeInTheDocument();
 
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
+    const undoBtn = await screen.findByTestId('UNDO_CONSTRAINT_CHANGE_BUTTON');
 
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
-        fireEvent.click(addConstraintEl);
-        fireEvent.click(addConstraintEl);
+    fireEvent.click(undoBtn);
 
-        const inputElements = screen.getAllByPlaceholderText(
-            'value1, value2, value3...',
-        );
+    expect(screen.queryByText('6')).not.toBeInTheDocument();
+    expect(screen.queryByText('7')).not.toBeInTheDocument();
+    expect(screen.queryByText('8')).not.toBeInTheDocument();
+  });
 
-        fireEvent.change(inputElements[0], {
-            target: { value: '123' },
-        });
-        fireEvent.change(inputElements[1], {
-            target: { value: '456' },
-        });
-        fireEvent.change(inputElements[2], {
-            target: { value: '789' },
-        });
+  test('Should remove constraint when no valid values are set and moving between tabs', async () => {
+    setupComponent();
 
-        const addValueEls = await screen.findAllByText('Add values');
-        fireEvent.click(addValueEls[0]);
-        fireEvent.click(addValueEls[1]);
-        fireEvent.click(addValueEls[2]);
+    const titleEl = await screen.findByText('Gradual rollout');
+    expect(titleEl).toBeInTheDocument();
 
-        expect(screen.queryByText('123')).toBeInTheDocument();
-        const deleteBtns = await screen.findAllByTestId('CancelIcon');
-        fireEvent.click(deleteBtns[0]);
+    const targetingEl = screen.getByText('Targeting');
+    fireEvent.click(targetingEl);
 
-        expect(screen.queryByText('123')).not.toBeInTheDocument();
-        expect(screen.queryByText('456')).toBeInTheDocument();
-        expect(screen.queryByText('789')).toBeInTheDocument();
-    });
+    const addConstraintEl = await screen.findByText('Add constraint');
+    fireEvent.click(addConstraintEl);
 
-    test('Should update multiple constraints with the correct react key', async () => {
-        setupComponent();
+    const variantsEl = screen.getByText('Variants');
+    fireEvent.click(variantsEl);
+    fireEvent.click(targetingEl);
 
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
+    const seconAddConstraintEl = await screen.findByText('Add constraint');
 
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
-
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
-        fireEvent.click(addConstraintEl);
-        fireEvent.click(addConstraintEl);
-
-        const inputElements = screen.getAllByPlaceholderText(
-            'value1, value2, value3...',
-        );
-
-        fireEvent.change(inputElements[0], {
-            target: { value: '123' },
-        });
-        fireEvent.change(inputElements[1], {
-            target: { value: '456' },
-        });
-        fireEvent.change(inputElements[2], {
-            target: { value: '789' },
-        });
-
-        const addValueEls = await screen.findAllByText('Add values');
-        fireEvent.click(addValueEls[0]);
-        fireEvent.click(addValueEls[1]);
-        fireEvent.click(addValueEls[2]);
-
-        expect(screen.queryByText('123')).toBeInTheDocument();
-
-        const deleteBtns = screen.getAllByTestId('DELETE_CONSTRAINT_BUTTON');
-        fireEvent.click(deleteBtns[0]);
-
-        const inputElements2 = screen.getAllByPlaceholderText(
-            'value1, value2, value3...',
-        );
-
-        fireEvent.change(inputElements2[0], {
-            target: { value: '666' },
-        });
-        const addValueEls2 = screen.getAllByText('Add values');
-        fireEvent.click(addValueEls2[0]);
-
-        expect(screen.queryByText('123')).not.toBeInTheDocument();
-        expect(screen.queryByText('456')).toBeInTheDocument();
-        expect(screen.queryByText('789')).toBeInTheDocument();
-    });
-
-    test('Should undo changes made to constraints', async () => {
-        setupComponent();
-
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
-
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
-
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
-
-        const inputEl = screen.getByPlaceholderText(
-            'value1, value2, value3...',
-        );
-
-        fireEvent.change(inputEl, {
-            target: { value: '6, 7, 8' },
-        });
-
-        const addBtn = await screen.findByText('Add values');
-        fireEvent.click(addBtn);
-
-        expect(screen.queryByText('6')).toBeInTheDocument();
-        expect(screen.queryByText('7')).toBeInTheDocument();
-        expect(screen.queryByText('8')).toBeInTheDocument();
-
-        const undoBtn = await screen.findByTestId(
-            'UNDO_CONSTRAINT_CHANGE_BUTTON',
-        );
-
-        fireEvent.click(undoBtn);
-
-        expect(screen.queryByText('6')).not.toBeInTheDocument();
-        expect(screen.queryByText('7')).not.toBeInTheDocument();
-        expect(screen.queryByText('8')).not.toBeInTheDocument();
-    });
-
-    test('Should remove constraint when no valid values are set and moving between tabs', async () => {
-        setupComponent();
-
-        const titleEl = await screen.findByText('Gradual rollout');
-        expect(titleEl).toBeInTheDocument();
-
-        const targetingEl = screen.getByText('Targeting');
-        fireEvent.click(targetingEl);
-
-        const addConstraintEl = await screen.findByText('Add constraint');
-        fireEvent.click(addConstraintEl);
-
-        const variantsEl = screen.getByText('Variants');
-        fireEvent.click(variantsEl);
-        fireEvent.click(targetingEl);
-
-        const seconAddConstraintEl = await screen.findByText('Add constraint');
-
-        expect(seconAddConstraintEl).toBeInTheDocument();
-        expect(screen.queryByText('appName')).not.toBeInTheDocument();
-    });
+    expect(seconAddConstraintEl).toBeInTheDocument();
+    expect(screen.queryByText('appName')).not.toBeInTheDocument();
+  });
 });

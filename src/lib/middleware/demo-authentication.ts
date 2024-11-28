@@ -35,7 +35,8 @@ function demoAuthentication(
       req.session.user = user;
       return res.status(200).json(user);
     } catch (e) {
-      res.status(400)
+      res
+        .status(400)
         .json({ error: `Could not sign in with ${email}` })
         .end();
     }
@@ -75,8 +76,7 @@ function demoAuthentication(
         new AuthenticationRequired({
           path: `${basePath}/auth/demo/login`,
           type: 'demo',
-          message:
-            'You have to identify yourself in order to use Unleash.',
+          message: 'You have to identify yourself in order to use Unleash.',
         }),
       )
       .end();

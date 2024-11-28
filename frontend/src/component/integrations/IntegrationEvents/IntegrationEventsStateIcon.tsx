@@ -5,27 +5,27 @@ import WarningAmber from '@mui/icons-material/WarningAmber';
 import type { IntegrationEvent } from 'interfaces/integrationEvent';
 
 export const StyledSuccessIcon = styled(CheckCircleOutline)(({ theme }) => ({
-    color: theme.palette.success.main,
+  color: theme.palette.success.main,
 }));
 
 export const StyledFailedIcon = styled(ErrorOutline)(({ theme }) => ({
-    color: theme.palette.error.main,
+  color: theme.palette.error.main,
 }));
 
 export const StyledSuccessWithErrorsIcon = styled(WarningAmber)(
-    ({ theme }) => ({
-        color: theme.palette.warning.main,
-    }),
+  ({ theme }) => ({
+    color: theme.palette.warning.main,
+  }),
 );
 
 export const IntegrationEventsStateIcon = ({ state }: IntegrationEvent) => {
-    if (state === 'success') {
-        return <StyledSuccessIcon />;
-    }
+  if (state === 'success') {
+    return <StyledSuccessIcon />;
+  }
 
-    if (state === 'failed') {
-        return <StyledFailedIcon />;
-    }
+  if (state === 'failed') {
+    return <StyledFailedIcon />;
+  }
 
-    return <StyledSuccessWithErrorsIcon />;
+  return <StyledSuccessWithErrorsIcon />;
 };

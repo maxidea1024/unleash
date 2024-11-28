@@ -8,10 +8,10 @@
  * Whether the query against prometheus succeeded or failed
  */
 export type RequestsPerSecondSchemaStatus =
-    (typeof RequestsPerSecondSchemaStatus)[keyof typeof RequestsPerSecondSchemaStatus];
+  (typeof RequestsPerSecondSchemaStatus)[keyof typeof RequestsPerSecondSchemaStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const RequestsPerSecondSchemaStatus = {
-    success: 'success',
-    failure: 'failure',
+  success: 'success',
+  failure: 'failure',
 } as const;

@@ -51,24 +51,24 @@ export const MAIL_ACCEPTED = '250 Accepted';
 export type ChangeRequestScheduleConflictData =
   | { reason: 'flag archived'; flagName: string }
   | {
-    reason: 'strategy deleted';
-    flagName: string;
-    strategyId: string;
-  }
+      reason: 'strategy deleted';
+      flagName: string;
+      strategyId: string;
+    }
   | {
-    reason: 'strategy updated';
-    flagName: string;
-    strategyId: string;
-  }
+      reason: 'strategy updated';
+      flagName: string;
+      strategyId: string;
+    }
   | {
-    reason: 'segment updated';
-    segment: { id: number; name: string };
-  }
+      reason: 'segment updated';
+      segment: { id: number; name: string };
+    }
   | {
-    reason: 'environment variants updated';
-    flagName: string;
-    environment: string;
-  };
+      reason: 'environment variants updated';
+      flagName: string;
+      environment: string;
+    };
 
 export type OrderEnvironmentData = {
   name: string;
@@ -197,10 +197,10 @@ export class EmailService {
       conflictScope === 'flag'
         ? { reason: 'flag archived' as const, flagName }
         : {
-          reason: 'strategy deleted' as const,
-          flagName,
-          strategyId: strategyId ?? '',
-        };
+            reason: 'strategy deleted' as const,
+            flagName,
+            strategyId: strategyId ?? '',
+          };
 
     return this.sendScheduledChangeSuspendedEmail(
       recipient,
@@ -373,15 +373,8 @@ export class EmailService {
       };
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () =>
-            this.logger.info(
-              'Successfully sent reset-password email',
-            ),
-          (e) =>
-            this.logger.warn(
-              'Failed to send reset-password email',
-              e,
-            ),
+          () => this.logger.info('Successfully sent reset-password email'),
+          (e) => this.logger.warn('Failed to send reset-password email', e),
         );
       });
       return Promise.resolve(email);
@@ -434,15 +427,8 @@ export class EmailService {
       };
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () =>
-            this.logger.info(
-              'Successfully sent getting started email',
-            ),
-          (e) =>
-            this.logger.warn(
-              'Failed to send getting started email',
-              e,
-            ),
+          () => this.logger.info('Successfully sent getting started email'),
+          (e) => this.logger.warn('Failed to send getting started email', e),
         );
       });
       return Promise.resolve(email);
@@ -489,24 +475,15 @@ export class EmailService {
       const email = {
         from: this.sender,
         to: userEmail,
-        bcc:
-          process.env.ORDER_ENVIRONMENTS_BCC ||
-          'pro-sales@getunleash.io',
+        bcc: process.env.ORDER_ENVIRONMENTS_BCC || 'pro-sales@getunleash.io',
         subject: ORDER_ENVIRONMENTS_SUBJECT,
         html: bodyHtml,
         text: bodyText,
       };
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () =>
-            this.logger.info(
-              'Successfully sent order environments email',
-            ),
-          (e) =>
-            this.logger.warn(
-              'Failed to send order environments email',
-              e,
-            ),
+          () => this.logger.info('Successfully sent order environments email'),
+          (e) => this.logger.warn('Failed to send order environments email', e),
         );
       });
       return Promise.resolve(email);
@@ -584,15 +561,9 @@ export class EmailService {
 
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () =>
-            this.logger.info(
-              'Successfully sent productivity report email',
-            ),
+          () => this.logger.info('Successfully sent productivity report email'),
           (e) =>
-            this.logger.warn(
-              'Failed to send productivity report email',
-              e,
-            ),
+            this.logger.warn('Failed to send productivity report email', e),
         );
       });
       return Promise.resolve(email);

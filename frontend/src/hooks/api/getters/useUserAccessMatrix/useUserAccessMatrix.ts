@@ -30,8 +30,9 @@ export const useUserAccessMatrix = (
   project?: string,
   environment?: string,
 ): IUserAccessMatrixOutput => {
-  const queryParams = `${project ? `?project=${project}` : ''}${environment ? `${project ? '&' : '?'}environment=${environment}` : ''
-    }`;
+  const queryParams = `${project ? `?project=${project}` : ''}${
+    environment ? `${project ? '&' : '?'}environment=${environment}` : ''
+  }`;
   const url = `api/admin/user-admin/${id}/permissions${queryParams}`;
 
   const { data, error, mutate } = useSWR<IUserAccessMatrixResponse>(

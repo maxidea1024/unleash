@@ -141,22 +141,10 @@ export const createStores = (
       config.flagResolver,
     ),
     groupStore: new GroupStore(db),
-    publicSignupTokenStore: new PublicSignupTokenStore(
-      db,
-      eventBus,
-      getLogger,
-    ),
+    publicSignupTokenStore: new PublicSignupTokenStore(db, eventBus, getLogger),
     patStore: new PatStore(db, getLogger),
-    favoriteFeaturesStore: new FavoriteFeaturesStore(
-      db,
-      eventBus,
-      getLogger,
-    ),
-    favoriteProjectsStore: new FavoriteProjectsStore(
-      db,
-      eventBus,
-      getLogger,
-    ),
+    favoriteFeaturesStore: new FavoriteFeaturesStore(db, eventBus, getLogger),
+    favoriteProjectsStore: new FavoriteProjectsStore(db, eventBus, getLogger),
     projectStatsStore: new ProjectStatsStore(db, eventBus, getLogger),
     importTogglesStore: new ImportTogglesStore(db),
     privateProjectStore: new PrivateProjectStore(db, getLogger),
@@ -184,11 +172,7 @@ export const createStores = (
     largestResourcesReadModel: new LargestResourcesReadModel(db),
     integrationEventsStore: new IntegrationEventsStore(db, { eventBus }),
     featureCollaboratorsReadModel: new FeatureCollaboratorsReadModel(db),
-    projectReadModel: createProjectReadModel(
-      db,
-      eventBus,
-      config.flagResolver,
-    ),
+    projectReadModel: createProjectReadModel(db, eventBus, config.flagResolver),
     userUnsubscribeStore: new UserUnsubscribeStore(db),
     userSubscriptionsReadModel: new UserSubscriptionsReadModel(db),
   };

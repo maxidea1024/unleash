@@ -237,16 +237,15 @@ test('An admin token should be allowed to create a token', async () => {
     db.rawDatabase,
   );
 
-  const { secret } =
-    await services.apiTokenService.createApiTokenWithProjects(
-      {
-        tokenName: 'default-admin',
-        type: ApiTokenType.ADMIN,
-        projects: ['*'],
-        environment: '*',
-      },
-      TEST_AUDIT_USER,
-    );
+  const { secret } = await services.apiTokenService.createApiTokenWithProjects(
+    {
+      tokenName: 'default-admin',
+      type: ApiTokenType.ADMIN,
+      projects: ['*'],
+      environment: '*',
+    },
+    TEST_AUDIT_USER,
+  );
 
   await request
     .post('/api/admin/api-tokens')
@@ -276,9 +275,7 @@ test('A role with only CREATE_PROJECT_API_TOKEN can create project tokens', asyn
     }: { userService: UserService; accessService: AccessService },
   ) => {
     app.use('/api/admin/', async (req, res, next) => {
-      const role = (await accessService.getPredefinedRole(
-        RoleName.VIEWER,
-      ))!;
+      const role = (await accessService.getPredefinedRole(RoleName.VIEWER))!;
       const user = await userService.createUser(
         {
           email: 'powerpuffgirls_viewer@example.com',
@@ -345,17 +342,16 @@ describe('Fine grained API token permissions', () => {
             rootRole: builtInRole.id,
           });
           req.user = user;
-          const createClientApiTokenRole =
-            await accessService.createRole(
-              {
-                name: 'client_token_creator',
-                description: 'Can create client tokens',
-                permissions: [],
-                type: 'root-custom',
-                createdByUserId: SYSTEM_USER.id,
-              },
-              SYSTEM_USER_AUDIT,
-            );
+          const createClientApiTokenRole = await accessService.createRole(
+            {
+              name: 'client_token_creator',
+              description: 'Can create client tokens',
+              permissions: [],
+              type: 'root-custom',
+              createdByUserId: SYSTEM_USER.id,
+            },
+            SYSTEM_USER_AUDIT,
+          );
           // not sure if we should add the permission to the builtin role or to the newly created role
           await accessService.addPermissionToRole(
             builtInRole.id,
@@ -395,25 +391,22 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.VIEWER,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.VIEWER);
           const user = await userService.createUser({
             email: 'mylittlepony_viewer_frontend@example.com',
             rootRole: role.id,
           });
           req.user = user;
-          const createClientApiTokenRole =
-            await accessService.createRole(
-              {
-                name: 'client_token_creator_cannot_create_frontend',
-                description: 'Can create client tokens',
-                permissions: [],
-                type: 'root-custom',
-                createdByUserId: SYSTEM_USER_ID,
-              },
-              SYSTEM_USER_AUDIT,
-            );
+          const createClientApiTokenRole = await accessService.createRole(
+            {
+              name: 'client_token_creator_cannot_create_frontend',
+              description: 'Can create client tokens',
+              permissions: [],
+              type: 'root-custom',
+              createdByUserId: SYSTEM_USER_ID,
+            },
+            SYSTEM_USER_AUDIT,
+          );
           await accessService.addPermissionToRole(
             role.id,
             CREATE_CLIENT_API_TOKEN,
@@ -452,25 +445,22 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.VIEWER,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.VIEWER);
           const user = await userService.createUser({
             email: 'mylittlepony_admin@example.com',
             rootRole: role.id,
           });
           req.user = user;
-          const createClientApiTokenRole =
-            await accessService.createRole(
-              {
-                name: 'client_token_creator_cannot_create_admin',
-                description: 'Can create client tokens',
-                permissions: [],
-                type: 'root-custom',
-                createdByUserId: SYSTEM_USER_ID,
-              },
-              SYSTEM_USER_AUDIT,
-            );
+          const createClientApiTokenRole = await accessService.createRole(
+            {
+              name: 'client_token_creator_cannot_create_admin',
+              description: 'Can create client tokens',
+              permissions: [],
+              type: 'root-custom',
+              createdByUserId: SYSTEM_USER_ID,
+            },
+            SYSTEM_USER_AUDIT,
+          );
           await accessService.addPermissionToRole(
             role.id,
             CREATE_CLIENT_API_TOKEN,
@@ -511,9 +501,7 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.VIEWER,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.VIEWER);
           const user = await userService.createUser({
             email: 'read_frontend_token@example.com',
             rootRole: role.id,
@@ -579,9 +567,7 @@ describe('Fine grained API token permissions', () => {
         .expect(200)
         .expect((res) => {
           expect(
-            res.body.tokens.every(
-              (t) => t.type === ApiTokenType.FRONTEND,
-            ),
+            res.body.tokens.every((t) => t.type === ApiTokenType.FRONTEND),
           ).toBe(true);
         });
       await destroy();
@@ -596,9 +582,7 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.VIEWER,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.VIEWER);
           const user = await userService.createUser({
             email: 'read_client_token@example.com',
             rootRole: role.id,
@@ -677,9 +661,7 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.ADMIN,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.ADMIN);
           const user = await userService.createUser({
             email: 'read_admin_token@example.com',
             rootRole: role.id,
@@ -738,9 +720,7 @@ describe('Fine grained API token permissions', () => {
         }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const role = await accessService.getPredefinedRole(
-            RoleName.EDITOR,
-          );
+          const role = await accessService.getPredefinedRole(RoleName.EDITOR);
           const user = await userService.createUser({
             email: 'standard-editor-reads-tokens@example.com',
             rootRole: role.id,
@@ -786,9 +766,7 @@ describe('Fine grained API token permissions', () => {
         .expect((res) => {
           expect(res.body.tokens).toHaveLength(2);
           expect(
-            res.body.tokens.filter(
-              ({ type }) => type === ApiTokenType.ADMIN,
-            ),
+            res.body.tokens.filter(({ type }) => type === ApiTokenType.ADMIN),
           ).toHaveLength(0);
         });
       await destroy();
@@ -806,25 +784,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'update_client_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'update_client_token',
-                  description: 'Can update client tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'update_client_token',
+                description: 'Can update client tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               UPDATE_CLIENT_API_TOKEN,
@@ -867,26 +842,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'update_frontend_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'update_client_token_not_frontend',
-                  description:
-                    'Can not update frontend tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'update_client_token_not_frontend',
+                description: 'Can not update frontend tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               UPDATE_CLIENT_API_TOKEN,
@@ -930,25 +901,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'update_admin_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'update_client_token_not_admin',
-                  description: 'Can not update admin tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'update_client_token_not_admin',
+                description: 'Can not update admin tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               UPDATE_CLIENT_API_TOKEN,
@@ -996,25 +964,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'delete_client_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'delete_client_token',
-                  description: 'Can delete client tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'delete_client_token',
+                description: 'Can delete client tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               DELETE_CLIENT_API_TOKEN,
@@ -1057,26 +1022,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'delete_frontend_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'delete_client_token_not_frontend',
-                  description:
-                    'Can not delete frontend tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'delete_client_token_not_frontend',
+                description: 'Can not delete frontend tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               DELETE_CLIENT_API_TOKEN,
@@ -1119,25 +1080,22 @@ describe('Fine grained API token permissions', () => {
           }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
-            const role = await accessService.getPredefinedRole(
-              RoleName.VIEWER,
-            );
+            const role = await accessService.getPredefinedRole(RoleName.VIEWER);
             const user = await userService.createUser({
               email: 'delete_admin_token@example.com',
               rootRole: role.id,
             });
             req.user = user;
-            const updateClientApiExpiry =
-              await accessService.createRole(
-                {
-                  name: 'delete_client_token_not_admin',
-                  description: 'Can not delete admin tokens',
-                  permissions: [],
-                  type: 'root-custom',
-                  createdByUserId: SYSTEM_USER_ID,
-                },
-                SYSTEM_USER_AUDIT,
-              );
+            const updateClientApiExpiry = await accessService.createRole(
+              {
+                name: 'delete_client_token_not_admin',
+                description: 'Can not delete admin tokens',
+                permissions: [],
+                type: 'root-custom',
+                createdByUserId: SYSTEM_USER_ID,
+              },
+              SYSTEM_USER_AUDIT,
+            );
             await accessService.addPermissionToRole(
               updateClientApiExpiry.id,
               DELETE_CLIENT_API_TOKEN,

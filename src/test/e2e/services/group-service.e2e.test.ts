@@ -55,7 +55,7 @@ afterAll(async () => {
   await db.destroy();
 });
 
-afterEach(async () => { });
+afterEach(async () => {});
 
 // Note: events come in reverse order, the first in the list is the last pushed
 const getTestEvents = async () => {

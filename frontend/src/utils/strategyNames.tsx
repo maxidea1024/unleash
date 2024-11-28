@@ -9,62 +9,62 @@ import { ReactComponent as RolloutIcon } from 'assets/icons/rollout.svg';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 export const formatStrategyName = (strategyName: string): string => {
-    return formattedStrategyNames[strategyName] ?? strategyName;
+  return formattedStrategyNames[strategyName] ?? strategyName;
 };
 
 const RolloutSvgIcon: FC = (props) => (
-    <SvgIcon
-        {...props}
-        component={(rest: SVGProps<SVGSVGElement>) => <RolloutIcon {...rest} />}
-        inheritViewBox
-    />
+  <SvgIcon
+    {...props}
+    component={(rest: SVGProps<SVGSVGElement>) => <RolloutIcon {...rest} />}
+    inheritViewBox
+  />
 );
 
 export const getFeatureStrategyIcon = (strategyName: string) => {
-    switch (strategyName) {
-        case 'default':
-            return PowerSettingsNewIcon;
-        case 'remoteAddress':
-            return LanguageIcon;
-        case 'flexibleRollout':
-            return RolloutSvgIcon;
-        case 'userWithId':
-            return PeopleIcon;
-        case 'applicationHostname':
-            return LocationOnIcon;
-        case 'releasePlanTemplate':
-            return FormatListNumberedIcon;
-        default:
-            return CodeIcon;
-    }
+  switch (strategyName) {
+    case 'default':
+      return PowerSettingsNewIcon;
+    case 'remoteAddress':
+      return LanguageIcon;
+    case 'flexibleRollout':
+      return RolloutSvgIcon;
+    case 'userWithId':
+      return PeopleIcon;
+    case 'applicationHostname':
+      return LocationOnIcon;
+    case 'releasePlanTemplate':
+      return FormatListNumberedIcon;
+    default:
+      return CodeIcon;
+  }
 };
 
 export const BuiltInStrategies = [
-    'default',
-    'applicationHostname',
-    'flexibleRollout',
-    'gradualRolloutRandom',
-    'gradualRolloutSessionId',
-    'gradualRolloutUserId',
-    'remoteAddress',
-    'userWithId',
+  'default',
+  'applicationHostname',
+  'flexibleRollout',
+  'gradualRolloutRandom',
+  'gradualRolloutSessionId',
+  'gradualRolloutUserId',
+  'remoteAddress',
+  'userWithId',
 ];
 
 export const GetFeatureStrategyIcon: FC<{ strategyName: string }> = ({
-    strategyName,
+  strategyName,
 }) => {
-    const theme = useTheme();
-    const Icon = getFeatureStrategyIcon(strategyName);
-    return <Icon style={{ color: theme.palette.neutral.main }} />;
+  const theme = useTheme();
+  const Icon = getFeatureStrategyIcon(strategyName);
+  return <Icon style={{ color: theme.palette.neutral.main }} />;
 };
 
 export const formattedStrategyNames: Record<string, string> = {
-    applicationHostname: 'Hosts',
-    default: 'Standard',
-    flexibleRollout: 'Gradual rollout',
-    gradualRolloutRandom: 'Randomized',
-    gradualRolloutSessionId: 'Sessions',
-    gradualRolloutUserId: 'Users',
-    remoteAddress: 'IPs',
-    userWithId: 'UserIDs',
+  applicationHostname: 'Hosts',
+  default: 'Standard',
+  flexibleRollout: 'Gradual rollout',
+  gradualRolloutRandom: 'Randomized',
+  gradualRolloutSessionId: 'Sessions',
+  gradualRolloutUserId: 'Users',
+  remoteAddress: 'IPs',
+  userWithId: 'UserIDs',
 };

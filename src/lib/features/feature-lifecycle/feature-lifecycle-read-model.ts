@@ -121,9 +121,7 @@ export class FeatureLifecycleReadModel implements IFeatureLifecycleReadModel {
     );
   }
 
-  async getAllWithStageDuration(): Promise<
-    IProjectLifecycleStageDuration[]
-  > {
+  async getAllWithStageDuration(): Promise<IProjectLifecycleStageDuration[]> {
     const featureLifeCycles = await this.getAll();
     return calculateStageDurations(featureLifeCycles);
   }

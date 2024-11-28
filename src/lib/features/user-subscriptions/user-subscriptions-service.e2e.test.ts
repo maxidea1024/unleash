@@ -54,8 +54,9 @@ test('Subscribe and unsubscribe', async () => {
     { email: 'test@getunleash.io', name: 'Sample Name' },
   ]);
 
-  const userSubscriptions =
-    await userSubscriptionService.getUserSubscriptions(user.id);
+  const userSubscriptions = await userSubscriptionService.getUserSubscriptions(
+    user.id,
+  );
   expect(userSubscriptions).toMatchObject(['productivity-report']);
 
   await userSubscriptionService.unsubscribe(

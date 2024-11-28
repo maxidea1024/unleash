@@ -83,22 +83,13 @@ export const createFeatureToggleService = (
     getLogger,
     flagResolver,
   );
-  const projectStore = new ProjectStore(
-    db,
-    eventBus,
-    getLogger,
-    flagResolver,
-  );
+  const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);
   const featureEnvironmentStore = new FeatureEnvironmentStore(
     db,
     eventBus,
     getLogger,
   );
-  const contextFieldStore = new ContextFieldStore(
-    db,
-    getLogger,
-    flagResolver,
-  );
+  const contextFieldStore = new ContextFieldStore(db, getLogger, flagResolver);
   const groupStore = new GroupStore(db);
   const strategyStore = new StrategyStore(db, getLogger);
   const accountStore = new AccountStore(db, getLogger);
@@ -196,8 +187,7 @@ export const createFakeFeatureToggleService = (config: IUnleashConfig) => {
   const dependentFeaturesReadModel = new FakeDependentFeaturesReadModel();
   const dependentFeaturesService = createFakeDependentFeaturesService(config);
   const featureLifecycleReadModel = new FakeFeatureLifecycleReadModel();
-  const featureCollaboratorsReadModel =
-    new FakeFeatureCollaboratorsReadModel();
+  const featureCollaboratorsReadModel = new FakeFeatureCollaboratorsReadModel();
 
   const featureToggleService = new FeatureToggleService(
     {

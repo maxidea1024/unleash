@@ -98,9 +98,7 @@ const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
       },
       contentSecurityPolicy: {
         directives: {
-          defaultSrc:
-            helmet.contentSecurityPolicy
-              .dangerouslyDisableDefaultSrc,
+          defaultSrc: helmet.contentSecurityPolicy.dangerouslyDisableDefaultSrc,
           fontSrc: null,
           styleSrc: null,
           scriptSrc: null,

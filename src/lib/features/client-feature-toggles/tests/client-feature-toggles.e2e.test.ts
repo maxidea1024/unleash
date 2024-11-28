@@ -88,8 +88,7 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  const all =
-    await db.stores.projectStore.getEnvironmentsForProject('default');
+  const all = await db.stores.projectStore.getEnvironmentsForProject('default');
   await Promise.all(
     all
       .filter((env) => env.environment !== DEFAULT_ENV)
@@ -185,9 +184,7 @@ test('should return correct data structure from /api/client/features', async () 
   await app.addStrategyToFeatureEnv(
     {
       name: 'default',
-      constraints: [
-        { contextName: 'userId', operator: 'IN', values: ['123'] },
-      ],
+      constraints: [{ contextName: 'userId', operator: 'IN', values: ['123'] }],
       parameters: {},
     },
     DEFAULT_ENV,

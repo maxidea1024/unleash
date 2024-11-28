@@ -11,7 +11,8 @@ function sessionDb(
 ): RequestHandler {
   let store: session.Store;
   const { db, cookieName } = config.session;
-  const age = hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48); // default: 48 hours
+  const age =
+    hoursToMilliseconds(config.session.ttlHours) || hoursToMilliseconds(48); // default: 48 hours
   if (db) {
     store = new ConnectSessionKnexStore({
       tableName: 'unleash_session',
@@ -30,10 +31,7 @@ function sessionDb(
     store,
     secret: [config.server.secret],
     cookie: {
-      path:
-        config.server.baseUriPath === ''
-          ? '/'
-          : config.server.baseUriPath,
+      path: config.server.baseUriPath === '' ? '/' : config.server.baseUriPath,
       secure: config.secureHeaders,
       maxAge: age,
       sameSite: 'lax',

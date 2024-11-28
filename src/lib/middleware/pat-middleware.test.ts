@@ -55,9 +55,7 @@ test('should not set user if token wrong format', async () => {
 
   await func(req, undefined, cb);
 
-  expect(
-    accountService.getAccountByPersonalAccessToken,
-  ).not.toHaveBeenCalled();
+  expect(accountService.getAccountByPersonalAccessToken).not.toHaveBeenCalled();
   expect(cb).toHaveBeenCalled();
   expect(req.header).toHaveBeenCalled();
   expect(req.user).toBeFalsy();
@@ -117,8 +115,8 @@ test('should call next if accountService throws exception', async () => {
 
 test('Should not log at error level if user not found', async () => {
   const fakeLogger = {
-    debug: () => { },
-    info: () => { },
+    debug: () => {},
+    info: () => {},
     warn: jest.fn(),
     error: jest.fn(),
     fatal: console.error,

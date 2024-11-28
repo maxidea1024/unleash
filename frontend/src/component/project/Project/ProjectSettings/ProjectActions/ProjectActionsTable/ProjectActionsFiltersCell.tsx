@@ -5,76 +5,62 @@ import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { formatOperatorDescription } from 'component/common/NewConstraintAccordion/ConstraintOperator/formatOperatorDescription';
 
 const StyledItem = styled(Typography)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallerBody,
+  fontSize: theme.fontSizes.smallerBody,
 }));
 
 interface IProjectActionsFiltersCellProps {
-    action: IActionSet;
+  action: IActionSet;
 }
 
 export const ProjectActionsFiltersCell = ({
-    action,
+  action,
 }: IProjectActionsFiltersCellProps) => {
-    const { payload } = action.match;
-    const filters = Object.entries(payload);
+  const { payload } = action.match;
+  const filters = Object.entries(payload);
 
-    if (filters.length === 0) {
-        return <TextCell>0 filters</TextCell>;
-    }
+  if (filters.length === 0) {
+    return <TextCell>0 filters</TextCell>;
+  }
 
-    return (
-        <TextCell>
-            <TooltipLink
-                tooltipProps={{
-                    maxWidth: 500,
-                }}
-                tooltip={
-                    <>
-                        {filters.map(
-                            ([
-                                parameter,
-                                {
-                                    inverted,
-                                    operator,
-                                    caseInsensitive,
-                                    value,
-                                    values,
-                                },
-                            ]) => {
-                                const operatorDescription: string =
-                                    formatOperatorDescription(operator);
+  return (
+    <TextCell>
+      <TooltipLink
+        tooltipProps={{
+          maxWidth: 500,
+        }}
+        tooltip={
+          <>
+            {filters.map(
+              ([
+                parameter,
+                { inverted, operator, caseInsensitive, value, values },
+              ]) => {
+                const operatorDescription: string =
+                  formatOperatorDescription(operator);
 
-                                const operatorText = inverted ? (
-                                    <>
-                                        is <u>not</u>{' '}
-                                        {operatorDescription.substring(2)}
-                                    </>
-                                ) : (
-                                    operatorDescription
-                                );
+                const operatorText = inverted ? (
+                  <>
+                    is <u>not</u> {operatorDescription.substring(2)}
+                  </>
+                ) : (
+                  operatorDescription
+                );
 
-                                return (
-                                    <StyledItem key={parameter}>
-                                        <strong>{parameter}</strong>{' '}
-                                        {operatorText}
-                                        {caseInsensitive
-                                            ? ' (case insensitive)'
-                                            : ''}
-                                        {': '}
-                                        <strong>
-                                            {values ? values.join(', ') : value}
-                                        </strong>
-                                    </StyledItem>
-                                );
-                            },
-                        )}
-                    </>
-                }
-            >
-                {filters.length === 1
-                    ? '1 filter'
-                    : `${filters.length} filters`}
-            </TooltipLink>
-        </TextCell>
-    );
+                return (
+                  <StyledItem key={parameter}>
+                    <strong>{parameter}</strong> {operatorText}
+                    {caseInsensitive ? ' (case insensitive)' : ''}
+                    {': '}
+                    <strong>{values ? values.join(', ') : value}</strong>
+                  </StyledItem>
+                );
+              },
+            )}
+          </>
+        }
+      >
+        {filters.length === 1 ? '1 filter' : `${filters.length} filters`}
+      </TooltipLink>
+    </TextCell>
+  );
 };

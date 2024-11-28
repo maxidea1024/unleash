@@ -137,10 +137,7 @@ function loadMetricsRateLimitingConfig(
     frontendMetricsMaxPerMinute: frontendMetricsMaxPerMinute,
   };
 
-  return mergeAll([
-    defaultRateLimitOptions,
-    options.metricsRateLimiting ?? {},
-  ]);
+  return mergeAll([defaultRateLimitOptions, options.metricsRateLimiting ?? {}]);
 }
 
 function loadRateLimitingConfig(options: IUnleashOptions): IRateLimiting {
@@ -217,11 +214,7 @@ const databaseSSL = (): IDBOption['ssl'] => {
     ),
   };
 
-  options = readAndAddOption(
-    'key',
-    process.env.DATABASE_SSL_KEY_FILE,
-    options,
-  );
+  options = readAndAddOption('key', process.env.DATABASE_SSL_KEY_FILE, options);
   options = readAndAddOption(
     'cert',
     process.env.DATABASE_SSL_CERT_FILE,
@@ -232,38 +225,36 @@ const databaseSSL = (): IDBOption['ssl'] => {
   return options;
 };
 
-const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> = {
-  user: process.env.DATABASE_USERNAME,
-  password: process.env.DATABASE_PASSWORD,
-  host: process.env.DATABASE_HOST,
-  port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
-  database: process.env.DATABASE_NAME || 'unleash',
-  ssl: databaseSSL(),
-  driver: 'postgres',
-  version: process.env.DATABASE_VERSION,
-  acquireConnectionTimeout: secondsToMilliseconds(30),
-  pool: {
-    min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
-    max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
-    idleTimeoutMillis: parseEnvVarNumber(
-      process.env.DATABASE_POOL_IDLE_TIMEOUT_MS,
-      secondsToMilliseconds(30),
-    ),
-    ...(parseEnvVarBoolean(
-      process.env.ALLOW_NON_STANDARD_DB_DATES,
+const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> =
+  {
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    port: parseEnvVarNumber(process.env.DATABASE_PORT, 5432),
+    database: process.env.DATABASE_NAME || 'unleash',
+    ssl: databaseSSL(),
+    driver: 'postgres',
+    version: process.env.DATABASE_VERSION,
+    acquireConnectionTimeout: secondsToMilliseconds(30),
+    pool: {
+      min: parseEnvVarNumber(process.env.DATABASE_POOL_MIN, 0),
+      max: parseEnvVarNumber(process.env.DATABASE_POOL_MAX, 4),
+      idleTimeoutMillis: parseEnvVarNumber(
+        process.env.DATABASE_POOL_IDLE_TIMEOUT_MS,
+        secondsToMilliseconds(30),
+      ),
+      ...(parseEnvVarBoolean(process.env.ALLOW_NON_STANDARD_DB_DATES, false)
+        ? { afterCreate: dateHandlingCallback }
+        : {}),
+      propagateCreateError: false,
+    },
+    schema: process.env.DATABASE_SCHEMA || 'public',
+    disableMigration: parseEnvVarBoolean(
+      process.env.DATABASE_DISABLE_MIGRATION,
       false,
-    )
-      ? { afterCreate: dateHandlingCallback }
-      : {}),
-    propagateCreateError: false,
-  },
-  schema: process.env.DATABASE_SCHEMA || 'public',
-  disableMigration: parseEnvVarBoolean(
-    process.env.DATABASE_DISABLE_MIGRATION,
-    false,
-  ),
-  applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
-};
+    ),
+    applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
+  };
 
 const defaultSessionOption: ISessionOption = {
   ttlHours: parseEnvVarNumber(process.env.SESSION_TTL_HOURS, 48),
@@ -511,9 +502,7 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
     process.env.DATABASE_URL_FILE &&
     existsSync(process.env.DATABASE_URL_FILE)
   ) {
-    fileDbOptions = parse(
-      readFileSync(process.env.DATABASE_URL_FILE, 'utf-8'),
-    );
+    fileDbOptions = parse(readFileSync(process.env.DATABASE_URL_FILE, 'utf-8'));
   }
   const db: IDBOption = mergeAll<IDBOption>([
     defaultDbOptions,
@@ -543,8 +532,7 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
   ]);
 
   const telemetry: boolean =
-    options.telemetry ||
-    parseEnvVarBoolean(process.env.SEND_TELEMETRY, true);
+    options.telemetry || parseEnvVarBoolean(process.env.SEND_TELEMETRY, true);
   const initApiTokens = loadInitApiTokens();
 
   const authentication: IAuthOption = mergeAll([

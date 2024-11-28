@@ -3,27 +3,27 @@ import { FeatureMetricsStats } from 'component/feature/FeatureView/FeatureMetric
 import { SectionSeparator } from '../SectionSeparator/SectionSeparator';
 
 interface IEnvironmentFooterProps {
-    environmentMetric?: IFeatureEnvironmentMetrics;
+  environmentMetric?: IFeatureEnvironmentMetrics;
 }
 
 export const EnvironmentFooter = ({
-    environmentMetric,
+  environmentMetric,
 }: IEnvironmentFooterProps) => {
-    if (!environmentMetric) {
-        return null;
-    }
+  if (!environmentMetric) {
+    return null;
+  }
 
-    return (
-        <>
-            <SectionSeparator>Feature flag exposure</SectionSeparator>
+  return (
+    <>
+      <SectionSeparator>Feature flag exposure</SectionSeparator>
 
-            <div>
-                <FeatureMetricsStats
-                    totalYes={environmentMetric.yes}
-                    totalNo={environmentMetric.no}
-                    hoursBack={1}
-                />
-            </div>
-        </>
-    );
+      <div>
+        <FeatureMetricsStats
+          totalYes={environmentMetric.yes}
+          totalNo={environmentMetric.no}
+          hoursBack={1}
+        />
+      </div>
+    </>
+  );
 };

@@ -6,8 +6,8 @@
 import type { TrafficUsageApiDataSchemaDaysItemTrafficTypesItem } from './trafficUsageApiDataSchemaDaysItemTrafficTypesItem';
 
 export type TrafficUsageApiDataSchemaDaysItem = {
-    /** The day of the period for which the usage is recorded */
-    day: string;
-    /** Contains the recorded data usage for each type of traffic group */
-    trafficTypes: TrafficUsageApiDataSchemaDaysItemTrafficTypesItem[];
+  /** The day of the period for which the usage is recorded */
+  day: string;
+  /** Contains the recorded data usage for each type of traffic group */
+  trafficTypes: TrafficUsageApiDataSchemaDaysItemTrafficTypesItem[];
 };

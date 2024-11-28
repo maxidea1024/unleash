@@ -8,79 +8,79 @@ import { TimeAgoCell } from 'component/common/Table/cells/TimeAgoCell/TimeAgoCel
 import type { IUser } from 'interfaces/user';
 
 export type PageQueryType = Partial<
-    Record<'sort' | 'order' | 'search', string>
+  Record<'sort' | 'order' | 'search', string>
 >;
 
 interface IRoleDeleteDialogUsersProps {
-    users: IUser[];
+  users: IUser[];
 }
 
 export const RoleDeleteDialogUsers = ({
-    users,
+  users,
 }: IRoleDeleteDialogUsersProps) => {
-    const [initialState] = useState(() => ({
-        sortBy: [{ id: 'last-login', desc: true }],
-    }));
+  const [initialState] = useState(() => ({
+    sortBy: [{ id: 'last-login', desc: true }],
+  }));
 
-    const columns = useMemo(
-        () =>
-            [
-                {
-                    id: 'name',
-                    Header: 'Name',
-                    accessor: (row: any) => row.name || '',
-                    minWidth: 200,
-                    Cell: ({ row: { original: user } }: any) => (
-                        <HighlightCell
-                            value={user.name}
-                            subtitle={user.email || user.username}
-                        />
-                    ),
-                },
-                {
-                    Header: 'Created',
-                    accessor: 'createdAt',
-                    Cell: DateCell,
-                    width: 120,
-                    maxWidth: 120,
-                },
-                {
-                    id: 'last-login',
-                    Header: 'Last login',
-                    accessor: (row: any) => row.seenAt || '',
-                    Cell: ({ row: { original: user } }: any) => (
-                        <TimeAgoCell
-                            value={user.seenAt}
-                            emptyText='Never'
-                            title={(date) => `Last login: ${date}`}
-                        />
-                    ),
-                    maxWidth: 150,
-                },
-            ] as Column<IUser>[],
-        [],
-    );
-
-    const { headerGroups, rows, prepareRow } = useTable(
+  const columns = useMemo(
+    () =>
+      [
         {
-            columns,
-            data: users,
-            initialState,
-            sortTypes,
-            autoResetHiddenColumns: false,
-            autoResetSortBy: false,
-            disableSortRemove: true,
-            disableMultiSort: true,
+          id: 'name',
+          Header: 'Name',
+          accessor: (row: any) => row.name || '',
+          minWidth: 200,
+          Cell: ({ row: { original: user } }: any) => (
+            <HighlightCell
+              value={user.name}
+              subtitle={user.email || user.username}
+            />
+          ),
         },
-        useSortBy,
-        useFlexLayout,
-    );
+        {
+          Header: 'Created',
+          accessor: 'createdAt',
+          Cell: DateCell,
+          width: 120,
+          maxWidth: 120,
+        },
+        {
+          id: 'last-login',
+          Header: 'Last login',
+          accessor: (row: any) => row.seenAt || '',
+          Cell: ({ row: { original: user } }: any) => (
+            <TimeAgoCell
+              value={user.seenAt}
+              emptyText='Never'
+              title={(date) => `Last login: ${date}`}
+            />
+          ),
+          maxWidth: 150,
+        },
+      ] as Column<IUser>[],
+    [],
+  );
 
-    return (
-        <VirtualizedTable
-            rows={rows}
-            headerGroups={headerGroups}
-            prepareRow={prepareRow}
-        />
-    );
+  const { headerGroups, rows, prepareRow } = useTable(
+    {
+      columns,
+      data: users,
+      initialState,
+      sortTypes,
+      autoResetHiddenColumns: false,
+      autoResetSortBy: false,
+      disableSortRemove: true,
+      disableMultiSort: true,
+    },
+    useSortBy,
+    useFlexLayout,
+  );
+
+  return (
+    <VirtualizedTable
+      rows={rows}
+      headerGroups={headerGroups}
+      prepareRow={prepareRow}
+    />
+  );
 };

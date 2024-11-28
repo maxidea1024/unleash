@@ -7,20 +7,20 @@ import FeatureSearchStore from './feature-search-store';
 
 export const createFeatureSearchService =
   (config: IUnleashConfig) =>
-    (db: Db): FeatureSearchService => {
-      const { getLogger, eventBus, flagResolver } = config;
-      const featureSearchStore = new FeatureSearchStore(
-        db,
-        eventBus,
-        getLogger,
-        flagResolver,
-      );
+  (db: Db): FeatureSearchService => {
+    const { getLogger, eventBus, flagResolver } = config;
+    const featureSearchStore = new FeatureSearchStore(
+      db,
+      eventBus,
+      getLogger,
+      flagResolver,
+    );
 
-      return new FeatureSearchService(
-        { featureSearchStore: featureSearchStore },
-        config,
-      );
-    };
+    return new FeatureSearchService(
+      { featureSearchStore: featureSearchStore },
+      config,
+    );
+  };
 
 export const createFakeFeatureSearchService = (
   config: IUnleashConfig,

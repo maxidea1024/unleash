@@ -71,9 +71,7 @@ test('should return 0 changes from an empty database', async () => {
 });
 
 test('should return 1 change', async () => {
-  await db
-    .rawDatabase('stat_environment_updates')
-    .insert(mockEventDaysAgo(1));
+  await db.rawDatabase('stat_environment_updates').insert(mockEventDaysAgo(1));
 
   await expect(getProductionChanges()).resolves.toEqual({
     last30: 1,

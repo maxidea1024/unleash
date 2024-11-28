@@ -5,12 +5,12 @@
  */
 
 export type GetInstanceInsightsParams = {
-    /**
-     * The beginning of the date range in yyyy-MM-dd format
-     */
-    from?: string;
-    /**
-     * The end of the date range in yyyy-MM-dd format
-     */
-    to?: string;
+  /**
+   * The beginning of the date range in yyyy-MM-dd format
+   */
+  from?: string;
+  /**
+   * The end of the date range in yyyy-MM-dd format
+   */
+  to?: string;
 };

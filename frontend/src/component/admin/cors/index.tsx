@@ -8,26 +8,26 @@ import { CorsForm } from 'component/admin/cors/CorsForm';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
 export const CorsAdmin = () => (
-    <div>
-        <PermissionGuard permissions={ADMIN}>
-            <CorsPage />
-        </PermissionGuard>
-    </div>
+  <div>
+    <PermissionGuard permissions={ADMIN}>
+      <CorsPage />
+    </PermissionGuard>
+  </div>
 );
 
 const CorsPage = () => {
-    const { uiConfig, loading } = useUiConfig();
+  const { uiConfig, loading } = useUiConfig();
 
-    if (loading) {
-        return null;
-    }
+  if (loading) {
+    return null;
+  }
 
-    return (
-        <PageContent header={<PageHeader title='CORS origins' />}>
-            <Box sx={{ display: 'grid', gap: 4 }}>
-                <CorsHelpAlert />
-                <CorsForm frontendApiOrigins={uiConfig.frontendApiOrigins} />
-            </Box>
-        </PageContent>
-    );
+  return (
+    <PageContent header={<PageHeader title='CORS origins' />}>
+      <Box sx={{ display: 'grid', gap: 4 }}>
+        <CorsHelpAlert />
+        <CorsForm frontendApiOrigins={uiConfig.frontendApiOrigins} />
+      </Box>
+    </PageContent>
+  );
 };

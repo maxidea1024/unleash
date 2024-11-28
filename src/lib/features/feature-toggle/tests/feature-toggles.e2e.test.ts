@@ -106,18 +106,16 @@ beforeAll(async () => {
     db.rawDatabase,
   );
 
-  defaultToken =
-    await app.services.apiTokenService.createApiTokenWithProjects({
-      type: ApiTokenType.CLIENT,
-      projects: ['default'],
-      environment: 'default',
-      tokenName: 'tester',
-    });
+  defaultToken = await app.services.apiTokenService.createApiTokenWithProjects({
+    type: ApiTokenType.CLIENT,
+    projects: ['default'],
+    environment: 'default',
+    tokenName: 'tester',
+  });
 });
 
 afterEach(async () => {
-  const all =
-    await db.stores.projectStore.getEnvironmentsForProject('default');
+  const all = await db.stores.projectStore.getEnvironmentsForProject('default');
   await Promise.all(
     all
       .filter((env) => env.environment !== DEFAULT_ENV)
@@ -199,9 +197,7 @@ test('Trying to add a strategy configuration to environment not connected to fla
     })
     .expect(400)
     .expect((r) => {
-      expect(
-        r.body.details[0].message.includes('environment'),
-      ).toBeTruthy();
+      expect(r.body.details[0].message.includes('environment')).toBeTruthy();
       expect(r.body.details[0].message.includes('project')).toBeTruthy();
     });
 });
@@ -237,10 +233,7 @@ test('should list dependencies and children', async () => {
   await app.createFeature(child, 'default');
   await app.addDependency(child, parent);
 
-  const { body: childFeature } = await app.getProjectFeatures(
-    'default',
-    child,
-  );
+  const { body: childFeature } = await app.getProjectFeatures('default', child);
   const { body: parentFeature } = await app.getProjectFeatures(
     'default',
     parent,
@@ -420,9 +413,7 @@ test('Project overview includes environment connected to feature', async () => {
     .expect(200)
     .expect((r) => {
       expect(r.body.features[0].environments[0].name).toBe(DEFAULT_ENV);
-      expect(r.body.features[0].environments[1].name).toBe(
-        'project-overview',
-      );
+      expect(r.body.features[0].environments[1].name).toBe('project-overview');
     });
 });
 
@@ -456,9 +447,7 @@ test('Disconnecting environment from project, removes environment from features 
     .expect(200)
     .expect((r) => {
       expect(
-        r.body.features.some(
-          (e) => e.environment === 'dis-project-overview',
-        ),
+        r.body.features.some((e) => e.environment === 'dis-project-overview'),
       ).toBeFalsy();
     });
 });
@@ -618,9 +607,7 @@ test('Can use new project feature flag endpoint to create feature flag without s
 
 test('Can create feature flag without strategies', async () => {
   const name = 'new.flag.without.strategy.2';
-  await app.request
-    .post('/api/admin/projects/default/features')
-    .send({ name });
+  await app.request.post('/api/admin/projects/default/features').send({ name });
   const { body: flag } = await app.request.get(
     `/api/admin/projects/default/features/${name}`,
   );
@@ -758,9 +745,7 @@ describe('Interacting with features using project IDs that belong to other proje
     );
 
     // ensure the new project has been created
-    await app.request
-      .get(`/api/admin/projects/${otherProject}`)
-      .expect(200);
+    await app.request.get(`/api/admin/projects/${otherProject}`).expect(200);
 
     // create flag in default project
     await app.request
@@ -783,17 +768,13 @@ describe('Interacting with features using project IDs that belong to other proje
 
   test("Getting a feature yields 404 if the provided project doesn't exist", async () => {
     await app.request
-      .get(
-        `/api/admin/projects/${nonExistingProject}/features/${featureName}`,
-      )
+      .get(`/api/admin/projects/${nonExistingProject}/features/${featureName}`)
       .expect(404);
   });
 
   test("Archiving a feature yields 404 if the provided project id doesn't match the feature's project", async () => {
     await app.request
-      .delete(
-        `/api/admin/projects/${otherProject}/features/${featureName}`,
-      )
+      .delete(`/api/admin/projects/${otherProject}/features/${featureName}`)
       .expect(404);
   });
 
@@ -808,14 +789,16 @@ describe('Interacting with features using project IDs that belong to other proje
   test("Trying to archive a feature that doesn't exist should yield a 404, regardless of whether the project exists or not.", async () => {
     await app.request
       .delete(
-        `/api/admin/projects/${nonExistingProject}/features/${featureName + featureName
+        `/api/admin/projects/${nonExistingProject}/features/${
+          featureName + featureName
         }`,
       )
       .expect(404);
 
     await app.request
       .delete(
-        `/api/admin/projects/${otherProject}/features/${featureName + featureName
+        `/api/admin/projects/${otherProject}/features/${
+          featureName + featureName
         }`,
       )
       .expect(404);
@@ -1495,14 +1478,16 @@ test('Can patch a strategy based on id', async () => {
 
   await app.request
     .patch(
-      `${BASE_URI}/features/${featureName}/environments/${envName}/strategies/${strategy!.id
+      `${BASE_URI}/features/${featureName}/environments/${envName}/strategies/${
+        strategy!.id
       }`,
     )
     .send([{ op: 'replace', path: '/parameters/rollout', value: '42' }])
     .expect(200);
   await app.request
     .get(
-      `${BASE_URI}/features/${featureName}/environments/${envName}/strategies/${strategy!.id
+      `${BASE_URI}/features/${featureName}/environments/${envName}/strategies/${
+        strategy!.id
       }`,
     )
     .expect(200)
@@ -3162,13 +3147,10 @@ test('Can query for two tags at the same time. Tags are ORed together', async ()
   const secondTag = { type: 'simple', value: 'twotags-second-tag' };
   await db.stores.tagStore.createTag(tag);
   await db.stores.tagStore.createTag(secondTag);
-  const taggedWithFirst = await db.stores.featureToggleStore.create(
-    'default',
-    {
-      name: 'tagged-with-first-tag',
-      createdByUserId: 9999,
-    },
-  );
+  const taggedWithFirst = await db.stores.featureToggleStore.create('default', {
+    name: 'tagged-with-first-tag',
+    createdByUserId: 9999,
+  });
   const taggedWithSecond = await db.stores.featureToggleStore.create(
     'default',
     {
@@ -3176,13 +3158,10 @@ test('Can query for two tags at the same time. Tags are ORed together', async ()
       createdByUserId: 9999,
     },
   );
-  const taggedWithBoth = await db.stores.featureToggleStore.create(
-    'default',
-    {
-      name: 'tagged-with-both-tags',
-      createdByUserId: 9999,
-    },
-  );
+  const taggedWithBoth = await db.stores.featureToggleStore.create('default', {
+    name: 'tagged-with-both-tags',
+    createdByUserId: 9999,
+  });
   await db.stores.featureTagStore.tagFeature(
     taggedWithFirst.name,
     tag,

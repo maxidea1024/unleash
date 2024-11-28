@@ -5,9 +5,9 @@
  */
 
 export type ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus =
-    (typeof ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus)[keyof typeof ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus];
+  (typeof ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus)[keyof typeof ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProjectOverviewSchemaOnboardingStatusOneOfThreeStatus = {
-    'first-flag-created': 'first-flag-created',
+  'first-flag-created': 'first-flag-created',
 } as const;

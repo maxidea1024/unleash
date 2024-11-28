@@ -68,9 +68,7 @@ describe('System user definitions in code and db', () => {
     expect(dbDefinition.email).toBe(null);
   });
   test('image URLs are both falsy', () => {
-    expect(Boolean(SYSTEM_USER.imageUrl)).toBe(
-      Boolean(dbDefinition.image_url),
-    );
+    expect(Boolean(SYSTEM_USER.imageUrl)).toBe(Boolean(dbDefinition.image_url));
   });
   test('isApi is false on variable definition', () => {
     // we don't set this in the DB, so let's just test the

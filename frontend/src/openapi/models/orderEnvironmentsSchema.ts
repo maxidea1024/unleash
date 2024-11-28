@@ -9,6 +9,6 @@ import type { OrderEnvironmentsSchemaEnvironmentsItem } from './orderEnvironment
  * A request for hosted customers to order new environments in Unleash.
  */
 export interface OrderEnvironmentsSchema {
-    /** An array of environments to be ordered, each with a name and type. */
-    environments: OrderEnvironmentsSchemaEnvironmentsItem[];
+  /** An array of environments to be ordered, each with a name and type. */
+  environments: OrderEnvironmentsSchemaEnvironmentsItem[];
 }

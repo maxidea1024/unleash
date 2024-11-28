@@ -5,10 +5,10 @@
  */
 
 export type ProjectOverviewSchemaOnboardingStatusOneOfStatus =
-    (typeof ProjectOverviewSchemaOnboardingStatusOneOfStatus)[keyof typeof ProjectOverviewSchemaOnboardingStatusOneOfStatus];
+  (typeof ProjectOverviewSchemaOnboardingStatusOneOfStatus)[keyof typeof ProjectOverviewSchemaOnboardingStatusOneOfStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProjectOverviewSchemaOnboardingStatusOneOfStatus = {
-    'onboarding-started': 'onboarding-started',
-    onboarded: 'onboarded',
+  'onboarding-started': 'onboarding-started',
+  onboarded: 'onboarded',
 } as const;

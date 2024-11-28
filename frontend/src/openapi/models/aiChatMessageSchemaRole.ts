@@ -8,11 +8,11 @@
  * The role of the message sender.
  */
 export type AiChatMessageSchemaRole =
-    (typeof AiChatMessageSchemaRole)[keyof typeof AiChatMessageSchemaRole];
+  (typeof AiChatMessageSchemaRole)[keyof typeof AiChatMessageSchemaRole];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AiChatMessageSchemaRole = {
-    system: 'system',
-    user: 'user',
-    assistant: 'assistant',
+  system: 'system',
+  user: 'user',
+  assistant: 'assistant',
 } as const;

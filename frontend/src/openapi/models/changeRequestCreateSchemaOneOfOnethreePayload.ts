@@ -5,6 +5,6 @@
  */
 
 export type ChangeRequestCreateSchemaOneOfOnethreePayload = {
-    /** The ID of the strategy to update. */
-    id: string;
+  /** The ID of the strategy to update. */
+  id: string;
 };

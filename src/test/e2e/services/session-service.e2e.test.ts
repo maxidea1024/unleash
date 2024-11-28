@@ -107,9 +107,9 @@ test('Can delete session by sid', async () => {
   expect(sessions.length).toBe(2);
 
   await sessionService.deleteSession('abc123');
-  await expect(async () =>
-    sessionService.getSession('abc123'),
-  ).rejects.toThrow(NotFoundError);
+  await expect(async () => sessionService.getSession('abc123')).rejects.toThrow(
+    NotFoundError,
+  );
 });
 
 test('Can delete stale sessions', async () => {

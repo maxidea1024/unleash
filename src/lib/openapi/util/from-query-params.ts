@@ -21,10 +21,10 @@ type RecurseOnParams<
   continue: RecurseOnParams<
     L.Tail<P>,
     L.Head<P>['in'] extends 'query'
-    ? R & {
-      [key in L.Head<P>['name']]: FromSchema<L.Head<P>['schema']>;
-    }
-    : R
+      ? R & {
+          [key in L.Head<P>['name']]: FromSchema<L.Head<P>['schema']>;
+        }
+      : R
   >;
   stop: A.Compute<R>;
 }[P extends readonly [OpenApiParam, ...OpenApiParam[]] ? 'continue' : 'stop'];

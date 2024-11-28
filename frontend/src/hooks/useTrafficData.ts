@@ -61,8 +61,7 @@ export const toSelectablePeriod = (
     month,
     dayCount,
     label:
-      label ||
-      date.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
+      label || date.toLocaleString('en-US', { month: 'long', year: 'numeric' }),
   };
 };
 
@@ -114,8 +113,7 @@ const toChartData = (
     .filter((item) => !!endpointsInfo[item.apiPath])
     .sort(
       (item1: any, item2: any) =>
-        endpointsInfo[item1.apiPath].order -
-        endpointsInfo[item2.apiPath].order,
+        endpointsInfo[item1.apiPath].order - endpointsInfo[item2.apiPath].order,
     )
     .map((item: any) => {
       const daysRec = days.reduce(
@@ -145,18 +143,15 @@ const toChartData = (
 };
 
 const toTrafficUsageSum = (trafficData: ChartDatasetType[]): number => {
-  const data = trafficData.reduce(
-    (acc: number, current: ChartDatasetType) => {
-      return (
-        acc +
-        current.data.reduce(
-          (acc_inner, current_inner) => acc_inner + current_inner,
-          0,
-        )
-      );
-    },
-    0,
-  );
+  const data = trafficData.reduce((acc: number, current: ChartDatasetType) => {
+    return (
+      acc +
+      current.data.reduce(
+        (acc_inner, current_inner) => acc_inner + current_inner,
+        0,
+      )
+    );
+  }, 0);
   return data;
 };
 

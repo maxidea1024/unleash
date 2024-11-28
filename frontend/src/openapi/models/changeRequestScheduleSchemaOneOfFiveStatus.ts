@@ -8,9 +8,9 @@
  * The status of the schedule.
  */
 export type ChangeRequestScheduleSchemaOneOfFiveStatus =
-    (typeof ChangeRequestScheduleSchemaOneOfFiveStatus)[keyof typeof ChangeRequestScheduleSchemaOneOfFiveStatus];
+  (typeof ChangeRequestScheduleSchemaOneOfFiveStatus)[keyof typeof ChangeRequestScheduleSchemaOneOfFiveStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestScheduleSchemaOneOfFiveStatus = {
-    suspended: 'suspended',
+  suspended: 'suspended',
 } as const;

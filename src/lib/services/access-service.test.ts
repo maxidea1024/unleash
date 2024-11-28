@@ -105,9 +105,9 @@ test('should not accept empty names', async () => {
     permissions: [],
   };
 
-  await expect(
-    accessService.validateRole(withWhitespaceName),
-  ).rejects.toThrow('"name" is not allowed to be empty');
+  await expect(accessService.validateRole(withWhitespaceName)).rejects.toThrow(
+    '"name" is not allowed to be empty',
+  );
 });
 
 test('should trim leading and trailing whitespace from names', async () => {
@@ -311,13 +311,7 @@ describe('addAccessToProject', () => {
   test('should throw an error when you try add access with an empty list of roles', async () => {
     const { accessService } = getSetup();
     await expect(() =>
-      accessService.addAccessToProject(
-        [],
-        [1],
-        [1],
-        'projectId',
-        'createdBy',
-      ),
+      accessService.addAccessToProject([], [1], [1], 'projectId', 'createdBy'),
     ).rejects.toThrow(BadDataError);
   });
 });

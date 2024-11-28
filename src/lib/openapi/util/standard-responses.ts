@@ -138,8 +138,7 @@ const conflictResponse = {
           },
           message: {
             type: 'string',
-            example:
-              'There is already a feature called "my-awesome-feature".',
+            example: 'There is already a feature called "my-awesome-feature".',
             description: 'A description of what went wrong.',
           },
         },

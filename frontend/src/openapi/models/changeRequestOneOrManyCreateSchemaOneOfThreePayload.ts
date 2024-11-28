@@ -8,6 +8,6 @@
  * Required data to delete a segment.
  */
 export type ChangeRequestOneOrManyCreateSchemaOneOfThreePayload = {
-    /** The ID of the segment to delete. */
-    id: number;
+  /** The ID of the segment to delete. */
+  id: number;
 };

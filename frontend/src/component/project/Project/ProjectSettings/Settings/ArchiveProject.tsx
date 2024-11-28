@@ -8,78 +8,78 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { ArchiveProjectDialogue } from '../../ArchiveProject/ArchiveProjectDialogue';
 
 const StyledContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    flexDirection: 'column',
-    borderTop: `1px solid ${theme.palette.divider}`,
-    paddingTop: theme.spacing(4),
-    gap: theme.spacing(2),
+  display: 'flex',
+  flexDirection: 'column',
+  borderTop: `1px solid ${theme.palette.divider}`,
+  paddingTop: theme.spacing(4),
+  gap: theme.spacing(2),
 }));
 
 const StyledButtonContainer = styled('div')(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'flex-end',
-    paddingTop: theme.spacing(3),
+  display: 'flex',
+  justifyContent: 'flex-end',
+  paddingTop: theme.spacing(3),
 }));
 
 interface IDeleteProjectProps {
-    projectId: string;
-    featureCount: number;
+  projectId: string;
+  featureCount: number;
 }
 
 export const ArchiveProject = ({
-    projectId,
-    featureCount,
+  projectId,
+  featureCount,
 }: IDeleteProjectProps) => {
-    const [showArchiveDialog, setShowArchiveDialog] = useState(false);
-    const navigate = useNavigate();
-    const disabled = featureCount > 0;
+  const [showArchiveDialog, setShowArchiveDialog] = useState(false);
+  const navigate = useNavigate();
+  const disabled = featureCount > 0;
 
-    return (
-        <StyledContainer>
-            <p>
-                Before you can archive a project, you must first archive all of
-                the feature flags associated with it.
-            </p>
-            <ConditionallyRender
-                condition={featureCount > 0}
-                show={
-                    <p>
-                        Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
-                        <Link component={RouterLink} to='../..'>
-                            <strong>
-                                {featureCount} active feature{' '}
-                                {featureCount === 1 ? 'flag' : 'flags'}.
-                            </strong>
-                        </Link>
-                    </p>
-                }
-            />
-            <StyledButtonContainer>
-                <PermissionButton
-                    permission={DELETE_PROJECT}
-                    disabled={disabled}
-                    projectId={projectId}
-                    onClick={() => {
-                        setShowArchiveDialog(true);
-                    }}
-                    tooltipProps={{
-                        title: 'Archive project',
-                    }}
-                    data-loading
-                >
-                    Archive project
-                </PermissionButton>
-            </StyledButtonContainer>
-            <ArchiveProjectDialogue
-                project={projectId}
-                open={showArchiveDialog}
-                onClose={() => {
-                    setShowArchiveDialog(false);
-                }}
-                onSuccess={() => {
-                    navigate('/projects');
-                }}
-            />
-        </StyledContainer>
-    );
+  return (
+    <StyledContainer>
+      <p>
+        Before you can archive a project, you must first archive all of the
+        feature flags associated with it.
+      </p>
+      <ConditionallyRender
+        condition={featureCount > 0}
+        show={
+          <p>
+            Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
+            <Link component={RouterLink} to='../..'>
+              <strong>
+                {featureCount} active feature{' '}
+                {featureCount === 1 ? 'flag' : 'flags'}.
+              </strong>
+            </Link>
+          </p>
+        }
+      />
+      <StyledButtonContainer>
+        <PermissionButton
+          permission={DELETE_PROJECT}
+          disabled={disabled}
+          projectId={projectId}
+          onClick={() => {
+            setShowArchiveDialog(true);
+          }}
+          tooltipProps={{
+            title: 'Archive project',
+          }}
+          data-loading
+        >
+          Archive project
+        </PermissionButton>
+      </StyledButtonContainer>
+      <ArchiveProjectDialogue
+        project={projectId}
+        open={showArchiveDialog}
+        onClose={() => {
+          setShowArchiveDialog(false);
+        }}
+        onSuccess={() => {
+          navigate('/projects');
+        }}
+      />
+    </StyledContainer>
+  );
 };

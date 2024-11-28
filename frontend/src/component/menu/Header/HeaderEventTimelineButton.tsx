@@ -6,33 +6,33 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { Highlight } from 'component/common/Highlight/Highlight';
 
 export const HeaderEventTimelineButton = () => {
-    const { trackEvent } = usePlausibleTracker();
-    const { isOss } = useUiConfig();
-    const { open: showTimeline, setOpen: setShowTimeline } =
-        useEventTimelineContext();
+  const { trackEvent } = usePlausibleTracker();
+  const { isOss } = useUiConfig();
+  const { open: showTimeline, setOpen: setShowTimeline } =
+    useEventTimelineContext();
 
-    if (isOss()) return null;
+  if (isOss()) return null;
 
-    return (
-        <Tooltip
-            title={showTimeline ? 'Hide event timeline' : 'Show event timeline'}
-            arrow
+  return (
+    <Tooltip
+      title={showTimeline ? 'Hide event timeline' : 'Show event timeline'}
+      arrow
+    >
+      <Highlight highlightKey='eventTimeline'>
+        <IconButton
+          onClick={() => {
+            trackEvent('event-timeline', {
+              props: {
+                eventType: showTimeline ? 'close' : 'open',
+              },
+            });
+            setShowTimeline(!showTimeline);
+          }}
+          size='large'
         >
-            <Highlight highlightKey='eventTimeline'>
-                <IconButton
-                    onClick={() => {
-                        trackEvent('event-timeline', {
-                            props: {
-                                eventType: showTimeline ? 'close' : 'open',
-                            },
-                        });
-                        setShowTimeline(!showTimeline);
-                    }}
-                    size='large'
-                >
-                    <LinearScaleIcon />
-                </IconButton>
-            </Highlight>
-        </Tooltip>
-    );
+          <LinearScaleIcon />
+        </IconButton>
+      </Highlight>
+    </Tooltip>
+  );
 };

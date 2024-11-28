@@ -19,10 +19,10 @@ const getLogger = () => {
     error(...args: any[]) {
       records.push(args);
     },
-    debug() { },
-    info() { },
-    warn() { },
-    fatal() { },
+    debug() {},
+    info() {},
+    warn() {},
+    fatal() {},
   });
   const getRecords = () => records;
 
@@ -33,10 +33,7 @@ const toggleMaintenanceMode = async (
   maintenanceService: MaintenanceService,
   enabled: boolean,
 ) => {
-  await maintenanceService.toggleMaintenanceMode(
-    { enabled },
-    TEST_AUDIT_USER,
-  );
+  await maintenanceService.toggleMaintenanceMode({ enabled }, TEST_AUDIT_USER);
 };
 
 const createSchedulerTestService = ({
@@ -55,7 +52,7 @@ const createSchedulerTestService = ({
 
   const settingStore = new FakeSettingStore();
   const settingService = new SettingService({ settingStore }, config, {
-    storeEvent() { },
+    storeEvent() {},
   } as unknown as EventService);
   const maintenanceService = new MaintenanceService(config, settingService);
   const schedulerService = new SchedulerService(
@@ -80,8 +77,7 @@ test('Schedules job immediately', async () => {
 });
 
 test('Does not schedule job immediately when paused', async () => {
-  const { schedulerService, maintenanceService } =
-    createSchedulerTestService();
+  const { schedulerService, maintenanceService } = createSchedulerTestService();
 
   const job = jest.fn();
 
@@ -105,8 +101,7 @@ test('Can schedule a single regular job', async () => {
 });
 
 test('Scheduled job ignored in a paused mode', async () => {
-  const { schedulerService, maintenanceService } =
-    createSchedulerTestService();
+  const { schedulerService, maintenanceService } = createSchedulerTestService();
 
   const job = jest.fn();
 
@@ -119,8 +114,7 @@ test('Scheduled job ignored in a paused mode', async () => {
 });
 
 test('Can resume paused job', async () => {
-  const { schedulerService, maintenanceService } =
-    createSchedulerTestService();
+  const { schedulerService, maintenanceService } = createSchedulerTestService();
 
   const job = jest.fn();
 

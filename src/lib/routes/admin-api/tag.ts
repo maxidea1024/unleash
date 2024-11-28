@@ -7,7 +7,6 @@ import type { Logger } from '../../logger';
 import Controller from '../controller';
 
 import { NONE, UPDATE_FEATURE } from '../../types/permissions';
-import { extractUsername } from '../../util/extract-user';
 import type { IAuthRequest } from '../unleash-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import {
@@ -89,9 +88,7 @@ export default class TagController extends Controller {
           summary: 'Create a new tag.',
           description: 'Create a new tag with the specified data.',
           responses: {
-            201: resourceCreatedResponseSchema(
-              'tagWithVersionSchema',
-            ),
+            201: resourceCreatedResponseSchema('tagWithVersionSchema'),
             ...getStandardResponses(400, 401, 403, 409, 415),
           },
           requestBody: createRequestSchema('createTagSchema'),
@@ -170,10 +167,7 @@ export default class TagController extends Controller {
     );
   }
 
-  async getTagsByType(
-    req: Request,
-    res: Response<TagsSchema>,
-  ): Promise<void> {
+  async getTagsByType(req: Request, res: Response<TagsSchema>): Promise<void> {
     const tags = await this.tagService.getTagsByType(req.params.type);
     this.openApiService.respondWithValidation<TagsSchema>(
       200,
@@ -203,16 +197,14 @@ export default class TagController extends Controller {
   ): Promise<void> {
     // const userName = extractUsername(req);
     const tag = await this.tagService.createTag(req.body, req.audit);
-    res.status(201)
+    res
+      .status(201)
       .header('location', `tags/${tag.type}/${tag.value}`)
       .json({ version, tag })
       .end();
   }
 
-  async deleteTag(
-    req: IAuthRequest<TagSchema>,
-    res: Response,
-  ): Promise<void> {
+  async deleteTag(req: IAuthRequest<TagSchema>, res: Response): Promise<void> {
     const { type, value } = req.params;
     // const userName = extractUsername(req);
     await this.tagService.deleteTag({ type, value }, req.audit);

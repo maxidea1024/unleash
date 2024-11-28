@@ -48,9 +48,6 @@ export const throwOnInvalidSchema = <S = SchemaId>(
   const validationErrors = validateSchema(schema, data);
   if (validationErrors) {
     const [firstError, ...remainingErrors] = validationErrors.errors;
-    throw fromOpenApiValidationErrors(data, [
-      firstError,
-      ...remainingErrors,
-    ]);
+    throw fromOpenApiValidationErrors(data, [firstError, ...remainingErrors]);
   }
 };

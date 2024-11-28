@@ -9,6 +9,6 @@ import type { CreateGroupSchemaUsersItemUser } from './createGroupSchemaUsersIte
  * A minimal user object
  */
 export type CreateGroupSchemaUsersItem = {
-    /** A minimal user object */
-    user: CreateGroupSchemaUsersItemUser;
+  /** A minimal user object */
+  user: CreateGroupSchemaUsersItemUser;
 };

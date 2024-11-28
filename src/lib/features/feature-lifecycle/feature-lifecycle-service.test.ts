@@ -43,8 +43,7 @@ test('can insert and read lifecycle stages', async () => {
   function reachedStage(feature: string, name: StageName) {
     return new Promise((resolve) =>
       eventBus.on(STAGE_ENTERED, (event) => {
-        if (event.stage === name && event.feature === feature)
-          resolve(name);
+        if (event.stage === name && event.feature === feature) resolve(name);
       }),
     );
   }

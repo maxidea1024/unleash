@@ -87,9 +87,7 @@ export default class DependentFeaturesController extends Controller {
           description:
             'Add a dependency to a parent feature. Each environment will resolve corresponding dependency independently.',
           operationId: 'addFeatureDependency',
-          requestBody: createRequestSchema(
-            'createDependentFeatureSchema',
-          ),
+          requestBody: createRequestSchema('createDependentFeatureSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(401, 403, 404),
@@ -266,9 +264,7 @@ export default class DependentFeaturesController extends Controller {
     const { child } = req.params;
 
     const options =
-      await this.dependentFeaturesService.getPossibleParentFeatures(
-        child,
-      );
+      await this.dependentFeaturesService.getPossibleParentFeatures(child);
 
     this.openApiService.respondWithValidation(
       200,
@@ -285,9 +281,7 @@ export default class DependentFeaturesController extends Controller {
     const { parent } = req.params;
 
     const options =
-      await this.dependentFeaturesService.getPossibleParentVariants(
-        parent,
-      );
+      await this.dependentFeaturesService.getPossibleParentVariants(parent);
 
     this.openApiService.respondWithValidation(
       200,
@@ -303,8 +297,7 @@ export default class DependentFeaturesController extends Controller {
   ): Promise<void> {
     const { child } = req.params;
 
-    const exist =
-      await this.dependentFeaturesService.checkDependenciesExist();
+    const exist = await this.dependentFeaturesService.checkDependenciesExist();
     res.send(exist);
   }
 }

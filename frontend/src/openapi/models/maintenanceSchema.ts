@@ -8,6 +8,6 @@
  * The current state of Unleash's maintenance mode feature.
  */
 export interface MaintenanceSchema {
-    /** Whether maintenance mode is enabled or not. */
-    enabled: boolean;
+  /** Whether maintenance mode is enabled or not. */
+  enabled: boolean;
 }

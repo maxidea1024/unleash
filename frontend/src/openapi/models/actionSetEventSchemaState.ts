@@ -8,11 +8,11 @@
  * The state of the action set event. Can be one of `started`, `success`, or `failed`.
  */
 export type ActionSetEventSchemaState =
-    (typeof ActionSetEventSchemaState)[keyof typeof ActionSetEventSchemaState];
+  (typeof ActionSetEventSchemaState)[keyof typeof ActionSetEventSchemaState];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ActionSetEventSchemaState = {
-    started: 'started',
-    success: 'success',
-    failed: 'failed',
+  started: 'started',
+  success: 'success',
+  failed: 'failed',
 } as const;

@@ -35,7 +35,7 @@ const callGetAll = async (controller: FeatureController) => {
     // @ts-expect-error
     { query: {}, header: () => undefined, headers: {} },
     {
-      json: () => { },
+      json: () => {},
       setHeader: () => undefined,
     },
   );

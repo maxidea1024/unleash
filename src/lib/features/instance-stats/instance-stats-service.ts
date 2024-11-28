@@ -210,15 +210,12 @@ export class InstanceStatsService {
     );
 
     return (
-      typeof settings?.disabled === 'undefined' ||
-      settings.disabled === false
+      typeof settings?.disabled === 'undefined' || settings.disabled === false
     );
   }
 
   async hasSCIM(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ enabled: boolean }>(
-      'scim',
-    );
+    const settings = await this.settingStore.get<{ enabled: boolean }>('scim');
 
     return settings?.enabled || false;
   }

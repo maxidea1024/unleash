@@ -8,50 +8,48 @@ import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 
 const StyledItem = styled(Typography)(({ theme }) => ({
-    fontSize: theme.fontSizes.smallerBody,
+  fontSize: theme.fontSizes.smallerBody,
 }));
 
 interface IServiceAccountTokensCellProps {
-    serviceAccount: IServiceAccount;
-    value: string;
-    onCreateToken?: () => void;
+  serviceAccount: IServiceAccount;
+  value: string;
+  onCreateToken?: () => void;
 }
 
 export const ServiceAccountTokensCell: VFC<IServiceAccountTokensCellProps> = ({
-    serviceAccount,
-    value,
-    onCreateToken,
+  serviceAccount,
+  value,
+  onCreateToken,
 }) => {
-    const { searchQuery } = useSearchHighlightContext();
+  const { searchQuery } = useSearchHighlightContext();
 
-    if (!serviceAccount.tokens || serviceAccount.tokens.length === 0) {
-        if (!onCreateToken) return <TextCell>0 tokens</TextCell>;
-        else return <LinkCell title='Create token' onClick={onCreateToken} />;
-    }
+  if (!serviceAccount.tokens || serviceAccount.tokens.length === 0) {
+    if (!onCreateToken) return <TextCell>0 tokens</TextCell>;
+    else return <LinkCell title='Create token' onClick={onCreateToken} />;
+  }
 
-    return (
-        <TextCell>
-            <TooltipLink
-                tooltip={
-                    <>
-                        {serviceAccount.tokens?.map(({ id, description }) => (
-                            <StyledItem key={id}>
-                                <Highlighter search={searchQuery}>
-                                    {description}
-                                </Highlighter>
-                            </StyledItem>
-                        ))}
-                    </>
-                }
-                highlighted={
-                    searchQuery.length > 0 &&
-                    value.toLowerCase().includes(searchQuery.toLowerCase())
-                }
-            >
-                {serviceAccount.tokens?.length === 1
-                    ? '1 token'
-                    : `${serviceAccount.tokens?.length} tokens`}
-            </TooltipLink>
-        </TextCell>
-    );
+  return (
+    <TextCell>
+      <TooltipLink
+        tooltip={
+          <>
+            {serviceAccount.tokens?.map(({ id, description }) => (
+              <StyledItem key={id}>
+                <Highlighter search={searchQuery}>{description}</Highlighter>
+              </StyledItem>
+            ))}
+          </>
+        }
+        highlighted={
+          searchQuery.length > 0 &&
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        }
+      >
+        {serviceAccount.tokens?.length === 1
+          ? '1 token'
+          : `${serviceAccount.tokens?.length} tokens`}
+      </TooltipLink>
+    </TextCell>
+  );
 };

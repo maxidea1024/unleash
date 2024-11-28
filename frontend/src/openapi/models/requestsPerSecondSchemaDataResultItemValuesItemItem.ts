@@ -5,5 +5,5 @@
  */
 
 export type RequestsPerSecondSchemaDataResultItemValuesItemItem =
-    | string
-    | number;
+  | string
+  | number;

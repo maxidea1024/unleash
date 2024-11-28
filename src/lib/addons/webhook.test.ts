@@ -176,9 +176,7 @@ describe('Webhook integration', () => {
     const call = fetchRetryCalls[0];
     expect(fetchRetryCalls.length).toBe(1);
     expect(call.url).toBe(parameters.url);
-    expect(call.options.headers.Authorization).toBe(
-      parameters.authorization,
-    );
+    expect(call.options.headers.Authorization).toBe(parameters.authorization);
     expect(call.options.body).toBe('feature-created on toggle some-toggle');
   });
 
@@ -210,9 +208,7 @@ describe('Webhook integration', () => {
     const call = fetchRetryCalls[0];
     expect(fetchRetryCalls.length).toBe(1);
     expect(call.url).toBe(parameters.url);
-    expect(call.options.headers.Authorization).toBe(
-      parameters.authorization,
-    );
+    expect(call.options.headers.Authorization).toBe(parameters.authorization);
     expect(call.options.headers.MY_CUSTOM_HEADER).toBe('MY_CUSTOM_VALUE');
     expect(call.options.body).toBe('feature-created on toggle some-toggle');
   });
@@ -247,8 +243,7 @@ describe('Webhook integration', () => {
     expect(registerEventMock).toHaveBeenCalledWith({
       integrationId: INTEGRATION_ID,
       state: 'success',
-      stateDetails:
-        'Webhook request was successful with status code: 200.',
+      stateDetails: 'Webhook request was successful with status code: 200.',
       event: serializeDates(event),
       details: {
         url: parameters.url,

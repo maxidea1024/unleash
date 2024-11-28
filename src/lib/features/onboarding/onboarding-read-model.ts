@@ -52,9 +52,11 @@ export class OnboardingReadModel implements IOnboardingReadModel {
   }
 
   async getProjectsOnboardingMetrics(): Promise<Array<ProjectOnboarding>> {
-    const lifecycleResults = await this.db(
-      'onboarding_events_project',
-    ).select('project', 'event', 'time_to_event');
+    const lifecycleResults = await this.db('onboarding_events_project').select(
+      'project',
+      'event',
+      'time_to_event',
+    );
 
     const projects: Array<ProjectOnboarding> = [];
 

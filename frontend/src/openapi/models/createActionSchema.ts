@@ -9,13 +9,13 @@ import type { CreateActionSchemaExecutionParams } from './createActionSchemaExec
  * Represents a single action
  */
 export interface CreateActionSchema {
-    /** The name of the action to execute */
-    action: string;
-    /** A map of parameters to pass to the action */
-    executionParams?: CreateActionSchemaExecutionParams;
-    /**
-     * The order in which the action should be executed
-     * @minimum 1
-     */
-    sortOrder: number;
+  /** The name of the action to execute */
+  action: string;
+  /** A map of parameters to pass to the action */
+  executionParams?: CreateActionSchemaExecutionParams;
+  /**
+   * The order in which the action should be executed
+   * @minimum 1
+   */
+  sortOrder: number;
 }

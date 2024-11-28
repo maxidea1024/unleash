@@ -4,29 +4,29 @@ import PermissionIconButton from 'component/common/PermissionIconButton/Permissi
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
 
 const StyledBox = styled(Box)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 
 interface ILoginHistoryActionsCellProps {
-    onDelete: (event: React.SyntheticEvent) => void;
+  onDelete: (event: React.SyntheticEvent) => void;
 }
 
 export const LoginHistoryActionsCell = ({
-    onDelete,
+  onDelete,
 }: ILoginHistoryActionsCellProps) => {
-    return (
-        <StyledBox>
-            <PermissionIconButton
-                data-loading
-                onClick={onDelete}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Remove event',
-                }}
-            >
-                <Delete />
-            </PermissionIconButton>
-        </StyledBox>
-    );
+  return (
+    <StyledBox>
+      <PermissionIconButton
+        data-loading
+        onClick={onDelete}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Remove event',
+        }}
+      >
+        <Delete />
+      </PermissionIconButton>
+    </StyledBox>
+  );
 };

@@ -8,8 +8,8 @@
  * A project application instance SDK.
  */
 export interface ProjectApplicationSdkSchema {
-    /** Name of the SDK package that the application is using. */
-    name: string;
-    /** The versions of the SDK that the application is using. */
-    versions: string[];
+  /** Name of the SDK package that the application is using. */
+  name: string;
+  /** The versions of the SDK that the application is using. */
+  versions: string[];
 }

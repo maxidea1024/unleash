@@ -4,21 +4,21 @@ import ErrorOutline from '@mui/icons-material/ErrorOutline';
 import type { IActionSetEvent } from 'interfaces/action';
 
 export const StyledSuccessIcon = styled(CheckCircleOutline)(({ theme }) => ({
-    color: theme.palette.success.main,
+  color: theme.palette.success.main,
 }));
 
 export const StyledFailedIcon = styled(ErrorOutline)(({ theme }) => ({
-    color: theme.palette.error.main,
+  color: theme.palette.error.main,
 }));
 
 export const ProjectActionsEventsStateCell = ({ state }: IActionSetEvent) => {
-    if (state === 'success') {
-        return <StyledSuccessIcon />;
-    }
+  if (state === 'success') {
+    return <StyledSuccessIcon />;
+  }
 
-    if (state === 'failed') {
-        return <StyledFailedIcon />;
-    }
+  if (state === 'failed') {
+    return <StyledFailedIcon />;
+  }
 
-    return <CircularProgress size={20} />;
+  return <CircularProgress size={20} />;
 };

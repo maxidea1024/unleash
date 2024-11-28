@@ -223,10 +223,7 @@ export const createServices = (
     ? withTransactional(createTagTypeService(config), db)
     : withFakeTransactional(createFakeTagTypeService(config));
   const tagTypeService = transactionalTagTypeService;
-  const integrationEventsService = new IntegrationEventsService(
-    stores,
-    config,
-  );
+  const integrationEventsService = new IntegrationEventsService(stores, config);
   const addonService = new AddonService(
     stores,
     config,
@@ -316,11 +313,7 @@ export const createServices = (
     : withFakeTransactional(createFakeEnvironmentService(config));
   const environmentService = transactionalEnvironmentService;
 
-  const featureTagService = new FeatureTagService(
-    stores,
-    config,
-    eventService,
-  );
+  const featureTagService = new FeatureTagService(stores, config, eventService);
   const favoritesService = new FavoritesService(stores, config, eventService);
   const projectService = db
     ? createProjectService(db, config)
@@ -359,8 +352,10 @@ export const createServices = (
     ? createPlaygroundService(db, config)
     : createFakePlaygroundService(config);
 
-  const configurationRevisionService =
-    ConfigurationRevisionService.getInstance(stores, config);
+  const configurationRevisionService = ConfigurationRevisionService.getInstance(
+    stores,
+    config,
+  );
 
   const clientFeatureToggleService = db
     ? createClientFeatureToggleService(db, config)
@@ -368,16 +363,16 @@ export const createServices = (
 
   const frontendApiService = db
     ? createFrontendApiService(
-      db,
-      config,
-      clientMetricsServiceV2,
-      configurationRevisionService,
-    )
+        db,
+        config,
+        clientMetricsServiceV2,
+        configurationRevisionService,
+      )
     : createFakeFrontendApiService(
-      config,
-      clientMetricsServiceV2,
-      configurationRevisionService,
-    );
+        config,
+        clientMetricsServiceV2,
+        configurationRevisionService,
+      );
 
   const edgeService = new EdgeService({ apiTokenService }, config);
 
@@ -415,8 +410,8 @@ export const createServices = (
   const transactionalFeatureLifecycleService = db
     ? withTransactional(createFeatureLifecycleService(config), db)
     : withFakeTransactional(
-      createFakeFeatureLifecycleService(config).featureLifecycleService,
-    );
+        createFakeFeatureLifecycleService(config).featureLifecycleService,
+      );
   const featureLifecycleService = transactionalFeatureLifecycleService;
   featureLifecycleService.listen();
 

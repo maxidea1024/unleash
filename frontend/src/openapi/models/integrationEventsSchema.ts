@@ -9,6 +9,6 @@ import type { IntegrationEventSchema } from './integrationEventSchema';
  * A response model with a list of integration events.
  */
 export interface IntegrationEventsSchema {
-    /** A list of integration events. */
-    integrationEvents: IntegrationEventSchema[];
+  /** A list of integration events. */
+  integrationEvents: IntegrationEventSchema[];
 }

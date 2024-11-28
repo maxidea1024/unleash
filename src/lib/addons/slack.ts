@@ -1,10 +1,7 @@
 import Addon from './addon';
 
 import slackDefinition from './slack-definition';
-import {
-  type IAddonConfig,
-  serializeDates,
-} from '../types';
+import { type IAddonConfig, serializeDates } from '../types';
 
 import {
   type FeatureEventFormatter,
@@ -70,7 +67,8 @@ export default class SlackAddon extends Addon {
       }
     }
 
-    const { text: formattedMessage, url: featureLink } = this.msgFormatter.format(event);
+    const { text: formattedMessage, url: featureLink } =
+      this.msgFormatter.format(event);
     const maxLength = 3000;
     const text = formattedMessage.substring(0, maxLength);
     const requests = slackChannels.map((channel) => {
@@ -108,9 +106,9 @@ export default class SlackAddon extends Addon {
 
     const results = await Promise.all(requests);
     const failedRequests = results.filter((res) => !res.ok);
-    const codes = this.getUniqueArray(
-      results.map((res) => res.status),
-    ).join(', ');
+    const codes = this.getUniqueArray(results.map((res) => res.status)).join(
+      ', ',
+    );
 
     this.logger.info(`Handled event ${event.type}.`);
 
@@ -150,9 +148,7 @@ export default class SlackAddon extends Addon {
 
   findSlackChannels({ tags }: Pick<IEvent, 'tags'>): string[] {
     if (tags) {
-      return tags
-        .filter((tag) => tag.type === 'slack')
-        .map((t) => t.value);
+      return tags.filter((tag) => tag.type === 'slack').map((t) => t.value);
     }
     return [];
   }

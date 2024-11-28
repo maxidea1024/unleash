@@ -3,21 +3,21 @@ import { BillingDetailsPro } from './BillingDetailsPro';
 import { BillingDetailsPAYG } from './BillingDetailsPAYG';
 
 interface IBillingDetailsProps {
-    instanceStatus: IInstanceStatus;
-    isPAYG: boolean;
+  instanceStatus: IInstanceStatus;
+  isPAYG: boolean;
 }
 
 export const BillingDetails = ({
-    instanceStatus,
-    isPAYG,
+  instanceStatus,
+  isPAYG,
 }: IBillingDetailsProps) => {
-    if (isPAYG) {
-        return <BillingDetailsPAYG instanceStatus={instanceStatus} />;
-    }
+  if (isPAYG) {
+    return <BillingDetailsPAYG instanceStatus={instanceStatus} />;
+  }
 
-    if (instanceStatus.plan === InstancePlan.PRO) {
-        return <BillingDetailsPro instanceStatus={instanceStatus} />;
-    }
+  if (instanceStatus.plan === InstancePlan.PRO) {
+    return <BillingDetailsPro instanceStatus={instanceStatus} />;
+  }
 
-    return null;
+  return null;
 };

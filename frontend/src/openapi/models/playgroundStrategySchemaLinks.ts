@@ -8,5 +8,5 @@
  * A set of links to actions you can perform on this strategy
  */
 export type PlaygroundStrategySchemaLinks = {
-    edit: string;
+  edit: string;
 };

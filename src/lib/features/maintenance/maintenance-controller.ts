@@ -82,10 +82,7 @@ export default class MaintenanceController extends Controller {
     req: IAuthRequest<unknown, unknown, ToggleMaintenanceSchema>,
     res: Response<MaintenanceSchema>,
   ): Promise<void> {
-    await this.maintenanceService.toggleMaintenanceMode(
-      req.body,
-      req.audit,
-    );
+    await this.maintenanceService.toggleMaintenanceMode(req.body, req.audit);
     res.status(204).end();
   }
 

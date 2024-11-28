@@ -171,8 +171,7 @@ export default class ProjectFeaturesController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Disable a feature flag',
-          description:
-            'Disable a feature flag in the specified environment.',
+          description: 'Disable a feature flag in the specified environment.',
           tags: ['Features'],
           operationId: 'toggleFeatureEnvironmentOff',
           responses: {
@@ -192,8 +191,7 @@ export default class ProjectFeaturesController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Enable a feature flag',
-          description:
-            'Enable a feature flag in the specified environment.',
+          description: 'Enable a feature flag in the specified environment.',
           tags: ['Features'],
           operationId: 'toggleFeatureEnvironmentOn',
           responses: {
@@ -213,12 +211,9 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Bulk enable a list of features',
-          description:
-            'This endpoint enables multiple feature flags.',
+          description: 'This endpoint enables multiple feature flags.',
           operationId: 'bulkToggleFeaturesEnvironmentOn',
-          requestBody: createRequestSchema(
-            'bulkToggleFeaturesSchema',
-          ),
+          requestBody: createRequestSchema('bulkToggleFeaturesSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(400, 401, 403, 404, 413, 415),
@@ -236,12 +231,9 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Bulk disable a list of features',
-          description:
-            'This endpoint disables multiple feature flags.',
+          description: 'This endpoint disables multiple feature flags.',
           operationId: 'bulkToggleFeaturesEnvironmentOff',
-          requestBody: createRequestSchema(
-            'bulkToggleFeaturesSchema',
-          ),
+          requestBody: createRequestSchema('bulkToggleFeaturesSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(400, 401, 403, 404, 413, 415),
@@ -282,9 +274,7 @@ export default class ProjectFeaturesController extends Controller {
           description:
             'Add a strategy to a feature flag in the specified environment.',
           operationId: 'addFeatureStrategy',
-          requestBody: createRequestSchema(
-            'createFeatureStrategySchema',
-          ),
+          requestBody: createRequestSchema('createFeatureStrategySchema'),
           responses: {
             200: createResponseSchema('featureStrategySchema'),
             ...getStandardResponses(401, 403, 404),
@@ -323,11 +313,8 @@ export default class ProjectFeaturesController extends Controller {
           tags: ['Features'],
           operationId: 'setStrategySortOrder',
           summary: 'Set strategy sort order',
-          description:
-            'Set the sort order of the provided list of strategies.',
-          requestBody: createRequestSchema(
-            'setStrategySortOrderSchema',
-          ),
+          description: 'Set the sort order of the provided list of strategies.',
+          requestBody: createRequestSchema('setStrategySortOrderSchema'),
           responses: {
             200: emptyResponse,
             ...getStandardResponses(400, 401, 403),
@@ -348,9 +335,7 @@ export default class ProjectFeaturesController extends Controller {
           description:
             'Replace strategy configuration for a feature flag in the specified environment.',
           operationId: 'updateFeatureStrategy',
-          requestBody: createRequestSchema(
-            'updateFeatureStrategySchema',
-          ),
+          requestBody: createRequestSchema('updateFeatureStrategySchema'),
           responses: {
             200: createResponseSchema('featureStrategySchema'),
             ...getStandardResponses(400, 401, 403, 404, 415),
@@ -409,8 +394,7 @@ export default class ProjectFeaturesController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Get all features in a project',
-          description:
-            'A list of all features for the specified project.',
+          description: 'A list of all features for the specified project.',
           tags: ['Features'],
           operationId: 'getFeatures',
           responses: {
@@ -429,8 +413,7 @@ export default class ProjectFeaturesController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Add a new feature flag',
-          description:
-            'Create a new feature flag in a specified project.',
+          description: 'Create a new feature flag in a specified project.',
           tags: ['Features'],
           operationId: 'createFeature',
           requestBody: createRequestSchema('createFeatureSchema'),
@@ -519,8 +502,7 @@ export default class ProjectFeaturesController extends Controller {
           tags: ['Features'],
           operationId: 'patchFeature',
           summary: 'Modify a feature flag',
-          description:
-            'Change specific properties of a feature flag.',
+          description: 'Change specific properties of a feature flag.',
           requestBody: createRequestSchema('patchesSchema'),
           responses: {
             200: createResponseSchema('featureSchema'),
@@ -692,24 +674,19 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   maybeAnonymise(feature: FeatureToggleView): FeatureToggleView {
-    if (
-      this.flagResolver.isEnabled('anonymiseEventLog') &&
-      feature.createdBy
-    ) {
+    if (this.flagResolver.isEnabled('anonymiseEventLog') && feature.createdBy) {
       return {
         ...feature,
         ...(feature.collaborators
           ? {
-            collaborators: {
-              ...feature.collaborators,
-              users: feature.collaborators.users.map(
-                (user) => ({
+              collaborators: {
+                ...feature.collaborators,
+                users: feature.collaborators.users.map((user) => ({
                   ...user,
                   name: anonymise(user.name),
-                }),
-              ),
-            },
-          }
+                })),
+              },
+            }
           : {}),
         createdBy: {
           ...feature.createdBy,
@@ -865,12 +842,7 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async toggleFeatureEnvironmentOn(
-    req: IAuthRequest<
-      FeatureStrategyParams,
-      any,
-      any,
-      FeatureStrategyQuery
-    >,
+    req: IAuthRequest<FeatureStrategyParams, any, any, FeatureStrategyQuery>,
     res: Response<void>,
   ): Promise<void> {
     const { featureName, environment, projectId } = req.params;
@@ -968,11 +940,7 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async addFeatureStrategy(
-    req: IAuthRequest<
-      FeatureStrategyParams,
-      any,
-      CreateFeatureStrategySchema
-    >,
+    req: IAuthRequest<FeatureStrategyParams, any, CreateFeatureStrategySchema>,
     res: Response<FeatureStrategySchema>,
   ): Promise<void> {
     const { projectId, featureName, environment } = req.params;
@@ -989,9 +957,7 @@ export default class ProjectFeaturesController extends Controller {
       req.user,
     );
 
-    const updatedStrategy = await this.featureService.getStrategy(
-      strategy.id,
-    );
+    const updatedStrategy = await this.featureService.getStrategy(strategy.id);
     res.status(200).json(updatedStrategy);
   }
 
@@ -1020,9 +986,7 @@ export default class ProjectFeaturesController extends Controller {
   ): Promise<void> {
     const { featureName, projectId, environment } = req.params;
     await this.startTransaction(async (tx) =>
-      this.transactionalFeatureToggleService(
-        tx,
-      ).updateStrategiesSortOrder(
+      this.transactionalFeatureToggleService(tx).updateStrategiesSortOrder(
         {
           featureName,
           environment,
@@ -1124,14 +1088,13 @@ export default class ProjectFeaturesController extends Controller {
     const { strategyId, environment, projectId, featureName } = req.params;
     const { name, value } = req.body;
 
-    const updatedStrategy =
-      await this.featureService.updateStrategyParameter(
-        strategyId,
-        name,
-        value,
-        { environment, projectId, featureName },
-        req.audit,
-      );
+    const updatedStrategy = await this.featureService.updateStrategyParameter(
+      strategyId,
+      name,
+      value,
+      { environment, projectId, featureName },
+      req.audit,
+    );
     res.status(200).json(updatedStrategy);
   }
 

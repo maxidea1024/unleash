@@ -8,8 +8,8 @@
  * Copy of a feature with a new name
  */
 export interface CloneFeatureSchema {
-    /** The name of the new feature */
-    name: string;
-    /** Whether to use the new feature name as its group ID or not. Group ID is used for calculating [stickiness](https://docs.getunleash.io/reference/stickiness#calculation). Defaults to true. */
-    replaceGroupId?: boolean;
+  /** The name of the new feature */
+  name: string;
+  /** Whether to use the new feature name as its group ID or not. Group ID is used for calculating [stickiness](https://docs.getunleash.io/reference/stickiness#calculation). Defaults to true. */
+  replaceGroupId?: boolean;
 }

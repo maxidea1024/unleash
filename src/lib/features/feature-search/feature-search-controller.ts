@@ -69,9 +69,7 @@ export default class FeatureSearchController extends Controller {
     });
   }
 
-  maybeAnonymise(
-    features: IFeatureSearchOverview[],
-  ): IFeatureSearchOverview[] {
+  maybeAnonymise(features: IFeatureSearchOverview[]): IFeatureSearchOverview[] {
     if (this.flagResolver.isEnabled('anonymiseEventLog')) {
       return features.map((feature) => ({
         ...feature,
@@ -124,9 +122,7 @@ export default class FeatureSearchController extends Controller {
     const normalizedStatus = status
       ?.map((tag) => tag.split(':'))
       .filter(
-        (tag) =>
-          tag.length === 2 &&
-          ['enabled', 'disabled'].includes(tag[1]),
+        (tag) => tag.length === 2 && ['enabled', 'disabled'].includes(tag[1]),
       );
     const normalizedFavoritesFirst = favoritesFirst === 'true';
     const normalizedArchived = archived === 'IS:true';

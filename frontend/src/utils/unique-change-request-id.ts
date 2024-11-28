@@ -4,5 +4,6 @@ export const getUniqueChangeRequestId = (
   uiConfig: Pick<IUiConfig, 'baseUriPath' | 'versionInfo'>,
   changeRequestId: number,
 ) =>
-  `${uiConfig.baseUriPath || uiConfig.versionInfo?.instanceId
+  `${
+    uiConfig.baseUriPath || uiConfig.versionInfo?.instanceId
   }#${changeRequestId}`;

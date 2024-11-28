@@ -410,10 +410,7 @@ test('should update project without existing settings', async () => {
     username: user.email,
     ip: '127.0.0.1',
   });
-  await db
-    .rawDatabase('project_settings')
-    .del()
-    .where({ project: project.id });
+  await db.rawDatabase('project_settings').del().where({ project: project.id });
   await projectService.updateProject(updatedProject, auditUser);
 
   const readProject = await projectService.getProject(project.id);
@@ -1153,11 +1150,7 @@ test('should change project when checks pass', async () => {
 
   await projectService.createProject(projectA, user, auditUser);
   await projectService.createProject(projectB, user, auditUser);
-  await featureToggleService.createFeatureToggle(
-    projectA.id,
-    flag,
-    auditUser,
-  );
+  await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
   await projectService.changeProject(
     projectB.id,
     flag.name,
@@ -1188,11 +1181,7 @@ test('changing project should emit event even if user does not have a username s
   const flag = { name: randomId() };
   await projectService.createProject(projectA, user, auditUser);
   await projectService.createProject(projectB, user, auditUser);
-  await featureToggleService.createFeatureToggle(
-    projectA.id,
-    flag,
-    auditUser,
-  );
+  await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
   const eventsBeforeChange = await stores.eventStore.getEvents();
   await projectService.changeProject(
     projectB.id,
@@ -1223,11 +1212,7 @@ test('should require equal project environments to move features', async () => {
 
   await projectService.createProject(projectA, user, auditUser);
   await projectService.createProject(projectB, user, auditUser);
-  await featureToggleService.createFeatureToggle(
-    projectA.id,
-    flag,
-    auditUser,
-  );
+  await featureToggleService.createFeatureToggle(projectA.id, flag, auditUser);
   await stores.environmentStore.create(environment);
   await environmentService.addEnvironmentToProject(
     environment.name,
@@ -1267,15 +1252,12 @@ test('A newly created project only gets connected to enabled environments', asyn
   });
 
   await projectService.createProject(project, user, auditUser);
-  const connectedEnvs =
-    await db.stores.projectStore.getEnvironmentsForProject(project.id);
+  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(
+    project.id,
+  );
   expect(connectedEnvs).toHaveLength(2); // default, connection_test
-  expect(
-    connectedEnvs.some((e) => e.environment === enabledEnv),
-  ).toBeTruthy();
-  expect(
-    connectedEnvs.some((e) => e.environment === disabledEnv),
-  ).toBeFalsy();
+  expect(connectedEnvs.some((e) => e.environment === enabledEnv)).toBeTruthy();
+  expect(connectedEnvs.some((e) => e.environment === disabledEnv)).toBeFalsy();
 });
 
 test('should have environments sorted in order', async () => {
@@ -1312,8 +1294,9 @@ test('should have environments sorted in order', async () => {
   });
 
   await projectService.createProject(project, user, auditUser);
-  const connectedEnvs =
-    await db.stores.projectStore.getEnvironmentsForProject(project.id);
+  const connectedEnvs = await db.stores.projectStore.getEnvironmentsForProject(
+    project.id,
+  );
 
   expect(connectedEnvs.map((e) => e.environment)).toEqual([
     'default',
@@ -1410,18 +1393,8 @@ test('should delete role entries when deleting project', async () => {
     SYSTEM_USER_AUDIT,
   );
 
-  await projectService.addUser(
-    project.id,
-    customRole.id,
-    user1.id,
-    auditUser,
-  );
-  await projectService.addUser(
-    project.id,
-    customRole.id,
-    user2.id,
-    auditUser,
-  );
+  await projectService.addUser(project.id, customRole.id, user1.id, auditUser);
+  await projectService.addUser(project.id, customRole.id, user2.id, auditUser);
 
   let usersForRole = await accessService.getUsersForRole(customRole.id);
   expect(usersForRole.length).toBe(2);
@@ -1609,11 +1582,7 @@ describe('ensure project has at least one owner', () => {
     );
 
     await expect(async () => {
-      await projectService.removeUserAccess(
-        project.id,
-        user.id,
-        auditUser,
-      );
+      await projectService.removeUserAccess(project.id, user.id, auditUser);
     }).rejects.toThrowError(
       new Error('A project must have at least one owner'),
     );
@@ -1629,9 +1598,7 @@ describe('ensure project has at least one owner', () => {
     };
     await projectService.createProject(project, user, auditUser);
 
-    const memberRole = await stores.roleStore.getRoleByName(
-      RoleName.MEMBER,
-    );
+    const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
     const memberUser = await stores.userStore.insert({
       name: 'Some Name',
@@ -1647,11 +1614,7 @@ describe('ensure project has at least one owner', () => {
     );
 
     const usersBefore = await projectService.getProjectUsers(project.id);
-    await projectService.removeUserAccess(
-      project.id,
-      memberUser.id,
-      auditUser,
-    );
+    await projectService.removeUserAccess(project.id, memberUser.id, auditUser);
     const usersAfter = await projectService.getProjectUsers(project.id);
     expect(usersBefore).toHaveLength(2);
     expect(usersAfter).toHaveLength(1);
@@ -1672,9 +1635,7 @@ describe('ensure project has at least one owner', () => {
       email: 'update991@getunleash.io',
     });
 
-    const memberRole = await stores.roleStore.getRoleByName(
-      RoleName.MEMBER,
-    );
+    const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
     await projectService.addUser(
       project.id,
@@ -1759,11 +1720,7 @@ describe('ensure project has at least one owner', () => {
     );
 
     await expect(async () => {
-      await projectService.removeGroupAccess(
-        project.id,
-        group.id,
-        auditUser,
-      );
+      await projectService.removeGroupAccess(project.id, group.id, auditUser);
     }).rejects.toThrowError(
       new Error('A project must have at least one owner'),
     );
@@ -1773,9 +1730,7 @@ describe('ensure project has at least one owner', () => {
     const { project, group } = await projectWithGroupOwner(
       'update-group-not-allowed',
     );
-    const memberRole = await stores.roleStore.getRoleByName(
-      RoleName.MEMBER,
-    );
+    const memberRole = await stores.roleStore.getRoleByName(RoleName.MEMBER);
 
     await expect(async () => {
       await projectService.changeGroupRole(
@@ -1985,9 +1940,7 @@ test('Should allow permutations of roles, groups and users when adding a new acc
     auditUser,
   );
 
-  const { users, groups } = await projectService.getAccessToProject(
-    project.id,
-  );
+  const { users, groups } = await projectService.getAccessToProject(project.id);
   const ownerRole = await stores.roleStore.getRoleByName(RoleName.OWNER);
 
   expect(users).toHaveLength(3); // the 2 added plus the one that created the project
@@ -2901,11 +2854,7 @@ describe('automatic ID generation for create project', () => {
 
   test('projects with the same name get ids with incrementing counters', async () => {
     const createProject = async () =>
-      projectService.createProject(
-        { name: 'some name' },
-        user,
-        auditUser,
-      );
+      projectService.createProject({ name: 'some name' }, user, auditUser);
 
     const project1 = await createProject();
     const project2 = await createProject();
@@ -2973,9 +2922,7 @@ describe('automatic ID generation for create project', () => {
         const id = randomId();
         // @ts-expect-error - we're just checking that the same
         // thing happens regardless of flag state
-        projectService.flagResolver.isEnabled = (
-          flagToCheck: string,
-        ) => {
+        projectService.flagResolver.isEnabled = (flagToCheck: string) => {
           if (flagToCheck === featureFlag) {
             return flagState;
           } else {

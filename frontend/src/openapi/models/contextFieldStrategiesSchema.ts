@@ -9,6 +9,6 @@ import type { ContextFieldStrategiesSchemaStrategiesItem } from './contextFieldS
  * A wrapper object containing all strategies that use a specific context field
  */
 export interface ContextFieldStrategiesSchema {
-    /** List of strategies using the context field */
-    strategies: ContextFieldStrategiesSchemaStrategiesItem[];
+  /** List of strategies using the context field */
+  strategies: ContextFieldStrategiesSchemaStrategiesItem[];
 }

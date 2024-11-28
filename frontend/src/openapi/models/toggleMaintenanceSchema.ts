@@ -8,6 +8,6 @@
  * Data used when to activate or deactivate maintenance mode for Unleash.
  */
 export interface ToggleMaintenanceSchema {
-    /** `true` if you want to activate maintenance mode, `false` if you want to deactivate it. */
-    enabled: boolean;
+  /** `true` if you want to activate maintenance mode, `false` if you want to deactivate it. */
+  enabled: boolean;
 }

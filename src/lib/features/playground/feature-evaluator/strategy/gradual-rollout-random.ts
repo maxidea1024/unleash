@@ -2,8 +2,7 @@ import { Strategy } from './strategy';
 import type { Context } from '../context';
 
 export default class GradualRolloutRandomStrategy extends Strategy {
-  private randomGenerator: Function = () =>
-    Math.floor(Math.random() * 100) + 1;
+  private randomGenerator: Function = () => Math.floor(Math.random() * 100) + 1;
 
   constructor(randomGenerator?: Function) {
     super('gradualRolloutRandom');

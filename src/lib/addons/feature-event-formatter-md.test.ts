@@ -563,7 +563,8 @@ const testCases: [string, IEvent][] = [
       createdAt: new Date('2022-06-01T10:03:11.549Z'),
       data: {
         changeRequestId: 1,
-        reason: 'The user who scheduled this change request (user id: 6) has been deleted from this Unleash instance.',
+        reason:
+          'The user who scheduled this change request (user id: 6) has been deleted from this Unleash instance.',
       },
       preData: {},
       tags: [],

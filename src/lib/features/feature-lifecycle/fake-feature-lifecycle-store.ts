@@ -26,7 +26,7 @@ export class FakeFeatureLifecycleStore implements IFeatureLifecycleStore {
     return results.filter((result) => result !== null) as NewStage[];
   }
 
-  async backfill() { }
+  async backfill() {}
 
   private async insertOne(
     featureLifecycleStage: FeatureLifecycleStage,

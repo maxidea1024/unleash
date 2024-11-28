@@ -7,68 +7,65 @@ import WarningOutlined from '@mui/icons-material/WarningOutlined';
 import { Badge } from 'component/common/Badge/Badge';
 
 interface IResultChipProps {
-    enabled: boolean | 'unevaluated' | 'unknown';
-    label: string;
-    // Result icon - defaults to true
-    showIcon?: boolean;
+  enabled: boolean | 'unevaluated' | 'unknown';
+  label: string;
+  // Result icon - defaults to true
+  showIcon?: boolean;
 }
 
 export const PlaygroundResultChip: VFC<IResultChipProps> = ({
-    enabled,
-    label,
-    showIcon = true,
+  enabled,
+  label,
+  showIcon = true,
 }) => {
-    const theme = useTheme();
-    const icon = (
+  const theme = useTheme();
+  const icon = (
+    <ConditionallyRender
+      condition={enabled === 'unknown' || enabled === 'unevaluated'}
+      show={<WarningOutlined color={'warning'} fontSize='inherit' />}
+      elseShow={
         <ConditionallyRender
-            condition={enabled === 'unknown' || enabled === 'unevaluated'}
-            show={<WarningOutlined color={'warning'} fontSize='inherit' />}
-            elseShow={
-                <ConditionallyRender
-                    condition={typeof enabled === 'boolean' && Boolean(enabled)}
-                    show={
-                        <FeatureEnabledIcon
-                            color={theme.palette.success.main}
-                            strokeWidth='0.25'
-                        />
-                    }
-                    elseShow={
-                        <FeatureDisabledIcon
-                            color={theme.palette.error.main}
-                            strokeWidth='0.25'
-                        />
-                    }
-                />
-            }
+          condition={typeof enabled === 'boolean' && Boolean(enabled)}
+          show={
+            <FeatureEnabledIcon
+              color={theme.palette.success.main}
+              strokeWidth='0.25'
+            />
+          }
+          elseShow={
+            <FeatureDisabledIcon
+              color={theme.palette.error.main}
+              strokeWidth='0.25'
+            />
+          }
         />
-    );
+      }
+    />
+  );
 
-    return (
+  return (
+    <ConditionallyRender
+      condition={enabled === 'unknown' || enabled === 'unevaluated'}
+      show={
+        <Badge icon={showIcon ? icon : undefined} color='warning'>
+          {label}
+        </Badge>
+      }
+      elseShow={
         <ConditionallyRender
-            condition={enabled === 'unknown' || enabled === 'unevaluated'}
-            show={
-                <Badge icon={showIcon ? icon : undefined} color='warning'>
-                    {label}
-                </Badge>
-            }
-            elseShow={
-                <ConditionallyRender
-                    condition={typeof enabled === 'boolean' && Boolean(enabled)}
-                    show={
-                        <Badge
-                            color='success'
-                            icon={showIcon ? icon : undefined}
-                        >
-                            {label}
-                        </Badge>
-                    }
-                    elseShow={
-                        <Badge color='error' icon={showIcon ? icon : undefined}>
-                            {label}
-                        </Badge>
-                    }
-                />
-            }
+          condition={typeof enabled === 'boolean' && Boolean(enabled)}
+          show={
+            <Badge color='success' icon={showIcon ? icon : undefined}>
+              {label}
+            </Badge>
+          }
+          elseShow={
+            <Badge color='error' icon={showIcon ? icon : undefined}>
+              {label}
+            </Badge>
+          }
         />
-    );
+      }
+    />
+  );
 };

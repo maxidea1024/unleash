@@ -15,10 +15,6 @@ export const roleSchema = joi
   .keys({
     name: joi.string().trim().required(),
     description: joi.string().optional().allow('').allow(null).default(''),
-    permissions: joi
-      .array()
-      .allow(null)
-      .optional()
-      .items(permissionRoleSchema),
+    permissions: joi.array().allow(null).optional().items(permissionRoleSchema),
   })
   .options({ stripUnknown: true, allowUnknown: false, abortEarly: false });

@@ -23,13 +23,10 @@ export const bulkRegistrationSchema = {
           },
         },
       },
-      example: [
-        { appName: 'unleash-edge', instanceId: 'edge-pod-bghzv5' },
-      ],
+      example: [{ appName: 'unleash-edge', instanceId: 'edge-pod-bghzv5' }],
     },
     appName: {
-      description:
-        'The name of the application that is evaluating toggles',
+      description: 'The name of the application that is evaluating toggles',
       type: 'string',
       example: 'Ingress load balancer',
     },

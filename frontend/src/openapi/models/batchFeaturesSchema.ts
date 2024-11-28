@@ -8,6 +8,6 @@
  * A list of feature flag names for batch operations
  */
 export interface BatchFeaturesSchema {
-    /** List of feature flag names */
-    features: string[];
+  /** List of feature flag names */
+  features: string[];
 }

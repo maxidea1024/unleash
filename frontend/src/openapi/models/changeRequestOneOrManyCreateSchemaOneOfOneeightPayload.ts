@@ -6,5 +6,5 @@
 import type { VariantSchema } from './variantSchema';
 
 export type ChangeRequestOneOrManyCreateSchemaOneOfOneeightPayload = {
-    variants: VariantSchema[];
+  variants: VariantSchema[];
 };

@@ -11,10 +11,10 @@ import type { AdvancedPlaygroundResponseSchemaWarnings } from './advancedPlaygro
  * The state of all features given the provided input.
  */
 export interface AdvancedPlaygroundResponseSchema {
-    /** The list of features that have been evaluated. */
-    features: AdvancedPlaygroundFeatureSchema[];
-    /** The given input used to evaluate the features. */
-    input: AdvancedPlaygroundRequestSchema;
-    /** Warnings that occurred during evaluation. */
-    warnings?: AdvancedPlaygroundResponseSchemaWarnings;
+  /** The list of features that have been evaluated. */
+  features: AdvancedPlaygroundFeatureSchema[];
+  /** The given input used to evaluate the features. */
+  input: AdvancedPlaygroundRequestSchema;
+  /** Warnings that occurred during evaluation. */
+  warnings?: AdvancedPlaygroundResponseSchemaWarnings;
 }

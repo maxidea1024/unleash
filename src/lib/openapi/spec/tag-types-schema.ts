@@ -11,8 +11,7 @@ export const tagTypesSchema = {
   properties: {
     version: {
       type: 'integer',
-      description:
-        'The version of the schema used to model the tag types.',
+      description: 'The version of the schema used to model the tag types.',
       example: 1,
     },
     tagTypes: {

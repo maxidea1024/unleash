@@ -13,10 +13,7 @@ import {
 import Addon from './addon';
 
 import slackAppDefinition from './slack-app-definition';
-import {
-  type IAddonConfig,
-  serializeDates,
-} from '../types';
+import { type IAddonConfig, serializeDates } from '../types';
 import {
   type FeatureEventFormatter,
   FeatureEventFormatterMd,
@@ -211,9 +208,7 @@ export default class SlackAppAddon extends Addon {
 
   findTaggedChannels({ tags }: Pick<IEvent, 'tags'>): string[] {
     if (tags) {
-      return tags
-        .filter((tag) => tag.type === 'slack')
-        .map((t) => t.value);
+      return tags.filter((tag) => tag.type === 'slack').map((t) => t.value);
     }
     return [];
   }

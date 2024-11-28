@@ -19,15 +19,14 @@ export const useChangeRequestAddStrategy = (
   const { addChange } = useChangeRequestApi();
   const { refetch } = usePendingChangeRequests(project);
 
-  const [changeRequestDialogDetails, setChangeRequestDialogDetails] =
-    useState<{
-      strategy?: IFeatureStrategyPayload;
-      strategies?: IFeatureStrategyPayload[];
-      featureName?: string;
-      environment?: string;
-      fromEnvironment?: string;
-      isOpen: boolean;
-    }>({ isOpen: false });
+  const [changeRequestDialogDetails, setChangeRequestDialogDetails] = useState<{
+    strategy?: IFeatureStrategyPayload;
+    strategies?: IFeatureStrategyPayload[];
+    featureName?: string;
+    environment?: string;
+    fromEnvironment?: string;
+    isOpen: boolean;
+  }>({ isOpen: false });
 
   const onChangeRequestAddStrategy = useCallback(
     (
@@ -90,15 +89,11 @@ export const useChangeRequestAddStrategy = (
     try {
       await Promise.all(
         changeRequestDialogDetails.strategies!.map((strategy) => {
-          return addChange(
-            project,
-            changeRequestDialogDetails.environment!,
-            {
-              feature: changeRequestDialogDetails.featureName!,
-              action: action,
-              payload: strategy,
-            },
-          );
+          return addChange(project, changeRequestDialogDetails.environment!, {
+            feature: changeRequestDialogDetails.featureName!,
+            action: action,
+            payload: strategy,
+          });
         }),
       );
       refetch();

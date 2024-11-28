@@ -8,6 +8,6 @@
  * Data used to mark notifications as being read
  */
 export interface MarkNotificationsAsReadSchema {
-    /** A list of IDs belonging to the notifications you want to mark as read. */
-    notifications: number[];
+  /** A list of IDs belonging to the notifications you want to mark as read. */
+  notifications: number[];
 }

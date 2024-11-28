@@ -131,7 +131,7 @@ export class AccountStore implements IAccountStore {
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(

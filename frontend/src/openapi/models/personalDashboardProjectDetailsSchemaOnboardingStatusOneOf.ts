@@ -6,5 +6,5 @@
 import type { PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus } from './personalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus';
 
 export type PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOf = {
-    status: PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus;
+  status: PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus;
 };

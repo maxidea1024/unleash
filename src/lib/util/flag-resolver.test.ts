@@ -214,7 +214,5 @@ test('should call external resolver getVariant when not overridden to be true, e
 
   const resolver = new FlagResolver(config as IExperimentalOptions);
 
-  expect(resolver.getVariant('variantFlag' as IFlagKey)).toStrictEqual(
-    variant,
-  );
+  expect(resolver.getVariant('variantFlag' as IFlagKey)).toStrictEqual(variant);
 });

@@ -4,7 +4,8 @@ import type {
 } from './change-request-segment-usage-read-model';
 
 export class FakeChangeRequestSegmentUsageReadModel
-  implements IChangeRequestSegmentUsageReadModel {
+  implements IChangeRequestSegmentUsageReadModel
+{
   strategiesUsedInActiveChangeRequests: ChangeRequestStrategy[];
 
   constructor(strategiesUsedInActiveChangeRequests = []) {

@@ -41,11 +41,10 @@ export default class ConfigurationRevisionService extends EventEmitter {
     }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
     if (!ConfigurationRevisionService.instance) {
-      ConfigurationRevisionService.instance =
-        new ConfigurationRevisionService(
-          { eventStore },
-          { getLogger, flagResolver },
-        );
+      ConfigurationRevisionService.instance = new ConfigurationRevisionService(
+        { eventStore },
+        { getLogger, flagResolver },
+      );
     }
 
     return ConfigurationRevisionService.instance;
@@ -64,9 +63,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
       return 0;
     }
 
-    const revisionId = await this.eventStore.getMaxRevisionId(
-      this.revisionId,
-    );
+    const revisionId = await this.eventStore.getMaxRevisionId(this.revisionId);
     if (this.revisionId !== revisionId) {
       this.logger.debug(
         'Updating feature configuration with new revision Id',

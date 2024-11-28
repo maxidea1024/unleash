@@ -25,9 +25,7 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const validateConstraint = async (
-    constraint: IConstraint,
-  ): Promise<void> => {
+  const validateConstraint = async (constraint: IConstraint): Promise<void> => {
     const path = `api/admin/constraints/validate`;
     const req = createRequest(path, {
       method: 'POST',
@@ -184,10 +182,7 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const archiveFeatureToggle = async (
-    projectId: string,
-    featureId: string,
-  ) => {
+  const archiveFeatureToggle = async (projectId: string, featureId: string) => {
     const path = `api/admin/projects/${projectId}/features/${featureId}`;
     const req = createRequest(path, {
       method: 'DELETE',

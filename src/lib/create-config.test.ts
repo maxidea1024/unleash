@@ -53,9 +53,7 @@ test('should add initApiToken for admin token from options', async () => {
     token.environment,
   );
   expect(config.authentication.initApiTokens[0].project).toBe(token.project);
-  expect(config.authentication.initApiTokens[0].type).toBe(
-    ApiTokenType.ADMIN,
-  );
+  expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.ADMIN);
 });
 
 test('should add initApiToken for client token from options', async () => {
@@ -87,9 +85,7 @@ test('should add initApiToken for client token from options', async () => {
     token.environment,
   );
   expect(config.authentication.initApiTokens[0].project).toBe(token.project);
-  expect(config.authentication.initApiTokens[0].type).toBe(
-    ApiTokenType.CLIENT,
-  );
+  expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.CLIENT);
 });
 
 test('should add initApiToken for admin token from env var', async () => {
@@ -111,12 +107,8 @@ test('should add initApiToken for admin token from env var', async () => {
   expect(config.authentication.initApiTokens).toHaveLength(2);
   expect(config.authentication.initApiTokens[0].environment).toBe('*');
   expect(config.authentication.initApiTokens[0].project).toBe('*');
-  expect(config.authentication.initApiTokens[0].type).toBe(
-    ApiTokenType.ADMIN,
-  );
-  expect(config.authentication.initApiTokens[1].secret).toBe(
-    '*:*.some-token2',
-  );
+  expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.ADMIN);
+  expect(config.authentication.initApiTokens[1].secret).toBe('*:*.some-token2');
 
   delete process.env.INIT_ADMIN_API_TOKENS;
 });
@@ -194,9 +186,7 @@ test('should add initApiToken for client token from env var', async () => {
     'development',
   );
   expect(config.authentication.initApiTokens[0].project).toBe('default');
-  expect(config.authentication.initApiTokens[0].type).toBe(
-    ApiTokenType.CLIENT,
-  );
+  expect(config.authentication.initApiTokens[0].type).toBe(ApiTokenType.CLIENT);
   expect(config.authentication.initApiTokens[0].secret).toBe(
     'default:development.some-token1',
   );
@@ -345,9 +335,7 @@ test.each([
     Object.keys(config.additionalCspAllowedDomains)
       .filter((objKey) => objKey !== key)
       .forEach((otherKey) => {
-        expect(
-          config.additionalCspAllowedDomains[otherKey],
-        ).toStrictEqual([]);
+        expect(config.additionalCspAllowedDomains[otherKey]).toStrictEqual([]);
       });
     delete process.env[env];
   },

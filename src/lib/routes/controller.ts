@@ -40,21 +40,21 @@ type IRouteOptions = IRouteOptionsNonGet | IRouteOptionsGet;
 
 const checkPermission =
   (permission: Permission = []) =>
-    async (req, res, next) => {
-      const permissions = (
-        Array.isArray(permission) ? permission : [permission]
-      ).filter((p) => p !== NONE);
+  async (req, res, next) => {
+    const permissions = (
+      Array.isArray(permission) ? permission : [permission]
+    ).filter((p) => p !== NONE);
 
-      if (!permissions.length) {
-        return next();
-      }
+    if (!permissions.length) {
+      return next();
+    }
 
-      if (req.checkRbac && (await req.checkRbac(permissions))) {
-        return next();
-      }
+    if (req.checkRbac && (await req.checkRbac(permissions))) {
+      return next();
+    }
 
-      return res.status(403).json(new PermissionError(permissions)).end();
-    };
+    return res.status(403).json(new PermissionError(permissions)).end();
+  };
 
 const checkPrivateProjectPermissions = () => async (req, res, next) => {
   if (

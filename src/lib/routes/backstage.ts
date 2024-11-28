@@ -4,7 +4,7 @@ import { join } from 'path';
 import { register as prometheusRegister } from 'prom-client';
 import Controller from './controller';
 import type { IUnleashConfig } from '../types/options';
-import { Logger } from '../logger';
+import type { Logger } from '../logger';
 
 export class BackstageController extends Controller {
   private readonly logger: Logger;
@@ -23,10 +23,7 @@ export class BackstageController extends Controller {
 
     if (config.server.enableHeapSnapshotEnpoint) {
       this.get('/heap-snapshot', async (req, res) => {
-        const fileName = join(
-          tmpdir(),
-          `unleash-${Date.now()}.heapsnapshot`,
-        );
+        const fileName = join(tmpdir(), `unleash-${Date.now()}.heapsnapshot`);
         writeHeapSnapshot(fileName);
         res.status(200);
         res.end('Snapshot written');

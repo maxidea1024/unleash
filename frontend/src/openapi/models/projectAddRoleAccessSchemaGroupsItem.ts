@@ -5,9 +5,9 @@
  */
 
 export type ProjectAddRoleAccessSchemaGroupsItem = {
-    /**
-     * A group ID
-     * @minimum 0
-     */
-    id: number;
+  /**
+   * A group ID
+   * @minimum 0
+   */
+  id: number;
 };

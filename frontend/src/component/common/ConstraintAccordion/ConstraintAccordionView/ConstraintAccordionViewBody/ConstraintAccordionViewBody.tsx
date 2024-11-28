@@ -6,29 +6,29 @@ import { SingleValue } from './SingleValue/SingleValue';
 import { styled } from '@mui/material';
 
 interface IConstraintAccordionViewBodyProps {
-    constraint: IConstraint;
+  constraint: IConstraint;
 }
 
 const StyledValueContainer = styled('div')(({ theme }) => ({
-    padding: theme.spacing(2, 0),
-    maxHeight: '400px',
-    overflowY: 'auto',
+  padding: theme.spacing(2, 0),
+  maxHeight: '400px',
+  overflowY: 'auto',
 }));
 
 export const ConstraintAccordionViewBody = ({
-    constraint,
+  constraint,
 }: IConstraintAccordionViewBodyProps) => {
-    const { locationSettings } = useLocationSettings();
+  const { locationSettings } = useLocationSettings();
 
-    return (
-        <div>
-            <StyledValueContainer>
-                <MultipleValues values={constraint.values} />
-                <SingleValue
-                    value={formatConstraintValue(constraint, locationSettings)}
-                    operator={constraint.operator}
-                />
-            </StyledValueContainer>
-        </div>
-    );
+  return (
+    <div>
+      <StyledValueContainer>
+        <MultipleValues values={constraint.values} />
+        <SingleValue
+          value={formatConstraintValue(constraint, locationSettings)}
+          operator={constraint.operator}
+        />
+      </StyledValueContainer>
+    </div>
+  );
 };

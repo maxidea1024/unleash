@@ -157,11 +157,8 @@ test('Can read initial features', async () => {
 });
 
 test('Can refresh data on revision update', async () => {
-  const {
-    cache,
-    configurationRevisionService,
-    clientFeatureToggleReadModel,
-  } = createCache();
+  const { cache, configurationRevisionService, clientFeatureToggleReadModel } =
+    createCache();
 
   await state(cache, 'ready');
 

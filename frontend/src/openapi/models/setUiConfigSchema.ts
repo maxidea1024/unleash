@@ -9,6 +9,6 @@ import type { SetUiConfigSchemaFrontendSettings } from './setUiConfigSchemaFront
  * Unleash configuration settings affect the admin UI.
  */
 export interface SetUiConfigSchema {
-    /** Settings related to the front-end API. */
-    frontendSettings?: SetUiConfigSchemaFrontendSettings;
+  /** Settings related to the front-end API. */
+  frontendSettings?: SetUiConfigSchemaFrontendSettings;
 }

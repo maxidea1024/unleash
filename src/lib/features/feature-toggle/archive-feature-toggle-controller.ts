@@ -107,8 +107,7 @@ export default class ArchiveController extends Controller {
       middleware: [
         openApiService.validPath({
           tags: ['Archive'],
-          description:
-            'This endpoint archives the specified feature.',
+          description: 'This endpoint archives the specified feature.',
           summary: 'Archives a feature',
           operationId: 'deleteFeature',
           responses: {
@@ -163,11 +162,10 @@ export default class ArchiveController extends Controller {
     res: Response<ArchivedFeaturesSchema>,
   ): Promise<void> {
     const { projectId } = req.params;
-    const features =
-      await this.featureService.getArchivedFeaturesByProjectId(
-        true,
-        projectId,
-      );
+    const features = await this.featureService.getArchivedFeaturesByProjectId(
+      true,
+      projectId,
+    );
     this.openApiService.respondWithValidation(
       200,
       res,

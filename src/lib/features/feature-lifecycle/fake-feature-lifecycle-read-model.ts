@@ -9,7 +9,8 @@ import type {
 } from '../../types';
 
 export class FakeFeatureLifecycleReadModel
-  implements IFeatureLifecycleReadModel {
+  implements IFeatureLifecycleReadModel
+{
   getAllWithStageDuration(): Promise<IProjectLifecycleStageDuration[]> {
     return Promise.resolve([]);
   }

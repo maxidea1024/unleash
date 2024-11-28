@@ -7,29 +7,29 @@ import { FavoriteIconButton } from 'component/common/FavoriteIconButton/Favorite
 type FavoriteActionProps = { id: string; isFavorite?: boolean };
 
 export const FavoriteAction: FC<FavoriteActionProps> = ({ id, isFavorite }) => {
-    const { setToastApiError } = useToast();
-    const { favorite, unfavorite } = useFavoriteProjectsApi();
-    const { refetch } = useProjects();
+  const { setToastApiError } = useToast();
+  const { favorite, unfavorite } = useFavoriteProjectsApi();
+  const { refetch } = useProjects();
 
-    const onFavorite = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        try {
-            if (isFavorite) {
-                await unfavorite(id);
-            } else {
-                await favorite(id);
-            }
-            refetch();
-        } catch (error) {
-            setToastApiError('Something went wrong, could not update favorite');
-        }
-    };
+  const onFavorite = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      if (isFavorite) {
+        await unfavorite(id);
+      } else {
+        await favorite(id);
+      }
+      refetch();
+    } catch (error) {
+      setToastApiError('Something went wrong, could not update favorite');
+    }
+  };
 
-    return (
-        <FavoriteIconButton
-            onClick={onFavorite}
-            isFavorite={Boolean(isFavorite)}
-            size='medium'
-        />
-    );
+  return (
+    <FavoriteIconButton
+      onClick={onFavorite}
+      isFavorite={Boolean(isFavorite)}
+      size='medium'
+    />
+  );
 };

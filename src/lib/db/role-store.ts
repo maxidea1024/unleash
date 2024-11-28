@@ -210,5 +210,5 @@ export default class RoleStore implements IRoleStore {
     return this.db(T.ROLES).where({ name }).first();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 }

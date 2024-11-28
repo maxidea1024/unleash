@@ -55,12 +55,7 @@ beforeAll(async () => {
   eventBus = config.eventBus;
   eventService = createEventsService(db.rawDatabase, config);
   const groupService = new GroupService(stores, config, eventService);
-  accessService = new AccessService(
-    stores,
-    config,
-    groupService,
-    eventService,
-  );
+  accessService = new AccessService(stores, config, groupService, eventService);
   const resetTokenService = new ResetTokenService(stores, config);
   const emailService = new EmailService(config);
   sessionService = new SessionService(stores, config);
@@ -175,10 +170,7 @@ test('should create user with password', async () => {
     },
     TEST_AUDIT_USER,
   );
-  const user = await userService.loginUser(
-    'test',
-    'A very strange P4ssw0rd_',
-  );
+  const user = await userService.loginUser('test', 'A very strange P4ssw0rd_');
   expect(user.username).toBe('test');
   expect(recordedEvents).toEqual([{ loginOrder: 0 }]);
 });

@@ -33,8 +33,7 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  const all =
-    await db.stores.projectStore.getEnvironmentsForProject('default');
+  const all = await db.stores.projectStore.getEnvironmentsForProject('default');
   await Promise.all(
     all
       .filter((env) => env.environment !== DEFAULT_ENV)
@@ -139,9 +138,7 @@ test('Should not be possible auto-enable feature flag without CREATE_FEATURE_STR
     CREATE_FEATURE_STRATEGY,
     'default',
   );
-  await app.request
-    .post(`${url}/${name}/environments/default/on`)
-    .expect(403);
+  await app.request.post(`${url}/${name}/environments/default/on`).expect(403);
 });
 
 test('Should read flag creator and collaborators', async () => {
@@ -170,9 +167,7 @@ test('Should read flag creator and collaborators', async () => {
     email,
   });
 
-  const { body: feature } = await app.request
-    .get(`${url}/${name}`)
-    .expect(200);
+  const { body: feature } = await app.request.get(`${url}/${name}`).expect(200);
 
   const expectedUser = {
     id: user.id,

@@ -24,96 +24,80 @@ import { Demo } from './demo/Demo';
 import { LoginRedirect } from './common/LoginRedirect/LoginRedirect';
 
 const StyledContainer = styled('div')(() => ({
-    '& ul': {
-        margin: 0,
-    },
+  '& ul': {
+    margin: 0,
+  },
 }));
 
 export const App = () => {
-    const { authDetails } = useAuthDetails();
-    const { refetch: refetchUiConfig } = useUiConfig();
+  const { authDetails } = useAuthDetails();
+  const { refetch: refetchUiConfig } = useUiConfig();
 
-    const { user } = useAuthUser();
-    const hasFetchedAuth = Boolean(authDetails || user);
+  const { user } = useAuthUser();
+  const hasFetchedAuth = Boolean(authDetails || user);
 
-    const { isOss, uiConfig } = useUiConfig();
+  const { isOss, uiConfig } = useUiConfig();
 
-    const availableRoutes = isOss()
-        ? routes.filter((route) => !route.enterprise)
-        : routes;
+  const availableRoutes = isOss()
+    ? routes.filter((route) => !route.enterprise)
+    : routes;
 
-    useEffect(() => {
-        if (hasFetchedAuth && Boolean(user?.id)) {
-            refetchUiConfig();
-        }
-    }, [authDetails, user]);
+  useEffect(() => {
+    if (hasFetchedAuth && Boolean(user?.id)) {
+      refetchUiConfig();
+    }
+  }, [authDetails, user]);
 
-    const isLoggedIn = Boolean(user?.id);
+  const isLoggedIn = Boolean(user?.id);
 
-    return (
-        <SWRProvider>
-            <Suspense fallback={<Loader type='fullscreen' />}>
+  return (
+    <SWRProvider>
+      <Suspense fallback={<Loader type='fullscreen' />}>
+        <ConditionallyRender
+          condition={!hasFetchedAuth}
+          show={<Loader type='fullscreen' />}
+          elseShow={
+            <Demo>
+              <>
                 <ConditionallyRender
-                    condition={!hasFetchedAuth}
-                    show={<Loader type='fullscreen' />}
-                    elseShow={
-                        <Demo>
-                            <>
-                                <ConditionallyRender
-                                    condition={Boolean(
-                                        uiConfig?.maintenanceMode,
-                                    )}
-                                    show={<MaintenanceBanner />}
-                                />
-                                <LicenseBanner />
-                                <ExternalBanners />
-                                <InternalBanners />
-                                <StyledContainer>
-                                    <ToastRenderer />
-                                    <Routes>
-                                        {availableRoutes.map((route) => (
-                                            <Route
-                                                key={route.path}
-                                                path={route.path}
-                                                element={
-                                                    <LayoutPicker
-                                                        isStandalone={
-                                                            route.isStandalone ===
-                                                            true
-                                                        }
-                                                    >
-                                                        <ProtectedRoute
-                                                            route={route}
-                                                        />
-                                                    </LayoutPicker>
-                                                }
-                                            />
-                                        ))}
-                                        <Route
-                                            path='/'
-                                            element={<InitialRedirect />}
-                                        />
-                                        <Route
-                                            path='*'
-                                            element={
-                                                isLoggedIn ? (
-                                                    <NotFound />
-                                                ) : (
-                                                    <LoginRedirect />
-                                                )
-                                            }
-                                        />
-                                    </Routes>
-
-                                    <FeedbackNPS openUrl='http://feedback.unleash.run' />
-
-                                    <SplashPageRedirect />
-                                </StyledContainer>
-                            </>
-                        </Demo>
-                    }
+                  condition={Boolean(uiConfig?.maintenanceMode)}
+                  show={<MaintenanceBanner />}
                 />
-            </Suspense>
-        </SWRProvider>
-    );
+                <LicenseBanner />
+                <ExternalBanners />
+                <InternalBanners />
+                <StyledContainer>
+                  <ToastRenderer />
+                  <Routes>
+                    {availableRoutes.map((route) => (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={
+                          <LayoutPicker
+                            isStandalone={route.isStandalone === true}
+                          >
+                            <ProtectedRoute route={route} />
+                          </LayoutPicker>
+                        }
+                      />
+                    ))}
+                    <Route path='/' element={<InitialRedirect />} />
+                    <Route
+                      path='*'
+                      element={isLoggedIn ? <NotFound /> : <LoginRedirect />}
+                    />
+                  </Routes>
+
+                  <FeedbackNPS openUrl='http://feedback.unleash.run' />
+
+                  <SplashPageRedirect />
+                </StyledContainer>
+              </>
+            </Demo>
+          }
+        />
+      </Suspense>
+    </SWRProvider>
+  );
 };

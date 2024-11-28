@@ -209,7 +209,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     await this.db(T.featureStrategies).delete();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
     const result = await this.db.raw(
@@ -221,9 +221,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   }
 
   async get(key: string): Promise<IFeatureStrategy> {
-    const row = await this.db(T.featureStrategies)
-      .where({ id: key })
-      .first();
+    const row = await this.db(T.featureStrategies).where({ id: key }).first();
 
     if (!row) {
       throw new NotFoundError(`Could not find strategy with id=${key}`);
@@ -411,30 +409,23 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         'last_seen_at_metrics.environment',
         '=',
         'features_view.environment_name',
-      ).andOn(
-        'last_seen_at_metrics.feature_name',
-        '=',
-        'features_view.name',
-      );
+      ).andOn('last_seen_at_metrics.feature_name', '=', 'features_view.name');
     });
 
     // Override feature view for now
-    selectColumns.push(
-      'last_seen_at_metrics.last_seen_at as env_last_seen_at',
-    );
+    selectColumns.push('last_seen_at_metrics.last_seen_at as env_last_seen_at');
 
     if (userId) {
       query.leftJoin(`favorite_features`, function () {
-        this.on(
-          'favorite_features.feature',
-          'features_view.name',
-        ).andOnVal('favorite_features.user_id', '=', userId);
+        this.on('favorite_features.feature', 'features_view.name').andOnVal(
+          'favorite_features.user_id',
+          '=',
+          userId,
+        );
       });
       selectColumns = [
         ...selectColumns,
-        this.db.raw(
-          'favorite_features.feature is not null as favorite',
-        ),
+        this.db.raw('favorite_features.feature is not null as favorite'),
       ];
     }
     const rows = await query.select(selectColumns);
@@ -456,10 +447,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         acc.createdAt = r.created_at;
         if (r.user_id) {
           const name =
-            r.user_name ||
-            r.user_username ||
-            r.user_email ||
-            'unknown';
+            r.user_name || r.user_username || r.user_email || 'unknown';
           acc.createdBy = {
             id: r.user_id,
             name,
@@ -480,10 +468,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
 
         if (
           acc.lastSeenAt == null ||
-          isAfter(
-            new Date(r.env_last_seen_at),
-            new Date(acc.lastSeenAt),
-          )
+          isAfter(new Date(r.env_last_seen_at), new Date(acc.lastSeenAt))
         ) {
           acc.lastSeenAt = r.env_last_seen_at;
         }
@@ -497,9 +482,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         }
 
         // this code sets variants at the feature level (should be deprecated with variants per environment)
-        const currentVariants = new Map(
-          acc.variants?.map((v) => [v.name, v]),
-        );
+        const currentVariants = new Map(acc.variants?.map((v) => [v.name, v]));
         variants.forEach((variant) => {
           currentVariants.set(variant.name, variant);
         });
@@ -518,9 +501,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
             (strategy) => strategy.id === r.strategy_id,
           );
           if (!found) {
-            env.strategies.push(
-              FeatureStrategiesStore.getAdminStrategy(r),
-            );
+            env.strategies.push(FeatureStrategiesStore.getAdminStrategy(r));
           }
         }
         if (r.segments) {
@@ -536,9 +517,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         return a.sortOrder - b.sortOrder;
       });
       featureToggle.environments = featureToggle.environments.map((e) => {
-        e.strategies = e.strategies.sort(
-          (a, b) => a.sortOrder - b.sortOrder,
-        );
+        e.strategies = e.strategies.sort((a, b) => a.sortOrder - b.sortOrder);
         if (e.strategies && e.strategies.length === 0) {
           e.enabled = false;
         }
@@ -599,8 +578,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       row.tag_type &&
       row.tag_value &&
       !featureToggle.tags?.some(
-        (tag) =>
-          tag.type === row.tag_type && tag.value === row.tag_value,
+        (tag) => tag.type === row.tag_type && tag.value === row.tag_value,
       )
     );
   }
@@ -675,9 +653,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       'ft.tag_type as tag_type',
     ] as (string | Raw<any> | Knex.QueryBuilder)[];
 
-    selectColumns.push(
-      'last_seen_at_metrics.last_seen_at as env_last_seen_at',
-    );
+    selectColumns.push('last_seen_at_metrics.last_seen_at as env_last_seen_at');
 
     if (userId) {
       query = query.leftJoin(`favorite_features`, function () {
@@ -689,9 +665,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       });
       selectColumns = [
         ...selectColumns,
-        this.db.raw(
-          'favorite_features.feature is not null as favorite',
-        ),
+        this.db.raw('favorite_features.feature is not null as favorite'),
       ];
     }
 
@@ -718,11 +692,8 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   getAggregatedSearchData(rows): IFeatureOverview {
     return rows.reduce((acc, row) => {
       if (acc[row.feature_name]) {
-        const environmentExists = acc[
-          row.feature_name
-        ].environments.some(
-          (existingEnvironment) =>
-            existingEnvironment.name === row.environment,
+        const environmentExists = acc[row.feature_name].environments.some(
+          (existingEnvironment) => existingEnvironment.name === row.environment,
         );
         if (!environmentExists) {
           acc[row.feature_name].environments.push(
@@ -762,10 +733,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       }
       const featureRow = acc[row.feature_name];
       if (
-        isAfter(
-          new Date(row.env_last_seen_at),
-          new Date(featureRow.lastSeenAt),
-        )
+        isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))
       ) {
         featureRow.lastSeenAt = row.env_last_seen_at;
       }
@@ -776,11 +744,8 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   getFeatureOverviewData(rows): Record<string, IFeatureOverview> {
     return rows.reduce((acc, row) => {
       if (acc[row.feature_name]) {
-        const environmentExists = acc[
-          row.feature_name
-        ].environments.some(
-          (existingEnvironment) =>
-            existingEnvironment.name === row.environment,
+        const environmentExists = acc[row.feature_name].environments.some(
+          (existingEnvironment) => existingEnvironment.name === row.environment,
         );
         if (!environmentExists) {
           acc[row.feature_name].environments.push(
@@ -810,10 +775,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       }
       const featureRow = acc[row.feature_name];
       if (
-        isAfter(
-          new Date(row.env_last_seen_at),
-          new Date(featureRow.lastSeenAt),
-        )
+        isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))
       ) {
         featureRow.lastSeenAt = row.env_last_seen_at;
       }
@@ -889,9 +851,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       .update({ project_name: newProjectId });
   }
 
-  async getStrategiesBySegment(
-    segmentId: number,
-  ): Promise<IFeatureStrategy[]> {
+  async getStrategiesBySegment(segmentId: number): Promise<IFeatureStrategy[]> {
     const stopTimer = this.timer('getStrategiesBySegment');
     const rows = await this.db
       .select(this.prefixColumns())
@@ -943,11 +903,7 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     ];
     const rows = await this.db(`${T.strategies} as str`)
       .select(columns)
-      .join(
-        `${T.featureStrategies} as fes`,
-        'fes.strategy_name',
-        'str.name',
-      )
+      .join(`${T.featureStrategies} as fes`, 'fes.strategy_name', 'str.name')
       .where(`str.built_in`, '=', notBuiltIn)
       .groupBy('strategy_name');
 

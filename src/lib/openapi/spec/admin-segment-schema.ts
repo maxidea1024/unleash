@@ -28,8 +28,7 @@ export const adminSegmentSchema = {
     },
     constraints: {
       type: 'array',
-      description:
-        'The list of constraints that are used in this segment',
+      description: 'The list of constraints that are used in this segment',
       items: {
         $ref: '#/components/schemas/constraintSchema',
       },

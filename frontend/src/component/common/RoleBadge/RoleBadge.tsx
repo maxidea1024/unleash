@@ -5,32 +5,28 @@ import UserIcon from '@mui/icons-material/Person';
 import { RoleDescription } from 'component/common/RoleDescription/RoleDescription';
 
 interface IRoleBadgeProps {
-    roleId: number;
-    children?: string;
+  roleId: number;
+  children?: string;
 }
 
 export const RoleBadge = ({ roleId, children }: IRoleBadgeProps) => {
-    const { role } = useRole(roleId.toString());
+  const { role } = useRole(roleId.toString());
 
-    if (!role) {
-        if (children)
-            return (
-                <Badge color='success' icon={<UserIcon />}>
-                    {children}
-                </Badge>
-            );
-        return null;
-    }
+  if (!role) {
+    if (children)
+      return (
+        <Badge color='success' icon={<UserIcon />}>
+          {children}
+        </Badge>
+      );
+    return null;
+  }
 
-    return (
-        <HtmlTooltip title={<RoleDescription roleId={roleId} tooltip />} arrow>
-            <Badge
-                color='success'
-                icon={<UserIcon />}
-                sx={{ cursor: 'pointer' }}
-            >
-                {role.name}
-            </Badge>
-        </HtmlTooltip>
-    );
+  return (
+    <HtmlTooltip title={<RoleDescription roleId={roleId} tooltip />} arrow>
+      <Badge color='success' icon={<UserIcon />} sx={{ cursor: 'pointer' }}>
+        {role.name}
+      </Badge>
+    </HtmlTooltip>
+  );
 };

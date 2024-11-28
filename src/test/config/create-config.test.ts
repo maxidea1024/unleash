@@ -36,7 +36,7 @@ test('Actual config values takes precedence over environment variables', () => {
 });
 
 test('should validate getLogger', () => {
-  const getLogger = () => { };
+  const getLogger = () => {};
   expect(() => {
     // @ts-ignore
     createConfig({ getLogger });

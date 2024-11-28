@@ -8,8 +8,8 @@
  * The request body for updating a tag type.
  */
 export interface UpdateTagTypeSchema {
-    /** The description of the tag type. */
-    description?: string;
-    /** The icon of the tag type. */
-    icon?: string;
+  /** The description of the tag type. */
+  description?: string;
+  /** The icon of the tag type. */
+  icon?: string;
 }

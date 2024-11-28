@@ -4,8 +4,7 @@ import { projectActivitySchema } from './project-activity-schema';
 const stageDataWithAverageDaysSchema = {
   type: 'object',
   additionalProperties: false,
-  description:
-    'Statistics on feature flags in a given stage in this project.',
+  description: 'Statistics on feature flags in a given stage in this project.',
   required: ['averageDays', 'currentFlags'],
   properties: {
     averageDays: {
@@ -52,12 +51,7 @@ export const projectStatusSchema = {
     resources: {
       type: 'object',
       additionalProperties: false,
-      required: [
-        'connectedEnvironments',
-        'apiTokens',
-        'members',
-        'segments',
-      ],
+      required: ['connectedEnvironments', 'apiTokens', 'members', 'segments'],
       description: 'Key resources within the project',
       properties: {
         connectedEnvironments: {
@@ -115,8 +109,7 @@ export const projectStatusSchema = {
           type: 'object',
           additionalProperties: false,
           required: ['currentFlags', 'last30Days'],
-          description:
-            'Information on archived flags in this project.',
+          description: 'Information on archived flags in this project.',
           properties: {
             currentFlags: {
               type: 'integer',

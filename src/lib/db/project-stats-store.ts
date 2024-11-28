@@ -58,15 +58,13 @@ export default class ProjectStatsStore implements IProjectStatsStore {
   ): Promise<void> {
     await this.db(TABLE)
       .insert({
-        avg_time_to_prod_current_window:
-          status.avgTimeToProdCurrentWindow,
+        avg_time_to_prod_current_window: status.avgTimeToProdCurrentWindow,
         project: projectId,
         features_created_current_window: status.createdCurrentWindow,
         features_created_past_window: status.createdPastWindow,
         features_archived_current_window: status.archivedCurrentWindow,
         features_archived_past_window: status.archivedPastWindow,
-        project_changes_current_window:
-          status.projectActivityCurrentWindow,
+        project_changes_current_window: status.projectActivityCurrentWindow,
         project_changes_past_window: status.projectActivityPastWindow,
         project_members_added_current_window:
           status.projectMembersAddedCurrentWindow,
@@ -113,9 +111,7 @@ export default class ProjectStatsStore implements IProjectStatsStore {
 
   // we're not calculating time difference in a DB as it requires specialized
   // time aware libraries
-  async getTimeToProdDates(
-    projectId: string,
-  ): Promise<ICreateEnabledDates[]> {
+  async getTimeToProdDates(projectId: string): Promise<ICreateEnabledDates[]> {
     const result = await this.db
       .select('events.feature_name')
       // select only first enabled event, distinct works with orderBy
@@ -126,12 +122,7 @@ export default class ProjectStatsStore implements IProjectStatsStore {
         ),
       )
       .from('events')
-      .innerJoin(
-        'environments',
-        'environments.name',
-        '=',
-        'events.environment',
-      )
+      .innerJoin('environments', 'environments.name', '=', 'events.environment')
       .innerJoin('features', 'features.name', '=', 'events.feature_name')
       .where('events.type', '=', 'feature-environment-enabled')
       .where('environments.type', '=', 'production')
@@ -158,12 +149,7 @@ export default class ProjectStatsStore implements IProjectStatsStore {
         ),
       )
       .from('events')
-      .innerJoin(
-        'environments',
-        'environments.name',
-        '=',
-        'events.environment',
-      )
+      .innerJoin('environments', 'environments.name', '=', 'events.environment')
       .innerJoin('features', 'features.name', '=', 'events.feature_name')
       .whereIn('events.feature_name', featureToggleNames)
       .where('events.type', '=', 'feature-environment-enabled')

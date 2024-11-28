@@ -110,13 +110,7 @@ beforeAll(async () => {
   };
 
   const { collectAggDbMetrics, collectStaticCounters } =
-    registerPrometheusMetrics(
-      config,
-      stores,
-      '4.0.0',
-      eventBus,
-      statsService,
-    );
+    registerPrometheusMetrics(config, stores, '4.0.0', eventBus, statsService);
   refreshDbMetrics = collectAggDbMetrics;
   await collectStaticCounters();
 });

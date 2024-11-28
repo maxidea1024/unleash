@@ -8,9 +8,9 @@
  * The status of the schedule.
  */
 export type ChangeRequestScheduleSchemaOneOfThreeStatus =
-    (typeof ChangeRequestScheduleSchemaOneOfThreeStatus)[keyof typeof ChangeRequestScheduleSchemaOneOfThreeStatus];
+  (typeof ChangeRequestScheduleSchemaOneOfThreeStatus)[keyof typeof ChangeRequestScheduleSchemaOneOfThreeStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestScheduleSchemaOneOfThreeStatus = {
-    failed: 'failed',
+  failed: 'failed',
 } as const;

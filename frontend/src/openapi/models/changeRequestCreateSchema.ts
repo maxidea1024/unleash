@@ -19,14 +19,14 @@ import type { ChangeRequestCreateSchemaOneOfTwofive } from './changeRequestCreat
  * Data used to create a [change request](https://docs.getunleash.io/reference/change-requests) for a single feature or segment change.
  */
 export type ChangeRequestCreateSchema =
-    | ChangeRequestCreateSchemaOneOf
-    | ChangeRequestCreateSchemaOneOfThree
-    | ChangeRequestCreateSchemaOneOfSix
-    | ChangeRequestCreateSchemaOneOfNine
-    | ChangeRequestCreateSchemaOneOfOneone
-    | ChangeRequestCreateSchemaOneOfOnethree
-    | ChangeRequestCreateSchemaOneOfOnesix
-    | ChangeRequestCreateSchemaOneOfOneeight
-    | ChangeRequestCreateSchemaOneOfTwoone
-    | ChangeRequestCreateSchemaOneOfTwothree
-    | ChangeRequestCreateSchemaOneOfTwofive;
+  | ChangeRequestCreateSchemaOneOf
+  | ChangeRequestCreateSchemaOneOfThree
+  | ChangeRequestCreateSchemaOneOfSix
+  | ChangeRequestCreateSchemaOneOfNine
+  | ChangeRequestCreateSchemaOneOfOneone
+  | ChangeRequestCreateSchemaOneOfOnethree
+  | ChangeRequestCreateSchemaOneOfOnesix
+  | ChangeRequestCreateSchemaOneOfOneeight
+  | ChangeRequestCreateSchemaOneOfTwoone
+  | ChangeRequestCreateSchemaOneOfTwothree
+  | ChangeRequestCreateSchemaOneOfTwofive;

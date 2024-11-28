@@ -28,11 +28,7 @@ beforeAll(async () => {
     },
   };
 
-  db = await dbInit(
-    'feature_toggles_last_seen_at_refactor',
-    getLogger,
-    config,
-  );
+  db = await dbInit('feature_toggles_last_seen_at_refactor', getLogger, config);
   app = await setupAppWithCustomConfig(db.stores, config, db.rawDatabase);
 
   await db.stores.environmentStore.create({
@@ -78,9 +74,7 @@ test('should return last seen at per env for /api/admin/features', async () => {
     (featureToggle) => featureToggle.name === 'lastSeenAtPerEnv',
   );
 
-  expect(found.environments[0].lastSeenAt).toEqual(
-    '2023-10-01T12:34:56.000Z',
-  );
+  expect(found.environments[0].lastSeenAt).toEqual('2023-10-01T12:34:56.000Z');
 });
 
 test('response should include last seen at per environment for multiple environments in /api/admin/features', async () => {
@@ -137,9 +131,7 @@ test('response should include last seen at per environment for multiple environm
     .delete(`/api/admin/projects/default/features/${featureName}`)
     .expect(202);
 
-  const { body } = await app.request.get(
-    `/api/admin/archive/features/default`,
-  );
+  const { body } = await app.request.get(`/api/admin/archive/features/default`);
 
   const featureEnvironments = body.features[0].environments;
   const [def, development, production] = featureEnvironments;

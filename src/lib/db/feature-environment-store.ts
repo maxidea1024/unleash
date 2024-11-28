@@ -59,7 +59,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     await this.db(T.featureEnvs).del();
   }
 
-  destroy(): void { }
+  destroy(): void {}
 
   async exists({
     featureName,
@@ -91,9 +91,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
       };
     }
 
-    throw new NotFoundError(
-      `Could not find ${featureName} in ${environment}`,
-    );
+    throw new NotFoundError(`Could not find ${featureName} in ${environment}`);
   }
 
   async getAll(query?: Object): Promise<IFeatureEnvironment[]> {
@@ -221,9 +219,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
         environment,
       };
     }
-    throw new NotFoundError(
-      `Could not find ${featureName} in ${environment}`,
-    );
+    throw new NotFoundError(`Could not find ${featureName} in ${environment}`);
   }
 
   async isEnvironmentEnabled(
@@ -274,15 +270,10 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     }
   }
 
-  async connectFeatures(
-    environment: string,
-    projectId: string,
-  ): Promise<void> {
-    const featuresToEnable = await this.db('features')
-      .select('name')
-      .where({
-        project: projectId,
-      });
+  async connectFeatures(environment: string, projectId: string): Promise<void> {
+    const featuresToEnable = await this.db('features').select('name').where({
+      project: projectId,
+    });
     const rows: IFeatureEnvironmentRow[] = featuresToEnable.map((f) => ({
       environment,
       feature_name: f.name,
@@ -394,9 +385,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     sourceEnvironment: string,
     destinationEnvironment: string,
   ): Promise<void> {
-    const sourceFeatureStrategies = await this.db(
-      'feature_strategies',
-    ).where({
+    const sourceFeatureStrategies = await this.db('feature_strategies').where({
       environment: sourceEnvironment,
     });
 
@@ -423,38 +412,25 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
 
     const newStrategyMapping = new Map();
     sourceFeatureStrategies.forEach((sourceStrategy, index) => {
-      newStrategyMapping.set(
-        sourceStrategy.id,
-        clonedStrategyRows[index].id,
-      );
+      newStrategyMapping.set(sourceStrategy.id, clonedStrategyRows[index].id);
     });
 
     const segmentsToClone: ISegmentRow[] = await this.db(
       'feature_strategy_segment as fss',
     )
       .select(['id', 'segment_id'])
-      .join(
-        'feature_strategies AS fs',
-        'fss.feature_strategy_id',
-        'fs.id',
-      )
+      .join('feature_strategies AS fs', 'fss.feature_strategy_id', 'fs.id')
       .where('environment', sourceEnvironment);
 
-    const clonedSegmentIdRows = segmentsToClone.map(
-      (existingSegmentRow) => {
-        return {
-          feature_strategy_id: newStrategyMapping.get(
-            existingSegmentRow.id,
-          ),
-          segment_id: existingSegmentRow.segment_id,
-        };
-      },
-    );
+    const clonedSegmentIdRows = segmentsToClone.map((existingSegmentRow) => {
+      return {
+        feature_strategy_id: newStrategyMapping.get(existingSegmentRow.id),
+        segment_id: existingSegmentRow.segment_id,
+      };
+    });
 
     if (clonedSegmentIdRows.length > 0) {
-      await this.db('feature_strategy_segment').insert(
-        clonedSegmentIdRows,
-      );
+      await this.db('feature_strategy_segment').insert(clonedSegmentIdRows);
     }
   }
 

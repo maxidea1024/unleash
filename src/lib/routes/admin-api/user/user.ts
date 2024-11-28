@@ -175,10 +175,7 @@ export default class UserController extends Controller {
     });
   }
 
-  async getRoles(
-    req: IAuthRequest,
-    res: Response<RolesSchema>,
-  ): Promise<void> {
+  async getRoles(req: IAuthRequest, res: Response<RolesSchema>): Promise<void> {
     const { projectId } = req.query;
     if (projectId) {
       let roles: IRole[];
@@ -190,15 +187,10 @@ export default class UserController extends Controller {
           projectId,
         );
       }
-      this.openApiService.respondWithValidation(
-        200,
-        res,
-        rolesSchema.$id,
-        {
-          version: 1,
-          roles,
-        },
-      );
+      this.openApiService.respondWithValidation(200, res, rolesSchema.$id, {
+        version: 1,
+        roles,
+      });
     } else {
       res.status(400).end();
     }
@@ -213,8 +205,7 @@ export default class UserController extends Controller {
     } else {
       permissions = await this.accessService.getPermissionsForUser(user);
     }
-    const feedback =
-      await this.userFeedbackService.getAllUserFeedback(user);
+    const feedback = await this.userFeedbackService.getAllUserFeedback(user);
     const splash = await this.userSplashService.getAllUserSplashes(user);
 
     const responseData: MeSchema = {

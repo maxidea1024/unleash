@@ -21,8 +21,7 @@ export function calculateStageDurations(
     const nextItem = array
       .slice(index + 1)
       .find(
-        (item) =>
-          item.feature === curr.feature && item.stage !== curr.stage,
+        (item) => item.feature === curr.feature && item.stage !== curr.stage,
       );
     const endTime = nextItem ? nextItem.enteredStageAt : new Date();
     const duration = differenceInMinutes(endTime, curr.enteredStageAt);

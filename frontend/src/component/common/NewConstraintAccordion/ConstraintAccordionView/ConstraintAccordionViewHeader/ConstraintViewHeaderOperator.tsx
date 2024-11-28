@@ -10,63 +10,63 @@ import { oneOf } from 'utils/oneOf';
 import { useTheme } from '@mui/material';
 
 interface ConstraintViewHeaderOperatorProps {
-    constraint: IConstraint;
-    disabled?: boolean;
+  constraint: IConstraint;
+  disabled?: boolean;
 }
 
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'stretch',
-    margin: 'auto 0',
+  display: 'flex',
+  alignItems: 'stretch',
+  margin: 'auto 0',
 }));
 
 const StyledHeaderConstraintContainer = styled('div')(({ theme }) => ({
-    minWidth: '152px',
-    position: 'relative',
-    [theme.breakpoints.down('sm')]: {
-        paddingRight: 0,
-    },
+  minWidth: '152px',
+  position: 'relative',
+  [theme.breakpoints.down('sm')]: {
+    paddingRight: 0,
+  },
 }));
 
 export const ConstraintViewHeaderOperator = ({
-    constraint,
-    disabled = false,
+  constraint,
+  disabled = false,
 }: ConstraintViewHeaderOperatorProps) => {
-    const theme = useTheme();
-    return (
-        <StyledHeaderValuesContainerWrapper>
-            <ConditionallyRender
-                condition={Boolean(constraint.inverted)}
-                show={
-                    <Tooltip title={'Operator is negated'} arrow>
-                        <Box sx={{ display: 'flex' }}>
-                            <StyledIconWrapper isPrefix>
-                                <NegatedOnIcon />
-                            </StyledIconWrapper>
-                        </Box>
-                    </Tooltip>
-                }
-            />
-            <StyledHeaderConstraintContainer>
-                <ConstraintOperator
-                    constraint={constraint}
-                    hasPrefix={Boolean(constraint.inverted)}
-                    disabled={disabled}
-                />
-            </StyledHeaderConstraintContainer>
-            <ConditionallyRender
-                condition={
-                    !constraint.caseInsensitive &&
-                    oneOf(stringOperators, constraint.operator)
-                }
-                show={
-                    <Tooltip title='Case sensitive is active' arrow>
-                        <StyledIconWrapper>
-                            <CaseSensitive />
-                        </StyledIconWrapper>
-                    </Tooltip>
-                }
-            />
-        </StyledHeaderValuesContainerWrapper>
-    );
+  const theme = useTheme();
+  return (
+    <StyledHeaderValuesContainerWrapper>
+      <ConditionallyRender
+        condition={Boolean(constraint.inverted)}
+        show={
+          <Tooltip title={'Operator is negated'} arrow>
+            <Box sx={{ display: 'flex' }}>
+              <StyledIconWrapper isPrefix>
+                <NegatedOnIcon />
+              </StyledIconWrapper>
+            </Box>
+          </Tooltip>
+        }
+      />
+      <StyledHeaderConstraintContainer>
+        <ConstraintOperator
+          constraint={constraint}
+          hasPrefix={Boolean(constraint.inverted)}
+          disabled={disabled}
+        />
+      </StyledHeaderConstraintContainer>
+      <ConditionallyRender
+        condition={
+          !constraint.caseInsensitive &&
+          oneOf(stringOperators, constraint.operator)
+        }
+        show={
+          <Tooltip title='Case sensitive is active' arrow>
+            <StyledIconWrapper>
+              <CaseSensitive />
+            </StyledIconWrapper>
+          </Tooltip>
+        }
+      />
+    </StyledHeaderValuesContainerWrapper>
+  );
 };

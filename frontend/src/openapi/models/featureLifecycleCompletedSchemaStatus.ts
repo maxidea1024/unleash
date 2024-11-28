@@ -8,10 +8,10 @@
  * The status of the feature after it has been marked as completed
  */
 export type FeatureLifecycleCompletedSchemaStatus =
-    (typeof FeatureLifecycleCompletedSchemaStatus)[keyof typeof FeatureLifecycleCompletedSchemaStatus];
+  (typeof FeatureLifecycleCompletedSchemaStatus)[keyof typeof FeatureLifecycleCompletedSchemaStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const FeatureLifecycleCompletedSchemaStatus = {
-    kept: 'kept',
-    discarded: 'discarded',
+  kept: 'kept',
+  discarded: 'discarded',
 } as const;

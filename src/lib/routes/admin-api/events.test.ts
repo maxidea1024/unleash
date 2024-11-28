@@ -137,7 +137,5 @@ test('should anonymise any PII fields, no matter the depth', async () => {
     .expect(200);
 
   expect(body.events.length).toBe(1);
-  expect(body.events[0].data.roles[0].users[0].username).not.toBe(
-    testUsername,
-  );
+  expect(body.events[0].data.roles[0].users[0].username).not.toBe(testUsername);
 });

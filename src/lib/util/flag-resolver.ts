@@ -27,17 +27,11 @@ export default class FlagResolver implements IFlagResolver {
       const flag = flags[flagName];
       if (typeof flag === 'boolean') {
         if (!flag) {
-          flags[flagName] = this.externalResolver.isEnabled(
-            flagName,
-            context,
-          );
+          flags[flagName] = this.externalResolver.isEnabled(flagName, context);
         }
       } else {
         if (!flag?.enabled) {
-          flags[flagName] = this.externalResolver.getVariant(
-            flagName,
-            context,
-          );
+          flags[flagName] = this.externalResolver.getVariant(flagName, context);
         }
       }
     });

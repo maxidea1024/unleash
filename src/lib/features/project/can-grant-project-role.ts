@@ -10,8 +10,7 @@ export const canGrantProjectRole = (
       if (granterPermission.environment) {
         return (
           granterPermission.permission === receiverPermission.name &&
-          granterPermission.environment ===
-          receiverPermission.environment
+          granterPermission.environment === receiverPermission.environment
         );
       }
 

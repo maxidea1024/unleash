@@ -52,10 +52,7 @@ test('reject API imports with admin tokens', async () => {
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(
-    db.stores,
-    preHook,
-  );
+  const { request, destroy } = await setupAppWithCustomAuth(db.stores, preHook);
 
   const { body } = await request
     .post('/api/admin/features-batch/import')

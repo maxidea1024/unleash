@@ -1,9 +1,9 @@
 import {
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    Tooltip,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Tooltip,
 } from '@mui/material';
 import Pause from '@mui/icons-material/Pause';
 import PlayArrow from '@mui/icons-material/PlayArrow';
@@ -13,40 +13,40 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import type { FeatureSchema } from 'openapi';
 
 interface ITogglesLinkListProps {
-    toggles: FeatureSchema[];
+  toggles: FeatureSchema[];
 }
 
 export const TogglesLinkList = ({ toggles }: ITogglesLinkListProps) => (
-    <List style={{ textAlign: 'left' }} className={styles.truncate}>
-        <ConditionallyRender
-            condition={toggles.length > 0}
-            show={toggles.map(({ name, description = '-', enabled }) => (
-                <ListItem key={name}>
-                    <ListItemAvatar>
-                        <ConditionallyRender
-                            condition={Boolean(enabled)}
-                            show={
-                                <Tooltip title='Enabled' arrow>
-                                    <PlayArrow aria-hidden={false} />
-                                </Tooltip>
-                            }
-                            elseShow={
-                                <Tooltip title='Disabled' arrow>
-                                    <Pause aria-hidden={false} />
-                                </Tooltip>
-                            }
-                        />
-                    </ListItemAvatar>
-                    <ListItemText
-                        primary={
-                            <Link key={name} to={`/features/view/${name}`}>
-                                {name}
-                            </Link>
-                        }
-                        secondary={description}
-                    />
-                </ListItem>
-            ))}
-        />
-    </List>
+  <List style={{ textAlign: 'left' }} className={styles.truncate}>
+    <ConditionallyRender
+      condition={toggles.length > 0}
+      show={toggles.map(({ name, description = '-', enabled }) => (
+        <ListItem key={name}>
+          <ListItemAvatar>
+            <ConditionallyRender
+              condition={Boolean(enabled)}
+              show={
+                <Tooltip title='Enabled' arrow>
+                  <PlayArrow aria-hidden={false} />
+                </Tooltip>
+              }
+              elseShow={
+                <Tooltip title='Disabled' arrow>
+                  <Pause aria-hidden={false} />
+                </Tooltip>
+              }
+            />
+          </ListItemAvatar>
+          <ListItemText
+            primary={
+              <Link key={name} to={`/features/view/${name}`}>
+                {name}
+              </Link>
+            }
+            secondary={description}
+          />
+        </ListItem>
+      ))}
+    />
+  </List>
 );

@@ -10,21 +10,14 @@ describe('validate incoming feature naming data', () => {
     const trailing = `${basePattern}$`;
     const leadingAndTrailing = `^${basePattern}$`;
 
-    const allPatterns = [
-      basePattern,
-      leading,
-      trailing,
-      leadingAndTrailing,
-    ];
+    const allPatterns = [basePattern, leading, trailing, leadingAndTrailing];
 
     const invalidExamples = ['-name-', 'name-', '-name'];
     const validExample = 'justalpha';
 
     for (const pattern of allPatterns) {
       for (const example of invalidExamples) {
-        expect(
-          checkFeatureNamingData({ pattern, example }),
-        ).toMatchObject({
+        expect(checkFeatureNamingData({ pattern, example })).toMatchObject({
           state: 'invalid',
         });
       }

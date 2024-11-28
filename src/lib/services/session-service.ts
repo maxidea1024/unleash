@@ -44,9 +44,7 @@ export default class SessionService {
     );
     const sessionsToDelete = newestFirst.slice(maxSessions);
     await Promise.all(
-      sessionsToDelete.map((session) =>
-        this.sessionStore.delete(session.sid),
-      ),
+      sessionsToDelete.map((session) => this.sessionStore.delete(session.sid)),
     );
     return sessionsToDelete.length;
   }
@@ -64,9 +62,10 @@ export default class SessionService {
 
   async getSessionsCount() {
     return Object.fromEntries(
-      (await this.sessionStore.getSessionsCount()).map(
-        ({ userId, count }) => [userId, count],
-      ),
+      (await this.sessionStore.getSessionsCount()).map(({ userId, count }) => [
+        userId,
+        count,
+      ]),
     );
   }
 }

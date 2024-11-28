@@ -14,8 +14,7 @@ export const applicationOverviewEnvironmentSchema = {
       example: 'production',
     },
     instanceCount: {
-      description:
-        'The number of instances of the application environment',
+      description: 'The number of instances of the application environment',
       type: 'number',
       example: 5,
     },

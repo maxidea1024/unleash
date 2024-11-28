@@ -8,9 +8,7 @@ export interface ILocationSettings {
 
 interface IUseLocationSettingsOutput {
   locationSettings: ILocationSettings;
-  setLocationSettings: React.Dispatch<
-    React.SetStateAction<ILocationSettings>
-  >;
+  setLocationSettings: React.Dispatch<React.SetStateAction<ILocationSettings>>;
 }
 
 export const useLocationSettings = (): IUseLocationSettingsOutput => {

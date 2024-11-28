@@ -69,22 +69,22 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.css';
 
 type Props = {
-    // An optional alt text, if the caption does not already convey all relevant
-    // information.
-    alt?: string;
-    // The figure caption, visible to everyone
-    caption: string;
-    // the path to the image, starting with `/img/`. Example: /img/image.png
-    img: string;
+  // An optional alt text, if the caption does not already convey all relevant
+  // information.
+  alt?: string;
+  // The figure caption, visible to everyone
+  caption: string;
+  // the path to the image, starting with `/img/`. Example: /img/image.png
+  img: string;
 };
 
 const Component: React.FC<Props> = ({ img, alt, caption }) => {
-    return (
-        <figure className={styles.figure}>
-            <img alt={alt} src={useBaseUrl(img)} />
-            <figcaption>{caption}</figcaption>
-        </figure>
-    );
+  return (
+    <figure className={styles.figure}>
+      <img alt={alt} src={useBaseUrl(img)} />
+      <figcaption>{caption}</figcaption>
+    </figure>
+  );
 };
 
 export default Component;

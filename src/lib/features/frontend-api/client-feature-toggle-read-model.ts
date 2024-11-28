@@ -14,7 +14,8 @@ import type EventEmitter from 'events';
 import type { IClientFeatureToggleReadModel } from './client-feature-toggle-read-model-type';
 
 export default class ClientFeatureToggleReadModel
-  implements IClientFeatureToggleReadModel {
+  implements IClientFeatureToggleReadModel
+{
   private readonly db: Db;
   private readonly timer: Function;
 
@@ -59,12 +60,7 @@ export default class ClientFeatureToggleReadModel
       .modify(FeatureToggleStore.filterByArchived, false)
       .leftJoin(
         this.db('feature_environments')
-          .select(
-            'feature_name',
-            'enabled',
-            'environment',
-            'variants',
-          )
+          .select('feature_name', 'enabled', 'environment', 'variants')
           .as('fe'),
         'fe.feature_name',
         'features.name',
@@ -130,16 +126,11 @@ export default class ClientFeatureToggleReadModel
         feature.dependencies.push({
           feature: row.parent,
           enabled: row.parent_enabled,
-          ...(row.parent_enabled
-            ? { variants: row.parent_variants }
-            : {}),
+          ...(row.parent_enabled ? { variants: row.parent_variants } : {}),
         });
       }
 
-      if (
-        this.isUnseenStrategyRow(feature, row) &&
-        !row.strategy_disabled
-      ) {
+      if (this.isUnseenStrategyRow(feature, row) && !row.strategy_disabled) {
         feature.strategies = feature.strategies || [];
         feature.strategies.push(this.rowToStrategy(row));
       }
@@ -166,9 +157,7 @@ export default class ClientFeatureToggleReadModel
     feature: PartialDeep<IFeatureToggleClient>,
     row: Record<string, any>,
   ) {
-    const strategy = feature.strategies?.find(
-      (s) => s?.id === row.strategy_id,
-    );
+    const strategy = feature.strategies?.find((s) => s?.id === row.strategy_id);
     if (!strategy) {
       return;
     }

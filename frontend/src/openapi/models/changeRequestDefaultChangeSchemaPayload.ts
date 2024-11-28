@@ -8,5 +8,5 @@
  * The necessary data to perform this change.
  */
 export type ChangeRequestDefaultChangeSchemaPayload = {
-    [key: string]: unknown;
+  [key: string]: unknown;
 };

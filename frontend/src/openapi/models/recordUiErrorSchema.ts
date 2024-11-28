@@ -8,8 +8,8 @@
  * An object representing an error from the UI
  */
 export interface RecordUiErrorSchema {
-    /** The error message */
-    errorMessage: string;
-    /** The stack trace of the error */
-    errorStack?: string;
+  /** The error message */
+  errorMessage: string;
+  /** The stack trace of the error */
+  errorStack?: string;
 }

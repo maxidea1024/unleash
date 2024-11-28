@@ -12,7 +12,7 @@ jest.mock(
     },
 );
 
-const noop = () => { };
+const noop = () => {};
 
 const settingStore = {
   get: () => {
@@ -35,9 +35,9 @@ jest.mock('./metrics', () => ({
 jest.mock('./services', () => ({
   createServices() {
     return {
-      featureLifecycleService: { listen() { } },
-      schedulerService: { stop() { }, start() { } },
-      addonService: { destroy() { } },
+      featureLifecycleService: { listen() {} },
+      schedulerService: { stop() {}, start() {} },
+      addonService: { destroy() {} },
     };
   },
 }));

@@ -10,8 +10,7 @@ export const telemetrySettingsSchema = {
   properties: {
     versionInfoCollectionEnabled: {
       type: 'boolean',
-      description:
-        'Whether collection of version info is enabled/active.',
+      description: 'Whether collection of version info is enabled/active.',
       example: true,
     },
     featureInfoCollectionEnabled: {

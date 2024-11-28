@@ -20,15 +20,15 @@ import type { ChangeRequestCreateSchema } from './changeRequestCreateSchema';
  * Either a single change or a list of changes to create a change request from.
  */
 export type ChangeRequestOneOrManyCreateSchema =
-    | ChangeRequestOneOrManyCreateSchemaOneOf
-    | ChangeRequestOneOrManyCreateSchemaOneOfThree
-    | ChangeRequestOneOrManyCreateSchemaOneOfSix
-    | ChangeRequestOneOrManyCreateSchemaOneOfNine
-    | ChangeRequestOneOrManyCreateSchemaOneOfOneone
-    | ChangeRequestOneOrManyCreateSchemaOneOfOnethree
-    | ChangeRequestOneOrManyCreateSchemaOneOfOnesix
-    | ChangeRequestOneOrManyCreateSchemaOneOfOneeight
-    | ChangeRequestOneOrManyCreateSchemaOneOfTwoone
-    | ChangeRequestOneOrManyCreateSchemaOneOfTwothree
-    | ChangeRequestOneOrManyCreateSchemaOneOfTwofive
-    | ChangeRequestCreateSchema[];
+  | ChangeRequestOneOrManyCreateSchemaOneOf
+  | ChangeRequestOneOrManyCreateSchemaOneOfThree
+  | ChangeRequestOneOrManyCreateSchemaOneOfSix
+  | ChangeRequestOneOrManyCreateSchemaOneOfNine
+  | ChangeRequestOneOrManyCreateSchemaOneOfOneone
+  | ChangeRequestOneOrManyCreateSchemaOneOfOnethree
+  | ChangeRequestOneOrManyCreateSchemaOneOfOnesix
+  | ChangeRequestOneOrManyCreateSchemaOneOfOneeight
+  | ChangeRequestOneOrManyCreateSchemaOneOfTwoone
+  | ChangeRequestOneOrManyCreateSchemaOneOfTwothree
+  | ChangeRequestOneOrManyCreateSchemaOneOfTwofive
+  | ChangeRequestCreateSchema[];

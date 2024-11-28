@@ -55,8 +55,7 @@ export const environmentSchema = {
       nullable: true,
       minimum: 0,
       example: 10,
-      description:
-        'The number of enabled toggles for the project environment',
+      description: 'The number of enabled toggles for the project environment',
     },
   },
   components: {},

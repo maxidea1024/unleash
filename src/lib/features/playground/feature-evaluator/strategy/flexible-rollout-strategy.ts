@@ -23,11 +23,7 @@ export default class FlexibleRolloutStrategy extends Strategy {
   private resolveStickiness(stickiness: string, context: Context): any {
     switch (stickiness) {
       case STICKINESS.default:
-        return (
-          context.userId ||
-          context.sessionId ||
-          this.randomGenerator()
-        );
+        return context.userId || context.sessionId || this.randomGenerator();
       case STICKINESS.random:
         return this.randomGenerator();
       default:

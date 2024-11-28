@@ -8,22 +8,22 @@ import { testServerRoute, testServerSetup } from 'utils/testServer';
 const server = testServerSetup();
 
 const setupApi = () => {
-    testServerRoute(server, '/api/admin/ui-config', {});
+  testServerRoute(server, '/api/admin/ui-config', {});
 };
 test('Do not show button to non admins', async () => {
-    setupApi();
-    render(
-        <AccessProviderMock permissions={[]}>
-            <InviteLinkButton />
-        </AccessProviderMock>,
-    );
+  setupApi();
+  render(
+    <AccessProviderMock permissions={[]}>
+      <InviteLinkButton />
+    </AccessProviderMock>,
+  );
 
-    expect(screen.queryByLabelText('Invite users')).not.toBeInTheDocument();
+  expect(screen.queryByLabelText('Invite users')).not.toBeInTheDocument();
 });
 
 test('Show button to non admins', async () => {
-    setupApi();
-    render(<InviteLinkButton />, { permissions: [{ permission: ADMIN }] });
+  setupApi();
+  render(<InviteLinkButton />, { permissions: [{ permission: ADMIN }] });
 
-    await screen.findByLabelText('Invite users');
+  await screen.findByLabelText('Invite users');
 });

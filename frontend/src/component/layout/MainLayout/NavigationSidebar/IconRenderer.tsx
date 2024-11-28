@@ -33,43 +33,43 @@ import type { FC } from 'react';
 
 // TODO: move to routes
 const icons: Record<string, typeof SvgIcon> = {
-    '/search': SearchIcon,
-    '/applications': ApplicationsIcon,
-    '/context': ContextFieldsIcon,
-    '/feature-toggle-type': FlagTypesIcon,
-    '/integrations': IntegrationsIcon,
-    '/segments': SegmentsIcon,
-    '/strategies': CustomStrategiesIcon,
-    '/tag-types': TagTypesIcon,
-    '/environments': EnvironmentsIcon,
-    '/admin/users': UsersIcon,
-    '/admin/service-accounts': ServiceAccountIcon,
-    '/admin/groups': GroupsIcon,
-    '/admin/roles': RoleIcon,
-    '/admin/api': ApiAccessIcon,
-    '/admin/auth': SingleSignOnIcon,
-    '/admin/network': NetworkIcon,
-    '/admin/maintenance': MaintenanceIcon,
-    '/admin/banners': BannersIcon,
-    '/admin/instance': InstanceStatsIcon,
-    '/admin/license': LicenseIcon,
-    '/admin/instance-privacy': InstancePrivacyIcon,
-    '/admin/logins': LoginHistoryIcon,
-    '/admin/cors': CorsIcon,
-    '/admin/billing': BillingIcon,
-    '/history': EventLogIcon,
-    '/release-management': LaunchIcon,
-    '/personal': PersonalDashboardIcon,
-    GitHub: GitHubIcon,
-    Documentation: LibraryBooksIcon,
+  '/search': SearchIcon,
+  '/applications': ApplicationsIcon,
+  '/context': ContextFieldsIcon,
+  '/feature-toggle-type': FlagTypesIcon,
+  '/integrations': IntegrationsIcon,
+  '/segments': SegmentsIcon,
+  '/strategies': CustomStrategiesIcon,
+  '/tag-types': TagTypesIcon,
+  '/environments': EnvironmentsIcon,
+  '/admin/users': UsersIcon,
+  '/admin/service-accounts': ServiceAccountIcon,
+  '/admin/groups': GroupsIcon,
+  '/admin/roles': RoleIcon,
+  '/admin/api': ApiAccessIcon,
+  '/admin/auth': SingleSignOnIcon,
+  '/admin/network': NetworkIcon,
+  '/admin/maintenance': MaintenanceIcon,
+  '/admin/banners': BannersIcon,
+  '/admin/instance': InstanceStatsIcon,
+  '/admin/license': LicenseIcon,
+  '/admin/instance-privacy': InstancePrivacyIcon,
+  '/admin/logins': LoginHistoryIcon,
+  '/admin/cors': CorsIcon,
+  '/admin/billing': BillingIcon,
+  '/history': EventLogIcon,
+  '/release-management': LaunchIcon,
+  '/personal': PersonalDashboardIcon,
+  GitHub: GitHubIcon,
+  Documentation: LibraryBooksIcon,
 };
 
 const findIcon = (key: string) => {
-    return icons[key] || EmptyIcon;
+  return icons[key] || EmptyIcon;
 };
 
 export const IconRenderer: FC<{ path: string }> = ({ path }) => {
-    const IconComponent = findIcon(path); // Fallback to 'default' if the type is not found
+  const IconComponent = findIcon(path); // Fallback to 'default' if the type is not found
 
-    return <IconComponent />;
+  return <IconComponent />;
 };

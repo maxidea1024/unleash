@@ -22,7 +22,8 @@ const getPotentiallyStaleCount = (
 
     return (
       !feature.stale &&
-      featureTypeExpectedLifetime && diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24)
+      featureTypeExpectedLifetime &&
+      diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24)
     );
   }).length;
 };
@@ -49,8 +50,11 @@ export const calculateHealthRating = (
 
   const startPercentage = 100;
   const stalePercentage = (staleCount / toggleCount) * 100 || 0;
-  const potentiallyStalePercentage = (potentiallyStaleCount / toggleCount) * 100 || 0;
-  const rating = Math.round(startPercentage - stalePercentage - potentiallyStalePercentage);
+  const potentiallyStalePercentage =
+    (potentiallyStaleCount / toggleCount) * 100 || 0;
+  const rating = Math.round(
+    startPercentage - stalePercentage - potentiallyStalePercentage,
+  );
 
   return rating;
 };

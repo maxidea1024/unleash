@@ -52,8 +52,6 @@ export class FakeTrafficDataUsageStore implements ITrafficDataUsageStore {
   ): Promise<IStatTrafficUsage[]> {
     const periodDate = parse(period, 'yyyy-MM', new Date());
 
-    return this.trafficData.filter((data) =>
-      isSameMonth(data.day, periodDate),
-    );
+    return this.trafficData.filter((data) => isSameMonth(data.day, periodDate));
   }
 }

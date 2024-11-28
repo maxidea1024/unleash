@@ -31,8 +31,7 @@ export const frontendApiFeatureSchema = {
       properties: {
         name: {
           type: 'string',
-          description:
-            'The variants name. Is unique for this feature flag',
+          description: 'The variants name. Is unique for this feature flag',
           example: 'blue_group',
         },
         enabled: {

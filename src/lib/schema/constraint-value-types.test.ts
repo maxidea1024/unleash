@@ -57,9 +57,7 @@ test('should fail an invalid date', async () => {
   try {
     await constraintDateTypeSchema.validateAsync(invalidDate);
   } catch (error) {
-    expect(error.details[0].message).toEqual(
-      '"value" must be a valid date',
-    );
+    expect(error.details[0].message).toEqual('"value" must be a valid date');
   }
 });
 
@@ -70,8 +68,6 @@ test('Should pass a valid date', async () => {
   try {
     await constraintDateTypeSchema.validateAsync(invalidDate);
   } catch (error) {
-    expect(error.details[0].message).toEqual(
-      '"value" must be a valid date',
-    );
+    expect(error.details[0].message).toEqual('"value" must be a valid date');
   }
 });

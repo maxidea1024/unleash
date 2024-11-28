@@ -12,9 +12,7 @@ export const useActionableChangeRequests = (
 ): IUseActionableChangeRequestsOutput => {
   const { data } = useEnterpriseSWR<ActionableChangeRequestsSchema>(
     { total: 0 },
-    formatApiPath(
-      `api/admin/projects/${projectId}/change-requests/actionable`,
-    ),
+    formatApiPath(`api/admin/projects/${projectId}/change-requests/actionable`),
     fetcher,
   );
 
@@ -23,7 +21,7 @@ export const useActionableChangeRequests = (
   };
 };
 
-const fetcher = async(path: string) => {
+const fetcher = async (path: string) => {
   return fetch(path)
     .then(handleErrorResponses('Actionable change requests'))
     .then((res) => res.json());

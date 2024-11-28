@@ -22,7 +22,7 @@ export interface IEventSearchParams {
 
 export interface IEventStore
   extends IStore<IEvent, number>,
-  Pick<EventEmitter, 'on' | 'setMaxListeners' | 'emit' | 'off'> {
+    Pick<EventEmitter, 'on' | 'setMaxListeners' | 'emit' | 'off'> {
   publishUnannouncedEvents(): Promise<void>;
 
   store(event: IBaseEvent): Promise<void>;

@@ -22,7 +22,8 @@ const newRelicDefinition: IAddonDefinition = {
   displayName: 'New Relic',
   description: 'Allows Unleash to post updates to New Relic Event API.',
   documentationUrl: 'https://docs.getunleash.io/docs/addons/new-relic',
-  howTo: 'The New Relic integration allows Unleash to post Updates to New Relic Event API when a feature flag is updated.',
+  howTo:
+    'The New Relic integration allows Unleash to post Updates to New Relic Event API when a feature flag is updated.',
   parameters: [
     {
       name: 'url',

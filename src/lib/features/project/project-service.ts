@@ -220,9 +220,7 @@ export default class ProjectService {
 
     if (userId) {
       const projectAccess =
-        await this.privateProjectChecker.getUserAccessibleProjects(
-          userId,
-        );
+        await this.privateProjectChecker.getUserAccessibleProjects(userId);
 
       if (projectAccess.mode === 'all') {
         return projects;
@@ -235,9 +233,7 @@ export default class ProjectService {
     return projects;
   }
 
-  async addOwnersToProjects(
-    projects: ProjectForUi[],
-  ): Promise<ProjectForUi[]> {
+  async addOwnersToProjects(projects: ProjectForUi[]): Promise<ProjectForUi[]> {
     return this.projectOwnersReadModel.addOwners(projects);
   }
 
@@ -251,10 +247,11 @@ export default class ProjectService {
     const validationResult = checkFeatureNamingData(featureNaming);
 
     if (validationResult.state === 'invalid') {
-      const [firstReason, ...remainingReasons] =
-        validationResult.reasons.map((message) => ({
+      const [firstReason, ...remainingReasons] = validationResult.reasons.map(
+        (message) => ({
           message,
-        }));
+        }),
+      );
       throw new BadDataError(
         'The feature naming pattern data you provided was invalid.',
         [firstReason, ...remainingReasons],
@@ -335,9 +332,7 @@ export default class ProjectService {
     auditUser: IAuditUser,
     enableChangeRequestsForSpecifiedEnvironments: (
       environments: CreateProject['changeRequestEnvironments'],
-    ) => Promise<
-      ProjectCreated['changeRequestEnvironments']
-    > = async () => {
+    ) => Promise<ProjectCreated['changeRequestEnvironments']> = async () => {
       return [];
     },
   ): Promise<ProjectCreated> {
@@ -350,8 +345,7 @@ export default class ProjectService {
         newProject.id = await this.generateProjectId(newProject.name);
         return await projectSchema.validateAsync(newProject);
       } else {
-        const validatedData =
-          await projectSchema.validateAsync(newProject);
+        const validatedData = await projectSchema.validateAsync(newProject);
         await this.validateUniqueId(validatedData.id);
         return validatedData;
       }
@@ -365,10 +359,10 @@ export default class ProjectService {
     const envsToEnable = newProject.environments?.length
       ? newProject.environments
       : (
-        await this.environmentStore.getAll({
-          enabled: true,
-        })
-      ).map((env) => env.name);
+          await this.environmentStore.getAll({
+            enabled: true,
+          })
+        ).map((env) => env.name);
 
     await Promise.all(
       envsToEnable.map(async (env) => {
@@ -433,9 +427,7 @@ export default class ProjectService {
     const preData = await this.projectStore.get(updatedProject.id);
 
     if (updatedProject.featureNaming) {
-      this.validateAndProcessFeatureNamingPattern(
-        updatedProject.featureNaming,
-      );
+      this.validateAndProcessFeatureNamingPattern(updatedProject.featureNaming);
     }
 
     await this.projectStore.updateProjectEnterpriseSettings(updatedProject);
@@ -507,8 +499,10 @@ export default class ProjectService {
       throw new PermissionError(MOVE_FEATURE_TOGGLE);
     }
 
-    const isCompatibleWithTargetProject =
-      await this.checkProjectsCompatibility(feature, newProjectId);
+    const isCompatibleWithTargetProject = await this.checkProjectsCompatibility(
+      feature,
+      newProjectId,
+    );
     if (!isCompatibleWithTargetProject) {
       throw new IncompatibleProjectError(newProjectId);
     }
@@ -722,9 +716,7 @@ export default class ProjectService {
       userId,
     );
 
-    const ownerRole = await this.accessService.getRoleByName(
-      RoleName.OWNER,
-    );
+    const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
     if (existingRoles.includes(ownerRole.id)) {
       await this.validateAtLeastOneOwner(projectId, ownerRole);
@@ -754,9 +746,7 @@ export default class ProjectService {
       groupId,
     );
 
-    const ownerRole = await this.accessService.getRoleByName(
-      RoleName.OWNER,
-    );
+    const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
     if (existingRoles.includes(ownerRole.id)) {
       await this.validateAtLeastOneOwner(projectId, ownerRole);
@@ -786,11 +776,7 @@ export default class ProjectService {
     const group = await this.groupService.getGroup(groupId);
     const project = await this.getProject(projectId);
     if (group.id == null)
-      throw new ValidationError(
-        'Unexpected empty group id',
-        [],
-        undefined,
-      );
+      throw new ValidationError('Unexpected empty group id', [], undefined);
 
     await this.accessService.addGroupToRole(
       group.id,
@@ -825,19 +811,11 @@ export default class ProjectService {
     const role = await this.accessService.getRole(roleId);
     const project = await this.getProject(projectId);
     if (group.id == null)
-      throw new ValidationError(
-        'Unexpected empty group id',
-        [],
-        undefined,
-      );
+      throw new ValidationError('Unexpected empty group id', [], undefined);
 
     await this.validateAtLeastOneOwner(projectId, role);
 
-    await this.accessService.removeGroupFromRole(
-      group.id,
-      role.id,
-      project.id,
-    );
+    await this.accessService.removeGroupFromRole(group.id, role.id, project.id);
 
     await this.eventService.storeEvent(
       new ProjectGroupRemovedEvent({
@@ -889,10 +867,7 @@ export default class ProjectService {
     );
   }
 
-  private isProjectOwner(
-    roles: IRoleWithProject[],
-    project: string,
-  ): boolean {
+  private isProjectOwner(roles: IRoleWithProject[], project: string): boolean {
     return roles.some(
       (r) => r.project === project && r.name === RoleName.OWNER,
     );
@@ -994,9 +969,7 @@ export default class ProjectService {
       projectId,
       userId,
     );
-    const ownerRole = await this.accessService.getRoleByName(
-      RoleName.OWNER,
-    );
+    const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
 
     const hasOwnerRole = includes(currentRoles, ownerRole);
     const isRemovingOwnerRole = !includes(newRoles, ownerRole);
@@ -1046,9 +1019,7 @@ export default class ProjectService {
       groupId,
     );
 
-    const ownerRole = await this.accessService.getRoleByName(
-      RoleName.OWNER,
-    );
+    const ownerRole = await this.accessService.getRoleByName(RoleName.OWNER);
     const hasOwnerRole = includes(currentRoles, ownerRole);
     const isRemovingOwnerRole = !includes(newRoles, ownerRole);
     if (hasOwnerRole && isRemovingOwnerRole) {
@@ -1147,10 +1118,7 @@ export default class ProjectService {
       })
     ).map((feature) => feature.name);
 
-    const featureFlagNames = [
-      ...activeFeatureFlags,
-      ...archivedFeatureFlags,
-    ];
+    const featureFlagNames = [...activeFeatureFlags, ...archivedFeatureFlags];
 
     const projectAverage = calculateAverageTimeToProd(
       await this.projectStatsStore.getTimeToProdDates(projectId),
@@ -1193,15 +1161,9 @@ export default class ProjectService {
     if (!user)
       throw new ValidationError('Unexpected empty user', [], undefined);
 
-    const currentRole = usersWithRoles.roles.find(
-      (r) => r.id === user.roleId,
-    );
+    const currentRole = usersWithRoles.roles.find((r) => r.id === user.roleId);
     if (!currentRole)
-      throw new ValidationError(
-        'Unexpected empty current role',
-        [],
-        undefined,
-      );
+      throw new ValidationError('Unexpected empty current role', [], undefined);
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1209,11 +1171,7 @@ export default class ProjectService {
     }
     await this.validateAtLeastOneOwner(projectId, currentRole);
 
-    await this.accessService.updateUserProjectRole(
-      userId,
-      roleId,
-      projectId,
-    );
+    await this.accessService.updateUserProjectRole(userId, roleId, projectId);
     const role = await this.findProjectRole(projectId, roleId);
 
     await this.eventService.storeEvent(
@@ -1250,11 +1208,7 @@ export default class ProjectService {
       userGroup.roles?.includes(r.id),
     );
     if (!currentRole)
-      throw new ValidationError(
-        'Unexpected empty current role',
-        [],
-        undefined,
-      );
+      throw new ValidationError('Unexpected empty current role', [], undefined);
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1262,11 +1216,7 @@ export default class ProjectService {
     }
     await this.validateAtLeastOneOwner(projectId, currentRole);
 
-    await this.accessService.updateGroupProjectRole(
-      userId,
-      roleId,
-      projectId,
-    );
+    await this.accessService.updateGroupProjectRole(userId, roleId, projectId);
     const role = await this.findProjectGroupRole(projectId, roleId);
 
     await this.eventService.storeEvent(
@@ -1436,30 +1386,24 @@ export default class ProjectService {
     archived: boolean = false,
     userId?: number,
   ): Promise<IProjectHealth> {
-    const [
-      project,
-      environments,
-      features,
-      members,
-      favorite,
-      projectStats,
-    ] = await Promise.all([
-      this.projectStore.get(projectId),
-      this.projectStore.getEnvironmentsForProject(projectId),
-      this.featureToggleService.getFeatureOverview({
-        projectId,
-        archived,
-        userId,
-      }),
-      this.projectStore.getMembersCountByProject(projectId),
-      userId
-        ? this.favoritesService.isFavoriteProject({
-          project: projectId,
+    const [project, environments, features, members, favorite, projectStats] =
+      await Promise.all([
+        this.projectStore.get(projectId),
+        this.projectStore.getEnvironmentsForProject(projectId),
+        this.featureToggleService.getFeatureOverview({
+          projectId,
+          archived,
           userId,
-        })
-        : Promise.resolve(false),
-      this.projectStatsStore.getProjectStats(projectId),
-    ]);
+        }),
+        this.projectStore.getMembersCountByProject(projectId),
+        userId
+          ? this.favoritesService.isFavoriteProject({
+              project: projectId,
+              userId,
+            })
+          : Promise.resolve(false),
+        this.projectStatsStore.getProjectStats(projectId),
+      ]);
 
     return {
       stats: projectStats,
@@ -1504,9 +1448,9 @@ export default class ProjectService {
       this.projectStore.getMembersCountByProject(projectId),
       userId
         ? this.favoritesService.isFavoriteProject({
-          project: projectId,
-          userId,
-        })
+            project: projectId,
+            userId,
+          })
         : Promise.resolve(false),
       this.projectStatsStore.getProjectStats(projectId),
       this.onboardingReadModel.getOnboardingStatusForProject(projectId),

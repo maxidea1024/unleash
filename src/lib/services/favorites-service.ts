@@ -35,10 +35,7 @@ export class FavoritesService {
     {
       favoriteFeaturesStore,
       favoriteProjectsStore,
-    }: Pick<
-      IUnleashStores,
-      'favoriteFeaturesStore' | 'favoriteProjectsStore'
-    >,
+    }: Pick<IUnleashStores, 'favoriteFeaturesStore' | 'favoriteProjectsStore'>,
     config: IUnleashConfig,
     eventService: EventService,
   ) {

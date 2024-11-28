@@ -32,8 +32,7 @@ export const createCounter = <T extends string>(
    * @param labels - An object where keys are label names and values are the label values.
    * @returns The Counter instance with the applied labels, allowing for method chaining.
    */
-  const labels = (labels: Record<T, string | number>) =>
-    counter.labels(labels);
+  const labels = (labels: Record<T, string | number>) => counter.labels(labels);
 
   /**
    * Increments the counter by a specified value or by 1 if no value is provided.

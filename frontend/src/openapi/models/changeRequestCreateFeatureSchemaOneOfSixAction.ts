@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestCreateFeatureSchemaOneOfSixAction =
-    (typeof ChangeRequestCreateFeatureSchemaOneOfSixAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfSixAction];
+  (typeof ChangeRequestCreateFeatureSchemaOneOfSixAction)[keyof typeof ChangeRequestCreateFeatureSchemaOneOfSixAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestCreateFeatureSchemaOneOfSixAction = {
-    updateStrategy: 'updateStrategy',
+  updateStrategy: 'updateStrategy',
 } as const;

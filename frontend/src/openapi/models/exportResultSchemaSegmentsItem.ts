@@ -5,6 +5,6 @@
  */
 
 export type ExportResultSchemaSegmentsItem = {
-    id: number;
-    name: string;
+  id: number;
+  name: string;
 };

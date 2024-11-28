@@ -8,9 +8,9 @@
  * The name of this action.
  */
 export type ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction =
-    (typeof ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction)[keyof typeof ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction];
+  (typeof ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction)[keyof typeof ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ChangeRequestOneOrManyCreateSchemaOneOfTwofiveAction = {
-    deleteDependency: 'deleteDependency',
+  deleteDependency: 'deleteDependency',
 } as const;

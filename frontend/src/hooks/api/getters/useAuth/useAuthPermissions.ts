@@ -18,9 +18,7 @@ const getPermissions = (
   uiConfig: IUiConfig,
 ): IPermission[] | undefined => {
   let permissions =
-    auth.data && 'permissions' in auth.data
-      ? auth.data.permissions
-      : undefined;
+    auth.data && 'permissions' in auth.data ? auth.data.permissions : undefined;
   if (permissions && uiConfig?.maintenanceMode) {
     permissions = permissions.filter(
       (permission) => permission.permission === 'ADMIN',

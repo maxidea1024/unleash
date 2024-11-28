@@ -8,67 +8,65 @@ import { formatDateYMDHMS } from 'utils/formatDate';
 import { IntegrationEventsStateIcon } from './IntegrationEventsStateIcon';
 
 const StyledTooltipLink = styled(TooltipLink)({
-    display: 'flex',
-    alignItems: 'center',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 const StyledTitle = styled('div')(({ theme }) => ({
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: theme.spacing(0, 2),
-    marginTop: theme.spacing(2),
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  margin: theme.spacing(0, 2),
+  marginTop: theme.spacing(2),
 }));
 
 const StyledLastEventSpan = styled('span')(({ theme }) => ({
-    fontSize: theme.fontSizes.bodySize,
+  fontSize: theme.fontSizes.bodySize,
 }));
 
 interface IIntegrationEventsLastEventProps extends BoxProps {
-    integration?: AddonSchema;
+  integration?: AddonSchema;
 }
 
 export const IntegrationEventsLastEvent = ({
-    integration,
-    ...props
+  integration,
+  ...props
 }: IIntegrationEventsLastEventProps) => {
-    const { integrationEvents } = useIntegrationEvents(integration?.id, 1, {
-        refreshInterval: 5000,
-    });
-    const { locationSettings } = useLocationSettings();
+  const { integrationEvents } = useIntegrationEvents(integration?.id, 1, {
+    refreshInterval: 5000,
+  });
+  const { locationSettings } = useLocationSettings();
 
-    if (integrationEvents.length === 0) {
-        return null;
-    }
+  if (integrationEvents.length === 0) {
+    return null;
+  }
 
-    const integrationEvent = integrationEvents[0];
+  const integrationEvent = integrationEvents[0];
 
-    return (
-        <Box onClick={(e) => e.preventDefault()} {...props}>
-            <StyledTooltipLink
-                tooltipProps={{
-                    maxWidth: 500,
-                    maxHeight: 600,
-                }}
-                tooltip={
-                    <>
-                        <StyledTitle>
-                            <StyledLastEventSpan>
-                                Last event
-                            </StyledLastEventSpan>
-                            <span>
-                                {formatDateYMDHMS(
-                                    integrationEvent.createdAt,
-                                    locationSettings?.locale,
-                                )}
-                            </span>
-                        </StyledTitle>
-                        <IntegrationEventsDetails {...integrationEvent} />
-                    </>
-                }
-            >
-                <IntegrationEventsStateIcon {...integrationEvent} />
-            </StyledTooltipLink>
-        </Box>
-    );
+  return (
+    <Box onClick={(e) => e.preventDefault()} {...props}>
+      <StyledTooltipLink
+        tooltipProps={{
+          maxWidth: 500,
+          maxHeight: 600,
+        }}
+        tooltip={
+          <>
+            <StyledTitle>
+              <StyledLastEventSpan>Last event</StyledLastEventSpan>
+              <span>
+                {formatDateYMDHMS(
+                  integrationEvent.createdAt,
+                  locationSettings?.locale,
+                )}
+              </span>
+            </StyledTitle>
+            <IntegrationEventsDetails {...integrationEvent} />
+          </>
+        }
+      >
+        <IntegrationEventsStateIcon {...integrationEvent} />
+      </StyledTooltipLink>
+    </Box>
+  );
 };

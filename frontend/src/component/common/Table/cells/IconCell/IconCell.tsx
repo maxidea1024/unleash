@@ -2,20 +2,20 @@ import { Box } from '@mui/material';
 import type { ReactNode } from 'react';
 
 interface IIconCellProps {
-    icon: ReactNode;
+  icon: ReactNode;
 }
 
 export const IconCell = ({ icon }: IIconCellProps) => {
-    return (
-        <Box
-            sx={{
-                pl: 2,
-                pr: 1,
-                display: 'flex',
-                alignItems: 'center',
-            }}
-        >
-            {icon}
-        </Box>
-    );
+  return (
+    <Box
+      sx={{
+        pl: 2,
+        pr: 1,
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      {icon}
+    </Box>
+  );
 };

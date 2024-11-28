@@ -6,28 +6,28 @@ import { ADMIN } from '../../../../providers/AccessProvider/permissions';
 import Delete from '@mui/icons-material/Delete';
 
 const StyledBox = styled(Box)(() => ({
-    display: 'flex',
-    justifyContent: 'center',
+  display: 'flex',
+  justifyContent: 'center',
 }));
 interface IInactiveUsersActionsCellProps {
-    onDelete: (event: React.SyntheticEvent) => void;
+  onDelete: (event: React.SyntheticEvent) => void;
 }
 
 export const InactiveUsersActionCell: VFC<IInactiveUsersActionsCellProps> = ({
-    onDelete,
+  onDelete,
 }) => {
-    return (
-        <StyledBox>
-            <PermissionIconButton
-                data-loading
-                onClick={onDelete}
-                permission={ADMIN}
-                tooltipProps={{
-                    title: 'Remove user',
-                }}
-            >
-                <Delete />
-            </PermissionIconButton>
-        </StyledBox>
-    );
+  return (
+    <StyledBox>
+      <PermissionIconButton
+        data-loading
+        onClick={onDelete}
+        permission={ADMIN}
+        tooltipProps={{
+          title: 'Remove user',
+        }}
+      >
+        <Delete />
+      </PermissionIconButton>
+    </StyledBox>
+  );
 };

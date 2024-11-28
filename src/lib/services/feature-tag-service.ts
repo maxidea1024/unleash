@@ -139,10 +139,7 @@ export default class FeatureTagService {
       })),
     );
 
-    await this.eventService.storeEvents([
-      ...creationEvents,
-      ...removalEvents,
-    ]);
+    await this.eventService.storeEvents([...creationEvents, ...removalEvents]);
   }
 
   async createTagIfNeeded(tag: ITag, auditUser: IAuditUser): Promise<void> {
@@ -161,9 +158,7 @@ export default class FeatureTagService {
           });
         } catch (err) {
           if (err.code === FOREIGN_KEY_VIOLATION) {
-            throw new BadDataError(
-              `Tag type '${tag.type}' does not exist`,
-            );
+            throw new BadDataError(`Tag type '${tag.type}' does not exist`);
           }
         }
       }
@@ -177,8 +172,7 @@ export default class FeatureTagService {
     auditUser: IAuditUser,
   ): Promise<void> {
     const featureToggle = await this.featureToggleStore.get(featureName);
-    const tags =
-      await this.featureTagStore.getAllTagsForFeature(featureName);
+    const tags = await this.featureTagStore.getAllTagsForFeature(featureName);
     await this.featureTagStore.untagFeature(featureName, tag);
     await this.eventService.storeEvent({
       type: FEATURE_UNTAGGED,

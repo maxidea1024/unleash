@@ -25,10 +25,7 @@ beforeAll(async () => {
   stores = db.stores;
   const eventService = createEventsService(db.rawDatabase, config);
   const tagTypeService = new TagTypeService(stores, config, eventService);
-  const integrationEventsService = new IntegrationEventsService(
-    stores,
-    config,
-  );
+  const integrationEventsService = new IntegrationEventsService(stores, config);
   addonService = new AddonService(
     stores,
     config,

@@ -9,6 +9,6 @@ import type { SignalEndpointSignalSchema } from './signalEndpointSignalSchema';
  * A response model with a list of signals originated from a signals endpoint.
  */
 export interface SignalEndpointSignalsSchema {
-    /** A list of signals originated from a signals endpoint. */
-    signalEndpointSignals: SignalEndpointSignalSchema[];
+  /** A list of signals originated from a signals endpoint. */
+  signalEndpointSignals: SignalEndpointSignalSchema[];
 }

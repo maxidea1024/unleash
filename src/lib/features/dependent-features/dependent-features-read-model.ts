@@ -29,10 +29,7 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
   }
 
   async getChildren(parents: string[]): Promise<string[]> {
-    const rows = await this.db('dependent_features').whereIn(
-      'parent',
-      parents,
-    );
+    const rows = await this.db('dependent_features').whereIn('parent', parents);
 
     return [...new Set(rows.map((row) => row.child))];
   }
@@ -48,10 +45,7 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
   }
 
   async getDependencies(children: string[]): Promise<IFeatureDependency[]> {
-    const rows = await this.db('dependent_features').whereIn(
-      'child',
-      children,
-    );
+    const rows = await this.db('dependent_features').whereIn('child', children);
 
     return rows.map((row) => ({
       feature: row.child,
@@ -89,17 +83,13 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
   async getPossibleParentVariants(parent: string): Promise<string[]> {
     const strategyVariantsQuery = this.db('feature_strategies')
       .select(
-        this.db.raw(
-          "jsonb_array_elements(variants)->>'name' as variant_name",
-        ),
+        this.db.raw("jsonb_array_elements(variants)->>'name' as variant_name"),
       )
       .where('feature_name', parent);
 
     const featureEnvironmentVariantsQuery = this.db('feature_environments')
       .select(
-        this.db.raw(
-          "jsonb_array_elements(variants)->>'name' as variant_name",
-        ),
+        this.db.raw("jsonb_array_elements(variants)->>'name' as variant_name"),
       )
       .where('feature_name', parent);
 

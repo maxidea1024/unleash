@@ -2,13 +2,13 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import UIProvider from './UIProvider';
 
 export const UIProviderContainer: React.FC<{ children?: React.ReactNode }> = ({
-    children,
+  children,
 }) => {
-    const { uiConfig } = useUiConfig();
+  const { uiConfig } = useUiConfig();
 
-    if (!uiConfig.flags) {
-        return null;
-    }
+  if (!uiConfig.flags) {
+    return null;
+  }
 
-    return <UIProvider>{children}</UIProvider>;
+  return <UIProvider>{children}</UIProvider>;
 };

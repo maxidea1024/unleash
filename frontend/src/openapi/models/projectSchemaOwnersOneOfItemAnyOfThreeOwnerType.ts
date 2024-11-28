@@ -5,9 +5,9 @@
  */
 
 export type ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType =
-    (typeof ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType)[keyof typeof ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType];
+  (typeof ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType)[keyof typeof ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const ProjectSchemaOwnersOneOfItemAnyOfThreeOwnerType = {
-    group: 'group',
+  group: 'group',
 } as const;

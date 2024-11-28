@@ -31,10 +31,7 @@ export class PublicInviteController extends Controller {
     {
       publicSignupTokenService,
       openApiService,
-    }: Pick<
-      IUnleashServices,
-      'publicSignupTokenService' | 'openApiService'
-    >,
+    }: Pick<IUnleashServices, 'publicSignupTokenService' | 'openApiService'>,
   ) {
     super(config);
 

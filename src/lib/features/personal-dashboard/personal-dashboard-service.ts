@@ -112,14 +112,10 @@ export class PersonalDashboardService {
     projectId: string,
   ): Promise<PersonalDashboardProjectDetailsUnserialized> {
     const onboardingStatus =
-      await this.onboardingReadModel.getOnboardingStatusForProject(
-        projectId,
-      );
+      await this.onboardingReadModel.getOnboardingStatusForProject(projectId);
 
     if (!onboardingStatus) {
-      throw new NotFoundError(
-        `No project with id "${projectId}" exists.`,
-      );
+      throw new NotFoundError(`No project with id "${projectId}" exists.`);
     }
 
     const formatEvents = (recentEvents: IEvent[]) =>
@@ -162,17 +158,13 @@ export class PersonalDashboardService {
 
     if (healthScores.length >= 4) {
       avgHealthCurrentWindow = Math.round(
-        healthScores
-          .slice(0, 4)
-          .reduce((acc, score) => acc + score, 0) / 4,
+        healthScores.slice(0, 4).reduce((acc, score) => acc + score, 0) / 4,
       );
     }
 
     if (healthScores.length >= 8) {
       avgHealthPastWindow = Math.round(
-        healthScores
-          .slice(4, 8)
-          .reduce((acc, score) => acc + score, 0) / 4,
+        healthScores.slice(4, 8).reduce((acc, score) => acc + score, 0) / 4,
       );
     }
 

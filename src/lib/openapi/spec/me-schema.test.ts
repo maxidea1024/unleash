@@ -9,15 +9,11 @@ test('meSchema', () => {
     splash: { a: true },
   };
 
-  expect(
-    validateSchema('#/components/schemas/meSchema', data),
-  ).toBeUndefined();
+  expect(validateSchema('#/components/schemas/meSchema', data)).toBeUndefined();
 });
 
 test('meSchema empty', () => {
-  expect(
-    validateSchema('#/components/schemas/meSchema', {}),
-  ).toMatchSnapshot();
+  expect(validateSchema('#/components/schemas/meSchema', {})).toMatchSnapshot();
 });
 
 test('meSchema missing permissions', () => {

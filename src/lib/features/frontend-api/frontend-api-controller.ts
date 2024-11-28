@@ -72,8 +72,7 @@ export default class FrontendAPIController extends Controller {
             200: createResponseSchema('frontendApiFeaturesSchema'),
             ...getStandardResponses(401, 404),
           },
-          summary:
-            'Retrieve enabled feature flags for the provided context.',
+          summary: 'Retrieve enabled feature flags for the provided context.',
           description:
             'This endpoint returns the list of feature flags that the frontend API evaluates to enabled for the given context. Context values are provided as query parameters. If the Frontend API is disabled 404 is returned.',
         }),
@@ -103,8 +102,7 @@ export default class FrontendAPIController extends Controller {
         this.services.openApiService.validPath({
           tags: ['Frontend API'],
           summary: 'Register client usage metrics',
-          description:
-            `Registers usage metrics. Stores information about how many times each flag was evaluated to enabled and disabled within a time frame. If provided, this operation will also store data on how many times each feature flag's variants were displayed to the end user. If the Frontend API is disabled 404 is returned.`,
+          description: `Registers usage metrics. Stores information about how many times each flag was evaluated to enabled and disabled within a time frame. If provided, this operation will also store data on how many times each feature flag's variants were displayed to the end user. If the Frontend API is disabled 404 is returned.`,
           operationId: 'registerFrontendMetrics',
           requestBody: createRequestSchema('clientMetricsSchema'),
           responses: {
@@ -143,8 +141,7 @@ export default class FrontendAPIController extends Controller {
         }),
         rateLimit({
           windowMs: minutesToMilliseconds(1),
-          max: config.metricsRateLimiting
-            .frontendRegisterMaxPerMinute,
+          max: config.metricsRateLimiting.frontendRegisterMaxPerMinute,
           validate: false,
           standardHeaders: true,
           legacyHeaders: false,
@@ -171,7 +168,9 @@ export default class FrontendAPIController extends Controller {
     _: ApiUserRequest,
     res: Response,
   ) {
-    const error = new NotImplementedError('The frontend API does not support this endpoint.');
+    const error = new NotImplementedError(
+      'The frontend API does not support this endpoint.',
+    );
     res.status(error.statusCode).json(error);
   }
 
