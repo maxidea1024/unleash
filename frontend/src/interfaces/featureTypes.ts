@@ -1,3 +1,4 @@
+// release / experiments / killswitch / permissions
 export interface IFeatureType {
   id: string;
   name: string;

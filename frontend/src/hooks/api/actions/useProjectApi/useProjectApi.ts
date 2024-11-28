@@ -23,6 +23,7 @@ const useProjectApi = () => {
 
   const createProject = async (payload: CreateProjectSchema): Promise<ProjectCreatedSchema> => {
     const path = `api/admin/projects`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -34,6 +35,7 @@ const useProjectApi = () => {
 
   const validateId = async (id: CreateProjectSchema['id']) => {
     const path = `api/admin/projects/validate`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ id }),
@@ -45,6 +47,7 @@ const useProjectApi = () => {
 
   const editProject = async (id: string, payload: UpdateProjectSchema) => {
     const path = `api/admin/projects/${id}`;
+
     const req = createRequest(path, {
       method: 'PUT',
       body: JSON.stringify(payload),
@@ -56,6 +59,7 @@ const useProjectApi = () => {
 
   const editProjectSettings = async (id: string, payload: UpdateProjectEnterpriseSettingsSchema) => {
     const path = `api/admin/projects/${id}/settings`;
+
     const req = createRequest(path, {
       method: 'PUT',
       body: JSON.stringify(payload),
@@ -67,6 +71,7 @@ const useProjectApi = () => {
 
   const deleteProject = async (projectId: string) => {
     const path = `api/admin/projects/${projectId}`;
+
     const req = createRequest(path, { method: 'DELETE' });
 
     const res = await makeRequest(req.caller, req.id);
@@ -75,6 +80,7 @@ const useProjectApi = () => {
 
   const archiveProject = async (projectId: string) => {
     const path = `api/admin/projects/archive/${projectId}`;
+
     const req = createRequest(path, { method: 'POST' });
 
     const res = await makeRequest(req.caller, req.id);
@@ -83,6 +89,7 @@ const useProjectApi = () => {
 
   const reviveProject = async (projectId: string) => {
     const path = `api/admin/projects/revive/${projectId}`;
+
     const req = createRequest(path, { method: 'POST' });
 
     const res = await makeRequest(req.caller, req.id);
@@ -91,6 +98,7 @@ const useProjectApi = () => {
 
   const addEnvironmentToProject = async (projectId: string, environment: string) => {
     const path = `api/admin/projects/${projectId}/environments`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ environment }),
@@ -102,6 +110,7 @@ const useProjectApi = () => {
 
   const removeEnvironmentFromProject = async (projectId: string, environment: string) => {
     const path = `api/admin/projects/${projectId}/environments/${environment}`;
+
     const req = createRequest(path, { method: 'DELETE' });
 
     const res = await makeRequest(req.caller, req.id);
@@ -110,6 +119,7 @@ const useProjectApi = () => {
 
   const addAccessToProject = async (projectId: string, payload: IAccessPayload) => {
     const path = `api/admin/projects/${projectId}/access`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -120,6 +130,7 @@ const useProjectApi = () => {
 
   const removeUserAccess = async (projectId: string, userId: number) => {
     const path = `api/admin/projects/${projectId}/users/${userId}/roles`;
+
     const req = createRequest(path, { method: 'DELETE' });
 
     return await makeRequest(req.caller, req.id);
@@ -127,6 +138,7 @@ const useProjectApi = () => {
 
   const removeGroupAccess = async (projectId: string, groupId: number) => {
     const path = `api/admin/projects/${projectId}/groups/${groupId}/roles`;
+
     const req = createRequest(path, { method: 'DELETE' });
 
     return await makeRequest(req.caller, req.id);
@@ -134,6 +146,7 @@ const useProjectApi = () => {
 
   const setUserRoles = (projectId: string, roleIds: number[], userId: number) => {
     const path = `api/admin/projects/${projectId}/users/${userId}/roles`;
+
     const req = createRequest(path, {
       method: 'PUT',
       body: JSON.stringify({ roles: roleIds }),
@@ -144,6 +157,7 @@ const useProjectApi = () => {
 
   const setGroupRoles = (projectId: string, roleIds: number[], groupId: number) => {
     const path = `api/admin/projects/${projectId}/groups/${groupId}/roles`;
+
     const req = createRequest(path, {
       method: 'PUT',
       body: JSON.stringify({ roles: roleIds }),
@@ -154,6 +168,7 @@ const useProjectApi = () => {
 
   const archiveFeatures = async (projectId: string, featureIds: string[]) => {
     const path = `api/admin/projects/${projectId}/archive`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ features: featureIds }),
@@ -164,6 +179,7 @@ const useProjectApi = () => {
 
   const verifyArchiveFeatures = async (projectId: string, featureIds: string[]) => {
     const path = `api/admin/projects/${projectId}/archive/validate`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ features: featureIds }),
@@ -174,6 +190,7 @@ const useProjectApi = () => {
 
   const reviveFeatures = async (projectId: string, featureIds: string[]) => {
     const path = `api/admin/projects/${projectId}/revive`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ features: featureIds }),
@@ -184,6 +201,7 @@ const useProjectApi = () => {
 
   const deleteFeature = async (featureId: string) => {
     const path = `api/admin/archive/${featureId}`;
+
     const req = createRequest(path, {
       method: 'DELETE',
     });
@@ -193,6 +211,7 @@ const useProjectApi = () => {
 
   const deleteFeatures = async (projectId: string, featureIds: string[]) => {
     const path = `api/admin/projects/${projectId}/delete`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({ features: featureIds }),
@@ -208,6 +227,7 @@ const useProjectApi = () => {
     };
 
     const path = `api/admin/projects/${projectId}/stale`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -222,6 +242,7 @@ const useProjectApi = () => {
     strategy: CreateFeatureStrategySchema,
   ) => {
     const path = `api/admin/projects/${projectId}/environments/${environment}/default-strategy`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify(strategy),

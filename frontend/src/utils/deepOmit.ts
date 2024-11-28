@@ -14,7 +14,9 @@ export function deepOmit<T, K extends keyof any>(obj: T, ...keysToOmit: K[]): De
         result[key as Exclude<keyof T, K>] = deepOmit(value, ...keysToOmit);
       }
     }
+
     return result as DeepOmit<T, K>;
   }
+
   return obj as DeepOmit<T, K>;
 }

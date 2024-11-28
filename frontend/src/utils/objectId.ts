@@ -1,3 +1,6 @@
+const ids = new WeakMap<object, number>();
+let id = 0;
+
 // Get a unique ID for an object instance.
 export const objectId = (value: object): number => {
   if (!ids.has(value)) {
@@ -7,6 +10,3 @@ export const objectId = (value: object): number => {
 
   return ids.get(value)!;
 };
-
-const ids = new WeakMap<object, number>();
-let id = 0;

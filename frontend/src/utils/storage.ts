@@ -12,11 +12,13 @@ function serializer(key: string, value: any): any {
     console.warn('Unable to store function.');
     return undefined;
   }
+
   if (value instanceof Map) {
     return { dataType: 'Map', value: Array.from(value.entries()) };
   } else if (value instanceof Set) {
     return { dataType: 'Set', value: Array.from(value) };
   }
+
   return value;
 }
 
@@ -26,6 +28,7 @@ function deserializer(key: string, value: any): any {
   } else if (value && value.dataType === 'Set') {
     return new Set(value.value);
   }
+
   return value;
 }
 
@@ -48,6 +51,7 @@ export function getLocalStorageItem<T>(key: string): T | undefined {
       window.localStorage.removeItem(key);
       return undefined;
     }
+
     return item?.value;
   } catch (err: unknown) {
     console.warn(err);
@@ -95,6 +99,7 @@ export function getSessionStorageItem<T>(key: string): T | undefined {
       window.sessionStorage.removeItem(key);
       return undefined;
     }
+
     return item?.value;
   } catch (err: unknown) {
     console.warn(err);

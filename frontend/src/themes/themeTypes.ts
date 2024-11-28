@@ -187,6 +187,7 @@ declare module '@mui/material/styles' {
     border?: string;
     contrastText: string;
   }
+
   interface PaletteColorOptions {
     main?: string;
     light?: string;
@@ -206,16 +207,19 @@ declare module '@mui/system/createTheme/shape' {
     tableRowHeightDense: number;
   }
 }
+
 declare module '@mui/material/styles/zIndex' {
   interface ZIndex {
     sticky: number;
   }
 }
+
 declare module '@mui/material' {
   interface ButtonPropsColorOverrides {
     web: true;
   }
 }
+
 declare module '@mui/material/FormHelperText' {
   interface FormHelperTextOwnProps {
     'data-testid'?: string;

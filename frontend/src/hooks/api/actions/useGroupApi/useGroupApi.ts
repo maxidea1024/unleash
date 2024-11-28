@@ -15,6 +15,7 @@ export const useGroupApi = () => {
 
   const createGroup = async (payload: ICreateGroupPayload) => {
     const path = `api/admin/groups`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -26,6 +27,7 @@ export const useGroupApi = () => {
 
   const updateGroup = async (groupId: number, payload: ICreateGroupPayload) => {
     const path = `api/admin/groups/${groupId}`;
+
     const req = createRequest(path, {
       method: 'PUT',
       body: JSON.stringify(payload),
@@ -36,6 +38,7 @@ export const useGroupApi = () => {
 
   const removeGroup = async (groupId: number) => {
     const path = `api/admin/groups/${groupId}`;
+
     const req = createRequest(path, {
       method: 'DELETE',
     });

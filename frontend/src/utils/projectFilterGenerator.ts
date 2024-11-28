@@ -1,7 +1,7 @@
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
 import type { IPermission } from 'interfaces/user';
 
-type objectIdx = {
+type ObjectIndex = {
   [key: string]: string;
 };
 
@@ -11,7 +11,7 @@ export const projectFilterGenerator = (
 ): ((projectId: string) => boolean) => {
   let admin = false;
 
-  const permissionMap: objectIdx = permissions.reduce((acc: objectIdx, p: IPermission) => {
+  const permissionMap: ObjectIndex = permissions.reduce((acc: ObjectIndex, p: IPermission) => {
     if (p.permission === ADMIN) {
       admin = true;
     }

@@ -13,6 +13,7 @@ const decodeBoolean = (input: string | (string | null)[] | null | undefined): bo
   if (input === 'true') {
     return true;
   }
+
   if (input === 'false') {
     return false;
   }

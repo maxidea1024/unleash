@@ -199,6 +199,7 @@ export const ApplicationIssues = ({ application }: IApplicationIssuesProps) => {
   if (mode.applicationMode === 'success') {
     return null;
   }
+
   const { issueCount, outdatedSdks, missingFeatures } = mode;
   return (
     <WarningContainer>

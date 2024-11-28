@@ -8,6 +8,7 @@ export const useInactiveUsersApi = () => {
 
   const deleteInactiveUsers = async (userIds: number[]) => {
     const path = `api/admin/user-admin/inactive/delete`;
+
     const req = createRequest(path, {
       method: 'POST',
       body: JSON.stringify({
