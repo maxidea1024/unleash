@@ -39,6 +39,7 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
 
   /**
    * Returns the bold marker based on formatStyle, or wraps text with bold markers.
+   *
    * @param text Optional text to wrap with bold markers.
    * @returns Bold marker or bolded text.
    */
@@ -72,12 +73,15 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
       if (project) {
         return `${this.unleashUrl}/projects/${project}/archive`;
       }
+
       return `${this.unleashUrl}/archive`;
     }
 
     if (featureName) {
       return `${this.unleashUrl}/projects/${project}/features/${featureName}`;
     }
+
+    return undefined;
   }
 
   generateFeatureLink(event: IEvent): string | undefined {
@@ -88,6 +92,8 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
         return `[${event.featureName}](${this.featureLink(event)})`;
       }
     }
+
+    return undefined;
   }
 
   generateProjectLink(event: IEvent): string | undefined {
@@ -98,6 +104,8 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
         return `[${event.project}](${this.unleashUrl}/projects/${event.project})`;
       }
     }
+
+    return undefined;
   }
 
   getStrategyTitle(event: IEvent): string | undefined {
@@ -126,6 +134,8 @@ export class FeatureEventFormatterMd implements FeatureEventFormatter {
 
       return strategyText();
     }
+
+    return undefined;
   }
 
   private applicationHostnameStrategyChangeText(event: IEvent) {

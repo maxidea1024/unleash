@@ -58,11 +58,15 @@ const tokenRowReducer = (acc, tokenRow) => {
       username: userUsername,
     });
   }
+
   return acc;
 };
 
 const toRow = (newToken: IPublicSignupTokenCreate) => {
-  if (!newToken) return;
+  if (!newToken) {
+    return;
+  }
+
   return {
     secret: newToken.secret,
     name: newToken.name,
@@ -94,10 +98,9 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
       });
   }
 
-  count(): Promise<number> {
-    return this.db(TABLE)
-      .count('*')
-      .then((res) => Number(res[0].count));
+  async count(): Promise<number> {
+    const res = await this.db(TABLE).count('*');
+    return Number(res[0].count);
   }
 
   private makeTokenUsersQuery() {
@@ -134,6 +137,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
   }
 
   async insert(newToken: IPublicSignupTokenCreate): Promise<PublicSignupTokenSchema> {
+    // FIXME:
     const response = await this.db<ITokenRow>(TABLE).insert(toRow(newToken), ['secret']);
     return this.get(response[0].secret);
   }
@@ -161,6 +165,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
     if (rows.length > 0) {
       return toTokens(rows)[0];
     }
+
     throw new NotFoundError('Could not find public signup token.');
   }
 
@@ -183,6 +188,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
     if (rows.length > 0) {
       return toTokens(rows)[0];
     }
+
     throw new NotFoundError('Could not find public signup token.');
   }
 }

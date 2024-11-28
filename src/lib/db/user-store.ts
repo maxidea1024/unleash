@@ -19,6 +19,7 @@ const emptify = (value) => {
   if (!value) {
     return undefined;
   }
+
   return value;
 };
 
@@ -35,6 +36,7 @@ const rowToUser = (row) => {
   if (!row) {
     throw new NotFoundError('No user found');
   }
+
   return new User({
     id: row.id,
     name: emptify(row.name),
@@ -71,13 +73,13 @@ export default class UserStore implements IUserStore {
   async deletePasswordsUsedMoreThanNTimesAgo(userId: number, keepLastN: number): Promise<void> {
     await this.db.raw(
       `
-            WITH UserPasswords AS (
-                SELECT user_id, password_hash, used_at, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY used_at DESC) AS rn
-            FROM ${PASSWORD_HASH_TABLE}
-            WHERE user_id = ?)
-            DELETE FROM ${PASSWORD_HASH_TABLE} WHERE user_id = ? AND (user_id, password_hash, used_at) NOT IN (SELECT user_id, password_hash, used_at FROM UserPasswords WHERE rn <= ?
-            );
-        `,
+        WITH UserPasswords AS (
+            SELECT user_id, password_hash, used_at, ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY used_at DESC) AS rn
+        FROM ${PASSWORD_HASH_TABLE}
+        WHERE user_id = ?)
+        DELETE FROM ${PASSWORD_HASH_TABLE} WHERE user_id = ? AND (user_id, password_hash, used_at) NOT IN (SELECT user_id, password_hash, used_at FROM UserPasswords WHERE rn <= ?
+        );
+      `,
       [userId, userId, keepLastN],
     );
   }
@@ -112,12 +114,15 @@ export default class UserStore implements IUserStore {
     if (q.id) {
       return query.where('id', q.id);
     }
+
     if (q.email) {
       return query.where('email', safeToLower(q.email));
     }
+
     if (q.username) {
       return query.where('username', q.username);
     }
+
     throw new Error('Can only find users with id, username or email.');
   }
 

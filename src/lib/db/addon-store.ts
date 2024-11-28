@@ -77,6 +77,7 @@ export default class AddonStore implements IAddonStore {
     if (!rows) {
       throw new NotFoundError('Could not find addon');
     }
+
     return this.rowToAddon(rows[0]);
   }
 

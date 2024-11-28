@@ -39,6 +39,7 @@ const rowToGroup = (row) => {
   if (!row) {
     throw new NotFoundError('No group found');
   }
+
   return new Group({
     id: row.id,
     name: row.name,
@@ -55,6 +56,7 @@ const rowToGroupUser = (row) => {
   if (!row) {
     throw new NotFoundError('No group user found');
   }
+
   return {
     userId: row.user_id,
     groupId: row.group_id,
@@ -89,9 +91,11 @@ export default class GroupStore implements IGroupStore {
 
       return rowToGroup(rows[0]);
     } catch (error) {
+      // CHECKME: 예외케이스인가?
       if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'fk_group_role_id') {
         throw new BadDataError(`Incorrect role id ${group.rootRole}`);
       }
+
       throw error;
     }
   }
@@ -203,6 +207,7 @@ export default class GroupStore implements IGroupStore {
       if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'fk_group_role_id') {
         throw new BadDataError(`Incorrect role id ${group.rootRole}`);
       }
+
       throw error;
     }
   }
@@ -227,6 +232,7 @@ export default class GroupStore implements IGroupStore {
       if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'group_user_user_id_fkey') {
         throw new BadDataError('Incorrect user id in the users group');
       }
+
       throw error;
     }
   }

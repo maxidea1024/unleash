@@ -55,6 +55,7 @@ export async function inTransaction<R>(db: Knex, fn: (db: Knex) => R): Promise<R
   if (db.isTransaction) {
     return fn(db);
   }
+
   return db.transaction(async (tx) => fn(tx));
 }
 

@@ -48,6 +48,7 @@ export default class SettingStore implements ISettingStore {
     if (result.length > 0) {
       return result[0].content;
     }
+
     return undefined;
   }
 

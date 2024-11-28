@@ -87,6 +87,7 @@ export default class RoleStore implements IRoleStore {
     if (rows.length === 0) {
       throw new NotFoundError(`Could not find role with id: ${id}`);
     }
+
     return this.mapRow(rows[0]);
   }
 
@@ -115,6 +116,7 @@ export default class RoleStore implements IRoleStore {
     if (existingId) {
       query = query.andWhereNot({ id: existingId });
     }
+
     const result = await query;
     return result.length > 0;
   }

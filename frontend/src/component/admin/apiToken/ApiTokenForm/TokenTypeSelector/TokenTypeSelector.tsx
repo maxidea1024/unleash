@@ -14,6 +14,7 @@ interface ITokenTypeSelectorProps {
   setType: (value: TokenType) => void;
   apiTokenTypes: SelectOption[];
 }
+
 export const TokenTypeSelector = ({ type, setType, apiTokenTypes }: ITokenTypeSelectorProps) => {
   return (
     <StyledContainer>

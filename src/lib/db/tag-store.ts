@@ -52,6 +52,7 @@ export default class TagStore implements ITagStore {
     if (!tag) {
       throw new NotFoundError(`No tag with type: [${type}] and value [${value}]`);
     }
+
     return tag;
   }
 
@@ -97,6 +98,7 @@ export default class TagStore implements ITagStore {
     if (!tag) {
       throw new NotFoundError(`No tag with type: [${type}] and value [${value}]`);
     }
+
     return tag;
   }
 

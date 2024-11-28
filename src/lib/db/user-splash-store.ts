@@ -58,6 +58,7 @@ export default class UserSplashStore implements IUserSplashStore {
       .merge()
       .returning(COLUMNS);
 
+    // FIXME:
     return rowToField(insertedSplash[0]);
   }
 

@@ -100,6 +100,7 @@ export default class ContextFieldStore implements IContextFieldStore {
     if (!row) {
       throw new NotFoundError(`Could not find Context field with name ${key}`);
     }
+
     return mapRow(row);
   }
 

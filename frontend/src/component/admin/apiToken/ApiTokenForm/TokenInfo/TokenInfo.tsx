@@ -9,6 +9,7 @@ interface ITokenInfoProps {
   errors: { [key: string]: string };
   clearErrors: (error?: ApiTokenFormErrorType) => void;
 }
+
 export const TokenInfo = ({ username, setUsername, errors, clearErrors }: ITokenInfoProps) => {
   return (
     <>

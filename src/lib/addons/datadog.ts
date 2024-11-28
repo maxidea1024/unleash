@@ -63,9 +63,11 @@ export default class DatadogAddon extends Addon {
       title: 'Unleash notification update',
       tags,
     };
+
     if (sourceTypeName) {
       body.source_type_name = sourceTypeName;
     }
+
     let extraHeaders = {};
     if (typeof customHeaders === 'string' && customHeaders.length > 1) {
       try {
@@ -77,6 +79,7 @@ export default class DatadogAddon extends Addon {
         this.logger.warn(badHeadersMessage);
       }
     }
+
     const requestOpts = {
       method: 'POST',
       headers: {

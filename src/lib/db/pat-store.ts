@@ -79,6 +79,7 @@ export default class PatStore implements IPatStore {
     if (!row) {
       throw new NotFoundError('No PAT found.');
     }
+
     return rowToPat(row);
   }
 

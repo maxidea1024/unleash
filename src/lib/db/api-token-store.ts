@@ -57,6 +57,7 @@ const tokenRowReducer = (acc, tokenRow) => {
     currentToken.projects.push(tokenRow.project);
     currentToken.project = currentToken.projects.join(',');
   }
+
   return acc;
 };
 

@@ -11,6 +11,7 @@ let fetchRetryCalls: any[] = [];
 const registerEventMock = jest.fn();
 
 const INTEGRATION_ID = 1337;
+
 const ARGS: IAddonConfig = {
   getLogger: noLogger,
   unleashUrl: 'http://some-url.com',

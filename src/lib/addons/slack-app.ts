@@ -180,6 +180,7 @@ export default class SlackAppAddon extends Addon {
     if (tags) {
       return tags.filter((tag) => tag.type === 'slack').map((t) => t.value);
     }
+
     return [];
   }
 
@@ -187,6 +188,7 @@ export default class SlackAppAddon extends Addon {
     if (defaultChannels) {
       return defaultChannels.split(',').map((c) => c.trim());
     }
+
     return [];
   }
 

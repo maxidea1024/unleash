@@ -325,6 +325,7 @@ export class FeatureEnvironmentStore implements IFeatureEnvironmentStore {
     if (clonedStrategyRows.length === 0) {
       return Promise.resolve();
     }
+
     await this.db('feature_strategies').insert(clonedStrategyRows);
 
     const newStrategyMapping = new Map();

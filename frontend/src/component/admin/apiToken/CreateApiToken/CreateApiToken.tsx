@@ -22,6 +22,7 @@ import { ADMIN, CREATE_CLIENT_API_TOKEN, CREATE_FRONTEND_API_TOKEN } from '@serv
 import { Limit } from 'component/common/Limit/Limit';
 
 const pageTitle = 'Create API token';
+
 interface ICreateApiTokenProps {
   modal?: boolean;
 }

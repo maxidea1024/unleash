@@ -174,6 +174,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
         return rows.map(this.rowToFeatureAndTag);
       }
     }
+
     return [];
   }
 

@@ -20,6 +20,7 @@ export default class Webhook extends Addon {
 
   constructor(args: IAddonConfig) {
     super(definition, args);
+
     this.msgFormatter = new FeatureEventFormatterMd({
       unleashUrl: args.unleashUrl,
     });

@@ -132,6 +132,7 @@ export default class SlackAddon extends Addon {
     if (tags) {
       return tags.filter((tag) => tag.type === 'slack').map((t) => t.value);
     }
+
     return [];
   }
 }

@@ -104,6 +104,7 @@ const remapRow = (input) => {
       delete temp[k];
     }
   });
+
   return temp;
 };
 

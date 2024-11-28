@@ -39,6 +39,7 @@ export default class SessionStore implements ISessionStore {
     if (rows && rows.length > 0) {
       return rows.map(this.rowToSession);
     }
+
     return [];
   }
 
@@ -47,6 +48,7 @@ export default class SessionStore implements ISessionStore {
     if (row) {
       return this.rowToSession(row);
     }
+
     throw new NotFoundError(`Could not find session with sid ${sid}`);
   }
 
@@ -69,6 +71,7 @@ export default class SessionStore implements ISessionStore {
     if (row) {
       return this.rowToSession(row);
     }
+
     throw new Error('Could not insert session');
   }
 

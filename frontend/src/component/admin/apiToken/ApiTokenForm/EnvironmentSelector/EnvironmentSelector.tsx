@@ -9,6 +9,7 @@ interface IEnvironmentSelectorProps {
   environment?: string;
   setEnvironment: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
+
 export const EnvironmentSelector = ({ type, environment, setEnvironment }: IEnvironmentSelectorProps) => {
   const { environments } = useEnvironments();
   const selectableEnvs =

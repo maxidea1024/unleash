@@ -87,6 +87,7 @@ export default class StrategyStore implements IStrategyStore {
     if (!row) {
       throw new NotFoundError('No strategy found');
     }
+
     return {
       displayName: row.display_name,
       name: row.name,
@@ -102,6 +103,7 @@ export default class StrategyStore implements IStrategyStore {
     if (!row) {
       throw new NotFoundError('No strategy found');
     }
+
     return {
       name: row.name,
       description: row.description,

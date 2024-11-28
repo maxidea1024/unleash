@@ -103,6 +103,7 @@ export class AccessStore implements IAccessStore {
     if (permissions === undefined || permissions.length === 0) {
       return [];
     }
+
     // permissions without names (just ids)
     const permissionsWithoutNames = permissions.filter((p) => !this.permissionHasName(p)) as IdPermissionRef[];
 
@@ -422,7 +423,7 @@ export class AccessStore implements IAccessStore {
           GROUP BY usr_r.project
       ) AS uq
       GROUP BY uq.project
-        `,
+      `,
       [roleId, roleId],
     );
 
@@ -720,6 +721,7 @@ export class AccessStore implements IAccessStore {
         return p;
       }
     });
+
     // no need to pass down the environment in this particular case because it'll be overriden
     const permissionsWithNames = await this.resolvePermissions(permissionsAsRefs);
 
@@ -761,36 +763,39 @@ export class AccessStore implements IAccessStore {
   }
 
   async getUserAccessOverview(): Promise<IUserAccessOverview[]> {
-    const result =
-      await this.db.raw(`SELECT u.id, u.created_at, u.name, u.email, u.seen_at, up.p_array as projects, gr.p_array as groups, gp.p_array as group_projects, r.name as root_role
-                FROM users u, LATERAL (
-                SELECT ARRAY (
-                    SELECT ru.project
-                    FROM   role_user ru
-                    WHERE  ru.user_id = u.id
-                    ) AS p_array
-                ) up, LATERAL (
-                    SELECT r.name
-                    FROM   role_user ru
-                    INNER JOIN roles r on ru.role_id = r.id
-                    WHERE ru.user_id = u.id and r.type IN (${ROOT_ROLE_TYPES.map((type) => `'${type}'`).join(',')})
-                ) r, LATERAL (
-                SELECT ARRAY (
-                    SELECT g.name FROM group_user gu
-                    JOIN groups g on g.id = gu.group_id
-                    WHERE  gu.user_id = u.id
-                    ) AS p_array
-                ) gr, LATERAL (
-                SELECT ARRAY (
-                    SELECT  gr.project
-                        FROM group_user gu
-                        JOIN group_role gr ON gu.group_id = gr.group_id
-                    WHERE gu.user_id = u.id
-                    )
-                    AS p_array
-                ) gp
+    const result = await this.db.raw(
+      `
+        SELECT u.id, u.created_at, u.name, u.email, u.seen_at, up.p_array as projects, gr.p_array as groups, gp.p_array as group_projects, r.name as root_role
+        FROM users u, LATERAL (
+        SELECT ARRAY (
+            SELECT ru.project
+            FROM   role_user ru
+            WHERE  ru.user_id = u.id
+            ) AS p_array
+        ) up, LATERAL (
+            SELECT r.name
+            FROM   role_user ru
+            INNER JOIN roles r on ru.role_id = r.id
+            WHERE ru.user_id = u.id and r.type IN (${ROOT_ROLE_TYPES.map((type) => `'${type}'`).join(',')})
+        ) r, LATERAL (
+        SELECT ARRAY (
+            SELECT g.name FROM group_user gu
+            JOIN groups g on g.id = gu.group_id
+            WHERE  gu.user_id = u.id
+            ) AS p_array
+        ) gr, LATERAL (
+        SELECT ARRAY (
+            SELECT  gr.project
+                FROM group_user gu
+                JOIN group_role gr ON gu.group_id = gr.group_id
+            WHERE gu.user_id = u.id
+            )
+            AS p_array
+        ) gp
 
-                order by u.id;`);
+        order by u.id;
+        `,
+    );
     return result.rows.map((row) => {
       return {
         userId: row.id,

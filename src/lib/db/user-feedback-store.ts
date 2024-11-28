@@ -61,6 +61,7 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
       .merge()
       .returning(COLUMNS);
 
+    // FIXME:
     return rowToField(insertedFeedback[0]);
   }
 
