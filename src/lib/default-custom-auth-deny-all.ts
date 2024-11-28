@@ -9,6 +9,7 @@ export function defaultCustomAuthDenyAll(app: Express, config: IUnleashConfig): 
 
   app.use(`${config.server.baseUriPath}/api`, async (req, res) => {
     logger.error(customAuthWarning);
+
     res.status(401).send({
       error: customAuthWarning,
     });

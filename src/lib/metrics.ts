@@ -946,6 +946,7 @@ export function registerPrometheusMetrics(
     },
   };
 }
+
 export default class MetricsMonitor {
   constructor() {}
 
@@ -980,6 +981,7 @@ export default class MetricsMonitor {
       hoursToMilliseconds(2),
       'collectStaticCounters',
     );
+
     await schedulerService.schedule(
       async () => this.registerPoolMetrics.bind(this, db.client.pool, eventBus),
       minutesToMilliseconds(1),

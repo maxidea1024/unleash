@@ -67,9 +67,11 @@ const defaultClientCachingOptions: IClientCachingOption = {
 
 function loadClientCachingOptions(options: IUnleashOptions): IClientCachingOption {
   const envs: Partial<IClientCachingOption> = {};
+
   if (process.env.CLIENT_FEATURE_CACHING_MAXAGE) {
     envs.maxAge = parseEnvVarNumber(process.env.CLIENT_FEATURE_CACHING_MAXAGE, 600);
   }
+
   if (process.env.CLIENT_FEATURE_CACHING_ENABLED) {
     envs.enabled = parseEnvVarBoolean(process.env.CLIENT_FEATURE_CACHING_ENABLED, true);
   }
@@ -82,6 +84,7 @@ function loadMetricsRateLimitingConfig(options: IUnleashOptions): IMetricsRateLi
   const clientRegisterMaxPerMinute = parseEnvVarNumber(process.env.CLIENT_METRICS_RATE_LIMIT_PER_MINUTE, 6000);
   const frontendRegisterMaxPerMinute = parseEnvVarNumber(process.env.REGISTER_FRONTEND_RATE_LIMIT_PER_MINUTE, 6000);
   const frontendMetricsMaxPerMinute = parseEnvVarNumber(process.env.FRONTEND_METRICS_RATE_LIMIT_PER_MINUTE, 6000);
+
   const defaultRateLimitOptions: IMetricsRateLimiting = {
     clientMetricsMaxPerMinute: clientMetricsMaxPerMinute,
     clientRegisterMaxPerMinute: clientRegisterMaxPerMinute,
@@ -104,6 +107,7 @@ function loadRateLimitingConfig(options: IUnleashOptions): IRateLimiting {
     passwordResetMaxPerMinute,
     callSignalEndpointMaxPerSecond,
   };
+
   return mergeAll([defaultRateLimitOptions, options.rateLimiting || {}]);
 }
 
@@ -150,6 +154,7 @@ const databaseSSL = (): IDBOption['ssl'] => {
   return options;
 };
 
+// default database options
 const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> = {
   user: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
@@ -174,6 +179,7 @@ const defaultDbOptions: WithOptional<IDBOption, 'user' | 'password' | 'host'> = 
   applicationName: process.env.DATABASE_APPLICATION_NAME || 'unleash',
 };
 
+// default session options
 const defaultSessionOption: ISessionOption = {
   ttlHours: parseEnvVarNumber(process.env.SESSION_TTL_HOURS, 48),
   clearSiteDataOnLogout: parseEnvVarBoolean(process.env.SESSION_CLEAR_SITE_DATA_ON_LOGOUT, true),
@@ -181,6 +187,7 @@ const defaultSessionOption: ISessionOption = {
   db: true,
 };
 
+// default server options
 const defaultServerOption: IServerOption = {
   pipe: undefined,
   host: process.env.HTTP_HOST,
@@ -200,6 +207,7 @@ const defaultServerOption: IServerOption = {
   enableScheduledCreatedByMigration: parseEnvVarBoolean(process.env.ENABLE_SCHEDULED_CREATED_BY_MIGRATION, false),
 };
 
+// default version options
 const defaultVersionOption: IVersionOption = {
   url: process.env.UNLEASH_VERSION_URL || 'https://version.unleash.run',
   enable: parseEnvVarBoolean(process.env.CHECK_VERSION, true),
@@ -211,6 +219,7 @@ const parseEnvVarInitialAdminUser = (): UsernameAdminUser | undefined => {
   return username && password ? { username, password } : undefined;
 };
 
+// default authentication values
 const defaultAuthentication: IAuthOption = {
   demoAllowAdminLogin: parseEnvVarBoolean(process.env.AUTH_DEMO_ALLOW_ADMIN_LOGIN, false),
   enableApiToken: parseEnvVarBoolean(process.env.AUTH_ENABLE_API_TOKEN, true),
@@ -221,12 +230,14 @@ const defaultAuthentication: IAuthOption = {
   initApiTokens: [],
 };
 
+// default import settings
 const defaultImport: WithOptional<IImportOption, 'file'> = {
   file: process.env.IMPORT_FILE,
   project: process.env.IMPORT_PROJECT ?? 'default',
   environment: process.env.IMPORT_ENVIRONMENT ?? 'development',
 };
 
+// default email options
 const defaultEmail: IEmailOption = {
   host: process.env.EMAIL_HOST,
   secure: parseEnvVarBoolean(process.env.EMAIL_SECURE, false),
@@ -241,6 +252,7 @@ const dbPort = (dbConfig: Partial<IDBOption>): Partial<IDBOption> => {
   if (typeof dbConfig.port === 'string') {
     dbConfig.port = Number.parseInt(dbConfig.port, 10);
   }
+
   return dbConfig;
 };
 
@@ -270,6 +282,7 @@ const loadTokensFromString = (tokenString: String | undefined, tokenType: ApiTok
   if (!tokenString) {
     return [];
   }
+
   const initApiTokens = tokenString.split(/,\s?/);
   const tokens = initApiTokens.map((secret) => {
     const [project = '*', rest] = secret.split(':');
@@ -302,6 +315,7 @@ const loadEnvironmentEnableOverrides = () => {
   if (environmentsString) {
     return environmentsString.split(',');
   }
+
   return [];
 };
 
@@ -369,12 +383,14 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
   } else if (process.env.DATABASE_URL) {
     extraDbOptions = parse(process.env.DATABASE_URL);
   }
+
   let fileDbOptions = {};
   if (options.databaseUrlFile && existsSync(options.databaseUrlFile)) {
     fileDbOptions = parse(readFileSync(options.databaseUrlFile, 'utf-8'));
   } else if (process.env.DATABASE_URL_FILE && existsSync(process.env.DATABASE_URL_FILE)) {
     fileDbOptions = parse(readFileSync(process.env.DATABASE_URL_FILE, 'utf-8'));
   }
+
   const db: IDBOption = mergeAll<IDBOption>([
     defaultDbOptions,
     dbPort(extraDbOptions),

@@ -49,6 +49,7 @@ export class DbMetricsMonitor {
         });
       return resultArray.filter((r) => typeof r.value === 'number');
     }
+
     return [];
   }
 
@@ -72,6 +73,7 @@ export class DbMetricsMonitor {
         this.logger.warn(`Failed to refresh ${definition.name}`, e);
       }
     };
+
     this.updaters.set(definition.name, { target: gauge, task });
     return task;
   }
