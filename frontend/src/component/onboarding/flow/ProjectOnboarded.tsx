@@ -79,7 +79,10 @@ const ColoredMenuBook = styled(MenuBookOutlined)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
-export const ProjectOnboarded = ({ projectId, onClose }: IProjectOnboardedProps) => {
+export const ProjectOnboarded = ({
+  projectId,
+  onClose,
+}: IProjectOnboardedProps) => {
   return (
     <Container>
       <TitleRow>
@@ -102,7 +105,8 @@ export const ProjectOnboarded = ({ projectId, onClose }: IProjectOnboardedProps)
             Expose your feature flag to users
           </TitleContainer>
           <Typography>
-            You can have fine grained control over who is exposed to your feature flag by leveraging{' '}
+            You can have fine grained control over who is exposed to your
+            feature flag by leveraging{' '}
             <Link
               className='unleash-action-button'
               to={`https://docs.getunleash.io/reference/activation-strategies`}
@@ -111,7 +115,8 @@ export const ProjectOnboarded = ({ projectId, onClose }: IProjectOnboardedProps)
             >
               strategies
             </Link>
-            . Visit the feature flag page to start adding strategies to control exposure.
+            . Visit the feature flag page to start adding strategies to control
+            exposure.
           </Typography>
         </ActionBox>
         <ActionBox>
@@ -121,7 +126,10 @@ export const ProjectOnboarded = ({ projectId, onClose }: IProjectOnboardedProps)
           </TitleContainer>
           <Typography>
             Unleash is best when collaborating with your co-workers.{' '}
-            <Link className='unleash-action-button' to={`/projects/${projectId}/settings/access`}>
+            <Link
+              className='unleash-action-button'
+              to={`/projects/${projectId}/settings/access`}
+            >
               Add your co-workers to the project
             </Link>
             .

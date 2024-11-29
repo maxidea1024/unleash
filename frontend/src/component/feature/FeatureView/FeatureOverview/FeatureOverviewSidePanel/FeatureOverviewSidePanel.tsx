@@ -2,7 +2,10 @@ import { Box, styled } from '@mui/material';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { Sticky } from 'component/common/Sticky/Sticky';
-import { type ITab, VerticalTabs } from 'component/common/VerticalTabs/VerticalTabs';
+import {
+  type ITab,
+  VerticalTabs,
+} from 'component/common/VerticalTabs/VerticalTabs';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import { useEffect } from 'react';
 
@@ -39,18 +42,26 @@ interface IFeatureOverviewSidePanelProps {
   setEnvironmentId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const FeatureOverviewSidePanel = ({ environmentId, setEnvironmentId }: IFeatureOverviewSidePanelProps) => {
+export const FeatureOverviewSidePanel = ({
+  environmentId,
+  setEnvironmentId,
+}: IFeatureOverviewSidePanelProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { feature } = useFeature(projectId, featureId);
   const isSticky = feature.environments?.length <= 3;
 
-  const tabs: ITab[] = feature.environments.map(({ name, enabled, strategies }) => ({
-    id: name,
-    label: name,
-    description: strategies.length === 1 ? '1 strategy' : `${strategies.length || 'No'} strategies`,
-    startIcon: <EnvironmentIcon enabled={enabled} />,
-  }));
+  const tabs: ITab[] = feature.environments.map(
+    ({ name, enabled, strategies }) => ({
+      id: name,
+      label: name,
+      description:
+        strategies.length === 1
+          ? '1 strategy'
+          : `${strategies.length || 'No'} strategies`,
+      startIcon: <EnvironmentIcon enabled={enabled} />,
+    }),
+  );
 
   useEffect(() => {
     if (!environmentId) {
@@ -60,8 +71,14 @@ export const FeatureOverviewSidePanel = ({ environmentId, setEnvironmentId }: IF
 
   return (
     <StyledContainer as={isSticky ? Sticky : Box}>
-      <StyledHeader data-loading>Environments ({feature.environments.length})</StyledHeader>
-      <StyledVerticalTabs tabs={tabs} value={environmentId} onChange={({ id }) => setEnvironmentId(id)} />
+      <StyledHeader data-loading>
+        Environments ({feature.environments.length})
+      </StyledHeader>
+      <StyledVerticalTabs
+        tabs={tabs}
+        value={environmentId}
+        onChange={({ id }) => setEnvironmentId(id)}
+      />
     </StyledContainer>
   );
 };

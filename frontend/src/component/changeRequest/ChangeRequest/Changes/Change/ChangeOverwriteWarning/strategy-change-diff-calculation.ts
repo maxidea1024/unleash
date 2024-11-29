@@ -9,19 +9,29 @@ import type { IFeatureStrategy } from 'interfaces/strategy';
 import isEqual from 'lodash.isequal';
 import omit from 'lodash.omit';
 
-const stringifyWithFallback = (value: unknown, fallback: unknown) => JSON.stringify(value ?? fallback);
+const stringifyWithFallback = (value: unknown, fallback: unknown) =>
+  JSON.stringify(value ?? fallback);
 
-const hasJsonDiff = (fallback?: unknown) => (snapshotValue: unknown, currentValue: unknown, changeValue: unknown) => {
-  const currentJson = stringifyWithFallback(currentValue, fallback);
-  return (
-    stringifyWithFallback(snapshotValue, fallback) !== currentJson &&
-    stringifyWithFallback(changeValue, fallback) !== currentJson
-  );
-};
+const hasJsonDiff =
+  (fallback?: unknown) =>
+  (snapshotValue: unknown, currentValue: unknown, changeValue: unknown) => {
+    const currentJson = stringifyWithFallback(currentValue, fallback);
+    return (
+      stringifyWithFallback(snapshotValue, fallback) !== currentJson &&
+      stringifyWithFallback(changeValue, fallback) !== currentJson
+    );
+  };
 
-const hasChanged = (snapshotValue: unknown, currentValue: unknown, changeValue: unknown) => {
+const hasChanged = (
+  snapshotValue: unknown,
+  currentValue: unknown,
+  changeValue: unknown,
+) => {
   if (typeof snapshotValue === 'object') {
-    return !isEqual(snapshotValue, currentValue) && !isEqual(currentValue, changeValue);
+    return (
+      !isEqual(snapshotValue, currentValue) &&
+      !isEqual(currentValue, changeValue)
+    );
   }
   return hasJsonDiff()(snapshotValue, currentValue, changeValue);
 };
@@ -40,7 +50,12 @@ function isNotUndefined<T>(value: T | undefined): value is T {
 
 const getChangedPropertyWithFallbacks =
   (fallbacks: { [key: string]: unknown }) =>
-  (key: string, currentValue: unknown, snapshotValue: unknown, changeValue: unknown) => {
+  (
+    key: string,
+    currentValue: unknown,
+    snapshotValue: unknown,
+    changeValue: unknown,
+  ) => {
     const fallback = fallbacks[key as keyof typeof fallbacks] ?? undefined;
     const diffCheck = key in fallbacks ? hasJsonDiff(fallback) : hasChanged;
 
@@ -50,7 +65,9 @@ const getChangedPropertyWithFallbacks =
       newValue: changeValue,
     };
 
-    return diffCheck(snapshotValue, currentValue, changeValue) ? changeInfo : undefined;
+    return diffCheck(snapshotValue, currentValue, changeValue)
+      ? changeInfo
+      : undefined;
   };
 
 type Change<T> = {
@@ -108,7 +125,11 @@ export function getSegmentChangesThatWouldBeOverwritten(
   change: IChangeRequestUpdateSegment,
 ): ChangesThatWouldBeOverwritten | null {
   const fallbacks = { description: '' };
-  return getChangesThatWouldBeOverwritten(omit(currentSegmentConfig, 'createdAt', 'createdBy'), change, fallbacks);
+  return getChangesThatWouldBeOverwritten(
+    omit(currentSegmentConfig, 'createdAt', 'createdBy'),
+    change,
+    fallbacks,
+  );
 }
 
 export function getStrategyChangesThatWouldBeOverwritten(

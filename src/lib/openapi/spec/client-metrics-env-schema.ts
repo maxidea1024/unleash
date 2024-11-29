@@ -23,7 +23,8 @@ export const clientMetricsEnvSchema = {
       example: 'development',
     },
     timestamp: {
-      description: 'The start of the time window these metrics are valid for. The window is 1 hour wide',
+      description:
+        'The start of the time window these metrics are valid for. The window is 1 hour wide',
       example: '1926-05-08T12:00:00.000Z',
       $ref: '#/components/schemas/dateSchema',
     },

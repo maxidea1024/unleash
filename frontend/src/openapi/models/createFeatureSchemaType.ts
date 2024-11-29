@@ -7,7 +7,8 @@
 /**
  * The feature flag's [type](https://docs.getunleash.io/reference/feature-toggles#feature-flag-types). One of experiment, kill-switch, release, operational, or permission
  */
-export type CreateFeatureSchemaType = (typeof CreateFeatureSchemaType)[keyof typeof CreateFeatureSchemaType];
+export type CreateFeatureSchemaType =
+  (typeof CreateFeatureSchemaType)[keyof typeof CreateFeatureSchemaType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const CreateFeatureSchemaType = {

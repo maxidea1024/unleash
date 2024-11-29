@@ -57,39 +57,89 @@ import { createOnboardingReadModel } from '../features/onboarding/createOnboardi
 import { UserUnsubscribeStore } from '../features/user-subscriptions/user-unsubscribe-store';
 import { UserSubscriptionsReadModel } from '../features/user-subscriptions/user-subscriptions-read-model';
 
-export const createStores = (config: IUnleashConfig, db: Db): IUnleashStores => {
+export const createStores = (
+  config: IUnleashConfig,
+  db: Db,
+): IUnleashStores => {
   const { getLogger, eventBus } = config;
   const eventStore = new EventStore(db, getLogger);
 
   return {
     eventStore,
-    featureToggleStore: new FeatureToggleStore(db, eventBus, getLogger, config.flagResolver),
+    featureToggleStore: new FeatureToggleStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     featureTypeStore: new FeatureTypeStore(db, getLogger),
     strategyStore: new StrategyStore(db, getLogger),
-    clientApplicationsStore: new ClientApplicationsStore(db, eventBus, getLogger, config.flagResolver),
+    clientApplicationsStore: new ClientApplicationsStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     clientInstanceStore: new ClientInstanceStore(db, eventBus, getLogger),
-    clientMetricsStoreV2: new ClientMetricsStoreV2(db, getLogger, config.flagResolver),
-    contextFieldStore: new ContextFieldStore(db, getLogger, config.flagResolver),
+    clientMetricsStoreV2: new ClientMetricsStoreV2(
+      db,
+      getLogger,
+      config.flagResolver,
+    ),
+    contextFieldStore: new ContextFieldStore(
+      db,
+      getLogger,
+      config.flagResolver,
+    ),
     settingStore: new SettingStore(db, getLogger),
     userStore: new UserStore(db, getLogger, config.flagResolver),
     accountStore: new AccountStore(db, getLogger),
-    projectStore: new ProjectStore(db, eventBus, getLogger, config.flagResolver),
+    projectStore: new ProjectStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     tagStore: new TagStore(db, eventBus, getLogger),
     tagTypeStore: new TagTypeStore(db, eventBus, getLogger),
     addonStore: new AddonStore(db, eventBus, getLogger),
     accessStore: new AccessStore(db, eventBus, getLogger),
-    apiTokenStore: new ApiTokenStore(db, eventBus, getLogger, config.flagResolver),
+    apiTokenStore: new ApiTokenStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     resetTokenStore: new ResetTokenStore(db, eventBus, getLogger),
     sessionStore: new SessionStore(db, eventBus, getLogger),
     userFeedbackStore: new UserFeedbackStore(db, eventBus, getLogger),
-    featureStrategiesStore: new FeatureStrategyStore(db, eventBus, getLogger, config.flagResolver),
-    clientFeatureToggleStore: new FeatureToggleClientStore(db, eventBus, getLogger, config.flagResolver),
+    featureStrategiesStore: new FeatureStrategyStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
+    clientFeatureToggleStore: new FeatureToggleClientStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     environmentStore: new EnvironmentStore(db, eventBus, getLogger),
     featureTagStore: new FeatureTagStore(db, eventBus, getLogger),
-    featureEnvironmentStore: new FeatureEnvironmentStore(db, eventBus, getLogger),
+    featureEnvironmentStore: new FeatureEnvironmentStore(
+      db,
+      eventBus,
+      getLogger,
+    ),
     userSplashStore: new UserSplashStore(db, eventBus, getLogger),
     roleStore: new RoleStore(db, eventBus, getLogger),
-    segmentStore: new SegmentStore(db, eventBus, getLogger, config.flagResolver),
+    segmentStore: new SegmentStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     groupStore: new GroupStore(db),
     publicSignupTokenStore: new PublicSignupTokenStore(db, eventBus, getLogger),
     patStore: new PatStore(db, getLogger),
@@ -100,7 +150,12 @@ export const createStores = (config: IUnleashConfig, db: Db): IUnleashStores => 
     privateProjectStore: new PrivateProjectStore(db, getLogger),
     dependentFeaturesStore: new DependentFeaturesStore(db),
     lastSeenStore: new LastSeenStore(db, eventBus, getLogger),
-    featureSearchStore: new FeatureSearchStore(db, eventBus, getLogger, config.flagResolver),
+    featureSearchStore: new FeatureSearchStore(
+      db,
+      eventBus,
+      getLogger,
+      config.flagResolver,
+    ),
     inactiveUsersStore: new InactiveUsersStore(db, eventBus, getLogger),
     trafficDataUsageStore: new TrafficDataUsageStore(db, getLogger),
     segmentReadModel: new SegmentReadModel(db),
@@ -110,7 +165,10 @@ export const createStores = (config: IUnleashConfig, db: Db): IUnleashStores => 
     featureStrategiesReadModel: new FeatureStrategiesReadModel(db),
     onboardingReadModel: createOnboardingReadModel(db),
     onboardingStore: new OnboardingStore(db),
-    featureLifecycleReadModel: new FeatureLifecycleReadModel(db, config.flagResolver),
+    featureLifecycleReadModel: new FeatureLifecycleReadModel(
+      db,
+      config.flagResolver,
+    ),
     largestResourcesReadModel: new LargestResourcesReadModel(db),
     integrationEventsStore: new IntegrationEventsStore(db, { eventBus }),
     featureCollaboratorsReadModel: new FeatureCollaboratorsReadModel(db),

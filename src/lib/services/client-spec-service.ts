@@ -19,10 +19,16 @@ export class ClientSpecService {
   }
 
   requestSupportsSpec(request: Request, feature: ClientSpecFeature): boolean {
-    return this.versionSupportsSpec(feature, request.header(this.clientSpecHeader));
+    return this.versionSupportsSpec(
+      feature,
+      request.header(this.clientSpecHeader),
+    );
   }
 
-  versionSupportsSpec(feature: ClientSpecFeature, version: string | undefined): boolean {
+  versionSupportsSpec(
+    feature: ClientSpecFeature,
+    version: string | undefined,
+  ): boolean {
     if (!version) {
       return false;
     }
@@ -30,11 +36,15 @@ export class ClientSpecService {
     const parsedVersion = parseStrictSemVer(version);
 
     if (!parsedVersion && !/^\d/.test(version)) {
-      throw new BadDataError(`Invalid prefix in the ${this.clientSpecHeader} header: "${version}".`);
+      throw new BadDataError(
+        `Invalid prefix in the ${this.clientSpecHeader} header: "${version}".`,
+      );
     }
 
     if (!parsedVersion) {
-      throw new BadDataError(`Invalid SemVer in the ${this.clientSpecHeader} header: "${version}".`);
+      throw new BadDataError(
+        `Invalid SemVer in the ${this.clientSpecHeader} header: "${version}".`,
+      );
     }
 
     return semver.gte(parsedVersion, this.clientSpecFeatures[feature]);

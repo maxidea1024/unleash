@@ -48,7 +48,8 @@ const UsageWarning = ({
           {`${ids.length} feature flags `}
         </Typography>
         <span>
-          have usage from applications. If you archive these feature flags they will not be available to Client SDKs:
+          have usage from applications. If you archive these feature flags they
+          will not be available to Client SDKs:
         </span>
         <ul>
           {ids?.map((id) => (
@@ -79,8 +80,8 @@ const ArchiveParentError = ({
           {`${ids.length} feature flags `}
         </Typography>
         <span>
-          have child features that depend on them and are not part of the archive operation. These parent features can
-          not be archived:
+          have child features that depend on them and are not part of the
+          archive operation. These parent features can not be archived:
         </span>
         <ul>
           {ids?.map((id) => (
@@ -93,8 +94,8 @@ const ArchiveParentError = ({
   if (ids && ids.length === 1) {
     return (
       <Alert severity={'error'} sx={{ m: (theme) => theme.spacing(2, 0) }}>
-        <Link to={formatPath(ids[0])}>{ids[0]}</Link> has child features that depend on it and are not part of the
-        archive operation.
+        <Link to={formatPath(ids[0])}>{ids[0]}</Link> has child features that
+        depend on it and are not part of the archive operation.
       </Alert>
     );
   }
@@ -109,8 +110,9 @@ const ScheduledChangeRequestAlert: VFC<{
     return (
       <Alert severity='warning' sx={{ m: (theme) => theme.spacing(2, 0) }}>
         <p>
-          This archive operation would conflict with {changeRequests.length} scheduled change request(s). The change
-          request(s) that would be affected by this are:
+          This archive operation would conflict with {changeRequests.length}{' '}
+          scheduled change request(s). The change request(s) that would be
+          affected by this are:
         </p>
         <ul>
           {changeRequests.map(({ id, title }) => {
@@ -135,8 +137,9 @@ const ScheduledChangeRequestAlert: VFC<{
     return (
       <Alert severity='warning'>
         <p>
-          This archive operation might conflict with one or more scheduled change requests. If you complete it, those
-          change requests can no longer be applied.
+          This archive operation might conflict with one or more scheduled
+          change requests. If you complete it, those change requests can no
+          longer be applied.
         </p>
       </Alert>
     );
@@ -147,10 +150,16 @@ const ScheduledChangeRequestAlert: VFC<{
 };
 
 const useActionButtonText = (projectId: string, isBulkArchive: boolean) => {
-  const getHighestEnvironment = useHighestPermissionChangeRequestEnvironment(projectId);
+  const getHighestEnvironment =
+    useHighestPermissionChangeRequestEnvironment(projectId);
   const environment = getHighestEnvironment();
-  const { isChangeRequestConfiguredForReview } = useChangeRequestsEnabled(projectId);
-  if (environment && isChangeRequestConfiguredForReview(environment) && isBulkArchive) {
+  const { isChangeRequestConfiguredForReview } =
+    useChangeRequestsEnabled(projectId);
+  if (
+    environment &&
+    isChangeRequestConfiguredForReview(environment) &&
+    isBulkArchive
+  ) {
     return 'Add to change request';
   }
   if (environment && isChangeRequestConfiguredForReview(environment)) {
@@ -176,10 +185,13 @@ const useArchiveAction = ({
   const { setToastData, setToastApiError } = useToast();
   const { archiveFeatureToggle } = useFeatureApi();
   const { archiveFeatures } = useProjectApi();
-  const { isChangeRequestConfiguredForReview } = useChangeRequestsEnabled(projectId);
+  const { isChangeRequestConfiguredForReview } =
+    useChangeRequestsEnabled(projectId);
   const { addChange } = useChangeRequestApi();
-  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
-  const getHighestEnvironment = useHighestPermissionChangeRequestEnvironment(projectId);
+  const { refetch: refetchChangeRequests } =
+    usePendingChangeRequests(projectId);
+  const getHighestEnvironment =
+    useHighestPermissionChangeRequestEnvironment(projectId);
   const isBulkArchive = featureIds?.length > 1;
   const environment = getHighestEnvironment();
   const addArchiveToggleToChangeRequest = async () => {
@@ -202,7 +214,9 @@ const useArchiveAction = ({
         ? 'Your archive feature flags changes have been added to change request'
         : 'Your archive feature flag change has been added to change request',
       type: 'success',
-      title: isBulkArchive ? 'Changes added to a draft' : 'Change added to a draft',
+      title: isBulkArchive
+        ? 'Changes added to a draft'
+        : 'Change added to a draft',
     });
   };
 
@@ -242,7 +256,11 @@ const useArchiveAction = ({
   };
 };
 
-const useVerifyArchive = (featureIds: string[], projectId: string, isOpen: boolean) => {
+const useVerifyArchive = (
+  featureIds: string[],
+  projectId: string,
+  isOpen: boolean,
+) => {
   const [disableArchive, setDisableArchive] = useState(true);
   const [offendingParents, setOffendingParents] = useState<string[]>([]);
   const [hasDeletedDependencies, setHasDeletedDependencies] = useState(false);
@@ -287,7 +305,9 @@ export const FeatureArchiveDialog: VFC<IFeatureArchiveDialogProps> = ({
 
   const buttonText = useActionButtonText(projectId, isBulkArchive);
 
-  const dialogTitle = isBulkArchive ? 'Archive feature flags' : 'Archive feature flag';
+  const dialogTitle = isBulkArchive
+    ? 'Archive feature flags'
+    : 'Archive feature flag';
 
   const archiveAction = useArchiveAction({
     projectId,
@@ -301,11 +321,16 @@ export const FeatureArchiveDialog: VFC<IFeatureArchiveDialogProps> = ({
     },
   });
 
-  const { changeRequests } = useScheduledChangeRequestsWithFlags(projectId, featureIds);
+  const { changeRequests } = useScheduledChangeRequestsWithFlags(
+    projectId,
+    featureIds,
+  );
 
-  const { disableArchive, offendingParents, hasDeletedDependencies } = useVerifyArchive(featureIds, projectId, isOpen);
+  const { disableArchive, offendingParents, hasDeletedDependencies } =
+    useVerifyArchive(featureIds, projectId, isOpen);
 
-  const removeDependenciesWarning = offendingParents.length === 0 && hasDeletedDependencies;
+  const removeDependenciesWarning =
+    offendingParents.length === 0 && hasDeletedDependencies;
 
   return (
     <Dialogue
@@ -322,20 +347,36 @@ export const FeatureArchiveDialog: VFC<IFeatureArchiveDialogProps> = ({
         show={
           <>
             <p>
-              Are you sure you want to archive <strong>{featureIds?.length}</strong> feature flags?
+              Are you sure you want to archive{' '}
+              <strong>{featureIds?.length}</strong> feature flags?
             </p>
 
             <ConditionallyRender
-              condition={Boolean(featuresWithUsage && featuresWithUsage?.length > 0)}
-              show={<UsageWarning ids={featuresWithUsage} projectId={projectId} />}
+              condition={Boolean(
+                featuresWithUsage && featuresWithUsage?.length > 0,
+              )}
+              show={
+                <UsageWarning ids={featuresWithUsage} projectId={projectId} />
+              }
             />
             <ConditionallyRender
               condition={offendingParents.length > 0}
-              show={<ArchiveParentError ids={offendingParents} projectId={projectId} />}
+              show={
+                <ArchiveParentError
+                  ids={offendingParents}
+                  projectId={projectId}
+                />
+              }
             />
-            <ConditionallyRender condition={removeDependenciesWarning} show={<RemovedDependenciesAlert />} />
+            <ConditionallyRender
+              condition={removeDependenciesWarning}
+              show={<RemovedDependenciesAlert />}
+            />
 
-            <ScheduledChangeRequestAlert changeRequests={changeRequests} projectId={projectId} />
+            <ScheduledChangeRequestAlert
+              changeRequests={changeRequests}
+              projectId={projectId}
+            />
 
             <ConditionallyRender
               condition={featureIds?.length <= 5}
@@ -351,14 +392,28 @@ export const FeatureArchiveDialog: VFC<IFeatureArchiveDialogProps> = ({
         }
         elseShow={
           <>
-            <p>Are you sure you want to archive {isBulkArchive ? 'these feature flags' : 'this feature flag'}?</p>
+            <p>
+              Are you sure you want to archive{' '}
+              {isBulkArchive ? 'these feature flags' : 'this feature flag'}?
+            </p>
             <ConditionallyRender
               condition={offendingParents.length > 0}
-              show={<ArchiveParentError ids={offendingParents} projectId={projectId} />}
+              show={
+                <ArchiveParentError
+                  ids={offendingParents}
+                  projectId={projectId}
+                />
+              }
             />
-            <ConditionallyRender condition={removeDependenciesWarning} show={<RemovedDependenciesAlert />} />
+            <ConditionallyRender
+              condition={removeDependenciesWarning}
+              show={<RemovedDependenciesAlert />}
+            />
 
-            <ScheduledChangeRequestAlert changeRequests={changeRequests} projectId={projectId} />
+            <ScheduledChangeRequestAlert
+              changeRequests={changeRequests}
+              projectId={projectId}
+            />
           </>
         }
       />

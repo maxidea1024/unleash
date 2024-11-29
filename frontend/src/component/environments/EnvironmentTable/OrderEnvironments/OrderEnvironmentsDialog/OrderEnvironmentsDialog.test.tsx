@@ -4,7 +4,14 @@ import { OrderEnvironmentsDialog } from './OrderEnvironmentsDialog';
 
 describe('OrderEnvironmentsDialog Component', () => {
   const renderComponent = (props = {}) =>
-    render(<OrderEnvironmentsDialog open={true} onClose={() => {}} onSubmit={() => {}} {...props} />);
+    render(
+      <OrderEnvironmentsDialog
+        open={true}
+        onClose={() => {}}
+        onSubmit={() => {}}
+        {...props}
+      />,
+    );
 
   test('should disable "Order" button until the checkbox is checked', () => {
     renderComponent();

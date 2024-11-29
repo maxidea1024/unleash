@@ -12,7 +12,13 @@ export const segmentStrategiesSchema = {
       type: 'array',
       items: {
         type: 'object',
-        required: ['id', 'featureName', 'projectId', 'environment', 'strategyName'],
+        required: [
+          'id',
+          'featureName',
+          'projectId',
+          'environment',
+          'strategyName',
+        ],
         properties: {
           id: {
             type: 'string',
@@ -21,7 +27,8 @@ export const segmentStrategiesSchema = {
           },
           featureName: {
             type: 'string',
-            description: 'The name of the feature flag that this strategy belongs to.',
+            description:
+              'The name of the feature flag that this strategy belongs to.',
             example: 'new-signup-flow',
           },
           projectId: {
@@ -31,7 +38,8 @@ export const segmentStrategiesSchema = {
           },
           environment: {
             type: 'string',
-            description: 'The ID of the environment that the strategy belongs to.',
+            description:
+              'The ID of the environment that the strategy belongs to.',
             example: 'development',
           },
           strategyName: {
@@ -43,7 +51,8 @@ export const segmentStrategiesSchema = {
       },
     },
     changeRequestStrategies: {
-      description: 'A list of strategies that use this segment in active change requests.',
+      description:
+        'A list of strategies that use this segment in active change requests.',
       type: 'array',
       items: {
         type: 'object',
@@ -57,7 +66,8 @@ export const segmentStrategiesSchema = {
           },
           featureName: {
             type: 'string',
-            description: 'The name of the feature flag that this strategy belongs to.',
+            description:
+              'The name of the feature flag that this strategy belongs to.',
             example: 'new-signup-flow',
           },
           projectId: {
@@ -67,7 +77,8 @@ export const segmentStrategiesSchema = {
           },
           environment: {
             type: 'string',
-            description: 'The ID of the environment that the strategy belongs to.',
+            description:
+              'The ID of the environment that the strategy belongs to.',
             example: 'development',
           },
           strategyName: {
@@ -82,4 +93,6 @@ export const segmentStrategiesSchema = {
   components: {},
 } as const;
 
-export type SegmentStrategiesSchema = FromSchema<typeof segmentStrategiesSchema>;
+export type SegmentStrategiesSchema = FromSchema<
+  typeof segmentStrategiesSchema
+>;

@@ -1,5 +1,8 @@
 import { Fragment, type VFC } from 'react';
-import type { PlaygroundConstraintSchema, PlaygroundRequestSchema } from 'openapi';
+import type {
+  PlaygroundConstraintSchema,
+  PlaygroundRequestSchema,
+} from 'openapi';
 import { objectId } from 'utils/objectId';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
@@ -19,14 +22,20 @@ export const ConstraintExecutionWrapper = styled('div')(() => ({
   flexDirection: 'column',
 }));
 
-export const ConstraintExecution: VFC<IConstraintExecutionProps> = ({ constraints, input }) => {
+export const ConstraintExecution: VFC<IConstraintExecutionProps> = ({
+  constraints,
+  input,
+}) => {
   if (!constraints) return null;
 
   return (
     <ConstraintExecutionWrapper>
       {constraints?.map((constraint, index) => (
         <Fragment key={objectId(constraint)}>
-          <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
+          <ConditionallyRender
+            condition={index > 0}
+            show={<StrategySeparator text='AND' />}
+          />
           <ConstraintAccordionView
             constraint={constraint}
             compact
@@ -34,7 +43,9 @@ export const ConstraintExecution: VFC<IConstraintExecutionProps> = ({ constraint
               <ConditionallyRender
                 condition={constraint.result}
                 show={<ConstraintOk />}
-                elseShow={<ConstraintError input={input} constraint={constraint} />}
+                elseShow={
+                  <ConstraintError input={input} constraint={constraint} />
+                }
               />
             }
           />

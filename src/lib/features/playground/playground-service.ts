@@ -4,7 +4,12 @@ import type { IUnleashServices } from '../../types/services';
 import { ALL } from '../../types/models/api-token';
 import type { PlaygroundFeatureSchema } from '../../openapi/spec/playground-feature-schema';
 import type { Logger } from '../../logger';
-import type { IFlagResolver, ISegment, ISegmentReadModel, IUnleashConfig } from '../../types';
+import type {
+  IFlagResolver,
+  ISegment,
+  ISegmentReadModel,
+  IUnleashConfig,
+} from '../../types';
 import { offlineUnleashClient } from './offline-unleash-client';
 import type { FeatureInterface } from '../../features/playground/feature-evaluator/feature';
 import type {
@@ -15,7 +20,10 @@ import type { FeatureConfigurationClient } from '../feature-toggle/types/feature
 import { generateObjectCombinations } from './generateObjectCombinations';
 import groupBy from 'lodash.groupby';
 import { omitKeys } from '../../util';
-import type { AdvancedPlaygroundFeatureSchema, playgroundStrategyEvaluation } from '../../openapi';
+import type {
+  AdvancedPlaygroundFeatureSchema,
+  playgroundStrategyEvaluation,
+} from '../../openapi';
 import type { AdvancedPlaygroundEnvironmentFeatureSchema } from '../../openapi/spec/advanced-playground-environment-feature-schema';
 import { validateQueryComplexity } from './validateQueryComplexity';
 import type { IPrivateProjectChecker } from '../private-project/privateProjectCheckerType';
@@ -40,11 +48,20 @@ export type AdvancedPlaygroundEnvironmentFeatureEvaluationResult = Omit<
   };
 };
 
-export type AdvancedPlaygroundFeatureEvaluationResult = Omit<AdvancedPlaygroundFeatureSchema, 'environments'> & {
-  environments: Record<string, AdvancedPlaygroundEnvironmentFeatureEvaluationResult[]>;
+export type AdvancedPlaygroundFeatureEvaluationResult = Omit<
+  AdvancedPlaygroundFeatureSchema,
+  'environments'
+> & {
+  environments: Record<
+    string,
+    AdvancedPlaygroundEnvironmentFeatureEvaluationResult[]
+  >;
 };
 
-export type PlaygroundFeatureEvaluationResult = Omit<PlaygroundFeatureSchema, 'strategies'> & {
+export type PlaygroundFeatureEvaluationResult = Omit<
+  PlaygroundFeatureSchema,
+  'strategies'
+> & {
   strategies: {
     result: boolean | typeof playgroundStrategyEvaluation.unknownResult;
     data: EvaluatedPlaygroundStrategy[];
@@ -63,7 +80,10 @@ export class PlaygroundService {
     {
       featureToggleServiceV2,
       privateProjectChecker,
-    }: Pick<IUnleashServices, 'featureToggleServiceV2' | 'privateProjectChecker'>,
+    }: Pick<
+      IUnleashServices,
+      'featureToggleServiceV2' | 'privateProjectChecker'
+    >,
     segmentReadModel: ISegmentReadModel,
   ) {
     this.logger = config.getLogger('playground-service.ts');
@@ -86,29 +106,40 @@ export class PlaygroundService {
     // used for runtime control, do not remove
     const { payload } = this.flagResolver.getVariant('advancedPlayground');
     const limit =
-      payload?.value && Number.isInteger(Number.parseInt(payload?.value)) ? Number.parseInt(payload?.value) : 15000;
+      payload?.value && Number.isInteger(Number.parseInt(payload?.value))
+        ? Number.parseInt(payload?.value)
+        : 15000;
 
     const segments = await this.segmentReadModel.getActive();
 
     let filteredProjects: typeof projects = projects;
 
-    const projectAccess = await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const projectAccess =
+      await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (projectAccess.mode === 'all') {
       filteredProjects = projects;
     } else if (projects === ALL) {
       filteredProjects = projectAccess.projects;
     } else {
-      filteredProjects = projects.filter((project) => projectAccess.projects.includes(project));
+      filteredProjects = projects.filter((project) =>
+        projectAccess.projects.includes(project),
+      );
     }
 
     const environmentFeatures = await Promise.all(
       environments.map((env) => this.resolveFeatures(filteredProjects, env)),
     );
 
-    const { context: cleanedContext, removedProperties } = cleanContext(context);
+    const { context: cleanedContext, removedProperties } =
+      cleanContext(context);
     const contexts = generateObjectCombinations(cleanedContext);
 
-    validateQueryComplexity(environments.length, environmentFeatures[0]?.features.length ?? 0, contexts.length, limit);
+    validateQueryComplexity(
+      environments.length,
+      environmentFeatures[0]?.features.length ?? 0,
+      contexts.length,
+      limit,
+    );
 
     const results = await Promise.all(
       environmentFeatures.flatMap(({ features, featureProject, environment }) =>
@@ -126,7 +157,10 @@ export class PlaygroundService {
     const items = results.flat();
     const itemsByName = groupBy(items, (item) => item.name);
     const result = Object.values(itemsByName).map((entries) => {
-      const groupedEnvironments = groupBy(entries, (entry) => entry.environment);
+      const groupedEnvironments = groupBy(
+        entries,
+        (entry) => entry.environment,
+      );
       return {
         name: entries[0].name,
         projectId: entries[0].projectId,
@@ -146,7 +180,9 @@ export class PlaygroundService {
     segments,
     context,
     environment,
-  }: EvaluationInput): Promise<AdvancedPlaygroundEnvironmentFeatureEvaluationResult[]> {
+  }: EvaluationInput): Promise<
+    AdvancedPlaygroundEnvironmentFeatureEvaluationResult[]
+  > {
     const [head, ...rest] = features;
     if (!head) {
       return [];
@@ -165,41 +201,54 @@ export class PlaygroundService {
 
       const clientContext = {
         ...context,
-        currentTime: context.currentTime ? new Date(context.currentTime) : undefined,
+        currentTime: context.currentTime
+          ? new Date(context.currentTime)
+          : undefined,
       };
 
-      return client.getFeatureToggleDefinitions().map((feature: FeatureInterface) => {
-        const strategyEvaluationResult: FeatureStrategiesEvaluationResult = client.isEnabled(
-          feature.name,
-          clientContext,
-        );
+      return client
+        .getFeatureToggleDefinitions()
+        .map((feature: FeatureInterface) => {
+          const strategyEvaluationResult: FeatureStrategiesEvaluationResult =
+            client.isEnabled(feature.name, clientContext);
 
-        const hasUnsatisfiedDependency = strategyEvaluationResult.hasUnsatisfiedDependency;
-        const isEnabled = strategyEvaluationResult.result === true && feature.enabled && !hasUnsatisfiedDependency;
+          const hasUnsatisfiedDependency =
+            strategyEvaluationResult.hasUnsatisfiedDependency;
+          const isEnabled =
+            strategyEvaluationResult.result === true &&
+            feature.enabled &&
+            !hasUnsatisfiedDependency;
 
-        const variant = {
-          ...(isEnabled
-            ? client.forceGetVariant(feature.name, strategyEvaluationResult, clientContext)
-            : getDefaultVariant()),
-          feature_enabled: isEnabled,
-        };
+          const variant = {
+            ...(isEnabled
+              ? client.forceGetVariant(
+                  feature.name,
+                  strategyEvaluationResult,
+                  clientContext,
+                )
+              : getDefaultVariant()),
+            feature_enabled: isEnabled,
+          };
 
-        return {
-          isEnabled,
-          isEnabledInCurrentEnvironment: feature.enabled,
-          hasUnsatisfiedDependency,
-          strategies: {
-            result: strategyEvaluationResult.result,
-            data: strategyEvaluationResult.strategies,
-          },
-          projectId: featureProject[feature.name],
-          variant,
-          name: feature.name,
-          environment,
-          context,
-          variants: strategyEvaluationResult.variants || variantsMap[feature.name] || [],
-        };
-      });
+          return {
+            isEnabled,
+            isEnabledInCurrentEnvironment: feature.enabled,
+            hasUnsatisfiedDependency,
+            strategies: {
+              result: strategyEvaluationResult.result,
+              data: strategyEvaluationResult.strategies,
+            },
+            projectId: featureProject[feature.name],
+            variant,
+            name: feature.name,
+            environment,
+            context,
+            variants:
+              strategyEvaluationResult.variants ||
+              variantsMap[feature.name] ||
+              [],
+          };
+        });
     }
   }
 
@@ -216,10 +265,13 @@ export class PlaygroundService {
       environment,
     });
 
-    const featureProject: Record<string, string> = features.reduce((obj, feature) => {
-      obj[feature.name] = feature.project;
-      return obj;
-    }, {});
+    const featureProject: Record<string, string> = features.reduce(
+      (obj, feature) => {
+        obj[feature.name] = feature.project;
+        return obj;
+      },
+      {},
+    );
     return { features, featureProject, environment };
   }
 

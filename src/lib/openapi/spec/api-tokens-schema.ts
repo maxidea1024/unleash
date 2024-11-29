@@ -4,7 +4,8 @@ import { apiTokenSchema } from './api-token-schema';
 export const apiTokensSchema = {
   $id: '#/components/schemas/apiTokensSchema',
   type: 'object',
-  description: 'An object with [Unleash API tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys)',
+  description:
+    'An object with [Unleash API tokens](https://docs.getunleash.io/reference/api-tokens-and-client-keys)',
   additionalProperties: false,
   required: ['tokens'],
   properties: {

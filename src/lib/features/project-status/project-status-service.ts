@@ -1,5 +1,11 @@
 import type { ProjectStatusSchema } from '../../openapi';
-import type { IApiTokenStore, IEventStore, IProjectStore, ISegmentStore, IUnleashStores } from '../../types';
+import type {
+  IApiTokenStore,
+  IEventStore,
+  IProjectStore,
+  ISegmentStore,
+  IUnleashStores,
+} from '../../types';
 import type { IPersonalDashboardReadModel } from '../personal-dashboard/personal-dashboard-read-model-type';
 import type { IProjectLifecycleSummaryReadModel } from './project-lifecycle-read-model/project-lifecycle-read-model-type';
 import type { IProjectStaleFlagsReadModel } from './project-stale-flags-read-model/project-stale-flags-read-model-type';
@@ -19,7 +25,10 @@ export class ProjectStatusService {
       projectStore,
       apiTokenStore,
       segmentStore,
-    }: Pick<IUnleashStores, 'eventStore' | 'projectStore' | 'apiTokenStore' | 'segmentStore'>,
+    }: Pick<
+      IUnleashStores,
+      'eventStore' | 'projectStore' | 'apiTokenStore' | 'segmentStore'
+    >,
     personalDashboardReadModel: IPersonalDashboardReadModel,
     projectLifecycleReadModel: IProjectLifecycleSummaryReadModel,
     projectStaleFlagsReadModel: IProjectStaleFlagsReadModel,
@@ -50,7 +59,9 @@ export class ProjectStatusService {
       this.segmentStore.getProjectSegmentCount(projectId),
       this.eventStore.getProjectRecentEventActivity(projectId),
       this.personalDashboardReadModel.getLatestHealthScores(projectId, 4),
-      this.projectLifecycleSummaryReadModel.getProjectLifecycleSummary(projectId),
+      this.projectLifecycleSummaryReadModel.getProjectLifecycleSummary(
+        projectId,
+      ),
       this.projectStaleFlagsReadModel.getStaleFlagCountForProject(projectId),
     ]);
 

@@ -1,6 +1,18 @@
-import { useState, type FormEventHandler, type ChangeEventHandler } from 'react';
+import {
+  useState,
+  type FormEventHandler,
+  type ChangeEventHandler,
+} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, TextField, Switch, Paper, FormControlLabel, Alert, styled } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Switch,
+  Paper,
+  FormControlLabel,
+  Alert,
+  styled,
+} from '@mui/material';
 import FileCopy from '@mui/icons-material/FileCopy';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { trim } from 'component/common/util';
@@ -64,7 +76,8 @@ export const CopyFeatureToggle = () => {
   const projectId = useRequiredPathParam('projectId');
   const { feature } = useFeature(projectId, featureId);
   const navigate = useNavigate();
-  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(projectId);
+  const { isChangeRequestConfiguredInAnyEnv } =
+    useChangeRequestsEnabled(projectId);
 
   const {
     project: { featureNaming },
@@ -121,21 +134,25 @@ export const CopyFeatureToggle = () => {
       <StyledHeader>
         <StyledTitle>Copy&nbsp;{featureId}</StyledTitle>
       </StyledHeader>
-      <ConditionallyRender condition={Boolean(apiError)} show={<Alert severity='error'>{apiError}</Alert>} />
+      <ConditionallyRender
+        condition={Boolean(apiError)}
+        show={<Alert severity='error'>{apiError}</Alert>}
+      />
       <ConditionallyRender
         condition={isChangeRequestConfiguredInAnyEnv()}
         show={
           <StyledAlert severity='error'>
-            Copy functionality is disabled for this project because change request is enabled for at least one
-            environment in this project.
+            Copy functionality is disabled for this project because change
+            request is enabled for at least one environment in this project.
           </StyledAlert>
         }
       />
       <StyledSection>
         <StyledDescription>
-          You are about to create a new feature flag by cloning the configuration of feature flag&nbsp;
-          <Link to={getTogglePath(projectId, featureId)}>{featureId}</Link>. You must give the new feature flag a unique
-          name before you can proceed.
+          You are about to create a new feature flag by cloning the
+          configuration of feature flag&nbsp;
+          <Link to={getTogglePath(projectId, featureId)}>{featureId}</Link>. You
+          must give the new feature flag a unique name before you can proceed.
         </StyledDescription>
 
         <ConditionallyRender
@@ -154,15 +171,30 @@ export const CopyFeatureToggle = () => {
             variant='outlined'
             size='small'
             aria-required
-            aria-details={displayFeatureNamingInfo ? 'feature-naming-pattern-info' : undefined}
+            aria-details={
+              displayFeatureNamingInfo
+                ? 'feature-naming-pattern-info'
+                : undefined
+            }
             autoFocus
           />
           <StyledFormControlLabel
-            control={<Switch value={replaceGroupId} checked={replaceGroupId} onChange={toggleReplaceGroupId} />}
+            control={
+              <Switch
+                value={replaceGroupId}
+                checked={replaceGroupId}
+                onChange={toggleReplaceGroupId}
+              />
+            }
             label='Replace groupId'
           />
 
-          <Button type='submit' color='primary' variant='contained' disabled={isChangeRequestConfiguredInAnyEnv()}>
+          <Button
+            type='submit'
+            color='primary'
+            variant='contained'
+            disabled={isChangeRequestConfiguredInAnyEnv()}
+          >
             <FileCopy />
             &nbsp;&nbsp;&nbsp; Create from copy
           </Button>

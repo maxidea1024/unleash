@@ -56,11 +56,15 @@ const createOnPaginationChange =
     if (typeof newPagination === 'function') {
       const computedPagination = newPagination({
         pageSize: tableState.limit,
-        pageIndex: tableState.offset ? Math.floor(tableState.offset / tableState.limit) : 0,
+        pageIndex: tableState.offset
+          ? Math.floor(tableState.offset / tableState.limit)
+          : 0,
       });
       setTableState({
         limit: computedPagination?.pageSize,
-        offset: computedPagination?.pageIndex ? computedPagination?.pageIndex * computedPagination?.pageSize : 0,
+        offset: computedPagination?.pageIndex
+          ? computedPagination?.pageIndex * computedPagination?.pageSize
+          : 0,
       });
     } else {
       const { pageSize, pageIndex } = newPagination;
@@ -91,11 +95,15 @@ const createOnColumnVisibilityChange =
 
     if (typeof newVisibility === 'function') {
       const computedVisibility = newVisibility(columnsObject || {});
-      const columns = Object.keys(computedVisibility).filter((column) => computedVisibility[column]);
+      const columns = Object.keys(computedVisibility).filter(
+        (column) => computedVisibility[column],
+      );
 
       setTableState({ columns });
     } else {
-      const columns = Object.keys(newVisibility).filter((column) => newVisibility[column]);
+      const columns = Object.keys(newVisibility).filter(
+        (column) => newVisibility[column],
+      );
       setTableState({ columns });
     }
   };
@@ -155,10 +163,15 @@ export const withTableState = <T extends Object>(
   options: Omit<TableOptions<T>, 'getCoreRowModel'>,
 ) => {
   const hideAllColumns = Object.fromEntries(
-    Object.keys(options.state?.columnVisibility || {}).map((column) => [column, false]),
+    Object.keys(options.state?.columnVisibility || {}).map((column) => [
+      column,
+      false,
+    ]),
   );
   const showAlwaysVisibleColumns = Object.fromEntries(
-    options.columns.filter(({ enableHiding }) => enableHiding === false).map((column) => [column.id, true]),
+    options.columns
+      .filter(({ enableHiding }) => enableHiding === false)
+      .map((column) => [column.id, true]),
   );
   const columnVisibility = tableState.columns
     ? {
@@ -178,7 +191,10 @@ export const withTableState = <T extends Object>(
     enableHiding: true,
     onPaginationChange: createOnPaginationChange(tableState, setTableState),
     onSortingChange: createOnSortingChange(tableState, setTableState),
-    onColumnVisibilityChange: createOnColumnVisibilityChange(tableState, setTableState),
+    onColumnVisibilityChange: createOnColumnVisibilityChange(
+      tableState,
+      setTableState,
+    ),
     ...options,
     state: {
       ...createSortingState(tableState),

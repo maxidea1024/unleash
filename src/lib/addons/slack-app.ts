@@ -14,7 +14,11 @@ import Addon from './addon';
 
 import slackAppDefinition from './slack-app-definition';
 import { type IAddonConfig, serializeDates } from '../types';
-import { type FeatureEventFormatter, FeatureEventFormatterMd, LinkStyle } from './feature-event-formatter-md';
+import {
+  type FeatureEventFormatter,
+  FeatureEventFormatterMd,
+  LinkStyle,
+} from './feature-event-formatter-md';
 import type { IEvent } from '../types/events';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
 
@@ -37,7 +41,11 @@ export default class SlackAppAddon extends Addon {
     });
   }
 
-  async handleEvent(event: IEvent, parameters: ISlackAppAddonParameters, integrationId: number): Promise<void> {
+  async handleEvent(
+    event: IEvent,
+    parameters: ISlackAppAddonParameters,
+    integrationId: number,
+  ): Promise<void> {
     let state: IntegrationEventState = 'success';
     const stateDetails: string[] = [];
     let channels: string[] = [];
@@ -48,26 +56,40 @@ export default class SlackAppAddon extends Addon {
       if (!accessToken) {
         const noAccessTokenMessage = 'No access token provided.';
         this.logger.warn(noAccessTokenMessage);
-        this.registerEarlyFailureEvent(integrationId, event, noAccessTokenMessage);
+        this.registerEarlyFailureEvent(
+          integrationId,
+          event,
+          noAccessTokenMessage,
+        );
         return;
       }
 
       const taggedChannels = this.findTaggedChannels(event);
-      channels = this.getUniqueArray(taggedChannels.concat(this.getDefaultChannels(defaultChannels)));
+      channels = this.getUniqueArray(
+        taggedChannels.concat(this.getDefaultChannels(defaultChannels)),
+      );
 
       if (!channels.length) {
         const noSlackChannelsMessage = `No Slack channels found for event ${event.type}.`;
         this.logger.debug(noSlackChannelsMessage);
-        this.registerEarlyFailureEvent(integrationId, event, noSlackChannelsMessage);
+        this.registerEarlyFailureEvent(
+          integrationId,
+          event,
+          noSlackChannelsMessage,
+        );
         return;
       }
 
-      this.logger.debug(`Found candidate channels: ${JSON.stringify(channels)}.`);
+      this.logger.debug(
+        `Found candidate channels: ${JSON.stringify(channels)}.`,
+      );
 
       if (!this.slackClient || this.accessToken !== accessToken) {
         const client = new WebClient(accessToken);
         client.on(WebClientEvent.RATE_LIMITED, (numSeconds) => {
-          this.logger.debug(`Rate limit reached for event ${event.type}. Retry scheduled after ${numSeconds} seconds`);
+          this.logger.debug(
+            `Rate limit reached for event ${event.type}. Retry scheduled after ${numSeconds} seconds`,
+          );
         });
         this.slackClient = client;
         this.accessToken = accessToken;
@@ -117,9 +139,13 @@ export default class SlackAppAddon extends Addon {
 
       const results = await Promise.allSettled(requests);
 
-      const failedRequests = results.filter(({ status }) => status === 'rejected');
+      const failedRequests = results.filter(
+        ({ status }) => status === 'rejected',
+      );
       const errors = this.getUniqueArray(
-        failedRequests.map(({ reason }: PromiseRejectedResult) => this.parseError(reason)),
+        failedRequests.map(({ reason }: PromiseRejectedResult) =>
+          this.parseError(reason),
+        ),
       ).join(' ');
 
       if (failedRequests.length === 0) {
@@ -163,7 +189,11 @@ export default class SlackAppAddon extends Addon {
     return [...new Set(arr)];
   }
 
-  registerEarlyFailureEvent(integrationId: number, event: IEvent, earlyFailureMessage: string): void {
+  registerEarlyFailureEvent(
+    integrationId: number,
+    event: IEvent,
+    earlyFailureMessage: string,
+  ): void {
     this.registerEvent({
       integrationId,
       state: 'failed',

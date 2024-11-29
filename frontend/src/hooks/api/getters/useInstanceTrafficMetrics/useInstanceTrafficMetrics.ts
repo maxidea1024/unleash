@@ -11,8 +11,13 @@ export interface IInstanceTrafficMetricsResponse {
   error?: Error;
 }
 
-export const useInstanceTrafficMetrics = (period: string): IInstanceTrafficMetricsResponse => {
-  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/metrics/traffic/${period}`), fetcher);
+export const useInstanceTrafficMetrics = (
+  period: string,
+): IInstanceTrafficMetricsResponse => {
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/metrics/traffic/${period}`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

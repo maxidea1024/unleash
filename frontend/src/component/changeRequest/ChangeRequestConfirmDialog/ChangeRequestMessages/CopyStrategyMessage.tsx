@@ -8,8 +8,13 @@ export interface CopyStrategyMsg {
   environment?: string;
 }
 
-export const CopyStrategyMessage = ({ payload, fromEnvironment, environment }: CopyStrategyMsg) => (
+export const CopyStrategyMessage = ({
+  payload,
+  fromEnvironment,
+  environment,
+}: CopyStrategyMsg) => (
   <Typography>
-    <strong>Copy {formatStrategyName(payload?.name || '')} strategy </strong> from {fromEnvironment} to {environment}
+    <strong>Copy {formatStrategyName(payload?.name || '')} strategy </strong>{' '}
+    from {fromEnvironment} to {environment}
   </Typography>
 );

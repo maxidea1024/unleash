@@ -56,7 +56,9 @@ export const RolesPage = () => {
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  const type = pathname.includes('project-roles') ? PROJECT_ROLE_TYPE : ROOT_ROLE_TYPE;
+  const type = pathname.includes('project-roles')
+    ? PROJECT_ROLE_TYPE
+    : ROOT_ROLE_TYPE;
 
   return (
     <PageContent
@@ -93,7 +95,10 @@ export const RolesPage = () => {
                 condition={!isSmallScreen}
                 show={
                   <>
-                    <Search initialValue={searchValue} onChange={setSearchValue} />
+                    <Search
+                      initialValue={searchValue}
+                      onChange={setSearchValue}
+                    />
                     <PageHeader.Divider />
                   </>
                 }
@@ -113,7 +118,9 @@ export const RolesPage = () => {
           </StyledHeader>
           <ConditionallyRender
             condition={isSmallScreen}
-            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
+            show={
+              <Search initialValue={searchValue} onChange={setSearchValue} />
+            }
           />
         </>
       }

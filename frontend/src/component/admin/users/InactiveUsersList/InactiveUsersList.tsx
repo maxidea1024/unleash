@@ -1,4 +1,7 @@
-import { type IInactiveUser, useInactiveUsers } from 'hooks/api/getters/useInactiveUsers/useInactiveUsers';
+import {
+  type IInactiveUser,
+  useInactiveUsers,
+} from 'hooks/api/getters/useInactiveUsers/useInactiveUsers';
 import { useUsers } from '../../../../hooks/api/getters/useUsers/useUsers';
 import useAdminUsersApi from '../../../../hooks/api/actions/useAdminUsersApi/useAdminUsersApi';
 import { useInactiveUsersApi } from '../../../../hooks/api/actions/useInactiveUsersApi/useInactiveUsersApi';
@@ -28,10 +31,18 @@ import { StyledUsersLinkDiv } from '../Users.styles';
 
 export const InactiveUsersList = () => {
   const { removeUser, userApiErrors } = useAdminUsersApi();
-  const { deleteInactiveUsers, errors: inactiveUsersApiErrors } = useInactiveUsersApi();
+  const { deleteInactiveUsers, errors: inactiveUsersApiErrors } =
+    useInactiveUsersApi();
   const { setToastData, setToastApiError } = useToast();
-  const { inactiveUsers, refetchInactiveUsers, loading, error } = useInactiveUsers();
-  const { users, roles, loading: usersLoading, refetch, error: usersError } = useUsers();
+  const { inactiveUsers, refetchInactiveUsers, loading, error } =
+    useInactiveUsers();
+  const {
+    users,
+    roles,
+    loading: usersLoading,
+    refetch,
+    error: usersError,
+  } = useUsers();
   const [delDialog, setDelDialog] = useState(false);
   const [delUser, setDelUser] = useState<IInactiveUser>();
   const [showDelInactiveDialog, setShowDelInactiveDialog] = useState(false);
@@ -40,11 +51,12 @@ export const InactiveUsersList = () => {
     setDelUser(undefined);
   };
 
-  const openDelDialog = (user: IInactiveUser) => (e: React.SyntheticEvent<Element, Event>) => {
-    e.preventDefault();
-    setDelDialog(true);
-    setDelUser(user);
-  };
+  const openDelDialog =
+    (user: IInactiveUser) => (e: React.SyntheticEvent<Element, Event>) => {
+      e.preventDefault();
+      setDelDialog(true);
+      setDelUser(user);
+    };
 
   const openDelInactiveDialog = (e: React.SyntheticEvent<Element, Event>) => {
     e.preventDefault();
@@ -100,14 +112,18 @@ export const InactiveUsersList = () => {
         accessor: (row: any) => row.name || '',
         minWidth: 200,
         Cell: ({ row: { original: user } }: any) => (
-          <HighlightCell value={user.name} subtitle={user.email || user.username} />
+          <HighlightCell
+            value={user.name}
+            subtitle={user.email || user.username}
+          />
         ),
         searchable: true,
       },
       {
         id: 'role',
         Header: 'Role',
-        accessor: (row: any) => roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
+        accessor: (row: any) =>
+          roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
         Cell: ({
           row: { original: user },
           value,
@@ -129,7 +145,11 @@ export const InactiveUsersList = () => {
         Header: 'Last login',
         accessor: (row: any) => row.seenAt || '',
         Cell: ({ row: { original: user } }: any) => (
-          <TimeAgoCell value={user.seenAt} emptyText='Never' title={(date) => `Last login: ${date}`} />
+          <TimeAgoCell
+            value={user.seenAt}
+            emptyText='Never'
+            title={(date) => `Last login: ${date}`}
+          />
         ),
         maxWidth: 150,
       },
@@ -138,7 +158,11 @@ export const InactiveUsersList = () => {
         Header: 'PAT last used',
         accessor: (row: any) => row.patSeenAt || '',
         Cell: ({ row: { original: user } }: any) => (
-          <TimeAgoCell value={user.patSeenAt} emptyText='Never' title={(date) => `Last used: ${date}`} />
+          <TimeAgoCell
+            value={user.patSeenAt}
+            emptyText='Never'
+            title={(date) => `Last used: ${date}`}
+          />
         ),
         maxWidth: 150,
       },
@@ -146,7 +170,9 @@ export const InactiveUsersList = () => {
         id: 'Actions',
         Header: 'Actions',
         align: 'center',
-        Cell: ({ row: { original: user } }: any) => <InactiveUsersActionCell onDelete={openDelDialog(user)} />,
+        Cell: ({ row: { original: user } }: any) => (
+          <InactiveUsersActionCell onDelete={openDelDialog(user)} />
+        ),
         width: 200,
         disableSortBy: true,
       },
@@ -201,7 +227,11 @@ export const InactiveUsersList = () => {
       <StyledUsersLinkDiv>
         <Link to={'/admin/users'}>View all users</Link>
       </StyledUsersLinkDiv>
-      <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+      <VirtualizedTable
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+      />
       <ConditionallyRender
         condition={rows.length === 0}
         show={<TablePlaceholder>No inactive users found.</TablePlaceholder>}

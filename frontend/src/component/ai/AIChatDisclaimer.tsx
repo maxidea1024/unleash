@@ -13,6 +13,7 @@ const StyledDisclaimer = styled('aside')(({ theme }) => ({
 
 export const AIChatDisclaimer = () => (
   <StyledDisclaimer>
-    By using this assistant you accept that all data you share in this chat can be shared with OpenAI
+    By using this assistant you accept that all data you share in this chat can
+    be shared with OpenAI
   </StyledDisclaimer>
 );

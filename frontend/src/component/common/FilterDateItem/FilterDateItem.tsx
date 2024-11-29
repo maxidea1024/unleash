@@ -18,7 +18,14 @@ export interface IFilterDateItemProps {
   operators: [string, ...string[]];
 }
 
-export const FilterDateItem: FC<IFilterDateItemProps> = ({ name, label, onChange, onChipClose, state, operators }) => {
+export const FilterDateItem: FC<IFilterDateItemProps> = ({
+  name,
+  label,
+  onChange,
+  onChipClose,
+  state,
+  operators,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const { locationSettings } = useLocationSettings();
@@ -37,7 +44,9 @@ export const FilterDateItem: FC<IFilterDateItemProps> = ({ name, label, onChange
     setAnchorEl(null);
   };
 
-  const selectedOptions = state ? [getLocalizedDateString(state.values[0], locationSettings.locale) || ''] : [];
+  const selectedOptions = state
+    ? [getLocalizedDateString(state.values[0], locationSettings.locale) || '']
+    : [];
   const selectedDate = state ? new Date(state.values[0]) : null;
   const currentOperator = state ? state.operator : operators[0];
   const onDelete = () => {
@@ -67,7 +76,9 @@ export const FilterDateItem: FC<IFilterDateItemProps> = ({ name, label, onChange
           operator={currentOperator}
           operatorOptions={operators}
           onChangeOperator={(operator) => {
-            const formattedValue = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '';
+            const formattedValue = selectedDate
+              ? format(selectedDate, 'yyyy-MM-dd')
+              : '';
             onChange({ operator, values: [formattedValue] });
           }}
         />

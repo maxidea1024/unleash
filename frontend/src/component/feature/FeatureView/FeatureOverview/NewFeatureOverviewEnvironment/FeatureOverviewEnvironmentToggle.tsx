@@ -18,7 +18,8 @@ export const FeatureOverviewEnvironmentToggle = ({
 
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
 
-  const { onToggle: onFeatureToggle, modals: featureToggleModals } = useFeatureToggleSwitch(projectId);
+  const { onToggle: onFeatureToggle, modals: featureToggleModals } =
+    useFeatureToggleSwitch(projectId);
 
   const onToggle = (newState: boolean, onRollback: () => void) =>
     onFeatureToggle(newState, {

@@ -16,7 +16,9 @@ export type Summary<T extends string = string> = {
  *               See prom-client documentation for detailed options: https://github.com/siimon/prom-client#summary
  * @returns An object containing the wrapped Summary instance and custom methods.
  */
-export const createSummary = <T extends string>(options: SummaryConfiguration<T>): Summary<T> => {
+export const createSummary = <T extends string>(
+  options: SummaryConfiguration<T>,
+): Summary<T> => {
   /**
    * The underlying instance of prom-client's Summary.
    */

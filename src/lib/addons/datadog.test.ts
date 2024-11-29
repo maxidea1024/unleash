@@ -1,10 +1,20 @@
-import { FEATURE_ARCHIVED, FEATURE_CREATED, FEATURE_ENVIRONMENT_DISABLED, type IEvent } from '../types/events';
+import {
+  FEATURE_ARCHIVED,
+  FEATURE_CREATED,
+  FEATURE_ENVIRONMENT_DISABLED,
+  type IEvent,
+} from '../types/events';
 import type { Logger } from '../logger';
 
 import DatadogAddon from './datadog';
 
 import noLogger from '../../test/fixtures/no-logger';
-import { type IFlagKey, serializeDates, type IAddonConfig, type IFlagResolver } from '../types';
+import {
+  type IFlagKey,
+  serializeDates,
+  type IAddonConfig,
+  type IFlagResolver,
+} from '../types';
 import type { IntegrationEventsService } from '../services';
 
 let fetchRetryCalls: any[] = [];
@@ -212,7 +222,9 @@ describe('Datadog integration', () => {
     await addon.handleEvent(event, parameters, INTEGRATION_ID);
     expect(fetchRetryCalls).toHaveLength(1);
     expect(fetchRetryCalls[0].url).toBe(parameters.url);
-    expect(fetchRetryCalls[0].options.body).toMatch(/"source_type_name":"my-custom-source-type"/);
+    expect(fetchRetryCalls[0].options.body).toMatch(
+      /"source_type_name":"my-custom-source-type"/,
+    );
     expect(fetchRetryCalls[0].options.body).toMatchSnapshot();
     expect(fetchRetryCalls[0].options.headers).toMatchSnapshot();
   });
@@ -236,7 +248,8 @@ describe('Datadog integration', () => {
     const parameters = {
       url: 'http://api.datadoghq.com/api/v1/events',
       apiKey: 'fakeKey',
-      bodyTemplate: '{\n  "event": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
+      bodyTemplate:
+        '{\n  "event": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
     };
 
     await addon.handleEvent(event, parameters, INTEGRATION_ID);
@@ -274,7 +287,8 @@ describe('Datadog integration', () => {
     const parameters = {
       url: 'http://api.datadoghq.com/api/v1/events',
       apiKey: 'fakeKey',
-      bodyTemplate: '{\n  "event": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
+      bodyTemplate:
+        '{\n  "event": "{{event.type}}",\n  "createdBy": "{{event.createdBy}}"\n}',
     };
 
     await addon.handleEvent(event, parameters, INTEGRATION_ID);
@@ -283,7 +297,8 @@ describe('Datadog integration', () => {
     expect(registerEventMock).toHaveBeenCalledWith({
       integrationId: INTEGRATION_ID,
       state: 'success',
-      stateDetails: 'Datadog Events API request was successful with status code: 200.',
+      stateDetails:
+        'Datadog Events API request was successful with status code: 200.',
       event: serializeDates(event),
       details: {
         url: parameters.url,

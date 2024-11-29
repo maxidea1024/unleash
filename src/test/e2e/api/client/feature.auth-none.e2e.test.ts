@@ -1,4 +1,7 @@
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
@@ -63,12 +66,13 @@ beforeAll(async () => {
   });
   clientSecret = token.secret;
 
-  const frontendToken = await app.services.apiTokenService.createApiTokenWithProjects({
-    tokenName: 'test',
-    type: ApiTokenType.FRONTEND,
-    environment: DEFAULT_ENV,
-    projects: ['default'],
-  });
+  const frontendToken =
+    await app.services.apiTokenService.createApiTokenWithProjects({
+      tokenName: 'test',
+      type: ApiTokenType.FRONTEND,
+      environment: DEFAULT_ENV,
+      projects: ['default'],
+    });
   frontendSecret = frontendToken.secret;
 });
 
@@ -104,7 +108,10 @@ test('returns success for correct api token', async () => {
 });
 
 test('returns successful for frontend API without token', async () => {
-  return app.request.get('/api/frontend').expect('Content-Type', /json/).expect(200);
+  return app.request
+    .get('/api/frontend')
+    .expect('Content-Type', /json/)
+    .expect(200);
 });
 
 test('returns 401 for frontend API with invalid token', async () => {

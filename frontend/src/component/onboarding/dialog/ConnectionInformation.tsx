@@ -57,7 +57,11 @@ const StyledCheck = styled(Check)(({ theme }) => ({
   height: '80px',
 }));
 
-export const ConnectionInformation = ({ projectId, sdk, environment }: IConnectionInformationProps) => {
+export const ConnectionInformation = ({
+  projectId,
+  sdk,
+  environment,
+}: IConnectionInformationProps) => {
   const theme = useTheme();
   const { project } = useProjectOverview(projectId, {
     refreshInterval: 1000,

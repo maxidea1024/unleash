@@ -12,5 +12,8 @@ test('should enable prometheus', async () => {
   const services = createServices(stores, config);
   const app = await getApp(config, stores, services);
   const request = supertest(app);
-  await request.get('/internal-backstage/prometheus').expect('Content-Type', /text/).expect(200);
+  await request
+    .get('/internal-backstage/prometheus')
+    .expect('Content-Type', /text/)
+    .expect(200);
 });

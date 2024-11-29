@@ -9,7 +9,15 @@ import type { Db } from './db';
 
 const TABLE = 'users';
 
-const USER_COLUMNS_PUBLIC = ['id', 'name', 'username', 'email', 'image_url', 'seen_at', 'is_service'];
+const USER_COLUMNS_PUBLIC = [
+  'id',
+  'name',
+  'username',
+  'email',
+  'image_url',
+  'seen_at',
+  'is_service',
+];
 
 const USER_COLUMNS = [...USER_COLUMNS_PUBLIC, 'login_attempts', 'created_at'];
 
@@ -96,7 +104,9 @@ export class AccountStore implements IAccountStore {
   }
 
   async getAllWithId(userIdList: number[]): Promise<User[]> {
-    const users = await this.activeAccounts().select(USER_COLUMNS_PUBLIC).whereIn('id', userIdList);
+    const users = await this.activeAccounts()
+      .select(USER_COLUMNS_PUBLIC)
+      .whereIn('id', userIdList);
     return users.map(rowToUser);
   }
 
@@ -145,7 +155,11 @@ export class AccountStore implements IAccountStore {
   async getAccountByPersonalAccessToken(secret: string): Promise<User> {
     const row = await this.activeAccounts()
       .select(USER_COLUMNS.map((column) => `${TABLE}.${column}`))
-      .leftJoin('personal_access_tokens', 'personal_access_tokens.user_id', `${TABLE}.id`)
+      .leftJoin(
+        'personal_access_tokens',
+        'personal_access_tokens.user_id',
+        `${TABLE}.id`,
+      )
       .where('secret', secret)
       .andWhere('expires_at', '>', 'now()')
       .first();
@@ -155,7 +169,9 @@ export class AccountStore implements IAccountStore {
   async markSeenAt(secrets: string[]): Promise<void> {
     const now = new Date();
     try {
-      await this.db('personal_access_tokens').whereIn('secret', secrets).update({ seen_at: now });
+      await this.db('personal_access_tokens')
+        .whereIn('secret', secrets)
+        .update({ seen_at: now });
     } catch (err) {
       this.logger.error('Could not update lastSeen, error: ', err);
     }
@@ -164,7 +180,11 @@ export class AccountStore implements IAccountStore {
   async getAdminCount(): Promise<IAdminCount> {
     const adminCount = await this.activeAccounts()
       .join('role_user as ru', 'users.id', 'ru.user_id')
-      .where('ru.role_id', '=', this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']))
+      .where(
+        'ru.role_id',
+        '=',
+        this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']),
+      )
       .select(
         this.db.raw(
           'COUNT(CASE WHEN users.password_hash IS NOT NULL AND users.is_service = false THEN 1 END)::integer AS password',
@@ -172,7 +192,9 @@ export class AccountStore implements IAccountStore {
         this.db.raw(
           'COUNT(CASE WHEN users.password_hash IS NULL AND users.is_service = false THEN 1 END)::integer AS no_password',
         ),
-        this.db.raw('COUNT(CASE WHEN users.is_service = true THEN 1 END)::integer AS service'),
+        this.db.raw(
+          'COUNT(CASE WHEN users.is_service = true THEN 1 END)::integer AS service',
+        ),
       );
 
     return {
@@ -196,9 +218,19 @@ export class AccountStore implements IAccountStore {
 
     const admins = await this.activeAccounts()
       .join('role_user as ru', 'users.id', 'ru.user_id')
-      .where('ru.role_id', '=', this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']))
+      .where(
+        'ru.role_id',
+        '=',
+        this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']),
+      )
       .andWhereNot('users.is_service', true)
-      .select('users.id', 'users.name', 'users.username', 'users.email', 'users.image_url');
+      .select(
+        'users.id',
+        'users.name',
+        'users.username',
+        'users.email',
+        'users.image_url',
+      );
 
     return admins.map(rowToAdminUser);
   }

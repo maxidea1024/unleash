@@ -44,7 +44,10 @@ const FeatureToggleCellComponent = ({
   const environment = feature.environments[environmentName];
 
   const hasWarning = useMemo(
-    () => feature.someEnabledEnvironmentHasVariants && environment.variantCount === 0 && environment.enabled,
+    () =>
+      feature.someEnabledEnvironmentHasVariants &&
+      environment.variantCount === 0 &&
+      environment.enabled,
     [feature, environment],
   );
 
@@ -71,7 +74,10 @@ const FeatureToggleCellComponent = ({
         environmentName={environmentName}
         onToggle={onToggle}
       />
-      <ConditionallyRender condition={hasWarning} show={<VariantsWarningTooltip />} />
+      <ConditionallyRender
+        condition={hasWarning}
+        show={<VariantsWarningTooltip />}
+      />
     </StyledSwitchContainer>
   );
 };

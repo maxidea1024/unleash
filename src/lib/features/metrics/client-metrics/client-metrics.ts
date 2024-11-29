@@ -8,8 +8,14 @@ import { NONE } from '../../../types/permissions';
 import { createResponseSchema } from '../../../openapi/util/create-response-schema';
 import type { OpenApiService } from '../../../services/openapi-service';
 import { serializeDates } from '../../../types/serialize-dates';
-import { type FeatureUsageSchema, featureUsageSchema } from '../../../openapi/spec/feature-usage-schema';
-import { featureMetricsSchema, type FeatureMetricsSchema } from '../../../openapi/spec/feature-metrics-schema';
+import {
+  type FeatureUsageSchema,
+  featureUsageSchema,
+} from '../../../openapi/spec/feature-usage-schema';
+import {
+  featureMetricsSchema,
+  type FeatureMetricsSchema,
+} from '../../../openapi/spec/feature-metrics-schema';
 import { getStandardResponses } from '../../../openapi';
 
 interface IName {
@@ -32,7 +38,10 @@ export default class ClientMetricsController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { clientMetricsServiceV2, openApiService }: Pick<IUnleashServices, 'clientMetricsServiceV2' | 'openApiService'>,
+    {
+      clientMetricsServiceV2,
+      openApiService,
+    }: Pick<IUnleashServices, 'clientMetricsServiceV2' | 'openApiService'>,
   ) {
     super(config);
 
@@ -52,7 +61,8 @@ export default class ClientMetricsController extends Controller {
           operationId: 'getRawFeatureMetrics',
           tags: ['Metrics'],
           summary: 'Get feature metrics',
-          description: 'Get usage metrics for a specific feature for the last 48 hours, grouped by hour',
+          description:
+            'Get usage metrics for a specific feature for the last 48 hours, grouped by hour',
           responses: {
             200: createResponseSchema('featureMetricsSchema'),
             ...getStandardResponses(401, 403, 404),
@@ -88,23 +98,39 @@ export default class ClientMetricsController extends Controller {
   ): Promise<void> {
     const { name } = req.params;
     const { hoursBack } = req.query;
-    const data = await this.metrics.getClientMetricsForToggle(name, this.parseHoursBackQueryParam(hoursBack));
-    this.openApiService.respondWithValidation(200, res, featureMetricsSchema.$id, {
-      version: 1,
-      maturity: 'stable',
-      data: serializeDates(data),
-    });
+    const data = await this.metrics.getClientMetricsForToggle(
+      name,
+      this.parseHoursBackQueryParam(hoursBack),
+    );
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureMetricsSchema.$id,
+      {
+        version: 1,
+        maturity: 'stable',
+        data: serializeDates(data),
+      },
+    );
   }
 
-  async getToggleMetricsSummary(req: Request<IName>, res: Response<FeatureUsageSchema>): Promise<void> {
+  async getToggleMetricsSummary(
+    req: Request<IName>,
+    res: Response<FeatureUsageSchema>,
+  ): Promise<void> {
     const { name } = req.params;
     const data = await this.metrics.getFeatureToggleMetricsSummary(name);
 
-    this.openApiService.respondWithValidation(200, res, featureUsageSchema.$id, {
-      version: 1,
-      maturity: 'stable',
-      ...serializeDates(data),
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureUsageSchema.$id,
+      {
+        version: 1,
+        maturity: 'stable',
+        ...serializeDates(data),
+      },
+    );
   }
 
   private parseHoursBackQueryParam(param: unknown): number | undefined {

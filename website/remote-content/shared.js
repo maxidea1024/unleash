@@ -1,6 +1,7 @@
 import path from 'node:path';
 
-export const mapObject = (fn) => (o) => Object.fromEntries(Object.entries(o).map(fn));
+export const mapObject = (fn) => (o) =>
+  Object.fromEntries(Object.entries(o).map(fn));
 
 export const enrichAdditional =
   (additionalProperties) =>
@@ -9,7 +10,10 @@ export const enrichAdditional =
     const slugName = (repoData.slugName ?? repoData.sidebarName).toLowerCase();
     const branch = repoData.branch ?? 'main';
 
-    return [repoName, { ...repoData, repoUrl, slugName, branch, ...additionalProperties }];
+    return [
+      repoName,
+      { ...repoData, repoUrl, slugName, branch, ...additionalProperties },
+    ];
   };
 
 export const enrich = enrichAdditional({});
@@ -70,7 +74,9 @@ const replaceLinks = ({ content, repo }) => {
   // extension, e.g. src="./.github/img/get-request.png"
   const imageSrcLink = /(?<=src=")([^")]+\.(png|svg|jpe?g|webp|gif))(?=")/g;
 
-  return content.replaceAll(markdownLink, replaceMarkdownLink).replaceAll(imageSrcLink, replaceImageSrcLink);
+  return content
+    .replaceAll(markdownLink, replaceMarkdownLink)
+    .replaceAll(imageSrcLink, replaceImageSrcLink);
 };
 
 export const modifyContent =
@@ -90,14 +96,20 @@ export const modifyContent =
     })();
 
     const processedSlug = (() => {
-      const constructed = path.join(urlPath ?? '', data.slugName, subpage?.slugName ?? '');
+      const constructed = path.join(
+        urlPath ?? '',
+        data.slugName,
+        subpage?.slugName ?? '',
+      );
       // ensure the slug *does* start with a leading /
       const prefix = constructed.charAt(0) === '/' ? '' : '/';
 
       return prefix + constructed;
     })();
 
-    const additionalAdmonitions = (getAdditionalAdmonitions(data) ?? []).join('\n\n');
+    const additionalAdmonitions = (getAdditionalAdmonitions(data) ?? []).join(
+      '\n\n',
+    );
 
     return {
       filename: processedFilename,
@@ -128,5 +140,7 @@ This content was generated on <time dateTime="${generationTime.toISOString()}">$
 export const getUrls = (documents) =>
   Object.entries(documents).flatMap(([repo, { branch, subPages }]) => [
     `${repo}/${branch}/README.md`,
-    ...(Object.keys(subPages ?? {}).map((remotePath) => `${repo}/${branch}/${remotePath}`) ?? []),
+    ...(Object.keys(subPages ?? {}).map(
+      (remotePath) => `${repo}/${branch}/${remotePath}`,
+    ) ?? []),
   ]);

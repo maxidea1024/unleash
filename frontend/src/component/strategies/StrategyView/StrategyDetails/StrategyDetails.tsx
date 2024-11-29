@@ -1,4 +1,12 @@
-import { Grid, List, ListItem, ListItemAvatar, ListItemText, Tooltip, useTheme } from '@mui/material';
+import {
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Tooltip,
+  useTheme,
+} from '@mui/material';
 import Add from '@mui/icons-material/Add';
 import RadioButtonChecked from '@mui/icons-material/RadioButtonChecked';
 import { AppsLinkList } from 'component/common';
@@ -12,7 +20,10 @@ interface IStrategyDetailsProps {
   applications: ApplicationSchema[];
 }
 
-export const StrategyDetails = ({ strategy, applications }: IStrategyDetailsProps) => {
+export const StrategyDetails = ({
+  strategy,
+  applications,
+}: IStrategyDetailsProps) => {
   const theme = useTheme();
   const { parameters = [] } = strategy;
   const renderParameters = (params: IStrategyParameter[]) => {
@@ -69,7 +80,10 @@ export const StrategyDetails = ({ strategy, applications }: IStrategyDetailsProp
         </Grid>
 
         <Grid item sm={12} md={12}>
-          <h6>Applications using this strategy {applications.length >= 1000 && '(Capped at 1000)'}</h6>
+          <h6>
+            Applications using this strategy{' '}
+            {applications.length >= 1000 && '(Capped at 1000)'}
+          </h6>
           <hr />
           <AppsLinkList apps={applications} />
         </Grid>

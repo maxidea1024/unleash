@@ -1,11 +1,19 @@
 import { useMemo } from 'react';
-import type { IEnvironments, IFeatureFlagListItem } from 'interfaces/featureToggle';
+import type {
+  IEnvironments,
+  IFeatureFlagListItem,
+} from 'interfaces/featureToggle';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { sortTypes } from 'utils/sortTypes';
-import { useFlexLayout, useGlobalFilter, useSortBy, useTable } from 'react-table';
+import {
+  useFlexLayout,
+  useGlobalFilter,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { useMediaQuery, useTheme } from '@mui/material';
 import { FeatureTypeCell } from 'component/common/Table/cells/FeatureTypeCell/FeatureTypeCell';
 import { FeatureNameCell } from 'component/common/Table/cells/FeatureNameCell/FeatureNameCell';
@@ -15,7 +23,10 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { Search } from 'component/common/Search/Search';
 import { ReportExpiredCell } from './ReportExpiredCell/ReportExpiredCell';
 import { ReportStatusCell } from './ReportStatusCell/ReportStatusCell';
-import { formatStatus, type ReportingStatus } from './ReportStatusCell/formatStatus';
+import {
+  formatStatus,
+  type ReportingStatus,
+} from './ReportStatusCell/formatStatus';
 import { formatExpiredAt } from './ReportExpiredCell/formatExpiredAt';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -175,14 +186,27 @@ export const ReportTable = ({ projectId, features }: IReportTableProps) => {
   );
 
   const title =
-    rows.length < data.length ? `Feature flags (${rows.length} of ${data.length})` : `Feature flags (${data.length})`;
+    rows.length < data.length
+      ? `Feature flags (${rows.length} of ${data.length})`
+      : `Feature flags (${data.length})`;
 
   return (
     <PageContent
-      header={<PageHeader title={title} actions={<Search initialValue={globalFilter} onChange={setGlobalFilter} />} />}
+      header={
+        <PageHeader
+          title={title}
+          actions={
+            <Search initialValue={globalFilter} onChange={setGlobalFilter} />
+          }
+        />
+      }
     >
       <SearchHighlightProvider value={globalFilter}>
-        <VirtualizedTable headerGroups={headerGroups} prepareRow={prepareRow} rows={rows} />
+        <VirtualizedTable
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
+          rows={rows}
+        />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -197,7 +221,10 @@ export const ReportTable = ({ projectId, features }: IReportTableProps) => {
               </TablePlaceholder>
             }
             elseShow={
-              <TablePlaceholder>No feature flags available. Get started by adding a new feature flag.</TablePlaceholder>
+              <TablePlaceholder>
+                No feature flags available. Get started by adding a new feature
+                flag.
+              </TablePlaceholder>
             }
           />
         }

@@ -6,7 +6,9 @@ export const populateCurrentStage = (
 ): LifecycleStage | undefined => {
   if (!feature.lifecycle) return undefined;
 
-  const getFilteredEnvironments = (condition: (env: { type: string; enabled: boolean }) => boolean) => {
+  const getFilteredEnvironments = (
+    condition: (env: { type: string; enabled: boolean }) => boolean,
+  ) => {
     return (feature.environments || [])
       .filter((env) => condition(env) && Boolean(env.lastSeenAt))
       .map((env) => ({
@@ -24,14 +26,18 @@ export const populateCurrentStage = (
       return {
         name: 'pre-live',
         environments: getFilteredEnvironments(
-          (env) => env.type !== 'production' || (env.type === 'production' && !env.enabled),
+          (env) =>
+            env.type !== 'production' ||
+            (env.type === 'production' && !env.enabled),
         ),
         enteredStageAt,
       };
     case 'live':
       return {
         name: 'live',
-        environments: getFilteredEnvironments((env) => env.type === 'production' && env.enabled),
+        environments: getFilteredEnvironments(
+          (env) => env.type === 'production' && env.enabled,
+        ),
         enteredStageAt,
       };
     case 'completed':

@@ -2,7 +2,8 @@ import { styled, TableCell } from '@mui/material';
 import { focusable } from 'themes/themeStyles';
 
 export const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== 'isFlex' && prop !== 'isSortable' && prop !== 'isFlexGrow',
+  shouldForwardProp: (prop) =>
+    prop !== 'isFlex' && prop !== 'isSortable' && prop !== 'isFlexGrow',
 })<{
   isFlex?: boolean;
   isSortable?: boolean;

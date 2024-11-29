@@ -21,4 +21,6 @@ export const publicSignupTokenCreateSchema = {
   components: {},
 } as const;
 
-export type PublicSignupTokenCreateSchema = FromSchema<typeof publicSignupTokenCreateSchema>;
+export type PublicSignupTokenCreateSchema = FromSchema<
+  typeof publicSignupTokenCreateSchema
+>;

@@ -1,4 +1,11 @@
-import { Select, MenuItem, FormControl, InputLabel, type SelectChangeEvent, styled } from '@mui/material';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  type SelectChangeEvent,
+  styled,
+} from '@mui/material';
 import {
   type Operator,
   stringOperators,
@@ -67,7 +74,11 @@ const StyledOptionContainer = styled('div')(({ theme }) => ({
   lineHeight: 1.2,
 }));
 
-export const ConstraintOperatorSelect = ({ options, value, onChange }: IConstraintOperatorSelectProps) => {
+export const ConstraintOperatorSelect = ({
+  options,
+  value,
+  onChange,
+}: IConstraintOperatorSelectProps) => {
   const [open, setOpen] = useState(false);
 
   const onSelectChange = (event: SelectChangeEvent) => {
@@ -78,7 +89,9 @@ export const ConstraintOperatorSelect = ({ options, value, onChange }: IConstrai
     return (
       <StyledValueContainer>
         <StyledLabel>{value}</StyledLabel>
-        <StyledDescription>{formatOperatorDescription(value)}</StyledDescription>
+        <StyledDescription>
+          {formatOperatorDescription(value)}
+        </StyledDescription>
       </StyledValueContainer>
     );
   };
@@ -98,10 +111,16 @@ export const ConstraintOperatorSelect = ({ options, value, onChange }: IConstrai
         renderValue={renderValue}
       >
         {options.map((operator) => (
-          <StyledMenuItem key={operator} value={operator} separator={needSeparatorAbove(options, operator)}>
+          <StyledMenuItem
+            key={operator}
+            value={operator}
+            separator={needSeparatorAbove(options, operator)}
+          >
             <StyledOptionContainer>
               <StyledLabel>{operator}</StyledLabel>
-              <StyledDescription>{formatOperatorDescription(operator)}</StyledDescription>
+              <StyledDescription>
+                {formatOperatorDescription(operator)}
+              </StyledDescription>
             </StyledOptionContainer>
           </StyledMenuItem>
         ))}
@@ -120,4 +139,10 @@ const needSeparatorAbove = (options: Operator[], option: Operator): boolean => {
   });
 };
 
-const operatorGroups = [inOperators, stringOperators, numOperators, dateOperators, semVerOperators];
+const operatorGroups = [
+  inOperators,
+  stringOperators,
+  numOperators,
+  dateOperators,
+  semVerOperators,
+];

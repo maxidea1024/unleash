@@ -1,8 +1,13 @@
 import type { Db } from '../../db/db';
-import type { Collaborator, IFeatureCollaboratorsReadModel } from './types/feature-collaborators-read-model-type';
+import type {
+  Collaborator,
+  IFeatureCollaboratorsReadModel,
+} from './types/feature-collaborators-read-model-type';
 import { generateImageUrl } from '../../util';
 
-export class FeatureCollaboratorsReadModel implements IFeatureCollaboratorsReadModel {
+export class FeatureCollaboratorsReadModel
+  implements IFeatureCollaboratorsReadModel
+{
   private readonly db: Db;
 
   constructor(db: Db) {

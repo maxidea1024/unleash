@@ -6,7 +6,13 @@ import { PageContent } from 'component/common/PageContent/PageContent';
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Box } from '@mui/material';
-import { Table, TableBody, TableCell, TableRow, SortableTableHeader } from 'component/common/Table';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+  SortableTableHeader,
+} from 'component/common/Table';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
 import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
@@ -30,7 +36,11 @@ export const FeatureTypesList = () => {
         accessor: 'id',
         Cell: ({ value }: { value: string }) => {
           const IconComponent = getFeatureTypeIcons(value);
-          return <IconCell icon={<IconComponent data-loading='true' color='action' />} />;
+          return (
+            <IconCell
+              icon={<IconComponent data-loading='true' color='action' />}
+            />
+          );
         },
         width: 50,
         disableSortBy: true,
@@ -53,7 +63,9 @@ export const FeatureTypesList = () => {
         accessor: 'lifetimeDays',
         Cell: ({ value }: { value: number }) => {
           if (value) {
-            return <TextCell>{value === 1 ? '1 day' : `${value} days`}</TextCell>;
+            return (
+              <TextCell>{value === 1 ? '1 day' : `${value} days`}</TextCell>
+            );
           }
 
           return <TextCell>doesn't expire</TextCell>;
@@ -69,7 +81,9 @@ export const FeatureTypesList = () => {
               <PermissionIconButton
                 disabled={!featureType.id}
                 data-loading='true'
-                onClick={() => navigate(`/feature-toggle-type/edit/${featureType.id}`)}
+                onClick={() =>
+                  navigate(`/feature-toggle-type/edit/${featureType.id}`)
+                }
                 permission={ADMIN}
                 tooltipProps={{
                   title: `Edit ${featureType.name} feature flag type`,
@@ -99,26 +113,30 @@ export const FeatureTypesList = () => {
     [loading, featureTypes],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    {
-      columns: columns as any[],
-      data,
-      sortTypes,
-      autoResetSortBy: false,
-      disableSortRemove: true,
-      initialState: {
-        sortBy: [
-          {
-            id: 'lifetimeDays',
-          },
-        ],
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns: columns as any[],
+        data,
+        sortTypes,
+        autoResetSortBy: false,
+        disableSortRemove: true,
+        initialState: {
+          sortBy: [
+            {
+              id: 'lifetimeDays',
+            },
+          ],
+        },
       },
-    },
-    useSortBy,
-  );
+      useSortBy,
+    );
 
   return (
-    <PageContent isLoading={loading} header={<PageHeader title='Feature flag types' />}>
+    <PageContent
+      isLoading={loading}
+      header={<PageHeader title='Feature flag types' />}
+    >
       <Table {...getTableProps()}>
         <SortableTableHeader headerGroups={headerGroups} />
         <TableBody {...getTableBodyProps()}>
@@ -145,7 +163,11 @@ export const FeatureTypesList = () => {
         <Route
           path='edit/:featureTypeId'
           element={
-            <SidebarModal label='Edit feature flag type' onClose={() => navigate(basePath)} open>
+            <SidebarModal
+              label='Edit feature flag type'
+              onClose={() => navigate(basePath)}
+              open
+            >
               <FeatureTypeEdit featureTypes={featureTypes} loading={loading} />
             </SidebarModal>
           }

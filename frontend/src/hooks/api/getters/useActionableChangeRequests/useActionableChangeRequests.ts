@@ -7,7 +7,9 @@ interface IUseActionableChangeRequestsOutput {
   total?: number;
 }
 
-export const useActionableChangeRequests = (projectId: string): IUseActionableChangeRequestsOutput => {
+export const useActionableChangeRequests = (
+  projectId: string,
+): IUseActionableChangeRequestsOutput => {
   const { data } = useEnterpriseSWR<ActionableChangeRequestsSchema>(
     { total: 0 },
     formatApiPath(`api/admin/projects/${projectId}/change-requests/actionable`),

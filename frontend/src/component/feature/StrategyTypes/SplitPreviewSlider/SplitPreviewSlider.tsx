@@ -74,7 +74,10 @@ interface ISplitPreviewSliderProps {
   weightsError?: boolean;
 }
 
-const SplitPreviewSlider = ({ variants, weightsError }: ISplitPreviewSliderProps) => {
+const SplitPreviewSlider = ({
+  variants,
+  weightsError,
+}: ISplitPreviewSliderProps) => {
   if (variants.length < 1) {
     return null;
   }
@@ -93,7 +96,9 @@ const SplitPreviewSlider = ({ variants, weightsError }: ISplitPreviewSliderProps
               key={index}
               arrow
               onClick={(e) => e.preventDefault()}
-              titleComponent={<SplitPreviewTooltip variant={variant} index={index} />}
+              titleComponent={
+                <SplitPreviewTooltip variant={variant} index={index} />
+              }
             >
               <Box
                 style={{
@@ -103,7 +108,10 @@ const SplitPreviewSlider = ({ variants, weightsError }: ISplitPreviewSliderProps
                 {' '}
                 <StyledSegment>
                   <StyledSegmentTrack index={index} />
-                  <StyledTypographySubtitle variant='subtitle2' color={weightsError ? 'error' : 'inherit'}>
+                  <StyledTypographySubtitle
+                    variant='subtitle2'
+                    color={weightsError ? 'error' : 'inherit'}
+                  >
                     {value}%
                   </StyledTypographySubtitle>
                 </StyledSegment>
@@ -119,7 +127,9 @@ const SplitPreviewSlider = ({ variants, weightsError }: ISplitPreviewSliderProps
 const SplitPreviewHeader = ({ variants }: ISplitPreviewSliderProps) => {
   return (
     <StyledHeaderContainer>
-      <StyledTypography variant='body2'>Feature variants ({variants.length})</StyledTypography>
+      <StyledTypography variant='body2'>
+        Feature variants ({variants.length})
+      </StyledTypography>
       <StyledVariantBoxContainer>
         {variants.map((variant, index) => (
           <StyledVariantBox key={index} index={index}>
@@ -178,7 +188,9 @@ const SplitPreviewTooltip = ({ variant, index }: ISplitPreviewTooltip) => {
           <ConditionallyRender
             condition={variant.payload.type === 'json'}
             show={<code>{variant.payload.value}</code>}
-            elseShow={<Typography variant='body2'>{variant.payload.value}</Typography>}
+            elseShow={
+              <Typography variant='body2'>{variant.payload.value}</Typography>
+            }
           />
         </StyledPayloadContainer>
       ) : null}

@@ -16,13 +16,23 @@ interface IBannerDialogProps {
   children: ReactNode;
 }
 
-export const BannerDialog = ({ open, setOpen, title, children }: IBannerDialogProps) => {
+export const BannerDialog = ({
+  open,
+  setOpen,
+  title,
+  children,
+}: IBannerDialogProps) => {
   const handleClose = () => {
     setOpen(false);
   };
 
   return (
-    <Dialogue title={title} open={open} secondaryButtonText='Close' onClose={handleClose}>
+    <Dialogue
+      title={title}
+      open={open}
+      secondaryButtonText='Close'
+      onClose={handleClose}
+    >
       <Box
         onClick={(e) => {
           const target = e.target as HTMLElement;
@@ -31,7 +41,11 @@ export const BannerDialog = ({ open, setOpen, title, children }: IBannerDialogPr
           }
         }}
       >
-        {typeof children === 'string' ? <StyledMarkdown>{children}</StyledMarkdown> : children}
+        {typeof children === 'string' ? (
+          <StyledMarkdown>{children}</StyledMarkdown>
+        ) : (
+          children
+        )}
       </Box>
     </Dialogue>
   );

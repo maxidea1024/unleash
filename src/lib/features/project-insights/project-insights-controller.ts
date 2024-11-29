@@ -9,7 +9,11 @@ import {
   serializeDates,
 } from '../../types';
 import type { ProjectInsightsService } from './project-insights-service';
-import { createResponseSchema, projectInsightsSchema, type ProjectInsightsSchema } from '../../openapi';
+import {
+  createResponseSchema,
+  projectInsightsSchema,
+  type ProjectInsightsSchema,
+} from '../../openapi';
 import { getStandardResponses } from '../../openapi/util/standard-responses';
 import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../../routes/unleash-types';
@@ -52,8 +56,14 @@ export default class ProjectInsightsController extends Controller {
     res: Response<ProjectInsightsSchema>,
   ): Promise<void> {
     const { projectId } = req.params;
-    const insights = await this.projectInsightsService.getProjectInsights(projectId);
+    const insights =
+      await this.projectInsightsService.getProjectInsights(projectId);
 
-    this.openApiService.respondWithValidation(200, res, projectInsightsSchema.$id, serializeDates(insights));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectInsightsSchema.$id,
+      serializeDates(insights),
+    );
   }
 }

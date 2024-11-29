@@ -10,9 +10,19 @@ test('updateFeatureStrategySegmentsSchema schema', () => {
     additional: 'property',
   };
 
-  expect(validateSchema('#/components/schemas/updateFeatureStrategySegmentsSchema', data)).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/updateFeatureStrategySegmentsSchema',
+      data,
+    ),
+  ).toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/updateFeatureStrategySegmentsSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema(
+      '#/components/schemas/updateFeatureStrategySegmentsSchema',
+      {},
+    ),
+  ).toMatchSnapshot();
 
   expect(
     validateSchema('#/components/schemas/updateFeatureStrategySegmentsSchema', {

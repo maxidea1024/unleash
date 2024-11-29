@@ -16,7 +16,13 @@ const useTags = (type: string, options: SWRConfiguration = {}) => {
 
   const KEY = `api/admin/tags/${type}`;
 
-  const { data, error } = useConditionalSWR<{ tags: ITag[] }>(Boolean(type), { tags: [] }, KEY, fetcher, options);
+  const { data, error } = useConditionalSWR<{ tags: ITag[] }>(
+    Boolean(type),
+    { tags: [] },
+    KEY,
+    fetcher,
+    options,
+  );
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {

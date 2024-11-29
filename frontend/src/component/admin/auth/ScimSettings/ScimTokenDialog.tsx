@@ -12,7 +12,11 @@ interface IScimTokenDialogProps {
   token?: string;
 }
 
-export const ScimTokenDialog = ({ open, setOpen, token }: IScimTokenDialogProps) => (
+export const ScimTokenDialog = ({
+  open,
+  setOpen,
+  token,
+}: IScimTokenDialogProps) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'
@@ -24,7 +28,8 @@ export const ScimTokenDialog = ({ open, setOpen, token }: IScimTokenDialogProps)
     title='SCIM API token created'
   >
     <StyledAlert severity='info'>
-      Make sure to copy your SCIM API token now. You won't be able to see it again!
+      Make sure to copy your SCIM API token now. You won't be able to see it
+      again!
     </StyledAlert>
     <Typography variant='body1'>Your token:</Typography>
     <UserToken token={token || ''} />

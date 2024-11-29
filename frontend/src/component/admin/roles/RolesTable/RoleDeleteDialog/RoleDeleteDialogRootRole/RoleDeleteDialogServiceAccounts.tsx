@@ -8,13 +8,17 @@ import { TimeAgoCell } from 'component/common/Table/cells/TimeAgoCell/TimeAgoCel
 import type { IServiceAccount } from 'interfaces/service-account';
 import { ServiceAccountTokensCell } from 'component/admin/serviceAccounts/ServiceAccountsTable/ServiceAccountTokensCell/ServiceAccountTokensCell';
 
-export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
+export type PageQueryType = Partial<
+  Record<'sort' | 'order' | 'search', string>
+>;
 
 interface IRoleDeleteDialogServiceAccountsProps {
   serviceAccounts: IServiceAccount[];
 }
 
-export const RoleDeleteDialogServiceAccounts = ({ serviceAccounts }: IRoleDeleteDialogServiceAccountsProps) => {
+export const RoleDeleteDialogServiceAccounts = ({
+  serviceAccounts,
+}: IRoleDeleteDialogServiceAccountsProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'seenAt', desc: true }],
   }));
@@ -28,20 +32,29 @@ export const RoleDeleteDialogServiceAccounts = ({ serviceAccounts }: IRoleDelete
           accessor: (row: any) => row.name || '',
           minWidth: 200,
           Cell: ({ row: { original: serviceAccount } }: any) => (
-            <HighlightCell value={serviceAccount.name} subtitle={serviceAccount.username} />
+            <HighlightCell
+              value={serviceAccount.name}
+              subtitle={serviceAccount.username}
+            />
           ),
         },
         {
           id: 'tokens',
           Header: 'Tokens',
-          accessor: (row: IServiceAccount) => row.tokens?.map(({ description }) => description).join('\n') || '',
+          accessor: (row: IServiceAccount) =>
+            row.tokens?.map(({ description }) => description).join('\n') || '',
           Cell: ({
             row: { original: serviceAccount },
             value,
           }: {
             row: { original: IServiceAccount };
             value: string;
-          }) => <ServiceAccountTokensCell serviceAccount={serviceAccount} value={value} />,
+          }) => (
+            <ServiceAccountTokensCell
+              serviceAccount={serviceAccount}
+              value={value}
+            />
+          ),
           maxWidth: 100,
         },
         {
@@ -82,5 +95,11 @@ export const RoleDeleteDialogServiceAccounts = ({ serviceAccounts }: IRoleDelete
     useFlexLayout,
   );
 
-  return <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />;
+  return (
+    <VirtualizedTable
+      rows={rows}
+      headerGroups={headerGroups}
+      prepareRow={prepareRow}
+    />
+  );
 };

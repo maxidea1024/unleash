@@ -23,7 +23,9 @@ test('Display applications list', async () => {
   const nameColumn = screen.queryAllByText('Name')[0];
 
   nameColumn.click();
-  expect(window.location.href).toContain('?offset=0&sortBy=appName&sortOrder=desc');
+  expect(window.location.href).toContain(
+    '?offset=0&sortBy=appName&sortOrder=desc',
+  );
 });
 
 test('Display no applications connected', async () => {

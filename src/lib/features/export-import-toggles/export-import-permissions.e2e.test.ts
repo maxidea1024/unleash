@@ -1,4 +1,7 @@
-import { type IUnleashTest, setupAppWithAuth } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithAuth,
+} from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import {
@@ -55,7 +58,9 @@ const createFeature = async (featureName: string) => {
 const createFeatureFlagWithStrategy = async (featureName: string) => {
   await createFeature(featureName);
   return app.request
-    .post(`/api/admin/projects/${DEFAULT_PROJECT}/features/${featureName}/environments/${DEFAULT_ENV}/strategies`)
+    .post(
+      `/api/admin/projects/${DEFAULT_PROJECT}/features/${featureName}/environments/${DEFAULT_ENV}/strategies`,
+    )
     .send({
       name: 'default',
       parameters: {
@@ -127,15 +132,16 @@ const feature3: ImportTogglesSchema['data']['features'][0] = {
   project: 'old_project',
   name: existingFeature,
 };
-const constraints: ImportTogglesSchema['data']['featureStrategies'][0]['constraints'] = [
-  {
-    values: ['conduit'],
-    inverted: false,
-    operator: 'IN',
-    contextName: 'appName',
-    caseInsensitive: false,
-  },
-];
+const constraints: ImportTogglesSchema['data']['featureStrategies'][0]['constraints'] =
+  [
+    {
+      values: ['conduit'],
+      inverted: false,
+      operator: 'IN',
+      contextName: 'appName',
+      caseInsensitive: false,
+    },
+  ];
 const exportedStrategy: ImportTogglesSchema['data']['featureStrategies'][0] = {
   featureName: newFeature,
   id: '798cb25a-2abd-47bd-8a95-40ec13472309',
@@ -258,7 +264,10 @@ beforeAll(async () => {
   const roles = await accessService.getRootRoles();
   adminRole = roles.find((role) => role.name === RoleName.ADMIN);
 
-  await createUserEditorAccess(regularUserName, `${regularUserName}@getunleash.io`);
+  await createUserEditorAccess(
+    regularUserName,
+    `${regularUserName}@getunleash.io`,
+  );
   await createUserAdminAccess(adminUserName, `${adminUserName}@getunleash.io`);
 });
 
@@ -326,7 +335,8 @@ test('validate import data', async () => {
   expect(body).toMatchObject({
     errors: [
       {
-        message: 'We detected the following custom strategy that needs to be created first:',
+        message:
+          'We detected the following custom strategy that needs to be created first:',
         affectedItems: ['customStrategy'],
       },
       {
@@ -336,7 +346,8 @@ test('validate import data', async () => {
       },
       {
         affectedItems: ['customSegment'],
-        message: 'We detected the following segments that need to be created first:',
+        message:
+          'We detected the following segments that need to be created first:',
       },
     ],
     warnings: [
@@ -346,7 +357,8 @@ test('validate import data', async () => {
         affectedItems: [archivedFeature],
       },
       {
-        message: 'The following features already exist in this project and will be overwritten:',
+        message:
+          'The following features already exist in this project and will be overwritten:',
         affectedItems: ['existing_feature'],
       },
     ],

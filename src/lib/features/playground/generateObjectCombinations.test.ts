@@ -29,7 +29,9 @@ test('should generate all combinations correctly when only one combination', () 
     channels: 'internet',
   };
 
-  const expectedCombinations = [{ sessionId: '1', appName: 'a', channels: 'internet' }];
+  const expectedCombinations = [
+    { sessionId: '1', appName: 'a', channels: 'internet' },
+  ];
 
   const actualCombinations = generateObjectCombinations(obj);
 

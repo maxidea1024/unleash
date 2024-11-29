@@ -1,7 +1,10 @@
 import type React from 'react';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import type { ISegment } from 'interfaces/segment';
-import { AutocompleteBox, type IAutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
+import {
+  AutocompleteBox,
+  type IAutocompleteBoxOption,
+} from 'component/common/AutocompleteBox/AutocompleteBox';
 import { FeatureStrategySegmentList } from 'component/feature/FeatureStrategy/FeatureStrategySegment/FeatureStrategySegmentList';
 import { SegmentDocsStrategyWarning } from 'component/segments/SegmentDocs';
 import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentLimits';
@@ -41,7 +44,9 @@ export const FeatureStrategySegment = ({
     return null;
   }
 
-  const allSelectableSegments = allSegments.filter(({ project }) => !project || project === projectId);
+  const allSelectableSegments = allSegments.filter(
+    ({ project }) => !project || project === projectId,
+  );
 
   const unusedSegments = allSelectableSegments.filter((segment) => {
     return !selectedSegments.find((selected) => selected.id === segment.id);
@@ -70,9 +75,15 @@ export const FeatureStrategySegment = ({
           tooltip={
             <Box>
               <Typography variant='body2'>
-                Segments are reusable sets of constraints that can be defined once and reused across feature toggle
-                configurations. You can create a segment on the global or the project level. Read more about segments{' '}
-                <a href='https://docs.getunleash.io/reference/segments' target='_blank' rel='noopener noreferrer'>
+                Segments are reusable sets of constraints that can be defined
+                once and reused across feature toggle configurations. You can
+                create a segment on the global or the project level. Read more
+                about segments{' '}
+                <a
+                  href='https://docs.getunleash.io/reference/segments'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   here
                 </a>
               </Typography>
@@ -88,7 +99,10 @@ export const FeatureStrategySegment = ({
         onChange={onChange}
         disabled={atStrategySegmentsLimit}
       />
-      <FeatureStrategySegmentList segments={selectedSegments} setSegments={setSelectedSegments} />
+      <FeatureStrategySegmentList
+        segments={selectedSegments}
+        setSegments={setSelectedSegments}
+      />
     </>
   );
 };

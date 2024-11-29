@@ -40,13 +40,9 @@ const StyledRightButton = styled(Button)(({ theme }) => ({
   minWidth: '125px',
 }));
 
-export const ConstraintAccordionEditBody: React.FC<IConstraintAccordionBody> = ({
-  localConstraint,
-  children,
-  triggerTransition,
-  setAction,
-  onSubmit,
-}) => {
+export const ConstraintAccordionEditBody: React.FC<
+  IConstraintAccordionBody
+> = ({ localConstraint, children, triggerTransition, setAction, onSubmit }) => {
   return (
     <>
       <StyledInputContainer>{children}</StyledInputContainer>

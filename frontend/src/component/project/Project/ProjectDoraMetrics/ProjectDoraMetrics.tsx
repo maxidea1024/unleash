@@ -3,7 +3,14 @@ import { useProjectDoraMetrics } from 'hooks/api/getters/useProjectDoraMetrics/u
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useMemo } from 'react';
 import { useTable, useGlobalFilter, useSortBy } from 'react-table';
-import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
+import {
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
@@ -85,7 +92,10 @@ export const ProjectDoraMetrics = () => {
             title='The time from the feature flag of type release was created until it was turned on in a production environment'
             arrow
           >
-            <Box sx={{ display: 'flex', justifyContent: 'center' }} data-loading>
+            <Box
+              sx={{ display: 'flex', justifyContent: 'center' }}
+              data-loading
+            >
               {original.timeToProduction} days
             </Box>
           </Tooltip>
@@ -103,8 +113,15 @@ export const ProjectDoraMetrics = () => {
             title={`Deviation from project average. Average for this project is: ${dora.projectAverage || 0} days`}
             arrow
           >
-            <Box sx={{ display: 'flex', justifyContent: 'center' }} data-loading>
-              {Math.round((dora.projectAverage ? dora.projectAverage : 0) - original.timeToProduction)} days
+            <Box
+              sx={{ display: 'flex', justifyContent: 'center' }}
+              data-loading
+            >
+              {Math.round(
+                (dora.projectAverage ? dora.projectAverage : 0) -
+                  original.timeToProduction,
+              )}{' '}
+              days
             </Box>
           </Tooltip>
         ),
@@ -121,7 +138,10 @@ export const ProjectDoraMetrics = () => {
             title='Dora score. High = less than a week to production. Medium = less than a month to production. Low = Less than 6 months to production'
             arrow
           >
-            <Box sx={{ display: 'flex', justifyContent: 'center' }} data-loading>
+            <Box
+              sx={{ display: 'flex', justifyContent: 'center' }}
+              data-loading
+            >
               {resolveDoraMetrics(original.timeToProduction)}
             </Box>
           </Tooltip>
@@ -177,7 +197,12 @@ export const ProjectDoraMetrics = () => {
 
   return (
     <>
-      <PageContent isLoading={loading} header={<PageHeader title={`Lead time for changes (per release flag)`} />}>
+      <PageContent
+        isLoading={loading}
+        header={
+          <PageHeader title={`Lead time for changes (per release flag)`} />
+        }
+      >
         <Table {...getTableProps()}>
           <SortableTableHeader headerGroups={headerGroups} />
           <TableBody {...getTableBodyProps()}>

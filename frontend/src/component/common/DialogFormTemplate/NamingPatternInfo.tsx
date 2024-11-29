@@ -1,4 +1,9 @@
-import { Accordion, AccordionDetails, AccordionSummary, styled } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  styled,
+} from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { FeatureNamingType } from 'interfaces/project';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -38,7 +43,11 @@ export const NamingPatternInfo: React.FC<Props> = ({ naming }) => {
   return (
     <StyledFlagNamingInfo>
       <StyledAccordion>
-        <AccordionSummary id={controlId} aria-controls={controlId} expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary
+          id={controlId}
+          aria-controls={controlId}
+          expandIcon={<ExpandMoreIcon />}
+        >
           Name must match:&nbsp;<code>^{naming.pattern}$</code>
         </AccordionSummary>
         <AccordionDetails>

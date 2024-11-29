@@ -1,10 +1,21 @@
-import { FEATURE_CREATED, FEATURE_ARCHIVED, FEATURE_ENVIRONMENT_DISABLED, type IEvent } from '../types/events';
+import {
+  FEATURE_CREATED,
+  FEATURE_ARCHIVED,
+  FEATURE_ENVIRONMENT_DISABLED,
+  type IEvent,
+} from '../types/events';
 import type { Logger } from '../logger';
 
 import SlackAddon from './slack';
 
 import noLogger from '../../test/fixtures/no-logger';
-import { type IAddonConfig, type IFlagKey, type IFlagResolver, serializeDates, SYSTEM_USER_ID } from '../types';
+import {
+  type IAddonConfig,
+  type IFlagKey,
+  type IFlagResolver,
+  serializeDates,
+  SYSTEM_USER_ID,
+} from '../types';
 import type { IntegrationEventsService } from '../services';
 
 let fetchRetryCalls: any[] = [];
@@ -320,7 +331,8 @@ describe('Slack integration', () => {
     expect(registerEventMock).toHaveBeenCalledWith({
       integrationId: INTEGRATION_ID,
       state: 'success',
-      stateDetails: 'All (1) Slack webhook requests were successful with status codes: 200.',
+      stateDetails:
+        'All (1) Slack webhook requests were successful with status codes: 200.',
       event: serializeDates(event),
       details: {
         url: parameters.url,

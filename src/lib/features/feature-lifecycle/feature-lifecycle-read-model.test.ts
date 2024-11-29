@@ -19,7 +19,10 @@ const alwaysOnFlagResolver = {
 
 beforeAll(async () => {
   db = await dbInit('feature_lifecycle_read_model', getLogger);
-  featureLifecycleReadModel = new FeatureLifecycleReadModel(db.rawDatabase, alwaysOnFlagResolver);
+  featureLifecycleReadModel = new FeatureLifecycleReadModel(
+    db.rawDatabase,
+    alwaysOnFlagResolver,
+  );
   featureLifecycleStore = db.stores.featureLifecycleStore;
   featureToggleStore = db.stores.featureToggleStore;
 });
@@ -52,7 +55,9 @@ test('can return stage count', async () => {
     { feature: 'featureB', stage: 'initial' },
     { feature: 'featureC', stage: 'initial' },
   ]);
-  await featureLifecycleStore.insert([{ feature: 'featureA', stage: 'pre-live' }]);
+  await featureLifecycleStore.insert([
+    { feature: 'featureA', stage: 'pre-live' },
+  ]);
 
   const stageCount = await featureLifecycleReadModel.getStageCount();
   expect(stageCount).toMatchObject([
@@ -60,7 +65,8 @@ test('can return stage count', async () => {
     { stage: 'initial', count: 2 },
   ]);
 
-  const stageCountByProject = await featureLifecycleReadModel.getStageCountByProject();
+  const stageCountByProject =
+    await featureLifecycleReadModel.getStageCountByProject();
   expect(stageCountByProject).toMatchObject([
     { project: 'default', stage: 'pre-live', count: 1 },
     { project: 'default', stage: 'initial', count: 2 },

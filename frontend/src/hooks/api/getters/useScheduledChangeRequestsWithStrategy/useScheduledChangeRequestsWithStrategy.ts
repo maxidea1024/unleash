@@ -14,10 +14,17 @@ export type ScheduledChangeRequestViewModel = {
   title?: string;
 };
 
-export const useScheduledChangeRequestsWithStrategy = (project: string, strategyId: string) => {
-  const { data, error, mutate } = useEnterpriseSWR<ScheduledChangeRequestViewModel[]>(
+export const useScheduledChangeRequestsWithStrategy = (
+  project: string,
+  strategyId: string,
+) => {
+  const { data, error, mutate } = useEnterpriseSWR<
+    ScheduledChangeRequestViewModel[]
+  >(
     [],
-    formatApiPath(`api/admin/projects/${project}/change-requests/scheduled?strategyId=${strategyId}`),
+    formatApiPath(
+      `api/admin/projects/${project}/change-requests/scheduled?strategyId=${strategyId}`,
+    ),
     fetcher,
   );
 

@@ -38,7 +38,12 @@ export const EditContext = () => {
     clearErrors,
     setErrors,
     errors,
-  } = useContextForm(context?.name, context?.description, context?.legalValues, context?.stickiness);
+  } = useContextForm(
+    context?.name,
+    context?.description,
+    context?.legalValues,
+    context?.stickiness,
+  );
 
   const formatApiCode = () => {
     return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/context/${name}' \\

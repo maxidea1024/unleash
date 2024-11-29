@@ -1,4 +1,11 @@
-import type { FeatureToggle, IEnvironment, IProject, IStrategyConfig, ITag, IVariant } from './model';
+import type {
+  FeatureToggle,
+  IEnvironment,
+  IProject,
+  IStrategyConfig,
+  ITag,
+  IVariant,
+} from './model';
 import type { IApiToken } from './models/api-token';
 import type { IAuditUser, IUserWithRootRole } from './user';
 import type { ITagType } from '../features/tag-type/tag-type-store-type';
@@ -13,10 +20,12 @@ export const FEATURE_DELETED = 'feature-deleted' as const;
 export const FEATURE_UPDATED = 'feature-updated' as const;
 export const FEATURE_DEPENDENCY_ADDED = 'feature-dependency-added' as const;
 export const FEATURE_DEPENDENCY_REMOVED = 'feature-dependency-removed' as const;
-export const FEATURE_DEPENDENCIES_REMOVED = 'feature-dependencies-removed' as const;
+export const FEATURE_DEPENDENCIES_REMOVED =
+  'feature-dependencies-removed' as const;
 export const FEATURE_METADATA_UPDATED = 'feature-metadata-updated' as const;
 export const FEATURE_VARIANTS_UPDATED = 'feature-variants-updated' as const;
-export const FEATURE_ENVIRONMENT_VARIANTS_UPDATED = 'feature-environment-variants-updated' as const;
+export const FEATURE_ENVIRONMENT_VARIANTS_UPDATED =
+  'feature-environment-variants-updated' as const;
 export const FEATURE_PROJECT_CHANGE = 'feature-project-change' as const;
 export const FEATURE_ARCHIVED = 'feature-archived' as const;
 export const FEATURE_REVIVED = 'feature-revived' as const;
@@ -33,8 +42,10 @@ export const FEATURE_COMPLETED = 'feature-completed' as const;
 export const FEATURE_UNCOMPLETED = 'feature-uncompleted' as const;
 export const FEATURE_STALE_OFF = 'feature-stale-off' as const;
 export const DROP_FEATURES = 'drop-features' as const;
-export const FEATURE_ENVIRONMENT_ENABLED = 'feature-environment-enabled' as const;
-export const FEATURE_ENVIRONMENT_DISABLED = 'feature-environment-disabled' as const;
+export const FEATURE_ENVIRONMENT_ENABLED =
+  'feature-environment-enabled' as const;
+export const FEATURE_ENVIRONMENT_DISABLED =
+  'feature-environment-disabled' as const;
 export const STRATEGY_ORDER_CHANGED = 'strategy-order-changed';
 export const STRATEGY_CREATED = 'strategy-created' as const;
 export const STRATEGY_DELETED = 'strategy-deleted' as const;
@@ -49,15 +60,19 @@ export const CONTEXT_FIELD_DELETED = 'context-field-deleted' as const;
 export const PROJECT_ACCESS_ADDED = 'project-access-added' as const;
 export const FEATURE_TYPE_UPDATED = 'feature-type-updated' as const;
 
-export const PROJECT_ACCESS_USER_ROLES_UPDATED = 'project-access-user-roles-updated' as const;
+export const PROJECT_ACCESS_USER_ROLES_UPDATED =
+  'project-access-user-roles-updated' as const;
 
-export const PROJECT_ACCESS_GROUP_ROLES_UPDATED = 'project-access-group-roles-updated' as const;
+export const PROJECT_ACCESS_GROUP_ROLES_UPDATED =
+  'project-access-group-roles-updated' as const;
 
 export const PROJECT_ACCESS_UPDATED = 'project-access-updated' as const;
 
-export const PROJECT_ACCESS_USER_ROLES_DELETED = 'project-access-user-roles-deleted' as const;
+export const PROJECT_ACCESS_USER_ROLES_DELETED =
+  'project-access-user-roles-deleted' as const;
 
-export const PROJECT_ACCESS_GROUP_ROLES_DELETED = 'project-access-group-roles-deleted' as const;
+export const PROJECT_ACCESS_GROUP_ROLES_DELETED =
+  'project-access-group-roles-deleted' as const;
 
 export const ROLE_CREATED = 'role-created' as const;
 export const ROLE_UPDATED = 'role-updated' as const;
@@ -111,7 +126,8 @@ export const SETTING_CREATED = 'setting-created' as const;
 export const SETTING_UPDATED = 'setting-updated' as const;
 export const SETTING_DELETED = 'setting-deleted' as const;
 export const PROJECT_ENVIRONMENT_ADDED = 'project-environment-added' as const;
-export const PROJECT_ENVIRONMENT_REMOVED = 'project-environment-removed' as const;
+export const PROJECT_ENVIRONMENT_REMOVED =
+  'project-environment-removed' as const;
 export const DEFAULT_STRATEGY_UPDATED = 'default-strategy-updated' as const;
 
 export const CLIENT_METRICS = 'client-metrics' as const;
@@ -121,9 +137,12 @@ export const CLIENT_REGISTER = 'client-register' as const;
 export const PAT_CREATED = 'pat-created' as const;
 export const PAT_DELETED = 'pat-deleted' as const;
 
-export const PUBLIC_SIGNUP_TOKEN_CREATED = 'public-signup-token-created' as const;
-export const PUBLIC_SIGNUP_TOKEN_USER_ADDED = 'public-signup-token-user-added' as const;
-export const PUBLIC_SIGNUP_TOKEN_TOKEN_UPDATED = 'public-signup-token-updated' as const;
+export const PUBLIC_SIGNUP_TOKEN_CREATED =
+  'public-signup-token-created' as const;
+export const PUBLIC_SIGNUP_TOKEN_USER_ADDED =
+  'public-signup-token-user-added' as const;
+export const PUBLIC_SIGNUP_TOKEN_TOKEN_UPDATED =
+  'public-signup-token-updated' as const;
 
 export const CHANGE_REQUEST_CREATED = 'change-request-created' as const;
 export const CHANGE_REQUEST_DISCARDED = 'change-request-discarded' as const;
@@ -132,15 +151,21 @@ export const CHANGE_DISCARDED = 'change-discarded' as const;
 export const CHANGE_EDITED = 'change-edited' as const;
 export const CHANGE_REQUEST_APPROVED = 'change-request-approved' as const;
 export const CHANGE_REQUEST_REJECTED = 'change-request-rejected' as const;
-export const CHANGE_REQUEST_APPROVAL_ADDED = 'change-request-approval-added' as const;
+export const CHANGE_REQUEST_APPROVAL_ADDED =
+  'change-request-approval-added' as const;
 export const CHANGE_REQUEST_CANCELLED = 'change-request-cancelled' as const;
-export const CHANGE_REQUEST_SENT_TO_REVIEW = 'change-request-sent-to-review' as const;
+export const CHANGE_REQUEST_SENT_TO_REVIEW =
+  'change-request-sent-to-review' as const;
 export const CHANGE_REQUEST_APPLIED = 'change-request-applied' as const;
-export const CHANGE_REQUEST_SCHEDULE_SUSPENDED = 'change-request-schedule-suspended' as const;
+export const CHANGE_REQUEST_SCHEDULE_SUSPENDED =
+  'change-request-schedule-suspended' as const;
 export const CHANGE_REQUEST_SCHEDULED = 'change-request-scheduled' as const;
-export const CHANGE_REQUEST_SCHEDULED_APPLICATION_SUCCESS = 'change-request-scheduled-application-success' as const;
-export const CHANGE_REQUEST_SCHEDULED_APPLICATION_FAILURE = 'change-request-scheduled-application-failure' as const;
-export const CHANGE_REQUEST_CONFIGURATION_UPDATED = 'change-request-configuration-updated' as const;
+export const CHANGE_REQUEST_SCHEDULED_APPLICATION_SUCCESS =
+  'change-request-scheduled-application-success' as const;
+export const CHANGE_REQUEST_SCHEDULED_APPLICATION_FAILURE =
+  'change-request-scheduled-application-failure' as const;
+export const CHANGE_REQUEST_CONFIGURATION_UPDATED =
+  'change-request-configuration-updated' as const;
 
 export const API_TOKEN_CREATED = 'api-token-created' as const;
 export const API_TOKEN_UPDATED = 'api-token-updated' as const;
@@ -157,7 +182,8 @@ export const SERVICE_ACCOUNT_CREATED = 'service-account-created' as const;
 export const SERVICE_ACCOUNT_UPDATED = 'service-account-updated' as const;
 export const SERVICE_ACCOUNT_DELETED = 'service-account-deleted' as const;
 
-export const FEATURE_POTENTIALLY_STALE_ON = 'feature-potentially-stale-on' as const;
+export const FEATURE_POTENTIALLY_STALE_ON =
+  'feature-potentially-stale-on' as const;
 
 export const BANNER_CREATED = 'banner-created' as const;
 export const BANNER_UPDATED = 'banner-updated' as const;
@@ -167,21 +193,28 @@ export const SIGNAL_ENDPOINT_CREATED = 'signal-endpoint-created' as const;
 export const SIGNAL_ENDPOINT_UPDATED = 'signal-endpoint-updated' as const;
 export const SIGNAL_ENDPOINT_DELETED = 'signal-endpoint-deleted' as const;
 
-export const SIGNAL_ENDPOINT_TOKEN_CREATED = 'signal-endpoint-token-created' as const;
-export const SIGNAL_ENDPOINT_TOKEN_UPDATED = 'signal-endpoint-token-updated' as const;
-export const SIGNAL_ENDPOINT_TOKEN_DELETED = 'signal-endpoint-token-deleted' as const;
+export const SIGNAL_ENDPOINT_TOKEN_CREATED =
+  'signal-endpoint-token-created' as const;
+export const SIGNAL_ENDPOINT_TOKEN_UPDATED =
+  'signal-endpoint-token-updated' as const;
+export const SIGNAL_ENDPOINT_TOKEN_DELETED =
+  'signal-endpoint-token-deleted' as const;
 
 export const ACTIONS_CREATED = 'actions-created' as const;
 export const ACTIONS_UPDATED = 'actions-updated' as const;
 export const ACTIONS_DELETED = 'actions-deleted' as const;
 
-export const RELEASE_PLAN_TEMPLATE_CREATED = 'release-plan-template-created' as const;
-export const RELEASE_PLAN_TEMPLATE_UPDATED = 'release-plan-template-updated' as const;
-export const RELEASE_PLAN_TEMPLATE_DELETED = 'release-plan-template-deleted' as const;
+export const RELEASE_PLAN_TEMPLATE_CREATED =
+  'release-plan-template-created' as const;
+export const RELEASE_PLAN_TEMPLATE_UPDATED =
+  'release-plan-template-updated' as const;
+export const RELEASE_PLAN_TEMPLATE_DELETED =
+  'release-plan-template-deleted' as const;
 
 export const RELEASE_PLAN_ADDED = 'release-plan-added' as const;
 export const RELEASE_PLAN_REMOVED = 'release-plan-removed' as const;
-export const RELEASE_PLAN_MILESTONE_STARTED = 'release-plan-milestone-started' as const;
+export const RELEASE_PLAN_MILESTONE_STARTED =
+  'release-plan-milestone-started' as const;
 
 export const USER_PREFERENCE_UPDATED = 'user-preference-updated' as const;
 
@@ -419,7 +452,10 @@ export class FeatureEnvironmentEvent extends BaseEvent {
     environment: string;
     auditUser: IAuditUser;
   }) {
-    super(p.enabled ? FEATURE_ENVIRONMENT_ENABLED : FEATURE_ENVIRONMENT_DISABLED, p.auditUser);
+    super(
+      p.enabled ? FEATURE_ENVIRONMENT_ENABLED : FEATURE_ENVIRONMENT_DISABLED,
+      p.auditUser,
+    );
 
     this.project = p.project;
     this.featureName = p.featureName;
@@ -921,8 +957,6 @@ export class FeatureRevivedEvent extends BaseEvent {
   readonly project: string;
   readonly featureName: string;
 
-  /**
-   */
   constructor(p: {
     project: string;
     featureName: string;
@@ -942,8 +976,6 @@ export class FeatureDeletedEvent extends BaseEvent {
   readonly preData: FeatureToggle;
   readonly tags: ITag[];
 
-  /**
-   */
   constructor(p: {
     project: string;
     featureName: string;
@@ -967,8 +999,6 @@ export class FeatureMetadataUpdateEvent extends BaseEvent {
   readonly data: FeatureToggle;
   readonly preData: FeatureToggle;
 
-  /**
-   */
   constructor(p: {
     featureName: string;
     project: string;
@@ -992,8 +1022,6 @@ export class FeatureStrategyAddEvent extends BaseEvent {
   readonly environment: string;
   readonly data: IStrategyConfig;
 
-  /**
-   */
   constructor(p: {
     project: string;
     featureName: string;
@@ -1018,8 +1046,6 @@ export class FeatureStrategyUpdateEvent extends BaseEvent {
   readonly data: IStrategyConfig;
   readonly preData: IStrategyConfig;
 
-  /**
-   */
   constructor(p: {
     project: string;
     featureName: string;
@@ -1131,8 +1157,6 @@ export class ProjectUserAddedEvent extends BaseEvent {
   readonly data: any;
   readonly preData: any;
 
-  /**
-   */
   constructor(p: {
     project: string;
     data: any;
@@ -1210,8 +1234,6 @@ export class ProjectGroupRemovedEvent extends BaseEvent {
   readonly data: any;
   readonly preData: any;
 
-  /**
-   */
   constructor(p: {
     project: string;
     preData: any;
@@ -1231,8 +1253,6 @@ export class ProjectGroupUpdateRoleEvent extends BaseEvent {
   readonly data: any;
   readonly preData: any;
 
-  /**
-   */
   constructor(eventData: {
     project: string;
     data: any;
@@ -2113,7 +2133,11 @@ export class ReleasePlanMilestoneStartedEvent extends BaseEvent {
   }
 }
 
-interface IUserEventData extends Pick<IUserWithRootRole, 'id' | 'name' | 'username' | 'email' | 'rootRole'> {}
+interface IUserEventData
+  extends Pick<
+    IUserWithRootRole,
+    'id' | 'name' | 'username' | 'email' | 'rootRole'
+  > {}
 
 function mapUserToData(user: IUserEventData): any {
   return {

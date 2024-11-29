@@ -19,13 +19,18 @@ const DEFAULT_ERRORS = {
 
 export type IRoleFormErrors = Record<ErrorField, string | undefined>;
 
-export const useRoleForm = (initialName = '', initialDescription = '', initialPermissions: IPermission[] = []) => {
+export const useRoleForm = (
+  initialName = '',
+  initialDescription = '',
+  initialPermissions: IPermission[] = [],
+) => {
   const { roles, projectRoles } = useRoles();
 
   const [name, setName] = useState(initialName);
   const setTrimmedName = (newName: string) => setName(newName.trim());
   const [description, setDescription] = useState(initialDescription);
-  const [checkedPermissions, setCheckedPermissions] = useState<ICheckedPermissions>({});
+  const [checkedPermissions, setCheckedPermissions] =
+    useState<ICheckedPermissions>({});
   const [errors, setErrors] = useState<IRoleFormErrors>(DEFAULT_ERRORS);
   const [validated, setValidated] = useState(false);
 
@@ -38,7 +43,8 @@ export const useRoleForm = (initialName = '', initialDescription = '', initialPe
   }, [initialDescription]);
 
   useEffect(() => {
-    const newCheckedPermissions = permissionsToCheckedPermissions(initialPermissions);
+    const newCheckedPermissions =
+      permissionsToCheckedPermissions(initialPermissions);
     setCheckedPermissions(newCheckedPermissions);
   }, [initialPermissions.length]);
 
@@ -46,19 +52,23 @@ export const useRoleForm = (initialName = '', initialDescription = '', initialPe
     name,
     description,
     type: type === ROOT_ROLE_TYPE ? 'root-custom' : 'custom',
-    permissions: Object.values(checkedPermissions).map(({ name, environment }) => ({ name, environment })),
+    permissions: Object.values(checkedPermissions).map(
+      ({ name, environment }) => ({ name, environment }),
+    ),
   });
 
   const isNameUnique = (name: string) => {
     return ![...roles, ...projectRoles].some(
       (existingRole: IRole) =>
-        existingRole.name !== initialName && existingRole.name.toLowerCase() === name.toLowerCase(),
+        existingRole.name !== initialName &&
+        existingRole.name.toLowerCase() === name.toLowerCase(),
     );
   };
 
   const isNotEmpty = (value: string) => value.length;
 
-  const hasPermissions = (permissions: ICheckedPermissions) => Object.keys(permissions).length > 0;
+  const hasPermissions = (permissions: ICheckedPermissions) =>
+    Object.keys(permissions).length > 0;
 
   const clearError = (field: ErrorField) => {
     setErrors((errors) => ({ ...errors, [field]: undefined }));
@@ -97,7 +107,10 @@ export const useRoleForm = (initialName = '', initialDescription = '', initialPe
 
   const validatePermissions = (permissions: ICheckedPermissions) => {
     if (!hasPermissions(permissions)) {
-      setError(ErrorField.PERMISSIONS, 'You must select at least one permission.');
+      setError(
+        ErrorField.PERMISSIONS,
+        'You must select at least one permission.',
+      );
       return false;
     }
 

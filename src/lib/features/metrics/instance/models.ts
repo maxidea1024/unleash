@@ -33,10 +33,16 @@ export interface IApplication {
   links?: Record<string, string>;
 }
 
-export type IApplicationOverviewEnvironment = Omit<ApplicationOverviewEnvironmentSchema, 'lastSeen'> & {
+export type IApplicationOverviewEnvironment = Omit<
+  ApplicationOverviewEnvironmentSchema,
+  'lastSeen'
+> & {
   lastSeen: Date;
 };
 
-export type IApplicationOverview = Omit<ApplicationOverviewSchema, 'environments'> & {
+export type IApplicationOverview = Omit<
+  ApplicationOverviewSchema,
+  'environments'
+> & {
   environments: IApplicationOverviewEnvironment[];
 };

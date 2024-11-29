@@ -25,8 +25,11 @@ export const ServiceAccountCreateTokenDialog = ({
   onCreateClick,
 }: IServiceAccountCreateTokenDialogProps) => {
   const [patDescription, setPatDescription] = useState('');
-  const [patExpiration, setPatExpiration] = useState<ExpirationOption>(DEFAULT_EXPIRATION);
-  const [patExpiresAt, setPatExpiresAt] = useState(calculateExpirationDate(DEFAULT_EXPIRATION));
+  const [patExpiration, setPatExpiration] =
+    useState<ExpirationOption>(DEFAULT_EXPIRATION);
+  const [patExpiresAt, setPatExpiresAt] = useState(
+    calculateExpirationDate(DEFAULT_EXPIRATION),
+  );
   const [patErrors, setPatErrors] = useState<IPersonalAPITokenFormErrors>({});
 
   useEffect(() => {
@@ -36,9 +39,13 @@ export const ServiceAccountCreateTokenDialog = ({
     setPatErrors({});
   }, [open]);
 
-  const isDescriptionUnique = (description: string) => !tokens?.some((token) => token.description === description);
+  const isDescriptionUnique = (description: string) =>
+    !tokens?.some((token) => token.description === description);
 
-  const isPATValid = patDescription.length && isDescriptionUnique(patDescription) && patExpiresAt > new Date();
+  const isPATValid =
+    patDescription.length &&
+    isDescriptionUnique(patDescription) &&
+    patExpiresAt > new Date();
 
   return (
     <Dialogue

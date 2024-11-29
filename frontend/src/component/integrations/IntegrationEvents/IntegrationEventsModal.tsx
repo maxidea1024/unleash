@@ -57,12 +57,17 @@ interface IIntegrationEventsModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const IntegrationEventsModal = ({ addon, open, setOpen }: IIntegrationEventsModalProps) => {
+export const IntegrationEventsModal = ({
+  addon,
+  open,
+  setOpen,
+}: IIntegrationEventsModalProps) => {
   const navigate = useNavigate();
   const { locationSettings } = useLocationSettings();
-  const { integrationEvents, hasMore, loadMore, loading } = useIntegrationEvents(open ? addon?.id : undefined, 20, {
-    refreshInterval: 5000,
-  });
+  const { integrationEvents, hasMore, loadMore, loading } =
+    useIntegrationEvents(open ? addon?.id : undefined, 20, {
+      refreshInterval: 5000,
+    });
 
   if (!addon) {
     return null;
@@ -100,8 +105,9 @@ export const IntegrationEventsModal = ({ addon, open, setOpen }: IIntegrationEve
           </StyledHeaderRow>
           <StyledHeaderRow>
             <StyledSubtitle>
-              Only the most recent event for each integration and the last 100 events from the past 2 hours will be
-              kept. All other events will be automatically deleted.
+              Only the most recent event for each integration and the last 100
+              events from the past 2 hours will be kept. All other events will
+              be automatically deleted.
             </StyledSubtitle>
           </StyledHeaderRow>
         </StyledHeader>
@@ -119,23 +125,38 @@ export const IntegrationEventsModal = ({ addon, open, setOpen }: IIntegrationEve
               {
                 header: 'Date',
                 maxWidth: 240,
-                cell: ({ createdAt }) => formatDateYMDHMS(createdAt, locationSettings?.locale),
+                cell: ({ createdAt }) =>
+                  formatDateYMDHMS(createdAt, locationSettings?.locale),
               },
             ]}
             sidePanelHeader='Details'
             renderContent={IntegrationEventsDetails}
             renderItem={({ id, state }, children) => {
               if (state === 'failed') {
-                return <StyledFailedItemWrapper key={id}>{children}</StyledFailedItemWrapper>;
+                return (
+                  <StyledFailedItemWrapper key={id}>
+                    {children}
+                  </StyledFailedItemWrapper>
+                );
               }
 
               return children;
             }}
-            listEnd={<ConditionallyRender condition={hasMore} show={<Button onClick={loadMore}>Load more</Button>} />}
+            listEnd={
+              <ConditionallyRender
+                condition={hasMore}
+                show={<Button onClick={loadMore}>Load more</Button>}
+              />
+            }
           />
           <ConditionallyRender
             condition={integrationEvents.length === 0}
-            show={<p>No events have been registered for this integration configuration.</p>}
+            show={
+              <p>
+                No events have been registered for this integration
+                configuration.
+              </p>
+            }
           />
           <StyledButtonContainer>
             <Button onClick={() => setOpen(false)}>Close</Button>

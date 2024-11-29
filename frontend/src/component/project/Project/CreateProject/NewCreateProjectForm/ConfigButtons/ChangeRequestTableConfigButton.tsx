@@ -2,8 +2,14 @@ import { type FC, useState, useMemo } from 'react';
 import { InputAdornment } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import { ChangeRequestTable } from './ChangeRequestTable';
-import { ScrollContainer, TableSearchInput } from './ChangeRequestTableConfigButton.styles';
-import { ConfigButton, type ConfigButtonProps } from 'component/common/DialogFormTemplate/ConfigButtons/ConfigButton';
+import {
+  ScrollContainer,
+  TableSearchInput,
+} from './ChangeRequestTableConfigButton.styles';
+import {
+  ConfigButton,
+  type ConfigButtonProps,
+} from 'component/common/DialogFormTemplate/ConfigButtons/ConfigButton';
 
 type ChangeRequestTableConfigButtonProps = Pick<
   ConfigButtonProps,
@@ -21,10 +27,15 @@ type ChangeRequestTableConfigButtonProps = Pick<
     name: string;
     type: string;
   }[];
-  projectChangeRequestConfiguration: Record<string, { requiredApprovals: number }>;
+  projectChangeRequestConfiguration: Record<
+    string,
+    { requiredApprovals: number }
+  >;
 };
 
-export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonProps> = ({
+export const ChangeRequestTableConfigButton: FC<
+  ChangeRequestTableConfigButtonProps
+> = ({
   button,
   search,
   projectChangeRequestConfiguration,
@@ -34,10 +45,9 @@ export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonPr
 }) => {
   const configured = useMemo(() => {
     return Object.fromEntries(
-      Object.entries(projectChangeRequestConfiguration).map(([name, config]) => [
-        name,
-        { ...config, changeRequestEnabled: true },
-      ]),
+      Object.entries(projectChangeRequestConfiguration).map(
+        ([name, config]) => [name, { ...config, changeRequestEnabled: true }],
+      ),
     );
   }, [projectChangeRequestConfiguration]);
 
@@ -52,7 +62,10 @@ export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonPr
   );
 
   const onEnable = (name: string, requiredApprovals: number) => {
-    updateProjectChangeRequestConfiguration.enableChangeRequests(name, requiredApprovals);
+    updateProjectChangeRequestConfiguration.enableChangeRequests(
+      name,
+      requiredApprovals,
+    );
   };
 
   const onDisable = (name: string) => {
@@ -62,10 +75,16 @@ export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonPr
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>();
   const [searchText, setSearchText] = useState('');
 
-  const filteredEnvs = tableEnvs.filter((env) => env.name.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredEnvs = tableEnvs.filter((env) =>
+    env.name.toLowerCase().includes(searchText.toLowerCase()),
+  );
 
   const toggleTopItem = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && searchText.trim().length > 0 && filteredEnvs.length > 0) {
+    if (
+      event.key === 'Enter' &&
+      searchText.trim().length > 0 &&
+      filteredEnvs.length > 0
+    ) {
       const firstEnv = filteredEnvs[0];
       if (firstEnv.name in configured) {
         onDisable(firstEnv.name);
@@ -76,7 +95,12 @@ export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonPr
   };
 
   return (
-    <ConfigButton button={button} {...props} anchorEl={anchorEl} setAnchorEl={setAnchorEl}>
+    <ConfigButton
+      button={button}
+      {...props}
+      anchorEl={anchorEl}
+      setAnchorEl={setAnchorEl}
+    >
       <TableSearchInput
         variant='outlined'
         size='small'
@@ -96,7 +120,11 @@ export const ChangeRequestTableConfigButton: FC<ChangeRequestTableConfigButtonPr
         onKeyDown={toggleTopItem}
       />
       <ScrollContainer>
-        <ChangeRequestTable environments={filteredEnvs} enableEnvironment={onEnable} disableEnvironment={onDisable} />
+        <ChangeRequestTable
+          environments={filteredEnvs}
+          enableEnvironment={onEnable}
+          disableEnvironment={onDisable}
+        />
       </ScrollContainer>
     </ConfigButton>
   );

@@ -13,7 +13,8 @@ export const setUiConfigSchema = {
       required: ['frontendApiOrigins'],
       properties: {
         frontendApiOrigins: {
-          description: 'The list of origins that the front-end API should accept requests from.',
+          description:
+            'The list of origins that the front-end API should accept requests from.',
           example: ['*'],
           type: 'array',
           items: { type: 'string' },

@@ -24,12 +24,14 @@ export const createStrategySchema = {
     },
     editable: {
       type: 'boolean',
-      description: 'Whether the strategy type is editable or not. Defaults to `true`.',
+      description:
+        'Whether the strategy type is editable or not. Defaults to `true`.',
       example: false,
     },
     deprecated: {
       type: 'boolean',
-      description: 'Whether the strategy type is deprecated or not. Defaults to `false`.',
+      description:
+        'Whether the strategy type is deprecated or not. Defaults to `false`.',
       example: true,
     },
     parameters: {
@@ -60,7 +62,8 @@ export const createStrategySchema = {
           },
           required: {
             type: 'boolean',
-            description: 'Whether this parameter must be configured when using the strategy. Defaults to `false`',
+            description:
+              'Whether this parameter must be configured when using the strategy. Defaults to `false`',
             example: false,
           },
         },

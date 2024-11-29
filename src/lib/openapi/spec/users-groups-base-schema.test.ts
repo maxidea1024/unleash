@@ -9,5 +9,7 @@ test('usersGroupsBaseSchema', () => {
       },
     ],
   };
-  expect(validateSchema('#/components/schemas/usersGroupsBaseSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/usersGroupsBaseSchema', data),
+  ).toBeUndefined();
 });

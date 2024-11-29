@@ -19,7 +19,10 @@ export const mapGroupUsers = (users: any[]) =>
   }));
 
 export const useGroup = (groupId: number): IUseGroupOutput => {
-  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/groups/${groupId}`), fetcher);
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/groups/${groupId}`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

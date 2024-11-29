@@ -24,16 +24,25 @@ interface IRoleDeleteDialogRootRoleProps {
   onConfirm: (role: IRole) => void;
 }
 
-export const RoleDeleteDialogRootRole = ({ role, open, setOpen, onConfirm }: IRoleDeleteDialogRootRoleProps) => {
+export const RoleDeleteDialogRootRole = ({
+  role,
+  open,
+  setOpen,
+  onConfirm,
+}: IRoleDeleteDialogRootRoleProps) => {
   const { users } = useUsers();
   const { serviceAccounts } = useServiceAccounts();
   const { groups } = useGroups();
 
   const roleUsers = users.filter(({ rootRole }) => rootRole === role?.id);
-  const roleServiceAccounts = serviceAccounts.filter(({ rootRole }) => rootRole === role?.id);
+  const roleServiceAccounts = serviceAccounts.filter(
+    ({ rootRole }) => rootRole === role?.id,
+  );
   const roleGroups = groups?.filter(({ rootRole }) => rootRole === role?.id);
 
-  const entitiesWithRole = Boolean(roleUsers.length || roleServiceAccounts.length || roleGroups?.length);
+  const entitiesWithRole = Boolean(
+    roleUsers.length || roleServiceAccounts.length || roleGroups?.length,
+  );
 
   return (
     <Dialogue
@@ -52,8 +61,8 @@ export const RoleDeleteDialogRootRole = ({ role, open, setOpen, onConfirm }: IRo
         show={
           <>
             <Alert severity='error'>
-              You are not allowed to delete a role that is currently in use. Please change the role of the following
-              entities first:
+              You are not allowed to delete a role that is currently in use.
+              Please change the role of the following entities first:
             </Alert>
             <ConditionallyRender
               condition={Boolean(roleUsers.length)}
@@ -70,9 +79,13 @@ export const RoleDeleteDialogRootRole = ({ role, open, setOpen, onConfirm }: IRo
               condition={Boolean(roleServiceAccounts.length)}
               show={
                 <>
-                  <StyledLabel>Service accounts ({roleServiceAccounts.length}):</StyledLabel>
+                  <StyledLabel>
+                    Service accounts ({roleServiceAccounts.length}):
+                  </StyledLabel>
                   <StyledTableContainer>
-                    <RoleDeleteDialogServiceAccounts serviceAccounts={roleServiceAccounts} />
+                    <RoleDeleteDialogServiceAccounts
+                      serviceAccounts={roleServiceAccounts}
+                    />
                   </StyledTableContainer>
                 </>
               }

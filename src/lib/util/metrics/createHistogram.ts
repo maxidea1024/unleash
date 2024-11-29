@@ -1,4 +1,7 @@
-import { Histogram as PromHistogram, type HistogramConfiguration } from 'prom-client';
+import {
+  Histogram as PromHistogram,
+  type HistogramConfiguration,
+} from 'prom-client';
 
 export type Histogram<T extends string = string> = {
   histogram: PromHistogram<T>;
@@ -6,10 +9,13 @@ export type Histogram<T extends string = string> = {
   observe: (value: number) => void;
 };
 
-export const createHistogram = <T extends string>(options: HistogramConfiguration<T>): Histogram<T> => {
+export const createHistogram = <T extends string>(
+  options: HistogramConfiguration<T>,
+): Histogram<T> => {
   const histogram = new PromHistogram(options);
 
-  const labels = (labels: Record<T, string | number>) => histogram.labels(labels);
+  const labels = (labels: Record<T, string | number>) =>
+    histogram.labels(labels);
 
   const observe = (value: number) => histogram.observe(value);
 

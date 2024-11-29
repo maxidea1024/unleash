@@ -8,12 +8,20 @@ test('contextFieldSchema', () => {
     stickiness: false,
     sortOrder: 0,
     createdAt: '2022-01-01T00:00:00.000Z',
-    legalValues: [{ value: 'a' }, { value: 'b', description: '' }, { value: 'c', description: 'd' }],
+    legalValues: [
+      { value: 'a' },
+      { value: 'b', description: '' },
+      { value: 'c', description: 'd' },
+    ],
   };
 
-  expect(validateSchema('#/components/schemas/contextFieldSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/contextFieldSchema', data),
+  ).toBeUndefined();
 });
 
 test('contextFieldSchema empty', () => {
-  expect(validateSchema('#/components/schemas/contextFieldSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/contextFieldSchema', {}),
+  ).toMatchSnapshot();
 });

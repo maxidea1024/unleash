@@ -1,8 +1,12 @@
 import { createFakeProjectInsightsService } from './createProjectInsightsService';
 
 test('Return basic insights', async () => {
-  const { projectInsightsService, projectStatsStore, featureToggleStore, projectStore } =
-    createFakeProjectInsightsService();
+  const {
+    projectInsightsService,
+    projectStatsStore,
+    featureToggleStore,
+    projectStore,
+  } = createFakeProjectInsightsService();
   await featureToggleStore.create('default', {
     name: 'irrelevant',
     createdByUserId: 1,

@@ -81,18 +81,27 @@ export default class GroupStore implements IGroupStore {
   }
 
   async getAllWithId(ids: number[]): Promise<Group[]> {
-    const groups = await this.db.select(GROUP_COLUMNS).from(T.GROUPS).whereIn('id', ids);
+    const groups = await this.db
+      .select(GROUP_COLUMNS)
+      .from(T.GROUPS)
+      .whereIn('id', ids);
     return groups.map(rowToGroup);
   }
 
   async update(group: IGroupModel): Promise<IGroup> {
     try {
-      const rows = await this.db(T.GROUPS).where({ id: group.id }).update(groupToRow(group)).returning(GROUP_COLUMNS);
+      const rows = await this.db(T.GROUPS)
+        .where({ id: group.id })
+        .update(groupToRow(group))
+        .returning(GROUP_COLUMNS);
 
       return rowToGroup(rows[0]);
     } catch (error) {
       // CHECKME: 예외케이스인가?
-      if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'fk_group_role_id') {
+      if (
+        error.code === FOREIGN_KEY_VIOLATION &&
+        error.constraint === 'fk_group_role_id'
+      ) {
         throw new BadDataError(`Incorrect role id ${group.rootRole}`);
       }
 
@@ -159,7 +168,13 @@ export default class GroupStore implements IGroupStore {
 
   async getAllUsersByGroups(groupIds: number[]): Promise<IGroupUser[]> {
     const rows = await this.db
-      .select('gu.group_id', 'u.id as user_id', 'gu.created_at', 'gu.created_by', 'g.root_role_id')
+      .select(
+        'gu.group_id',
+        'u.id as user_id',
+        'gu.created_at',
+        'gu.created_by',
+        'g.root_role_id',
+      )
       .from(`${T.GROUP_USER} AS gu`)
       .join(`${T.USERS} AS u`, 'u.id', 'gu.user_id')
       .join(`${T.GROUPS} AS g`, 'g.id', 'gu.group_id')
@@ -183,13 +198,19 @@ export default class GroupStore implements IGroupStore {
   destroy(): void {}
 
   async exists(id: number): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.GROUPS} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.GROUPS} WHERE id = ?) AS present`,
+      [id],
+    );
     const { present } = result.rows[0];
     return present;
   }
 
   async existsWithName(name: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.GROUPS} WHERE name = ?) AS present`, [name]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.GROUPS} WHERE name = ?) AS present`,
+      [name],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -201,10 +222,15 @@ export default class GroupStore implements IGroupStore {
 
   async create(group: IStoreGroup): Promise<Group> {
     try {
-      const row = await this.db(T.GROUPS).insert(groupToRow(group)).returning('*');
+      const row = await this.db(T.GROUPS)
+        .insert(groupToRow(group))
+        .returning('*');
       return rowToGroup(row[0]);
     } catch (error) {
-      if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'fk_group_role_id') {
+      if (
+        error.code === FOREIGN_KEY_VIOLATION &&
+        error.constraint === 'fk_group_role_id'
+      ) {
         throw new BadDataError(`Incorrect role id ${group.rootRole}`);
       }
 
@@ -218,7 +244,11 @@ export default class GroupStore implements IGroupStore {
       .then((res) => Number(res[0].count));
   }
 
-  async addUsersToGroup(groupId: number, users: ICreateGroupUserModel[], userName: string): Promise<void> {
+  async addUsersToGroup(
+    groupId: number,
+    users: ICreateGroupUserModel[],
+    userName: string,
+  ): Promise<void> {
     try {
       const rows = (users || []).map((user) => {
         return {
@@ -229,7 +259,10 @@ export default class GroupStore implements IGroupStore {
       });
       return await this.db.batchInsert(T.GROUP_USER, rows);
     } catch (error) {
-      if (error.code === FOREIGN_KEY_VIOLATION && error.constraint === 'group_user_user_id_fkey') {
+      if (
+        error.code === FOREIGN_KEY_VIOLATION &&
+        error.constraint === 'group_user_user_id_fkey'
+      ) {
         throw new BadDataError('Incorrect user id in the users group');
       }
 
@@ -256,7 +289,10 @@ export default class GroupStore implements IGroupStore {
     await this.deleteUsersFromGroup(deletableUsers);
   }
 
-  async getNewGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroup[]> {
+  async getNewGroupsForExternalUser(
+    userId: number,
+    externalGroups: string[],
+  ): Promise<IGroup[]> {
     const rows = await this.db(`${T.GROUPS} as g`)
       .leftJoin(`${T.GROUP_USER} as gs`, function () {
         this.on('g.id', 'gs.group_id').andOnVal('gs.user_id', '=', userId);
@@ -266,7 +302,11 @@ export default class GroupStore implements IGroupStore {
     return rows.map(rowToGroup);
   }
 
-  async addUserToGroups(userId: number, groupIds: number[], createdBy?: string): Promise<void> {
+  async addUserToGroups(
+    userId: number,
+    groupIds: number[],
+    createdBy?: string,
+  ): Promise<void> {
     const rows = groupIds.map((groupId) => {
       return {
         group_id: groupId,
@@ -277,7 +317,10 @@ export default class GroupStore implements IGroupStore {
     return this.db.batchInsert(T.GROUP_USER, rows);
   }
 
-  async getOldGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroupUser[]> {
+  async getOldGroupsForExternalUser(
+    userId: number,
+    externalGroups: string[],
+  ): Promise<IGroupUser[]> {
     const rows = await this.db(`${T.GROUP_USER} as gu`)
       .leftJoin(`${T.GROUPS} as g`, 'g.id', 'gu.group_id')
       .whereNotIn(
@@ -302,9 +345,10 @@ export default class GroupStore implements IGroupStore {
   }
 
   async hasProjectRole(groupId: number): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.GROUP_ROLE} WHERE group_id = ?) AS present`, [
-      groupId,
-    ]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.GROUP_ROLE} WHERE group_id = ?) AS present`,
+      [groupId],
+    );
     const { present } = result.rows[0];
     return present;
   }

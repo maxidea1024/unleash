@@ -41,9 +41,14 @@ export const ServiceAccountTokensCell: VFC<IServiceAccountTokensCellProps> = ({
             ))}
           </>
         }
-        highlighted={searchQuery.length > 0 && value.toLowerCase().includes(searchQuery.toLowerCase())}
+        highlighted={
+          searchQuery.length > 0 &&
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        }
       >
-        {serviceAccount.tokens?.length === 1 ? '1 token' : `${serviceAccount.tokens?.length} tokens`}
+        {serviceAccount.tokens?.length === 1
+          ? '1 token'
+          : `${serviceAccount.tokens?.length} tokens`}
       </TooltipLink>
     </TextCell>
   );

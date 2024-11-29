@@ -78,8 +78,9 @@ export const ArchivedFeatureDeleteConfirm = ({
       formId={formId}
     >
       <Alert severity='warning'>
-        <b>Warning!</b> Before you delete a feature flag, make sure all in-code references to that feature flag have
-        been removed. Otherwise, a new feature flag with the same name could activate the old code paths.
+        <b>Warning!</b> Before you delete a feature flag, make sure all in-code
+        references to that feature flag have been removed. Otherwise, a new
+        feature flag with the same name could activate the old code paths.
       </Alert>
 
       <StyledDeleteParagraph>
@@ -88,8 +89,9 @@ export const ArchivedFeatureDeleteConfirm = ({
       </StyledDeleteParagraph>
 
       <StyledDeleteParagraph sx={(theme) => ({ marginTop: theme.spacing(2) })}>
-        In order to delete the feature {singularOrPluralFlags}, please enter the following confirmation text in the text
-        field below: <strong>I want to delete</strong>
+        In order to delete the feature {singularOrPluralFlags}, please enter the
+        following confirmation text in the text field below:{' '}
+        <strong>I want to delete</strong>
       </StyledDeleteParagraph>
 
       <form id={formId}>

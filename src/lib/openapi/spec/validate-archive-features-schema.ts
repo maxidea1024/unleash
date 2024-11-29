@@ -18,7 +18,8 @@ export const validateArchiveFeaturesSchema = {
     },
     hasDeletedDependencies: {
       type: 'boolean',
-      description: 'Whether any dependencies will be deleted as part of archive',
+      description:
+        'Whether any dependencies will be deleted as part of archive',
       example: true,
     },
   },
@@ -27,4 +28,6 @@ export const validateArchiveFeaturesSchema = {
   },
 } as const;
 
-export type ValidateArchiveFeaturesSchema = FromSchema<typeof validateArchiveFeaturesSchema>;
+export type ValidateArchiveFeaturesSchema = FromSchema<
+  typeof validateArchiveFeaturesSchema
+>;

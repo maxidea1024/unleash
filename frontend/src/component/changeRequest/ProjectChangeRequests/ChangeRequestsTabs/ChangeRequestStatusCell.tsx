@@ -8,7 +8,10 @@ interface IChangeRequestStatusCellProps {
   row: { original: ChangeRequestType };
 }
 
-export const ChangeRequestStatusCell: VFC<IChangeRequestStatusCellProps> = ({ value, row: { original } }) => {
+export const ChangeRequestStatusCell: VFC<IChangeRequestStatusCellProps> = ({
+  value,
+  row: { original },
+}) => {
   const renderState = () => {
     if (!value) return null;
     return <ChangeRequestStatusBadge changeRequest={original} />;

@@ -9,9 +9,17 @@ interface ProgressComponentProps {
   health: number;
 }
 
-export const ProjectHealthChart: React.FC<ProgressComponentProps> = ({ active, stale, potentiallyStale, health }) => {
+export const ProjectHealthChart: React.FC<ProgressComponentProps> = ({
+  active,
+  stale,
+  potentiallyStale,
+  health,
+}) => {
   const theme = useTheme();
-  const gap = active === 0 || stale === 0 || active / stale > 30 || stale / active > 30 ? 0 : 10;
+  const gap =
+    active === 0 || stale === 0 || active / stale > 30 || stale / active > 30
+      ? 0
+      : 10;
   const strokeWidth = 6;
   const radius = 50 - strokeWidth / 2;
   const circumference = 2 * Math.PI * radius;
@@ -20,15 +28,28 @@ export const ProjectHealthChart: React.FC<ProgressComponentProps> = ({ active, s
   const totalCount = active + stale;
   const activePercentage = totalCount === 0 ? 100 : (active / totalCount) * 100;
   const stalePercentage = totalCount === 0 ? 0 : (stale / totalCount) * 100;
-  const potentiallyStalePercentage = active === 0 ? 0 : (potentiallyStale / totalCount) * 100;
+  const potentiallyStalePercentage =
+    active === 0 ? 0 : (potentiallyStale / totalCount) * 100;
 
-  const activeLength = Math.max((activePercentage / 100) * circumference - gap, 1);
-  const staleLength = Math.max((stalePercentage / 100) * circumference - gap, 1);
-  const potentiallyStaleLength = Math.max((potentiallyStalePercentage / 100) * circumference - gap, 1);
+  const activeLength = Math.max(
+    (activePercentage / 100) * circumference - gap,
+    1,
+  );
+  const staleLength = Math.max(
+    (stalePercentage / 100) * circumference - gap,
+    1,
+  );
+  const potentiallyStaleLength = Math.max(
+    (potentiallyStalePercentage / 100) * circumference - gap,
+    1,
+  );
 
   const activeRotation = -90 + gapAngle / 2;
-  const potentiallyStaleRotation = activeRotation + ((activeLength - potentiallyStaleLength) / circumference) * 360;
-  const staleRotation = activeRotation + (activeLength / circumference) * 360 + gapAngle;
+  const potentiallyStaleRotation =
+    activeRotation +
+    ((activeLength - potentiallyStaleLength) / circumference) * 360;
+  const staleRotation =
+    activeRotation + (activeLength / circumference) * 360 + gapAngle;
 
   const innerRadius = radius / 1.2;
 
@@ -84,7 +105,12 @@ export const ProjectHealthChart: React.FC<ProgressComponentProps> = ({ active, s
         }
       />
 
-      <circle cx='50' cy='50' r={innerRadius} fill={theme.palette.warning.light} />
+      <circle
+        cx='50'
+        cy='50'
+        r={innerRadius}
+        fill={theme.palette.warning.light}
+      />
 
       <text
         x='50%'

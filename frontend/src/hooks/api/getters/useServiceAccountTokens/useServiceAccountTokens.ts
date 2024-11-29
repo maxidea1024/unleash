@@ -12,7 +12,9 @@ export interface IUseServiceAccountTokensOutput {
   error?: Error;
 }
 
-export const useServiceAccountTokens = (id: number): IUseServiceAccountTokensOutput => {
+export const useServiceAccountTokens = (
+  id: number,
+): IUseServiceAccountTokensOutput => {
   const { isEnterprise } = useUiConfig();
 
   const { data, error, mutate } = useConditionalSWR<PatsSchema>(

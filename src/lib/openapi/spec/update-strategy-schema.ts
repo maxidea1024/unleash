@@ -39,7 +39,8 @@ export const updateStrategySchema = {
           },
           required: {
             type: 'boolean',
-            description: 'Whether this parameter must be configured when using the strategy. Defaults to `false`',
+            description:
+              'Whether this parameter must be configured when using the strategy. Defaults to `false`',
             example: false,
           },
         },

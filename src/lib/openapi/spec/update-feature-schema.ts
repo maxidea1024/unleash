@@ -8,13 +8,21 @@ export const updateFeatureSchema = {
   properties: {
     description: {
       type: 'string',
-      example: 'Controls disabling of the comments section in case of an incident',
+      example:
+        'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     type: {
-      enum: ['experiment', 'kill-switch', 'release', 'operational', 'permission'],
+      enum: [
+        'experiment',
+        'kill-switch',
+        'release',
+        'operational',
+        'permission',
+      ],
       example: 'kill-switch',
-      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description:
+        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     stale: {
       type: 'boolean',
@@ -30,7 +38,8 @@ export const updateFeatureSchema = {
     impressionData: {
       type: 'boolean',
       example: false,
-      description: '`true` if the impression data collection is enabled for the feature',
+      description:
+        '`true` if the impression data collection is enabled for the feature',
     },
   },
   components: {

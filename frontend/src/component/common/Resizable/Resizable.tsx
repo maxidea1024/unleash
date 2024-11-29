@@ -80,7 +80,15 @@ const StyledResizeHandle = styled('div')({
   },
 });
 
-type Handler = 'top' | 'right' | 'bottom' | 'left' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+type Handler =
+  | 'top'
+  | 'right'
+  | 'bottom'
+  | 'left'
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
 
 type Size = { width: string; height: string };
 
@@ -110,7 +118,15 @@ export const Resizable = ({
 
   const handleResize = (
     e: React.MouseEvent<HTMLDivElement>,
-    direction: 'top' | 'right' | 'bottom' | 'left' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right',
+    direction:
+      | 'top'
+      | 'right'
+      | 'bottom'
+      | 'left'
+      | 'top-left'
+      | 'top-right'
+      | 'bottom-left'
+      | 'bottom-right',
   ) => {
     e.preventDefault();
 
@@ -129,19 +145,31 @@ export const Resizable = ({
       let newHeight = startHeight;
 
       if (direction.includes('top')) {
-        newHeight = Math.max(Number.parseInt(minSize.height), startHeight - (moveEvent.clientY - startY));
+        newHeight = Math.max(
+          Number.parseInt(minSize.height),
+          startHeight - (moveEvent.clientY - startY),
+        );
       }
 
       if (direction.includes('bottom')) {
-        newHeight = Math.max(Number.parseInt(minSize.height), startHeight + (moveEvent.clientY - startY));
+        newHeight = Math.max(
+          Number.parseInt(minSize.height),
+          startHeight + (moveEvent.clientY - startY),
+        );
       }
 
       if (direction.includes('left')) {
-        newWidth = Math.max(Number.parseInt(minSize.width), startWidth - (moveEvent.clientX - startX));
+        newWidth = Math.max(
+          Number.parseInt(minSize.width),
+          startWidth - (moveEvent.clientX - startX),
+        );
       }
 
       if (direction.includes('right')) {
-        newWidth = Math.max(Number.parseInt(minSize.width), startWidth + (moveEvent.clientX - startX));
+        newWidth = Math.max(
+          Number.parseInt(minSize.width),
+          startWidth + (moveEvent.clientX - startX),
+        );
       }
 
       setCurrentSize({

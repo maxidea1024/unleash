@@ -21,34 +21,23 @@ export interface IUserUpdateFields {
 
 export interface IUserStore extends IStore<IUser, number> {
   update(id: number, fields: IUserUpdateFields): Promise<IUser>;
-
   insert(user: ICreateUser): Promise<IUser>;
-
   upsert(user: ICreateUser): Promise<IUser>;
-
   hasUser(idQuery: IUserLookup): Promise<number | undefined>;
-
   search(query: string): Promise<IUser[]>;
-
   getAllWithId(userIdList: number[]): Promise<IUser[]>;
-
   getByQuery(idQuery: IUserLookup): Promise<IUser>;
-
   getPasswordHash(userId: number): Promise<string>;
-
-  setPasswordHash(userId: number, passwordHash: string, disallowNPreviousPasswords: number): Promise<void>;
-
+  setPasswordHash(
+    userId: number,
+    passwordHash: string,
+    disallowNPreviousPasswords: number,
+  ): Promise<void>;
   getPasswordsPreviouslyUsed(userId: number): Promise<string[]>;
-
   getFirstUserDate(): Promise<Date | null>;
-
   incLoginAttempts(user: IUser): Promise<void>;
-
   successfullyLogin(user: IUser): Promise<number>;
-
   count(): Promise<number>;
-
   countRecentlyDeleted(): Promise<number>;
-
   countServiceAccounts(): Promise<number>;
 }

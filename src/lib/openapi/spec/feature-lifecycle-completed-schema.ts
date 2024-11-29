@@ -11,7 +11,8 @@ export const featureLifecycleCompletedSchema = {
       type: 'string',
       enum: ['kept', 'discarded'],
       example: 'kept',
-      description: 'The status of the feature after it has been marked as completed',
+      description:
+        'The status of the feature after it has been marked as completed',
     },
     statusValue: {
       type: 'string',
@@ -24,4 +25,6 @@ export const featureLifecycleCompletedSchema = {
   },
 } as const;
 
-export type FeatureLifecycleCompletedSchema = FromSchema<typeof featureLifecycleCompletedSchema>;
+export type FeatureLifecycleCompletedSchema = FromSchema<
+  typeof featureLifecycleCompletedSchema
+>;

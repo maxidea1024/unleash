@@ -1,7 +1,16 @@
-import type { IFeatureLifecycleReadModel, StageCount, StageCountByProject } from './feature-lifecycle-read-model-type';
-import type { IFeatureLifecycleStage, IProjectLifecycleStageDuration } from '../../types';
+import type {
+  IFeatureLifecycleReadModel,
+  StageCount,
+  StageCountByProject,
+} from './feature-lifecycle-read-model-type';
+import type {
+  IFeatureLifecycleStage,
+  IProjectLifecycleStageDuration,
+} from '../../types';
 
-export class FakeFeatureLifecycleReadModel implements IFeatureLifecycleReadModel {
+export class FakeFeatureLifecycleReadModel
+  implements IFeatureLifecycleReadModel
+{
   getAllWithStageDuration(): Promise<IProjectLifecycleStageDuration[]> {
     return Promise.resolve([]);
   }
@@ -11,7 +20,9 @@ export class FakeFeatureLifecycleReadModel implements IFeatureLifecycleReadModel
   getStageCountByProject(): Promise<StageCountByProject[]> {
     return Promise.resolve([]);
   }
-  findCurrentStage(feature: string): Promise<IFeatureLifecycleStage | undefined> {
+  findCurrentStage(
+    feature: string,
+  ): Promise<IFeatureLifecycleStage | undefined> {
     return Promise.resolve(undefined);
   }
 }

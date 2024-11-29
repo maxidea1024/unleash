@@ -12,7 +12,9 @@ test('should render strategy name, custom title and description', async () => {
     parameters: {},
   };
 
-  render(<StrategyItemContainer strategy={strategy} description={'description'} />);
+  render(
+    <StrategyItemContainer strategy={strategy} description={'description'} />,
+  );
 
   expect(screen.getByText('strategy name')).toBeInTheDocument();
   expect(screen.getByText('description')).toBeInTheDocument();

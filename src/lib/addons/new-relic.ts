@@ -2,8 +2,16 @@ import Addon from './addon';
 
 import definition from './new-relic-definition';
 import Mustache from 'mustache';
-import { type IAddonConfig, type IEvent, type IEventType, serializeDates } from '../types';
-import { type FeatureEventFormatter, FeatureEventFormatterMd } from './feature-event-formatter-md';
+import {
+  type IAddonConfig,
+  type IEvent,
+  type IEventType,
+  serializeDates,
+} from '../types';
+import {
+  type FeatureEventFormatter,
+  FeatureEventFormatterMd,
+} from './feature-event-formatter-md';
 import { gzip } from 'node:zlib';
 import { promisify } from 'util';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
@@ -38,7 +46,11 @@ export default class NewRelicAddon extends Addon {
     });
   }
 
-  async handleEvent(event: IEvent, parameters: INewRelicParameters, integrationId: number): Promise<void> {
+  async handleEvent(
+    event: IEvent,
+    parameters: INewRelicParameters,
+    integrationId: number,
+  ): Promise<void> {
     let state: IntegrationEventState = 'success';
     const stateDetails: string[] = [];
 
@@ -71,7 +83,8 @@ export default class NewRelicAddon extends Addon {
         extraHeaders = JSON.parse(customHeaders);
       } catch (error) {
         state = 'successWithErrors';
-        const badHeadersMessage = 'Could not parse the JSON in the customHeaders parameter.';
+        const badHeadersMessage =
+          'Could not parse the JSON in the customHeaders parameter.';
         stateDetails.push(badHeadersMessage);
         this.logger.warn(badHeadersMessage);
       }

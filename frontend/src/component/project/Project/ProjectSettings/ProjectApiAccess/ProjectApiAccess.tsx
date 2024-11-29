@@ -12,7 +12,11 @@ import { useProjectApiTokens } from 'hooks/api/getters/useProjectApiTokens/usePr
 import { CreateApiTokenButton } from 'component/common/ApiTokenTable/CreateApiTokenButton/CreateApiTokenButton';
 import { useApiTokenTable } from 'component/common/ApiTokenTable/useApiTokenTable';
 import { Search } from 'component/common/Search/Search';
-import { CREATE_PROJECT_API_TOKEN, DELETE_PROJECT_API_TOKEN, READ_PROJECT_API_TOKEN } from '@server/types/permissions';
+import {
+  CREATE_PROJECT_API_TOKEN,
+  DELETE_PROJECT_API_TOKEN,
+  READ_PROJECT_API_TOKEN,
+} from '@server/types/permissions';
 import { CopyApiTokenButton } from 'component/common/ApiTokenTable/CopyApiTokenButton/CopyApiTokenButton';
 import { RemoveApiTokenButton } from 'component/common/ApiTokenTable/RemoveApiTokenButton/RemoveApiTokenButton';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
@@ -25,7 +29,11 @@ export const ProjectApiAccess = () => {
   const projectId = useRequiredPathParam('projectId');
   const projectName = useProjectOverviewNameOrId(projectId);
   const { hasAccess } = useContext(AccessContext);
-  const { tokens, loading, refetch: refetchProjectTokens } = useProjectApiTokens(projectId);
+  const {
+    tokens,
+    loading,
+    refetch: refetchProjectTokens,
+  } = useProjectApiTokens(projectId);
   const { trackEvent } = usePlausibleTracker();
   const { deleteToken: deleteProjectToken } = useProjectApiTokensApi();
 
@@ -76,9 +84,16 @@ export const ProjectApiAccess = () => {
             title={`API access (${rows.length})`}
             actions={
               <>
-                <Search initialValue={globalFilter} onChange={setGlobalFilter} />
+                <Search
+                  initialValue={globalFilter}
+                  onChange={setGlobalFilter}
+                />
                 <PageHeader.Divider />
-                <CreateApiTokenButton permission={CREATE_PROJECT_API_TOKEN} path='create' project={projectId} />
+                <CreateApiTokenButton
+                  permission={CREATE_PROJECT_API_TOKEN}
+                  path='create'
+                  project={projectId}
+                />
               </>
             }
           />
@@ -86,7 +101,11 @@ export const ProjectApiAccess = () => {
       >
         <ConditionallyRender
           condition={!hasAccess(READ_PROJECT_API_TOKEN, projectId)}
-          show={<Alert severity='warning'>You need to have the correct permissions to read API tokens</Alert>}
+          show={
+            <Alert severity='warning'>
+              You need to have the correct permissions to read API tokens
+            </Alert>
+          }
           elseShow={
             <ApiTokenTable
               compact

@@ -25,5 +25,7 @@ test('eventSchema', () => {
     environment: null,
   };
 
-  expect(validateSchema('#/components/schemas/eventSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/eventSchema', data),
+  ).toBeUndefined();
 });

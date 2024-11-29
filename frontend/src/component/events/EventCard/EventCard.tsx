@@ -73,7 +73,10 @@ export const StyledCodeSection = styled('div')(({ theme }) => ({
 const EventCard = ({ entry }: IEventCardProps) => {
   const { locationSettings } = useLocationSettings();
 
-  const createdAtFormatted = formatDateYMDHMS(entry.createdAt, locationSettings.locale);
+  const createdAtFormatted = formatDateYMDHMS(
+    entry.createdAt,
+    locationSettings.locale,
+  );
 
   return (
     <StyledContainerListItem>
@@ -103,7 +106,11 @@ const EventCard = ({ entry }: IEventCardProps) => {
             <>
               <StyledDefinitionTerm>Feature:</StyledDefinitionTerm>
               <dd>
-                <Link to={`/projects/${entry.project}/features/${entry.featureName}`}>{entry.featureName}</Link>
+                <Link
+                  to={`/projects/${entry.project}/features/${entry.featureName}`}
+                >
+                  {entry.featureName}
+                </Link>
               </dd>
             </>
           }

@@ -9,7 +9,10 @@ interface IFeatureOverviewSegmentProps {
   disabled?: boolean | null;
 }
 
-export const FeatureOverviewSegment = ({ segments, disabled = false }: IFeatureOverviewSegmentProps) => {
+export const FeatureOverviewSegment = ({
+  segments,
+  disabled = false,
+}: IFeatureOverviewSegmentProps) => {
   if (!segments || segments.length === 0) {
     return null;
   }
@@ -18,7 +21,10 @@ export const FeatureOverviewSegment = ({ segments, disabled = false }: IFeatureO
     <>
       {segments.map((segment, index) => (
         <Fragment key={segment.id}>
-          <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
+          <ConditionallyRender
+            condition={index > 0}
+            show={<StrategySeparator text='AND' />}
+          />
           <SegmentItem segment={segment} disabled={disabled} />
         </Fragment>
       ))}

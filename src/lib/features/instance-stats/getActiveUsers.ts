@@ -18,10 +18,18 @@ export const createGetActiveUsers =
     const result = await db
       .with('Combined', combinedQuery)
       .select({
-        last_week: db.raw("COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '1 week' THEN user_id END)"),
-        last_month: db.raw("COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '1 month' THEN user_id END)"),
-        last_two_months: db.raw("COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '2 months' THEN user_id END)"),
-        last_quarter: db.raw("COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '3 months' THEN user_id END)"),
+        last_week: db.raw(
+          "COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '1 week' THEN user_id END)",
+        ),
+        last_month: db.raw(
+          "COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '1 month' THEN user_id END)",
+        ),
+        last_two_months: db.raw(
+          "COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '2 months' THEN user_id END)",
+        ),
+        last_quarter: db.raw(
+          "COUNT(DISTINCT CASE WHEN seen_at > NOW() - INTERVAL '3 months' THEN user_id END)",
+        ),
       })
       .from('Combined');
 

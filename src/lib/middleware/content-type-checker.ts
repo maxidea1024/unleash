@@ -11,7 +11,9 @@ const DEFAULT_ACCEPTED_CONTENT_TYPE = 'application/json';
  * @param {String} acceptedContentTypes
  * @returns {function(Request, Response, NextFunction): void}
  */
-export default function requireContentType(...acceptedContentTypes: string[]): RequestHandler {
+export default function requireContentType(
+  ...acceptedContentTypes: string[]
+): RequestHandler {
   if (acceptedContentTypes.length === 0) {
     acceptedContentTypes.push(DEFAULT_ACCEPTED_CONTENT_TYPE);
   }
@@ -21,7 +23,10 @@ export default function requireContentType(...acceptedContentTypes: string[]): R
     if (contentType && is(contentType, acceptedContentTypes)) {
       next();
     } else {
-      const error = new ContentTypeError(acceptedContentTypes as [string, ...string[]], contentType);
+      const error = new ContentTypeError(
+        acceptedContentTypes as [string, ...string[]],
+        contentType,
+      );
       res.status(error.statusCode).json(error).end();
     }
   };

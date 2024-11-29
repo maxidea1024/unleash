@@ -1,5 +1,12 @@
 import type { FC } from 'react';
-import { Box, IconButton, styled, type Theme, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  styled,
+  type Theme,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { ReactComponent as ChangesAppliedIcon } from 'assets/icons/merge.svg';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import {
@@ -66,7 +73,9 @@ const resolveIconColors = (state: ChangeRequestState, theme: Theme) => {
   };
 };
 
-export const ChangeRequestReviewStatus: FC<ISuggestChangeReviewsStatusProps> = ({ changeRequest, onEditClick }) => {
+export const ChangeRequestReviewStatus: FC<
+  ISuggestChangeReviewsStatusProps
+> = ({ changeRequest, onEditClick }) => {
   const theme = useTheme();
   return (
     <StyledOuterContainer>
@@ -79,11 +88,17 @@ export const ChangeRequestReviewStatus: FC<ISuggestChangeReviewsStatusProps> = (
       </StyledButtonContainer>
       <StyledReviewStatusContainer
         sx={{
-          backgroundColor: changeRequest.state === 'In review' ? theme.palette.warning.light : 'initial',
+          backgroundColor:
+            changeRequest.state === 'In review'
+              ? theme.palette.warning.light
+              : 'initial',
         }}
         border={resolveBorder(changeRequest.state, theme)}
       >
-        <ResolveComponent changeRequest={changeRequest} onEditClick={onEditClick} />
+        <ResolveComponent
+          changeRequest={changeRequest}
+          onEditClick={onEditClick}
+        />
       </StyledReviewStatusContainer>
     </StyledOuterContainer>
   );
@@ -94,7 +109,10 @@ interface IResolveComponentProps {
   onEditClick?: () => void;
 }
 
-const ResolveComponent = ({ changeRequest, onEditClick }: IResolveComponentProps) => {
+const ResolveComponent = ({
+  changeRequest,
+  onEditClick,
+}: IResolveComponentProps) => {
   const { state } = changeRequest;
 
   if (!state) {
@@ -133,7 +151,9 @@ const Approved = () => {
       <StyledFlexAlignCenterBox>
         <StyledSuccessIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.success.dark}>Changes approved</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.success.dark}>
+            Changes approved
+          </StyledReviewTitle>
           <Typography>One approving review from requested approvers</Typography>
         </Box>
       </StyledFlexAlignCenterBox>
@@ -143,7 +163,9 @@ const Approved = () => {
       <StyledFlexAlignCenterBox>
         <StyledSuccessIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.success.dark}>Changes are ready to be applied</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.success.dark}>
+            Changes are ready to be applied
+          </StyledReviewTitle>
         </Box>
       </StyledFlexAlignCenterBox>
     </>
@@ -162,8 +184,13 @@ const ReviewRequired = ({ minApprovals }: IReviewRequiredProps) => {
       <StyledFlexAlignCenterBox>
         <StyledWarningIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.warning.dark}>Review required</StyledReviewTitle>
-          <Typography>At least {minApprovals} approval(s) must be submitted before changes can be applied</Typography>
+          <StyledReviewTitle color={theme.palette.warning.dark}>
+            Review required
+          </StyledReviewTitle>
+          <Typography>
+            At least {minApprovals} approval(s) must be submitted before changes
+            can be applied
+          </Typography>
         </Box>
       </StyledFlexAlignCenterBox>
 
@@ -171,7 +198,9 @@ const ReviewRequired = ({ minApprovals }: IReviewRequiredProps) => {
 
       <StyledFlexAlignCenterBox>
         <StyledWarningIcon />
-        <StyledReviewTitle color={theme.palette.warning.dark}>Apply changes is blocked</StyledReviewTitle>
+        <StyledReviewTitle color={theme.palette.warning.dark}>
+          Apply changes is blocked
+        </StyledReviewTitle>
       </StyledFlexAlignCenterBox>
     </>
   );
@@ -185,7 +214,9 @@ const Applied = () => {
       <StyledFlexAlignCenterBox>
         <StyledSuccessIcon sx={{ color: theme.palette.primary.main }} />
         <Box>
-          <StyledReviewTitle color={theme.palette.primary.main}>Changes applied</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.primary.main}>
+            Changes applied
+          </StyledReviewTitle>
         </Box>
       </StyledFlexAlignCenterBox>
     </>
@@ -226,7 +257,9 @@ const Scheduled = ({ schedule, onEditClick }: IScheduledProps) => {
       <StyledFlexAlignCenterBox>
         <StyledSuccessIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.success.dark}>Changes approved</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.success.dark}>
+            Changes approved
+          </StyledReviewTitle>
           <Typography>One approving review from requested approvers</Typography>
         </Box>
       </StyledFlexAlignCenterBox>
@@ -243,38 +276,50 @@ const Scheduled = ({ schedule, onEditClick }: IScheduledProps) => {
   );
 };
 
-const ScheduledFailed = ({ schedule }: { schedule: ChangeRequestScheduleFailed }) => {
+const ScheduledFailed = ({
+  schedule,
+}: { schedule: ChangeRequestScheduleFailed }) => {
   const theme = useTheme();
   const timezone = getBrowserTimezone();
   const { locationSettings } = useLocationSettings();
 
-  const scheduledTime = formatDateYMDHMS(new Date(schedule?.scheduledAt), locationSettings?.locale);
+  const scheduledTime = formatDateYMDHMS(
+    new Date(schedule?.scheduledAt),
+    locationSettings?.locale,
+  );
 
   return (
     <StyledFlexAlignCenterBox>
       <StyledScheduleFailedIcon />
       <Box>
         <StyledReviewTitle color={theme.palette.error.main}>
-          Changes failed to be applied on {scheduledTime} because of {schedule.reason ?? schedule.failureReason}
+          Changes failed to be applied on {scheduledTime} because of{' '}
+          {schedule.reason ?? schedule.failureReason}
         </StyledReviewTitle>
         <Typography>Your timezone is {timezone}</Typography>
       </Box>
     </StyledFlexAlignCenterBox>
   );
 };
-const ScheduledSuspended = ({ schedule }: { schedule: ChangeRequestScheduleSuspended }) => {
+const ScheduledSuspended = ({
+  schedule,
+}: { schedule: ChangeRequestScheduleSuspended }) => {
   const theme = useTheme();
   const timezone = getBrowserTimezone();
   const { locationSettings } = useLocationSettings();
 
-  const scheduledTime = formatDateYMDHMS(new Date(schedule?.scheduledAt), locationSettings?.locale);
+  const scheduledTime = formatDateYMDHMS(
+    new Date(schedule?.scheduledAt),
+    locationSettings?.locale,
+  );
 
   return (
     <StyledFlexAlignCenterBox>
       <StyledScheduleSuspendedIcon />
       <Box>
         <StyledReviewTitle color={theme.palette.text.secondary}>
-          The change request is suspended for the following reason: {schedule.reason}
+          The change request is suspended for the following reason:{' '}
+          {schedule.reason}
         </StyledReviewTitle>
         <StyledReviewTitle color={theme.palette.text.secondary}>
           It will not be applied on {scheduledTime}.
@@ -285,12 +330,17 @@ const ScheduledSuspended = ({ schedule }: { schedule: ChangeRequestScheduleSuspe
   );
 };
 
-const ScheduledPending = ({ schedule }: { schedule: ChangeRequestSchedulePending }) => {
+const ScheduledPending = ({
+  schedule,
+}: { schedule: ChangeRequestSchedulePending }) => {
   const theme = useTheme();
   const timezone = getBrowserTimezone();
   const { locationSettings } = useLocationSettings();
 
-  const scheduledTime = formatDateYMDHMS(new Date(schedule?.scheduledAt), locationSettings?.locale);
+  const scheduledTime = formatDateYMDHMS(
+    new Date(schedule?.scheduledAt),
+    locationSettings?.locale,
+  );
 
   return (
     <StyledFlexAlignCenterBox>
@@ -312,7 +362,9 @@ const Cancelled = () => {
       <StyledFlexAlignCenterBox>
         <StyledErrorIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.error.main}>Changes cancelled</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.error.main}>
+            Changes cancelled
+          </StyledReviewTitle>
         </Box>
       </StyledFlexAlignCenterBox>
     </>
@@ -327,7 +379,9 @@ const Rejected = () => {
       <StyledFlexAlignCenterBox>
         <StyledErrorIcon />
         <Box>
-          <StyledReviewTitle color={theme.palette.error.main}>Changes rejected</StyledReviewTitle>
+          <StyledReviewTitle color={theme.palette.error.main}>
+            Changes rejected
+          </StyledReviewTitle>
         </Box>
       </StyledFlexAlignCenterBox>
     </>

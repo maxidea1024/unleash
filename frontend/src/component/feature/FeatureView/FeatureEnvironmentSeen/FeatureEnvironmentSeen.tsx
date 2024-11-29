@@ -58,9 +58,16 @@ const TooltipContainer: FC<{
 }> = ({ sx, tooltip, color, children }) => {
   return (
     <StyledContainer sx={sx}>
-      <StyledTooltipResolver variant='custom' titleComponent={tooltip} arrow describeChild>
+      <StyledTooltipResolver
+        variant='custom'
+        titleComponent={tooltip}
+        arrow
+        describeChild
+      >
         <StyledBox sx={{ '&:hover': { background: color } }}>
-          <StyledIconWrapper style={{ background: color }}>{children}</StyledIconWrapper>
+          <StyledIconWrapper style={{ background: color }}>
+            {children}
+          </StyledIconWrapper>
         </StyledBox>
       </StyledTooltipResolver>
     </StyledContainer>
@@ -84,7 +91,10 @@ export const FeatureEnvironmentSeen = ({
 
   if (!lastSeen) {
     return (
-      <TooltipContainer sx={sx} tooltip='No usage reported from connected applications'>
+      <TooltipContainer
+        sx={sx}
+        tooltip='No usage reported from connected applications'
+      >
         <Box data-loading>
           <LineBox>
             <UsageLine />
@@ -99,7 +109,13 @@ export const FeatureEnvironmentSeen = ({
   return (
     <TooltipContainer
       sx={sx}
-      tooltip={<LastSeenTooltip featureLastSeen={lastSeen} environments={environments} {...rest} />}
+      tooltip={
+        <LastSeenTooltip
+          featureLastSeen={lastSeen}
+          environments={environments}
+          {...rest}
+        />
+      }
       color={background}
     >
       <UsageRate stroke={text} />

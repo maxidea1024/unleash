@@ -47,8 +47,9 @@ const placeholderData: ProjectInsightsSchema = {
 
 export const useProjectInsights = (projectId: string) => {
   const projectPath = formatApiPath(path(projectId));
-  const { data, refetch, loading, error } = useApiGetter<ProjectInsightsSchema>(projectPath, () =>
-    fetcher(projectPath, 'Project Insights'),
+  const { data, refetch, loading, error } = useApiGetter<ProjectInsightsSchema>(
+    projectPath,
+    () => fetcher(projectPath, 'Project Insights'),
   );
 
   return { data: data || placeholderData, refetch, loading, error };

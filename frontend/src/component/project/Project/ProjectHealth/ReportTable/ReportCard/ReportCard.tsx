@@ -74,13 +74,18 @@ interface IReportCardProps {
 
 export const ReportCard = ({ healthReport }: IReportCardProps) => {
   const healthRatingColor =
-    healthReport.health < 50 ? 'error.main' : healthReport.health < 75 ? 'warning.main' : 'success.main';
+    healthReport.health < 50
+      ? 'error.main'
+      : healthReport.health < 75
+        ? 'warning.main'
+        : 'success.main';
 
   const StalenessInfoIcon = () => (
     <HtmlTooltip
       title={
         <>
-          If your flag exceeds the expected lifetime of its flag type it will be marked as potentially stale.
+          If your flag exceeds the expected lifetime of its flag type it will be
+          marked as potentially stale.
           <Box sx={{ mt: 2 }}>
             <a
               href='https://docs.getunleash.io/reference/technical-debt#stale-and-potentially-stale-toggles'
@@ -93,7 +98,9 @@ export const ReportCard = ({ healthReport }: IReportCardProps) => {
         </>
       }
     >
-      <InfoOutlined sx={{ color: (theme) => theme.palette.text.secondary, ml: 1 }} />
+      <InfoOutlined
+        sx={{ color: (theme) => theme.palette.text.secondary, ml: 1 }}
+      />
     </HtmlTooltip>
   );
 
@@ -105,9 +112,12 @@ export const ReportCard = ({ healthReport }: IReportCardProps) => {
           condition={healthReport.health > -1}
           show={
             <>
-              <StyledHealthRating sx={{ color: healthRatingColor }}>{healthReport.health}%</StyledHealthRating>
+              <StyledHealthRating sx={{ color: healthRatingColor }}>
+                {healthReport.health}%
+              </StyledHealthRating>
               <StyledLastUpdated>
-                Last updated: <TimeAgo date={healthReport.updatedAt} refresh={false} />
+                Last updated:{' '}
+                <TimeAgo date={healthReport.updatedAt} refresh={false} />
               </StyledLastUpdated>
             </>
           }
@@ -129,7 +139,11 @@ export const ReportCard = ({ healthReport }: IReportCardProps) => {
           </li>
           <ConditionallyRender
             condition={Boolean(healthReport.activeCount)}
-            show={<StyledAlignedItem>Also includes potentially stale flags.</StyledAlignedItem>}
+            show={
+              <StyledAlignedItem>
+                Also includes potentially stale flags.
+              </StyledAlignedItem>
+            }
           />
 
           <li>
@@ -159,7 +173,9 @@ export const ReportCard = ({ healthReport }: IReportCardProps) => {
               show={
                 <StyledBoxStale>
                   <ReportProblemOutlinedIcon />
-                  <span>{healthReport.potentiallyStaleCount} potentially stale flags</span>
+                  <span>
+                    {healthReport.potentiallyStaleCount} potentially stale flags
+                  </span>
                 </StyledBoxStale>
               }
             />
@@ -169,7 +185,9 @@ export const ReportCard = ({ healthReport }: IReportCardProps) => {
           condition={Boolean(healthReport.potentiallyStaleCount)}
           show={
             <>
-              <StyledAlignedItem>Review your feature flags and delete unused flags.</StyledAlignedItem>
+              <StyledAlignedItem>
+                Review your feature flags and delete unused flags.
+              </StyledAlignedItem>
               <Box sx={{ mt: 2 }}>
                 <Link component={RouterLink} to={'/feature-toggle-type'}>
                   Configure feature types lifetime

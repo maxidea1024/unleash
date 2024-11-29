@@ -1,6 +1,11 @@
 import { Paper, styled } from '@mui/material';
 import { TextField, Typography } from '@mui/material';
-import { forwardRef, type FC, type ReactNode, type ComponentProps } from 'react';
+import {
+  forwardRef,
+  type FC,
+  type ReactNode,
+  type ComponentProps,
+} from 'react';
 
 export const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -43,7 +48,10 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
   width: '100%',
 }));
 
-export const StyledTitle = forwardRef<HTMLHeadingElement, { children: ReactNode }>(({ children }, ref) => (
+export const StyledTitle = forwardRef<
+  HTMLHeadingElement,
+  { children: ReactNode }
+>(({ children }, ref) => (
   <Typography
     ref={ref}
     component='h4'
@@ -71,7 +79,9 @@ export const StyledConfigurationSection = styled('section')(({ theme }) => ({
   gap: theme.spacing(3),
 }));
 
-export const StyledRaisedSection: FC<ComponentProps<typeof Paper>> = ({ ...props }) => (
+export const StyledRaisedSection: FC<ComponentProps<typeof Paper>> = ({
+  ...props
+}) => (
   <Paper
     elevation={0}
     sx={(theme) => ({

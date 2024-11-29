@@ -127,7 +127,9 @@ export const GroupForm: FC<IGroupForm> = ({
   return (
     <StyledForm onSubmit={handleSubmit}>
       <div>
-        <StyledInputDescription>What would you like to call your group?</StyledInputDescription>
+        <StyledInputDescription>
+          What would you like to call your group?
+        </StyledInputDescription>
         <StyledInput
           autoFocus
           label='Name'
@@ -140,7 +142,9 @@ export const GroupForm: FC<IGroupForm> = ({
           required
           disabled={isScimGroup}
         />
-        <StyledInputDescription>How would you describe your group?</StyledInputDescription>
+        <StyledInputDescription>
+          How would you describe your group?
+        </StyledInputDescription>
         <StyledInput
           multiline
           rows={4}
@@ -154,8 +158,14 @@ export const GroupForm: FC<IGroupForm> = ({
           condition={isGroupSyncingEnabled && !isScimGroup}
           show={
             <>
-              <StyledInputDescription>Is this group associated with SSO groups?</StyledInputDescription>
-              <StyledItemList label='SSO group ID / name' value={mappingsSSO} onChange={setMappingsSSO} />
+              <StyledInputDescription>
+                Is this group associated with SSO groups?
+              </StyledInputDescription>
+              <StyledItemList
+                label='SSO group ID / name'
+                value={mappingsSSO}
+                onChange={setMappingsSSO}
+              />
             </>
           }
           elseShow={() => (
@@ -188,7 +198,9 @@ export const GroupForm: FC<IGroupForm> = ({
           condition={mode === 'Create'}
           show={
             <>
-              <StyledInputDescription>Add users to this group</StyledInputDescription>
+              <StyledInputDescription>
+                Add users to this group
+              </StyledInputDescription>
               <GroupFormUsersSelect users={users} setUsers={setUsers} />
               <StyledGroupFormUsersTableWrapper>
                 <GroupFormUsersTable users={users} setUsers={setUsers} />

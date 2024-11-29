@@ -102,7 +102,9 @@ test('on date change, current time should be updated', () => {
 
 test('should refresh on fallback change', () => {
   const date = null;
-  const { rerender } = render(<TimeAgo date={date} fallback='Initial fallback' />);
+  const { rerender } = render(
+    <TimeAgo date={date} fallback='Initial fallback' />,
+  );
   expect(screen.getByText('Initial fallback')).toBeInTheDocument();
 
   rerender(<TimeAgo date={date} fallback='Updated fallback' />);
@@ -127,7 +129,9 @@ test('should create `time` element', () => {
 test('should not create `time` element if `timeElement` is false', () => {
   const now = 1724222592978;
   vi.setSystemTime(now);
-  const { container } = render(<TimeAgo date={now - 5 * h} timeElement={false} />);
+  const { container } = render(
+    <TimeAgo date={now - 5 * h} timeElement={false} />,
+  );
   expect(container).toMatchInlineSnapshot(`
       <div>
         5 hours ago

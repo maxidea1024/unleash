@@ -8,7 +8,13 @@ describe('<ChangeRequestRejectDialogue />', () => {
     const handleConfirm = vi.fn();
     const handleClose = vi.fn();
 
-    render(<ChangeRequestRejectDialogue open={true} onConfirm={handleConfirm} onClose={handleClose} />);
+    render(
+      <ChangeRequestRejectDialogue
+        open={true}
+        onConfirm={handleConfirm}
+        onClose={handleClose}
+      />,
+    );
 
     const commentInput = screen.getByPlaceholderText('Add your comment here');
     fireEvent.change(commentInput, { target: { value: 'Test Comment' } });

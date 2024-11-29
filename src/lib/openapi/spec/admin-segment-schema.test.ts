@@ -11,7 +11,9 @@ test('updateEnvironmentSchema', () => {
     description: 'a description',
   };
 
-  expect(validateSchema('#/components/schemas/adminSegmentSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/adminSegmentSchema', data),
+  ).toBeUndefined();
 
   expect(
     validateSchema('#/components/schemas/adminSegmentSchema', {
@@ -48,5 +50,7 @@ test('updateEnvironmentSchema', () => {
     }),
   ).toMatchSnapshot();
 
-  expect(validateSchema('#/components/schemas/adminSegmentSchema', 'not an object')).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/adminSegmentSchema', 'not an object'),
+  ).toMatchSnapshot();
 });

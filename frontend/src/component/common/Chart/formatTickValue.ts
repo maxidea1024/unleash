@@ -1,6 +1,10 @@
 import type { Tick } from 'chart.js';
 
-export const formatTickValue = (tickValue: string | number, index: number, ticks: Tick[]) => {
+export const formatTickValue = (
+  tickValue: string | number,
+  index: number,
+  ticks: Tick[],
+) => {
   if (typeof tickValue === 'string') {
     return tickValue;
   }

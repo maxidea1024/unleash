@@ -20,7 +20,12 @@ beforeEach(() => {
 
   const config = createTestConfig();
   const stores = createStores();
-  versionService = new VersionService(stores, config, createFakeGetActiveUsers(), createFakeGetProductionChanges());
+  versionService = new VersionService(
+    stores,
+    config,
+    createFakeGetActiveUsers(),
+    createFakeGetProductionChanges(),
+  );
   clientInstanceStore = stores.clientInstanceStore;
   instanceStatsService = new InstanceStatsService(
     stores,
@@ -48,7 +53,9 @@ beforeEach(() => {
 
 test('get snapshot should not call getStats', async () => {
   await updateMetrics();
-  expect(clientInstanceStore.getDistinctApplicationsCount).toHaveBeenCalledTimes(3);
+  expect(
+    clientInstanceStore.getDistinctApplicationsCount,
+  ).toHaveBeenCalledTimes(3);
   expect(instanceStatsService.getStats).toHaveBeenCalledTimes(0);
 
   for (let i = 0; i < 3; i++) {
@@ -60,7 +67,9 @@ test('get snapshot should not call getStats', async () => {
     ]);
   }
   // after querying the stats snapshot no call to getStats should be issued
-  expect(clientInstanceStore.getDistinctApplicationsCount).toHaveBeenCalledTimes(3);
+  expect(
+    clientInstanceStore.getDistinctApplicationsCount,
+  ).toHaveBeenCalledTimes(3);
 });
 
 test('before the snapshot is refreshed we can still get the appCount', async () => {

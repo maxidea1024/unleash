@@ -7,11 +7,18 @@ const useProjectEnterpriseSettingsForm = (
   initialFeatureNamingExample = '',
   initialFeatureNamingDescription = '',
 ) => {
-  const [projectMode, setProjectMode] = useState<ProjectMode>(initialProjectMode);
-  const [featureNamingPattern, setFeatureNamingPattern] = useState(initialFeatureNamingPattern);
-  const [featureNamingExample, setFeatureNamingExample] = useState(initialFeatureNamingExample);
+  const [projectMode, setProjectMode] =
+    useState<ProjectMode>(initialProjectMode);
+  const [featureNamingPattern, setFeatureNamingPattern] = useState(
+    initialFeatureNamingPattern,
+  );
+  const [featureNamingExample, setFeatureNamingExample] = useState(
+    initialFeatureNamingExample,
+  );
 
-  const [featureNamingDescription, setFeatureNamingDescription] = useState(initialFeatureNamingDescription);
+  const [featureNamingDescription, setFeatureNamingDescription] = useState(
+    initialFeatureNamingDescription,
+  );
 
   const [errors, setErrors] = useState({});
 

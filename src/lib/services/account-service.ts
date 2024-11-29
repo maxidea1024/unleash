@@ -31,7 +31,9 @@ export class AccountService {
 
   async getAll(): Promise<IUserWithRole[]> {
     const accounts = await this.store.getAll();
-    const defaultRole = await this.accessService.getPredefinedRole(RoleName.VIEWER);
+    const defaultRole = await this.accessService.getPredefinedRole(
+      RoleName.VIEWER,
+    );
     const userRoles = await this.accessService.getRootRoleForAllUsers();
     const accountsWithRootRole = accounts.map((u) => {
       const rootRole = userRoles.find((r) => r.userId === u.id);

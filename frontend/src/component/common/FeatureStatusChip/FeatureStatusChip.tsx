@@ -5,12 +5,17 @@ interface IStatusChip {
   showActive?: boolean;
 }
 
-export const FeatureStatusChip = ({ stale, showActive = true }: IStatusChip) => {
+export const FeatureStatusChip = ({
+  stale,
+  showActive = true,
+}: IStatusChip) => {
   if (!stale && !showActive) {
     return null;
   }
 
-  const title = stale ? 'Feature flag is deprecated.' : 'Feature flag is active.';
+  const title = stale
+    ? 'Feature flag is deprecated.'
+    : 'Feature flag is active.';
   const value = stale ? 'Stale' : 'Active';
 
   return (

@@ -13,7 +13,8 @@ export const eventsSchema = {
       type: 'integer',
       minimum: 1,
       enum: [1],
-      description: 'The api version of this response. A natural increasing number. Only increases if format changes',
+      description:
+        'The api version of this response. A natural increasing number. Only increases if format changes',
       example: 1,
     },
     events: {

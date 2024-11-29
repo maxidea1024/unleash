@@ -1,5 +1,12 @@
 import Download from '@mui/icons-material/Download';
-import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import {
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { Box } from '@mui/system';
 import type { FC } from 'react';
 import { useInstanceStats } from 'hooks/api/getters/useInstanceStats/useInstanceStats';
@@ -21,7 +28,10 @@ export const InstanceStats: FC = () => {
     version = stats?.versionOSS;
   }
 
-  const apiTokensTotal = Object.values(stats?.apiTokens ?? {}).reduce((acc, val) => acc + val, 0);
+  const apiTokensTotal = Object.values(stats?.apiTokens ?? {}).reduce(
+    (acc, val) => acc + val,
+    0,
+  );
 
   const rows = [
     { title: 'Instance Id', value: stats?.instanceId, offset: false },
@@ -42,7 +52,8 @@ export const InstanceStats: FC = () => {
     { title: 'API tokens total', value: apiTokensTotal },
     { title: 'Segments', value: stats?.segments },
     {
-      title: 'Highest number of strategies used for a single flag in a single environment',
+      title:
+        'Highest number of strategies used for a single flag in a single environment',
       value: stats?.maxEnvironmentStrategies,
     },
     {

@@ -29,7 +29,11 @@ const TABLE = 'client_applications';
 
 const TABLE_USAGE = 'client_applications_usage';
 
-const DEPRECATED_STRATEGIES = ['gradualRolloutRandom', 'gradualRolloutSessionId', 'gradualRolloutUserId'];
+const DEPRECATED_STRATEGIES = [
+  'gradualRolloutRandom',
+  'gradualRolloutSessionId',
+  'gradualRolloutUserId',
+];
 
 const mapRow: (any) => IClientApplication = (row) => ({
   appName: row.app_name,
@@ -54,7 +58,9 @@ const reduceRows = (rows: any[]): IClientApplication[] => {
     const existingApp = acc[row.app_name];
 
     if (existingApp) {
-      const existingProject = existingApp.usage.find((usage) => usage.project === project);
+      const existingProject = existingApp.usage.find(
+        (usage) => usage.project === project,
+      );
 
       if (existingProject) {
         existingProject.environments.push(environment);
@@ -108,13 +114,20 @@ const remapRow = (input) => {
   return temp;
 };
 
-export default class ClientApplicationsStore implements IClientApplicationsStore {
+export default class ClientApplicationsStore
+  implements IClientApplicationsStore
+{
   private readonly db: Db;
   private readonly logger: Logger;
   private readonly timer: Function;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
+  constructor(
+    db: Db,
+    eventBus: EventEmitter,
+    getLogger: LogProvider,
+    flagResolver: IFlagResolver,
+  ) {
     this.logger = getLogger('client-applications-store.ts');
 
     this.db = db;
@@ -130,30 +143,46 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
     const row = remapRow(details);
     await this.db(TABLE).insert(row).onConflict('app_name').merge();
     const usageRows = this.remapUsageRow(details);
-    await this.db(TABLE_USAGE).insert(usageRows).onConflict(['app_name', 'project', 'environment']).merge();
+    await this.db(TABLE_USAGE)
+      .insert(usageRows)
+      .onConflict(['app_name', 'project', 'environment'])
+      .merge();
   }
 
   async bulkUpsert(apps: Partial<IClientApplication>[]): Promise<void> {
     const rows = apps.map(remapRow);
     const usageRows = apps.flatMap(this.remapUsageRow);
     await this.db(TABLE).insert(rows).onConflict('app_name').merge();
-    await this.db(TABLE_USAGE).insert(usageRows).onConflict(['app_name', 'project', 'environment']).merge();
+    await this.db(TABLE_USAGE)
+      .insert(usageRows)
+      .onConflict(['app_name', 'project', 'environment'])
+      .merge();
   }
 
   async exists(appName: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE app_name = ?) AS present`, [appName]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE app_name = ?) AS present`,
+      [appName],
+    );
     const { present } = result.rows[0];
     return present;
   }
 
   async getAll(): Promise<IClientApplication[]> {
-    const rows = await this.db.select(COLUMNS).from(TABLE).orderBy('app_name', 'asc');
+    const rows = await this.db
+      .select(COLUMNS)
+      .from(TABLE)
+      .orderBy('app_name', 'asc');
 
     return rows.map(mapRow);
   }
 
   async getApplication(appName: string): Promise<IClientApplication> {
-    const row = await this.db.select(COLUMNS).where('app_name', appName).from(TABLE).first();
+    const row = await this.db
+      .select(COLUMNS)
+      .where('app_name', appName)
+      .from(TABLE)
+      .first();
 
     if (!row) {
       throw new NotFoundError(`Could not find appName=${appName}`);
@@ -166,9 +195,12 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
     return this.db(TABLE).where('app_name', appName).del();
   }
 
-  async getApplications(params: IClientApplicationsSearchParams): Promise<IClientApplications> {
+  async getApplications(
+    params: IClientApplicationsSearchParams,
+  ): Promise<IClientApplications> {
     const { limit, offset, sortOrder = 'asc', searchParams } = params;
-    const validatedSortOrder = sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
+    const validatedSortOrder =
+      sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
 
     const query = this.db
       .with('applications', (qb) => {
@@ -177,14 +209,22 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
           ...COLUMNS.map((column) => `${TABLE}.${column}`),
           'project',
           'environment',
-          this.db.raw(`DENSE_RANK() OVER (ORDER BY client_applications.app_name ${validatedSortOrder}) AS rank`),
+          this.db.raw(
+            `DENSE_RANK() OVER (ORDER BY client_applications.app_name ${validatedSortOrder}) AS rank`,
+          ),
         ])
           .from(TABLE)
-          .leftJoin(TABLE_USAGE, `${TABLE_USAGE}.app_name`, `${TABLE}.app_name`);
+          .leftJoin(
+            TABLE_USAGE,
+            `${TABLE_USAGE}.app_name`,
+            `${TABLE}.app_name`,
+          );
       })
       .with(
         'final_ranks',
-        this.db.raw('select row_number() over (order by min(rank)) as final_rank from applications group by app_name'),
+        this.db.raw(
+          'select row_number() over (order by min(rank)) as final_rank from applications group by app_name',
+        ),
       )
       .with('total', this.db.raw('select count(*) as total from final_ranks'))
       .select('*')
@@ -237,7 +277,11 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
   destroy(): void {}
 
   async get(appName: string): Promise<IClientApplication> {
-    const row = await this.db.select(COLUMNS).where('app_name', appName).from(TABLE).first();
+    const row = await this.db
+      .select(COLUMNS)
+      .where('app_name', appName)
+      .from(TABLE)
+      .first();
 
     if (!row) {
       throw new NotFoundError(`Could not find appName=${appName}`);
@@ -265,7 +309,9 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
         qb.select([
           'ci.app_name',
           'ci.environment',
-          this.db.raw('COUNT(DISTINCT ci.instance_id) as unique_instance_count'),
+          this.db.raw(
+            'COUNT(DISTINCT ci.instance_id) as unique_instance_count',
+          ),
           this.db.raw('ARRAY_AGG(DISTINCT ci.sdk_version) as sdk_versions'),
           this.db.raw('MAX(ci.last_seen) as latest_last_seen'),
         ])
@@ -291,23 +337,40 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
     if (!rows.length) {
       throw new NotFoundError(`Could not find appName=${appName}`);
     }
-    const existingStrategies: string[] = await this.db.select('name').from('strategies').pluck('name');
+    const existingStrategies: string[] = await this.db
+      .select('name')
+      .from('strategies')
+      .pluck('name');
     return this.mapApplicationOverviewData(rows, existingStrategies);
   }
 
-  mapApplicationOverviewData(rows: any[], existingStrategies: string[]): IApplicationOverview {
+  mapApplicationOverviewData(
+    rows: any[],
+    existingStrategies: string[],
+  ): IApplicationOverview {
     const featureCount = new Set(rows.flatMap((row) => row.features)).size;
     const missingStrategies: Set<string> = new Set();
 
     const environments = rows.reduce((acc, row) => {
-      const { environment, unique_instance_count, sdk_versions, latest_last_seen, project, features, strategies } = row;
+      const {
+        environment,
+        unique_instance_count,
+        sdk_versions,
+        latest_last_seen,
+        project,
+        features,
+        strategies,
+      } = row;
 
       if (!environment) {
         return acc;
       }
 
       strategies.forEach((strategy) => {
-        if (!DEPRECATED_STRATEGIES.includes(strategy) && !existingStrategies.includes(strategy)) {
+        if (
+          !DEPRECATED_STRATEGIES.includes(strategy) &&
+          !existingStrategies.includes(strategy)
+        ) {
           missingStrategies.add(strategy);
         }
       });
@@ -339,7 +402,11 @@ export default class ClientApplicationsStore implements IClientApplicationsStore
     });
 
     return {
-      projects: [...new Set(rows.filter((row) => row.project != null).map((row) => row.project))],
+      projects: [
+        ...new Set(
+          rows.filter((row) => row.project != null).map((row) => row.project),
+        ),
+      ],
       featureCount,
       environments,
       issues: {

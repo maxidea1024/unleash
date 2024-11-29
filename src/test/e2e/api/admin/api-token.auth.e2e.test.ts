@@ -1,4 +1,7 @@
-import { setupAppWithAuth, setupAppWithCustomAuth } from '../../helpers/test-helper';
+import {
+  setupAppWithAuth,
+  setupAppWithCustomAuth,
+} from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
@@ -64,7 +67,12 @@ test('editor users should only get client or frontend tokens', async () => {
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+  const { request, destroy } = await setupAppWithCustomAuth(
+    stores,
+    preHook,
+    undefined,
+    db.rawDatabase,
+  );
 
   await stores.apiTokenStore.insert({
     environment: '',
@@ -121,7 +129,12 @@ test('viewer users should not be allowed to fetch tokens', async () => {
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+  const { request, destroy } = await setupAppWithCustomAuth(
+    stores,
+    preHook,
+    undefined,
+    db.rawDatabase,
+  );
 
   await stores.apiTokenStore.insert({
     environment: '',
@@ -141,7 +154,10 @@ test('viewer users should not be allowed to fetch tokens', async () => {
     type: ApiTokenType.ADMIN,
   });
 
-  await request.get('/api/admin/api-tokens').expect('Content-Type', /json/).expect(403);
+  await request
+    .get('/api/admin/api-tokens')
+    .expect('Content-Type', /json/)
+    .expect(403);
 
   await destroy();
 });
@@ -160,7 +176,12 @@ test('Only token-admins should be allowed to create token', async () => {
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+  const { request, destroy } = await setupAppWithCustomAuth(
+    stores,
+    preHook,
+    undefined,
+    db.rawDatabase,
+  );
 
   await request
     .post('/api/admin/api-tokens')
@@ -188,7 +209,12 @@ test('Token-admin should be allowed to create token', async () => {
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+  const { request, destroy } = await setupAppWithCustomAuth(
+    stores,
+    preHook,
+    undefined,
+    db.rawDatabase,
+  );
 
   await request
     .post('/api/admin/api-tokens')
@@ -205,7 +231,11 @@ test('Token-admin should be allowed to create token', async () => {
 test('An admin token should be allowed to create a token', async () => {
   expect.assertions(2);
 
-  const { request, destroy, services } = await setupAppWithAuth(stores, undefined, db.rawDatabase);
+  const { request, destroy, services } = await setupAppWithAuth(
+    stores,
+    undefined,
+    db.rawDatabase,
+  );
 
   const { secret } = await services.apiTokenService.createApiTokenWithProjects(
     {
@@ -239,7 +269,10 @@ test('A role with only CREATE_PROJECT_API_TOKEN can create project tokens', asyn
   const preHook = (
     app,
     config,
-    { userService, accessService }: { userService: UserService; accessService: AccessService },
+    {
+      userService,
+      accessService,
+    }: { userService: UserService; accessService: AccessService },
   ) => {
     app.use('/api/admin/', async (req, res, next) => {
       const role = (await accessService.getPredefinedRole(RoleName.VIEWER))!;
@@ -260,13 +293,22 @@ test('A role with only CREATE_PROJECT_API_TOKEN can create project tokens', asyn
         },
         SYSTEM_USER_AUDIT,
       );
-      await accessService.addUserToRole(user.id, createClientApiTokenRole.id, 'default');
+      await accessService.addUserToRole(
+        user.id,
+        createClientApiTokenRole.id,
+        'default',
+      );
       req.user = user;
       next();
     });
   };
 
-  const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, {}, db.rawDatabase);
+  const { request, destroy } = await setupAppWithCustomAuth(
+    stores,
+    preHook,
+    {},
+    db.rawDatabase,
+  );
 
   await request
     .post('/api/admin/projects/default/api-tokens')
@@ -286,10 +328,15 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
-          const builtInRole = await accessService.getPredefinedRole(RoleName.VIEWER);
+          const builtInRole = await accessService.getPredefinedRole(
+            RoleName.VIEWER,
+          );
           const user = await userService.createUser({
             email: 'mylittlepony_viewer@example.com',
             rootRole: builtInRole.id,
@@ -306,12 +353,24 @@ describe('Fine grained API token permissions', () => {
             SYSTEM_USER_AUDIT,
           );
           // not sure if we should add the permission to the builtin role or to the newly created role
-          await accessService.addPermissionToRole(builtInRole.id, CREATE_CLIENT_API_TOKEN);
-          await accessService.addUserToRole(user.id, createClientApiTokenRole.id, 'default');
+          await accessService.addPermissionToRole(
+            builtInRole.id,
+            CREATE_CLIENT_API_TOKEN,
+          );
+          await accessService.addUserToRole(
+            user.id,
+            createClientApiTokenRole.id,
+            'default',
+          );
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await request
         .post('/api/admin/api-tokens')
         .send({
@@ -326,7 +385,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -345,12 +407,24 @@ describe('Fine grained API token permissions', () => {
             },
             SYSTEM_USER_AUDIT,
           );
-          await accessService.addPermissionToRole(role.id, CREATE_CLIENT_API_TOKEN);
-          await accessService.addUserToRole(user.id, createClientApiTokenRole.id, 'default');
+          await accessService.addPermissionToRole(
+            role.id,
+            CREATE_CLIENT_API_TOKEN,
+          );
+          await accessService.addUserToRole(
+            user.id,
+            createClientApiTokenRole.id,
+            'default',
+          );
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await request
         .post('/api/admin/api-tokens')
         .send({
@@ -365,7 +439,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -384,12 +461,24 @@ describe('Fine grained API token permissions', () => {
             },
             SYSTEM_USER_AUDIT,
           );
-          await accessService.addPermissionToRole(role.id, CREATE_CLIENT_API_TOKEN);
-          await accessService.addUserToRole(user.id, createClientApiTokenRole.id, 'default');
+          await accessService.addPermissionToRole(
+            role.id,
+            CREATE_CLIENT_API_TOKEN,
+          );
+          await accessService.addUserToRole(
+            user.id,
+            createClientApiTokenRole.id,
+            'default',
+          );
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await request
         .post('/api/admin/api-tokens')
         .send({
@@ -406,7 +495,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -425,12 +517,24 @@ describe('Fine grained API token permissions', () => {
             },
             SYSTEM_USER_AUDIT,
           );
-          await accessService.addPermissionToRole(readFrontendApiToken.id, READ_FRONTEND_API_TOKEN);
-          await accessService.addUserToRole(user.id, readFrontendApiToken.id, 'default');
+          await accessService.addPermissionToRole(
+            readFrontendApiToken.id,
+            READ_FRONTEND_API_TOKEN,
+          );
+          await accessService.addUserToRole(
+            user.id,
+            readFrontendApiToken.id,
+            'default',
+          );
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await stores.apiTokenStore.insert({
         environment: '',
         projects: [],
@@ -462,7 +566,9 @@ describe('Fine grained API token permissions', () => {
         .set('Content-Type', 'application/json')
         .expect(200)
         .expect((res) => {
-          expect(res.body.tokens.every((t) => t.type === ApiTokenType.FRONTEND)).toBe(true);
+          expect(
+            res.body.tokens.every((t) => t.type === ApiTokenType.FRONTEND),
+          ).toBe(true);
         });
       await destroy();
     });
@@ -470,7 +576,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -489,12 +598,24 @@ describe('Fine grained API token permissions', () => {
             },
             SYSTEM_USER_AUDIT,
           );
-          await accessService.addPermissionToRole(readClientTokenRole.id, READ_CLIENT_API_TOKEN);
-          await accessService.addUserToRole(user.id, readClientTokenRole.id, 'default');
+          await accessService.addPermissionToRole(
+            readClientTokenRole.id,
+            READ_CLIENT_API_TOKEN,
+          );
+          await accessService.addUserToRole(
+            user.id,
+            readClientTokenRole.id,
+            'default',
+          );
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await stores.apiTokenStore.insert({
         environment: '',
         projects: [],
@@ -534,7 +655,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.ADMIN);
@@ -546,7 +670,12 @@ describe('Fine grained API token permissions', () => {
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await stores.apiTokenStore.insert({
         environment: '',
         projects: [],
@@ -585,7 +714,10 @@ describe('Fine grained API token permissions', () => {
       const preHook = (
         app,
         config,
-        { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        {
+          userService,
+          accessService,
+        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.EDITOR);
@@ -597,7 +729,12 @@ describe('Fine grained API token permissions', () => {
           next();
         });
       };
-      const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+      const { request, destroy } = await setupAppWithCustomAuth(
+        stores,
+        preHook,
+        undefined,
+        db.rawDatabase,
+      );
       await stores.apiTokenStore.insert({
         environment: '',
         projects: [],
@@ -628,7 +765,9 @@ describe('Fine grained API token permissions', () => {
         .expect(200)
         .expect((res) => {
           expect(res.body.tokens).toHaveLength(2);
-          expect(res.body.tokens.filter(({ type }) => type === ApiTokenType.ADMIN)).toHaveLength(0);
+          expect(
+            res.body.tokens.filter(({ type }) => type === ApiTokenType.ADMIN),
+          ).toHaveLength(0);
         });
       await destroy();
     });
@@ -639,7 +778,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -658,12 +800,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, UPDATE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              UPDATE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],
@@ -682,7 +836,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -701,12 +858,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, UPDATE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              UPDATE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],
@@ -726,7 +895,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -745,12 +917,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, UPDATE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              UPDATE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],
@@ -774,7 +958,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -793,12 +980,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, DELETE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              DELETE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],
@@ -817,7 +1016,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -836,12 +1038,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, DELETE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              DELETE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],
@@ -860,7 +1074,10 @@ describe('Fine grained API token permissions', () => {
         const preHook = (
           app,
           config,
-          { userService, accessService }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          {
+            userService,
+            accessService,
+          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -879,12 +1096,24 @@ describe('Fine grained API token permissions', () => {
               },
               SYSTEM_USER_AUDIT,
             );
-            await accessService.addPermissionToRole(updateClientApiExpiry.id, DELETE_CLIENT_API_TOKEN);
-            await accessService.addUserToRole(user.id, updateClientApiExpiry.id, 'default');
+            await accessService.addPermissionToRole(
+              updateClientApiExpiry.id,
+              DELETE_CLIENT_API_TOKEN,
+            );
+            await accessService.addUserToRole(
+              user.id,
+              updateClientApiExpiry.id,
+              'default',
+            );
             next();
           });
         };
-        const { request, destroy } = await setupAppWithCustomAuth(stores, preHook, undefined, db.rawDatabase);
+        const { request, destroy } = await setupAppWithCustomAuth(
+          stores,
+          preHook,
+          undefined,
+          db.rawDatabase,
+        );
         const token = await stores.apiTokenStore.insert({
           environment: '',
           projects: [],

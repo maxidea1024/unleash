@@ -6,6 +6,7 @@ export interface IFavoriteProjectKey {
   project: string;
 }
 
-export interface IFavoriteProjectsStore extends IStore<IFavoriteProject, IFavoriteProjectKey> {
+export interface IFavoriteProjectsStore
+  extends IStore<IFavoriteProject, IFavoriteProjectKey> {
   addFavoriteProject(favorite: IFavoriteProjectKey): Promise<IFavoriteProject>;
 }

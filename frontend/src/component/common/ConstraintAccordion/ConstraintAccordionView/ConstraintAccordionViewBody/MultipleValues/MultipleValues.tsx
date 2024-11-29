@@ -32,7 +32,9 @@ export const MultipleValues = ({ values }: IMultipleValuesProps) => {
         .map((value, index) => (
           <StyledChip
             key={`${value}-${index}`}
-            label={<StyledTruncator maxWidth='400' text={value} maxLength={50} />}
+            label={
+              <StyledTruncator maxWidth='400' text={value} maxLength={50} />
+            }
           />
         ))}
     </>

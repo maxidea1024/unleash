@@ -22,5 +22,12 @@ export const LazyParentOptions: FC<{
       ]
     : [REMOVE_DEPENDENCY_OPTION];
 
-  return <StyledSelect fullWidth options={options} value={parent} onChange={onSelect} />;
+  return (
+    <StyledSelect
+      fullWidth
+      options={options}
+      value={parent}
+      onChange={onSelect}
+    />
+  );
 };

@@ -83,7 +83,9 @@ describe('Schedule conflicts', () => {
         <FeatureChange
           actions={null}
           index={0}
-          changeRequest={changeRequest(flag)(changeRequestState as ChangeRequestState)}
+          changeRequest={changeRequest(flag)(
+            changeRequestState as ChangeRequestState,
+          )}
           change={change}
           feature={flag}
         />,
@@ -95,17 +97,25 @@ describe('Schedule conflicts', () => {
 
       const links = await screen.findAllByRole('link');
 
-      expect(links).toHaveLength(change.scheduleConflicts.changeRequests.length);
+      expect(links).toHaveLength(
+        change.scheduleConflicts.changeRequests.length,
+      );
 
       const [link1, link2] = links;
 
       expect(link1).toHaveTextContent('#73');
       expect(link1).toHaveAccessibleDescription('Change request 73');
-      expect(link1).toHaveAttribute('href', `/projects/default/change-requests/73`);
+      expect(link1).toHaveAttribute(
+        'href',
+        `/projects/default/change-requests/73`,
+      );
 
       expect(link2).toHaveTextContent('#80 (Adjust rollout percentage)');
       expect(link2).toHaveAccessibleDescription('Change request 80');
-      expect(link2).toHaveAttribute('href', `/projects/default/change-requests/80`);
+      expect(link2).toHaveAttribute(
+        'href',
+        `/projects/default/change-requests/80`,
+      );
     },
   );
 
@@ -120,7 +130,9 @@ describe('Schedule conflicts', () => {
         <FeatureChange
           actions={null}
           index={0}
-          changeRequest={changeRequest(flag)(changeRequestState as ChangeRequestState)}
+          changeRequest={changeRequest(flag)(
+            changeRequestState as ChangeRequestState,
+          )}
           change={changeWithNoScheduleConflicts}
           feature={flag}
         />,

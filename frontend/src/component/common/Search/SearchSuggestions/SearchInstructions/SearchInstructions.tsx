@@ -33,11 +33,16 @@ interface ISearchInstructionsProps {
   onClick: (instruction: string) => void;
 }
 
-const firstFilterOption = (filter: { name: string; options: string[] }) => `${filter.name}:${filter.options[0]}`;
+const firstFilterOption = (filter: { name: string; options: string[] }) =>
+  `${filter.name}:${filter.options[0]}`;
 const secondFilterOption = (filter: { name: string; options: string[] }) =>
   `${filter.name}:${filter.options.slice(0, 2).join(',')}`;
 
-export const SearchInstructions: VFC<ISearchInstructionsProps> = ({ filters, searchableColumnsString, onClick }) => {
+export const SearchInstructions: VFC<ISearchInstructionsProps> = ({
+  filters,
+  searchableColumnsString,
+  onClick,
+}) => {
   return (
     <>
       <StyledHeader>

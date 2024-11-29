@@ -1,4 +1,9 @@
-import type { IClientSegment, IConstraint, IFeatureStrategySegment, ISegment } from '../../types';
+import type {
+  IClientSegment,
+  IConstraint,
+  IFeatureStrategySegment,
+  ISegment,
+} from '../../types';
 import type { ISegmentReadModel } from './segment-read-model-type';
 import NotFoundError from '../../error/notfound-error';
 import type { Db } from '../../db/db';
@@ -13,7 +18,15 @@ interface ISegmentRow {
   constraints: IConstraint[];
 }
 
-const COLUMNS = ['id', 'name', 'description', 'segment_project_id', 'created_by', 'created_at', 'constraints'];
+const COLUMNS = [
+  'id',
+  'name',
+  'description',
+  'segment_project_id',
+  'created_by',
+  'created_at',
+  'constraints',
+];
 
 interface IFeatureStrategySegmentRow {
   feature_strategy_id: string;
@@ -73,7 +86,11 @@ export class SegmentReadModel implements ISegmentReadModel {
       .distinct(this.prefixColumns())
       .from('segments')
       .orderBy('name', 'asc')
-      .join('feature_strategy_segment', 'feature_strategy_segment.segment_id', 'segments.id');
+      .join(
+        'feature_strategy_segment',
+        'feature_strategy_segment.segment_id',
+        'segments.id',
+      );
 
     return rows.map(this.mapRow);
   }

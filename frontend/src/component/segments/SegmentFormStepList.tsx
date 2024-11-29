@@ -45,7 +45,10 @@ const StyledFiberManualRecord = styled(FiberManualRecord, {
   fontSize: filled ? 20 : 17,
 }));
 
-export const SegmentFormStepList: React.FC<ISegmentFormStepListProps> = ({ total, current }) => {
+export const SegmentFormStepList: React.FC<ISegmentFormStepListProps> = ({
+  total,
+  current,
+}) => {
   // Create a list with all the step numbers, e.g. [1, 2, 3].
   const steps: number[] = Array.from({ length: total }).map((_, i) => {
     return i + 1;

@@ -14,7 +14,9 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: theme.spacing(0, 2),
 }));
 
-const ActionCellDivider: VFC = () => <StyledDivider orientation='vertical' variant='middle' />;
+const ActionCellDivider: VFC = () => (
+  <StyledDivider orientation='vertical' variant='middle' />
+);
 
 const ActionCellComponent: FC<{ children?: React.ReactNode }> & {
   Divider: typeof ActionCellDivider;

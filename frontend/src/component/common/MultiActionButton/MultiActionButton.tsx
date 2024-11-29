@@ -1,6 +1,15 @@
 import React, { type FC } from 'react';
 
-import { ClickAwayListener, Grow, ListItemIcon, ListItemText, MenuItem, MenuList, Paper, Popper } from '@mui/material';
+import {
+  ClickAwayListener,
+  Grow,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+} from '@mui/material';
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
@@ -19,7 +28,15 @@ export const MultiActionButton: FC<{
   environmentId?: string;
   ariaLabel?: string;
   children?: React.ReactNode;
-}> = ({ disabled, children, actions, permission, projectId, ariaLabel, environmentId }) => {
+}> = ({
+  disabled,
+  children,
+  actions,
+  permission,
+  projectId,
+  ariaLabel,
+  environmentId,
+}) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 
@@ -68,14 +85,19 @@ export const MultiActionButton: FC<{
           <Grow
             {...TransitionProps}
             style={{
-              transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+              transformOrigin:
+                placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
             <Paper className='dropdown-outline'>
               <ClickAwayListener onClickAway={onClose}>
                 <MenuList id='review-options-menu' autoFocusItem>
                   {actions.map(({ label, onSelect, icon }) => (
-                    <MenuItem disabled={disabled} onClick={onSelect} key={`MenuItem-${label}`}>
+                    <MenuItem
+                      disabled={disabled}
+                      onClick={onSelect}
+                      key={`MenuItem-${label}`}
+                    >
                       <ListItemIcon>{icon}</ListItemIcon>
                       <ListItemText>{label}</ListItemText>
                     </MenuItem>

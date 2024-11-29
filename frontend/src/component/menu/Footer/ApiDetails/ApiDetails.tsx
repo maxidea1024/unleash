@@ -1,6 +1,10 @@
 import type { ReactElement } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { formatCurrentVersion, formatUpdateNotification, type IPartialUiConfig } from './apidetails.helpers';
+import {
+  formatCurrentVersion,
+  formatUpdateNotification,
+  type IPartialUiConfig,
+} from './apidetails.helpers';
 import { FooterTitle } from 'component/menu/Footer/FooterTitle';
 
 interface IApiDetailsProps {
@@ -18,7 +22,8 @@ export const ApiDetails = (props: IApiDetailsProps): ReactElement => {
     <section title='API details'>
       <FooterTitle>
         {name} {environment ? environment : ''}
-        {billing === 'pay-as-you-go' ? ' Pay-as-You-Go' : ''} {version} {buildInfo}
+        {billing === 'pay-as-you-go' ? ' Pay-as-You-Go' : ''} {version}{' '}
+        {buildInfo}
       </FooterTitle>
       <ConditionallyRender
         condition={Boolean(updateNotification)}
@@ -32,7 +37,10 @@ export const ApiDetails = (props: IApiDetailsProps): ReactElement => {
       <br />
       <small>{props.uiConfig.slogan}</small>
       <br />
-      <ConditionallyRender condition={Boolean(instanceId)} show={<small>{`${instanceId}`}</small>} />
+      <ConditionallyRender
+        condition={Boolean(instanceId)}
+        show={<small>{`${instanceId}`}</small>}
+      />
     </section>
   );
 };

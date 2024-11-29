@@ -37,13 +37,20 @@ export default class SettingStore implements ISettingStore {
   }
 
   async exists(name: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`, [name]);
+    const result = await this.db.raw(
+      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE name = ?) AS present`,
+      [name],
+    );
     const { present } = result.rows[0];
     return present;
   }
 
   async get<T>(name: string): Promise<T | undefined> {
-    const result = await this.db.select().from(TABLE).where('name', name).limit(1);
+    const result = await this.db
+      .select()
+      .from(TABLE)
+      .where('name', name)
+      .limit(1);
 
     if (result.length > 0) {
       return result[0].content;

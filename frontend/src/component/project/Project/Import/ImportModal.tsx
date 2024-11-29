@@ -83,8 +83,19 @@ export const ImportModal = ({ open, setOpen, project }: IImportModalProps) => {
           condition={importStage === 'configure'}
           show={
             <ConfigurationStage
-              tabs={<ConfigurationTabs activeTab={activeTab} setActiveTab={setActiveTab} />}
-              importOptions={<ImportOptions project={project} environment={environment} onChange={setEnvironment} />}
+              tabs={
+                <ConfigurationTabs
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              }
+              importOptions={
+                <ImportOptions
+                  project={project}
+                  environment={environment}
+                  onChange={setEnvironment}
+                />
+              }
               importArea={
                 <ImportArea
                   activeTab={activeTab}
@@ -118,7 +129,14 @@ export const ImportModal = ({ open, setOpen, project }: IImportModalProps) => {
         />
         <ConditionallyRender
           condition={importStage === 'import'}
-          show={<ImportStage project={project} environment={environment} payload={importPayload} onClose={close} />}
+          show={
+            <ImportStage
+              project={project}
+              environment={environment}
+              payload={importPayload}
+              onClose={close}
+            />
+          }
         />
       </ModalContentContainer>
     </SidebarModal>

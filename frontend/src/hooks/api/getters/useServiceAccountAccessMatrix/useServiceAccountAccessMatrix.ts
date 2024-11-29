@@ -21,7 +21,8 @@ interface IServiceAccountAccessMatrixResponse {
   permissions: IPermission[];
 }
 
-interface IServiceAccountAccessMatrixOutput extends Partial<IServiceAccountAccessMatrixResponse> {
+interface IServiceAccountAccessMatrixOutput
+  extends Partial<IServiceAccountAccessMatrixResponse> {
   permissions: IPermission[];
   loading: boolean;
   refetch: () => void;
@@ -36,12 +37,9 @@ export const useServiceAccountAccessMatrix = (
   const queryParams = `${project ? `?project=${project}` : ''}${environment ? `${project ? '&' : '?'}environment=${environment}` : ''}`;
   const url = `api/admin/service-account/${id}/permissions${queryParams}`;
 
-  const { data, error, mutate } = useConditionalSWR<IServiceAccountAccessMatrixResponse | undefined>(
-    Boolean(id),
-    undefined,
-    formatApiPath(url),
-    fetcher,
-  );
+  const { data, error, mutate } = useConditionalSWR<
+    IServiceAccountAccessMatrixResponse | undefined
+  >(Boolean(id), undefined, formatApiPath(url), fetcher);
 
   return useMemo(
     () => ({

@@ -1,4 +1,12 @@
-import { Icon, List, ListItemButton, ListItemIcon, ListItemText, styled, Typography } from '@mui/material';
+import {
+  Icon,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  styled,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import type { Theme } from '@mui/material/styles/createTheme';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -96,7 +104,9 @@ export const RecentlyVisitedPathButton = ({
         <ButtonItemIcon path={path} />
       </StyledListItemIcon>
       <StyledListItemText>
-        <StyledButtonTypography color='textPrimary'>{name}</StyledButtonTypography>
+        <StyledButtonTypography color='textPrimary'>
+          {name}
+        </StyledButtonTypography>
       </StyledListItemText>
     </ListItemButton>
   );
@@ -140,7 +150,9 @@ export const RecentlyVisitedProjectButton = ({
         <ProjectIcon />
       </StyledListItemIcon>
       <StyledListItemText>
-        <StyledButtonTypography color='textPrimary'>{project.name}</StyledButtonTypography>
+        <StyledButtonTypography color='textPrimary'>
+          {project.name}
+        </StyledButtonTypography>
       </StyledListItemText>
     </ListItemButton>
   );
@@ -182,7 +194,9 @@ export const RecentlyVisitedFeatureButton = ({
         <Icon>{'flag'}</Icon>
       </StyledListItemIcon>
       <StyledListItemText>
-        <StyledButtonTypography color='textPrimary'>{featureId}</StyledButtonTypography>
+        <StyledButtonTypography color='textPrimary'>
+          {featureId}
+        </StyledButtonTypography>
       </StyledListItemText>
     </ListItemButton>
   );
@@ -196,9 +210,18 @@ interface CommandResultGroupProps {
   children?: React.ReactNode;
 }
 
-export const CommandResultGroup = ({ icon, groupName, items, onClick, children }: CommandResultGroupProps) => {
+export const CommandResultGroup = ({
+  icon,
+  groupName,
+  items,
+  onClick,
+  children,
+}: CommandResultGroupProps) => {
   const { trackEvent } = usePlausibleTracker();
-  if ((!children || Children.count(children) === 0) && (!items || items.length === 0)) {
+  if (
+    (!children || Children.count(children) === 0) &&
+    (!items || items.length === 0)
+  ) {
     return null;
   }
 
@@ -240,9 +263,15 @@ export const CommandResultGroup = ({ icon, groupName, items, onClick, children }
                 elseShow={<Icon>{icon}</Icon>}
               />
             </StyledListItemIcon>
-            <TooltipResolver title={item.description} variant={'custom'} placement={'bottom-end'}>
+            <TooltipResolver
+              title={item.description}
+              variant={'custom'}
+              placement={'bottom-end'}
+            >
               <StyledListItemText>
-                <StyledButtonTypography color='textPrimary'>{item.name}</StyledButtonTypography>
+                <StyledButtonTypography color='textPrimary'>
+                  {item.name}
+                </StyledButtonTypography>
               </StyledListItemText>
             </TooltipResolver>
           </ListItemButton>

@@ -1,7 +1,10 @@
 import { basePath } from './formatPath';
 import { getLocalStorageItem, setLocalStorageItem } from './storage';
 
-export const createLocalStorage = <T extends object | string>(key: string, initialValue: T) => {
+export const createLocalStorage = <T extends object | string>(
+  key: string,
+  initialValue: T,
+) => {
   const internalKey = `${basePath}:${key}:localStorage:v2`;
 
   const value = (() => {

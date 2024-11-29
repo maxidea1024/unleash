@@ -11,7 +11,11 @@ import PasswordField from 'component/common/PasswordField/PasswordField';
 import { useAuthApi } from 'hooks/api/actions/useAuthApi/useAuthApi';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import type { IAuthEndpointDetailsResponse } from 'hooks/api/getters/useAuth/useAuthEndpoint';
-import { AuthenticationError, BadRequestError, NotFoundError } from 'utils/apiUtils';
+import {
+  AuthenticationError,
+  BadRequestError,
+  NotFoundError,
+} from 'utils/apiUtils';
 import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 

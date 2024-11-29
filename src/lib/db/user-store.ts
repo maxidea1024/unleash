@@ -4,14 +4,28 @@ import type { Logger, LogProvider } from '../logger';
 import User from '../types/user';
 
 import NotFoundError from '../error/notfound-error';
-import type { ICreateUser, IUserLookup, IUserStore, IUserUpdateFields } from '../types/stores/user-store';
+import type {
+  ICreateUser,
+  IUserLookup,
+  IUserStore,
+  IUserUpdateFields,
+} from '../types/stores/user-store';
 import type { Db } from './db';
 import type { IFlagResolver } from '../types';
 
 const TABLE = 'users';
 const PASSWORD_HASH_TABLE = 'used_passwords';
 
-const USER_COLUMNS_PUBLIC = ['id', 'name', 'username', 'email', 'image_url', 'seen_at', 'is_service', 'scim_id'];
+const USER_COLUMNS_PUBLIC = [
+  'id',
+  'name',
+  'username',
+  'email',
+  'image_url',
+  'seen_at',
+  'is_service',
+  'scim_id',
+];
 
 const USER_COLUMNS = [...USER_COLUMNS_PUBLIC, 'login_attempts', 'created_at'];
 
@@ -70,7 +84,10 @@ export default class UserStore implements IUserStore {
     return previouslyUsedPasswords.map((row) => row.password_hash);
   }
 
-  async deletePasswordsUsedMoreThanNTimesAgo(userId: number, keepLastN: number): Promise<void> {
+  async deletePasswordsUsedMoreThanNTimesAgo(
+    userId: number,
+    keepLastN: number,
+  ): Promise<void> {
     await this.db.raw(
       `
         WITH UserPasswords AS (
@@ -161,7 +178,9 @@ export default class UserStore implements IUserStore {
   }
 
   async getAllWithId(userIdList: number[]): Promise<User[]> {
-    const users = await this.activeUsers().select(USER_COLUMNS_PUBLIC).whereIn('id', userIdList);
+    const users = await this.activeUsers()
+      .select(USER_COLUMNS_PUBLIC)
+      .whereIn('id', userIdList);
     return users.map(rowToUser);
   }
 
@@ -182,7 +201,9 @@ export default class UserStore implements IUserStore {
   }
 
   async getPasswordHash(userId: number): Promise<string> {
-    const item = await this.activeUsers().where('id', userId).first('password_hash');
+    const item = await this.activeUsers()
+      .where('id', userId)
+      .first('password_hash');
 
     if (!item) {
       throw new NotFoundError('User not found');
@@ -191,7 +212,11 @@ export default class UserStore implements IUserStore {
     return item.password_hash;
   }
 
-  async setPasswordHash(userId: number, passwordHash: string, disallowNPreviousPasswords: number): Promise<void> {
+  async setPasswordHash(
+    userId: number,
+    passwordHash: string,
+    disallowNPreviousPasswords: number,
+  ): Promise<void> {
     await this.activeUsers().where('id', userId).update({
       password_hash: passwordHash,
     });
@@ -201,7 +226,10 @@ export default class UserStore implements IUserStore {
         user_id: userId,
         password_hash: passwordHash,
       });
-      await this.deletePasswordsUsedMoreThanNTimesAgo(userId, disallowNPreviousPasswords);
+      await this.deletePasswordsUsedMoreThanNTimesAgo(
+        userId,
+        disallowNPreviousPasswords,
+      );
     }
   }
 
@@ -218,7 +246,8 @@ export default class UserStore implements IUserStore {
 
     let firstLoginOrder = 0;
 
-    const existingUser = await this.buildSelectUser(user).first('first_seen_at');
+    const existingUser =
+      await this.buildSelectUser(user).first('first_seen_at');
 
     if (!existingUser.first_seen_at) {
       const countEarlierUsers = await this.db(TABLE)

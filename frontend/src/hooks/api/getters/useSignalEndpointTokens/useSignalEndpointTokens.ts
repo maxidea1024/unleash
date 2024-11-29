@@ -18,7 +18,12 @@ export const useSignalEndpointTokens = (signalEndpointId: number) => {
 
   const { data, error, mutate } = useConditionalSWR<{
     signalEndpointTokens: ISignalEndpointToken[];
-  }>(isEnterprise() && signalsEnabled, DEFAULT_DATA, formatApiPath(`${ENDPOINT}/${signalEndpointId}/tokens`), fetcher);
+  }>(
+    isEnterprise() && signalsEnabled,
+    DEFAULT_DATA,
+    formatApiPath(`${ENDPOINT}/${signalEndpointId}/tokens`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useState, type VFC } from 'react';
 import { IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
 import { useSearchParams, Link } from 'react-router-dom';
-import { type SortingRule, useFlexLayout, useSortBy, useTable } from 'react-table';
+import {
+  type SortingRule,
+  useFlexLayout,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { useGroup } from 'hooks/api/getters/useGroup/useGroup';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
@@ -30,7 +35,12 @@ import { EditGroupUsers } from './EditGroupUsers/EditGroupUsers';
 import { RemoveGroupUser } from './RemoveGroupUser/RemoveGroupUser';
 import { UserAvatar } from 'component/common/UserAvatar/UserAvatar';
 import ResponsiveButton from 'component/common/ResponsiveButton/ResponsiveButton';
-import { UG_EDIT_BTN_ID, UG_DELETE_BTN_ID, UG_EDIT_USERS_BTN_ID, UG_REMOVE_USER_BTN_ID } from 'utils/testIds';
+import {
+  UG_EDIT_BTN_ID,
+  UG_DELETE_BTN_ID,
+  UG_EDIT_USERS_BTN_ID,
+  UG_REMOVE_USER_BTN_ID,
+} from 'utils/testIds';
 import { useScimSettings } from 'hooks/api/getters/useScimSettings/useScimSettings';
 import { scimGroupTooltip } from '../group-constants';
 
@@ -39,11 +49,16 @@ export const groupUsersPlaceholder: IGroupUser[] = Array(15).fill({
   username: 'Username of the user',
 });
 
-export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
+export type PageQueryType = Partial<
+  Record<'sort' | 'order' | 'search', string>
+>;
 
 const defaultSort: SortingRule<string> = { id: 'joinedAt', desc: true };
 
-const { value: storedParams, setValue: setStoredParams } = createLocalStorage('Group:v1', defaultSort);
+const { value: storedParams, setValue: setStoredParams } = createLocalStorage(
+  'Group:v1',
+  defaultSort,
+);
 
 export const Group: VFC = () => {
   const groupId = Number(useRequiredPathParam('groupId'));
@@ -101,7 +116,11 @@ export const Group: VFC = () => {
         Header: 'Last login',
         accessor: (row: IGroupUser) => row.seenAt || '',
         Cell: ({ row: { original: user } }: any) => (
-          <TimeAgoCell value={user.seenAt} emptyText='Never' title={(date) => `Last login: ${date}`} />
+          <TimeAgoCell
+            value={user.seenAt}
+            emptyText='Never'
+            title={(date) => `Last login: ${date}`}
+          />
         ),
         maxWidth: 150,
       },
@@ -111,7 +130,11 @@ export const Group: VFC = () => {
         align: 'center',
         Cell: ({ row: { original: rowUser } }: any) => (
           <ActionCell>
-            <Tooltip title={isScimGroup ? scimGroupTooltip : 'Remove user from group'} arrow describeChild>
+            <Tooltip
+              title={isScimGroup ? scimGroupTooltip : 'Remove user from group'}
+              arrow
+              describeChild
+            >
               <span>
                 <IconButton
                   data-testid={`${UG_REMOVE_USER_BTN_ID}-${rowUser.id}`}
@@ -151,7 +174,9 @@ export const Group: VFC = () => {
     sortBy: [
       {
         id: searchParams.get('sort') || storedParams.id,
-        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : storedParams.desc,
+        desc: searchParams.has('order')
+          ? searchParams.get('order') === 'desc'
+          : storedParams.desc,
       },
     ],
     hiddenColumns: ['Username', 'Email'],
@@ -159,10 +184,17 @@ export const Group: VFC = () => {
   }));
   const [searchValue, setSearchValue] = useState(initialState.globalFilter);
 
-  const { data: searchedData, getSearchText, getSearchContext } = useSearch(columns, searchValue, group?.users ?? []);
+  const {
+    data: searchedData,
+    getSearchText,
+    getSearchContext,
+  } = useSearch(columns, searchValue, group?.users ?? []);
 
   const data = useMemo(
-    () => (searchedData?.length === 0 && loading ? groupUsersPlaceholder : searchedData),
+    () =>
+      searchedData?.length === 0 && loading
+        ? groupUsersPlaceholder
+        : searchedData,
     [searchedData, loading],
   );
 
@@ -293,7 +325,11 @@ export const Group: VFC = () => {
             }
           >
             <SearchHighlightProvider value={getSearchText(searchValue)}>
-              <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+              <VirtualizedTable
+                rows={rows}
+                headerGroups={headerGroups}
+                prepareRow={prepareRow}
+              />
             </SearchHighlightProvider>
             <ConditionallyRender
               condition={rows.length === 0}
@@ -308,14 +344,30 @@ export const Group: VFC = () => {
                     </TablePlaceholder>
                   }
                   elseShow={
-                    <TablePlaceholder>This group is empty. Get started by adding a user to the group.</TablePlaceholder>
+                    <TablePlaceholder>
+                      This group is empty. Get started by adding a user to the
+                      group.
+                    </TablePlaceholder>
                   }
                 />
               }
             />
-            <RemoveGroup open={removeOpen} setOpen={setRemoveOpen} group={group!} />
-            <EditGroupUsers open={editUsersOpen} setOpen={setEditUsersOpen} group={group!} />
-            <RemoveGroupUser open={removeUserOpen} setOpen={setRemoveUserOpen} user={selectedUser} group={group!} />
+            <RemoveGroup
+              open={removeOpen}
+              setOpen={setRemoveOpen}
+              group={group!}
+            />
+            <EditGroupUsers
+              open={editUsersOpen}
+              setOpen={setEditUsersOpen}
+              group={group!}
+            />
+            <RemoveGroupUser
+              open={removeUserOpen}
+              setOpen={setRemoveUserOpen}
+              user={selectedUser}
+              group={group!}
+            />
           </PageContent>
         </>
       }

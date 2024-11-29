@@ -57,12 +57,22 @@ interface IUserProfileContentProps {
   profile: IUser;
 }
 
-export const UserProfileContent = ({ id, showProfile, setShowProfile, profile }: IUserProfileContentProps) => (
+export const UserProfileContent = ({
+  id,
+  showProfile,
+  setShowProfile,
+  profile,
+}: IUserProfileContentProps) => (
   <ConditionallyRender
     condition={showProfile}
     show={
       <StyledPaper className='dropdown-outline' id={id}>
-        <StyledLink component={RouterLink} to='/profile' underline='hover' onClick={() => setShowProfile(false)}>
+        <StyledLink
+          component={RouterLink}
+          to='/profile'
+          underline='hover'
+          onClick={() => setShowProfile(false)}
+        >
           View profile settings
         </StyledLink>
 

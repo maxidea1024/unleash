@@ -1,8 +1,17 @@
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithAuth } from '../../../../test/e2e/helpers/test-helper';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
+import {
+  type IUnleashTest,
+  setupAppWithAuth,
+} from '../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../test/fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../util';
-import { CREATE_FEATURE_STRATEGY, RoleName, TEST_AUDIT_USER } from '../../../types';
+import {
+  CREATE_FEATURE_STRATEGY,
+  RoleName,
+  TEST_AUDIT_USER,
+} from '../../../types';
 
 let app: IUnleashTest;
 let db: ITestDb;
@@ -28,7 +37,12 @@ afterEach(async () => {
   await Promise.all(
     all
       .filter((env) => env.environment !== DEFAULT_ENV)
-      .map(async (env) => db.stores.projectStore.deleteEnvironmentForProject('default', env.environment)),
+      .map(async (env) =>
+        db.stores.projectStore.deleteEnvironmentForProject(
+          'default',
+          env.environment,
+        ),
+      ),
   );
 });
 
@@ -59,7 +73,10 @@ test('Should not be possible to update feature flag without permission', async (
     email,
   });
 
-  await app.request.put(`${url}/${name}`).send({ name, description: 'updated', type: 'kill-switch' }).expect(403);
+  await app.request
+    .put(`${url}/${name}`)
+    .send({ name, description: 'updated', type: 'kill-switch' })
+    .expect(403);
 });
 
 test('Should be possible to update feature flag with permission', async () => {
@@ -84,7 +101,10 @@ test('Should be possible to update feature flag with permission', async () => {
     email,
   });
 
-  await app.request.put(`${url}/${name}`).send({ name, description: 'updated', type: 'kill-switch' }).expect(200);
+  await app.request
+    .put(`${url}/${name}`)
+    .send({ name, description: 'updated', type: 'kill-switch' })
+    .expect(200);
 });
 
 test('Should not be possible auto-enable feature flag without CREATE_FEATURE_STRATEGY permission', async () => {
@@ -92,7 +112,12 @@ test('Should not be possible auto-enable feature flag without CREATE_FEATURE_STR
   const url = '/api/admin/projects/default/features';
   const name = 'auth.flag.enable';
 
-  await app.services.featureToggleServiceV2.createFeatureToggle('default', { name }, TEST_AUDIT_USER, true);
+  await app.services.featureToggleServiceV2.createFeatureToggle(
+    'default',
+    { name },
+    TEST_AUDIT_USER,
+    true,
+  );
 
   await app.services.userService.createUser(
     {
@@ -108,7 +133,11 @@ test('Should not be possible auto-enable feature flag without CREATE_FEATURE_STR
 
   const role = await db.stores.roleStore.getRoleByName(RoleName.EDITOR);
 
-  await db.stores.accessStore.removePermissionFromRole(role.id, CREATE_FEATURE_STRATEGY, 'default');
+  await db.stores.accessStore.removePermissionFromRole(
+    role.id,
+    CREATE_FEATURE_STRATEGY,
+    'default',
+  );
   await app.request.post(`${url}/${name}/environments/default/on`).expect(403);
 });
 

@@ -1,6 +1,13 @@
 import type { FC } from 'react';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter as Router, Routes, Route, Navigate, RouterProvider, createMemoryRouter } from 'react-router-dom';
+import {
+  MemoryRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  RouterProvider,
+  createMemoryRouter,
+} from 'react-router-dom';
 import { useRecentlyVisited } from './useRecentlyVisited';
 import { RecentlyVisitedRecorder } from 'component/commandBar/RecentlyVisitedRecorder';
 

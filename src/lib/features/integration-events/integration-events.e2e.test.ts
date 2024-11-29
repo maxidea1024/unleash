@@ -1,5 +1,8 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 import { TEST_AUDIT_USER } from '../../types';
 import type { IAddonDto } from '../../types/stores/addon-store';
@@ -59,7 +62,10 @@ beforeAll(async () => {
 beforeEach(async () => {
   await db.reset();
 
-  const { id } = await app.services.addonService.createAddon(INTEGRATION, TEST_AUDIT_USER);
+  const { id } = await app.services.addonService.createAddon(
+    INTEGRATION,
+    TEST_AUDIT_USER,
+  );
 
   integrationId = id;
 });
@@ -69,10 +75,16 @@ afterAll(async () => {
   await db.destroy();
 });
 
-const insertPastEvent = async (event: IntegrationEventWriteModel, date: Date): Promise<void> => {
+const insertPastEvent = async (
+  event: IntegrationEventWriteModel,
+  date: Date,
+): Promise<void> => {
   const { id } = await integrationEventsService.registerEvent(event);
 
-  await db.rawDatabase.raw(`UPDATE integration_events SET created_at = ? WHERE id = ?`, [date, id]);
+  await db.rawDatabase.raw(
+    `UPDATE integration_events SET created_at = ? WHERE id = ?`,
+    [date, id],
+  );
 };
 
 const getTestEventSuccess = () => ({
@@ -89,7 +101,11 @@ test('insert and fetch integration events', async () => {
   await integrationEventsService.registerEvent(getTestEventSuccess());
   await integrationEventsService.registerEvent(getTestEventFailed());
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 10, 0);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    10,
+    0,
+  );
 
   expect(events).toHaveLength(2);
   expect(events[0].state).toBe('failed');
@@ -100,7 +116,11 @@ test('paginate to latest event', async () => {
   await integrationEventsService.registerEvent(getTestEventSuccess());
   await integrationEventsService.registerEvent(getTestEventFailed());
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 1, 0);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    1,
+    0,
+  );
 
   expect(events).toHaveLength(1);
   expect(events[0].state).toBe('failed');
@@ -110,7 +130,11 @@ test('paginate to second most recent event', async () => {
   await integrationEventsService.registerEvent(getTestEventSuccess());
   await integrationEventsService.registerEvent(getTestEventFailed());
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 1, 1);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    1,
+    1,
+  );
 
   expect(events).toHaveLength(1);
   expect(events[0].state).toBe('success');
@@ -120,7 +144,11 @@ test('paginate to non-existing event, returning empty array', async () => {
   await integrationEventsService.registerEvent(getTestEventSuccess());
   await integrationEventsService.registerEvent(getTestEventFailed());
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 1, 999);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    1,
+    999,
+  );
 
   expect(events).toHaveLength(0);
 });
@@ -139,7 +167,11 @@ test('clean up events, keeping events from the last 2 hours', async () => {
 
   await integrationEventsService.cleanUpEvents();
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 10, 0);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    10,
+    0,
+  );
 
   expect(events).toHaveLength(2);
   expect(events[0].state).toBe('success');
@@ -153,7 +185,11 @@ test('clean up events, keeping the last 100 events', async () => {
 
   await integrationEventsService.cleanUpEvents();
 
-  const events = await integrationEventsService.getPaginatedEvents(integrationId, 200, 0);
+  const events = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    200,
+    0,
+  );
 
   expect(events).toHaveLength(100);
 });
@@ -161,22 +197,39 @@ test('clean up events, keeping the last 100 events', async () => {
 test('clean up events, keeping the latest event for each integration', async () => {
   const longTimeAgo = new Date('2000-01-01');
 
-  const { id: integrationId2 } = await app.services.addonService.createAddon(INTEGRATION, TEST_AUDIT_USER);
+  const { id: integrationId2 } = await app.services.addonService.createAddon(
+    INTEGRATION,
+    TEST_AUDIT_USER,
+  );
 
   await insertPastEvent(getTestEventSuccess(), longTimeAgo);
   await insertPastEvent(getTestEventFailed(), longTimeAgo);
 
-  await insertPastEvent({ ...getTestEventSuccess(), integrationId: integrationId2 }, longTimeAgo);
-  await insertPastEvent({ ...getTestEventFailed(), integrationId: integrationId2 }, longTimeAgo);
+  await insertPastEvent(
+    { ...getTestEventSuccess(), integrationId: integrationId2 },
+    longTimeAgo,
+  );
+  await insertPastEvent(
+    { ...getTestEventFailed(), integrationId: integrationId2 },
+    longTimeAgo,
+  );
 
   await integrationEventsService.cleanUpEvents();
 
-  const eventsIntegration1 = await integrationEventsService.getPaginatedEvents(integrationId, 10, 0);
+  const eventsIntegration1 = await integrationEventsService.getPaginatedEvents(
+    integrationId,
+    10,
+    0,
+  );
 
   expect(eventsIntegration1).toHaveLength(1);
   expect(eventsIntegration1[0].state).toBe('failed');
 
-  const eventsIntegration2 = await integrationEventsService.getPaginatedEvents(integrationId2, 10, 0);
+  const eventsIntegration2 = await integrationEventsService.getPaginatedEvents(
+    integrationId2,
+    10,
+    0,
+  );
 
   expect(eventsIntegration2).toHaveLength(1);
   expect(eventsIntegration2[0].state).toBe('failed');
@@ -186,7 +239,9 @@ test('return events from the API', async () => {
   await integrationEventsService.registerEvent(getTestEventSuccess());
   await integrationEventsService.registerEvent(getTestEventFailed());
 
-  const { body } = await app.request.get(`/api/admin/addons/${integrationId}/events`);
+  const { body } = await app.request.get(
+    `/api/admin/addons/${integrationId}/events`,
+  );
 
   expect(body.integrationEvents).toHaveLength(2);
   expect(body.integrationEvents[0].state).toBe('failed');

@@ -20,7 +20,11 @@ const TestComponent: React.FC<{
           <div key={index}>{`${flag.featureId} - ${flag.projectId}`}</div>
         ))}
       </div>
-      <button type='button' onClick={handleUpdate} data-testid={`update-${testId}`}>
+      <button
+        type='button'
+        onClick={handleUpdate}
+        data-testid={`update-${testId}`}
+      >
         Add {featureId} {projectId}
       </button>
     </div>
@@ -32,10 +36,26 @@ describe('Last three unique flags are persisted and duplicates are skipped', () 
     localStorage.clear();
     render(
       <>
-        <TestComponent testId='component1' featureId='Feature1' projectId='Project1' />
-        <TestComponent testId='component2' featureId='Feature2' projectId='Project2' />
-        <TestComponent testId='component3' featureId='Feature3' projectId='Project3' />
-        <TestComponent testId='component4' featureId='Feature4' projectId='Project4' />
+        <TestComponent
+          testId='component1'
+          featureId='Feature1'
+          projectId='Project1'
+        />
+        <TestComponent
+          testId='component2'
+          featureId='Feature2'
+          projectId='Project2'
+        />
+        <TestComponent
+          testId='component3'
+          featureId='Feature3'
+          projectId='Project3'
+        />
+        <TestComponent
+          testId='component4'
+          featureId='Feature4'
+          projectId='Project4'
+        />
       </>,
     );
   });

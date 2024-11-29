@@ -13,7 +13,13 @@ export const createFeatureSchema = {
       description: 'Unique feature name',
     },
     type: {
-      enum: ['experiment', 'kill-switch', 'release', 'operational', 'permission'],
+      enum: [
+        'experiment',
+        'kill-switch',
+        'release',
+        'operational',
+        'permission',
+      ],
       example: 'release',
       description:
         "The feature flag's [type](https://docs.getunleash.io/reference/feature-toggles#feature-flag-types). One of experiment, kill-switch, release, operational, or permission",
@@ -21,13 +27,15 @@ export const createFeatureSchema = {
     description: {
       type: 'string',
       nullable: true,
-      example: 'Controls disabling of the comments section in case of an incident',
+      example:
+        'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     impressionData: {
       type: 'boolean',
       example: false,
-      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description:
+        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     tags: {
       type: 'array',

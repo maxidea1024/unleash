@@ -29,7 +29,10 @@ describe('updateWeightEdit', () => {
   });
 
   it('can distribute weight between 2 variants evenly', () => {
-    const variants = [variantTemplate, { ...variantTemplate, id: '2', name: 'B' }];
+    const variants = [
+      variantTemplate,
+      { ...variantTemplate, id: '2', name: 'B' },
+    ];
     updateWeightEdit(variants, 100).forEach((variant) => {
       expect(variant).toHaveProperty('weight', 50);
     });
@@ -54,7 +57,9 @@ describe('updateWeightEdit', () => {
       name: `${i}`,
       weight: i,
     }));
-    const weights = updateWeightEdit(variants, 100).map((variant) => variant.weight);
+    const weights = updateWeightEdit(variants, 100).map(
+      (variant) => variant.weight,
+    );
     expect(weights).toEqual([13, 12, 13, 12, 13, 12, 13, 12]);
   });
 
@@ -63,7 +68,9 @@ describe('updateWeightEdit', () => {
       { ...variantTemplate, weightType: 'fix' as const, weight: 333 },
       { ...variantTemplate, id: '2', name: 'B' },
     ];
-    const weights = updateWeightEdit(variants, 1000).map((variant) => variant.weight);
+    const weights = updateWeightEdit(variants, 1000).map(
+      (variant) => variant.weight,
+    );
     expect(weights).toEqual([333, 667]);
   });
 
@@ -84,7 +91,9 @@ describe('updateWeightEdit', () => {
       { ...variantTemplate, id: '7', name: 'G' },
       { ...variantTemplate, id: '8', name: 'H' },
     ];
-    const weights = updateWeightEdit(variants, 1000).map((variant) => variant.weight);
+    const weights = updateWeightEdit(variants, 1000).map(
+      (variant) => variant.weight,
+    );
     expect(weights).toEqual([333, 93, 93, 93, 92, 111, 93, 92]);
   });
 
@@ -100,7 +109,9 @@ describe('updateWeightEdit', () => {
       },
       { ...variantTemplate, id: '3', name: 'C' },
     ];
-    const weights = updateWeightEdit(variants, 1000).map((variant) => variant.weight);
+    const weights = updateWeightEdit(variants, 1000).map(
+      (variant) => variant.weight,
+    );
     expect(weights).toEqual([500, 500, 0]);
   });
 
@@ -124,7 +135,9 @@ describe('updateWeightEdit', () => {
         { ...variantTemplate, id: '3', name: 'C' },
       ];
 
-      const weights = updateWeightEdit(variants, 1000).map((variant) => variant.weight);
+      const weights = updateWeightEdit(variants, 1000).map(
+        (variant) => variant.weight,
+      );
 
       expect(weights).toEqual([600, 600, 0]);
     });
@@ -160,7 +173,9 @@ describe('updateWeightEdit', () => {
         },
       ];
 
-      const weights = updateWeightEdit(variants, 1000).map((variant) => variant.weight);
+      const weights = updateWeightEdit(variants, 1000).map(
+        (variant) => variant.weight,
+      );
 
       expect(weights).toEqual([400, 450, 0, 0, 350]);
     });

@@ -1,7 +1,9 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { IUnleashConfig } from '../types';
 
-export const bearerTokenMiddleware = ({ getLogger }: Pick<IUnleashConfig, 'getLogger'>) => {
+export const bearerTokenMiddleware = ({
+  getLogger,
+}: Pick<IUnleashConfig, 'getLogger'>) => {
   const logger = getLogger('bearer-token-middleware.ts');
 
   logger.debug('Enabling bearer token middleware');

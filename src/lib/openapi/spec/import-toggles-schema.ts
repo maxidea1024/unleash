@@ -22,17 +22,20 @@ export const importTogglesSchema = {
   type: 'object',
   required: ['project', 'environment', 'data'],
   additionalProperties: false,
-  description: 'The result of the export operation for a project and environment, used at import',
+  description:
+    'The result of the export operation for a project and environment, used at import',
   properties: {
     project: {
       type: 'string',
       example: 'My awesome project',
-      description: 'The exported [project](https://docs.getunleash.io/reference/projects)',
+      description:
+        'The exported [project](https://docs.getunleash.io/reference/projects)',
     },
     environment: {
       type: 'string',
       example: 'development',
-      description: 'The exported [environment](https://docs.getunleash.io/reference/environments)',
+      description:
+        'The exported [environment](https://docs.getunleash.io/reference/environments)',
     },
     data: {
       $ref: '#/components/schemas/exportResultSchema',

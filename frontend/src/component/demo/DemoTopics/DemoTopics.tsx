@@ -99,25 +99,27 @@ const StyledLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 const StyledStep = styled('li', {
   shouldForwardProp: (prop) => prop !== 'selected' && prop !== 'completed',
-})<{ selected?: boolean; completed?: boolean }>(({ theme, selected, completed }) => ({
-  padding: theme.spacing(1),
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  marginTop: theme.spacing(1),
-  borderRadius: theme.shape.borderRadius,
-  gap: theme.spacing(1),
-  backgroundColor: theme.palette.background.elevation2,
-  ...(selected && {
-    backgroundColor: theme.palette.secondary.light,
-    fontWeight: theme.typography.fontWeightBold,
-    outline: `1px solid ${theme.palette.primary.main}`,
+})<{ selected?: boolean; completed?: boolean }>(
+  ({ theme, selected, completed }) => ({
+    padding: theme.spacing(1),
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius,
+    gap: theme.spacing(1),
+    backgroundColor: theme.palette.background.elevation2,
+    ...(selected && {
+      backgroundColor: theme.palette.secondary.light,
+      fontWeight: theme.typography.fontWeightBold,
+      outline: `1px solid ${theme.palette.primary.main}`,
+    }),
+    ...(completed && {
+      backgroundColor: theme.palette.background.elevation1,
+      textDecoration: 'line-through',
+    }),
   }),
-  ...(completed && {
-    backgroundColor: theme.palette.background.elevation1,
-    textDecoration: 'line-through',
-  }),
-}));
+);
 
 const StyledCheckCircle = styled(CheckCircle)(({ theme }) => ({
   color: theme.palette.primary.main,
@@ -161,12 +163,18 @@ export const DemoTopics = ({
   topics,
   onWelcome,
 }: IDemoTopicsProps) => {
-  const completedSteps = stepsCompletion.reduce((acc, step) => acc + (step || 0), 0);
+  const completedSteps = stepsCompletion.reduce(
+    (acc, step) => acc + (step || 0),
+    0,
+  );
   const totalSteps = topics.flatMap(({ steps }) => steps).length;
   const percentage = (completedSteps / totalSteps) * 100;
 
   return (
-    <StyledAccordion expanded={expanded} onChange={() => setExpanded((expanded) => !expanded)}>
+    <StyledAccordion
+      expanded={expanded}
+      onChange={() => setExpanded((expanded) => !expanded)}
+    >
       <StyledAccordionSummary>
         <StyledStars />
         <StyledTitle>

@@ -2,7 +2,10 @@ import type { FromSchema } from 'json-schema-to-ts';
 import { parametersSchema } from './parameters-schema';
 import { variantSchema } from './variant-schema';
 import { overrideSchema } from './override-schema';
-import { playgroundStrategyEvaluation, playgroundStrategySchema } from './playground-strategy-schema';
+import {
+  playgroundStrategyEvaluation,
+  playgroundStrategySchema,
+} from './playground-strategy-schema';
 import { playgroundConstraintSchema } from './playground-constraint-schema';
 import { playgroundSegmentSchema } from './playground-segment-schema';
 
@@ -10,10 +13,19 @@ export const unknownFeatureEvaluationResult = 'unevaluated' as const;
 
 export const playgroundFeatureSchema = {
   $id: '#/components/schemas/playgroundFeatureSchema',
-  description: 'A simplified feature flag model intended for the Unleash playground.',
+  description:
+    'A simplified feature flag model intended for the Unleash playground.',
   type: 'object',
   additionalProperties: false,
-  required: ['name', 'projectId', 'isEnabled', 'isEnabledInCurrentEnvironment', 'variant', 'variants', 'strategies'],
+  required: [
+    'name',
+    'projectId',
+    'isEnabled',
+    'isEnabledInCurrentEnvironment',
+    'variant',
+    'variants',
+    'strategies',
+  ],
   properties: {
     name: {
       type: 'string',
@@ -29,7 +41,8 @@ export const playgroundFeatureSchema = {
       type: 'object',
       additionalProperties: false,
       required: ['result', 'data'],
-      description: "The feature's applicable strategies and cumulative results of the strategies",
+      description:
+        "The feature's applicable strategies and cumulative results of the strategies",
       properties: {
         result: {
           description: `The cumulative results of all the feature's strategies. Can be \`true\`,
@@ -56,7 +69,8 @@ export const playgroundFeatureSchema = {
     },
     hasUnsatisfiedDependency: {
       type: 'boolean',
-      description: 'Whether the feature has a parent dependency that is not satisfied',
+      description:
+        'Whether the feature has a parent dependency that is not satisfied',
     },
     isEnabledInCurrentEnvironment: {
       type: 'boolean',
@@ -81,7 +95,8 @@ export const playgroundFeatureSchema = {
       properties: {
         name: {
           type: 'string',
-          description: "The variant's name. If there is no variant or if the flag is disabled, this will be `disabled`",
+          description:
+            "The variant's name. If there is no variant or if the flag is disabled, this will be `disabled`",
           example: 'red-variant',
         },
         enabled: {
@@ -140,4 +155,6 @@ export const playgroundFeatureSchema = {
   },
 } as const;
 
-export type PlaygroundFeatureSchema = FromSchema<typeof playgroundFeatureSchema>;
+export type PlaygroundFeatureSchema = FromSchema<
+  typeof playgroundFeatureSchema
+>;

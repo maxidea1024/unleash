@@ -68,7 +68,16 @@ export default class Group implements IGroup {
   mappingsSSO: string[];
   scimId?: string;
 
-  constructor({ id, name, description, mappingsSSO, rootRole, createdBy, createdAt, scimId }: IGroup) {
+  constructor({
+    id,
+    name,
+    description,
+    mappingsSSO,
+    rootRole,
+    createdBy,
+    createdAt,
+    scimId,
+  }: IGroup) {
     if (!id) {
       throw new ValidationError('Id is required', [], undefined);
     }

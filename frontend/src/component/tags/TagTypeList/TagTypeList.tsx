@@ -1,14 +1,24 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
+import {
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
+} from 'component/common/Table';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Label from '@mui/icons-material/Label';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { DELETE_TAG_TYPE, UPDATE_TAG_TYPE } from 'component/providers/AccessProvider/permissions';
+import {
+  DELETE_TAG_TYPE,
+  UPDATE_TAG_TYPE,
+} from 'component/providers/AccessProvider/permissions';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import useTagTypesApi from 'hooks/api/actions/useTagTypesApi/useTagTypesApi';
 import useTagTypes from 'hooks/api/getters/useTagTypes/useTagTypes';
@@ -83,7 +93,10 @@ export const TagTypeList = () => {
         id: 'Actions',
         align: 'center',
         Cell: ({ row: { original } }: any) => (
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }} data-loading>
+          <Box
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            data-loading
+          >
             <PermissionIconButton
               onClick={() => navigate(`/tag-types/edit/${original.name}`)}
               permission={UPDATE_TAG_TYPE}
@@ -215,7 +228,11 @@ export const TagTypeList = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={<TablePlaceholder>No tags available. Get started by adding one.</TablePlaceholder>}
+            elseShow={
+              <TablePlaceholder>
+                No tags available. Get started by adding one.
+              </TablePlaceholder>
+            }
           />
         }
       />

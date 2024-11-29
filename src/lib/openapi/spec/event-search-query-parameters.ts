@@ -18,7 +18,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:myfeature',
       pattern: '^(IS|IS_ANY_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
-    description: 'Filter by feature name using supported operators: IS, IS_ANY_OF',
+    description:
+      'Filter by feature name using supported operators: IS, IS_ANY_OF',
     in: 'query',
   },
   {
@@ -28,7 +29,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:default',
       pattern: '^(IS|IS_ANY_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
-    description: 'Filter by projects ID using supported operators: IS, IS_ANY_OF.',
+    description:
+      'Filter by projects ID using supported operators: IS, IS_ANY_OF.',
     in: 'query',
   },
   {
@@ -38,7 +40,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:change-added',
       pattern: '^(IS|IS_ANY_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
-    description: 'Filter by event type using supported operators: IS, IS_ANY_OF.',
+    description:
+      'Filter by event type using supported operators: IS, IS_ANY_OF.',
     in: 'query',
   },
 
@@ -49,7 +52,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:2',
       pattern: '^(IS|IS_ANY_OF):(.*?)(,([a-zA-Z0-9_]+))*$',
     },
-    description: 'Filter by the ID of the event creator, using supported operators: IS, IS_ANY_OF.',
+    description:
+      'Filter by the ID of the event creator, using supported operators: IS, IS_ANY_OF.',
     in: 'query',
   },
   {
@@ -59,7 +63,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:2024-01-01',
       pattern: '^(IS):\\d{4}-\\d{2}-\\d{2}$',
     },
-    description: 'The starting date of the creation date range in IS:yyyy-MM-dd format',
+    description:
+      'The starting date of the creation date range in IS:yyyy-MM-dd format',
     in: 'query',
   },
   {
@@ -69,7 +74,8 @@ export const eventSearchQueryParameters = [
       example: 'IS:2024-01-31',
       pattern: '^(IS):\\d{4}-\\d{2}-\\d{2}$',
     },
-    description: 'The ending date of the creation date range in IS:yyyy-MM-dd format',
+    description:
+      'The ending date of the creation date range in IS:yyyy-MM-dd format',
     in: 'query',
   },
   {
@@ -79,7 +85,8 @@ export const eventSearchQueryParameters = [
       example: '50',
       default: '0',
     },
-    description: 'The number of features to skip when returning a page. By default it is set to 0.',
+    description:
+      'The number of features to skip when returning a page. By default it is set to 0.',
     in: 'query',
   },
   {
@@ -95,4 +102,6 @@ export const eventSearchQueryParameters = [
   },
 ] as const;
 
-export type EventSearchQueryParameters = Partial<FromQueryParams<typeof eventSearchQueryParameters>>;
+export type EventSearchQueryParameters = Partial<
+  FromQueryParams<typeof eventSearchQueryParameters>
+>;

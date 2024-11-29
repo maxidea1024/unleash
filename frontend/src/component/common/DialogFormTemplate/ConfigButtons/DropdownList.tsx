@@ -19,7 +19,12 @@ function useSelectionManagement<T>(handleToggle: (value: T) => () => void) {
     } else if (event.key === 'ArrowUp' && index > 0) {
       event.preventDefault();
       listRefs.current[index - 1]?.focus();
-    } else if (event.key === 'Enter' && index === 0 && listRefs.current[0]?.value && filteredOptions.length > 0) {
+    } else if (
+      event.key === 'Enter' &&
+      index === 0 &&
+      listRefs.current[0]?.value &&
+      filteredOptions.length > 0
+    ) {
       // if the search field is not empty and the user presses
       // enter from the search field, toggle the topmost item in
       // the filtered list event.preventDefault();
@@ -50,16 +55,25 @@ export type DropdownListProps<T> = {
   multiselect?: { selectedOptions: Set<T> };
 };
 
-export function DropdownList<T = string>({ options, onChange, search, multiselect }: DropdownListProps<T>) {
+export function DropdownList<T = string>({
+  options,
+  onChange,
+  search,
+  multiselect,
+}: DropdownListProps<T>) {
   const [searchText, setSearchText] = useState('');
 
   const onSelection = (selected: T) => {
     onChange(selected);
   };
 
-  const { listRefs, handleSelection } = useSelectionManagement((selected: T) => () => onSelection(selected));
+  const { listRefs, handleSelection } = useSelectionManagement(
+    (selected: T) => () => onSelection(selected),
+  );
 
-  const filteredOptions = options?.filter((option) => option.label.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredOptions = options?.filter((option) =>
+    option.label.toLowerCase().includes(searchText.toLowerCase()),
+  );
 
   return (
     <>
@@ -101,7 +115,9 @@ export function DropdownList<T = string>({ options, onChange, search, multiselec
               ref={(el) => {
                 listRefs.current[index + 1] = el;
               }}
-              onKeyDown={(event) => handleSelection(event, index + 1, filteredOptions)}
+              onKeyDown={(event) =>
+                handleSelection(event, index + 1, filteredOptions)
+              }
             >
               {multiselect ? (
                 <StyledCheckbox

@@ -1,10 +1,21 @@
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useLocalStorageState } from 'hooks/useLocalStorageState';
-import { Badge, Icon, ListItem, ListItemButton, ListItemIcon, Tooltip, styled } from '@mui/material';
+import {
+  Badge,
+  Icon,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  Tooltip,
+  styled,
+} from '@mui/material';
 import Signals from '@mui/icons-material/Sensors';
 import type { NavigationMode } from 'component/layout/MainLayout/NavigationSidebar/NavigationMode';
-import { NewInUnleashItem, type NewInUnleashItemDetails } from './NewInUnleashItem';
+import {
+  NewInUnleashItem,
+  type NewInUnleashItemDetails,
+} from './NewInUnleashItem';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { ReactComponent as SignalsPreview } from 'assets/img/signals.svg';
 import LinearScaleIcon from '@mui/icons-material/LinearScale';
@@ -79,11 +90,17 @@ interface INewInUnleashProps {
   onMiniModeClick?: () => void;
 }
 
-export const NewInUnleash = ({ mode = 'full', onMiniModeClick }: INewInUnleashProps) => {
+export const NewInUnleash = ({
+  mode = 'full',
+  onMiniModeClick,
+}: INewInUnleashProps) => {
   const navigate = useNavigate();
   const { highlight } = useHighlightContext();
   const { trackEvent } = usePlausibleTracker();
-  const [seenItems, setSeenItems] = useLocalStorageState('new-in-unleash-seen:v1', new Set());
+  const [seenItems, setSeenItems] = useLocalStorageState(
+    'new-in-unleash-seen:v1',
+    new Set(),
+  );
   const {
     isOss,
     isEnterprise,
@@ -104,20 +121,22 @@ export const NewInUnleash = ({ mode = 'full', onMiniModeClick }: INewInUnleashPr
       longDescription: (
         <>
           <p>
-            It allows you to respond to events in your real-time monitoring system by automating tasks such as disabling
-            a beta feature in response to an increase in errors or a drop in conversion rates.
+            It allows you to respond to events in your real-time monitoring
+            system by automating tasks such as disabling a beta feature in
+            response to an increase in errors or a drop in conversion rates.
           </p>
 
           <p>
             <ul>
               <li>
-                <b>Signal endpoints</b> are used to send signals to Unleash. This allows you to integrate Unleash with
-                any external tool.
+                <b>Signal endpoints</b> are used to send signals to Unleash.
+                This allows you to integrate Unleash with any external tool.
               </li>
 
               <li>
-                <b>Actions</b>, which are configured inside projects, allow you to react to those signals and enable or
-                disable flags based on certain conditions.
+                <b>Actions</b>, which are configured inside projects, allow you
+                to react to those signals and enable or disable flags based on
+                certain conditions.
               </li>
             </ul>
           </p>
@@ -140,18 +159,22 @@ export const NewInUnleash = ({ mode = 'full', onMiniModeClick }: INewInUnleashPr
       show: !isOss(),
       longDescription: (
         <>
-          <p>Monitor recent events across all your projects in one unified timeline.</p>
+          <p>
+            Monitor recent events across all your projects in one unified
+            timeline.
+          </p>
 
           <p>
-            You can access the event timeline from the top menu to get an overview of changes and quickly identify and
-            debug any issues.
+            You can access the event timeline from the top menu to get an
+            overview of changes and quickly identify and debug any issues.
           </p>
         </>
       ),
     },
     {
       label: 'Unleash AI',
-      summary: 'Enhance your Unleash experience with the help of the Unleash AI assistant',
+      summary:
+        'Enhance your Unleash experience with the help of the Unleash AI assistant',
       icon: <StyledAIIcon />,
       preview: <AIPreview />,
       onCheckItOut: () => highlight('unleashAI'),
@@ -160,20 +183,24 @@ export const NewInUnleash = ({ mode = 'full', onMiniModeClick }: INewInUnleashPr
       longDescription: (
         <>
           <p>
-            Meet the Unleash AI assistant, designed to make your experience with Unleash easier and more intuitive,
-            whether you're handling tasks or looking for guidance.
+            Meet the Unleash AI assistant, designed to make your experience with
+            Unleash easier and more intuitive, whether you're handling tasks or
+            looking for guidance.
           </p>
 
           <p>
-            Start chatting by using the button in the bottom right corner of the page, and discover all the ways the
-            Unleash AI assistant can help you.
+            Start chatting by using the button in the bottom right corner of the
+            page, and discover all the ways the Unleash AI assistant can help
+            you.
           </p>
         </>
       ),
     },
   ];
 
-  const visibleItems = items.filter((item) => item.show && !seenItems.has(item.label));
+  const visibleItems = items.filter(
+    (item) => item.show && !seenItems.has(item.label),
+  );
 
   if (!visibleItems.length) return null;
 
@@ -201,7 +228,16 @@ export const NewInUnleash = ({ mode = 'full', onMiniModeClick }: INewInUnleashPr
       </StyledNewInUnleashHeader>
       <StyledNewInUnleashList>
         {visibleItems.map(
-          ({ label, icon, onCheckItOut, longDescription, docsLink, preview, summary, beta = false }) => (
+          ({
+            label,
+            icon,
+            onCheckItOut,
+            longDescription,
+            docsLink,
+            preview,
+            summary,
+            beta = false,
+          }) => (
             <NewInUnleashItem
               key={label}
               onClick={() => {

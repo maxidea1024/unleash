@@ -27,4 +27,6 @@ export const applicationEnvironmentIssuesSchema = {
   components: {},
 } as const;
 
-export type ApplicationEnvironmentIssuesSchema = FromSchema<typeof applicationEnvironmentIssuesSchema>;
+export type ApplicationEnvironmentIssuesSchema = FromSchema<
+  typeof applicationEnvironmentIssuesSchema
+>;

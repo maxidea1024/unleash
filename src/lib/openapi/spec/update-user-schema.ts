@@ -6,7 +6,8 @@ export const updateUserSchema = {
   description: 'All fields that can be directly changed for the user',
   properties: {
     email: {
-      description: "The user's email address. Must be provided if username is not provided.",
+      description:
+        "The user's email address. Must be provided if username is not provided.",
       type: 'string',
       example: 'user@example.com',
     },
@@ -16,7 +17,8 @@ export const updateUserSchema = {
       example: 'Sam Seawright',
     },
     rootRole: {
-      description: "The role to assign to the user. Can be either the role's ID or its unique name.",
+      description:
+        "The role to assign to the user. Can be either the role's ID or its unique name.",
       oneOf: [
         {
           type: 'integer',

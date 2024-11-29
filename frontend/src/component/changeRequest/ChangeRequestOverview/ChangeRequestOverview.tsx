@@ -2,7 +2,10 @@ import { Alert, Box, Button, styled, Typography } from '@mui/material';
 import { type FC, useContext, useState } from 'react';
 import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRequest';
 import { ChangeRequestHeader } from './ChangeRequestHeader/ChangeRequestHeader';
-import { ChangeRequestTimeline, type ISuggestChangeTimelineProps } from './ChangeRequestTimeline/ChangeRequestTimeline';
+import {
+  ChangeRequestTimeline,
+  type ISuggestChangeTimelineProps,
+} from './ChangeRequestTimeline/ChangeRequestTimeline';
 import { ChangeRequest } from '../ChangeRequest/ChangeRequest';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useChangeRequestApi';
@@ -77,19 +80,27 @@ export const ChangeRequestOverview: FC = () => {
   const projectId = useRequiredPathParam('projectId');
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);
-  const [showScheduleChangesDialog, setShowScheduleChangeDialog] = useState(false);
-  const [showApplyScheduledDialog, setShowApplyScheduledDialog] = useState(false);
-  const [showRejectScheduledDialog, setShowRejectScheduledDialog] = useState(false);
+  const [showScheduleChangesDialog, setShowScheduleChangeDialog] =
+    useState(false);
+  const [showApplyScheduledDialog, setShowApplyScheduledDialog] =
+    useState(false);
+  const [showRejectScheduledDialog, setShowRejectScheduledDialog] =
+    useState(false);
   const { user } = useAuthUser();
   const { isAdmin } = useContext(AccessContext);
   const [commentText, setCommentText] = useState('');
 
   const id = useRequiredPathParam('id');
-  const { data: changeRequest, refetchChangeRequest } = useChangeRequest(projectId, id);
+  const { data: changeRequest, refetchChangeRequest } = useChangeRequest(
+    projectId,
+    id,
+  );
   const { changeState, addComment } = useChangeRequestApi();
-  const { refetch: refetchChangeRequestOpen } = usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequestOpen } =
+    usePendingChangeRequests(projectId);
   const { setToastData, setToastApiError } = useToast();
-  const { isChangeRequestConfiguredForReview } = useChangeRequestsEnabled(projectId);
+  const { isChangeRequestConfiguredForReview } =
+    useChangeRequestsEnabled(projectId);
   const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
@@ -97,7 +108,9 @@ export const ChangeRequestOverview: FC = () => {
     return null;
   }
 
-  const allowChangeRequestActions = isChangeRequestConfiguredForReview(changeRequest.environment);
+  const allowChangeRequestActions = isChangeRequestConfiguredForReview(
+    changeRequest.environment,
+  );
 
   const getCurrentState = (): PlausibleChangeRequestState => {
     switch (changeRequest.state) {
@@ -240,13 +253,21 @@ export const ChangeRequestOverview: FC = () => {
   const onScheduleChangeAbort = () => setShowScheduleChangeDialog(false);
   const onRejectScheduledAbort = () => setShowRejectScheduledDialog(false);
 
-  const isSelfReview = changeRequest?.createdBy.id === user?.id && changeRequest.state === 'In review' && !isAdmin;
+  const isSelfReview =
+    changeRequest?.createdBy.id === user?.id &&
+    changeRequest.state === 'In review' &&
+    !isAdmin;
 
-  const hasApprovedAlready = changeRequest.approvals?.some((approval) => approval.createdBy.id === user?.id);
+  const hasApprovedAlready = changeRequest.approvals?.some(
+    (approval) => approval.createdBy.id === user?.id,
+  );
 
   const countOfChanges = changesCount(changeRequest);
 
-  const scheduledAt = 'schedule' in changeRequest ? changeRequest.schedule.scheduledAt : undefined;
+  const scheduledAt =
+    'schedule' in changeRequest
+      ? changeRequest.schedule.scheduledAt
+      : undefined;
 
   const timelineProps: ISuggestChangeTimelineProps =
     changeRequest.state === 'Scheduled'
@@ -270,11 +291,18 @@ export const ChangeRequestOverview: FC = () => {
         <StyledPaper elevation={0}>
           <StyledInnerContainer>
             Requested Changes ({countOfChanges})
-            <ChangeRequest changeRequest={changeRequest} onRefetch={refetchChangeRequest} />
+            <ChangeRequest
+              changeRequest={changeRequest}
+              onRefetch={refetchChangeRequest}
+            />
             {changeRequest.comments?.map((comment) => (
               <ChangeRequestComment key={comment.id} comment={comment} />
             ))}
-            <AddCommentField user={user} commentText={commentText} onTypeComment={setCommentText}>
+            <AddCommentField
+              user={user}
+              commentText={commentText}
+              onTypeComment={setCommentText}
+            >
               <Button
                 variant='outlined'
                 onClick={onAddComment}
@@ -307,7 +335,9 @@ export const ChangeRequestOverview: FC = () => {
             />
             <StyledButtonBox>
               <ConditionallyRender
-                condition={changeRequest.state === 'In review' && !hasApprovedAlready}
+                condition={
+                  changeRequest.state === 'In review' && !hasApprovedAlready
+                }
                 show={
                   <ReviewButton
                     onReject={() => setShowRejectDialog(true)}
@@ -385,7 +415,11 @@ export const ChangeRequestOverview: FC = () => {
                       </StyledButton>
                     }
                     elseShow={
-                      <StyledButton variant='outlined' onClick={onCancel} disabled={disabled}>
+                      <StyledButton
+                        variant='outlined'
+                        onClick={onCancel}
+                        disabled={disabled}
+                      >
                         Cancel changes
                       </StyledButton>
                     }
@@ -401,10 +435,15 @@ export const ChangeRequestOverview: FC = () => {
           onClose={onCancelAbort}
           title='Cancel change request'
         >
-          <Typography sx={{ marginBottom: 2 }}>You are about to cancel this change request</Typography>
-          <Typography variant='body2' sx={(theme) => ({ color: theme.palette.neutral.dark })}>
-            The change request will be moved to closed, and it can't be applied anymore. Once cancelled, the change
-            request can't be reopened.
+          <Typography sx={{ marginBottom: 2 }}>
+            You are about to cancel this change request
+          </Typography>
+          <Typography
+            variant='body2'
+            sx={(theme) => ({ color: theme.palette.neutral.dark })}
+          >
+            The change request will be moved to closed, and it can't be applied
+            anymore. Once cancelled, the change request can't be reopened.
           </Typography>
         </Dialogue>
         <ChangeRequestRejectDialogue
@@ -421,8 +460,16 @@ export const ChangeRequestOverview: FC = () => {
             disabled={!allowChangeRequestActions || disabled}
             projectId={projectId}
             environment={changeRequest.environment}
-            primaryButtonText={changeRequest.state === 'Scheduled' ? 'Update scheduled time' : 'Schedule changes'}
-            title={changeRequest.state === 'Scheduled' ? 'Update schedule' : 'Schedule changes'}
+            primaryButtonText={
+              changeRequest.state === 'Scheduled'
+                ? 'Update scheduled time'
+                : 'Schedule changes'
+            }
+            title={
+              changeRequest.state === 'Scheduled'
+                ? 'Update schedule'
+                : 'Schedule changes'
+            }
             scheduledAt={scheduledAt}
           />
           <ChangeRequestApplyScheduledDialogue

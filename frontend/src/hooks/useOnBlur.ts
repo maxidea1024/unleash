@@ -1,16 +1,24 @@
 import { useEffect } from 'react';
 
-export const useOnBlur = (containerRef: React.RefObject<HTMLElement>, callback: () => void): void => {
+export const useOnBlur = (
+  containerRef: React.RefObject<HTMLElement>,
+  callback: () => void,
+): void => {
   useEffect(() => {
     let mouseDownInside = false;
 
     const handleMouseDown = (event: MouseEvent) => {
-      mouseDownInside = containerRef.current?.contains(event.target as Node) || false;
+      mouseDownInside =
+        containerRef.current?.contains(event.target as Node) || false;
     };
 
     const handleBlur = (event: FocusEvent) => {
       setTimeout(() => {
-        if (!mouseDownInside && containerRef.current && !containerRef.current.contains(document.activeElement)) {
+        if (
+          !mouseDownInside &&
+          containerRef.current &&
+          !containerRef.current.contains(document.activeElement)
+        ) {
           callback();
         }
         // Reset the flag for the next sequence of events.

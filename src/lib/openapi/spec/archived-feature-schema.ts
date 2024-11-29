@@ -15,12 +15,14 @@ export const archivedFeatureSchema = {
     type: {
       type: 'string',
       example: 'kill-switch',
-      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description:
+        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     description: {
       type: 'string',
       nullable: true,
-      example: 'Controls disabling of the comments section in case of an incident',
+      example:
+        'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     project: {
@@ -31,12 +33,14 @@ export const archivedFeatureSchema = {
     stale: {
       type: 'boolean',
       example: false,
-      description: '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
+      description:
+        '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
     },
     impressionData: {
       type: 'boolean',
       example: false,
-      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description:
+        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     createdAt: {
       type: 'string',
@@ -76,12 +80,14 @@ export const archivedFeatureSchema = {
             format: 'date-time',
             nullable: true,
             example: '2023-01-28T16:21:39.975Z',
-            description: 'The date when metrics where last collected for the feature environment',
+            description:
+              'The date when metrics where last collected for the feature environment',
           },
           enabled: {
             type: 'boolean',
             example: true,
-            description: '`true` if the feature is enabled for the environment, otherwise `false`.',
+            description:
+              '`true` if the feature is enabled for the environment, otherwise `false`.',
           },
         },
       },

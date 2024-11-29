@@ -35,6 +35,8 @@ describe('OrderEnvironmentsDialog Component', () => {
     const submitButton = screen.getByRole('button', { name: /order/i });
     fireEvent.click(submitButton);
 
-    expect(screen.getByText(/environment name is required/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/environment name is required/i),
+    ).toBeInTheDocument();
   });
 });

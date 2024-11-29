@@ -21,7 +21,11 @@ test('Show new data removed diff', async () => {
 });
 
 test('Show new data changes diff', async () => {
-  render(<EventDiff entry={{ preData: { segments: 'a' }, data: { segments: 'b' } }} />);
+  render(
+    <EventDiff
+      entry={{ preData: { segments: 'a' }, data: { segments: 'b' } }}
+    />,
+  );
 
   expect(screen.getByText('- segments: "a"')).toBeInTheDocument();
   expect(screen.getByText('+ segments: "b"')).toBeInTheDocument();

@@ -38,10 +38,13 @@ export interface IEmailEnvelope {
 
 const RESET_MAIL_SUBJECT = 'Unleash - Reset your password';
 const GETTING_STARTED_SUBJECT = 'Welcome to Unleash';
-const ORDER_ENVIRONMENTS_SUBJECT = 'Unleash - ordered environments successfully';
+const ORDER_ENVIRONMENTS_SUBJECT =
+  'Unleash - ordered environments successfully';
 const PRODUCTIVITY_REPORT = 'Unleash - productivity report';
-const SCHEDULED_CHANGE_CONFLICT_SUBJECT = 'Unleash - Scheduled changes can no longer be applied';
-const SCHEDULED_EXECUTION_FAILED_SUBJECT = 'Unleash - Scheduled change request could not be applied';
+const SCHEDULED_CHANGE_CONFLICT_SUBJECT =
+  'Unleash - Scheduled changes can no longer be applied';
+const SCHEDULED_EXECUTION_FAILED_SUBJECT =
+  'Unleash - Scheduled change request could not be applied';
 
 export const MAIL_ACCEPTED = '250 Accepted';
 
@@ -99,7 +102,9 @@ export class EmailService {
           ...email.transportOptions,
         });
       }
-      this.logger.info(`Initialized transport to ${email.host} on port ${email.port} with user: ${email.smtpuser}`);
+      this.logger.info(
+        `Initialized transport to ${email.host} on port ${email.port} with user: ${email.smtpuser}`,
+      );
     } else {
       this.sender = 'not-configured';
       this.mailer = undefined;
@@ -115,20 +120,28 @@ export class EmailService {
   ): Promise<IEmailEnvelope> {
     if (this.configured()) {
       const year = new Date().getFullYear();
-      const bodyHtml = await this.compileTemplate('scheduled-execution-failed', TemplateFormat.HTML, {
-        changeRequestLink,
-        changeRequestTitle,
-        scheduledAt,
-        errorMessage,
-        year,
-      });
-      const bodyText = await this.compileTemplate('scheduled-execution-failed', TemplateFormat.PLAIN, {
-        changeRequestLink,
-        changeRequestTitle,
-        scheduledAt,
-        errorMessage,
-        year,
-      });
+      const bodyHtml = await this.compileTemplate(
+        'scheduled-execution-failed',
+        TemplateFormat.HTML,
+        {
+          changeRequestLink,
+          changeRequestTitle,
+          scheduledAt,
+          errorMessage,
+          year,
+        },
+      );
+      const bodyText = await this.compileTemplate(
+        'scheduled-execution-failed',
+        TemplateFormat.PLAIN,
+        {
+          changeRequestLink,
+          changeRequestTitle,
+          scheduledAt,
+          errorMessage,
+          year,
+        },
+      );
       const email = {
         from: this.sender,
         to: recipient,
@@ -138,14 +151,23 @@ export class EmailService {
       };
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () => this.logger.info('Successfully sent scheduled-execution-failed email'),
-          (e) => this.logger.warn('Failed to send scheduled-execution-failed email', e),
+          () =>
+            this.logger.info(
+              'Successfully sent scheduled-execution-failed email',
+            ),
+          (e) =>
+            this.logger.warn(
+              'Failed to send scheduled-execution-failed email',
+              e,
+            ),
         );
       });
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an email service');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an email service',
+      );
       this.logger.debug('Change request link: ', changeRequestLink);
       res({
         from: this.sender,
@@ -253,26 +275,34 @@ export class EmailService {
         ? `${this.config.server.unleashUrl}/projects/${project}/change-requests/${conflictingChangeRequestId}`
         : false;
 
-      const bodyHtml = await this.compileTemplate('scheduled-change-conflict', TemplateFormat.HTML, {
-        conflict,
-        conflictScope,
-        canBeRescheduled,
-        flagArchived,
-        flagLink,
-        conflictingChangeRequestLink,
-        changeRequests,
-        year,
-      });
-      const bodyText = await this.compileTemplate('scheduled-change-conflict', TemplateFormat.PLAIN, {
-        conflict,
-        conflictScope,
-        canBeRescheduled,
-        flagArchived,
-        flagLink,
-        conflictingChangeRequestLink,
-        changeRequests,
-        year,
-      });
+      const bodyHtml = await this.compileTemplate(
+        'scheduled-change-conflict',
+        TemplateFormat.HTML,
+        {
+          conflict,
+          conflictScope,
+          canBeRescheduled,
+          flagArchived,
+          flagLink,
+          conflictingChangeRequestLink,
+          changeRequests,
+          year,
+        },
+      );
+      const bodyText = await this.compileTemplate(
+        'scheduled-change-conflict',
+        TemplateFormat.PLAIN,
+        {
+          conflict,
+          conflictScope,
+          canBeRescheduled,
+          flagArchived,
+          flagLink,
+          conflictingChangeRequestLink,
+          changeRequests,
+          year,
+        },
+      );
       const email = {
         from: this.sender,
         to: recipient,
@@ -282,14 +312,23 @@ export class EmailService {
       };
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
-          () => this.logger.info('Successfully sent scheduled-change-conflict email'),
-          (e) => this.logger.warn('Failed to send scheduled-change-conflict email', e),
+          () =>
+            this.logger.info(
+              'Successfully sent scheduled-change-conflict email',
+            ),
+          (e) =>
+            this.logger.warn(
+              'Failed to send scheduled-change-conflict email',
+              e,
+            ),
         );
       });
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an email service');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an email service',
+      );
       res({
         from: this.sender,
         to: recipient,
@@ -300,19 +339,31 @@ export class EmailService {
     });
   }
 
-  async sendResetMail(name: string, recipient: string, resetLink: string): Promise<IEmailEnvelope> {
+  async sendResetMail(
+    name: string,
+    recipient: string,
+    resetLink: string,
+  ): Promise<IEmailEnvelope> {
     if (this.configured()) {
       const year = new Date().getFullYear();
-      const bodyHtml = await this.compileTemplate('reset-password', TemplateFormat.HTML, {
-        resetLink,
-        name,
-        year,
-      });
-      const bodyText = await this.compileTemplate('reset-password', TemplateFormat.PLAIN, {
-        resetLink,
-        name,
-        year,
-      });
+      const bodyHtml = await this.compileTemplate(
+        'reset-password',
+        TemplateFormat.HTML,
+        {
+          resetLink,
+          name,
+          year,
+        },
+      );
+      const bodyText = await this.compileTemplate(
+        'reset-password',
+        TemplateFormat.PLAIN,
+        {
+          resetLink,
+          name,
+          year,
+        },
+      );
       const email = {
         from: this.sender,
         to: recipient,
@@ -329,7 +380,9 @@ export class EmailService {
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an emailservice');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an emailservice',
+      );
       this.logger.debug('Reset link: ', resetLink);
       res({
         from: this.sender,
@@ -355,8 +408,16 @@ export class EmailService {
         year,
         unleashUrl,
       };
-      const bodyHtml = await this.compileTemplate('getting-started', TemplateFormat.HTML, context);
-      const bodyText = await this.compileTemplate('getting-started', TemplateFormat.PLAIN, context);
+      const bodyHtml = await this.compileTemplate(
+        'getting-started',
+        TemplateFormat.HTML,
+        context,
+      );
+      const bodyText = await this.compileTemplate(
+        'getting-started',
+        TemplateFormat.PLAIN,
+        context,
+      );
       const email = {
         from: this.sender,
         to: recipient,
@@ -373,7 +434,9 @@ export class EmailService {
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an EmailService');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an EmailService',
+      );
       res({
         from: this.sender,
         to: recipient,
@@ -399,8 +462,16 @@ export class EmailService {
         })),
       };
 
-      const bodyHtml = await this.compileTemplate('order-environments', TemplateFormat.HTML, context);
-      const bodyText = await this.compileTemplate('order-environments', TemplateFormat.PLAIN, context);
+      const bodyHtml = await this.compileTemplate(
+        'order-environments',
+        TemplateFormat.HTML,
+        context,
+      );
+      const bodyText = await this.compileTemplate(
+        'order-environments',
+        TemplateFormat.PLAIN,
+        context,
+      );
       const email = {
         from: this.sender,
         to: userEmail,
@@ -418,7 +489,9 @@ export class EmailService {
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an email service');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an email service',
+      );
       res({
         from: this.sender,
         to: userEmail,
@@ -449,15 +522,25 @@ export class EmailService {
 
       const template = 'productivity-report';
 
-      const bodyHtml = await this.compileTemplate(template, TemplateFormat.HTML, context);
-      const bodyText = await this.compileTemplate(template, TemplateFormat.PLAIN, context);
+      const bodyHtml = await this.compileTemplate(
+        template,
+        TemplateFormat.HTML,
+        context,
+      );
+      const bodyText = await this.compileTemplate(
+        template,
+        TemplateFormat.PLAIN,
+        context,
+      );
 
       const headers: Record<string, string> = {};
-      Object.entries(this.config.email.optionalHeaders || {}).forEach(([key, value]) => {
-        if (typeof value === 'string') {
-          headers[key] = value;
-        }
-      });
+      Object.entries(this.config.email.optionalHeaders || {}).forEach(
+        ([key, value]) => {
+          if (typeof value === 'string') {
+            headers[key] = value;
+          }
+        },
+      );
 
       const email: IEmailEnvelope = {
         from: this.sender,
@@ -466,20 +549,29 @@ export class EmailService {
         subject: PRODUCTIVITY_REPORT,
         html: bodyHtml,
         text: bodyText,
-        attachments: [this.resolveTemplateAttachment(template, 'unleash-logo.png', 'unleashLogo')],
+        attachments: [
+          this.resolveTemplateAttachment(
+            template,
+            'unleash-logo.png',
+            'unleashLogo',
+          ),
+        ],
         headers,
       } satisfies IEmailEnvelope;
 
       process.nextTick(() => {
         this.mailer!.sendMail(email).then(
           () => this.logger.info('Successfully sent productivity report email'),
-          (e) => this.logger.warn('Failed to send productivity report email', e),
+          (e) =>
+            this.logger.warn('Failed to send productivity report email', e),
         );
       });
       return Promise.resolve(email);
     }
     return new Promise((res) => {
-      this.logger.warn('No mailer is configured. Please read the docs on how to configure an email service');
+      this.logger.warn(
+        'No mailer is configured. Please read the docs on how to configure an email service',
+      );
       res({
         from: this.sender,
         to: userEmail,
@@ -495,7 +587,11 @@ export class EmailService {
     return this.mailer !== undefined;
   }
 
-  async compileTemplate(templateName: string, format: TemplateFormat, context: unknown): Promise<string> {
+  async compileTemplate(
+    templateName: string,
+    format: TemplateFormat,
+    context: unknown,
+  ): Promise<string> {
     try {
       const template = this.resolveTemplate(templateName, format);
       return await Promise.resolve(Mustache.render(template, context));
@@ -505,9 +601,16 @@ export class EmailService {
     }
   }
 
-  private resolveTemplate(templateName: string, format: TemplateFormat): string {
+  private resolveTemplate(
+    templateName: string,
+    format: TemplateFormat,
+  ): string {
     const topPath = path.resolve(__dirname, '../../mailtemplates');
-    const template = path.join(topPath, templateName, `${templateName}.${format}.mustache`);
+    const template = path.join(
+      topPath,
+      templateName,
+      `${templateName}.${format}.mustache`,
+    );
     if (existsSync(template)) {
       return readFileSync(template, 'utf-8');
     }

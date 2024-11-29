@@ -4,7 +4,8 @@ import { dependentFeatureSchema } from './dependent-feature-schema';
 export const featureDependenciesSchema = {
   $id: '#/components/schemas/featureDependenciesSchema',
   type: 'object',
-  description: 'Feature dependency connection between a child feature and its dependencies',
+  description:
+    'Feature dependency connection between a child feature and its dependencies',
   required: ['feature', 'dependencies'],
   additionalProperties: false,
   properties: {
@@ -28,4 +29,6 @@ export const featureDependenciesSchema = {
   },
 } as const;
 
-export type FeatureDependenciesSchema = FromSchema<typeof featureDependenciesSchema>;
+export type FeatureDependenciesSchema = FromSchema<
+  typeof featureDependenciesSchema
+>;

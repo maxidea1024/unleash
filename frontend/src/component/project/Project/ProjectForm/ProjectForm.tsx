@@ -160,7 +160,9 @@ const ProjectForm: React.FC<IProjectForm> = ({
         condition={setProjectStickiness != null}
         show={
           <>
-            <StyledDescription>What is the default stickiness for the project?</StyledDescription>
+            <StyledDescription>
+              What is the default stickiness for the project?
+            </StyledDescription>
             <StickinessSelect
               label='Stickiness'
               value={projectStickiness}
@@ -186,13 +188,19 @@ const ProjectForm: React.FC<IProjectForm> = ({
               <p>Feature flag limit?</p>
               <FeatureTogglesLimitTooltip />
             </Box>
-            <StyledSubtitle>Leave it empty if you don’t want to add a limit</StyledSubtitle>
+            <StyledSubtitle>
+              Leave it empty if you don’t want to add a limit
+            </StyledSubtitle>
             <StyledInputContainer>
               <StyledInput
                 label={'Limit'}
                 name='value'
                 type={'number'}
-                value={featureLimit === 'null' || featureLimit === undefined ? '' : featureLimit}
+                value={
+                  featureLimit === 'null' || featureLimit === undefined
+                    ? ''
+                    : featureLimit
+                }
                 onChange={(e) => setFeatureLimit!(e.target.value)}
               />
               <ConditionallyRender

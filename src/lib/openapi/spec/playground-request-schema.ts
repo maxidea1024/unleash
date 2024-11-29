@@ -40,4 +40,6 @@ export const playgroundRequestSchema = {
   },
 } as const;
 
-export type PlaygroundRequestSchema = FromSchema<typeof playgroundRequestSchema>;
+export type PlaygroundRequestSchema = FromSchema<
+  typeof playgroundRequestSchema
+>;

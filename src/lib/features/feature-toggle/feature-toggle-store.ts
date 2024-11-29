@@ -4,7 +4,12 @@ import metricsHelper from '../../util/metrics-helper';
 import { DB_TIME } from '../../metric-events';
 import NotFoundError from '../../error/notfound-error';
 import type { Logger, LogProvider } from '../../logger';
-import type { FeatureToggle, FeatureToggleDTO, IFeatureToggleQuery, IVariant } from '../../types/model';
+import type {
+  FeatureToggle,
+  FeatureToggleDTO,
+  IFeatureToggleQuery,
+  IVariant,
+} from '../../types/model';
 import type { IFeatureToggleStore } from './types/feature-toggle-store-type';
 import type { Db } from '../../db/db';
 import type { LastSeenInput } from '../metrics/last-seen/last-seen-service';
@@ -13,7 +18,11 @@ import { DEFAULT_ENV } from '../../../lib/util';
 
 import { FeatureToggleListBuilder } from './query-builders/feature-toggle-list-builder';
 import type { FeatureConfigurationClient } from './types/feature-toggle-strategies-store-type';
-import { ADMIN_TOKEN_USER, type IFeatureTypeCount, type IFlagResolver } from '../../../lib/types';
+import {
+  ADMIN_TOKEN_USER,
+  type IFeatureTypeCount,
+  type IFlagResolver,
+} from '../../../lib/types';
 import { FeatureToggleRowConverter } from './converters/feature-toggle-row-converter';
 import type { IFeatureProjectUserParams } from './feature-toggle-controller';
 
@@ -47,7 +56,8 @@ export interface FeaturesTable {
   created_by_user_id?: number;
 }
 
-export interface FeatureToggleInsert extends Omit<FeatureToggleDTO, 'createdByUserId'> {
+export interface FeatureToggleInsert
+  extends Omit<FeatureToggleDTO, 'createdByUserId'> {
   createdByUserId: number;
 }
 
@@ -76,11 +86,18 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   private readonly featureToggleRowConverter: FeatureToggleRowConverter;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
+  constructor(
+    db: Db,
+    eventBus: EventEmitter,
+    getLogger: LogProvider,
+    flagResolver: IFlagResolver,
+  ) {
     this.logger = getLogger('feature-toggle-store.ts');
 
     this.db = db;
-    this.featureToggleRowConverter = new FeatureToggleRowConverter(flagResolver);
+    this.featureToggleRowConverter = new FeatureToggleRowConverter(
+      flagResolver,
+    );
     this.flagResolver = flagResolver;
     this.timer = (action) =>
       metricsHelper.wrapTimer(eventBus, DB_TIME, {
@@ -112,7 +129,11 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   destroy(): void {}
 
   async get(name: string): Promise<FeatureToggle> {
-    return this.db.first(FEATURE_COLUMNS).from(TABLE).where({ name }).then(this.rowToFeature);
+    return this.db
+      .first(FEATURE_COLUMNS)
+      .from(TABLE)
+      .where({ name })
+      .then(this.rowToFeature);
   }
 
   private getBaseFeatureQuery = (archived: boolean, environment: string) => {
@@ -152,26 +173,41 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   ): Promise<FeatureToggle[]> {
     const environment = featureQuery?.environment || DEFAULT_ENV;
 
-    const builder = this.getBaseFeatureQuery(archived, environment).withFeatureTags();
+    const builder = this.getBaseFeatureQuery(
+      archived,
+      environment,
+    ).withFeatureTags();
 
     builder.addSelectColumn('ft.tag_value as tag_value');
     builder.addSelectColumn('ft.tag_type as tag_type');
 
     builder.withLastSeenByEnvironment(archived);
-    builder.addSelectColumn('last_seen_at_metrics.last_seen_at as env_last_seen_at');
-    builder.addSelectColumn('last_seen_at_metrics.environment as last_seen_at_env');
+    builder.addSelectColumn(
+      'last_seen_at_metrics.last_seen_at as env_last_seen_at',
+    );
+    builder.addSelectColumn(
+      'last_seen_at_metrics.environment as last_seen_at_env',
+    );
 
     if (userId) {
       builder.withFavorites(userId);
-      builder.addSelectColumn(this.db.raw('favorite_features.feature is not null as favorite'));
+      builder.addSelectColumn(
+        this.db.raw('favorite_features.feature is not null as favorite'),
+      );
     }
 
     const rows = await builder.internalQuery.select(builder.getSelectColumns());
 
-    return this.featureToggleRowConverter.buildFeatureToggleListFromRows(rows, featureQuery, includeDisabledStrategies);
+    return this.featureToggleRowConverter.buildFeatureToggleListFromRows(
+      rows,
+      featureQuery,
+      includeDisabledStrategies,
+    );
   }
 
-  async getPlaygroundFeatures(featureQuery: IFeatureToggleQuery): Promise<FeatureConfigurationClient[]> {
+  async getPlaygroundFeatures(
+    featureQuery: IFeatureToggleQuery,
+  ): Promise<FeatureConfigurationClient[]> {
     const environment = featureQuery?.environment || DEFAULT_ENV;
 
     const archived = false;
@@ -189,7 +225,10 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
 
     const rows = await builder.internalQuery.select(builder.getSelectColumns());
 
-    return this.featureToggleRowConverter.buildPlaygroundFeaturesFromRows(rows, featureQuery);
+    return this.featureToggleRowConverter.buildPlaygroundFeaturesFromRows(
+      rows,
+      featureQuery,
+    );
   }
 
   async getAll(
@@ -218,8 +257,12 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     const archived = true;
     builder.query('features').withLastSeenByEnvironment(archived);
 
-    builder.addSelectColumn('last_seen_at_metrics.last_seen_at as env_last_seen_at');
-    builder.addSelectColumn('last_seen_at_metrics.environment as last_seen_at_env');
+    builder.addSelectColumn(
+      'last_seen_at_metrics.last_seen_at as env_last_seen_at',
+    );
+    builder.addSelectColumn(
+      'last_seen_at_metrics.environment as last_seen_at_env',
+    );
 
     let rows: any[];
 
@@ -229,14 +272,24 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
         .where({ project })
         .whereNotNull('archived_at');
     } else {
-      rows = await builder.internalQuery.select(builder.getSelectColumns()).whereNotNull('archived_at');
+      rows = await builder.internalQuery
+        .select(builder.getSelectColumns())
+        .whereNotNull('archived_at');
     }
 
-    return this.featureToggleRowConverter.buildArchivedFeatureToggleListFromRows(rows);
+    return this.featureToggleRowConverter.buildArchivedFeatureToggleListFromRows(
+      rows,
+    );
   }
 
-  async getFeatureTypeCounts({ projectId, archived }: IFeatureProjectUserParams): Promise<IFeatureTypeCount[]> {
-    const query = this.db<FeaturesTable>(TABLE).select('type').count('type').groupBy('type');
+  async getFeatureTypeCounts({
+    projectId,
+    archived,
+  }: IFeatureProjectUserParams): Promise<IFeatureTypeCount[]> {
+    const query = this.db<FeaturesTable>(TABLE)
+      .select('type')
+      .count('type')
+      .groupBy('type');
 
     query
       .where({
@@ -267,14 +320,21 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     dateAccessor: string;
   }): Promise<number> {
     const { project, archived, dateAccessor } = queryModifiers;
-    const query = this.db.count().from(TABLE).where({ project }).modify(FeatureToggleStore.filterByArchived, archived);
+    const query = this.db
+      .count()
+      .from(TABLE)
+      .where({ project })
+      .modify(FeatureToggleStore.filterByArchived, archived);
 
     if (queryModifiers.date) {
       query.andWhere(dateAccessor, '>=', queryModifiers.date);
     }
 
     if (queryModifiers.range && queryModifiers.range.length === 2) {
-      query.andWhereBetween(dateAccessor, [queryModifiers.range[0], queryModifiers.range[1]]);
+      query.andWhereBetween(dateAccessor, [
+        queryModifiers.range[0],
+        queryModifiers.range[1],
+      ]);
     }
 
     const queryResult = await query.first();
@@ -299,7 +359,10 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   }
 
   async exists(name: string): Promise<boolean> {
-    const result = await this.db.raw('SELECT EXISTS (SELECT 1 FROM features WHERE name = ?) AS present', [name]);
+    const result = await this.db.raw(
+      'SELECT EXISTS (SELECT 1 FROM features WHERE name = ?) AS present',
+      [name],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -325,29 +388,46 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
         // Updating the toggle's last_seen_at also for backwards compatibility
         await this.db(TABLE)
           .update({ last_seen_at: now })
-          .whereIn('name', this.db(TABLE).select('name').whereIn('name', toggleNames).forUpdate().skipLocked());
+          .whereIn(
+            'name',
+            this.db(TABLE)
+              .select('name')
+              .whereIn('name', toggleNames)
+              .forUpdate()
+              .skipLocked(),
+          );
       }
     } catch (err) {
       this.logger.error('Could not update lastSeen, error: ', err);
     }
   }
 
-  private mapMetricDataToEnvBuckets(data: LastSeenInput[]): EnvironmentFeatureNames {
-    return data.reduce((acc: EnvironmentFeatureNames, feature: LastSeenInput) => {
-      const { environment, featureName } = feature;
+  private mapMetricDataToEnvBuckets(
+    data: LastSeenInput[],
+  ): EnvironmentFeatureNames {
+    return data.reduce(
+      (acc: EnvironmentFeatureNames, feature: LastSeenInput) => {
+        const { environment, featureName } = feature;
 
-      if (!acc[environment]) {
-        acc[environment] = [];
-      }
+        if (!acc[environment]) {
+          acc[environment] = [];
+        }
 
-      acc[environment].push(featureName);
+        acc[environment].push(featureName);
 
-      return acc;
-    }, {});
+        return acc;
+      },
+      {},
+    );
   }
 
-  static filterByArchived: Knex.QueryCallbackWithArgs = (queryBuilder: Knex.QueryBuilder, archived: boolean) => {
-    return archived ? queryBuilder.whereNotNull('archived_at') : queryBuilder.whereNull('archived_at');
+  static filterByArchived: Knex.QueryCallbackWithArgs = (
+    queryBuilder: Knex.QueryBuilder,
+    archived: boolean,
+  ) => {
+    return archived
+      ? queryBuilder.whereNotNull('archived_at')
+      : queryBuilder.whereNull('archived_at');
   };
 
   rowToFeature(row: FeaturesTable): FeatureToggle {
@@ -373,7 +453,8 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
       return [];
     }
 
-    const sortedVariants = (variantRows[0].variants as unknown as IVariant[]) || [];
+    const sortedVariants =
+      (variantRows[0].variants as unknown as IVariant[]) || [];
     sortedVariants.sort((a, b) => a.name.localeCompare(b.name));
     return sortedVariants;
   }
@@ -397,7 +478,10 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     return row;
   }
 
-  dtoToUpdateRow(project: string, data: FeatureToggleDTO): Omit<FeaturesTable, 'created_by_user_id'> {
+  dtoToUpdateRow(
+    project: string,
+    data: FeatureToggleDTO,
+  ): Omit<FeaturesTable, 'created_by_user_id'> {
     const row: Omit<FeaturesTable, 'created_by_user_id'> = {
       name: data.name,
       description: data.description || '',
@@ -411,21 +495,32 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     return row;
   }
 
-  async create(project: string, data: FeatureToggleInsert): Promise<FeatureToggle> {
+  async create(
+    project: string,
+    data: FeatureToggleInsert,
+  ): Promise<FeatureToggle> {
     try {
-      const row = await this.db(TABLE).insert(this.insertToRow(project, data)).returning(FEATURE_COLUMNS);
+      const row = await this.db(TABLE)
+        .insert(this.insertToRow(project, data))
+        .returning(FEATURE_COLUMNS);
 
       return this.rowToFeature(row[0]);
     } catch (err) {
       this.logger.error('Could not insert feature, error: ', err);
-      if (typeof err.detail === 'string' && err.detail.includes('already exists')) {
+      if (
+        typeof err.detail === 'string' &&
+        err.detail.includes('already exists')
+      ) {
         throw new NameExistsError(`Feature ${data.name} already exists`);
       }
       throw err;
     }
   }
 
-  async update(project: string, data: FeatureToggleDTO): Promise<FeatureToggle> {
+  async update(
+    project: string,
+    data: FeatureToggleDTO,
+  ): Promise<FeatureToggle> {
     const row = await this.db(TABLE)
       .where({ name: data.name })
       .update(this.dtoToUpdateRow(project, data))
@@ -436,18 +531,27 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
 
   async archive(name: string): Promise<FeatureToggle> {
     const now = new Date();
-    const row = await this.db(TABLE).where({ name }).update({ archived_at: now }).returning(FEATURE_COLUMNS);
+    const row = await this.db(TABLE)
+      .where({ name })
+      .update({ archived_at: now })
+      .returning(FEATURE_COLUMNS);
     return this.rowToFeature(row[0]);
   }
 
   async batchArchive(names: string[]): Promise<FeatureToggle[]> {
     const now = new Date();
-    const rows = await this.db(TABLE).whereIn('name', names).update({ archived_at: now }).returning(FEATURE_COLUMNS);
+    const rows = await this.db(TABLE)
+      .whereIn('name', names)
+      .update({ archived_at: now })
+      .returning(FEATURE_COLUMNS);
     return rows.map((row) => this.rowToFeature(row));
   }
 
   async batchStale(names: string[], stale: boolean): Promise<FeatureToggle[]> {
-    const rows = await this.db(TABLE).whereIn('name', names).update({ stale }).returning(FEATURE_COLUMNS);
+    const rows = await this.db(TABLE)
+      .whereIn('name', names)
+      .update({ stale })
+      .returning(FEATURE_COLUMNS);
     return rows.map((row) => this.rowToFeature(row));
   }
 
@@ -459,23 +563,34 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
   }
 
   async batchDelete(names: string[]): Promise<void> {
-    await this.db(TABLE).whereIn('name', names).whereNotNull('archived_at').del();
+    await this.db(TABLE)
+      .whereIn('name', names)
+      .whereNotNull('archived_at')
+      .del();
   }
 
   async revive(name: string): Promise<FeatureToggle> {
-    const row = await this.db(TABLE).where({ name }).update({ archived_at: null }).returning(FEATURE_COLUMNS);
+    const row = await this.db(TABLE)
+      .where({ name })
+      .update({ archived_at: null })
+      .returning(FEATURE_COLUMNS);
 
     return this.rowToFeature(row[0]);
   }
 
   async batchRevive(names: string[]): Promise<FeatureToggle[]> {
-    const rows = await this.db(TABLE).whereIn('name', names).update({ archived_at: null }).returning(FEATURE_COLUMNS);
+    const rows = await this.db(TABLE)
+      .whereIn('name', names)
+      .update({ archived_at: null })
+      .returning(FEATURE_COLUMNS);
 
     return rows.map((row) => this.rowToFeature(row));
   }
 
   async disableAllEnvironmentsForFeatures(names: string[]): Promise<void> {
-    await this.db(FEATURE_ENVIRONMENTS_TABLE).whereIn('feature_name', names).update({ enabled: false });
+    await this.db(FEATURE_ENVIRONMENTS_TABLE)
+      .whereIn('feature_name', names)
+      .update({ enabled: false });
   }
 
   async getVariants(featureName: string): Promise<IVariant[]> {
@@ -491,19 +606,32 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     return this.rowToEnvVariants(row);
   }
 
-  async getVariantsForEnv(featureName: string, environment: string): Promise<IVariant[]> {
+  async getVariantsForEnv(
+    featureName: string,
+    environment: string,
+  ): Promise<IVariant[]> {
     const row = await this.db(`${TABLE} as f`)
       .select('fev.variants')
-      .join(`${FEATURE_ENVIRONMENTS_TABLE} as fev`, 'fev.feature_name', 'f.name')
+      .join(
+        `${FEATURE_ENVIRONMENTS_TABLE} as fev`,
+        'fev.feature_name',
+        'f.name',
+      )
       .where({ name: featureName })
       .andWhere({ environment });
 
     return this.rowToEnvVariants(row);
   }
 
-  async saveVariants(project: string, featureName: string, newVariants: IVariant[]): Promise<FeatureToggle> {
+  async saveVariants(
+    project: string,
+    featureName: string,
+    newVariants: IVariant[],
+  ): Promise<FeatureToggle> {
     const variantsString = JSON.stringify(newVariants);
-    await this.db('feature_environments').update('variants', variantsString).where('feature_name', featureName);
+    await this.db('feature_environments')
+      .update('variants', variantsString)
+      .where('feature_name', featureName);
 
     const row = await this.db(TABLE).select(FEATURE_COLUMNS).where({
       project: project,
@@ -539,7 +667,8 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
 
     const featuresToUpdate = (await query).rows
       .filter(
-        ({ potentially_stale, current_staleness }) => (potentially_stale ?? false) !== (current_staleness ?? false),
+        ({ potentially_stale, current_staleness }) =>
+          (potentially_stale ?? false) !== (current_staleness ?? false),
       )
       .map(({ current_staleness, name, project }) => ({
         potentiallyStale: current_staleness ?? false,
@@ -551,21 +680,28 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
       .update('potentially_stale', true)
       .whereIn(
         'name',
-        featuresToUpdate.filter((feature) => feature.potentiallyStale === true).map((feature) => feature.name),
+        featuresToUpdate
+          .filter((feature) => feature.potentiallyStale === true)
+          .map((feature) => feature.name),
       );
 
     await this.db(TABLE)
       .update('potentially_stale', false)
       .whereIn(
         'name',
-        featuresToUpdate.filter((feature) => feature.potentiallyStale !== true).map((feature) => feature.name),
+        featuresToUpdate
+          .filter((feature) => feature.potentiallyStale !== true)
+          .map((feature) => feature.name),
       );
 
     return featuresToUpdate;
   }
 
   async isPotentiallyStale(featureName: string): Promise<boolean> {
-    const result = await this.db(TABLE).first(['potentially_stale']).from(TABLE).where({ name: featureName });
+    const result = await this.db(TABLE)
+      .first(['potentially_stale'])
+      .from(TABLE)
+      .where({ name: featureName });
 
     return result?.potentially_stale ?? false;
   }
@@ -577,8 +713,12 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
 
     const toUpdate = await this.db(`${TABLE} as f`)
       .joinRaw(`JOIN ${EVENTS_TABLE} AS ev ON ev.feature_name = f.name`)
-      .joinRaw(`LEFT OUTER JOIN ${USERS_TABLE} AS u on ev.created_by = u.username OR ev.created_by = u.email`)
-      .joinRaw(`LEFT OUTER JOIN ${API_TOKEN_TABLE} AS t on ev.created_by = t.username`)
+      .joinRaw(
+        `LEFT OUTER JOIN ${USERS_TABLE} AS u on ev.created_by = u.username OR ev.created_by = u.email`,
+      )
+      .joinRaw(
+        `LEFT OUTER JOIN ${API_TOKEN_TABLE} AS t on ev.created_by = t.username`,
+      )
       .whereRaw(
         `f.created_by_user_id IS null AND
                 ev.type = 'feature-created' AND
@@ -591,7 +731,9 @@ export default class FeatureToggleStore implements IFeatureToggleStore {
     const updatePromises = toUpdate.map((row) => {
       const id = row.id || ADMIN_TOKEN_USER.id;
 
-      return this.db(TABLE).update({ created_by_user_id: id }).where({ name: row.name });
+      return this.db(TABLE)
+        .update({ created_by_user_id: id })
+        .where({ name: row.name });
     });
 
     await Promise.all(updatePromises);

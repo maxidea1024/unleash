@@ -26,8 +26,12 @@ test("shouldn't allow . nor .. as name", () => {
     strategies: [{ name: 'default' }],
   };
 
-  expect(featureSchema.validate(toggle1).error?.details[0].message).toEqual('"name" must be URL friendly');
-  expect(featureSchema.validate(toggle2).error?.details[0].message).toEqual('"name" must be URL friendly');
+  expect(featureSchema.validate(toggle1).error?.details[0].message).toEqual(
+    '"name" must be URL friendly',
+  );
+  expect(featureSchema.validate(toggle2).error?.details[0].message).toEqual(
+    '"name" must be URL friendly',
+  );
 });
 
 test('should be valid toggle name', () => {
@@ -133,7 +137,9 @@ test('should not allow weightType=fix with more than 1000', () => {
   };
 
   const { error } = featureSchema.validate(toggle);
-  expect(error?.details[0].message).toEqual('"variants[0].weight" must be less than or equal to 1000');
+  expect(error?.details[0].message).toEqual(
+    '"variants[0].weight" must be less than or equal to 1000',
+  );
 });
 
 test('should disallow weightType=unknown', () => {
@@ -155,7 +161,9 @@ test('should disallow weightType=unknown', () => {
   };
 
   const { error } = featureSchema.validate(toggle);
-  expect(error?.details[0].message).toEqual('"variants[0].weightType" must be one of [variable, fix]');
+  expect(error?.details[0].message).toEqual(
+    '"variants[0].weightType" must be one of [variable, fix]',
+  );
 });
 
 test('should be possible to define variant overrides', () => {
@@ -213,7 +221,9 @@ test('variant overrides must have corect shape', async () => {
   try {
     await featureSchema.validateAsync(toggle);
   } catch (error) {
-    expect(error.details[0].message).toBe('"variants[0].overrides" must be an array');
+    expect(error.details[0].message).toBe(
+      '"variants[0].overrides" must be an array',
+    );
   }
 });
 
@@ -267,7 +277,9 @@ test('should not accept empty constraint values', () => {
   };
 
   const { error } = featureSchema.validate(toggle);
-  expect(error?.details[0].message).toEqual('"strategies[0].constraints[0].values[0]" is not allowed to be empty');
+  expect(error?.details[0].message).toEqual(
+    '"strategies[0].constraints[0].values[0]" is not allowed to be empty',
+  );
 });
 
 test('should accept empty list of constraint values', async () => {
@@ -310,7 +322,9 @@ test('Filter queries should reject tag values with missing type prefix', () => {
     tag: ['simple', 'simple'],
   };
   const { error } = querySchema.validate(query);
-  expect(error?.details[0].message).toEqual('"tag[0]" with value "simple" fails to match the tag pattern');
+  expect(error?.details[0].message).toEqual(
+    '"tag[0]" with value "simple" fails to match the tag pattern',
+  );
 });
 
 test('Filter queries should allow project names', () => {
@@ -326,7 +340,9 @@ test('Filter queries should reject project names that are not alphanum', () => {
     project: ['project name with space'],
   };
   const { error } = querySchema.validate(query);
-  expect(error?.details[0].message).toEqual('"project[0]" must be URL friendly');
+  expect(error?.details[0].message).toEqual(
+    '"project[0]" must be URL friendly',
+  );
 });
 
 test('constraint schema should only allow specified operators', async () => {

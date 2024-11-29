@@ -7,9 +7,13 @@ test('sortOrderSchema', () => {
     b: 2,
   };
 
-  expect(validateSchema('#/components/schemas/sortOrderSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/sortOrderSchema', data),
+  ).toBeUndefined();
 });
 
 test('sortOrderSchema invalid value type', () => {
-  expect(validateSchema('#/components/schemas/sortOrderSchema', { a: '1' })).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/sortOrderSchema', { a: '1' }),
+  ).toMatchSnapshot();
 });

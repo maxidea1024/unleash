@@ -23,7 +23,9 @@ const StyledItem = styled(Button, {
     overflow: 'auto',
   },
   '&:hover': {
-    backgroundColor: selected ? theme.palette.secondary.light : theme.palette.neutral.light,
+    backgroundColor: selected
+      ? theme.palette.secondary.light
+      : theme.palette.neutral.light,
   },
   '&.Mui-disabled': {
     pointerEvents: 'auto',
@@ -39,7 +41,11 @@ interface ISidePanelListItemProps {
   children: ReactNode;
 }
 
-export const SidePanelListItem = ({ selected, onClick, children }: ISidePanelListItemProps) => (
+export const SidePanelListItem = ({
+  selected,
+  onClick,
+  children,
+}: ISidePanelListItemProps) => (
   <StyledItemRow>
     <StyledItem selected={selected} onClick={onClick}>
       {children}

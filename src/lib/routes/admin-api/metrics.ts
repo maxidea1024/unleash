@@ -9,7 +9,10 @@ import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { ApplicationSchema } from '../../openapi/spec/application-schema';
 import type { ApplicationsSchema } from '../../openapi/spec/applications-schema';
-import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi/util/standard-responses';
 import type { CreateApplicationSchema } from '../../openapi/spec/create-application-schema';
 import type { IAuthRequest } from '../unleash-types';
 import { extractUserIdFromUser } from '../../util';
@@ -25,7 +28,10 @@ import {
   applicationEnvironmentInstancesSchema,
   type ApplicationEnvironmentInstancesSchema,
 } from '../../openapi/spec/application-environment-instances-schema';
-import { outdatedSdksSchema, type OutdatedSdksSchema } from '../../openapi/spec/outdated-sdks-schema';
+import {
+  outdatedSdksSchema,
+  type OutdatedSdksSchema,
+} from '../../openapi/spec/outdated-sdks-schema';
 
 export default class MetricsController extends Controller {
   private readonly logger: Logger;
@@ -35,7 +41,10 @@ export default class MetricsController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { clientInstanceService, openApiService }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
+    {
+      clientInstanceService,
+      openApiService,
+    }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -61,7 +70,8 @@ export default class MetricsController extends Controller {
           tags: ['Metrics'],
           operationId: 'createApplication',
           summary: 'Create an application to connect reported metrics',
-          description: 'Is used to report usage as well which sdk the application uses',
+          description:
+            'Is used to report usage as well which sdk the application uses',
           responses: {
             202: emptyResponse,
             ...getStandardResponses(400, 401, 403),
@@ -141,7 +151,8 @@ export default class MetricsController extends Controller {
           tags: ['Metrics'],
           operationId: 'getApplicationOverview',
           summary: 'Get application overview',
-          description: 'Returns an overview of the specified application (`appName`).',
+          description:
+            'Returns an overview of the specified application (`appName`).',
           responses: {
             200: createResponseSchema('applicationOverviewSchema'),
             ...getStandardResponses(404),
@@ -180,7 +191,8 @@ export default class MetricsController extends Controller {
           tags: ['Metrics'],
           operationId: 'getOutdatedSdks',
           summary: 'Get outdated SDKs',
-          description: 'Returns a list of the outdated SDKS with the applications using them.',
+          description:
+            'Returns a list of the outdated SDKS with the applications using them.',
           responses: {
             200: createResponseSchema('outdatedSdksSchema'),
             ...getStandardResponses(404),
@@ -228,15 +240,20 @@ export default class MetricsController extends Controller {
     res.status(202).end();
   }
 
-  async getApplications(req: IAuthRequest, res: Response<ApplicationsSchema>): Promise<void> {
+  async getApplications(
+    req: IAuthRequest,
+    res: Response<ApplicationsSchema>,
+  ): Promise<void> {
     const { user } = req;
-    const { normalizedQuery, normalizedSortOrder, normalizedOffset, normalizedLimit } = normalizeQueryParams(
-      req.query,
-      {
-        limitDefault: 1000,
-        maxLimit: 1000,
-      },
-    );
+    const {
+      normalizedQuery,
+      normalizedSortOrder,
+      normalizedOffset,
+      normalizedLimit,
+    } = normalizeQueryParams(req.query, {
+      limitDefault: 1000,
+      maxLimit: 1000,
+    });
 
     const applications = await this.clientInstanceService.getApplications(
       {
@@ -251,7 +268,10 @@ export default class MetricsController extends Controller {
     res.json(applications);
   }
 
-  async getApplication(req: Request<{ appName: string }>, res: Response<ApplicationSchema>): Promise<void> {
+  async getApplication(
+    req: Request<{ appName: string }>,
+    res: Response<ApplicationSchema>,
+  ): Promise<void> {
     const { appName } = req.params;
 
     const appDetails = await this.clientInstanceService.getApplication(appName);
@@ -264,15 +284,28 @@ export default class MetricsController extends Controller {
   ): Promise<void> {
     const { appName } = req.params;
     const { user } = req;
-    const overview = await this.clientInstanceService.getApplicationOverview(appName, extractUserIdFromUser(user));
+    const overview = await this.clientInstanceService.getApplicationOverview(
+      appName,
+      extractUserIdFromUser(user),
+    );
 
-    this.openApiService.respondWithValidation(200, res, applicationOverviewSchema.$id, serializeDates(overview));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      applicationOverviewSchema.$id,
+      serializeDates(overview),
+    );
   }
 
   async getOutdatedSdks(req: Request, res: Response<OutdatedSdksSchema>) {
     const outdatedSdks = await this.clientInstanceService.getOutdatedSdks();
 
-    this.openApiService.respondWithValidation(200, res, outdatedSdksSchema.$id, { sdks: outdatedSdks });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      outdatedSdksSchema.$id,
+      { sdks: outdatedSdks },
+    );
   }
 
   async getApplicationEnvironmentInstances(
@@ -280,7 +313,11 @@ export default class MetricsController extends Controller {
     res: Response<ApplicationEnvironmentInstancesSchema>,
   ): Promise<void> {
     const { appName, environment } = req.params;
-    const instances = await this.clientInstanceService.getApplicationEnvironmentInstances(appName, environment);
+    const instances =
+      await this.clientInstanceService.getApplicationEnvironmentInstances(
+        appName,
+        environment,
+      );
 
     this.openApiService.respondWithValidation(
       200,

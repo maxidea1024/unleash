@@ -5,8 +5,9 @@ export const PlaygroundGuidance = () => {
   return (
     <Box sx={{ ml: 4 }}>
       <Typography variant='body1'>
-        Unleash playground is for helping you to understand how Unleash works, how feature flags are evaluated and for
-        you to easily debug your feature flags.
+        Unleash playground is for helping you to understand how Unleash works,
+        how feature flags are evaluated and for you to easily debug your feature
+        flags.
       </Typography>
 
       <Divider sx={{ mt: 2, mb: 2 }} />

@@ -128,7 +128,9 @@ test('Render personal dashboard for a long running project', async () => {
   setupLongRunningProject();
   render(<PersonalDashboard />);
 
-  const welcomeDialogClose = await screen.findByText("Got it, let's get started!");
+  const welcomeDialogClose = await screen.findByText(
+    "Got it, let's get started!",
+  );
 
   fireEvent.click(welcomeDialogClose);
 
@@ -160,5 +162,7 @@ test('Render personal dashboard for a new project', async () => {
   await screen.findByText('Create a feature flag');
   await screen.findByText('Connect an SDK');
   await screen.findByText('You have no project roles in this project.');
-  await screen.findByText('You have not created or favorited any feature flags. Once you do, they will show up here.');
+  await screen.findByText(
+    'You have not created or favorited any feature flags. Once you do, they will show up here.',
+  );
 });

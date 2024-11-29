@@ -8,7 +8,9 @@ export interface IUseWeakMap<K, V> {
 // A WeakMap associates extra data with an object instance.
 // This hook encapsulates a WeakMap, and will trigger
 // a rerender whenever `set` is called.
-export const useWeakMap = <K extends object, V>(initial?: WeakMap<K, V>): IUseWeakMap<K, V> => {
+export const useWeakMap = <K extends object, V>(
+  initial?: WeakMap<K, V>,
+): IUseWeakMap<K, V> => {
   const ref = useRef(initial ?? new WeakMap<K, V>());
   const [, setState] = useState(0);
 

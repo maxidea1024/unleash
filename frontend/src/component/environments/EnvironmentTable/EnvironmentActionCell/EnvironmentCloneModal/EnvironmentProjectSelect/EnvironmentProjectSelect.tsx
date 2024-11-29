@@ -1,4 +1,10 @@
-import { Autocomplete, type AutocompleteRenderGroupParams, Checkbox, styled, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  type AutocompleteRenderGroupParams,
+  Checkbox,
+  styled,
+  TextField,
+} from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { caseInsensitiveSearch } from 'utils/search';
@@ -30,7 +36,11 @@ const StyledGroupFormUsersSelect = styled('div')(({ theme }) => ({
   },
 }));
 
-const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: IProjectBase, selected: boolean) => (
+const renderOption = (
+  props: React.HTMLAttributes<HTMLLIElement>,
+  option: IProjectBase,
+  selected: boolean,
+) => (
   <li {...props}>
     <Checkbox
       icon={<CheckBoxOutlineBlankIcon fontSize='small' />}
@@ -46,7 +56,9 @@ const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: IProje
 );
 
 const renderTags = (value: IProjectBase[]) => (
-  <StyledTags>{value.length > 1 ? `${value.length} projects selected` : value[0].name}</StyledTags>
+  <StyledTags>
+    {value.length > 1 ? `${value.length} projects selected` : value[0].name}
+  </StyledTags>
 );
 
 interface IProjectBase {
@@ -60,7 +72,10 @@ interface IEnvironmentProjectSelectProps {
   setProjects: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const EnvironmentProjectSelect = ({ projects, setProjects }: IEnvironmentProjectSelectProps) => {
+export const EnvironmentProjectSelect = ({
+  projects,
+  setProjects,
+}: IEnvironmentProjectSelectProps) => {
   const { projects: projectsAll } = useProjects();
 
   const projectOptions = projectsAll
@@ -71,9 +86,12 @@ export const EnvironmentProjectSelect = ({ projects, setProjects }: IEnvironment
       description,
     })) as IProjectBase[];
 
-  const selectedProjects = projectOptions.filter(({ id }) => projects.includes(id));
+  const selectedProjects = projectOptions.filter(({ id }) =>
+    projects.includes(id),
+  );
 
-  const isAllSelected = projects.length > 0 && projects.length === projectOptions.length;
+  const isAllSelected =
+    projects.length > 0 && projects.length === projectOptions.length;
 
   const onSelectAllClick = () => {
     const newProjects = isAllSelected ? [] : projectOptions.map(({ id }) => id);
@@ -84,7 +102,12 @@ export const EnvironmentProjectSelect = ({ projects, setProjects }: IEnvironment
     <Fragment key={key}>
       <ConditionallyRender
         condition={projectOptions.length > 2}
-        show={<SelectAllButton isAllSelected={isAllSelected} onClick={onSelectAllClick} />}
+        show={
+          <SelectAllButton
+            isAllSelected={isAllSelected}
+            onClick={onSelectAllClick}
+          />
+        }
       />
       {children}
     </Fragment>
@@ -110,11 +133,14 @@ export const EnvironmentProjectSelect = ({ projects, setProjects }: IEnvironment
           setProjects(newValue.map(({ id }) => id));
         }}
         options={projectOptions}
-        renderOption={(props, option, { selected }) => renderOption(props, option, selected)}
+        renderOption={(props, option, { selected }) =>
+          renderOption(props, option, selected)
+        }
         filterOptions={(options, { inputValue }) =>
           options.filter(
             ({ name, description }) =>
-              caseInsensitiveSearch(inputValue, name) || caseInsensitiveSearch(inputValue, description),
+              caseInsensitiveSearch(inputValue, name) ||
+              caseInsensitiveSearch(inputValue, description),
           )
         }
         isOptionEqualToValue={(option, value) => option.id === value.id}

@@ -35,12 +35,14 @@ export const featureEnvironmentSchema = {
     enabled: {
       type: 'boolean',
       example: true,
-      description: '`true` if the feature is enabled for the environment, otherwise `false`.',
+      description:
+        '`true` if the feature is enabled for the environment, otherwise `false`.',
     },
     sortOrder: {
       type: 'number',
       example: 3,
-      description: 'The sort order of the feature environment in the feature environments list',
+      description:
+        'The sort order of the feature environment in the feature environments list',
     },
     variantCount: {
       type: 'number',
@@ -51,7 +53,8 @@ export const featureEnvironmentSchema = {
       items: {
         $ref: '#/components/schemas/featureStrategySchema',
       },
-      description: 'A list of activation strategies for the feature environment',
+      description:
+        'A list of activation strategies for the feature environment',
     },
     variants: {
       type: 'array',
@@ -65,7 +68,8 @@ export const featureEnvironmentSchema = {
       format: 'date-time',
       nullable: true,
       example: '2023-01-28T16:21:39.975Z',
-      description: 'The date when metrics where last collected for the feature environment',
+      description:
+        'The date when metrics where last collected for the feature environment',
     },
     hasStrategies: {
       type: 'boolean',
@@ -87,4 +91,6 @@ export const featureEnvironmentSchema = {
   },
 } as const;
 
-export type FeatureEnvironmentSchema = FromSchema<typeof featureEnvironmentSchema>;
+export type FeatureEnvironmentSchema = FromSchema<
+  typeof featureEnvironmentSchema
+>;

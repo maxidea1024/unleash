@@ -44,7 +44,8 @@ export const DemoBanner = ({ onPlans }: IDemoBannerProps) => {
   return (
     <StyledBanner>
       <span>
-        This is a <strong>demo of Unleash</strong>. Play around as much as you want. Reach out when you're ready.
+        This is a <strong>demo of Unleash</strong>. Play around as much as you
+        want. Reach out when you're ready.
       </span>
       <StyledButtons>
         <StyledQuestionsButton

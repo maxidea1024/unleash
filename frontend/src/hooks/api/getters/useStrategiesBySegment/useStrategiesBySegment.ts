@@ -18,7 +18,9 @@ export type ChangeRequestUpdatedStrategy = ChangeRequestNewStrategy & {
   id: string;
 };
 
-export type ChangeRequestStrategy = ChangeRequestNewStrategy | ChangeRequestUpdatedStrategy;
+export type ChangeRequestStrategy =
+  | ChangeRequestNewStrategy
+  | ChangeRequestUpdatedStrategy;
 
 export interface IUseStrategiesBySegmentOutput {
   strategies: IFeatureStrategy[];
@@ -28,9 +30,13 @@ export interface IUseStrategiesBySegmentOutput {
   error?: Error;
 }
 
-export const useStrategiesBySegment = (id?: string | number): IUseStrategiesBySegmentOutput => {
+export const useStrategiesBySegment = (
+  id?: string | number,
+): IUseStrategiesBySegmentOutput => {
   const path = formatApiPath(`api/admin/segments/${id}/strategies`);
-  const { data, error } = useConditionalSWR(id, [], path, () => fetchUsedSegment(path));
+  const { data, error } = useConditionalSWR(id, [], path, () =>
+    fetchUsedSegment(path),
+  );
 
   const refetchUsedSegments = useCallback(() => {
     mutate(path).catch(console.warn);

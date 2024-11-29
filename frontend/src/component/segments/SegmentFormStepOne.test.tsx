@@ -5,7 +5,10 @@ import { SegmentFormStepOne } from './SegmentFormStepOne';
 
 const server = testServerSetup();
 
-const setupRoutes = ({ limit, segments }: { limit: number; segments: number }) => {
+const setupRoutes = ({
+  limit,
+  segments,
+}: { limit: number; segments: number }) => {
   testServerRoute(server, 'api/admin/segments', {
     segments: [...Array(segments).keys()].map((i) => ({
       name: `segment${i}`,

@@ -16,7 +16,11 @@ import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import { ChartTooltip, ChartTooltipContainer, type TooltipState } from './ChartTooltip/ChartTooltip';
+import {
+  ChartTooltip,
+  ChartTooltipContainer,
+  type TooltipState,
+} from './ChartTooltip/ChartTooltip';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { styled } from '@mui/material';
 import { createOptions } from './createChartOptions';
@@ -72,8 +76,16 @@ const LineChartComponent: FC<{
   aspectRatio?: number;
   cover?: ReactNode;
   overrideOptions?: ChartOptions<'line'>;
-  TooltipComponent?: ({ tooltip }: { tooltip: TooltipState | null }) => ReturnType<FC>;
-}> = ({ data, aspectRatio = 2.5, cover, overrideOptions, TooltipComponent }) => {
+  TooltipComponent?: ({
+    tooltip,
+  }: { tooltip: TooltipState | null }) => ReturnType<FC>;
+}> = ({
+  data,
+  aspectRatio = 2.5,
+  cover,
+  overrideOptions,
+  TooltipComponent,
+}) => {
   const theme = useTheme();
   const { locationSettings } = useLocationSettings();
 
@@ -109,7 +121,9 @@ const LineChartComponent: FC<{
         }
         elseShow={
           <StyledCover>
-            <StyledCoverContent>{cover !== true ? cover : ' '}</StyledCoverContent>
+            <StyledCoverContent>
+              {cover !== true ? cover : ' '}
+            </StyledCoverContent>
           </StyledCover>
         }
       />
@@ -117,7 +131,16 @@ const LineChartComponent: FC<{
   );
 };
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, TimeScale, Tooltip, Legend, Filler);
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  TimeScale,
+  Tooltip,
+  Legend,
+  Filler,
+);
 
 // for lazy-loading
 export default LineChartComponent;

@@ -22,7 +22,10 @@ export default class EdgeController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { edgeService, openApiService }: Pick<IUnleashServices, 'edgeService' | 'openApiService'>,
+    {
+      edgeService,
+      openApiService,
+    }: Pick<IUnleashServices, 'edgeService' | 'openApiService'>,
   ) {
     super(config);
 

@@ -68,7 +68,8 @@ export const exportQueryParameters = [
       ],
       default: true,
     },
-    description: 'Whether feature flags should be included in the exported data.',
+    description:
+      'Whether feature flags should be included in the exported data.',
     in: 'query',
   },
   {
@@ -108,7 +109,8 @@ export const exportQueryParameters = [
       ],
       default: true,
     },
-    description: 'Whether tag types, tags, and feature_tags should be included in the exported data.',
+    description:
+      'Whether tag types, tags, and feature_tags should be included in the exported data.',
     in: 'query',
   },
   {
@@ -128,9 +130,12 @@ export const exportQueryParameters = [
       ],
       default: true,
     },
-    description: 'Whether environments should be included in the exported data.',
+    description:
+      'Whether environments should be included in the exported data.',
     in: 'query',
   },
 ] as const;
 
-export type ExportQueryParameters = FromQueryParams<typeof exportQueryParameters>;
+export type ExportQueryParameters = FromQueryParams<
+  typeof exportQueryParameters
+>;

@@ -67,11 +67,22 @@ export const Separator = () => (
   </Typography>
 );
 
-export const ChangeRequestSidebar: VFC<IChangeRequestSidebarProps> = ({ open, project, onClose }) => {
-  const { data, loading, refetch: refetchChangeRequest } = usePendingChangeRequests(project);
+export const ChangeRequestSidebar: VFC<IChangeRequestSidebarProps> = ({
+  open,
+  project,
+  onClose,
+}) => {
+  const {
+    data,
+    loading,
+    refetch: refetchChangeRequest,
+  } = usePendingChangeRequests(project);
   const { discardDraft } = useChangeRequestApi();
   const { setToastApiError } = useToast();
-  const [changeRequestChangesWillOverwrite, setChangeRequestChangesWillOverwrite] = useState(false);
+  const [
+    changeRequestChangesWillOverwrite,
+    setChangeRequestChangesWillOverwrite,
+  ] = useState(false);
 
   const onReview = async (changeState: (project: string) => Promise<void>) => {
     try {
@@ -94,7 +105,10 @@ export const ChangeRequestSidebar: VFC<IChangeRequestSidebarProps> = ({ open, pr
   if (!loading && !data) {
     return (
       <DynamicSidebarModal open={open} onClose={onClose} label='Review changes'>
-        <StyledPageContent disableBorder={true} header={<PageHeader titleElement='Review your changes' />}>
+        <StyledPageContent
+          disableBorder={true}
+          header={<PageHeader titleElement='Review your changes' />}
+        >
           There are no changes to review.
           {/* FIXME: empty state */}
           <BackButton onClick={onClose}>Close</BackButton>
@@ -111,7 +125,8 @@ export const ChangeRequestSidebar: VFC<IChangeRequestSidebarProps> = ({ open, pr
             key={environmentChangeRequest.id}
             value={{
               willOverwriteStrategyChanges: changeRequestChangesWillOverwrite,
-              registerWillOverwriteStrategyChanges: () => setChangeRequestChangesWillOverwrite(true),
+              registerWillOverwriteStrategyChanges: () =>
+                setChangeRequestChangesWillOverwrite(true),
             }}
           >
             <EnvironmentChangeRequest

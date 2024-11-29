@@ -8,7 +8,9 @@ test('constraintSchema', () => {
     value: '1',
   };
 
-  expect(validateSchema('#/components/schemas/constraintSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/constraintSchema', data),
+  ).toBeUndefined();
 });
 
 test('constraintSchema invalid value type', () => {

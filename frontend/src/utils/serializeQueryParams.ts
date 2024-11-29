@@ -1,7 +1,9 @@
 // Custom additional serializers for query params library
 // used in `useQueryParams` hook
 
-const encodeBoolean = (bool: boolean | null | undefined): string | null | undefined => {
+const encodeBoolean = (
+  bool: boolean | null | undefined,
+): string | null | undefined => {
   if (bool == null) {
     return bool;
   }
@@ -9,7 +11,9 @@ const encodeBoolean = (bool: boolean | null | undefined): string | null | undefi
   return bool ? 'true' : 'false';
 };
 
-const decodeBoolean = (input: string | (string | null)[] | null | undefined): boolean | null | undefined => {
+const decodeBoolean = (
+  input: string | (string | null)[] | null | undefined,
+): boolean | null | undefined => {
   if (input === 'true') {
     return true;
   }
@@ -31,11 +35,17 @@ export type FilterItem = {
   values: string[];
 };
 
-const encodeFilterItem = (filterItem: FilterItem | null | undefined): string | undefined => {
-  return filterItem?.values.length ? `${filterItem.operator}:${filterItem.values.join(',')}` : undefined;
+const encodeFilterItem = (
+  filterItem: FilterItem | null | undefined,
+): string | undefined => {
+  return filterItem?.values.length
+    ? `${filterItem.operator}:${filterItem.values.join(',')}`
+    : undefined;
 };
 
-const decodeFilterItem = (input: string | (string | null)[] | null | undefined): FilterItem | null | undefined => {
+const decodeFilterItem = (
+  input: string | (string | null)[] | null | undefined,
+): FilterItem | null | undefined => {
   if (typeof input !== 'string' || !input) {
     return undefined;
   }

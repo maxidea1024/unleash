@@ -7,7 +7,8 @@ export const basePaginationParameters = [
       type: 'string',
       example: '50',
     },
-    description: 'The number of results to return in a page. By default it is set to 50.',
+    description:
+      'The number of results to return in a page. By default it is set to 50.',
     in: 'query',
   },
   {
@@ -16,9 +17,12 @@ export const basePaginationParameters = [
       type: 'string',
       example: '50',
     },
-    description: 'The number of results to skip when returning a page. By default it is set to 0.',
+    description:
+      'The number of results to skip when returning a page. By default it is set to 0.',
     in: 'query',
   },
 ] as const;
 
-export type BasePaginationParameters = Partial<FromQueryParams<typeof basePaginationParameters>>;
+export type BasePaginationParameters = Partial<
+  FromQueryParams<typeof basePaginationParameters>
+>;

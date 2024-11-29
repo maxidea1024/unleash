@@ -5,12 +5,19 @@ import { usePageTitle } from 'hooks/usePageTitle';
 import { createLocalStorage } from 'utils/createLocalStorage';
 
 const defaultSort: SortingRule<string> = { id: 'createdAt' };
-const { value, setValue } = createLocalStorage('FeaturesArchiveTable:v1', defaultSort);
+const { value, setValue } = createLocalStorage(
+  'FeaturesArchiveTable:v1',
+  defaultSort,
+);
 
 export const FeaturesArchiveTable = () => {
   usePageTitle('Archive');
 
-  const { archivedFeatures = [], loading, refetchArchived } = useFeaturesArchive();
+  const {
+    archivedFeatures = [],
+    loading,
+    refetchArchived,
+  } = useFeaturesArchive();
 
   return (
     <ArchiveTable

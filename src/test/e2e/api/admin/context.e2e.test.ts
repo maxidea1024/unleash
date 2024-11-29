@@ -1,5 +1,8 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
 let db: ITestDb;
@@ -65,10 +68,17 @@ test('should create context field with legalValues', async () => {
   const data = {
     name: 'region',
     description: 'A region',
-    legalValues: [{ value: 'north' }, { value: 'south', description: 'south-desc' }],
+    legalValues: [
+      { value: 'north' },
+      { value: 'south', description: 'south-desc' },
+    ],
   };
 
-  await app.request.post('/api/admin/context').send(data).set('Content-Type', 'application/json').expect(201);
+  await app.request
+    .post('/api/admin/context')
+    .send(data)
+    .set('Content-Type', 'application/json')
+    .expect(201);
 
   const res = await app.request.get(`/api/admin/context/${data.name}`);
   expect(res.body.name).toEqual(data.name);
@@ -239,7 +249,9 @@ test('should show context field usage', async () => {
     .set('Content-Type', 'application/json')
     .expect(201);
   await app.request
-    .post(`/api/admin/projects/default/features/${feature}/environments/default/strategies`)
+    .post(
+      `/api/admin/projects/default/features/${feature}/environments/default/strategies`,
+    )
     .send({
       name: 'default',
       parameters: {
@@ -262,7 +274,9 @@ test('should show context field usage', async () => {
     description: context,
   });
 
-  const { body } = await app.request.get(`/api/admin/context/${context}/strategies`);
+  const { body } = await app.request.get(
+    `/api/admin/context/${context}/strategies`,
+  );
 
   expect(body.strategies).toHaveLength(1);
   expect(body).toMatchObject({

@@ -4,18 +4,30 @@ import Joi from 'joi';
 
 import type { URL } from 'url';
 import type { Logger } from '../logger';
-import User, { type IAuditUser, type IUser, type IUserWithRootRole } from '../types/user';
+import User, {
+  type IAuditUser,
+  type IUser,
+  type IUserWithRootRole,
+} from '../types/user';
 import isEmail from '../util/is-email';
 import type { AccessService } from './access-service';
 import type ResetTokenService from './reset-token-service';
 import NotFoundError from '../error/notfound-error';
 import OwaspValidationError from '../error/owasp-validation-error';
 import type { EmailService } from './email-service';
-import type { IAuthOption, IUnleashConfig, UsernameAdminUser } from '../types/options';
+import type {
+  IAuthOption,
+  IUnleashConfig,
+  UsernameAdminUser,
+} from '../types/options';
 import type SessionService from './session-service';
 import type { IUnleashStores } from '../types/stores';
 import PasswordUndefinedError from '../error/password-undefined';
-import { UserCreatedEvent, UserDeletedEvent, UserUpdatedEvent } from '../types/events';
+import {
+  UserCreatedEvent,
+  UserDeletedEvent,
+  UserUpdatedEvent,
+} from '../types/events';
 import type { IUserStore } from '../types/stores/user-store';
 import { RoleName } from '../types/model';
 import type SettingService from './setting-service';
@@ -70,7 +82,8 @@ export default class UserService {
   private readonly emailService: EmailService;
   private readonly settingService: SettingService;
   private readonly flagResolver: IFlagResolver;
-  private readonly passwordResetTimeouts: { [key: string]: NodeJS.Timeout } = {};
+  private readonly passwordResetTimeouts: { [key: string]: NodeJS.Timeout } =
+    {};
   private readonly baseUriPath: string;
   private readonly unleashUrl: string;
 
@@ -82,7 +95,10 @@ export default class UserService {
       authentication,
       eventBus,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'server' | 'eventBus' | 'flagResolver'>,
+    }: Pick<
+      IUnleashConfig,
+      'getLogger' | 'authentication' | 'server' | 'eventBus' | 'flagResolver'
+    >,
     services: {
       accessService: AccessService;
       resetTokenService: ResetTokenService;
@@ -134,7 +150,9 @@ export default class UserService {
     return this.initAdminUsernameUser(initialAdminUser);
   }
 
-  async initAdminUsernameUser(usernameAdminUser?: UsernameAdminUser): Promise<void> {
+  async initAdminUsernameUser(
+    usernameAdminUser?: UsernameAdminUser,
+  ): Promise<void> {
     const username = usernameAdminUser?.username || 'admin';
     const password = usernameAdminUser?.password || 'unleash4all';
 
@@ -143,12 +161,18 @@ export default class UserService {
     if (userCount === 0) {
       // create default admin user
       try {
-        this.logger.info(`Creating default admin user, with username '${username}' and password '${password}'`);
+        this.logger.info(
+          `Creating default admin user, with username '${username}' and password '${password}'`,
+        );
         const user = await this.store.insert({
           username,
         });
         const passwordHash = await bcrypt.hash(password, saltRounds);
-        await this.store.setPasswordHash(user.id, passwordHash, disallowNPreviousPasswords);
+        await this.store.setPasswordHash(
+          user.id,
+          passwordHash,
+          disallowNPreviousPasswords,
+        );
         await this.accessService.setUserRootRole(user.id, RoleName.ADMIN);
       } catch (e) {
         this.logger.error(`Unable to create default user '${username}'`);
@@ -158,7 +182,9 @@ export default class UserService {
 
   async getAll(): Promise<IUserWithRootRole[]> {
     const users = await this.store.getAll();
-    const defaultRole = await this.accessService.getPredefinedRole(RoleName.VIEWER);
+    const defaultRole = await this.accessService.getPredefinedRole(
+      RoleName.VIEWER,
+    );
     const userRoles = await this.accessService.getRootRoleForAllUsers();
     const usersWithRootRole = users.map((u) => {
       const rootRole = userRoles.find((r) => r.userId === u.id);
@@ -219,7 +245,11 @@ export default class UserService {
 
     if (password) {
       const passwordHash = await bcrypt.hash(password, saltRounds);
-      await this.store.setPasswordHash(user.id, passwordHash, disallowNPreviousPasswords);
+      await this.store.setPasswordHash(
+        user.id,
+        passwordHash,
+        disallowNPreviousPasswords,
+      );
     }
 
     const userCreated = await this.getUser(user.id);
@@ -234,39 +264,65 @@ export default class UserService {
     return userCreated;
   }
 
-  async newUserInviteLink(user: IUserWithRootRole, auditUser: IAuditUser = SYSTEM_USER_AUDIT): Promise<string> {
-    const passwordAuthSettings = await this.settingService.getWithDefault<SimpleAuthSettings>(simpleAuthSettingsKey, {
-      disabled: false,
-    });
+  async newUserInviteLink(
+    user: IUserWithRootRole,
+    auditUser: IAuditUser = SYSTEM_USER_AUDIT,
+  ): Promise<string> {
+    const passwordAuthSettings =
+      await this.settingService.getWithDefault<SimpleAuthSettings>(
+        simpleAuthSettingsKey,
+        {
+          disabled: false,
+        },
+      );
 
     let inviteLink = this.unleashUrl;
     if (!passwordAuthSettings.disabled) {
-      const inviteUrl = await this.resetTokenService.createNewUserUrl(user.id, auditUser.username);
+      const inviteUrl = await this.resetTokenService.createNewUserUrl(
+        user.id,
+        auditUser.username,
+      );
       inviteLink = inviteUrl.toString();
     }
 
     return inviteLink;
   }
 
-  async sendWelcomeEmail(user: IUserWithRootRole, inviteLink: string): Promise<boolean> {
+  async sendWelcomeEmail(
+    user: IUserWithRootRole,
+    inviteLink: string,
+  ): Promise<boolean> {
     let emailSent = false;
     const emailConfigured = this.emailService.configured();
 
     if (emailConfigured && user.email) {
       try {
-        await this.emailService.sendGettingStartedMail(user.name || '', user.email, this.unleashUrl, inviteLink);
+        await this.emailService.sendGettingStartedMail(
+          user.name || '',
+          user.email,
+          this.unleashUrl,
+          inviteLink,
+        );
         emailSent = true;
       } catch (e) {
-        this.logger.warn('email was configured, but sending failed due to: ', e);
+        this.logger.warn(
+          'email was configured, but sending failed due to: ',
+          e,
+        );
       }
     } else {
-      this.logger.warn('email was not sent to the user because email configuration is lacking');
+      this.logger.warn(
+        'email was not sent to the user because email configuration is lacking',
+      );
     }
 
     return emailSent;
   }
 
-  async updateUser({ id, name, email, rootRole }: IUpdateUser, auditUser: IAuditUser): Promise<IUserWithRootRole> {
+  async updateUser(
+    { id, name, email, rootRole }: IUpdateUser,
+    auditUser: IAuditUser,
+  ): Promise<IUserWithRootRole> {
     const preUser = await this.getUser(id);
 
     if (email) {
@@ -283,7 +339,9 @@ export default class UserService {
     };
 
     // Empty updates will throw, so make sure we have something to update.
-    const user = Object.values(payload).some(isDefined) ? await this.store.update(id, payload) : preUser;
+    const user = Object.values(payload).some(isDefined)
+      ? await this.store.update(id, payload)
+      : preUser;
 
     const storedUser = await this.getUser(user.id);
 
@@ -314,13 +372,19 @@ export default class UserService {
   }
 
   async loginUser(usernameOrEmail: string, password: string): Promise<IUser> {
-    const settings = await this.settingService.get<SimpleAuthSettings>(simpleAuthSettingsKey);
+    const settings = await this.settingService.get<SimpleAuthSettings>(
+      simpleAuthSettingsKey,
+    );
 
     if (settings?.disabled) {
-      throw new DisabledError('Logging in with username/password has been disabled.');
+      throw new DisabledError(
+        'Logging in with username/password has been disabled.',
+      );
     }
 
-    const idQuery = isEmail(usernameOrEmail) ? { email: usernameOrEmail } : { username: usernameOrEmail };
+    const idQuery = isEmail(usernameOrEmail)
+      ? { email: usernameOrEmail }
+      : { username: usernameOrEmail };
 
     let user: IUser | undefined, passwordHash: string | undefined;
     try {
@@ -332,14 +396,19 @@ export default class UserService {
       const match = await bcrypt.compare(password, passwordHash);
       if (match) {
         const loginOrder = await this.store.successfullyLogin(user);
-        const deleteStaleUserSessions = this.flagResolver.getVariant('deleteStaleUserSessions');
+        const deleteStaleUserSessions = this.flagResolver.getVariant(
+          'deleteStaleUserSessions',
+        );
         if (deleteStaleUserSessions.feature_enabled) {
-          const allowedSessions = Number(deleteStaleUserSessions.payload?.value || 30);
-          // subtract current user session that will be created
-          const deletedSessionsCount = await this.sessionService.deleteStaleSessionsForUser(
-            user.id,
-            Math.max(allowedSessions - 1, 0),
+          const allowedSessions = Number(
+            deleteStaleUserSessions.payload?.value || 30,
           );
+          // subtract current user session that will be created
+          const deletedSessionsCount =
+            await this.sessionService.deleteStaleSessionsForUser(
+              user.id,
+              Math.max(allowedSessions - 1, 0),
+            );
           user.deletedSessions = deletedSessionsCount;
           user.activeSessions = allowedSessions;
         }
@@ -361,11 +430,19 @@ export default class UserService {
    * @param autoCreateUser
    * @returns
    */
-  async loginUserWithoutPassword(email: string, autoCreateUser: boolean = false): Promise<IUser> {
+  async loginUserWithoutPassword(
+    email: string,
+    autoCreateUser: boolean = false,
+  ): Promise<IUser> {
     return this.loginUserSSO({ email, autoCreate: autoCreateUser });
   }
 
-  async loginUserSSO({ email, name, rootRole, autoCreate = false }: ILoginUserRequest): Promise<IUser> {
+  async loginUserSSO({
+    email,
+    name,
+    rootRole,
+    autoCreate = false,
+  }: ILoginUserRequest): Promise<IUser> {
     let user: IUser;
 
     try {
@@ -406,14 +483,23 @@ export default class UserService {
     this.validatePassword(password);
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    await this.store.setPasswordHash(userId, passwordHash, disallowNPreviousPasswords);
+    await this.store.setPasswordHash(
+      userId,
+      passwordHash,
+      disallowNPreviousPasswords,
+    );
     await this.sessionService.deleteSessionsForUser(userId);
     await this.resetTokenService.expireExistingTokensForUser(userId);
   }
 
-  async changePasswordWithPreviouslyUsedPasswordCheck(userId: number, password: string): Promise<void> {
+  async changePasswordWithPreviouslyUsedPasswordCheck(
+    userId: number,
+    password: string,
+  ): Promise<void> {
     const previouslyUsed = await this.store.getPasswordsPreviouslyUsed(userId);
-    const usedBefore = previouslyUsed.some((previouslyUsed) => bcrypt.compareSync(password, previouslyUsed));
+    const usedBefore = previouslyUsed.some((previouslyUsed) =>
+      bcrypt.compareSync(password, previouslyUsed),
+    );
     if (usedBefore) {
       throw new PasswordPreviouslyUsedError();
     }
@@ -421,7 +507,11 @@ export default class UserService {
     await this.changePassword(userId, password);
   }
 
-  async changePasswordWithVerification(userId: number, newPassword: string, oldPassword: string): Promise<void> {
+  async changePasswordWithVerification(
+    userId: number,
+    newPassword: string,
+    oldPassword: string,
+  ): Promise<void> {
     const currentPasswordHash = await this.store.getPasswordHash(userId);
     const match = await bcrypt.compare(oldPassword, currentPasswordHash);
     if (!match) {
@@ -430,7 +520,10 @@ export default class UserService {
       );
     }
 
-    await this.changePasswordWithPreviouslyUsedPasswordCheck(userId, newPassword);
+    await this.changePasswordWithPreviouslyUsedPasswordCheck(
+      userId,
+      newPassword,
+    );
   }
 
   async getUserForToken(token: string): Promise<TokenUserSchema> {
@@ -487,13 +580,20 @@ export default class UserService {
       );
     }
 
-    const resetLink = await this.resetTokenService.createResetPasswordUrl(receiver.id, user.username || user.email!);
+    const resetLink = await this.resetTokenService.createResetPasswordUrl(
+      receiver.id,
+      user.username || user.email!,
+    );
 
     this.passwordResetTimeouts[receiver.id] = setTimeout(() => {
       delete this.passwordResetTimeouts[receiver.id];
     }, 1000 * 60); // 1 minute
 
-    await this.emailService.sendResetMail(receiver.name!, receiver.email!, resetLink.toString());
+    await this.emailService.sendResetMail(
+      receiver.name!,
+      receiver.email!,
+      resetLink.toString(),
+    );
     return resetLink;
   }
 }

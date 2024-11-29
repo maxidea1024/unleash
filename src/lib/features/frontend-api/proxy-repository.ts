@@ -1,26 +1,45 @@
 import EventEmitter from 'events';
 import type { RepositoryInterface } from 'unleash-client/lib/repository';
 import type { Segment } from 'unleash-client/lib/strategy/strategy';
-import type { EnhancedFeatureInterface, FeatureInterface } from 'unleash-client/lib/feature';
+import type {
+  EnhancedFeatureInterface,
+  FeatureInterface,
+} from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
-import type { IUnleashConfig, IUnleashServices, IUnleashStores } from '../../types';
-import { mapFeaturesForClient, mapSegmentsForClient } from '../playground/offline-unleash-client';
+import type {
+  IUnleashConfig,
+  IUnleashServices,
+  IUnleashStores,
+} from '../../types';
+import {
+  mapFeaturesForClient,
+  mapSegmentsForClient,
+} from '../playground/offline-unleash-client';
 import { ALL_ENVS } from '../../util/constants';
 import { UnleashEvents } from 'unleash-client';
 import type { Logger } from '../../logger';
 import type ConfigurationRevisionService from '../feature-toggle/configuration-revision-service';
 import { UPDATE_REVISION } from '../feature-toggle/configuration-revision-service';
-import { FUNCTION_TIME, PROXY_FEATURES_FOR_TOKEN_TIME } from '../../metric-events';
+import {
+  FUNCTION_TIME,
+  PROXY_FEATURES_FOR_TOKEN_TIME,
+} from '../../metric-events';
 import metricsHelper from '../../util/metrics-helper';
 
 type Config = Pick<IUnleashConfig, 'getLogger' | 'frontendApi' | 'eventBus'>;
 
 type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
 
-type Services = Pick<IUnleashServices, 'featureToggleServiceV2' | 'configurationRevisionService'>;
+type Services = Pick<
+  IUnleashServices,
+  'featureToggleServiceV2' | 'configurationRevisionService'
+>;
 
 // TODO: remove after finished migration to global frontend api cache
-export class ProxyRepository extends EventEmitter implements RepositoryInterface {
+export class ProxyRepository
+  extends EventEmitter
+  implements RepositoryInterface
+{
   private readonly config: Config;
   private readonly logger: Logger;
   private readonly stores: Stores;
@@ -34,7 +53,12 @@ export class ProxyRepository extends EventEmitter implements RepositoryInterface
   private running: boolean;
   private readonly methodTimer: Function;
 
-  constructor(config: Config, stores: Stores, services: Services, token: IApiUser) {
+  constructor(
+    config: Config,
+    stores: Stores,
+    services: Services,
+    token: IApiUser,
+  ) {
     super();
 
     this.logger = config.getLogger('proxy-repository.ts');
@@ -78,14 +102,20 @@ export class ProxyRepository extends EventEmitter implements RepositoryInterface
 
     // Reload cached token data whenever something relevant has changed.
     // For now, simply reload all the data on any EventStore event.
-    this.configurationRevisionService.on(UPDATE_REVISION, this.onUpdateRevisionEvent);
+    this.configurationRevisionService.on(
+      UPDATE_REVISION,
+      this.onUpdateRevisionEvent,
+    );
 
     this.emit(UnleashEvents.Ready);
     this.emit(UnleashEvents.Changed);
   }
 
   stop(): void {
-    this.configurationRevisionService.off(UPDATE_REVISION, this.onUpdateRevisionEvent);
+    this.configurationRevisionService.off(
+      UPDATE_REVISION,
+      this.onUpdateRevisionEvent,
+    );
     this.running = false;
   }
 

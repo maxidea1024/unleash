@@ -1,4 +1,7 @@
-import type { IGroupStore, IStoreGroup } from '../../lib/types/stores/group-store';
+import type {
+  IGroupStore,
+  IStoreGroup,
+} from '../../lib/types/stores/group-store';
 import type Group from '../../lib/types/group';
 import type {
   ICreateGroupUserModel,
@@ -48,7 +51,11 @@ export default class FakeGroupStore implements IGroupStore {
     throw new Error('Method not implemented.');
   }
 
-  addUsersToGroup(id: number, users: ICreateGroupUserModel[], userName: string): Promise<void> {
+  addUsersToGroup(
+    id: number,
+    users: ICreateGroupUserModel[],
+    userName: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
@@ -89,15 +96,25 @@ export default class FakeGroupStore implements IGroupStore {
     throw new Error('Method not implemented.');
   }
 
-  getNewGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroup[]> {
+  getNewGroupsForExternalUser(
+    userId: number,
+    externalGroups: string[],
+  ): Promise<IGroup[]> {
     throw new Error('Method not implemented.');
   }
 
-  addUserToGroups(userId: number, groupIds: number[], createdBy?: string): Promise<void> {
+  addUserToGroups(
+    userId: number,
+    groupIds: number[],
+    createdBy?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  getOldGroupsForExternalUser(userId: number, externalGroups: string[]): Promise<IGroupUser[]> {
+  getOldGroupsForExternalUser(
+    userId: number,
+    externalGroups: string[],
+  ): Promise<IGroupUser[]> {
     throw new Error('Method not implemented.');
   }
 

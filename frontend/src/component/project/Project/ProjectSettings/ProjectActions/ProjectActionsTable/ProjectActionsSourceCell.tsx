@@ -38,7 +38,10 @@ interface IProjectActionsSourceCellProps {
   signalEndpoints: ISignalEndpoint[];
 }
 
-export const ProjectActionsSourceCell = ({ action, signalEndpoints }: IProjectActionsSourceCellProps) => {
+export const ProjectActionsSourceCell = ({
+  action,
+  signalEndpoints,
+}: IProjectActionsSourceCellProps) => {
   const { sourceId, source } = action.match;
 
   if (source === 'signal-endpoint') {
@@ -49,9 +52,17 @@ export const ProjectActionsSourceCell = ({ action, signalEndpoints }: IProjectAc
         <TextCell>
           <StyledCell>
             <HtmlTooltip title='Signal endpoint' arrow>
-              <StyledIcon src={formatAssetPath(signals)} alt='Signal endpoint' variant='rounded' />
+              <StyledIcon
+                src={formatAssetPath(signals)}
+                alt='Signal endpoint'
+                variant='rounded'
+              />
             </HtmlTooltip>
-            <StyledLink component={RouterLink} to='/integrations/signals' underline='hover'>
+            <StyledLink
+              component={RouterLink}
+              to='/integrations/signals'
+              underline='hover'
+            >
               {signalEndpoint.name}
             </StyledLink>
           </StyledCell>

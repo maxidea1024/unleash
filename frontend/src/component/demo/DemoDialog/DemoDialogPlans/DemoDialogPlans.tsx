@@ -138,7 +138,9 @@ export const DemoDialogPlans = ({ open, onClose }: IDemoDialogPlansProps) => {
               <Typography variant='h6' fontWeight='normal'>
                 ${BILLING_PAYG_USER_PRICE} per user/month
               </Typography>
-              <Typography variant='body2'>{BILLING_PAYG_DEFAULT_MINIMUM_SEATS} users minimum</Typography>
+              <Typography variant='body2'>
+                {BILLING_PAYG_DEFAULT_MINIMUM_SEATS} users minimum
+              </Typography>
             </div>
             <Button
               variant='contained'
@@ -169,7 +171,9 @@ export const DemoDialogPlans = ({ open, onClose }: IDemoDialogPlansProps) => {
               <Typography variant='h6' fontWeight='normal'>
                 ${BILLING_PLAN_PRICES[InstancePlan.PRO]}/month
               </Typography>
-              <Typography variant='body2'>includes {BILLING_PRO_DEFAULT_INCLUDED_SEATS} seats</Typography>
+              <Typography variant='body2'>
+                includes {BILLING_PRO_DEFAULT_INCLUDED_SEATS} seats
+              </Typography>
             </div>
             <Button
               variant='contained'

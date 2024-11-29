@@ -52,7 +52,8 @@ export const ProjectActionsFormStepActions = ({
     const action: ActionsActionState = {
       id,
       action: '',
-      sortOrder: actions.map((a) => a.sortOrder).reduce((a, b) => Math.max(a, b), 0) + 1,
+      sortOrder:
+        actions.map((a) => a.sortOrder).reduce((a, b) => Math.max(a, b), 0) + 1,
       executionParams: {
         project: projectId,
       },
@@ -61,7 +62,11 @@ export const ProjectActionsFormStepActions = ({
   };
 
   const updateInActions = (updatedAction: ActionsActionState) => {
-    setActions((actions) => actions.map((action) => (action.id === updatedAction.id ? updatedAction : action)));
+    setActions((actions) =>
+      actions.map((action) =>
+        action.id === updatedAction.id ? updatedAction : action,
+      ),
+    );
   };
 
   const serviceAccountOptions = useMemo(() => {
@@ -78,7 +83,11 @@ export const ProjectActionsFormStepActions = ({
     <ProjectActionsFormStep
       name='Do these actions'
       verticalConnector
-      resourceLink={<RouterLink to='/admin/service-accounts'>Create service account</RouterLink>}
+      resourceLink={
+        <RouterLink to='/admin/service-accounts'>
+          Create service account
+        </RouterLink>
+      }
     >
       <GeneralSelect
         label='Service account'
@@ -98,13 +107,20 @@ export const ProjectActionsFormStepActions = ({
           action={action}
           stateChanged={updateInActions}
           actorId={actorId}
-          onDelete={() => setActions((actions) => actions.filter((a) => a.id !== action.id))}
+          onDelete={() =>
+            setActions((actions) => actions.filter((a) => a.id !== action.id))
+          }
           actionConfigurations={actionConfigurations}
           validated={validated}
         />
       ))}
       <StyledButtonContainer>
-        <Button startIcon={<Add />} onClick={() => addAction(projectId)} variant='outlined' color='primary'>
+        <Button
+          startIcon={<Add />}
+          onClick={() => addAction(projectId)}
+          variant='outlined'
+          color='primary'
+        >
           Add action
         </Button>
       </StyledButtonContainer>

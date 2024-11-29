@@ -23,12 +23,14 @@ export const featureSchema = {
     type: {
       type: 'string',
       example: 'kill-switch',
-      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description:
+        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     description: {
       type: 'string',
       nullable: true,
-      example: 'Controls disabling of the comments section in case of an incident',
+      example:
+        'Controls disabling of the comments section in case of an incident',
       description: 'Detailed description of the feature',
     },
     archived: {
@@ -49,7 +51,8 @@ export const featureSchema = {
     stale: {
       type: 'boolean',
       example: false,
-      description: '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
+      description:
+        '`true` if the feature is stale based on the age and feature type, otherwise `false`.',
     },
     favorite: {
       type: 'boolean',
@@ -59,7 +62,8 @@ export const featureSchema = {
     impressionData: {
       type: 'boolean',
       example: false,
-      description: '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
+      description:
+        '`true` if the impression data collection is enabled for the feature, otherwise `false`.',
     },
     createdAt: {
       type: 'string',
@@ -127,7 +131,8 @@ export const featureSchema = {
       items: {
         type: 'object',
       },
-      description: 'This was deprecated in v5 and will be removed in a future major version',
+      description:
+        'This was deprecated in v5 and will be removed in a future major version',
       deprecated: true,
     },
     tags: {
@@ -140,7 +145,8 @@ export const featureSchema = {
     },
     children: {
       type: 'array',
-      description: 'The list of child feature names. This is an experimental field and may change.',
+      description:
+        'The list of child feature names. This is an experimental field and may change.',
       items: {
         type: 'string',
         example: 'some-feature',
@@ -194,12 +200,14 @@ export const featureSchema = {
           },
         },
       },
-      description: 'The list of parent dependencies. This is an experimental field and may change.',
+      description:
+        'The list of parent dependencies. This is an experimental field and may change.',
     },
     collaborators: {
       type: 'object',
       required: ['users'],
-      description: 'Information related to users who have made changes to this feature flage.',
+      description:
+        'Information related to users who have made changes to this feature flage.',
       properties: {
         users: {
           description:

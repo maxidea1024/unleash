@@ -4,7 +4,8 @@ export const patchSchema = {
   $id: '#/components/schemas/patchSchema',
   type: 'object',
   required: ['path', 'op'],
-  description: 'A [JSON patch](https://www.rfc-editor.org/rfc/rfc6902) operation description',
+  description:
+    'A [JSON patch](https://www.rfc-editor.org/rfc/rfc6902) operation description',
   properties: {
     path: {
       type: 'string',
@@ -19,11 +20,13 @@ export const patchSchema = {
     },
     from: {
       type: 'string',
-      description: 'The target to move or copy from, if performing one of those operations',
+      description:
+        'The target to move or copy from, if performing one of those operations',
       example: '/type',
     },
     value: {
-      description: 'The value to add or replace, if performing one of those operations',
+      description:
+        'The value to add or replace, if performing one of those operations',
       example: 'kill-switch',
     },
   },

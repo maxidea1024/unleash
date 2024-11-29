@@ -28,7 +28,8 @@ export const FeatureNotFound = () => {
   if (isArchived) {
     return (
       <p>
-        The feature <StyledFeatureId>{featureId}</StyledFeatureId> has been archived. You can find it on the{' '}
+        The feature <StyledFeatureId>{featureId}</StyledFeatureId> has been
+        archived. You can find it on the{' '}
         <Link to={`/projects/${projectId}/archive`}>project archive page</Link>.
       </p>
     );
@@ -36,8 +37,8 @@ export const FeatureNotFound = () => {
 
   return (
     <p>
-      The feature <StyledFeatureId>{featureId}</StyledFeatureId> does not exist. Would you like to{' '}
-      <Link to={createFeatureTogglePath}>create it</Link>?
+      The feature <StyledFeatureId>{featureId}</StyledFeatureId> does not exist.
+      Would you like to <Link to={createFeatureTogglePath}>create it</Link>?
     </p>
   );
 };

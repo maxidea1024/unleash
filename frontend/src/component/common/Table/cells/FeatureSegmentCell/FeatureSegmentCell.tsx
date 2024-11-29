@@ -17,15 +17,22 @@ interface IFeatureSegmentCellProps {
   value: string;
 }
 
-export const FeatureSegmentCell: VFC<IFeatureSegmentCellProps> = ({ row, value }) => {
+export const FeatureSegmentCell: VFC<IFeatureSegmentCellProps> = ({
+  row,
+  value,
+}) => {
   const { searchQuery } = useSearchHighlightContext();
 
-  if (!row.original.segments || row.original.segments.length === 0) return <TextCell />;
+  if (!row.original.segments || row.original.segments.length === 0)
+    return <TextCell />;
 
   return (
     <TextCell>
       <TooltipLink
-        highlighted={searchQuery.length > 0 && value.toLowerCase().includes(searchQuery.toLowerCase())}
+        highlighted={
+          searchQuery.length > 0 &&
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        }
         tooltip={
           <>
             {row.original.segments?.map((segment) => (
@@ -36,7 +43,9 @@ export const FeatureSegmentCell: VFC<IFeatureSegmentCellProps> = ({ row, value }
           </>
         }
       >
-        {row.original.segments?.length === 1 ? '1 segment' : `${row.original.segments?.length} segments`}
+        {row.original.segments?.length === 1
+          ? '1 segment'
+          : `${row.original.segments?.length} segments`}
       </TooltipLink>
     </TextCell>
   );

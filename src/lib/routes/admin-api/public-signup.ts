@@ -1,9 +1,18 @@
 import type { Response } from 'express';
 
 import Controller from '../controller';
-import { ADMIN, type IUnleashConfig, type IUnleashServices, serializeDates } from '../../types';
+import {
+  ADMIN,
+  type IUnleashConfig,
+  type IUnleashServices,
+  serializeDates,
+} from '../../types';
 import type { Logger } from '../../logger';
-import type { AccessService, OpenApiService, PublicSignupTokenService } from '../../services';
+import type {
+  AccessService,
+  OpenApiService,
+  PublicSignupTokenService,
+} from '../../services';
 import type { IAuthRequest } from '../unleash-types';
 import {
   createRequestSchema,
@@ -37,7 +46,13 @@ export class PublicSignupController extends Controller {
       accessService,
       userService,
       openApiService,
-    }: Pick<IUnleashServices, 'publicSignupTokenService' | 'accessService' | 'userService' | 'openApiService'>,
+    }: Pick<
+      IUnleashServices,
+      | 'publicSignupTokenService'
+      | 'accessService'
+      | 'userService'
+      | 'openApiService'
+    >,
   ) {
     super(config);
 
@@ -130,27 +145,53 @@ export class PublicSignupController extends Controller {
     });
   }
 
-  async getAllPublicSignupTokens(_: IAuthRequest, res: Response<PublicSignupTokensSchema>): Promise<void> {
+  async getAllPublicSignupTokens(
+    _: IAuthRequest,
+    res: Response<PublicSignupTokensSchema>,
+  ): Promise<void> {
     const tokens = await this.publicSignupTokenService.getAllTokens();
-    this.openApiService.respondWithValidation(200, res, publicSignupTokensSchema.$id, {
-      tokens: serializeDates(tokens),
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      publicSignupTokensSchema.$id,
+      {
+        tokens: serializeDates(tokens),
+      },
+    );
   }
 
-  async getPublicSignupToken(req: IAuthRequest<TokenParam>, res: Response<PublicSignupTokenSchema>): Promise<void> {
+  async getPublicSignupToken(
+    req: IAuthRequest<TokenParam>,
+    res: Response<PublicSignupTokenSchema>,
+  ): Promise<void> {
     const { token } = req.params;
     const result = await this.publicSignupTokenService.get(token);
-    this.openApiService.respondWithValidation(200, res, publicSignupTokenSchema.$id, serializeDates(result));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      publicSignupTokenSchema.$id,
+      serializeDates(result),
+    );
   }
 
   async createPublicSignupToken(
     req: IAuthRequest<void, void, PublicSignupTokenCreateSchema>,
     res: Response<PublicSignupTokenSchema>,
   ): Promise<void> {
-    const token = await this.publicSignupTokenService.createNewPublicSignupToken(req.body, req.audit);
-    this.openApiService.respondWithValidation(201, res, publicSignupTokenSchema.$id, serializeDates(token), {
-      location: `tokens/${token.secret}`,
-    });
+    const token =
+      await this.publicSignupTokenService.createNewPublicSignupToken(
+        req.body,
+        req.audit,
+      );
+    this.openApiService.respondWithValidation(
+      201,
+      res,
+      publicSignupTokenSchema.$id,
+      serializeDates(token),
+      {
+        location: `tokens/${token.secret}`,
+      },
+    );
   }
 
   async updatePublicSignupToken(
@@ -174,6 +215,11 @@ export class PublicSignupController extends Controller {
       req.audit,
     );
 
-    this.openApiService.respondWithValidation(200, res, publicSignupTokenSchema.$id, serializeDates(result));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      publicSignupTokenSchema.$id,
+      serializeDates(result),
+    );
   }
 }

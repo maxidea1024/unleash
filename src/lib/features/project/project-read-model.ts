@@ -1,7 +1,11 @@
 import type { IFlagResolver } from '../../types';
 import { Knex } from 'knex';
 import type { Db } from '../../db/db';
-import type { IProjectReadModel, ProjectForInsights, ProjectForUi } from './project-read-model-type';
+import type {
+  IProjectReadModel,
+  ProjectForInsights,
+  ProjectForUi,
+} from './project-read-model-type';
 import type { IProjectQuery, IProjectsQuery } from './project-store-type';
 import metricsHelper from '../../util/metrics-helper';
 import type EventEmitter from 'events';
@@ -34,7 +38,8 @@ const mapProjectForInsights = (row): ProjectForInsights => {
     health: row.health,
     featureCount: Number(row.number_of_features) || 0,
     staleFeatureCount: Number(row.stale_feature_count) || 0,
-    potentiallyStaleFeatureCount: Number(row.potentially_stale_feature_count) || 0,
+    potentiallyStaleFeatureCount:
+      Number(row.potentially_stale_feature_count) || 0,
     memberCount: Number(row.number_of_users) || 0,
     avgTimeToProduction: row.avg_time_to_prod_current_window || 0,
   };
@@ -55,8 +60,12 @@ export class ProjectReadModel implements IProjectReadModel {
       });
   }
 
-  async getFeatureProject(featureName: string): Promise<{ project: string; createdAt: Date } | null> {
-    const result = await this.db<{ project: string; created_at: Date }>('features')
+  async getFeatureProject(
+    featureName: string,
+  ): Promise<{ project: string; createdAt: Date } | null> {
+    const result = await this.db<{ project: string; created_at: Date }>(
+      'features',
+    )
       .join('projects', 'features.project', '=', 'projects.id')
       .select('features.project', 'projects.created_at')
       .where('features.name', featureName)
@@ -69,14 +78,23 @@ export class ProjectReadModel implements IProjectReadModel {
     return { project: result.project, createdAt: result.created_at };
   }
 
-  async getProjectsForAdminUi(query?: IProjectQuery & IProjectsQuery, userId?: number): Promise<ProjectForUi[]> {
+  async getProjectsForAdminUi(
+    query?: IProjectQuery & IProjectsQuery,
+    userId?: number,
+  ): Promise<ProjectForUi[]> {
     const projectTimer = this.timer('getProjectsForAdminUi');
     let projects = this.db(TABLE)
       .leftJoin('features', 'features.project', 'projects.id')
-      .leftJoin('last_seen_at_metrics', 'features.name', 'last_seen_at_metrics.feature_name')
+      .leftJoin(
+        'last_seen_at_metrics',
+        'features.name',
+        'last_seen_at_metrics.feature_name',
+      )
       .leftJoin('project_settings', 'project_settings.project', 'projects.id')
       .leftJoin('events', (join) => {
-        join.on('events.feature_name', '=', 'features.name').andOn('events.project', '=', 'projects.id');
+        join
+          .on('events.feature_name', '=', 'features.name')
+          .andOn('events.project', '=', 'projects.id');
       })
       .orderBy('projects.name', 'asc');
 
@@ -108,19 +126,31 @@ export class ProjectReadModel implements IProjectReadModel {
 
     if (userId) {
       projects = projects.leftJoin(`favorite_projects`, function () {
-        this.on('favorite_projects.project', 'projects.id').andOnVal('favorite_projects.user_id', '=', userId);
+        this.on('favorite_projects.project', 'projects.id').andOnVal(
+          'favorite_projects.user_id',
+          '=',
+          userId,
+        );
       });
-      selectColumns = [...selectColumns, this.db.raw('favorite_projects.project is not null as favorite')];
+      selectColumns = [
+        ...selectColumns,
+        this.db.raw('favorite_projects.project is not null as favorite'),
+      ];
       groupByColumns = [...groupByColumns, 'favorite_projects.project'];
     }
 
-    const projectAndFeatureCount = await projects.select(selectColumns).groupBy(groupByColumns);
+    const projectAndFeatureCount = await projects
+      .select(selectColumns)
+      .groupBy(groupByColumns);
 
-    const projectsWithFeatureCount = projectAndFeatureCount.map(mapProjectForUi);
+    const projectsWithFeatureCount =
+      projectAndFeatureCount.map(mapProjectForUi);
     projectTimer();
 
     const memberCount = await this.getMembersCount();
-    const memberMap = new Map<string, number>(memberCount.map((c) => [c.project, Number(c.count)]));
+    const memberMap = new Map<string, number>(
+      memberCount.map((c) => [c.project, Number(c.count)]),
+    );
 
     return projectsWithFeatureCount.map((projectWithCount) => {
       return {
@@ -130,7 +160,9 @@ export class ProjectReadModel implements IProjectReadModel {
     });
   }
 
-  async getProjectsForInsights(query?: IProjectQuery): Promise<ProjectForInsights[]> {
+  async getProjectsForInsights(
+    query?: IProjectQuery,
+  ): Promise<ProjectForInsights[]> {
     const projectTimer = this.timer('getProjectsForInsights');
     let projects = this.db(TABLE)
       .leftJoin('features', 'features.project', 'projects.id')
@@ -158,15 +190,24 @@ export class ProjectReadModel implements IProjectReadModel {
       'projects.archived_at',
     ] as (string | Raw<any>)[];
 
-    const groupByColumns = ['projects.id', 'project_stats.avg_time_to_prod_current_window'];
+    const groupByColumns = [
+      'projects.id',
+      'project_stats.avg_time_to_prod_current_window',
+    ];
 
-    const projectAndFeatureCount = await projects.select(selectColumns).groupBy(groupByColumns);
+    const projectAndFeatureCount = await projects
+      .select(selectColumns)
+      .groupBy(groupByColumns);
 
-    const projectsWithFeatureCount = projectAndFeatureCount.map(mapProjectForInsights);
+    const projectsWithFeatureCount = projectAndFeatureCount.map(
+      mapProjectForInsights,
+    );
     projectTimer();
 
     const memberCount = await this.getMembersCount();
-    const memberMap = new Map<string, number>(memberCount.map((c) => [c.project, Number(c.count)]));
+    const memberMap = new Map<string, number>(
+      memberCount.map((c) => [c.project, Number(c.count)]),
+    );
 
     return projectsWithFeatureCount.map((projectWithCount) => {
       return {
@@ -189,7 +230,11 @@ export class ProjectReadModel implements IProjectReadModel {
             queryBuilder
               .select('user_id', 'project')
               .from('group_role')
-              .leftJoin('group_user', 'group_user.group_id', 'group_role.group_id');
+              .leftJoin(
+                'group_user',
+                'group_user.group_id',
+                'group_role.group_id',
+              );
           })
           .as('query');
       })
@@ -213,7 +258,11 @@ export class ProjectReadModel implements IProjectReadModel {
             queryBuilder
               .select('group_role.project')
               .from('group_role')
-              .leftJoin('group_user', 'group_user.group_id', 'group_role.group_id')
+              .leftJoin(
+                'group_user',
+                'group_user.group_id',
+                'group_role.group_id',
+              )
               .leftJoin('projects', 'group_role.project', 'projects.id')
               .where('group_user.user_id', userId)
               .andWhere('projects.archived_at', null);

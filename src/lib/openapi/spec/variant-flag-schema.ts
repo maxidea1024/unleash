@@ -7,7 +7,8 @@ export const variantFlagSchema = {
   description: 'A representation of an evaluated Unleash feature variant.',
   properties: {
     name: {
-      description: 'The name of the variant. Will always be disabled if `enabled` is false.',
+      description:
+        'The name of the variant. Will always be disabled if `enabled` is false.',
       example: 'blue',
       type: 'string',
     },

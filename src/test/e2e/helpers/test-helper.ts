@@ -5,7 +5,11 @@ import { createTestConfig } from '../../config/test-config';
 import { IAuthType, type IUnleashConfig } from '../../../lib/types/options';
 import { createServices } from '../../../lib/services';
 import sessionDb from '../../../lib/middleware/session-db';
-import { DEFAULT_PROJECT, type FeatureToggleDTO, type IUnleashStores } from '../../../lib/types';
+import {
+  DEFAULT_PROJECT,
+  type FeatureToggleDTO,
+  type IUnleashStores,
+} from '../../../lib/types';
 import type { IUnleashServices } from '../../../lib/types/services';
 import type { Db } from '../../../lib/db/db';
 import type { IContextFieldDto } from '../../../lib/types/stores/context-field-store';
@@ -50,34 +54,75 @@ export interface IUnleashHttpAPI {
     expectStatusCode?: number,
   ): supertest.Test;
 
-  createFeature(feature: string | CreateFeatureSchema, project?: string, expectedResponseCode?: number): supertest.Test;
+  createFeature(
+    feature: string | CreateFeatureSchema,
+    project?: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  enableFeature(feature: string, environment: string, project?: string, expectedResponseCode?: number): supertest.Test;
+  enableFeature(
+    feature: string,
+    environment: string,
+    project?: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  favoriteFeature(feature: string, project?: string, expectedResponseCode?: number): supertest.Test;
+  favoriteFeature(
+    feature: string,
+    project?: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
   getFeatures(name?: string, expectedResponseCode?: number): supertest.Test;
 
-  getProjectFeatures(project: string, name?: string, expectedResponseCode?: number): supertest.Test;
+  getProjectFeatures(
+    project: string,
+    name?: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  archiveFeature(name: string, project?: string, expectedResponseCode?: number): supertest.Test;
+  archiveFeature(
+    name: string,
+    project?: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  createContextField(contextField: IContextFieldDto, expectedResponseCode?: number): supertest.Test;
+  createContextField(
+    contextField: IContextFieldDto,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  linkProjectToEnvironment(project: string, environment: string, expectedResponseCode?: number): supertest.Test;
+  linkProjectToEnvironment(
+    project: string,
+    environment: string,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  importToggles(importPayload: ImportTogglesSchema, expectedResponseCode?: number): supertest.Test;
+  importToggles(
+    importPayload: ImportTogglesSchema,
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
-  addDependency(child: string, parent: string | CreateDependentFeatureSchema): supertest.Test;
+  addDependency(
+    child: string,
+    parent: string | CreateDependentFeatureSchema,
+  ): supertest.Test;
 
-  addTag(feature: string, tag: { type: string; value: string }, expectedResponseCode?: number): supertest.Test;
+  addTag(
+    feature: string,
+    tag: { type: string; value: string },
+    expectedResponseCode?: number,
+  ): supertest.Test;
 
   getRecordedEvents(): supertest.Test;
 
   createSegment(postData: object, expectStatusCode?: number): supertest.Test;
 }
 
-function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHttpAPI {
+function httpApis(
+  request: TestAgent<Test>,
+  config: IUnleashConfig,
+): IUnleashHttpAPI {
   const base = config.server.baseUriPath || '';
 
   return {
@@ -109,9 +154,15 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    getFeatures(name?: string, expectedResponseCode: number = 200): supertest.Test {
+    getFeatures(
+      name?: string,
+      expectedResponseCode: number = 200,
+    ): supertest.Test {
       const featuresUrl = `/api/admin/features${name ? `/${name}` : ''}`;
-      return request.get(featuresUrl).set('Content-Type', 'application/json').expect(expectedResponseCode);
+      return request
+        .get(featuresUrl)
+        .set('Content-Type', 'application/json')
+        .expect(expectedResponseCode);
     },
 
     getProjectFeatures(
@@ -120,7 +171,10 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
       expectedResponseCode: number = 200,
     ): supertest.Test {
       const featuresUrl = `/api/admin/projects/${project}/features${name ? `/${name}` : ''}`;
-      return request.get(featuresUrl).set('Content-Type', 'application/json').expect(expectedResponseCode);
+      return request
+        .get(featuresUrl)
+        .set('Content-Type', 'application/json')
+        .expect(expectedResponseCode);
     },
 
     archiveFeature(
@@ -134,8 +188,14 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    createContextField(contextField: IContextFieldDto, expectedResponseCode: number = 201): supertest.Test {
-      return request.post(`${base}/api/admin/context`).send(contextField).expect(expectedResponseCode);
+    createContextField(
+      contextField: IContextFieldDto,
+      expectedResponseCode: number = 201,
+    ): supertest.Test {
+      return request
+        .post(`${base}/api/admin/context`)
+        .send(contextField)
+        .expect(expectedResponseCode);
     },
 
     linkProjectToEnvironment(
@@ -151,7 +211,10 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    importToggles(importPayload: ImportTogglesSchema, expectedResponseCode: number = 200): supertest.Test {
+    importToggles(
+      importPayload: ImportTogglesSchema,
+      expectedResponseCode: number = 200,
+    ): supertest.Test {
       return request
         .post('/api/admin/features-batch/import')
         .send(importPayload)
@@ -172,7 +235,11 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    addTag(feature: string, tag: { type: string; value: string }, expectedResponseCode: number = 201): supertest.Test {
+    addTag(
+      feature: string,
+      tag: { type: string; value: string },
+      expectedResponseCode: number = 201,
+    ): supertest.Test {
       return request
         .post(`/api/admin/features/${feature}/tags`)
         .send({ type: tag.type, value: tag.value })
@@ -180,19 +247,33 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    enableFeature(feature: string, environment, project = 'default', expectedResponseCode = 200): supertest.Test {
+    enableFeature(
+      feature: string,
+      environment,
+      project = 'default',
+      expectedResponseCode = 200,
+    ): supertest.Test {
       return request
-        .post(`/api/admin/projects/${project}/features/${feature}/environments/${environment}/on`)
+        .post(
+          `/api/admin/projects/${project}/features/${feature}/environments/${environment}/on`,
+        )
         .expect(expectedResponseCode);
     },
 
-    favoriteFeature(feature: string, project = 'default', expectedResponseCode = 200): supertest.Test {
+    favoriteFeature(
+      feature: string,
+      project = 'default',
+      expectedResponseCode = 200,
+    ): supertest.Test {
       return request
         .post(`/api/admin/projects/${project}/features/${feature}/favorites`)
         .set('Content-Type', 'application/json')
         .expect(expectedResponseCode);
     },
-    createSegment(postData: object, expectedResponseCode = 201): supertest.Test {
+    createSegment(
+      postData: object,
+      expectedResponseCode = 201,
+    ): supertest.Test {
       return request
         .post(`/api/admin/segments`)
         .send(postData)
@@ -200,7 +281,10 @@ function httpApis(request: TestAgent<Test>, config: IUnleashConfig): IUnleashHtt
         .expect(expectedResponseCode);
     },
 
-    getRecordedEvents(project: string | null = null, expectedResponseCode: number = 200): supertest.Test {
+    getRecordedEvents(
+      project: string | null = null,
+      expectedResponseCode: number = 200,
+    ): supertest.Test {
       return request
         .post('/api/admin/events/search')
         .send({ project, query: '', limit: 50, offset: 0 })
@@ -267,7 +351,11 @@ export async function setupApp(stores: IUnleashStores): Promise<IUnleashTest> {
   return createApp(stores);
 }
 
-export async function setupAppWithoutSupertest(stores, customOptions?: any, db?: Db): Promise<IUnleashNoSupertest> {
+export async function setupAppWithoutSupertest(
+  stores,
+  customOptions?: any,
+  db?: Db,
+): Promise<IUnleashNoSupertest> {
   const config = createTestConfig({
     authentication: {
       type: IAuthType.DEMO,
@@ -338,7 +426,10 @@ export async function setupAppWithCustomAuth(
   return createApp(stores, IAuthType.CUSTOM, preHook, customOptions, db);
 }
 
-export async function setupAppWithBaseUrl(stores: IUnleashStores, baseUriPath = '/hosted'): Promise<IUnleashTest> {
+export async function setupAppWithBaseUrl(
+  stores: IUnleashStores,
+  baseUriPath = '/hosted',
+): Promise<IUnleashTest> {
   return createApp(stores, undefined, undefined, {
     server: {
       unleashUrl: 'http://localhost:4242',

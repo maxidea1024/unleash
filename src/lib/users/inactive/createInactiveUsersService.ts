@@ -21,7 +21,10 @@ export const createInactiveUsersService = (
 };
 
 export const createFakeInactiveUsersService = (
-  { getLogger, userInactivityThresholdInDays }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
+  {
+    getLogger,
+    userInactivityThresholdInDays,
+  }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
   userService: UserService,
 ): InactiveUsersService => {
   // TODO: fake* 는 왜 쓰는걸까?

@@ -21,7 +21,8 @@ export interface ISelectOption {
   sx?: SxProps<Theme>;
 }
 
-export interface IGeneralSelectProps<T extends string = string> extends Omit<SelectProps, 'onChange'> {
+export interface IGeneralSelectProps<T extends string = string>
+  extends Omit<SelectProps, 'onChange'> {
   name?: string;
   value?: T;
   label?: string;
@@ -59,9 +60,18 @@ function GeneralSelect<T extends string = string>({
   };
 
   return (
-    <StyledFormControl variant='outlined' size='small' classes={classes} fullWidth={fullWidth}>
+    <StyledFormControl
+      variant='outlined'
+      size='small'
+      classes={classes}
+      fullWidth={fullWidth}
+    >
       {label ? (
-        <InputLabel sx={visuallyHideLabel ? visuallyHidden : null} htmlFor={id} id={labelId}>
+        <InputLabel
+          sx={visuallyHideLabel ? visuallyHidden : null}
+          htmlFor={id}
+          id={labelId}
+        >
           {label}
         </InputLabel>
       ) : null}

@@ -18,7 +18,10 @@ export interface IFormErrors {
 export const useFormErrors = (): IFormErrors => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const getFormError = useCallback((field: string): string | undefined => errors[field], [errors]);
+  const getFormError = useCallback(
+    (field: string): string | undefined => errors[field],
+    [errors],
+  );
 
   const setFormError = useCallback(
     (field: string, message: string): void => {
@@ -42,7 +45,10 @@ export const useFormErrors = (): IFormErrors => {
     [setErrors],
   );
 
-  const hasFormErrors = useCallback((): boolean => Object.values(errors).some(Boolean), [errors]);
+  const hasFormErrors = useCallback(
+    (): boolean => Object.values(errors).some(Boolean),
+    [errors],
+  );
 
   return {
     getFormError,

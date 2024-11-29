@@ -1,6 +1,9 @@
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import type { ProjectSchemaOwners } from 'openapi';
-import { type AvatarComponentType, AvatarGroup } from '../AvatarGroup/AvatarGroup';
+import {
+  type AvatarComponentType,
+  AvatarGroup,
+} from '../AvatarGroup/AvatarGroup';
 
 type Props = {
   users: ProjectSchemaOwners;

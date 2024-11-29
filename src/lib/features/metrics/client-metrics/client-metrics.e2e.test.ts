@@ -1,5 +1,10 @@
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../../test/e2e/helpers/test-helper';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../test/fixtures/no-logger';
 import type { IClientMetricsEnv } from './client-metrics-store-v2-type';
 import { subHours } from 'date-fns';
@@ -9,7 +14,9 @@ let db: ITestDb;
 
 const fetchHoursBack = (hoursBack: number, feature: string = 'demo') => {
   return app.request
-    .get(`/api/admin/client-metrics/features/${feature}/raw?hoursBack=${hoursBack}`)
+    .get(
+      `/api/admin/client-metrics/features/${feature}/raw?hoursBack=${hoursBack}`,
+    )
     .expect('Content-Type', /json/)
     .expect(200)
     .then((res) => res.body);
@@ -220,7 +227,9 @@ test('should return toggle summary', async () => {
     .expect(200);
 
   const test = demo.lastHourUsage.find((u) => u.environment === 'test');
-  const defaultEnv = demo.lastHourUsage.find((u) => u.environment === 'default');
+  const defaultEnv = demo.lastHourUsage.find(
+    (u) => u.environment === 'default',
+  );
 
   expect(demo.featureName).toBe('demo');
   expect(demo.lastHourUsage).toHaveLength(2);
@@ -287,7 +296,9 @@ test('should only include last hour of metrics return toggle summary', async () 
     .expect(200);
 
   const test = demo.lastHourUsage.find((u) => u.environment === 'test');
-  const defaultEnv = demo.lastHourUsage.find((u) => u.environment === 'default');
+  const defaultEnv = demo.lastHourUsage.find(
+    (u) => u.environment === 'default',
+  );
 
   expect(demo.featureName).toBe('demo');
   expect(demo.lastHourUsage).toHaveLength(2);

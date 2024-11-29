@@ -32,7 +32,11 @@ export interface License {
 }
 
 export const useLicenseCheck = (): LicenseInfo => {
-  const { data, error, mutate } = useEnterpriseSWR(fallback, formatApiPath(`api/admin/license/check`), fetcher);
+  const { data, error, mutate } = useEnterpriseSWR(
+    fallback,
+    formatApiPath(`api/admin/license/check`),
+    fetcher,
+  );
 
   return {
     isValid: data?.isValid,
@@ -44,7 +48,10 @@ export const useLicenseCheck = (): LicenseInfo => {
 };
 
 export const useLicense = (): License => {
-  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/license`), fetcher);
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/license`),
+    fetcher,
+  );
 
   return {
     license: { ...data },

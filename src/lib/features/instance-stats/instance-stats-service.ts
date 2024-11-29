@@ -20,7 +20,12 @@ import type { ISegmentStore } from '../segment/segment-store-type';
 import type { IRoleStore } from '../../types/stores/role-store';
 import type VersionService from '../../services/version-service';
 import type { ISettingStore } from '../../types/stores/settings-store';
-import { FEATURES_EXPORTED, FEATURES_IMPORTED, type IApiTokenStore, type IFlagResolver } from '../../types';
+import {
+  FEATURES_EXPORTED,
+  FEATURES_IMPORTED,
+  type IApiTokenStore,
+  type IFlagResolver,
+} from '../../types';
 import { CUSTOM_ROOT_ROLE_TYPE } from '../../util';
 import type { GetActiveUsers } from './getActiveUsers';
 import type { ProjectModeCount } from '../project/project-store';
@@ -133,7 +138,10 @@ export class InstanceStatsService {
       | 'featureStrategiesReadModel'
       | 'trafficDataUsageStore'
     >,
-    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    {
+      getLogger,
+      flagResolver,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     versionService: VersionService,
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,
@@ -181,21 +189,29 @@ export class InstanceStatsService {
   }
 
   async hasOIDC(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.oidc');
+    const settings = await this.settingStore.get<{ enabled: boolean }>(
+      'unleash.enterprise.auth.oidc',
+    );
 
     return settings?.enabled || false;
   }
 
   async hasSAML(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ enabled: boolean }>('unleash.enterprise.auth.saml');
+    const settings = await this.settingStore.get<{ enabled: boolean }>(
+      'unleash.enterprise.auth.saml',
+    );
 
     return settings?.enabled || false;
   }
 
   async hasPasswordAuth(): Promise<boolean> {
-    const settings = await this.settingStore.get<{ disabled: boolean }>('unleash.auth.simple');
+    const settings = await this.settingStore.get<{ disabled: boolean }>(
+      'unleash.auth.simple',
+    );
 
-    return typeof settings?.disabled === 'undefined' || settings.disabled === false;
+    return (
+      typeof settings?.disabled === 'undefined' || settings.disabled === false
+    );
   }
 
   async hasSCIM(): Promise<boolean> {
@@ -361,13 +377,18 @@ export class InstanceStatsService {
   }
 
   async getCurrentTrafficData(): Promise<number> {
-    const traffic = await this.trafficDataUsageStore.getTrafficDataUsageForPeriod(format(new Date(), 'yyyy-MM'));
+    const traffic =
+      await this.trafficDataUsageStore.getTrafficDataUsageForPeriod(
+        format(new Date(), 'yyyy-MM'),
+      );
 
     const counts = traffic.map((item) => item.count);
     return counts.reduce((total, current) => total + current, 0);
   }
 
-  async getLabeledAppCounts(): Promise<Partial<{ [key in TimeRange]: number }>> {
+  async getLabeledAppCounts(): Promise<
+    Partial<{ [key in TimeRange]: number }>
+  > {
     const [t7d, t30d, allTime] = await Promise.all([
       this.clientInstanceStore.getDistinctApplicationsCount(7),
       this.clientInstanceStore.getDistinctApplicationsCount(30),
@@ -387,7 +408,9 @@ export class InstanceStatsService {
 
   async getSignedStats(): Promise<InstanceStatsSigned> {
     const instanceStats = await this.getStats();
-    const totalProjects = instanceStats.projects.map((p) => p.count).reduce((a, b) => a + b, 0);
+    const totalProjects = instanceStats.projects
+      .map((p) => p.count)
+      .reduce((a, b) => a + b, 0);
 
     const sum = sha256(
       `${instanceStats.instanceId}${instanceStats.users}${instanceStats.featureToggles}${totalProjects}${instanceStats.roles}${instanceStats.groups}${instanceStats.environments}${instanceStats.segments}`,

@@ -54,7 +54,10 @@ export const WelcomeDialog: FC<IWelcomeDialogProps> = ({ open, onClose }) => {
       <ContentWrapper>
         <WelcomeLine>
           <Typography variant='h2'>Welcome to</Typography>
-          <ThemeMode darkmode={<StyledUnleashLogoWhite />} lightmode={<StyledUnleashLogo />} />
+          <ThemeMode
+            darkmode={<StyledUnleashLogoWhite />}
+            lightmode={<StyledUnleashLogo />}
+          />
         </WelcomeLine>
         <Box>
           Here are the{' '}
@@ -67,23 +70,25 @@ export const WelcomeDialog: FC<IWelcomeDialogProps> = ({ open, onClose }) => {
         <ScreenReaderOnly>
           <h2>Environments</h2>
           <p>
-            Environments represent different stages in your development lifecycle. The default environments are
-            development and production.
+            Environments represent different stages in your development
+            lifecycle. The default environments are development and production.
           </p>
           <h2>Projects</h2>
           <p>
-            Projects help you organize feature flags and define access for users and applications. SDKs use a
-            combination of environment and project to retrieve feature flag configurations.
+            Projects help you organize feature flags and define access for users
+            and applications. SDKs use a combination of environment and project
+            to retrieve feature flag configurations.
           </p>
           <h2>Feature flags</h2>
           <p>
-            Feature flags exist within a project and have distinct configurations for each of the project's active
-            environments.
+            Feature flags exist within a project and have distinct
+            configurations for each of the project's active environments.
           </p>
           <h2>Activation strategy</h2>
           <p>
-            Activation strategies are rulesets that determine if a feature flag is enabled in a specific environment.
-            You can configure multiple activation strategies per environment.
+            Activation strategies are rulesets that determine if a feature flag
+            is enabled in a specific environment. You can configure multiple
+            activation strategies per environment.
           </p>
         </ScreenReaderOnly>
         <Button variant='contained' onClick={onClose}>

@@ -73,7 +73,10 @@ export const OidcAuth = () => {
     setData({ ...data, enableSingleSignOut: !data.enableSingleSignOut });
   };
 
-  const setValue = (name: string, value: string | boolean | number | undefined) => {
+  const setValue = (
+    name: string,
+    value: string | boolean | number | undefined,
+  ) => {
     setData({
       ...data,
       [name]: value,
@@ -110,7 +113,8 @@ export const OidcAuth = () => {
             condition={Boolean(oidcConfiguredThroughEnv)}
             show={
               <Alert sx={{ mb: 2 }} severity='warning'>
-                OIDC is currently configured via environment variables. Please refer to the{' '}
+                OIDC is currently configured via environment variables. Please
+                refer to the{' '}
                 <a
                   href='https://www.unleash-hosted.com/docs/enterprise-authentication'
                   target='_blank'
@@ -118,16 +122,22 @@ export const OidcAuth = () => {
                 >
                   documentation
                 </a>{' '}
-                for detailed instructions on how to set up OIDC using these variables.
+                for detailed instructions on how to set up OIDC using these
+                variables.
               </Alert>
             }
           />
           <Alert severity='info'>
             Please read the{' '}
-            <a href='https://www.unleash-hosted.com/docs/enterprise-authentication' target='_blank' rel='noreferrer'>
+            <a
+              href='https://www.unleash-hosted.com/docs/enterprise-authentication'
+              target='_blank'
+              rel='noreferrer'
+            >
               documentation
             </a>{' '}
-            to learn how to integrate with specific Open Id Connect providers (Okta, Keycloak, Google, etc). <br />
+            to learn how to integrate with specific Open Id Connect providers
+            (Okta, Keycloak, Google, etc). <br />
             Callback URL: <code>{uiConfig.unleashUrl}/auth/oidc/callback</code>
           </Alert>
         </Grid>
@@ -140,7 +150,14 @@ export const OidcAuth = () => {
           </Grid>
           <Grid item md={6} style={{ padding: '20px' }}>
             <FormControlLabel
-              control={<Switch onChange={updateEnabled} value={data.enabled} name='enabled' checked={data.enabled} />}
+              control={
+                <Switch
+                  onChange={updateEnabled}
+                  value={data.enabled}
+                  name='enabled'
+                  checked={data.enabled}
+                />
+              }
               label={data.enabled ? 'Enabled' : 'Disabled'}
               disabled={oidcConfiguredThroughEnv}
             />
@@ -207,7 +224,8 @@ export const OidcAuth = () => {
           <Grid item md={5}>
             <strong>Enable Single Sign-Out</strong>
             <p>
-              If you enable Single Sign-Out Unleash will redirect the user to the IDP as part of the Sign-out process.
+              If you enable Single Sign-Out Unleash will redirect the user to
+              the IDP as part of the Sign-out process.
             </p>
           </Grid>
           <Grid item md={6} style={{ padding: '20px' }}>
@@ -229,9 +247,11 @@ export const OidcAuth = () => {
           <Grid item md={5}>
             <strong>ACR Values</strong>
             <p>
-              Requested Authentication Context Class Reference values. If multiple values are specified they should be
-              "space" separated. Will be sent as "acr_values" as part of the authentication request. Unleash will
-              validate the acr value in the id token claims against the list of acr values.
+              Requested Authentication Context Class Reference values. If
+              multiple values are specified they should be "space" separated.
+              Will be sent as "acr_values" as part of the authentication
+              request. Unleash will validate the acr value in the id token
+              claims against the list of acr values.
             </p>
           </Grid>
           <Grid item md={6}>
@@ -247,7 +267,12 @@ export const OidcAuth = () => {
             />
           </Grid>
         </Grid>
-        <SsoGroupSettings ssoType='OIDC' data={data} setValue={setValue} disabled={oidcConfiguredThroughEnv} />
+        <SsoGroupSettings
+          ssoType='OIDC'
+          data={data}
+          setValue={setValue}
+          disabled={oidcConfiguredThroughEnv}
+        />
 
         <AutoCreateForm
           data={data}
@@ -259,20 +284,25 @@ export const OidcAuth = () => {
           <Grid item md={5}>
             <strong>ID Signing algorithm</strong>
             <p>
-              Which signing algorithm to use. <br /> Leave this alone unless you see errors that look like "unexpected
-              JWT alg received, expected RS256, got: RS512" in your logs.
+              Which signing algorithm to use. <br /> Leave this alone unless you
+              see errors that look like "unexpected JWT alg received, expected
+              RS256, got: RS512" in your logs.
             </p>
           </Grid>
           <Grid item md={6}>
             <FormControl style={{ minWidth: '200px' }}>
-              <InputLabel id='defaultRootRole-label'>Signing algorithm</InputLabel>
+              <InputLabel id='defaultRootRole-label'>
+                Signing algorithm
+              </InputLabel>
               <Select
                 label='Signing algorithm'
                 labelId='idTokenSigningAlgorithm-label'
                 id='idTokenSigningAlgorithm'
                 name='idTokenSigningAlgorithm'
                 value={data.idTokenSigningAlgorithm || 'RS256'}
-                onChange={(e) => setValue('idTokenSigningAlgorithm', e.target.value)}
+                onChange={(e) =>
+                  setValue('idTokenSigningAlgorithm', e.target.value)
+                }
                 disabled={oidcConfiguredThroughEnv}
               >
                 {/*consider these from API or constants. */}
@@ -286,7 +316,12 @@ export const OidcAuth = () => {
 
         <Grid container spacing={3}>
           <Grid item md={12}>
-            <Button variant='contained' color='primary' type='submit' disabled={loading || oidcConfiguredThroughEnv}>
+            <Button
+              variant='contained'
+              color='primary'
+              type='submit'
+              disabled={loading || oidcConfiguredThroughEnv}
+            >
               Save
             </Button>{' '}
             <p>

@@ -1,6 +1,9 @@
 import useSWR from 'swr';
 import { useMemo, useCallback } from 'react';
-import type { IEnvironmentResponse, IProjectEnvironment } from 'interfaces/environments';
+import type {
+  IEnvironmentResponse,
+  IProjectEnvironment,
+} from 'interfaces/environments';
 import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
@@ -11,7 +14,9 @@ interface IUseProjectEnvironmentsOutput {
   refetchEnvironments: () => Promise<void>;
 }
 
-export const useProjectEnvironments = (projectId: string): IUseProjectEnvironmentsOutput => {
+export const useProjectEnvironments = (
+  projectId: string,
+): IUseProjectEnvironmentsOutput => {
   const { data, error, mutate } = useSWR<IProjectEnvironment[]>(
     formatApiPath(`api/admin/environments/project/${projectId}`),
     fetcher,

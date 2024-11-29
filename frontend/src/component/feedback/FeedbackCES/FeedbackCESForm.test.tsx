@@ -9,7 +9,10 @@ test('FeedbackCESForm', () => {
 
   render(
     <ThemeProvider>
-      <FeedbackCESForm onClose={onClose} state={{ title: 'a', text: 'b', path: '/c' }} />
+      <FeedbackCESForm
+        onClose={onClose}
+        state={{ title: 'a', text: 'b', path: '/c' }}
+      />
     </ThemeProvider>,
   );
 

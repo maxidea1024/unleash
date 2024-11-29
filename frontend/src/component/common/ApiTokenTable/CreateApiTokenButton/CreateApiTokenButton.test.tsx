@@ -6,7 +6,10 @@ import { CREATE_PROJECT_API_TOKEN } from 'component/providers/AccessProvider/per
 
 const server = testServerSetup();
 
-const setupApi = ({ apiTokenCount, apiTokenLimit }: { apiTokenCount: number; apiTokenLimit: number }) => {
+const setupApi = ({
+  apiTokenCount,
+  apiTokenLimit,
+}: { apiTokenCount: number; apiTokenLimit: number }) => {
   testServerRoute(server, '/api/admin/ui-config', {
     resourceLimits: { apiTokens: apiTokenLimit },
   });
@@ -23,9 +26,15 @@ const setupApi = ({ apiTokenCount, apiTokenLimit }: { apiTokenCount: number; api
 test('should allow you to create API tokens when there are fewer apiTokens than the limit', async () => {
   setupApi({ apiTokenLimit: 3, apiTokenCount: 2 });
 
-  render(<CreateApiTokenButton permission={CREATE_PROJECT_API_TOKEN} path='create' />, {
-    permissions: [{ permission: CREATE_PROJECT_API_TOKEN }],
-  });
+  render(
+    <CreateApiTokenButton
+      permission={CREATE_PROJECT_API_TOKEN}
+      path='create'
+    />,
+    {
+      permissions: [{ permission: CREATE_PROJECT_API_TOKEN }],
+    },
+  );
 
   await waitFor(async () => {
     const button = await screen.findByRole('button');
@@ -36,9 +45,15 @@ test('should allow you to create API tokens when there are fewer apiTokens than 
 test('should not allow you to create API tokens when you have reached the limit', async () => {
   setupApi({ apiTokenLimit: 3, apiTokenCount: 3 });
 
-  render(<CreateApiTokenButton permission={CREATE_PROJECT_API_TOKEN} path='create' />, {
-    permissions: [{ permission: CREATE_PROJECT_API_TOKEN }],
-  });
+  render(
+    <CreateApiTokenButton
+      permission={CREATE_PROJECT_API_TOKEN}
+      path='create'
+    />,
+    {
+      permissions: [{ permission: CREATE_PROJECT_API_TOKEN }],
+    },
+  );
 
   await waitFor(async () => {
     const button = await screen.findByRole('button');

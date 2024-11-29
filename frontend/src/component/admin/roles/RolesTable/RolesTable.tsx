@@ -68,7 +68,9 @@ export const RolesTable = ({
     () => [
       {
         id: 'Icon',
-        Cell: () => <IconCell icon={<SupervisedUserCircle color='disabled' />} />,
+        Cell: () => (
+          <IconCell icon={<SupervisedUserCircle color='disabled' />} />
+        ),
         disableGlobalFilter: true,
         maxWidth: 50,
       },
@@ -120,7 +122,11 @@ export const RolesTable = ({
     hiddenColumns: ['description'],
   });
 
-  const { data, getSearchText } = useSearch(columns, searchValue, type === ROOT_ROLE_TYPE ? roles : projectRoles);
+  const { data, getSearchText } = useSearch(
+    columns,
+    searchValue,
+    type === ROOT_ROLE_TYPE ? roles : projectRoles,
+  );
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -154,7 +160,11 @@ export const RolesTable = ({
   return (
     <PageContent isLoading={loading}>
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+        <VirtualizedTable
+          rows={rows}
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
+        />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -168,12 +178,26 @@ export const RolesTable = ({
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={<TablePlaceholder>No {type} roles available. Get started by adding one.</TablePlaceholder>}
+            elseShow={
+              <TablePlaceholder>
+                No {type} roles available. Get started by adding one.
+              </TablePlaceholder>
+            }
           />
         }
       />
-      <RoleModal type={type} roleId={selectedRole?.id} open={modalOpen} setOpen={setModalOpen} />
-      <RoleDeleteDialog role={selectedRole} open={deleteOpen} setOpen={setDeleteOpen} onConfirm={onDeleteConfirm} />
+      <RoleModal
+        type={type}
+        roleId={selectedRole?.id}
+        open={modalOpen}
+        setOpen={setModalOpen}
+      />
+      <RoleDeleteDialog
+        role={selectedRole}
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
+        onConfirm={onDeleteConfirm}
+      />
     </PageContent>
   );
 };

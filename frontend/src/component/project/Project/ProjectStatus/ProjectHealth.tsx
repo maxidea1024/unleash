@@ -94,9 +94,12 @@ export const ProjectHealth = () => {
         </SVGWrapper>
         <TextContainer>
           <Typography variant='body2'>
-            On average, your project health has remained at {averageHealth}% the last 4 weeks
+            On average, your project health has remained at {averageHealth}% the
+            last 4 weeks
           </Typography>
-          {!isOss() && <StyledLink to='/insights'>View health over time</StyledLink>}
+          {!isOss() && (
+            <StyledLink to='/insights'>View health over time</StyledLink>
+          )}
         </TextContainer>
       </ChartRow>
     </HealthGridTile>

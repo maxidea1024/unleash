@@ -4,9 +4,13 @@ import { act } from 'react';
 
 describe('useOverrides', () => {
   it('should return initial value', () => {
-    const { result } = renderHook(() => useOverrides([{ contextName: 'context', values: ['a', 'b'] }]));
+    const { result } = renderHook(() =>
+      useOverrides([{ contextName: 'context', values: ['a', 'b'] }]),
+    );
 
-    expect(result.current[0]).toEqual([{ contextName: 'context', values: ['a', 'b'] }]);
+    expect(result.current[0]).toEqual([
+      { contextName: 'context', values: ['a', 'b'] },
+    ]);
   });
 
   it('should set value with an action', () => {

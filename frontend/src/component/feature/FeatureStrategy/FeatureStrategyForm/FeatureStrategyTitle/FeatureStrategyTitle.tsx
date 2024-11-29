@@ -7,7 +7,10 @@ interface IFeatureStrategyTitleProps {
   setTitle: (title: string) => void;
 }
 
-export const FeatureStrategyTitle: VFC<IFeatureStrategyTitleProps> = ({ title, setTitle }) => {
+export const FeatureStrategyTitle: VFC<IFeatureStrategyTitleProps> = ({
+  title,
+  setTitle,
+}) => {
   return (
     <Box sx={{ paddingBottom: (theme) => theme.spacing(2) }}>
       <Typography

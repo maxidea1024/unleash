@@ -13,12 +13,16 @@ export const createResponseSchemas = (
 export const schemaNamed = (schemaName: string): OpenAPIV3.MediaTypeObject => {
   return {
     schema: {
-      $ref: schemaName.startsWith('#') ? schemaName : `#/components/schemas/${schemaName}`,
+      $ref: schemaName.startsWith('#')
+        ? schemaName
+        : `#/components/schemas/${schemaName}`,
     },
   };
 };
 
-export const schemaTyped = (type: OpenAPIV3.NonArraySchemaObjectType): OpenAPIV3.MediaTypeObject => {
+export const schemaTyped = (
+  type: OpenAPIV3.NonArraySchemaObjectType,
+): OpenAPIV3.MediaTypeObject => {
   return {
     schema: {
       type,
@@ -26,19 +30,26 @@ export const schemaTyped = (type: OpenAPIV3.NonArraySchemaObjectType): OpenAPIV3
   };
 };
 
-export const createResponseSchema = (schemaName: string): OpenAPIV3.ResponseObject => {
+export const createResponseSchema = (
+  schemaName: string,
+): OpenAPIV3.ResponseObject => {
   return createResponseSchemas(schemaName, {
     'application/json': schemaNamed(schemaName),
   });
 };
 
-export const createCsvResponseSchema = (schemaName: string, example: string): OpenAPIV3.ResponseObject => {
+export const createCsvResponseSchema = (
+  schemaName: string,
+  example: string,
+): OpenAPIV3.ResponseObject => {
   return createResponseSchemas(schemaName, {
     'text/csv': { example, ...schemaTyped('string') },
   });
 };
 
-export const resourceCreatedResponseSchema = (schemaName: string): OpenAPIV3.ResponseObject => {
+export const resourceCreatedResponseSchema = (
+  schemaName: string,
+): OpenAPIV3.ResponseObject => {
   return {
     headers: {
       location: {
@@ -53,7 +64,9 @@ export const resourceCreatedResponseSchema = (schemaName: string): OpenAPIV3.Res
     content: {
       'application/json': {
         schema: {
-          $ref: schemaName.startsWith('#') ? schemaName : `#/components/schemas/${schemaName}`,
+          $ref: schemaName.startsWith('#')
+            ? schemaName
+            : `#/components/schemas/${schemaName}`,
         },
       },
     },

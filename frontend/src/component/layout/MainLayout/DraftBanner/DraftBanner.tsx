@@ -39,14 +39,19 @@ const DraftBannerContent: FC<{
   onClick: () => void;
 }> = ({ changeRequests, onClick }) => {
   const environments = changeRequests.map(({ environment }) => environment);
-  const allChangesCount = changeRequests.reduce((acc, curr) => acc + changesCount(curr), 0);
+  const allChangesCount = changeRequests.reduce(
+    (acc, curr) => acc + changesCount(curr),
+    0,
+  );
   const showOneLongExplanation =
-    changeRequests.length === 1 && ['Draft', 'In review', 'Approved'].includes(changeRequests[0].state);
+    changeRequests.length === 1 &&
+    ['Draft', 'In review', 'Approved'].includes(changeRequests[0].state);
   const explanation = showOneLongExplanation
     ? {
         Draft: ' that need to be reviewed',
         'In review': ' that are in review',
-        Approved: ' that are approved. Adding more changes will clear the approvals and require a new review',
+        Approved:
+          ' that are approved. Adding more changes will clear the approvals and require a new review',
       }[changeRequests[0].state as 'Draft' | 'In review' | 'Approved']
     : '';
 
@@ -98,7 +103,10 @@ export const DraftBanner: VFC<IDraftBannerProps> = ({ project }) => {
   const { data, loading } = usePendingChangeRequests(project);
 
   const unfinishedChangeRequests = useMemo(
-    () => data?.filter((changeRequest) => ['Draft', 'In review', 'Approved'].includes(changeRequest.state)),
+    () =>
+      data?.filter((changeRequest) =>
+        ['Draft', 'In review', 'Approved'].includes(changeRequest.state),
+      ),
     [data],
   );
 

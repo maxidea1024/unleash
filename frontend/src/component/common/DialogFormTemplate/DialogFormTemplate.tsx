@@ -65,7 +65,9 @@ export const DialogFormTemplate: React.FC<FormProps> = ({
           <StyledInput
             label={`${resource} name`}
             aria-required
-            aria-details={displayNamingPattern ? 'naming-pattern-info' : undefined}
+            aria-details={
+              displayNamingPattern ? 'naming-pattern-info' : undefined
+            }
             value={name}
             onChange={(e) => setName(e.target.value)}
             error={Boolean(errors.name)}
@@ -85,7 +87,10 @@ export const DialogFormTemplate: React.FC<FormProps> = ({
             size='medium'
           />
 
-          <ConditionallyRender condition={displayNamingPattern} show={<NamingPatternInfo naming={namingPattern!} />} />
+          <ConditionallyRender
+            condition={displayNamingPattern}
+            show={<NamingPatternInfo naming={namingPattern!} />}
+          />
         </NameContainer>
         <DescriptionContainer>
           <StyledInput
@@ -112,7 +117,11 @@ export const DialogFormTemplate: React.FC<FormProps> = ({
       <LimitContainer>{Limit}</LimitContainer>
       <FormActions>
         <Button onClick={onClose}>Cancel</Button>
-        <CreateButton data-testid='FORM_CREATE_BUTTON' name={resource} {...createButtonProps} />
+        <CreateButton
+          data-testid='FORM_CREATE_BUTTON'
+          name={resource}
+          {...createButtonProps}
+        />
       </FormActions>
     </StyledForm>
   );

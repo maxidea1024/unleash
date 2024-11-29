@@ -22,7 +22,10 @@ export const useApiTokenForm = (project?: string) => {
   const initialEnvironment = environments?.find((e) => e.enabled)?.name;
 
   const hasCreateTokenPermission = useHasRootAccess(CREATE_CLIENT_API_TOKEN);
-  const hasCreateProjectTokenPermission = useHasRootAccess(CREATE_PROJECT_API_TOKEN, project);
+  const hasCreateProjectTokenPermission = useHasRootAccess(
+    CREATE_PROJECT_API_TOKEN,
+    project,
+  );
 
   const apiTokenTypes: SelectOption[] = [
     {
@@ -35,7 +38,10 @@ export const useApiTokenForm = (project?: string) => {
 
   const hasAdminAccess = useHasRootAccess(ADMIN);
   const hasCreateFrontendAccess = useHasRootAccess(CREATE_FRONTEND_API_TOKEN);
-  const hasCreateFrontendTokenAccess = useHasRootAccess(CREATE_PROJECT_API_TOKEN, project);
+  const hasCreateFrontendTokenAccess = useHasRootAccess(
+    CREATE_PROJECT_API_TOKEN,
+    project,
+  );
   if (!project && !adminTokenKillSwitch) {
     apiTokenTypes.push({
       key: TokenType.ADMIN,
@@ -59,9 +65,12 @@ export const useApiTokenForm = (project?: string) => {
   const [username, setUsername] = useState('');
   const [type, setType] = useState(firstAccessibleType || TokenType.CLIENT);
   const [projects, setProjects] = useState<string[]>([project ? project : '*']);
-  const [memorizedProjects, setMemorizedProjects] = useState<string[]>(projects);
+  const [memorizedProjects, setMemorizedProjects] =
+    useState<string[]>(projects);
   const [environment, setEnvironment] = useState<string>();
-  const [errors, setErrors] = useState<Partial<Record<ApiTokenFormErrorType, string>>>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<ApiTokenFormErrorType, string>>
+  >({});
 
   useEffect(() => {
     setEnvironment(type === 'ADMIN' ? '*' : initialEnvironment);

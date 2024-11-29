@@ -21,7 +21,8 @@ const EditEnvironment = () => {
   const { updateEnvironment } = useEnvironmentApi();
 
   const navigate = useNavigate();
-  const { name, type, setName, setType, errors, clearErrors } = useEnvironmentForm(environment.name, environment.type);
+  const { name, type, setName, setType, errors, clearErrors } =
+    useEnvironmentForm(environment.name, environment.type);
   const { refetch } = usePermissions();
 
   const editPayload = () => {

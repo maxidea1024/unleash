@@ -80,7 +80,11 @@ export const usePlausibleTracker = () => {
   const plausible = useContext(PlausibleContext);
 
   const trackEvent = useCallback(
-    (eventName: CustomEvents, options?: EventOptions | undefined, eventData?: PlausibleOptions | undefined) => {
+    (
+      eventName: CustomEvents,
+      options?: EventOptions | undefined,
+      eventData?: PlausibleOptions | undefined,
+    ) => {
       if (plausible?.trackEvent) {
         plausible.trackEvent(eventName, options, eventData);
       } else {

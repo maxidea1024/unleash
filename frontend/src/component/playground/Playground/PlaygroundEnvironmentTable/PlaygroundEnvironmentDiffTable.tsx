@@ -1,5 +1,10 @@
 import { useMemo, useRef } from 'react';
-import { useFlexLayout, useGlobalFilter, useSortBy, useTable } from 'react-table';
+import {
+  useFlexLayout,
+  useGlobalFilter,
+  useSortBy,
+  useTable,
+} from 'react-table';
 
 import { VirtualizedTable } from 'component/common/Table';
 import { sortTypes } from 'utils/sortTypes';
@@ -14,7 +19,9 @@ interface IPlaygroundEnvironmentTableProps {
   features: AdvancedPlaygroundFeatureSchemaEnvironments;
 }
 
-export const PlaygroundEnvironmentDiffTable = ({ features }: IPlaygroundEnvironmentTableProps) => {
+export const PlaygroundEnvironmentDiffTable = ({
+  features,
+}: IPlaygroundEnvironmentTableProps) => {
   const environments = Object.keys(features);
   const firstEnvFeatures = features[environments[0]];
   const firstContext = firstEnvFeatures[0].context;
@@ -22,23 +29,32 @@ export const PlaygroundEnvironmentDiffTable = ({ features }: IPlaygroundEnvironm
   const data = useMemo(
     () =>
       firstEnvFeatures.map((item, index) => ({
-        ...Object.fromEntries(environments.map((env) => [env, features[env][index]])),
+        ...Object.fromEntries(
+          environments.map((env) => [env, features[env][index]]),
+        ),
       })),
     [JSON.stringify(features)],
   );
   type RowType = (typeof data)[0];
 
-  const contextFieldsHeaders = Object.keys(firstContext).map((contextField) => ({
-    Header: capitalizeFirst(contextField),
-    accessor: (row: Record<string, { context: Record<string, unknown> }>) => row[environments[0]].context[contextField],
-    minWidth: 160,
-    Cell: HighlightCell,
-  }));
+  const contextFieldsHeaders = Object.keys(firstContext).map(
+    (contextField) => ({
+      Header: capitalizeFirst(contextField),
+      accessor: (row: Record<string, { context: Record<string, unknown> }>) =>
+        row[environments[0]].context[contextField],
+      minWidth: 160,
+      Cell: HighlightCell,
+    }),
+  );
 
   const environmentHeaders = environments.map((environment) => ({
     Header: environment,
     accessor: (row: RowType) =>
-      row[environment]?.isEnabled ? 'true' : row[environment]?.strategies?.result === 'unknown' ? 'unknown' : 'false',
+      row[environment]?.isEnabled
+        ? 'true'
+        : row[environment]?.strategies?.result === 'unknown'
+          ? 'unknown'
+          : 'false',
     Cell: ({ row }: { row: { original: RowType } }) => {
       return (
         <Box sx={{ display: 'flex' }}>
@@ -87,7 +103,12 @@ export const PlaygroundEnvironmentDiffTable = ({ features }: IPlaygroundEnvironm
         maxHeight: '800px',
       }}
     >
-      <VirtualizedTable parentRef={parentRef} rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+      <VirtualizedTable
+        parentRef={parentRef}
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+      />
     </Box>
   );
 };

@@ -15,7 +15,11 @@ export class FakeAccountStore implements IAccountStore {
     this.idSeq = 1;
     this.data = [];
   }
-  async hasAccount({ id, username, email }: IUserLookup): Promise<number | undefined> {
+  async hasAccount({
+    id,
+    username,
+    email,
+  }: IUserLookup): Promise<number | undefined> {
     const user = this.data.find((i) => {
       if (id && i.id === id) return true;
       if (username && i.username === username) return true;

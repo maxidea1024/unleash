@@ -71,7 +71,9 @@ describe('canGrantProjectRole', () => {
       },
     ];
 
-    expect(canGrantProjectRole(granterPermissions, receiverPermissions)).toBeFalsy();
+    expect(
+      canGrantProjectRole(granterPermissions, receiverPermissions),
+    ).toBeFalsy();
   });
 
   test('should return false if the granter does not have all receiver permissions', () => {
@@ -112,6 +114,8 @@ describe('canGrantProjectRole', () => {
       },
     ];
 
-    expect(canGrantProjectRole(granterPermissions, receiverPermissions)).toBeFalsy();
+    expect(
+      canGrantProjectRole(granterPermissions, receiverPermissions),
+    ).toBeFalsy();
   });
 });

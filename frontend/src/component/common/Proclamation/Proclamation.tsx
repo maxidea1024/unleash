@@ -55,7 +55,11 @@ const Proclamation = ({ toast }: IProclamationProps) => {
       show={
         <StyledProclamation severity={toast.severity} onClose={onClose}>
           <StyledContent variant='body2'>{toast.message}</StyledContent>
-          <StyledLink href={toast.link} target='_blank' rel='noopener noreferrer'>
+          <StyledLink
+            href={toast.link}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             View more
           </StyledLink>
         </StyledProclamation>

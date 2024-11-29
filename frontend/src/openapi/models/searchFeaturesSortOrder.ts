@@ -4,7 +4,8 @@
  * See `gen:api` script in package.json
  */
 
-export type SearchFeaturesSortOrder = (typeof SearchFeaturesSortOrder)[keyof typeof SearchFeaturesSortOrder];
+export type SearchFeaturesSortOrder =
+  (typeof SearchFeaturesSortOrder)[keyof typeof SearchFeaturesSortOrder];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SearchFeaturesSortOrder = {

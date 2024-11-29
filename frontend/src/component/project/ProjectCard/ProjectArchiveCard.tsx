@@ -16,7 +16,10 @@ import { useLocationSettings } from 'hooks/useLocationSettings';
 import { parseISO } from 'date-fns';
 import { Box, Link, styled, Tooltip } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import { DELETE_PROJECT, UPDATE_PROJECT } from 'component/providers/AccessProvider/permissions';
+import {
+  DELETE_PROJECT,
+  UPDATE_PROJECT,
+} from 'component/providers/AccessProvider/permissions';
 import Undo from '@mui/icons-material/Undo';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import Delete from '@mui/icons-material/Delete';
@@ -83,7 +86,14 @@ export const ProjectArchiveCard: FC<ProjectArchiveCardProps> = ({
         </StyledDivHeader>
         <StyledContent>
           <Tooltip
-            title={archivedAt ? formatDateYMDHM(parseISO(archivedAt as string), locationSettings.locale) : undefined}
+            title={
+              archivedAt
+                ? formatDateYMDHM(
+                    parseISO(archivedAt as string),
+                    locationSettings.locale,
+                  )
+                : undefined
+            }
             arrow
             placement='top'
           >
@@ -97,7 +107,10 @@ export const ProjectArchiveCard: FC<ProjectArchiveCardProps> = ({
               </p>
             </Box>
           </Tooltip>
-          <Link component={RouterLink} to={`/archive?search=project%3A${encodeURI(id)}`}>
+          <Link
+            component={RouterLink}
+            to={`/archive?search=project%3A${encodeURI(id)}`}
+          >
             <p>View archived flags</p>
           </Link>
         </StyledContent>

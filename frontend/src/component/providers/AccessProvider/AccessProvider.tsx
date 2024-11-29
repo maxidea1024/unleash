@@ -8,7 +8,9 @@ interface IAccessProviderProps {
   children: ReactNode;
 }
 
-export const AccessProvider = ({ children }: IAccessProviderProps): ReactElement => {
+export const AccessProvider = ({
+  children,
+}: IAccessProviderProps): ReactElement => {
   const { permissions } = useAuthPermissions();
 
   const value: IAccessContext = useMemo(
@@ -19,7 +21,9 @@ export const AccessProvider = ({ children }: IAccessProviderProps): ReactElement
     [permissions],
   );
 
-  return <AccessContext.Provider value={value}>{children}</AccessContext.Provider>;
+  return (
+    <AccessContext.Provider value={value}>{children}</AccessContext.Provider>
+  );
 };
 
 export const checkAdmin = (permissions: IPermission[] | undefined): boolean => {
@@ -41,14 +45,23 @@ export const hasAccess = (
   if (!permissions) {
     return false;
   }
-  const permissionsToCheck = Array.isArray(permission) ? permission : [permission];
+  const permissionsToCheck = Array.isArray(permission)
+    ? permission
+    : [permission];
 
   return permissions.some((p) =>
-    permissionsToCheck.some((permissionToCheck) => checkPermission(p, permissionToCheck, project, environment)),
+    permissionsToCheck.some((permissionToCheck) =>
+      checkPermission(p, permissionToCheck, project, environment),
+    ),
   );
 };
 
-const checkPermission = (p: IPermission, permission: string, project?: string, environment?: string): boolean => {
+const checkPermission = (
+  p: IPermission,
+  permission: string,
+  project?: string,
+  environment?: string,
+): boolean => {
   if (!permission) {
     console.warn(`Missing permission for AccessProvider: ${permission}`);
     return false;

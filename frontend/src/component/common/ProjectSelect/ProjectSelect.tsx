@@ -1,4 +1,10 @@
-import { forwardRef, type ComponentProps, type Dispatch, type SetStateAction, type VFC } from 'react';
+import {
+  forwardRef,
+  type ComponentProps,
+  type Dispatch,
+  type SetStateAction,
+  type VFC,
+} from 'react';
 import { Autocomplete, Chip, type SxProps, TextField } from '@mui/material';
 import { renderOption } from 'component/playground/Playground/PlaygroundForm/renderOption';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
@@ -30,7 +36,18 @@ function findAllIndexes(arr: string[], name: string): number[] {
 }
 
 export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
-  ({ limitTags, selectedProjects, onChange, dataTestId, sx, disabled, ...props }, ref) => {
+  (
+    {
+      limitTags,
+      selectedProjects,
+      onChange,
+      dataTestId,
+      sx,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
     const { projects: availableProjects } = useProjects();
 
     const projectNames = availableProjects.map(({ name }) => name);
@@ -50,9 +67,14 @@ export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
 
     const isAllProjects =
       selectedProjects &&
-      (selectedProjects.length === 0 || (selectedProjects.length === 1 && selectedProjects[0] === '*'));
+      (selectedProjects.length === 0 ||
+        (selectedProjects.length === 1 && selectedProjects[0] === '*'));
 
-    const onProjectsChange: ComponentProps<typeof Autocomplete>['onChange'] = (event, value, reason) => {
+    const onProjectsChange: ComponentProps<typeof Autocomplete>['onChange'] = (
+      event,
+      value,
+      reason,
+    ) => {
       const newProjects = value as IOption | IOption[];
       if (reason === 'clear' || newProjects === null) {
         return onChange([allOption.id]);
@@ -89,7 +111,11 @@ export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
         disableCloseOnSelect
         size='small'
         disabled={disabled}
-        value={isAllProjects ? allOption : projectsOptions.filter(({ id }) => selectedProjects.includes(id))}
+        value={
+          isAllProjects
+            ? allOption
+            : projectsOptions.filter(({ id }) => selectedProjects.includes(id))
+        }
         onChange={onProjectsChange}
         data-testid={dataTestId ? dataTestId : 'PROJECT_SELECT'}
         renderTags={(value, getTagProps) => {
@@ -98,7 +124,11 @@ export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
           return (
             <>
               {value.slice(0, limitTags).map((option, index) => (
-                <Chip {...getTagProps({ index })} key={index} label={option.label} />
+                <Chip
+                  {...getTagProps({ index })}
+                  key={index}
+                  label={option.label}
+                />
               ))}
 
               {numTags > limitTags && ` +${numTags - limitTags}`}

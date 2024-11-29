@@ -31,7 +31,8 @@ export const patSchema = {
       format: 'date-time',
       nullable: true,
       example: '2023-04-19T08:15:14.000Z',
-      description: 'When the PAT was last seen/used to authenticate with. `null` if it has not been used yet.',
+      description:
+        'When the PAT was last seen/used to authenticate with. `null` if it has not been used yet.',
     },
     userId: {
       type: 'integer',

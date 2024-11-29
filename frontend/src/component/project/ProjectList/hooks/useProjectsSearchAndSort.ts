@@ -10,7 +10,9 @@ export const useProjectsSearchAndSort = (
 ) =>
   useMemo(() => {
     const regExp = safeRegExp(query || '', 'i');
-    return (query ? projects.filter((project) => regExp.test(project.name)) : projects)
+    return (
+      query ? projects.filter((project) => regExp.test(project.name)) : projects
+    )
       .sort((a, b) => {
         const aVal = `${a.name || ''}`.toLowerCase();
         const bVal = `${b.name || ''}`.toLowerCase();

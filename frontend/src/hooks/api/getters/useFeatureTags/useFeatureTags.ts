@@ -16,7 +16,13 @@ const useFeatureTags = (featureId: string, options: SWRConfiguration = {}) => {
 
   const KEY = `api/admin/features/${featureId}/tags`;
 
-  const { data, error } = useConditionalSWR<{ tags: ITag[] }>(Boolean(featureId), { tags: [] }, KEY, fetcher, options);
+  const { data, error } = useConditionalSWR<{ tags: ITag[] }>(
+    Boolean(featureId),
+    { tags: [] },
+    KEY,
+    fetcher,
+    options,
+  );
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {

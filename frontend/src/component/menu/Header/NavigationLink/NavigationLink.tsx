@@ -48,10 +48,17 @@ const StyledBadgeContainer = styled('div')(({ theme }) => ({
   display: 'flex',
 }));
 
-const NavigationLink = ({ path, text, handleClose, ...props }: INavigationLinkProps) => {
+const NavigationLink = ({
+  path,
+  text,
+  handleClose,
+  ...props
+}: INavigationLinkProps) => {
   const { isPro } = useUiConfig();
   const showEnterpriseBadgeToPro = Boolean(
-    isPro() && !props.mode?.includes('pro') && props.mode?.includes('enterprise'),
+    isPro() &&
+      !props.mode?.includes('pro') &&
+      props.mode?.includes('enterprise'),
   );
 
   return (
@@ -60,7 +67,12 @@ const NavigationLink = ({ path, text, handleClose, ...props }: INavigationLinkPr
         handleClose();
       }}
     >
-      <Link style={{ textDecoration: 'none' }} component={StyledLink} to={path} underline='hover'>
+      <Link
+        style={{ textDecoration: 'none' }}
+        component={StyledLink}
+        to={path}
+        underline='hover'
+      >
         <StyledSpan />
         {text}
 

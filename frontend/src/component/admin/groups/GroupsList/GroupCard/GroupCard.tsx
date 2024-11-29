@@ -97,7 +97,11 @@ interface IGroupCardProps {
   onRemoveGroup: (group: IGroup) => void;
 }
 
-export const GroupCard = ({ group, onEditUsers, onRemoveGroup }: IGroupCardProps) => {
+export const GroupCard = ({
+  group,
+  onEditUsers,
+  onRemoveGroup,
+}: IGroupCardProps) => {
   const navigate = useNavigate();
 
   const {
@@ -135,13 +139,23 @@ export const GroupCard = ({ group, onEditUsers, onRemoveGroup }: IGroupCardProps
             <ConditionallyRender
               condition={group.users?.length > 0}
               show={<AvatarGroup users={group.users} />}
-              elseShow={<StyledCounterDescription>This group has no users.</StyledCounterDescription>}
+              elseShow={
+                <StyledCounterDescription>
+                  This group has no users.
+                </StyledCounterDescription>
+              }
             />
             <ProjectBadgeContainer>
               <ConditionallyRender
                 condition={group.projects.length > 0}
                 show={group.projects.map((project) => (
-                  <Tooltip key={project} title='View project' arrow placement='bottom-end' describeChild>
+                  <Tooltip
+                    key={project}
+                    title='View project'
+                    arrow
+                    placement='bottom-end'
+                    describeChild
+                  >
                     <ProjectNameBadge
                       onClick={(e) => {
                         e.preventDefault();
@@ -158,7 +172,11 @@ export const GroupCard = ({ group, onEditUsers, onRemoveGroup }: IGroupCardProps
                   <ConditionallyRender
                     condition={!group.rootRole}
                     show={
-                      <Tooltip title='This group is not used in any project' arrow describeChild>
+                      <Tooltip
+                        title='This group is not used in any project'
+                        arrow
+                        describeChild
+                      >
                         <Badge>Not used</Badge>
                       </Tooltip>
                     }

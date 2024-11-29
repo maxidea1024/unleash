@@ -17,7 +17,9 @@ export default class FakePublicSignupStore implements IPublicSignupTokenStore {
 
   async isValid(secret: string): Promise<boolean> {
     const token = this.tokens.find((t) => t.secret === secret);
-    return Promise.resolve(token && new Date(token.expiresAt) > new Date() && token.enabled);
+    return Promise.resolve(
+      token && new Date(token.expiresAt) > new Date() && token.enabled,
+    );
   }
 
   async count(): Promise<number> {
@@ -33,11 +35,15 @@ export default class FakePublicSignupStore implements IPublicSignupTokenStore {
     return Promise.resolve(this.tokens);
   }
 
-  async create(newToken: IPublicSignupTokenCreate): Promise<PublicSignupTokenSchema> {
+  async create(
+    newToken: IPublicSignupTokenCreate,
+  ): Promise<PublicSignupTokenSchema> {
     return this.insert(newToken);
   }
 
-  async insert(newToken: IPublicSignupTokenCreate): Promise<PublicSignupTokenSchema> {
+  async insert(
+    newToken: IPublicSignupTokenCreate,
+  ): Promise<PublicSignupTokenSchema> {
     const token = {
       secret: 'some-secret',
       expiresAt: newToken.expiresAt.toISOString(),

@@ -8,9 +8,15 @@ import { NONE } from '../../types/permissions';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { OpenApiService } from '../../services/openapi-service';
-import { tokenUserSchema, type TokenUserSchema } from '../../openapi/spec/token-user-schema';
+import {
+  tokenUserSchema,
+  type TokenUserSchema,
+} from '../../openapi/spec/token-user-schema';
 import type { EmailSchema } from '../../openapi/spec/email-schema';
-import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi/util/standard-responses';
 import rateLimit from 'express-rate-limit';
 import { minutesToMilliseconds } from 'date-fns';
 
@@ -23,7 +29,8 @@ interface IChangePasswordBody {
   password: string;
 }
 
-interface SessionRequest<PARAMS, QUERY, BODY, K> extends Request<PARAMS, QUERY, BODY, K> {
+interface SessionRequest<PARAMS, QUERY, BODY, K>
+  extends Request<PARAMS, QUERY, BODY, K> {
   user?;
 }
 
@@ -34,7 +41,10 @@ export default class ResetPasswordController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { userService, openApiService }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
+    {
+      userService,
+      openApiService,
+    }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -51,7 +61,8 @@ export default class ResetPasswordController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Validates a token',
-          description: 'If the token is valid returns the user that owns the token',
+          description:
+            'If the token is valid returns the user that owns the token',
           tags: ['Auth'],
           operationId: 'validateToken',
           responses: {
@@ -133,7 +144,10 @@ export default class ResetPasswordController extends Controller {
     });
   }
 
-  async sendResetPasswordEmail(req: Request<unknown, unknown, EmailSchema>, res: Response): Promise<void> {
+  async sendResetPasswordEmail(
+    req: Request<unknown, unknown, EmailSchema>,
+    res: Response,
+  ): Promise<void> {
     const { email } = req.body;
 
     await this.userService.createResetPasswordEmail(email);
@@ -154,10 +168,18 @@ export default class ResetPasswordController extends Controller {
     const { token } = req.query;
     const user = await this.userService.getUserForToken(token);
     await this.logout(req);
-    this.openApiService.respondWithValidation<TokenUserSchema>(200, res, tokenUserSchema.$id, user);
+    this.openApiService.respondWithValidation<TokenUserSchema>(
+      200,
+      res,
+      tokenUserSchema.$id,
+      user,
+    );
   }
 
-  async changePassword(req: Request<unknown, unknown, IChangePasswordBody, unknown>, res: Response): Promise<void> {
+  async changePassword(
+    req: Request<unknown, unknown, IChangePasswordBody, unknown>,
+    res: Response,
+  ): Promise<void> {
     await this.logout(req);
     const { token, password } = req.body;
     await this.userService.resetPassword(token, password);

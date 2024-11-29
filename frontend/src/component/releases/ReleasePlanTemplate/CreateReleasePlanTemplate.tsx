@@ -35,8 +35,16 @@ export const CreateReleasePlanTemplate = () => {
   const { setToastApiError, setToastData } = useToast();
   const navigate = useNavigate();
   const { createReleasePlanTemplate } = useReleasePlanTemplatesApi();
-  const { name, setName, description, setDescription, errors, clearErrors, validate, getTemplatePayload } =
-    useTemplateForm();
+  const {
+    name,
+    setName,
+    description,
+    setDescription,
+    errors,
+    clearErrors,
+    validate,
+    getTemplatePayload,
+  } = useTemplateForm();
 
   const handleCancel = () => {
     navigate(GO_BACK);
@@ -83,7 +91,9 @@ export const CreateReleasePlanTemplate = () => {
           />
           <StyledButtonContainer>
             <CreateButton name='template' permission={ADMIN} />
-            <StyledCancelButton onClick={handleCancel}>Cancel</StyledCancelButton>
+            <StyledCancelButton onClick={handleCancel}>
+              Cancel
+            </StyledCancelButton>
           </StyledButtonContainer>
         </StyledForm>
       </FormTemplate>

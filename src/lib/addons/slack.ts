@@ -3,7 +3,11 @@ import Addon from './addon';
 import slackDefinition from './slack-definition';
 import { type IAddonConfig, serializeDates } from '../types';
 
-import { type FeatureEventFormatter, FeatureEventFormatterMd, LinkStyle } from './feature-event-formatter-md';
+import {
+  type FeatureEventFormatter,
+  FeatureEventFormatterMd,
+  LinkStyle,
+} from './feature-event-formatter-md';
 import type { IEvent } from '../types/events';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
 
@@ -28,11 +32,21 @@ export default class SlackAddon extends Addon {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  async handleEvent(event: IEvent, parameters: ISlackAddonParameters, integrationId: number): Promise<void> {
+  async handleEvent(
+    event: IEvent,
+    parameters: ISlackAddonParameters,
+    integrationId: number,
+  ): Promise<void> {
     let state: IntegrationEventState = 'success';
     const stateDetails: string[] = [];
 
-    const { url, defaultChannel, username = 'Unleash', emojiIcon = ':unleash:', customHeaders } = parameters;
+    const {
+      url,
+      defaultChannel,
+      username = 'Unleash',
+      emojiIcon = ':unleash:',
+      customHeaders,
+    } = parameters;
 
     const slackChannels = this.findSlackChannels(event);
 
@@ -46,13 +60,15 @@ export default class SlackAddon extends Addon {
         extraHeaders = JSON.parse(customHeaders);
       } catch (e) {
         state = 'successWithErrors';
-        const badHeadersMessage = 'Could not parse the JSON in the customHeaders parameter.';
+        const badHeadersMessage =
+          'Could not parse the JSON in the customHeaders parameter.';
         stateDetails.push(badHeadersMessage);
         this.logger.warn(badHeadersMessage);
       }
     }
 
-    const { text: formattedMessage, url: featureLink } = this.msgFormatter.format(event);
+    const { text: formattedMessage, url: featureLink } =
+      this.msgFormatter.format(event);
     const maxLength = 3000;
     const text = formattedMessage.substring(0, maxLength);
     const requests = slackChannels.map((channel) => {
@@ -90,7 +106,9 @@ export default class SlackAddon extends Addon {
 
     const results = await Promise.all(requests);
     const failedRequests = results.filter((res) => !res.ok);
-    const codes = this.getUniqueArray(results.map((res) => res.status)).join(', ');
+    const codes = this.getUniqueArray(results.map((res) => res.status)).join(
+      ', ',
+    );
 
     this.logger.info(`Handled event ${event.type}.`);
 

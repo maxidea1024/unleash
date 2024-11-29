@@ -3,7 +3,10 @@ import Addon from './addon';
 import definition from './datadog-definition';
 import Mustache from 'mustache';
 import { type IAddonConfig, serializeDates } from '../types';
-import { type FeatureEventFormatter, FeatureEventFormatterMd } from './feature-event-formatter-md';
+import {
+  type FeatureEventFormatter,
+  FeatureEventFormatterMd,
+} from './feature-event-formatter-md';
 import type { IEvent } from '../types/events';
 import type { IntegrationEventState } from '../features/integration-events/integration-events-store';
 
@@ -33,7 +36,11 @@ export default class DatadogAddon extends Addon {
     });
   }
 
-  async handleEvent(event: IEvent, parameters: IDatadogParameters, integrationId: number): Promise<void> {
+  async handleEvent(
+    event: IEvent,
+    parameters: IDatadogParameters,
+    integrationId: number,
+  ): Promise<void> {
     let state: IntegrationEventState = 'success';
     const stateDetails: string[] = [];
 
@@ -74,7 +81,8 @@ export default class DatadogAddon extends Addon {
         extraHeaders = JSON.parse(customHeaders);
       } catch (e) {
         state = 'successWithErrors';
-        const badHeadersMessage = 'Could not parse the JSON in the customHeaders parameter.';
+        const badHeadersMessage =
+          'Could not parse the JSON in the customHeaders parameter.';
         stateDetails.push(badHeadersMessage);
         this.logger.warn(badHeadersMessage);
       }

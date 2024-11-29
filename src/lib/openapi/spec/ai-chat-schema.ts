@@ -28,7 +28,8 @@ export const aiChatSchema = {
     },
     messages: {
       type: 'array',
-      description: 'The messages exchanged between the user and the Unleash AI.',
+      description:
+        'The messages exchanged between the user and the Unleash AI.',
       items: {
         $ref: '#/components/schemas/aiChatMessageSchema',
       },

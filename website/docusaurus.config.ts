@@ -93,12 +93,14 @@ const config: Config = {
         },
         {
           type: 'html',
-          value: '<a href="https://www.getunleash.io/plans" class="navbar__item navbar__link">Plans</a>',
+          value:
+            '<a href="https://www.getunleash.io/plans" class="navbar__item navbar__link">Plans</a>',
           position: 'right',
         },
         {
           type: 'html',
-          value: '<a href="https://www.getunleash.io/blog" class="navbar__item navbar__link">Blog</a>',
+          value:
+            '<a href="https://www.getunleash.io/blog" class="navbar__item navbar__link">Blog</a>',
           position: 'right',
         },
         {
@@ -348,7 +350,10 @@ const config: Config = {
             to: '/reference/feature-toggles',
           },
           {
-            from: ['/advanced/custom-activation-strategy', '/advanced/custom_activation_strategy'],
+            from: [
+              '/advanced/custom-activation-strategy',
+              '/advanced/custom_activation_strategy',
+            ],
             to: '/reference/custom-activation-strategies',
           },
           {
@@ -356,7 +361,11 @@ const config: Config = {
             to: '/reference/feature-toggles',
           },
           {
-            from: ['/toggle_variants', '/advanced/feature_toggle_variants', '/advanced/toggle_variants'],
+            from: [
+              '/toggle_variants',
+              '/advanced/feature_toggle_variants',
+              '/advanced/toggle_variants',
+            ],
             to: '/reference/feature-toggle-variants',
           },
           {
@@ -436,7 +445,13 @@ const config: Config = {
             to: '/reference/integrations/jira-server-plugin-usage',
           },
           {
-            from: ['/sdks', '/user_guide/client-sdk', '/client-sdk', '/user_guide/connect_sdk', '/sdks/community'],
+            from: [
+              '/sdks',
+              '/user_guide/client-sdk',
+              '/client-sdk',
+              '/user_guide/connect_sdk',
+              '/sdks/community',
+            ],
             to: '/reference/sdks',
           },
           {
@@ -492,12 +507,19 @@ const config: Config = {
             to: '/reference/sdks/svelte',
           },
           {
-            from: ['/user_guide/native_apps', '/user_guide/proxy-api', '/sdks/unleash-proxy'],
+            from: [
+              '/user_guide/native_apps',
+              '/user_guide/proxy-api',
+              '/sdks/unleash-proxy',
+            ],
             to: '/reference/unleash-proxy',
           },
           {
             to: '/reference/activation-strategies',
-            from: ['/user_guide/control_rollout', '/user_guide/activation_strategy'],
+            from: [
+              '/user_guide/control_rollout',
+              '/user_guide/activation_strategy',
+            ],
           },
           {
             from: '/user_guide/environments',
@@ -528,7 +550,11 @@ const config: Config = {
             to: '/reference/whats-new-v4',
           },
           {
-            from: ['/user_guide/important-concepts', '/tutorials/important-concepts', '/reference/concepts/'],
+            from: [
+              '/user_guide/important-concepts',
+              '/tutorials/important-concepts',
+              '/reference/concepts/',
+            ],
             to: '/reference',
           },
           {
@@ -653,15 +679,24 @@ const config: Config = {
             to: '/contributing',
           },
           {
-            from: ['/tutorials/unleash-overview', '/user_guide/unleash_overview'],
+            from: [
+              '/tutorials/unleash-overview',
+              '/user_guide/unleash_overview',
+            ],
             to: '/understanding-unleash/unleash-overview',
           },
           {
-            from: ['/tutorials/managing-constraints', '/topics/managing-constraints'],
+            from: [
+              '/tutorials/managing-constraints',
+              '/topics/managing-constraints',
+            ],
             to: '/understanding-unleash/managing-constraints',
           },
           {
-            from: ['/tutorials/the-anatomy-of-unleash', '/topics/the-anatomy-of-unleash'],
+            from: [
+              '/tutorials/the-anatomy-of-unleash',
+              '/topics/the-anatomy-of-unleash',
+            ],
             to: '/understanding-unleash/the-anatomy-of-unleash',
           },
           {
@@ -698,19 +733,31 @@ const config: Config = {
             to: '/using-unleash/deploy',
           },
           {
-            from: ['/reference/deploy/getting-started', '/deploy/getting_started'],
+            from: [
+              '/reference/deploy/getting-started',
+              '/deploy/getting_started',
+            ],
             to: '/using-unleash/deploy/getting-started',
           },
           {
-            from: ['/reference/deploy/configuring-unleash', '/deploy/configuring_unleash'],
+            from: [
+              '/reference/deploy/configuring-unleash',
+              '/deploy/configuring_unleash',
+            ],
             to: '/using-unleash/deploy/configuring-unleash',
           },
           {
-            from: ['/reference/deploy/database-setup', '/deploy/database-setup'],
+            from: [
+              '/reference/deploy/database-setup',
+              '/deploy/database-setup',
+            ],
             to: '/using-unleash/deploy/database-setup',
           },
           {
-            from: ['/reference/deploy/database-backup', '/deploy/database-backup'],
+            from: [
+              '/reference/deploy/database-backup',
+              '/deploy/database-backup',
+            ],
             to: '/using-unleash/deploy/database-backup',
           },
           {
@@ -722,11 +769,17 @@ const config: Config = {
             to: '/using-unleash/deploy/google-auth-hook',
           },
           {
-            from: ['/deploy/migration_guide', '/reference/deploy/migration-guide'],
+            from: [
+              '/deploy/migration_guide',
+              '/reference/deploy/migration-guide',
+            ],
             to: '/using-unleash/deploy/upgrading-unleash',
           },
           {
-            from: ['/reference/deploy/securing-unleash', '/deploy/securing_unleash'],
+            from: [
+              '/reference/deploy/securing-unleash',
+              '/deploy/securing_unleash',
+            ],
             to: '/using-unleash/deploy/securing-unleash',
           },
           {
@@ -734,7 +787,10 @@ const config: Config = {
             to: '/how-to/how-to-import-export',
           },
           {
-            from: ['/reference/deploy/environment-import-export', '/deploy/environment-import-export'],
+            from: [
+              '/reference/deploy/environment-import-export',
+              '/deploy/environment-import-export',
+            ],
             to: '/how-to/how-to-environment-import-export',
           },
           {
@@ -769,7 +825,10 @@ const config: Config = {
           },
         ].map(addDocsRoutePrefix), // add /docs prefixes
         createRedirects: (toPath) => {
-          if (toPath.indexOf('/docs/') === -1 && toPath.indexOf('index.html') === -1) {
+          if (
+            toPath.indexOf('/docs/') === -1 &&
+            toPath.indexOf('index.html') === -1
+          ) {
             return `/docs/${toPath}`;
           }
         },

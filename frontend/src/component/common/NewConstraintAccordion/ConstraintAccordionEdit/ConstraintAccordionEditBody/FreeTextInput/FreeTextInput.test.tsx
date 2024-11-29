@@ -117,8 +117,16 @@ test('should set values', async () => {
 test('should show limit reached indicator', async () => {
   setupApi();
   render(
-    <FreeTextInput error='' values={['1', '2', '3']} setValues={() => {}} setError={() => {}} removeValue={() => {}} />,
+    <FreeTextInput
+      error=''
+      values={['1', '2', '3']}
+      setValues={() => {}}
+      setError={() => {}}
+      removeValue={() => {}}
+    />,
   );
 
-  await screen.findByText('You have reached the limit for single constraint values');
+  await screen.findByText(
+    'You have reached the limit for single constraint values',
+  );
 });

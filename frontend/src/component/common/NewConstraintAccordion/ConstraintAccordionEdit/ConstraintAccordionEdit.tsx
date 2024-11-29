@@ -2,7 +2,12 @@ import { useCallback, useEffect, useState } from 'react';
 import type { IConstraint } from 'interfaces/strategy';
 import { ConstraintAccordionEditBody } from './ConstraintAccordionEditBody/ConstraintAccordionEditBody';
 import { ConstraintAccordionEditHeader } from './ConstraintAccordionEditHeader/ConstraintAccordionEditHeader';
-import { Accordion, AccordionDetails, AccordionSummary, styled } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  styled,
+} from '@mui/material';
 import { cleanConstraint } from 'utils/cleanConstraint';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
@@ -28,7 +33,9 @@ const resolveContextDefinition = (
   context: IUnleashContextDefinition[],
   contextName: string,
 ): IUnleashContextDefinition => {
-  const definition = context.find((contextDef) => contextDef.name === contextName);
+  const definition = context.find(
+    (contextDef) => contextDef.name === contextName,
+  );
 
   return (
     definition || {
@@ -78,8 +85,12 @@ export const ConstraintAccordionEdit = ({
   onDelete,
   onAutoSave,
 }: IConstraintAccordionEditProps) => {
-  const [localConstraint, setLocalConstraint] = useState<IConstraint>(cleanConstraint(constraint));
-  const [constraintChanges, setConstraintChanges] = useState<IConstraint[]>([cleanConstraint(constraint)]);
+  const [localConstraint, setLocalConstraint] = useState<IConstraint>(
+    cleanConstraint(constraint),
+  );
+  const [constraintChanges, setConstraintChanges] = useState<IConstraint[]>([
+    cleanConstraint(constraint),
+  ]);
 
   const { context } = useUnleashContext();
   const [contextDefinition, setContextDefinition] = useState(
@@ -101,7 +112,9 @@ export const ConstraintAccordionEdit = ({
   }, []);
 
   useEffect(() => {
-    setContextDefinition(resolveContextDefinition(context, localConstraint.contextName));
+    setContextDefinition(
+      resolveContextDefinition(context, localConstraint.contextName),
+    );
   }, [localConstraint.contextName, context]);
 
   useEffect(() => {
@@ -224,7 +237,9 @@ export const ConstraintAccordionEdit = ({
   };
 
   const validateConstraintValues = () => {
-    const hasValues = Array.isArray(localConstraint.values) && Boolean(localConstraint.values.length > 0);
+    const hasValues =
+      Array.isArray(localConstraint.values) &&
+      Boolean(localConstraint.values.length > 0);
     const hasValue = Boolean(localConstraint.value);
 
     if (hasValues || hasValue) {

@@ -18,7 +18,8 @@ export const adminCountSchema = {
     },
     service: {
       type: 'number',
-      description: 'Total number of service accounts that have the admin root role.',
+      description:
+        'Total number of service accounts that have the admin root role.',
     },
   },
   components: {},

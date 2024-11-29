@@ -1,5 +1,9 @@
 import type { ISegmentStore } from './segment-store-type';
-import type { IConstraint, IFeatureStrategySegment, ISegment } from '../../types/model';
+import type {
+  IConstraint,
+  IFeatureStrategySegment,
+  ISegment,
+} from '../../types/model';
 import type { Logger, LogProvider } from '../../logger';
 import type EventEmitter from 'events';
 import NotFoundError from '../../error/notfound-error';
@@ -16,7 +20,15 @@ const T = {
   featureStrategySegment: 'feature_strategy_segment',
 };
 
-const COLUMNS = ['id', 'name', 'description', 'segment_project_id', 'created_by', 'created_at', 'constraints'];
+const COLUMNS = [
+  'id',
+  'name',
+  'description',
+  'segment_project_id',
+  'created_by',
+  'created_at',
+  'constraints',
+];
 
 interface ISegmentRow {
   id: number;
@@ -42,7 +54,12 @@ export default class SegmentStore implements ISegmentStore {
   private readonly db: Db;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
+  constructor(
+    db: Db,
+    eventBus: EventEmitter,
+    getLogger: LogProvider,
+    flagResolver: IFlagResolver,
+  ) {
     this.logger = getLogger('segment-store.ts');
 
     this.db = db;
@@ -57,7 +74,10 @@ export default class SegmentStore implements ISegmentStore {
       .then((res) => Number(res[0].count));
   }
 
-  async create(segment: PartialSome<ISegment, 'id'>, user: Pick<IAuditUser, 'username'>): Promise<ISegment> {
+  async create(
+    segment: PartialSome<ISegment, 'id'>,
+    user: Pick<IAuditUser, 'username'>,
+  ): Promise<ISegment> {
     const rows = await this.db(T.segments)
       .insert({
         id: segment.id,
@@ -90,7 +110,9 @@ export default class SegmentStore implements ISegmentStore {
     return this.db(T.segments).where({ id }).del();
   }
 
-  async getAll(includeChangeRequestUsageData: boolean = false): Promise<ISegment[]> {
+  async getAll(
+    includeChangeRequestUsageData: boolean = false,
+  ): Promise<ISegment[]> {
     if (includeChangeRequestUsageData) {
       return this.getAllWithChangeRequestUsageData();
     } else {
@@ -110,9 +132,21 @@ export default class SegmentStore implements ISegmentStore {
         ),
       ])
       .from(T.segments)
-      .leftJoin(T.featureStrategySegment, `${T.segments}.id`, `${T.featureStrategySegment}.segment_id`)
-      .leftJoin(T.featureStrategies, `${T.featureStrategies}.id`, `${T.featureStrategySegment}.feature_strategy_id`)
-      .leftJoin(T.features, `${T.featureStrategies}.feature_name`, `${T.features}.name`)
+      .leftJoin(
+        T.featureStrategySegment,
+        `${T.segments}.id`,
+        `${T.featureStrategySegment}.segment_id`,
+      )
+      .leftJoin(
+        T.featureStrategies,
+        `${T.featureStrategies}.id`,
+        `${T.featureStrategySegment}.feature_strategy_id`,
+      )
+      .leftJoin(
+        T.features,
+        `${T.featureStrategies}.feature_name`,
+        `${T.features}.name`,
+      )
       .groupBy(this.prefixColumns())
       .orderBy('name', 'asc');
 
@@ -143,25 +177,46 @@ export default class SegmentStore implements ISegmentStore {
         'segment_id as segmentId',
       )
       .from(T.featureStrategySegment)
-      .leftJoin(T.featureStrategies, `${T.featureStrategies}.id`, `${T.featureStrategySegment}.feature_strategy_id`)
-      .leftJoin(T.features, `${T.featureStrategies}.feature_name`, `${T.features}.name`)
+      .leftJoin(
+        T.featureStrategies,
+        `${T.featureStrategies}.id`,
+        `${T.featureStrategySegment}.feature_strategy_id`,
+      )
+      .leftJoin(
+        T.features,
+        `${T.featureStrategies}.feature_name`,
+        `${T.features}.name`,
+      )
       .where(`${T.features}.archived_at`, null);
 
-    this.mergeCurrentUsageWithCombinedData(combinedUsageData, currentSegmentUsage);
+    this.mergeCurrentUsageWithCombinedData(
+      combinedUsageData,
+      currentSegmentUsage,
+    );
 
     const rows: ISegmentRow[] = await this.db
       .select(this.prefixColumns())
       .from(T.segments)
-      .leftJoin(T.featureStrategySegment, `${T.segments}.id`, `${T.featureStrategySegment}.segment_id`)
+      .leftJoin(
+        T.featureStrategySegment,
+        `${T.segments}.id`,
+        `${T.featureStrategySegment}.segment_id`,
+      )
       .groupBy(this.prefixColumns())
       .orderBy('name', 'asc');
 
-    const rowsWithUsageData = this.mapRowsWithUsageData(rows, combinedUsageData);
+    const rowsWithUsageData = this.mapRowsWithUsageData(
+      rows,
+      combinedUsageData,
+    );
 
     return rowsWithUsageData.map(this.mapRow);
   }
 
-  private mapRowsWithUsageData(rows: ISegmentRow[], combinedUsageData: any): ISegmentRow[] {
+  private mapRowsWithUsageData(
+    rows: ISegmentRow[],
+    combinedUsageData: any,
+  ): ISegmentRow[] {
     return rows.map((row) => {
       const usageData = combinedUsageData[row.id];
       if (usageData) {
@@ -181,10 +236,13 @@ export default class SegmentStore implements ISegmentStore {
   }
 
   private combineUsageData = (pendingCRs, crFeatures) => {
-    const changeRequestToProjectMap = pendingCRs.reduce((acc, { id, project }) => {
-      acc[id] = project;
-      return acc;
-    }, {});
+    const changeRequestToProjectMap = pendingCRs.reduce(
+      (acc, { id, project }) => {
+        acc[id] = project;
+        return acc;
+      },
+      {},
+    );
 
     const combinedUsageData = crFeatures.reduce((acc, segmentEvent) => {
       const { payload, changeRequestId, feature } = segmentEvent;
@@ -209,7 +267,10 @@ export default class SegmentStore implements ISegmentStore {
     return combinedUsageData;
   };
 
-  private mergeCurrentUsageWithCombinedData(combinedUsageData: any, currentSegmentUsage: any[]) {
+  private mergeCurrentUsageWithCombinedData(
+    combinedUsageData: any,
+    currentSegmentUsage: any[],
+  ) {
     currentSegmentUsage.forEach(({ segmentId, featureName, projectName }) => {
       const usage = combinedUsageData[segmentId];
       if (usage) {
@@ -228,8 +289,16 @@ export default class SegmentStore implements ISegmentStore {
     const rows = await this.db
       .select(this.prefixColumns())
       .from<ISegmentRow>(T.segments)
-      .join(T.featureStrategySegment, `${T.featureStrategySegment}.segment_id`, `${T.segments}.id`)
-      .where(`${T.featureStrategySegment}.feature_strategy_id`, '=', strategyId);
+      .join(
+        T.featureStrategySegment,
+        `${T.featureStrategySegment}.segment_id`,
+        `${T.segments}.id`,
+      )
+      .where(
+        `${T.featureStrategySegment}.feature_strategy_id`,
+        '=',
+        strategyId,
+      );
     return rows.map(this.mapRow);
   }
 
@@ -238,13 +307,19 @@ export default class SegmentStore implements ISegmentStore {
   }
 
   async exists(id: number): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.segments} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.segments} WHERE id = ?) AS present`,
+      [id],
+    );
 
     return result.rows[0].present;
   }
 
   async get(id: number): Promise<ISegment> {
-    const rows: ISegmentRow[] = await this.db.select(this.prefixColumns()).from(T.segments).where({ id });
+    const rows: ISegmentRow[] = await this.db
+      .select(this.prefixColumns())
+      .from(T.segments)
+      .where({ id });
 
     const row = rows[0];
     if (!row) {
@@ -262,7 +337,9 @@ export default class SegmentStore implements ISegmentStore {
   }
 
   async removeFromStrategy(id: number, strategyId: string): Promise<void> {
-    await this.db(T.featureStrategySegment).where({ segment_id: id, feature_strategy_id: strategyId }).del();
+    await this.db(T.featureStrategySegment)
+      .where({ segment_id: id, feature_strategy_id: strategyId })
+      .del();
   }
 
   async getAllFeatureStrategySegments(): Promise<IFeatureStrategySegment[]> {
@@ -277,13 +354,19 @@ export default class SegmentStore implements ISegmentStore {
   }
 
   async existsByName(name: string): Promise<boolean> {
-    const rows: ISegmentRow[] = await this.db.select(this.prefixColumns()).from(T.segments).where({ name });
+    const rows: ISegmentRow[] = await this.db
+      .select(this.prefixColumns())
+      .from(T.segments)
+      .where({ name });
 
     return Boolean(rows[0]);
   }
 
   async getProjectSegmentCount(projectId: string): Promise<number> {
-    const result = await this.db.raw(`SELECT COUNT(*) FROM ${T.segments} WHERE segment_project_id = ?`, [projectId]);
+    const result = await this.db.raw(
+      `SELECT COUNT(*) FROM ${T.segments} WHERE segment_project_id = ?`,
+      [projectId],
+    );
 
     return Number(result.rows[0].count);
   }

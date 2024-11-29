@@ -6,7 +6,9 @@ type Color = {
   text: string;
 };
 
-export const useLastSeenColors = (): ((date?: Date | number | string | null) => Color) => {
+export const useLastSeenColors = (): ((
+  date?: Date | number | string | null,
+) => Color) => {
   const theme = useTheme();
   const colorsForUnknown = {
     background: theme.palette.seen.unknown,

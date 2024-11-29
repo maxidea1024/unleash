@@ -21,14 +21,19 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   cursor: 'default',
 }));
 
-const StyledIcon = styled(StyledIconWrapper)<{ background: string }>(({ background }) => ({
-  background,
-  margin: 0,
-}));
+const StyledIcon = styled(StyledIconWrapper)<{ background: string }>(
+  ({ background }) => ({
+    background,
+    margin: 0,
+  }),
+);
 
 const Title = () => (
   <>
-    <Typography component='span' sx={(theme) => ({ fontSize: theme.fontSizes.smallBody })}>
+    <Typography
+      component='span'
+      sx={(theme) => ({ fontSize: theme.fontSizes.smallBody })}
+    >
       Last usage reported
     </Typography>
     <Typography
@@ -37,7 +42,8 @@ const Title = () => (
         fontSize: theme.fontSizes.smallerBody,
       })}
     >
-      Across all flags in your project this is the last time usage metrics where reported from connected applications.
+      Across all flags in your project this is the last time usage metrics where
+      reported from connected applications.
     </Typography>
   </>
 );
@@ -49,7 +55,9 @@ export const ProjectLastSeen: FC<ProjectLastSeenProps> = ({ date }) => {
   if (!date) {
     return (
       <HtmlTooltip title={<Title />} arrow>
-        <StyledContainer sx={(theme) => ({ color: theme.palette.text.secondary })}>
+        <StyledContainer
+          sx={(theme) => ({ color: theme.palette.text.secondary })}
+        >
           <StyledIcon background={background}>
             <UsageLine stroke={text} />
           </StyledIcon>{' '}

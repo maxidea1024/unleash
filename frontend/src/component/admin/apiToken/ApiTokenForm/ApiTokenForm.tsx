@@ -14,7 +14,12 @@ interface IApiTokenFormProps {
   children?: React.ReactNode;
 }
 
-const ApiTokenForm: React.FC<IApiTokenFormProps> = ({ children, actions, handleSubmit, handleCancel }) => {
+const ApiTokenForm: React.FC<IApiTokenFormProps> = ({
+  children,
+  actions,
+  handleSubmit,
+  handleCancel,
+}) => {
   // const { uiConfig } = useUiConfig();
   // const isUnleashCloud = Boolean(uiConfig?.flags?.UNLEASH_CLOUD);
   const isUnleashCloud = useUiFlag('UNLEASH_CLOUD');
@@ -25,7 +30,11 @@ const ApiTokenForm: React.FC<IApiTokenFormProps> = ({ children, actions, handleS
         condition={isUnleashCloud}
         show={
           <Alert severity='info' sx={{ mb: 4 }}>
-            Please be aware of our <Link href='https://www.getunleash.io/fair-use-policy'>fair use policy</Link>.
+            Please be aware of our{' '}
+            <Link href='https://www.getunleash.io/fair-use-policy'>
+              fair use policy
+            </Link>
+            .
           </Alert>
         }
       />

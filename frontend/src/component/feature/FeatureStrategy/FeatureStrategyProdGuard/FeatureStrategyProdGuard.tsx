@@ -25,7 +25,8 @@ export const FeatureStrategyProdGuard = ({
   label,
   loading,
 }: IFeatureStrategyProdGuardProps) => {
-  const { value: settings, setValue: setSettings } = getFeatureStrategyProdGuardSettings();
+  const { value: settings, setValue: setSettings } =
+    getFeatureStrategyProdGuardSettings();
   const [hide, setHide] = useState(settings.hide);
 
   const toggleHideSetting = () => {
@@ -44,10 +45,14 @@ export const FeatureStrategyProdGuard = ({
       open={open}
     >
       <Alert severity='error'>
-        WARNING. You are about to make changes to a production environment. These changes will affect your customers.
+        WARNING. You are about to make changes to a production environment.
+        These changes will affect your customers.
       </Alert>
       <p style={{ marginTop: '1rem' }}>Are you sure you want to proceed?</p>
-      <FormControlLabel label="Don't show again" control={<Checkbox checked={hide} onChange={toggleHideSetting} />} />
+      <FormControlLabel
+        label="Don't show again"
+        control={<Checkbox checked={hide} onChange={toggleHideSetting} />}
+      />
     </Dialogue>
   );
 };
@@ -68,7 +73,8 @@ export const useFeatureStrategyProdGuard = (
   }
 
   return featureOrType?.environments?.some(
-    (environment) => environment.name === environmentId && environment.type === PRODUCTION,
+    (environment) =>
+      environment.name === environmentId && environment.type === PRODUCTION,
   );
 };
 

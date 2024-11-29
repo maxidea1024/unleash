@@ -12,11 +12,13 @@ export const frontendApiClientSchema = {
     },
     instanceId: {
       type: 'string',
-      description: 'Instance id for this application (typically hostname, podId or similar)',
+      description:
+        'Instance id for this application (typically hostname, podId or similar)',
     },
     sdkVersion: {
       type: 'string',
-      description: 'Optional field that describes the sdk version (name:version)',
+      description:
+        'Optional field that describes the sdk version (name:version)',
     },
     environment: {
       type: 'string',
@@ -26,11 +28,13 @@ export const frontendApiClientSchema = {
     },
     interval: {
       type: 'number',
-      description: 'At which interval, in milliseconds, will this client be expected to send metrics',
+      description:
+        'At which interval, in milliseconds, will this client be expected to send metrics',
     },
     started: {
       oneOf: [{ type: 'string', format: 'date-time' }, { type: 'number' }],
-      description: 'When this client started. Should be reported as ISO8601 time.',
+      description:
+        'When this client started. Should be reported as ISO8601 time.',
     },
     strategies: {
       type: 'array',
@@ -43,4 +47,6 @@ export const frontendApiClientSchema = {
   components: {},
 } as const;
 
-export type FrontendApiClientSchema = FromSchema<typeof frontendApiClientSchema>;
+export type FrontendApiClientSchema = FromSchema<
+  typeof frontendApiClientSchema
+>;

@@ -29,4 +29,6 @@ export const integrationEventsSchema = {
   },
 } as const;
 
-export type IntegrationEventsSchema = FromSchema<typeof integrationEventsSchema>;
+export type IntegrationEventsSchema = FromSchema<
+  typeof integrationEventsSchema
+>;

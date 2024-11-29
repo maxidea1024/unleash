@@ -10,7 +10,9 @@ import { formatDateYMDHMS } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-const LazyReactJSONEditor = lazy(() => import('component/common/ReactJSONEditor/ReactJSONEditor'));
+const LazyReactJSONEditor = lazy(
+  () => import('component/common/ReactJSONEditor/ReactJSONEditor'),
+);
 
 const StyledHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -68,9 +70,10 @@ export const SignalEndpointsSignalsModal = ({
 }: ISignalEndpointsSignalsModalProps) => {
   const { uiConfig } = useUiConfig();
   const { locationSettings } = useLocationSettings();
-  const { signalEndpointSignals, hasMore, loadMore, loading } = useSignalEndpointSignals(signalEndpoint?.id, 20, {
-    refreshInterval: 5000,
-  });
+  const { signalEndpointSignals, hasMore, loadMore, loading } =
+    useSignalEndpointSignals(signalEndpoint?.id, 20, {
+      refreshInterval: 5000,
+    });
 
   if (!signalEndpoint) {
     return null;
@@ -115,7 +118,8 @@ export const SignalEndpointsSignalsModal = ({
               {
                 header: 'Date',
                 maxWidth: 220,
-                cell: ({ createdAt }) => formatDateYMDHMS(createdAt, locationSettings?.locale),
+                cell: ({ createdAt }) =>
+                  formatDateYMDHMS(createdAt, locationSettings?.locale),
               },
               {
                 header: 'Token',
@@ -134,7 +138,12 @@ export const SignalEndpointsSignalsModal = ({
                 />
               </Suspense>
             )}
-            listEnd={<ConditionallyRender condition={hasMore} show={<Button onClick={loadMore}>Load more</Button>} />}
+            listEnd={
+              <ConditionallyRender
+                condition={hasMore}
+                show={<Button onClick={loadMore}>Load more</Button>}
+              />
+            }
           />
           <ConditionallyRender
             condition={signalEndpointSignals.length === 0}

@@ -12,14 +12,16 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
 
   disable(environments: IEnvironment[]): Promise<void> {
     for (const env of this.environments) {
-      if (environments.map((e) => e.name).includes(env.name)) env.enabled = false;
+      if (environments.map((e) => e.name).includes(env.name))
+        env.enabled = false;
     }
     return Promise.resolve();
   }
 
   enable(environments: IEnvironment[]): Promise<void> {
     for (const env of this.environments) {
-      if (environments.map((e) => e.name).includes(env.name)) env.enabled = true;
+      if (environments.map((e) => e.name).includes(env.name))
+        env.enabled = true;
     }
     return Promise.resolve();
   }
@@ -41,7 +43,9 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
     if (env) {
       return Promise.resolve(env);
     }
-    return Promise.reject(new NotFoundError(`Could not find environment with name ${name}`));
+    return Promise.reject(
+      new NotFoundError(`Could not find environment with name ${name}`),
+    );
   }
 
   async create(env: IEnvironment): Promise<IEnvironment> {
@@ -50,9 +54,16 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
     return Promise.resolve(env);
   }
 
-  async update(env: Pick<IEnvironment, 'type' | 'protected'>, name: string): Promise<IEnvironment> {
-    const found = this.environments.find((en: IEnvironment) => en.name === name);
-    const idx = this.environments.findIndex((en: IEnvironment) => en.name === name);
+  async update(
+    env: Pick<IEnvironment, 'type' | 'protected'>,
+    name: string,
+  ): Promise<IEnvironment> {
+    const found = this.environments.find(
+      (en: IEnvironment) => en.name === name,
+    );
+    const idx = this.environments.findIndex(
+      (en: IEnvironment) => en.name === name,
+    );
     const updated = { ...found, env };
 
     this.environments[idx] = updated;
@@ -60,13 +71,21 @@ export default class FakeEnvironmentStore implements IEnvironmentStore {
   }
 
   async updateSortOrder(id: string, value: number): Promise<void> {
-    const environment = this.environments.find((env: IEnvironment) => env.name === id);
+    const environment = this.environments.find(
+      (env: IEnvironment) => env.name === id,
+    );
     environment.sortOrder = value;
     return Promise.resolve();
   }
 
-  async updateProperty(id: string, field: string, value: string | number): Promise<void> {
-    const environment = this.environments.find((env: IEnvironment) => env.name === id);
+  async updateProperty(
+    id: string,
+    field: string,
+    value: string | number,
+  ): Promise<void> {
+    const environment = this.environments.find(
+      (env: IEnvironment) => env.name === id,
+    );
     environment[field] = value;
     return Promise.resolve();
   }

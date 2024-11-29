@@ -18,7 +18,12 @@ const StyledParagraph = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-export const ReviveProjectDialog = ({ name, id, open, onClose }: ReviveProjectDialogProps) => {
+export const ReviveProjectDialog = ({
+  name,
+  id,
+  open,
+  onClose,
+}: ReviveProjectDialogProps) => {
   const { reviveProject } = useProjectApi();
   const { refetch: refetchProjects } = useProjects();
   const { refetch: refetchProjectArchive } = useProjects({ archived: true });
@@ -45,14 +50,21 @@ export const ReviveProjectDialog = ({ name, id, open, onClose }: ReviveProjectDi
   };
 
   return (
-    <Dialogue open={open} onClose={onClose} onClick={onClick} title='Revive an archived project'>
+    <Dialogue
+      open={open}
+      onClose={onClose}
+      onClick={onClick}
+      title='Revive an archived project'
+    >
       <StyledParagraph>
         Are you sure you'd like to revive project <strong>{name}</strong>?
       </StyledParagraph>
       <StyledParagraph>
         Project ID: <ProjectId>{id}</ProjectId>
       </StyledParagraph>
-      <StyledParagraph>All flags in the revived project will remain archived.</StyledParagraph>
+      <StyledParagraph>
+        All flags in the revived project will remain archived.
+      </StyledParagraph>
     </Dialogue>
   );
 };

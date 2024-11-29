@@ -10,7 +10,10 @@ import { updateWeight } from 'component/common/util';
 import { UPDATE_FEATURE_ENVIRONMENT_VARIANTS } from 'component/providers/AccessProvider/permissions';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import type { IFeatureEnvironmentWithCrEnabled, IFeatureVariant } from 'interfaces/featureToggle';
+import type {
+  IFeatureEnvironmentWithCrEnabled,
+  IFeatureVariant,
+} from 'interfaces/featureToggle';
 import { useMemo, useState } from 'react';
 import { EnvironmentVariantsModal } from './EnvironmentVariantsModal/EnvironmentVariantsModal';
 import { EnvironmentVariantsCard } from './EnvironmentVariantsCard/EnvironmentVariantsCard';
@@ -39,13 +42,16 @@ export const FeatureEnvironmentVariants = () => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { feature, refetchFeature, loading } = useFeature(projectId, featureId);
-  const { patchFeatureEnvironmentVariants, overrideVariantsInEnvironments } = useFeatureApi();
-  const { refetch: refetchChangeRequests } = usePendingChangeRequests(projectId);
+  const { patchFeatureEnvironmentVariants, overrideVariantsInEnvironments } =
+    useFeatureApi();
+  const { refetch: refetchChangeRequests } =
+    usePendingChangeRequests(projectId);
   const { addChange } = useChangeRequestApi();
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
 
   const [searchValue, setSearchValue] = useState('');
-  const [selectedEnvironment, setSelectedEnvironment] = useState<IFeatureEnvironmentWithCrEnabled>();
+  const [selectedEnvironment, setSelectedEnvironment] =
+    useState<IFeatureEnvironmentWithCrEnabled>();
   const [modalOpen, setModalOpen] = useState(false);
 
   const environments: IFeatureEnvironmentWithCrEnabled[] = useMemo(
@@ -57,7 +63,10 @@ export const FeatureEnvironmentVariants = () => {
     [feature.environments],
   );
 
-  const createPatch = (variants: IFeatureVariant[], newVariants: IFeatureVariant[]) => {
+  const createPatch = (
+    variants: IFeatureVariant[],
+    newVariants: IFeatureVariant[],
+  ) => {
     return jsonpatch.compare(variants, newVariants);
   };
 
@@ -82,7 +91,10 @@ export const FeatureEnvironmentVariants = () => {
     payload: { variants },
   });
 
-  const updateVariants = async (environment: IFeatureEnvironmentWithCrEnabled, variants: IFeatureVariant[]) => {
+  const updateVariants = async (
+    environment: IFeatureEnvironmentWithCrEnabled,
+    variants: IFeatureVariant[],
+  ) => {
     if (environment.crEnabled) {
       await addChange(projectId, environment.name, getCrPayload(variants));
       refetchChangeRequests();
@@ -100,19 +112,33 @@ export const FeatureEnvironmentVariants = () => {
         return;
       }
 
-      await patchFeatureEnvironmentVariants(projectId, featureId, environment.name, patch);
+      await patchFeatureEnvironmentVariants(
+        projectId,
+        featureId,
+        environment.name,
+        patch,
+      );
     }
     refetchFeature();
   };
 
-  const pushToEnvironments = async (variants: IFeatureVariant[], selected: IFeatureEnvironmentWithCrEnabled[]) => {
+  const pushToEnvironments = async (
+    variants: IFeatureVariant[],
+    selected: IFeatureEnvironmentWithCrEnabled[],
+  ) => {
     try {
-      const selectedWithCrEnabled = selected.filter(({ crEnabled }) => crEnabled);
-      const selectedWithCrDisabled = selected.filter(({ crEnabled }) => !crEnabled);
+      const selectedWithCrEnabled = selected.filter(
+        ({ crEnabled }) => crEnabled,
+      );
+      const selectedWithCrDisabled = selected.filter(
+        ({ crEnabled }) => !crEnabled,
+      );
 
       if (selectedWithCrEnabled.length) {
         await Promise.all(
-          selectedWithCrEnabled.map((environment) => addChange(projectId, environment.name, getCrPayload(variants))),
+          selectedWithCrEnabled.map((environment) =>
+            addChange(projectId, environment.name, getCrPayload(variants)),
+          ),
         );
       }
       if (selectedWithCrDisabled.length) {
@@ -152,7 +178,9 @@ export const FeatureEnvironmentVariants = () => {
         await updateVariants(selectedEnvironment, updatedVariants);
         setModalOpen(false);
         setToastData({
-          title: selectedEnvironment.crEnabled ? `Variant changes added to draft` : 'Variants updated successfully',
+          title: selectedEnvironment.crEnabled
+            ? `Variant changes added to draft`
+            : 'Variants updated successfully',
           type: 'success',
         });
       } catch (error: unknown) {
@@ -169,7 +197,9 @@ export const FeatureEnvironmentVariants = () => {
       const variants = fromEnvironment.variants ?? [];
       await updateVariants(toEnvironment, variants);
       setToastData({
-        title: toEnvironment.crEnabled ? 'Variants copy added to draft' : 'Variants copied successfully',
+        title: toEnvironment.crEnabled
+          ? 'Variants copy added to draft'
+          : 'Variants copied successfully',
         type: 'success',
       });
     } catch (error: unknown) {
@@ -188,7 +218,10 @@ export const FeatureEnvironmentVariants = () => {
               condition={!isSmallScreen}
               show={
                 <>
-                  <Search initialValue={searchValue} onChange={setSearchValue} />
+                  <Search
+                    initialValue={searchValue}
+                    onChange={setSearchValue}
+                  />
                 </>
               }
             />
@@ -196,7 +229,9 @@ export const FeatureEnvironmentVariants = () => {
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
+            show={
+              <Search initialValue={searchValue} onChange={setSearchValue} />
+            }
           />
         </PageHeader>
       }
@@ -208,14 +243,20 @@ export const FeatureEnvironmentVariants = () => {
         );
 
         return (
-          <EnvironmentVariantsCard key={environment.name} environment={environment} searchValue={searchValue}>
+          <EnvironmentVariantsCard
+            key={environment.name}
+            environment={environment}
+            searchValue={searchValue}
+          >
             <StyledButtonContainer>
               <PushVariantsButton
                 current={environment.name}
                 environments={environments}
                 permission={UPDATE_FEATURE_ENVIRONMENT_VARIANTS}
                 projectId={projectId}
-                onSubmit={(selected) => pushToEnvironments(environment.variants ?? [], selected)}
+                onSubmit={(selected) =>
+                  pushToEnvironments(environment.variants ?? [], selected)
+                }
               />
               <EnvironmentVariantsCopyFrom
                 environment={environment}

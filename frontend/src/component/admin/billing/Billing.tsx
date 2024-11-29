@@ -10,7 +10,8 @@ import { BillingHistory } from './BillingHistory/BillingHistory';
 import useInvoices from 'hooks/api/getters/useInvoices/useInvoices';
 
 export const Billing = () => {
-  const { isBilling, refetchInstanceStatus, refresh, loading } = useInstanceStatus();
+  const { isBilling, refetchInstanceStatus, refresh, loading } =
+    useInstanceStatus();
   const { invoices } = useInvoices();
 
   useEffect(() => {
@@ -34,7 +35,11 @@ export const Billing = () => {
               </>
             </PermissionGuard>
           }
-          elseShow={<Alert severity='error'>Billing is not enabled for this instance.</Alert>}
+          elseShow={
+            <Alert severity='error'>
+              Billing is not enabled for this instance.
+            </Alert>
+          }
         />
       </PageContent>
     </div>

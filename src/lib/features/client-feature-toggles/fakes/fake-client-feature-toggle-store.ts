@@ -1,24 +1,37 @@
-import type { FeatureToggle, IFeatureToggleClient, IFeatureToggleQuery } from '../../../types/model';
+import type {
+  FeatureToggle,
+  IFeatureToggleClient,
+  IFeatureToggleQuery,
+} from '../../../types/model';
 import type { IFeatureToggleClientStore } from '../types/client-feature-toggle-store-type';
 import type { IGetAdminFeatures } from '../client-feature-toggle-store';
 
-export default class FakeClientFeatureToggleStore implements IFeatureToggleClientStore {
+export default class FakeClientFeatureToggleStore
+  implements IFeatureToggleClientStore
+{
   featureToggles: FeatureToggle[] = [];
 
-  async getFeatures(featureQuery?: IFeatureToggleQuery, archived: boolean = false): Promise<IFeatureToggleClient[]> {
+  async getFeatures(
+    featureQuery?: IFeatureToggleQuery,
+    archived: boolean = false,
+  ): Promise<IFeatureToggleClient[]> {
     const rows = this.featureToggles.filter((toggle) => {
       // TODO: featureQuery가 지정되지 않았을 경우에 대한 처리가 아래의 상황에서 안전한가?
       if (featureQuery.namePrefix) {
         if (featureQuery.project) {
           return (
             toggle.name.startsWith(featureQuery.namePrefix) &&
-            featureQuery.project.some((project) => project.includes(toggle.project))
+            featureQuery.project.some((project) =>
+              project.includes(toggle.project),
+            )
           );
         }
         return toggle.name.startsWith(featureQuery.namePrefix);
       }
       if (featureQuery.project) {
-        return featureQuery.project.some((project) => project.includes(toggle.project));
+        return featureQuery.project.some((project) =>
+          project.includes(toggle.project),
+        );
       }
       return toggle.archived === archived;
     });
@@ -36,15 +49,21 @@ export default class FakeClientFeatureToggleStore implements IFeatureToggleClien
     return Promise.resolve(clientRows);
   }
 
-  async getClient(query?: IFeatureToggleQuery): Promise<IFeatureToggleClient[]> {
+  async getClient(
+    query?: IFeatureToggleQuery,
+  ): Promise<IFeatureToggleClient[]> {
     return this.getFeatures(query);
   }
 
-  async getFrontendApiClient(query?: IFeatureToggleQuery): Promise<IFeatureToggleClient[]> {
+  async getFrontendApiClient(
+    query?: IFeatureToggleQuery,
+  ): Promise<IFeatureToggleClient[]> {
     return this.getFeatures(query);
   }
 
-  async getPlayground(query?: IFeatureToggleQuery): Promise<IFeatureToggleClient[]> {
+  async getPlayground(
+    query?: IFeatureToggleQuery,
+  ): Promise<IFeatureToggleClient[]> {
     const features = await this.getFeatures(query);
     return features.map(({ strategies, ...rest }) => ({
       ...rest,
@@ -55,7 +74,10 @@ export default class FakeClientFeatureToggleStore implements IFeatureToggleClien
     }));
   }
 
-  async getAdmin({ featureQuery: query, archived }: IGetAdminFeatures): Promise<IFeatureToggleClient[]> {
+  async getAdmin({
+    featureQuery: query,
+    archived,
+  }: IGetAdminFeatures): Promise<IFeatureToggleClient[]> {
     return this.getFeatures(query, archived);
   }
 

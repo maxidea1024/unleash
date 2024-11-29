@@ -6,4 +6,6 @@
 import type { ProjectSchemaOwnersOneOfItemAnyOf } from './projectSchemaOwnersOneOfItemAnyOf';
 import type { ProjectSchemaOwnersOneOfItemAnyOfThree } from './projectSchemaOwnersOneOfItemAnyOfThree';
 
-export type ProjectSchemaOwnersOneOfItem = ProjectSchemaOwnersOneOfItemAnyOf | ProjectSchemaOwnersOneOfItemAnyOfThree;
+export type ProjectSchemaOwnersOneOfItem =
+  | ProjectSchemaOwnersOneOfItemAnyOf
+  | ProjectSchemaOwnersOneOfItemAnyOfThree;

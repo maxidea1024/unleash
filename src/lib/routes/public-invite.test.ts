@@ -112,9 +112,15 @@ describe('Public Signup API', () => {
       expiresAt: expireAt(),
     });
 
-    await request.post('/invite/some-secret/signup').send({ name: 'test' }).expect(400);
+    await request
+      .post('/invite/some-secret/signup')
+      .send({ name: 'test' })
+      .expect(400);
 
-    await request.post('/invite/some-secret/signup').send({ email: 'test@test.com' }).expect(400);
+    await request
+      .post('/invite/some-secret/signup')
+      .send({ email: 'test@test.com' })
+      .expect(400);
 
     await request
       .post('/invite/some-secret/signup')
@@ -175,7 +181,10 @@ describe('Public Signup API', () => {
 
     stores.clientApplicationsStore.upsert({ appName });
     // Create a token
-    const res = await request.post('/api/admin/invite-link/tokens').send(createBody()).expect(201);
+    const res = await request
+      .post('/api/admin/invite-link/tokens')
+      .send(createBody())
+      .expect(201);
     const { secret } = res.body;
 
     return request.get(`/invite/${secret}/validate`).expect(200);

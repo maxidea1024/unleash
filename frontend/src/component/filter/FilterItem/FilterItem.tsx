@@ -1,7 +1,13 @@
 import Search from '@mui/icons-material/Search';
 import { Box, InputAdornment, List, ListItemText } from '@mui/material';
 import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
-import { StyledCheckbox, StyledDropdown, StyledListItem, StyledPopover, StyledTextField } from './FilterItem.styles';
+import {
+  StyledCheckbox,
+  StyledDropdown,
+  StyledListItem,
+  StyledPopover,
+  StyledTextField,
+} from './FilterItem.styles';
 import { FilterItemChip } from './FilterItemChip/FilterItemChip';
 
 export interface IFilterItemProps {
@@ -25,7 +31,10 @@ interface UseSelectionManagementProps {
   handleToggle: (value: string) => () => void;
 }
 
-const useSelectionManagement = ({ options, handleToggle }: UseSelectionManagementProps) => {
+const useSelectionManagement = ({
+  options,
+  handleToggle,
+}: UseSelectionManagementProps) => {
   const listRefs = useRef<Array<HTMLInputElement | HTMLLIElement | null>>([]);
 
   const handleSelection = (event: React.KeyboardEvent, index: number) => {
@@ -36,7 +45,12 @@ const useSelectionManagement = ({ options, handleToggle }: UseSelectionManagemen
     } else if (event.key === 'ArrowUp' && index > 0) {
       event.preventDefault();
       listRefs.current[index - 1]?.focus();
-    } else if (event.key === 'Enter' && index === 0 && listRefs.current[0]?.value && options.length > 0) {
+    } else if (
+      event.key === 'Enter' &&
+      index === 0 &&
+      listRefs.current[0]?.value &&
+      options.length > 0
+    ) {
       // if the search field is not empty and the user presses
       // enter from the search field, toggle the topmost item in
       // the filtered list event.preventDefault();
@@ -71,7 +85,8 @@ export const FilterItem: FC<IFilterItemProps> = ({
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>();
   const [searchText, setSearchText] = useState('');
 
-  const currentOperators = state && state.values.length > 1 ? pluralOperators : singularOperators;
+  const currentOperators =
+    state && state.values.length > 1 ? pluralOperators : singularOperators;
 
   const open = () => {
     setAnchorEl(ref.current);
@@ -99,11 +114,15 @@ export const FilterItem: FC<IFilterItemProps> = ({
     onChipClose();
   };
 
-  const filteredOptions = options.filter((option) => option.label.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredOptions = options.filter((option) =>
+    option.label.toLowerCase().includes(searchText.toLowerCase()),
+  );
 
   const handleToggle = (value: string) => () => {
     if (selectedOptions?.some((selectedOption) => selectedOption === value)) {
-      const newOptions = selectedOptions?.filter((selectedOption) => selectedOption !== value);
+      const newOptions = selectedOptions?.filter(
+        (selectedOption) => selectedOption !== value,
+      );
       onChange({ operator: currentOperator, values: newOptions });
     } else {
       const newOptions = [
@@ -199,7 +218,11 @@ export const FilterItem: FC<IFilterItemProps> = ({
                 >
                   <StyledCheckbox
                     edge='start'
-                    checked={selectedOptions?.some((selectedOption) => selectedOption === option.value) ?? false}
+                    checked={
+                      selectedOptions?.some(
+                        (selectedOption) => selectedOption === option.value,
+                      ) ?? false
+                    }
                     tabIndex={-1}
                     inputProps={{
                       'aria-labelledby': labelId,

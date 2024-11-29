@@ -1,4 +1,10 @@
-import { Box, Button, type SelectChangeEvent, styled, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  type SelectChangeEvent,
+  styled,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useLocalStorageState } from 'hooks/useLocalStorageState';
 import Select from 'component/common/select';
@@ -25,7 +31,8 @@ const SelectWithButton = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const repositoryUrl = 'https://github.com/Unleash/unleash-sdk-examples/tree/main';
+const repositoryUrl =
+  'https://github.com/Unleash/unleash-sdk-examples/tree/main';
 
 type exampleDirectories =
   | 'Android'
@@ -51,10 +58,11 @@ export const SdkExample = () => {
     key: sdk.name,
     label: sdk.name,
   }));
-  const [selectedSdk, setSelectedSdk] = useLocalStorageState<exampleDirectories>(
-    'onboarding-sdk-example',
-    sdkOptions[0].key,
-  );
+  const [selectedSdk, setSelectedSdk] =
+    useLocalStorageState<exampleDirectories>(
+      'onboarding-sdk-example',
+      sdkOptions[0].key,
+    );
   const onChange = (event: SelectChangeEvent) => {
     setSelectedSdk(event.target.value as SdkName);
   };

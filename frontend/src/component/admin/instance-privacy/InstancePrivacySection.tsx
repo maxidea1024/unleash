@@ -164,7 +164,9 @@ export const InstancePrivacySection = ({
 
       <StyledCardDescription>
         <StyledDataCollectionPropertyTable>
-          <StyledDataCollectionExplanation>{infoText}</StyledDataCollectionExplanation>
+          <StyledDataCollectionExplanation>
+            {infoText}
+          </StyledDataCollectionExplanation>
           <StyledDataCollectionPropertyCell>
             <StyledTag>
               <TooltipLink
@@ -176,7 +178,9 @@ export const InstancePrivacySection = ({
                   />
                 }
               >
-                {enabled ? 'How to disable collecting data?' : 'How to enable collecting data?'}
+                {enabled
+                  ? 'How to disable collecting data?'
+                  : 'How to enable collecting data?'}
               </TooltipLink>
             </StyledTag>
           </StyledDataCollectionPropertyCell>

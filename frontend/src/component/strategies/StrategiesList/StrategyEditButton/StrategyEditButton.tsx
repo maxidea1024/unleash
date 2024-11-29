@@ -12,14 +12,21 @@ interface IStrategyEditButtonProps {
   onClick: () => void;
 }
 
-export const StrategyEditButton: VFC<IStrategyEditButtonProps> = ({ strategy, onClick }) => {
+export const StrategyEditButton: VFC<IStrategyEditButtonProps> = ({
+  strategy,
+  onClick,
+}) => {
   const id = useId();
 
   return (
     <ConditionallyRender
       condition={strategy?.editable}
       show={
-        <PermissionIconButton onClick={onClick} permission={UPDATE_STRATEGY} tooltipProps={{ title: 'Edit strategy' }}>
+        <PermissionIconButton
+          onClick={onClick}
+          permission={UPDATE_STRATEGY}
+          tooltipProps={{ title: 'Edit strategy' }}
+        >
           <Edit />
         </PermissionIconButton>
       }

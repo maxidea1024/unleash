@@ -1,5 +1,9 @@
 import type { ITag } from '../../lib/types/model';
-import type { IFeatureAndTag, IFeatureTag, IFeatureTagStore } from '../../lib/types/stores/feature-tag-store';
+import type {
+  IFeatureAndTag,
+  IFeatureTag,
+  IFeatureTagStore,
+} from '../../lib/types/stores/feature-tag-store';
 
 export default class FakeFeatureTagStore implements IFeatureTagStore {
   private featureTags: IFeatureTag[] = [];
@@ -15,7 +19,9 @@ export default class FakeFeatureTagStore implements IFeatureTagStore {
   }
 
   async getAllFeaturesForTag(tagValue: string): Promise<string[]> {
-    const tags = this.featureTags.filter((f) => f.tagValue === tagValue).map((f) => f.featureName);
+    const tags = this.featureTags
+      .filter((f) => f.tagValue === tagValue)
+      .map((f) => f.featureName);
     return Promise.resolve(tags);
   }
 
@@ -40,7 +46,11 @@ export default class FakeFeatureTagStore implements IFeatureTagStore {
     return this.featureTags;
   }
 
-  async tagFeature(featureName: string, tag: ITag, createdByUserId: number): Promise<ITag> {
+  async tagFeature(
+    featureName: string,
+    tag: ITag,
+    createdByUserId: number,
+  ): Promise<ITag> {
     this.featureTags.push({
       featureName,
       tagType: tag.type,
@@ -89,7 +99,9 @@ export default class FakeFeatureTagStore implements IFeatureTagStore {
   }
 
   getAllByFeatures(features: string[]): Promise<IFeatureTag[]> {
-    return Promise.resolve(this.featureTags.filter((tag) => features.includes(tag.featureName)));
+    return Promise.resolve(
+      this.featureTags.filter((tag) => features.includes(tag.featureName)),
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

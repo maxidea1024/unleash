@@ -6,7 +6,10 @@ interface IPercentageCircleProps {
   size?: `${number}rem`;
 }
 
-const PercentageCircle = ({ percentage, size = '4rem' }: IPercentageCircleProps) => {
+const PercentageCircle = ({
+  percentage,
+  size = '4rem',
+}: IPercentageCircleProps) => {
   const theme = useTheme();
 
   const style: CSSProperties = {

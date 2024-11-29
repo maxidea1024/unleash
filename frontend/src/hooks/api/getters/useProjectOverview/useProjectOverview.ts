@@ -31,7 +31,11 @@ const fallbackProject: IProjectOverview = {
 
 const useProjectOverview = (id: string, options: SWRConfiguration = {}) => {
   const { KEY, fetcher } = getProjectOverviewFetcher(id);
-  const { data, error, mutate } = useSWR<IProjectOverview>(KEY, fetcher, options);
+  const { data, error, mutate } = useSWR<IProjectOverview>(
+    KEY,
+    fetcher,
+    options,
+  );
 
   const refetch = useCallback(() => {
     mutate();
@@ -49,8 +53,12 @@ export const useProjectOverviewNameOrId = (id: string): string => {
   return useProjectOverview(id).project.name || id;
 };
 
-export const featuresCount = (project: Pick<IProjectOverview, 'featureTypeCounts'>) => {
-  return project.featureTypeCounts.map((count) => count.count).reduce((a, b) => a + b, 0);
+export const featuresCount = (
+  project: Pick<IProjectOverview, 'featureTypeCounts'>,
+) => {
+  return project.featureTypeCounts
+    .map((count) => count.count)
+    .reduce((a, b) => a + b, 0);
 };
 
 export default useProjectOverview;

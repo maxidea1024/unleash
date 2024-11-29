@@ -69,14 +69,20 @@ export const ProjectOwners: FC<IProjectOwnersProps> = ({ owners = [] }) => {
   return (
     <StyledWrapper data-testid='test'>
       <StyledContainer data-loading>
-        <AvatarGroupFromOwners users={owners} avatarLimit={6} AvatarComponent={StyledAvatarComponent} />
+        <AvatarGroupFromOwners
+          users={owners}
+          avatarLimit={6}
+          AvatarComponent={StyledAvatarComponent}
+        />
       </StyledContainer>
       <ConditionallyRender
         condition={owners.length === 1}
         show={
           <StyledOwnerName>
             <StyledHeader data-loading>Owner</StyledHeader>
-            <StyledUserName data-loading>{getOwnerName(owners[0])}</StyledUserName>
+            <StyledUserName data-loading>
+              {getOwnerName(owners[0])}
+            </StyledUserName>
           </StyledOwnerName>
         }
       />

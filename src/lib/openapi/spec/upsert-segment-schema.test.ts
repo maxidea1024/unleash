@@ -20,7 +20,9 @@ test('upsertSegmentSchema', () => {
   ];
 
   validObjects.forEach((obj) =>
-    expect(validateSchema('#/components/schemas/upsertSegmentSchema', obj)).toBeUndefined(),
+    expect(
+      validateSchema('#/components/schemas/upsertSegmentSchema', obj),
+    ).toBeUndefined(),
   );
 
   const invalidObjects = [
@@ -35,6 +37,8 @@ test('upsertSegmentSchema', () => {
   ];
 
   invalidObjects.forEach((obj) =>
-    expect(validateSchema('#/components/schemas/upsertSegmentSchema', obj)).toMatchSnapshot(),
+    expect(
+      validateSchema('#/components/schemas/upsertSegmentSchema', obj),
+    ).toMatchSnapshot(),
   );
 });

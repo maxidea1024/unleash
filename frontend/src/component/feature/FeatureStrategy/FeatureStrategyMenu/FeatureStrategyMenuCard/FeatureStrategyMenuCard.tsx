@@ -1,6 +1,9 @@
 import type { IStrategy } from 'interfaces/strategy';
 import { Link } from 'react-router-dom';
-import { getFeatureStrategyIcon, formatStrategyName } from 'utils/strategyNames';
+import {
+  getFeatureStrategyIcon,
+  formatStrategyName,
+} from 'utils/strategyNames';
 import { formatCreateStrategyPath } from 'component/feature/FeatureStrategy/FeatureStrategyCreate/FeatureStrategyCreate';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { styled } from '@mui/material';
@@ -10,7 +13,8 @@ interface IFeatureStrategyMenuCardProps {
   projectId: string;
   featureId: string;
   environmentId: string;
-  strategy: Pick<IStrategy, 'name' | 'displayName' | 'description'> & Partial<IStrategy>;
+  strategy: Pick<IStrategy, 'name' | 'displayName' | 'description'> &
+    Partial<IStrategy>;
   defaultStrategy?: boolean;
 }
 
@@ -87,7 +91,11 @@ export const FeatureStrategyMenuCard = ({
         <StrategyIcon />
       </StyledIcon>
       <div>
-        <StyledName text={strategy.displayName || strategyName} maxWidth='200' maxLength={25} />
+        <StyledName
+          text={strategy.displayName || strategyName}
+          maxWidth='200'
+          maxLength={25}
+        />
         <StyledDescription>{strategy.description}</StyledDescription>
       </div>
     </StyledCard>

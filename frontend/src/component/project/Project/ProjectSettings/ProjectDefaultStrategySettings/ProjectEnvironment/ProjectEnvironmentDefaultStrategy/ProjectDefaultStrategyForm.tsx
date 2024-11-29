@@ -1,7 +1,11 @@
 import type React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, styled } from '@mui/material';
-import type { IFeatureStrategy, IFeatureStrategyParameters, IStrategyParameter } from 'interfaces/strategy';
+import type {
+  IFeatureStrategy,
+  IFeatureStrategyParameters,
+  IStrategyParameter,
+} from 'interfaces/strategy';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { STRATEGY_FORM_SUBMIT_ID } from 'utils/testIds';
@@ -17,7 +21,10 @@ import { FeatureStrategyConstraints } from 'component/feature/FeatureStrategy/Fe
 import { FeatureStrategyType } from 'component/feature/FeatureStrategy/FeatureStrategyType/FeatureStrategyType';
 import { FeatureStrategyTitle } from 'component/feature/FeatureStrategy/FeatureStrategyForm/FeatureStrategyTitle/FeatureStrategyTitle';
 import { StrategyVariants } from 'component/feature/StrategyTypes/StrategyVariants';
-import { PROJECT_DEFAULT_STRATEGY_WRITE, UPDATE_PROJECT } from '@server/types/permissions';
+import {
+  PROJECT_DEFAULT_STRATEGY_WRITE,
+  UPDATE_PROJECT,
+} from '@server/types/permissions';
 
 interface IProjectDefaultStrategyFormProps {
   projectId: string;
@@ -68,12 +75,20 @@ export const ProjectDefaultStrategyForm = ({
   errors,
 }: IProjectDefaultStrategyFormProps) => {
   const hasValidConstraints = useConstraintsValidation(strategy.constraints);
-  const access = useHasProjectEnvironmentAccess(permission, projectId, environmentId);
+  const access = useHasProjectEnvironmentAccess(
+    permission,
+    projectId,
+    environmentId,
+  );
   const { strategyDefinition } = useStrategy(strategy?.name);
 
   const navigate = useNavigate();
 
-  const { uiConfig, error: uiConfigError, loading: uiConfigLoading } = useUiConfig();
+  const {
+    uiConfig,
+    error: uiConfigError,
+    loading: uiConfigLoading,
+  } = useUiConfig();
 
   if (uiConfigError) {
     throw uiConfigError;
@@ -89,7 +104,10 @@ export const ProjectDefaultStrategyForm = ({
     })!;
   };
 
-  const validateParameter = (name: string, value: IFeatureStrategyParameters[string]): boolean => {
+  const validateParameter = (
+    name: string,
+    value: IFeatureStrategyParameters[string],
+  ): boolean => {
     const parameter = findParameterDefinition(name);
     // We don't validate groupId for the default strategy.
     // it will get filled when added to a toggle
@@ -136,7 +154,11 @@ export const ProjectDefaultStrategyForm = ({
           }));
         }}
       />
-      <FeatureStrategySegment segments={segments} setSegments={setSegments} projectId={projectId} />
+      <FeatureStrategySegment
+        segments={segments}
+        setSegments={setSegments}
+        projectId={projectId}
+      />
       <FeatureStrategyConstraints
         projectId={projectId}
         environmentId={environmentId}
@@ -153,7 +175,9 @@ export const ProjectDefaultStrategyForm = ({
         hasAccess={access}
       />
       <ConditionallyRender
-        condition={strategy.parameters != null && 'stickiness' in strategy.parameters}
+        condition={
+          strategy.parameters != null && 'stickiness' in strategy.parameters
+        }
         show={
           <StrategyVariants
             strategy={strategy}
@@ -178,7 +202,12 @@ export const ProjectDefaultStrategyForm = ({
         >
           Save strategy
         </PermissionButton>
-        <Button type='button' color='primary' onClick={onCancel ? onCancel : onDefaultCancel} disabled={loading}>
+        <Button
+          type='button'
+          color='primary'
+          onClick={onCancel ? onCancel : onDefaultCancel}
+          disabled={loading}
+        >
           Cancel
         </Button>
       </StyledButtons>

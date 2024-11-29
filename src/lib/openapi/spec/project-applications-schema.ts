@@ -29,4 +29,6 @@ export const projectApplicationsSchema = {
   },
 } as const;
 
-export type ProjectApplicationsSchema = FromSchema<typeof projectApplicationsSchema>;
+export type ProjectApplicationsSchema = FromSchema<
+  typeof projectApplicationsSchema
+>;

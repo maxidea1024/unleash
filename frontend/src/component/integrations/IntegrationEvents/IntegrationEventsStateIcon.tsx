@@ -12,9 +12,11 @@ export const StyledFailedIcon = styled(ErrorOutline)(({ theme }) => ({
   color: theme.palette.error.main,
 }));
 
-export const StyledSuccessWithErrorsIcon = styled(WarningAmber)(({ theme }) => ({
-  color: theme.palette.warning.main,
-}));
+export const StyledSuccessWithErrorsIcon = styled(WarningAmber)(
+  ({ theme }) => ({
+    color: theme.palette.warning.main,
+  }),
+);
 
 export const IntegrationEventsStateIcon = ({ state }: IntegrationEvent) => {
   if (state === 'success') {

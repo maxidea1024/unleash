@@ -55,21 +55,24 @@ describe('count deprecated tokens', () => {
       tokenName: 'admin-token',
     });
     await stores.apiTokenStore.insert({
-      secret: 'default:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
+      secret:
+        'default:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
       environment: 'default',
       type: ApiTokenType.CLIENT,
       projects: ['default'],
       tokenName: 'client-token',
     });
     await stores.apiTokenStore.insert({
-      secret: '*:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
+      secret:
+        '*:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
       environment: 'default',
       type: ApiTokenType.CLIENT,
       projects: [],
       tokenName: 'client-wildcard-token',
     });
     await stores.apiTokenStore.insert({
-      secret: '[]:production.3d6bdada42ddbd63a019d26955178be44368985f7fb3237c584ef86f',
+      secret:
+        '[]:production.3d6bdada42ddbd63a019d26955178be44368985f7fb3237c584ef86f',
       environment: 'default',
       type: ApiTokenType.FRONTEND,
       projects: ['default', 'test'],
@@ -107,7 +110,8 @@ describe('count deprecated tokens', () => {
 
   test('should return 1 for orphaned tokens', async () => {
     await stores.apiTokenStore.insert({
-      secret: 'deleted-project:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
+      secret:
+        'deleted-project:development.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178',
       environment: 'default',
       type: ApiTokenType.CLIENT,
       projects: [],
@@ -144,8 +148,10 @@ describe('count deprecated tokens', () => {
   });
 
   test('should count active tokens based on seen_at', async () => {
-    const legacyTokenSecret = 'be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178';
-    const orphanedTokenSecret = '[]:production.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178';
+    const legacyTokenSecret =
+      'be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178';
+    const orphanedTokenSecret =
+      '[]:production.be44368985f7fb3237c584ef86f3d6bdada42ddbd63a019d26955178';
     await stores.apiTokenStore.insert({
       secret: legacyTokenSecret,
       environment: 'default',
@@ -161,7 +167,10 @@ describe('count deprecated tokens', () => {
       tokenName: 'frontend-test-token',
     });
 
-    await stores.apiTokenStore.markSeenAt([legacyTokenSecret, orphanedTokenSecret]);
+    await stores.apiTokenStore.markSeenAt([
+      legacyTokenSecret,
+      orphanedTokenSecret,
+    ]);
 
     const deprecatedTokens = await stores.apiTokenStore.countDeprecatedTokens();
 

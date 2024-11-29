@@ -50,7 +50,8 @@ const consoleWarn = console.warn;
 const consoleLog = console.log;
 beforeAll(() => {
   const shouldIgnore = (messagesToIgnore: string[], args: any[]) =>
-    typeof args[0] === 'string' && messagesToIgnore.some((msg) => args[0].includes(msg));
+    typeof args[0] === 'string' &&
+    messagesToIgnore.some((msg) => args[0].includes(msg));
 
   vi.spyOn(console, 'error').mockImplementation((...args) => {
     if (!shouldIgnore(errorsToIgnore, args)) {

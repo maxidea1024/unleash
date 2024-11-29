@@ -12,13 +12,18 @@ const StyledUserDistContainer = styled(Box)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
 }));
 
-const StyledUserDistIndicator = styled(Box)<StyledLinearProgressProps>(({ theme, type }) => ({
-  width: 8,
-  height: 8,
-  backgroundColor: type === 'active' ? theme.palette.success.border : theme.palette.warning.border,
-  borderRadius: `2px`,
-  marginRight: theme.spacing(1),
-}));
+const StyledUserDistIndicator = styled(Box)<StyledLinearProgressProps>(
+  ({ theme, type }) => ({
+    width: 8,
+    height: 8,
+    backgroundColor:
+      type === 'active'
+        ? theme.palette.success.border
+        : theme.palette.warning.border,
+    borderRadius: `2px`,
+    marginRight: theme.spacing(1),
+  }),
+);
 
 interface IUserDistributionInfoProps {
   type: UserType;
@@ -42,7 +47,11 @@ const StyledCountTypography = styled(Typography)(() => ({
   fontWeight: 'normal',
 }));
 
-export const UserDistributionInfo: React.FC<IUserDistributionInfoProps> = ({ type, count, percentage }) => {
+export const UserDistributionInfo: React.FC<IUserDistributionInfoProps> = ({
+  type,
+  count,
+  percentage,
+}) => {
   return (
     <StyledUserDistContainer>
       <StyledDistInfoInnerContainer>

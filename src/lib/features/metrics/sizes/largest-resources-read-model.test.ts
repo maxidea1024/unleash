@@ -1,5 +1,7 @@
 import type { ILargestResourcesReadModel } from './largest-resources-read-model-type';
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
 import type { IFeatureToggleStore } from '../../feature-toggle/types/feature-toggle-store-type';
 import getLogger from '../../../../test/fixtures/no-logger';
 import type { IFeatureStrategiesStore } from '../../feature-toggle/types/feature-toggle-strategies-store-type';
@@ -27,7 +29,10 @@ beforeEach(async () => {
   await featureToggleStore.deleteAll();
 });
 
-type FeatureConfig = Pick<IFeatureStrategy, 'featureName' | 'constraints' | 'parameters' | 'variants'>;
+type FeatureConfig = Pick<
+  IFeatureStrategy,
+  'featureName' | 'constraints' | 'parameters' | 'variants'
+>;
 const createFeature = async (config: FeatureConfig) => {
   await featureToggleStore.create('default', {
     name: config.featureName,
@@ -78,8 +83,10 @@ test('can calculate resource size', async () => {
     variants: [],
   });
 
-  const [project] = await largestResourcesReadModel.getLargestProjectEnvironments(1);
-  const [feature1, feature2] = await largestResourcesReadModel.getLargestFeatureEnvironments(2);
+  const [project] =
+    await largestResourcesReadModel.getLargestProjectEnvironments(1);
+  const [feature1, feature2] =
+    await largestResourcesReadModel.getLargestFeatureEnvironments(2);
 
   expect(project.size).toBeGreaterThan(400);
   expect(project.size).toBe(feature1.size + feature2.size);

@@ -19,11 +19,21 @@ export interface IEditableStrategy {
   title?: string;
 }
 
-export type IMinimalStrategy = Pick<CreateStrategySchema, 'name' | 'description' | 'editable' | 'parameters' | 'title'>;
+export type IMinimalStrategy = Pick<
+  CreateStrategySchema,
+  'name' | 'description' | 'editable' | 'parameters' | 'title'
+>;
 
 export type IStrategyImport = Pick<
   CreateStrategySchema,
-  'name' | 'description' | 'deprecated' | 'parameters' | 'builtIn' | 'sortOrder' | 'displayName' | 'title'
+  | 'name'
+  | 'description'
+  | 'deprecated'
+  | 'parameters'
+  | 'builtIn'
+  | 'sortOrder'
+  | 'displayName'
+  | 'title'
 >;
 
 export interface IMinimalStrategyRow {
@@ -36,18 +46,11 @@ export interface IMinimalStrategyRow {
 
 export interface IStrategyStore extends IStore<IStrategy, string> {
   getEditableStrategies(): Promise<IEditableStrategy[]>;
-
   createStrategy(update: IMinimalStrategy): Promise<void>;
-
   updateStrategy(update: IMinimalStrategy): Promise<void>;
-
   deprecateStrategy({ name }: Pick<IStrategy, 'name'>): Promise<void>;
-
   reactivateStrategy({ name }: Pick<IStrategy, 'name'>): Promise<void>;
-
   importStrategy(data: IStrategyImport): Promise<void>;
-
   dropCustomStrategies(): Promise<void>;
-
   count(): Promise<number>;
 }

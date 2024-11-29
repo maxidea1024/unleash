@@ -1,7 +1,13 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { IFeatureToggleStore } from '../feature-toggle/types/feature-toggle-store-type';
-import type { IEventStore, IFlagResolver, ILastSeenStore, IProjectReadModel, IProjectStore } from '../../types';
+import type {
+  IEventStore,
+  IFlagResolver,
+  ILastSeenStore,
+  IProjectReadModel,
+  IProjectStore,
+} from '../../types';
 import { ProjectReadModel } from './project-read-model';
 import type EventEmitter from 'events';
 
@@ -145,7 +151,9 @@ test('it uses the last flag metrics received for lastReportedFlagUsage', async (
 
   await flagStore.create(projectId, { name: flagName, createdByUserId: 1 });
 
-  await lastSeenStore.setLastSeen([{ featureName: flagName, environment: 'development' }]);
+  await lastSeenStore.setLastSeen([
+    { featureName: flagName, environment: 'development' },
+  ]);
 
   const result = await projectReadModel.getProjectsForAdminUi();
   expect(result[0].lastReportedFlagUsage).not.toBeNull();

@@ -74,7 +74,11 @@ export const FeatureReleasePlanCard = ({
         <Icon />
       </StyledIcon>
       <div>
-        <StyledName text={releasePlanTemplate.name} maxWidth='200' maxLength={25} />
+        <StyledName
+          text={releasePlanTemplate.name}
+          maxWidth='200'
+          maxLength={25}
+        />
         <StyledDescription>{releasePlanTemplate.description}</StyledDescription>
       </div>
     </StyledCard>

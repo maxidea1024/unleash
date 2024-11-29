@@ -38,7 +38,8 @@ export const createStrategyVariantSchema = {
       description: 'Extra data configured for this variant',
       properties: {
         type: {
-          description: 'The type of the value. Commonly used types are string, number, json and csv.',
+          description:
+            'The type of the value. Commonly used types are string, number, json and csv.',
           type: 'string',
           enum: ['json', 'csv', 'string', 'number'],
         },
@@ -53,4 +54,6 @@ export const createStrategyVariantSchema = {
   components: {},
 } as const;
 
-export type CreateStrategyVariantSchema = FromSchema<typeof createStrategyVariantSchema>;
+export type CreateStrategyVariantSchema = FromSchema<
+  typeof createStrategyVariantSchema
+>;

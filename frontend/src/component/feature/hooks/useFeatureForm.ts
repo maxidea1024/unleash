@@ -22,7 +22,9 @@ const useFeatureForm = (
   const [name, setName] = useState(toggleQueryName || initialName);
   const [project, setProject] = useState(projectId || initialProject);
   const [description, setDescription] = useState(initialDescription);
-  const [impressionData, setImpressionData] = useState<boolean>(initialImpressionData);
+  const [impressionData, setImpressionData] = useState<boolean>(
+    initialImpressionData,
+  );
   const [errors, setErrors] = useState({});
 
   useEffect(() => {

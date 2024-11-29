@@ -10,7 +10,9 @@ export const useRecordUIErrorApi = () => {
     propagateErrors: true,
   });
 
-  const recordUiError = async (payload: RecordUIErrorSchema): Promise<number> => {
+  const recordUiError = async (
+    payload: RecordUIErrorSchema,
+  ): Promise<number> => {
     const path = `api/admin/record-ui-error`;
     const req = createRequest(path, {
       method: 'POST',

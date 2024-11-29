@@ -1,5 +1,13 @@
 import Input from 'component/common/Input/Input';
-import { TextField, Button, Switch, Typography, styled, type Theme, Link } from '@mui/material';
+import {
+  TextField,
+  Button,
+  Switch,
+  Typography,
+  styled,
+  type Theme,
+  Link,
+} from '@mui/material';
 import type React from 'react';
 import { useState, useEffect } from 'react';
 import Add from '@mui/icons-material/Add';
@@ -102,7 +110,11 @@ export const ContextForm: React.FC<IContextForm> = ({
   useEffect(() => {
     setErrors((prev) => ({
       ...prev,
-      tag: isMissingValue ? 'Value cannot be empty' : isDuplicateValue ? 'Duplicate value' : undefined,
+      tag: isMissingValue
+        ? 'Value cannot be empty'
+        : isDuplicateValue
+          ? 'Duplicate value'
+          : undefined,
     }));
   }, [setErrors, isMissingValue, isDuplicateValue]);
 
@@ -145,7 +157,9 @@ export const ContextForm: React.FC<IContextForm> = ({
   return (
     <StyledForm onSubmit={onSubmit}>
       <div>
-        <StyledInputDescription>What is your context name?</StyledInputDescription>
+        <StyledInputDescription>
+          What is your context name?
+        </StyledInputDescription>
         <Input
           sx={styledInput}
           label='Context name'
@@ -158,7 +172,9 @@ export const ContextForm: React.FC<IContextForm> = ({
           onBlur={validateContext}
           autoFocus
         />
-        <StyledInputDescription>What is this context for?</StyledInputDescription>
+        <StyledInputDescription>
+          What is this context for?
+        </StyledInputDescription>
         <TextField
           sx={styledInput}
           label='Context description (optional)'
@@ -169,7 +185,9 @@ export const ContextForm: React.FC<IContextForm> = ({
           size='small'
           onChange={(e) => setContextDesc(e.target.value)}
         />
-        <StyledInputDescription>Which values do you want to allow?</StyledInputDescription>
+        <StyledInputDescription>
+          Which values do you want to allow?
+        </StyledInputDescription>
         <StyledTagContainer>
           <TextField
             label='Legal value (optional)'
@@ -223,15 +241,24 @@ export const ContextForm: React.FC<IContextForm> = ({
         </ContextFormChipList>
         <StyledInputHeader>Custom stickiness</StyledInputHeader>
         <p>
-          By enabling stickiness on this context field you can use it together with the flexible-rollout strategy. This
-          will guarantee a consistent behavior for specific values of this context field. PS! Not all client SDK's
-          support this feature yet!{' '}
-          <Link href='https://docs.getunleash.io/reference/stickiness' target='_blank' rel='noreferrer'>
+          By enabling stickiness on this context field you can use it together
+          with the flexible-rollout strategy. This will guarantee a consistent
+          behavior for specific values of this context field. PS! Not all client
+          SDK's support this feature yet!{' '}
+          <Link
+            href='https://docs.getunleash.io/reference/stickiness'
+            target='_blank'
+            rel='noreferrer'
+          >
             Read more
           </Link>
         </p>
         <StyledSwitchContainer>
-          <Switch checked={stickiness} value={stickiness} onChange={() => setStickiness(!stickiness)} />
+          <Switch
+            checked={stickiness}
+            value={stickiness}
+            onChange={() => setStickiness(!stickiness)}
+          />
           <Typography>{stickiness ? 'On' : 'Off'}</Typography>
         </StyledSwitchContainer>
         <ContextFieldUsage contextName={contextName} />

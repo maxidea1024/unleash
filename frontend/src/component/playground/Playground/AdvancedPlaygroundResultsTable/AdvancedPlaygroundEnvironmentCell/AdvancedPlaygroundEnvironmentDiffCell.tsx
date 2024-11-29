@@ -29,11 +29,14 @@ export interface IAdvancedPlaygroundEnvironmentCellProps {
   value: AdvancedPlaygroundFeatureSchemaEnvironments;
 }
 
-export const AdvancedPlaygroundEnvironmentDiffCell = ({ value }: IAdvancedPlaygroundEnvironmentCellProps) => {
+export const AdvancedPlaygroundEnvironmentDiffCell = ({
+  value,
+}: IAdvancedPlaygroundEnvironmentCellProps) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
-  const onOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => setAnchorEl(event.currentTarget);
+  const onOpen = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+    setAnchorEl(event.currentTarget);
 
   const onClose = () => setAnchorEl(null);
 

@@ -10,9 +10,14 @@ export const formatExpiredAt = (
 ): string | undefined => {
   const { type, createdAt } = feature;
 
-  const featureType = featureTypes.find((featureType) => featureType.id === type);
+  const featureType = featureTypes.find(
+    (featureType) => featureType.id === type,
+  );
 
-  if (featureType && (featureType.name === KILLSWITCH || featureType.name === PERMISSION)) {
+  if (
+    featureType &&
+    (featureType.name === KILLSWITCH || featureType.name === PERMISSION)
+  ) {
     return;
   }
 

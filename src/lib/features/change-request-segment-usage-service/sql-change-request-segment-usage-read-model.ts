@@ -4,14 +4,18 @@ import type {
   IChangeRequestSegmentUsageReadModel,
 } from './change-request-segment-usage-read-model';
 
-export class ChangeRequestSegmentUsageReadModel implements IChangeRequestSegmentUsageReadModel {
+export class ChangeRequestSegmentUsageReadModel
+  implements IChangeRequestSegmentUsageReadModel
+{
   private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;
   }
 
-  async getStrategiesUsedInActiveChangeRequests(segmentId: number): Promise<ChangeRequestStrategy[]> {
+  async getStrategiesUsedInActiveChangeRequests(
+    segmentId: number,
+  ): Promise<ChangeRequestStrategy[]> {
     const query = this.db.raw(
       `SELECT events.*, cr.project, cr.environment, cr.title
              FROM change_request_events events

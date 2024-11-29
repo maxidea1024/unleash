@@ -32,7 +32,8 @@ export const deprecatedSearchEventsSchema = {
     },
     limit: {
       type: 'integer',
-      description: 'The maximum amount of events to return in the search result',
+      description:
+        'The maximum amount of events to return in the search result',
       minimum: 1,
       maximum: 100,
       default: 100,
@@ -49,4 +50,6 @@ export const deprecatedSearchEventsSchema = {
   components: {},
 } as const;
 
-export type DeprecatedSearchEventsSchema = FromSchema<typeof deprecatedSearchEventsSchema>;
+export type DeprecatedSearchEventsSchema = FromSchema<
+  typeof deprecatedSearchEventsSchema
+>;

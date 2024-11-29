@@ -1,6 +1,14 @@
 import type React from 'react';
 import { type FormEvent, useState } from 'react';
-import { Autocomplete, Button, capitalize, Checkbox, styled, TextField, Tooltip } from '@mui/material';
+import {
+  Autocomplete,
+  Button,
+  capitalize,
+  Checkbox,
+  styled,
+  TextField,
+  Tooltip,
+} from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
@@ -20,7 +28,12 @@ import type { IGroup } from 'interfaces/group';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useNavigate } from 'react-router-dom';
 import { GO_BACK } from 'constants/navigate';
-import { PA_ASSIGN_CREATE_ID, PA_ROLE_ID, PA_USERS_GROUPS_ID, PA_USERS_GROUPS_TITLE_ID } from 'utils/testIds';
+import {
+  PA_ASSIGN_CREATE_ID,
+  PA_ROLE_ID,
+  PA_USERS_GROUPS_ID,
+  PA_USERS_GROUPS_TITLE_ID,
+} from 'utils/testIds';
 import { caseInsensitiveSearch } from 'utils/search';
 import type { IServiceAccount } from 'interfaces/service-account';
 import { MultipleRoleSelect } from 'component/common/MultipleRoleSelect/MultipleRoleSelect';
@@ -104,7 +117,8 @@ export const ProjectAccessAssign = ({
 
   const projectId = useRequiredPathParam('projectId');
   const { refetchProjectAccess } = useProjectAccess(projectId);
-  const { addAccessToProject, setUserRoles, setGroupRoles, loading } = useProjectApi();
+  const { addAccessToProject, setUserRoles, setGroupRoles, loading } =
+    useProjectApi();
   const edit = Boolean(selected);
 
   const checkPermissions = useCheckProjectPermissions(projectId);
@@ -116,7 +130,11 @@ export const ProjectAccessAssign = ({
     ...groups
       .filter(
         (group: IGroup) =>
-          edit || !accesses.some(({ entity: { id }, type }) => group.id === id && type === ENTITY_TYPE.GROUP),
+          edit ||
+          !accesses.some(
+            ({ entity: { id }, type }) =>
+              group.id === id && type === ENTITY_TYPE.GROUP,
+          ),
       )
       .map((group: IGroup) => ({
         id: group.id,
@@ -126,7 +144,11 @@ export const ProjectAccessAssign = ({
     ...users
       .filter(
         (user: IUser) =>
-          edit || !accesses.some(({ entity: { id }, type }) => user.id === id && type === ENTITY_TYPE.USER),
+          edit ||
+          !accesses.some(
+            ({ entity: { id }, type }) =>
+              user.id === id && type === ENTITY_TYPE.USER,
+          ),
       )
       .sort((a: IUser, b: IUser) => {
         const aName = a.name || a.username || '';
@@ -143,7 +165,8 @@ export const ProjectAccessAssign = ({
         (serviceAccount: IServiceAccount) =>
           edit ||
           !accesses.some(
-            ({ entity: { id }, type }) => serviceAccount.id === id && type === ENTITY_TYPE.SERVICE_ACCOUNT,
+            ({ entity: { id }, type }) =>
+              serviceAccount.id === id && type === ENTITY_TYPE.SERVICE_ACCOUNT,
           ),
       )
       .sort((a: IServiceAccount, b: IServiceAccount) => {
@@ -159,15 +182,24 @@ export const ProjectAccessAssign = ({
   ];
 
   const [selectedOptions, setSelectedOptions] = useState<IAccessOption[]>(() =>
-    options.filter(({ id, type }) => id === selected?.entity.id && type === selected?.type),
+    options.filter(
+      ({ id, type }) => id === selected?.entity.id && type === selected?.type,
+    ),
   );
-  const [selectedRoles, setRoles] = useState<IRole[]>(roles.filter(({ id }) => selected?.entity?.roles?.includes(id)));
+  const [selectedRoles, setRoles] = useState<IRole[]>(
+    roles.filter(({ id }) => selected?.entity?.roles?.includes(id)),
+  );
 
   const payload = {
     roles: selectedRoles.map(({ id }) => id),
-    groups: selectedOptions?.filter(({ type }) => type === ENTITY_TYPE.GROUP).map(({ id }) => id),
+    groups: selectedOptions
+      ?.filter(({ type }) => type === ENTITY_TYPE.GROUP)
+      .map(({ id }) => id),
     users: selectedOptions
-      ?.filter(({ type }) => type === ENTITY_TYPE.USER || type === ENTITY_TYPE.SERVICE_ACCOUNT)
+      ?.filter(
+        ({ type }) =>
+          type === ENTITY_TYPE.USER || type === ENTITY_TYPE.SERVICE_ACCOUNT,
+      )
       .map(({ id }) => id),
   };
 
@@ -178,7 +210,10 @@ export const ProjectAccessAssign = ({
     try {
       if (!edit) {
         await addAccessToProject(projectId, payload);
-      } else if (selected?.type === ENTITY_TYPE.USER || selected?.type === ENTITY_TYPE.SERVICE_ACCOUNT) {
+      } else if (
+        selected?.type === ENTITY_TYPE.USER ||
+        selected?.type === ENTITY_TYPE.SERVICE_ACCOUNT
+      ) {
         await setUserRoles(
           projectId,
           selectedRoles.map(({ id }) => id),
@@ -205,7 +240,10 @@ export const ProjectAccessAssign = ({
   const formatApiCode = () => {
     if (edit) {
       return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/projects/${projectId}/${
-        selected?.type === ENTITY_TYPE.USER || selected?.type === ENTITY_TYPE.SERVICE_ACCOUNT ? 'users' : 'groups'
+        selected?.type === ENTITY_TYPE.USER ||
+        selected?.type === ENTITY_TYPE.SERVICE_ACCOUNT
+          ? 'users'
+          : 'groups'
       }/${selected?.entity.id}/roles' \\
 --header 'Authorization: INSERT_API_KEY' \\
 --header 'Content-Type: application/json' \\
@@ -223,7 +261,11 @@ export const ProjectAccessAssign = ({
     }
   };
 
-  const renderOption = (props: React.HTMLAttributes<HTMLLIElement>, option: IAccessOption, selected: boolean) => {
+  const renderOption = (
+    props: React.HTMLAttributes<HTMLLIElement>,
+    option: IAccessOption,
+    selected: boolean,
+  ) => {
     let optionGroup: IGroup | undefined, optionUser: IUser | undefined;
     if (option.type === ENTITY_TYPE.GROUP) {
       optionGroup = option.entity as IGroup;
@@ -253,7 +295,11 @@ export const ProjectAccessAssign = ({
               elseShow={
                 <StyledUserOption>
                   <span>{optionUser?.name || optionUser?.username}</span>
-                  <span>{optionUser?.name && optionUser?.username ? optionUser?.username : optionUser?.email}</span>
+                  <span>
+                    {optionUser?.name && optionUser?.username
+                      ? optionUser?.username
+                      : optionUser?.email}
+                  </span>
                 </StyledUserOption>
               }
             />
@@ -265,16 +311,24 @@ export const ProjectAccessAssign = ({
 
   const isValid = selectedOptions.length > 0 && selectedRoles.length > 0;
   const displayAllRoles =
-    checkPermissions(ADMIN) || userRoles.length === 0 || userRoles.some((userRole) => userRole.name === 'Owner');
+    checkPermissions(ADMIN) ||
+    userRoles.length === 0 ||
+    userRoles.some((userRole) => userRole.name === 'Owner');
 
   let filteredRoles: IRole[];
   if (displayAllRoles) {
     filteredRoles = roles;
   } else {
-    filteredRoles = roles.filter((role) => userRoles.some((userrole) => role.id === userrole.id));
+    filteredRoles = roles.filter((role) =>
+      userRoles.some((userrole) => role.id === userrole.id),
+    );
   }
   return (
-    <SidebarModal open onClose={() => navigate(GO_BACK)} label={`${!edit ? 'Assign' : 'Edit'} ${entityType} access`}>
+    <SidebarModal
+      open
+      onClose={() => navigate(GO_BACK)}
+      label={`${!edit ? 'Assign' : 'Edit'} ${entityType} access`}
+    >
       <FormTemplate
         loading={loading}
         modal
@@ -318,18 +372,31 @@ export const ProjectAccessAssign = ({
                 }}
                 options={options}
                 groupBy={(option) => option.type}
-                renderOption={(props, option, { selected }) => renderOption(props, option, selected)}
+                renderOption={(props, option, { selected }) =>
+                  renderOption(props, option, selected)
+                }
                 getOptionLabel={(option: IAccessOption) => {
-                  if (option.type === ENTITY_TYPE.USER || option.type === ENTITY_TYPE.SERVICE_ACCOUNT) {
+                  if (
+                    option.type === ENTITY_TYPE.USER ||
+                    option.type === ENTITY_TYPE.SERVICE_ACCOUNT
+                  ) {
                     const optionUser = option.entity as IUser;
-                    return optionUser.email || optionUser.name || optionUser.username || '';
+                    return (
+                      optionUser.email ||
+                      optionUser.name ||
+                      optionUser.username ||
+                      ''
+                    );
                   } else {
                     return option.entity.name;
                   }
                 }}
                 filterOptions={(options, { inputValue }) =>
                   options.filter((option: IAccessOption) => {
-                    if (option.type === ENTITY_TYPE.USER || option.type === ENTITY_TYPE.SERVICE_ACCOUNT) {
+                    if (
+                      option.type === ENTITY_TYPE.USER ||
+                      option.type === ENTITY_TYPE.SERVICE_ACCOUNT
+                    ) {
                       const optionUser = option.entity as IUser;
                       return (
                         caseInsensitiveSearch(inputValue, optionUser.email) ||
@@ -337,16 +404,24 @@ export const ProjectAccessAssign = ({
                         caseInsensitiveSearch(inputValue, optionUser.username)
                       );
                     }
-                    return caseInsensitiveSearch(inputValue, option.entity.name);
+                    return caseInsensitiveSearch(
+                      inputValue,
+                      option.entity.name,
+                    );
                   })
                 }
                 isOptionEqualToValue={(option, value) =>
-                  option.type === value.type && option.entity.id === value.entity.id
+                  option.type === value.type &&
+                  option.entity.id === value.entity.id
                 }
-                renderInput={(params) => <TextField {...params} label={capitalize(entityType)} />}
+                renderInput={(params) => (
+                  <TextField {...params} label={capitalize(entityType)} />
+                )}
               />
             </StyledAutocompleteWrapper>
-            <StyledInputDescription>Select the role to assign for this project</StyledInputDescription>
+            <StyledInputDescription>
+              Select the role to assign for this project
+            </StyledInputDescription>
             <StyledAutocompleteWrapper>
               <MultipleRoleSelect
                 data-testid={PA_ROLE_ID}
@@ -367,7 +442,9 @@ export const ProjectAccessAssign = ({
             >
               {edit ? 'Save' : `Assign ${entityType}`}
             </Button>
-            <StyledCancelButton onClick={() => navigate(GO_BACK)}>Cancel</StyledCancelButton>
+            <StyledCancelButton onClick={() => navigate(GO_BACK)}>
+              Cancel
+            </StyledCancelButton>
           </StyledButtonContainer>
         </StyledForm>
       </FormTemplate>

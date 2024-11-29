@@ -1,4 +1,9 @@
-import { type IUnleashConfig, type IUnleashServices, NONE, serializeDates } from '../../types';
+import {
+  type IUnleashConfig,
+  type IUnleashServices,
+  NONE,
+  serializeDates,
+} from '../../types';
 import type { OpenApiService } from '../../services';
 import {
   createResponseSchema,
@@ -21,7 +26,10 @@ export default class PersonalDashboardController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { openApiService, personalDashboardService }: Pick<IUnleashServices, 'openApiService' | 'personalDashboardService'>,
+    {
+      openApiService,
+      personalDashboardService,
+    }: Pick<IUnleashServices, 'openApiService' | 'personalDashboardService'>,
   ) {
     super(config);
 
@@ -37,7 +45,8 @@ export default class PersonalDashboardController extends Controller {
         openApiService.validPath({
           tags: ['Unstable'],
           summary: 'Get personal dashboard',
-          description: 'Return all projects and flags that are relevant to the user.',
+          description:
+            'Return all projects and flags that are relevant to the user.',
           operationId: 'getPersonalDashboard',
           responses: {
             200: createResponseSchema('personalDashboardSchema'),
@@ -56,7 +65,8 @@ export default class PersonalDashboardController extends Controller {
         openApiService.validPath({
           tags: ['Unstable'],
           summary: 'Get personal project details',
-          description: 'Return personal dashboard project events, owners, user roles and onboarding status',
+          description:
+            'Return personal dashboard project events, owners, user roles and onboarding status',
           operationId: 'getPersonalDashboardProjectDetails',
           responses: {
             200: createResponseSchema('personalDashboardProjectDetailsSchema'),
@@ -67,7 +77,10 @@ export default class PersonalDashboardController extends Controller {
     });
   }
 
-  async getPersonalDashboard(req: IAuthRequest, res: Response<PersonalDashboardSchema>): Promise<void> {
+  async getPersonalDashboard(
+    req: IAuthRequest,
+    res: Response<PersonalDashboardSchema>,
+  ): Promise<void> {
     const user = req.user;
 
     const [flags, projects, projectOwners, admins] = await Promise.all([
@@ -77,12 +90,17 @@ export default class PersonalDashboardController extends Controller {
       this.personalDashboardService.getAdmins(),
     ]);
 
-    this.openApiService.respondWithValidation(200, res, personalDashboardSchema.$id, {
-      projects,
-      flags,
-      projectOwners,
-      admins,
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      personalDashboardSchema.$id,
+      {
+        projects,
+        flags,
+        projectOwners,
+        admins,
+      },
+    );
   }
 
   async getPersonalDashboardProjectDetails(
@@ -91,7 +109,11 @@ export default class PersonalDashboardController extends Controller {
   ): Promise<void> {
     const user = req.user;
 
-    const projectDetails = await this.personalDashboardService.getPersonalProjectDetails(user.id, req.params.projectId);
+    const projectDetails =
+      await this.personalDashboardService.getPersonalProjectDetails(
+        user.id,
+        req.params.projectId,
+      );
 
     this.openApiService.respondWithValidation(
       200,

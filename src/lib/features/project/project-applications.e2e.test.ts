@@ -1,5 +1,8 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 
 import { ApiTokenType, type IApiToken } from '../../types/models/api-token';
@@ -72,7 +75,11 @@ test('should return applications', async () => {
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 
@@ -110,7 +117,11 @@ test('should return applications if sdk was not in database', async () => {
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 
@@ -144,7 +155,11 @@ test('should return application without version if sdk has just name', async () 
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 
@@ -192,7 +207,11 @@ test('should sort by appName descending', async () => {
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.request
     .post('/api/client/metrics')
@@ -260,7 +279,11 @@ test('should filter by sdk', async () => {
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.request
     .post('/api/client/metrics')
@@ -325,7 +348,11 @@ test('should show correct number of total', async () => {
     interval: 10,
   });
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.request
     .post('/api/client/metrics')
@@ -364,7 +391,11 @@ test('should show correct number of total', async () => {
 test('should not show if metrics exist, but application does not', async () => {
   await app.createFeature('toggle-name-1');
 
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 

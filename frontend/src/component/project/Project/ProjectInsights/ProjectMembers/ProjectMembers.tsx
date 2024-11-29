@@ -18,14 +18,23 @@ const NavigationBar = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-export const ProjectMembers = ({ members, projectId }: IProjectMembersProps) => {
+export const ProjectMembers = ({
+  members,
+  projectId,
+}: IProjectMembersProps) => {
   const { uiConfig } = useUiConfig();
 
-  const link = uiConfig?.versionInfo?.current?.enterprise ? `/projects/${projectId}/settings/access` : `/admin/users`;
+  const link = uiConfig?.versionInfo?.current?.enterprise
+    ? `/projects/${projectId}/settings/access`
+    : `/admin/users`;
 
   const { currentMembers, change } = members;
   return (
-    <StatusBox title={'Project members'} boxText={`${currentMembers}`} change={change}>
+    <StatusBox
+      title={'Project members'}
+      boxText={`${currentMembers}`}
+      change={change}
+    >
       <NavigationBar to={link}>
         <KeyboardArrowRight />
       </NavigationBar>

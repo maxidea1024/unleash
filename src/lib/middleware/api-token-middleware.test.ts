@@ -3,7 +3,9 @@ import { CLIENT } from '../types/permissions';
 import { createTestConfig } from '../../test/config/test-config';
 import ApiUser from '../types/api-user';
 import { ALL, ApiTokenType } from '../types/models/api-token';
-import apiTokenMiddleware, { TOKEN_TYPE_ERROR_MESSAGE } from './api-token-middleware';
+import apiTokenMiddleware, {
+  TOKEN_TYPE_ERROR_MESSAGE,
+} from './api-token-middleware';
 import type { ApiTokenService } from '../services';
 import type { IUnleashConfig } from '../types';
 

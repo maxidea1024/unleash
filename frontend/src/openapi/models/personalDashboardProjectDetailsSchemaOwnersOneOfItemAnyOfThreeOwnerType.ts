@@ -8,6 +8,7 @@ export type PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThreeOwnerT
   (typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThreeOwnerType)[keyof typeof PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThreeOwnerType];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThreeOwnerType = {
-  group: 'group',
-} as const;
+export const PersonalDashboardProjectDetailsSchemaOwnersOneOfItemAnyOfThreeOwnerType =
+  {
+    group: 'group',
+  } as const;

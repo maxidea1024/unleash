@@ -2,7 +2,9 @@ import { validateSchema } from '../validate';
 import type { ClientApplicationSchema } from './client-application-schema';
 
 test('clientApplicationSchema no fields', () => {
-  expect(validateSchema('#/components/schemas/clientApplicationSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', {}),
+  ).toMatchSnapshot();
 });
 
 test('clientApplicationSchema required fields', () => {
@@ -13,7 +15,9 @@ test('clientApplicationSchema required fields', () => {
     strategies: [''],
   };
 
-  expect(validateSchema('#/components/schemas/clientApplicationSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema all fields', () => {
@@ -27,7 +31,9 @@ test('clientApplicationSchema all fields', () => {
     strategies: [''],
   };
 
-  expect(validateSchema('#/components/schemas/clientApplicationSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientApplicationSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema go-sdk request', () => {
@@ -49,7 +55,12 @@ test('clientApplicationSchema go-sdk request', () => {
         "interval": 1
     }`;
 
-  expect(validateSchema('#/components/schemas/clientApplicationSchema', JSON.parse(json))).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientApplicationSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });
 
 test('clientApplicationSchema node-sdk request', () => {
@@ -72,5 +83,10 @@ test('clientApplicationSchema node-sdk request', () => {
         "interval": 1000
     }`;
 
-  expect(validateSchema('#/components/schemas/clientApplicationSchema', JSON.parse(json))).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/clientApplicationSchema',
+      JSON.parse(json),
+    ),
+  ).toBeUndefined();
 });

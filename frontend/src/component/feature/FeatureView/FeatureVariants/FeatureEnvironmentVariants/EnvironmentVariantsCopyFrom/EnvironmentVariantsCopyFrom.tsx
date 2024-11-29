@@ -15,7 +15,10 @@ interface IEnvironmentVariantsCopyFromProps {
   permission: string;
   projectId: string;
   environmentId: string;
-  onCopyVariantsFrom: (fromEnvironment: IFeatureEnvironment, toEnvironment: IFeatureEnvironment) => void;
+  onCopyVariantsFrom: (
+    fromEnvironment: IFeatureEnvironment,
+    toEnvironment: IFeatureEnvironment,
+  ) => void;
   otherEnvsWithVariants: IFeatureEnvironment[];
 }
 
@@ -27,7 +30,9 @@ export const EnvironmentVariantsCopyFrom = ({
   onCopyVariantsFrom,
   otherEnvsWithVariants,
 }: IEnvironmentVariantsCopyFromProps) => {
-  const [copyFromAnchorEl, setCopyFromAnchorEl] = useState<null | HTMLElement>(null);
+  const [copyFromAnchorEl, setCopyFromAnchorEl] = useState<null | HTMLElement>(
+    null,
+  );
   const copyFromOpen = Boolean(copyFromAnchorEl);
 
   const variants = environment.variants ?? [];
@@ -61,7 +66,12 @@ export const EnvironmentVariantsCopyFrom = ({
             }}
           >
             {otherEnvsWithVariants.map((otherEnvironment) => (
-              <MenuItem key={otherEnvironment.name} onClick={() => onCopyVariantsFrom(otherEnvironment, environment)}>
+              <MenuItem
+                key={otherEnvironment.name}
+                onClick={() =>
+                  onCopyVariantsFrom(otherEnvironment, environment)
+                }
+              >
                 <StyledListItemText>{`Copy from ${otherEnvironment.name}`}</StyledListItemText>
               </MenuItem>
             ))}

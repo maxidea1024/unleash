@@ -66,7 +66,10 @@ const FeatureOverviewEnvironmentMetrics = ({
   const total = environmentMetric.yes + environmentMetric.no;
   const percentage = calculatePercentage(total, environmentMetric?.yes);
 
-  if (!environmentMetric || (environmentMetric.yes === 0 && environmentMetric.no === 0)) {
+  if (
+    !environmentMetric ||
+    (environmentMetric.yes === 0 && environmentMetric.no === 0)
+  ) {
     return (
       <StyledContainer>
         <StyledInfo>
@@ -80,7 +83,9 @@ const FeatureOverviewEnvironmentMetrics = ({
           </StyledPercentage>
           <StyledInfoParagraph
             style={{
-              color: disabled ? theme.palette.text.secondary : theme.palette.text.primary,
+              color: disabled
+                ? theme.palette.text.secondary
+                : theme.palette.text.primary,
             }}
             data-loading
           >

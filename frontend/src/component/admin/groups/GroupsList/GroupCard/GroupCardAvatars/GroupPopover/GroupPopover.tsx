@@ -23,7 +23,12 @@ interface IGroupPopoverProps {
   onPopoverClose(event: React.MouseEvent<HTMLElement>): void;
 }
 
-export const GroupPopover = ({ user, open, anchorEl, onPopoverClose }: IGroupPopoverProps) => {
+export const GroupPopover = ({
+  user,
+  open,
+  anchorEl,
+  onPopoverClose,
+}: IGroupPopoverProps) => {
   return (
     <StyledPopover
       open={open}

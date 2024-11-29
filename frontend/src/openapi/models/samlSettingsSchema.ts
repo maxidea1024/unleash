@@ -9,4 +9,6 @@ import type { SamlSettingsSchemaOneOfThree } from './samlSettingsSchemaOneOfThre
 /**
  * Settings used to authenticate via SAML
  */
-export type SamlSettingsSchema = SamlSettingsSchemaOneOf | SamlSettingsSchemaOneOfThree;
+export type SamlSettingsSchema =
+  | SamlSettingsSchemaOneOf
+  | SamlSettingsSchemaOneOfThree;

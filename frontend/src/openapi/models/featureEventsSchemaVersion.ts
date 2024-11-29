@@ -8,7 +8,8 @@
  * An API versioning number
  * @minimum 1
  */
-export type FeatureEventsSchemaVersion = (typeof FeatureEventsSchemaVersion)[keyof typeof FeatureEventsSchemaVersion];
+export type FeatureEventsSchemaVersion =
+  (typeof FeatureEventsSchemaVersion)[keyof typeof FeatureEventsSchemaVersion];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const FeatureEventsSchemaVersion = {

@@ -34,7 +34,10 @@ const StyledAnd = styled('p')(({ theme }) => ({
   backgroundColor: theme.palette.background.elevation2,
 }));
 
-export const FeatureStrategySegmentList = ({ segments, setSegments }: IFeatureStrategySegmentListProps) => {
+export const FeatureStrategySegmentList = ({
+  segments,
+  setSegments,
+}: IFeatureStrategySegmentListProps) => {
   const [preview, setPreview] = useState<ISegment>();
   const lastSegmentIndex = segments.length - 1;
 
@@ -46,7 +49,11 @@ export const FeatureStrategySegmentList = ({ segments, setSegments }: IFeatureSt
     <>
       <ConditionallyRender
         condition={segments && segments.length > 0}
-        show={<StyledSelectedSegmentsLabel>Selected Segments</StyledSelectedSegmentsLabel>}
+        show={
+          <StyledSelectedSegmentsLabel>
+            Selected Segments
+          </StyledSelectedSegmentsLabel>
+        }
       />
       <StyledList>
         {segments.map((segment, i) => (
@@ -57,11 +64,17 @@ export const FeatureStrategySegmentList = ({ segments, setSegments }: IFeatureSt
               preview={preview}
               setPreview={setPreview}
             />
-            <ConditionallyRender condition={i < lastSegmentIndex} show={<StyledAnd>AND</StyledAnd>} />
+            <ConditionallyRender
+              condition={i < lastSegmentIndex}
+              show={<StyledAnd>AND</StyledAnd>}
+            />
           </Fragment>
         ))}
       </StyledList>
-      <ConditionallyRender condition={Boolean(preview)} show={() => <SegmentItem segment={preview!} isExpanded />} />
+      <ConditionallyRender
+        condition={Boolean(preview)}
+        show={() => <SegmentItem segment={preview!} isExpanded />}
+      />
     </>
   );
 };

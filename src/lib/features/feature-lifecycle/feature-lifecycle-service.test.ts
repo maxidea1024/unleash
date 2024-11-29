@@ -14,14 +14,22 @@ import { STAGE_ENTERED } from '../../metric-events';
 
 test('can insert and read lifecycle stages', async () => {
   const eventBus = new EventEmitter();
-  const { featureLifecycleService, eventStore, environmentStore, featureEnvironmentStore } =
-    createFakeFeatureLifecycleService({
-      flagResolver: { isEnabled: () => true },
-      eventBus,
-      getLogger: noLoggerProvider,
-    } as unknown as IUnleashConfig);
+  const {
+    featureLifecycleService,
+    eventStore,
+    environmentStore,
+    featureEnvironmentStore,
+  } = createFakeFeatureLifecycleService({
+    flagResolver: { isEnabled: () => true },
+    eventBus,
+    getLogger: noLoggerProvider,
+  } as unknown as IUnleashConfig);
   const featureName = 'testFeature';
-  await featureEnvironmentStore.addEnvironmentToFeature(featureName, 'my-prod-environment', true);
+  await featureEnvironmentStore.addEnvironmentToFeature(
+    featureName,
+    'my-prod-environment',
+    true,
+  );
 
   function emitMetricsEvent(environment: string) {
     eventBus.emit(CLIENT_METRICS_ADDED, [
@@ -74,7 +82,8 @@ test('can insert and read lifecycle stages', async () => {
   eventStore.emit(FEATURE_ARCHIVED, { featureName });
   await reachedStage(featureName, 'archived');
 
-  const lifecycle = await featureLifecycleService.getFeatureLifecycle(featureName);
+  const lifecycle =
+    await featureLifecycleService.getFeatureLifecycle(featureName);
 
   expect(lifecycle).toEqual([
     { stage: 'initial', enteredStageAt: expect.any(Date) },
@@ -85,6 +94,9 @@ test('can insert and read lifecycle stages', async () => {
 
   eventStore.emit(FEATURE_REVIVED, { featureName });
   await reachedStage(featureName, 'initial');
-  const initialLifecycle = await featureLifecycleService.getFeatureLifecycle(featureName);
-  expect(initialLifecycle).toEqual([{ stage: 'initial', enteredStageAt: expect.any(Date) }]);
+  const initialLifecycle =
+    await featureLifecycleService.getFeatureLifecycle(featureName);
+  expect(initialLifecycle).toEqual([
+    { stage: 'initial', enteredStageAt: expect.any(Date) },
+  ]);
 });

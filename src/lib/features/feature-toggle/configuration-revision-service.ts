@@ -1,5 +1,10 @@
 import type { Logger } from '../../logger';
-import type { IEventStore, IFlagResolver, IUnleashConfig, IUnleashStores } from '../../types';
+import type {
+  IEventStore,
+  IFlagResolver,
+  IUnleashConfig,
+  IUnleashStores,
+} from '../../types';
 import EventEmitter from 'events';
 
 export const UPDATE_REVISION = 'UPDATE_REVISION';
@@ -14,7 +19,10 @@ export default class ConfigurationRevisionService extends EventEmitter {
 
   private constructor(
     { eventStore }: Pick<IUnleashStores, 'eventStore'>,
-    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    {
+      getLogger,
+      flagResolver,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
     super();
 
@@ -27,7 +35,10 @@ export default class ConfigurationRevisionService extends EventEmitter {
 
   static getInstance(
     { eventStore }: Pick<IUnleashStores, 'eventStore'>,
-    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    {
+      getLogger,
+      flagResolver,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
     if (!ConfigurationRevisionService.instance) {
       ConfigurationRevisionService.instance = new ConfigurationRevisionService(
@@ -54,7 +65,10 @@ export default class ConfigurationRevisionService extends EventEmitter {
 
     const revisionId = await this.eventStore.getMaxRevisionId(this.revisionId);
     if (this.revisionId !== revisionId) {
-      this.logger.debug('Updating feature configuration with new revision Id', revisionId);
+      this.logger.debug(
+        'Updating feature configuration with new revision Id',
+        revisionId,
+      );
       this.emit(UPDATE_REVISION, revisionId);
       this.revisionId = revisionId;
     }

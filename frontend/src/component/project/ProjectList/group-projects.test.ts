@@ -25,6 +25,14 @@ test('should check that the project is a user project OR that it is a favorite',
 
   const { myProjects, otherProjects } = groupProjects(myProjectIds, projects);
 
-  expect(myProjects).toMatchObject([{ id: 'my1' }, { id: 'my2' }, { id: 'my3' }, { id: 'fave-but-not-mine' }]);
-  expect(otherProjects).toMatchObject([{ id: 'not-mine-not-fave' }, { id: 'not-mine-undefined-fave' }]);
+  expect(myProjects).toMatchObject([
+    { id: 'my1' },
+    { id: 'my2' },
+    { id: 'my3' },
+    { id: 'fave-but-not-mine' },
+  ]);
+  expect(otherProjects).toMatchObject([
+    { id: 'not-mine-not-fave' },
+    { id: 'not-mine-undefined-fave' },
+  ]);
 });

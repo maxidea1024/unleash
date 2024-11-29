@@ -12,7 +12,9 @@ test('should render correctly when using basic options', () => {
     />,
   );
 
-  expect(screen.getByText('This is a simple banner message.')).toBeInTheDocument();
+  expect(
+    screen.getByText('This is a simple banner message.'),
+  ).toBeInTheDocument();
   expect(screen.getByTestId('WarningAmberIcon')).toBeInTheDocument();
 });
 
@@ -32,7 +34,9 @@ test('should render correctly when using advanced options', async () => {
     />,
   );
 
-  expect(screen.getByText('This is a more advanced banner message.')).toBeInTheDocument();
+  expect(
+    screen.getByText('This is a more advanced banner message.'),
+  ).toBeInTheDocument();
 
   const link = screen.getByText('Click me');
   expect(link).toBeInTheDocument();
@@ -53,6 +57,8 @@ test('should default to info variant when an invalid variant is provided', () =>
     />,
   );
 
-  expect(screen.getByText('This defaulted to an info banner message.')).toBeInTheDocument();
+  expect(
+    screen.getByText('This defaulted to an info banner message.'),
+  ).toBeInTheDocument();
   expect(screen.getByTestId('InfoOutlinedIcon')).toBeInTheDocument();
 });

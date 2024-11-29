@@ -3,13 +3,16 @@ import { useEffect, useState } from 'react';
 import type { IConstraint } from 'interfaces/strategy';
 
 const isValid = (constraint: IConstraint) => {
-  const hasValues = Array.isArray(constraint.values) && constraint.values.length > 0;
+  const hasValues =
+    Array.isArray(constraint.values) && constraint.values.length > 0;
   const hasValue = Boolean(constraint.value);
 
   return hasValues || hasValue;
 };
 
-export const useConstraintsValidation = (constraints?: IConstraint[]): boolean => {
+export const useConstraintsValidation = (
+  constraints?: IConstraint[],
+): boolean => {
   // An empty list of constraints is valid. An undefined list is not.
   // A non-empty list has to be checked by calling the backend.
   const isEmptyList = Boolean(constraints && constraints.length === 0);

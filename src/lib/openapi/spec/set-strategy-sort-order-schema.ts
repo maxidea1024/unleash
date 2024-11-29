@@ -25,4 +25,6 @@ export const setStrategySortOrderSchema = {
   components: {},
 } as const;
 
-export type SetStrategySortOrderSchema = FromSchema<typeof setStrategySortOrderSchema>;
+export type SetStrategySortOrderSchema = FromSchema<
+  typeof setStrategySortOrderSchema
+>;

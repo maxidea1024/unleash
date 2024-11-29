@@ -29,7 +29,11 @@ interface IMoreActionsProps {
 
 const menuId = 'selection-actions-menu';
 
-export const MoreActions: VFC<IMoreActionsProps> = ({ projectId, data, onChange }) => {
+export const MoreActions: VFC<IMoreActionsProps> = ({
+  projectId,
+  data,
+  onChange,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { staleFeatures } = useProjectApi();
   const { setToastData, setToastApiError } = useToast();
@@ -129,7 +133,8 @@ export const MoreActions: VFC<IMoreActionsProps> = ({ projectId, data, onChange 
                       onClick={onMarkAsStale}
                       disabled={!hasAccess}
                       sx={{
-                        borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                        borderRadius: (theme) =>
+                          `${theme.shape.borderRadius}px`,
                       }}
                     >
                       <ListItemIcon>
@@ -148,14 +153,17 @@ export const MoreActions: VFC<IMoreActionsProps> = ({ projectId, data, onChange 
                       onClick={onUnmarkAsStale}
                       disabled={!hasAccess}
                       sx={{
-                        borderRadius: (theme) => `${theme.shape.borderRadius}px`,
+                        borderRadius: (theme) =>
+                          `${theme.shape.borderRadius}px`,
                       }}
                     >
                       <ListItemIcon>
                         <WatchLater />
                       </ListItemIcon>
                       <ListItemText>
-                        <Typography variant='body2'>Un-mark as stale</Typography>
+                        <Typography variant='body2'>
+                          Un-mark as stale
+                        </Typography>
                       </ListItemText>
                     </MenuItem>
                   )}

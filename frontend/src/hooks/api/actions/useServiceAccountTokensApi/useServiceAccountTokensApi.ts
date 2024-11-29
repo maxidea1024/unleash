@@ -15,19 +15,28 @@ export const useServiceAccountTokensApi = () => {
     serviceAccountId: number,
     payload: ICreateServiceAccountTokenPayload,
   ): Promise<INewPersonalAPIToken> => {
-    const req = createRequest(`api/admin/service-account/${serviceAccountId}/token`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    });
+    const req = createRequest(
+      `api/admin/service-account/${serviceAccountId}/token`,
+      {
+        method: 'POST',
+        body: JSON.stringify(payload),
+      },
+    );
 
     const response = await makeRequest(req.caller, req.id);
     return response.json();
   };
 
-  const deleteServiceAccountToken = async (serviceAccountId: number, id: string) => {
-    const req = createRequest(`api/admin/service-account/${serviceAccountId}/token/${id}`, {
-      method: 'DELETE',
-    });
+  const deleteServiceAccountToken = async (
+    serviceAccountId: number,
+    id: string,
+  ) => {
+    const req = createRequest(
+      `api/admin/service-account/${serviceAccountId}/token/${id}`,
+      {
+        method: 'DELETE',
+      },
+    );
 
     await makeRequest(req.caller, req.id);
   };

@@ -14,7 +14,11 @@ async function getSetup() {
   const base = `/random${Math.round(Math.random() * 1000)}`;
   const stores = createStores();
   await stores.userStore.insert(currentUser);
-  await stores.userStore.setPasswordHash(currentUser.id, await bcrypt.hash(oldPassword, 10), 5);
+  await stores.userStore.setPasswordHash(
+    currentUser.id,
+    await bcrypt.hash(oldPassword, 10),
+    5,
+  );
 
   const config = createTestConfig({
     preHook: (a) => {

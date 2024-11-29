@@ -2,7 +2,11 @@ import { headers } from 'utils/apiUtils';
 import useAPI from '../useApi/useApi';
 import type { UserSchema } from 'openapi';
 
-type PasswordLogin = (path: string, username: string, password: string) => Promise<UserSchema>;
+type PasswordLogin = (
+  path: string,
+  username: string,
+  password: string,
+) => Promise<UserSchema>;
 
 type EmailLogin = (path: string, email: string) => Promise<Response>;
 
@@ -18,7 +22,11 @@ export const useAuthApi = (): IUseAuthApiOutput => {
     propagateErrors: true,
   });
 
-  const passwordAuth = async (path: string, username: string, password: string): Promise<UserSchema> => {
+  const passwordAuth = async (
+    path: string,
+    username: string,
+    password: string,
+  ): Promise<UserSchema> => {
     const req = {
       caller: () => {
         return fetch(path, {

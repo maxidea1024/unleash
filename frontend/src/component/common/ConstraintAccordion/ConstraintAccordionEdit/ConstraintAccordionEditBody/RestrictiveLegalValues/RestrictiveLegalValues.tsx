@@ -5,7 +5,10 @@ import { useThemeStyles } from 'themes/themeStyles';
 import { ConstraintValueSearch } from 'component/common/ConstraintAccordion/ConstraintValueSearch/ConstraintValueSearch';
 import { ConstraintFormHeader } from '../ConstraintFormHeader/ConstraintFormHeader';
 import type { ILegalValue } from 'interfaces/context';
-import { filterLegalValues, LegalValueLabel } from '../LegalValueLabel/LegalValueLabel';
+import {
+  filterLegalValues,
+  LegalValueLabel,
+} from '../LegalValueLabel/LegalValueLabel';
 
 interface IRestrictiveLegalValuesProps {
   data: {
@@ -37,7 +40,10 @@ export const getLegalValueSet = (values: ILegalValue[]) => {
   return new Set(values.map(({ value }) => value));
 };
 
-export const getIllegalValues = (constraintValues: string[], deletedLegalValues: ILegalValue[]) => {
+export const getIllegalValues = (
+  constraintValues: string[],
+  deletedLegalValues: ILegalValue[],
+) => {
   const deletedValuesSet = getLegalValueSet(deletedLegalValues);
 
   return constraintValues.filter((value) => deletedValuesSet.has(value));
@@ -62,7 +68,9 @@ export const RestrictiveLegalValues = ({
 
   const cleanDeletedLegalValues = (constraintValues: string[]): string[] => {
     const deletedValuesSet = getLegalValueSet(deletedLegalValues);
-    return constraintValues?.filter((value) => !deletedValuesSet.has(value)) || [];
+    return (
+      constraintValues?.filter((value) => !deletedValuesSet.has(value)) || []
+    );
   };
 
   const illegalValues = getIllegalValues(constraintValues, deletedLegalValues);
@@ -97,8 +105,9 @@ export const RestrictiveLegalValues = ({
         condition={Boolean(illegalValues && illegalValues.length > 0)}
         show={
           <Alert severity='warning'>
-            This constraint is using legal values that have been deleted as valid options. If you save changes on this
-            constraint and then save the strategy the following values will be removed:
+            This constraint is using legal values that have been deleted as
+            valid options. If you save changes on this constraint and then save
+            the strategy the following values will be removed:
             <ul>
               {illegalValues?.map((value) => (
                 <li key={value}>{value}</li>
@@ -108,7 +117,9 @@ export const RestrictiveLegalValues = ({
         }
       />
 
-      <ConstraintFormHeader>Select values from a predefined set</ConstraintFormHeader>
+      <ConstraintFormHeader>
+        Select values from a predefined set
+      </ConstraintFormHeader>
       <ConditionallyRender
         condition={legalValues.length > 100}
         show={<ConstraintValueSearch filter={filter} setFilter={setFilter} />}
@@ -123,13 +134,18 @@ export const RestrictiveLegalValues = ({
               onChange={() => onChange(match.value)}
               name={match.value}
               color='primary'
-              disabled={deletedLegalValues.map(({ value }) => value).includes(match.value)}
+              disabled={deletedLegalValues
+                .map(({ value }) => value)
+                .includes(match.value)}
             />
           }
         />
       ))}
 
-      <ConditionallyRender condition={Boolean(error)} show={<p className={styles.error}>{error}</p>} />
+      <ConditionallyRender
+        condition={Boolean(error)}
+        show={<p className={styles.error}>{error}</p>}
+      />
     </>
   );
 };

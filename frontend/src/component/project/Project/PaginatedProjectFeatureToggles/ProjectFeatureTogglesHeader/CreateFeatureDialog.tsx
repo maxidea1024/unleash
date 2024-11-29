@@ -14,7 +14,9 @@ import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import FlagIcon from '@mui/icons-material/Flag';
 import ImpressionDataIcon from '@mui/icons-material/AltRoute';
 import { useGlobalFeatureSearch } from 'component/feature/FeatureToggleList/useGlobalFeatureSearch';
-import useProjectOverview, { featuresCount } from 'hooks/api/getters/useProjectOverview/useProjectOverview';
+import useProjectOverview, {
+  featuresCount,
+} from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 import type { FeatureTypeSchema } from 'openapi';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
@@ -135,7 +137,8 @@ const CreateFeatureDialogContent = ({
 
   const [documentation, setDocumentation] = useState(generalDocumentation);
 
-  const clearDocumentationOverride = () => setDocumentation(generalDocumentation);
+  const clearDocumentationOverride = () =>
+    setDocumentation(generalDocumentation);
 
   const flagPayload = getTogglePayload();
 
@@ -173,28 +176,31 @@ const CreateFeatureDialogContent = ({
     }
   };
 
-  const { total: totalFlags, loading: loadingTotalFlagCount } = useGlobalFeatureSearch(1);
+  const { total: totalFlags, loading: loadingTotalFlagCount } =
+    useGlobalFeatureSearch(1);
 
   const { project: projectInfo } = useProjectOverview(project);
   const { tags: allTags } = useAllTags();
 
-  const { globalFlagLimitReached, projectFlagLimitReached, limitMessage } = useFlagLimits({
-    global: {
-      limit: uiConfig.resourceLimits.featureFlags,
-      count: totalFlags ?? 0,
-    },
-    project: {
-      limit: projectInfo.featureLimit,
-      count: featuresCount(projectInfo),
-    },
-  });
+  const { globalFlagLimitReached, projectFlagLimitReached, limitMessage } =
+    useFlagLimits({
+      global: {
+        limit: uiConfig.resourceLimits.featureFlags,
+        count: totalFlags ?? 0,
+      },
+      project: {
+        limit: projectInfo.featureLimit,
+        count: featuresCount(projectInfo),
+      },
+    });
 
   const { projects } = useProjects();
   const { featureTypes } = useFeatureTypes();
   const FeatureTypeIcon = getFeatureTypeIcons(type);
 
   const longestFeatureTypeName = featureTypes.reduce(
-    (prev: number, type: { name: string }) => (prev >= type.name.length ? prev : type.name.length),
+    (prev: number, type: { name: string }) =>
+      prev >= type.name.length ? prev : type.name.length,
     0,
   );
 
@@ -218,7 +224,11 @@ const CreateFeatureDialogContent = ({
         <DialogFormTemplate
           createButtonProps={{
             projectId: project,
-            disabled: loading || loadingTotalFlagCount || globalFlagLimitReached || projectFlagLimitReached,
+            disabled:
+              loading ||
+              loadingTotalFlagCount ||
+              globalFlagLimitReached ||
+              projectFlagLimitReached,
             permission: CREATE_FEATURE,
             tooltipProps: { title: limitMessage, arrow: true },
           }}
@@ -229,7 +239,11 @@ const CreateFeatureDialogContent = ({
           Icon={<FlagIcon />}
           validateName={validateToggleName}
           Limit={
-            <Limit name='feature flags' limit={uiConfig.resourceLimits.featureFlags} currentValue={totalFlags ?? 0} />
+            <Limit
+              name='feature flags'
+              limit={uiConfig.resourceLimits.featureFlags}
+              currentValue={totalFlags ?? 0}
+            />
           }
           name={name}
           onClose={onClose}
@@ -303,7 +317,9 @@ const CreateFeatureDialogContent = ({
                   setType(value);
                 }}
                 button={{
-                  label: featureTypes.find((t) => t.id === type)?.name || 'Select flag type',
+                  label:
+                    featureTypes.find((t) => t.id === type)?.name ||
+                    'Select flag type',
                   icon: <FeatureTypeIcon />,
                   labelWidth: `${longestFeatureTypeName}ch`,
                 }}

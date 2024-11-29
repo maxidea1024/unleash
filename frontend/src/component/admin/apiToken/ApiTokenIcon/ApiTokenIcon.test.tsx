@@ -7,14 +7,16 @@ describe('isOrphanedToken', () => {
   it('should be true for wildcard tokens with secret indicating it is orphaned', () => {
     expect(
       isOrphanedToken({
-        secret: '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['*'],
         project: '*',
       }),
     ).toBe(true);
     expect(
       isOrphanedToken({
-        secret: 'test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          'test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['*'],
         project: '*',
       }),
@@ -24,7 +26,8 @@ describe('isOrphanedToken', () => {
   it('should be false for true wildcard tokens', () => {
     expect(
       isOrphanedToken({
-        secret: '*:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          '*:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['*'],
         project: '*',
       }),
@@ -44,20 +47,23 @@ describe('isOrphanedToken', () => {
   it('should be false if there are projects assigned to a token', () => {
     expect(
       isOrphanedToken({
-        secret: 'test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          'test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['test'],
         project: 'test',
       }),
     ).toBe(false);
     expect(
       isOrphanedToken({
-        secret: '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['a', 'b'],
       }),
     ).toBe(false);
     expect(
       isOrphanedToken({
-        secret: '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
+        secret:
+          '[]:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b',
         projects: ['a'],
       }),
     ).toBe(false);
@@ -66,7 +72,9 @@ describe('isOrphanedToken', () => {
 
 describe('ApiTokenIcon', () => {
   it('should show warning icon if it is an orphaned token', async () => {
-    render(<ApiTokenIcon secret='test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b' />);
+    render(
+      <ApiTokenIcon secret='test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b' />,
+    );
 
     const errorIcon = await screen.findByTestId('orphaned-token-icon');
     expect(errorIcon).toBeInTheDocument();
@@ -75,7 +83,10 @@ describe('ApiTokenIcon', () => {
   it('should show tooltip with warning message if it is an orphaned token', async () => {
     const user = userEvent.setup();
     render(
-      <ApiTokenIcon secret='test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b' projects={[]} />,
+      <ApiTokenIcon
+        secret='test:development.be7536c3a160ff15e3a92da45de531dd54bc1ae15d8455c0476f086b'
+        projects={[]}
+      />,
     );
 
     const errorIcon = await screen.findByTestId('orphaned-token-icon');

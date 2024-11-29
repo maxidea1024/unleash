@@ -14,9 +14,17 @@ const setupApi = () => {
     },
   });
   testServerRoute(server, '/api/admin/projects/default/overview', {
-    environments: [{ environment: 'development' }, { environment: 'production' }],
+    environments: [
+      { environment: 'development' },
+      { environment: 'production' },
+    ],
   });
-  testServerRoute(server, '/api/admin/features-batch/validate', { errors: [], permissions: [], warnings: [] }, 'post');
+  testServerRoute(
+    server,
+    '/api/admin/features-batch/validate',
+    { errors: [], permissions: [], warnings: [] },
+    'post',
+  );
   testServerRoute(server, '/api/admin/features-batch/import', {}, 'post');
 };
 

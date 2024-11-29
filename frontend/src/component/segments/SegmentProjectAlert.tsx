@@ -23,7 +23,11 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
 
 interface ISegmentProjectAlertProps {
   projects: ProjectSchema[];
-  strategies: (IFeatureStrategy | ChangeRequestUpdatedStrategy | ChangeRequestNewStrategy)[];
+  strategies: (
+    | IFeatureStrategy
+    | ChangeRequestUpdatedStrategy
+    | ChangeRequestNewStrategy
+  )[];
   projectsUsed: string[];
   availableProjects: ProjectSchema[];
 }
@@ -66,7 +70,12 @@ export const SegmentProjectAlert = ({
       <StyledAlert severity='info'>
         <ConditionallyRender
           condition={projectsUsed.length > 1}
-          show={<span>You can't specify a project for this segment because it is used in multiple projects:</span>}
+          show={
+            <span>
+              You can't specify a project for this segment because it is used in
+              multiple projects:
+            </span>
+          }
           elseShow={<span>Usage of this segment:</span>}
         />
         {projectList}
@@ -87,16 +96,23 @@ const formatStrategyNameParens = (strategy: {
   return `(${formatStrategyName(strategy.strategyName)})`;
 };
 
-export const formatChangeRequestPath = (projectId: string, changeRequestId: number): string => {
+export const formatChangeRequestPath = (
+  projectId: string,
+  changeRequestId: number,
+): string => {
   return `/projects/${projectId}/change-requests/${changeRequestId}`;
 };
 
 const strategyListItem = (
-  strategy: IFeatureStrategy | ChangeRequestUpdatedStrategy | ChangeRequestNewStrategy,
+  strategy:
+    | IFeatureStrategy
+    | ChangeRequestUpdatedStrategy
+    | ChangeRequestNewStrategy,
   index: number,
 ) => {
-  const isChangeRequest = (strategy: IFeatureStrategy | ChangeRequestStrategy): strategy is ChangeRequestStrategy =>
-    'changeRequest' in strategy;
+  const isChangeRequest = (
+    strategy: IFeatureStrategy | ChangeRequestStrategy,
+  ): strategy is ChangeRequestStrategy => 'changeRequest' in strategy;
 
   if (isChangeRequest(strategy)) {
     const { id, title } = strategy.changeRequest;
@@ -105,7 +121,8 @@ const strategyListItem = (
     return (
       <li key={`#${strategy.changeRequest.id}@${index}`}>
         <p>
-          {strategy.featureName} {`${formatStrategyNameParens(strategy)} — in change request `}
+          {strategy.featureName}{' '}
+          {`${formatStrategyNameParens(strategy)} — in change request `}
           <Link
             to={formatChangeRequestPath(strategy.projectId, id)}
             target='_blank'
@@ -121,7 +138,12 @@ const strategyListItem = (
     return (
       <li key={strategy.id}>
         <Link
-          to={formatEditStrategyPath(strategy.projectId!, strategy.featureName!, strategy.environment!, strategy.id)}
+          to={formatEditStrategyPath(
+            strategy.projectId!,
+            strategy.featureName!,
+            strategy.environment!,
+            strategy.id,
+          )}
           target='_blank'
           rel='noopener noreferrer'
         >

@@ -28,7 +28,11 @@ const useUnleashContext = (
 
   const CONTEXT_CACHE_KEY = 'api/admin/context';
 
-  const { data, mutate, error, isValidating } = useSWR(CONTEXT_CACHE_KEY, fetcher, options);
+  const { data, mutate, error, isValidating } = useSWR(
+    CONTEXT_CACHE_KEY,
+    fetcher,
+    options,
+  );
 
   return {
     context: data || [],

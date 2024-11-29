@@ -97,7 +97,8 @@ export const featureSearchQueryParameters = [
       type: 'string',
       example: '50',
     },
-    description: 'The number of features to skip when returning a page. By default it is set to 0.',
+    description:
+      'The number of features to skip when returning a page. By default it is set to 0.',
     in: 'query',
   },
   {
@@ -106,7 +107,8 @@ export const featureSearchQueryParameters = [
       type: 'string',
       example: '50',
     },
-    description: 'The number of feature environments to return in a page. By default it is set to 50.',
+    description:
+      'The number of feature environments to return in a page. By default it is set to 50.',
     in: 'query',
   },
   {
@@ -115,7 +117,8 @@ export const featureSearchQueryParameters = [
       type: 'string',
       example: 'type',
     },
-    description: 'The field to sort the results by. By default it is set to "createdAt".',
+    description:
+      'The field to sort the results by. By default it is set to "createdAt".',
     in: 'query',
   },
   {
@@ -125,7 +128,8 @@ export const featureSearchQueryParameters = [
       enum: ['asc', 'desc'] as any,
       example: 'desc',
     },
-    description: 'The sort order for the sortBy. By default it is det to "asc".',
+    description:
+      'The sort order for the sortBy. By default it is det to "asc".',
     in: 'query',
   },
   {
@@ -161,4 +165,6 @@ export const featureSearchQueryParameters = [
   },
 ] as const;
 
-export type FeatureSearchQueryParameters = Partial<FromQueryParams<typeof featureSearchQueryParameters>>;
+export type FeatureSearchQueryParameters = Partial<
+  FromQueryParams<typeof featureSearchQueryParameters>
+>;

@@ -15,7 +15,9 @@ export interface Variant {
   payload?: Payload;
 }
 
-export const getVariantValue = <T = string>(variant: Variant | undefined): T | undefined => {
+export const getVariantValue = <T = string>(
+  variant: Variant | undefined,
+): T | undefined => {
   if (variant?.enabled) {
     if (!variant.payload) {
       return variant.name as T;

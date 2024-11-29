@@ -45,7 +45,11 @@ const StyledButton = styled('button')(({ theme }) => ({
   },
 }));
 
-export const ContextFormChip = ({ label, description, onRemove }: IContextFormChipProps) => {
+export const ContextFormChip = ({
+  label,
+  description,
+  onRemove,
+}: IContextFormChipProps) => {
   return (
     <StyledContainer>
       <div>

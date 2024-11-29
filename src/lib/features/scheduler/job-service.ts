@@ -29,7 +29,10 @@ export class JobService {
     bucketSizeInMinutes = 5,
   ): () => Promise<unknown> {
     return async () => {
-      const acquired = await this.jobStore.acquireBucket(key, bucketSizeInMinutes);
+      const acquired = await this.jobStore.acquireBucket(
+        key,
+        bucketSizeInMinutes,
+      );
 
       if (acquired) {
         const { name, bucket } = acquired;

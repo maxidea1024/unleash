@@ -1,14 +1,18 @@
 import type { Db } from '../../db/db';
 import type { IProjectFlagCreatorsReadModel } from './project-flag-creators-read-model.type';
 
-export class ProjectFlagCreatorsReadModel implements IProjectFlagCreatorsReadModel {
+export class ProjectFlagCreatorsReadModel
+  implements IProjectFlagCreatorsReadModel
+{
   private readonly db: Db;
 
   constructor(db: Db) {
     this.db = db;
   }
 
-  async getFlagCreators(project: string): Promise<Array<{ id: number; name: string }>> {
+  async getFlagCreators(
+    project: string,
+  ): Promise<Array<{ id: number; name: string }>> {
     const result = await this.db('users')
       .distinct('users.id')
       .join('features', 'users.id', '=', 'features.created_by_user_id')

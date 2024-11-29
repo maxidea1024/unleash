@@ -50,7 +50,9 @@ export const FeatureMetricsChips = ({
   const onClick = (value: string) => () => {
     toggleValue(value);
   };
-  const allSelected = [...values].every((element) => selectedValues.includes(element));
+  const allSelected = [...values].every((element) =>
+    selectedValues.includes(element),
+  );
 
   const sortedValues = useMemo(() => {
     return Array.from(values).sort((valueA, valueB) => {
@@ -63,13 +65,22 @@ export const FeatureMetricsChips = ({
       <StyledTitle>{title}</StyledTitle>
       <StyledList>
         {toggleValues && values.size > 1 && (
-          <Button size={'small'} onClick={toggleValues} aria-pressed={allSelected}>
+          <Button
+            size={'small'}
+            onClick={toggleValues}
+            aria-pressed={allSelected}
+          >
             {allSelected ? 'Unselect' : 'Select all'}
           </Button>
         )}
         {sortedValues.map((val) => (
           <StyledItem key={val}>
-            <Chip label={val} onClick={onClick(val)} aria-pressed={selectedValues?.includes(val)} sx={focusable} />
+            <Chip
+              label={val}
+              onClick={onClick(val)}
+              aria-pressed={selectedValues?.includes(val)}
+              sx={focusable}
+            />
           </StyledItem>
         ))}
       </StyledList>

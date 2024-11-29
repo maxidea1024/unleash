@@ -7,7 +7,9 @@ import type {
 import NotFoundError from '../../lib/error/notfound-error';
 import type { IApplicationOverview } from '../../lib/features/metrics/instance/models';
 
-export default class FakeClientApplicationsStore implements IClientApplicationsStore {
+export default class FakeClientApplicationsStore
+  implements IClientApplicationsStore
+{
   apps: IClientApplication[] = [];
 
   async bulkUpsert(details: Partial<IClientApplication>[]): Promise<void> {
@@ -52,7 +54,9 @@ export default class FakeClientApplicationsStore implements IClientApplicationsS
     return this.get(appName);
   }
 
-  async getApplications(query: IClientApplicationsSearchParams): Promise<IClientApplications> {
+  async getApplications(
+    query: IClientApplicationsSearchParams,
+  ): Promise<IClientApplications> {
     return {
       applications: this.apps,
       total: this.apps.length,

@@ -5,7 +5,13 @@ import { vi } from 'vitest';
 
 test('modal should close when escape is pressed', () => {
   const mockSetOpen = vi.fn();
-  render(<Dialogue open={true} setOpen={mockSetOpen} title={'New dialogue created'} />);
+  render(
+    <Dialogue
+      open={true}
+      setOpen={mockSetOpen}
+      title={'New dialogue created'}
+    />,
+  );
 
   expect(screen.getByText('New dialogue created')).toBeInTheDocument();
 

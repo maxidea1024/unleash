@@ -164,19 +164,20 @@ describe('usage counting', () => {
       TEST_AUDIT_USER,
     );
 
-    const strategy = await stores.featureStrategiesStore.createStrategyFeatureEnv({
-      featureName: flag.name,
-      projectId: 'default',
-      environment: 'default',
-      strategyName: 'flexibleRollout',
-      segments: [segment1.id],
-      parameters: {
-        groupId: flag.name,
-        rollout: '100',
-        stickiness: 'default',
-      },
-      constraints: [],
-    });
+    const strategy =
+      await stores.featureStrategiesStore.createStrategyFeatureEnv({
+        featureName: flag.name,
+        projectId: 'default',
+        environment: 'default',
+        strategyName: 'flexibleRollout',
+        segments: [segment1.id],
+        parameters: {
+          groupId: flag.name,
+          rollout: '100',
+          stickiness: 'default',
+        },
+        constraints: [],
+      });
 
     await db.rawDatabase.table('change_requests').insert({
       id: CR_ID,

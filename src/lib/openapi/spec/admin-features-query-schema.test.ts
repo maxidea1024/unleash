@@ -4,7 +4,9 @@ import type { AdminFeaturesQuerySchema } from './admin-features-query-schema';
 test('adminFeaturesQuerySchema empty', () => {
   const data: AdminFeaturesQuerySchema = {};
 
-  expect(validateSchema('#/components/schemas/adminFeaturesQuerySchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/adminFeaturesQuerySchema', data),
+  ).toBeUndefined();
 });
 
 test('adminFeatureQuerySchema all fields', () => {
@@ -13,7 +15,9 @@ test('adminFeatureQuerySchema all fields', () => {
     namePrefix: 'some-prefix',
   };
 
-  expect(validateSchema('#/components/schemas/adminFeaturesQuerySchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/adminFeaturesQuerySchema', data),
+  ).toBeUndefined();
 });
 
 test('pattern validation should deny invalid tags', () => {
@@ -21,5 +25,7 @@ test('pattern validation should deny invalid tags', () => {
     tag: ['something', 'somethingelse'],
   };
 
-  expect(validateSchema('#/components/schemas/adminFeaturesQuerySchema', data)).toBeDefined();
+  expect(
+    validateSchema('#/components/schemas/adminFeaturesQuerySchema', data),
+  ).toBeDefined();
 });

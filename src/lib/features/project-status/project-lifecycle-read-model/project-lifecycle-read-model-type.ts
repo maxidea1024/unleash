@@ -1,5 +1,7 @@
 export interface IProjectLifecycleSummaryReadModel {
-  getProjectLifecycleSummary(projectId: string): Promise<ProjectLifecycleSummary>;
+  getProjectLifecycleSummary(
+    projectId: string,
+  ): Promise<ProjectLifecycleSummary>;
 }
 
 type StageDataWithAverageDays = {

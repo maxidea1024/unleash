@@ -14,7 +14,9 @@ export const useFilteredTrends = <
       return input;
     }
 
-    const output = input.filter((trend) => projects.includes(trend.project)) as T[];
+    const output = input.filter((trend) =>
+      projects.includes(trend.project),
+    ) as T[];
 
     return output;
   }, [input, projects]);

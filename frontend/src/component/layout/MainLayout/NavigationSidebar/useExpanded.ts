@@ -2,7 +2,10 @@ import { useLocalStorageState } from 'hooks/useLocalStorageState';
 import { unique } from 'utils/unique';
 
 export const useExpanded = <T extends string>() => {
-  const [expanded, setExpanded] = useLocalStorageState<Array<T>>('navigation-expanded:v1', []);
+  const [expanded, setExpanded] = useLocalStorageState<Array<T>>(
+    'navigation-expanded:v1',
+    [],
+  );
 
   const changeExpanded = (key: T, expand: boolean) => {
     if (expand) {

@@ -15,7 +15,10 @@ const ShowHideRow = styled(Box, {
   cursor: 'pointer',
 }));
 
-export const ShowHide: FC<{ mode: NavigationMode; onChange: () => void }> = ({ mode, onChange }) => {
+export const ShowHide: FC<{ mode: NavigationMode; onChange: () => void }> = ({
+  mode,
+  onChange,
+}) => {
   return (
     <ShowHideRow onClick={onChange} mode={mode}>
       {mode === 'full' && (

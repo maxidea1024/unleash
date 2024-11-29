@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react';
 import { Button, FormControlLabel, Grid, Switch } from '@mui/material';
 import { Alert } from '@mui/material';
 import useAuthSettings from 'hooks/api/getters/useAuthSettings/useAuthSettings';
-import useAuthSettingsApi, { type ISimpleAuthSettings } from 'hooks/api/actions/useAuthSettingsApi/useAuthSettingsApi';
+import useAuthSettingsApi, {
+  type ISimpleAuthSettings,
+} from 'hooks/api/actions/useAuthSettingsApi/useAuthSettingsApi';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useAdminCount } from 'hooks/api/getters/useAdminCount/useAdminCount';
@@ -14,8 +16,10 @@ import { PasswordAuthDialog } from './PasswordAuthDialog';
 export const PasswordAuth = () => {
   const { setToastData, setToastApiError } = useToast();
   const { config, refetch } = useAuthSettings('simple');
-  const [disablePasswordAuth, setDisablePasswordAuth] = useState<boolean>(false);
-  const { updateSettings, errors, loading } = useAuthSettingsApi<ISimpleAuthSettings>('simple');
+  const [disablePasswordAuth, setDisablePasswordAuth] =
+    useState<boolean>(false);
+  const { updateSettings, errors, loading } =
+    useAuthSettingsApi<ISimpleAuthSettings>('simple');
   const [confirmationOpen, setConfirmationOpen] = useState(false);
   const { data: adminCount } = useAdminCount();
   const { tokens } = useApiTokens();
@@ -65,14 +69,19 @@ export const PasswordAuth = () => {
           Overview of administrators on your Unleash instance:
           <br />
           <br />
-          <strong>Password based administrators: </strong> <Link to='/admin/users'>{adminCount?.password}</Link>
+          <strong>Password based administrators: </strong>{' '}
+          <Link to='/admin/users'>{adminCount?.password}</Link>
           <br />
-          <strong>Other administrators: </strong> <Link to='/admin/users'>{adminCount?.noPassword}</Link>
+          <strong>Other administrators: </strong>{' '}
+          <Link to='/admin/users'>{adminCount?.noPassword}</Link>
           <br />
-          <strong>Admin service accounts: </strong> <Link to='/admin/service-accounts'>{adminCount?.service}</Link>
+          <strong>Admin service accounts: </strong>{' '}
+          <Link to='/admin/service-accounts'>{adminCount?.service}</Link>
           <br />
           <strong>Admin API tokens: </strong>{' '}
-          <Link to='/admin/api'>{tokens.filter(({ type }) => type === 'admin').length}</Link>
+          <Link to='/admin/api'>
+            {tokens.filter(({ type }) => type === 'admin').length}
+          </Link>
         </Alert>
         <Grid container spacing={3} mb={2}>
           <Grid item md={5}>
@@ -95,7 +104,12 @@ export const PasswordAuth = () => {
         </Grid>
         <Grid container spacing={3}>
           <Grid item md={12}>
-            <Button variant='contained' color='primary' type='submit' disabled={loading}>
+            <Button
+              variant='contained'
+              color='primary'
+              type='submit'
+              disabled={loading}
+            >
               Save
             </Button>{' '}
             <p>

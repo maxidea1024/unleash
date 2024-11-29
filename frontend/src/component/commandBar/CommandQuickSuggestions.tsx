@@ -4,7 +4,10 @@ import {
   RecentlyVisitedPathButton,
   RecentlyVisitedProjectButton,
 } from './RecentlyVisited/CommandResultGroup';
-import { useRecentlyVisited, type LastViewedPage } from 'hooks/useRecentlyVisited';
+import {
+  useRecentlyVisited,
+  type LastViewedPage,
+} from 'hooks/useRecentlyVisited';
 
 const toListItemButton = (
   item: LastViewedPage,
@@ -25,11 +28,26 @@ const toListItemButton = (
     );
   }
   if (item.projectId) {
-    return <RecentlyVisitedProjectButton keyName={key} key={key} projectId={item.projectId} onClick={onClick} />;
+    return (
+      <RecentlyVisitedProjectButton
+        keyName={key}
+        key={key}
+        projectId={item.projectId}
+        onClick={onClick}
+      />
+    );
   }
   if (!item.pathName) return null;
   const name = routes[item.pathName]?.title ?? item.pathName;
-  return <RecentlyVisitedPathButton keyName={key} key={key} path={item.pathName} name={name} onClick={onClick} />;
+  return (
+    <RecentlyVisitedPathButton
+      keyName={key}
+      key={key}
+      path={item.pathName}
+      name={name}
+      onClick={onClick}
+    />
+  );
 };
 
 export const CommandQuickSuggestions = ({
@@ -40,9 +58,15 @@ export const CommandQuickSuggestions = ({
   routes: Record<string, { path: string; route: string; title: string }>;
 }) => {
   const { lastVisited } = useRecentlyVisited();
-  const buttons = lastVisited.map((item, index) => toListItemButton(item, routes, index, onClick));
+  const buttons = lastVisited.map((item, index) =>
+    toListItemButton(item, routes, index, onClick),
+  );
   return (
-    <CommandResultGroup icon='default' groupName='Quick suggestions' onClick={onClick}>
+    <CommandResultGroup
+      icon='default'
+      groupName='Quick suggestions'
+      onClick={onClick}
+    >
       {buttons}
     </CommandResultGroup>
   );

@@ -1,7 +1,14 @@
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncDebounce } from 'react-table';
-import { Box, IconButton, InputBase, Paper, styled, Tooltip } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Paper,
+  styled,
+  Tooltip,
+} from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -178,7 +185,12 @@ export const Search = ({
   const historyEnabled = showSuggestions && id;
 
   return (
-    <StyledContainer ref={searchContainerRef} style={containerStyles} active={expandable && showSuggestions} {...rest}>
+    <StyledContainer
+      ref={searchContainerRef}
+      style={containerStyles}
+      active={expandable && showSuggestions}
+      {...rest}
+    >
       <StyledSearch className={className}>
         <SearchIcon
           sx={{
@@ -240,7 +252,10 @@ export const Search = ({
         elseShow={
           historyEnabled && (
             <SearchPaper className='dropdown-outline'>
-              <SearchHistory onSuggestion={onSearchChange} savedQuery={savedQuery} />
+              <SearchHistory
+                onSuggestion={onSearchChange}
+                savedQuery={savedQuery}
+              />
             </SearchPaper>
           )
         }

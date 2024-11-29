@@ -18,7 +18,11 @@ interface IRolesActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const RolesActionsCell: VFC<IRolesActionsCellProps> = ({ role, onEdit, onDelete }) => {
+export const RolesActionsCell: VFC<IRolesActionsCellProps> = ({
+  role,
+  onEdit,
+  onDelete,
+}) => {
   const defaultRole = PREDEFINED_ROLE_TYPES.includes(role.type);
 
   return (
@@ -29,7 +33,9 @@ export const RolesActionsCell: VFC<IRolesActionsCellProps> = ({ role, onEdit, on
         permission={ADMIN}
         disabled={defaultRole}
         tooltipProps={{
-          title: defaultRole ? 'You cannot edit a predefined role' : 'Edit role',
+          title: defaultRole
+            ? 'You cannot edit a predefined role'
+            : 'Edit role',
         }}
       >
         <Edit />
@@ -40,7 +46,9 @@ export const RolesActionsCell: VFC<IRolesActionsCellProps> = ({ role, onEdit, on
         permission={ADMIN}
         disabled={defaultRole}
         tooltipProps={{
-          title: defaultRole ? 'You cannot remove a predefined role' : 'Remove role',
+          title: defaultRole
+            ? 'You cannot remove a predefined role'
+            : 'Remove role',
         }}
       >
         <Delete />

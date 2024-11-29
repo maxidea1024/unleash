@@ -1,6 +1,14 @@
 import type React from 'react';
 import type { FC, ReactNode } from 'react';
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, styled, Tooltip, Typography } from '@mui/material';
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  styled,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { basePath } from 'utils/formatPath';
 import SignOutIcon from '@mui/icons-material/ExitToApp';
@@ -40,7 +48,13 @@ export const FullListItem: FC<{
 }> = ({ href, text, badge, onClick, selected, children }) => {
   return (
     <ListItem disablePadding onClick={onClick}>
-      <ListItemButton dense={true} component={Link} to={href} sx={listItemButtonStyle} selected={selected}>
+      <ListItemButton
+        dense={true}
+        component={Link}
+        to={href}
+        sx={listItemButtonStyle}
+        selected={selected}
+      >
         <StyledListItemIcon>{children}</StyledListItemIcon>
         <StyledListItemText>
           <CappedText>{text}</CappedText>
@@ -78,7 +92,12 @@ export const SignOutItem = () => {
   return (
     <form method='POST' action={`${basePath}/logout`}>
       <ListItem disablePadding>
-        <ListItemButton dense={true} component='button' type='submit' sx={listItemButtonStyle}>
+        <ListItemButton
+          dense={true}
+          component='button'
+          type='submit'
+          sx={listItemButtonStyle}
+        >
           <StyledListItemIcon>
             <SignOutIcon />
           </StyledListItemIcon>
@@ -100,7 +119,13 @@ export const MiniListItem: FC<{
 }> = ({ href, text, selected, onClick, children }) => {
   return (
     <ListItem disablePadding onClick={onClick}>
-      <ListItemButton dense={true} component={Link} to={href} sx={listItemButtonStyle} selected={selected}>
+      <ListItemButton
+        dense={true}
+        component={Link}
+        to={href}
+        sx={listItemButtonStyle}
+        selected={selected}
+      >
         <Tooltip title={text} placement='right'>
           <StyledListItemIcon>{children}</StyledListItemIcon>
         </Tooltip>

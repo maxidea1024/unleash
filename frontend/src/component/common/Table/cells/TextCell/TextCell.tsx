@@ -29,7 +29,13 @@ const StyledSpan = styled('span')(() => ({
   maxWidth: '100%',
 }));
 
-export const TextCell: FC<ITextCellProps> = ({ value, children, lineClamp, sx, 'data-testid': testid }) => (
+export const TextCell: FC<ITextCellProps> = ({
+  value,
+  children,
+  lineClamp,
+  sx,
+  'data-testid': testid,
+}) => (
   <StyledWrapper lineClamp={lineClamp} sx={sx}>
     <StyledSpan data-loading='true' data-testid={testid}>
       {children ?? value}

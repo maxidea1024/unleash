@@ -1,9 +1,20 @@
-import { Alert, FormControl, FormControlLabel, Link, Radio, RadioGroup, styled } from '@mui/material';
+import {
+  Alert,
+  FormControl,
+  FormControlLabel,
+  Link,
+  Radio,
+  RadioGroup,
+  styled,
+} from '@mui/material';
 import Input from 'component/common/Input/Input';
 import { FormSwitch } from 'component/common/FormSwitch/FormSwitch';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { ISignalEndpoint } from 'interfaces/signal';
-import { type SignalEndpointsFormErrors, TokenGeneration } from './useSignalEndpointsForm';
+import {
+  type SignalEndpointsFormErrors,
+  TokenGeneration,
+} from './useSignalEndpointsForm';
 import { SignalEndpointsFormURL } from './SignalEndpointsFormURL';
 import { SignalEndpointsTokens } from './SignalEndpointsTokens/SignalEndpointsTokens';
 
@@ -62,7 +73,10 @@ interface ISignalEndpointsFormProps {
   setTokenName: React.Dispatch<React.SetStateAction<string>>;
   errors: SignalEndpointsFormErrors;
   validateName: (name: string) => boolean;
-  validateTokenName: (tokenGeneration: TokenGeneration, name: string) => boolean;
+  validateTokenName: (
+    tokenGeneration: TokenGeneration,
+    name: string,
+  ) => boolean;
   validated: boolean;
 }
 
@@ -96,7 +110,9 @@ export const SignalEndpointsForm = ({
           Signal endpoint status
         </FormSwitch>
       </StyledRaisedSection>
-      <StyledInputDescription>What is your new signal endpoint name?</StyledInputDescription>
+      <StyledInputDescription>
+        What is your new signal endpoint name?
+      </StyledInputDescription>
       <StyledInput
         autoFocus
         label='Signal endpoint name'
@@ -110,7 +126,9 @@ export const SignalEndpointsForm = ({
         onBlur={(e) => handleOnBlur(() => validateName(e.target.value))}
         autoComplete='off'
       />
-      <StyledInputDescription>What is your new signal endpoint description?</StyledInputDescription>
+      <StyledInputDescription>
+        What is your new signal endpoint description?
+      </StyledInputDescription>
       <StyledInput
         label='Signal endpoint description'
         value={description}
@@ -124,7 +142,8 @@ export const SignalEndpointsForm = ({
           <StyledSecondarySection>
             <StyledInputDescription>Token</StyledInputDescription>
             <StyledInputSecondaryDescription>
-              In order to connect your newly created signal endpoint, you will also need a token.{' '}
+              In order to connect your newly created signal endpoint, you will
+              also need a token.{' '}
               <Link
                 href='https://docs.getunleash.io/reference/api-tokens-and-client-keys'
                 target='_blank'
@@ -152,19 +171,25 @@ export const SignalEndpointsForm = ({
                   control={<Radio />}
                   label='I want to generate a token later'
                 />
-                <FormControlLabel value={TokenGeneration.NOW} control={<Radio />} label='Generate a token now' />
+                <FormControlLabel
+                  value={TokenGeneration.NOW}
+                  control={<Radio />}
+                  label='Generate a token now'
+                />
               </RadioGroup>
             </FormControl>
             <StyledInlineContainer>
               <StyledInputSecondaryDescription>
-                A new signal endpoint token will be generated for the signal endpoint, so you can get started right
-                away.
+                A new signal endpoint token will be generated for the signal
+                endpoint, so you can get started right away.
               </StyledInputSecondaryDescription>
               <ConditionallyRender
                 condition={tokenGeneration === TokenGeneration.NOW}
                 show={
                   <>
-                    <StyledInputSecondaryDescription>What is your new token name?</StyledInputSecondaryDescription>
+                    <StyledInputSecondaryDescription>
+                      What is your new token name?
+                    </StyledInputSecondaryDescription>
                     <StyledInput
                       autoFocus
                       label='Token name'
@@ -185,7 +210,9 @@ export const SignalEndpointsForm = ({
         }
         elseShow={
           <>
-            <StyledInputDescription>Signal endpoint tokens</StyledInputDescription>
+            <StyledInputDescription>
+              Signal endpoint tokens
+            </StyledInputDescription>
             <SignalEndpointsTokens signalEndpoint={signalEndpoint!} />
           </>
         }

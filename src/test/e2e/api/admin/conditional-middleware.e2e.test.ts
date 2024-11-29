@@ -62,7 +62,9 @@ test('should respect ordering of endpoints', async () => {
     res.json({ projects: [] });
   });
 
-  await supertest(app).get('/api/admin/projects').expect(200, { name: 'Request changes' });
+  await supertest(app)
+    .get('/api/admin/projects')
+    .expect(200, { name: 'Request changes' });
 });
 
 test('disabled middleware should not block paths that use the same basepath', async () => {

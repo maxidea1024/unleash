@@ -27,7 +27,8 @@ export const ServiceAccountDeleteDialog = ({
 }: IServiceAccountDeleteDialogProps) => {
   const deleteMessage = (
     <>
-      You are about to delete service account: <strong>{serviceAccount?.name}</strong>
+      You are about to delete service account:{' '}
+      <strong>{serviceAccount?.name}</strong>
     </>
   );
 
@@ -47,7 +48,8 @@ export const ServiceAccountDeleteDialog = ({
         show={
           <>
             <Alert severity='error'>
-              Deleting this service account may break any existing implementations currently using it.
+              Deleting this service account may break any existing
+              implementations currently using it.
             </Alert>
             <StyledLabel>{deleteMessage}</StyledLabel>
             <StyledLabel>Service account tokens:</StyledLabel>

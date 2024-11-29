@@ -1,4 +1,6 @@
-export const getBrowserTimezoneInHumanReadableUTCOffset = (date = new Date()): string => {
+export const getBrowserTimezoneInHumanReadableUTCOffset = (
+  date = new Date(),
+): string => {
   const offset = -date.getTimezoneOffset();
   const hours = Math.floor(Math.abs(offset) / 60);
   const minutes = Math.abs(offset) % 60;

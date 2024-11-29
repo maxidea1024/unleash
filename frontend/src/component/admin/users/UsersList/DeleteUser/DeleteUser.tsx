@@ -23,7 +23,14 @@ interface IDeleteUserProps {
   userApiErrors: Record<string, string>;
 }
 
-const DeleteUser = ({ showDialog, closeDialog, user, userLoading, removeUser, userApiErrors }: IDeleteUserProps) => {
+const DeleteUser = ({
+  showDialog,
+  closeDialog,
+  user,
+  userLoading,
+  removeUser,
+  userApiErrors,
+}: IDeleteUserProps) => {
   const ref = useLoading(userLoading);
   const { classes: themeStyles } = useThemeStyles();
 
@@ -52,7 +59,11 @@ const DeleteUser = ({ showDialog, closeDialog, user, userLoading, removeUser, us
           </Typography>
         </div>
         <Typography data-loading variant='body1' style={{ marginTop: '1rem' }}>
-          Are you sure you want to delete {user ? `${user.name || 'user'} (${user.email || user.username})` : ''}?
+          Are you sure you want to delete{' '}
+          {user
+            ? `${user.name || 'user'} (${user.email || user.username})`
+            : ''}
+          ?
         </Typography>
       </div>
     </Dialogue>

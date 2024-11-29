@@ -29,9 +29,14 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
   transform: `translateY(${theme.spacing(0.5)})`,
 }));
 
-const formatOption = (option: string) => option.replaceAll('_', ' ').toLocaleLowerCase();
+const formatOption = (option: string) =>
+  option.replaceAll('_', ' ').toLocaleLowerCase();
 
-export const FilterItemOperator: FC<IFilterItemOperatorProps> = ({ options, value, onChange }) => {
+export const FilterItemOperator: FC<IFilterItemOperatorProps> = ({
+  options,
+  value,
+  onChange,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClose = () => {
@@ -43,15 +48,18 @@ export const FilterItemOperator: FC<IFilterItemOperatorProps> = ({ options, valu
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (option: string) => (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    onChange(option);
-    handleClose();
-  };
+  const handleMenuItemClick =
+    (option: string) => (event: MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      onChange(option);
+      handleClose();
+    };
 
   return (
     <>
-      <StyledOperator onClick={handleClick}>{formatOption(value)}</StyledOperator>
+      <StyledOperator onClick={handleClick}>
+        {formatOption(value)}
+      </StyledOperator>
       <StyledMenu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

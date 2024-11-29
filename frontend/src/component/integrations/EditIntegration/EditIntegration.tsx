@@ -10,8 +10,19 @@ export const EditIntegration = () => {
   const { providers, addons, refetchAddons } = useAddons();
 
   const editMode = true;
-  const addon = addons.find((addon: AddonSchema) => addon.id === Number(addonId)) || { ...cloneDeep(DEFAULT_DATA) };
-  const provider = addon ? providers.find((provider) => provider.name === addon.provider) : undefined;
+  const addon = addons.find(
+    (addon: AddonSchema) => addon.id === Number(addonId),
+  ) || { ...cloneDeep(DEFAULT_DATA) };
+  const provider = addon
+    ? providers.find((provider) => provider.name === addon.provider)
+    : undefined;
 
-  return <IntegrationForm editMode={editMode} provider={provider} fetch={refetchAddons} addon={addon} />;
+  return (
+    <IntegrationForm
+      editMode={editMode}
+      provider={provider}
+      fetch={refetchAddons}
+      addon={addon}
+    />
+  );
 };

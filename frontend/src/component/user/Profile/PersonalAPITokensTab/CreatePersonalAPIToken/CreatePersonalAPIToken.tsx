@@ -42,15 +42,22 @@ interface ICreatePersonalAPITokenProps {
   newToken: (token: INewPersonalAPIToken) => void;
 }
 
-export const CreatePersonalAPIToken: FC<ICreatePersonalAPITokenProps> = ({ open, setOpen, newToken }) => {
+export const CreatePersonalAPIToken: FC<ICreatePersonalAPITokenProps> = ({
+  open,
+  setOpen,
+  newToken,
+}) => {
   const { tokens, refetchTokens } = usePersonalAPITokens();
   const { createPersonalAPIToken, loading } = usePersonalAPITokensApi();
   const { setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
 
   const [description, setDescription] = useState('');
-  const [expiration, setExpiration] = useState<ExpirationOption>(DEFAULT_EXPIRATION);
-  const [expiresAt, setExpiresAt] = useState(calculateExpirationDate(DEFAULT_EXPIRATION));
+  const [expiration, setExpiration] =
+    useState<ExpirationOption>(DEFAULT_EXPIRATION);
+  const [expiresAt, setExpiresAt] = useState(
+    calculateExpirationDate(DEFAULT_EXPIRATION),
+  );
   const [errors, setErrors] = useState<IPersonalAPITokenFormErrors>({});
 
   useEffect(() => {
@@ -88,8 +95,12 @@ export const CreatePersonalAPIToken: FC<ICreatePersonalAPITokenProps> = ({ open,
   };
 
   const isDescriptionNotEmpty = (description: string) => description.length;
-  const isDescriptionUnique = (description: string) => !tokens?.some((token) => token.description === description);
-  const isValid = isDescriptionNotEmpty(description) && isDescriptionUnique(description) && expiresAt > new Date();
+  const isDescriptionUnique = (description: string) =>
+    !tokens?.some((token) => token.description === description);
+  const isValid =
+    isDescriptionNotEmpty(description) &&
+    isDescriptionUnique(description) &&
+    expiresAt > new Date();
 
   return (
     <SidebarModal
@@ -126,7 +137,12 @@ export const CreatePersonalAPIToken: FC<ICreatePersonalAPITokenProps> = ({ open,
           </div>
 
           <StyledButtonContainer>
-            <Button type='submit' variant='contained' color='primary' disabled={!isValid}>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              disabled={!isValid}
+            >
               Create token
             </Button>
             <StyledCancelButton

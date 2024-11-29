@@ -2,7 +2,11 @@ import React from 'react';
 
 export interface IAccessContext {
   isAdmin: boolean;
-  hasAccess: (permission: string | string[], project?: string, environment?: string) => boolean;
+  hasAccess: (
+    permission: string | string[],
+    project?: string,
+    environment?: string,
+  ) => boolean;
 }
 
 const hasAccessPlaceholder = () => {

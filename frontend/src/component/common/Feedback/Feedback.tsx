@@ -1,6 +1,9 @@
 import { useState, type VFC } from 'react';
 import { Box, Paper, Button, styled } from '@mui/material';
-import { type CustomEvents, usePlausibleTracker } from 'hooks/usePlausibleTracker';
+import {
+  type CustomEvents,
+  usePlausibleTracker,
+} from 'hooks/usePlausibleTracker';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { createLocalStorage } from 'utils/createLocalStorage';
 
@@ -16,13 +19,20 @@ const StyledBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(0.5),
 }));
 
-export const Feedback: VFC<IFeedbackProps> = ({ id, localStorageKey, eventName }) => {
+export const Feedback: VFC<IFeedbackProps> = ({
+  id,
+  localStorageKey,
+  eventName,
+}) => {
   const { uiConfig } = useUiConfig();
-  const { value: selectedValue, setValue: setSelectedValue } = createLocalStorage<{ value?: 'yes' | 'no' }>(
-    `${uiConfig.baseUriPath}:${localStorageKey}:v1:${id}`,
-    {},
+  const { value: selectedValue, setValue: setSelectedValue } =
+    createLocalStorage<{ value?: 'yes' | 'no' }>(
+      `${uiConfig.baseUriPath}:${localStorageKey}:v1:${id}`,
+      {},
+    );
+  const [selected, setSelected] = useState<'yes' | 'no' | undefined>(
+    selectedValue.value,
   );
-  const [selected, setSelected] = useState<'yes' | 'no' | undefined>(selectedValue.value);
   const { trackEvent } = usePlausibleTracker();
 
   if (!uiConfig?.flags?.T || Boolean(selected)) {

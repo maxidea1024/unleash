@@ -110,13 +110,38 @@ export const CreateProjectApiTokenForm = () => {
         handleSubmit={handleSubmit}
         handleCancel={handleCancel}
         mode='Create'
-        actions={<CreateButton name='token' permission={permission} projectId={projectId} />}
+        actions={
+          <CreateButton
+            name='token'
+            permission={permission}
+            projectId={projectId}
+          />
+        }
       >
-        <TokenInfo username={username} setUsername={setUsername} errors={errors} clearErrors={clearErrors} />
-        <TokenTypeSelector type={type} setType={setTokenType} apiTokenTypes={apiTokenTypes} />
-        <EnvironmentSelector type={type} environment={environment} setEnvironment={setEnvironment} />
+        <TokenInfo
+          username={username}
+          setUsername={setUsername}
+          errors={errors}
+          clearErrors={clearErrors}
+        />
+        <TokenTypeSelector
+          type={type}
+          setType={setTokenType}
+          apiTokenTypes={apiTokenTypes}
+        />
+        <EnvironmentSelector
+          type={type}
+          environment={environment}
+          setEnvironment={setEnvironment}
+        />
       </ApiTokenForm>
-      <ConfirmToken open={showConfirm} setOpen={setShowConfirm} closeConfirm={closeConfirm} token={token} type={type} />
+      <ConfirmToken
+        open={showConfirm}
+        setOpen={setShowConfirm}
+        closeConfirm={closeConfirm}
+        token={token}
+        type={type}
+      />
     </FormTemplate>
   );
 };

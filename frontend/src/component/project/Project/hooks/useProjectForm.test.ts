@@ -10,7 +10,10 @@ describe('configuring change requests', () => {
     act(() => {
       result.current.setProjectEnvironments(new Set(['dev', 'prod']));
 
-      result.current.updateProjectChangeRequestConfig.enableChangeRequests('prod', 5);
+      result.current.updateProjectChangeRequestConfig.enableChangeRequests(
+        'prod',
+        5,
+      );
     });
 
     expect(result.current.projectChangeRequestConfiguration).toMatchObject({
@@ -21,14 +24,19 @@ describe('configuring change requests', () => {
       result.current.setProjectEnvironments(new Set(['dev']));
     });
 
-    expect('prod' in result.current.projectChangeRequestConfiguration).toBeFalsy();
+    expect(
+      'prod' in result.current.projectChangeRequestConfiguration,
+    ).toBeFalsy();
   });
 
   test('setting project environments to an empty set preserves change request configuration', () => {
     const { result } = renderHook(() => useProjectForm());
 
     result.current.setProjectEnvironments(new Set(['dev', 'prod']));
-    result.current.updateProjectChangeRequestConfig.enableChangeRequests('prod', 5);
+    result.current.updateProjectChangeRequestConfig.enableChangeRequests(
+      'prod',
+      5,
+    );
 
     act(() => {
       result.current.setProjectEnvironments(new Set([]));
@@ -44,19 +52,29 @@ describe('configuring change requests', () => {
 
     result.current.setProjectEnvironments(new Set(['prod']));
 
-    result.current.updateProjectChangeRequestConfig.enableChangeRequests('dev', 5);
+    result.current.updateProjectChangeRequestConfig.enableChangeRequests(
+      'dev',
+      5,
+    );
 
-    expect('dev' in result.current.projectChangeRequestConfiguration).toBeFalsy();
+    expect(
+      'dev' in result.current.projectChangeRequestConfiguration,
+    ).toBeFalsy();
   });
 
   test(`if no project envs are selected, you can add a change request for any env you want`, () => {
     const { result } = renderHook(() => useProjectForm());
 
     act(() => {
-      result.current.updateProjectChangeRequestConfig.enableChangeRequests('dev', 5);
+      result.current.updateProjectChangeRequestConfig.enableChangeRequests(
+        'dev',
+        5,
+      );
     });
 
-    expect('dev' in result.current.projectChangeRequestConfiguration).toBeTruthy();
+    expect(
+      'dev' in result.current.projectChangeRequestConfiguration,
+    ).toBeTruthy();
   });
 });
 

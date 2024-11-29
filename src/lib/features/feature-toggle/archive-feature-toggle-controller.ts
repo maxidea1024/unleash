@@ -2,20 +2,34 @@ import type { Request, Response } from 'express';
 import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types';
 import Controller from '../../routes/controller';
-import { extractUserIdFromUser, extractUsername } from '../../util/extract-user';
+import {
+  extractUserIdFromUser,
+  extractUsername,
+} from '../../util/extract-user';
 import { DELETE_FEATURE, NONE, UPDATE_FEATURE } from '../../types/permissions';
 import type FeatureToggleService from './feature-toggle-service';
 import type { IAuthRequest } from '../../routes/unleash-types';
 import { serializeDates } from '../../types/serialize-dates';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
-import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
-import type { TransactionCreator, UnleashTransaction } from '../../db/transaction';
-import { archivedFeaturesSchema, type ArchivedFeaturesSchema } from '../../openapi';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi/util/standard-responses';
+import type {
+  TransactionCreator,
+  UnleashTransaction,
+} from '../../db/transaction';
+import {
+  archivedFeaturesSchema,
+  type ArchivedFeaturesSchema,
+} from '../../openapi';
 
 export default class ArchiveController extends Controller {
   private readonly featureService: FeatureToggleService;
-  private readonly transactionalFeatureToggleService: (db: UnleashTransaction) => FeatureToggleService;
+  private readonly transactionalFeatureToggleService: (
+    db: UnleashTransaction,
+  ) => FeatureToggleService;
   private readonly startTransaction: TransactionCreator<UnleashTransaction>;
   private readonly openApiService: OpenApiService;
 
@@ -25,7 +39,12 @@ export default class ArchiveController extends Controller {
       transactionalFeatureToggleService,
       featureToggleServiceV2,
       openApiService,
-    }: Pick<IUnleashServices, 'transactionalFeatureToggleService' | 'featureToggleServiceV2' | 'openApiService'>,
+    }: Pick<
+      IUnleashServices,
+      | 'transactionalFeatureToggleService'
+      | 'featureToggleServiceV2'
+      | 'openApiService'
+    >,
     startTransaction: TransactionCreator<UnleashTransaction>,
   ) {
     super(config);
@@ -67,7 +86,8 @@ export default class ArchiveController extends Controller {
           tags: ['Archive'],
           operationId: 'getArchivedFeaturesByProjectId',
           summary: 'Get archived features in project',
-          description: 'Retrieves a list of archived features that belong to the provided project.',
+          description:
+            'Retrieves a list of archived features that belong to the provided project.',
           responses: {
             200: createResponseSchema('archivedFeaturesSchema'),
             ...getStandardResponses(401, 403),
@@ -107,7 +127,8 @@ export default class ArchiveController extends Controller {
       middleware: [
         openApiService.validPath({
           tags: ['Archive'],
-          description: 'This endpoint revives the specified feature from archive.',
+          description:
+            'This endpoint revives the specified feature from archive.',
           summary: 'Revives a feature',
           operationId: 'reviveFeature',
           responses: {
@@ -119,13 +140,24 @@ export default class ArchiveController extends Controller {
     });
   }
 
-  async getArchivedFeatures(req: IAuthRequest, res: Response<ArchivedFeaturesSchema>): Promise<void> {
+  async getArchivedFeatures(
+    req: IAuthRequest,
+    res: Response<ArchivedFeaturesSchema>,
+  ): Promise<void> {
     const { user } = req;
-    const features = await this.featureService.getAllArchivedFeatures(true, extractUserIdFromUser(user));
-    this.openApiService.respondWithValidation(200, res, archivedFeaturesSchema.$id, {
-      version: 2,
-      features: serializeDates(features),
-    });
+    const features = await this.featureService.getAllArchivedFeatures(
+      true,
+      extractUserIdFromUser(user),
+    );
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      archivedFeaturesSchema.$id,
+      {
+        version: 2,
+        features: serializeDates(features),
+      },
+    );
   }
 
   async getArchivedFeaturesByProjectId(
@@ -133,25 +165,42 @@ export default class ArchiveController extends Controller {
     res: Response<ArchivedFeaturesSchema>,
   ): Promise<void> {
     const { projectId } = req.params;
-    const features = await this.featureService.getArchivedFeaturesByProjectId(true, projectId);
-    this.openApiService.respondWithValidation(200, res, archivedFeaturesSchema.$id, {
-      version: 2,
-      features: serializeDates(features),
-    });
+    const features = await this.featureService.getArchivedFeaturesByProjectId(
+      true,
+      projectId,
+    );
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      archivedFeaturesSchema.$id,
+      {
+        version: 2,
+        features: serializeDates(features),
+      },
+    );
   }
 
-  async deleteFeature(req: IAuthRequest<{ featureName: string }>, res: Response<void>): Promise<void> {
+  async deleteFeature(
+    req: IAuthRequest<{ featureName: string }>,
+    res: Response<void>,
+  ): Promise<void> {
     const { featureName } = req.params;
     const user = extractUsername(req);
     await this.featureService.deleteFeature(featureName, req.audit);
     res.status(200).end();
   }
 
-  async reviveFeature(req: IAuthRequest<{ featureName: string }>, res: Response<void>): Promise<void> {
+  async reviveFeature(
+    req: IAuthRequest<{ featureName: string }>,
+    res: Response<void>,
+  ): Promise<void> {
     const { featureName } = req.params;
 
     await this.startTransaction(async (tx) =>
-      this.transactionalFeatureToggleService(tx).reviveFeature(featureName, req.audit),
+      this.transactionalFeatureToggleService(tx).reviveFeature(
+        featureName,
+        req.audit,
+      ),
     );
     res.status(200).end();
   }

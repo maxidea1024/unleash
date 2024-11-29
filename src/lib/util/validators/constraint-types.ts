@@ -21,7 +21,9 @@ export const validateSemver = (value: unknown): void => {
   }
 
   if (!parseStrictSemVer(value)) {
-    throw new BadDataError(`the provided value is not a valid semver format. The value provided was: ${value}`);
+    throw new BadDataError(
+      `the provided value is not a valid semver format. The value provided was: ${value}`,
+    );
   }
 };
 
@@ -29,7 +31,10 @@ export const validateDate = async (value: unknown): Promise<void> => {
   await constraintDateTypeSchema.validateAsync(value);
 };
 
-export const validateLegalValues = (legalValues: Readonly<ILegalValue[]>, match: string[] | string): void => {
+export const validateLegalValues = (
+  legalValues: Readonly<ILegalValue[]>,
+  match: string[] | string,
+): void => {
   const legalStrings = legalValues.map((legalValue) => {
     return legalValue.value;
   });
@@ -37,9 +42,15 @@ export const validateLegalValues = (legalValues: Readonly<ILegalValue[]>, match:
   if (Array.isArray(match)) {
     // Compare arrays to arrays
     const valid = match.every((value) => legalStrings.includes(value));
-    if (!valid) throw new BadDataError(`input values are not specified as a legal value on this context field`);
+    if (!valid)
+      throw new BadDataError(
+        `input values are not specified as a legal value on this context field`,
+      );
   } else {
     const valid = legalStrings.includes(match);
-    if (!valid) throw new BadDataError(`${match} is not specified as a legal value on this context field`);
+    if (!valid)
+      throw new BadDataError(
+        `${match} is not specified as a legal value on this context field`,
+      );
   }
 };

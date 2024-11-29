@@ -24,8 +24,14 @@ interface IStrategyDraggableItemProps {
   index: number;
   otherEnvironments?: IFeatureEnvironment['name'][];
   isDragging?: boolean;
-  onDragStartRef: (ref: RefObject<HTMLDivElement>, index: number) => DragEventHandler<HTMLButtonElement>;
-  onDragOver: (ref: RefObject<HTMLDivElement>, index: number) => DragEventHandler<HTMLDivElement>;
+  onDragStartRef: (
+    ref: RefObject<HTMLDivElement>,
+    index: number,
+  ) => DragEventHandler<HTMLButtonElement>;
+  onDragOver: (
+    ref: RefObject<HTMLDivElement>,
+    index: number,
+  ) => DragEventHandler<HTMLDivElement>;
   onDragEnd: () => void;
 }
 
@@ -42,16 +48,27 @@ export const StrategyDraggableItem = ({
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const ref = useRef<HTMLDivElement>(null);
-  const strategyChangesFromRequest = useStrategyChangesFromRequest(projectId, featureId, environmentName, strategy.id);
-
-  const { changeRequests: scheduledChangesUsingStrategy } = useScheduledChangeRequestsWithStrategy(
+  const strategyChangesFromRequest = useStrategyChangesFromRequest(
     projectId,
+    featureId,
+    environmentName,
     strategy.id,
   );
 
+  const { changeRequests: scheduledChangesUsingStrategy } =
+    useScheduledChangeRequestsWithStrategy(projectId, strategy.id);
+
   return (
-    <Box key={strategy.id} ref={ref} onDragOver={onDragOver(ref, index)} sx={{ opacity: isDragging ? '0.5' : '1' }}>
-      <ConditionallyRender condition={index > 0} show={<StrategySeparator text='OR' />} />
+    <Box
+      key={strategy.id}
+      ref={ref}
+      onDragOver={onDragOver(ref, index)}
+      sx={{ opacity: isDragging ? '0.5' : '1' }}
+    >
+      <ConditionallyRender
+        condition={index > 0}
+        show={<StrategySeparator text='OR' />}
+      />
 
       <StrategyItem
         strategy={strategy}
@@ -60,7 +77,10 @@ export const StrategyDraggableItem = ({
         onDragStart={onDragStartRef(ref, index)}
         onDragEnd={onDragEnd}
         orderNumber={index + 1}
-        headerChildren={renderHeaderChildren(strategyChangesFromRequest, scheduledChangesUsingStrategy)}
+        headerChildren={renderHeaderChildren(
+          strategyChangesFromRequest,
+          scheduledChangesUsingStrategy,
+        )}
       />
     </Box>
   );
@@ -101,17 +121,26 @@ const renderHeaderChildren = (
     return [];
   }
 
-  const draftChange = changes?.find(({ isScheduledChange }) => !isScheduledChange);
+  const draftChange = changes?.find(
+    ({ isScheduledChange }) => !isScheduledChange,
+  );
 
   if (draftChange) {
-    badges.push(<ChangeRequestStatusBadge key={`draft-change#${draftChange.change.id}`} change={draftChange.change} />);
+    badges.push(
+      <ChangeRequestStatusBadge
+        key={`draft-change#${draftChange.change.id}`}
+        change={draftChange.change}
+      />,
+    );
   }
 
   if (scheduledChanges && scheduledChanges.length > 0) {
     badges.push(
       <ChangesScheduledBadge
         key='scheduled-changes'
-        scheduledChangeRequestIds={scheduledChanges.map((scheduledChange) => scheduledChange.id)}
+        scheduledChangeRequestIds={scheduledChanges.map(
+          (scheduledChange) => scheduledChange.id,
+        )}
       />,
     );
   }

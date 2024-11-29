@@ -49,5 +49,7 @@ test('Filter insights by project and date', async () => {
   fireEvent.click(dateFromFilter);
   const day = await screen.findByText('25');
   fireEvent.click(day);
-  expect(window.location.href).toContain('project=IS%3AprojectB&from=IS%3A2024-04-25');
+  expect(window.location.href).toContain(
+    'project=IS%3AprojectB&from=IS%3A2024-04-25',
+  );
 });

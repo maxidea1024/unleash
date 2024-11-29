@@ -2,7 +2,9 @@ import { constraintSchema } from './spec';
 import { throwOnInvalidSchema, validateSchema } from './validate';
 
 test('validateSchema', () => {
-  expect(() => validateSchema('unknownSchemaId' as any, {})).toThrow('no schema with key or ref "unknownSchemaId"');
+  expect(() => validateSchema('unknownSchemaId' as any, {})).toThrow(
+    'no schema with key or ref "unknownSchemaId"',
+  );
 });
 
 test('throwOnInvalidSchema', () => {

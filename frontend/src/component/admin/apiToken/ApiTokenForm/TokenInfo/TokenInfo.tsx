@@ -10,10 +10,17 @@ interface ITokenInfoProps {
   clearErrors: (error?: ApiTokenFormErrorType) => void;
 }
 
-export const TokenInfo = ({ username, setUsername, errors, clearErrors }: ITokenInfoProps) => {
+export const TokenInfo = ({
+  username,
+  setUsername,
+  errors,
+  clearErrors,
+}: ITokenInfoProps) => {
   return (
     <>
-      <StyledInputDescription>What would you like to call this token?</StyledInputDescription>
+      <StyledInputDescription>
+        What would you like to call this token?
+      </StyledInputDescription>
       <StyledInput
         value={username}
         name='username'

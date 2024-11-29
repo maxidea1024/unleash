@@ -63,4 +63,6 @@ export const advancedPlaygroundResponseSchema = {
   },
 } as const;
 
-export type AdvancedPlaygroundResponseSchema = FromSchema<typeof advancedPlaygroundResponseSchema>;
+export type AdvancedPlaygroundResponseSchema = FromSchema<
+  typeof advancedPlaygroundResponseSchema
+>;

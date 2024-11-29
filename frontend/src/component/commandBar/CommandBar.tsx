@@ -1,17 +1,30 @@
 import { useEffect, useRef, useState } from 'react';
-import { Box, IconButton, InputBase, Paper, styled, Tooltip } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Paper,
+  styled,
+  Tooltip,
+} from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import SearchIcon from '@mui/icons-material/Search';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useKeyboardShortcut } from 'hooks/useKeyboardShortcut';
 import { SEARCH_INPUT } from 'utils/testIds';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
-import { CommandResultGroup, type CommandResultGroupItem } from './RecentlyVisited/CommandResultGroup';
+import {
+  CommandResultGroup,
+  type CommandResultGroupItem,
+} from './RecentlyVisited/CommandResultGroup';
 import { CommandPageSuggestions } from './CommandPageSuggestions';
 import { useRoutes } from 'component/layout/MainLayout/NavigationSidebar/useRoutes';
 import { useAsyncDebounce } from 'react-table';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
-import { type CommandQueryCounter, CommandSearchFeatures } from './CommandSearchFeatures';
+import {
+  type CommandQueryCounter,
+  CommandSearchFeatures,
+} from './CommandSearchFeatures';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { CommandQuickSuggestions } from './CommandQuickSuggestions';
 import { CommandSearchPages } from './CommandSearchPages';
@@ -89,14 +102,23 @@ export const CommandBar = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchString, setSearchString] = useState(undefined);
-  const [searchedProjects, setSearchedProjects] = useState<CommandResultGroupItem[]>([]);
-  const [searchedPages, setSearchedPages] = useState<CommandResultGroupItem[]>([]);
-  const [searchedFlagCount, setSearchedFlagCount] = useState<CommandQueryCounter>({ query: '', count: 0 });
+  const [searchedProjects, setSearchedProjects] = useState<
+    CommandResultGroupItem[]
+  >([]);
+  const [searchedPages, setSearchedPages] = useState<CommandResultGroupItem[]>(
+    [],
+  );
+  const [searchedFlagCount, setSearchedFlagCount] =
+    useState<CommandQueryCounter>({ query: '', count: 0 });
   const [hasNoResults, setHasNoResults] = useState(false);
   const [value, setValue] = useState<string>('');
   const { routes } = useRoutes();
   const allRoutes: Record<string, IPageRouteInfo> = {};
-  for (const route of [...routes.mainNavRoutes, ...routes.adminRoutes, ...routes.mobileRoutes]) {
+  for (const route of [
+    ...routes.mainNavRoutes,
+    ...routes.adminRoutes,
+    ...routes.mobileRoutes,
+  ]) {
     allRoutes[route.path] = {
       path: route.path,
       route: route.route,
@@ -113,7 +135,9 @@ export const CommandBar = () => {
   const debouncedSetSearchState = useAsyncDebounce((query) => {
     setSearchString(query);
 
-    const filteredProjects = projects.filter((project) => project.name.toLowerCase().includes(query.toLowerCase()));
+    const filteredProjects = projects.filter((project) =>
+      project.name.toLowerCase().includes(query.toLowerCase()),
+    );
 
     const mappedProjects = filteredProjects.map((project) => ({
       name: project.name,
@@ -185,7 +209,8 @@ export const CommandBar = () => {
   const placeholder = `Command menu (${hotkey})`;
 
   const findCommandBarLinksAndSelectedIndex = () => {
-    const allCommandBarLinks = searchContainerRef.current?.querySelectorAll('ul > a');
+    const allCommandBarLinks =
+      searchContainerRef.current?.querySelectorAll('ul > a');
     if (!allCommandBarLinks || allCommandBarLinks.length === 0) return;
 
     let selectedIndex = -1;
@@ -252,7 +277,10 @@ export const CommandBar = () => {
   };
 
   const onBlur = (evt: React.FocusEvent) => {
-    if (evt.relatedTarget === null || !searchContainerRef.current?.contains(evt.relatedTarget)) {
+    if (
+      evt.relatedTarget === null ||
+      !searchContainerRef.current?.contains(evt.relatedTarget)
+    ) {
       hideSuggestions();
     }
   };
@@ -262,9 +290,14 @@ export const CommandBar = () => {
       <RecentlyVisitedRecorder />
       <StyledSearch
         sx={{
-          borderBottomLeftRadius: (theme) => (showSuggestions ? 0 : theme.shape.borderRadiusExtraLarge),
-          borderBottomRightRadius: (theme) => (showSuggestions ? 0 : theme.shape.borderRadiusExtraLarge),
-          borderBottom: (theme) => (showSuggestions ? '0px' : `1px solid ${theme.palette.neutral.border}`),
+          borderBottomLeftRadius: (theme) =>
+            showSuggestions ? 0 : theme.shape.borderRadiusExtraLarge,
+          borderBottomRightRadius: (theme) =>
+            showSuggestions ? 0 : theme.shape.borderRadiusExtraLarge,
+          borderBottom: (theme) =>
+            showSuggestions
+              ? '0px'
+              : `1px solid ${theme.palette.neutral.border}`,
         }}
       >
         <SearchIcon
@@ -333,7 +366,10 @@ export const CommandBar = () => {
                     onClick={clearSearchValue}
                     items={searchedProjects}
                   />
-                  <CommandSearchPages items={searchedPages} onClick={clearSearchValue} />
+                  <CommandSearchPages
+                    items={searchedPages}
+                    onClick={clearSearchValue}
+                  />
                   <ConditionallyRender
                     condition={hasNoResults}
                     show={<CommandBarFeedback onSubmit={hideSuggestions} />}
@@ -346,8 +382,14 @@ export const CommandBar = () => {
         elseShow={
           showSuggestions && (
             <CommandResultsPaper onKeyDownCapture={onKeyDown} onBlur={onBlur}>
-              <CommandQuickSuggestions routes={allRoutes} onClick={clearSearchValue} />
-              <CommandPageSuggestions routes={allRoutes} onClick={clearSearchValue} />
+              <CommandQuickSuggestions
+                routes={allRoutes}
+                onClick={clearSearchValue}
+              />
+              <CommandPageSuggestions
+                routes={allRoutes}
+                onClick={clearSearchValue}
+              />
             </CommandResultsPaper>
           )
         }

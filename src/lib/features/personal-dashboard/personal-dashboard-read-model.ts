@@ -19,7 +19,10 @@ export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
     this.db = db;
   }
 
-  async getLatestHealthScores(project: string, count: number): Promise<number[]> {
+  async getLatestHealthScores(
+    project: string,
+    count: number,
+  ): Promise<number[]> {
     const results = await this.db<{ health: number }>('flag_trends')
       .select('health')
       .orderBy('created_at', 'desc')
@@ -47,7 +50,13 @@ export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
       .where('role_user.user_id', userId)
       .orWhere('group_user.user_id', userId)
       .whereNull('projects.archived_at')
-      .select('projects.name', 'projects.id', 'roles.id as roleId', 'roles.name as roleName', 'roles.type as roleType')
+      .select(
+        'projects.name',
+        'projects.id',
+        'roles.id as roleId',
+        'roles.name as roleName',
+        'roles.type as roleType',
+      )
       .limit(100);
 
     const dict = result.reduce((acc, row) => {
@@ -73,14 +82,16 @@ export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
       return acc;
     }, {});
 
-    const projectList: PersonalProject[] = Object.values(dict).map((project: IntermediateProjectResult) => {
-      const roles = Object.values(project.roles);
-      roles.sort((a, b) => a.id - b.id);
-      return {
-        ...project,
-        roles,
-      } as PersonalProject;
-    });
+    const projectList: PersonalProject[] = Object.values(dict).map(
+      (project: IntermediateProjectResult) => {
+        const roles = Object.values(project.roles);
+        roles.sort((a, b) => a.id - b.id);
+        return {
+          ...project,
+          roles,
+        } as PersonalProject;
+      },
+    );
     projectList.sort((a, b) => a.name.localeCompare(b.name));
     return projectList;
   }
@@ -94,7 +105,12 @@ export class PersonalDashboardReadModel implements IPersonalDashboardReadModel {
       .join('features', 'favorite_features.feature', 'features.name')
       .where('favorite_features.user_id', userId)
       .whereNull('features.archived_at')
-      .select('features.name as name', 'features.type', 'features.project', 'features.created_at')
+      .select(
+        'features.name as name',
+        'features.type',
+        'features.project',
+        'features.created_at',
+      )
       .union(function () {
         this.select('name', 'type', 'project', 'created_at')
           .from('features')

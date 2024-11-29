@@ -15,20 +15,12 @@ export interface IAdminCount {
 
 export interface IAccountStore extends IStore<IUser, number> {
   hasAccount(idQuery: IUserLookup): Promise<number | undefined>;
-
   search(query: string): Promise<IUser[]>;
-
   getAllWithId(userIdList: number[]): Promise<IUser[]>;
-
   getByQuery(idQuery: IUserLookup): Promise<IUser>;
-
   count(): Promise<number>;
-
   getAccountByPersonalAccessToken(secret: string): Promise<IUser>;
-
   markSeenAt(secrets: string[]): Promise<void>;
-
   getAdminCount(): Promise<IAdminCount>;
-
   getAdmins(): Promise<MinimalUser[]>;
 }

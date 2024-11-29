@@ -34,7 +34,8 @@ export const applicationOverviewEnvironmentSchema = {
       description: 'The last time the application environment was seen',
     },
     issues: {
-      description: 'This list of issues that might be wrong with the application',
+      description:
+        'This list of issues that might be wrong with the application',
       $ref: '#/components/schemas/applicationEnvironmentIssuesSchema',
     },
   },
@@ -45,4 +46,6 @@ export const applicationOverviewEnvironmentSchema = {
   },
 } as const;
 
-export type ApplicationOverviewEnvironmentSchema = FromSchema<typeof applicationOverviewEnvironmentSchema>;
+export type ApplicationOverviewEnvironmentSchema = FromSchema<
+  typeof applicationOverviewEnvironmentSchema
+>;

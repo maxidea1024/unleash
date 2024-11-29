@@ -8,7 +8,12 @@ interface IBannerDeleteDialogProps {
   onConfirm: (banner: IInternalBanner) => void;
 }
 
-export const BannerDeleteDialog = ({ banner, open, setOpen, onConfirm }: IBannerDeleteDialogProps) => (
+export const BannerDeleteDialog = ({
+  banner,
+  open,
+  setOpen,
+  onConfirm,
+}: IBannerDeleteDialogProps) => (
   <Dialogue
     title='Delete banner?'
     open={open}

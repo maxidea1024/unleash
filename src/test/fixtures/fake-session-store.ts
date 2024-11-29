@@ -1,4 +1,7 @@
-import type { ISession, ISessionStore } from '../../lib/types/stores/session-store';
+import type {
+  ISession,
+  ISessionStore,
+} from '../../lib/types/stores/session-store';
 
 export default class FakeSessionStore implements ISessionStore {
   private sessions: ISession[] = [];
@@ -22,7 +25,9 @@ export default class FakeSessionStore implements ISessionStore {
   }
 
   async deleteSessionsForUser(userId: number): Promise<void> {
-    this.sessions = this.sessions.filter((session) => session.sess.user.id !== userId);
+    this.sessions = this.sessions.filter(
+      (session) => session.sess.user.id !== userId,
+    );
   }
 
   async deleteAll(): Promise<void> {

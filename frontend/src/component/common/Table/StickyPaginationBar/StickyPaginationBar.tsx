@@ -21,7 +21,9 @@ const StyledStickyBarContentContainer = styled(Box)(({ theme }) => ({
   minWidth: 0,
 }));
 
-export const StickyPaginationBar: FC<ComponentProps<typeof PaginationBar>> = ({ ...props }) => (
+export const StickyPaginationBar: FC<ComponentProps<typeof PaginationBar>> = ({
+  ...props
+}) => (
   <StyledStickyBar>
     <StyledStickyBarContentContainer>
       <PaginationBar {...props} />

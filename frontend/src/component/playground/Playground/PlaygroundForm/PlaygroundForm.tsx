@@ -43,7 +43,9 @@ export const PlaygroundForm: VFC<IPlaygroundFormProps> = ({
       }}
     >
       <PlaygroundConnectionFieldset
-        environments={Array.isArray(environments) ? environments : [environments]}
+        environments={
+          Array.isArray(environments) ? environments : [environments]
+        }
         projects={projects}
         token={token}
         setToken={setToken}
@@ -64,7 +66,12 @@ export const PlaygroundForm: VFC<IPlaygroundFormProps> = ({
           justifyContent: 'space-between',
         }}
       >
-        <Button variant='contained' size='large' type='submit' sx={{ marginLeft: 'auto' }}>
+        <Button
+          variant='contained'
+          size='large'
+          type='submit'
+          sx={{ marginLeft: 'auto' }}
+        >
           Try configuration
         </Button>
       </Box>

@@ -9,11 +9,16 @@ export const useChangeRequestsEnabled = (projectId: string) => {
 
   const isChangeRequestConfigured = React.useCallback(
     (environment: string): boolean => {
-      const canSkipChangeRequest = checkAccess(SKIP_CHANGE_REQUEST, environment);
+      const canSkipChangeRequest = checkAccess(
+        SKIP_CHANGE_REQUEST,
+        environment,
+      );
       return canSkipChangeRequest
         ? false
         : data.some((draft) => {
-            return draft.environment === environment && draft.changeRequestEnabled;
+            return (
+              draft.environment === environment && draft.changeRequestEnabled
+            );
           });
     },
     [JSON.stringify(data)],

@@ -3,7 +3,8 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const featureTypeSchema = {
   $id: '#/components/schemas/featureTypeSchema',
   type: 'object',
-  description: 'A [feature flag type](https://docs.getunleash.io/reference/feature-toggles#feature-flag-types).',
+  description:
+    'A [feature flag type](https://docs.getunleash.io/reference/feature-toggles#feature-flag-types).',
   additionalProperties: false,
   required: ['id', 'name', 'description', 'lifetimeDays'],
   properties: {
@@ -19,8 +20,10 @@ export const featureTypeSchema = {
     },
     description: {
       type: 'string',
-      description: 'A description of what this feature flag type is intended to be used for.',
-      example: 'Kill switch feature flags are used to quickly turn on or off critical functionality in your system.',
+      description:
+        'A description of what this feature flag type is intended to be used for.',
+      example:
+        'Kill switch feature flags are used to quickly turn on or off critical functionality in your system.',
     },
     lifetimeDays: {
       type: 'integer',

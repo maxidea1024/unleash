@@ -2,8 +2,15 @@ import type React from 'react';
 import { FormControlLabel, Switch, TextField } from '@mui/material';
 import StrategyInputList from '../StrategyInputList/StrategyInputList';
 import RolloutSlider from '../RolloutSlider/RolloutSlider';
-import type { IFeatureStrategyParameters, IStrategyParameter } from 'interfaces/strategy';
-import { parseParameterNumber, parseParameterStrings, parseParameterString } from 'utils/parseParameter';
+import type {
+  IFeatureStrategyParameters,
+  IStrategyParameter,
+} from 'interfaces/strategy';
+import {
+  parseParameterNumber,
+  parseParameterStrings,
+  parseParameterString,
+} from 'utils/parseParameter';
 import { InputCaption } from 'component/common/InputCaption/InputCaption';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
@@ -103,7 +110,12 @@ export const StrategyParameter = ({
     const checked = value === 'true';
     return (
       <div>
-        <FormControlLabel label={name} control={<Switch name={name} onChange={onChangeBoolean} checked={checked} />} />
+        <FormControlLabel
+          label={name}
+          control={
+            <Switch name={name} onChange={onChangeBoolean} checked={checked} />
+          }
+        />
         <InputCaption text={description} />
       </div>
     );

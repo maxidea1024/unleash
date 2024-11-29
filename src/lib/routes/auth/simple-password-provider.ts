@@ -21,7 +21,10 @@ export class SimplePasswordProvider extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { userService, openApiService }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
+    {
+      userService,
+      openApiService,
+    }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -51,12 +54,20 @@ export class SimplePasswordProvider extends Controller {
     });
   }
 
-  async login(req: IAuthRequest<void, void, LoginSchema>, res: Response<UserSchema>): Promise<void> {
+  async login(
+    req: IAuthRequest<void, void, LoginSchema>,
+    res: Response<UserSchema>,
+  ): Promise<void> {
     const { username, password } = req.body;
 
     const user = await this.userService.loginUser(username, password);
     req.session.user = user;
 
-    this.openApiService.respondWithValidation(200, res, userSchema.$id, serializeDates(user));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      userSchema.$id,
+      serializeDates(user),
+    );
   }
 }

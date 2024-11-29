@@ -1,5 +1,9 @@
 import { Knex } from 'knex';
-import type { IFeatureToggleClient, IStrategyConfig, PartialDeep } from '../../types';
+import type {
+  IFeatureToggleClient,
+  IStrategyConfig,
+  PartialDeep,
+} from '../../types';
 import { ensureStringValue, mapValues } from '../../util';
 import type { Db } from '../../db/db';
 import FeatureToggleStore from '../feature-toggle/feature-toggle-store';
@@ -9,7 +13,9 @@ import { DB_TIME } from '../../metric-events';
 import type EventEmitter from 'events';
 import type { IClientFeatureToggleReadModel } from './client-feature-toggle-read-model-type';
 
-export default class ClientFeatureToggleReadModel implements IClientFeatureToggleReadModel {
+export default class ClientFeatureToggleReadModel
+  implements IClientFeatureToggleReadModel
+{
   private readonly db: Db;
   private readonly timer: Function;
 
@@ -22,7 +28,9 @@ export default class ClientFeatureToggleReadModel implements IClientFeatureToggl
       });
   }
 
-  public async getAll(): Promise<Record<string, Record<string, IFeatureToggleClient>>> {
+  public async getAll(): Promise<
+    Record<string, Record<string, IFeatureToggleClient>>
+  > {
     const stopTimer = this.timer(`getAll`);
     const selectColumns = [
       'features.name as name',
@@ -51,14 +59,24 @@ export default class ClientFeatureToggleReadModel implements IClientFeatureToggl
     let query = this.db('features')
       .modify(FeatureToggleStore.filterByArchived, false)
       .leftJoin(
-        this.db('feature_environments').select('feature_name', 'enabled', 'environment', 'variants').as('fe'),
+        this.db('feature_environments')
+          .select('feature_name', 'enabled', 'environment', 'variants')
+          .as('fe'),
         'fe.feature_name',
         'features.name',
       )
       .leftJoin('feature_strategies as fs', function () {
-        this.on('fs.feature_name', '=', 'features.name').andOn('fs.environment', '=', 'fe.environment');
+        this.on('fs.feature_name', '=', 'features.name').andOn(
+          'fs.environment',
+          '=',
+          'fe.environment',
+        );
       })
-      .leftJoin('feature_strategy_segment as fss', `fss.feature_strategy_id`, `fs.id`)
+      .leftJoin(
+        'feature_strategy_segment as fss',
+        `fss.feature_strategy_id`,
+        `fs.id`,
+      )
       .leftJoin('segments', `segments.id`, `fss.segment_id`)
       .leftJoin('dependent_features as df', 'df.child', 'features.name')
       .where('fe.enabled', true);
@@ -71,8 +89,13 @@ export default class ClientFeatureToggleReadModel implements IClientFeatureToggl
     return data;
   }
 
-  getAggregatedData(rows): Record<string, Record<string, IFeatureToggleClient>> {
-    const featureTogglesByEnv: Record<string, Record<string, IFeatureToggleClient>> = {};
+  getAggregatedData(
+    rows,
+  ): Record<string, Record<string, IFeatureToggleClient>> {
+    const featureTogglesByEnv: Record<
+      string,
+      Record<string, IFeatureToggleClient>
+    > = {};
 
     rows.forEach((row) => {
       const environment = row.environment;
@@ -130,7 +153,10 @@ export default class ClientFeatureToggleReadModel implements IClientFeatureToggl
     return featureTogglesByEnv;
   }
 
-  private addSegmentIdsToStrategy(feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>) {
+  private addSegmentIdsToStrategy(
+    feature: PartialDeep<IFeatureToggleClient>,
+    row: Record<string, any>,
+  ) {
     const strategy = feature.strategies?.find((s) => s?.id === row.strategy_id);
     if (!strategy) {
       return;
@@ -154,7 +180,13 @@ export default class ClientFeatureToggleReadModel implements IClientFeatureToggl
     return strategy;
   }
 
-  private isUnseenStrategyRow(feature: PartialDeep<IFeatureToggleClient>, row: Record<string, any>): boolean {
-    return row.strategy_id && !feature.strategies?.find((s) => s?.id === row.strategy_id);
+  private isUnseenStrategyRow(
+    feature: PartialDeep<IFeatureToggleClient>,
+    row: Record<string, any>,
+  ): boolean {
+    return (
+      row.strategy_id &&
+      !feature.strategies?.find((s) => s?.id === row.strategy_id)
+    );
   }
 }

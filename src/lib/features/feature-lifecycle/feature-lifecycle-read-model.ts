@@ -1,7 +1,16 @@
 import type { Db } from '../../db/db';
-import type { IFeatureLifecycleReadModel, StageCount, StageCountByProject } from './feature-lifecycle-read-model-type';
+import type {
+  IFeatureLifecycleReadModel,
+  StageCount,
+  StageCountByProject,
+} from './feature-lifecycle-read-model-type';
 import { getCurrentStage } from './get-current-stage';
-import type { IFeatureLifecycleStage, IFlagResolver, IProjectLifecycleStageDuration, StageName } from '../../types';
+import type {
+  IFeatureLifecycleStage,
+  IFlagResolver,
+  IProjectLifecycleStageDuration,
+  StageName,
+} from '../../types';
 import { calculateStageDurations } from './calculate-stage-durations';
 import type { FeatureLifecycleProjectItem } from './feature-lifecycle-store-type';
 
@@ -80,8 +89,12 @@ export class FeatureLifecycleReadModel implements IFeatureLifecycleReadModel {
     }));
   }
 
-  async findCurrentStage(feature: string): Promise<IFeatureLifecycleStage | undefined> {
-    const results = await this.db('feature_lifecycles').where({ feature }).orderBy('created_at', 'asc');
+  async findCurrentStage(
+    feature: string,
+  ): Promise<IFeatureLifecycleStage | undefined> {
+    const results = await this.db('feature_lifecycles')
+      .where({ feature })
+      .orderBy('created_at', 'asc');
 
     const stages = results.map(({ stage, status, created_at }: DBType) => ({
       stage,
@@ -98,12 +111,14 @@ export class FeatureLifecycleReadModel implements IFeatureLifecycleReadModel {
       .leftJoin('features as f', 'f.name', 'flc.feature')
       .orderBy('created_at', 'asc');
 
-    return results.map(({ feature, stage, created_at, project }: DBProjectType) => ({
-      feature,
-      stage,
-      project,
-      enteredStageAt: new Date(created_at),
-    }));
+    return results.map(
+      ({ feature, stage, created_at, project }: DBProjectType) => ({
+        feature,
+        stage,
+        project,
+        enteredStageAt: new Date(created_at),
+      }),
+    );
   }
 
   async getAllWithStageDuration(): Promise<IProjectLifecycleStageDuration[]> {

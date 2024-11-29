@@ -5,13 +5,20 @@ import GeneralSelect, {
   type IGeneralSelectProps,
 } from 'component/common/GeneralSelect/GeneralSelect';
 
-interface IFeatureProjectSelectProps extends Omit<IGeneralSelectProps, 'options'> {
+interface IFeatureProjectSelectProps
+  extends Omit<IGeneralSelectProps, 'options'> {
   enabled: boolean;
   value: string;
   filter: (projectId: string) => boolean;
 }
 
-const FeatureProjectSelect = ({ enabled, value, onChange, filter, ...rest }: IFeatureProjectSelectProps) => {
+const FeatureProjectSelect = ({
+  enabled,
+  value,
+  onChange,
+  filter,
+  ...rest
+}: IFeatureProjectSelectProps) => {
   const { projects } = useProjects();
 
   if (!enabled) {
@@ -32,7 +39,9 @@ const FeatureProjectSelect = ({ enabled, value, onChange, filter, ...rest }: IFe
   let options: ISelectOption[];
 
   if (filter) {
-    options = projects.filter((project) => filter(project.id)).map(formatOption);
+    options = projects
+      .filter((project) => filter(project.id))
+      .map(formatOption);
   } else {
     options = projects.map(formatOption);
   }
@@ -41,7 +50,15 @@ const FeatureProjectSelect = ({ enabled, value, onChange, filter, ...rest }: IFe
     options.push({ key: value, label: value });
   }
 
-  return <GeneralSelect label='Project' options={options} value={value} onChange={onChange} {...rest} />;
+  return (
+    <GeneralSelect
+      label='Project'
+      options={options}
+      value={value}
+      onChange={onChange}
+      {...rest}
+    />
+  );
 };
 
 export default FeatureProjectSelect;

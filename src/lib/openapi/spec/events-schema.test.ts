@@ -30,7 +30,9 @@ test('eventsSchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/eventsSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/eventsSchema', data),
+  ).toBeUndefined();
 });
 
 test('eventsSchema types', () => {
@@ -69,5 +71,7 @@ test('eventsSchema types', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/eventsSchema', data)).not.toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/eventsSchema', data),
+  ).not.toBeUndefined();
 });

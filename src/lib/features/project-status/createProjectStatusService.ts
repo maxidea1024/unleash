@@ -17,12 +17,31 @@ import {
 import { ProjectStaleFlagsReadModel } from './project-stale-flags-read-model/project-stale-flags-read-model';
 import { FakeProjectStaleFlagsReadModel } from './project-stale-flags-read-model/fake-project-stale-flags-read-model';
 
-export const createProjectStatusService = (db: Db, config: IUnleashConfig): ProjectStatusService => {
+export const createProjectStatusService = (
+  db: Db,
+  config: IUnleashConfig,
+): ProjectStatusService => {
   const eventStore = new EventStore(db, config.getLogger);
-  const projectStore = new ProjectStore(db, config.eventBus, config.getLogger, config.flagResolver);
-  const apiTokenStore = new ApiTokenStore(db, config.eventBus, config.getLogger, config.flagResolver);
-  const segmentStore = new SegmentStore(db, config.eventBus, config.getLogger, config.flagResolver);
-  const projectLifecycleSummaryReadModel = createProjectLifecycleSummaryReadModel(db, config);
+  const projectStore = new ProjectStore(
+    db,
+    config.eventBus,
+    config.getLogger,
+    config.flagResolver,
+  );
+  const apiTokenStore = new ApiTokenStore(
+    db,
+    config.eventBus,
+    config.getLogger,
+    config.flagResolver,
+  );
+  const segmentStore = new SegmentStore(
+    db,
+    config.eventBus,
+    config.getLogger,
+    config.flagResolver,
+  );
+  const projectLifecycleSummaryReadModel =
+    createProjectLifecycleSummaryReadModel(db, config);
   const projectStaleFlagsReadModel = new ProjectStaleFlagsReadModel(db);
 
   return new ProjectStatusService(

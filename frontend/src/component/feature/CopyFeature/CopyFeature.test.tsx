@@ -19,20 +19,24 @@ const setupServerRoutes = (changeRequestsEnabled = true) => {
     disablePasswordAuth: false,
   });
 
-  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
-    {
-      environment: 'development',
-      type: 'development',
-      requiredApprovals: null,
-      changeRequestEnabled: false,
-    },
-    {
-      environment: 'production',
-      type: 'production',
-      requiredApprovals: 1,
-      changeRequestEnabled: changeRequestsEnabled,
-    },
-  ]);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/change-requests/config',
+    [
+      {
+        environment: 'development',
+        type: 'development',
+        requiredApprovals: null,
+        changeRequestEnabled: false,
+      },
+      {
+        environment: 'production',
+        type: 'production',
+        requiredApprovals: 1,
+        changeRequestEnabled: changeRequestsEnabled,
+      },
+    ],
+  );
 
   testServerRoute(server, '/api/admin/projects/default/features/someFeature', {
     name: 'someFeature',
@@ -42,7 +46,10 @@ test('should render an alert when change request is enabled in any env when copy
   setupServerRoutes();
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId/copy'} element={<CopyFeatureToggle />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId/copy'}
+        element={<CopyFeatureToggle />}
+      />
     </Routes>,
     {
       route: '/projects/default/features/someFeature/copy',
@@ -59,7 +66,10 @@ test('should not render an alert when change request is disabled when copying fe
   setupServerRoutes(false);
   render(
     <Routes>
-      <Route path={'projects/:projectId/features/:featureId/copy'} element={<CopyFeatureToggle />} />
+      <Route
+        path={'projects/:projectId/features/:featureId/copy'}
+        element={<CopyFeatureToggle />}
+      />
     </Routes>,
     {
       route: '/projects/default/features/someFeature/copy',

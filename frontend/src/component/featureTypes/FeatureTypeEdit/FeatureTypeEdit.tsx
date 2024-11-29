@@ -8,9 +8,14 @@ type FeatureTypeEditProps = {
   loading: boolean;
 };
 
-export const FeatureTypeEdit: VFC<FeatureTypeEditProps> = ({ featureTypes, loading }) => {
+export const FeatureTypeEdit: VFC<FeatureTypeEditProps> = ({
+  featureTypes,
+  loading,
+}) => {
   const { featureTypeId } = useParams();
-  const featureType = featureTypes.find((featureType) => featureType.id === featureTypeId);
+  const featureType = featureTypes.find(
+    (featureType) => featureType.id === featureTypeId,
+  );
 
   return <FeatureTypeForm featureType={featureType} loading={loading} />;
 };

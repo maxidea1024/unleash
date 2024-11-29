@@ -44,7 +44,9 @@ describe('Sticky component', () => {
   it('throws error when not wrapped in StickyContext', () => {
     console.error = vi.fn();
 
-    expect(() => render(<Sticky>Content</Sticky>)).toThrow('Sticky component must be used within a StickyProvider');
+    expect(() => render(<Sticky>Content</Sticky>)).toThrow(
+      'Sticky component must be used within a StickyProvider',
+    );
   });
 
   it('applies sticky positioning', () => {

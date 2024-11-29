@@ -30,7 +30,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-export const EventTimelineEventGroup = ({ group, startTime, endTime }: IEventTimelineEventProps) => {
+export const EventTimelineEventGroup = ({
+  group,
+  startTime,
+  endTime,
+}: IEventTimelineEventProps) => {
   const { trackEvent } = usePlausibleTracker();
   const timelineDuration = endTime - startTime;
   const eventTime = group[0].timestamp;
@@ -46,7 +50,11 @@ export const EventTimelineEventGroup = ({ group, startTime, endTime }: IEventTim
 
   return (
     <StyledEvent position={position} onMouseEnter={trackHover}>
-      <HtmlTooltip title={<EventTimelineEventTooltip group={group} />} maxWidth={350} arrow>
+      <HtmlTooltip
+        title={<EventTimelineEventTooltip group={group} />}
+        maxWidth={350}
+        arrow
+      >
         <StyledBadge badgeContent={group.length} invisible={group.length < 2}>
           <EventTimelineEventCircle group={group} />
         </StyledBadge>

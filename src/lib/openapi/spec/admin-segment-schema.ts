@@ -5,7 +5,8 @@ export const adminSegmentSchema = {
   $id: '#/components/schemas/adminSegmentSchema',
   type: 'object',
   required: ['id', 'name', 'constraints', 'createdAt'],
-  description: 'A description of a [segment](https://docs.getunleash.io/reference/segments)',
+  description:
+    'A description of a [segment](https://docs.getunleash.io/reference/segments)',
   additionalProperties: false,
   properties: {
     id: {
@@ -52,7 +53,8 @@ export const adminSegmentSchema = {
       type: 'string',
       nullable: true,
       example: 'red-vista',
-      description: 'The project the segment belongs to. Only present if the segment is a project-specific segment.',
+      description:
+        'The project the segment belongs to. Only present if the segment is a project-specific segment.',
     },
     createdBy: {
       description: "The creator's email or username",

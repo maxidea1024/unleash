@@ -143,7 +143,12 @@ const HostedAuth: VFC<IHostedAuthProps> = ({ authDetails, redirect }) => {
                 data-testid={LOGIN_PASSWORD_ID}
               />
               <Grid container>
-                <StyledButton variant='contained' color='primary' type='submit' data-testid={LOGIN_BUTTON}>
+                <StyledButton
+                  variant='contained'
+                  color='primary'
+                  type='submit'
+                  data-testid={LOGIN_BUTTON}
+                >
                   Sign in
                 </StyledButton>
               </Grid>

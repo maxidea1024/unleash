@@ -13,24 +13,42 @@ import type { IUser } from '../../server-impl';
 import { anonymise } from '../../util/anonymise';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
-import { createResponseSchema, resourceCreatedResponseSchema } from '../../openapi/util/create-response-schema';
+import {
+  createResponseSchema,
+  resourceCreatedResponseSchema,
+} from '../../openapi/util/create-response-schema';
 import { userSchema, type UserSchema } from '../../openapi/spec/user-schema';
 import { serializeDates } from '../../types/serialize-dates';
 import { usersSchema, type UsersSchema } from '../../openapi/spec/users-schema';
-import { usersSearchSchema, type UsersSearchSchema } from '../../openapi/spec/users-search-schema';
+import {
+  usersSearchSchema,
+  type UsersSearchSchema,
+} from '../../openapi/spec/users-search-schema';
 import type { CreateUserSchema } from '../../openapi/spec/create-user-schema';
 import type { UpdateUserSchema } from '../../openapi/spec/update-user-schema';
 import type { PasswordSchema } from '../../openapi/spec/password-schema';
 import type { IdSchema } from '../../openapi/spec/id-schema';
-import { resetPasswordSchema, type ResetPasswordSchema } from '../../openapi/spec/reset-password-schema';
-import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
+import {
+  resetPasswordSchema,
+  type ResetPasswordSchema,
+} from '../../openapi/spec/reset-password-schema';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi/util/standard-responses';
 import type { GroupService } from '../../services/group-service';
-import { type UsersGroupsBaseSchema, usersGroupsBaseSchema } from '../../openapi/spec/users-groups-base-schema';
+import {
+  type UsersGroupsBaseSchema,
+  usersGroupsBaseSchema,
+} from '../../openapi/spec/users-groups-base-schema';
 import type { IGroup } from '../../types/group';
 import type { IFlagResolver } from '../../types/experimental';
 import rateLimit from 'express-rate-limit';
 import { minutesToMilliseconds } from 'date-fns';
-import { type AdminCountSchema, adminCountSchema } from '../../openapi/spec/admin-count-schema';
+import {
+  type AdminCountSchema,
+  adminCountSchema,
+} from '../../openapi/spec/admin-count-schema';
 import { ForbiddenError } from '../../error';
 import {
   createUserResponseSchema,
@@ -157,8 +175,10 @@ export default class UserAdminController extends Controller {
         openApiService.validPath({
           tags: ['Users'],
           operationId: 'getUsers',
-          summary: 'Get all users and [root roles](https://docs.getunleash.io/reference/rbac#predefined-roles)',
-          description: 'Will return all users and all available root roles for the Unleash instance.',
+          summary:
+            'Get all users and [root roles](https://docs.getunleash.io/reference/rbac#predefined-roles)',
+          description:
+            'Will return all users and all available root roles for the Unleash instance.',
           responses: {
             200: createResponseSchema('usersSchema'),
             ...getStandardResponses(401, 403),
@@ -205,7 +225,8 @@ export default class UserAdminController extends Controller {
           tags: ['Users'],
           operationId: 'getBaseUsersAndGroups',
           summary: 'Get basic user and group information',
-          description: 'Get a subset of user and group information eligible even for non-admin users',
+          description:
+            'Get a subset of user and group information eligible even for non-admin users',
           responses: {
             200: createResponseSchema('usersGroupsBaseSchema'),
             ...getStandardResponses(401),
@@ -224,7 +245,8 @@ export default class UserAdminController extends Controller {
           tags: ['Auth'],
           operationId: 'getUserPermissions',
           summary: 'Returns the list of permissions for the user',
-          description: 'Gets a list of permissions for a user, additional project and environment can be specified.',
+          description:
+            'Gets a list of permissions for a user, additional project and environment can be specified.',
           parameters: [
             {
               name: 'project',
@@ -261,7 +283,8 @@ export default class UserAdminController extends Controller {
           tags: ['Users'],
           operationId: 'getAdminCount',
           summary: 'Get total count of admin accounts',
-          description: 'Get a total count of admins with password, without password and admin service accounts',
+          description:
+            'Get a total count of admins with password, without password and admin service accounts',
           responses: {
             200: createResponseSchema('adminCountSchema'),
             ...getStandardResponses(401, 403),
@@ -377,11 +400,19 @@ export default class UserAdminController extends Controller {
     const receiver = req.body.id;
     const receiverUser = await this.userService.getByEmail(receiver);
     await this.throwIfScimUser(receiverUser);
-    const resetPasswordUrl = await this.userService.createResetPasswordEmail(receiver, user);
+    const resetPasswordUrl = await this.userService.createResetPasswordEmail(
+      receiver,
+      user,
+    );
 
-    this.openApiService.respondWithValidation(200, res, resetPasswordSchema.$id, {
-      resetPasswordUrl: resetPasswordUrl.toString(),
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      resetPasswordSchema.$id,
+      {
+        resetPasswordUrl: resetPasswordUrl.toString(),
+      },
+    );
   }
 
   async getUsers(_: Request, res: Response<UsersSchema>): Promise<void> {
@@ -406,20 +437,35 @@ export default class UserAdminController extends Controller {
       name: anonymise(u.name),
       username: anonymise(u.username),
       email: anonymise(u.email || 'random'),
-      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl:
+        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
     }));
   }
 
-  async searchUsers(req: Request, res: Response<UsersSearchSchema>): Promise<void> {
+  async searchUsers(
+    req: Request,
+    res: Response<UsersSearchSchema>,
+  ): Promise<void> {
     const { q } = req.query;
-    let users = typeof q === 'string' && q.length > 1 ? await this.userService.search(q) : [];
+    let users =
+      typeof q === 'string' && q.length > 1
+        ? await this.userService.search(q)
+        : [];
     if (this.flagResolver.isEnabled('anonymiseEventLog')) {
       users = this.anonymiseUsers(users);
     }
-    this.openApiService.respondWithValidation(200, res, usersSearchSchema.$id, serializeDates(users));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      usersSearchSchema.$id,
+      serializeDates(users),
+    );
   }
 
-  async getBaseUsersAndGroups(_: Request, res: Response<UsersGroupsBaseSchema>): Promise<void> {
+  async getBaseUsersAndGroups(
+    _: Request,
+    res: Response<UsersGroupsBaseSchema>,
+  ): Promise<void> {
     const allUsers = await this.accountService.getAll();
     let users = allUsers.map((u) => {
       return {
@@ -443,17 +489,27 @@ export default class UserAdminController extends Controller {
         rootRole: g.rootRole,
       } as IGroup;
     });
-    this.openApiService.respondWithValidation(200, res, usersGroupsBaseSchema.$id, {
-      users: serializeDates(users),
-      groups: serializeDates(groups),
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      usersGroupsBaseSchema.$id,
+      {
+        users: serializeDates(users),
+        groups: serializeDates(groups),
+      },
+    );
   }
 
   async getUser(req: Request, res: Response<UserSchema>): Promise<void> {
     const { id } = req.params;
     const user = await this.userService.getUser(Number(id));
 
-    this.openApiService.respondWithValidation(200, res, userSchema.$id, serializeDates(user));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      userSchema.$id,
+      serializeDates(user),
+    );
   }
 
   async createUser(
@@ -461,7 +517,9 @@ export default class UserAdminController extends Controller {
     res: Response<CreateUserResponseSchema>,
   ): Promise<void> {
     const { username, email, name, rootRole, sendEmail, password } = req.body;
-    const normalizedRootRole = Number.isInteger(Number(rootRole)) ? Number(rootRole) : (rootRole as RoleName);
+    const normalizedRootRole = Number.isInteger(Number(rootRole))
+      ? Number(rootRole)
+      : (rootRole as RoleName);
 
     const createdUser = await this.userService.createUser(
       {
@@ -474,7 +532,10 @@ export default class UserAdminController extends Controller {
       req.audit,
     );
 
-    const inviteLink = await this.userService.newUserInviteLink(createdUser, req.audit);
+    const inviteLink = await this.userService.newUserInviteLink(
+      createdUser,
+      req.audit,
+    );
 
     // send email defaults to true
     const emailSent = (sendEmail !== undefined ? sendEmail : true)
@@ -488,13 +549,23 @@ export default class UserAdminController extends Controller {
       rootRole: normalizedRootRole,
     };
 
-    this.openApiService.respondWithValidation(201, res, createUserResponseSchema.$id, responseData, {
-      location: `${responseData.id}`,
-    });
+    this.openApiService.respondWithValidation(
+      201,
+      res,
+      createUserResponseSchema.$id,
+      responseData,
+      {
+        location: `${responseData.id}`,
+      },
+    );
   }
 
   async updateUser(
-    req: IAuthRequest<{ id: string }, CreateUserResponseSchema, UpdateUserSchema>,
+    req: IAuthRequest<
+      { id: string },
+      CreateUserResponseSchema,
+      UpdateUserSchema
+    >,
     res: Response<CreateUserResponseSchema>,
   ): Promise<void> {
     const { user, params, body } = req;
@@ -502,7 +573,9 @@ export default class UserAdminController extends Controller {
     const { name, email, rootRole } = body;
 
     await this.throwIfScimUser({ id: Number(id) });
-    const normalizedRootRole = Number.isInteger(Number(rootRole)) ? Number(rootRole) : (rootRole as RoleName);
+    const normalizedRootRole = Number.isInteger(Number(rootRole))
+      ? Number(rootRole)
+      : (rootRole as RoleName);
 
     const updateUser = await this.userService.updateUser(
       {
@@ -514,10 +587,15 @@ export default class UserAdminController extends Controller {
       req.audit,
     );
 
-    this.openApiService.respondWithValidation(200, res, createUserResponseSchema.$id, {
-      ...serializeDates(updateUser),
-      rootRole: normalizedRootRole,
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      createUserResponseSchema.$id,
+      {
+        ...serializeDates(updateUser),
+        rootRole: normalizedRootRole,
+      },
+    );
   }
 
   async deleteUser(req: IAuthRequest, res: Response): Promise<void> {
@@ -530,14 +608,20 @@ export default class UserAdminController extends Controller {
     res.status(200).send();
   }
 
-  async validateUserPassword(req: IAuthRequest<unknown, unknown, PasswordSchema>, res: Response): Promise<void> {
+  async validateUserPassword(
+    req: IAuthRequest<unknown, unknown, PasswordSchema>,
+    res: Response,
+  ): Promise<void> {
     const { password } = req.body;
 
     this.userService.validatePassword(password);
     res.status(200).send();
   }
 
-  async changeUserPassword(req: IAuthRequest<{ id: string }, unknown, PasswordSchema>, res: Response): Promise<void> {
+  async changeUserPassword(
+    req: IAuthRequest<{ id: string }, unknown, PasswordSchema>,
+    res: Response,
+  ): Promise<void> {
     const { id } = req.params;
     const { password } = req.body;
 
@@ -547,14 +631,27 @@ export default class UserAdminController extends Controller {
     res.status(200).send();
   }
 
-  async getAdminCount(req: Request, res: Response<AdminCountSchema>): Promise<void> {
+  async getAdminCount(
+    req: Request,
+    res: Response<AdminCountSchema>,
+  ): Promise<void> {
     const adminCount = await this.accountService.getAdminCount();
 
-    this.openApiService.respondWithValidation(200, res, adminCountSchema.$id, adminCount);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      adminCountSchema.$id,
+      adminCount,
+    );
   }
 
   async getPermissions(
-    req: IAuthRequest<{ id: number }, unknown, unknown, { project?: string; environment?: string }>,
+    req: IAuthRequest<
+      { id: number },
+      unknown,
+      unknown,
+      { project?: string; environment?: string }
+    >,
     res: Response,
   ): Promise<void> {
     const { project, environment } = req.query;
@@ -562,11 +659,20 @@ export default class UserAdminController extends Controller {
     const rootRole = await this.accessService.getRootRoleForUser(user.id);
     let projectRoles: IRoleWithPermissions[] = [];
     if (project) {
-      const projectRoleIds = await this.accessService.getProjectRolesForUser(project, user.id);
+      const projectRoleIds = await this.accessService.getProjectRolesForUser(
+        project,
+        user.id,
+      );
 
-      projectRoles = await Promise.all(projectRoleIds.map((roleId) => this.accessService.getRole(roleId)));
+      projectRoles = await Promise.all(
+        projectRoleIds.map((roleId) => this.accessService.getRole(roleId)),
+      );
     }
-    const matrix = await this.accessService.permissionsMatrixForUser(user, project, environment);
+    const matrix = await this.accessService.permissionsMatrixForUser(
+      user,
+      project,
+      environment,
+    );
 
     // TODO add response validation based on the schema
     res.status(200).json({
@@ -577,7 +683,10 @@ export default class UserAdminController extends Controller {
     });
   }
 
-  async throwIfScimUser({ id, scimId }: Pick<IUser, 'id' | 'scimId'>): Promise<void> {
+  async throwIfScimUser({
+    id,
+    scimId,
+  }: Pick<IUser, 'id' | 'scimId'>): Promise<void> {
     if (!this.isEnterprise) return;
 
     const isScimUser = await this.isScimUser({ id, scimId });
@@ -588,10 +697,17 @@ export default class UserAdminController extends Controller {
     });
     if (!enabled) return;
 
-    throw new ForbiddenError('This user is managed by your SCIM provider and cannot be changed manually');
+    throw new ForbiddenError(
+      'This user is managed by your SCIM provider and cannot be changed manually',
+    );
   }
 
-  async isScimUser({ id, scimId }: Pick<IUser, 'id' | 'scimId'>): Promise<boolean> {
-    return Boolean(scimId) || Boolean((await this.userService.getUser(id)).scimId);
+  async isScimUser({
+    id,
+    scimId,
+  }: Pick<IUser, 'id' | 'scimId'>): Promise<boolean> {
+    return (
+      Boolean(scimId) || Boolean((await this.userService.getUser(id)).scimId)
+    );
   }
 }

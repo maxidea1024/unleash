@@ -1,4 +1,9 @@
-import { type AutocompleteChangeReason, type AutocompleteValue, styled, Typography } from '@mui/material';
+import {
+  type AutocompleteChangeReason,
+  type AutocompleteValue,
+  styled,
+  Typography,
+} from '@mui/material';
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -79,7 +84,9 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
 
   useEffect(() => {
     if (tags && tagType) {
-      setSelectedTagOptions(tagsToOptions(tags.filter((tag) => tag.type === tagType.name)));
+      setSelectedTagOptions(
+        tagsToOptions(tags.filter((tag) => tag.type === tagType.name)),
+      );
     }
   }, [JSON.stringify(tags), tagType, open]);
 
@@ -91,16 +98,28 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
   function difference(array1: ITag[], array2: ITag[]) {
     const added = array1
       .filter((tag) => tag.type === tagType.name)
-      .filter((element) => !array2.find((e2) => element.value === e2.value && element.type === e2.type));
+      .filter(
+        (element) =>
+          !array2.find(
+            (e2) => element.value === e2.value && element.type === e2.type,
+          ),
+      );
     const removed = array2
       .filter((tag) => tag.type === tagType.name)
-      .filter((element) => !array1.find((e2) => element.value === e2.value && element.type === e2.type));
+      .filter(
+        (element) =>
+          !array1.find(
+            (e2) => element.value === e2.value && element.type === e2.type,
+          ),
+      );
     setDifferenceCount(added.length + removed.length);
     return { added, removed };
   }
 
   const realOptions = (allOptions: TagOption[]) => {
-    return allOptions.filter((tagOption) => !tagOption.title.startsWith('Create'));
+    return allOptions.filter(
+      (tagOption) => !tagOption.title.startsWith('Create'),
+    );
   };
 
   const updateTags = async (added: ITag[], removed: ITag[]) => {
@@ -123,21 +142,29 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
 
   const getToastText = (addedCount: number, removedCount: number) => {
     let result = 'We successfully';
-    if (addedCount > 0) result = result.concat(` added ${addedCount} new tag${addedCount > 1 ? 's' : ''}`);
+    if (addedCount > 0)
+      result = result.concat(
+        ` added ${addedCount} new tag${addedCount > 1 ? 's' : ''}`,
+      );
 
     if (addedCount > 0 && removedCount > 0) {
       result = result.concat(' and ');
     }
 
     if (removedCount > 0) {
-      result = result.concat(` removed ${removedCount} tag${removedCount > 1 ? 's' : ''}`);
+      result = result.concat(
+        ` removed ${removedCount} tag${removedCount > 1 ? 's' : ''}`,
+      );
     }
     return result;
   };
 
   const onSubmit = async (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    const selectedTags: ITag[] = optionsToTags(realOptions(selectedTagOptions), tagType.name);
+    const selectedTags: ITag[] = optionsToTags(
+      realOptions(selectedTagOptions),
+      tagType.name,
+    );
     const { added, removed } = difference(selectedTags, tags);
     if (differenceCount > 0) {
       await updateTags(added, removed);
@@ -158,7 +185,10 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
     setOpen(false);
   };
 
-  const handleTagTypeChange = (event: React.SyntheticEvent, value: AutocompleteValue<ITagType, false, any, any>) => {
+  const handleTagTypeChange = (
+    event: React.SyntheticEvent,
+    value: AutocompleteValue<ITagType, false, any, any>,
+  ) => {
     if (value != null && typeof value !== 'string') {
       event.preventDefault();
       setTagType(value);
@@ -175,7 +205,11 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
     const clone = cloneDeep(newValue) as TagOption[];
     if (reason === 'selectOption') {
       newValue.forEach((value, index) => {
-        if (typeof value !== 'string' && value.inputValue && value.inputValue !== '') {
+        if (
+          typeof value !== 'string' &&
+          value.inputValue &&
+          value.inputValue !== ''
+        ) {
           const payload = {
             value: value.inputValue,
             type: tagType.name,
@@ -192,7 +226,10 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
         }
       });
     }
-    const selectedTags: ITag[] = optionsToTags(realOptions(clone), tagType.name);
+    const selectedTags: ITag[] = optionsToTags(
+      realOptions(clone),
+      tagType.name,
+    );
 
     difference(selectedTags, tags);
     setSelectedTagOptions(clone);
@@ -212,12 +249,19 @@ export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
       formId={formId}
     >
       <>
-        <Typography paragraph sx={{ marginBottom: (theme) => theme.spacing(2.5) }}>
+        <Typography
+          paragraph
+          sx={{ marginBottom: (theme) => theme.spacing(2.5) }}
+        >
           Tags allow you to group features together
         </Typography>
         <form id={formId} onSubmit={onSubmit}>
           <StyledDialogFormContent>
-            <TagTypeSelect options={tagTypes} value={tagType} onChange={handleTagTypeChange} />
+            <TagTypeSelect
+              options={tagTypes}
+              value={tagType}
+              onChange={handleTagTypeChange}
+            />
             <TagsInput
               options={tagTypeOptions}
               existingTags={tags}

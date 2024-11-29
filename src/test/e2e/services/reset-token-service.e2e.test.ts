@@ -77,7 +77,10 @@ afterAll(async () => {
 });
 
 test('Should create a reset link', async () => {
-  const url = await resetTokenService.createResetPasswordUrl(userIdToCreateResetFor, adminUser.username!);
+  const url = await resetTokenService.createResetPasswordUrl(
+    userIdToCreateResetFor,
+    adminUser.username!,
+  );
 
   expect(url.toString().substring(0, url.toString().indexOf('='))).toBe(
     `${config.server.unleashUrl}/reset-password?token`,
@@ -88,22 +91,36 @@ test('Should create a reset link with unleashUrl with context path', async () =>
   const localConfig = createTestConfig({
     server: { unleashUrl: 'http://localhost:4242/my/sub/path' },
   });
-  const resetToken: ResetTokenService = new ResetTokenService(stores, localConfig);
+  const resetToken: ResetTokenService = new ResetTokenService(
+    stores,
+    localConfig,
+  );
 
-  const url = await resetToken.createResetPasswordUrl(userIdToCreateResetFor, adminUser.username);
+  const url = await resetToken.createResetPasswordUrl(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
   expect(url.toString().substring(0, url.toString().indexOf('='))).toBe(
     `${localConfig.server.unleashUrl}/reset-password?token`,
   );
 });
 
 test('Should create a welcome link', async () => {
-  const url = await resetTokenService.createNewUserUrl(userIdToCreateResetFor, adminUser.username);
+  const url = await resetTokenService.createNewUserUrl(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
   const urlS = url.toString();
-  expect(urlS.substring(0, urlS.indexOf('='))).toBe(`${config.server.unleashUrl}/new-user?token`);
+  expect(urlS.substring(0, urlS.indexOf('='))).toBe(
+    `${config.server.unleashUrl}/new-user?token`,
+  );
 });
 
 test('Tokens should be one-time only', async () => {
-  const token = await resetTokenService.createToken(userIdToCreateResetFor, adminUser.username);
+  const token = await resetTokenService.createToken(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
 
   const accessGranted = await resetTokenService.useAccessToken(token);
   expect(accessGranted).toBe(true);
@@ -112,18 +129,31 @@ test('Tokens should be one-time only', async () => {
 });
 
 test('Creating a new token should expire older tokens', async () => {
-  const firstToken = await resetTokenService.createToken(userIdToCreateResetFor, adminUser.username);
-  const secondToken = await resetTokenService.createToken(userIdToCreateResetFor, adminUser.username);
-  await expect(async () => resetTokenService.isValid(firstToken.token)).rejects.toThrow(InvalidTokenError);
+  const firstToken = await resetTokenService.createToken(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
+  const secondToken = await resetTokenService.createToken(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
+  await expect(async () =>
+    resetTokenService.isValid(firstToken.token),
+  ).rejects.toThrow(InvalidTokenError);
   const validToken = await resetTokenService.isValid(secondToken.token);
   expect(secondToken.token).toBe(validToken.token);
 });
 
 test('Retrieving valid invitation links should retrieve an object with userid key and token value', async () => {
-  const token = await resetTokenService.createToken(userIdToCreateResetFor, adminUser.username);
+  const token = await resetTokenService.createToken(
+    userIdToCreateResetFor,
+    adminUser.username,
+  );
   expect(token).toBeTruthy();
   const activeInvitations = await resetTokenService.getActiveInvitations();
   expect(Object.keys(activeInvitations).length === 1).toBe(true);
-  expect(+Object.keys(activeInvitations)[0] === userIdToCreateResetFor).toBe(true);
+  expect(+Object.keys(activeInvitations)[0] === userIdToCreateResetFor).toBe(
+    true,
+  );
   expect(activeInvitations[userIdToCreateResetFor]).toBeTruthy();
 });

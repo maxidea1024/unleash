@@ -1,5 +1,8 @@
 import type { Application, NextFunction, Request, Response } from 'express';
-import { type IUnleashTest, setupAppWithCustomAuth } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomAuth,
+} from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import type { IUnleashConfig } from '../../../../lib/types/options';
@@ -16,12 +19,19 @@ beforeAll(async () => {
 
   const email = 'custom-user@mail.com';
 
-  const preHook = (application: Application, config: IUnleashConfig, { userService }: IUnleashServices) => {
-    application.use('/api/admin/', async (req: Request, res: Response, next: NextFunction) => {
-      // @ts-ignore
-      req.user = await userService.loginUserWithoutPassword(email, true);
-      next();
-    });
+  const preHook = (
+    application: Application,
+    config: IUnleashConfig,
+    { userService }: IUnleashServices,
+  ) => {
+    application.use(
+      '/api/admin/',
+      async (req: Request, res: Response, next: NextFunction) => {
+        // @ts-ignore
+        req.user = await userService.loginUserWithoutPassword(email, true);
+        next();
+      },
+    );
   };
 
   app = await setupAppWithCustomAuth(stores, preHook, {

@@ -6,7 +6,11 @@ import UsedTokenError from '../error/used-token-error';
 import InvalidTokenError from '../error/invalid-token-error';
 import type { IUnleashConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
-import type { IResetQuery, IResetToken, IResetTokenStore } from '../types/stores/reset-token-store';
+import type {
+  IResetQuery,
+  IResetToken,
+  IResetTokenStore,
+} from '../types/stores/reset-token-store';
 import { hoursToMilliseconds } from 'date-fns';
 
 interface IInviteLinks {
@@ -76,9 +80,15 @@ export default class ResetTokenService {
     return new URL(`${this.unleashBase}/new-user?token=${token.token}`);
   }
 
-  private async createResetUrl(forUser: number, creator: string, path: string): Promise<URL> {
+  private async createResetUrl(
+    forUser: number,
+    creator: string,
+    path: string,
+  ): Promise<URL> {
     const token = await this.createToken(forUser, creator);
-    return Promise.resolve(new URL(`${this.unleashBase}${path}?token=${token.token}`));
+    return Promise.resolve(
+      new URL(`${this.unleashBase}${path}?token=${token.token}`),
+    );
   }
 
   async createResetPasswordUrl(forUser: number, creator: string): Promise<URL> {

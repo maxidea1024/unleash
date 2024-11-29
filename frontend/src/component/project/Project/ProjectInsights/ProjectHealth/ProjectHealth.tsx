@@ -12,7 +12,9 @@ const Container = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-export const ProjectHealth: FC<{ health: ProjectInsightsSchemaHealth }> = ({ health }) => {
+export const ProjectHealth: FC<{ health: ProjectInsightsSchemaHealth }> = ({
+  health,
+}) => {
   const projectId = useRequiredPathParam('projectId');
   const { staleCount, potentiallyStaleCount, activeCount, rating } = health;
 

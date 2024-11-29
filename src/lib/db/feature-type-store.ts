@@ -1,5 +1,8 @@
 import type { Logger, LogProvider } from '../logger';
-import type { IFeatureType, IFeatureTypeStore } from '../types/stores/feature-type-store';
+import type {
+  IFeatureType,
+  IFeatureTypeStore,
+} from '../types/stores/feature-type-store';
 import type { Db } from './db';
 
 const COLUMNS = ['id', 'name', 'description', 'lifetime_days'];
@@ -57,12 +60,18 @@ export default class FeatureTypeStore implements IFeatureTypeStore {
   destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [key]);
+    const result = await this.db.raw(
+      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
+      [key],
+    );
     const { present } = result.rows[0];
     return present;
   }
 
-  async updateLifetime(id: string, newLifetimeDays: number | null): Promise<IFeatureType | undefined> {
+  async updateLifetime(
+    id: string,
+    newLifetimeDays: number | null,
+  ): Promise<IFeatureType | undefined> {
     const [updatedType] = await this.db(TABLE)
       .update({ lifetime_days: newLifetimeDays })
       .where({ id })

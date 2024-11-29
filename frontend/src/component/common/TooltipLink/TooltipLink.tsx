@@ -1,6 +1,9 @@
 import type { ReactNode } from 'react';
 import { Link, type LinkProps, styled } from '@mui/material';
-import { HtmlTooltip, type IHtmlTooltipProps } from '../HtmlTooltip/HtmlTooltip';
+import {
+  HtmlTooltip,
+  type IHtmlTooltipProps,
+} from '../HtmlTooltip/HtmlTooltip';
 
 const StyledLink = styled(Link, {
   shouldForwardProp: (prop) => prop !== 'highlighted',
@@ -20,7 +23,13 @@ interface ITooltipLinkProps extends LinkProps {
   children: ReactNode;
 }
 
-export const TooltipLink = ({ tooltip, highlighted, tooltipProps, children, ...props }: ITooltipLinkProps) => (
+export const TooltipLink = ({
+  tooltip,
+  highlighted,
+  tooltipProps,
+  children,
+  ...props
+}: ITooltipLinkProps) => (
   <HtmlTooltip title={tooltip} {...tooltipProps} arrow>
     <StyledLink tabIndex={0} highlighted={highlighted} {...props}>
       {children}

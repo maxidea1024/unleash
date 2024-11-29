@@ -19,7 +19,10 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.mainHeader,
 }));
 
-export const FeatureSettingsInformation = ({ projectId, featureId }: IFeatureSettingsInformationProps) => {
+export const FeatureSettingsInformation = ({
+  projectId,
+  featureId,
+}: IFeatureSettingsInformationProps) => {
   const { feature } = useFeature(projectId, featureId);
   const navigate = useNavigate();
 
@@ -45,13 +48,19 @@ export const FeatureSettingsInformation = ({ projectId, featureId }: IFeatureSet
         Name: <strong>{feature.name}</strong>
       </Typography>
       <Typography>
-        Description: <strong>{!feature.description?.length ? 'no description' : feature.description}</strong>
+        Description:{' '}
+        <strong>
+          {!feature.description?.length
+            ? 'no description'
+            : feature.description}
+        </strong>
       </Typography>
       <Typography>
         Type: <strong>{feature.type}</strong>
       </Typography>
       <Typography>
-        Impression Data: <strong>{feature.impressionData ? 'enabled' : 'disabled'}</strong>
+        Impression Data:{' '}
+        <strong>{feature.impressionData ? 'enabled' : 'disabled'}</strong>
       </Typography>
     </>
   );

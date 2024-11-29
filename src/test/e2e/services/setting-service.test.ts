@@ -2,7 +2,11 @@ import SettingService from '../../../lib/services/setting-service';
 import { createTestConfig } from '../../config/test-config';
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import type { IUnleashStores } from '../../../lib/types/stores';
-import { SETTING_CREATED, SETTING_DELETED, SETTING_UPDATED } from '../../../lib/types/events';
+import {
+  SETTING_CREATED,
+  SETTING_DELETED,
+  SETTING_UPDATED,
+} from '../../../lib/types/events';
 import { TEST_AUDIT_USER } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
@@ -73,7 +77,12 @@ test('Can update setting', async () => {
   const { eventStore } = stores;
   const someData = { some: 'blob' };
   await service.insert('updated-setting', someData, TEST_AUDIT_USER, false);
-  await service.insert('updated-setting', { ...someData, test: 'fun' }, TEST_AUDIT_USER, false);
+  await service.insert(
+    'updated-setting',
+    { ...someData, test: 'fun' },
+    TEST_AUDIT_USER,
+    false,
+  );
   const updatedEvents = await eventStore.deprecatedSearchEvents({
     type: SETTING_UPDATED,
   });

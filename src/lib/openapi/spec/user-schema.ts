@@ -14,7 +14,8 @@ export const userSchema = {
       example: 123,
     },
     isAPI: {
-      description: 'Deprecated in v5. Used internally to know which operations the user should be allowed to perform',
+      description:
+        'Deprecated in v5. Used internally to know which operations the user should be allowed to perform',
       type: 'boolean',
       example: true,
       deprecated: true,
@@ -47,7 +48,8 @@ export const userSchema = {
       example: 'http://localhost:4242/invite-link/some-secret',
     },
     loginAttempts: {
-      description: 'How many unsuccessful attempts at logging in has the user made',
+      description:
+        'How many unsuccessful attempts at logging in has the user made',
       type: 'integer',
       minimum: 0,
       example: 3,
@@ -103,7 +105,8 @@ export const userSchema = {
       example: 2,
     },
     deletedSessions: {
-      description: 'Experimental. The number of deleted browser sessions after last login',
+      description:
+        'Experimental. The number of deleted browser sessions after last login',
       type: 'number',
       example: 1,
     },

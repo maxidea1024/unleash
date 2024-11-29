@@ -21,7 +21,11 @@ interface IPrettifyLargeNumberProps {
   precision?: number;
 }
 
-export const PrettifyLargeNumber: FC<IPrettifyLargeNumberProps> = ({ value, threshold = 1_000_000, precision = 2 }) => {
+export const PrettifyLargeNumber: FC<IPrettifyLargeNumberProps> = ({
+  value,
+  threshold = 1_000_000,
+  precision = 2,
+}) => {
   let prettyValue: string;
   let showTooltip = false;
 
@@ -32,7 +36,9 @@ export const PrettifyLargeNumber: FC<IPrettifyLargeNumberProps> = ({ value, thre
     showTooltip = true;
   }
 
-  const valueSpan = <span data-testid={LARGE_NUMBER_PRETTIFIED}>{prettyValue}</span>;
+  const valueSpan = (
+    <span data-testid={LARGE_NUMBER_PRETTIFIED}>{prettyValue}</span>
+  );
 
   return (
     <ConditionallyRender

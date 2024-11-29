@@ -8,7 +8,10 @@ import type {
 } from '../../types';
 import { calculateAverageTimeToProd } from '../feature-toggle/time-to-production/time-to-production';
 import type { IProjectStatsStore } from '../../types/stores/project-stats-store-type';
-import type { ProjectDoraMetricsSchema, ProjectInsightsSchema } from '../../openapi';
+import type {
+  ProjectDoraMetricsSchema,
+  ProjectInsightsSchema,
+} from '../../openapi';
 import { calculateProjectHealth } from '../../domain/project-health/project-health';
 import { subDays } from 'date-fns';
 
@@ -27,7 +30,11 @@ export class ProjectInsightsService {
     featureStrategiesStore,
   }: Pick<
     IUnleashStores,
-    'projectStore' | 'featureToggleStore' | 'projectStatsStore' | 'featureTypeStore' | 'featureStrategiesStore'
+    | 'projectStore'
+    | 'featureToggleStore'
+    | 'projectStatsStore'
+    | 'featureTypeStore'
+    | 'featureStrategiesStore'
   >) {
     this.projectStore = projectStore;
     this.featureToggleStore = featureToggleStore;
@@ -37,9 +44,9 @@ export class ProjectInsightsService {
   }
 
   async getDoraMetrics(projectId: string): Promise<ProjectDoraMetricsSchema> {
-    const activeFeatureToggles = (await this.featureToggleStore.getAll({ project: projectId })).map(
-      (feature) => feature.name,
-    );
+    const activeFeatureToggles = (
+      await this.featureToggleStore.getAll({ project: projectId })
+    ).map((feature) => feature.name);
 
     const archivedFeatureToggles = (
       await this.featureToggleStore.getAll({
@@ -48,14 +55,20 @@ export class ProjectInsightsService {
       })
     ).map((feature) => feature.name);
 
-    const featureToggleNames = [...activeFeatureToggles, ...archivedFeatureToggles];
+    const featureToggleNames = [
+      ...activeFeatureToggles,
+      ...archivedFeatureToggles,
+    ];
 
-    const projectAverage = calculateAverageTimeToProd(await this.projectStatsStore.getTimeToProdDates(projectId));
-
-    const toggleAverage = await this.projectStatsStore.getTimeToProdDatesForFeatureToggles(
-      projectId,
-      featureToggleNames,
+    const projectAverage = calculateAverageTimeToProd(
+      await this.projectStatsStore.getTimeToProdDates(projectId),
     );
+
+    const toggleAverage =
+      await this.projectStatsStore.getTimeToProdDatesForFeatureToggles(
+        projectId,
+        featureToggleNames,
+      );
 
     return {
       features: toggleAverage,
@@ -69,7 +82,8 @@ export class ProjectInsightsService {
       this.featureTypeStore.getAll(),
     ]);
 
-    const { activeCount, potentiallyStaleCount, staleCount } = calculateProjectHealth(overview.features, featureTypes);
+    const { activeCount, potentiallyStaleCount, staleCount } =
+      calculateProjectHealth(overview.features, featureTypes);
 
     return {
       activeCount,
@@ -99,11 +113,16 @@ export class ProjectInsightsService {
     };
   }
 
-  private async getProjectMembers(projectId: string): Promise<ProjectInsightsSchema['members']> {
+  private async getProjectMembers(
+    projectId: string,
+  ): Promise<ProjectInsightsSchema['members']> {
     const dateMinusThirtyDays = subDays(new Date(), 30).toISOString();
     const [currentMembers, change] = await Promise.all([
       this.projectStore.getMembersCountByProject(projectId),
-      this.projectStore.getMembersCountByProjectAfterDate(projectId, dateMinusThirtyDays),
+      this.projectStore.getMembersCountByProjectAfterDate(
+        projectId,
+        dateMinusThirtyDays,
+      ),
     ]);
 
     return {
@@ -113,16 +132,17 @@ export class ProjectInsightsService {
   }
 
   async getProjectInsights(projectId: string) {
-    const [stats, featureTypeCounts, health, leadTime, members] = await Promise.all([
-      this.projectStatsStore.getProjectStats(projectId),
-      this.featureToggleStore.getFeatureTypeCounts({
-        projectId,
-        archived: false,
-      }),
-      this.getHealthInsights(projectId),
-      this.getDoraMetrics(projectId),
-      this.getProjectMembers(projectId),
-    ]);
+    const [stats, featureTypeCounts, health, leadTime, members] =
+      await Promise.all([
+        this.projectStatsStore.getProjectStats(projectId),
+        this.featureToggleStore.getFeatureTypeCounts({
+          projectId,
+          archived: false,
+        }),
+        this.getHealthInsights(projectId),
+        this.getDoraMetrics(projectId),
+        this.getProjectMembers(projectId),
+      ]);
 
     return {
       stats,

@@ -36,15 +36,18 @@ export const EnvironmentDeprecateToggleDialog = ({
         condition={enabled}
         show={
           <Alert severity='info'>
-            Deprecating an environment will mark it as deprecated. Deprecated environments are set as not visible by
-            default for new projects. Project owners are still able to override this setting in the project. This
-            environment will still be visible in any current projects.
+            Deprecating an environment will mark it as deprecated. Deprecated
+            environments are set as not visible by default for new projects.
+            Project owners are still able to override this setting in the
+            project. This environment will still be visible in any current
+            projects.
           </Alert>
         }
         elseShow={
           <Alert severity='info'>
-            Undeprecating an environment will no longer mark it as deprecated. An undeprecated environment will be set
-            as visible by default for new projects.
+            Undeprecating an environment will no longer mark it as deprecated.
+            An undeprecated environment will be set as visible by default for
+            new projects.
           </Alert>
         }
       />

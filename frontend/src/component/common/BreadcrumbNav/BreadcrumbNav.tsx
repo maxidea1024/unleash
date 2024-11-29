@@ -65,7 +65,10 @@ const BreadcrumbNav = () => {
   return (
     <StyledBreadcrumbContainer>
       <ConditionallyRender
-        condition={(location.pathname.includes('admin') && isAdmin) || !location.pathname.includes('admin')}
+        condition={
+          (location.pathname.includes('admin') && isAdmin) ||
+          !location.pathname.includes('admin')
+        }
         show={
           <ConditionallyRender
             condition={paths.length > 1}

@@ -7,4 +7,6 @@ export interface IStickyContext {
   getTopOffset: (ref: RefObject<HTMLDivElement>) => number;
 }
 
-export const StickyContext = createContext<IStickyContext | undefined>(undefined);
+export const StickyContext = createContext<IStickyContext | undefined>(
+  undefined,
+);

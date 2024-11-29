@@ -5,7 +5,8 @@ test('createFeatureSchema', () => {
   const data: CreateFeatureSchema = {
     name: 'disable-comments',
     type: 'release',
-    description: 'Controls disabling of the comments section in case of an incident',
+    description:
+      'Controls disabling of the comments section in case of an incident',
     impressionData: false,
     tags: [
       { type: 'simple', value: 'tag' },
@@ -13,16 +14,21 @@ test('createFeatureSchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/createFeatureSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/createFeatureSchema', data),
+  ).toBeUndefined();
 });
 
 test('createFeatureSchema without tags', () => {
   const data: CreateFeatureSchema = {
     name: 'disable-comments',
     type: 'release',
-    description: 'Controls disabling of the comments section in case of an incident',
+    description:
+      'Controls disabling of the comments section in case of an incident',
     impressionData: false,
   };
 
-  expect(validateSchema('#/components/schemas/createFeatureSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/createFeatureSchema', data),
+  ).toBeUndefined();
 });

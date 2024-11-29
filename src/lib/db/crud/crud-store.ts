@@ -54,7 +54,8 @@ export abstract class CRUDStore<
         action,
       });
     this.toRow = options?.toRow ?? defaultToRow<InputModel, InputRowModel>;
-    this.fromRow = options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
+    this.fromRow =
+      options?.fromRow ?? defaultFromRow<OutputModel, OutputRowModel>;
   }
 
   async getAll(query?: Partial<InputModel>): Promise<OutputModel[]> {
@@ -69,7 +70,9 @@ export abstract class CRUDStore<
   }
 
   async insert(item: InputModel): Promise<OutputModel> {
-    const rows = await this.db(this.tableName).insert(this.toRow(item)).returning('*');
+    const rows = await this.db(this.tableName)
+      .insert(this.toRow(item))
+      .returning('*');
     return this.fromRow(rows[0]) as OutputModel;
   }
 
@@ -79,13 +82,18 @@ export abstract class CRUDStore<
     }
 
     const endTimer = this.timer('bulkInsert');
-    const rows = await this.db(this.tableName).insert(items.map(this.toRow)).returning('*');
+    const rows = await this.db(this.tableName)
+      .insert(items.map(this.toRow))
+      .returning('*');
     endTimer();
     return rows.map(this.fromRow) as OutputModel[];
   }
 
   async update(id: IdType, item: Partial<InputModel>): Promise<OutputModel> {
-    const rows = await this.db(this.tableName).where({ id }).update(this.toRow(item)).returning('*');
+    const rows = await this.db(this.tableName)
+      .where({ id })
+      .update(this.toRow(item))
+      .returning('*');
     return this.fromRow(rows[0]) as OutputModel;
   }
 
@@ -101,7 +109,10 @@ export abstract class CRUDStore<
 
   async exists(id: IdType): Promise<boolean> {
     const endTimer = this.timer('exists');
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${this.tableName} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${this.tableName} WHERE id = ?) AS present`,
+      [id],
+    );
     const { present } = result.rows[0];
     endTimer();
     return present;

@@ -39,13 +39,19 @@ export default class IndexRouter extends Controller {
       }),
     );
 
-    this.use('/auth/reset', new ResetPasswordController(config, services).router);
+    this.use(
+      '/auth/reset',
+      new ResetPasswordController(config, services).router,
+    );
 
     this.use('/api/admin', new AdminApi(config, services, db).router);
 
     this.use('/api/client', new ClientApi(config, services).router);
 
-    this.use('/api/frontend', new FrontendAPIController(config, services).router);
+    this.use(
+      '/api/frontend',
+      new FrontendAPIController(config, services).router,
+    );
 
     this.use('/edge', new EdgeController(config, services).router);
   }

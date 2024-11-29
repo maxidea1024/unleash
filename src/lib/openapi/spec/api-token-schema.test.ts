@@ -18,9 +18,13 @@ const defaultData: ApiTokenSchema = {
 test('apiTokenSchema', () => {
   const data: ApiTokenSchema = { ...defaultData };
 
-  expect(validateSchema('#/components/schemas/apiTokenSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/apiTokenSchema', data),
+  ).toBeUndefined();
 });
 
 test('apiTokenSchema empty', () => {
-  expect(validateSchema('#/components/schemas/apiTokenSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/apiTokenSchema', {}),
+  ).toMatchSnapshot();
 });

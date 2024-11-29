@@ -29,10 +29,23 @@ export const ProjectDefaultStrategySettings = () => {
   const navigate = useNavigate();
   usePageTitle(`Project default strategy configuration – ${projectName}`);
 
-  if (!hasAccess([UPDATE_PROJECT, PROJECT_DEFAULT_STRATEGY_READ, PROJECT_DEFAULT_STRATEGY_WRITE], projectId)) {
+  if (
+    !hasAccess(
+      [
+        UPDATE_PROJECT,
+        PROJECT_DEFAULT_STRATEGY_READ,
+        PROJECT_DEFAULT_STRATEGY_WRITE,
+      ],
+      projectId,
+    )
+  ) {
     return (
-      <PageContent header={<PageHeader title='Default Strategy configuration' />}>
-        <Alert severity='error'>You need project owner permissions to access this section.</Alert>
+      <PageContent
+        header={<PageHeader title='Default Strategy configuration' />}
+      >
+        <Alert severity='error'>
+          You need project owner permissions to access this section.
+        </Alert>
       </PageContent>
     );
   }
@@ -44,18 +57,26 @@ export const ProjectDefaultStrategySettings = () => {
     <>
       <PageContent header={<PageHeader title={`Default Strategy`} />}>
         <StyledAlert severity='info'>
-          Here you can customize your default strategy for each specific environment. These will be used when you enable
-          a toggle environment that has no strategies defined
+          Here you can customize your default strategy for each specific
+          environment. These will be used when you enable a toggle environment
+          that has no strategies defined
         </StyledAlert>
         {project?.environments.map((environment) => (
-          <ProjectEnvironment environment={environment} key={environment.environment} />
+          <ProjectEnvironment
+            environment={environment}
+            key={environment.environment}
+          />
         ))}
       </PageContent>
       <Routes>
         <Route
           path='edit'
           element={
-            <SidebarModal label='Edit feature strategy' onClose={onSidebarClose} open>
+            <SidebarModal
+              label='Edit feature strategy'
+              onClose={onSidebarClose}
+              open
+            >
               <EditDefaultStrategy />
             </SidebarModal>
           }

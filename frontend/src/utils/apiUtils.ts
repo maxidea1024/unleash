@@ -1,11 +1,18 @@
-import { BAD_REQUEST, FORBIDDEN, NOT_FOUND, UNAUTHORIZED, UNAVAILABLE } from 'constants/statusCodes';
+import {
+  BAD_REQUEST,
+  FORBIDDEN,
+  NOT_FOUND,
+  UNAUTHORIZED,
+  UNAVAILABLE,
+} from 'constants/statusCodes';
 
 export interface IErrorBody {
   message?: string;
   details?: { message: string }[];
 }
 
-const getErrorMessage = (body: IErrorBody) => body.details?.[0]?.message || body.message;
+const getErrorMessage = (body: IErrorBody) =>
+  body.details?.[0]?.message || body.message;
 
 export class AuthenticationError extends Error {
   statusCode: number;

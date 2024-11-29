@@ -40,7 +40,13 @@ export const NewConstraintAccordion = ({
           compact={compact}
         />
       }
-      elseShow={<ConstraintAccordionView constraint={constraint} onEdit={onEdit} onDelete={onDelete} />}
+      elseShow={
+        <ConstraintAccordionView
+          constraint={constraint}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      }
     />
   );
 };

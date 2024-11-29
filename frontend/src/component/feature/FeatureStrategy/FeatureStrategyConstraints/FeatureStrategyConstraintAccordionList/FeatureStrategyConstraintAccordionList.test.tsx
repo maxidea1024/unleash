@@ -38,7 +38,9 @@ test('show limit reached and disable adding new constraints', async () => {
     />,
   );
 
-  await screen.findByText('You have reached the limit for constraints in this strategy');
+  await screen.findByText(
+    'You have reached the limit for constraints in this strategy',
+  );
   const button = await screen.findByText('Add constraint');
   expect(button).toBeDisabled();
 });
@@ -53,7 +55,9 @@ test('show nearing limit', async () => {
     />,
   );
 
-  await screen.findByText('You are nearing the limit for constraints in this strategy');
+  await screen.findByText(
+    'You are nearing the limit for constraints in this strategy',
+  );
   const button = await screen.findByText('Add constraint');
   expect(button).toBeEnabled();
 });

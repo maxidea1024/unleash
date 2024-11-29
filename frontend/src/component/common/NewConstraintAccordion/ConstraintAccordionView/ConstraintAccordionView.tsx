@@ -1,10 +1,21 @@
 import { useState } from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, type SxProps, type Theme, styled } from '@mui/material';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  type SxProps,
+  type Theme,
+  styled,
+} from '@mui/material';
 import type { IConstraint } from 'interfaces/strategy';
 import { ConstraintAccordionViewBody } from './ConstraintAccordionViewBody/ConstraintAccordionViewBody';
 import { ConstraintAccordionViewHeader } from './ConstraintAccordionViewHeader/ConstraintAccordionViewHeader';
 import { oneOf } from 'utils/oneOf';
-import { dateOperators, numOperators, semVerOperators } from 'constants/operators';
+import {
+  dateOperators,
+  numOperators,
+  semVerOperators,
+} from 'constants/operators';
 
 interface IConstraintAccordionViewProps {
   constraint: IConstraint;
@@ -64,7 +75,10 @@ export const ConstraintAccordionView = ({
   const [expandable, setExpandable] = useState(true);
   const [expanded, setExpanded] = useState(false);
 
-  const singleValue = oneOf([...semVerOperators, ...numOperators, ...dateOperators], constraint.operator);
+  const singleValue = oneOf(
+    [...semVerOperators, ...numOperators, ...dateOperators],
+    constraint.operator,
+  );
   const handleClick = () => {
     if (expandable) {
       setExpanded(!expanded);

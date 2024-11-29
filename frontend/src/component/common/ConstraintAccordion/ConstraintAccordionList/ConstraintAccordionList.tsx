@@ -1,5 +1,10 @@
 import type React from 'react';
-import { forwardRef, Fragment, type RefObject, useImperativeHandle } from 'react';
+import {
+  forwardRef,
+  Fragment,
+  type RefObject,
+  useImperativeHandle,
+} from 'react';
 import { Button, styled, Tooltip } from '@mui/material';
 import HelpOutline from '@mui/icons-material/HelpOutline';
 import type { IConstraint } from 'interfaces/strategy';
@@ -70,7 +75,9 @@ const StyledAddCustomLabel = styled('div')(({ theme }) => ({
 }));
 
 export const useConstraintAccordionList = (
-  setConstraints: React.Dispatch<React.SetStateAction<IConstraint[]>> | undefined,
+  setConstraints:
+    | React.Dispatch<React.SetStateAction<IConstraint[]>>
+    | undefined,
   ref: React.RefObject<IConstraintAccordionListRef>,
 ) => {
   const state = useWeakMap<IConstraint, IConstraintAccordionListItemState>();
@@ -100,54 +107,66 @@ export const useConstraintAccordionList = (
 export const ConstraintAccordionList = forwardRef<
   IConstraintAccordionListRef | undefined,
   IConstraintAccordionListProps
->(({ constraints, setConstraints, showCreateButton, showLabel = true }, ref) => {
-  const { onAdd, state, context } = useConstraintAccordionList(
-    setConstraints,
-    ref as RefObject<IConstraintAccordionListRef>,
-  );
+>(
+  (
+    { constraints, setConstraints, showCreateButton, showLabel = true },
+    ref,
+  ) => {
+    const { onAdd, state, context } = useConstraintAccordionList(
+      setConstraints,
+      ref as RefObject<IConstraintAccordionListRef>,
+    );
 
-  if (context.length === 0) {
-    return null;
-  }
+    if (context.length === 0) {
+      return null;
+    }
 
-  return (
-    <StyledContainer id={constraintAccordionListId}>
-      <ConditionallyRender
-        condition={constraints && constraints.length > 0 && showLabel}
-        show={<StyledConstraintLabel>Constraints</StyledConstraintLabel>}
-      />
-      <ConstraintList ref={ref} setConstraints={setConstraints} constraints={constraints} state={state} />
-      <ConditionallyRender
-        condition={Boolean(showCreateButton && onAdd)}
-        show={
-          <div>
-            <StyledAddCustomLabel>
-              <p>Add any number of constraints</p>
-              <StyledHelpWrapper title='View constraints documentation' arrow>
-                <a
-                  href={'https://docs.getunleash.io/reference/strategy-constraints'}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <StyledHelp />
-                </a>
-              </StyledHelpWrapper>
-            </StyledAddCustomLabel>
-            <Button
-              type='button'
-              onClick={onAdd}
-              variant='outlined'
-              color='primary'
-              data-testid='ADD_CONSTRAINT_BUTTON'
-            >
-              Add constraint
-            </Button>
-          </div>
-        }
-      />
-    </StyledContainer>
-  );
-});
+    return (
+      <StyledContainer id={constraintAccordionListId}>
+        <ConditionallyRender
+          condition={constraints && constraints.length > 0 && showLabel}
+          show={<StyledConstraintLabel>Constraints</StyledConstraintLabel>}
+        />
+        <ConstraintList
+          ref={ref}
+          setConstraints={setConstraints}
+          constraints={constraints}
+          state={state}
+        />
+        <ConditionallyRender
+          condition={Boolean(showCreateButton && onAdd)}
+          show={
+            <div>
+              <StyledAddCustomLabel>
+                <p>Add any number of constraints</p>
+                <StyledHelpWrapper title='View constraints documentation' arrow>
+                  <a
+                    href={
+                      'https://docs.getunleash.io/reference/strategy-constraints'
+                    }
+                    target='_blank'
+                    rel='noopener noreferrer'
+                  >
+                    <StyledHelp />
+                  </a>
+                </StyledHelpWrapper>
+              </StyledAddCustomLabel>
+              <Button
+                type='button'
+                onClick={onAdd}
+                variant='outlined'
+                color='primary'
+                data-testid='ADD_CONSTRAINT_BUTTON'
+              >
+                Add constraint
+              </Button>
+            </div>
+          }
+        />
+      </StyledContainer>
+    );
+  },
+);
 
 interface IConstraintList {
   constraints: IConstraint[];
@@ -155,66 +174,73 @@ interface IConstraintList {
   state: IUseWeakMap<IConstraint, IConstraintAccordionListItemState>;
 }
 
-export const ConstraintList = forwardRef<IConstraintAccordionListRef | undefined, IConstraintList>(
-  ({ constraints, setConstraints, state }, ref) => {
-    const { context } = useUnleashContext();
+export const ConstraintList = forwardRef<
+  IConstraintAccordionListRef | undefined,
+  IConstraintList
+>(({ constraints, setConstraints, state }, ref) => {
+  const { context } = useUnleashContext();
 
-    const onEdit =
-      setConstraints &&
-      ((constraint: IConstraint) => {
-        state.set(constraint, { editing: true });
-      });
+  const onEdit =
+    setConstraints &&
+    ((constraint: IConstraint) => {
+      state.set(constraint, { editing: true });
+    });
 
-    const onRemove =
-      setConstraints &&
-      ((index: number) => {
-        const constraint = constraints[index];
-        state.set(constraint, {});
-        setConstraints(
-          produce((draft) => {
-            draft.splice(index, 1);
-          }),
-        );
-      });
-
-    const onSave =
-      setConstraints &&
-      ((index: number, constraint: IConstraint) => {
-        state.set(constraint, {});
-        setConstraints(
-          produce((draft) => {
-            draft[index] = constraint;
-          }),
-        );
-      });
-
-    const onCancel = (index: number) => {
+  const onRemove =
+    setConstraints &&
+    ((index: number) => {
       const constraint = constraints[index];
-      state.get(constraint)?.new && onRemove?.(index);
       state.set(constraint, {});
-    };
+      setConstraints(
+        produce((draft) => {
+          draft.splice(index, 1);
+        }),
+      );
+    });
 
-    if (context.length === 0) {
-      return null;
-    }
+  const onSave =
+    setConstraints &&
+    ((index: number, constraint: IConstraint) => {
+      state.set(constraint, {});
+      setConstraints(
+        produce((draft) => {
+          draft[index] = constraint;
+        }),
+      );
+    });
 
-    return (
-      <StyledContainer id={constraintAccordionListId} className='constraint-list-element'>
-        {constraints.map((constraint, index) => (
-          <Fragment key={objectId(constraint)}>
-            <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
-            <ConstraintAccordion
-              constraint={constraint}
-              onEdit={onEdit?.bind(null, constraint)}
-              onCancel={onCancel.bind(null, index)}
-              onDelete={onRemove?.bind(null, index)}
-              onSave={onSave?.bind(null, index)}
-              editing={Boolean(state.get(constraint)?.editing)}
-              compact
-            />
-          </Fragment>
-        ))}
-      </StyledContainer>
-    );
-  },
-);
+  const onCancel = (index: number) => {
+    const constraint = constraints[index];
+    state.get(constraint)?.new && onRemove?.(index);
+    state.set(constraint, {});
+  };
+
+  if (context.length === 0) {
+    return null;
+  }
+
+  return (
+    <StyledContainer
+      id={constraintAccordionListId}
+      className='constraint-list-element'
+    >
+      {constraints.map((constraint, index) => (
+        <Fragment key={objectId(constraint)}>
+          <ConditionallyRender
+            condition={index > 0}
+            show={<StrategySeparator text='AND' />}
+          />
+          <ConstraintAccordion
+            constraint={constraint}
+            onEdit={onEdit?.bind(null, constraint)}
+            onCancel={onCancel.bind(null, index)}
+            onDelete={onRemove?.bind(null, index)}
+            onSave={onSave?.bind(null, index)}
+            editing={Boolean(state.get(constraint)?.editing)}
+            compact
+          />
+        </Fragment>
+      ))}
+    </StyledContainer>
+  );
+});

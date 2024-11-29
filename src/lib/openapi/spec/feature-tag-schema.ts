@@ -15,7 +15,8 @@ export const featureTagSchema = {
     tagType: {
       type: 'string',
       example: 'simple',
-      description: 'The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag',
+      description:
+        'The [type](https://docs.getunleash.io/reference/tags#tag-types tag types) of the tag',
     },
     tagValue: {
       type: 'string',

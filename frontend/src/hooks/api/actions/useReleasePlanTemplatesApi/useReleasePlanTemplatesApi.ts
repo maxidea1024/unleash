@@ -2,9 +2,10 @@ import type { IReleasePlanTemplatePayload } from 'interfaces/releasePlans';
 import useAPI from '../useApi/useApi';
 
 export const useReleasePlanTemplatesApi = () => {
-  const { makeRequest, makeLightRequest, createRequest, errors, loading } = useAPI({
-    propagateErrors: true,
-  });
+  const { makeRequest, makeLightRequest, createRequest, errors, loading } =
+    useAPI({
+      propagateErrors: true,
+    });
 
   const deleteReleasePlanTemplate = async (id: string) => {
     const requestId = 'deleteReleasePlanTemplate';
@@ -38,7 +39,9 @@ export const useReleasePlanTemplatesApi = () => {
     return res.json();
   };
 
-  const updateReleasePlanTemplate = async (template: IReleasePlanTemplatePayload) => {
+  const updateReleasePlanTemplate = async (
+    template: IReleasePlanTemplatePayload,
+  ) => {
     const requestId = 'updateReleasePlanTemplate';
     const path = `api/admin/release-plan-templates/${template.id}`;
     const req = createRequest(

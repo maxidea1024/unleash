@@ -73,7 +73,10 @@ export const ConstraintAccordionViewHeaderInfo = ({
             {constraint.contextName}
           </StyledHeaderText>
         </Tooltip>
-        <ConstraintViewHeaderOperator constraint={constraint} disabled={disabled} />
+        <ConstraintViewHeaderOperator
+          constraint={constraint}
+          disabled={disabled}
+        />
         <ConditionallyRender
           condition={singleValue}
           show={

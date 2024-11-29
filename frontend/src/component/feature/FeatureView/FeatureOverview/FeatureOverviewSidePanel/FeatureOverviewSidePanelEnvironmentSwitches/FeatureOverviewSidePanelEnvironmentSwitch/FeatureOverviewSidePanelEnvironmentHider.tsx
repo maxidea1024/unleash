@@ -9,7 +9,9 @@ const StyledVisibilityToggle = styled(IconButton, {
 })<{ visibilityOff: boolean }>(({ theme, visibilityOff }) => ({
   marginLeft: 'auto',
   marginRight: theme.spacing(-1),
-  color: visibilityOff ? theme.palette.action.active : theme.palette.action.focus,
+  color: visibilityOff
+    ? theme.palette.action.active
+    : theme.palette.action.focus,
   '&:hover': {
     color: theme.palette.action.active,
   },
@@ -31,7 +33,10 @@ export const FeatureOverviewSidePanelEnvironmentHider = ({
   };
 
   return (
-    <StyledVisibilityToggle onClick={toggleHiddenEnvironments} visibilityOff={hiddenEnvironments.has(environment.name)}>
+    <StyledVisibilityToggle
+      onClick={toggleHiddenEnvironments}
+      visibilityOff={hiddenEnvironments.has(environment.name)}
+    >
       <ConditionallyRender
         condition={hiddenEnvironments.has(environment.name)}
         show={<VisibilityOff />}

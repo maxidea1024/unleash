@@ -19,12 +19,21 @@ export const CreateIntegration = () => {
   const { providers, refetchAddons } = useAddons();
 
   const editMode = false;
-  const provider = providers.find((providerItem: any) => providerItem.name === providerId);
+  const provider = providers.find(
+    (providerItem: any) => providerItem.name === providerId,
+  );
 
   const defaultAddon = {
     ...cloneDeep(DEFAULT_DATA),
     provider: provider ? provider.name : '',
   };
 
-  return <IntegrationForm editMode={editMode} provider={provider} fetch={refetchAddons} addon={defaultAddon} />;
+  return (
+    <IntegrationForm
+      editMode={editMode}
+      provider={provider}
+      fetch={refetchAddons}
+      addon={defaultAddon}
+    />
+  );
 };

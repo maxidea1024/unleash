@@ -41,7 +41,8 @@ export const SignalEndpointsTokensCreateDialog = ({
     setNameError('');
   }, [open]);
 
-  const isNameUnique = (name: string) => !tokens?.some((token) => token.name === name);
+  const isNameUnique = (name: string) =>
+    !tokens?.some((token) => token.name === name);
 
   const validateName = (name: string) => {
     if (!name.length) {
@@ -72,7 +73,9 @@ export const SignalEndpointsTokensCreateDialog = ({
       title='New token'
     >
       <StyledForm>
-        <StyledInputSecondaryDescription>What is your new token name?</StyledInputSecondaryDescription>
+        <StyledInputSecondaryDescription>
+          What is your new token name?
+        </StyledInputSecondaryDescription>
         <StyledInput
           autoFocus
           label='Token name'

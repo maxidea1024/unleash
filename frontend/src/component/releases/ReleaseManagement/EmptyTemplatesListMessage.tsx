@@ -25,7 +25,9 @@ export const EmptyTemplatesListMessage = () => {
       <StyledCenter>
         <ReleaseTemplateIcon />
       </StyledCenter>
-      <NoReleaseTemplatesMessage>You have no release templates set up</NoReleaseTemplatesMessage>
+      <NoReleaseTemplatesMessage>
+        You have no release templates set up
+      </NoReleaseTemplatesMessage>
       <TemplatesEasierMessage>
         Make the set up of strategies easier for your
         <br />

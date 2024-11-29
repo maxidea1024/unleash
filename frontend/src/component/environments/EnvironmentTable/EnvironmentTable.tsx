@@ -3,13 +3,19 @@ import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 import { CreateEnvironmentButton } from 'component/environments/CreateEnvironmentButton/CreateEnvironmentButton';
 import { useTable, useGlobalFilter } from 'react-table';
-import { SortableTableHeader, Table, TablePlaceholder } from 'component/common/Table';
+import {
+  SortableTableHeader,
+  Table,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { useCallback, useMemo } from 'react';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Alert, styled, TableBody } from '@mui/material';
 import type { MoveListItem } from 'hooks/useDragItem';
 import useToast from 'hooks/useToast';
-import useEnvironmentApi, { createSortOrderPayload } from 'hooks/api/actions/useEnvironmentApi/useEnvironmentApi';
+import useEnvironmentApi, {
+  createSortOrderPayload,
+} from 'hooks/api/actions/useEnvironmentApi/useEnvironmentApi';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { EnvironmentRow } from './EnvironmentRow/EnvironmentRow';
@@ -32,7 +38,9 @@ export const EnvironmentTable = () => {
   const { setToastApiError } = useToast();
   const { environments, mutateEnvironments } = useEnvironments();
   const isFeatureEnabled = useUiFlag('EEA');
-  const isPurchaseAdditionalEnvironmentsEnabled = useUiFlag('purchaseAdditionalEnvironments');
+  const isPurchaseAdditionalEnvironmentsEnabled = useUiFlag(
+    'purchaseAdditionalEnvironments',
+  );
 
   const moveListItem: MoveListItem = useCallback(
     async (dragIndex: number, dropIndex: number, save = false) => {
@@ -62,7 +70,9 @@ export const EnvironmentTable = () => {
           id: 'Actions',
           align: 'center',
           width: '1%',
-          Cell: ({ row: { original } }: { row: { original: IEnvironment } }) => (
+          Cell: ({
+            row: { original },
+          }: { row: { original: IEnvironment } }) => (
             <EnvironmentActionCell environment={original} />
           ),
           disableGlobalFilter: true,
@@ -90,7 +100,9 @@ export const EnvironmentTable = () => {
     useGlobalFilter,
   );
 
-  const headerSearch = <Search initialValue={globalFilter} onChange={setGlobalFilter} />;
+  const headerSearch = (
+    <Search initialValue={globalFilter} onChange={setGlobalFilter} />
+  );
 
   const headerActions = (
     <>
@@ -100,7 +112,9 @@ export const EnvironmentTable = () => {
     </>
   );
   const count = rows.length;
-  const header = <PageHeader title={`Environments (${count})`} actions={headerActions} />;
+  const header = (
+    <PageHeader title={`Environments (${count})`} actions={headerActions} />
+  );
 
   if (!isFeatureEnabled && !isPurchaseAdditionalEnvironmentsEnabled) {
     return (
@@ -114,8 +128,9 @@ export const EnvironmentTable = () => {
     <PageContent header={header}>
       <OrderEnvironments />
       <StyledAlert severity='info'>
-        This is the order of environments that you have today in each feature flag. Rearranging them here will change
-        also the order inside each feature flag.
+        This is the order of environments that you have today in each feature
+        flag. Rearranging them here will change also the order inside each
+        feature flag.
       </StyledAlert>
       <SearchHighlightProvider value={globalFilter}>
         <Table {...getTableProps()} rowHeight='compact'>
@@ -123,7 +138,13 @@ export const EnvironmentTable = () => {
           <TableBody {...getTableBodyProps()}>
             {rows.map((row) => {
               prepareRow(row);
-              return <EnvironmentRow row={row as any} moveListItem={moveListItem} key={row.original.name} />;
+              return (
+                <EnvironmentRow
+                  row={row as any}
+                  moveListItem={moveListItem}
+                  key={row.original.name}
+                />
+              );
             })}
           </TableBody>
         </Table>
@@ -140,7 +161,11 @@ export const EnvironmentTable = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={<TablePlaceholder>No environments available. Get started by adding one.</TablePlaceholder>}
+            elseShow={
+              <TablePlaceholder>
+                No environments available. Get started by adding one.
+              </TablePlaceholder>
+            }
           />
         }
       />
@@ -173,12 +198,14 @@ const COLUMNS = [
   },
   {
     Header: 'Visible in',
-    accessor: (row: IEnvironment) => (row.projectCount === 1 ? '1 project' : `${row.projectCount} projects`),
+    accessor: (row: IEnvironment) =>
+      row.projectCount === 1 ? '1 project' : `${row.projectCount} projects`,
     Cell: TextCell,
   },
   {
     Header: 'API Tokens',
-    accessor: (row: IEnvironment) => (row.apiTokenCount === 1 ? '1 token' : `${row.apiTokenCount} tokens`),
+    accessor: (row: IEnvironment) =>
+      row.apiTokenCount === 1 ? '1 token' : `${row.apiTokenCount} tokens`,
     Cell: TextCell,
   },
 ];

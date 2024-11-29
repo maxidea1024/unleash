@@ -27,7 +27,9 @@ test('Modifies filenames and content properly', () => {
   );
 
   expect(firstSubpage.content).toContain('title: Concepts');
-  expect(firstSubpage.content).toContain('slug: /reference/unleash-edge/concepts');
+  expect(firstSubpage.content).toContain(
+    'slug: /reference/unleash-edge/concepts',
+  );
   expect(firstSubpage.content).toContain(
     'custom_edit_url: https://github.com/Unleash/unleash-edge/edit/main/docs/concepts.md',
   );

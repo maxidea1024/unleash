@@ -46,7 +46,9 @@ export const FeatureToggleListTable: VFC = () => {
   const theme = useTheme();
   const { trackEvent } = usePlausibleTracker();
   const { environments } = useEnvironments();
-  const enabledEnvironments = environments.filter((env) => env.enabled).map((env) => env.name);
+  const enabledEnvironments = environments
+    .filter((env) => env.enabled)
+    .map((env) => env.name);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [showExportDialog, setShowExportDialog] = useState(false);
@@ -97,7 +99,10 @@ export const FeatureToggleListTable: VFC = () => {
         ),
         cell: ({ getValue, row }) => (
           <>
-            <FavoriteIconCell value={getValue()} onClick={() => onFavorite(row.original)} />
+            <FavoriteIconCell
+              value={getValue()}
+              onClick={() => onFavorite(row.original)}
+            />
           </>
         ),
         enableSorting: false,
@@ -107,7 +112,9 @@ export const FeatureToggleListTable: VFC = () => {
       }),
       columnHelper.accessor('lastSeenAt', {
         header: 'Seen',
-        cell: ({ row }) => <FeatureEnvironmentSeenCell feature={row.original} />,
+        cell: ({ row }) => (
+          <FeatureEnvironmentSeenCell feature={row.original} />
+        ),
         meta: {
           align: 'center',
           width: '1%',
@@ -137,20 +144,27 @@ export const FeatureToggleListTable: VFC = () => {
       }),
       columnHelper.accessor((row) => row.segments?.join('\n') || '', {
         header: 'Segments',
-        cell: ({ getValue, row }) => <FeatureSegmentCell value={getValue()} row={row} />,
+        cell: ({ getValue, row }) => (
+          <FeatureSegmentCell value={getValue()} row={row} />
+        ),
         enableSorting: false,
         meta: {
           width: '1%',
         },
       }),
-      columnHelper.accessor((row) => row.tags?.map(({ type, value }) => `${type}:${value}`).join('\n') || '', {
-        header: 'Tags',
-        cell: FeatureTagCell,
-        enableSorting: false,
-        meta: {
-          width: '1%',
+      columnHelper.accessor(
+        (row) =>
+          row.tags?.map(({ type, value }) => `${type}:${value}`).join('\n') ||
+          '',
+        {
+          header: 'Tags',
+          cell: FeatureTagCell,
+          enableSorting: false,
+          meta: {
+            width: '1%',
+          },
         },
-      }),
+      ),
       columnHelper.accessor('createdAt', {
         header: 'Created',
         cell: ({ getValue }) => <DateCell value={getValue()} />,
@@ -160,7 +174,9 @@ export const FeatureToggleListTable: VFC = () => {
       }),
       columnHelper.accessor('project', {
         header: 'Project ID',
-        cell: ({ getValue }) => <LinkCell title={getValue()} to={`/projects/${getValue()}`} />,
+        cell: ({ getValue }) => (
+          <LinkCell title={getValue()} to={`/projects/${getValue()}`} />
+        ),
         meta: {
           width: '1%',
         },
@@ -262,13 +278,21 @@ export const FeatureToggleListTable: VFC = () => {
               >
                 View archive
               </Link>
-              <FeatureToggleListActions onExportClick={() => setShowExportDialog(true)} />
+              <FeatureToggleListActions
+                onExportClick={() => setShowExportDialog(true)}
+              />
             </>
           }
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={<Search initialValue={tableState.query || ''} onChange={setSearchValue} id='globalFeatureFlags' />}
+            show={
+              <Search
+                initialValue={tableState.query || ''}
+                onChange={setSearchValue}
+                id='globalFeatureFlags'
+              />
+            }
           />
         </PageHeader>
       }
@@ -294,7 +318,8 @@ export const FeatureToggleListTable: VFC = () => {
               }
               elseShow={
                 <TablePlaceholder>
-                  No feature flags found matching your criteria. Get started by adding a new feature flag.
+                  No feature flags found matching your criteria. Get started by
+                  adding a new feature flag.
                 </TablePlaceholder>
               }
             />

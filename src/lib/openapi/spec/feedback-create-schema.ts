@@ -7,7 +7,8 @@ export const feedbackCreateSchema = {
   description: 'User feedback information to be created.',
   properties: {
     neverShow: {
-      description: '`true` if the user has asked never to see this feedback questionnaire again. Defaults to `false`.',
+      description:
+        '`true` if the user has asked never to see this feedback questionnaire again. Defaults to `false`.',
       type: 'boolean',
       example: false,
     },

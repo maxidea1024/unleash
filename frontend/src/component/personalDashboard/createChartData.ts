@@ -8,7 +8,9 @@ export interface IPoint {
   variants: Record<string, number>;
 }
 
-export const createChartData = (metrics: IFeatureMetricsRaw[]): ChartData<'bar', IPoint[], string> => {
+export const createChartData = (
+  metrics: IFeatureMetricsRaw[],
+): ChartData<'bar', IPoint[], string> => {
   const yesSeries = {
     label: 'Exposed',
     hoverBackgroundColor: '#A39EFF',
@@ -28,7 +30,10 @@ export const createChartData = (metrics: IFeatureMetricsRaw[]): ChartData<'bar',
   };
 };
 
-const createChartPoints = (metrics: IFeatureMetricsRaw[], y: (m: IFeatureMetricsRaw) => number): IPoint[] => {
+const createChartPoints = (
+  metrics: IFeatureMetricsRaw[],
+  y: (m: IFeatureMetricsRaw) => number,
+): IPoint[] => {
   return metrics.map((metric) => ({
     x: metric.timestamp,
     y: y(metric),

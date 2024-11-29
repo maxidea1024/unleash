@@ -5,7 +5,13 @@ import { FEATURE_CREATED, type IEvent } from '../types/events';
 import WebhookAddon from './webhook';
 
 import noLogger from '../../test/fixtures/no-logger';
-import { type IAddonConfig, type IFlagKey, type IFlagResolver, serializeDates, SYSTEM_USER_ID } from '../types';
+import {
+  type IAddonConfig,
+  type IFlagKey,
+  type IFlagResolver,
+  serializeDates,
+  SYSTEM_USER_ID,
+} from '../types';
 import type { IntegrationEventsService } from '../services';
 
 let fetchRetryCalls: any[] = [];
@@ -128,7 +134,8 @@ describe('Webhook integration', () => {
 
     const parameters = {
       url: 'http://test.webhook.com/plain',
-      bodyTemplate: '{\n  "json": {{{eventJson}}},\n  "markdown": "{{eventMarkdown}}"\n}',
+      bodyTemplate:
+        '{\n  "json": {{{eventJson}}},\n  "markdown": "{{eventMarkdown}}"\n}',
       contentType: 'text/plain',
     };
 
@@ -138,7 +145,9 @@ describe('Webhook integration', () => {
     expect(call.url).toBe(parameters.url);
     expect(call.options.headers['Content-Type']).toBe('text/plain');
     expect(call.options.body).toMatchSnapshot();
-    expect(JSON.parse(JSON.parse(call.options.body).json)).toEqual(serializeDates(event));
+    expect(JSON.parse(JSON.parse(call.options.body).json)).toEqual(
+      serializeDates(event),
+    );
   });
 
   test('Should format event with "authorization"', () => {

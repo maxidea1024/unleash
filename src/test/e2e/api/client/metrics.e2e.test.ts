@@ -1,4 +1,7 @@
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import metricsExample from '../../../examples/client-metrics.json';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
@@ -19,7 +22,10 @@ beforeAll(async () => {
 });
 
 afterEach(async () => {
-  await Promise.all([db.stores.clientMetricsStoreV2.deleteAll(), db.stores.clientInstanceStore.deleteAll()]);
+  await Promise.all([
+    db.stores.clientMetricsStoreV2.deleteAll(),
+    db.stores.clientInstanceStore.deleteAll(),
+  ]);
 });
 
 afterAll(async () => {
@@ -28,7 +34,10 @@ afterAll(async () => {
 });
 
 test('should be possible to send metrics', async () => {
-  return app.request.post('/api/client/metrics').send(metricsExample).expect(202);
+  return app.request
+    .post('/api/client/metrics')
+    .send(metricsExample)
+    .expect(202);
 });
 
 test('should require valid send metrics', async () => {
@@ -58,7 +67,10 @@ test('should accept empty client metrics', async () => {
 test('should create instance if does not exist', async () => {
   const instances = await db.stores.clientInstanceStore.getAll();
   expect(instances.length).toBe(0);
-  await app.request.post('/api/client/metrics').send(metricsExample).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .send(metricsExample)
+    .expect(202);
   const finalInstances = await db.stores.clientInstanceStore.getAll();
   expect(finalInstances.length).toBe(1);
 });

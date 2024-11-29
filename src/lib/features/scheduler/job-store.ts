@@ -13,9 +13,12 @@ export type JobModel = {
 };
 
 const TABLE = 'jobs';
-const toRow = (data: Partial<JobModel>) => defaultToRow<JobModel, Row<JobModel>>(data);
+const toRow = (data: Partial<JobModel>) =>
+  defaultToRow<JobModel, Row<JobModel>>(data);
 
-export class JobStore implements IStore<JobModel, { name: string; bucket: Date }> {
+export class JobStore
+  implements IStore<JobModel, { name: string; bucket: Date }>
+{
   private readonly logger: Logger;
   protected readonly timer: (action: string) => Function;
   private readonly db: Db;
@@ -31,14 +34,19 @@ export class JobStore implements IStore<JobModel, { name: string; bucket: Date }
       });
   }
 
-  async acquireBucket(key: string, bucketLengthInMinutes: number): Promise<{ name: string; bucket: Date } | undefined> {
+  async acquireBucket(
+    key: string,
+    bucketLengthInMinutes: number,
+  ): Promise<{ name: string; bucket: Date } | undefined> {
     const endTimer = this.timer('acquireBucket');
 
     const bucket = await this.db<Row<JobModel>>(TABLE)
       .insert({
         name: key,
         // note: date_floor_round is a custom function defined in the DB
-        bucket: this.db.raw(`date_floor_round(now(), '${bucketLengthInMinutes} minutes')`),
+        bucket: this.db.raw(
+          `date_floor_round(now(), '${bucketLengthInMinutes} minutes')`,
+        ),
         stage: 'started',
       })
       .onConflict(['name', 'bucket'])
@@ -49,8 +57,15 @@ export class JobStore implements IStore<JobModel, { name: string; bucket: Date }
     return bucket[0];
   }
 
-  async update(name: string, bucket: Date, data: Partial<Omit<JobModel, 'name' | 'bucket'>>): Promise<JobModel> {
-    const rows = await this.db<Row<JobModel>>(TABLE).update(toRow(data)).where({ name, bucket }).returning('*');
+  async update(
+    name: string,
+    bucket: Date,
+    data: Partial<Omit<JobModel, 'name' | 'bucket'>>,
+  ): Promise<JobModel> {
+    const rows = await this.db<Row<JobModel>>(TABLE)
+      .update(toRow(data))
+      .where({ name, bucket })
+      .returning('*');
     return rows[0];
   }
 
@@ -67,10 +82,10 @@ export class JobStore implements IStore<JobModel, { name: string; bucket: Date }
   }
 
   async exists(key: { name: string; bucket: Date }): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE name = ? AND bucket = ?) AS present`, [
-      key.name,
-      key.bucket,
-    ]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE name = ? AND bucket = ?) AS present`,
+      [key.name, key.bucket],
+    );
     const { present } = result.rows[0];
     return present;
   }

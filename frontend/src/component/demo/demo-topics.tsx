@@ -24,7 +24,9 @@ export interface ITutorialTopic {
   steps: ITutorialTopicStep[];
 }
 
-const Description = (props: TypographyProps) => <Typography variant='body2' color='text.secondary' {...props} />;
+const Description = (props: TypographyProps) => (
+  <Typography variant='body2' color='text.secondary' {...props} />
+);
 
 const StyledImg = styled('img')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
@@ -44,14 +46,22 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/feature-toggles' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/feature-toggles'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Feature flags
               </a>{' '}
               are the central concept of Unleash.
             </Description>
             <Description sx={{ mt: 1 }}>
               Feature flags are organized within{' '}
-              <a href='https://docs.getunleash.io/reference/projects' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/projects'
+                target='_blank'
+                rel='noreferrer'
+              >
                 projects
               </a>
               .
@@ -65,7 +75,10 @@ export const TOPICS: ITutorialTopic[] = [
         target: `div[data-testid="TOGGLE-demoApp.step1-${ENVIRONMENT}"]`,
         content: (
           <>
-            <Description>Enable or disable the feature for everyone by toggling the highlighted switch.</Description>
+            <Description>
+              Enable or disable the feature for everyone by toggling the
+              highlighted switch.
+            </Description>
             <Badge sx={{ mt: 2 }} icon={<InfoOutlinedIcon />}>
               Look at the demo page to see your changes!
             </Badge>
@@ -86,12 +99,18 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/activation-strategies' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/activation-strategies'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Activation strategies
               </a>{' '}
               give you more control over when a feature should be enabled.
             </Description>
-            <Description sx={{ mt: 1 }}>Let's try enabling a feature flag only for a specific user.</Description>
+            <Description sx={{ mt: 1 }}>
+              Let's try enabling a feature flag only for a specific user.
+            </Description>
           </>
         ),
         nextButton: true,
@@ -101,7 +120,8 @@ export const TOPICS: ITutorialTopic[] = [
         target: `table a[href="${basePath}/projects/${PROJECT}/features/demoApp.step2"]`,
         content: (
           <Description>
-            First, open the feature flag configuration for <Badge as='span'>demoApp.step2</Badge> by using this link.
+            First, open the feature flag configuration for{' '}
+            <Badge as='span'>demoApp.step2</Badge> by using this link.
           </Description>
         ),
         preventDefault: true,
@@ -109,7 +129,11 @@ export const TOPICS: ITutorialTopic[] = [
       {
         href: `/projects/${PROJECT}/features/demoApp.step2`,
         target: 'button[data-testid="ADD_STRATEGY_BUTTON"]',
-        content: <Description>Add a new strategy to this environment by using this button.</Description>,
+        content: (
+          <Description>
+            Add a new strategy to this environment by using this button.
+          </Description>
+        ),
       },
       {
         target: `a[href="${basePath}/projects/${PROJECT}/features/demoApp.step2/strategies/create?environmentId=${ENVIRONMENT}&strategyName=flexibleRollout&defaultStrategy=true"]`,
@@ -134,16 +158,26 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/strategy-constraints' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/strategy-constraints'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Strategy constraints
               </a>{' '}
               are conditions that must be satisfied for an{' '}
-              <a href='https://docs.getunleash.io/reference/activation-strategies' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/activation-strategies'
+                target='_blank'
+                rel='noreferrer'
+              >
                 activation strategy
               </a>{' '}
               to be evaluated for a feature flag.
             </Description>
-            <Description sx={{ mt: 1 }}>Add a constraint by using this button.</Description>
+            <Description sx={{ mt: 1 }}>
+              Add a constraint by using this button.
+            </Description>
           </>
         ),
         backCloseModal: true,
@@ -153,12 +187,18 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/unleash-context' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/unleash-context'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Unleash context
               </a>{' '}
               contains information relating to the current feature flag request.
             </Description>
-            <Description sx={{ mt: 1 }}>Select the context field by using this dropdown.</Description>
+            <Description sx={{ mt: 1 }}>
+              Select the context field by using this dropdown.
+            </Description>
           </>
         ),
         backCloseModal: true,
@@ -181,11 +221,19 @@ export const TOPICS: ITutorialTopic[] = [
             <Description>
               Enter your <Badge as='span'>userId</Badge>
             </Description>
-            <Badge sx={{ mt: 2, mb: 1, width: '100%' }} icon={<InfoOutlinedIcon />}>
+            <Badge
+              sx={{ mt: 2, mb: 1, width: '100%' }}
+              icon={<InfoOutlinedIcon />}
+            >
               You can find your userId on the demo page.
             </Badge>
-            <StyledImg src={formatAssetPath(demoUserId)} alt='You can find your userId on the demo page.' />
-            <Description sx={{ mt: 1 }}>When you're done, use the "Next" button in the dialog.</Description>
+            <StyledImg
+              src={formatAssetPath(demoUserId)}
+              alt='You can find your userId on the demo page.'
+            />
+            <Description sx={{ mt: 1 }}>
+              When you're done, use the "Next" button in the dialog.
+            </Description>
           </>
         ),
         placement: 'right',
@@ -194,20 +242,32 @@ export const TOPICS: ITutorialTopic[] = [
       },
       {
         target: 'button[data-testid="CONSTRAINT_VALUES_ADD_BUTTON"]',
-        content: <Description>Add the constraint value by using this button.</Description>,
+        content: (
+          <Description>
+            Add the constraint value by using this button.
+          </Description>
+        ),
       },
       {
         target: 'button[data-testid="CONSTRAINT_SAVE_BUTTON"]',
-        content: <Description>Save the constraint by using this button.</Description>,
+        content: (
+          <Description>Save the constraint by using this button.</Description>
+        ),
       },
       {
         target: 'button[data-testid="STRATEGY_FORM_SUBMIT_ID"]',
-        content: <Description>Save and apply your strategy by using this button.</Description>,
+        content: (
+          <Description>
+            Save and apply your strategy by using this button.
+          </Description>
+        ),
         backCloseModal: true,
       },
       {
         target: 'button[data-testid="DIALOGUE_CONFIRM_ID"]',
-        content: <Description>Confirm your changes by using this button.</Description>,
+        content: (
+          <Description>Confirm your changes by using this button.</Description>
+        ),
         optional: true,
         backCloseModal: true,
       },
@@ -217,7 +277,8 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              Finally, enable or disable the feature for your user by toggling the highlighted switch.
+              Finally, enable or disable the feature for your user by toggling
+              the highlighted switch.
             </Description>
             <Badge sx={{ mt: 2 }} icon={<InfoOutlinedIcon />}>
               Look at the demo page to see your changes!
@@ -248,13 +309,18 @@ export const TOPICS: ITutorialTopic[] = [
                 Gradual rollout
               </a>{' '}
               is one of the available{' '}
-              <a href='https://docs.getunleash.io/reference/activation-strategies' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/activation-strategies'
+                target='_blank'
+                rel='noreferrer'
+              >
                 activation strategies
               </a>
               .
             </Description>
             <Description sx={{ mt: 1 }}>
-              Let's try enabling a feature flag only for a certain percentage of users.
+              Let's try enabling a feature flag only for a certain percentage of
+              users.
             </Description>
           </>
         ),
@@ -265,7 +331,8 @@ export const TOPICS: ITutorialTopic[] = [
         target: `table a[href="${basePath}/projects/${PROJECT}/features/demoApp.step3"]`,
         content: (
           <Description>
-            First, open the feature flag configuration for <Badge as='span'>demoApp.step3</Badge> by using this link.
+            First, open the feature flag configuration for{' '}
+            <Badge as='span'>demoApp.step3</Badge> by using this link.
           </Description>
         ),
         preventDefault: true,
@@ -275,22 +342,32 @@ export const TOPICS: ITutorialTopic[] = [
         target: `div[data-testid="FEATURE_ENVIRONMENT_ACCORDION_${ENVIRONMENT}"] .MuiAccordionSummary-expandIconWrapper`,
         content: (
           <Description>
-            Expand the environment card to see all the defined strategies by using the arrow button.
+            Expand the environment card to see all the defined strategies by
+            using the arrow button.
           </Description>
         ),
         optional: true,
       },
       {
         target: `a[data-testid="STRATEGY_EDIT-flexibleRollout"]`,
-        content: <Description>Edit the existing gradual rollout strategy by using the "Edit" button.</Description>,
+        content: (
+          <Description>
+            Edit the existing gradual rollout strategy by using the "Edit"
+            button.
+          </Description>
+        ),
         backCollapseExpanded: true,
       },
       {
         target: 'span[data-testid="ROLLOUT_SLIDER_ID"]',
         content: (
           <>
-            <Description>Change the rollout percentage by adjusting the percentage slider.</Description>
-            <Description sx={{ mt: 1 }}>When you're done, use the "Next" button in the dialog.</Description>
+            <Description>
+              Change the rollout percentage by adjusting the percentage slider.
+            </Description>
+            <Description sx={{ mt: 1 }}>
+              When you're done, use the "Next" button in the dialog.
+            </Description>
           </>
         ),
         backCloseModal: true,
@@ -298,11 +375,17 @@ export const TOPICS: ITutorialTopic[] = [
       },
       {
         target: 'button[data-testid="STRATEGY_FORM_SUBMIT_ID"]',
-        content: <Description>Save and apply your strategy by using this button.</Description>,
+        content: (
+          <Description>
+            Save and apply your strategy by using this button.
+          </Description>
+        ),
       },
       {
         target: 'button[data-testid="DIALOGUE_CONFIRM_ID"]',
-        content: <Description>Confirm your changes by using this button.</Description>,
+        content: (
+          <Description>Confirm your changes by using this button.</Description>
+        ),
         optional: true,
         backCloseModal: true,
       },
@@ -312,7 +395,8 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              Finally, enable or disable the feature with the new variant by toggling the highlighted switch.
+              Finally, enable or disable the feature with the new variant by
+              toggling the highlighted switch.
             </Description>
             <Badge sx={{ mt: 2 }} icon={<InfoOutlinedIcon />}>
               Look at the demo page to see your changes!
@@ -335,13 +419,19 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/strategy-variants' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/strategy-variants'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Strategy variants
               </a>{' '}
-              allow you to define different values for a feature flag. They can be used for A/B testing or segmenting
-              your users.
+              allow you to define different values for a feature flag. They can
+              be used for A/B testing or segmenting your users.
             </Description>
-            <Description sx={{ mt: 1 }}>Let's try adding a variant to a strategy.</Description>
+            <Description sx={{ mt: 1 }}>
+              Let's try adding a variant to a strategy.
+            </Description>
           </>
         ),
         nextButton: true,
@@ -351,7 +441,8 @@ export const TOPICS: ITutorialTopic[] = [
         target: `table a[href="${basePath}/projects/${PROJECT}/features/demoApp.step4"]`,
         content: (
           <Description>
-            First, open the feature flag configuration for <Badge as='span'>demoApp.step4</Badge> by using this link.
+            First, open the feature flag configuration for{' '}
+            <Badge as='span'>demoApp.step4</Badge> by using this link.
           </Description>
         ),
         preventDefault: true,
@@ -359,7 +450,11 @@ export const TOPICS: ITutorialTopic[] = [
       {
         href: `/projects/${PROJECT}/features/demoApp.step4`,
         target: 'button[data-testid="ADD_STRATEGY_BUTTON"]',
-        content: <Description>Add a new strategy to this environment by using this button.</Description>,
+        content: (
+          <Description>
+            Add a new strategy to this environment by using this button.
+          </Description>
+        ),
       },
       {
         target: `a[href="${basePath}/projects/${PROJECT}/features/demoApp.step4/strategies/create?environmentId=${ENVIRONMENT}&strategyName=flexibleRollout&defaultStrategy=true"]`,
@@ -384,16 +479,26 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/strategy-constraints' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/strategy-constraints'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Strategy constraints
               </a>{' '}
               are conditions that must be satisfied for an{' '}
-              <a href='https://docs.getunleash.io/reference/activation-strategies' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/activation-strategies'
+                target='_blank'
+                rel='noreferrer'
+              >
                 activation strategy
               </a>{' '}
               to be evaluated for a feature flag.
             </Description>
-            <Description sx={{ mt: 1 }}>Add a constraint by using this button.</Description>
+            <Description sx={{ mt: 1 }}>
+              Add a constraint by using this button.
+            </Description>
           </>
         ),
         backCloseModal: true,
@@ -403,12 +508,18 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/unleash-context' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/unleash-context'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Unleash context
               </a>{' '}
               contains information relating to the current feature flag request.
             </Description>
-            <Description sx={{ mt: 1 }}>Select the context field by using this dropdown.</Description>
+            <Description sx={{ mt: 1 }}>
+              Select the context field by using this dropdown.
+            </Description>
           </>
         ),
         backCloseModal: true,
@@ -431,11 +542,19 @@ export const TOPICS: ITutorialTopic[] = [
             <Description>
               Enter your <Badge as='span'>userId</Badge>
             </Description>
-            <Badge sx={{ mt: 2, mb: 1, width: '100%' }} icon={<InfoOutlinedIcon />}>
+            <Badge
+              sx={{ mt: 2, mb: 1, width: '100%' }}
+              icon={<InfoOutlinedIcon />}
+            >
               You can find your userId on the demo page.
             </Badge>
-            <StyledImg src={formatAssetPath(demoUserId)} alt='You can find your userId on the demo page.' />
-            <Description sx={{ mt: 1 }}>When you're done, use the "Next" button in the dialog.</Description>
+            <StyledImg
+              src={formatAssetPath(demoUserId)}
+              alt='You can find your userId on the demo page.'
+            />
+            <Description sx={{ mt: 1 }}>
+              When you're done, use the "Next" button in the dialog.
+            </Description>
           </>
         ),
         placement: 'right',
@@ -444,11 +563,17 @@ export const TOPICS: ITutorialTopic[] = [
       },
       {
         target: 'button[data-testid="CONSTRAINT_VALUES_ADD_BUTTON"]',
-        content: <Description>Add the constraint value by using this button.</Description>,
+        content: (
+          <Description>
+            Add the constraint value by using this button.
+          </Description>
+        ),
       },
       {
         target: 'button[data-testid="CONSTRAINT_SAVE_BUTTON"]',
-        content: <Description>Save the constraint by using this button.</Description>,
+        content: (
+          <Description>Save the constraint by using this button.</Description>
+        ),
       },
       {
         target: 'button[data-testid="STRATEGY_VARIANTS_TAB"]',
@@ -466,28 +591,41 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              <a href='https://docs.getunleash.io/reference/strategy-variants' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/strategy-variants'
+                target='_blank'
+                rel='noreferrer'
+              >
                 Strategy variants
               </a>{' '}
               allow to attach one or more values to your{' '}
-              <a href='https://docs.getunleash.io/reference/activation-strategies' target='_blank' rel='noreferrer'>
+              <a
+                href='https://docs.getunleash.io/reference/activation-strategies'
+                target='_blank'
+                rel='noreferrer'
+              >
                 activation strategy
               </a>{' '}
               .
             </Description>
-            <Description sx={{ mt: 1 }}>Add a strategy variant by using this button.</Description>
+            <Description sx={{ mt: 1 }}>
+              Add a strategy variant by using this button.
+            </Description>
           </>
         ),
         backCloseModal: true,
       },
       {
-        target: 'div[data-testid="VARIANT"]:last-of-type div[data-testid="VARIANT_NAME_INPUT"]',
+        target:
+          'div[data-testid="VARIANT"]:last-of-type div[data-testid="VARIANT_NAME_INPUT"]',
         content: (
           <>
             <Description>
               Enter a name for your variant e.g. <Badge as='span'>color</Badge>
             </Description>
-            <Description sx={{ mt: 1 }}>When you're done, use the "Next" button in the dialog.</Description>
+            <Description sx={{ mt: 1 }}>
+              When you're done, use the "Next" button in the dialog.
+            </Description>
           </>
         ),
         nextButton: true,
@@ -495,21 +633,30 @@ export const TOPICS: ITutorialTopic[] = [
         backCloseModal: true,
       },
       {
-        target: 'div[data-testid="VARIANT"]:last-of-type #variant-payload-value',
+        target:
+          'div[data-testid="VARIANT"]:last-of-type #variant-payload-value',
         content: (
           <>
             <Description>
               Enter a{' '}
-              <a href='https://developer.mozilla.org/en-US/docs/Web/CSS/named-color' target='_blank' rel='noreferrer'>
+              <a
+                href='https://developer.mozilla.org/en-US/docs/Web/CSS/named-color'
+                target='_blank'
+                rel='noreferrer'
+              >
                 color
               </a>{' '}
-              as the payload. It will be passed along and used in the demo website.
+              as the payload. It will be passed along and used in the demo
+              website.
             </Description>
             <Description sx={{ mt: 1 }}>
-              It can be any color. For example, you can use one of these: <Badge as='span'>teal</Badge>,{' '}
-              <Badge as='span'>orange</Badge> or <Badge as='span'>purple</Badge>
+              It can be any color. For example, you can use one of these:{' '}
+              <Badge as='span'>teal</Badge>, <Badge as='span'>orange</Badge> or{' '}
+              <Badge as='span'>purple</Badge>
             </Description>
-            <Description sx={{ mt: 1 }}>When you're done, use the "Next" button in the dialog.</Description>
+            <Description sx={{ mt: 1 }}>
+              When you're done, use the "Next" button in the dialog.
+            </Description>
           </>
         ),
         nextButton: true,
@@ -517,7 +664,11 @@ export const TOPICS: ITutorialTopic[] = [
       },
       {
         target: 'button[data-testid="STRATEGY_FORM_SUBMIT_ID"]',
-        content: <Description>Save and apply your strategy by using this button.</Description>,
+        content: (
+          <Description>
+            Save and apply your strategy by using this button.
+          </Description>
+        ),
         backCloseModal: true,
       },
       {
@@ -526,7 +677,8 @@ export const TOPICS: ITutorialTopic[] = [
         content: (
           <>
             <Description>
-              Finally, enable or disable the feature with the new variant by toggling the highlighted switch.
+              Finally, enable or disable the feature with the new variant by
+              toggling the highlighted switch.
             </Description>
             <Badge sx={{ mt: 2 }} icon={<InfoOutlinedIcon />}>
               Look at the demo page to see your changes!

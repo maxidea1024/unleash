@@ -13,8 +13,13 @@ interface IBillingInformationButtonProps {
   update?: boolean;
 }
 
-export const BillingInformationButton: VFC<IBillingInformationButtonProps> = ({ update }) => (
-  <StyledButton href={`${PORTAL_URL}/${update ? 'portal' : 'checkout'}`} variant={update ? 'outlined' : 'contained'}>
+export const BillingInformationButton: VFC<IBillingInformationButtonProps> = ({
+  update,
+}) => (
+  <StyledButton
+    href={`${PORTAL_URL}/${update ? 'portal' : 'checkout'}`}
+    variant={update ? 'outlined' : 'contained'}
+  >
     {update ? 'Update billing information' : 'Add billing information'}
   </StyledButton>
 );

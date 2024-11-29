@@ -55,7 +55,11 @@ const Distribution = ({ stale = 0, potentiallyStale = 0, total = 0 }) => {
         ]}
         size='small'
       />
-      <Typography variant='body2' component='p' sx={(theme) => ({ marginTop: theme.spacing(0.5) })}>
+      <Typography
+        variant='body2'
+        component='p'
+        sx={(theme) => ({ marginTop: theme.spacing(0.5) })}
+      >
         <Typography
           component='span'
           sx={(theme) => ({
@@ -92,7 +96,9 @@ const Distribution = ({ stale = 0, potentiallyStale = 0, total = 0 }) => {
   );
 };
 
-export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({ tooltip }) => {
+export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({
+  tooltip,
+}) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,
@@ -114,7 +120,10 @@ export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({ tooltip })
       })}
     >
       {limitedData?.map((point, index) => (
-        <StyledTooltipItemContainer elevation={3} key={`${point.title}-${index}`}>
+        <StyledTooltipItemContainer
+          elevation={3}
+          key={`${point.title}-${index}`}
+        >
           <StyledItemHeader>
             <Typography variant='body2' color='textSecondary' component='span'>
               {point.label}
@@ -130,7 +139,9 @@ export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({ tooltip })
               </Typography>
               <strong>{point.title}</strong>
             </Typography>
-            <Badge color={getHealthBadgeColor(point.value.health)}>{point.value.health}%</Badge>
+            <Badge color={getHealthBadgeColor(point.value.health)}>
+              {point.value.health}%
+            </Badge>
           </StyledItemHeader>{' '}
           <Divider sx={(theme) => ({ margin: theme.spacing(1.5, 0) })} />
           <Typography
@@ -143,7 +154,9 @@ export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({ tooltip })
             Total flags: {point.value.total}
           </Typography>
           <ConditionallyRender
-            condition={Boolean(point.value.stale || point.value.potentiallyStale)}
+            condition={Boolean(
+              point.value.stale || point.value.potentiallyStale,
+            )}
             show={<Distribution {...point.value} />}
           />
         </StyledTooltipItemContainer>

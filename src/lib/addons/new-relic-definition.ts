@@ -93,7 +93,8 @@ const newRelicDefinition: IAddonDefinition = {
   tagTypes: [
     {
       name: 'new-relic',
-      description: 'All New Relic tags added to a specific feature are sent to New Relic Event API.',
+      description:
+        'All New Relic tags added to a specific feature are sent to New Relic Event API.',
       icon: 'D',
     },
   ],

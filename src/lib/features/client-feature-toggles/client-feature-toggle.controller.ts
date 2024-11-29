@@ -3,7 +3,12 @@ import type { Response } from 'express';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import hashSum from 'hash-sum';
 import Controller from '../../routes/controller';
-import type { IClientSegment, IFlagResolver, IUnleashConfig, IUnleashServices } from '../../types';
+import type {
+  IClientSegment,
+  IFlagResolver,
+  IUnleashConfig,
+  IUnleashServices,
+} from '../../types';
 import type FeatureToggleService from '../feature-toggle/feature-toggle-service';
 import type { Logger } from '../../logger';
 import { querySchema } from '../../schema/feature-schema';
@@ -18,8 +23,14 @@ import type { OpenApiService } from '../../services/openapi-service';
 import { NONE } from '../../types/permissions';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { ClientFeaturesQuerySchema } from '../../openapi/spec/client-features-query-schema';
-import { clientFeatureSchema, type ClientFeatureSchema } from '../../openapi/spec/client-feature-schema';
-import { clientFeaturesSchema, type ClientFeaturesSchema } from '../../openapi/spec/client-features-schema';
+import {
+  clientFeatureSchema,
+  type ClientFeatureSchema,
+} from '../../openapi/spec/client-feature-schema';
+import {
+  clientFeaturesSchema,
+  type ClientFeaturesSchema,
+} from '../../openapi/spec/client-features-schema';
 import type ConfigurationRevisionService from '../feature-toggle/configuration-revision-service';
 import type { ClientFeatureToggleService } from './client-feature-toggle-service';
 
@@ -120,7 +131,8 @@ export default class FeatureController extends Controller {
     if (clientFeatureCaching.enabled) {
       this.featuresAndSegments = memoizee(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (query: IFeatureToggleQuery, etag: string) => this.resolveFeaturesAndSegments(query),
+        (query: IFeatureToggleQuery, etag: string) =>
+          this.resolveFeaturesAndSegments(query),
         {
           promise: true,
           maxAge: clientFeatureCaching.maxAge,
@@ -157,7 +169,8 @@ export default class FeatureController extends Controller {
       }
     }
 
-    const inlineSegmentConstraints = !this.clientSpecService.requestSupportsSpec(req, 'segments');
+    const inlineSegmentConstraints =
+      !this.clientSpecService.requestSupportsSpec(req, 'segments');
 
     return this.prepQuery({
       ...query,
@@ -181,7 +194,13 @@ export default class FeatureController extends Controller {
     environment,
     inlineSegmentConstraints,
   }: IFeatureToggleQuery): Promise<IFeatureToggleQuery> {
-    if (!tag && !project && !namePrefix && !environment && !inlineSegmentConstraints) {
+    if (
+      !tag &&
+      !project &&
+      !namePrefix &&
+      !environment &&
+      !inlineSegmentConstraints
+    ) {
       return {};
     }
 
@@ -202,7 +221,10 @@ export default class FeatureController extends Controller {
     return query;
   }
 
-  async getAll(req: IAuthRequest, res: Response<ClientFeaturesSchema>): Promise<void> {
+  async getAll(
+    req: IAuthRequest,
+    res: Response<ClientFeaturesSchema>,
+  ): Promise<void> {
     const query = await this.resolveQuery(req);
 
     const userVersion = req.headers['if-none-match'];
@@ -217,28 +239,41 @@ export default class FeatureController extends Controller {
       res.end();
       return;
     } else {
-      this.logger.debug(`Provided revision: ${userVersion}, calculated revision: ${etag}`);
+      this.logger.debug(
+        `Provided revision: ${userVersion}, calculated revision: ${etag}`,
+      );
     }
 
     // TODO: 아래 조건에서 분기를 하게 되므로, features만 가져오는걸 별도로 만들어주자.
     const [features, segments] = await this.featuresAndSegments(query, etag);
 
     if (this.clientSpecService.requestSupportsSpec(req, 'segments')) {
-      this.openApiService.respondWithValidation(200, res, clientFeaturesSchema.$id, {
-        version,
-        features,
-        query: { ...query },
-        segments,
-        meta,
-      });
+      this.openApiService.respondWithValidation(
+        200,
+        res,
+        clientFeaturesSchema.$id,
+        {
+          version,
+          features,
+          query: { ...query },
+          segments,
+          meta,
+        },
+      );
     } else {
-      this.openApiService.respondWithValidation(200, res, clientFeaturesSchema.$id, { version, features, query, meta });
+      this.openApiService.respondWithValidation(
+        200,
+        res,
+        clientFeaturesSchema.$id,
+        { version, features, query, meta },
+      );
     }
   }
 
   async calculateMeta(query: IFeatureToggleQuery): Promise<IMeta> {
     // TODO: We will need to standardize this to be able to implement this a cross languages (Edge in Rust?).
-    const revisionId = await this.configurationRevisionService.getMaxRevisionId();
+    const revisionId =
+      await this.configurationRevisionService.getMaxRevisionId();
 
     // TODO: We will need to standardize this to be able to implement this a cross languages (Edge in Rust?).
     const queryHash = hashSum(query);
@@ -260,8 +295,13 @@ export default class FeatureController extends Controller {
     if (!toggle) {
       throw new NotFoundError(`Could not find feature flag ${name}`);
     }
-    this.openApiService.respondWithValidation(200, res, clientFeatureSchema.$id, {
-      ...toggle,
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      clientFeatureSchema.$id,
+      {
+        ...toggle,
+      },
+    );
   }
 }

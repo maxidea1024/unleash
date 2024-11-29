@@ -1,6 +1,11 @@
 import type { ChangeRequestStrategy } from '../change-request-segment-usage-service/change-request-segment-usage-read-model';
 import type { UpsertSegmentSchema } from '../../openapi';
-import type { IAuditUser, IFeatureStrategy, ISegment, IUser } from '../../types';
+import type {
+  IAuditUser,
+  IFeatureStrategy,
+  ISegment,
+  IUser,
+} from '../../types';
 
 export type StrategiesUsingSegment = {
   strategies: IFeatureStrategy[];
@@ -8,7 +13,10 @@ export type StrategiesUsingSegment = {
 };
 
 export interface ISegmentService {
-  updateStrategySegments: (strategyId: string, segmentIds: number[]) => Promise<void>;
+  updateStrategySegments: (
+    strategyId: string,
+    segmentIds: number[],
+  ) => Promise<void>;
 
   addToStrategy(id: number, strategyId: string): Promise<void>;
 
@@ -23,7 +31,10 @@ export interface ISegmentService {
    */
   getAllStrategies(id: number): Promise<StrategiesUsingSegment>;
 
-  getVisibleStrategies(id: number, userId: number): Promise<StrategiesUsingSegment>;
+  getVisibleStrategies(
+    id: number,
+    userId: number,
+  ): Promise<StrategiesUsingSegment>;
 
   validateName(name: string): Promise<void>;
 
@@ -38,7 +49,11 @@ export interface ISegmentService {
     auditUser: IAuditUser,
   ): Promise<void>;
 
-  unprotectedUpdate(id: number, data: UpsertSegmentSchema, auditUser: IAuditUser): Promise<void>;
+  unprotectedUpdate(
+    id: number,
+    data: UpsertSegmentSchema,
+    auditUser: IAuditUser,
+  ): Promise<void>;
 
   delete(id: number, user: IUser, auditUser: IAuditUser): Promise<void>;
 
@@ -46,7 +61,10 @@ export interface ISegmentService {
 
   removeFromStrategy(id: number, strategyId: string): Promise<void>;
 
-  cloneStrategySegments(sourceStrategyId: string, targetStrategyId: string): Promise<void>;
+  cloneStrategySegments(
+    sourceStrategyId: string,
+    targetStrategyId: string,
+  ): Promise<void>;
 
   isInUse(id: number): Promise<boolean>;
 }

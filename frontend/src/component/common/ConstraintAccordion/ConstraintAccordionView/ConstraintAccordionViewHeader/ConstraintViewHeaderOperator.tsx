@@ -28,7 +28,10 @@ const StyledHeaderConstraintContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-export const ConstraintViewHeaderOperator = ({ constraint, disabled = false }: ConstraintViewHeaderOperatorProps) => {
+export const ConstraintViewHeaderOperator = ({
+  constraint,
+  disabled = false,
+}: ConstraintViewHeaderOperatorProps) => {
   const theme = useTheme();
   return (
     <StyledHeaderValuesContainerWrapper>
@@ -45,10 +48,17 @@ export const ConstraintViewHeaderOperator = ({ constraint, disabled = false }: C
         }
       />
       <StyledHeaderConstraintContainer>
-        <ConstraintOperator constraint={constraint} hasPrefix={Boolean(constraint.inverted)} disabled={disabled} />
+        <ConstraintOperator
+          constraint={constraint}
+          hasPrefix={Boolean(constraint.inverted)}
+          disabled={disabled}
+        />
       </StyledHeaderConstraintContainer>
       <ConditionallyRender
-        condition={!constraint.caseInsensitive && oneOf(stringOperators, constraint.operator)}
+        condition={
+          !constraint.caseInsensitive &&
+          oneOf(stringOperators, constraint.operator)
+        }
         show={
           <Tooltip title='Case sensitive is active' arrow>
             <StyledIconWrapper>

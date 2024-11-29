@@ -1,4 +1,6 @@
-export const allSettledWithRejection = (promises: Promise<any>[]): Promise<any[]> =>
+export const allSettledWithRejection = (
+  promises: Promise<any>[],
+): Promise<any[]> =>
   new Promise((resolve, reject) => {
     Promise.allSettled(promises).then((results) => {
       for (const result of results) {

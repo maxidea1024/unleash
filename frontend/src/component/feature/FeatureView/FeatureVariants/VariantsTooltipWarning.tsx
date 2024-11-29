@@ -13,8 +13,8 @@ const VariantsWarningTooltip = () => {
       arrow
       title={
         <>
-          This environment has no variants enabled. If you check this feature's variants in this environment, you will
-          get the{' '}
+          This environment has no variants enabled. If you check this feature's
+          variants in this environment, you will get the{' '}
           <a
             href='https://docs.getunleash.io/reference/feature-toggle-variants#the-disabled-variant'
             target='_blank'

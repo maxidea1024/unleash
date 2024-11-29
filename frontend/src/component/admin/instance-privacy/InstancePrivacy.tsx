@@ -42,7 +42,8 @@ const featureCollectionDetails = {
     'Context Fields': 'The number of custom context fields in use',
     Groups: 'The number of groups present in your instance',
     Roles: 'The number of custom roles defined in your instance',
-    'Custom Root Roles': 'The number of custom root roles defined in your instance',
+    'Custom Root Roles':
+      'The number of custom root roles defined in your instance',
     'Custom Root Roles In Use':
       'The number of custom root roles that are in use by entities (users, groups, service accounts)',
     Environments: 'The number of environments in your instance',
@@ -50,35 +51,40 @@ const featureCollectionDetails = {
     Strategies: 'The number of strategies defined in your instance',
     'Feature Exports': 'The number of feature exports performed',
     'Feature Imports': 'The number of feature imports performed',
-    'Custom Strategies': 'The number of custom strategies defined in your instance',
-    'Custom Strategies In Use': 'The number of custom strategies that are in use by feature flags',
+    'Custom Strategies':
+      'The number of custom strategies defined in your instance',
+    'Custom Strategies In Use':
+      'The number of custom strategies that are in use by feature flags',
   },
 };
 
-const versionCollectionActivenessManagementTexts: IFeatureActivenessManagementInfo = {
-  enabled: {
-    environmentVariables: 'CHECK_VERSION=false',
-    changeInfoText:
-      'Version info collection can be disabled by setting the environment variable `CHECK_VERSION` to `false` and restarting Unleash.',
-  },
-  disabled: {
-    environmentVariables: 'CHECK_VERSION=true',
-    changeInfoText:
-      'Version info collection can be enabled by setting the environment variable to true and restarting Unleash.',
-  },
-};
+const versionCollectionActivenessManagementTexts: IFeatureActivenessManagementInfo =
+  {
+    enabled: {
+      environmentVariables: 'CHECK_VERSION=false',
+      changeInfoText:
+        'Version info collection can be disabled by setting the environment variable `CHECK_VERSION` to `false` and restarting Unleash.',
+    },
+    disabled: {
+      environmentVariables: 'CHECK_VERSION=true',
+      changeInfoText:
+        'Version info collection can be enabled by setting the environment variable to true and restarting Unleash.',
+    },
+  };
 
-const featureCollectionActivenessManagementTexts: IFeatureActivenessManagementInfo = {
-  enabled: {
-    environmentVariables: 'SEND_TELEMETRY=false',
-    changeInfoText:
-      'Feature usage collection can be disabled by setting the environment variable to false and restarting Unleash.',
-  },
-  disabled: {
-    environmentVariables: 'SEND_TELEMETRY=true',
-    changeInfoText: 'To enable feature usage collection set the environment variable to true and restart Unleash.',
-  },
-};
+const featureCollectionActivenessManagementTexts: IFeatureActivenessManagementInfo =
+  {
+    enabled: {
+      environmentVariables: 'SEND_TELEMETRY=false',
+      changeInfoText:
+        'Feature usage collection can be disabled by setting the environment variable to false and restarting Unleash.',
+    },
+    disabled: {
+      environmentVariables: 'SEND_TELEMETRY=true',
+      changeInfoText:
+        'To enable feature usage collection set the environment variable to true and restart Unleash.',
+    },
+  };
 
 export const InstancePrivacy = () => {
   const { settings } = useTelemetry();
@@ -117,7 +123,10 @@ export const InstancePrivacy = () => {
           title={featureCollectionDetails.title}
           infoText={featureCollectionDetails.infoText}
           concreteDetails={featureCollectionDetails.concreteDetails}
-          enabled={settings?.featureInfoCollectionEnabled && settings?.versionInfoCollectionEnabled}
+          enabled={
+            settings?.featureInfoCollectionEnabled &&
+            settings?.versionInfoCollectionEnabled
+          }
           changeInfoText={featureActivenessInfo.changeInfoText}
           variablesText={featureActivenessInfo.environmentVariables}
           dependsOnText={dependsOnFeatureCollection}

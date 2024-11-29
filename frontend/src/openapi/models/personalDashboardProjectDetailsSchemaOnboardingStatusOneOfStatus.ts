@@ -8,7 +8,8 @@ export type PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus =
   (typeof PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus)[keyof typeof PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
-export const PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus = {
-  'onboarding-started': 'onboarding-started',
-  onboarded: 'onboarded',
-} as const;
+export const PersonalDashboardProjectDetailsSchemaOnboardingStatusOneOfStatus =
+  {
+    'onboarding-started': 'onboarding-started',
+    onboarded: 'onboarded',
+  } as const;

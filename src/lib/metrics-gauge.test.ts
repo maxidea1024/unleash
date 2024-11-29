@@ -95,10 +95,18 @@ test('should support different label and value pairs', async () => {
   expect(metrics).toMatch(
     /multi_dimensional\{version="1",range="linear"\} 2\nmulti_dimensional\{version="2",range="square"\} 4\nmulti_dimensional\{version="3",range="half"\} 1/,
   );
-  expect(await dbMetrics.findValue('multi_dimensional', { range: 'linear' })).toBe(2);
-  expect(await dbMetrics.findValue('multi_dimensional', { range: 'half' })).toBe(1);
-  expect(await dbMetrics.findValue('multi_dimensional', { range: 'square' })).toBe(4);
-  expect(await dbMetrics.findValue('multi_dimensional', { range: 'x' })).toBeUndefined();
+  expect(
+    await dbMetrics.findValue('multi_dimensional', { range: 'linear' }),
+  ).toBe(2);
+  expect(
+    await dbMetrics.findValue('multi_dimensional', { range: 'half' }),
+  ).toBe(1);
+  expect(
+    await dbMetrics.findValue('multi_dimensional', { range: 'square' }),
+  ).toBe(4);
+  expect(
+    await dbMetrics.findValue('multi_dimensional', { range: 'x' }),
+  ).toBeUndefined();
   expect(await dbMetrics.findValue('multi_dimensional')).toBe(2); // first match
   expect(await dbMetrics.findValue('other')).toBeUndefined();
 });

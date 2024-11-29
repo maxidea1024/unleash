@@ -13,7 +13,12 @@ const TestComponent: FC<{ constraints: IConstraint[] }> = ({ constraints }) => {
 };
 
 test('should display Valid when constraints are valid', async () => {
-  testServerRoute(server, '/api/admin/constraints/validate', { data: 'OK' }, 'post');
+  testServerRoute(
+    server,
+    '/api/admin/constraints/validate',
+    { data: 'OK' },
+    'post',
+  );
 
   const validConstraints: IConstraint[] = [
     {

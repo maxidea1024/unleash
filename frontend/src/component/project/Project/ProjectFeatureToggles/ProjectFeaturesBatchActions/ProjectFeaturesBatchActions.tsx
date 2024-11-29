@@ -19,19 +19,18 @@ interface IProjectFeaturesBatchActionsProps {
   onChange?: () => void;
 }
 
-export const ProjectFeaturesBatchActions: FC<IProjectFeaturesBatchActionsProps> = ({
-  selectedIds,
-  data,
-  projectId,
-  onResetSelection,
-  onChange,
-}) => {
+export const ProjectFeaturesBatchActions: FC<
+  IProjectFeaturesBatchActionsProps
+> = ({ selectedIds, data, projectId, onResetSelection, onChange }) => {
   const { uiConfig } = useUiConfig();
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showBulkEnableDialog, setShowBulkEnableDialog] = useState(false);
   const [showBulkDisableDialog, setShowBulkDisableDialog] = useState(false);
   const { trackEvent } = usePlausibleTracker();
-  const selectedData = useMemo(() => data.filter((d) => selectedIds.includes(d.name)), [data, selectedIds]);
+  const selectedData = useMemo(
+    () => data.filter((d) => selectedIds.includes(d.name)),
+    [data, selectedIds],
+  );
 
   const environments = useMemo(() => {
     const envs = selectedData
@@ -77,7 +76,11 @@ export const ProjectFeaturesBatchActions: FC<IProjectFeaturesBatchActionsProps> 
         condition={Boolean(uiConfig?.flags?.disableBulkToggle)}
         show={null}
         elseShow={
-          <Button variant='outlined' size='small' onClick={() => setShowBulkEnableDialog(true)}>
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setShowBulkEnableDialog(true)}
+          >
             Enable
           </Button>
         }
@@ -86,17 +89,38 @@ export const ProjectFeaturesBatchActions: FC<IProjectFeaturesBatchActionsProps> 
         condition={Boolean(uiConfig?.flags?.disableBulkToggle)}
         show={null}
         elseShow={
-          <Button variant='outlined' size='small' onClick={() => setShowBulkDisableDialog(true)}>
+          <Button
+            variant='outlined'
+            size='small'
+            onClick={() => setShowBulkDisableDialog(true)}
+          >
             Disable
           </Button>
         }
       />
-      <ArchiveButton projectId={projectId} featureIds={selectedIds} features={data} onConfirm={confirmArchive} />
-      <Button variant='outlined' size='small' onClick={() => setShowExportDialog(true)}>
+      <ArchiveButton
+        projectId={projectId}
+        featureIds={selectedIds}
+        features={data}
+        onConfirm={confirmArchive}
+      />
+      <Button
+        variant='outlined'
+        size='small'
+        onClick={() => setShowExportDialog(true)}
+      >
         Export
       </Button>
-      <ManageTags projectId={projectId} data={selectedData} onChange={onChange} />
-      <MoreActions projectId={projectId} data={selectedData} onChange={onChange} />
+      <ManageTags
+        projectId={projectId}
+        data={selectedData}
+        onChange={onChange}
+      />
+      <MoreActions
+        projectId={projectId}
+        data={selectedData}
+        onChange={onChange}
+      />
       <ExportDialog
         showExportDialog={showExportDialog}
         data={selectedData}

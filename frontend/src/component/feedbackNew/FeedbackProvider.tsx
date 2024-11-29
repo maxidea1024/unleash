@@ -1,15 +1,25 @@
 import { FeedbackComponentWrapper } from './FeedbackComponent';
-import { FeedbackContext, type FeedbackData, type FeedbackMode } from './FeedbackContext';
+import {
+  FeedbackContext,
+  type FeedbackData,
+  type FeedbackMode,
+} from './FeedbackContext';
 import { type FC, useState } from 'react';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-export const FeedbackProvider: FC<{ children?: React.ReactNode }> = ({ children }) => {
+export const FeedbackProvider: FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   const [feedbackData, setFeedbackData] = useState<FeedbackData | undefined>();
   const { trackEvent } = usePlausibleTracker();
 
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedbackMode, setFeedbackMode] = useState<FeedbackMode | undefined>();
-  const openFeedback = (data: FeedbackData, mode: FeedbackMode, variant: string = '') => {
+  const openFeedback = (
+    data: FeedbackData,
+    mode: FeedbackMode,
+    variant: string = '',
+  ) => {
     setFeedbackData(data);
     setShowFeedback(true);
     setFeedbackMode(mode);

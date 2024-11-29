@@ -1,4 +1,7 @@
-import type { IStrategy, IFeatureStrategyParameters } from 'interfaces/strategy';
+import type {
+  IStrategy,
+  IFeatureStrategyParameters,
+} from 'interfaces/strategy';
 import { styled } from '@mui/system';
 import { StrategyParameter } from 'component/feature/StrategyTypes/StrategyParameter/StrategyParameter';
 import type { IFormErrors } from 'hooks/useFormErrors';

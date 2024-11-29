@@ -26,9 +26,13 @@ export const SdkConnected: FC<ISdkConnectedProps> = ({ sdk }) => {
   const frontendApiUrl = `${uiConfig.unleashUrl}/api/frontend/`;
   const apiUrl = sdk.type === 'client' ? clientApiUrl : frontendApiUrl;
 
-  const snippet = (codeRenderSnippets[sdk.name] || '').replaceAll('<YOUR_API_URL>', apiUrl);
+  const snippet = (codeRenderSnippets[sdk.name] || '').replaceAll(
+    '<YOUR_API_URL>',
+    apiUrl,
+  );
 
-  const [_connectSnippet, productionSnippet, otherResourcesSnippet] = snippet.split('---\n');
+  const [_connectSnippet, productionSnippet, otherResourcesSnippet] =
+    snippet.split('---\n');
 
   return (
     <SpacedContainer>
@@ -41,19 +45,25 @@ export const SdkConnected: FC<ISdkConnectedProps> = ({ sdk }) => {
         <Box sx={{ mt: 2 }}>
           <SectionHeader>Production settings</SectionHeader>
           <Typography variant='body2'>
-            You have successfully connected your SDK. In the previous code example, the settings were optimized for
-            development. We recommend the following setup for production.
+            You have successfully connected your SDK. In the previous code
+            example, the settings were optimized for development. We recommend
+            the following setup for production.
           </Typography>
-          <Markdown components={{ code: CodeRenderer }}>{productionSnippet}</Markdown>
+          <Markdown components={{ code: CodeRenderer }}>
+            {productionSnippet}
+          </Markdown>
         </Box>
       ) : null}
       {otherResourcesSnippet?.trim() ? (
         <Box>
           <SectionHeader>Additional resources</SectionHeader>
           <Typography variant='body2'>
-            Now that we’ve validated the connection, you might want to look into more advanced use cases and examples:
+            Now that we’ve validated the connection, you might want to look into
+            more advanced use cases and examples:
           </Typography>
-          <Markdown components={{ code: CodeRenderer }}>{otherResourcesSnippet}</Markdown>
+          <Markdown components={{ code: CodeRenderer }}>
+            {otherResourcesSnippet}
+          </Markdown>
         </Box>
       ) : null}
     </SpacedContainer>

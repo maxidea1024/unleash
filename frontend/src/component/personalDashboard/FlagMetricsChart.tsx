@@ -1,4 +1,12 @@
-import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js';
+import {
+  BarElement,
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  Title,
+  Tooltip,
+} from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { Bar } from 'react-chartjs-2';
 import useTheme from '@mui/material/styles/useTheme';
@@ -10,7 +18,10 @@ import { useFeatureMetricsRaw } from 'hooks/api/getters/useFeatureMetricsRaw/use
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { createChartData } from './createChartData';
 import { aggregateFeatureMetrics } from '../feature/FeatureView/FeatureMetrics/aggregateFeatureMetrics';
-import { createBarChartOptions, createPlaceholderBarChartOptions } from './createChartOptions';
+import {
+  createBarChartOptions,
+  createPlaceholderBarChartOptions,
+} from './createChartOptions';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { FlagExposure } from 'component/feature/FeatureView/FeatureOverview/FeatureLifecycle/FlagExposure';
 
@@ -33,7 +44,9 @@ const ChartWrapper = styled('div')({
   flexGrow: 1,
 });
 
-const PlaceholderFlagMetricsChart: React.FC<{ label: string }> = ({ label }) => {
+const PlaceholderFlagMetricsChart: React.FC<{ label: string }> = ({
+  label,
+}) => {
   const theme = useTheme();
 
   const options = useMemo(() => {
@@ -88,7 +101,9 @@ const useMetricsEnvironments = (project: string, flagName: string) => {
     name: env.name,
     type: env.type,
   }));
-  const firstProductionEnvironment = activeEnvironments.find((env) => env.type === 'production');
+  const firstProductionEnvironment = activeEnvironments.find(
+    (env) => env.type === 'production',
+  );
 
   useEffect(() => {
     if (firstProductionEnvironment) {
@@ -101,8 +116,16 @@ const useMetricsEnvironments = (project: string, flagName: string) => {
   return { environment, setEnvironment, activeEnvironments };
 };
 
-const useFlagMetrics = (flagName: string, environment: string | null, hoursBack: number) => {
-  const { featureMetrics: metrics = [], loading, error } = useFeatureMetricsRaw(flagName, hoursBack);
+const useFlagMetrics = (
+  flagName: string,
+  environment: string | null,
+  hoursBack: number,
+) => {
+  const {
+    featureMetrics: metrics = [],
+    loading,
+    error,
+  } = useFeatureMetricsRaw(flagName, hoursBack);
 
   const sortedMetrics = useMemo(() => {
     return [...metrics].sort((metricA, metricB) => {
@@ -110,12 +133,12 @@ const useFlagMetrics = (flagName: string, environment: string | null, hoursBack:
     });
   }, [metrics]);
   const filteredMetrics = useMemo(() => {
-    return aggregateFeatureMetrics(sortedMetrics?.filter((metric) => environment === metric.environment)).map(
-      (metric) => ({
-        ...metric,
-        appName: 'all selected',
-      }),
-    );
+    return aggregateFeatureMetrics(
+      sortedMetrics?.filter((metric) => environment === metric.environment),
+    ).map((metric) => ({
+      ...metric,
+      appName: 'all selected',
+    }));
   }, [sortedMetrics, environment]);
 
   const data = useMemo(() => {
@@ -196,9 +219,15 @@ export const FlagMetricsChart: FC<{
 }> = ({ flag, onArchive }) => {
   const [hoursBack, setHoursBack] = useState(48);
 
-  const { environment, setEnvironment, activeEnvironments } = useMetricsEnvironments(flag.project, flag.name);
+  const { environment, setEnvironment, activeEnvironments } =
+    useMetricsEnvironments(flag.project, flag.name);
 
-  const { data, options, loading, error: metricsError } = useFlagMetrics(flag.name, environment, hoursBack);
+  const {
+    data,
+    options,
+    loading,
+    error: metricsError,
+  } = useFlagMetrics(flag.name, environment, hoursBack);
 
   if (metricsError) {
     return (
@@ -215,7 +244,11 @@ export const FlagMetricsChart: FC<{
   return (
     <ChartContainer>
       <ExposureAndMetricsRow>
-        <StyledExposure project={flag.project} flagName={flag.name} onArchive={onArchive} />
+        <StyledExposure
+          project={flag.project}
+          flagName={flag.name}
+          onArchive={onArchive}
+        />
         <MetricsSelectors>
           {environment ? (
             <EnvironmentSelect
@@ -224,7 +257,10 @@ export const FlagMetricsChart: FC<{
               activeEnvironments={activeEnvironments}
             />
           ) : null}
-          <FeatureMetricsHours hoursBack={hoursBack} setHoursBack={setHoursBack} />
+          <FeatureMetricsHours
+            hoursBack={hoursBack}
+            setHoursBack={setHoursBack}
+          />
         </MetricsSelectors>
       </ExposureAndMetricsRow>
 
@@ -234,11 +270,23 @@ export const FlagMetricsChart: FC<{
         <PlaceholderFlagMetricsChart label='No metrics for this feature flag in the selected environment and time period' />
       ) : (
         <ChartWrapper>
-          <Bar data={data} options={options} aria-label='A bar chart with a single feature flag exposure metrics' />
+          <Bar
+            data={data}
+            options={options}
+            aria-label='A bar chart with a single feature flag exposure metrics'
+          />
         </ChartWrapper>
       )}
     </ChartContainer>
   );
 };
 
-ChartJS.register(annotationPlugin, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(
+  annotationPlugin,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+);

@@ -19,7 +19,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import WatchLaterIcon from '@mui/icons-material/WatchLater';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
-import { CREATE_FEATURE, DELETE_FEATURE, UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
+import {
+  CREATE_FEATURE,
+  DELETE_FEATURE,
+  UPDATE_FEATURE,
+} from 'component/providers/AccessProvider/permissions';
 import { defaultBorderRadius } from 'themes/themeStyles';
 import copy from 'copy-to-clipboard';
 import useToast from 'hooks/useToast';
@@ -42,7 +46,12 @@ interface IActionsCellProps {
   onOpenStaleDialog: (props: { featureId: string; stale: boolean }) => void;
 }
 
-export const ActionsCell: VFC<IActionsCellProps> = ({ projectId, row, onOpenArchiveDialog, onOpenStaleDialog }) => {
+export const ActionsCell: VFC<IActionsCellProps> = ({
+  projectId,
+  row,
+  onOpenArchiveDialog,
+  onOpenStaleDialog,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isFeatureNameCopied, setIsFeatureNameCopied] = useState(false);
   const { setToastData } = useToast();
@@ -109,9 +118,13 @@ export const ActionsCell: VFC<IActionsCellProps> = ({ projectId, row, onOpenArch
       >
         <MenuList aria-labelledby={id}>
           <MenuItem sx={defaultBorderRadius} onClick={handleCopyToClipboard}>
-            <ListItemIcon>{isFeatureNameCopied ? <CheckIcon /> : <FileCopyIcon />}</ListItemIcon>
+            <ListItemIcon>
+              {isFeatureNameCopied ? <CheckIcon /> : <FileCopyIcon />}
+            </ListItemIcon>
             <ListItemText>
-              <Typography variant='body2'>{isFeatureNameCopied ? 'Copied!' : 'Copy Name'}</Typography>
+              <Typography variant='body2'>
+                {isFeatureNameCopied ? 'Copied!' : 'Copy Name'}
+              </Typography>
             </ListItemText>
           </MenuItem>
           <PermissionHOC projectId={projectId} permission={CREATE_FEATURE}>
@@ -168,7 +181,9 @@ export const ActionsCell: VFC<IActionsCellProps> = ({ projectId, row, onOpenArch
                   <WatchLaterIcon />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant='body2'>{stale ? 'Un-mark' : 'Mark'} as stale</Typography>
+                  <Typography variant='body2'>
+                    {stale ? 'Un-mark' : 'Mark'} as stale
+                  </Typography>
                 </ListItemText>
               </MenuItem>
             )}

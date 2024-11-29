@@ -11,9 +11,16 @@ interface ISegmentDeleteProps {
   onRemove: () => void;
 }
 
-export const SegmentDelete = ({ segment, open, onClose, onRemove }: ISegmentDeleteProps) => {
-  const { strategies, changeRequestStrategies, loading } = useStrategiesBySegment(segment.id);
-  const canDeleteSegment = strategies?.length === 0 && changeRequestStrategies?.length === 0;
+export const SegmentDelete = ({
+  segment,
+  open,
+  onClose,
+  onRemove,
+}: ISegmentDeleteProps) => {
+  const { strategies, changeRequestStrategies, loading } =
+    useStrategiesBySegment(segment.id);
+  const canDeleteSegment =
+    strategies?.length === 0 && changeRequestStrategies?.length === 0;
   if (loading) {
     return null;
   }
@@ -21,7 +28,14 @@ export const SegmentDelete = ({ segment, open, onClose, onRemove }: ISegmentDele
   return (
     <ConditionallyRender
       condition={canDeleteSegment}
-      show={<SegmentDeleteConfirm segment={segment} open={open} onClose={onClose} onRemove={onRemove} />}
+      show={
+        <SegmentDeleteConfirm
+          segment={segment}
+          open={open}
+          onClose={onClose}
+          onRemove={onRemove}
+        />
+      }
       elseShow={
         <SegmentDeleteUsedSegment
           segment={segment}

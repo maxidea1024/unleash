@@ -79,9 +79,15 @@ const StyledLoadingSkeleton = styled(Box)(() => ({
   },
 }));
 
-export const UserStats: FC<IUserStatsProps> = ({ count, active, inactive, isLoading }) => {
+export const UserStats: FC<IUserStatsProps> = ({
+  count,
+  active,
+  inactive,
+  isLoading,
+}) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
-  const showDistribution = showInactiveUsers && active !== undefined && inactive !== undefined;
+  const showDistribution =
+    showInactiveUsers && active !== undefined && inactive !== undefined;
   const activeUsersPercentage = ((active || 0) / count) * 100;
 
   return (
@@ -91,8 +97,16 @@ export const UserStats: FC<IUserStatsProps> = ({ count, active, inactive, isLoad
           <StyledUserCount variant='h2'>
             <ConditionallyRender
               condition={isLoading !== true}
-              show={Number.parseInt(`${count}`, 10) === count ? count : count.toFixed(2)}
-              elseShow={<StyledLoadingSkeleton className='skeleton'>&nbsp;</StyledLoadingSkeleton>}
+              show={
+                Number.parseInt(`${count}`, 10) === count
+                  ? count
+                  : count.toFixed(2)
+              }
+              elseShow={
+                <StyledLoadingSkeleton className='skeleton'>
+                  &nbsp;
+                </StyledLoadingSkeleton>
+              }
             />
           </StyledUserCount>
         </StyledUserBox>
@@ -119,7 +133,11 @@ export const UserStats: FC<IUserStatsProps> = ({ count, active, inactive, isLoad
             </StyledUserDistributionContainer>
 
             <StyledDistInfoContainer>
-              <UserDistributionInfo type='active' percentage={`${activeUsersPercentage}`} count={`${active}`} />
+              <UserDistributionInfo
+                type='active'
+                percentage={`${activeUsersPercentage}`}
+                count={`${active}`}
+              />
               <UserDistributionInfo
                 type='inactive'
                 percentage={`${100 - activeUsersPercentage}`}

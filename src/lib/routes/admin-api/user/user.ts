@@ -13,12 +13,24 @@ import { createRequestSchema } from '../../../openapi/util/create-request-schema
 import { createResponseSchema } from '../../../openapi/util/create-response-schema';
 import { meSchema, type MeSchema } from '../../../openapi/spec/me-schema';
 import { serializeDates } from '../../../types/serialize-dates';
-import type { IRole, IUserPermission } from '../../../types/stores/access-store';
+import type {
+  IRole,
+  IUserPermission,
+} from '../../../types/stores/access-store';
 import type { PasswordSchema } from '../../../openapi/spec/password-schema';
-import { emptyResponse, getStandardResponses } from '../../../openapi/util/standard-responses';
-import { profileSchema, type ProfileSchema } from '../../../openapi/spec/profile-schema';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../../openapi/util/standard-responses';
+import {
+  profileSchema,
+  type ProfileSchema,
+} from '../../../openapi/spec/profile-schema';
 import type ProjectService from '../../../features/project/project-service';
-import { rolesSchema, type RolesSchema } from '../../../openapi/spec/roles-schema';
+import {
+  rolesSchema,
+  type RolesSchema,
+} from '../../../openapi/spec/roles-schema';
 import type { IFlagResolver } from '../../../types';
 import type { UserSubscriptionsService } from '../../../features/user-subscriptions/user-subscriptions-service';
 
@@ -74,7 +86,8 @@ export default class UserController extends Controller {
           tags: ['Users'],
           operationId: 'getMe',
           summary: 'Get your own user details',
-          description: 'Detailed information about the current user, user permissions and user feedback',
+          description:
+            'Detailed information about the current user, user permissions and user feedback',
           responses: {
             200: createResponseSchema('meSchema'),
             ...getStandardResponses(401),
@@ -93,7 +106,8 @@ export default class UserController extends Controller {
           tags: ['Users'],
           operationId: 'getProfile',
           summary: 'Get your own user profile',
-          description: 'Detailed information about the current user root role and project membership',
+          description:
+            'Detailed information about the current user root role and project membership',
           responses: {
             200: createResponseSchema('profileSchema'),
             ...getStandardResponses(401),
@@ -112,7 +126,8 @@ export default class UserController extends Controller {
           tags: ['Users'],
           operationId: 'changeMyPassword',
           summary: 'Change your own password',
-          description: 'Requires specifying old password and confirming new password',
+          description:
+            'Requires specifying old password and confirming new password',
           requestBody: createRequestSchema('passwordSchema'),
           responses: {
             200: emptyResponse,
@@ -120,7 +135,8 @@ export default class UserController extends Controller {
               description: 'Old and new password do not match',
             },
             401: {
-              description: 'Old password is incorrect or user is not authenticated',
+              description:
+                'Old password is incorrect or user is not authenticated',
             },
           },
         }),
@@ -140,7 +156,8 @@ export default class UserController extends Controller {
           parameters: [
             {
               name: 'projectId',
-              description: 'The id of the project you want to check permissions for',
+              description:
+                'The id of the project you want to check permissions for',
               schema: {
                 type: 'string',
               },
@@ -165,7 +182,10 @@ export default class UserController extends Controller {
       if (this.flagResolver.isEnabled('projectRoleAssignment')) {
         roles = await this.accessService.getProjectRoles();
       } else {
-        roles = await this.accessService.getAllProjectRolesForUser(req.user.id, projectId);
+        roles = await this.accessService.getAllProjectRolesForUser(
+          req.user.id,
+          projectId,
+        );
       }
       this.openApiService.respondWithValidation(200, res, rolesSchema.$id, {
         version: 1,
@@ -195,10 +215,18 @@ export default class UserController extends Controller {
       splash,
     };
 
-    this.openApiService.respondWithValidation(200, res, meSchema.$id, responseData);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      meSchema.$id,
+      responseData,
+    );
   }
 
-  async getProfile(req: IAuthRequest, res: Response<ProfileSchema>): Promise<void> {
+  async getProfile(
+    req: IAuthRequest,
+    res: Response<ProfileSchema>,
+  ): Promise<void> {
     const { user } = req;
 
     const [projects, rootRole, subscriptions] = await Promise.all([
@@ -214,15 +242,27 @@ export default class UserController extends Controller {
       features: [],
     };
 
-    this.openApiService.respondWithValidation(200, res, profileSchema.$id, responseData);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      profileSchema.$id,
+      responseData,
+    );
   }
 
-  async changeMyPassword(req: IAuthRequest<unknown, unknown, PasswordSchema>, res: Response): Promise<void> {
+  async changeMyPassword(
+    req: IAuthRequest<unknown, unknown, PasswordSchema>,
+    res: Response,
+  ): Promise<void> {
     const { user } = req;
     const { password, confirmPassword, oldPassword } = req.body;
     if (password === confirmPassword && oldPassword != null) {
       this.userService.validatePassword(password);
-      await this.userService.changePasswordWithVerification(user.id, password, oldPassword);
+      await this.userService.changePasswordWithVerification(
+        user.id,
+        password,
+        oldPassword,
+      );
       res.status(200).end();
     } else {
       res.status(400).end();

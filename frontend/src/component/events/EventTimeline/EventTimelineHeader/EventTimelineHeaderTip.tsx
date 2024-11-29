@@ -32,13 +32,20 @@ export const EventTimelineHeaderTip = () => {
     from: `IS:${toISODateString(startOfDay(startDate))}`,
     to: `IS:${toISODateString(endDate)}`,
   });
-  const { signalsSuggestionSeen, setSignalsSuggestionSeen } = useEventTimelineContext();
+  const { signalsSuggestionSeen, setSignalsSuggestionSeen } =
+    useEventTimelineContext();
 
   const { isEnterprise } = useUiConfig();
   const signalsEnabled = useUiFlag('signals');
   const { trackEvent } = usePlausibleTracker();
 
-  if (!signalsSuggestionSeen && isEnterprise() && signalsEnabled && !signalsLoading && signals.length === 0) {
+  if (
+    !signalsSuggestionSeen &&
+    isEnterprise() &&
+    signalsEnabled &&
+    !signalsLoading &&
+    signals.length === 0
+  ) {
     return (
       <StyledTip>
         <Chip
@@ -46,7 +53,8 @@ export const EventTimelineHeaderTip = () => {
           icon={<StyledSignalIcon />}
           label={
             <>
-              See <Link to={signalsLink}>signals</Link> from external sources in real-time within Unleash
+              See <Link to={signalsLink}>signals</Link> from external sources in
+              real-time within Unleash
             </>
           }
           onClick={() => {

@@ -1,13 +1,22 @@
 import { TableBody, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { SortableTableHeader, Table, TableCell, TablePlaceholder } from 'component/common/Table';
+import {
+  SortableTableHeader,
+  Table,
+  TableCell,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { HighlightCell } from 'component/common/Table/cells/HighlightCell/HighlightCell';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { calculateVariantWeight } from 'component/common/util';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useSearch } from 'hooks/useSearch';
-import type { IFeatureVariant, IOverride, IPayload } from 'interfaces/featureToggle';
+import type {
+  IFeatureVariant,
+  IOverride,
+  IPayload,
+} from 'interfaces/featureToggle';
 import { useMemo } from 'react';
 import { useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
@@ -20,7 +29,10 @@ interface IEnvironmentVariantsTableProps {
   searchValue?: string;
 }
 
-export const EnvironmentVariantsTable = ({ variants, searchValue = '' }: IEnvironmentVariantsTableProps) => {
+export const EnvironmentVariantsTable = ({
+  variants,
+  searchValue = '',
+}: IEnvironmentVariantsTableProps) => {
   const projectId = useRequiredPathParam('projectId');
 
   const theme = useTheme();
@@ -52,7 +64,11 @@ export const EnvironmentVariantsTable = ({ variants, searchValue = '' }: IEnviro
         disableSortBy: true,
         searchable: true,
         filterParsing: (value: IOverride[]) =>
-          value?.map(({ contextName, values }) => `${contextName}:${values.join()}`).join('\n') || '',
+          value
+            ?.map(
+              ({ contextName, values }) => `${contextName}:${values.join()}`,
+            )
+            .join('\n') || '',
       },
       {
         Header: 'Weight',
@@ -62,13 +78,18 @@ export const EnvironmentVariantsTable = ({ variants, searchValue = '' }: IEnviro
             original: { name, weight },
           },
         }: any) => {
-          return <TextCell data-testid={`VARIANT_WEIGHT_${name}`}>{calculateVariantWeight(weight)} %</TextCell>;
+          return (
+            <TextCell data-testid={`VARIANT_WEIGHT_${name}`}>
+              {calculateVariantWeight(weight)} %
+            </TextCell>
+          );
         },
         sortType: 'number',
       },
       {
         Header: 'Type',
-        accessor: (row: any) => (row.weightType === 'fix' ? 'Fixed' : 'Variable'),
+        accessor: (row: any) =>
+          row.weightType === 'fix' ? 'Fixed' : 'Variable',
         Cell: TextCell,
         sortType: 'alphanumeric',
       },
@@ -85,7 +106,14 @@ export const EnvironmentVariantsTable = ({ variants, searchValue = '' }: IEnviro
 
   const { data, getSearchText } = useSearch(columns, searchValue, variants);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setHiddenColumns,
+  } = useTable(
     {
       columns: columns as any[],
       data,

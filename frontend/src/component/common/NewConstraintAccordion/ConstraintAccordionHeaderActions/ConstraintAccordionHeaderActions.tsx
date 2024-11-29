@@ -58,7 +58,12 @@ export const ConstraintAccordionHeaderActions = ({
         condition={Boolean(onEditClick) && !disableEdit}
         show={
           <Tooltip title='Edit constraint' arrow>
-            <IconButton type='button' onClick={onEditClick} disabled={disableEdit} data-testid='EDIT_CONSTRAINT_BUTTON'>
+            <IconButton
+              type='button'
+              onClick={onEditClick}
+              disabled={disableEdit}
+              data-testid='EDIT_CONSTRAINT_BUTTON'
+            >
               <Edit />
             </IconButton>
           </Tooltip>

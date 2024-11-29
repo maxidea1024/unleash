@@ -32,7 +32,11 @@ export const EditStrategy = () => {
     clearErrors,
     setErrors,
     errors,
-  } = useStrategyForm(strategyDefinition?.name, strategyDefinition?.description, strategyDefinition?.parameters);
+  } = useStrategyForm(
+    strategyDefinition?.name,
+    strategyDefinition?.description,
+    strategyDefinition?.parameters,
+  );
   const { updateStrategy, loading } = useStrategiesApi();
   const { refetchStrategies } = useStrategies();
 

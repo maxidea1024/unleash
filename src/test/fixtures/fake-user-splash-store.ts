@@ -1,4 +1,8 @@
-import type { IUserSplashKey, IUserSplash, IUserSplashStore } from '../../lib/types/stores/user-splash-store';
+import type {
+  IUserSplashKey,
+  IUserSplash,
+  IUserSplashStore,
+} from '../../lib/types/stores/user-splash-store';
 
 export default class FakeUserSplashStore implements IUserSplashStore {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

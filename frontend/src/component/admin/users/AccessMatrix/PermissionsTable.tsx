@@ -30,7 +30,9 @@ export const PermissionsTable = ({
         Header: 'Has permission',
         accessor: 'hasPermission',
         Cell: ({ value }: { value: boolean }) => (
-          <IconCell icon={value ? <Check color='success' /> : <Close color='error' />} />
+          <IconCell
+            icon={value ? <Check color='success' /> : <Close color='error' />}
+          />
         ),
       },
     ],
@@ -56,7 +58,12 @@ export const PermissionsTable = ({
 
   return (
     <Box sx={{ maxHeight: 500, overflow: 'auto' }} ref={parentRef}>
-      <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} parentRef={parentRef} />
+      <VirtualizedTable
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+        parentRef={parentRef}
+      />
       <ConditionallyRender
         condition={rows.length === 0}
         show={<TablePlaceholder>No permissions found.</TablePlaceholder>}

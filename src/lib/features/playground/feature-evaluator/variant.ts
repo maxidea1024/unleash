@@ -65,13 +65,21 @@ function getSeed(context: Context, stickiness: string = 'default'): string {
 }
 
 function overrideMatchesContext(context: Context): (o: Override) => boolean {
-  return (o: Override) => o.values.some((value) => value === resolveContextValue(context, o.contextName));
+  return (o: Override) =>
+    o.values.some(
+      (value) => value === resolveContextValue(context, o.contextName),
+    );
 }
 
-function findOverride(variants: VariantDefinition[], context: Context): VariantDefinition | undefined {
+function findOverride(
+  variants: VariantDefinition[],
+  context: Context,
+): VariantDefinition | undefined {
   return variants
     .filter((variant) => variant.overrides)
-    .find((variant) => variant.overrides?.some(overrideMatchesContext(context)));
+    .find((variant) =>
+      variant.overrides?.some(overrideMatchesContext(context)),
+    );
 }
 
 export function selectVariantDefinition(
@@ -90,22 +98,31 @@ export function selectVariantDefinition(
 
   const { stickiness } = variants[0];
 
-  const target = normalizedVariantValue(getSeed(context, stickiness), featureName, totalWeight);
+  const target = normalizedVariantValue(
+    getSeed(context, stickiness),
+    featureName,
+    totalWeight,
+  );
 
   let counter = 0;
-  const variant = variants.find((v: VariantDefinition): VariantDefinition | undefined => {
-    if (v.weight === 0) {
-      return undefined;
-    }
-    counter += v.weight;
-    if (counter < target) {
-      return undefined;
-    }
-    return v;
-  });
+  const variant = variants.find(
+    (v: VariantDefinition): VariantDefinition | undefined => {
+      if (v.weight === 0) {
+        return undefined;
+      }
+      counter += v.weight;
+      if (counter < target) {
+        return undefined;
+      }
+      return v;
+    },
+  );
   return variant || null;
 }
 
-export function selectVariant(feature: FeatureInterface, context: Context): VariantDefinition | null {
+export function selectVariant(
+  feature: FeatureInterface,
+  context: Context,
+): VariantDefinition | null {
   return selectVariantDefinition(feature.name, feature.variants, context);
 }

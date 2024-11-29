@@ -2,7 +2,12 @@ import type { Request, Response } from 'express';
 
 import Controller from '../controller';
 
-import { CREATE_CONTEXT_FIELD, UPDATE_CONTEXT_FIELD, DELETE_CONTEXT_FIELD, NONE } from '../../types/permissions';
+import {
+  CREATE_CONTEXT_FIELD,
+  UPDATE_CONTEXT_FIELD,
+  DELETE_CONTEXT_FIELD,
+  NONE,
+} from '../../types/permissions';
 import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type ContextService from '../../services/context-service';
@@ -10,14 +15,23 @@ import type { Logger } from '../../logger';
 import type { IAuthRequest } from '../unleash-types';
 
 import type { OpenApiService } from '../../services/openapi-service';
-import { contextFieldSchema, type ContextFieldSchema } from '../../openapi/spec/context-field-schema';
+import {
+  contextFieldSchema,
+  type ContextFieldSchema,
+} from '../../openapi/spec/context-field-schema';
 import type { ContextFieldsSchema } from '../../openapi/spec/context-fields-schema';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
-import { createResponseSchema, resourceCreatedResponseSchema } from '../../openapi/util/create-response-schema';
+import {
+  createResponseSchema,
+  resourceCreatedResponseSchema,
+} from '../../openapi/util/create-response-schema';
 import { serializeDates } from '../../types/serialize-dates';
 import NotFoundError from '../../error/notfound-error';
 import type { NameSchema } from '../../openapi/spec/name-schema';
-import { emptyResponse, getStandardResponses } from '../../openapi/util/standard-responses';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi/util/standard-responses';
 import {
   type ContextFieldStrategiesSchema,
   contextFieldStrategiesSchema,
@@ -37,7 +51,10 @@ export class ContextController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { contextService, openApiService }: Pick<IUnleashServices, 'contextService' | 'openApiService'>,
+    {
+      contextService,
+      openApiService,
+    }: Pick<IUnleashServices, 'contextService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -184,18 +201,29 @@ export class ContextController extends Controller {
     });
   }
 
-  async getContextFields(_: Request, res: Response<ContextFieldsSchema>): Promise<void> {
+  async getContextFields(
+    _: Request,
+    res: Response<ContextFieldsSchema>,
+  ): Promise<void> {
     res
       .status(200)
       .json(serializeDates(await this.contextService.getAll()))
       .end();
   }
 
-  async getContextField(req: Request<ContextParam>, res: Response<ContextFieldSchema>): Promise<void> {
+  async getContextField(
+    req: Request<ContextParam>,
+    res: Response<ContextFieldSchema>,
+  ): Promise<void> {
     try {
       const name = req.params.contextField;
       const contextField = await this.contextService.getContextField(name);
-      this.openApiService.respondWithValidation(200, res, contextFieldSchema.$id, serializeDates(contextField));
+      this.openApiService.respondWithValidation(
+        200,
+        res,
+        contextFieldSchema.$id,
+        serializeDates(contextField),
+      );
     } catch (err) {
       throw new NotFoundError('Could not find context field');
     }
@@ -207,11 +235,20 @@ export class ContextController extends Controller {
   ): Promise<void> {
     const value = req.body;
 
-    const result = await this.contextService.createContextField(value, req.audit);
+    const result = await this.contextService.createContextField(
+      value,
+      req.audit,
+    );
 
-    this.openApiService.respondWithValidation(201, res, contextFieldSchema.$id, serializeDates(result), {
-      location: `context/${result.name}`,
-    });
+    this.openApiService.respondWithValidation(
+      201,
+      res,
+      contextFieldSchema.$id,
+      serializeDates(result),
+      {
+        location: `context/${result.name}`,
+      },
+    );
   }
 
   async updateContextField(
@@ -221,18 +258,27 @@ export class ContextController extends Controller {
     const name = req.params.contextField;
     const contextField = req.body;
 
-    await this.contextService.updateContextField({ ...contextField, name }, req.audit);
+    await this.contextService.updateContextField(
+      { ...contextField, name },
+      req.audit,
+    );
     res.status(200).end();
   }
 
-  async deleteContextField(req: IAuthRequest<ContextParam>, res: Response): Promise<void> {
+  async deleteContextField(
+    req: IAuthRequest<ContextParam>,
+    res: Response,
+  ): Promise<void> {
     const name = req.params.contextField;
 
     await this.contextService.deleteContextField(name, req.audit);
     res.status(200).end();
   }
 
-  async validate(req: Request<void, void, NameSchema>, res: Response): Promise<void> {
+  async validate(
+    req: Request<void, void, NameSchema>,
+    res: Response,
+  ): Promise<void> {
     const { name } = req.body;
 
     await this.contextService.validateName(name);

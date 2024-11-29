@@ -1,5 +1,10 @@
 import Controller from '../../routes/controller';
-import { ADMIN, type IFlagResolver, type IUnleashConfig, type IUnleashServices } from '../../types';
+import {
+  ADMIN,
+  type IFlagResolver,
+  type IUnleashConfig,
+  type IUnleashServices,
+} from '../../types';
 import type { Logger } from '../../logger';
 import type { InactiveUsersService } from './inactive-users-service';
 import {
@@ -26,7 +31,10 @@ export class InactiveUsersController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { inactiveUsersService, openApiService }: Pick<IUnleashServices, 'inactiveUsersService' | 'openApiService'>,
+    {
+      inactiveUsersService,
+      openApiService,
+    }: Pick<IUnleashServices, 'inactiveUsersService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -76,13 +84,21 @@ export class InactiveUsersController extends Controller {
     });
   }
 
-  async getInactiveUsers(req: IAuthRequest, res: Response<InactiveUsersSchema>): Promise<void> {
+  async getInactiveUsers(
+    req: IAuthRequest,
+    res: Response<InactiveUsersSchema>,
+  ): Promise<void> {
     this.logger.info('Hitting inactive users');
     let inactiveUsers = await this.inactiveUsersService.getInactiveUsers();
     if (this.flagResolver.isEnabled('anonymiseEventLog')) {
       inactiveUsers = this.anonymiseUsers(inactiveUsers);
     }
-    this.openApiService.respondWithValidation(200, res, inactiveUsersSchema.$id, { version: 1, inactiveUsers });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      inactiveUsersSchema.$id,
+      { version: 1, inactiveUsers },
+    );
   }
 
   anonymiseUsers(users: InactiveUserSchema[]): InactiveUserSchema[] {
@@ -91,11 +107,15 @@ export class InactiveUsersController extends Controller {
       name: anonymise(u.name || ''),
       username: anonymise(u.username || ''),
       email: anonymise(u.email || 'random'),
-      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl:
+        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
     }));
   }
 
-  async deleteInactiveUsers(req: IAuthRequest<undefined, undefined, IdsSchema>, res: Response<void>): Promise<void> {
+  async deleteInactiveUsers(
+    req: IAuthRequest<undefined, undefined, IdsSchema>,
+    res: Response<void>,
+  ): Promise<void> {
     await this.inactiveUsersService.deleteInactiveUsers(
       req.audit,
       req.body.ids.filter((inactiveUser) => inactiveUser !== req.user.id),

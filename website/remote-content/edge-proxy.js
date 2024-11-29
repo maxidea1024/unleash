@@ -1,4 +1,10 @@
-import { enrich, mapObject, modifyContent, getRepoData, getUrls } from './shared';
+import {
+  enrich,
+  mapObject,
+  modifyContent,
+  getRepoData,
+  getUrls,
+} from './shared';
 
 const DOCS = mapObject(enrich)({
   'unleash-proxy': {

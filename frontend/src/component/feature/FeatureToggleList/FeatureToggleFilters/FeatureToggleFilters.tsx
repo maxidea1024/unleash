@@ -2,14 +2,21 @@ import { useEffect, useState, type VFC } from 'react';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import useAllTags from 'hooks/api/getters/useAllTags/useAllTags';
-import { type FilterItemParamHolder, Filters, type IFilterItem } from 'component/filter/Filters/Filters';
+import {
+  type FilterItemParamHolder,
+  Filters,
+  type IFilterItem,
+} from 'component/filter/Filters/Filters';
 
 interface IFeatureToggleFiltersProps {
   state: FilterItemParamHolder;
   onChange: (value: FilterItemParamHolder) => void;
 }
 
-export const FeatureToggleFilters: VFC<IFeatureToggleFiltersProps> = ({ state, onChange }) => {
+export const FeatureToggleFilters: VFC<IFeatureToggleFiltersProps> = ({
+  state,
+  onChange,
+}) => {
   const { projects } = useProjects();
   const { segments } = useSegments();
   const { tags } = useAllTags();
@@ -70,7 +77,12 @@ export const FeatureToggleFilters: VFC<IFeatureToggleFiltersProps> = ({ state, o
         options: tagsOptions,
         filterKey: 'tag',
         singularOperators: ['INCLUDE', 'DO_NOT_INCLUDE'],
-        pluralOperators: ['INCLUDE_ALL_OF', 'INCLUDE_ANY_OF', 'EXCLUDE_IF_ANY_OF', 'EXCLUDE_ALL'],
+        pluralOperators: [
+          'INCLUDE_ALL_OF',
+          'INCLUDE_ANY_OF',
+          'EXCLUDE_IF_ANY_OF',
+          'EXCLUDE_ALL',
+        ],
       },
       {
         label: 'Segment',
@@ -78,7 +90,12 @@ export const FeatureToggleFilters: VFC<IFeatureToggleFiltersProps> = ({ state, o
         options: segmentsOptions,
         filterKey: 'segment',
         singularOperators: ['INCLUDE', 'DO_NOT_INCLUDE'],
-        pluralOperators: ['INCLUDE_ANY_OF', 'INCLUDE_ALL_OF', 'EXCLUDE_IF_ANY_OF', 'EXCLUDE_ALL'],
+        pluralOperators: [
+          'INCLUDE_ANY_OF',
+          'INCLUDE_ALL_OF',
+          'EXCLUDE_IF_ANY_OF',
+          'EXCLUDE_ALL',
+        ],
       },
       {
         label: 'Created date',
@@ -104,7 +121,17 @@ export const FeatureToggleFilters: VFC<IFeatureToggleFiltersProps> = ({ state, o
     ];
 
     setAvailableFilters(availableFilters);
-  }, [JSON.stringify(projects), JSON.stringify(segments), JSON.stringify(tags)]);
+  }, [
+    JSON.stringify(projects),
+    JSON.stringify(segments),
+    JSON.stringify(tags),
+  ]);
 
-  return <Filters availableFilters={availableFilters} state={state} onChange={onChange} />;
+  return (
+    <Filters
+      availableFilters={availableFilters}
+      state={state}
+      onChange={onChange}
+    />
+  );
 };

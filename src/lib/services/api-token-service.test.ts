@@ -55,7 +55,8 @@ test("Shouldn't return frontend token when secret is undefined", async () => {
   };
 
   const config: IUnleashConfig = createTestConfig({});
-  const { environmentStore, apiTokenService } = createFakeApiTokenService(config);
+  const { environmentStore, apiTokenService } =
+    createFakeApiTokenService(config);
   await environmentStore.create({
     name: 'default',
     enabled: true,
@@ -81,7 +82,8 @@ test('Api token operations should all have events attached', async () => {
 
   const config: IUnleashConfig = createTestConfig({});
 
-  const { environmentStore, apiTokenService, eventService } = createFakeApiTokenService(config);
+  const { environmentStore, apiTokenService, eventService } =
+    createFakeApiTokenService(config);
   await environmentStore.create({
     name: 'default',
     enabled: true,
@@ -94,19 +96,25 @@ test('Api token operations should all have events attached', async () => {
   await apiTokenService.updateExpiry(saved.secret, newExpiry, TEST_AUDIT_USER);
   await apiTokenService.delete(saved.secret, TEST_AUDIT_USER);
   const { events } = await eventService.getEvents();
-  const createdApiTokenEvents = events.filter((e) => e.type === API_TOKEN_CREATED);
+  const createdApiTokenEvents = events.filter(
+    (e) => e.type === API_TOKEN_CREATED,
+  );
   expect(createdApiTokenEvents).toHaveLength(1);
   expect(createdApiTokenEvents[0].preData).toBeUndefined();
   expect(createdApiTokenEvents[0].data.secret).toBeUndefined();
 
-  const updatedApiTokenEvents = events.filter((e) => e.type === API_TOKEN_UPDATED);
+  const updatedApiTokenEvents = events.filter(
+    (e) => e.type === API_TOKEN_UPDATED,
+  );
   expect(updatedApiTokenEvents).toHaveLength(1);
   expect(updatedApiTokenEvents[0].preData.expiresAt).toBeDefined();
   expect(updatedApiTokenEvents[0].preData.secret).toBeUndefined();
   expect(updatedApiTokenEvents[0].data.secret).toBeUndefined();
   expect(updatedApiTokenEvents[0].data.expiresAt).toBe(newExpiry);
 
-  const deletedApiTokenEvents = events.filter((e) => e.type === API_TOKEN_DELETED);
+  const deletedApiTokenEvents = events.filter(
+    (e) => e.type === API_TOKEN_DELETED,
+  );
   expect(deletedApiTokenEvents).toHaveLength(1);
   expect(deletedApiTokenEvents[0].data).toBeUndefined();
   expect(deletedApiTokenEvents[0].preData).toBeDefined();
@@ -144,7 +152,8 @@ describe('API token getTokenWithCache', () => {
 
   const setup = (options?: IUnleashOptions) => {
     const config: IUnleashConfig = createTestConfig(options);
-    const { apiTokenService, apiTokenStore } = createFakeApiTokenService(config);
+    const { apiTokenService, apiTokenStore } =
+      createFakeApiTokenService(config);
     return {
       apiTokenService,
       apiTokenStore,
@@ -174,14 +183,18 @@ describe('API token getTokenWithCache', () => {
 
     const invalidToken = 'invalid-token';
     for (let i = 0; i < 5; i++) {
-      expect(await apiTokenService.getTokenWithCache(invalidToken)).toBeUndefined();
+      expect(
+        await apiTokenService.getTokenWithCache(invalidToken),
+      ).toBeUndefined();
     }
     expect(apiTokenStoreGet).toHaveBeenCalledTimes(1);
 
     // after more than 5 minutes we should be able to query again
     jest.advanceTimersByTime(minutesToMilliseconds(6));
     for (let i = 0; i < 5; i++) {
-      expect(await apiTokenService.getTokenWithCache(invalidToken)).toBeUndefined();
+      expect(
+        await apiTokenService.getTokenWithCache(invalidToken),
+      ).toBeUndefined();
     }
     expect(apiTokenStoreGet).toHaveBeenCalledTimes(2);
   });
@@ -203,7 +216,8 @@ describe('API token getTokenWithCache', () => {
 
 test('normalizes api token type casing to lowercase', async () => {
   const config: IUnleashConfig = createTestConfig();
-  const { apiTokenStore, apiTokenService, environmentStore } = createFakeApiTokenService(config);
+  const { apiTokenStore, apiTokenService, environmentStore } =
+    createFakeApiTokenService(config);
 
   await environmentStore.create({
     name: 'default',

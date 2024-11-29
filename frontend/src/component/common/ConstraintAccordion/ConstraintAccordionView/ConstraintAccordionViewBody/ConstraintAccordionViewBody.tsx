@@ -15,14 +15,19 @@ const StyledValueContainer = styled('div')(({ theme }) => ({
   overflowY: 'auto',
 }));
 
-export const ConstraintAccordionViewBody = ({ constraint }: IConstraintAccordionViewBodyProps) => {
+export const ConstraintAccordionViewBody = ({
+  constraint,
+}: IConstraintAccordionViewBodyProps) => {
   const { locationSettings } = useLocationSettings();
 
   return (
     <div>
       <StyledValueContainer>
         <MultipleValues values={constraint.values} />
-        <SingleValue value={formatConstraintValue(constraint, locationSettings)} operator={constraint.operator} />
+        <SingleValue
+          value={formatConstraintValue(constraint, locationSettings)}
+          operator={constraint.operator}
+        />
       </StyledValueContainer>
     </div>
   );

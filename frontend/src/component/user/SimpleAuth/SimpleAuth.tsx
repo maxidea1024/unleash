@@ -1,4 +1,9 @@
-import { type ChangeEventHandler, type FormEventHandler, useState, type VFC } from 'react';
+import {
+  type ChangeEventHandler,
+  type FormEventHandler,
+  useState,
+  type VFC,
+} from 'react';
 import { Button, TextField } from '@mui/material';
 import styles from './SimpleAuth.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +48,8 @@ const SimpleAuth: VFC<ISimpleAuthProps> = ({ authDetails, redirect }) => {
       <div className={styles.container}>
         <p>{authDetails.message}</p>
         <p>
-          This instance of Unleash is not set up with a secure authentication provider. You can read more about{' '}
+          This instance of Unleash is not set up with a secure authentication
+          provider. You can read more about{' '}
           <a
             href='https://github.com/Unleash/unleash/blob/master/docs/securing-unleash.md'
             target='_blank'

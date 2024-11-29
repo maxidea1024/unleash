@@ -1,7 +1,10 @@
 import EventEmitter from 'events';
 import type { RepositoryInterface } from 'unleash-client/lib/repository';
 import type { Segment } from 'unleash-client/lib/strategy/strategy';
-import type { EnhancedFeatureInterface, FeatureInterface } from 'unleash-client/lib/feature';
+import type {
+  EnhancedFeatureInterface,
+  FeatureInterface,
+} from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
 import type { IUnleashConfig } from '../../types';
 import { UnleashEvents } from 'unleash-client';
@@ -10,14 +13,21 @@ import type { GlobalFrontendApiCache } from './global-frontend-api-cache';
 
 type Config = Pick<IUnleashConfig, 'getLogger'>;
 
-export class FrontendApiRepository extends EventEmitter implements RepositoryInterface {
+export class FrontendApiRepository
+  extends EventEmitter
+  implements RepositoryInterface
+{
   private readonly config: Config;
   private readonly logger: Logger;
   private readonly token: IApiUser;
   private readonly globalFrontendApiCache: GlobalFrontendApiCache;
   private running: boolean;
 
-  constructor(config: Config, globalFrontendApiCache: GlobalFrontendApiCache, token: IApiUser) {
+  constructor(
+    config: Config,
+    globalFrontendApiCache: GlobalFrontendApiCache,
+    token: IApiUser,
+  ) {
     super();
 
     this.logger = config.getLogger('frontend-api-repository.ts');

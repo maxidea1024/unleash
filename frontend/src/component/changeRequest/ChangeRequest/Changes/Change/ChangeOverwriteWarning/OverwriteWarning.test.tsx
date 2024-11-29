@@ -14,7 +14,9 @@ test.each([
 ])('Shows warnings for CRs in the "%s" state: %s', (status, showWarning) => {
   render(
     <OverwriteWarning
-      changesThatWouldBeOverwritten={[{ property: 'some-prop', oldValue: 'old', newValue: 'new' }]}
+      changesThatWouldBeOverwritten={[
+        { property: 'some-prop', oldValue: 'old', newValue: 'new' },
+      ]}
       changeType={'strategy'}
       changeRequestState={status as ChangeRequestState}
     />,

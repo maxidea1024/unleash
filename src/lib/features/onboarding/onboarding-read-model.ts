@@ -28,7 +28,10 @@ export class OnboardingReadModel implements IOnboardingReadModel {
   }
 
   async getInstanceOnboardingMetrics(): Promise<InstanceOnboarding> {
-    const eventsResult = await this.db('onboarding_events_instance').select('event', 'time_to_event');
+    const eventsResult = await this.db('onboarding_events_instance').select(
+      'event',
+      'time_to_event',
+    );
 
     const events: InstanceOnboarding = {
       firstLogin: null,
@@ -49,7 +52,11 @@ export class OnboardingReadModel implements IOnboardingReadModel {
   }
 
   async getProjectsOnboardingMetrics(): Promise<Array<ProjectOnboarding>> {
-    const lifecycleResults = await this.db('onboarding_events_project').select('project', 'event', 'time_to_event');
+    const lifecycleResults = await this.db('onboarding_events_project').select(
+      'project',
+      'event',
+      'time_to_event',
+    );
 
     const projects: Array<ProjectOnboarding> = [];
 
@@ -75,8 +82,13 @@ export class OnboardingReadModel implements IOnboardingReadModel {
     return projects;
   }
 
-  async getOnboardingStatusForProject(projectId: string): Promise<OnboardingStatus | null> {
-    const projectExists = await this.db('projects').select(1).where('id', projectId).first();
+  async getOnboardingStatusForProject(
+    projectId: string,
+  ): Promise<OnboardingStatus | null> {
+    const projectExists = await this.db('projects')
+      .select(1)
+      .where('id', projectId)
+      .first();
 
     if (!projectExists) {
       return null;
@@ -90,7 +102,9 @@ export class OnboardingReadModel implements IOnboardingReadModel {
       .innerJoin('projects as p', 'p.id', 'f.project')
       .where('p.id', projectId)
       .union((qb) => {
-        qb.select(db.raw('1')).from('client_applications_usage as cau').where('cau.project', projectId);
+        qb.select(db.raw('1'))
+          .from('client_applications_usage as cau')
+          .where('cau.project', projectId);
       })
       .first();
 

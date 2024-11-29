@@ -63,7 +63,13 @@ const StyledMainValue = styled(StyledValue)(({ theme }) => ({
   fontSize: theme.fontSizes.largeHeader,
 }));
 
-export const HealthStats: FC<IHealthStatsProps> = ({ value, healthy, stale, potentiallyStale, title }) => (
+export const HealthStats: FC<IHealthStatsProps> = ({
+  value,
+  healthy,
+  stale,
+  potentiallyStale,
+  title,
+}) => (
   <StyledContainer>
     <StyledHeader>
       <StyledSection>{title}</StyledSection>
@@ -92,7 +98,11 @@ export const HealthStats: FC<IHealthStatsProps> = ({ value, healthy, stale, pote
         <StyledValue>{potentiallyStale || 0}</StyledValue>
       </StyledStatsRow>
       <ExplanationRow>
-        <Link href='https://docs.getunleash.io/reference/technical-debt' target='_blank' rel='noreferrer'>
+        <Link
+          href='https://docs.getunleash.io/reference/technical-debt'
+          target='_blank'
+          rel='noreferrer'
+        >
           What affects instance health?
         </Link>
       </ExplanationRow>

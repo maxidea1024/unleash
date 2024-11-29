@@ -11,7 +11,11 @@ interface IStrategySwitchProps {
   disabled?: boolean;
 }
 
-export const StrategySwitch: VFC<IStrategySwitchProps> = ({ deprecated, disabled, onToggle }) => {
+export const StrategySwitch: VFC<IStrategySwitchProps> = ({
+  deprecated,
+  disabled,
+  onToggle,
+}) => {
   const onClick = () => {
     onToggle(deprecated);
   };
@@ -27,7 +31,9 @@ export const StrategySwitch: VFC<IStrategySwitchProps> = ({ deprecated, disabled
       return 'You cannot disable default strategy';
     }
 
-    return deprecated ? 'Excluded from strategy list' : 'Included in strategy list';
+    return deprecated
+      ? 'Excluded from strategy list'
+      : 'Included in strategy list';
   }, [deprecated, disabled, access]);
 
   return (

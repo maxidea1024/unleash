@@ -19,5 +19,7 @@ test('projectApplicationsSchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/projectApplicationsSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/projectApplicationsSchema', data),
+  ).toBeUndefined();
 });

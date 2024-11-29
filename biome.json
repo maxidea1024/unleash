@@ -85,7 +85,7 @@
       "./frontend/package.json"
     ],
     "indentWidth": 2,
-    "lineWidth": 120
+    "lineWidth": 80
   },
   "javascript": {
     "formatter": {
@@ -93,7 +93,7 @@
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
       "indentWidth": 2,
-      "lineWidth": 120
+      "lineWidth": 80
     }
   },
   "json": {

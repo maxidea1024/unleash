@@ -12,7 +12,9 @@ interface IProjectActionsFiltersCellProps {
   action: IActionSet;
 }
 
-export const ProjectActionsFiltersCell = ({ action }: IProjectActionsFiltersCellProps) => {
+export const ProjectActionsFiltersCell = ({
+  action,
+}: IProjectActionsFiltersCellProps) => {
   const { payload } = action.match;
   const filters = Object.entries(payload);
 
@@ -28,26 +30,32 @@ export const ProjectActionsFiltersCell = ({ action }: IProjectActionsFiltersCell
         }}
         tooltip={
           <>
-            {filters.map(([parameter, { inverted, operator, caseInsensitive, value, values }]) => {
-              const operatorDescription: string = formatOperatorDescription(operator);
+            {filters.map(
+              ([
+                parameter,
+                { inverted, operator, caseInsensitive, value, values },
+              ]) => {
+                const operatorDescription: string =
+                  formatOperatorDescription(operator);
 
-              const operatorText = inverted ? (
-                <>
-                  is <u>not</u> {operatorDescription.substring(2)}
-                </>
-              ) : (
-                operatorDescription
-              );
+                const operatorText = inverted ? (
+                  <>
+                    is <u>not</u> {operatorDescription.substring(2)}
+                  </>
+                ) : (
+                  operatorDescription
+                );
 
-              return (
-                <StyledItem key={parameter}>
-                  <strong>{parameter}</strong> {operatorText}
-                  {caseInsensitive ? ' (case insensitive)' : ''}
-                  {': '}
-                  <strong>{values ? values.join(', ') : value}</strong>
-                </StyledItem>
-              );
-            })}
+                return (
+                  <StyledItem key={parameter}>
+                    <strong>{parameter}</strong> {operatorText}
+                    {caseInsensitive ? ' (case insensitive)' : ''}
+                    {': '}
+                    <strong>{values ? values.join(', ') : value}</strong>
+                  </StyledItem>
+                );
+              },
+            )}
           </>
         }
       >

@@ -8,10 +8,16 @@ interface ChangeRequestApprovalProps {
   approvals: IChangeRequestApproval[];
 }
 
-export const ChangeRequestApprovals: FC<ChangeRequestApprovalProps> = ({ approvals = [] }) => (
+export const ChangeRequestApprovals: FC<ChangeRequestApprovalProps> = ({
+  approvals = [],
+}) => (
   <>
     <Typography variant='body1' color='text.secondary'>
-      <ConditionallyRender condition={approvals?.length > 0} show={'Approved by'} elseShow={'No approvals yet'} />
+      <ConditionallyRender
+        condition={approvals?.length > 0}
+        show={'Approved by'}
+        elseShow={'No approvals yet'}
+      />
     </Typography>
     {approvals.map((approver) => (
       <ChangeRequestApprover

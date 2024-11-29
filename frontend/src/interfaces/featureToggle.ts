@@ -28,7 +28,10 @@ export interface IEnvironments {
   no?: number;
 }
 
-export type ILastSeenEnvironments = Pick<IEnvironments, 'name' | 'enabled' | 'lastSeenAt' | 'yes' | 'no'>;
+export type ILastSeenEnvironments = Pick<
+  IEnvironments,
+  'name' | 'enabled' | 'lastSeenAt' | 'yes' | 'no'
+>;
 
 export type Lifecycle = {
   stage: 'initial' | 'pre-live' | 'live' | 'completed' | 'archived';

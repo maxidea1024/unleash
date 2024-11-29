@@ -14,28 +14,27 @@ export interface INewClientInstance {
 }
 
 export interface IClientInstanceStore
-  extends IStore<IClientInstance, Pick<INewClientInstance, 'appName' | 'instanceId'>> {
+  extends IStore<
+    IClientInstance,
+    Pick<INewClientInstance, 'appName' | 'instanceId'>
+  > {
   bulkUpsert(instances: INewClientInstance[]): Promise<void>;
-
   setLastSeen(instance: INewClientInstance): Promise<void>;
-
   insert(details: INewClientInstance): Promise<void>;
-
   getByAppName(appName: string): Promise<IClientInstance[]>;
-
-  getByAppNameAndEnvironment(appName: string, environment: string): Promise<IClientInstance[]>;
-
+  getByAppNameAndEnvironment(
+    appName: string,
+    environment: string,
+  ): Promise<IClientInstance[]>;
   getBySdkName(sdkName: string): Promise<IClientInstance[]>;
-
-  groupApplicationsBySdk(): Promise<{ sdkVersion: string; applications: string[] }[]>;
-
-  groupApplicationsBySdkAndProject(projectId: string): Promise<{ sdkVersion: string; applications: string[] }[]>;
-
+  groupApplicationsBySdk(): Promise<
+    { sdkVersion: string; applications: string[] }[]
+  >;
+  groupApplicationsBySdkAndProject(
+    projectId: string,
+  ): Promise<{ sdkVersion: string; applications: string[] }[]>;
   getDistinctApplications(): Promise<string[]>;
-
   getDistinctApplicationsCount(daysBefore?: number): Promise<number>;
-
   deleteForApplication(appName: string): Promise<void>;
-
   removeInstancesOlderThanTwoDays(): Promise<void>;
 }

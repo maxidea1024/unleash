@@ -97,7 +97,11 @@ export const SignalEndpointsActionsCell = ({
           </MenuItem>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem sx={defaultBorderRadius} onClick={onOpenSignals} disabled={!hasAccess}>
+              <MenuItem
+                sx={defaultBorderRadius}
+                onClick={onOpenSignals}
+                disabled={!hasAccess}
+              >
                 <ListItemIcon>
                   <Visibility />
                 </ListItemIcon>
@@ -109,7 +113,11 @@ export const SignalEndpointsActionsCell = ({
           </PermissionHOC>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem sx={defaultBorderRadius} onClick={onEdit} disabled={!hasAccess}>
+              <MenuItem
+                sx={defaultBorderRadius}
+                onClick={onEdit}
+                disabled={!hasAccess}
+              >
                 <ListItemIcon>
                   <Edit />
                 </ListItemIcon>
@@ -121,7 +129,11 @@ export const SignalEndpointsActionsCell = ({
           </PermissionHOC>
           <PermissionHOC permission={ADMIN}>
             {({ hasAccess }) => (
-              <MenuItem sx={defaultBorderRadius} onClick={onDelete} disabled={!hasAccess}>
+              <MenuItem
+                sx={defaultBorderRadius}
+                onClick={onDelete}
+                disabled={!hasAccess}
+              >
                 <ListItemIcon>
                   <Delete />
                 </ListItemIcon>

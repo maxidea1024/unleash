@@ -76,20 +76,23 @@ const UsersList = () => {
     setDelUser(undefined);
   };
 
-  const openDelDialog = (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
-    e.preventDefault();
-    setDelDialog(true);
-    setDelUser(user);
-  };
-  const openPwDialog = (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
-    e.preventDefault();
-    setPwDialog({ open: true, user });
-  };
+  const openDelDialog =
+    (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
+      e.preventDefault();
+      setDelDialog(true);
+      setDelUser(user);
+    };
+  const openPwDialog =
+    (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
+      e.preventDefault();
+      setPwDialog({ open: true, user });
+    };
 
-  const openResetPwDialog = (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
-    e.preventDefault();
-    setResetPwDialog({ open: true, user });
-  };
+  const openResetPwDialog =
+    (user: IUser) => (e: React.SyntheticEvent<Element, Event>) => {
+      e.preventDefault();
+      setResetPwDialog({ open: true, user });
+    };
 
   const closePwDialog = () => {
     setPwDialog({ open: false });
@@ -138,14 +141,18 @@ const UsersList = () => {
         accessor: (row: any) => row.name || '',
         minWidth: 200,
         Cell: ({ row: { original: user } }: any) => (
-          <HighlightCell value={user.name} subtitle={user.email || user.username} />
+          <HighlightCell
+            value={user.name}
+            subtitle={user.email || user.username}
+          />
         ),
         searchable: true,
       },
       {
         id: 'role',
         Header: 'Role',
-        accessor: (row: any) => roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
+        accessor: (row: any) =>
+          roles.find((role: IRole) => role.id === row.rootRole)?.name || '',
         Cell: ({
           row: { original: user },
           value,
@@ -167,7 +174,11 @@ const UsersList = () => {
         Header: 'Last login',
         accessor: (row: any) => row.seenAt || '',
         Cell: ({ row: { original: user } }: any) => (
-          <TimeAgoCell value={user.seenAt} emptyText='Never' title={(date) => `Last login: ${date}`} />
+          <TimeAgoCell
+            value={user.seenAt}
+            emptyText='Never'
+            title={(date) => `Last login: ${date}`}
+          />
         ),
         maxWidth: 150,
       },
@@ -176,7 +187,9 @@ const UsersList = () => {
         Header: 'Type',
         accessor: 'paid',
         maxWidth: 100,
-        Cell: ({ row: { original: user } }: any) => <UserTypeCell value={isBillingUsers && user.paid} />,
+        Cell: ({ row: { original: user } }: any) => (
+          <UserTypeCell value={isBillingUsers && user.paid} />
+        ),
         sortType: 'boolean',
       },
       {
@@ -223,11 +236,17 @@ const UsersList = () => {
   const initialState = useMemo(() => {
     return {
       sortBy: [{ id: 'createdAt', desc: true }],
-      hiddenColumns: isBillingUsers ? ['username', 'email'] : ['type', 'username', 'email'],
+      hiddenColumns: isBillingUsers
+        ? ['username', 'email']
+        : ['type', 'username', 'email'],
     };
   }, [isBillingUsers]);
 
-  const { data, getSearchText } = useSearch(columns, searchValue, isBillingUsers ? planUsers : users);
+  const { data, getSearchText } = useSearch(
+    columns,
+    searchValue,
+    isBillingUsers ? planUsers : users,
+  );
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -276,12 +295,20 @@ const UsersList = () => {
             <>
               <Search initialValue={searchValue} onChange={setSearchValue} />
               <PageHeader.Divider />
-              <Tooltip title='Exports user access information' arrow describeChild>
+              <Tooltip
+                title='Exports user access information'
+                arrow
+                describeChild
+              >
                 <IconButton onClick={downloadCSV}>
                   <Download />
                 </IconButton>
               </Tooltip>
-              <Button variant='contained' color='primary' onClick={() => navigate('/admin/create-user')}>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={() => navigate('/admin/create-user')}
+              >
                 Add new user
               </Button>
             </>
@@ -299,7 +326,11 @@ const UsersList = () => {
         }
       />
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+        <VirtualizedTable
+          rows={rows}
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
+        />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -313,22 +344,41 @@ const UsersList = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={<TablePlaceholder>No users available. Get started by adding one.</TablePlaceholder>}
+            elseShow={
+              <TablePlaceholder>
+                No users available. Get started by adding one.
+              </TablePlaceholder>
+            }
           />
         }
       />
 
-      <ConfirmUserAdded open={showConfirm} closeConfirm={closeConfirm} emailSent={emailSent} inviteLink={inviteLink} />
+      <ConfirmUserAdded
+        open={showConfirm}
+        closeConfirm={closeConfirm}
+        emailSent={emailSent}
+        inviteLink={inviteLink}
+      />
 
       <ConditionallyRender
         condition={Boolean(pwDialog.user)}
-        show={() => <ChangePassword showDialog={pwDialog.open} closeDialog={closePwDialog} user={pwDialog.user!} />}
+        show={() => (
+          <ChangePassword
+            showDialog={pwDialog.open}
+            closeDialog={closePwDialog}
+            user={pwDialog.user!}
+          />
+        )}
       />
 
       <ConditionallyRender
         condition={Boolean(resetPwDialog.user)}
         show={() => (
-          <ResetPassword showDialog={resetPwDialog.open} closeDialog={closeResetPwDialog} user={resetPwDialog.user!} />
+          <ResetPassword
+            showDialog={resetPwDialog.open}
+            closeDialog={closeResetPwDialog}
+            user={resetPwDialog.user!}
+          />
         )}
       />
 

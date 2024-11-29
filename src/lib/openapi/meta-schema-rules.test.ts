@@ -6,7 +6,10 @@ const ajv = new Ajv();
 type SchemaNames = keyof typeof schemas;
 type Rule = {
   name: string;
-  match?: (schemaName: string, schema: (typeof schemas)[SchemaNames]) => boolean;
+  match?: (
+    schemaName: string,
+    schema: (typeof schemas)[SchemaNames],
+  ) => boolean;
   metaSchema: Schema;
   knownExceptions?: string[];
 };
@@ -122,7 +125,9 @@ describe.each(metaRules)('OpenAPI schemas $name', (rule) => {
 
         // note: whenever you resolve an exception please remove it from the list
         if (rule.knownExceptions?.includes(schemaName)) {
-          console.warn(`${schemaName} is a known exception to rule "${rule.name}" that should be fixed`);
+          console.warn(
+            `${schemaName} is a known exception to rule "${rule.name}" that should be fixed`,
+          );
           expect(validateMetaSchema.errors).not.toBeNull();
         } else {
           expect(validateMetaSchema.errors).toBeNull();

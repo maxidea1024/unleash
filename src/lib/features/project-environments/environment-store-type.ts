@@ -1,4 +1,8 @@
-import type { IEnvironment, IEnvironmentCreate, IProjectEnvironment } from '../../types/model';
+import type {
+  IEnvironment,
+  IEnvironmentCreate,
+  IProjectEnvironment,
+} from '../../types/model';
 import type { IStore } from '../../types/stores/store';
 
 export interface IEnvironmentStore extends IStore<IEnvironment, string> {
@@ -6,9 +10,16 @@ export interface IEnvironmentStore extends IStore<IEnvironment, string> {
 
   create(env: IEnvironmentCreate): Promise<IEnvironment>;
 
-  update(env: Pick<IEnvironment, 'type' | 'protected'>, name: string): Promise<IEnvironment>;
+  update(
+    env: Pick<IEnvironment, 'type' | 'protected'>,
+    name: string,
+  ): Promise<IEnvironment>;
 
-  updateProperty(id: string, field: string, value: string | number | boolean): Promise<void>;
+  updateProperty(
+    id: string,
+    field: string,
+    value: string | number | boolean,
+  ): Promise<void>;
 
   updateSortOrder(id: string, value: number): Promise<void>;
 
@@ -26,5 +37,8 @@ export interface IEnvironmentStore extends IStore<IEnvironment, string> {
 
   getMaxSortOrder(): Promise<number>;
 
-  getProjectEnvironments(projectId: string, query?: Object): Promise<IProjectEnvironment[]>;
+  getProjectEnvironments(
+    projectId: string,
+    query?: Object,
+  ): Promise<IProjectEnvironment[]>;
 }

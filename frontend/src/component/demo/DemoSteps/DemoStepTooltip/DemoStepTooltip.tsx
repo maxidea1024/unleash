@@ -1,6 +1,16 @@
-import { Button, Dialog, IconButton, Typography, alpha, styled } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  IconButton,
+  Typography,
+  alpha,
+  styled,
+} from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { ITutorialTopic, ITutorialTopicStep } from 'component/demo/demo-topics';
+import type {
+  ITutorialTopic,
+  ITutorialTopicStep,
+} from 'component/demo/demo-topics';
 import type { TooltipRenderProps } from 'react-joyride';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -80,7 +90,12 @@ export const DemoStepTooltip = ({
   onBack,
   onNext,
 }: IDemoStepTooltipProps) => {
-  const nextLabel = stepIndex === 0 ? 'Start' : stepIndex === topics[topic].steps.length - 1 ? 'Finish' : 'Next';
+  const nextLabel =
+    stepIndex === 0
+      ? 'Start'
+      : stepIndex === topics[topic].steps.length - 1
+        ? 'Finish'
+        : 'Next';
 
   if (step.target === 'body') {
     return (
@@ -100,7 +115,9 @@ export const DemoStepTooltip = ({
             <ConditionallyRender
               condition={Boolean(step.title)}
               show={step.title}
-              elseShow={<Typography fontWeight='bold'>{topics[topic].title}</Typography>}
+              elseShow={
+                <Typography fontWeight='bold'>{topics[topic].title}</Typography>
+              }
             />
           </StyledTooltipTitle>
           {step.content}
@@ -145,7 +162,9 @@ export const DemoStepTooltip = ({
         <ConditionallyRender
           condition={Boolean(step.title)}
           show={step.title}
-          elseShow={<Typography fontWeight='bold'>{topics[topic].title}</Typography>}
+          elseShow={
+            <Typography fontWeight='bold'>{topics[topic].title}</Typography>
+          }
         />
       </StyledTooltipTitle>
       {step.content}

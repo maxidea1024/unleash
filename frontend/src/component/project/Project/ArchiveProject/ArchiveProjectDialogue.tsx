@@ -13,7 +13,12 @@ interface IDeleteProjectDialogueProps {
   onSuccess?: () => void;
 }
 
-export const ArchiveProjectDialogue = ({ open, onClose, project, onSuccess }: IDeleteProjectDialogueProps) => {
+export const ArchiveProjectDialogue = ({
+  open,
+  onClose,
+  project,
+  onSuccess,
+}: IDeleteProjectDialogueProps) => {
   const { archiveProject } = useProjectApi();
   const { refetch: refetchProjectOverview } = useProjects();
   const { setToastData, setToastApiError } = useToast();
@@ -36,9 +41,15 @@ export const ArchiveProjectDialogue = ({ open, onClose, project, onSuccess }: ID
   };
 
   return (
-    <Dialogue open={open} onClick={onClick} onClose={onClose} title='Are you sure?'>
+    <Dialogue
+      open={open}
+      onClick={onClick}
+      onClose={onClose}
+      title='Are you sure?'
+    >
       <Typography>
-        The project will be moved to the projects archive, where it can either be revived or permanently deleted.
+        The project will be moved to the projects archive, where it can either
+        be revived or permanently deleted.
       </Typography>
     </Dialogue>
   );

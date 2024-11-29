@@ -1,6 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { CreateDependentFeatureSchema } from '../../openapi';
 import {
@@ -42,7 +45,9 @@ const createProject = async (name: string) => {
 };
 
 const getRecordedEventTypesForDependencies = async () =>
-  (await eventStore.getEvents()).map((event) => event.type).filter((type) => type.includes('depend'));
+  (await eventStore.getEvents())
+    .map((event) => event.type)
+    .filter((type) => type.includes('depend'));
 
 afterAll(async () => {
   await app.destroy();
@@ -66,22 +71,45 @@ const addFeatureDependency = async (
     .expect(expectedCode);
 };
 
-const deleteFeatureDependency = async (childFeature: string, parentFeature: string, expectedCode = 200) => {
+const deleteFeatureDependency = async (
+  childFeature: string,
+  parentFeature: string,
+  expectedCode = 200,
+) => {
   return app.request
-    .delete(`/api/admin/projects/default/features/${childFeature}/dependencies/${parentFeature}`)
+    .delete(
+      `/api/admin/projects/default/features/${childFeature}/dependencies/${parentFeature}`,
+    )
     .expect(expectedCode);
 };
 
-const deleteFeatureDependencies = async (childFeature: string, expectedCode = 200) => {
-  return app.request.delete(`/api/admin/projects/default/features/${childFeature}/dependencies`).expect(expectedCode);
+const deleteFeatureDependencies = async (
+  childFeature: string,
+  expectedCode = 200,
+) => {
+  return app.request
+    .delete(`/api/admin/projects/default/features/${childFeature}/dependencies`)
+    .expect(expectedCode);
 };
 
-const getPossibleParentFeatures = async (childFeature: string, expectedCode = 200) => {
-  return app.request.get(`/api/admin/projects/default/features/${childFeature}/parents`).expect(expectedCode);
+const getPossibleParentFeatures = async (
+  childFeature: string,
+  expectedCode = 200,
+) => {
+  return app.request
+    .get(`/api/admin/projects/default/features/${childFeature}/parents`)
+    .expect(expectedCode);
 };
 
-const getPossibleParentVariants = async (parentFeature: string, expectedCode = 200) => {
-  return app.request.get(`/api/admin/projects/default/features/${parentFeature}/parent-variants`).expect(expectedCode);
+const getPossibleParentVariants = async (
+  parentFeature: string,
+  expectedCode = 200,
+) => {
+  return app.request
+    .get(
+      `/api/admin/projects/default/features/${parentFeature}/parent-variants`,
+    )
+    .expect(expectedCode);
 };
 
 const addStrategyVariants = async (parent: string, variants: string[]) => {
@@ -102,9 +130,14 @@ const addStrategyVariants = async (parent: string, variants: string[]) => {
   );
 };
 
-const addFeatureEnvironmentVariant = async (parent: string, variant: string) => {
+const addFeatureEnvironmentVariant = async (
+  parent: string,
+  variant: string,
+) => {
   await app.request
-    .patch(`/api/admin/projects/default/features/${parent}/environments/${DEFAULT_ENV}/variants`)
+    .patch(
+      `/api/admin/projects/default/features/${parent}/environments/${DEFAULT_ENV}/variants`,
+    )
     .set('Content-Type', 'application/json')
     .send([
       {
@@ -123,7 +156,9 @@ const addFeatureEnvironmentVariant = async (parent: string, variant: string) => 
 };
 
 const checkDependenciesExist = async (expectedCode = 200) => {
-  return app.request.get(`/api/admin/projects/default/dependencies`).expect(expectedCode);
+  return app.request
+    .get(`/api/admin/projects/default/dependencies`)
+    .expect(expectedCode);
 };
 
 test('should add and delete feature dependencies', async () => {

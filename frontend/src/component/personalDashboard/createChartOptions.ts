@@ -2,17 +2,26 @@ import type { Theme } from '@mui/material/styles/createTheme';
 import type { ChartOptions } from 'chart.js';
 import type { ILocationSettings } from '../../hooks/useLocationSettings';
 import type { IPoint } from '../feature/FeatureView/FeatureMetrics/FeatureMetricsChart/createChartData';
-import { formatDateHM, formatDateYMD, formatDateYMDHM } from '../../utils/formatDate';
+import {
+  formatDateHM,
+  formatDateYMD,
+  formatDateYMDHM,
+} from '../../utils/formatDate';
 import { formatTickValue } from 'component/common/Chart/formatTickValue';
 
-const formatVariantEntry = (variant: [string, number], totalExposure: number) => {
+const formatVariantEntry = (
+  variant: [string, number],
+  totalExposure: number,
+) => {
   if (totalExposure === 0) return '';
   const [key, value] = variant;
   const percentage = Math.floor((Number(value) / totalExposure) * 100);
   return `${value} (${percentage}%) - ${key}`;
 };
 
-export const createPlaceholderBarChartOptions = (theme: Theme): ChartOptions<'bar'> => ({
+export const createPlaceholderBarChartOptions = (
+  theme: Theme,
+): ChartOptions<'bar'> => ({
   plugins: {
     legend: {
       position: 'top',
@@ -70,7 +79,8 @@ export const createBarChartOptions = (
   hoursBack: number,
   locationSettings: ILocationSettings,
 ): ChartOptions<'bar'> => {
-  const { responsive, elements, interaction, scales, maintainAspectRatio } = createPlaceholderBarChartOptions(theme);
+  const { responsive, elements, interaction, scales, maintainAspectRatio } =
+    createPlaceholderBarChartOptions(theme);
   return {
     plugins: {
       legend: {
@@ -113,7 +123,10 @@ export const createBarChartOptions = (
           afterLabel: (item) => {
             const data = item.dataset.data[item.dataIndex] as unknown as IPoint;
 
-            if (item.dataset.label !== 'Exposed' || data.variants === undefined) {
+            if (
+              item.dataset.label !== 'Exposed' ||
+              data.variants === undefined
+            ) {
               return '';
             }
             const { disabled, ...actualVariants } = data.variants;

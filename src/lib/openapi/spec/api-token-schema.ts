@@ -17,7 +17,8 @@ export const apiTokenSchema = {
     username: {
       type: 'string',
       deprecated: true,
-      description: 'This property was deprecated in Unleash v5. Prefer the `tokenName` property instead.',
+      description:
+        'This property was deprecated in Unleash v5. Prefer the `tokenName` property instead.',
       example: 'a-name',
     },
     tokenName: {
@@ -33,7 +34,8 @@ export const apiTokenSchema = {
     },
     environment: {
       type: 'string',
-      description: 'The environment the token has access to. `*` if it has access to all environments.',
+      description:
+        'The environment the token has access to. `*` if it has access to all environments.',
       example: 'development',
     },
     project: {

@@ -46,7 +46,10 @@ describe('update lifetimes', () => {
     const featureTypes = await featureTypeStore.getAll();
 
     for (const type of featureTypes) {
-      const updated = await featureTypeStore.updateLifetime(type.id, newLifetime);
+      const updated = await featureTypeStore.updateLifetime(
+        type.id,
+        newLifetime,
+      );
 
       expect(updated?.lifetimeDays).toBe(newLifetime);
 
@@ -55,6 +58,8 @@ describe('update lifetimes', () => {
   });
 
   test("It returns undefined if you try to update a feature type that doesn't exist", async () => {
-    expect(await featureTypeStore.updateLifetime('bogus-type', 40)).toBeUndefined();
+    expect(
+      await featureTypeStore.updateLifetime('bogus-type', 40),
+    ).toBeUndefined();
   });
 });

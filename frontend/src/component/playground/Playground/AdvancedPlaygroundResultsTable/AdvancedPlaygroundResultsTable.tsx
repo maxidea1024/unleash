@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { type SortingRule, useFlexLayout, useGlobalFilter, useSortBy, useTable } from 'react-table';
+import {
+  type SortingRule,
+  useFlexLayout,
+  useGlobalFilter,
+  useSortBy,
+  useTable,
+} from 'react-table';
 
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
@@ -27,7 +33,10 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { countCombinations, getBucket } from './combinationCounter';
 
 const defaultSort: SortingRule<string> = { id: 'name' };
-const { value, setValue } = createLocalStorage('AdvancedPlaygroundResultsTable:v1', defaultSort);
+const { value, setValue } = createLocalStorage(
+  'AdvancedPlaygroundResultsTable:v1',
+  defaultSort,
+);
 
 interface IAdvancedPlaygroundResultsTableProps {
   features?: AdvancedPlaygroundFeatureSchema[];
@@ -35,7 +44,11 @@ interface IAdvancedPlaygroundResultsTableProps {
   loading: boolean;
 }
 
-export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAdvancedPlaygroundResultsTableProps) => {
+export const AdvancedPlaygroundResultsTable = ({
+  features,
+  input,
+  loading,
+}: IAdvancedPlaygroundResultsTableProps) => {
   const { trackEvent } = usePlausibleTracker();
   if (features) {
     trackEvent('playground', {
@@ -48,10 +61,15 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
 
   const [searchParams, setSearchParams] = useSearchParams();
   const ref = useLoading(loading);
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || '',
+  );
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const environmentsCount = features && features.length > 0 ? Object.keys(features[0].environments).length : 0;
+  const environmentsCount =
+    features && features.length > 0
+      ? Object.keys(features[0].environments).length
+      : 0;
 
   const COLUMNS = useMemo(() => {
     return [
@@ -61,7 +79,10 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
         searchable: true,
         minWidth: 160,
         Cell: ({ value, row: { original } }: any) => (
-          <LinkCell title={value} to={`/projects/${original?.projectId}/features/${value}`} />
+          <LinkCell
+            title={value}
+            to={`/projects/${original?.projectId}/features/${value}`}
+          />
         ),
       },
       {
@@ -71,7 +92,9 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
         filterName: 'projectId',
         searchable: true,
         minWidth: 150,
-        Cell: ({ value }: any) => <LinkCell title={value} to={`/projects/${value}`} />,
+        Cell: ({ value }: any) => (
+          <LinkCell title={value} to={`/projects/${value}`} />
+        ),
       },
       ...(input?.environments?.map((name: string) => {
         return {
@@ -79,7 +102,11 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
           maxWidth: 150,
           id: `environments.${name}`,
           align: 'flex-start',
-          Cell: ({ row }: any) => <AdvancedPlaygroundEnvironmentCell value={row.original.environments[name]} />,
+          Cell: ({ row }: any) => (
+            <AdvancedPlaygroundEnvironmentCell
+              value={row.original.environments[name]}
+            />
+          ),
         };
       }) || []),
       ...(environmentsCount > 1
@@ -97,14 +124,22 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
                     environments: AdvancedPlaygroundFeatureSchemaEnvironments;
                   };
                 };
-              }) => <AdvancedPlaygroundEnvironmentDiffCell value={row.original.environments} />,
+              }) => (
+                <AdvancedPlaygroundEnvironmentDiffCell
+                  value={row.original.environments}
+                />
+              ),
             },
           ]
         : []),
     ];
   }, [input]);
 
-  const { data: searchedData, getSearchText, getSearchContext } = useSearch(COLUMNS, searchValue, features || []);
+  const {
+    data: searchedData,
+    getSearchText,
+    getSearchContext,
+  } = useSearch(COLUMNS, searchValue, features || []);
 
   const data = useMemo(() => {
     return loading
@@ -121,7 +156,9 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
     sortBy: [
       {
         id: searchParams.get('sort') || value.id,
-        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : value.desc,
+        desc: searchParams.has('order')
+          ? searchParams.get('order') === 'desc'
+          : value.desc,
       },
     ],
   }));
@@ -217,13 +254,19 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
         condition={!loading && !data}
         show={() => (
           <TablePlaceholder>
-            {data === undefined ? 'None of the feature flags were evaluated yet.' : 'No results found.'}
+            {data === undefined
+              ? 'None of the feature flags were evaluated yet.'
+              : 'No results found.'}
           </TablePlaceholder>
         )}
         elseShow={() => (
           <Box ref={ref} sx={{ overflow: 'auto' }}>
             <SearchHighlightProvider value={getSearchText(searchValue)}>
-              <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+              <VirtualizedTable
+                rows={rows}
+                headerGroups={headerGroups}
+                prepareRow={prepareRow}
+              />
             </SearchHighlightProvider>
             <ConditionallyRender
               condition={data.length === 0 && searchValue?.length > 0}
@@ -237,7 +280,11 @@ export const AdvancedPlaygroundResultsTable = ({ features, input, loading }: IAd
 
             <ConditionallyRender
               condition={data && data.length === 0 && !searchValue}
-              show={<TablePlaceholder>No features flags to display</TablePlaceholder>}
+              show={
+                <TablePlaceholder>
+                  No features flags to display
+                </TablePlaceholder>
+              }
             />
           </Box>
         )}

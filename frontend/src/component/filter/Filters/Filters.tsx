@@ -12,7 +12,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
 }));
 
-export type FilterItemParamHolder = Record<string, FilterItemParams | null | undefined>;
+export type FilterItemParamHolder = Record<
+  string,
+  FilterItemParams | null | undefined
+>;
 
 interface IFilterProps {
   state: FilterItemParamHolder;
@@ -55,7 +58,12 @@ const StyledIcon = styled(Icon)(({ theme }) => ({
   },
 }));
 
-export const Filters: FC<IFilterProps> = ({ state, onChange, availableFilters, className }) => {
+export const Filters: FC<IFilterProps> = ({
+  state,
+  onChange,
+  availableFilters,
+  className,
+}) => {
   const [unselectedFilters, setUnselectedFilters] = useState<string[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -67,7 +75,10 @@ export const Filters: FC<IFilterProps> = ({ state, onChange, availableFilters, c
     setUnselectedFilters(newUnselectedFilters);
   };
 
-  const mergeArraysKeepingOrder = (firstArray: string[], secondArray: string[]): string[] => {
+  const mergeArraysKeepingOrder = (
+    firstArray: string[],
+    secondArray: string[],
+  ): string[] => {
     const resultArray: string[] = [...firstArray];
     const elementsSet = new Set(firstArray);
 
@@ -82,12 +93,17 @@ export const Filters: FC<IFilterProps> = ({ state, onChange, availableFilters, c
 
   useEffect(() => {
     const newSelectedFilters = Object.keys(state)
-      .map((filterKey) => availableFilters.find((filter) => filterKey === filter.filterKey))
+      .map((filterKey) =>
+        availableFilters.find((filter) => filterKey === filter.filterKey),
+      )
       .filter((filter): filter is IFilterItem => Boolean(filter))
       .filter((field) => Boolean(state[field.filterKey]))
       .map((filter) => filter.label);
 
-    const allSelectedFilters = mergeArraysKeepingOrder(selectedFilters, newSelectedFilters);
+    const allSelectedFilters = mergeArraysKeepingOrder(
+      selectedFilters,
+      newSelectedFilters,
+    );
     setSelectedFilters(allSelectedFilters);
 
     const newUnselectedFilters = availableFilters
@@ -101,7 +117,9 @@ export const Filters: FC<IFilterProps> = ({ state, onChange, availableFilters, c
   return (
     <StyledBox className={className}>
       {selectedFilters.map((selectedFilter) => {
-        const filter = availableFilters.find((filter) => filter.label === selectedFilter);
+        const filter = availableFilters.find(
+          (filter) => filter.label === selectedFilter,
+        );
 
         if (!filter) {
           return null;

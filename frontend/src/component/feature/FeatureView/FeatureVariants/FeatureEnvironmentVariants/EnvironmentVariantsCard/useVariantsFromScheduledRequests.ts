@@ -5,9 +5,15 @@ export const useVariantsFromScheduledRequests = (
   featureId: string,
   environment: string,
 ): number[] => {
-  const { changeRequests } = useScheduledChangeRequestsWithVariant(projectId, featureId);
+  const { changeRequests } = useScheduledChangeRequestsWithVariant(
+    projectId,
+    featureId,
+  );
 
-  const filtered = changeRequests?.filter((changeRequestIdentity) => changeRequestIdentity.environment === environment);
+  const filtered = changeRequests?.filter(
+    (changeRequestIdentity) =>
+      changeRequestIdentity.environment === environment,
+  );
 
   if (filtered) {
     return filtered.map((changeRequestIdentity) => changeRequestIdentity.id);

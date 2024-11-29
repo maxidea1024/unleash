@@ -1,4 +1,10 @@
-import { Box, type BoxProps, FormControlLabel, Switch, styled } from '@mui/material';
+import {
+  Box,
+  type BoxProps,
+  FormControlLabel,
+  Switch,
+  styled,
+} from '@mui/material';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 
 const StyledContainer = styled(Box)(({ theme }) => ({
@@ -24,13 +30,27 @@ interface IFormSwitchProps extends BoxProps {
   children?: ReactNode;
 }
 
-export const FormSwitch = ({ checked, setChecked, children, ...props }: IFormSwitchProps) => {
+export const FormSwitch = ({
+  checked,
+  setChecked,
+  children,
+  ...props
+}: IFormSwitchProps) => {
   return (
     <StyledContainer {...props}>
       {children}
       <StyledControlLabel
-        control={<Switch checked={checked} onChange={(e) => setChecked(e.target.checked)} />}
-        label={<StyledSwitchSpan>{checked ? 'Enabled' : 'Disabled'}</StyledSwitchSpan>}
+        control={
+          <Switch
+            checked={checked}
+            onChange={(e) => setChecked(e.target.checked)}
+          />
+        }
+        label={
+          <StyledSwitchSpan>
+            {checked ? 'Enabled' : 'Disabled'}
+          </StyledSwitchSpan>
+        }
       />
     </StyledContainer>
   );

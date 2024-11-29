@@ -44,7 +44,8 @@ const sidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Feature Flag Developer Guide',
-        description: 'What are feature flags? And other concepts to get you started.',
+        description:
+          'What are feature flags? And other concepts to get you started.',
         slug: '/topics',
       },
       items: [
@@ -61,7 +62,8 @@ const sidebars: SidebarsConfig = {
           link: {
             type: 'generated-index',
             title: 'Feature Flag Best Practices',
-            description: 'Principles and recommendations for best practices of using feature flags.',
+            description:
+              'Principles and recommendations for best practices of using feature flags.',
             slug: 'topics/feature-flags/',
           },
           items: [
@@ -89,7 +91,8 @@ const sidebars: SidebarsConfig = {
           link: {
             type: 'generated-index',
             title: 'Feature Flag Tutorials',
-            description: 'Tutorials to implement feature flags with your framework.',
+            description:
+              'Tutorials to implement feature flags with your framework.',
             slug: 'feature-flag-tutorials',
           },
           items: [
@@ -294,7 +297,8 @@ const sidebars: SidebarsConfig = {
       link: {
         type: 'generated-index',
         title: 'Understanding Unleash',
-        description: 'Documentation on how Unleash works, high-level architecture and important concepts.',
+        description:
+          'Documentation on how Unleash works, high-level architecture and important concepts.',
         slug: 'understanding-unleash',
       },
       items: [
@@ -372,7 +376,8 @@ const sidebars: SidebarsConfig = {
           link: {
             title: 'Unleash Server APIs',
             type: 'generated-index',
-            description: 'Generated API docs based on the Unleash OpenAPI schema.',
+            description:
+              'Generated API docs based on the Unleash OpenAPI schema.',
             slug: '/reference/api/unleash',
           },
           items: [
@@ -469,7 +474,8 @@ const sidebars: SidebarsConfig = {
           link: {
             type: 'generated-index',
             title: 'Self-Hosting Unleash',
-            description: 'All you need to learn how to deploy and manage your own Unleash instance.',
+            description:
+              'All you need to learn how to deploy and manage your own Unleash instance.',
             slug: '/using-unleash/deploy',
           },
           label: 'Self-hosting',
@@ -504,7 +510,10 @@ const sidebars: SidebarsConfig = {
         },
         {
           label: 'Automatic provisioning',
-          items: ['how-to/how-to-setup-provisioning-with-okta', 'how-to/how-to-setup-provisioning-with-entra'],
+          items: [
+            'how-to/how-to-setup-provisioning-with-okta',
+            'how-to/how-to-setup-provisioning-with-entra',
+          ],
           type: 'category',
           link: {
             type: 'generated-index',
@@ -521,7 +530,10 @@ const sidebars: SidebarsConfig = {
             type: 'doc',
             id: 'generated/unleash-edge',
           },
-          items: ['generated/unleash-edge/concepts', 'generated/unleash-edge/deploying'],
+          items: [
+            'generated/unleash-edge/concepts',
+            'generated/unleash-edge/deploying',
+          ],
         },
         'generated/unleash-proxy',
         {

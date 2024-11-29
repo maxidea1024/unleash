@@ -15,7 +15,11 @@ const StyledAlert = styled(Alert)({
   fontSize: 'inherit',
 });
 
-export const ProjectActionsEventsDetails = ({ state, actionSet: { actions }, signal }: IActionSetEvent) => {
+export const ProjectActionsEventsDetails = ({
+  state,
+  actionSet: { actions },
+  signal,
+}: IActionSetEvent) => {
   const stateText =
     state === 'failed'
       ? `${actions.filter(({ state }) => state !== 'success').length} out of ${actions.length} actions were not successfully executed`

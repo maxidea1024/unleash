@@ -27,4 +27,6 @@ export const projectDoraMetricsSchema = {
   },
 } as const;
 
-export type ProjectDoraMetricsSchema = FromSchema<typeof projectDoraMetricsSchema>;
+export type ProjectDoraMetricsSchema = FromSchema<
+  typeof projectDoraMetricsSchema
+>;

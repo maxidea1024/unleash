@@ -14,7 +14,11 @@ interface IServiceAccountDialogProps {
   token?: INewPersonalAPIToken;
 }
 
-export const ServiceAccountTokenDialog: FC<IServiceAccountDialogProps> = ({ open, setOpen, token }) => (
+export const ServiceAccountTokenDialog: FC<IServiceAccountDialogProps> = ({
+  open,
+  setOpen,
+  token,
+}) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'
@@ -26,7 +30,8 @@ export const ServiceAccountTokenDialog: FC<IServiceAccountDialogProps> = ({ open
     title='Service account token created'
   >
     <StyledAlert severity='info'>
-      Make sure to copy your service account API token now. You won't be able to see it again!
+      Make sure to copy your service account API token now. You won't be able to
+      see it again!
     </StyledAlert>
     <Typography variant='body1'>Your token:</Typography>
     <UserToken token={token?.secret || ''} />

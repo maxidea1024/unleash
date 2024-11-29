@@ -10,7 +10,12 @@ import type {
   IUserWithProjectRoles,
 } from '../../lib/types/stores/access-store';
 import type { IPermission } from '../../lib/types/model';
-import { type IRoleStore, type IUserAccessOverview, RoleName, RoleType } from '../../lib/types';
+import {
+  type IRoleStore,
+  type IUserAccessOverview,
+  RoleName,
+  RoleType,
+} from '../../lib/types';
 import FakeRoleStore from './fake-role-store';
 import type { PermissionRef } from '../../lib/services/access-service';
 
@@ -25,11 +30,16 @@ export class FakeAccessStore implements IAccessStore {
     this.fakeRolesStore = roleStore ?? new FakeRoleStore();
   }
 
-  getProjectUserAndGroupCountsForRole(roleId: number): Promise<IProjectRoleUsage[]> {
+  getProjectUserAndGroupCountsForRole(
+    roleId: number,
+  ): Promise<IProjectRoleUsage[]> {
     throw new Error('Method not implemented.');
   }
 
-  getAllProjectRolesForUser(userId: number, project: string): Promise<IRoleWithProject[]> {
+  getAllProjectRolesForUser(
+    userId: number,
+    project: string,
+  ): Promise<IRoleWithProject[]> {
     throw new Error('Method not implemented.');
   }
 
@@ -53,23 +63,44 @@ export class FakeAccessStore implements IAccessStore {
     throw new Error('Method not implemented.');
   }
 
-  updateGroupProjectRole(userId: number, roleId: number, projectId: string): Promise<void> {
+  updateGroupProjectRole(
+    userId: number,
+    roleId: number,
+    projectId: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  addGroupToRole(groupId: number, roleId: number, created_by: string, projectId?: string): Promise<void> {
+  addGroupToRole(
+    groupId: number,
+    roleId: number,
+    created_by: string,
+    projectId?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  removeGroupFromRole(groupId: number, roleId: number, projectId?: string): Promise<void> {
+  removeGroupFromRole(
+    groupId: number,
+    roleId: number,
+    projectId?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  updateUserProjectRole(userId: number, roleId: number, projectId: string): Promise<void> {
+  updateUserProjectRole(
+    userId: number,
+    roleId: number,
+    projectId: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  removeUserFromRole(userId: number, roleId: number, projectId: string): Promise<void> {
+  removeUserFromRole(
+    userId: number,
+    roleId: number,
+    projectId: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
@@ -85,7 +116,10 @@ export class FakeAccessStore implements IAccessStore {
     throw new Error('Method not implemented.');
   }
 
-  getProjectUsersForRole(roleId: number, projectId?: string): Promise<IUserRole[]> {
+  getProjectUsersForRole(
+    roleId: number,
+    projectId?: string,
+  ): Promise<IUserRole[]> {
     throw new Error('Method not implemented.');
   }
 
@@ -97,7 +131,10 @@ export class FakeAccessStore implements IAccessStore {
     throw new Error('Method not implemented.');
   }
 
-  addEnvironmentPermissionsToRole(role_id: number, permissions: PermissionRef[]): Promise<void> {
+  addEnvironmentPermissionsToRole(
+    role_id: number,
+    permissions: PermissionRef[],
+  ): Promise<void> {
     return Promise.resolve(undefined);
   }
 
@@ -132,7 +169,8 @@ export class FakeAccessStore implements IAccessStore {
 
   async getRolesForUserId(userId: number): Promise<IRoleWithProject[]> {
     const roleId = this.userToRoleMap.get(userId);
-    const found = roleId === undefined ? undefined : await this.fakeRolesStore.get(roleId);
+    const found =
+      roleId === undefined ? undefined : await this.fakeRolesStore.get(roleId);
     if (found) {
       return Promise.resolve([found as IRoleWithProject]);
     } else {
@@ -153,15 +191,25 @@ export class FakeAccessStore implements IAccessStore {
     return Promise.resolve(undefined);
   }
 
-  addPermissionsToRole(role_id: number, permissions: PermissionRef[], environment?: string): Promise<void> {
+  addPermissionsToRole(
+    role_id: number,
+    permissions: PermissionRef[],
+    environment?: string,
+  ): Promise<void> {
     this.rolePermissions.set(
       role_id,
-      (environment ? permissions.map((p) => ({ ...p, environment })) : permissions) as IPermission[],
+      (environment
+        ? permissions.map((p) => ({ ...p, environment }))
+        : permissions) as IPermission[],
     );
     return Promise.resolve(undefined);
   }
 
-  removePermissionFromRole(roleId: number, permission: string, projectId?: string): Promise<void> {
+  removePermissionFromRole(
+    roleId: number,
+    permission: string,
+    projectId?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
@@ -199,7 +247,10 @@ export class FakeAccessStore implements IAccessStore {
     return Promise.resolve(undefined);
   }
 
-  cloneEnvironmentPermissions(sourceEnvironment: string, destinationEnvironment: string): Promise<void> {
+  cloneEnvironmentPermissions(
+    sourceEnvironment: string,
+    destinationEnvironment: string,
+  ): Promise<void> {
     return Promise.resolve(undefined);
   }
 
@@ -215,7 +266,10 @@ export class FakeAccessStore implements IAccessStore {
     return Promise.resolve(undefined);
   }
 
-  getProjectRolesForGroup(projectId: string, groupId: number): Promise<number[]> {
+  getProjectRolesForGroup(
+    projectId: string,
+    groupId: number,
+  ): Promise<number[]> {
     throw new Error('Method not implemented.');
   }
 
@@ -223,11 +277,20 @@ export class FakeAccessStore implements IAccessStore {
     throw new Error('Method not implemented.');
   }
 
-  setProjectRolesForGroup(projectId: string, groupId: number, roles: number[], createdBy: string): Promise<void> {
+  setProjectRolesForGroup(
+    projectId: string,
+    groupId: number,
+    roles: number[],
+    createdBy: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  setProjectRolesForUser(projectId: string, userId: number, roles: number[]): Promise<void> {
+  setProjectRolesForUser(
+    projectId: string,
+    userId: number,
+    roles: number[],
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 

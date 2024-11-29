@@ -15,4 +15,6 @@ export const playgroundConstraintSchema = {
   },
 } as const;
 
-export type PlaygroundConstraintSchema = FromSchema<typeof playgroundConstraintSchema>;
+export type PlaygroundConstraintSchema = FromSchema<
+  typeof playgroundConstraintSchema
+>;

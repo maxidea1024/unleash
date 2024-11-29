@@ -78,9 +78,16 @@ export const EdgeIntegration = () => {
       documentationLinkLabel='Unleash Edge documentation'
     >
       <StyledContainer>
-        <IntegrationHowToSection provider={EDGE_INFO} title='Why would you need Edge?' />
+        <IntegrationHowToSection
+          provider={EDGE_INFO}
+          title='Why would you need Edge?'
+        />
         <StyledGrayContainer>
-          <StyledLink target='_blank' rel='noopener noreferrer' href='https://github.com/Unleash/unleash-edge#readme'>
+          <StyledLink
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://github.com/Unleash/unleash-edge#readme'
+          >
             View Unleash Edge on GitHub{' '}
             <LaunchIcon
               fontSize='inherit'
@@ -110,7 +117,9 @@ export const EdgeIntegration = () => {
         />
         <StyledDescription>
           <section>
-            <StyledDescriptionHeader variant='h3'>Modes</StyledDescriptionHeader>
+            <StyledDescriptionHeader variant='h3'>
+              Modes
+            </StyledDescriptionHeader>
             <Typography variant='body1'>
               Edge currently supports 2 different modes:{' '}
               <ul>
@@ -122,8 +131,9 @@ export const EdgeIntegration = () => {
                   >
                     Edge
                   </a>{' '}
-                  Edge &ndash; Connection to upstream node (Unleash instance or another Edge). Supports dynamic tokens,
-                  metrics and other advanced features;
+                  Edge &ndash; Connection to upstream node (Unleash instance or
+                  another Edge). Supports dynamic tokens, metrics and other
+                  advanced features;
                 </li>
                 <li>
                   <a
@@ -133,7 +143,8 @@ export const EdgeIntegration = () => {
                   >
                     Offline
                   </a>{' '}
-                  &ndash; No connection to upstream node. Full control of data and tokens;
+                  &ndash; No connection to upstream node. Full control of data
+                  and tokens;
                 </li>
               </ul>
             </Typography>
@@ -141,19 +152,22 @@ export const EdgeIntegration = () => {
           <section>
             <StyledDescriptionHeader variant='h3'>Edge</StyledDescriptionHeader>
             <Typography variant='body1'>
-              Edge mode is the "standard" mode for Unleash Edge and the one you should default to in most cases. It
-              connects to an upstream node, such as your Unleash instance, and uses that as the source of truth for
-              feature flags.
+              Edge mode is the "standard" mode for Unleash Edge and the one you
+              should default to in most cases. It connects to an upstream node,
+              such as your Unleash instance, and uses that as the source of
+              truth for feature flags.
             </Typography>
             <StyledFigure>
               <img src={formatAssetPath(edgeMode)} alt='test' />
               <StyledFigcaption>Edge mode</StyledFigcaption>
             </StyledFigure>
             <Typography>
-              Other than connecting Edge directly to your Unleash instance, it's also possible to connect to another
-              Edge instance (daisy chaining). You can have as many Edge nodes as you'd like between the Edge node your
-              clients are accessing and the Unleash server, and it's also possible for multiple nodes to connect to a
-              single upstream one.
+              Other than connecting Edge directly to your Unleash instance, it's
+              also possible to connect to another Edge instance (daisy
+              chaining). You can have as many Edge nodes as you'd like between
+              the Edge node your clients are accessing and the Unleash server,
+              and it's also possible for multiple nodes to connect to a single
+              upstream one.
             </Typography>
             <StyledFigure>
               <img src={formatAssetPath(edgeChaining)} alt='test' />
@@ -161,10 +175,13 @@ export const EdgeIntegration = () => {
             </StyledFigure>
           </section>
           <section>
-            <StyledDescriptionHeader variant='h3'>Offline</StyledDescriptionHeader>
+            <StyledDescriptionHeader variant='h3'>
+              Offline
+            </StyledDescriptionHeader>
             <Typography>
-              Offline mode is useful when there is no connection to an upstream node, such as your Unleash instance or
-              another Edge instance, or as a tool to make working with Unleash easier during development.
+              Offline mode is useful when there is no connection to an upstream
+              node, such as your Unleash instance or another Edge instance, or
+              as a tool to make working with Unleash easier during development.
             </Typography>
             <StyledFigure>
               <img src={formatAssetPath(offlineMode)} alt='test' />

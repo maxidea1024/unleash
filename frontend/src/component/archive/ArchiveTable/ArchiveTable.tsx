@@ -1,7 +1,13 @@
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
-import { type SortingRule, useFlexLayout, useRowSelect, useSortBy, useTable } from 'react-table';
+import {
+  type SortingRule,
+  useFlexLayout,
+  useRowSelect,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Checkbox, useMediaQuery } from '@mui/material';
 import { sortTypes } from 'utils/sortTypes';
@@ -36,7 +42,9 @@ export interface IFeaturesArchiveTableProps {
   loading: boolean;
   storedParams: SortingRule<string>;
   setStoredParams: (
-    newValue: SortingRule<string> | ((prev: SortingRule<string>) => SortingRule<string>),
+    newValue:
+      | SortingRule<string>
+      | ((prev: SortingRule<string>) => SortingRule<string>),
   ) => SortingRule<string>;
   projectId?: string;
 }
@@ -60,7 +68,9 @@ export const ArchiveTable = ({
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || '',
+  );
 
   const { uiConfig } = useUiConfig();
 
@@ -71,9 +81,14 @@ export const ArchiveTable = ({
             {
               id: 'Select',
               Header: ({ getToggleAllRowsSelectedProps }: any) => (
-                <Checkbox data-testid='select_all_rows' {...getToggleAllRowsSelectedProps()} />
+                <Checkbox
+                  data-testid='select_all_rows'
+                  {...getToggleAllRowsSelectedProps()}
+                />
               ),
-              Cell: ({ row }: any) => <RowSelectCell {...row?.getToggleRowSelectedProps?.()} />,
+              Cell: ({ row }: any) => (
+                <RowSelectCell {...row?.getToggleRowSelectedProps?.()} />
+              ),
               maxWidth: 50,
               disableSortBy: true,
               hideInMenu: true,
@@ -102,7 +117,9 @@ export const ArchiveTable = ({
         accessor: 'name',
         searchable: true,
         minWidth: 100,
-        Cell: ({ value, row: { original } }: any) => <HighlightCell value={value} subtitle={original.description} />,
+        Cell: ({ value, row: { original } }: any) => (
+          <HighlightCell value={value} subtitle={original.description} />
+        ),
         sortType: 'alphanumeric',
       },
       {
@@ -126,7 +143,9 @@ export const ArchiveTable = ({
               filterName: 'project',
               searchable: true,
               maxWidth: 170,
-              Cell: ({ value }: any) => <LinkCell title={value} to={`/projects/${value}`} />,
+              Cell: ({ value }: any) => (
+                <LinkCell title={value} to={`/projects/${value}`} />
+              ),
             },
           ]
         : []),
@@ -161,15 +180,24 @@ export const ArchiveTable = ({
     [projectId],
   );
 
-  const { data: searchedData, getSearchText, getSearchContext } = useSearch(columns, searchValue, archivedFeatures);
+  const {
+    data: searchedData,
+    getSearchText,
+    getSearchContext,
+  } = useSearch(columns, searchValue, archivedFeatures);
 
-  const data = useMemo(() => (loading ? featuresPlaceholder : searchedData), [searchedData, loading]);
+  const data = useMemo(
+    () => (loading ? featuresPlaceholder : searchedData),
+    [searchedData, loading],
+  );
 
   const [initialState] = useState(() => ({
     sortBy: [
       {
         id: searchParams.get('sort') || storedParams.id,
-        desc: searchParams.has('order') ? searchParams.get('order') === 'desc' : storedParams.desc,
+        desc: searchParams.has('order')
+          ? searchParams.get('order') === 'desc'
+          : storedParams.desc,
       },
     ],
     hiddenColumns: ['description'],
@@ -255,7 +283,11 @@ export const ArchiveTable = ({
         }
       >
         <SearchHighlightProvider value={getSearchText(searchValue)}>
-          <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+          <VirtualizedTable
+            rows={rows}
+            headerGroups={headerGroups}
+            prepareRow={prepareRow}
+          />
         </SearchHighlightProvider>
         <ConditionallyRender
           condition={rows.length === 0}
@@ -268,7 +300,11 @@ export const ArchiveTable = ({
                   {searchValue}&rdquo;
                 </TablePlaceholder>
               }
-              elseShow={<TablePlaceholder>None of the feature flags were archived yet.</TablePlaceholder>}
+              elseShow={
+                <TablePlaceholder>
+                  None of the feature flags were archived yet.
+                </TablePlaceholder>
+              }
             />
           )}
         />

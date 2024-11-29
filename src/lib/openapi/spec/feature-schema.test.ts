@@ -36,7 +36,9 @@ test('featureSchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/featureSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toBeUndefined();
 });
 
 test('featureSchema constraints', () => {
@@ -52,7 +54,9 @@ test('featureSchema constraints', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/featureSchema', data)).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toMatchSnapshot();
 });
 
 test('featureSchema variants should only have a few required fields', () => {
@@ -66,7 +70,9 @@ test('featureSchema variants should only have a few required fields', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/featureSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toBeUndefined();
 });
 
 test('featureSchema variant override values must be an array', () => {
@@ -84,5 +90,7 @@ test('featureSchema variant override values must be an array', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/featureSchema', data)).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/featureSchema', data),
+  ).toMatchSnapshot();
 });

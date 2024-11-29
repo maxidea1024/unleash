@@ -1,5 +1,10 @@
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../../test/e2e/helpers/test-helper';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../test/fixtures/no-logger';
 
 let app: IUnleashTest;
@@ -43,9 +48,15 @@ test('Should be allowed to reuse deleted toggle name', async () => {
       archived: true,
     })
     .expect(201);
-  await app.request.post('/api/admin/features/validate').send({ name: 'ts.really.delete' }).expect(409);
+  await app.request
+    .post('/api/admin/features/validate')
+    .send({ name: 'ts.really.delete' })
+    .expect(409);
   await app.request.delete('/api/admin/archive/ts.really.delete').expect(200);
-  await app.request.post('/api/admin/features/validate').send({ name: 'ts.really.delete' }).expect(200);
+  await app.request
+    .post('/api/admin/features/validate')
+    .send({ name: 'ts.really.delete' })
+    .expect(200);
 });
 
 test('Should get archived toggles via admin', async () => {
@@ -134,7 +145,10 @@ test('Should be able to revive toggle', async () => {
     name: 'archived.revival',
     archived: true,
   });
-  await app.request.post('/api/admin/archive/revive/archived.revival').send({}).expect(200);
+  await app.request
+    .post('/api/admin/archive/revive/archived.revival')
+    .send({})
+    .expect(200);
 });
 
 test('Should disable all environments when reviving a toggle', async () => {
@@ -159,18 +173,38 @@ test('Should disable all environments when reviving a toggle', async () => {
     sortOrder: 2,
   });
 
-  await db.stores.featureEnvironmentStore.addEnvironmentToFeature('feat-proj-1', 'default', true);
-  await db.stores.featureEnvironmentStore.addEnvironmentToFeature('feat-proj-1', 'production', true);
-  await db.stores.featureEnvironmentStore.addEnvironmentToFeature('feat-proj-1', 'development', true);
-  await app.request.post('/api/admin/archive/revive/feat-proj-1').send({}).expect(200);
+  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(
+    'feat-proj-1',
+    'default',
+    true,
+  );
+  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(
+    'feat-proj-1',
+    'production',
+    true,
+  );
+  await db.stores.featureEnvironmentStore.addEnvironmentToFeature(
+    'feat-proj-1',
+    'development',
+    true,
+  );
+  await app.request
+    .post('/api/admin/archive/revive/feat-proj-1')
+    .send({})
+    .expect(200);
 
   const { body } = await app.request
-    .get('/api/admin/projects/default/features/feat-proj-1?variantEnvironments=true')
+    .get(
+      '/api/admin/projects/default/features/feat-proj-1?variantEnvironments=true',
+    )
     .expect(200);
 
   expect(body.environments.every((env) => !env.enabled));
 });
 
 test('Reviving a non-existing toggle should yield 404', async () => {
-  await app.request.post('/api/admin/archive/revive/non.existing').send({}).expect(404);
+  await app.request
+    .post('/api/admin/archive/revive/non.existing')
+    .send({})
+    .expect(404);
 });

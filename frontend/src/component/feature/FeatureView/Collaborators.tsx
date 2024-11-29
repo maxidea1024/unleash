@@ -1,5 +1,8 @@
 import { styled } from '@mui/material';
-import { AvatarComponent, AvatarGroup } from 'component/common/AvatarGroup/AvatarGroup';
+import {
+  AvatarComponent,
+  AvatarGroup,
+} from 'component/common/AvatarGroup/AvatarGroup';
 import type { Collaborator } from 'interfaces/featureToggle';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -44,11 +47,17 @@ const StyledAvatarGroup = styled(AvatarGroup)({
   flexWrap: 'nowrap',
 });
 
-const CollaboratorList: FC<{ collaborators: Collaborator[] }> = ({ collaborators }) => {
+const CollaboratorList: FC<{ collaborators: Collaborator[] }> = ({
+  collaborators,
+}) => {
   return (
     <SectionContainer>
       <span className='description'>Collaborators</span>
-      <StyledAvatarGroup users={collaborators} avatarLimit={6} AvatarComponent={StyledAvatarComponent} />
+      <StyledAvatarGroup
+        users={collaborators}
+        avatarLimit={6}
+        AvatarComponent={StyledAvatarComponent}
+      />
     </SectionContainer>
   );
 };

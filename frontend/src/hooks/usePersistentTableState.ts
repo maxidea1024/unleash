@@ -5,7 +5,10 @@ import { encodeQueryParams, useQueryParams } from 'use-query-params';
 import type { QueryParamConfigMap } from 'serialize-query-params/src/types';
 import { reorderObject } from '../utils/reorderObject';
 
-const usePersistentSearchParams = <T extends QueryParamConfigMap>(key: string, queryParamsDefinition: T) => {
+const usePersistentSearchParams = <T extends QueryParamConfigMap>(
+  key: string,
+  queryParamsDefinition: T,
+) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { value, setValue } = createLocalStorage(key, {});
   useEffect(() => {
@@ -19,7 +22,10 @@ const usePersistentSearchParams = <T extends QueryParamConfigMap>(key: string, q
       return;
     }
 
-    setSearchParams(encodeQueryParams(queryParamsDefinition, value) as Record<string, string>, { replace: true });
+    setSearchParams(
+      encodeQueryParams(queryParamsDefinition, value) as Record<string, string>,
+      { replace: true },
+    );
   }, []);
 
   return setValue;
@@ -30,9 +36,15 @@ export const usePersistentTableState = <T extends QueryParamConfigMap>(
   queryParamsDefinition: T,
   excludedFromStorage: string[] = ['offset'],
 ) => {
-  const updateStoredParams = usePersistentSearchParams(key, queryParamsDefinition);
+  const updateStoredParams = usePersistentSearchParams(
+    key,
+    queryParamsDefinition,
+  );
 
-  const [tableState, setTableStateInternal] = useQueryParams(queryParamsDefinition, { updateType: 'replaceIn' });
+  const [tableState, setTableStateInternal] = useQueryParams(
+    queryParamsDefinition,
+    { updateType: 'replaceIn' },
+  );
 
   const [searchParams] = useSearchParams();
   const orderedTableState = useMemo(() => {
@@ -72,7 +84,9 @@ export const usePersistentTableState = <T extends QueryParamConfigMap>(
 
   useEffect(() => {
     const filteredTableState = Object.fromEntries(
-      Object.entries(orderedTableState).filter(([key]) => !excludedFromStorage.includes(key)),
+      Object.entries(orderedTableState).filter(
+        ([key]) => !excludedFromStorage.includes(key),
+      ),
     );
     updateStoredParams(filteredTableState);
   }, [JSON.stringify(orderedTableState)]);

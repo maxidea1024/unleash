@@ -5,7 +5,9 @@ export const useUiConfigApi = () => {
     propagateErrors: true,
   });
 
-  const setFrontendSettings = async (frontendApiOrigins: string[]): Promise<void> => {
+  const setFrontendSettings = async (
+    frontendApiOrigins: string[],
+  ): Promise<void> => {
     const payload = {
       frontendSettings: { frontendApiOrigins },
     };

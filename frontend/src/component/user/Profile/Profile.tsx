@@ -1,5 +1,8 @@
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { type ITab, VerticalTabs } from 'component/common/VerticalTabs/VerticalTabs';
+import {
+  type ITab,
+  VerticalTabs,
+} from 'component/common/VerticalTabs/VerticalTabs';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import useAuthSettings from 'hooks/api/getters/useAuthSettings/useAuthSettings';
 import { useEffect, useState } from 'react';
@@ -56,9 +59,18 @@ export const Profile = () => {
 
   return (
     <VerticalTabs tabs={tabs} value={tab} onChange={onChange}>
-      <ConditionallyRender condition={tab === 'profile'} show={<ProfileTab user={user!} />} />
-      <ConditionallyRender condition={tab === 'password'} show={<PasswordTab />} />
-      <ConditionallyRender condition={tab === 'pat'} show={<PersonalAPITokensTab />} />
+      <ConditionallyRender
+        condition={tab === 'profile'}
+        show={<ProfileTab user={user!} />}
+      />
+      <ConditionallyRender
+        condition={tab === 'password'}
+        show={<PasswordTab />}
+      />
+      <ConditionallyRender
+        condition={tab === 'pat'}
+        show={<PersonalAPITokensTab />}
+      />
     </VerticalTabs>
   );
 };

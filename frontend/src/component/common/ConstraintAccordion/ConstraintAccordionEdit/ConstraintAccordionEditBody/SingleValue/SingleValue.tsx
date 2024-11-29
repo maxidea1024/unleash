@@ -18,11 +18,19 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
-export const SingleValue = ({ setValue, value, type, error, setError }: ISingleValueProps) => {
+export const SingleValue = ({
+  setValue,
+  value,
+  type,
+  error,
+  setError,
+}: ISingleValueProps) => {
   const { classes: styles } = useStyles();
   return (
     <>
-      <ConstraintFormHeader>Add a single {type.toLowerCase()} value</ConstraintFormHeader>
+      <ConstraintFormHeader>
+        Add a single {type.toLowerCase()} value
+      </ConstraintFormHeader>
       <div className={styles.singleValueContainer}>
         <Input
           label={type}

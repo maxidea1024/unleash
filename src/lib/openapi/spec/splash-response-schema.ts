@@ -11,7 +11,8 @@ export const splashResponseSchema = {
     ...splashRequestSchema.properties,
     seen: {
       type: 'boolean',
-      description: 'Indicates whether the user has seen the splash screen or not.',
+      description:
+        'Indicates whether the user has seen the splash screen or not.',
       example: true,
     },
   },

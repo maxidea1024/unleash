@@ -10,7 +10,8 @@ export const tagsBulkAddSchema = {
   required: ['features', 'tags'],
   properties: {
     features: {
-      description: 'The list of features that will be affected by the tag changes.',
+      description:
+        'The list of features that will be affected by the tag changes.',
       type: 'array',
       items: {
         type: 'string',

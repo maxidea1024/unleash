@@ -11,7 +11,9 @@ interface IFeedbackEndpointRequestBody {
   };
 }
 
-export const sendFeedbackInput = async (form: Partial<IFeedbackCESForm>): Promise<void> => {
+export const sendFeedbackInput = async (
+  form: Partial<IFeedbackCESForm>,
+): Promise<void> => {
   if (!form.score) {
     return;
   }
@@ -27,9 +29,12 @@ export const sendFeedbackInput = async (form: Partial<IFeedbackCESForm>): Promis
     },
   };
 
-  await fetch('https://europe-west3-metrics-304612.cloudfunctions.net/docs-app-feedback', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  await fetch(
+    'https://europe-west3-metrics-304612.cloudfunctions.net/docs-app-feedback',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    },
+  );
 };

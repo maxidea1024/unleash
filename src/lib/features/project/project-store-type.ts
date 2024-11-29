@@ -1,5 +1,14 @@
-import type { IEnvironmentProjectLink, ProjectModeCount } from './project-store';
-import type { IEnvironment, IFeatureNaming, IProject, IProjectApplications, ProjectMode } from '../../types/model';
+import type {
+  IEnvironmentProjectLink,
+  ProjectModeCount,
+} from './project-store';
+import type {
+  IEnvironment,
+  IFeatureNaming,
+  IProject,
+  IProjectApplications,
+  ProjectMode,
+} from '../../types/model';
 import type { IStore } from '../../types/stores/store';
 import type { CreateFeatureStrategySchema } from '../../openapi';
 
@@ -69,9 +78,14 @@ export interface IProjectStore extends IStore<IProject, string> {
 
   update(update: IProjectInsert): Promise<void>;
 
-  updateProjectEnterpriseSettings(update: IProjectEnterpriseSettingsUpdate): Promise<void>;
+  updateProjectEnterpriseSettings(
+    update: IProjectEnterpriseSettingsUpdate,
+  ): Promise<void>;
 
-  importProjects(projects: IProjectInsert[], environments?: IEnvironment[]): Promise<IProject[]>;
+  importProjects(
+    projects: IProjectInsert[],
+    environments?: IEnvironment[],
+  ): Promise<IProject[]>;
 
   addEnvironmentToProject(id: string, environment: string): Promise<void>;
 
@@ -83,17 +97,28 @@ export interface IProjectStore extends IStore<IProject, string> {
 
   getMembersCountByProject(projectId: string): Promise<number>;
 
-  getMembersCountByProjectAfterDate(projectId: string, date: string): Promise<number>;
+  getMembersCountByProjectAfterDate(
+    projectId: string,
+    date: string,
+  ): Promise<number>;
 
   count(): Promise<number>;
 
   getAll(query?: IProjectQuery): Promise<IProject[]>;
 
-  getProjectLinksForEnvironments(environments: string[]): Promise<IEnvironmentProjectLink[]>;
+  getProjectLinksForEnvironments(
+    environments: string[],
+  ): Promise<IEnvironmentProjectLink[]>;
 
-  addEnvironmentToProjects(environment: string, projects: string[]): Promise<void>;
+  addEnvironmentToProjects(
+    environment: string,
+    projects: string[],
+  ): Promise<void>;
 
-  getDefaultStrategy(projectId: string, environment: string): Promise<CreateFeatureStrategySchema | null>;
+  getDefaultStrategy(
+    projectId: string,
+    environment: string,
+  ): Promise<CreateFeatureStrategySchema | null>;
 
   updateDefaultStrategy(
     projectId: string,
@@ -105,7 +130,9 @@ export interface IProjectStore extends IStore<IProject, string> {
 
   getProjectModeCounts(): Promise<ProjectModeCount[]>;
 
-  getApplicationsByProject(searchParams: IProjectApplicationsSearchParams): Promise<IProjectApplications>;
+  getApplicationsByProject(
+    searchParams: IProjectApplicationsSearchParams,
+  ): Promise<IProjectApplications>;
 
   archive(projectId: string): Promise<void>;
 

@@ -1,6 +1,11 @@
 import type { Response } from 'express';
 import Controller from '../../../routes/controller';
-import { CLIENT_METRICS, type IFlagResolver, type IUnleashConfig, type IUnleashServices } from '../../../types';
+import {
+  CLIENT_METRICS,
+  type IFlagResolver,
+  type IUnleashConfig,
+  type IUnleashServices,
+} from '../../../types';
 import type ClientInstanceService from './instance-service';
 import type { Logger } from '../../../logger';
 import type { IAuthRequest } from '../../../routes/unleash-types';
@@ -8,7 +13,10 @@ import type ClientMetricsServiceV2 from '../client-metrics/metrics-service-v2';
 import { NONE } from '../../../types/permissions';
 import type { OpenApiService } from '../../../services/openapi-service';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
-import { emptyResponse, getStandardResponses } from '../../../openapi/util/standard-responses';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../../openapi/util/standard-responses';
 import rateLimit from 'express-rate-limit';
 import { minutesToMilliseconds } from 'date-fns';
 import type { BulkMetricsSchema } from '../../../openapi/spec/bulk-metrics-schema';
@@ -27,7 +35,10 @@ export default class ClientMetricsController extends Controller {
       clientInstanceService,
       clientMetricsServiceV2,
       openApiService,
-    }: Pick<IUnleashServices, 'clientInstanceService' | 'clientMetricsServiceV2' | 'openApiService'>,
+    }: Pick<
+      IUnleashServices,
+      'clientInstanceService' | 'clientMetricsServiceV2' | 'openApiService'
+    >,
     config: IUnleashConfig,
   ) {
     super(config);
@@ -108,7 +119,10 @@ export default class ClientMetricsController extends Controller {
     }
   }
 
-  async bulkMetrics(req: IAuthRequest<void, void, BulkMetricsSchema>, res: Response<void>): Promise<void> {
+  async bulkMetrics(
+    req: IAuthRequest<void, void, BulkMetricsSchema>,
+    res: Response<void>,
+  ): Promise<void> {
     if (this.config.flagResolver.isEnabled('disableMetrics')) {
       res.status(204).end();
     } else {
@@ -117,13 +131,19 @@ export default class ClientMetricsController extends Controller {
       try {
         const promises: Promise<void>[] = [];
         for (const app of applications) {
-          promises.push(this.clientInstanceService.registerClient(app, clientIp));
+          promises.push(
+            this.clientInstanceService.registerClient(app, clientIp),
+          );
         }
         if (metrics && metrics.length > 0) {
-          const data: IClientMetricsEnv[] = await clientMetricsEnvBulkSchema.validateAsync(metrics);
+          const data: IClientMetricsEnv[] =
+            await clientMetricsEnvBulkSchema.validateAsync(metrics);
           const { user } = req;
-          const acceptedEnvironment = this.metricsV2.resolveUserEnvironment(user);
-          const filteredData = data.filter((metric) => metric.environment === acceptedEnvironment);
+          const acceptedEnvironment =
+            this.metricsV2.resolveUserEnvironment(user);
+          const filteredData = data.filter(
+            (metric) => metric.environment === acceptedEnvironment,
+          );
           promises.push(this.metricsV2.registerBulkMetrics(filteredData));
           this.config.eventBus.emit(CLIENT_METRICS, data);
         }

@@ -18,7 +18,16 @@ export const healthOverviewSchema = {
   $id: '#/components/schemas/healthOverviewSchema',
   type: 'object',
   additionalProperties: false,
-  required: ['version', 'name', 'defaultStickiness', 'mode', 'members', 'health', 'environments', 'features'],
+  required: [
+    'version',
+    'name',
+    'defaultStickiness',
+    'mode',
+    'members',
+    'health',
+    'environments',
+    'features',
+  ],
   description: `An overview of a project's stats and its health as described in the documentation on [technical debt](https://docs.getunleash.io/reference/technical-debt)`,
   properties: {
     version: {
@@ -54,7 +63,8 @@ export const healthOverviewSchema = {
       type: 'number',
       nullable: true,
       example: 100,
-      description: 'A limit on the number of features allowed in the project. Null if no limit.',
+      description:
+        'A limit on the number of features allowed in the project. Null if no limit.',
     },
     members: {
       type: 'integer',
@@ -73,14 +83,16 @@ export const healthOverviewSchema = {
       items: {
         $ref: '#/components/schemas/projectEnvironmentSchema',
       },
-      description: 'An array containing the names of all the environments configured for the project.',
+      description:
+        'An array containing the names of all the environments configured for the project.',
     },
     features: {
       type: 'array',
       items: {
         $ref: '#/components/schemas/featureSchema',
       },
-      description: 'An array containing an overview of all the features of the project and their individual status',
+      description:
+        'An array containing an overview of all the features of the project and their individual status',
     },
     updatedAt: {
       type: 'string',

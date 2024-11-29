@@ -62,7 +62,10 @@ const StyledUserMessage = styled(StyledAIMessage)(({ theme }) => ({
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(4.5),
   height: theme.spacing(4.5),
-  backgroundColor: theme.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.light,
+  backgroundColor:
+    theme.mode === 'light'
+      ? theme.palette.primary.main
+      : theme.palette.primary.light,
   color: theme.palette.primary.contrastText,
 }));
 

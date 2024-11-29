@@ -1,15 +1,30 @@
 import type { Response } from 'express';
 import type { IUnleashConfig } from '../../../types/options';
-import { type IFlagResolver, type IProjectParam, type IUnleashServices, UPDATE_FEATURE } from '../../../types';
+import {
+  type IFlagResolver,
+  type IProjectParam,
+  type IUnleashServices,
+  UPDATE_FEATURE,
+} from '../../../types';
 import type { Logger } from '../../../logger';
 import { DELETE_FEATURE } from '../../../types/permissions';
 import type FeatureToggleService from '../../../features/feature-toggle/feature-toggle-service';
 import type { IAuthRequest } from '../../unleash-types';
 import type { OpenApiService } from '../../../services/openapi-service';
-import { emptyResponse, getStandardResponses } from '../../../openapi/util/standard-responses';
-import { type BatchFeaturesSchema, createRequestSchema, createResponseSchema } from '../../../openapi';
+import {
+  emptyResponse,
+  getStandardResponses,
+} from '../../../openapi/util/standard-responses';
+import {
+  type BatchFeaturesSchema,
+  createRequestSchema,
+  createResponseSchema,
+} from '../../../openapi';
 import Controller from '../../controller';
-import type { TransactionCreator, UnleashTransaction } from '../../../db/transaction';
+import type {
+  TransactionCreator,
+  UnleashTransaction,
+} from '../../../db/transaction';
 
 const PATH = '/:projectId';
 const PATH_ARCHIVE = `${PATH}/archive`;
@@ -21,7 +36,9 @@ export default class ProjectArchiveController extends Controller {
   private readonly logger: Logger;
   private readonly featureService: FeatureToggleService;
 
-  private transactionalFeatureToggleService: (db: UnleashTransaction) => FeatureToggleService;
+  private transactionalFeatureToggleService: (
+    db: UnleashTransaction,
+  ) => FeatureToggleService;
   private readonly startTransaction: TransactionCreator<UnleashTransaction>;
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: IFlagResolver;
@@ -63,7 +80,8 @@ export default class ProjectArchiveController extends Controller {
         openApiService.validPath({
           tags: ['Archive'],
           operationId: 'deleteFeatures',
-          description: 'This endpoint deletes the specified features, that are in archive.',
+          description:
+            'This endpoint deletes the specified features, that are in archive.',
           summary: 'Deletes a list of features',
           requestBody: createRequestSchema('batchFeaturesSchema'),
           responses: {
@@ -104,7 +122,8 @@ export default class ProjectArchiveController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           operationId: 'validateArchiveFeatures',
-          description: 'This endpoint return info about the archive features impact.',
+          description:
+            'This endpoint return info about the archive features impact.',
           summary: 'Validates archive features',
           requestBody: createRequestSchema('batchFeaturesSchema'),
           responses: {
@@ -137,28 +156,46 @@ export default class ProjectArchiveController extends Controller {
     });
   }
 
-  async deleteFeatures(req: IAuthRequest<IProjectParam, any, BatchFeaturesSchema>, res: Response<void>): Promise<void> {
+  async deleteFeatures(
+    req: IAuthRequest<IProjectParam, any, BatchFeaturesSchema>,
+    res: Response<void>,
+  ): Promise<void> {
     const { projectId } = req.params;
     const { features } = req.body;
     await this.featureService.deleteFeatures(features, projectId, req.audit);
     res.status(200).end();
   }
 
-  async reviveFeatures(req: IAuthRequest<IProjectParam, any, BatchFeaturesSchema>, res: Response<void>): Promise<void> {
+  async reviveFeatures(
+    req: IAuthRequest<IProjectParam, any, BatchFeaturesSchema>,
+    res: Response<void>,
+  ): Promise<void> {
     const { projectId } = req.params;
     const { features } = req.body;
     await this.startTransaction(async (tx) =>
-      this.transactionalFeatureToggleService(tx).reviveFeatures(features, projectId, req.audit),
+      this.transactionalFeatureToggleService(tx).reviveFeatures(
+        features,
+        projectId,
+        req.audit,
+      ),
     );
     res.status(200).end();
   }
 
-  async archiveFeatures(req: IAuthRequest<IProjectParam, void, BatchFeaturesSchema>, res: Response): Promise<void> {
+  async archiveFeatures(
+    req: IAuthRequest<IProjectParam, void, BatchFeaturesSchema>,
+    res: Response,
+  ): Promise<void> {
     const { features } = req.body;
     const { projectId } = req.params;
 
     await this.startTransaction(async (tx) =>
-      this.transactionalFeatureToggleService(tx).archiveToggles(features, req.user, req.audit, projectId),
+      this.transactionalFeatureToggleService(tx).archiveToggles(
+        features,
+        req.user,
+        req.audit,
+        projectId,
+      ),
     );
 
     res.status(202).end();

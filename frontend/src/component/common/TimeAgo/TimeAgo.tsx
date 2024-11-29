@@ -15,7 +15,12 @@ const formatTimeAgo = (date: string | number | Date) =>
     .replace('about ', '')
     .replace('less than a minute ago', '< 1 minute ago');
 
-export const TimeAgo: FC<TimeAgoProps> = ({ date, fallback = '', refresh = true, timeElement = true }) => {
+export const TimeAgo: FC<TimeAgoProps> = ({
+  date,
+  fallback = '',
+  refresh = true,
+  timeElement = true,
+}) => {
   const getValue = (): { description: string; dateTime?: Date } => {
     try {
       if (!date) return { description: fallback };
@@ -47,5 +52,7 @@ export const TimeAgo: FC<TimeAgoProps> = ({ date, fallback = '', refresh = true,
     return state.description;
   }
 
-  return <time dateTime={state.dateTime.toISOString()}>{state.description}</time>;
+  return (
+    <time dateTime={state.dateTime.toISOString()}>{state.description}</time>
+  );
 };

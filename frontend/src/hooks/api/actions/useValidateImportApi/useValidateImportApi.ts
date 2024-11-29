@@ -16,7 +16,9 @@ export const useValidateImportApi = () => {
     propagateErrors: true,
   });
 
-  const validateImport = async (payload: ImportQuerySchema): Promise<IValidationSchema> => {
+  const validateImport = async (
+    payload: ImportQuerySchema,
+  ): Promise<IValidationSchema> => {
     const path = `api/admin/features-batch/validate`;
     const req = createRequest(path, {
       method: 'POST',

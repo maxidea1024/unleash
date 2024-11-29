@@ -7,7 +7,8 @@ export const uiConfigSchema = {
   $id: '#/components/schemas/uiConfigSchema',
   type: 'object',
   additionalProperties: false,
-  description: 'A collection of properties used to configure the Unleash Admin UI.',
+  description:
+    'A collection of properties used to configure the Unleash Admin UI.',
   required: ['version', 'unleashUrl', 'baseUriPath', 'versionInfo'],
   properties: {
     slogan: {
@@ -17,7 +18,8 @@ export const uiConfigSchema = {
     },
     name: {
       type: 'string',
-      description: 'The name of this Unleash instance. Used to build the text in the footer.',
+      description:
+        'The name of this Unleash instance. Used to build the text in the footer.',
       example: 'Unleash enterprise',
     },
     version: {
@@ -27,7 +29,8 @@ export const uiConfigSchema = {
     },
     environment: {
       type: 'string',
-      description: 'What kind of Unleash instance it is: Enterprise, Pro, or Open source',
+      description:
+        'What kind of Unleash instance it is: Enterprise, Pro, or Open source',
       example: 'Enterprise',
     },
     billing: {
@@ -43,7 +46,8 @@ export const uiConfigSchema = {
     },
     baseUriPath: {
       type: 'string',
-      description: 'The base URI path at which this Unleash instance is listening.',
+      description:
+        'The base URI path at which this Unleash instance is listening.',
       example: '/enterprise',
     },
     feedbackUriPath: {
@@ -68,13 +72,15 @@ export const uiConfigSchema = {
     },
     segmentValuesLimit: {
       type: 'number',
-      description: 'The maximum number of values that can be used in a single segment.',
+      description:
+        'The maximum number of values that can be used in a single segment.',
       example: 1000,
       deprecated: true,
     },
     strategySegmentsLimit: {
       type: 'number',
-      description: 'The maximum number of segments that can be applied to a single strategy.',
+      description:
+        'The maximum number of segments that can be applied to a single strategy.',
       example: 5,
       deprecated: true,
     },
@@ -98,7 +104,8 @@ export const uiConfigSchema = {
     },
     frontendApiOrigins: {
       type: 'array',
-      description: 'The list of origins that the front-end API should accept requests from.',
+      description:
+        'The list of origins that the front-end API should accept requests from.',
       example: ['*'],
       items: {
         type: 'string',
@@ -106,7 +113,8 @@ export const uiConfigSchema = {
     },
     flags: {
       type: 'object',
-      description: 'Additional (largely experimental) features that are enabled in this Unleash instance.',
+      description:
+        'Additional (largely experimental) features that are enabled in this Unleash instance.',
       example: {
         messageBanner: {
           name: 'disabled',
@@ -149,7 +157,8 @@ export const uiConfigSchema = {
     },
     authenticationType: {
       type: 'string',
-      description: 'The type of authentication enabled for this Unleash instance',
+      description:
+        'The type of authentication enabled for this Unleash instance',
       example: 'enterprise',
       enum: ['open-source', 'demo', 'enterprise', 'hosted', 'custom', 'none'],
     },
@@ -158,12 +167,14 @@ export const uiConfigSchema = {
     },
     oidcConfiguredThroughEnv: {
       type: 'boolean',
-      description: 'Whether the OIDC configuration is set through environment variables or not.',
+      description:
+        'Whether the OIDC configuration is set through environment variables or not.',
       example: false,
     },
     samlConfiguredThroughEnv: {
       type: 'boolean',
-      description: 'Whether the SAML configuration is set through environment variables or not.',
+      description:
+        'Whether the SAML configuration is set through environment variables or not.',
       example: false,
     },
     unleashAIAvailable: {

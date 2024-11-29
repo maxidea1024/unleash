@@ -35,7 +35,9 @@ interface IFeatureFlagListActions {
   onExportClick: () => void;
 }
 
-export const FeatureToggleListActions: FC<IFeatureFlagListActions> = ({ onExportClick }: IFeatureFlagListActions) => {
+export const FeatureToggleListActions: FC<IFeatureFlagListActions> = ({
+  onExportClick,
+}: IFeatureFlagListActions) => {
   const { trackEvent } = usePlausibleTracker();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const featuresExportImport = useUiFlag('featuresExportImport');

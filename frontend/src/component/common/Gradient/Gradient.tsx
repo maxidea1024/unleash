@@ -8,7 +8,13 @@ interface IGradientProps {
   children?: React.ReactNode;
 }
 
-const Gradient: React.FC<IGradientProps> = ({ children, from, to, style, ...rest }) => {
+const Gradient: React.FC<IGradientProps> = ({
+  children,
+  from,
+  to,
+  style,
+  ...rest
+}) => {
   return (
     <div
       style={{

@@ -6,6 +6,8 @@ const StyledHeader = styled('h3')(({ theme }) => ({
   fontWeight: theme.typography.fontWeightRegular,
 }));
 
-export const ConstraintFormHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ children, ...rest }) => {
+export const ConstraintFormHeader: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ children, ...rest }) => {
   return <StyledHeader {...rest}>{children}</StyledHeader>;
 };

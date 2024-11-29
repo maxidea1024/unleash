@@ -28,7 +28,10 @@ window.global ||= window;
 const ApplicationRoot = () => {
   const { recordUiError } = useRecordUIErrorApi();
 
-  const sendErrorToApi = async (error: Error, info: { componentStack: string }) => {
+  const sendErrorToApi = async (
+    error: Error,
+    info: { componentStack: string },
+  ) => {
     try {
       await recordUiError({
         errorMessage: error.message,
@@ -47,7 +50,10 @@ const ApplicationRoot = () => {
             <ThemeProvider>
               <AnnouncerProvider>
                 <PlausibleProvider>
-                  <ErrorBoundary FallbackComponent={LayoutError} onError={sendErrorToApi}>
+                  <ErrorBoundary
+                    FallbackComponent={LayoutError}
+                    onError={sendErrorToApi}
+                  >
                     <FeedbackProvider>
                       <FeedbackCESProvider>
                         <StickyProvider>

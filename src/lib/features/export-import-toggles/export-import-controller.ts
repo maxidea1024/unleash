@@ -4,7 +4,12 @@ import type { Logger } from '../../logger';
 import type { IExportService, IImportService } from './export-import-service';
 import type { OpenApiService } from '../../services';
 import type { WithTransactional } from '../../db/transaction';
-import { type IUnleashConfig, type IUnleashServices, NONE, serializeDates } from '../../types';
+import {
+  type IUnleashConfig,
+  type IUnleashServices,
+  NONE,
+  serializeDates,
+} from '../../types';
 import {
   createRequestSchema,
   createResponseSchema,
@@ -32,7 +37,10 @@ export default class ExportImportController extends Controller {
       exportService,
       importService,
       openApiService,
-    }: Pick<IUnleashServices, 'exportService' | 'importService' | 'openApiService'>,
+    }: Pick<
+      IUnleashServices,
+      'exportService' | 'importService' | 'openApiService'
+    >,
   ) {
     super(config);
 
@@ -104,14 +112,22 @@ export default class ExportImportController extends Controller {
     });
   }
 
-  async export(req: IAuthRequest<unknown, unknown, ExportQuerySchema, unknown>, res: Response): Promise<void> {
+  async export(
+    req: IAuthRequest<unknown, unknown, ExportQuerySchema, unknown>,
+    res: Response,
+  ): Promise<void> {
     this.verifyExportImportEnabled();
     const query = req.body;
     // const userName = extractUsername(req);
 
     const data = await this.exportService.export(query, req.audit);
 
-    this.openApiService.respondWithValidation(200, res, exportResultSchema.$id, serializeDates(data));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      exportResultSchema.$id,
+      serializeDates(data),
+    );
   }
 
   async validateImport(
@@ -122,12 +138,22 @@ export default class ExportImportController extends Controller {
     const dto = req.body;
     const { user } = req;
 
-    const validation = await this.importService.transactional((service) => service.validate(dto, user));
+    const validation = await this.importService.transactional((service) =>
+      service.validate(dto, user),
+    );
 
-    this.openApiService.respondWithValidation(200, res, importTogglesValidateSchema.$id, validation);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      importTogglesValidateSchema.$id,
+      validation,
+    );
   }
 
-  async importData(req: IAuthRequest<unknown, unknown, ImportTogglesSchema, unknown>, res: Response): Promise<void> {
+  async importData(
+    req: IAuthRequest<unknown, unknown, ImportTogglesSchema, unknown>,
+    res: Response,
+  ): Promise<void> {
     this.verifyExportImportEnabled();
     const { user, audit } = req;
 
@@ -139,7 +165,9 @@ export default class ExportImportController extends Controller {
 
     const dto = req.body;
 
-    await this.importService.transactional((service) => service.import(dto, user, audit));
+    await this.importService.transactional((service) =>
+      service.import(dto, user, audit),
+    );
 
     res.status(200).end();
   }

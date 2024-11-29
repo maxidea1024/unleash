@@ -1,5 +1,8 @@
 import { ADMIN } from '../../types/permissions';
-import { type EmailService, TemplateFormat } from '../../services/email-service';
+import {
+  type EmailService,
+  TemplateFormat,
+} from '../../services/email-service';
 import type { IUnleashConfig } from '../../types/options';
 import type { IUnleashServices } from '../../types/services';
 import type { Request, Response } from 'express';
@@ -11,7 +14,10 @@ export default class EmailController extends Controller {
   private readonly emailService: EmailService;
   private readonly logger: Logger;
 
-  constructor(config: IUnleashConfig, { emailService }: Pick<IUnleashServices, 'emailService'>) {
+  constructor(
+    config: IUnleashConfig,
+    { emailService }: Pick<IUnleashServices, 'emailService'>,
+  ) {
     super(config);
 
     this.logger = config.getLogger('email.ts');
@@ -24,7 +30,11 @@ export default class EmailController extends Controller {
   async getHtmlPreview(req: Request, res: Response): Promise<void> {
     const { template } = req.params;
     const ctx = req.query;
-    const data = await this.emailService.compileTemplate(sanitize(template), TemplateFormat.HTML, ctx);
+    const data = await this.emailService.compileTemplate(
+      sanitize(template),
+      TemplateFormat.HTML,
+      ctx,
+    );
     res.setHeader('Content-Type', 'text/html');
     res.status(200);
     res.send(data);
@@ -34,7 +44,11 @@ export default class EmailController extends Controller {
   async getTextPreview(req: Request, res: Response): Promise<void> {
     const { template } = req.params;
     const ctx = req.query;
-    const data = await this.emailService.compileTemplate(sanitize(template), TemplateFormat.PLAIN, ctx);
+    const data = await this.emailService.compileTemplate(
+      sanitize(template),
+      TemplateFormat.PLAIN,
+      ctx,
+    );
     res.setHeader('Content-Type', 'text/plain');
     res.status(200);
     res.send(data);

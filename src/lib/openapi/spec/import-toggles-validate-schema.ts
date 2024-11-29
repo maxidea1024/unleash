@@ -10,7 +10,8 @@ export const importTogglesValidateSchema = {
     'An object containing [feature import](https://docs.getunleash.io/reference/deploy/environment-import-export) validation results.',
   properties: {
     errors: {
-      description: 'A list of errors that prevent the provided data from being successfully imported.',
+      description:
+        'A list of errors that prevent the provided data from being successfully imported.',
       type: 'array',
       example: [
         {
@@ -54,4 +55,6 @@ export const importTogglesValidateSchema = {
   },
 } as const;
 
-export type ImportTogglesValidateSchema = FromSchema<typeof importTogglesValidateSchema>;
+export type ImportTogglesValidateSchema = FromSchema<
+  typeof importTogglesValidateSchema
+>;

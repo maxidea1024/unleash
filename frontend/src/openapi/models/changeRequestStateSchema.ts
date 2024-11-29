@@ -9,4 +9,6 @@ import type { ChangeRequestStateSchemaOneOfThree } from './changeRequestStateSch
 /**
  * Data used to update the state of a [change request](https://docs.getunleash.io/reference/change-requests).
  */
-export type ChangeRequestStateSchema = ChangeRequestStateSchemaOneOf | ChangeRequestStateSchemaOneOfThree;
+export type ChangeRequestStateSchema =
+  | ChangeRequestStateSchemaOneOf
+  | ChangeRequestStateSchemaOneOfThree;

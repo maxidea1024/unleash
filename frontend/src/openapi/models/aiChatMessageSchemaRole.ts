@@ -7,7 +7,8 @@
 /**
  * The role of the message sender.
  */
-export type AiChatMessageSchemaRole = (typeof AiChatMessageSchemaRole)[keyof typeof AiChatMessageSchemaRole];
+export type AiChatMessageSchemaRole =
+  (typeof AiChatMessageSchemaRole)[keyof typeof AiChatMessageSchemaRole];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const AiChatMessageSchemaRole = {

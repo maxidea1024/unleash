@@ -8,22 +8,33 @@ test('setStrategySortOrderSchema', () => {
     { id: 'strategy-3', sortOrder: 3 },
   ];
 
-  expect(validateSchema('#/components/schemas/setStrategySortOrderSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/setStrategySortOrderSchema', data),
+  ).toBeUndefined();
 });
 
 test('setStrategySortOrderSchema missing sortOrder', () => {
-  expect(validateSchema('#/components/schemas/setStrategySortOrderSchema', [{ id: 'strategy-1' }])).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/setStrategySortOrderSchema', [
+      { id: 'strategy-1' },
+    ]),
+  ).toMatchSnapshot();
 });
 
 test('setStrategySortOrderSchema missing id', () => {
   expect(
-    validateSchema('#/components/schemas/setStrategySortOrderSchema', [{ sortOrder: 123 }, { sortOrder: 7 }]),
+    validateSchema('#/components/schemas/setStrategySortOrderSchema', [
+      { sortOrder: 123 },
+      { sortOrder: 7 },
+    ]),
   ).toMatchSnapshot();
 });
 
 test('setStrategySortOrderSchema wrong sortOrder type', () => {
   expect(
-    validateSchema('#/components/schemas/setStrategySortOrderSchema', [{ id: 'strategy-1', sortOrder: 'test' }]),
+    validateSchema('#/components/schemas/setStrategySortOrderSchema', [
+      { id: 'strategy-1', sortOrder: 'test' },
+    ]),
   ).toMatchSnapshot();
 });
 

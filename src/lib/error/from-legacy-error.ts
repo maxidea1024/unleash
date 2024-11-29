@@ -1,6 +1,11 @@
 import { fromJoiError } from './bad-data-error';
 import { ValidationError as JoiValidationError } from 'joi';
-import { GenericUnleashError, type UnleashApiErrorName, UnleashApiErrorTypes, UnleashError } from './unleash-error';
+import {
+  GenericUnleashError,
+  type UnleashApiErrorName,
+  UnleashApiErrorTypes,
+  UnleashError,
+} from './unleash-error';
 
 const getStatusCode = (errorName: string): number => {
   switch (errorName) {

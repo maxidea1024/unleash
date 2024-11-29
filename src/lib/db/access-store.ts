@@ -21,7 +21,11 @@ import {
   ROOT_ROLE_TYPES,
 } from '../util/constants';
 import type { Db } from './db';
-import type { IdPermissionRef, NamePermissionRef, PermissionRef } from '../services/access-service';
+import type {
+  IdPermissionRef,
+  NamePermissionRef,
+  PermissionRef,
+} from '../services/access-service';
 import { inTransaction } from './transaction';
 import BadDataError from '../error/bad-data-error';
 
@@ -71,8 +75,12 @@ export class AccessStore implements IAccessStore {
     return (permission as NamePermissionRef).name !== undefined;
   };
 
-  private permissionIdsToNames = async (permissions: IdPermissionRef[]): Promise<NameAndIdPermission[]> => {
-    const permissionIds = (permissions ?? []).filter((p) => p.id !== undefined).map((p) => p.id);
+  private permissionIdsToNames = async (
+    permissions: IdPermissionRef[],
+  ): Promise<NameAndIdPermission[]> => {
+    const permissionIds = (permissions ?? [])
+      .filter((p) => p.id !== undefined)
+      .map((p) => p.id);
 
     if (permissionIds.length === 0) {
       return [];
@@ -80,7 +88,10 @@ export class AccessStore implements IAccessStore {
 
     const stopTimer = this.timer('permissionIdsToNames');
 
-    const rows = await this.db.select('id', 'permission').from(T.PERMISSIONS).whereIn('id', permissionIds);
+    const rows = await this.db
+      .select('id', 'permission')
+      .from(T.PERMISSIONS)
+      .whereIn('id', permissionIds);
 
     const rowByPermissionId = rows.reduce(
       (acc, row) => {
@@ -99,13 +110,17 @@ export class AccessStore implements IAccessStore {
     return permissionsWithNames;
   };
 
-  resolvePermissions = async (permissions: PermissionRef[]): Promise<NamePermissionRef[]> => {
+  resolvePermissions = async (
+    permissions: PermissionRef[],
+  ): Promise<NamePermissionRef[]> => {
     if (permissions === undefined || permissions.length === 0) {
       return [];
     }
 
     // permissions without names (just ids)
-    const permissionsWithoutNames = permissions.filter((p) => !this.permissionHasName(p)) as IdPermissionRef[];
+    const permissionsWithoutNames = permissions.filter(
+      (p) => !this.permissionHasName(p),
+    ) as IdPermissionRef[];
 
     if (permissionsWithoutNames.length === permissions.length) {
       // all permissions without names
@@ -116,12 +131,16 @@ export class AccessStore implements IAccessStore {
     }
 
     // some permissions have names, some don't (should not happen!)
-    const namedPermissionsFromIds = await this.permissionIdsToNames(permissionsWithoutNames);
+    const namedPermissionsFromIds = await this.permissionIdsToNames(
+      permissionsWithoutNames,
+    );
     return permissions.map((permission) => {
       if (this.permissionHasName(permission)) {
         return permission as NamePermissionRef;
       } else {
-        return namedPermissionsFromIds.find((p) => p.id === (permission as IdPermissionRef).id)!;
+        return namedPermissionsFromIds.find(
+          (p) => p.id === (permission as IdPermissionRef).id,
+        )!;
       }
     });
   };
@@ -137,7 +156,10 @@ export class AccessStore implements IAccessStore {
   destroy(): void {}
 
   async exists(key: number): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.ROLES} WHERE id = ?) AS present`, [key]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.ROLES} WHERE id = ?) AS present`,
+      [key],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -189,7 +211,13 @@ export class AccessStore implements IAccessStore {
       .where('ur.user_id', '=', userId);
 
     userPermissionQuery = userPermissionQuery.union((db) => {
-      db.select('project', 'rp.permission', 'environment', 'p.type', 'gr.role_id')
+      db.select(
+        'project',
+        'rp.permission',
+        'environment',
+        'p.type',
+        'gr.role_id',
+      )
         .from<IPermissionRow>(`${T.GROUP_USER} AS gu`)
         .join(`${T.GROUPS} AS g`, 'g.id', 'gu.group_id')
         .join(`${T.GROUP_ROLE} AS gr`, 'gu.group_id', 'gr.group_id')
@@ -227,7 +255,8 @@ export class AccessStore implements IAccessStore {
       project = row.project;
     }
 
-    const environment = row.type === ENVIRONMENT_PERMISSION_TYPE ? row.environment : undefined;
+    const environment =
+      row.type === ENVIRONMENT_PERMISSION_TYPE ? row.environment : undefined;
 
     return {
       project,
@@ -239,7 +268,13 @@ export class AccessStore implements IAccessStore {
   async getPermissionsForRole(roleId: number): Promise<IPermission[]> {
     const stopTimer = this.timer('getPermissionsForRole');
     const rows = await this.db
-      .select('p.id', 'rp.permission', 'rp.environment', 'p.display_name', 'p.type')
+      .select(
+        'p.id',
+        'rp.permission',
+        'rp.environment',
+        'p.display_name',
+        'p.type',
+      )
       .from<IPermission>(`${T.ROLE_PERMISSION} as rp`)
       .join(`${T.PERMISSIONS} as p`, 'p.permission', 'rp.permission')
       .where('rp.role_id', '=', roleId);
@@ -255,7 +290,10 @@ export class AccessStore implements IAccessStore {
     });
   }
 
-  async addEnvironmentPermissionsToRole(role_id: number, permissions: PermissionRef[]): Promise<void> {
+  async addEnvironmentPermissionsToRole(
+    role_id: number,
+    permissions: PermissionRef[],
+  ): Promise<void> {
     const resolvedPermissions = await this.resolvePermissions(permissions);
 
     const rows = resolvedPermissions.map((permission) => {
@@ -300,7 +338,10 @@ export class AccessStore implements IAccessStore {
       .delete();
   }
 
-  async getProjectUsersForRole(roleId: number, projectId?: string): Promise<IUserRole[]> {
+  async getProjectUsersForRole(
+    roleId: number,
+    projectId?: string,
+  ): Promise<IUserRole[]> {
     const rows = await this.db
       .select(['user_id', 'ru.created_at'])
       .from<IRole>(`${T.ROLE_USER} AS ru`)
@@ -348,7 +389,10 @@ export class AccessStore implements IAccessStore {
       .where('ru.user_id', '=', userId);
   }
 
-  async getAllProjectRolesForUser(userId: number, project: string): Promise<IRoleWithProject[]> {
+  async getAllProjectRolesForUser(
+    userId: number,
+    project: string,
+  ): Promise<IRoleWithProject[]> {
     const stopTimer = this.timer('get_all_project_roles_for_user');
     const roles = await this.db
       .select(['id', 'name', 'type', 'project', 'description'])
@@ -366,7 +410,9 @@ export class AccessStore implements IAccessStore {
           .innerJoin(`${T.GROUP_USER} as gu`, 'gu.group_id', 'gr.group_id')
           .where('gu.user_id', '=', userId)
           .andWhere((builder) => {
-            builder.where('gr.project', '=', project).orWhere('type', '=', 'root');
+            builder
+              .where('gr.project', '=', project)
+              .orWhere('type', '=', 'root');
           }),
       ]);
     stopTimer();
@@ -384,16 +430,24 @@ export class AccessStore implements IAccessStore {
   }
 
   async getUserIdsForRole(roleId: number): Promise<number[]> {
-    const rows = await this.db.select(['user_id']).from<IRole>(T.ROLE_USER).where('role_id', roleId);
+    const rows = await this.db
+      .select(['user_id'])
+      .from<IRole>(T.ROLE_USER)
+      .where('role_id', roleId);
     return rows.map((r) => r.user_id);
   }
 
   async getGroupIdsForRole(roleId: number): Promise<number[]> {
-    const rows = await this.db.select(['group_id']).from<IRole>(T.GROUP_ROLE).where('role_id', roleId);
+    const rows = await this.db
+      .select(['group_id'])
+      .from<IRole>(T.GROUP_ROLE)
+      .where('role_id', roleId);
     return rows.map((r) => r.group_id);
   }
 
-  async getProjectUserAndGroupCountsForRole(roleId: number): Promise<IProjectRoleUsage[]> {
+  async getProjectUserAndGroupCountsForRole(
+    roleId: number,
+  ): Promise<IProjectRoleUsage[]> {
     const query = await this.db.raw(
       `
       SELECT
@@ -438,7 +492,11 @@ export class AccessStore implements IAccessStore {
     });
   }
 
-  async addUserToRole(userId: number, roleId: number, projectId?: string): Promise<void> {
+  async addUserToRole(
+    userId: number,
+    roleId: number,
+    projectId?: string,
+  ): Promise<void> {
     await this.db(T.ROLE_USER)
       .insert({
         user_id: userId,
@@ -449,7 +507,11 @@ export class AccessStore implements IAccessStore {
       .ignore();
   }
 
-  async removeUserFromRole(userId: number, roleId: number, projectId?: string): Promise<void> {
+  async removeUserFromRole(
+    userId: number,
+    roleId: number,
+    projectId?: string,
+  ): Promise<void> {
     return this.db(T.ROLE_USER)
       .where({
         user_id: userId,
@@ -459,7 +521,12 @@ export class AccessStore implements IAccessStore {
       .delete();
   }
 
-  async addGroupToRole(groupId: number, roleId: number, createdBy: string, projectId?: string): Promise<void> {
+  async addGroupToRole(
+    groupId: number,
+    roleId: number,
+    createdBy: string,
+    projectId?: string,
+  ): Promise<void> {
     return this.db(T.GROUP_ROLE).insert({
       group_id: groupId,
       role_id: roleId,
@@ -468,7 +535,11 @@ export class AccessStore implements IAccessStore {
     });
   }
 
-  async removeGroupFromRole(groupId: number, roleId: number, projectId?: string): Promise<void> {
+  async removeGroupFromRole(
+    groupId: number,
+    roleId: number,
+    projectId?: string,
+  ): Promise<void> {
     return this.db(T.GROUP_ROLE)
       .where({
         group_id: groupId,
@@ -478,23 +549,37 @@ export class AccessStore implements IAccessStore {
       .delete();
   }
 
-  async updateUserProjectRole(userId: number, roleId: number, projectId: string): Promise<void> {
+  async updateUserProjectRole(
+    userId: number,
+    roleId: number,
+    projectId: string,
+  ): Promise<void> {
     return this.db(T.ROLE_USER)
       .where({
         user_id: userId,
         project: projectId,
       })
-      .whereNotIn('role_id', this.db(T.ROLES).select('id as role_id').where('type', 'root'))
+      .whereNotIn(
+        'role_id',
+        this.db(T.ROLES).select('id as role_id').where('type', 'root'),
+      )
       .update('role_id', roleId);
   }
 
-  updateGroupProjectRole(groupId: number, roleId: number, projectId: string): Promise<void> {
+  updateGroupProjectRole(
+    groupId: number,
+    roleId: number,
+    projectId: string,
+  ): Promise<void> {
     return this.db(T.GROUP_ROLE)
       .where({
         group_id: groupId,
         project: projectId,
       })
-      .whereNotIn('role_id', this.db(T.ROLES).select('id as role_id').where('type', 'root'))
+      .whereNotIn(
+        'role_id',
+        this.db(T.ROLES).select('id as role_id').where('type', 'root'),
+      )
       .update('role_id', roleId);
   }
 
@@ -524,10 +609,16 @@ export class AccessStore implements IAccessStore {
 
     await inTransaction(this.db, async (tx) => {
       if (userRows.length > 0) {
-        await tx(T.ROLE_USER).insert(userRows).onConflict(['project', 'role_id', 'user_id']).merge();
+        await tx(T.ROLE_USER)
+          .insert(userRows)
+          .onConflict(['project', 'role_id', 'user_id'])
+          .merge();
       }
       if (groupRows.length > 0) {
-        await tx(T.GROUP_ROLE).insert(groupRows).onConflict(['project', 'role_id', 'group_id']).merge();
+        await tx(T.GROUP_ROLE)
+          .insert(groupRows)
+          .onConflict(['project', 'role_id', 'group_id'])
+          .merge();
       }
     });
   }
@@ -546,7 +637,9 @@ export class AccessStore implements IAccessStore {
       .pluck('id');
 
     if (validatedProjectRoleIds.length !== roles.length) {
-      const invalidRoles = roles.filter((role) => !validatedProjectRoleIds.includes(role));
+      const invalidRoles = roles.filter(
+        (role) => !validatedProjectRoleIds.includes(role),
+      );
 
       throw new BadDataError(
         `You can't add access to a project with roles that aren't project roles or that don't exist. These roles are not valid: ${invalidRoles.join(', ')}`,
@@ -578,7 +671,11 @@ export class AccessStore implements IAccessStore {
           .onConflict(['project', 'role_id', 'group_id'])
           .merge()
           .catch((err) => {
-            if (err.message.includes(`violates foreign key constraint "group_role_group_id_fkey"`)) {
+            if (
+              err.message.includes(
+                `violates foreign key constraint "group_role_group_id_fkey"`,
+              )
+            ) {
               errors.push(
                 `Your request contains one or more group IDs that do not exist. You sent these group IDs: ${groups.join(', ')}.`,
               );
@@ -591,7 +688,11 @@ export class AccessStore implements IAccessStore {
           .onConflict(['project', 'role_id', 'user_id'])
           .merge()
           .catch((err) => {
-            if (err.message.includes(`violates foreign key constraint "role_user_user_id_fkey"`)) {
+            if (
+              err.message.includes(
+                `violates foreign key constraint "role_user_user_id_fkey"`,
+              )
+            ) {
               errors.push(
                 `Your request contains one or more user IDs that do not exist. You sent these user IDs: ${users.join(', ')}.`,
               );
@@ -611,8 +712,15 @@ export class AccessStore implements IAccessStore {
     });
   }
 
-  async setProjectRolesForUser(projectId: string, userId: number, roles: number[]): Promise<void> {
-    const projectRoleIds = await this.db(T.ROLES).select('id').whereIn('type', PROJECT_ROLE_TYPES).pluck('id');
+  async setProjectRolesForUser(
+    projectId: string,
+    userId: number,
+    roles: number[],
+  ): Promise<void> {
+    const projectRoleIds = await this.db(T.ROLES)
+      .select('id')
+      .whereIn('type', PROJECT_ROLE_TYPES)
+      .pluck('id');
 
     const projectRoleIdsSet = new Set(projectRoleIds);
 
@@ -632,12 +740,18 @@ export class AccessStore implements IAccessStore {
         .delete();
 
       if (userRows.length > 0) {
-        await tx(T.ROLE_USER).insert(userRows).onConflict(['project', 'role_id', 'user_id']).ignore();
+        await tx(T.ROLE_USER)
+          .insert(userRows)
+          .onConflict(['project', 'role_id', 'user_id'])
+          .ignore();
       }
     });
   }
 
-  async getProjectRolesForUser(projectId: string, userId: number): Promise<number[]> {
+  async getProjectRolesForUser(
+    projectId: string,
+    userId: number,
+  ): Promise<number[]> {
     const rows = await this.db(`${T.ROLE_USER} as ru`)
       .join(`${T.ROLES} as r`, 'ru.role_id', 'r.id')
       .select('ru.role_id')
@@ -647,8 +761,16 @@ export class AccessStore implements IAccessStore {
     return rows.map((r) => r.role_id as number);
   }
 
-  async setProjectRolesForGroup(projectId: string, groupId: number, roles: number[], createdBy: string): Promise<void> {
-    const projectRoleIds = await this.db(T.ROLES).select('id').whereIn('type', PROJECT_ROLE_TYPES).pluck('id');
+  async setProjectRolesForGroup(
+    projectId: string,
+    groupId: number,
+    roles: number[],
+    createdBy: string,
+  ): Promise<void> {
+    const projectRoleIds = await this.db(T.ROLES)
+      .select('id')
+      .whereIn('type', PROJECT_ROLE_TYPES)
+      .pluck('id');
 
     const projectRoleIdsSet = new Set(projectRoleIds);
 
@@ -668,12 +790,18 @@ export class AccessStore implements IAccessStore {
         .whereIn('role_id', projectRoleIds)
         .delete();
       if (groupRows.length > 0) {
-        await tx(T.GROUP_ROLE).insert(groupRows).onConflict(['project', 'role_id', 'group_id']).ignore();
+        await tx(T.GROUP_ROLE)
+          .insert(groupRows)
+          .onConflict(['project', 'role_id', 'group_id'])
+          .ignore();
       }
     });
   }
 
-  async getProjectRolesForGroup(projectId: string, groupId: number): Promise<number[]> {
+  async getProjectRolesForGroup(
+    projectId: string,
+    groupId: number,
+  ): Promise<number[]> {
     const rows = await this.db(`${T.GROUP_ROLE} as gr`)
       .join(`${T.ROLES} as r`, 'gr.role_id', 'r.id')
       .select('gr.role_id')
@@ -689,7 +817,12 @@ export class AccessStore implements IAccessStore {
         user_id: userId,
         project: projectId,
       })
-      .whereIn('role_id', this.db(T.ROLES).select('id as role_id').whereIn('type', PROJECT_ROLE_TYPES))
+      .whereIn(
+        'role_id',
+        this.db(T.ROLES)
+          .select('id as role_id')
+          .whereIn('type', PROJECT_ROLE_TYPES),
+      )
       .delete();
   }
 
@@ -699,14 +832,28 @@ export class AccessStore implements IAccessStore {
         group_id: groupId,
         project: projectId,
       })
-      .whereIn('role_id', this.db(T.ROLES).select('id as role_id').whereIn('type', PROJECT_ROLE_TYPES))
+      .whereIn(
+        'role_id',
+        this.db(T.ROLES)
+          .select('id as role_id')
+          .whereIn('type', PROJECT_ROLE_TYPES),
+      )
       .delete();
   }
 
-  async removeRolesOfTypeForUser(userId: number, roleTypes: string[]): Promise<void> {
-    const rolesToRemove = await this.db(T.ROLES).select('id').whereIn('type', roleTypes).pluck('id');
+  async removeRolesOfTypeForUser(
+    userId: number,
+    roleTypes: string[],
+  ): Promise<void> {
+    const rolesToRemove = await this.db(T.ROLES)
+      .select('id')
+      .whereIn('type', roleTypes)
+      .pluck('id');
 
-    return this.db(T.ROLE_USER).where({ user_id: userId }).whereIn('role_id', rolesToRemove).delete();
+    return this.db(T.ROLE_USER)
+      .where({ user_id: userId })
+      .whereIn('role_id', rolesToRemove)
+      .delete();
   }
 
   async addPermissionsToRole(
@@ -723,7 +870,8 @@ export class AccessStore implements IAccessStore {
     });
 
     // no need to pass down the environment in this particular case because it'll be overriden
-    const permissionsWithNames = await this.resolvePermissions(permissionsAsRefs);
+    const permissionsWithNames =
+      await this.resolvePermissions(permissionsAsRefs);
 
     const newRoles = permissionsWithNames.map((p) => ({
       role_id,
@@ -734,7 +882,11 @@ export class AccessStore implements IAccessStore {
     return this.db.batchInsert(T.ROLE_PERMISSION, newRoles);
   }
 
-  async removePermissionFromRole(role_id: number, permission: string, environment?: string): Promise<void> {
+  async removePermissionFromRole(
+    role_id: number,
+    permission: string,
+    environment?: string,
+  ): Promise<void> {
     return this.db(T.ROLE_PERMISSION)
       .where({
         role_id,
@@ -752,7 +904,10 @@ export class AccessStore implements IAccessStore {
       .delete();
   }
 
-  async cloneEnvironmentPermissions(sourceEnvironment: string, destinationEnvironment: string): Promise<void> {
+  async cloneEnvironmentPermissions(
+    sourceEnvironment: string,
+    destinationEnvironment: string,
+  ): Promise<void> {
     return this.db.raw(
       `insert into role_permission
                 (role_id, permission, environment)

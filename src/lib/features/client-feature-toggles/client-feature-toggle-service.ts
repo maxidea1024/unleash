@@ -16,7 +16,9 @@ export class ClientFeatureToggleService {
   private readonly segmentReadModel: ISegmentReadModel;
 
   constructor(
-    { clientFeatureToggleStore }: Pick<IUnleashStores, 'clientFeatureToggleStore'>,
+    {
+      clientFeatureToggleStore,
+    }: Pick<IUnleashStores, 'clientFeatureToggleStore'>,
     segmentReadModel: ISegmentReadModel,
     { getLogger }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
@@ -30,11 +32,24 @@ export class ClientFeatureToggleService {
     return this.segmentReadModel.getActiveForClient();
   }
 
-  async getClientFeatures(query?: IFeatureToggleQuery): Promise<FeatureConfigurationClient[]> {
+  async getClientFeatures(
+    query?: IFeatureToggleQuery,
+  ): Promise<FeatureConfigurationClient[]> {
     const result = await this.clientFeatureToggleStore.getClient(query || {});
 
     return result.map(
-      ({ name, type, enabled, project, stale, strategies, variants, description, impressionData, dependencies }) => ({
+      ({
+        name,
+        type,
+        enabled,
+        project,
+        stale,
+        strategies,
+        variants,
+        description,
+        impressionData,
+        dependencies,
+      }) => ({
         name,
         type,
         enabled,

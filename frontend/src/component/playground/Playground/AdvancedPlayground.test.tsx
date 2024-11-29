@@ -57,7 +57,8 @@ test('should fetch initial form data from url', async () => {
   });
 
   render(testDisplayComponent, {
-    route: '/playground?context=customContext&environments=customEnv&projects=urlProject&sort=name',
+    route:
+      '/playground?context=customContext&environments=customEnv&projects=urlProject&sort=name',
   });
 
   expect(screen.getByText('Unleash playground')).toBeInTheDocument();
@@ -90,7 +91,8 @@ test('should display error on submit', async () => {
 });
 
 describe('context warnings on successful evaluation', () => {
-  const warningSummaryText = 'Some context properties were not taken into account during evaluation';
+  const warningSummaryText =
+    'Some context properties were not taken into account during evaluation';
 
   test('should show context warnings if they exist in the response', async () => {
     const response = {
@@ -101,10 +103,24 @@ describe('context warnings on successful evaluation', () => {
         context: {},
       },
       warnings: {
-        invalidContextProperties: ['empty array', 'true', 'false', 'number', 'null', 'accountId', 'object'],
+        invalidContextProperties: [
+          'empty array',
+          'true',
+          'false',
+          'number',
+          'null',
+          'accountId',
+          'object',
+        ],
       },
     };
-    testServerRoute(server, '/api/admin/playground/advanced', response, 'post', 200);
+    testServerRoute(
+      server,
+      '/api/admin/playground/advanced',
+      response,
+      'post',
+      200,
+    );
 
     render(testEvaluateComponent);
 
@@ -130,7 +146,13 @@ describe('context warnings on successful evaluation', () => {
         invalidContextProperties: ['b', 'a', 'z'],
       },
     };
-    testServerRoute(server, '/api/admin/playground/advanced', response, 'post', 200);
+    testServerRoute(
+      server,
+      '/api/admin/playground/advanced',
+      response,
+      'post',
+      200,
+    );
 
     render(testEvaluateComponent);
 
@@ -157,7 +179,13 @@ describe('context warnings on successful evaluation', () => {
         invalidContextProperties: [],
       },
     };
-    testServerRoute(server, '/api/admin/playground/advanced', response, 'post', 200);
+    testServerRoute(
+      server,
+      '/api/admin/playground/advanced',
+      response,
+      'post',
+      200,
+    );
 
     render(testEvaluateComponent);
 

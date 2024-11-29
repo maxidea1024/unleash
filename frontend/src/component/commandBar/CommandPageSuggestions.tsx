@@ -30,7 +30,15 @@ const toListItemData = (
   });
 };
 
-const pages = ['/search', '/integrations', '/environments', '/context', '/segments', '/tag-types', '/applications'];
+const pages = [
+  '/search',
+  '/integrations',
+  '/environments',
+  '/context',
+  '/segments',
+  '/tag-types',
+  '/applications',
+];
 
 export const CommandPageSuggestions = ({
   routes,
@@ -68,7 +76,9 @@ export const CommandPageSuggestions = ({
         >
           <StyledListItemIcon>{item.icon}</StyledListItemIcon>
           <StyledListItemText>
-            <StyledButtonTypography color='textPrimary'>{item.name}</StyledButtonTypography>
+            <StyledButtonTypography color='textPrimary'>
+              {item.name}
+            </StyledButtonTypography>
           </StyledListItemText>
         </ListItemButton>
       ))}

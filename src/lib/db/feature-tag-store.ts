@@ -50,7 +50,11 @@ export default class FeatureTagStore implements IFeatureTagStore {
 
   destroy(): void {}
 
-  async exists({ featureName, tagType, tagValue }: IFeatureTag): Promise<boolean> {
+  async exists({
+    featureName,
+    tagType,
+    tagValue,
+  }: IFeatureTag): Promise<boolean> {
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE feature_name = ? AND tag_type = ? AND tag_value = ?) AS present`,
       [featureName, tagType, tagValue],
@@ -59,7 +63,11 @@ export default class FeatureTagStore implements IFeatureTagStore {
     return present;
   }
 
-  async get({ featureName, tagType, tagValue }: IFeatureTag): Promise<IFeatureTag> {
+  async get({
+    featureName,
+    tagType,
+    tagValue,
+  }: IFeatureTag): Promise<IFeatureTag> {
     const row = await this.db(TABLE)
       .where({
         feature_name: featureName,
@@ -88,21 +96,32 @@ export default class FeatureTagStore implements IFeatureTagStore {
   async getAllTagsForFeature(featureName: string): Promise<ITag[]> {
     const stopTimer = this.timer('getAllForFeature');
     if (await this.featureExists(featureName)) {
-      const rows = await this.db.select(COLUMNS).from<FeatureTagTable>(TABLE).where({ feature_name: featureName });
+      const rows = await this.db
+        .select(COLUMNS)
+        .from<FeatureTagTable>(TABLE)
+        .where({ feature_name: featureName });
       stopTimer();
       return rows.map(this.featureTagRowToTag);
     } else {
-      throw new NotFoundError(`Could not find feature with name ${featureName}`);
+      throw new NotFoundError(
+        `Could not find feature with name ${featureName}`,
+      );
     }
   }
 
   async getAllFeaturesForTag(tagValue: string): Promise<string[]> {
-    const rows = await this.db.select('feature_name').from<FeatureTagTable>(TABLE).where({ tag_value: tagValue });
+    const rows = await this.db
+      .select('feature_name')
+      .from<FeatureTagTable>(TABLE)
+      .where({ tag_value: tagValue });
     return rows.map(({ feature_name }) => feature_name);
   }
 
   async featureExists(featureName: string): Promise<boolean> {
-    const result = await this.db.raw('SELECT EXISTS (SELECT 1 FROM features WHERE name = ?) AS present', [featureName]);
+    const result = await this.db.raw(
+      'SELECT EXISTS (SELECT 1 FROM features WHERE name = ?) AS present',
+      [featureName],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -122,7 +141,11 @@ export default class FeatureTagStore implements IFeatureTagStore {
     }));
   }
 
-  async tagFeature(featureName: string, tag: ITag, createdByUserId: number): Promise<ITag> {
+  async tagFeature(
+    featureName: string,
+    tag: ITag,
+    createdByUserId: number,
+  ): Promise<ITag> {
     const stopTimer = this.timer('tagFeature');
     await this.db<FeatureTagTable>(TABLE)
       .insert(this.featureAndTagToRow(featureName, tag, createdByUserId))
@@ -135,7 +158,9 @@ export default class FeatureTagStore implements IFeatureTagStore {
   async untagFeatures(featureTags: IFeatureTag[]): Promise<void> {
     const stopTimer = this.timer('untagFeatures');
     try {
-      await this.db(TABLE).whereIn(COLUMNS, featureTags.map(this.featureTagArray)).delete();
+      await this.db(TABLE)
+        .whereIn(COLUMNS, featureTags.map(this.featureTagArray))
+        .delete();
     } catch (err) {
       this.logger.error(err);
     }
@@ -148,7 +173,10 @@ export default class FeatureTagStore implements IFeatureTagStore {
   async getAllFeatureTags(): Promise<IFeatureTag[]> {
     const rows = await this.db(TABLE)
       .select(COLUMNS)
-      .whereIn('feature_name', this.db('features').where({ archived: false }).select(['name']));
+      .whereIn(
+        'feature_name',
+        this.db('features').where({ archived: false }).select(['name']),
+      );
     return rows.map((row) => ({
       featureName: row.feature_name,
       tagType: row.tag_type,
@@ -163,7 +191,9 @@ export default class FeatureTagStore implements IFeatureTagStore {
     stopTimer();
   }
 
-  async tagFeatures(featureTags: IFeatureTagInsert[]): Promise<IFeatureAndTag[]> {
+  async tagFeatures(
+    featureTags: IFeatureTagInsert[],
+  ): Promise<IFeatureAndTag[]> {
     if (featureTags.length !== 0) {
       const rows = await this.db(TABLE)
         .insert(featureTags.map(this.featureTagToRow))
@@ -211,7 +241,12 @@ export default class FeatureTagStore implements IFeatureTagStore {
     };
   }
 
-  featureTagToRow({ featureName, tagType, tagValue, createdByUserId }: IFeatureTagInsert): FeatureTagTable {
+  featureTagToRow({
+    featureName,
+    tagType,
+    tagValue,
+    createdByUserId,
+  }: IFeatureTagInsert): FeatureTagTable {
     return {
       feature_name: featureName,
       tag_type: tagType,
@@ -224,7 +259,11 @@ export default class FeatureTagStore implements IFeatureTagStore {
     return [featureName, tagType, tagValue];
   }
 
-  featureAndTagToRow(featureName: string, { type, value }: ITag, createdByUserId: number): FeatureTagTable {
+  featureAndTagToRow(
+    featureName: string,
+    { type, value }: ITag,
+    createdByUserId: number,
+  ): FeatureTagTable {
     return {
       feature_name: featureName,
       tag_type: type,

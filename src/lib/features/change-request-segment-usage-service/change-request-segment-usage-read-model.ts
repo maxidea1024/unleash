@@ -13,5 +13,7 @@ type ExistingStrategy = NewStrategy & { id: string };
 export type ChangeRequestStrategy = NewStrategy | ExistingStrategy;
 
 export interface IChangeRequestSegmentUsageReadModel {
-  getStrategiesUsedInActiveChangeRequests(segmentId: number): Promise<ChangeRequestStrategy[]>;
+  getStrategiesUsedInActiveChangeRequests(
+    segmentId: number,
+  ): Promise<ChangeRequestStrategy[]>;
 }

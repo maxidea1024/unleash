@@ -57,7 +57,10 @@ export default class ClientInstanceService {
       | 'clientInstanceStore'
       | 'eventStore'
     >,
-    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    {
+      getLogger,
+      flagResolver,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
     this.logger = getLogger('instance-service.ts');
@@ -72,7 +75,10 @@ export default class ClientInstanceService {
     this.flagResolver = flagResolver;
   }
 
-  async registerInstance(data: PartialSome<IClientApp, 'instanceId'>, clientIp: string): Promise<void> {
+  async registerInstance(
+    data: PartialSome<IClientApp, 'instanceId'>,
+    clientIp: string,
+  ): Promise<void> {
     const value = await clientMetricsSchema.validateAsync(data);
     await this.clientInstanceStore.setLastSeen({
       appName: value.appName,
@@ -82,7 +88,10 @@ export default class ClientInstanceService {
     });
   }
 
-  async registerClient(data: PartialSome<IClientApp, 'instanceId'>, clientIp: string): Promise<void> {
+  async registerClient(
+    data: PartialSome<IClientApp, 'instanceId'>,
+    clientIp: string,
+  ): Promise<void> {
     const value = await clientRegisterSchema.validateAsync(data);
     value.clientIp = clientIp;
     value.createdBy = SYSTEM_USER.username!;
@@ -107,7 +116,8 @@ export default class ClientInstanceService {
 
   async announceUnannounced(): Promise<void> {
     if (this.clientApplicationsStore) {
-      const appsToAnnounce = await this.clientApplicationsStore.setUnannouncedToAnnounced();
+      const appsToAnnounce =
+        await this.clientApplicationsStore.setUnannouncedToAnnounced();
       if (appsToAnnounce.length > 0) {
         const events = appsToAnnounce.map((app) => ({
           type: APPLICATION_CREATED,
@@ -126,7 +136,12 @@ export default class ClientInstanceService {
   }
 
   async bulkAdd(): Promise<void> {
-    if (this && this.seenClients && this.clientApplicationsStore && this.clientInstanceStore) {
+    if (
+      this &&
+      this.seenClients &&
+      this.clientApplicationsStore &&
+      this.clientInstanceStore
+    ) {
       const uniqueRegistrations = Object.values(this.seenClients);
       const uniqueApps: Partial<IClientApplication>[] = Object.values(
         uniqueRegistrations.reduce((soFar, reg) => {
@@ -147,12 +162,16 @@ export default class ClientInstanceService {
     }
   }
 
-  async getApplications(query: IClientApplicationsSearchParams, userId: number): Promise<IClientApplications> {
+  async getApplications(
+    query: IClientApplicationsSearchParams,
+    userId: number,
+  ): Promise<IClientApplications> {
     const applications = await this.clientApplicationsStore.getApplications({
       ...query,
       sortBy: query.sortBy || 'appName',
     });
-    const accessibleProjects = await this.privateProjectChecker.getUserAccessibleProjects(userId);
+    const accessibleProjects =
+      await this.privateProjectChecker.getUserAccessibleProjects(userId);
     if (accessibleProjects.mode === 'all') {
       return applications;
     } else {
@@ -162,7 +181,8 @@ export default class ClientInstanceService {
             ...application,
             usage: application.usage?.filter(
               (usageItem) =>
-                usageItem.project === ALL_PROJECTS || accessibleProjects.projects.includes(usageItem.project),
+                usageItem.project === ALL_PROJECTS ||
+                accessibleProjects.projects.includes(usageItem.project),
             ),
           };
         }),
@@ -172,13 +192,14 @@ export default class ClientInstanceService {
   }
 
   async getApplication(appName: string): Promise<IApplication> {
-    const [seenToggles, application, instances, strategies, features] = await Promise.all([
-      this.clientMetricsStoreV2.getSeenTogglesForApp(appName),
-      this.clientApplicationsStore.get(appName),
-      this.clientInstanceStore.getByAppName(appName),
-      this.strategyStore.getAll(),
-      this.featureToggleStore.getAll(),
-    ]);
+    const [seenToggles, application, instances, strategies, features] =
+      await Promise.all([
+        this.clientMetricsStoreV2.getSeenTogglesForApp(appName),
+        this.clientApplicationsStore.get(appName),
+        this.clientInstanceStore.getByAppName(appName),
+        this.strategyStore.getAll(),
+        this.featureToggleStore.getAll(),
+      ]);
 
     return {
       appName: application.appName,
@@ -202,9 +223,17 @@ export default class ClientInstanceService {
     };
   }
 
-  async getApplicationOverview(appName: string, userId: number): Promise<IApplicationOverview> {
-    const result = await this.clientApplicationsStore.getApplicationOverview(appName);
-    const accessibleProjects = await this.privateProjectChecker.filterUserAccessibleProjects(userId, result.projects);
+  async getApplicationOverview(
+    appName: string,
+    userId: number,
+  ): Promise<IApplicationOverview> {
+    const result =
+      await this.clientApplicationsStore.getApplicationOverview(appName);
+    const accessibleProjects =
+      await this.privateProjectChecker.filterUserAccessibleProjects(
+        userId,
+        result.projects,
+      );
     result.projects = accessibleProjects;
     result.environments.forEach((environment) => {
       environment.issues.outdatedSdks = findOutdatedSDKs(environment.sdks);
@@ -212,8 +241,14 @@ export default class ClientInstanceService {
     return result;
   }
 
-  async getApplicationEnvironmentInstances(appName: string, environment: string) {
-    const instances = await this.clientInstanceStore.getByAppNameAndEnvironment(appName, environment);
+  async getApplicationEnvironmentInstances(
+    appName: string,
+    environment: string,
+  ) {
+    const instances = await this.clientInstanceStore.getByAppNameAndEnvironment(
+      appName,
+      environment,
+    );
 
     return instances.map((instance) => ({
       instanceId: instance.instanceId,
@@ -242,20 +277,32 @@ export default class ClientInstanceService {
     return sdkApps.filter((sdkApp) => isOutdatedSdk(sdkApp.sdkVersion));
   }
 
-  async getOutdatedSdksByProject(projectId: string): Promise<OutdatedSdksSchema['sdks']> {
-    const sdkApps = await this.clientInstanceStore.groupApplicationsBySdkAndProject(projectId);
+  async getOutdatedSdksByProject(
+    projectId: string,
+  ): Promise<OutdatedSdksSchema['sdks']> {
+    const sdkApps =
+      await this.clientInstanceStore.groupApplicationsBySdkAndProject(
+        projectId,
+      );
 
     return sdkApps.filter((sdkApp) => isOutdatedSdk(sdkApp.sdkVersion));
   }
 
-  async usesSdkOlderThan(sdkName: string, sdkVersion: string): Promise<boolean> {
+  async usesSdkOlderThan(
+    sdkName: string,
+    sdkVersion: string,
+  ): Promise<boolean> {
     const semver = parseStrictSemVer(sdkVersion);
     const instancesOfSdk = await this.clientInstanceStore.getBySdkName(sdkName);
     return instancesOfSdk.some((instance) => {
       if (instance.sdkVersion) {
         const [_sdkName, sdkVersion] = instance.sdkVersion.split(':');
         const instanceUsedSemver = parseStrictSemVer(sdkVersion);
-        return instanceUsedSemver !== null && semver !== null && instanceUsedSemver < semver;
+        return (
+          instanceUsedSemver !== null &&
+          semver !== null &&
+          instanceUsedSemver < semver
+        );
       }
     });
   }

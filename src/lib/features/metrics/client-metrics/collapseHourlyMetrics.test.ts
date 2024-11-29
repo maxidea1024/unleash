@@ -41,7 +41,9 @@ test('collapseHourlyMetrics', () => {
     no: 1002,
   };
 
-  expect(collapseHourlyMetrics([metricAX1, metricAX2, metricBX, metricBY])).toEqual([
+  expect(
+    collapseHourlyMetrics([metricAX1, metricAX2, metricBX, metricBY]),
+  ).toEqual([
     {
       featureName: 'a',
       appName: 'x',
@@ -69,7 +71,16 @@ test('collapseHourlyMetrics', () => {
   ]);
 
   expect(
-    collapseHourlyMetrics([metricAX1, metricAX1, metricAX2, metricAX2, metricBX, metricBX, metricBY, metricBY]),
+    collapseHourlyMetrics([
+      metricAX1,
+      metricAX1,
+      metricAX2,
+      metricAX2,
+      metricBX,
+      metricBX,
+      metricBY,
+      metricBY,
+    ]),
   ).toEqual([
     {
       featureName: 'a',
@@ -130,7 +141,13 @@ test('collapseHourlyMetrics variants', () => {
     variants: { disabled: 1, red: 3 },
   };
 
-  expect(collapseHourlyMetrics([metricsWithoutVariant, metricsWithVariant1, metricsWithVariant2])).toEqual([
+  expect(
+    collapseHourlyMetrics([
+      metricsWithoutVariant,
+      metricsWithVariant1,
+      metricsWithVariant2,
+    ]),
+  ).toEqual([
     {
       featureName: 'a',
       appName: 'x',

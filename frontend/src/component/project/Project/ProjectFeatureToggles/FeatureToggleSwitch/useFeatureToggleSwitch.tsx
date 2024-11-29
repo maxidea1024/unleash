@@ -10,7 +10,10 @@ import {
   isProdGuardEnabled,
 } from 'component/feature/FeatureStrategy/FeatureStrategyProdGuard/FeatureStrategyProdGuard';
 import { EnableEnvironmentDialog } from './EnableEnvironmentDialog/EnableEnvironmentDialog';
-import type { OnFeatureToggleSwitchArgs, UseFeatureToggleSwitchType } from './FeatureToggleSwitch.types';
+import type {
+  OnFeatureToggleSwitchArgs,
+  UseFeatureToggleSwitchType,
+} from './FeatureToggleSwitch.types';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 type Middleware = (next: () => void) => void;
@@ -25,26 +28,30 @@ const composeAndRunMiddlewares = (middlewares: Middleware[]) => {
   runMiddleware(0);
 };
 
-export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (projectId: string) => {
-  const { toggleFeatureEnvironmentOn, toggleFeatureEnvironmentOff } = useFeatureApi();
+export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (
+  projectId: string,
+) => {
+  const { toggleFeatureEnvironmentOn, toggleFeatureEnvironmentOff } =
+    useFeatureApi();
   const { setToastData, setToastApiError } = useToast();
-  const [prodGuardModalState, setProdGuardModalState] = useState<ComponentProps<typeof FeatureStrategyProdGuard>>({
+  const [prodGuardModalState, setProdGuardModalState] = useState<
+    ComponentProps<typeof FeatureStrategyProdGuard>
+  >({
     open: false,
     label: '',
     loading: false,
     onClose: () => {},
     onClick: () => {},
   });
-  const [enableEnvironmentDialogState, setEnableEnvironmentDialogState] = useState<
-    ComponentProps<typeof EnableEnvironmentDialog>
-  >({
-    isOpen: false,
-    environment: '',
-    featureId: '',
-    onClose: () => {},
-    onActivateDisabledStrategies: () => {},
-    onAddDefaultStrategy: () => {},
-  });
+  const [enableEnvironmentDialogState, setEnableEnvironmentDialogState] =
+    useState<ComponentProps<typeof EnableEnvironmentDialog>>({
+      isOpen: false,
+      environment: '',
+      featureId: '',
+      onClose: () => {},
+      onActivateDisabledStrategies: () => {},
+      onAddDefaultStrategy: () => {},
+    });
   const {
     pending,
     onChangeRequestToggle,
@@ -52,7 +59,8 @@ export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (projectId: st
     onChangeRequestToggleConfirm,
     changeRequestDialogDetails,
   } = useChangeRequestToggle(projectId);
-  const [changeRequestDialogCallback, setChangeRequestDialogCallback] = useState<() => void>();
+  const [changeRequestDialogCallback, setChangeRequestDialogCallback] =
+    useState<() => void>();
 
   const onToggle = useCallback(
     async (newState: boolean, config: OnFeatureToggleSwitchArgs) => {
@@ -91,7 +99,11 @@ export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (projectId: st
       };
 
       const ensureActiveStrategies: Middleware = (next) => {
-        if (newState === false || !config.hasStrategies || config.hasEnabledStrategies) {
+        if (
+          newState === false ||
+          !config.hasStrategies ||
+          config.hasEnabledStrategies
+        ) {
           return next();
         }
 
@@ -135,7 +147,12 @@ export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (projectId: st
           config.onRollback?.();
         });
 
-        onChangeRequestToggle(config.featureId, config.environmentName, newState, shouldActivateDisabledStrategies);
+        onChangeRequestToggle(
+          config.featureId,
+          config.environmentName,
+          newState,
+          shouldActivateDisabledStrategies,
+        );
       };
 
       const handleToggleEnvironmentOn: Middleware = async (next) => {
@@ -169,7 +186,11 @@ export const useFeatureToggleSwitch: UseFeatureToggleSwitchType = (projectId: st
         }
 
         try {
-          await toggleFeatureEnvironmentOff(config.projectId, config.featureId, config.environmentName);
+          await toggleFeatureEnvironmentOff(
+            config.projectId,
+            config.featureId,
+            config.environmentName,
+          );
           setToastData({
             type: 'success',
             title: `Disabled in ${config.environmentName}`,

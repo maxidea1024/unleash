@@ -2,7 +2,10 @@ import { useMemo, type VFC } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type { InstanceInsightsSchema } from 'openapi';
-import { LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
+import {
+  LineChart,
+  NotEnoughData,
+} from 'component/insights/components/LineChart/LineChart';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
 interface IFlagsChartProps {
@@ -10,7 +13,10 @@ interface IFlagsChartProps {
   isLoading?: boolean;
 }
 
-export const FlagsChart: VFC<IFlagsChartProps> = ({ flagTrends, isLoading }) => {
+export const FlagsChart: VFC<IFlagsChartProps> = ({
+  flagTrends,
+  isLoading,
+}) => {
   const theme = useTheme();
   const notEnoughData = !isLoading && flagTrends.length < 2;
   const placeholderData = usePlaceholderData({ fill: true, type: 'double' });

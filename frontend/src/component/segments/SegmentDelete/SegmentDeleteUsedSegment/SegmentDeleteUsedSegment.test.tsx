@@ -48,9 +48,15 @@ describe('SegmentDeleteUsedSegment', () => {
 
     expect(link1).toHaveTextContent('#1');
     expect(link1).toHaveAccessibleDescription('Change request 1');
-    expect(link1).toHaveAttribute('href', `/projects/${projectId}/change-requests/1`);
+    expect(link1).toHaveAttribute(
+      'href',
+      `/projects/${projectId}/change-requests/1`,
+    );
     expect(link2).toHaveTextContent('#2 (My cool CR)');
     expect(link2).toHaveAccessibleDescription('Change request 2');
-    expect(link2).toHaveAttribute('href', `/projects/${projectId}/change-requests/2`);
+    expect(link2).toHaveAttribute(
+      'href',
+      `/projects/${projectId}/change-requests/2`,
+    );
   });
 });

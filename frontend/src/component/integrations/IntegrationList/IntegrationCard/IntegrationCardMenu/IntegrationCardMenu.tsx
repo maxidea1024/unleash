@@ -1,10 +1,23 @@
 import { useCallback, useState, type VFC } from 'react';
-import { Alert, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, styled, Tooltip } from '@mui/material';
+import {
+  Alert,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  styled,
+  Tooltip,
+} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Delete from '@mui/icons-material/Delete';
 import PowerSettingsNew from '@mui/icons-material/PowerSettingsNew';
-import { ADMIN, DELETE_ADDON, UPDATE_ADDON } from 'component/providers/AccessProvider/permissions';
+import {
+  ADMIN,
+  DELETE_ADDON,
+  UPDATE_ADDON,
+} from 'component/providers/AccessProvider/permissions';
 import { useHasRootAccess } from 'hooks/useHasAccess';
 import useAddonsApi from 'hooks/api/actions/useAddonsApi/useAddonsApi';
 import type { AddonSchema } from 'openapi';
@@ -29,7 +42,9 @@ const StyledMenu = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) => {
+export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({
+  addon,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isToggleOpen, setIsToggleOpen] = useState(false);
@@ -62,7 +77,9 @@ export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) =
       setToastData({
         type: 'success',
         title: 'Success',
-        text: !addon.enabled ? 'Integration is now enabled' : 'Integration is now disabled',
+        text: !addon.enabled
+          ? 'Integration is now enabled'
+          : 'Integration is now disabled',
       });
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));
@@ -113,7 +130,10 @@ export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) =
       >
         <PermissionHOC permission={ADMIN}>
           {({ hasAccess }) => (
-            <MenuItem onClick={() => setEventsModalOpen(true)} disabled={!hasAccess}>
+            <MenuItem
+              onClick={() => setEventsModalOpen(true)}
+              disabled={!hasAccess}
+            >
               <ListItemIcon>
                 <Visibility />
               </ListItemIcon>
@@ -147,7 +167,11 @@ export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) =
         </MenuItem>
       </Menu>
 
-      <IntegrationEventsModal addon={addon} open={eventsModalOpen} setOpen={setEventsModalOpen} />
+      <IntegrationEventsModal
+        addon={addon}
+        open={eventsModalOpen}
+        setOpen={setEventsModalOpen}
+      />
       <Dialogue
         open={isToggleOpen}
         onClick={toggleIntegration}
@@ -156,7 +180,9 @@ export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) =
       >
         <div>
           {addon.enabled ? 'Disabling' : 'Enabling'} this integration will{' '}
-          {addon.enabled ? 'prevent it from sending updates' : 'allow it to send updates'}
+          {addon.enabled
+            ? 'prevent it from sending updates'
+            : 'allow it to send updates'}
         </div>
       </Dialogue>
       <Dialogue
@@ -166,7 +192,8 @@ export const IntegrationCardMenu: VFC<IIntegrationCardMenuProps> = ({ addon }) =
         title='Delete integration?'
       >
         <Alert severity='warning'>
-          Deleting this integration instance will delete all its configuration. It will stop working immediately.
+          Deleting this integration instance will delete all its configuration.
+          It will stop working immediately.
         </Alert>
       </Dialogue>
     </StyledMenu>

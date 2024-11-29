@@ -99,7 +99,10 @@ export const IntegrationIcon = ({ name }: IIntegrationIconProps) => {
   }
 
   return (
-    <StyledAvatar alt={`${capitalizeFirst(integration.title)} icon`} variant='rounded'>
+    <StyledAvatar
+      alt={`${capitalizeFirst(integration.title)} icon`}
+      variant='rounded'
+    >
       {integration.icon}
     </StyledAvatar>
   );

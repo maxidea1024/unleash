@@ -16,7 +16,10 @@ export default class ConstraintController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { featureToggleServiceV2, openApiService }: Pick<IUnleashServices, 'featureToggleServiceV2' | 'openApiService'>,
+    {
+      featureToggleServiceV2,
+      openApiService,
+    }: Pick<IUnleashServices, 'featureToggleServiceV2' | 'openApiService'>,
   ) {
     super(config);
 
@@ -47,7 +50,10 @@ export default class ConstraintController extends Controller {
     });
   }
 
-  async validateConstraint(req: Request<void, void, ConstraintSchema>, res: Response): Promise<void> {
+  async validateConstraint(
+    req: Request<void, void, ConstraintSchema>,
+    res: Response,
+  ): Promise<void> {
     await this.featureService.validateConstraint(req.body);
     res.status(204).send();
   }

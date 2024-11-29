@@ -104,7 +104,9 @@ test('should accept a delete call to unknown application', () => {
   expect.assertions(0);
   const appName = 'unknown';
 
-  return request.delete(`/api/admin/metrics/applications/${appName}`).expect(200);
+  return request
+    .delete(`/api/admin/metrics/applications/${appName}`)
+    .expect(200);
 });
 
 test('should delete application', () => {
@@ -113,5 +115,7 @@ test('should delete application', () => {
 
   stores.clientApplicationsStore.upsert({ appName });
 
-  return request.delete(`/api/admin/metrics/applications/${appName}`).expect(200);
+  return request
+    .delete(`/api/admin/metrics/applications/${appName}`)
+    .expect(200);
 });

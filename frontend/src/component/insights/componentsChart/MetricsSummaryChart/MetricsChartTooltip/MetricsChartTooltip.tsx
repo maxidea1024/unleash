@@ -36,7 +36,9 @@ const InfoLine = ({
   </Typography>
 );
 
-export const InfoSummary = ({ data }: { data: { key: string; value: string | number }[] }) => (
+export const InfoSummary = ({
+  data,
+}: { data: { key: string; value: string | number }[] }) => (
   <Box display={'flex'} flexDirection={'row'}>
     {data.map(({ key, value }) => (
       <div style={{ flex: 1, flexDirection: 'column' }} key={key}>
@@ -57,7 +59,9 @@ export const InfoSummary = ({ data }: { data: { key: string; value: string | num
   </Box>
 );
 
-export const MetricsSummaryTooltip: VFC<{ tooltip: TooltipState | null }> = ({ tooltip }) => {
+export const MetricsSummaryTooltip: VFC<{ tooltip: TooltipState | null }> = ({
+  tooltip,
+}) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,
@@ -81,7 +85,10 @@ export const MetricsSummaryTooltip: VFC<{ tooltip: TooltipState | null }> = ({ t
       })}
     >
       {limitedData?.map((point, index) => (
-        <StyledTooltipItemContainer elevation={3} key={`${point.title}-${index}`}>
+        <StyledTooltipItemContainer
+          elevation={3}
+          key={`${point.title}-${index}`}
+        >
           <StyledItemHeader>
             <Typography variant='body2' component='span'>
               <Typography sx={{ color: point.color }} component='span'>

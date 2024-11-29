@@ -96,7 +96,10 @@ test('it maps scheduled change request data', () => {
     },
   ];
 
-  const results = getChangeRequestConflictCreatedDataFromScheduleData(scheduledChanges, uiConfig);
+  const results = getChangeRequestConflictCreatedDataFromScheduleData(
+    scheduledChanges,
+    uiConfig,
+  );
 
   expect(results).toStrictEqual([
     {

@@ -1,9 +1,15 @@
-import { parseParameterNumber, parseParameterStrings } from 'utils/parseParameter';
+import {
+  parseParameterNumber,
+  parseParameterStrings,
+} from 'utils/parseParameter';
 import { Box, styled } from '@mui/material';
 import PercentageCircle from 'component/common/PercentageCircle/PercentageCircle';
 import { PlaygroundParameterItem } from '../PlaygroundParameterItem/PlaygroundParameterItem';
 import { StyledBoxSummary } from '../StrategyExecution.styles';
-import type { PlaygroundConstraintSchema, PlaygroundRequestSchema } from 'openapi';
+import type {
+  PlaygroundConstraintSchema,
+  PlaygroundRequestSchema,
+} from 'openapi';
 import { getMappedParam } from '../helpers';
 import { Badge } from 'component/common/Badge/Badge';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -29,7 +35,8 @@ export const PlaygroundResultStrategyExecutionParameters = ({
   disabled = false,
 }: PlaygroundResultStrategyExecutionParametersProps) => {
   const stickiness = parameters?.stickiness;
-  const explainStickiness = typeof stickiness === 'string' && stickiness !== 'default';
+  const explainStickiness =
+    typeof stickiness === 'string' && stickiness !== 'default';
   return (
     <>
       {Object.keys(parameters).map((key) => {
@@ -38,21 +45,36 @@ export const PlaygroundResultStrategyExecutionParameters = ({
           case 'Rollout': {
             const percentage = parseParameterNumber(parameters[key]);
             return (
-              <StyledBoxSummary key={key} sx={{ display: 'flex', alignItems: 'center' }}>
+              <StyledBoxSummary
+                key={key}
+                sx={{ display: 'flex', alignItems: 'center' }}
+              >
                 <Box
                   sx={(theme) => ({
                     mr: '1rem',
-                    color: disabled ? theme.palette.neutral.border : theme.palette.text.secondary,
+                    color: disabled
+                      ? theme.palette.neutral.border
+                      : theme.palette.text.secondary,
                   })}
                 >
                   <ConditionallyRender
                     condition={disabled}
-                    show={<DisabledPercentageCircle percentage={percentage} size='2rem' />}
-                    elseShow={<PercentageCircle percentage={percentage} size='2rem' />}
+                    show={
+                      <DisabledPercentageCircle
+                        percentage={percentage}
+                        size='2rem'
+                      />
+                    }
+                    elseShow={
+                      <PercentageCircle percentage={percentage} size='2rem' />
+                    }
                   />
                 </Box>
                 <StyledText disabled={disabled}>
-                  <Badge color={disabled ? 'disabled' : 'success'}>{percentage}%</Badge> of your base{' '}
+                  <Badge color={disabled ? 'disabled' : 'success'}>
+                    {percentage}%
+                  </Badge>{' '}
+                  of your base{' '}
                   <span>
                     {explainStickiness ? (
                       <>
@@ -62,7 +84,8 @@ export const PlaygroundResultStrategyExecutionParameters = ({
                       ''
                     )}{' '}
                   </span>
-                  {constraints.length > 0 ? 'who match constraints' : ''} is included.
+                  {constraints.length > 0 ? 'who match constraints' : ''} is
+                  included.
                 </StyledText>
               </StyledBoxSummary>
             );
@@ -76,11 +99,15 @@ export const PlaygroundResultStrategyExecutionParameters = ({
                 value={users}
                 text='user'
                 input={
-                  input?.context?.[getMappedParam(key)] ? (input?.context?.[getMappedParam(key)] as string) : 'no value'
+                  input?.context?.[getMappedParam(key)]
+                    ? (input?.context?.[getMappedParam(key)] as string)
+                    : 'no value'
                 }
                 showReason={
                   input?.context?.[getMappedParam(key)]
-                    ? !users.includes(input?.context?.[getMappedParam(key)] as string)
+                    ? !users.includes(
+                        input?.context?.[getMappedParam(key)] as string,
+                      )
                     : undefined
                 }
               />
@@ -109,11 +136,15 @@ export const PlaygroundResultStrategyExecutionParameters = ({
                 text={'IP'}
                 disabled={disabled}
                 input={
-                  input?.context?.[getMappedParam(key)] ? (input?.context?.[getMappedParam(key)] as string) : 'no value'
+                  input?.context?.[getMappedParam(key)]
+                    ? (input?.context?.[getMappedParam(key)] as string)
+                    : 'no value'
                 }
                 showReason={
                   input?.context?.[getMappedParam(key)]
-                    ? !IPs.includes(input?.context?.[getMappedParam(key)] as string)
+                    ? !IPs.includes(
+                        input?.context?.[getMappedParam(key)] as string,
+                      )
                     : undefined
                 }
               />

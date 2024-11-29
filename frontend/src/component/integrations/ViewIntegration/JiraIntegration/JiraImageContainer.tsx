@@ -29,7 +29,11 @@ interface JiraIntegrationProps {
   src: string;
 }
 
-export const JiraImageContainer: FC<JiraIntegrationProps> = ({ title, description, src }) => {
+export const JiraImageContainer: FC<JiraIntegrationProps> = ({
+  title,
+  description,
+  src,
+}) => {
   return (
     <StyledFigure>
       <StyledFigCaption>

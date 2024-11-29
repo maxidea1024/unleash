@@ -1,5 +1,11 @@
 import { useCallback, useState } from 'react';
-import { IconButton, Tooltip, Menu, MenuItem, ListItemText } from '@mui/material';
+import {
+  IconButton,
+  Tooltip,
+  Menu,
+  MenuItem,
+  ListItemText,
+} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import type { IReleasePlanTemplate } from 'interfaces/releasePlans';
 import { useReleasePlanTemplatesApi } from 'hooks/api/actions/useReleasePlanTemplatesApi/useReleasePlanTemplatesApi';

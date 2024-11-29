@@ -61,7 +61,11 @@ export class ProjectApiTokenController extends Controller {
       projectService,
     }: Pick<
       IUnleashServices,
-      'apiTokenService' | 'accessService' | 'frontendApiService' | 'openApiService' | 'projectService'
+      | 'apiTokenService'
+      | 'accessService'
+      | 'frontendApiService'
+      | 'openApiService'
+      | 'projectService'
     >,
   ) {
     super(config);
@@ -136,7 +140,10 @@ export class ProjectApiTokenController extends Controller {
     });
   }
 
-  async getProjectApiTokens(req: IAuthRequest, res: Response<ApiTokensSchema>): Promise<void> {
+  async getProjectApiTokens(
+    req: IAuthRequest,
+    res: Response<ApiTokensSchema>,
+  ): Promise<void> {
     const { user } = req;
     const { projectId } = req.params;
 
@@ -148,13 +155,20 @@ export class ProjectApiTokenController extends Controller {
     });
   }
 
-  async createProjectApiToken(req: IAuthRequest, res: Response<ApiTokenSchema>): Promise<any> {
+  async createProjectApiToken(
+    req: IAuthRequest,
+    res: Response<ApiTokenSchema>,
+  ): Promise<any> {
     const createToken = await createApiToken.validateAsync(req.body);
     const { projectId } = req.params;
     await this.projectService.getProject(projectId); // Validates that the project exists
 
     const permissionRequired = CREATE_PROJECT_API_TOKEN;
-    const hasPermission = await this.accessService.hasPermission(req.user, permissionRequired, projectId);
+    const hasPermission = await this.accessService.hasPermission(
+      req.user,
+      permissionRequired,
+      projectId,
+    );
 
     if (!hasPermission) {
       throw new OperationDeniedError(
@@ -166,27 +180,45 @@ export class ProjectApiTokenController extends Controller {
       createToken.project = projectId;
     }
 
-    if (createToken.projects.length === 1 && createToken.projects[0] === projectId) {
-      const token = await this.apiTokenService.createApiToken(createToken, req.audit);
-      this.openApiService.respondWithValidation(201, res, apiTokenSchema.$id, serializeDates(token), {
-        location: `api-tokens`,
-      });
+    if (
+      createToken.projects.length === 1 &&
+      createToken.projects[0] === projectId
+    ) {
+      const token = await this.apiTokenService.createApiToken(
+        createToken,
+        req.audit,
+      );
+      this.openApiService.respondWithValidation(
+        201,
+        res,
+        apiTokenSchema.$id,
+        serializeDates(token),
+        {
+          location: `api-tokens`,
+        },
+      );
     } else {
-      res.statusMessage = 'Project level tokens can only be created for one project';
+      res.statusMessage =
+        'Project level tokens can only be created for one project';
       res.status(400);
     }
   }
 
-  async deleteProjectApiToken(req: IAuthRequest<ProjectTokenParam>, res: Response): Promise<void> {
+  async deleteProjectApiToken(
+    req: IAuthRequest<ProjectTokenParam>,
+    res: Response,
+  ): Promise<void> {
     const { user } = req;
     const { projectId, token } = req.params;
-    const storedToken = (await this.accessibleTokens(user, projectId)).find((currentToken) =>
-      this.tokenEquals(currentToken.secret, token),
+    const storedToken = (await this.accessibleTokens(user, projectId)).find(
+      (currentToken) => this.tokenEquals(currentToken.secret, token),
     );
 
     if (
       storedToken &&
-      (storedToken.project === projectId || (storedToken.projects.length === 1 && storedToken.project[0] === projectId))
+      (storedToken.project === projectId ||
+        (storedToken.projects.length === 1 &&
+          storedToken.project[0] === projectId))
     ) {
       await this.apiTokenService.delete(token, req.audit);
       await this.frontendApiService.deleteClientForFrontendApiToken(token);
@@ -199,10 +231,16 @@ export class ProjectApiTokenController extends Controller {
   }
 
   private tokenEquals(token1: string, token2: string) {
-    return token1.length === token2.length && timingSafeEqual(Buffer.from(token1), Buffer.from(token2));
+    return (
+      token1.length === token2.length &&
+      timingSafeEqual(Buffer.from(token1), Buffer.from(token2))
+    );
   }
 
-  private async accessibleTokens(user: IUser, project: string): Promise<IApiToken[]> {
+  private async accessibleTokens(
+    user: IUser,
+    project: string,
+  ): Promise<IApiToken[]> {
     const allTokens = await this.apiTokenService.getAllTokens();
 
     if (user.isAPI && user.permissions.includes(ADMIN)) {
@@ -210,7 +248,9 @@ export class ProjectApiTokenController extends Controller {
     }
 
     return allTokens.filter(
-      (token) => token.type !== ApiTokenType.ADMIN && (token.project === project || token.projects.includes(project)),
+      (token) =>
+        token.type !== ApiTokenType.ADMIN &&
+        (token.project === project || token.projects.includes(project)),
     );
   }
 }

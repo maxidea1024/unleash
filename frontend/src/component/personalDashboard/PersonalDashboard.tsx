@@ -1,5 +1,12 @@
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
-import { Accordion, AccordionDetails, AccordionSummary, Button, styled, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Button,
+  styled,
+  Typography,
+} from '@mui/material';
 import { WelcomeDialog } from './WelcomeDialog';
 import { useLocalStorageState } from 'hooks/useLocalStorageState';
 import { usePersonalDashboard } from 'hooks/api/getters/usePersonalDashboard/usePersonalDashboard';
@@ -102,7 +109,8 @@ export const PersonalDashboard = () => {
 
   usePageTitle(name ? `Dashboard: ${name}` : 'Dashboard');
 
-  const { personalDashboard, refetch: refetchDashboard } = usePersonalDashboard();
+  const { personalDashboard, refetch: refetchDashboard } =
+    usePersonalDashboard();
 
   const projects = personalDashboard?.projects || [];
 
@@ -116,14 +124,17 @@ export const PersonalDashboard = () => {
     expandProjects,
   } = useDashboardState(projects, personalDashboard?.flags ?? []);
 
-  const [welcomeDialog, setWelcomeDialog] = useLocalStorageState<'open' | 'closed'>(
+  const [welcomeDialog, setWelcomeDialog] = useLocalStorageState<
+    'open' | 'closed'
+  >(
     'welcome-dialog:v1',
     splash?.personalDashboardKeyConcepts ? 'closed' : 'open',
   );
 
-  const personalDashboardProjectDetails = fromPersonalDashboardProjectDetailsOutput(
-    usePersonalDashboardProjectDetails(activeProject),
-  );
+  const personalDashboardProjectDetails =
+    fromPersonalDashboardProjectDetailsOutput(
+      usePersonalDashboardProjectDetails(activeProject),
+    );
 
   useEffect(() => {
     trackEvent('personal-dashboard', {
@@ -172,7 +183,8 @@ export const PersonalDashboard = () => {
           <AccordionSummaryText>
             <AccordionSummaryHeader>My projects</AccordionSummaryHeader>
             <AccordionSummarySubtitle>
-              Favorite projects, projects you own, and projects you are a member of
+              Favorite projects, projects you own, and projects you are a member
+              of
             </AccordionSummarySubtitle>
           </AccordionSummaryText>
         </StyledAccordionSummary>
@@ -188,7 +200,10 @@ export const PersonalDashboard = () => {
         </StyledAccordionDetails>
       </SectionAccordion>
 
-      <SectionAccordion expanded={expandFlags ?? true} onChange={() => toggleSectionState('flags')}>
+      <SectionAccordion
+        expanded={expandFlags ?? true}
+        onChange={() => toggleSectionState('flags')}
+      >
         <StyledAccordionSummary
           expandIcon={<ExpandMore titleAccess='Toggle flags section' />}
           id='flags-panel-header'
@@ -196,7 +211,9 @@ export const PersonalDashboard = () => {
         >
           <AccordionSummaryText>
             <AccordionSummaryHeader>My feature flags</AccordionSummaryHeader>
-            <AccordionSummarySubtitle>Feature flags you have created or favorited</AccordionSummarySubtitle>
+            <AccordionSummarySubtitle>
+              Feature flags you have created or favorited
+            </AccordionSummarySubtitle>
           </AccordionSummaryText>
         </StyledAccordionSummary>
         <StyledAccordionDetails>

@@ -1,5 +1,7 @@
 import { addDays, addMinutes } from 'date-fns';
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
 import { ProjectLifecycleSummaryReadModel } from './project-lifecycle-summary-read-model';
 import type { IFeatureToggleStore, StageName } from '../../../types';
@@ -10,7 +12,10 @@ let readModel: ProjectLifecycleSummaryReadModel;
 
 beforeAll(async () => {
   db = await dbInit('project_lifecycle_summary_read_model_serial', getLogger);
-  readModel = new ProjectLifecycleSummaryReadModel(db.rawDatabase, {} as unknown as IFeatureToggleStore);
+  readModel = new ProjectLifecycleSummaryReadModel(
+    db.rawDatabase,
+    {} as unknown as IFeatureToggleStore,
+  );
 });
 
 afterAll(async () => {
@@ -25,8 +30,15 @@ afterEach(async () => {
   await db.stores.featureLifecycleStore.deleteAll();
 });
 
-const updateFeatureStageDate = async (flagName: string, stage: string, newDate: Date) => {
-  await db.rawDatabase('feature_lifecycles').where({ feature: flagName, stage: stage }).update({ created_at: newDate });
+const updateFeatureStageDate = async (
+  flagName: string,
+  stage: string,
+  newDate: Date,
+) => {
+  await db
+    .rawDatabase('feature_lifecycles')
+    .where({ feature: flagName, stage: stage })
+    .update({ created_at: newDate });
 };
 
 describe('Average time calculation', () => {
@@ -63,7 +75,9 @@ describe('Average time calculation', () => {
           continue;
         }
 
-        const offsetFromInitial = offsets.slice(0, index + 1).reduce((a, b) => (a ?? 0) + (b ?? 0), 0) as number;
+        const offsetFromInitial = offsets
+          .slice(0, index + 1)
+          .reduce((a, b) => (a ?? 0) + (b ?? 0), 0) as number;
 
         await db.stores.featureLifecycleStore.insert([
           {
@@ -72,7 +86,11 @@ describe('Average time calculation', () => {
           },
         ]);
 
-        await updateFeatureStageDate(created.name, stage, addMinutes(addDays(now, offsetFromInitial), 1 * (index + 1)));
+        await updateFeatureStageDate(
+          created.name,
+          stage,
+          addMinutes(addDays(now, offsetFromInitial), 1 * (index + 1)),
+        );
       }
     }
 
@@ -157,7 +175,8 @@ describe('Average time calculation', () => {
 
     await updateFeatureStageDate(flag.name, 'pre-live', addDays(new Date(), 5));
 
-    const result = await readModel.getAverageTimeInEachStage('some-other-project');
+    const result =
+      await readModel.getAverageTimeInEachStage('some-other-project');
 
     expect(result).toMatchObject({
       initial: null,
@@ -211,10 +230,13 @@ describe('count current flags in each stage', () => {
       name: 'project',
       id: randomId(),
     });
-    const flagInOtherProject = await db.stores.featureToggleStore.create(otherProject.id, {
-      name: randomId(),
-      createdByUserId: 1,
-    });
+    const flagInOtherProject = await db.stores.featureToggleStore.create(
+      otherProject.id,
+      {
+        name: randomId(),
+        createdByUserId: 1,
+      },
+    );
 
     await db.stores.featureLifecycleStore.insert([
       {

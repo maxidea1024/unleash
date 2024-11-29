@@ -34,7 +34,10 @@ import { defaultLockKey, defaultTimeout, withDbLock } from './util/db-lock';
 import { scheduleServices } from './features/scheduler/schedule-services';
 import { compareAndLogPostgresVersion } from './util/postgres-version-checker';
 
-async function createApp(config: IUnleashConfig, startApp: boolean): Promise<IUnleash> {
+async function createApp(
+  config: IUnleashConfig,
+  startApp: boolean,
+): Promise<IUnleash> {
   // Database dependencies (stateful)
   const logger = config.getLogger('server-impl.ts');
 
@@ -93,17 +96,28 @@ async function createApp(config: IUnleashConfig, startApp: boolean): Promise<IUn
   };
 
   if (config.import.file) {
-    await services.importService.importFromFile(config.import.file, config.import.project, config.import.environment);
+    await services.importService.importFromFile(
+      config.import.file,
+      config.import.project,
+      config.import.environment,
+    );
   }
 
-  if (config.environmentEnableOverrides && config.environmentEnableOverrides?.length > 0) {
-    await services.environmentService.overrideEnabledProjects(config.environmentEnableOverrides);
+  if (
+    config.environmentEnableOverrides &&
+    config.environmentEnableOverrides?.length > 0
+  ) {
+    await services.environmentService.overrideEnabledProjects(
+      config.environmentEnableOverrides,
+    );
   }
 
   return new Promise((resolve, reject) => {
     if (startApp) {
       const server = stoppable(
-        app.listen(config.listen, () => logger.info('Unleash has started.', server.address())),
+        app.listen(config.listen, () =>
+          logger.info('Unleash has started.', server.address()),
+        ),
         config.server.gracefulShutdownTimeout,
       );
 

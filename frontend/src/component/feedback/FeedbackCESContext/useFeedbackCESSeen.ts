@@ -13,12 +13,15 @@ export const useFeedbackCESSeen = (): IUseFeedbackCESSeen => {
   const { feedback } = useAuthFeedback();
 
   const isSeen = useCallback(
-    (state: IFeedbackCESState) => !!feedback && feedback.some((f) => f.feedbackId === formatFeedbackCESId(state)),
+    (state: IFeedbackCESState) =>
+      !!feedback &&
+      feedback.some((f) => f.feedbackId === formatFeedbackCESId(state)),
     [feedback],
   );
 
   const setSeen = useCallback(
-    (state: IFeedbackCESState) => createFeedback({ feedbackId: formatFeedbackCESId(state) }),
+    (state: IFeedbackCESState) =>
+      createFeedback({ feedbackId: formatFeedbackCESId(state) }),
     [createFeedback],
   );
 

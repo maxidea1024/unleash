@@ -52,7 +52,8 @@ const forbiddenResponse = {
           },
           message: {
             type: 'string',
-            example: 'You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.',
+            example:
+              'You need the "UPDATE_ADDON" permission to perform this action in the "development" environment.',
             description: 'A description of what went wrong.',
           },
         },
@@ -147,7 +148,8 @@ const conflictResponse = {
 } as const;
 
 const contentTooLargeResponse = {
-  description: 'The request body is larger than what we accept. By default we only accept bodies of 100kB or less',
+  description:
+    'The request body is larger than what we accept. By default we only accept bodies of 100kB or less',
   content: {
     'application/json': {
       schema: {
@@ -165,7 +167,8 @@ const contentTooLargeResponse = {
           },
           message: {
             type: 'string',
-            example: 'You provided more data than we can handle. Unleash accepts at most X MB.',
+            example:
+              'You provided more data than we can handle. Unleash accepts at most X MB.',
             description: 'A description of what went wrong.',
           },
         },
@@ -215,7 +218,9 @@ const standardResponses = {
 
 type StandardResponses = typeof standardResponses;
 
-export const getStandardResponses = (...statusCodes: (keyof StandardResponses)[]): Partial<StandardResponses> =>
+export const getStandardResponses = (
+  ...statusCodes: (keyof StandardResponses)[]
+): Partial<StandardResponses> =>
   statusCodes.reduce(
     (acc, statusCode) => ({
       ...acc,

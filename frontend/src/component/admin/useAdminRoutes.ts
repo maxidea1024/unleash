@@ -12,7 +12,9 @@ export const useAdminRoutes = () => {
   const routes = [...adminRoutes];
 
   if (isUnleashCloud) {
-    const adminBillingMenuItem = adminRoutes.findIndex((route) => route.title === 'Billing & invoices'); // TODO: title로 체크하는건 좀 위험할 수 있을듯함.
+    const adminBillingMenuItem = adminRoutes.findIndex(
+      (route) => route.title === 'Billing & invoices',
+    ); // TODO: title로 체크하는건 좀 위험할 수 있을듯함.
     routes[adminBillingMenuItem] = {
       ...routes[adminBillingMenuItem],
       path: '/admin/billing',

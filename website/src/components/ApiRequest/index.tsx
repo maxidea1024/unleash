@@ -26,11 +26,19 @@ type Props = {
   endpointType?: 'Proxy API' | 'Unleash server API';
 };
 
-const Component: React.FC<Props> = ({ verb, payload, url, title, endpointType = 'Unleash server API' }) => {
+const Component: React.FC<Props> = ({
+  verb,
+  payload,
+  url,
+  title,
+  endpointType = 'Unleash server API',
+}) => {
   const verbUpper = verb?.toUpperCase() || '';
   const prettyPayload = JSON.stringify(payload, null, indentation);
   const [baseUrl, authToken] =
-    endpointType === 'Unleash server API' ? ['unleash-url', 'API-token'] : ['proxy-url', 'proxy-client-key'];
+    endpointType === 'Unleash server API'
+      ? ['unleash-url', 'API-token']
+      : ['proxy-url', 'proxy-client-key'];
 
   const httpBlock = (
     payload
@@ -61,7 +69,8 @@ curl -H "Content-Type: application/json" \\
      <${baseUrl}>/${url}`
   ).trim();
 
-  const httpieBlockFormatSpecifier = verbUpper === 'POST' && !prettyPayload ? '--json' : '';
+  const httpieBlockFormatSpecifier =
+    verbUpper === 'POST' && !prettyPayload ? '--json' : '';
 
   const httpieBlock = (
     payload

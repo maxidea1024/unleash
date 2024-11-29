@@ -31,7 +31,9 @@ interface IEnvironmentIconCellProps {
   environment: IEnvironment;
 }
 
-export const EnvironmentIconCell: VFC<IEnvironmentIconCellProps> = ({ environment }) => (
+export const EnvironmentIconCell: VFC<IEnvironmentIconCellProps> = ({
+  environment,
+}) => (
   <StyledCell>
     <DragIcon size='large' disableRipple className='drag-icon'>
       <DragIndicator titleAccess='Drag to reorder' />

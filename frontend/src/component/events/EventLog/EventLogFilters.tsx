@@ -1,8 +1,16 @@
 import { useState, useEffect, type FC } from 'react';
-import { type FilterItemParamHolder, Filters, type IFilterItem } from 'component/filter/Filters/Filters';
+import {
+  type FilterItemParamHolder,
+  Filters,
+  type IFilterItem,
+} from 'component/filter/Filters/Filters';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { useFeatureSearch } from 'hooks/api/getters/useFeatureSearch/useFeatureSearch';
-import { EventSchemaType, type FeatureSearchResponseSchema, type SearchFeaturesParams } from 'openapi';
+import {
+  EventSchemaType,
+  type FeatureSearchResponseSchema,
+  type SearchFeaturesParams,
+} from 'openapi';
 import type { ProjectSchema } from 'openapi';
 import { useEventCreators } from 'hooks/api/getters/useEventCreators/useEventCreators';
 
@@ -35,10 +43,12 @@ export const useEventLogFilters = (
       value: creator.id.toString(),
     }));
 
-    const eventTypeOptions = Object.entries(EventSchemaType).map(([key, value]) => ({
-      label: key,
-      value: value,
-    }));
+    const eventTypeOptions = Object.entries(EventSchemaType).map(
+      ([key, value]) => ({
+        label: key,
+        value: value,
+      }),
+    );
 
     const availableFilters: IFilterItem[] = [
       {
@@ -98,7 +108,11 @@ export const useEventLogFilters = (
     ];
 
     setAvailableFilters(availableFilters);
-  }, [JSON.stringify(features), JSON.stringify(projects), JSON.stringify(eventCreators)]);
+  }, [
+    JSON.stringify(features),
+    JSON.stringify(projects),
+    JSON.stringify(eventCreators),
+  ]);
 
   return availableFilters;
 };
@@ -125,8 +139,20 @@ type EventLogFiltersProps = {
   onChange: (value: FilterItemParamHolder) => void;
 };
 
-export const EventLogFilters: FC<EventLogFiltersProps> = ({ logType, className, state, onChange }) => {
+export const EventLogFilters: FC<EventLogFiltersProps> = ({
+  logType,
+  className,
+  state,
+  onChange,
+}) => {
   const availableFilters = useEventLogFiltersFromLogType(logType);
 
-  return <Filters className={className} availableFilters={availableFilters} state={state} onChange={onChange} />;
+  return (
+    <Filters
+      className={className}
+      availableFilters={availableFilters}
+      state={state}
+      onChange={onChange}
+    />
+  );
 };

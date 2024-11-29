@@ -2,7 +2,10 @@ import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
 import metricsExample from '../../../examples/client-metrics.json';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import { ApiTokenType, type IApiToken } from '../../../../lib/types/models/api-token';
+import {
+  ApiTokenType,
+  type IApiToken,
+} from '../../../../lib/types/models/api-token';
 import { TEST_AUDIT_USER } from '../../../../lib/types';
 
 let app: IUnleashTest;
@@ -100,8 +103,16 @@ test('should pick up environment from token', async () => {
 
 test('should set lastSeen for toggles with metrics both for toggle and toggle env', async () => {
   const start = Date.now();
-  await app.services.featureToggleServiceV2.createFeatureToggle('default', { name: 't1' }, TEST_AUDIT_USER);
-  await app.services.featureToggleServiceV2.createFeatureToggle('default', { name: 't2' }, TEST_AUDIT_USER);
+  await app.services.featureToggleServiceV2.createFeatureToggle(
+    'default',
+    { name: 't1' },
+    TEST_AUDIT_USER,
+  );
+  await app.services.featureToggleServiceV2.createFeatureToggle(
+    'default',
+    { name: 't2' },
+    TEST_AUDIT_USER,
+  );
 
   const token = await app.services.apiTokenService.createApiToken({
     type: ApiTokenType.CLIENT,

@@ -40,8 +40,16 @@ beforeAll(async () => {
     mode: 'open' as const,
   });
 
-  await environmentService.addEnvironmentToProject(environment, project, TEST_AUDIT_USER);
-  await environmentService.addEnvironmentToProject(environment, project2, TEST_AUDIT_USER);
+  await environmentService.addEnvironmentToProject(
+    environment,
+    project,
+    TEST_AUDIT_USER,
+  );
+  await environmentService.addEnvironmentToProject(
+    environment,
+    project2,
+    TEST_AUDIT_USER,
+  );
 
   await featureToggleServiceV2.createFeatureToggle(
     project,

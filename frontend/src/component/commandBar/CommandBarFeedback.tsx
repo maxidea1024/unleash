@@ -56,7 +56,12 @@ export const CommandBarFeedback = ({ onSubmit }: ICommandBarFeedbackProps) => {
           <>
             <StyledText>Describe the capability</StyledText>
             <TextField multiline={true} minRows={2} onChange={changeFeedback} />
-            <StyledButton type='submit' variant='contained' color='primary' onClick={sendFeedback}>
+            <StyledButton
+              type='submit'
+              variant='contained'
+              color='primary'
+              onClick={sendFeedback}
+            >
               Send to Unleash
             </StyledButton>
           </>
@@ -64,8 +69,9 @@ export const CommandBarFeedback = ({ onSubmit }: ICommandBarFeedbackProps) => {
         elseShow={
           <>
             <StyledText>
-              We couldn’t find anything matching your search criteria. If you think this is a missing capability, feel
-              free to make a suggestion.
+              We couldn’t find anything matching your search criteria. If you
+              think this is a missing capability, feel free to make a
+              suggestion.
             </StyledText>
             <StyledButton
               type='submit'

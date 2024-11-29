@@ -1,7 +1,16 @@
 /* eslint react/no-multi-comp:off */
 import type React from 'react';
 import { useContext, useState } from 'react';
-import { Box, IconButton, LinearProgress, Link, Tab, Tabs, Typography, styled } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  LinearProgress,
+  Link,
+  Tab,
+  Tabs,
+  Typography,
+  styled,
+} from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import LinkIcon from '@mui/icons-material/Link';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -160,7 +169,9 @@ export const Application = () => {
           />
 
           <Box sx={(theme) => ({ marginTop: theme.spacing(1) })}>
-            <Typography variant='body2'>Created: {formatDate(createdAt)}</Typography>
+            <Typography variant='body2'>
+              Created: {formatDate(createdAt)}
+            </Typography>
           </Box>
         </PageContent>
         <Separator />
@@ -187,7 +198,10 @@ export const Application = () => {
         </TabContainer>
       </StyledHeader>
       <PageContent>
-        <ConditionallyRender condition={hasAccess(UPDATE_APPLICATION)} show={<div>{renderModal()}</div>} />
+        <ConditionallyRender
+          condition={hasAccess(UPDATE_APPLICATION)}
+          show={<div>{renderModal()}</div>}
+        />
         <Routes>
           <Route path='instances' element={<ConnectedInstances />} />
           <Route path='*' element={<ApplicationOverview />} />

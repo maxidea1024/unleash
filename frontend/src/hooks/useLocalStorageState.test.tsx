@@ -13,7 +13,11 @@ const TestComponent: FC<{
   return (
     <div>
       <span data-testid='storedValue'>{value}</span>
-      <button type='submit' onClick={() => setValue('updatedValue')} data-testid='updateButton' />
+      <button
+        type='submit'
+        onClick={() => setValue('updatedValue')}
+        data-testid='updateButton'
+      />
     </div>
   );
 };
@@ -34,7 +38,9 @@ describe('useLocalStorageState', () => {
 
     screen.getByTestId('updateButton').click();
 
-    expect((await screen.findByTestId('storedValue')).textContent).toBe('updatedValue');
+    expect((await screen.findByTestId('storedValue')).textContent).toBe(
+      'updatedValue',
+    );
     await waitFor(() => {
       const { value } = createLocalStorage('testKey', {});
       expect(value).toStrictEqual('updatedValue');

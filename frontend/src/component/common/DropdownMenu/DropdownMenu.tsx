@@ -1,4 +1,10 @@
-import { type CSSProperties, type MouseEventHandler, type ReactNode, useState, type VFC } from 'react';
+import {
+  type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+  useState,
+  type VFC,
+} from 'react';
 import { Menu } from '@mui/material';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import { DropdownButton } from './DropdownButton/DropdownButton';
@@ -53,7 +59,12 @@ const DropdownMenu: VFC<IDropdownMenuProps> = ({
         icon={icon}
         {...rest}
       />
-      <Menu id={id} onClick={handleClose} anchorEl={anchor} open={Boolean(anchor)}>
+      <Menu
+        id={id}
+        onClick={handleClose}
+        anchorEl={anchor}
+        open={Boolean(anchor)}
+      >
         {renderOptions()}
       </Menu>
     </>

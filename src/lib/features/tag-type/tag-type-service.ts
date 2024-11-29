@@ -3,7 +3,11 @@ import NameExistsError from '../../error/name-exists-error';
 import { tagTypeSchema } from '../../services/tag-type-schema';
 
 import type { IUnleashStores } from '../../types/stores';
-import { TagTypeCreatedEvent, TagTypeDeletedEvent, TagTypeUpdatedEvent } from '../../types/events';
+import {
+  TagTypeCreatedEvent,
+  TagTypeDeletedEvent,
+  TagTypeUpdatedEvent,
+} from '../../types/events';
 
 import type { Logger } from '../../logger';
 import type { ITagType, ITagTypeStore } from './tag-type-store-type';
@@ -35,7 +39,10 @@ export default class TagTypeService {
     return this.tagTypeStore.get(name);
   }
 
-  async createTagType(newTagType: ITagType, auditUser: IAuditUser): Promise<ITagType> {
+  async createTagType(
+    newTagType: ITagType,
+    auditUser: IAuditUser,
+  ): Promise<ITagType> {
     const data = (await tagTypeSchema.validateAsync(newTagType)) as ITagType;
     await this.validateUnique(data.name);
     await this.tagTypeStore.createTagType(data);
@@ -51,7 +58,9 @@ export default class TagTypeService {
   async validateUnique(name: string): Promise<boolean> {
     const exists = await this.tagTypeStore.exists(name);
     if (exists) {
-      throw new NameExistsError(`There already exists a tag-type with the name ${name}`);
+      throw new NameExistsError(
+        `There already exists a tag-type with the name ${name}`,
+      );
     }
     return Promise.resolve(true);
   }
@@ -74,7 +83,10 @@ export default class TagTypeService {
     );
   }
 
-  async updateTagType(updatedTagType: ITagType, auditUser: IAuditUser): Promise<ITagType> {
+  async updateTagType(
+    updatedTagType: ITagType,
+    auditUser: IAuditUser,
+  ): Promise<ITagType> {
     const data = await tagTypeSchema.validateAsync(updatedTagType);
     await this.tagTypeStore.updateTagType(data);
     await this.eventService.storeEvent(

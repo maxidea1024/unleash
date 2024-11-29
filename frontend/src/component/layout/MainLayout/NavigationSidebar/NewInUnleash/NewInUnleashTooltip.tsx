@@ -1,7 +1,14 @@
 import type * as React from 'react';
 import type { FC, ReactNode } from 'react';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
-import { Box, Button, Link, styled, Typography, ClickAwayListener } from '@mui/material';
+import {
+  Box,
+  Button,
+  Link,
+  styled,
+  Typography,
+  ClickAwayListener,
+} from '@mui/material';
 import type { Link as RouterLink } from 'react-router-dom';
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoWithWhiteText.svg';
@@ -89,7 +96,17 @@ export const NewInUnleashTooltip: FC<{
   preview?: ReactNode;
   onClose: () => void;
   beta: boolean;
-}> = ({ children, title, longDescription, onCheckItOut, docsLink, preview, open, onClose, beta }) => (
+}> = ({
+  children,
+  title,
+  longDescription,
+  onCheckItOut,
+  docsLink,
+  preview,
+  open,
+  onClose,
+  beta,
+}) => (
   <HtmlTooltip
     disableFocusListener
     disableHoverListener
@@ -116,14 +133,23 @@ export const NewInUnleashTooltip: FC<{
           <Body>
             <StyledTitle>
               <Typography>{title}</Typography>
-              <ConditionallyRender condition={beta} show={<Badge color='secondary'>Beta</Badge>} />
+              <ConditionallyRender
+                condition={beta}
+                show={<Badge color='secondary'>Beta</Badge>}
+              />
             </StyledTitle>
             <LongDescription>{longDescription}</LongDescription>
             <ConditionallyRender
               condition={Boolean(docsLink)}
               show={
                 <ReadMore>
-                  <StyledLink component='a' href={docsLink} underline='hover' rel='noopener noreferrer' target='_blank'>
+                  <StyledLink
+                    component='a'
+                    href={docsLink}
+                    underline='hover'
+                    rel='noopener noreferrer'
+                    target='_blank'
+                  >
                     <StyledOpenInNew /> Read more in our documentation
                   </StyledLink>
                 </ReadMore>

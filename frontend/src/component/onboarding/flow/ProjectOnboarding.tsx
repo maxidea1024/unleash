@@ -1,6 +1,9 @@
 import { IconButton, styled, Tooltip, Typography } from '@mui/material';
 import Add from '@mui/icons-material/Add';
-import { UPDATE_PROJECT, CREATE_PROJECT_API_TOKEN } from 'component/providers/AccessProvider/permissions';
+import {
+  UPDATE_PROJECT,
+  CREATE_PROJECT_API_TOKEN,
+} from 'component/providers/AccessProvider/permissions';
 import { FlagCreationButton } from '../../project/Project/PaginatedProjectFeatureToggles/ProjectFeatureTogglesHeader/ProjectFeatureTogglesHeader';
 import ResponsiveButton from 'component/common/ResponsiveButton/ResponsiveButton';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
@@ -116,7 +119,8 @@ export const ProjectOnboarding = ({
   refetchFeatures,
 }: IProjectOnboardingProps) => {
   const { project } = useProjectOverview(projectId);
-  const isFirstFlagCreated = project.onboardingStatus?.status === 'first-flag-created';
+  const isFirstFlagCreated =
+    project.onboardingStatus?.status === 'first-flag-created';
 
   const closeOnboardingFlow = () => {
     setOnboardingFlow('closed');
@@ -133,14 +137,19 @@ export const ProjectOnboarding = ({
             </IconButton>
           </Tooltip>
         </TitleRow>
-        <Typography variant='body2'>Complete the steps below to start working with this project</Typography>
+        <Typography variant='body2'>
+          Complete the steps below to start working with this project
+        </Typography>
       </TitleBox>
       <Actions>
         <ActionBox>
           {project.onboardingStatus?.status === 'first-flag-created' ? (
             <ExistingFlag />
           ) : (
-            <CreateFlag projectId={projectId} refetchFeatures={refetchFeatures} />
+            <CreateFlag
+              projectId={projectId}
+              refetchFeatures={refetchFeatures}
+            />
           )}
         </ActionBox>
         <ActionBox>
@@ -149,8 +158,8 @@ export const ProjectOnboarding = ({
             Connect an SDK
           </TitleContainer>
           <Typography>
-            Your project is not yet connected to any SDK. To start using your feature flag, connect an SDK to the
-            project.
+            Your project is not yet connected to any SDK. To start using your
+            feature flag, connect an SDK to the project.
           </Typography>
           <ResponsiveButton
             onClick={() => {
@@ -181,7 +190,9 @@ const CreateFlag = ({ projectId, refetchFeatures }: ICreateFlagProps) => {
         <NeutralCircleContainer>1</NeutralCircleContainer>
         Create a feature flag
       </TitleContainer>
-      <Typography>The project currently holds no feature flags. Create one to get started.</Typography>
+      <Typography>
+        The project currently holds no feature flags. Create one to get started.
+      </Typography>
       <FlagCreationButton
         text='Create flag'
         skipNavigationOnComplete={true}
@@ -205,7 +216,9 @@ const ExistingFlag = () => {
         <Typography fontWeight='bold' variant='body2'>
           Congratulations, your first flag is ready!
         </Typography>
-        <Typography variant='body2'>You can open it to customize further.</Typography>
+        <Typography variant='body2'>
+          You can open it to customize further.
+        </Typography>
       </SuccessContainer>
     </ExistingFlagContainer>
   );

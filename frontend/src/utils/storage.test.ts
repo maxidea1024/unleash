@@ -1,4 +1,9 @@
-import { setLocalStorageItem, getLocalStorageItem, setSessionStorageItem, getSessionStorageItem } from './storage';
+import {
+  setLocalStorageItem,
+  getLocalStorageItem,
+  setSessionStorageItem,
+  getSessionStorageItem,
+} from './storage';
 import { vi } from 'vitest';
 
 // Mocking the global localStorage
@@ -112,7 +117,9 @@ describe('localStorage with TTL', () => {
       set: new Set([1, 2, 3]),
     };
     setLocalStorageItem('complexObject', complexObject);
-    expect(getLocalStorageItem<typeof complexObject>('complexObject')).toEqual(complexObject);
+    expect(getLocalStorageItem<typeof complexObject>('complexObject')).toEqual(
+      complexObject,
+    );
   });
 
   test('sessionStorage item should expire as per TTL', () => {

@@ -9,10 +9,16 @@ export const createProjectLifecycleSummaryReadModel = (
   config: IUnleashConfig,
 ): IProjectLifecycleSummaryReadModel => {
   const { eventBus, getLogger, flagResolver } = config;
-  const featureToggleStore = new FeatureToggleStore(db, eventBus, getLogger, flagResolver);
+  const featureToggleStore = new FeatureToggleStore(
+    db,
+    eventBus,
+    getLogger,
+    flagResolver,
+  );
   return new ProjectLifecycleSummaryReadModel(db, featureToggleStore);
 };
 
-export const createFakeProjectLifecycleSummaryReadModel = (): IProjectLifecycleSummaryReadModel => {
-  return new FakeProjectLifecycleSummaryReadModel();
-};
+export const createFakeProjectLifecycleSummaryReadModel =
+  (): IProjectLifecycleSummaryReadModel => {
+    return new FakeProjectLifecycleSummaryReadModel();
+  };

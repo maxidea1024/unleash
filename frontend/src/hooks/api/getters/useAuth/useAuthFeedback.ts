@@ -9,7 +9,8 @@ interface IUseAuthFeedbackOutput {
 
 export const useAuthFeedback = (): IUseAuthFeedbackOutput => {
   const auth = useAuthEndpoint();
-  const feedback = auth.data && 'feedback' in auth.data ? auth.data.feedback : undefined;
+  const feedback =
+    auth.data && 'feedback' in auth.data ? auth.data.feedback : undefined;
 
   return {
     feedback,

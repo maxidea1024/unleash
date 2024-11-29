@@ -7,7 +7,10 @@ interface ILayoutPickerProps {
   isStandalone?: boolean;
 }
 
-export const LayoutPicker: FC<ILayoutPickerProps> = ({ isStandalone, children }) => (
+export const LayoutPicker: FC<ILayoutPickerProps> = ({
+  isStandalone,
+  children,
+}) => (
   <ConditionallyRender
     condition={isStandalone === true}
     show={children}

@@ -36,7 +36,11 @@ export const useChangeRequestApi = () => {
   const { uiConfig } = useUiConfig();
   const { willOverwriteStrategyChanges } = useChangeRequestPlausibleContext();
 
-  const addChange = async (project: string, environment: string, payload: IChangeSchema | IChangeSchema[]) => {
+  const addChange = async (
+    project: string,
+    environment: string,
+    payload: IChangeSchema | IChangeSchema[],
+  ) => {
     trackEvent('change_request', {
       props: {
         eventType: 'change added',
@@ -58,7 +62,13 @@ export const useChangeRequestApi = () => {
     changeRequestId: number,
     previousState: PlausibleChangeRequestState,
     payload: {
-      state: 'Approved' | 'Applied' | 'Scheduled' | 'Cancelled' | 'In review' | 'Rejected';
+      state:
+        | 'Approved'
+        | 'Applied'
+        | 'Scheduled'
+        | 'Cancelled'
+        | 'In review'
+        | 'Rejected';
       comment?: string;
       scheduledAt?: string;
     },
@@ -82,7 +92,11 @@ export const useChangeRequestApi = () => {
     return response.json();
   };
 
-  const discardChange = async (project: string, changeRequestId: number, changeId: number) => {
+  const discardChange = async (
+    project: string,
+    changeRequestId: number,
+    changeId: number,
+  ) => {
     const path = `api/admin/projects/${project}/change-requests/${changeRequestId}/changes/${changeId}`;
     const req = createRequest(path, {
       method: 'DELETE',
@@ -91,7 +105,12 @@ export const useChangeRequestApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const editChange = async (project: string, changeRequestId: number, changeId: number, payload: IChangeSchema) => {
+  const editChange = async (
+    project: string,
+    changeRequestId: number,
+    changeId: number,
+    payload: IChangeSchema,
+  ) => {
     const path = `api/admin/projects/${project}/change-requests/${changeRequestId}/changes/${changeId}`;
     const req = createRequest(path, {
       method: 'PUT',
@@ -128,7 +147,11 @@ export const useChangeRequestApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const addComment = async (projectId: string, changeRequestId: string, text: string) => {
+  const addComment = async (
+    projectId: string,
+    changeRequestId: string,
+    text: string,
+  ) => {
     trackEvent('change_request', {
       props: {
         eventType: 'comment added',
@@ -144,7 +167,11 @@ export const useChangeRequestApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const updateTitle = async (project: string, changeRequestId: number, title: string) => {
+  const updateTitle = async (
+    project: string,
+    changeRequestId: number,
+    title: string,
+  ) => {
     trackEvent('change_request', {
       props: {
         eventType: 'title updated',

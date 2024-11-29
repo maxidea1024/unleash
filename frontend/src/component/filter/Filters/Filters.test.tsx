@@ -1,7 +1,11 @@
 import { fireEvent, screen } from '@testing-library/react';
 import { render } from 'utils/testRenderer';
 import { FILTER_ITEM, FILTERS_MENU } from 'utils/testIds';
-import { type FilterItemParamHolder, Filters, type IFilterItem } from './Filters';
+import {
+  type FilterItemParamHolder,
+  Filters,
+  type IFilterItem,
+} from './Filters';
 
 test('shoulder render all available filters', async () => {
   const availableFilters: IFilterItem[] = [
@@ -31,7 +35,13 @@ test('shoulder render all available filters', async () => {
     },
   ];
 
-  render(<Filters availableFilters={availableFilters} onChange={() => {}} state={{}} />);
+  render(
+    <Filters
+      availableFilters={availableFilters}
+      onChange={() => {}}
+      state={{}}
+    />,
+  );
 
   await screen.findByText('Filter1');
   await screen.findByText('Filter2');
@@ -58,7 +68,13 @@ test('should keep filters order when adding a new filter', async () => {
     },
   ];
 
-  render(<Filters availableFilters={availableFilters} onChange={() => {}} state={{}} />);
+  render(
+    <Filters
+      availableFilters={availableFilters}
+      onChange={() => {}}
+      state={{}}
+    />,
+  );
 
   const valuesElement = await screen.findByText('Tags');
   expect(valuesElement).toBeInTheDocument();
@@ -95,12 +111,20 @@ test('should remove selected item from the add filter list', async () => {
     },
   ];
 
-  render(<Filters availableFilters={availableFilters} onChange={() => {}} state={{}} />);
+  render(
+    <Filters
+      availableFilters={availableFilters}
+      onChange={() => {}}
+      state={{}}
+    />,
+  );
 
   // initial selection list
   const addFilterButton = await screen.findByText('Add Filter');
   fireEvent.click(addFilterButton);
-  expect((await screen.findByTestId(FILTERS_MENU)).textContent).toBe('StateTags');
+  expect((await screen.findByTestId(FILTERS_MENU)).textContent).toBe(
+    'StateTags',
+  );
 
   (await screen.findByText('State')).click();
 
@@ -143,7 +167,13 @@ test('should render filters in the order defined by the initial state', async ()
     },
   ];
 
-  render(<Filters availableFilters={availableFilters} onChange={() => {}} state={initialState} />);
+  render(
+    <Filters
+      availableFilters={availableFilters}
+      onChange={() => {}}
+      state={initialState}
+    />,
+  );
 
   const filterItems = screen.getAllByTestId(FILTER_ITEM);
   const filterTexts = filterItems.map((item) => item.textContent);

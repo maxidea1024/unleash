@@ -35,7 +35,10 @@ const InviteLinkButton = () => {
     <ClickAwayListener onClickAway={() => setShowInviteLinkContent(false)}>
       <StyledContainer>
         <Tooltip title='Invite users' arrow>
-          <StyledIconButton onClick={() => setShowInviteLinkContent(true)} size='large'>
+          <StyledIconButton
+            onClick={() => setShowInviteLinkContent(true)}
+            size='large'
+          >
             <PersonAdd />
           </StyledIconButton>
         </Tooltip>

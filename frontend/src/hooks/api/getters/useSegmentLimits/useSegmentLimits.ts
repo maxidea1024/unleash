@@ -1,7 +1,10 @@
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import type { IUiConfig } from 'interfaces/uiConfig';
 
-type IUseSegmentLimits = Pick<IUiConfig, 'segmentValuesLimit' | 'strategySegmentsLimit'>;
+type IUseSegmentLimits = Pick<
+  IUiConfig,
+  'segmentValuesLimit' | 'strategySegmentsLimit'
+>;
 
 export const useSegmentLimits = (): IUseSegmentLimits => {
   const { uiConfig } = useUiConfig();

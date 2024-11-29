@@ -1,6 +1,12 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
-import { Button, FormControlLabel, Grid, Switch, TextField } from '@mui/material';
+import {
+  Button,
+  FormControlLabel,
+  Grid,
+  Switch,
+  TextField,
+} from '@mui/material';
 import { Alert } from '@mui/material';
 import { AutoCreateForm } from '../AutoCreateForm/AutoCreateForm';
 import useToast from 'hooks/useToast';
@@ -58,7 +64,10 @@ export const SamlAuth = () => {
     setData({ ...data, enabled: !data.enabled });
   };
 
-  const setValue = (name: string, value: string | boolean | number | undefined) => {
+  const setValue = (
+    name: string,
+    value: string | boolean | number | undefined,
+  ) => {
     setData({
       ...data,
       [name]: value,
@@ -95,7 +104,8 @@ export const SamlAuth = () => {
             condition={Boolean(samlConfiguredThroughEnv)}
             show={
               <Alert sx={{ mb: 2 }} severity='warning'>
-                SAML is currently configured via environment variables. Please refer to the{' '}
+                SAML is currently configured via environment variables. Please
+                refer to the{' '}
                 <a
                   href='https://www.unleash-hosted.com/docs/enterprise-authentication'
                   target='_blank'
@@ -103,16 +113,22 @@ export const SamlAuth = () => {
                 >
                   documentation
                 </a>{' '}
-                for detailed instructions on how to set up SAML using these variables.
+                for detailed instructions on how to set up SAML using these
+                variables.
               </Alert>
             }
           />
           <Alert severity='info'>
             Please read the{' '}
-            <a href='https://www.unleash-hosted.com/docs/enterprise-authentication' target='_blank' rel='noreferrer'>
+            <a
+              href='https://www.unleash-hosted.com/docs/enterprise-authentication'
+              target='_blank'
+              rel='noreferrer'
+            >
               documentation
             </a>{' '}
-            to learn how to integrate with specific SAML 2.0 providers (Okta, Keycloak, etc). <br />
+            to learn how to integrate with specific SAML 2.0 providers (Okta,
+            Keycloak, etc). <br />
             Callback URL: <code>{uiConfig.unleashUrl}/auth/saml/callback</code>
           </Alert>
         </Grid>
@@ -208,7 +224,10 @@ export const SamlAuth = () => {
         <Grid container spacing={3} mb={2}>
           <Grid item md={5}>
             <strong>Single Sign-out URL</strong>
-            <p>(Optional) The url to redirect the user to for signing out of the IDP.</p>
+            <p>
+              (Optional) The url to redirect the user to for signing out of the
+              IDP.
+            </p>
           </Grid>
           <Grid item md={6}>
             <TextField
@@ -227,8 +246,9 @@ export const SamlAuth = () => {
           <Grid item md={5}>
             <strong>Service Provider X.509 Certificate</strong>
             <p>
-              (Optional) The private certificate used by the Service Provider used to sign the SAML 2.0 request towards
-              the IDP. E.g. used to sign single logout requests (SLO).
+              (Optional) The private certificate used by the Service Provider
+              used to sign the SAML 2.0 request towards the IDP. E.g. used to
+              sign single logout requests (SLO).
             </p>
           </Grid>
           <Grid item md={7}>
@@ -254,7 +274,12 @@ export const SamlAuth = () => {
           </Grid>
         </Grid>
 
-        <SsoGroupSettings ssoType='SAML' data={data} setValue={setValue} disabled={samlConfiguredThroughEnv} />
+        <SsoGroupSettings
+          ssoType='SAML'
+          data={data}
+          setValue={setValue}
+          disabled={samlConfiguredThroughEnv}
+        />
 
         <AutoCreateForm
           data={data}
@@ -264,7 +289,12 @@ export const SamlAuth = () => {
         />
         <Grid container spacing={3}>
           <Grid item md={5}>
-            <Button variant='contained' color='primary' type='submit' disabled={loading || samlConfiguredThroughEnv}>
+            <Button
+              variant='contained'
+              color='primary'
+              type='submit'
+              disabled={loading || samlConfiguredThroughEnv}
+            >
               Save
             </Button>{' '}
             <p>

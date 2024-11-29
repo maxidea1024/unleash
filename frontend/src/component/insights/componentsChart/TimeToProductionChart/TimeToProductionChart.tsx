@@ -1,7 +1,11 @@
 import { useMemo, type FC } from 'react';
 import 'chartjs-adapter-date-fns';
 import type { InstanceInsightsSchema } from 'openapi';
-import { fillGradientPrimary, LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
+import {
+  fillGradientPrimary,
+  LineChart,
+  NotEnoughData,
+} from 'component/insights/components/LineChart/LineChart';
 import { useProjectChartData } from 'component/insights/hooks/useProjectChartData';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
@@ -10,7 +14,9 @@ import { useTheme } from '@mui/material';
 import { medianTimeToProduction } from './median-time-to-production';
 
 interface ITimeToProductionChartProps {
-  projectFlagTrends: GroupedDataByProject<InstanceInsightsSchema['projectFlagTrends']>;
+  projectFlagTrends: GroupedDataByProject<
+    InstanceInsightsSchema['projectFlagTrends']
+  >;
   isAggregate?: boolean;
   isLoading?: boolean;
 }
@@ -23,7 +29,8 @@ export const TimeToProductionChart: FC<ITimeToProductionChartProps> = ({
   const theme = useTheme();
   const projectsDatasets = useProjectChartData(projectFlagTrends);
   const notEnoughData = useMemo(
-    () => !isLoading && !projectsDatasets.datasets.some((d) => d.data.length > 1),
+    () =>
+      !isLoading && !projectsDatasets.datasets.some((d) => d.data.length > 1),
     [projectsDatasets, isLoading],
   );
 
@@ -40,7 +47,9 @@ export const TimeToProductionChart: FC<ITimeToProductionChartProps> = ({
 
   const aggregatedPerDay = useMemo(() => {
     const result = medianTimeToProduction(
-      Object.values(filteredProjectsDatasets.datasets).flatMap((item) => item.data),
+      Object.values(filteredProjectsDatasets.datasets).flatMap(
+        (item) => item.data,
+      ),
     );
     const data = Object.entries(result)
       .map(([date, timeToProduction]) => ({ date, timeToProduction }))

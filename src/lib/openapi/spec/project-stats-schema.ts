@@ -29,37 +29,44 @@ Stats are divided into current and previous **windows**.
     createdCurrentWindow: {
       type: 'number',
       example: 15,
-      description: 'The number of feature flags created during the current window',
+      description:
+        'The number of feature flags created during the current window',
     },
     createdPastWindow: {
       type: 'number',
       example: 15,
-      description: 'The number of feature flags created during the previous window',
+      description:
+        'The number of feature flags created during the previous window',
     },
     archivedCurrentWindow: {
       type: 'number',
       example: 5,
-      description: 'The number of feature flags that were archived during the current window',
+      description:
+        'The number of feature flags that were archived during the current window',
     },
     archivedPastWindow: {
       type: 'number',
       example: 5,
-      description: 'The number of feature flags that were archived during the previous window',
+      description:
+        'The number of feature flags that were archived during the previous window',
     },
     projectActivityCurrentWindow: {
       type: 'number',
       example: 100,
-      description: 'The number of project events that occurred during the current window',
+      description:
+        'The number of project events that occurred during the current window',
     },
     projectActivityPastWindow: {
       type: 'number',
       example: 100,
-      description: 'The number of project events that occurred during the previous window',
+      description:
+        'The number of project events that occurred during the previous window',
     },
     projectMembersAddedCurrentWindow: {
       type: 'number',
       example: 1,
-      description: 'The number of members that were added to the project during the current window',
+      description:
+        'The number of members that were added to the project during the current window',
     },
   },
   components: {},

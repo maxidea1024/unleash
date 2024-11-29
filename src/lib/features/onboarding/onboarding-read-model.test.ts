@@ -1,9 +1,17 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import { type IFeatureToggleStore, type ILastSeenStore, type IOnboardingStore, SYSTEM_USER } from '../../types';
+import {
+  type IFeatureToggleStore,
+  type ILastSeenStore,
+  type IOnboardingStore,
+  SYSTEM_USER,
+} from '../../types';
 import type { IOnboardingReadModel } from './onboarding-read-model-type';
 import type ClientInstanceService from '../metrics/instance/instance-service';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import { ApiTokenType } from '../../types/models/api-token';
 
 let db: ITestDb;
@@ -49,7 +57,8 @@ beforeEach(async () => {
 });
 
 test('can get instance onboarding durations', async () => {
-  const initialResult = await onboardingReadModel.getInstanceOnboardingMetrics();
+  const initialResult =
+    await onboardingReadModel.getInstanceOnboardingMetrics();
   expect(initialResult).toMatchObject({
     firstLogin: null,
     secondLogin: null,
@@ -63,7 +72,8 @@ test('can get instance onboarding durations', async () => {
     timeToEvent: 0,
   });
 
-  const firstLoginResult = await onboardingReadModel.getInstanceOnboardingMetrics();
+  const firstLoginResult =
+    await onboardingReadModel.getInstanceOnboardingMetrics();
   expect(firstLoginResult).toMatchObject({
     firstLogin: 0,
     secondLogin: null,
@@ -89,7 +99,8 @@ test('can get instance onboarding durations', async () => {
     timeToEvent: 40,
   });
 
-  const secondLoginResult = await onboardingReadModel.getInstanceOnboardingMetrics();
+  const secondLoginResult =
+    await onboardingReadModel.getInstanceOnboardingMetrics();
   expect(secondLoginResult).toMatchObject({
     firstLogin: 0,
     secondLogin: 10,
@@ -118,7 +129,8 @@ test('can get instance onboarding durations', async () => {
     timeToEvent: 40,
   });
 
-  const projectOnboardingResult = await onboardingReadModel.getProjectsOnboardingMetrics();
+  const projectOnboardingResult =
+    await onboardingReadModel.getProjectsOnboardingMetrics();
 
   expect(projectOnboardingResult).toMatchObject([
     {
@@ -131,7 +143,8 @@ test('can get instance onboarding durations', async () => {
 });
 
 test('can get project onboarding status', async () => {
-  const onboardingStartedResult = await onboardingReadModel.getOnboardingStatusForProject('default');
+  const onboardingStartedResult =
+    await onboardingReadModel.getOnboardingStatusForProject('default');
 
   expect(onboardingStartedResult).toMatchObject({
     status: 'onboarding-started',
@@ -142,7 +155,8 @@ test('can get project onboarding status', async () => {
     createdByUserId: SYSTEM_USER.id,
   });
 
-  const firstFlagResult = await onboardingReadModel.getOnboardingStatusForProject('default');
+  const firstFlagResult =
+    await onboardingReadModel.getOnboardingStatusForProject('default');
 
   expect(firstFlagResult).toMatchObject({
     status: 'first-flag-created',
@@ -156,7 +170,8 @@ test('can get project onboarding status', async () => {
     },
   ]);
 
-  const onboardedResult = await onboardingReadModel.getOnboardingStatusForProject('default');
+  const onboardedResult =
+    await onboardingReadModel.getOnboardingStatusForProject('default');
 
   expect(onboardedResult).toMatchObject({
     status: 'onboarded',
@@ -178,7 +193,8 @@ test('archived feature counts as onboarded', async () => {
 
   await featureToggleStore.archive('my-flag');
 
-  const onboardedResult = await onboardingReadModel.getOnboardingStatusForProject('default');
+  const onboardedResult =
+    await onboardingReadModel.getOnboardingStatusForProject('default');
 
   expect(onboardedResult).toMatchObject({
     status: 'onboarded',
@@ -191,12 +207,13 @@ test('sdk register also onboards a project', async () => {
     createdByUserId: SYSTEM_USER.id,
   });
 
-  const defaultProjectToken = await app.services.apiTokenService.createApiTokenWithProjects({
-    type: ApiTokenType.CLIENT,
-    projects: ['default'],
-    environment: 'default',
-    tokenName: 'tester',
-  });
+  const defaultProjectToken =
+    await app.services.apiTokenService.createApiTokenWithProjects({
+      type: ApiTokenType.CLIENT,
+      projects: ['default'],
+      environment: 'default',
+      tokenName: 'tester',
+    });
 
   await app.request
     .post('/api/client/register')
@@ -211,7 +228,8 @@ test('sdk register also onboards a project', async () => {
 
   await instanceService.bulkAdd();
 
-  const onboardedResult = await onboardingReadModel.getOnboardingStatusForProject('default');
+  const onboardedResult =
+    await onboardingReadModel.getOnboardingStatusForProject('default');
 
   expect(onboardedResult).toMatchObject({
     status: 'onboarded',

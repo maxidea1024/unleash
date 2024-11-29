@@ -5,7 +5,11 @@ import ExtensionOutlinedIcon from '@mui/icons-material/ExtensionOutlined';
 import SegmentsIcon from '@mui/icons-material/DonutLargeOutlined';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Icon, styled } from '@mui/material';
-import type { TimelineEvent, TimelineEventGroup, TimelineEventType } from '../EventTimeline';
+import type {
+  TimelineEvent,
+  TimelineEventGroup,
+  TimelineEventType,
+} from '../EventTimeline';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import type { HTMLAttributes } from 'react';
 import SensorsIcon from '@mui/icons-material/Sensors';
@@ -56,7 +60,9 @@ const getEventIcon = ({ icon, type }: Pick<TimelineEvent, 'icon' | 'type'>) => {
     return <ToggleOffIcon />;
   }
   if (type.startsWith('strategy-') || type.startsWith('feature-strategy-')) {
-    return <ExtensionOutlinedIcon sx={{ marginTop: '-2px', marginRight: '-2px' }} />;
+    return (
+      <ExtensionOutlinedIcon sx={{ marginTop: '-2px', marginRight: '-2px' }} />
+    );
   }
   if (type.startsWith('feature-')) {
     return <FlagOutlinedIcon />;
@@ -68,7 +74,9 @@ const getEventIcon = ({ icon, type }: Pick<TimelineEvent, 'icon' | 'type'>) => {
   return <QuestionMarkIcon />;
 };
 
-const customEventVariants: Partial<Record<TimelineEventType, CustomEventVariant>> = {
+const customEventVariants: Partial<
+  Record<TimelineEventType, CustomEventVariant>
+> = {
   signal: 'warning',
   'feature-environment-enabled': 'success',
   'feature-environment-disabled': 'neutral',
@@ -76,19 +84,33 @@ const customEventVariants: Partial<Record<TimelineEventType, CustomEventVariant>
 };
 
 const isValidVariant = (variant?: string): variant is EventVariant =>
-  variant !== undefined && ['secondary', 'success', 'neutral', 'warning', 'error'].includes(variant);
+  variant !== undefined &&
+  ['secondary', 'success', 'neutral', 'warning', 'error'].includes(variant);
 
-interface IEventTimelineEventCircleProps extends HTMLAttributes<HTMLDivElement> {
+interface IEventTimelineEventCircleProps
+  extends HTMLAttributes<HTMLDivElement> {
   group: TimelineEventGroup;
 }
 
-export const EventTimelineEventCircle = ({ group, ...props }: IEventTimelineEventCircleProps) => {
-  if (group.length === 1 || !group.some(({ type, icon }) => type !== group[0].type || icon !== group[0].icon)) {
+export const EventTimelineEventCircle = ({
+  group,
+  ...props
+}: IEventTimelineEventCircleProps) => {
+  if (
+    group.length === 1 ||
+    !group.some(
+      ({ type, icon }) => type !== group[0].type || icon !== group[0].icon,
+    )
+  ) {
     const event = group[0];
 
     return (
       <StyledEventCircle
-        variant={isValidVariant(event.variant) ? event.variant : customEventVariants[event.type]}
+        variant={
+          isValidVariant(event.variant)
+            ? event.variant
+            : customEventVariants[event.type]
+        }
         {...props}
       >
         {getEventIcon(event)}

@@ -137,7 +137,10 @@ export const ProjectGroup = ({
                 <>
                   {projects.map((project) =>
                     link ? (
-                      <StyledCardLink key={project.id} to={`/projects/${project.id}`}>
+                      <StyledCardLink
+                        key={project.id}
+                        to={`/projects/${project.id}`}
+                      >
                         <ProjectCard {...project} />
                       </StyledCardLink>
                     ) : (

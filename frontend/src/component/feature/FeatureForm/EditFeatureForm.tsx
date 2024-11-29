@@ -110,9 +110,20 @@ const EditFeatureForm: React.FC<IFeatureToggleForm> = ({
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <StyledInputDescription>What would you like to call your flag?</StyledInputDescription>
-      <StyledInput autoFocus disabled={true} label='Name' id='feature-flag-name' value={name} onChange={() => {}} />
-      <StyledInputDescription>What kind of feature flag do you want?</StyledInputDescription>
+      <StyledInputDescription>
+        What would you like to call your flag?
+      </StyledInputDescription>
+      <StyledInput
+        autoFocus
+        disabled={true}
+        label='Name'
+        id='feature-flag-name'
+        value={name}
+        onChange={() => {}}
+      />
+      <StyledInputDescription>
+        What kind of feature flag do you want?
+      </StyledInputDescription>
       <FeatureTypeSelect
         sx={styledSelectInput}
         value={type}
@@ -124,7 +135,9 @@ const EditFeatureForm: React.FC<IFeatureToggleForm> = ({
         IconComponent={KeyboardArrowDownOutlined}
       />
       <StyledTypeDescription>{renderToggleDescription()}</StyledTypeDescription>
-      <StyledInputDescription>How would you describe your feature flag?</StyledInputDescription>
+      <StyledInputDescription>
+        How would you describe your feature flag?
+      </StyledInputDescription>
       <StyledInput
         multiline
         rows={4}
@@ -135,13 +148,23 @@ const EditFeatureForm: React.FC<IFeatureToggleForm> = ({
         onChange={(e) => setDescription(e.target.value)}
       />
       <StyledFormControl>
-        <Typography variant='subtitle1' sx={styledTypography} data-loading component='h2'>
+        <Typography
+          variant='subtitle1'
+          sx={styledTypography}
+          data-loading
+          component='h2'
+        >
           Impression Data
         </Typography>
         <p>
-          When you enable impression data for a feature flag, your client SDKs will emit events you can listen for every
-          time this flag gets triggered. Learn more in{' '}
-          <Link target='_blank' rel='noopener noreferrer' href='https://docs.getunleash.io/advanced/impression_data'>
+          When you enable impression data for a feature flag, your client SDKs
+          will emit events you can listen for every time this flag gets
+          triggered. Learn more in{' '}
+          <Link
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://docs.getunleash.io/advanced/impression_data'
+          >
             the impression data documentation
           </Link>
         </p>

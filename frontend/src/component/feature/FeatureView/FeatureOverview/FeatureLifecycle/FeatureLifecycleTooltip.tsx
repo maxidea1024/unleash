@@ -16,7 +16,10 @@ import { StyledIconWrapper } from '../../FeatureEnvironmentSeen/FeatureEnvironme
 import { useLastSeenColors } from '../../FeatureEnvironmentSeen/useLastSeenColors';
 import type { LifecycleStage } from './LifecycleStage';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
-import { DELETE_FEATURE, UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
+import {
+  DELETE_FEATURE,
+  UPDATE_FEATURE,
+} from 'component/providers/AccessProvider/permissions';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { isSafeToArchive } from './isSafeToArchive';
 import { useLocationSettings } from 'hooks/useLocationSettings';
@@ -122,9 +125,17 @@ const LastSeenIcon: FC<{
 const InitialStageDescription: FC = () => {
   return (
     <>
-      <InfoText>This feature flag is currently in the initial phase of its lifecycle.</InfoText>
-      <InfoText>This means that the flag has been created, but it has not yet been seen in any environment.</InfoText>
-      <InfoText>Once we detect metrics for a non-production environment it will move into pre-live.</InfoText>
+      <InfoText>
+        This feature flag is currently in the initial phase of its lifecycle.
+      </InfoText>
+      <InfoText>
+        This means that the flag has been created, but it has not yet been seen
+        in any environment.
+      </InfoText>
+      <InfoText>
+        Once we detect metrics for a non-production environment it will move
+        into pre-live.
+      </InfoText>
     </>
   );
 };
@@ -140,7 +151,10 @@ const StageTimeline: FC<{
 
       <Line />
 
-      <StageBox data-after-content='Pre-live' active={stage.name === 'pre-live'}>
+      <StageBox
+        data-after-content='Pre-live'
+        active={stage.name === 'pre-live'}
+      >
         <PreLiveStageIcon />
       </StageBox>
 
@@ -152,13 +166,19 @@ const StageTimeline: FC<{
 
       <Line />
 
-      <StageBox data-after-content='Completed' active={stage.name === 'completed'}>
+      <StageBox
+        data-after-content='Completed'
+        active={stage.name === 'completed'}
+      >
         <CompletedStageIcon />
       </StageBox>
 
       <Line />
 
-      <StageBox data-after-content='Archived' active={stage.name === 'archived'}>
+      <StageBox
+        data-after-content='Archived'
+        active={stage.name === 'archived'}
+      >
         <ArchivedStageIcon />
       </StageBox>
     </IconsRow>
@@ -205,10 +225,14 @@ const Environments: FC<{
   );
 };
 
-const PreLiveStageDescription: FC<{ children?: React.ReactNode }> = ({ children }) => {
+const PreLiveStageDescription: FC<{ children?: React.ReactNode }> = ({
+  children,
+}) => {
   return (
     <>
-      <InfoText>We've seen the feature flag in the following environments:</InfoText>
+      <InfoText>
+        We've seen the feature flag in the following environments:
+      </InfoText>
 
       {children}
     </>
@@ -232,9 +256,11 @@ const LiveStageDescription: FC<{
     <>
       <BoldTitle>Is this feature complete?</BoldTitle>
       <InfoText sx={{ mb: 1 }}>
-        Marking the feature flag as complete does not affect any configuration; however, it moves the feature flag to
-        its next lifecycle stage and indicates that you have learned what you needed in order to progress with the
-        feature. It serves as a reminder to start cleaning up the feature flag and removing it from the code.
+        Marking the feature flag as complete does not affect any configuration;
+        however, it moves the feature flag to its next lifecycle stage and
+        indicates that you have learned what you needed in order to progress
+        with the feature. It serves as a reminder to start cleaning up the
+        feature flag and removing it from the code.
       </InfoText>
       <PermissionButton
         color='inherit'
@@ -248,7 +274,8 @@ const LiveStageDescription: FC<{
         Mark completed
       </PermissionButton>
       <InfoText sx={{ mt: 3 }}>
-        Users have been exposed to this feature in the following production environments:
+        Users have been exposed to this feature in the following production
+        environments:
       </InfoText>
 
       {children}
@@ -271,8 +298,8 @@ const SafeToArchive: FC<{
           mb: 1,
         }}
       >
-        We haven’t seen this feature flag in any environment for at least two days. It’s likely that it’s safe to
-        archive this flag.
+        We haven’t seen this feature flag in any environment for at least two
+        days. It’s likely that it’s safe to archive this flag.
       </InfoText>
       <Box
         sx={{
@@ -321,8 +348,8 @@ const ActivelyUsed: FC<{
         mb: 1,
       }}
     >
-      This feature has been successfully completed, but we are still seeing usage. Clean up the feature flag from your
-      code before archiving it:
+      This feature has been successfully completed, but we are still seeing
+      usage. Clean up the feature flag from your code before archiving it:
     </InfoText>
     {children}
     <InfoText
@@ -331,7 +358,8 @@ const ActivelyUsed: FC<{
         mb: 1,
       }}
     >
-      If you think this feature was completed too early you can revert to the live stage:
+      If you think this feature was completed too early you can revert to the
+      live stage:
     </InfoText>
     <PermissionButton
       color='inherit'
@@ -357,11 +385,25 @@ const CompletedStageDescription: FC<{
   }>;
   children?: React.ReactNode;
   project: string;
-}> = ({ children, environments, onArchive, onUncomplete, loading, project }) => {
+}> = ({
+  children,
+  environments,
+  onArchive,
+  onUncomplete,
+  loading,
+  project,
+}) => {
   return (
     <ConditionallyRender
       condition={isSafeToArchive(environments)}
-      show={<SafeToArchive onArchive={onArchive} onUncomplete={onUncomplete} loading={loading} project={project} />}
+      show={
+        <SafeToArchive
+          onArchive={onArchive}
+          onUncomplete={onUncomplete}
+          loading={loading}
+          project={project}
+        />
+      }
       elseShow={
         <ActivelyUsed onUncomplete={onUncomplete} loading={loading}>
           {children}
@@ -395,7 +437,15 @@ export const FeatureLifecycleTooltip: FC<{
   onComplete: () => void;
   onUncomplete: () => void;
   loading: boolean;
-}> = ({ children, stage, project, onArchive, onComplete, onUncomplete, loading }) => (
+}> = ({
+  children,
+  stage,
+  project,
+  onArchive,
+  onComplete,
+  onUncomplete,
+  loading,
+}) => (
   <HtmlTooltip
     maxHeight={800}
     maxWidth={350}
@@ -436,7 +486,11 @@ export const FeatureLifecycleTooltip: FC<{
             </PreLiveStageDescription>
           )}
           {stage.name === 'live' && (
-            <LiveStageDescription onComplete={onComplete} loading={loading} project={project}>
+            <LiveStageDescription
+              onComplete={onComplete}
+              loading={loading}
+              project={project}
+            >
               <Environments environments={stage.environments} />
             </LiveStageDescription>
           )}

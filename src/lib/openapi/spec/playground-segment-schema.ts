@@ -34,4 +34,6 @@ export const playgroundSegmentSchema = {
   },
 } as const;
 
-export type PlaygroundSegmentSchema = FromSchema<typeof playgroundSegmentSchema>;
+export type PlaygroundSegmentSchema = FromSchema<
+  typeof playgroundSegmentSchema
+>;

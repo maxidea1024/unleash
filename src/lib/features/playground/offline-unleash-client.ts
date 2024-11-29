@@ -11,10 +11,14 @@ import type { FeatureInterface as PlaygroundFeatureInterface } from './feature-e
 
 type NonEmptyList<T> = [T, ...T[]];
 
-export const mapFeaturesForClient = (features: FeatureConfigurationClient[]): FeatureInterface[] =>
+export const mapFeaturesForClient = (
+  features: FeatureConfigurationClient[],
+): FeatureInterface[] =>
   features.map((feature) => mapFeatureForClient(feature));
 
-export const mapFeatureForClient = (feature: FeatureConfigurationClient): FeatureInterface => {
+export const mapFeatureForClient = (
+  feature: FeatureConfigurationClient,
+): FeatureInterface => {
   return {
     impressionData: false,
     ...feature,
@@ -51,7 +55,8 @@ export const mapFeatureForClient = (feature: FeatureConfigurationClient): Featur
   };
 };
 
-export const mapSegmentsForClient = (segments: ISegment[]): Segment[] => serializeDates(segments) as Segment[];
+export const mapSegmentsForClient = (segments: ISegment[]): Segment[] =>
+  serializeDates(segments) as Segment[];
 
 export type ClientInitOptions = {
   features: NonEmptyList<FeatureConfigurationClient>;

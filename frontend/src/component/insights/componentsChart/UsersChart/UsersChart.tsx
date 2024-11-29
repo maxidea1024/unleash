@@ -2,7 +2,11 @@ import { useMemo, type VFC } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type { InstanceInsightsSchema } from 'openapi';
-import { fillGradientPrimary, LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
+import {
+  fillGradientPrimary,
+  LineChart,
+  NotEnoughData,
+} from 'component/insights/components/LineChart/LineChart';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
@@ -11,7 +15,10 @@ interface IUsersChartProps {
   isLoading?: boolean;
 }
 
-export const UsersChart: VFC<IUsersChartProps> = ({ userTrends, isLoading }) => {
+export const UsersChart: VFC<IUsersChartProps> = ({
+  userTrends,
+  isLoading,
+}) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
   const theme = useTheme();
   const notEnoughData = !isLoading && userTrends.length < 2;

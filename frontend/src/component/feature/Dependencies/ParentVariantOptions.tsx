@@ -26,11 +26,18 @@ export const ParentVariantOptions: FC<{
       disableCloseOnSelect
       renderOption={(props, option, { selected }) => (
         <li {...props}>
-          <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
           {option}
         </li>
       )}
-      renderInput={(params) => <TextField {...params} placeholder='Select values' />}
+      renderInput={(params) => (
+        <TextField {...params} placeholder='Select values' />
+      )}
       fullWidth
       value={selectedValues}
       onChange={(_, selectedValues) => {

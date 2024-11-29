@@ -14,7 +14,10 @@ interface IUseUsersOutput {
 }
 
 export const useUsers = (): IUseUsersOutput => {
-  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/user-admin`), fetcher);
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/user-admin`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

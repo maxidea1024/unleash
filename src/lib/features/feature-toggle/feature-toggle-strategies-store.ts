@@ -130,7 +130,9 @@ interface StrategyUpdate {
   disabled?: boolean;
 }
 
-function mapStrategyUpdate(input: Partial<IStrategyConfig>): Partial<StrategyUpdate> {
+function mapStrategyUpdate(
+  input: Partial<IStrategyConfig>,
+): Partial<StrategyUpdate> {
   const update: Partial<StrategyUpdate> = {};
   if (input.name !== null) {
     update.strategy_name = input.name;
@@ -153,7 +155,10 @@ function mergeAll<T>(objects: Partial<T>[]): T {
   return merge.all<T>(objects.filter((i) => i));
 }
 
-const defaultParameters = (params: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>, stickiness: string) => {
+const defaultParameters = (
+  params: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>,
+  stickiness: string,
+) => {
   if (params.strategyName === 'flexibleRollout') {
     return {
       rollout: '100',
@@ -166,7 +171,10 @@ const defaultParameters = (params: PartialSome<IFeatureStrategy, 'id' | 'created
   }
 };
 
-const parametersWithDefaults = (params: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>, stickiness: string) => {
+const parametersWithDefaults = (
+  params: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>,
+  stickiness: string,
+) => {
   return mergeAll([defaultParameters(params, stickiness), params.parameters]);
 };
 
@@ -176,7 +184,12 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   private readonly timer: Function;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
+  constructor(
+    db: Db,
+    eventBus: EventEmitter,
+    getLogger: LogProvider,
+    flagResolver: IFlagResolver,
+  ) {
     this.logger = getLogger('feature-toggle-strategies-store.ts');
 
     this.db = db;
@@ -199,9 +212,10 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   destroy(): void {}
 
   async exists(key: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${T.featureStrategies} WHERE id = ?) AS present`, [
-      key,
-    ]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${T.featureStrategies} WHERE id = ?) AS present`,
+      [key],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -217,10 +231,12 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   }
 
   private async nextSortOrder(featureName: string, environment: string) {
-    const [{ max }] = await this.db(T.featureStrategies).max('sort_order as max').where({
-      feature_name: featureName,
-      environment,
-    });
+    const [{ max }] = await this.db(T.featureStrategies)
+      .max('sort_order as max')
+      .where({
+        feature_name: featureName,
+        environment,
+      });
     return Number.isInteger(max) ? max + 1 : 0;
   }
 
@@ -236,19 +252,33 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     strategyConfig: PartialSome<IFeatureStrategy, 'id' | 'createdAt'>,
   ): Promise<IFeatureStrategy> {
     const sortOrder =
-      strategyConfig.sortOrder ?? (await this.nextSortOrder(strategyConfig.featureName, strategyConfig.environment));
-    const stickiness = await this.getDefaultStickiness(strategyConfig.projectId);
-    strategyConfig.parameters = parametersWithDefaults(strategyConfig, stickiness);
+      strategyConfig.sortOrder ??
+      (await this.nextSortOrder(
+        strategyConfig.featureName,
+        strategyConfig.environment,
+      ));
+    const stickiness = await this.getDefaultStickiness(
+      strategyConfig.projectId,
+    );
+    strategyConfig.parameters = parametersWithDefaults(
+      strategyConfig,
+      stickiness,
+    );
     const strategyRow = mapInput({
       id: uuidv4(),
       ...strategyConfig,
       sortOrder,
     });
-    const rows = await this.db<IFeatureStrategiesTable>(T.featureStrategies).insert(strategyRow).returning('*');
+    const rows = await this.db<IFeatureStrategiesTable>(T.featureStrategies)
+      .insert(strategyRow)
+      .returning('*');
     return mapRow(rows[0]);
   }
 
-  async removeAllStrategiesForFeatureEnv(featureName: string, environment: string): Promise<void> {
+  async removeAllStrategiesForFeatureEnv(
+    featureName: string,
+    environment: string,
+  ): Promise<void> {
     await this.db('feature_strategies')
       .where({
         feature_name: featureName,
@@ -259,13 +289,18 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
 
   async getAll(): Promise<IFeatureStrategy[]> {
     const stopTimer = this.timer('getAll');
-    const rows = await this.db.select(COLUMNS).from<IFeatureStrategiesTable>(T.featureStrategies);
+    const rows = await this.db
+      .select(COLUMNS)
+      .from<IFeatureStrategiesTable>(T.featureStrategies);
 
     stopTimer();
     return rows.map(mapRow);
   }
 
-  async getAllByFeatures(features: string[], environment?: string): Promise<IFeatureStrategy[]> {
+  async getAllByFeatures(
+    features: string[],
+    environment?: string,
+  ): Promise<IFeatureStrategy[]> {
     const query = this.db
       .select(COLUMNS)
       .from<IFeatureStrategiesTable>(T.featureStrategies)
@@ -343,24 +378,38 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         .sum('no as no')
         .select(['client_metrics_env.environment'])
         .from('client_metrics_env')
-        .where('client_metrics_env.timestamp', '>=', this.db.raw("NOW() - INTERVAL '1 hour'"))
+        .where(
+          'client_metrics_env.timestamp',
+          '>=',
+          this.db.raw("NOW() - INTERVAL '1 hour'"),
+        )
         .andWhere('client_metrics_env.feature_name', featureName)
         .groupBy(['client_metrics_env.environment']);
     });
 
-    query.from('features_view').where('name', featureName).modify(FeatureToggleStore.filterByArchived, archived);
+    query
+      .from('features_view')
+      .where('name', featureName)
+      .modify(FeatureToggleStore.filterByArchived, archived);
 
-    let selectColumns = ['features_view.*', 'yes', 'no'] as (string | Raw<any>)[];
+    let selectColumns = ['features_view.*', 'yes', 'no'] as (
+      | string
+      | Raw<any>
+    )[];
 
     // add metrics
-    query.leftJoin('metrics', 'metrics.environment', 'features_view.environment');
+    query.leftJoin(
+      'metrics',
+      'metrics.environment',
+      'features_view.environment',
+    );
 
     query.leftJoin('last_seen_at_metrics', function () {
-      this.on('last_seen_at_metrics.environment', '=', 'features_view.environment_name').andOn(
-        'last_seen_at_metrics.feature_name',
+      this.on(
+        'last_seen_at_metrics.environment',
         '=',
-        'features_view.name',
-      );
+        'features_view.environment_name',
+      ).andOn('last_seen_at_metrics.feature_name', '=', 'features_view.name');
     });
 
     // Override feature view for now
@@ -368,9 +417,16 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
 
     if (userId) {
       query.leftJoin(`favorite_features`, function () {
-        this.on('favorite_features.feature', 'features_view.name').andOnVal('favorite_features.user_id', '=', userId);
+        this.on('favorite_features.feature', 'features_view.name').andOnVal(
+          'favorite_features.user_id',
+          '=',
+          userId,
+        );
       });
-      selectColumns = [...selectColumns, this.db.raw('favorite_features.feature is not null as favorite')];
+      selectColumns = [
+        ...selectColumns,
+        this.db.raw('favorite_features.feature is not null as favorite'),
+      ];
     }
     const rows = await query.select(selectColumns);
     stopTimer();
@@ -390,7 +446,8 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
 
         acc.createdAt = r.created_at;
         if (r.user_id) {
-          const name = r.user_name || r.user_username || r.user_email || 'unknown';
+          const name =
+            r.user_name || r.user_username || r.user_email || 'unknown';
           acc.createdBy = {
             id: r.user_id,
             name,
@@ -409,7 +466,10 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
           };
         }
 
-        if (acc.lastSeenAt == null || isAfter(new Date(r.env_last_seen_at), new Date(acc.lastSeenAt))) {
+        if (
+          acc.lastSeenAt == null ||
+          isAfter(new Date(r.env_last_seen_at), new Date(acc.lastSeenAt))
+        ) {
           acc.lastSeenAt = r.env_last_seen_at;
         }
 
@@ -437,7 +497,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
           env.strategies = [];
         }
         if (r.strategy_id) {
-          const found = env.strategies.find((strategy) => strategy.id === r.strategy_id);
+          const found = env.strategies.find(
+            (strategy) => strategy.id === r.strategy_id,
+          );
           if (!found) {
             env.strategies.push(FeatureStrategiesStore.getAdminStrategy(r));
           }
@@ -448,7 +510,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         acc.environments[r.environment] = env;
         return acc;
       }, {});
-      featureToggle.environments = Object.values(featureToggle.environments).sort((a, b) => {
+      featureToggle.environments = Object.values(
+        featureToggle.environments,
+      ).sort((a, b) => {
         // @ts-expect-error
         return a.sortOrder - b.sortOrder;
       });
@@ -463,11 +527,18 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       featureToggle.archived = archived;
       return featureToggle;
     }
-    throw new NotFoundError(`Could not find feature flag with name ${featureName}`);
+    throw new NotFoundError(
+      `Could not find feature flag with name ${featureName}`,
+    );
   }
 
-  private addSegmentIdsToStrategy(featureToggle: PartialDeep<IFeatureToggleClient>, row: Record<string, any>) {
-    const strategy = featureToggle.strategies?.find((s) => s?.id === row.strategy_id);
+  private addSegmentIdsToStrategy(
+    featureToggle: PartialDeep<IFeatureToggleClient>,
+    row: Record<string, any>,
+  ) {
+    const strategy = featureToggle.strategies?.find(
+      (s) => s?.id === row.strategy_id,
+    );
     if (!strategy) {
       return;
     }
@@ -490,17 +561,25 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     };
   }
 
-  private addTag(featureToggle: Record<string, any>, row: Record<string, any>): void {
+  private addTag(
+    featureToggle: Record<string, any>,
+    row: Record<string, any>,
+  ): void {
     const tags = featureToggle.tags || [];
     const newTag = FeatureStrategiesStore.rowToTag(row);
     featureToggle.tags = [...tags, newTag];
   }
 
-  private isNewTag(featureToggle: Record<string, any>, row: Record<string, any>): boolean {
+  private isNewTag(
+    featureToggle: Record<string, any>,
+    row: Record<string, any>,
+  ): boolean {
     return (
       row.tag_type &&
       row.tag_value &&
-      !featureToggle.tags?.some((tag) => tag.type === row.tag_type && tag.value === row.tag_value)
+      !featureToggle.tags?.some(
+        (tag) => tag.type === row.tag_type && tag.value === row.tag_value,
+      )
     );
   }
 
@@ -522,7 +601,10 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     let query = this.db('features').where({ project: projectId });
 
     if (tag) {
-      const tagQuery = this.db.from('feature_tag').select('feature_name').whereIn(['tag_type', 'tag_value'], tag);
+      const tagQuery = this.db
+        .from('feature_tag')
+        .select('feature_name')
+        .whereIn(['tag_type', 'tag_value'], tag);
       query = query.whereIn('features.name', tagQuery);
     }
     if (namePrefix?.trim()) {
@@ -534,16 +616,24 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     }
     query = query
       .modify(FeatureToggleStore.filterByArchived, archived)
-      .leftJoin('feature_environments', 'feature_environments.feature_name', 'features.name')
-      .leftJoin('environments', 'feature_environments.environment', 'environments.name')
+      .leftJoin(
+        'feature_environments',
+        'feature_environments.feature_name',
+        'features.name',
+      )
+      .leftJoin(
+        'environments',
+        'feature_environments.environment',
+        'environments.name',
+      )
       .leftJoin('feature_tag as ft', 'ft.feature_name', 'features.name');
 
     query.leftJoin('last_seen_at_metrics', function () {
-      this.on('last_seen_at_metrics.environment', '=', 'environments.name').andOn(
-        'last_seen_at_metrics.feature_name',
+      this.on(
+        'last_seen_at_metrics.environment',
         '=',
-        'features.name',
-      );
+        'environments.name',
+      ).andOn('last_seen_at_metrics.feature_name', '=', 'features.name');
     });
 
     let selectColumns = [
@@ -567,9 +657,16 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
 
     if (userId) {
       query = query.leftJoin(`favorite_features`, function () {
-        this.on('favorite_features.feature', 'features.name').andOnVal('favorite_features.user_id', '=', userId);
+        this.on('favorite_features.feature', 'features.name').andOnVal(
+          'favorite_features.user_id',
+          '=',
+          userId,
+        );
       });
-      selectColumns = [...selectColumns, this.db.raw('favorite_features.feature is not null as favorite')];
+      selectColumns = [
+        ...selectColumns,
+        this.db.raw('favorite_features.feature is not null as favorite'),
+      ];
     }
 
     selectColumns = [
@@ -599,10 +696,14 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
           (existingEnvironment) => existingEnvironment.name === row.environment,
         );
         if (!environmentExists) {
-          acc[row.feature_name].environments.push(FeatureStrategiesStore.getEnvironment(row));
+          acc[row.feature_name].environments.push(
+            FeatureStrategiesStore.getEnvironment(row),
+          );
         }
 
-        const segmentExists = acc[row.feature_name].segments.includes(row.segment_name);
+        const segmentExists = acc[row.feature_name].segments.includes(
+          row.segment_name,
+        );
 
         if (row.segment_name && !segmentExists) {
           acc[row.feature_name].segments.push(row.segment_name);
@@ -631,7 +732,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         }
       }
       const featureRow = acc[row.feature_name];
-      if (isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))) {
+      if (
+        isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))
+      ) {
         featureRow.lastSeenAt = row.env_last_seen_at;
       }
       return acc;
@@ -645,7 +748,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
           (existingEnvironment) => existingEnvironment.name === row.environment,
         );
         if (!environmentExists) {
-          acc[row.feature_name].environments.push(FeatureStrategiesStore.getEnvironment(row));
+          acc[row.feature_name].environments.push(
+            FeatureStrategiesStore.getEnvironment(row),
+          );
         }
 
         if (this.isNewTag(acc[row.feature_name], row)) {
@@ -669,7 +774,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
         }
       }
       const featureRow = acc[row.feature_name];
-      if (isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))) {
+      if (
+        isAfter(new Date(row.env_last_seen_at), new Date(featureRow.lastSeenAt))
+      ) {
         featureRow.lastSeenAt = row.env_last_seen_at;
       }
       return acc;
@@ -685,16 +792,27 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   }
 
   async updateSortOrder(id: string, sortOrder: number): Promise<void> {
-    await this.db<IFeatureStrategiesTable>(T.featureStrategies).where({ id }).update({ sort_order: sortOrder });
+    await this.db<IFeatureStrategiesTable>(T.featureStrategies)
+      .where({ id })
+      .update({ sort_order: sortOrder });
   }
 
-  async updateStrategy(id: string, updates: Partial<IFeatureStrategy>): Promise<IFeatureStrategy> {
+  async updateStrategy(
+    id: string,
+    updates: Partial<IFeatureStrategy>,
+  ): Promise<IFeatureStrategy> {
     const update = mapStrategyUpdate(updates);
-    const row = await this.db<IFeatureStrategiesTable>(T.featureStrategies).where({ id }).update(update).returning('*');
+    const row = await this.db<IFeatureStrategiesTable>(T.featureStrategies)
+      .where({ id })
+      .update(update)
+      .returning('*');
     return mapRow(row[0]);
   }
 
-  private static getAdminStrategy(r: any, includeId: boolean = true): IStrategyConfig {
+  private static getAdminStrategy(
+    r: any,
+    includeId: boolean = true,
+  ): IStrategyConfig {
     const strategy = {
       name: r.strategy_name,
       constraints: r.constraints || [],
@@ -712,7 +830,10 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     return strategy;
   }
 
-  async deleteConfigurationsForProjectAndEnvironment(projectId: String, environment: String): Promise<void> {
+  async deleteConfigurationsForProjectAndEnvironment(
+    projectId: String,
+    environment: String,
+  ): Promise<void> {
     await this.db(T.featureStrategies)
       .where({
         project_name: projectId,
@@ -721,8 +842,13 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
       .del();
   }
 
-  async setProjectForStrategiesBelongingToFeature(featureName: string, newProjectId: string): Promise<void> {
-    await this.db(T.featureStrategies).where({ feature_name: featureName }).update({ project_name: newProjectId });
+  async setProjectForStrategiesBelongingToFeature(
+    featureName: string,
+    newProjectId: string,
+  ): Promise<void> {
+    await this.db(T.featureStrategies)
+      .where({ feature_name: featureName })
+      .update({ project_name: newProjectId });
   }
 
   async getStrategiesBySegment(segmentId: number): Promise<IFeatureStrategy[]> {
@@ -730,8 +856,16 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     const rows = await this.db
       .select(this.prefixColumns())
       .from<IFeatureStrategiesTable>(T.featureStrategies)
-      .join(T.featureStrategySegment, `${T.featureStrategySegment}.feature_strategy_id`, `${T.featureStrategies}.id`)
-      .join(T.features, `${T.features}.name`, `${T.featureStrategies}.feature_name`)
+      .join(
+        T.featureStrategySegment,
+        `${T.featureStrategySegment}.feature_strategy_id`,
+        `${T.featureStrategies}.id`,
+      )
+      .join(
+        T.features,
+        `${T.features}.name`,
+        `${T.featureStrategies}.feature_name`,
+      )
       .where(`${T.featureStrategySegment}.segment_id`, '=', segmentId)
       .andWhere(`${T.features}.archived_at`, 'IS', null);
 
@@ -739,7 +873,9 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
     return rows.map(mapRow);
   }
 
-  async getStrategiesByContextField(contextFieldName: string): Promise<IFeatureStrategy[]> {
+  async getStrategiesByContextField(
+    contextFieldName: string,
+  ): Promise<IFeatureStrategy[]> {
     const stopTimer = this.timer('getStrategiesByContextField');
     const rows = await this.db
       .select(this.prefixColumns())
@@ -761,7 +897,10 @@ export default class FeatureStrategiesStore implements IFeatureStrategiesStore {
   async getCustomStrategiesInUseCount(): Promise<number> {
     const stopTimer = this.timer('getCustomStrategiesInUseCount');
     const notBuiltIn = '0';
-    const columns = [this.db.raw('count(fes.strategy_name) as times_used'), 'fes.strategy_name'];
+    const columns = [
+      this.db.raw('count(fes.strategy_name) as times_used'),
+      'fes.strategy_name',
+    ];
     const rows = await this.db(`${T.strategies} as str`)
       .select(columns)
       .join(`${T.featureStrategies} as fes`, 'fes.strategy_name', 'str.name')

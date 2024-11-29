@@ -25,12 +25,13 @@ const StyledPrefixIconWrapper = styled(StyledIconWrapperBase)(({ theme }) => ({
   borderBottomRightRadius: 0,
 }));
 
-export const StyledIconWrapper = forwardRef<HTMLDivElement, { isPrefix?: boolean; children?: ReactNode }>(
-  ({ isPrefix, ...props }, ref) => (
-    <ConditionallyRender
-      condition={Boolean(isPrefix)}
-      show={() => <StyledPrefixIconWrapper ref={ref} {...props} />}
-      elseShow={() => <StyledIconWrapperBase ref={ref} {...props} />}
-    />
-  ),
-);
+export const StyledIconWrapper = forwardRef<
+  HTMLDivElement,
+  { isPrefix?: boolean; children?: ReactNode }
+>(({ isPrefix, ...props }, ref) => (
+  <ConditionallyRender
+    condition={Boolean(isPrefix)}
+    show={() => <StyledPrefixIconWrapper ref={ref} {...props} />}
+    elseShow={() => <StyledIconWrapperBase ref={ref} {...props} />}
+  />
+));

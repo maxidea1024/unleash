@@ -71,7 +71,11 @@ interface IFlagStatsProps {
   isLoading?: boolean;
 }
 
-export const FlagStats: React.FC<IFlagStatsProps> = ({ count, flagsPerUser, isLoading }) => {
+export const FlagStats: React.FC<IFlagStatsProps> = ({
+  count,
+  flagsPerUser,
+  isLoading,
+}) => {
   return (
     <>
       <StyledRingContainer>

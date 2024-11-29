@@ -25,7 +25,10 @@ export default class FakeStrategiesStore implements IStrategyStore {
 
   async createStrategy(update: IMinimalStrategy): Promise<void> {
     let params: object[];
-    if (typeof update.parameters === 'string' || typeof update.parameters === 'number') {
+    if (
+      typeof update.parameters === 'string' ||
+      typeof update.parameters === 'number'
+    ) {
       if (update.parameters === '') {
         params = [];
       } else {

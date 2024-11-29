@@ -1,4 +1,8 @@
-import { trialHasExpired, canExtendTrial, trialExpiresSoon } from 'utils/instanceTrial';
+import {
+  trialHasExpired,
+  canExtendTrial,
+  trialExpiresSoon,
+} from 'utils/instanceTrial';
 import { InstancePlan, InstanceState } from 'interfaces/instance';
 import { subHours, addHours, addDays } from 'date-fns';
 

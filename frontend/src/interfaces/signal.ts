@@ -27,7 +27,8 @@ export interface ISignal {
   payload: Record<string, unknown>;
 }
 
-export interface ISignalEndpointSignal extends Omit<ISignal, 'createdBySourceTokenId'> {
+export interface ISignalEndpointSignal
+  extends Omit<ISignal, 'createdBySourceTokenId'> {
   tokenName: string;
 }
 

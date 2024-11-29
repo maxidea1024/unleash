@@ -9,7 +9,11 @@ export const ProductivityEmailSubscription: FC<{
   status: 'subscribed' | 'unsubscribed';
   onChange: () => void;
 }> = ({ status, onChange }) => {
-  const { subscribe, unsubscribe, loading: changingSubscriptionStatus } = useEmailSubscriptionApi();
+  const {
+    subscribe,
+    unsubscribe,
+    loading: changingSubscriptionStatus,
+  } = useEmailSubscriptionApi();
   const { setToastData, setToastApiError } = useToast();
   const { trackEvent } = usePlausibleTracker();
 

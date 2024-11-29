@@ -9,7 +9,12 @@ interface IStrategyParametersProps {
   errors: { [key: string]: string };
 }
 
-export const StrategyParameters = ({ input = [], updateParameter, setParams, errors }: IStrategyParametersProps) => (
+export const StrategyParameters = ({
+  input = [],
+  updateParameter,
+  setParams,
+  errors,
+}: IStrategyParametersProps) => (
   <div style={{ marginTop: '0.5rem' }}>
     {input.map((item, index) => (
       <StrategyParameter

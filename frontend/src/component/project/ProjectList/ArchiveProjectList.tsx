@@ -8,7 +8,10 @@ import { styled, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
 import { Search } from 'component/common/Search/Search';
 import { ProjectGroup } from './ProjectGroup';
-import { ProjectArchiveCard, type ProjectArchiveCardProps } from '../ProjectCard/ProjectArchiveCard';
+import {
+  ProjectArchiveCard,
+  type ProjectArchiveCardProps,
+} from '../ProjectCard/ProjectArchiveCard';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { ReviveProjectDialog } from './ReviveProjectDialog/ReviveProjectDialog';
 import { DeleteProjectDialogue } from '../Project/DeleteProject/DeleteProjectDialogue';
@@ -35,7 +38,9 @@ export const ArchiveProjectList: FC = () => {
 
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchValue, setSearchValue] = useState(searchParams.get('search') || '');
+  const [searchValue, setSearchValue] = useState(
+    searchParams.get('search') || '',
+  );
   const [reviveProject, setReviveProject] = useState<{
     isOpen: boolean;
     id?: string;
@@ -58,7 +63,9 @@ export const ArchiveProjectList: FC = () => {
     });
   }, [searchValue, setSearchParams]);
 
-  const ProjectCard: FC<Omit<ProjectArchiveCardProps, 'onRevive' | 'onDelete'>> = ({ id, ...props }) => (
+  const ProjectCard: FC<
+    Omit<ProjectArchiveCardProps, 'onRevive' | 'onDelete'>
+  > = ({ id, ...props }) => (
     <ProjectArchiveCard
       onRevive={() =>
         setReviveProject({
@@ -80,7 +87,12 @@ export const ArchiveProjectList: FC = () => {
   );
 
   const filteredProjects = useMemo(
-    () => (searchValue ? projects.filter((project) => safeRegExp(searchValue, 'i').test(project.name)) : projects),
+    () =>
+      searchValue
+        ? projects.filter((project) =>
+            safeRegExp(searchValue, 'i').test(project.name),
+          )
+        : projects,
     [projects, searchValue],
   );
 
@@ -93,13 +105,17 @@ export const ArchiveProjectList: FC = () => {
           actions={
             <ConditionallyRender
               condition={!isSmallScreen}
-              show={<Search initialValue={searchValue} onChange={setSearchValue} />}
+              show={
+                <Search initialValue={searchValue} onChange={setSearchValue} />
+              }
             />
           }
         >
           <ConditionallyRender
             condition={isSmallScreen}
-            show={<Search initialValue={searchValue} onChange={setSearchValue} />}
+            show={
+              <Search initialValue={searchValue} onChange={setSearchValue} />
+            }
           />
         </PageHeader>
       }
@@ -107,7 +123,9 @@ export const ArchiveProjectList: FC = () => {
       <StyledContainer>
         <ConditionallyRender
           condition={error}
-          show={() => <StyledApiError onClick={refetch} text='Error fetching projects' />}
+          show={() => (
+            <StyledApiError onClick={refetch} text='Error fetching projects' />
+          )}
         />
 
         <SearchHighlightProvider value={searchValue}>
@@ -124,7 +142,9 @@ export const ArchiveProjectList: FC = () => {
         id={reviveProject.id || ''}
         name={reviveProject.name || ''}
         open={reviveProject.isOpen}
-        onClose={() => setReviveProject((state) => ({ ...state, isOpen: false }))}
+        onClose={() =>
+          setReviveProject((state) => ({ ...state, isOpen: false }))
+        }
       />
       <DeleteProjectDialogue
         projectId={deleteProject.id || ''}

@@ -7,11 +7,15 @@ import useAPI from '../useApi/useApi';
 import type { IFeatureVariant } from 'interfaces/featureToggle';
 
 const useFeatureApi = () => {
-  const { makeRequest, makeLightRequest, createRequest, errors, loading } = useAPI({
-    propagateErrors: true,
-  });
+  const { makeRequest, makeLightRequest, createRequest, errors, loading } =
+    useAPI({
+      propagateErrors: true,
+    });
 
-  const validateFeatureToggleName = async (name: string | undefined, project: string | undefined) => {
+  const validateFeatureToggleName = async (
+    name: string | undefined,
+    project: string | undefined,
+  ) => {
     const path = `api/admin/features/validate`;
     const req = createRequest(path, {
       method: 'POST',
@@ -31,7 +35,10 @@ const useFeatureApi = () => {
     await makeRequest(req.caller, req.id);
   };
 
-  const createFeatureToggle = async (projectId: string, createFeatureSchema: CreateFeatureSchema) => {
+  const createFeatureToggle = async (
+    projectId: string,
+    createFeatureSchema: CreateFeatureSchema,
+  ) => {
     const path = `/api/admin/projects/${projectId}/features`;
     const req = createRequest(path, {
       method: 'POST',
@@ -42,9 +49,18 @@ const useFeatureApi = () => {
   };
 
   const toggleFeatureEnvironmentOn = useCallback(
-    async (projectId: string, featureId: string, environmentId: string, shouldActivateDisabledStrategies = false) => {
+    async (
+      projectId: string,
+      featureId: string,
+      environmentId: string,
+      shouldActivateDisabledStrategies = false,
+    ) => {
       const path = `api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/on?shouldActivateDisabledStrategies=${shouldActivateDisabledStrategies}`;
-      const req = createRequest(path, { method: 'POST' }, 'toggleFeatureEnvironmentOn');
+      const req = createRequest(
+        path,
+        { method: 'POST' },
+        'toggleFeatureEnvironmentOn',
+      );
 
       return makeLightRequest(req.caller, req.id);
     },
@@ -98,14 +114,22 @@ const useFeatureApi = () => {
   const toggleFeatureEnvironmentOff = useCallback(
     async (projectId: string, featureId: string, environmentId: string) => {
       const path = `api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/off`;
-      const req = createRequest(path, { method: 'POST' }, 'toggleFeatureEnvironmentOff');
+      const req = createRequest(
+        path,
+        { method: 'POST' },
+        'toggleFeatureEnvironmentOff',
+      );
 
       return makeLightRequest(req.caller, req.id);
     },
     [createRequest, makeLightRequest],
   );
 
-  const changeFeatureProject = async (projectId: string, featureId: string, newProjectId: string) => {
+  const changeFeatureProject = async (
+    projectId: string,
+    featureId: string,
+    newProjectId: string,
+  ) => {
     const path = `api/admin/projects/${projectId}/features/${featureId}/changeProject`;
     const req = createRequest(path, {
       method: 'POST',
@@ -126,7 +150,11 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const deleteTagFromFeature = async (featureId: string, type: string, value: string) => {
+  const deleteTagFromFeature = async (
+    featureId: string,
+    type: string,
+    value: string,
+  ) => {
     const encodedTagPath = `${encodeURIComponent(type)}/${encodeURIComponent(value)}`;
 
     // TODO: Change this path to the new API when moved.
@@ -138,7 +166,10 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const updateFeatureTags = async (featureId: string, update: UpdateTagsSchema) => {
+  const updateFeatureTags = async (
+    featureId: string,
+    update: UpdateTagsSchema,
+  ) => {
     // TODO: Change this path to the new API when moved.
     const path = `api/admin/features/${featureId}/tags`;
     const req = createRequest(path, {
@@ -158,7 +189,11 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const patchFeatureToggle = async (projectId: string, featureId: string, patchPayload: any) => {
+  const patchFeatureToggle = async (
+    projectId: string,
+    featureId: string,
+    patchPayload: any,
+  ) => {
     const path = `api/admin/projects/${projectId}/features/${featureId}`;
     const req = createRequest(path, {
       method: 'PATCH',
@@ -168,7 +203,11 @@ const useFeatureApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const patchFeatureVariants = async (projectId: string, featureId: string, patchPayload: Operation[]) => {
+  const patchFeatureVariants = async (
+    projectId: string,
+    featureId: string,
+    patchPayload: Operation[],
+  ) => {
     const path = `api/admin/projects/${projectId}/features/${featureId}/variants`;
     const req = createRequest(path, {
       method: 'PATCH',

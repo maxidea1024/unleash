@@ -19,7 +19,9 @@ test('clientMetricsSchema full', () => {
     },
   };
 
-  expect(validateSchema('#/components/schemas/clientMetricsSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/clientMetricsSchema', data),
+  ).toBeUndefined();
 });
 
 test('clientMetricsSchema should ignore additional properties without failing when required fields are there', () => {

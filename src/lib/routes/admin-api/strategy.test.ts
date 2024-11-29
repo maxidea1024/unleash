@@ -42,13 +42,20 @@ test('require a name when creating a new strategy', async () => {
     .send({})
     .expect(400)
     .expect((res) => {
-      expect(['name', 'property', 'required'].every((word) => res.body.details[0].message.includes(word))).toBeTruthy();
+      expect(
+        ['name', 'property', 'required'].every((word) =>
+          res.body.details[0].message.includes(word),
+        ),
+      ).toBeTruthy();
     });
 });
 
 test('require parameters array when creating a new strategy', async () => {
   const { request, base } = await getSetup();
-  const { body } = await request.post(`${base}/api/admin/strategies`).send({ name: 'TestStrat' }).expect(400);
+  const { body } = await request
+    .post(`${base}/api/admin/strategies`)
+    .send({ name: 'TestStrat' })
+    .expect(400);
 
   const detailsDescription = body.details[0].message;
   expect(detailsDescription).toEqual(expect.stringMatching('parameters'));
@@ -57,14 +64,20 @@ test('require parameters array when creating a new strategy', async () => {
 
 test('create a new strategy with empty parameters', async () => {
   const { request, base } = await getSetup();
-  return request.post(`${base}/api/admin/strategies`).send({ name: 'TestStrat', parameters: [] }).expect(201);
+  return request
+    .post(`${base}/api/admin/strategies`)
+    .send({ name: 'TestStrat', parameters: [] })
+    .expect(201);
 });
 
 test('not be possible to override name', async () => {
   const { request, base, strategyStore } = await getSetup();
   strategyStore.createStrategy({ name: 'Testing', parameters: [] });
 
-  return request.post(`${base}/api/admin/strategies`).send({ name: 'Testing', parameters: [] }).expect(409);
+  return request
+    .post(`${base}/api/admin/strategies`)
+    .send({ name: 'Testing', parameters: [] })
+    .expect(409);
 });
 
 test('update strategy', async () => {
@@ -92,7 +105,10 @@ test('validate format when updating strategy', async () => {
   const name = 'AnotherStrat';
   strategyStore.createStrategy({ name, parameters: [] });
 
-  return request.put(`${base}/api/admin/strategies/${name}`).send({}).expect(400);
+  return request
+    .put(`${base}/api/admin/strategies/${name}`)
+    .send({})
+    .expect(400);
 });
 
 test('editable=false will stop delete request', async () => {
@@ -106,7 +122,10 @@ test('editable=false will stop edit request', async () => {
   jest.spyOn(global.console, 'error').mockImplementation(() => jest.fn());
   const { request, base } = await getSetup();
   const name = 'default';
-  return request.put(`${base}/api/admin/strategies/${name}`).send({ name, parameters: [] }).expect(500);
+  return request
+    .put(`${base}/api/admin/strategies/${name}`)
+    .send({ name, parameters: [] })
+    .expect(500);
 });
 
 test('editable=true will allow delete request', async () => {
@@ -114,7 +133,10 @@ test('editable=true will allow delete request', async () => {
   const name = 'deleteStrat';
   strategyStore.createStrategy({ name, parameters: [] });
 
-  return request.delete(`${base}/api/admin/strategies/${name}`).send({}).expect(200);
+  return request
+    .delete(`${base}/api/admin/strategies/${name}`)
+    .send({})
+    .expect(200);
 });
 
 test('editable=true will allow edit request', async () => {
@@ -122,7 +144,10 @@ test('editable=true will allow edit request', async () => {
   const name = 'editStrat';
   strategyStore.createStrategy({ name, parameters: [] });
 
-  return request.put(`${base}/api/admin/strategies/${name}`).send({ name, parameters: [] }).expect(200);
+  return request
+    .put(`${base}/api/admin/strategies/${name}`)
+    .send({ name, parameters: [] })
+    .expect(200);
 });
 
 test('deprecating a strategy works', async () => {

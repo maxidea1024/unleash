@@ -3,8 +3,14 @@ import type { ISegment } from '../../types/model';
 import { collectIds } from '../../util/collect-ids';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import { addStrategyToFeatureEnv, createFeatureFlag } from '../../../test/e2e/helpers/app.utils';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  addStrategyToFeatureEnv,
+  createFeatureFlag,
+} from '../../../test/e2e/helpers/app.utils';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import type { StrategiesUsingSegment } from './segment-service-interface';
 import type { IFeatureOverview, IUser } from '../../types';
 
@@ -29,7 +35,9 @@ const fetchSegments = (): Promise<SerializeDatesDeep<ISegment[]>> =>
     .expect(200)
     .then((res) => res.body.segments);
 
-const fetchSegmentsByStrategy = (strategyId: string): Promise<SerializeDatesDeep<ISegment[]>> =>
+const fetchSegmentsByStrategy = (
+  strategyId: string,
+): Promise<SerializeDatesDeep<ISegment[]>> =>
   app.request
     .get(`${SEGMENTS_BASE_PATH}/strategies/${strategyId}`)
     .expect(200)
@@ -47,16 +55,29 @@ const fetchFeatureStrategies = (featureName: string) =>
     .expect(200)
     .then((res) => res.body);
 
-const fetchSegmentStrategies = (segmentId: number): Promise<StrategiesUsingSegment> =>
+const fetchSegmentStrategies = (
+  segmentId: number,
+): Promise<StrategiesUsingSegment> =>
   app.request
     .get(`${SEGMENTS_BASE_PATH}/${segmentId}/strategies`)
     .expect(200)
     .then((res) => res.body);
 
-const updateSegment = (id: number, postData: object, expectStatusCode = 204): Promise<unknown> =>
-  app.request.put(`${SEGMENTS_BASE_PATH}/${id}`).send(postData).expect(expectStatusCode);
+const updateSegment = (
+  id: number,
+  postData: object,
+  expectStatusCode = 204,
+): Promise<unknown> =>
+  app.request
+    .put(`${SEGMENTS_BASE_PATH}/${id}`)
+    .send(postData)
+    .expect(expectStatusCode);
 
-const addSegmentsToStrategy = (segmentIds: number[], strategyId: string, expectStatusCode = 201): Promise<unknown> =>
+const addSegmentsToStrategy = (
+  segmentIds: number[],
+  strategyId: string,
+  expectStatusCode = 201,
+): Promise<unknown> =>
   app.request
     .post(`${SEGMENTS_BASE_PATH}/strategies`)
     .set('Content-type', 'application/json')
@@ -80,7 +101,10 @@ const mockFeatureFlag = () => ({
   ],
 });
 
-const validateSegment = (postData: object, expectStatusCode = 204): Promise<unknown> =>
+const validateSegment = (
+  postData: object,
+  expectStatusCode = 204,
+): Promise<unknown> =>
   app.request
     .post(`${SEGMENTS_BASE_PATH}/validate`)
     .set('Content-type', 'application/json')
@@ -97,7 +121,11 @@ beforeAll(async () => {
   };
 
   db = await dbInit('segments_api_serial', getLogger, customOptions);
-  app = await setupAppWithCustomConfig(db.stores, customOptions, db.rawDatabase);
+  app = await setupAppWithCustomConfig(
+    db.stores,
+    customOptions,
+    db.rawDatabase,
+  );
 });
 
 afterAll(async () => {
@@ -146,11 +174,14 @@ test('should validate segments', async () => {
 });
 
 test('should fail on missing properties', async () => {
-  const res = await app.request.post(`${SEGMENTS_BASE_PATH}/strategies`).set('Content-type', 'application/json').send({
-    projectId: 'default',
-    environmentId: 'default',
-    additional: 'property',
-  });
+  const res = await app.request
+    .post(`${SEGMENTS_BASE_PATH}/strategies`)
+    .set('Content-type', 'application/json')
+    .send({
+      projectId: 'default',
+      environmentId: 'default',
+      additional: 'property',
+    });
 
   expect(res.status).toBe(400);
 });
@@ -174,9 +205,12 @@ test('should create segments', async () => {
 });
 
 test('should return 400 for non numeeric segment ID', async () => {
-  const { body } = await app.request.get(`${SEGMENTS_BASE_PATH}/stringName`).expect(400);
+  const { body } = await app.request
+    .get(`${SEGMENTS_BASE_PATH}/stringName`)
+    .expect(400);
   expect(body).toMatchObject({
-    message: 'Request validation failed: your request body or params contain invalid data: ID should be an integer',
+    message:
+      'Request validation failed: your request body or params contain invalid data: ID should be an integer',
   });
 });
 
@@ -241,7 +275,9 @@ test('should delete segments', async () => {
   const segments = await fetchSegments();
   expect(segments.length).toEqual(1);
 
-  await app.request.delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`).expect(204);
+  await app.request
+    .delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`)
+    .expect(204);
 
   expect((await fetchSegments()).length).toEqual(0);
 });
@@ -255,7 +291,12 @@ test('should not delete segments used by strategies', async () => {
   await createFeatureFlag(app, flag);
   const [segment] = await fetchSegments();
 
-  await addStrategyToFeatureEnv(app, { ...flag.strategies[0] }, 'default', flag.name);
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag.strategies[0] },
+    'default',
+    flag.name,
+  );
   const [feature] = await fetchFeatures();
   const [strategy] = await fetchFeatureStrategies(feature.name);
   //@ts-ignore
@@ -263,7 +304,9 @@ test('should not delete segments used by strategies', async () => {
   const segments = await fetchSegments();
   expect(segments.length).toEqual(1);
 
-  await app.request.delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`).expect(409);
+  await app.request
+    .delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`)
+    .expect(409);
 
   expect((await fetchSegments()).length).toEqual(1);
 });
@@ -277,7 +320,12 @@ test('should delete segments used by strategies in archived feature flags', asyn
   await createFeatureFlag(app, flag);
   const [segment] = await fetchSegments();
 
-  await addStrategyToFeatureEnv(app, { ...flag.strategies[0] }, 'default', flag.name);
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag.strategies[0] },
+    'default',
+    flag.name,
+  );
   const [feature] = await fetchFeatures();
   const [strategy] = await fetchFeatureStrategies(feature.name);
   //@ts-ignore
@@ -287,7 +335,9 @@ test('should delete segments used by strategies in archived feature flags', asyn
 
   await app.archiveFeature(feature.name);
 
-  await app.request.delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`).expect(204);
+  await app.request
+    .delete(`${SEGMENTS_BASE_PATH}/${segments[0].id}`)
+    .expect(204);
 
   expect((await fetchSegments()).length).toEqual(0);
 });
@@ -312,9 +362,24 @@ test('should list strategies by segment', async () => {
   await createFeatureFlag(app, flag2);
   await createFeatureFlag(app, flag3);
 
-  await addStrategyToFeatureEnv(app, { ...flag1.strategies[0] }, 'default', flag1.name);
-  await addStrategyToFeatureEnv(app, { ...flag1.strategies[0] }, 'default', flag2.name);
-  await addStrategyToFeatureEnv(app, { ...flag3.strategies[0] }, 'default', flag3.name);
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag1.strategies[0] },
+    'default',
+    flag1.name,
+  );
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag1.strategies[0] },
+    'default',
+    flag2.name,
+  );
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag3.strategies[0] },
+    'default',
+    flag3.name,
+  );
 
   const [feature1, feature2, feature3] = await fetchFeatures();
   const [segment1, segment2, segment3] = await fetchSegments();
@@ -340,12 +405,20 @@ test('should list strategies by segment', async () => {
   const segmentStrategies2 = await fetchSegmentStrategies(segment2.id);
   const segmentStrategies3 = await fetchSegmentStrategies(segment3.id);
 
-  expect(collectIds(segmentStrategies1.strategies)).toEqual(collectIds(feature1Strategies));
+  expect(collectIds(segmentStrategies1.strategies)).toEqual(
+    collectIds(feature1Strategies),
+  );
 
-  expect(collectIds(segmentStrategies2.strategies)).toEqual(collectIds([...feature1Strategies, ...feature2Strategies]));
+  expect(collectIds(segmentStrategies2.strategies)).toEqual(
+    collectIds([...feature1Strategies, ...feature2Strategies]),
+  );
 
   expect(collectIds(segmentStrategies3.strategies)).toEqual(
-    collectIds([...feature1Strategies, ...feature2Strategies, ...feature3Strategies]),
+    collectIds([
+      ...feature1Strategies,
+      ...feature2Strategies,
+      ...feature3Strategies,
+    ]),
   );
 });
 
@@ -369,9 +442,24 @@ test('should list segments by strategy', async () => {
   await createFeatureFlag(app, flag2);
   await createFeatureFlag(app, flag3);
 
-  await addStrategyToFeatureEnv(app, { ...flag1.strategies[0] }, 'default', flag1.name);
-  await addStrategyToFeatureEnv(app, { ...flag1.strategies[0] }, 'default', flag2.name);
-  await addStrategyToFeatureEnv(app, { ...flag3.strategies[0] }, 'default', flag3.name);
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag1.strategies[0] },
+    'default',
+    flag1.name,
+  );
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag1.strategies[0] },
+    'default',
+    flag2.name,
+  );
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag3.strategies[0] },
+    'default',
+    flag3.name,
+  );
 
   const [feature1, feature2, feature3] = await fetchFeatures();
   const [segment1, segment2, segment3] = await fetchSegments();
@@ -406,9 +494,13 @@ test('should list segments by strategy', async () => {
     feature3Strategy.id,
   );
 
-  expect(collectIds(strategySegments1)).toEqual(collectIds([segment1, segment2, segment3]));
+  expect(collectIds(strategySegments1)).toEqual(
+    collectIds([segment1, segment2, segment3]),
+  );
 
-  expect(collectIds(strategySegments2)).toEqual(collectIds([segment2, segment3]));
+  expect(collectIds(strategySegments2)).toEqual(
+    collectIds([segment2, segment3]),
+  );
 
   expect(collectIds(strategySegments3)).toEqual(collectIds([segment3]));
 });
@@ -502,7 +594,12 @@ test('Should show usage in features and projects', async () => {
   const flag = mockFeatureFlag();
   await createFeatureFlag(app, flag);
   const [segment] = await fetchSegments();
-  await addStrategyToFeatureEnv(app, { ...flag.strategies[0] }, 'default', flag.name);
+  await addStrategyToFeatureEnv(
+    app,
+    { ...flag.strategies[0] },
+    'default',
+    flag.name,
+  );
   const [feature] = await fetchFeatures();
   const [strategy] = await fetchFeatureStrategies(feature.name);
 
@@ -551,7 +648,9 @@ describe('detect strategy usage in change requests', () => {
       .expect(200)
       .then((res) => res.body.segments);
 
-  const enterpriseFetchSegmentStrategies = (segmentId: number): Promise<StrategiesUsingSegment> =>
+  const enterpriseFetchSegmentStrategies = (
+    segmentId: number,
+  ): Promise<StrategiesUsingSegment> =>
     enterpriseApp.request
       .get(`${SEGMENTS_BASE_PATH}/${segmentId}/strategies`)
       .expect(200)
@@ -627,7 +726,9 @@ describe('detect strategy usage in change requests', () => {
 
     expect((await enterpriseFetchSegments()).length).toEqual(1);
 
-    await enterpriseApp.request.delete(`${SEGMENTS_BASE_PATH}/${segment.id}`).expect(409);
+    await enterpriseApp.request
+      .delete(`${SEGMENTS_BASE_PATH}/${segment.id}`)
+      .expect(409);
 
     expect((await enterpriseFetchSegments()).length).toEqual(1);
 
@@ -665,7 +766,8 @@ describe('detect strategy usage in change requests', () => {
       created_by: user.id,
     });
 
-    const { strategies, changeRequestStrategies } = await enterpriseFetchSegmentStrategies(segment.id);
+    const { strategies, changeRequestStrategies } =
+      await enterpriseFetchSegmentStrategies(segment.id);
 
     expect(changeRequestStrategies).toMatchObject([
       {
@@ -693,7 +795,12 @@ describe('detect strategy usage in change requests', () => {
     await createFeatureFlag(enterpriseApp, flag);
     const [segment] = await enterpriseFetchSegments();
 
-    await addStrategyToFeatureEnv(enterpriseApp, { ...flag.strategies[0] }, 'default', flag.name);
+    await addStrategyToFeatureEnv(
+      enterpriseApp,
+      { ...flag.strategies[0] },
+      'default',
+      flag.name,
+    );
 
     const [feature] = await fetchFeatures();
     const [strategy] = await fetchFeatureStrategies(feature.name);
@@ -722,7 +829,8 @@ describe('detect strategy usage in change requests', () => {
       created_by: user.id,
     });
 
-    const { strategies, changeRequestStrategies } = await enterpriseFetchSegmentStrategies(segment.id);
+    const { strategies, changeRequestStrategies } =
+      await enterpriseFetchSegmentStrategies(segment.id);
 
     expect(changeRequestStrategies).toMatchObject([
       {
@@ -747,7 +855,12 @@ describe('detect strategy usage in change requests', () => {
     await createFeatureFlag(enterpriseApp, flag);
     const [segment] = await enterpriseFetchSegments();
 
-    await addStrategyToFeatureEnv(enterpriseApp, { ...flag.strategies[0] }, 'default', flag.name);
+    await addStrategyToFeatureEnv(
+      enterpriseApp,
+      { ...flag.strategies[0] },
+      'default',
+      flag.name,
+    );
 
     const [feature] = await fetchFeatures();
     const [strategy] = await fetchFeatureStrategies(feature.name);
@@ -777,7 +890,8 @@ describe('detect strategy usage in change requests', () => {
       created_by: user.id,
     });
 
-    const { strategies, changeRequestStrategies } = await enterpriseFetchSegmentStrategies(segment.id);
+    const { strategies, changeRequestStrategies } =
+      await enterpriseFetchSegmentStrategies(segment.id);
 
     expect(strategies).toMatchObject([{ id: strategyId }]);
 
@@ -826,7 +940,9 @@ describe('detect strategy usage in change requests', () => {
 
     // check that OSS gets no CR usage
     const ossSegments = await fetchSegments();
-    expect(ossSegments).toMatchObject([{ usedInFeatures: 0, usedInProjects: 0 }]);
+    expect(ossSegments).toMatchObject([
+      { usedInFeatures: 0, usedInProjects: 0 },
+    ]);
   });
 
   test('If a segment is used in an archived feature it should be excluded from count - enterprise version', async () => {
@@ -838,7 +954,12 @@ describe('detect strategy usage in change requests', () => {
     await createFeatureFlag(enterpriseApp, flag);
     const [segment] = await enterpriseFetchSegments();
 
-    await addStrategyToFeatureEnv(enterpriseApp, { ...flag.strategies[0] }, 'default', flag.name);
+    await addStrategyToFeatureEnv(
+      enterpriseApp,
+      { ...flag.strategies[0] },
+      'default',
+      flag.name,
+    );
 
     const [feature] = await fetchFeatures();
     const [strategy] = await fetchFeatureStrategies(feature.name);
@@ -852,6 +973,8 @@ describe('detect strategy usage in change requests', () => {
     await enterpriseApp.archiveFeature(flag.name, 'default');
 
     const segmentsAfter = await enterpriseFetchSegments();
-    expect(segmentsAfter).toMatchObject([{ usedInFeatures: 0, usedInProjects: 0 }]);
+    expect(segmentsAfter).toMatchObject([
+      { usedInFeatures: 0, usedInProjects: 0 },
+    ]);
   });
 });

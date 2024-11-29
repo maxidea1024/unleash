@@ -30,7 +30,10 @@ type ProjectsListSortProps = {
   setSortBy: (value: string) => void;
 };
 
-export const ProjectsListSort: FC<ProjectsListSortProps> = ({ sortBy, setSortBy }) => {
+export const ProjectsListSort: FC<ProjectsListSortProps> = ({
+  sortBy,
+  setSortBy,
+}) => {
   return (
     <StyledWrapper>
       <StyledContainer>

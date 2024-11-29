@@ -9,7 +9,9 @@ type MetricValue<L extends string> = {
   labels?: Record<L, string | number>;
 };
 
-type MapResult<R, L extends string> = (result: R) => MetricValue<L> | MetricValue<L>[];
+type MapResult<R, L extends string> = (
+  result: R,
+) => MetricValue<L> | MetricValue<L>[];
 
 type GaugeDefinition<T, L extends string> = {
   name: string;
@@ -38,14 +40,22 @@ export class DbMetricsMonitor {
     return Array.isArray(value) ? value : [value];
   }
 
-  private async fetch<T, L extends string>(definition: GaugeDefinition<T, L>): Promise<MetricValue<L>[]> {
+  private async fetch<T, L extends string>(
+    definition: GaugeDefinition<T, L>,
+  ): Promise<MetricValue<L>[]> {
     const result = await definition.query();
-    if (result !== undefined && result !== null && (!Array.isArray(result) || result.length > 0)) {
+    if (
+      result !== undefined &&
+      result !== null &&
+      (!Array.isArray(result) || result.length > 0)
+    ) {
       const resultArray = this.asArray(definition.map(result));
       resultArray
         .filter((r) => typeof r.value !== 'number')
         .forEach((r) => {
-          this.logger.debug(`Invalid value for ${definition.name}: ${r.value}. Value must be an number.`);
+          this.logger.debug(
+            `Invalid value for ${definition.name}: ${r.value}. Value must be an number.`,
+          );
         });
       return resultArray.filter((r) => typeof r.value === 'number');
     }
@@ -53,7 +63,9 @@ export class DbMetricsMonitor {
     return [];
   }
 
-  registerGaugeDbMetric<T, L extends string>(definition: GaugeDefinition<T, L>): Task {
+  registerGaugeDbMetric<T, L extends string>(
+    definition: GaugeDefinition<T, L>,
+  ): Task {
     const gauge = createGauge(definition);
     const task = async () => {
       try {
@@ -79,19 +91,26 @@ export class DbMetricsMonitor {
   }
 
   refreshMetrics = async () => {
-    const tasks = Array.from(this.updaters.entries()).map(([name, updater]) => ({ name, task: updater.task }));
+    const tasks = Array.from(this.updaters.entries()).map(
+      ([name, updater]) => ({ name, task: updater.task }),
+    );
     for (const { name, task } of tasks) {
       this.logger.debug(`Refreshing metric ${name}`);
       await task();
     }
   };
 
-  async findValue(name: string, labels?: Record<string, string | number>): Promise<number | undefined> {
+  async findValue(
+    name: string,
+    labels?: Record<string, string | number>,
+  ): Promise<number | undefined> {
     const gauge = await this.updaters.get(name)?.target.gauge?.get();
     if (gauge && gauge.values.length > 0) {
       const values = labels
         ? gauge.values.filter(({ labels: l }) => {
-            return Object.entries(labels).every(([key, value]) => l[key] === value);
+            return Object.entries(labels).every(
+              ([key, value]) => l[key] === value,
+            );
           })
         : gauge.values;
       // return first value

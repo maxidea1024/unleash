@@ -1,5 +1,8 @@
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
-import { UPDATE_PROJECT_SEGMENT, UPDATE_SEGMENT } from 'component/providers/AccessProvider/permissions';
+import {
+  UPDATE_PROJECT_SEGMENT,
+  UPDATE_SEGMENT,
+} from 'component/providers/AccessProvider/permissions';
 import { useSegmentsApi } from 'hooks/api/actions/useSegmentsApi/useSegmentsApi';
 import { useConstraintsValidation } from 'hooks/api/getters/useConstraintsValidation/useConstraintsValidation';
 import { useSegment } from 'hooks/api/getters/useSegment/useSegment';
@@ -48,13 +51,20 @@ export const EditSegment = ({ modal }: IEditSegmentProps) => {
     getSegmentPayload,
     errors,
     clearErrors,
-  } = useSegmentForm(segment?.name, segment?.description, segment?.project, segment?.constraints);
+  } = useSegmentForm(
+    segment?.name,
+    segment?.description,
+    segment?.project,
+    segment?.constraints,
+  );
 
   const hasValidConstraints = useConstraintsValidation(constraints);
   const segmentValuesCount = useSegmentValuesCount(constraints);
   const { segmentValuesLimit } = useSegmentLimits();
 
-  const overSegmentValuesLimit: boolean = Boolean(segmentValuesLimit && segmentValuesCount > segmentValuesLimit);
+  const overSegmentValuesLimit: boolean = Boolean(
+    segmentValuesLimit && segmentValuesCount > segmentValuesLimit,
+  );
 
   const formatApiCode = () => {
     return `curl --location --request PUT '${uiConfig.unleashUrl}/api/admin/segments/${segmentId}' \\
@@ -63,7 +73,8 @@ export const EditSegment = ({ modal }: IEditSegmentProps) => {
 --data-raw '${JSON.stringify(getSegmentPayload(), undefined, 2)}'`;
   };
 
-  const highestPermissionChangeRequestEnv = useHighestPermissionChangeRequestEnvironment(segment?.project);
+  const highestPermissionChangeRequestEnv =
+    useHighestPermissionChangeRequestEnvironment(segment?.project);
   const changeRequestEnv = highestPermissionChangeRequestEnv();
   const { addChange } = useChangeRequestApi();
 

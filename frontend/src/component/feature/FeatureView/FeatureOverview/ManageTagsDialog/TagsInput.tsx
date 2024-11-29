@@ -52,12 +52,16 @@ export const TagsInput = ({
   };
 
   const renderOption = (
-    props: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLLIElement> & React.LiHTMLAttributes<HTMLLIElement>,
+    props: JSX.IntrinsicAttributes &
+      React.ClassAttributes<HTMLLIElement> &
+      React.LiHTMLAttributes<HTMLLIElement>,
     option: TagOption,
     { selected }: { selected: boolean },
   ) => {
     const isIndeterminate =
-      indeterminateOptions?.some((indeterminateOption) => indeterminateOption.title === option.title) ?? false;
+      indeterminateOptions?.some(
+        (indeterminateOption) => indeterminateOption.title === option.title,
+      ) ?? false;
     return (
       <li {...props}>
         <ConditionallyRender
@@ -79,7 +83,10 @@ export const TagsInput = ({
     );
   };
 
-  const filterOptions = (options: TagOption[], params: FilterOptionsState<TagOption>) => {
+  const filterOptions = (
+    options: TagOption[],
+    params: FilterOptionsState<TagOption>,
+  ) => {
     const inputValue = params.inputValue.trim();
 
     const filtered = filter(options, {
@@ -120,7 +127,13 @@ export const TagsInput = ({
       filterOptions={filterOptions}
       ListboxProps={{ style: { maxHeight: 200, overflow: 'auto' } }}
       onChange={onChange}
-      renderInput={(params) => <TextField {...params} label='Select values' placeholder='Select values' />}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          label='Select values'
+          placeholder='Select values'
+        />
+      )}
       disabled={disabled}
     />
   );

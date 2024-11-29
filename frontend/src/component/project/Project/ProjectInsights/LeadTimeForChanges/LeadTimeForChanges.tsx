@@ -1,7 +1,14 @@
 import { Box, styled, Tooltip, Typography, useMediaQuery } from '@mui/material';
 import { useMemo } from 'react';
 import { useTable, useGlobalFilter, useSortBy } from 'react-table';
-import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
+import {
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Badge } from 'component/common/Badge/Badge';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
@@ -49,7 +56,10 @@ const loadingLeadTimeFeatures = [
   { name: 'feature5', timeToProduction: 2 },
 ];
 
-export const LeadTimeForChanges = ({ leadTime, loading }: ILeadTimeForChangesProps) => {
+export const LeadTimeForChanges = ({
+  leadTime,
+  loading,
+}: ILeadTimeForChangesProps) => {
   const columns = useMemo(
     () => [
       {
@@ -119,7 +129,11 @@ export const LeadTimeForChanges = ({ leadTime, loading }: ILeadTimeForChangesPro
               }}
               data-loading
             >
-              {Math.round((leadTime.projectAverage ? leadTime.projectAverage : 0) - original.timeToProduction)} days
+              {Math.round(
+                (leadTime.projectAverage ? leadTime.projectAverage : 0) -
+                  original.timeToProduction,
+              )}{' '}
+              days
             </Box>
           </Tooltip>
         ),
@@ -203,7 +217,9 @@ export const LeadTimeForChanges = ({ leadTime, loading }: ILeadTimeForChangesPro
 
   return (
     <Container>
-      <Typography variant='h3'>Lead time for changes (per release flag)</Typography>
+      <Typography variant='h3'>
+        Lead time for changes (per release flag)
+      </Typography>
       <TableContainer>
         <Table {...getTableProps()}>
           <SortableTableHeader headerGroups={headerGroups} />

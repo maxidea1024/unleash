@@ -5,7 +5,8 @@ export const contextFieldSchema = {
   $id: '#/components/schemas/contextFieldSchema',
   type: 'object',
   additionalProperties: false,
-  description: 'A representation of a [context field](https://docs.getunleash.io/reference/unleash-context).',
+  description:
+    'A representation of a [context field](https://docs.getunleash.io/reference/unleash-context).',
   required: ['name'],
   properties: {
     name: {
@@ -53,7 +54,8 @@ export const contextFieldSchema = {
       minimum: 0,
     },
     legalValues: {
-      description: 'Allowed values for this context field schema. Can be used to narrow down accepted input',
+      description:
+        'Allowed values for this context field schema. Can be used to narrow down accepted input',
       type: 'array',
       items: {
         $ref: '#/components/schemas/legalValueSchema',

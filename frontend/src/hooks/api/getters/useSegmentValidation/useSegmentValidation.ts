@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { formatApiPath } from 'utils/formatPath';
 
-export const useSegmentValidation = (name: string, initialName: string): string | undefined => {
+export const useSegmentValidation = (
+  name: string,
+  initialName: string,
+): string | undefined => {
   const [error, setError] = useState<string>();
   const nameHasChanged = name !== initialName;
 
@@ -25,7 +28,9 @@ const fetchNewNameValidation = (name: string): Promise<Response> =>
     body: JSON.stringify({ name }),
   });
 
-const parseValidationResponse = async (res: Response): Promise<string | undefined> => {
+const parseValidationResponse = async (
+  res: Response,
+): Promise<string | undefined> => {
   if (res.ok) {
     return;
   }

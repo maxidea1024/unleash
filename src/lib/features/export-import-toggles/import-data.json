@@ -1,5 +1,7 @@
 {
-  "features": [{ "project": "old_project", "name": "first_feature", "type": "release" }],
+  "features": [
+    { "project": "old_project", "name": "first_feature", "type": "release" }
+  ],
   "featureStrategies": [
     {
       "featureName": "first_feature",

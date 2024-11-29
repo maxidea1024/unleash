@@ -28,12 +28,19 @@ export const useServiceAccountsApi = () => {
 
   const removeServiceAccount = async (serviceAccountId: number) => {
     const requestId = 'removeServiceAccount';
-    const req = createRequest(`api/admin/service-account/${serviceAccountId}`, { method: 'DELETE' }, requestId);
+    const req = createRequest(
+      `api/admin/service-account/${serviceAccountId}`,
+      { method: 'DELETE' },
+      requestId,
+    );
 
     await makeRequest(req.caller, req.id);
   };
 
-  const updateServiceAccount = async (serviceAccountId: number, serviceAccount: IServiceAccountPayload) => {
+  const updateServiceAccount = async (
+    serviceAccountId: number,
+    serviceAccount: IServiceAccountPayload,
+  ) => {
     const requestId = 'updateServiceAccount';
     const req = createRequest(
       `api/admin/service-account/${serviceAccountId}`,

@@ -1,4 +1,7 @@
-import type { IStrategyParameter, IFeatureStrategyParameters } from 'interfaces/strategy';
+import type {
+  IStrategyParameter,
+  IFeatureStrategyParameters,
+} from 'interfaces/strategy';
 
 export const validateParameterValue = (
   definition: Pick<IStrategyParameter, 'type' | 'required'>,
@@ -24,5 +27,7 @@ export const validateParameterValue = (
 };
 
 const isValidNumberOrEmpty = (value: string | number | undefined): boolean => {
-  return typeof value === 'undefined' || value === '' || /^\d+$/.test(String(value));
+  return (
+    typeof value === 'undefined' || value === '' || /^\d+$/.test(String(value))
+  );
 };

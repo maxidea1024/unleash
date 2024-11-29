@@ -7,7 +7,8 @@
 /**
  * The signal source type. Should be used along with `sourceId` to uniquely identify the resource that created this signal.
  */
-export type SignalSchemaSource = (typeof SignalSchemaSource)[keyof typeof SignalSchemaSource];
+export type SignalSchemaSource =
+  (typeof SignalSchemaSource)[keyof typeof SignalSchemaSource];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const SignalSchemaSource = {

@@ -31,4 +31,6 @@ export const createInvitedUserSchema = {
   components: {},
 } as const;
 
-export type CreateInvitedUserSchema = FromSchema<typeof createInvitedUserSchema>;
+export type CreateInvitedUserSchema = FromSchema<
+  typeof createInvitedUserSchema
+>;

@@ -16,11 +16,17 @@ interface IArrayFieldCellProps<T> {
   pluralLabel?: string;
 }
 
-export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({ row, field, singularLabel, pluralLabel }) => {
+export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({
+  row,
+  field,
+  singularLabel,
+  pluralLabel,
+}) => {
   const { searchQuery } = useSearchHighlightContext();
   const fieldValue = row[field];
 
-  if (!Array.isArray(fieldValue) || fieldValue.length === 0) return <TextCell />;
+  if (!Array.isArray(fieldValue) || fieldValue.length === 0)
+    return <TextCell />;
 
   const labelForMultiple = pluralLabel || `${singularLabel}s`;
 
@@ -29,7 +35,9 @@ export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({ row, field, si
       <TooltipLink
         highlighted={
           searchQuery.length > 0 &&
-          fieldValue.some((item: string | null) => item?.toLowerCase().includes(searchQuery.toLowerCase()))
+          fieldValue.some((item: string | null) =>
+            item?.toLowerCase().includes(searchQuery.toLowerCase()),
+          )
         }
         tooltip={
           <>
@@ -41,7 +49,9 @@ export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({ row, field, si
           </>
         }
       >
-        {fieldValue.length === 1 ? `1 ${singularLabel}` : `${fieldValue.length} ${labelForMultiple}`}
+        {fieldValue.length === 1
+          ? `1 ${singularLabel}`
+          : `${fieldValue.length} ${labelForMultiple}`}
       </TooltipLink>
     </TextCell>
   );

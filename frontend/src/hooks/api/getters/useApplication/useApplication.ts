@@ -12,7 +12,10 @@ interface IUseApplicationOutput {
   APPLICATION_CACHE_KEY: string;
 }
 
-const useApplication = (name: string, options: SWRConfiguration = {}): IUseApplicationOutput => {
+const useApplication = (
+  name: string,
+  options: SWRConfiguration = {},
+): IUseApplicationOutput => {
   const path = formatApiPath(`api/admin/metrics/applications/${name}`);
 
   const fetcher = async () => {

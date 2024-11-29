@@ -11,12 +11,19 @@ interface INewUserWrapperProps {
   children?: React.ReactNode;
 }
 
-export const NewUserWrapper: FC<INewUserWrapperProps> = ({ children, loading, title }) => {
+export const NewUserWrapper: FC<INewUserWrapperProps> = ({
+  children,
+  loading,
+  title,
+}) => {
   const ref = useLoading(loading || false);
 
   return (
     <div ref={ref}>
-      <StandaloneLayout showMenu={false} BannerComponent={<StandaloneBanner title={'Unleash'} />}>
+      <StandaloneLayout
+        showMenu={false}
+        BannerComponent={<StandaloneBanner title={'Unleash'} />}
+      >
         <Box
           sx={{
             width: ['100%', '350px'],

@@ -42,7 +42,8 @@ export const resourceLimitsSchema = {
     actionSetsPerProject: {
       type: 'integer',
       example: 10,
-      description: 'The maximum number of action set definitions per project allowed.',
+      description:
+        'The maximum number of action set definitions per project allowed.',
     },
     actionSetFilters: {
       type: 'integer',
@@ -52,7 +53,8 @@ export const resourceLimitsSchema = {
     actionSetFilterValues: {
       type: 'integer',
       example: 10,
-      description: 'The maximum number of filter values inside an action set allowed.',
+      description:
+        'The maximum number of filter values inside an action set allowed.',
     },
     signalEndpoints: {
       type: 'integer',
@@ -67,7 +69,8 @@ export const resourceLimitsSchema = {
     featureEnvironmentStrategies: {
       type: 'integer',
       example: 30,
-      description: 'The maximum number of feature environment strategies allowed.',
+      description:
+        'The maximum number of feature environment strategies allowed.',
     },
     constraintValues: {
       type: 'integer',

@@ -24,5 +24,11 @@ export const ProjectChangeRequests = () => {
     );
   }
 
-  return <ChangeRequestsTabs changeRequests={changeRequests} projectId={projectId} loading={loading} />;
+  return (
+    <ChangeRequestsTabs
+      changeRequests={changeRequests}
+      projectId={projectId}
+      loading={loading}
+    />
+  );
 };

@@ -21,7 +21,11 @@ test('projectOverviewSchema', () => {
     },
   };
 
-  expect(validateSchema('#/components/schemas/projectOverviewSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/projectOverviewSchema', data),
+  ).toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/projectOverviewSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/projectOverviewSchema', {}),
+  ).toMatchSnapshot();
 });

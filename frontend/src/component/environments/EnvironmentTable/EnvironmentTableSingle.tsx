@@ -22,7 +22,10 @@ interface IEnvironmentTableSingleProps {
   warnEnabledToggles?: boolean;
 }
 
-export const EnvironmentTableSingle = ({ environment, warnEnabledToggles }: IEnvironmentTableSingleProps) => {
+export const EnvironmentTableSingle = ({
+  environment,
+  warnEnabledToggles,
+}: IEnvironmentTableSingleProps) => {
   const COLUMNS = useMemo(
     () => [
       {
@@ -46,7 +49,8 @@ export const EnvironmentTableSingle = ({ environment, warnEnabledToggles }: IEnv
       },
       {
         Header: 'Visible in',
-        accessor: (row: IEnvironment) => (row.projectCount === 1 ? '1 project' : `${row.projectCount} projects`),
+        accessor: (row: IEnvironment) =>
+          row.projectCount === 1 ? '1 project' : `${row.projectCount} projects`,
         Cell: ({
           row: { original },
           value,
@@ -59,7 +63,12 @@ export const EnvironmentTableSingle = ({ environment, warnEnabledToggles }: IEnv
             <ConditionallyRender
               condition={Boolean(warnEnabledToggles)}
               show={
-                <StyledToggleWarning warning={Boolean(original.enabledToggleCount && original.enabledToggleCount > 0)}>
+                <StyledToggleWarning
+                  warning={Boolean(
+                    original.enabledToggleCount &&
+                      original.enabledToggleCount > 0,
+                  )}
+                >
                   {original.enabledToggleCount === 1
                     ? '1 toggle enabled'
                     : `${original.enabledToggleCount} toggles enabled`}
@@ -73,11 +82,12 @@ export const EnvironmentTableSingle = ({ environment, warnEnabledToggles }: IEnv
     [warnEnabledToggles],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
-    columns: COLUMNS as any,
-    data: [environment],
-    disableSortBy: true,
-  });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({
+      columns: COLUMNS as any,
+      data: [environment],
+      disableSortBy: true,
+    });
 
   return (
     <StyledTable {...getTableProps()} rowHeight='compact'>

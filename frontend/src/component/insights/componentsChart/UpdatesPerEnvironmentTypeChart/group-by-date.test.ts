@@ -23,7 +23,9 @@ describe('groupByDate', () => {
       },
     ];
     const grouped = groupByDateAndFillMissingDatapoints(items);
-    expect(Object.keys(grouped)).toEqual(expect.arrayContaining(['2023-01-01', '2023-01-09']));
+    expect(Object.keys(grouped)).toEqual(
+      expect.arrayContaining(['2023-01-01', '2023-01-09']),
+    );
     expect(grouped['2023-01-01']).toMatchObject([
       {
         date: '2023-01-01',
@@ -71,10 +73,14 @@ describe('groupByDate', () => {
       },
     ];
     const grouped = groupByDateAndFillMissingDatapoints(items);
-    const productionOnJan01 = grouped['2023-01-01']?.find((item) => item.environmentType === 'production') ?? {
+    const productionOnJan01 = grouped['2023-01-01']?.find(
+      (item) => item.environmentType === 'production',
+    ) ?? {
       totalUpdates: -1,
     };
-    const developmentOnJan09 = grouped['2023-01-09']?.find((item) => item.environmentType === 'development') ?? {
+    const developmentOnJan09 = grouped['2023-01-09']?.find(
+      (item) => item.environmentType === 'development',
+    ) ?? {
       totalUpdates: -1,
     };
 

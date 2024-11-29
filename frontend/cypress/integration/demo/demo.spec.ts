@@ -71,7 +71,12 @@ describe('demo', () => {
       method: 'POST',
       url: `${baseUrl}/api/admin/projects/demo-app/delete`,
       body: {
-        features: ['demoApp.step1', 'demoApp.step2', 'demoApp.step3', 'demoApp.step4'],
+        features: [
+          'demoApp.step1',
+          'demoApp.step2',
+          'demoApp.step3',
+          'demoApp.step4',
+        ],
       },
     });
   });
@@ -84,7 +89,10 @@ describe('demo', () => {
       for (let step = 0; step < currentTopic.steps.length; step++) {
         const currentStep = currentTopic.steps[step];
 
-        cy.task('log', `Testing topic #${topic + 1} "${currentTopic.title}", step #${step + 1}...`);
+        cy.task(
+          'log',
+          `Testing topic #${topic + 1} "${currentTopic.title}", step #${step + 1}...`,
+        );
 
         if (!currentStep.optional) {
           cy.wait(2000);

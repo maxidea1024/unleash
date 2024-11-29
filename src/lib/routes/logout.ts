@@ -12,7 +12,10 @@ export default class LogoutController extends Controller {
   private readonly baseUri: string;
   private readonly sessionService: SessionService;
 
-  constructor(config: IUnleashConfig, { sessionService }: Pick<IUnleashServices, 'sessionService'>) {
+  constructor(
+    config: IUnleashConfig,
+    { sessionService }: Pick<IUnleashServices, 'sessionService'>,
+  ) {
     super(config);
 
     this.sessionService = sessionService;
@@ -68,7 +71,9 @@ export default class LogoutController extends Controller {
     res.redirect(`${this.baseUri}/`);
   }
 
-  private isReqLogoutWithoutCallback(logout: IAuthRequest['logout']): logout is () => void {
+  private isReqLogoutWithoutCallback(
+    logout: IAuthRequest['logout'],
+  ): logout is () => void {
     return logout.length === 0;
   }
 }

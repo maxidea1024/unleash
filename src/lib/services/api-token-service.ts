@@ -63,8 +63,18 @@ export class ApiTokenService {
   private readonly eventBus: EventEmitter;
 
   constructor(
-    { apiTokenStore, environmentStore }: Pick<IUnleashStores, 'apiTokenStore' | 'environmentStore'>,
-    config: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver' | 'eventBus' | 'resourceLimits'>,
+    {
+      apiTokenStore,
+      environmentStore,
+    }: Pick<IUnleashStores, 'apiTokenStore' | 'environmentStore'>,
+    config: Pick<
+      IUnleashConfig,
+      | 'getLogger'
+      | 'authentication'
+      | 'flagResolver'
+      | 'eventBus'
+      | 'resourceLimits'
+    >,
     eventService: EventService,
   ) {
     this.logger = config.getLogger('api-token-service.ts');
@@ -80,7 +90,9 @@ export class ApiTokenService {
     }
     this.updateLastSeen();
     if (config.authentication.initApiTokens.length > 0) {
-      process.nextTick(async () => this.initApiTokens(config.authentication.initApiTokens));
+      process.nextTick(async () =>
+        this.initApiTokens(config.authentication.initApiTokens),
+      );
     }
     this.timer = (functionName: string) =>
       metricsHelper.wrapTimer(config.eventBus, FUNCTION_TIME, {
@@ -112,14 +124,18 @@ export class ApiTokenService {
     }
 
     let token = this.activeTokens.find(
-      (activeToken) => Boolean(activeToken.secret) && constantTimeCompare(activeToken.secret, secret),
+      (activeToken) =>
+        Boolean(activeToken.secret) &&
+        constantTimeCompare(activeToken.secret, secret),
     );
 
     // If the token is not found, try to find it in the legacy format with alias.
     // This allows us to support the old format of tokens migrating to the embedded proxy.
     if (!token) {
       token = this.activeTokens.find(
-        (activeToken) => Boolean(activeToken.alias) && constantTimeCompare(activeToken.alias!, secret),
+        (activeToken) =>
+          Boolean(activeToken.alias) &&
+          constantTimeCompare(activeToken.alias!, secret),
       );
     }
 
@@ -148,7 +164,9 @@ export class ApiTokenService {
         }
         stopCacheTimer();
       } else {
-        this.logger.info(`Not allowed to query this token until: ${this.queryAfter.get(secret)}`);
+        this.logger.info(
+          `Not allowed to query this token until: ${this.queryAfter.get(secret)}`,
+        );
       }
     }
     return token;
@@ -172,7 +190,9 @@ export class ApiTokenService {
       return;
     }
     try {
-      const createAll = tokens.map(mapLegacyTokenWithSecret).map((t) => this.insertNewApiToken(t, SYSTEM_USER_AUDIT));
+      const createAll = tokens
+        .map(mapLegacyTokenWithSecret)
+        .map((t) => this.insertNewApiToken(t, SYSTEM_USER_AUDIT));
       await Promise.all(createAll);
     } catch (e) {
       this.logger.error('Unable to create initial Admin API tokens');
@@ -192,14 +212,19 @@ export class ApiTokenService {
         secret: token.secret,
       });
 
-      apiUser.internalAdminTokenUserId = token.type === ApiTokenType.ADMIN ? ADMIN_TOKEN_USER.id : undefined;
+      apiUser.internalAdminTokenUserId =
+        token.type === ApiTokenType.ADMIN ? ADMIN_TOKEN_USER.id : undefined;
       return apiUser;
     }
 
     return undefined;
   }
 
-  async updateExpiry(secret: string, expiresAt: Date, auditUser: IAuditUser): Promise<IApiToken> {
+  async updateExpiry(
+    secret: string,
+    expiresAt: Date,
+    auditUser: IAuditUser,
+  ): Promise<IApiToken> {
     const previous = await this.store.get(secret);
     const token = await this.store.setExpiry(secret, expiresAt);
     await this.eventService.storeEvent(
@@ -276,7 +301,9 @@ export class ApiTokenService {
 
   // TODO: Remove this service method after embedded proxy has been released in
   // 4.16.0
-  async createMigratedProxyApiToken(newToken: Omit<IApiTokenCreate, 'secret'>): Promise<IApiToken> {
+  async createMigratedProxyApiToken(
+    newToken: Omit<IApiTokenCreate, 'secret'>,
+  ): Promise<IApiToken> {
     validateApiToken(newToken);
 
     const secret = this.generateSecretKey(newToken);
@@ -292,9 +319,14 @@ export class ApiTokenService {
     };
   }
 
-  private async insertNewApiToken(newApiToken: IApiTokenCreate, auditUser: IAuditUser): Promise<IApiToken> {
+  private async insertNewApiToken(
+    newApiToken: IApiTokenCreate,
+    auditUser: IAuditUser,
+  ): Promise<IApiToken> {
     try {
-      const token = await this.store.insert(this.normalizeTokenType(newApiToken));
+      const token = await this.store.insert(
+        this.normalizeTokenType(newApiToken),
+      );
       this.activeTokens.push(token);
       await this.eventService.storeEvent(
         new ApiTokenCreatedEvent({

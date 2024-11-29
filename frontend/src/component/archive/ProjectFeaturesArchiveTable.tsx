@@ -10,10 +10,16 @@ interface IProjectFeaturesTable {
   projectId: string;
 }
 
-export const ProjectFeaturesArchiveTable: FC<IProjectFeaturesTable> = ({ projectId }) => {
-  const { archivedFeatures, loading, refetchArchived } = useFeaturesArchive(projectId);
+export const ProjectFeaturesArchiveTable: FC<IProjectFeaturesTable> = ({
+  projectId,
+}) => {
+  const { archivedFeatures, loading, refetchArchived } =
+    useFeaturesArchive(projectId);
 
-  const { value, setValue } = createLocalStorage(`${projectId}:ProjectFeaturesArchiveTable`, defaultSort);
+  const { value, setValue } = createLocalStorage(
+    `${projectId}:ProjectFeaturesArchiveTable`,
+    defaultSort,
+  );
 
   return (
     <ArchiveTable

@@ -17,7 +17,9 @@ test('meSchema empty', () => {
 });
 
 test('meSchema missing permissions', () => {
-  expect(validateSchema('#/components/schemas/meSchema', { user: { id: 1 } })).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/meSchema', { user: { id: 1 } }),
+  ).toMatchSnapshot();
 });
 
 test('meSchema missing splash', () => {

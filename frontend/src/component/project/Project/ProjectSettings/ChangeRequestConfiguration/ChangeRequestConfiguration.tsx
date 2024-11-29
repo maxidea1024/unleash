@@ -4,7 +4,10 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { Alert } from '@mui/material';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import AccessContext from 'contexts/AccessContext';
-import { PROJECT_CHANGE_REQUEST_READ, UPDATE_PROJECT } from 'component/providers/AccessProvider/permissions';
+import {
+  PROJECT_CHANGE_REQUEST_READ,
+  UPDATE_PROJECT,
+} from 'component/providers/AccessProvider/permissions';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { usePageTitle } from 'hooks/usePageTitle';
 import { ChangeRequestTable } from './ChangeRequestTable';
@@ -23,7 +26,12 @@ export const ChangeRequestConfiguration = () => {
   if (isOss() || isPro()) {
     return (
       <PageContent
-        header={<PageHeader titleElement='Change request configuration' actions={<ChangeRequestProcessHelp />} />}
+        header={
+          <PageHeader
+            titleElement='Change request configuration'
+            actions={<ChangeRequestProcessHelp />}
+          />
+        }
         sx={{ justifyContent: 'center' }}
       >
         <PremiumFeature feature='change-requests' />
@@ -34,7 +42,9 @@ export const ChangeRequestConfiguration = () => {
   if (!hasAccess([UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_READ], projectId)) {
     return (
       <PageContent header={<PageHeader title='Change request configuration' />}>
-        <Alert severity='error'>You need project owner permissions to access this section.</Alert>
+        <Alert severity='error'>
+          You need project owner permissions to access this section.
+        </Alert>
       </PageContent>
     );
   }

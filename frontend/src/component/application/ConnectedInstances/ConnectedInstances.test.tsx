@@ -7,24 +7,34 @@ import type { ApplicationEnvironmentInstancesSchemaInstancesItem } from '../../.
 
 const server = testServerSetup();
 
-const setupApi = (instances: ApplicationEnvironmentInstancesSchemaInstancesItem[]) => {
+const setupApi = (
+  instances: ApplicationEnvironmentInstancesSchemaInstancesItem[],
+) => {
   testServerRoute(server, '/api/admin/metrics/applications/my-app/overview', {
     environments: [{ name: 'development' }, { name: 'production' }],
   });
   testServerRoute(server, '/api/admin/ui-config', {});
-  testServerRoute(server, '/api/admin/metrics/instances/my-app/environment/development', {
-    instances,
-  });
-  testServerRoute(server, '/api/admin/metrics/instances/my-app/environment/production', {
-    instances: [
-      {
-        instanceId: 'prodInstance',
-        clientIp: 'irrelevant',
-        lastSeen: '2024-02-26T14:00:59.980Z',
-        sdkVersion: 'irrelevant',
-      },
-    ],
-  });
+  testServerRoute(
+    server,
+    '/api/admin/metrics/instances/my-app/environment/development',
+    {
+      instances,
+    },
+  );
+  testServerRoute(
+    server,
+    '/api/admin/metrics/instances/my-app/environment/production',
+    {
+      instances: [
+        {
+          instanceId: 'prodInstance',
+          clientIp: 'irrelevant',
+          lastSeen: '2024-02-26T14:00:59.980Z',
+          sdkVersion: 'irrelevant',
+        },
+      ],
+    },
+  );
 };
 
 test('Display connected instances', async () => {
@@ -44,7 +54,10 @@ test('Display connected instances', async () => {
   ]);
   render(
     <Routes>
-      <Route path={'/applications/:name/instances'} element={<ConnectedInstances />} />
+      <Route
+        path={'/applications/:name/instances'}
+        element={<ConnectedInstances />}
+      />
     </Routes>,
     {
       route: '/applications/my-app/instances',
@@ -71,14 +84,19 @@ test('Display connected instances', async () => {
 
   await screen.findByText('prodInstance');
   expect(screen.queryByText('devInstance1')).not.toBeInTheDocument();
-  expect(window.location.href).toContain('applications/my-app/instances?environment=production');
+  expect(window.location.href).toContain(
+    'applications/my-app/instances?environment=production',
+  );
 });
 
 test('Display no connected instances', async () => {
   setupApi([]);
   render(
     <Routes>
-      <Route path={'/applications/:name/instances'} element={<ConnectedInstances />} />
+      <Route
+        path={'/applications/:name/instances'}
+        element={<ConnectedInstances />}
+      />
     </Routes>,
     {
       route: '/applications/my-app/instances',

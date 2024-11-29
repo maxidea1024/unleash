@@ -41,7 +41,11 @@ test('should require a list of strings', async () => {
 
 test('should succeed with a list of strings', async () => {
   expect.assertions(0);
-  await constraintStringTypeSchema.validateAsync(['test', 'another-test', 'supervalue']);
+  await constraintStringTypeSchema.validateAsync([
+    'test',
+    'another-test',
+    'supervalue',
+  ]);
 });
 
 /* Date type */

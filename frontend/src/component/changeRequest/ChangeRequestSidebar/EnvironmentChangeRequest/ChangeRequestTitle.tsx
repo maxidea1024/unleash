@@ -42,7 +42,11 @@ export const ChangeRequestTitle: FC<{
   const saveTitle = async () => {
     toggleEditState();
     try {
-      await updateTitle(environmentChangeRequest.project, environmentChangeRequest.id, title);
+      await updateTitle(
+        environmentChangeRequest.project,
+        environmentChangeRequest.id,
+        title,
+      );
       setToastData({
         type: 'success',
         title: 'Change request title updated!',
@@ -87,7 +91,11 @@ export const ChangeRequestTitle: FC<{
             >
               Save
             </Button>
-            <Button sx={(theme) => ({ marginLeft: theme.spacing(1) })} variant='outlined' onClick={toggleEditState}>
+            <Button
+              sx={(theme) => ({ marginLeft: theme.spacing(1) })}
+              variant='outlined'
+              onClick={toggleEditState}
+            >
               Cancel
             </Button>{' '}
           </>

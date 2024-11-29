@@ -87,7 +87,8 @@ export const EnableEnvironmentDialog: FC<IEnableEnvironmentDialogProps> = ({
         </li>
         <li>
           <Typography>
-            <strong>Enable all the disabled strategies</strong> (this feature flag has {disabledStrategiesText})
+            <strong>Enable all the disabled strategies</strong> (this feature
+            flag has {disabledStrategiesText})
           </Typography>
         </li>
       </StyledList>

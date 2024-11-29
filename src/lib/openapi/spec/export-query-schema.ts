@@ -30,7 +30,8 @@ export const exportQuerySchema = {
             type: 'string',
             minLength: 1,
           },
-          description: 'Selects features to export by name. If the list is empty all features are returned.',
+          description:
+            'Selects features to export by name. If the list is empty all features are returned.',
         },
       },
     },
@@ -52,7 +53,8 @@ export const exportQuerySchema = {
         project: {
           type: 'string',
           example: 'my-project',
-          description: 'Selects project to export the features from. Used when no tags or features are provided.',
+          description:
+            'Selects project to export the features from. Used when no tags or features are provided.',
         },
       },
     },

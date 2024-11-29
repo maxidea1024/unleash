@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { IconButton, InputAdornment, styled, TextField, Tooltip } from '@mui/material';
+import {
+  IconButton,
+  InputAdornment,
+  styled,
+  TextField,
+  Tooltip,
+} from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 const StyledAIChatInputContainer = styled('div')(({ theme }) => ({
@@ -29,7 +35,11 @@ export interface IAIChatInputProps {
   onHeightChange?: () => void;
 }
 
-export const AIChatInput = ({ onSend, loading, onHeightChange }: IAIChatInputProps) => {
+export const AIChatInput = ({
+  onSend,
+  loading,
+  onHeightChange,
+}: IAIChatInputProps) => {
   const [message, setMessage] = useState('');
 
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
@@ -87,7 +97,12 @@ export const AIChatInput = ({ onSend, loading, onHeightChange }: IAIChatInputPro
             <StyledInputAdornment position='end'>
               <Tooltip title='Send message' arrow>
                 <div>
-                  <StyledIconButton onClick={send} size='small' color='primary' disabled={!message.trim() || loading}>
+                  <StyledIconButton
+                    onClick={send}
+                    size='small'
+                    color='primary'
+                    disabled={!message.trim() || loading}
+                  >
                     <ArrowUpwardIcon />
                   </StyledIconButton>
                 </div>

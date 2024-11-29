@@ -59,7 +59,10 @@ export const useCollaborateData = <Type,>(
       return data;
     }
 
-    if (comparisonModeratorFunc && typeof comparisonModeratorFunc === 'function') {
+    if (
+      comparisonModeratorFunc &&
+      typeof comparisonModeratorFunc === 'function'
+    ) {
       return comparisonModeratorFunc(data);
     }
 

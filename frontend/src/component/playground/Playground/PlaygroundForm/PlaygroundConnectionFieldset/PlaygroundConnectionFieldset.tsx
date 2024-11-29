@@ -1,4 +1,10 @@
-import { type ComponentProps, type Dispatch, type SetStateAction, useState, type FC } from 'react';
+import {
+  type ComponentProps,
+  type Dispatch,
+  type SetStateAction,
+  useState,
+  type FC,
+} from 'react';
 import {
   Box,
   Button,
@@ -11,9 +17,15 @@ import {
   useTheme,
 } from '@mui/material';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
-import { type IApiToken, useApiTokens } from 'hooks/api/getters/useApiTokens/useApiTokens';
+import {
+  type IApiToken,
+  useApiTokens,
+} from 'hooks/api/getters/useApiTokens/useApiTokens';
 import Input from 'component/common/Input/Input';
-import { extractProjectEnvironmentFromToken, validateTokenFormat } from '../../playground.utils';
+import {
+  extractProjectEnvironmentFromToken,
+  validateTokenFormat,
+} from '../../playground.utils';
 import Clear from '@mui/icons-material/Clear';
 import { ProjectSelect } from '../../../../common/ProjectSelect/ProjectSelect';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -67,7 +79,9 @@ const StyledChangeRequestInput = styled(StyledInput)(({ theme }) => ({
   },
 }));
 
-export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps> = ({
+export const PlaygroundConnectionFieldset: FC<
+  IPlaygroundConnectionFieldsetProps
+> = ({
   environments,
   projects,
   token,
@@ -91,7 +105,9 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
       id,
     })),
   ];
-  const onSetToken: ComponentProps<typeof TextField>['onChange'] = async (event) => {
+  const onSetToken: ComponentProps<typeof TextField>['onChange'] = async (
+    event,
+  ) => {
     const tempToken = event.target.value;
     setToken?.(tempToken);
 
@@ -110,7 +126,8 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
   };
 
   const processToken = (tempToken: string) => {
-    const [tokenProject, tokenEnvironment] = extractProjectEnvironmentFromToken(tempToken);
+    const [tokenProject, tokenEnvironment] =
+      extractProjectEnvironmentFromToken(tempToken);
     setEnvironments([tokenEnvironment]);
     switch (tokenProject) {
       case '[]':
@@ -139,7 +156,9 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
     if (validToken) {
       updateProjectsBasedOnValidToken(validToken);
     } else {
-      setTokenError('Invalid token. Ensure you use a valid token from this Unleash instance.');
+      setTokenError(
+        'Invalid token. Ensure you use a valid token from this Unleash instance.',
+      );
     }
   };
 
@@ -167,7 +186,11 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
   return (
     <Box sx={{ pb: 2 }}>
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <Typography variant='body2' color={theme.palette.text.primary} sx={{ ml: 1 }}>
+        <Typography
+          variant='body2'
+          color={theme.palette.text.primary}
+          sx={{ ml: 1 }}
+        >
           Access configuration
         </Typography>
       </Box>
@@ -221,8 +244,15 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
             data-testid={'PLAYGROUND_TOKEN_INPUT'}
             InputProps={{
               endAdornment: token ? (
-                <InputAdornment position='end' data-testid='TOKEN_INPUT_CLEAR_BTN'>
-                  <IconButton aria-label='clear API token' onClick={clearToken} edge='end'>
+                <InputAdornment
+                  position='end'
+                  data-testid='TOKEN_INPUT_CLEAR_BTN'
+                >
+                  <IconButton
+                    aria-label='clear API token'
+                    onClick={clearToken}
+                    edge='end'
+                  >
                     <SmallClear />
                   </IconButton>
                 </InputAdornment>
@@ -238,14 +268,20 @@ export const PlaygroundConnectionFieldset: FC<IPlaygroundConnectionFieldsetProps
               <Box sx={{ flex: 1 }}>
                 <StyledChangeRequestInput
                   label='Change request'
-                  value={changeRequest ? `Change request #${changeRequest}` : ''}
+                  value={
+                    changeRequest ? `Change request #${changeRequest}` : ''
+                  }
                   onChange={() => {}}
                   type={'text'}
                   disabled
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position='end'>
-                        <IconButton aria-label='clear Change request results' onClick={onClearChangeRequest} edge='end'>
+                        <IconButton
+                          aria-label='clear Change request results'
+                          onClick={onClearChangeRequest}
+                          edge='end'
+                        >
                           <SmallClear />
                         </IconButton>
                       </InputAdornment>

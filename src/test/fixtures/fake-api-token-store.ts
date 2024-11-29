@@ -1,9 +1,16 @@
 import type { IApiTokenStore } from '../../lib/types/stores/api-token-store';
-import type { ApiTokenType, IApiToken, IApiTokenCreate } from '../../lib/types/models/api-token';
+import type {
+  ApiTokenType,
+  IApiToken,
+  IApiTokenCreate,
+} from '../../lib/types/models/api-token';
 
 import EventEmitter from 'events';
 
-export default class FakeApiTokenStore extends EventEmitter implements IApiTokenStore {
+export default class FakeApiTokenStore
+  extends EventEmitter
+  implements IApiTokenStore
+{
   countByType(): Promise<Map<ApiTokenType, number>> {
     return Promise.resolve(new Map());
   }
@@ -40,7 +47,9 @@ export default class FakeApiTokenStore extends EventEmitter implements IApiToken
   }
 
   async getAllActive(): Promise<IApiToken[]> {
-    return this.tokens.filter((token) => !token.expiresAt || token.expiresAt > new Date());
+    return this.tokens.filter(
+      (token) => !token.expiresAt || token.expiresAt > new Date(),
+    );
   }
 
   async insert(newToken: IApiTokenCreate): Promise<IApiToken> {

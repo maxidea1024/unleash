@@ -4,4 +4,6 @@
  * See `gen:api` script in package.json
  */
 
-export type RequestsPerSecondSchemaDataResultItemValuesItemItem = string | number;
+export type RequestsPerSecondSchemaDataResultItemValuesItemItem =
+  | string
+  | number;

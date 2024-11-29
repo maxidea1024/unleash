@@ -15,61 +15,71 @@ import { HighlightProvider } from 'component/common/Highlight/HighlightProvider'
 const server = testServerSetup();
 
 const pendingChangeRequest = (featureName: string) =>
-  testServerRoute(server, 'api/admin/projects/default/change-requests/pending', [
-    {
-      id: 156,
-      environment: 'production',
-      state: 'Draft',
-      minApprovals: 1,
-      project: 'default',
-      createdBy: {
-        id: 1,
-        username: 'admin',
-        imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
-      },
-      createdAt: '2022-12-02T09:19:12.242Z',
-      segments: [],
-      features: [
-        {
-          name: featureName,
-          changes: [
-            {
-              id: 292,
-              action: 'addStrategy',
-              payload: {
-                name: 'default',
-                segments: [],
-                parameters: {},
-                constraints: [],
-              },
-              createdAt: '2022-12-02T09:19:12.245Z',
-              createdBy: {
-                id: 1,
-                username: 'admin',
-                imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
-              },
-            },
-          ],
+  testServerRoute(
+    server,
+    'api/admin/projects/default/change-requests/pending',
+    [
+      {
+        id: 156,
+        environment: 'production',
+        state: 'Draft',
+        minApprovals: 1,
+        project: 'default',
+        createdBy: {
+          id: 1,
+          username: 'admin',
+          imageUrl:
+            'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
         },
-      ],
-      approvals: [],
-      comments: [],
-    },
-  ]);
+        createdAt: '2022-12-02T09:19:12.242Z',
+        segments: [],
+        features: [
+          {
+            name: featureName,
+            changes: [
+              {
+                id: 292,
+                action: 'addStrategy',
+                payload: {
+                  name: 'default',
+                  segments: [],
+                  parameters: {},
+                  constraints: [],
+                },
+                createdAt: '2022-12-02T09:19:12.245Z',
+                createdBy: {
+                  id: 1,
+                  username: 'admin',
+                  imageUrl:
+                    'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+                },
+              },
+            ],
+          },
+        ],
+        approvals: [],
+        comments: [],
+      },
+    ],
+  );
 
 const changeRequestsEnabledIn = (env: string) =>
-  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
-    {
-      environment: 'development',
-      type: 'development',
-      changeRequestEnabled: env === 'development',
-    },
-    {
-      environment: 'production',
-      type: 'production',
-      changeRequestEnabled: env === 'production',
-    },
-  ]);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/change-requests/config',
+    [
+      {
+        environment: 'development',
+        type: 'development',
+        changeRequestEnabled: env === 'development',
+      },
+      {
+        environment: 'production',
+        type: 'production',
+        changeRequestEnabled: env === 'production',
+      },
+    ],
+  );
 
 const uiConfigForEnterprise = () =>
   testServerRoute(server, '/api/admin/ui-config', {
@@ -201,7 +211,8 @@ const otherRequests = (feature: string) => {
       id: 17,
       name: 'Some User',
       email: 'user@example.com',
-      imageUrl: 'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
+      imageUrl:
+        'https://gravatar.com/avatar/8aa1132e102345f8c79322340e15340?size=42&default=retro',
       seenAt: '2022-11-28T14:55:18.982Z',
       loginAttempts: 0,
       createdAt: '2022-11-23T13:31:17.061Z',
@@ -225,7 +236,10 @@ const UnleashUiSetup: FC<{
             <StickyProvider>
               <HighlightProvider>
                 <Routes>
-                  <Route path={pathTemplate} element={<MainLayout>{children}</MainLayout>} />
+                  <Route
+                    path={pathTemplate}
+                    element={<MainLayout>{children}</MainLayout>}
+                  />
                 </Routes>
               </HighlightProvider>
             </StickyProvider>
@@ -272,7 +286,10 @@ test('add flag change to pending change request', async () => {
   setupHttpRoutes({ featureName: 'test', enabled: false });
 
   render(
-    <UnleashUiSetup pathTemplate='/projects/:projectId/features/:featureId/*' path='/projects/default/features/test'>
+    <UnleashUiSetup
+      pathTemplate='/projects/:projectId/features/:featureId/*'
+      path='/projects/default/features/test'
+    >
       <FeatureView />
     </UnleashUiSetup>,
   );

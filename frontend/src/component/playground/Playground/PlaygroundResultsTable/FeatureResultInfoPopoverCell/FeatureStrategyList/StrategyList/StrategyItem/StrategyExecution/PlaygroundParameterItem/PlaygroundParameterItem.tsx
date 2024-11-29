@@ -67,7 +67,14 @@ export const PlaygroundParameterItem = ({
         <ConditionallyRender
           condition={Boolean(showReason)}
           show={
-            <Typography variant='subtitle1' color={disabled ? theme.palette.text.secondary : theme.palette.error.main}>
+            <Typography
+              variant='subtitle1'
+              color={
+                disabled
+                  ? theme.palette.text.secondary
+                  : theme.palette.error.main
+              }
+            >
               {reason}
             </Typography>
           }
@@ -78,13 +85,20 @@ export const PlaygroundParameterItem = ({
           elseShow={
             <div>
               <StyledParagraph disabled={disabled}>
-                {value.length} {value.length > 1 ? `${text}s` : text} will get access.
+                {value.length} {value.length > 1 ? `${text}s` : text} will get
+                access.
               </StyledParagraph>
               {value.map((v: string | number) => (
                 <StyledChip
                   key={v}
                   disabled={disabled}
-                  label={<StringTruncator maxWidth='300' text={v.toString()} maxLength={50} />}
+                  label={
+                    <StringTruncator
+                      maxWidth='300'
+                      text={v.toString()}
+                      maxLength={50}
+                    />
+                  }
                 />
               ))}
             </div>

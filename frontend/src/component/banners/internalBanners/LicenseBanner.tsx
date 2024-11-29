@@ -8,7 +8,13 @@ export const LicenseBanner = () => {
   const licenseInfo = useLicenseCheck();
 
   // Only for enterprise
-  if (isEnterprise() && licenseInfo && !licenseInfo.isValid && !licenseInfo.loading && !licenseInfo.error) {
+  if (
+    isEnterprise() &&
+    licenseInfo &&
+    !licenseInfo.isValid &&
+    !licenseInfo.loading &&
+    !licenseInfo.error
+  ) {
     const banner = {
       message: licenseInfo.message || 'You have an invalid Unleash license.',
       variant: 'error' as BannerVariant,

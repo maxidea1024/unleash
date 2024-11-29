@@ -3,13 +3,19 @@ import { type FC, useMemo } from 'react';
 import type { InstanceInsightsSchema } from 'openapi';
 import { HealthTooltip } from './HealthChartTooltip/HealthChartTooltip';
 import { useProjectChartData } from 'component/insights/hooks/useProjectChartData';
-import { fillGradientPrimary, LineChart, NotEnoughData } from 'component/insights/components/LineChart/LineChart';
+import {
+  fillGradientPrimary,
+  LineChart,
+  NotEnoughData,
+} from 'component/insights/components/LineChart/LineChart';
 import { useTheme } from '@mui/material';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
 interface IProjectHealthChartProps {
-  projectFlagTrends: GroupedDataByProject<InstanceInsightsSchema['projectFlagTrends']>;
+  projectFlagTrends: GroupedDataByProject<
+    InstanceInsightsSchema['projectFlagTrends']
+  >;
   isAggregate?: boolean;
   isLoading?: boolean;
 }
@@ -23,15 +29,26 @@ type WeekData = {
 };
 
 const calculateHealth = (item: WeekData) =>
-  (((item.total - item.stale - item.potentiallyStale) / item.total) * 100).toFixed(2);
+  (
+    ((item.total - item.stale - item.potentiallyStale) / item.total) *
+    100
+  ).toFixed(2);
 
-export const ProjectHealthChart: FC<IProjectHealthChartProps> = ({ projectFlagTrends, isAggregate, isLoading }) => {
+export const ProjectHealthChart: FC<IProjectHealthChartProps> = ({
+  projectFlagTrends,
+  isAggregate,
+  isLoading,
+}) => {
   const projectsData = useProjectChartData(projectFlagTrends);
   const theme = useTheme();
   const placeholderData = usePlaceholderData();
 
   const aggregateHealthData = useMemo(() => {
-    const labels = Array.from(new Set(projectsData.datasets.flatMap((d) => d.data.map((item) => item.week))));
+    const labels = Array.from(
+      new Set(
+        projectsData.datasets.flatMap((d) => d.data.map((item) => item.week)),
+      ),
+    );
 
     const weeks = labels
       .map((label) => {
@@ -78,12 +95,15 @@ export const ProjectHealthChart: FC<IProjectHealthChartProps> = ({ projectFlagTr
     };
   }, [projectsData, theme]);
 
-  const aggregateOrProjectData = isAggregate ? aggregateHealthData : projectsData;
+  const aggregateOrProjectData = isAggregate
+    ? aggregateHealthData
+    : projectsData;
   const notEnoughData = useMemo(
     () => !isLoading && !projectsData.datasets.some((d) => d.data.length > 1),
     [projectsData, isLoading],
   );
-  const data = notEnoughData || isLoading ? placeholderData : aggregateOrProjectData;
+  const data =
+    notEnoughData || isLoading ? placeholderData : aggregateOrProjectData;
 
   return (
     <LineChart

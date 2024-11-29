@@ -35,7 +35,13 @@ export const FlagCounts: FC<{
   potentiallyStaleCount: number;
   staleCount: number;
   hideLinks?: boolean;
-}> = ({ projectId, activeCount, potentiallyStaleCount, staleCount, hideLinks = false }) => {
+}> = ({
+  projectId,
+  activeCount,
+  potentiallyStaleCount,
+  staleCount,
+  hideLinks = false,
+}) => {
   const theme = useTheme();
 
   return (
@@ -51,7 +57,9 @@ export const FlagCounts: FC<{
         <StatusWithDot>
           <Dot color={theme.palette.warning.border} />
           <Box sx={{ fontWeight: 'bold' }}>Potentially stale</Box>
-          {hideLinks ? null : <Link to='/feature-toggle-type'>(configure)</Link>}
+          {hideLinks ? null : (
+            <Link to='/feature-toggle-type'>(configure)</Link>
+          )}
         </StatusWithDot>
         <FlagsCount>{potentiallyStaleCount} feature flags</FlagsCount>
       </Box>
@@ -59,7 +67,11 @@ export const FlagCounts: FC<{
         <StatusWithDot>
           <Dot color={theme.palette.error.border} />
           <Box sx={{ fontWeight: 'bold' }}>Stale</Box>
-          {hideLinks ? null : <Link to={`/projects/${projectId}?state=IS%3Astale`}>(view flags)</Link>}
+          {hideLinks ? null : (
+            <Link to={`/projects/${projectId}?state=IS%3Astale`}>
+              (view flags)
+            </Link>
+          )}
         </StatusWithDot>
         <FlagsCount>{staleCount} feature flags</FlagsCount>
       </Box>

@@ -16,7 +16,8 @@ export const createFeatureNamingPatternSchema = {
     example: {
       type: 'string',
       nullable: true,
-      description: 'An example of a feature name that matches the pattern. Must itself match the pattern supplied.',
+      description:
+        'An example of a feature name that matches the pattern. Must itself match the pattern supplied.',
       example: 'dx.feature1.1-135',
     },
     description: {
@@ -32,4 +33,6 @@ The flag name should contain the project name, the feature name, and the ticket 
   components: {},
 } as const;
 
-export type CreateFeatureNamingPatternSchema = FromSchema<typeof createFeatureNamingPatternSchema>;
+export type CreateFeatureNamingPatternSchema = FromSchema<
+  typeof createFeatureNamingPatternSchema
+>;

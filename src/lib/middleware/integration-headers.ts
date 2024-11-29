@@ -24,6 +24,11 @@ export const getFilteredOrigin = (request: Request): string | undefined => {
   return undefined;
 };
 
-export const determineIntegrationSource = (userAgent: string): string /* | undefined*/ => {
-  return userAgentMatches.find((candidate) => candidate.matcher.test(userAgent))?.label ?? 'Other';
+export const determineIntegrationSource = (
+  userAgent: string,
+): string /* | undefined*/ => {
+  return (
+    userAgentMatches.find((candidate) => candidate.matcher.test(userAgent))
+      ?.label ?? 'Other'
+  );
 };

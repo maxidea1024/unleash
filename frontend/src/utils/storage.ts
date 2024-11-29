@@ -61,11 +61,16 @@ export function getLocalStorageItem<T>(key: string): T | undefined {
 
 // Store an item in localStorage.
 // Does nothing if the browser denies access.
-export function setLocalStorageItem<T>(key: string, value: T | undefined = undefined, timeToLive?: number) {
+export function setLocalStorageItem<T>(
+  key: string,
+  value: T | undefined = undefined,
+  timeToLive?: number,
+) {
   try {
     const item: Expirable<T> = {
       value,
-      expiry: timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
+      expiry:
+        timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
     };
     window.localStorage.setItem(key, JSON.stringify(item, customReplacer));
   } catch (err: unknown) {
@@ -74,11 +79,16 @@ export function setLocalStorageItem<T>(key: string, value: T | undefined = undef
 }
 
 // Store an item in sessionStorage with optional TTL
-export function setSessionStorageItem<T>(key: string, value: T | undefined = undefined, timeToLive?: number) {
+export function setSessionStorageItem<T>(
+  key: string,
+  value: T | undefined = undefined,
+  timeToLive?: number,
+) {
   try {
     const item: Expirable<T> = {
       value,
-      expiry: timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
+      expiry:
+        timeToLive !== undefined ? new Date().getTime() + timeToLive : null,
     };
     window.sessionStorage.setItem(key, JSON.stringify(item, customReplacer));
   } catch (err: unknown) {
@@ -111,7 +121,9 @@ export function getSessionStorageItem<T>(key: string): T | undefined {
 // Returns undefined if the item could not be parsed.
 function parseStoredItem<T>(data: string | null): Expirable<T> | undefined {
   try {
-    const item: Expirable<T> = data ? JSON.parse(data, deserializer) : undefined;
+    const item: Expirable<T> = data
+      ? JSON.parse(data, deserializer)
+      : undefined;
     return item;
   } catch (err: unknown) {
     console.warn(err);

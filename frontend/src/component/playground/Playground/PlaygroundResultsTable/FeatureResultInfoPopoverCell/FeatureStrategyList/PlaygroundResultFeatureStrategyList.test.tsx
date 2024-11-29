@@ -62,7 +62,8 @@ const testCases = [
       isEnabledInCurrentEnvironment: false,
       hasUnsatisfiedDependency: false,
     } as PlaygroundFeatureSchema,
-    expectedText: 'If environment was enabled, then this feature flag would be TRUE with strategies evaluated like so:',
+    expectedText:
+      'If environment was enabled, then this feature flag would be TRUE with strategies evaluated like so:',
   },
   {
     name: 'Has disabled strategies and is enabled in environment',
@@ -91,7 +92,8 @@ const testCases = [
       isEnabledInCurrentEnvironment: true,
       hasUnsatisfiedDependency: false,
     } as PlaygroundFeatureSchema,
-    expectedText: 'Disabled strategies are not evaluated for the overall result.',
+    expectedText:
+      'Disabled strategies are not evaluated for the overall result.',
   },
   {
     name: 'Has disabled strategies and is disabled in environment',
@@ -120,7 +122,8 @@ const testCases = [
       isEnabledInCurrentEnvironment: false,
       hasUnsatisfiedDependency: false,
     } as PlaygroundFeatureSchema,
-    expectedText: 'Disabled strategies are not evaluated for the overall result.',
+    expectedText:
+      'Disabled strategies are not evaluated for the overall result.',
   },
 ];
 

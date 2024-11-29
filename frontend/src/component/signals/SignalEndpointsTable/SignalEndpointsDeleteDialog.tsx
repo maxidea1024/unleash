@@ -25,7 +25,8 @@ export const SignalEndpointsDeleteDialog = ({
     }}
   >
     <p>
-      You are about to delete signal endpoint: <strong>{signalEndpoint?.name}</strong>
+      You are about to delete signal endpoint:{' '}
+      <strong>{signalEndpoint?.name}</strong>
     </p>
   </Dialogue>
 );

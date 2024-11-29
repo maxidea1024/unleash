@@ -15,13 +15,22 @@ type IUseSearchOutput<T> = {
 // https://stackoverflow.com/questions/9577930/regular-expression-to-select-all-whitespace-that-isnt-in-quotes
 const SPACES_WITHOUT_QUOTES = /\s+(?=(?:[^\'"]*[\'"][^\'"]*[\'"])*[^\'"]*$)/g;
 
-const normalizeSearchValue = (value: string) => value.replaceAll(/\s*,\s*/g, ',');
+const normalizeSearchValue = (value: string) =>
+  value.replaceAll(/\s*,\s*/g, ',');
 
-const removeQuotes = (value: string) => value.replaceAll("'", '').replaceAll('"', '');
+const removeQuotes = (value: string) =>
+  value.replaceAll("'", '').replaceAll('"', '');
 
-export const useSearch = <T>(columns: any[], searchValue: string, data: T[]): IUseSearchOutput<T> => {
+export const useSearch = <T>(
+  columns: any[],
+  searchValue: string,
+  data: T[],
+): IUseSearchOutput<T> => {
   const getSearchText = useCallback(
-    (value: string) => removeQuotes(getSearchTextGenerator(columns)(normalizeSearchValue(value))),
+    (value: string) =>
+      removeQuotes(
+        getSearchTextGenerator(columns)(normalizeSearchValue(value)),
+      ),
     [columns],
   );
   const normalizedSearchValue = normalizeSearchValue(searchValue);
@@ -34,7 +43,11 @@ export const useSearch = <T>(columns: any[], searchValue: string, data: T[]): IU
     if (!normalizedSearchValue) return data;
 
     const filteredData = filter(columns, normalizedSearchValue, data);
-    const searchedData = searchInFilteredData(columns, getSearchText(normalizedSearchValue), filteredData);
+    const searchedData = searchInFilteredData(
+      columns,
+      getSearchText(normalizedSearchValue),
+      filteredData,
+    );
 
     return searchedData;
   }, [columns, normalizedSearchValue, data, getSearchText]);
@@ -62,9 +75,15 @@ export const filter = (columns: any[], searchValue: string, data: any[]) => {
   return filteredDataSet;
 };
 
-export const searchInFilteredData = <T>(columns: any[], searchValue: string, filteredData: T[]) => {
+export const searchInFilteredData = <T>(
+  columns: any[],
+  searchValue: string,
+  filteredData: T[],
+) => {
   const trimmedSearchValue = searchValue.trim();
-  const searchableColumns = columns.filter((column) => column.searchable && column.accessor);
+  const searchableColumns = columns.filter(
+    (column) => column.searchable && column.accessor,
+  );
 
   return filteredData.filter((row) => {
     return searchableColumns.some((column) => {
@@ -81,12 +100,17 @@ const defaultFilter = (fieldValue: string, values: string[]) =>
   values.some((value) => fieldValue?.toLowerCase() === value?.toLowerCase());
 
 export const includesFilter = (fieldValue: string, values: string[]) =>
-  values.some((value) => fieldValue?.toLowerCase().includes(value?.toLowerCase()));
+  values.some((value) =>
+    fieldValue?.toLowerCase().includes(value?.toLowerCase()),
+  );
 
-const defaultSearch = (fieldValue: string, value: string) => fieldValue?.toLowerCase().includes(value?.toLowerCase());
+const defaultSearch = (fieldValue: string, value: string) =>
+  fieldValue?.toLowerCase().includes(value?.toLowerCase());
 
 export const getSearchTextGenerator = (columns: any[]) => {
-  const filters = columns.filter((column) => column.filterName).map((column) => column.filterName);
+  const filters = columns
+    .filter((column) => column.filterName)
+    .map((column) => column.filterName);
 
   const isValidSearch = (fragment: string) => {
     return filters.some((filter) => isValidFilter(fragment, filter));
@@ -111,7 +135,9 @@ export const getColumnValues = (column: any, row: any) => {
     typeof column.accessor === 'function'
       ? column.accessor(row)
       : column.accessor.includes('.')
-        ? column.accessor.split('.').reduce((object: any, key: string) => object?.[key], row)
+        ? column.accessor
+            .split('.')
+            .reduce((object: any, key: string) => object?.[key], row)
         : row[column.accessor];
 
   if (column.filterParsing) {

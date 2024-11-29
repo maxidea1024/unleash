@@ -1,6 +1,13 @@
 import type { Logger } from '../../logger';
-import type { IFeatureSearchStore, IUnleashConfig, IUnleashStores } from '../../types';
-import type { IFeatureSearchParams, IQueryParam } from '../feature-toggle/types/feature-toggle-strategies-store-type';
+import type {
+  IFeatureSearchStore,
+  IUnleashConfig,
+  IUnleashStores,
+} from '../../types';
+import type {
+  IFeatureSearchParams,
+  IQueryParam,
+} from '../feature-toggle/types/feature-toggle-strategies-store-type';
 import { parseSearchOperatorValue } from './search-utils';
 
 export class FeatureSearchService {
@@ -39,13 +46,18 @@ export class FeatureSearchService {
     if (params.state) {
       const parsedState = parseSearchOperatorValue('stale', params.state);
       if (parsedState) {
-        parsedState.values = parsedState.values.map((value) => (value === 'active' ? 'false' : 'true'));
+        parsedState.values = parsedState.values.map((value) =>
+          value === 'active' ? 'false' : 'true',
+        );
         queryParams.push(parsedState);
       }
     }
 
     if (params.createdAt) {
-      const parsed = parseSearchOperatorValue('features.created_at', params.createdAt);
+      const parsed = parseSearchOperatorValue(
+        'features.created_at',
+        params.createdAt,
+      );
       if (parsed) queryParams.push(parsed);
     }
 

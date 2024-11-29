@@ -27,14 +27,20 @@ interface IInviteLinkContentProps {
   setShowInviteLinkContent: (showInviteLinkContent: boolean) => void;
 }
 
-export const InviteLinkContent = ({ id, showInviteLinkContent, setShowInviteLinkContent }: IInviteLinkContentProps) => {
+export const InviteLinkContent = ({
+  id,
+  showInviteLinkContent,
+  setShowInviteLinkContent,
+}: IInviteLinkContentProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onInviteLinkActionClick = (inviteLink?: string) => {
     setShowInviteLinkContent(false);
     trackEvent('invite', {
       props: {
-        eventType: inviteLink ? 'header link bar action: edit' : 'header link bar action: create',
+        eventType: inviteLink
+          ? 'header link bar action: edit'
+          : 'header link bar action: create',
       },
     });
   };

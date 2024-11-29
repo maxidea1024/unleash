@@ -1,6 +1,8 @@
 import type { IChangeRequestAccessReadModel } from './change-request-access-read-model';
 
-export class FakeChangeRequestAccessReadModel implements IChangeRequestAccessReadModel {
+export class FakeChangeRequestAccessReadModel
+  implements IChangeRequestAccessReadModel
+{
   private readonly canBypass: boolean;
   private readonly isChangeRequestEnabled: boolean;
 

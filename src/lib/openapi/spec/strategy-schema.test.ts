@@ -19,7 +19,9 @@ test('strategySchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/strategySchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/strategySchema', data),
+  ).toBeUndefined();
 
   // allow null descriptions
   expect(
@@ -29,8 +31,12 @@ test('strategySchema', () => {
     }),
   ).toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/strategySchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/strategySchema', {}),
+  ).toMatchSnapshot();
 
   const { title, ...noTitle } = { ...data };
-  expect(validateSchema('#/components/schemas/strategySchema', noTitle)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/strategySchema', noTitle),
+  ).toBeUndefined();
 });

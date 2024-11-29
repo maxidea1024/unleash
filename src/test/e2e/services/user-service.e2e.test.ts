@@ -119,8 +119,12 @@ test('should create initial admin user', async () => {
   await userService.initAdminUser({
     createAdminUser: true,
   });
-  await expect(async () => userService.loginUser('admin', 'wrong-password')).rejects.toThrow(Error);
-  await expect(async () => userService.loginUser('admin', 'unleash4all')).toBeTruthy();
+  await expect(async () =>
+    userService.loginUser('admin', 'wrong-password'),
+  ).rejects.toThrow(Error);
+  await expect(async () =>
+    userService.loginUser('admin', 'unleash4all'),
+  ).toBeTruthy();
 });
 
 test('should not init default user if we already have users', async () => {
@@ -138,13 +142,18 @@ test('should not init default user if we already have users', async () => {
   const users = await userService.getAll();
   expect(users).toHaveLength(1);
   expect(users[0].username).toBe('test');
-  await expect(async () => userService.loginUser('admin', 'unleash4all')).rejects.toThrow(Error);
+  await expect(async () =>
+    userService.loginUser('admin', 'unleash4all'),
+  ).rejects.toThrow(Error);
 });
 
 test('should not be allowed to create existing user', async () => {
   await userStore.insert({ username: 'test', name: 'Hans Mola' });
   await expect(async () =>
-    userService.createUser({ username: 'test', rootRole: adminRole.id }, TEST_AUDIT_USER),
+    userService.createUser(
+      { username: 'test', rootRole: adminRole.id },
+      TEST_AUDIT_USER,
+    ),
   ).rejects.toThrow(Error);
 });
 
@@ -191,7 +200,10 @@ test('should update user with rootRole in audit-log', async () => {
     TEST_AUDIT_USER,
   );
 
-  await userService.updateUser({ id: user.id, rootRole: adminRole.id }, TEST_AUDIT_USER);
+  await userService.updateUser(
+    { id: user.id, rootRole: adminRole.id },
+    TEST_AUDIT_USER,
+  );
 
   const { events } = await eventService.getEvents();
   expect(events[0].type).toBe(USER_UPDATED);
@@ -230,7 +242,9 @@ test('should not be able to login with deleted user', async () => {
 
   await userService.deleteUser(user.id, TEST_AUDIT_USER);
 
-  await expect(userService.loginUser('deleted_user', 'unleash4all')).rejects.toThrow(
+  await expect(
+    userService.loginUser('deleted_user', 'unleash4all'),
+  ).rejects.toThrow(
     new PasswordMismatch(
       'The combination of password and username you provided is invalid. If you have forgotten your password, visit /forgotten-password or get in touch with your instance administrator.',
     ),
@@ -250,7 +264,9 @@ test('should not be able to login without password_hash on user', async () => {
   /*@ts-ignore: we are testing for null on purpose! */
   await userStore.setPasswordHash(user.id, null);
 
-  await expect(userService.loginUser('deleted_user', 'anything-should-fail')).rejects.toThrow(
+  await expect(
+    userService.loginUser('deleted_user', 'anything-should-fail'),
+  ).rejects.toThrow(
     new PasswordMismatch(
       'The combination of password and username you provided is invalid. If you have forgotten your password, visit /forgotten-password or get in touch with your instance administrator.',
     ),
@@ -258,7 +274,12 @@ test('should not be able to login without password_hash on user', async () => {
 });
 
 test('should not login user if simple auth is disabled', async () => {
-  await settingService.insert(simpleAuthSettingsKey, { disabled: true }, TEST_AUDIT_USER, true);
+  await settingService.insert(
+    simpleAuthSettingsKey,
+    { disabled: true },
+    TEST_AUDIT_USER,
+    true,
+  );
 
   await userService.createUser(
     {
@@ -271,7 +292,9 @@ test('should not login user if simple auth is disabled', async () => {
 
   await expect(async () => {
     await userService.loginUser('test_no_pass', 'A very strange P4ssw0rd_');
-  }).rejects.toThrowError('Logging in with username/password has been disabled.');
+  }).rejects.toThrowError(
+    'Logging in with username/password has been disabled.',
+  );
 });
 
 test('should login for user _without_ password', async () => {
@@ -379,7 +402,10 @@ test('user login should remove stale sessions', async () => {
     await sessionService.insertSession(userSession(i));
   }
 
-  const loggedInUser = await userService.loginUser(email, 'A very strange P4ssw0rd_');
+  const loggedInUser = await userService.loginUser(
+    email,
+    'A very strange P4ssw0rd_',
+  );
 
   expect(loggedInUser.deletedSessions).toBe(1);
   expect(loggedInUser.activeSessions).toBe(allowedSessions);
@@ -554,9 +580,12 @@ describe('Should not be able to use any of previous 5 passwords', () => {
       name,
       password,
     });
-    await expect(userService.changePasswordWithPreviouslyUsedPasswordCheck(user.id, password)).rejects.toThrow(
-      new PasswordPreviouslyUsedError(),
-    );
+    await expect(
+      userService.changePasswordWithPreviouslyUsedPasswordCheck(
+        user.id,
+        password,
+      ),
+    ).rejects.toThrow(new PasswordPreviouslyUsedError());
   });
   test('Is still able to change password to one not used', async () => {
     const name = 'new-password-is-allowed';
@@ -569,7 +598,10 @@ describe('Should not be able to use any of previous 5 passwords', () => {
       password,
     });
     await expect(
-      userService.changePasswordWithPreviouslyUsedPasswordCheck(user.id, 'internalScreaming$123'),
+      userService.changePasswordWithPreviouslyUsedPasswordCheck(
+        user.id,
+        'internalScreaming$123',
+      ),
     ).resolves.not.toThrow();
   });
   test('Remembers 5 passwords', async () => {
@@ -583,10 +615,16 @@ describe('Should not be able to use any of previous 5 passwords', () => {
       password,
     });
     for (let i = 0; i < 5; i++) {
-      await userService.changePasswordWithPreviouslyUsedPasswordCheck(user.id, `${password}${i}`);
+      await userService.changePasswordWithPreviouslyUsedPasswordCheck(
+        user.id,
+        `${password}${i}`,
+      );
     }
     await expect(
-      userService.changePasswordWithPreviouslyUsedPasswordCheck(user.id, `${password}`),
+      userService.changePasswordWithPreviouslyUsedPasswordCheck(
+        user.id,
+        `${password}`,
+      ),
     ).resolves.not.toThrow(); // We've added 5 new passwords, so the original should work again
   });
   test('Can bypass check by directly calling the changePassword method', async () => {
@@ -599,6 +637,8 @@ describe('Should not be able to use any of previous 5 passwords', () => {
       name,
       password,
     });
-    await expect(userService.changePassword(user.id, `${password}`)).resolves.not.toThrow(); // By bypassing the check, we can still set the same password as currently set
+    await expect(
+      userService.changePassword(user.id, `${password}`),
+    ).resolves.not.toThrow(); // By bypassing the check, we can still set the same password as currently set
   });
 });

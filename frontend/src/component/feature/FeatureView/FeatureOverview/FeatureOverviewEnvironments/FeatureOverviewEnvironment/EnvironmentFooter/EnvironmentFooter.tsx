@@ -6,7 +6,9 @@ interface IEnvironmentFooterProps {
   environmentMetric?: IFeatureEnvironmentMetrics;
 }
 
-export const EnvironmentFooter = ({ environmentMetric }: IEnvironmentFooterProps) => {
+export const EnvironmentFooter = ({
+  environmentMetric,
+}: IEnvironmentFooterProps) => {
   if (!environmentMetric) {
     return null;
   }
@@ -16,7 +18,11 @@ export const EnvironmentFooter = ({ environmentMetric }: IEnvironmentFooterProps
       <SectionSeparator>Feature flag exposure</SectionSeparator>
 
       <div>
-        <FeatureMetricsStats totalYes={environmentMetric.yes} totalNo={environmentMetric.no} hoursBack={1} />
+        <FeatureMetricsStats
+          totalYes={environmentMetric.yes}
+          totalNo={environmentMetric.no}
+          hoursBack={1}
+        />
       </div>
     </>
   );

@@ -24,7 +24,10 @@ const FeatureSettingsProject = () => {
   const [project, setProject] = useState(projectId);
   const { projects } = useProjects();
   const navigate = useNavigate();
-  const { changeRequests } = usePendingChangeRequestsForFeature(projectId, featureId);
+  const { changeRequests } = usePendingChangeRequestsForFeature(
+    projectId,
+    featureId,
+  );
 
   const onConfirm = async () => {
     try {
@@ -43,7 +46,9 @@ const FeatureSettingsProject = () => {
   };
 
   const targetProjectIds = useMemo(() => {
-    return projects.map((project) => project.id).filter((projectId) => hasAccess(MOVE_FEATURE_TOGGLE, projectId));
+    return projects
+      .map((project) => project.id)
+      .filter((projectId) => hasAccess(MOVE_FEATURE_TOGGLE, projectId));
   }, [projects, hasAccess]);
 
   if (targetProjectIds.length === 0) {

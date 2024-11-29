@@ -9,7 +9,8 @@ interface IUseAuthSplashOutput {
 
 export const useAuthSplash = (): IUseAuthSplashOutput => {
   const auth = useAuthEndpoint();
-  const splash = auth.data && 'splash' in auth.data ? auth.data.splash : undefined;
+  const splash =
+    auth.data && 'splash' in auth.data ? auth.data.splash : undefined;
 
   return {
     splash,

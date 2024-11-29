@@ -1,5 +1,13 @@
 import { useState, type VFC } from 'react';
-import { IconButton, ListItemIcon, ListItemText, MenuList, Popover, Tooltip, Typography } from '@mui/material';
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  MenuList,
+  Popover,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import ColumnIcon from '@mui/icons-material/ViewWeek';
 import CloseIcon from '@mui/icons-material/Close';
 import {
@@ -21,7 +29,10 @@ interface IColumnsMenuProps {
   onToggle?: (id: string) => void;
 }
 
-export const ExperimentalColumnsMenu: VFC<IColumnsMenuProps> = ({ columns, onToggle }) => {
+export const ExperimentalColumnsMenu: VFC<IColumnsMenuProps> = ({
+  columns,
+  onToggle,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const onIconClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -105,7 +116,12 @@ export const ExperimentalColumnsMenu: VFC<IColumnsMenuProps> = ({ columns, onTog
                     size='medium'
                   />
                 </ListItemIcon>
-                <ListItemText id={column.id} primary={<Typography variant='body2'>{column.header}</Typography>} />
+                <ListItemText
+                  id={column.id}
+                  primary={
+                    <Typography variant='body2'>{column.header}</Typography>
+                  }
+                />
               </StyledMenuItem>
             ),
           )}

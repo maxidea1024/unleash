@@ -3,7 +3,9 @@ import type { IAuthFeedback } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 
 export const PNPS_FEEDBACK_ID = 'pnps';
 
-export const showNPSFeedback = (feedbackList: IAuthFeedback[] | undefined): boolean => {
+export const showNPSFeedback = (
+  feedbackList: IAuthFeedback[] | undefined,
+): boolean => {
   if (!feedbackList) {
     return false;
   }
@@ -12,7 +14,9 @@ export const showNPSFeedback = (feedbackList: IAuthFeedback[] | undefined): bool
     return true;
   }
 
-  const feedback = feedbackList.find((feedback) => feedback.feedbackId === PNPS_FEEDBACK_ID);
+  const feedback = feedbackList.find(
+    (feedback) => feedback.feedbackId === PNPS_FEEDBACK_ID,
+  );
 
   if (!feedback) {
     return true;

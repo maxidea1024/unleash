@@ -28,4 +28,6 @@ export const projectFlagCreatorsSchema = {
   },
 } as const;
 
-export type ProjectFlagCreatorsSchema = FromSchema<typeof projectFlagCreatorsSchema>;
+export type ProjectFlagCreatorsSchema = FromSchema<
+  typeof projectFlagCreatorsSchema
+>;

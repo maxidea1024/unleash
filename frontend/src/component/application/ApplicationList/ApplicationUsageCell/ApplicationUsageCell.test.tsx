@@ -9,7 +9,11 @@ test('displays not connected if no usage found', () => {
 });
 
 test('display project and environments in correct manner', () => {
-  render(<ApplicationUsageCell usage={[{ project: 'myProject', environments: ['dev', 'production'] }]} />);
+  render(
+    <ApplicationUsageCell
+      usage={[{ project: 'myProject', environments: ['dev', 'production'] }]}
+    />,
+  );
 
   const anchor = screen.getByRole('link');
   expect(anchor).toHaveAttribute('href', '/projects/myProject');
@@ -17,7 +21,11 @@ test('display project and environments in correct manner', () => {
 });
 
 test('when no specific project is defined, do not create link', () => {
-  render(<ApplicationUsageCell usage={[{ project: '*', environments: ['dev', 'production'] }]} />);
+  render(
+    <ApplicationUsageCell
+      usage={[{ project: '*', environments: ['dev', 'production'] }]}
+    />,
+  );
 
   const anchor = screen.queryByRole('link');
   expect(anchor).not.toBeInTheDocument();

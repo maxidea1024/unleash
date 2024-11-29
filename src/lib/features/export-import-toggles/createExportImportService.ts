@@ -10,8 +10,16 @@ import FeatureTagStore from '../../db/feature-tag-store';
 import StrategyStore from '../../db/strategy-store';
 import ContextFieldStore from '../../db/context-field-store';
 import FeatureStrategiesStore from '../feature-toggle/feature-toggle-strategies-store';
-import { ContextService, FeatureTagService, StrategyService, TagTypeService } from '../../services';
-import { createAccessService, createFakeAccessService } from '../access/createAccessService';
+import {
+  ContextService,
+  FeatureTagService,
+  StrategyService,
+  TagTypeService,
+} from '../../services';
+import {
+  createAccessService,
+  createFakeAccessService,
+} from '../access/createAccessService';
 import {
   createFakeFeatureToggleService,
   createFeatureToggleService,
@@ -38,11 +46,16 @@ import {
   createDependentFeaturesService,
   createFakeDependentFeaturesService,
 } from '../dependent-features/createDependentFeaturesService';
-import { createEventsService, createFakeEventsService } from '../events/createEventsService';
+import {
+  createEventsService,
+  createFakeEventsService,
+} from '../events/createEventsService';
 import { SegmentReadModel } from '../segment/segment-read-model';
 import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 
-export const createFakeExportImportTogglesService = (config: IUnleashConfig): ExportImportService => {
+export const createFakeExportImportTogglesService = (
+  config: IUnleashConfig,
+): ExportImportService => {
   const { getLogger, flagResolver } = config;
   const importTogglesStore = {} as ImportTogglesStore;
   const featureToggleStore = new FakeFeatureToggleStore();
@@ -79,8 +92,16 @@ export const createFakeExportImportTogglesService = (config: IUnleashConfig): Ex
     eventService,
     privateProjectChecker,
   );
-  const strategyService = new StrategyService({ strategyStore }, { getLogger }, eventService);
-  const tagTypeService = new TagTypeService({ tagTypeStore }, { getLogger }, eventService);
+  const strategyService = new StrategyService(
+    { strategyStore },
+    { getLogger },
+    eventService,
+  );
+  const tagTypeService = new TagTypeService(
+    { tagTypeStore },
+    { getLogger },
+    eventService,
+  );
   const dependentFeaturesReadModel = new FakeDependentFeaturesReadModel();
 
   const segmentReadModel = new FakeSegmentReadModel();
@@ -121,15 +142,38 @@ export const deferredExportImportTogglesService = (
   return (db: Db) => {
     const { eventBus, getLogger, flagResolver } = config;
     const importTogglesStore = new ImportTogglesStore(db);
-    const featureToggleStore = new FeatureToggleStore(db, eventBus, getLogger, flagResolver);
+    const featureToggleStore = new FeatureToggleStore(
+      db,
+      eventBus,
+      getLogger,
+      flagResolver,
+    );
     const tagStore = new TagStore(db, eventBus, getLogger);
     const tagTypeStore = new TagTypeStore(db, eventBus, getLogger);
-    const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);
+    const projectStore = new ProjectStore(
+      db,
+      eventBus,
+      getLogger,
+      flagResolver,
+    );
     const featureTagStore = new FeatureTagStore(db, eventBus, getLogger);
     const strategyStore = new StrategyStore(db, getLogger);
-    const contextFieldStore = new ContextFieldStore(db, getLogger, flagResolver);
-    const featureStrategiesStore = new FeatureStrategiesStore(db, eventBus, getLogger, flagResolver);
-    const featureEnvironmentStore = new FeatureEnvironmentStore(db, eventBus, getLogger);
+    const contextFieldStore = new ContextFieldStore(
+      db,
+      getLogger,
+      flagResolver,
+    );
+    const featureStrategiesStore = new FeatureStrategiesStore(
+      db,
+      eventBus,
+      getLogger,
+      flagResolver,
+    );
+    const featureEnvironmentStore = new FeatureEnvironmentStore(
+      db,
+      eventBus,
+      getLogger,
+    );
     const eventStore = new EventStore(db, getLogger);
     const accessService = createAccessService(db, config);
     const featureToggleService = createFeatureToggleService(db, config);
@@ -156,8 +200,16 @@ export const deferredExportImportTogglesService = (
       eventService,
       privateProjectChecker,
     );
-    const strategyService = new StrategyService({ strategyStore }, { getLogger }, eventService);
-    const tagTypeService = new TagTypeService({ tagTypeStore }, { getLogger }, eventService);
+    const strategyService = new StrategyService(
+      { strategyStore },
+      { getLogger },
+      eventService,
+    );
+    const tagTypeService = new TagTypeService(
+      { tagTypeStore },
+      { getLogger },
+      eventService,
+    );
     const dependentFeaturesReadModel = new DependentFeaturesReadModel(db);
 
     const segmentReadModel = new SegmentReadModel(db);
@@ -193,7 +245,10 @@ export const deferredExportImportTogglesService = (
   };
 };
 
-export const createExportImportTogglesService = (db: Db, config: IUnleashConfig): ExportImportService => {
+export const createExportImportTogglesService = (
+  db: Db,
+  config: IUnleashConfig,
+): ExportImportService => {
   const unboundService = deferredExportImportTogglesService(config);
   return unboundService(db);
 };

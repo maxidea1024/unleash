@@ -3,7 +3,8 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const applicationEnvironmentInstancesSchema = {
   $id: '#/components/schemas/applicationEnvironmentInstanceSchema',
   type: 'object',
-  description: 'Data about an application environment instances that are connected to Unleash via an SDK.',
+  description:
+    'Data about an application environment instances that are connected to Unleash via an SDK.',
   additionalProperties: false,
   required: ['instances'],
   properties: {
@@ -23,19 +24,22 @@ export const applicationEnvironmentInstancesSchema = {
           },
           sdkVersion: {
             type: 'string',
-            description: 'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
+            description:
+              'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
             example: 'unleash-client-java:7.0.0',
           },
           clientIp: {
             type: 'string',
-            description: 'An IP address identifying the instance of the application running the SDK',
+            description:
+              'An IP address identifying the instance of the application running the SDK',
             example: '192.168.0.1',
           },
           lastSeen: {
             type: 'string',
             format: 'date-time',
             example: '2023-04-19T08:15:14.000Z',
-            description: 'The last time the application environment instance was seen',
+            description:
+              'The last time the application environment instance was seen',
           },
         },
       },
@@ -44,4 +48,6 @@ export const applicationEnvironmentInstancesSchema = {
   components: {},
 } as const;
 
-export type ApplicationEnvironmentInstancesSchema = FromSchema<typeof applicationEnvironmentInstancesSchema>;
+export type ApplicationEnvironmentInstancesSchema = FromSchema<
+  typeof applicationEnvironmentInstancesSchema
+>;

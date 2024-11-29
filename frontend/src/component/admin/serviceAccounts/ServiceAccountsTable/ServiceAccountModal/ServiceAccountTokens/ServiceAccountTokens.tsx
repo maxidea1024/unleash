@@ -1,5 +1,13 @@
 import Delete from '@mui/icons-material/Delete';
-import { Button, IconButton, styled, Tooltip, Typography, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Button,
+  IconButton,
+  styled,
+  Tooltip,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { Search } from 'component/common/Search/Search';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
@@ -10,9 +18,17 @@ import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightC
 import { PAT_LIMIT } from '@server/util/constants';
 import { useServiceAccountTokens } from 'hooks/api/getters/useServiceAccountTokens/useServiceAccountTokens';
 import { useSearch } from 'hooks/useSearch';
-import type { INewPersonalAPIToken, IPersonalAPIToken } from 'interfaces/personalAPIToken';
+import type {
+  INewPersonalAPIToken,
+  IPersonalAPIToken,
+} from 'interfaces/personalAPIToken';
 import { useMemo, useState } from 'react';
-import { useTable, type SortingRule, useSortBy, useFlexLayout } from 'react-table';
+import {
+  useTable,
+  type SortingRule,
+  useSortBy,
+  useFlexLayout,
+} from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { ServiceAccountCreateTokenDialog } from './ServiceAccountCreateTokenDialog/ServiceAccountCreateTokenDialog';
 import { ServiceAccountTokenDialog } from 'component/admin/serviceAccounts/ServiceAccountsTable/ServiceAccountTokenDialog/ServiceAccountTokenDialog';
@@ -60,7 +76,9 @@ const StyledPlaceholderSubtitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
 
-export type PageQueryType = Partial<Record<'sort' | 'order' | 'search', string>>;
+export type PageQueryType = Partial<
+  Record<'sort' | 'order' | 'search', string>
+>;
 
 const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 
@@ -69,14 +87,20 @@ interface IServiceAccountTokensProps {
   readOnly?: boolean;
 }
 
-export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccountTokensProps) => {
+export const ServiceAccountTokens = ({
+  serviceAccount,
+  readOnly,
+}: IServiceAccountTokensProps) => {
   const theme = useTheme();
   const { setToastData, setToastApiError } = useToast();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const { tokens = [], refetchTokens } = useServiceAccountTokens(serviceAccount.id);
+  const { tokens = [], refetchTokens } = useServiceAccountTokens(
+    serviceAccount.id,
+  );
   const { refetch } = useServiceAccounts();
-  const { createServiceAccountToken, deleteServiceAccountToken } = useServiceAccountTokensApi();
+  const { createServiceAccountToken, deleteServiceAccountToken } =
+    useServiceAccountTokensApi();
 
   const [initialState] = useState(() => ({
     sortBy: readOnly ? [{ id: 'seenAt' }] : [defaultSort],
@@ -91,7 +115,10 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
 
   const onCreateClick = async (newToken: ICreateServiceAccountTokenPayload) => {
     try {
-      const token = await createServiceAccountToken(serviceAccount.id, newToken);
+      const token = await createServiceAccountToken(
+        serviceAccount.id,
+        newToken,
+      );
       refetch();
       refetchTokens();
       setCreateOpen(false);
@@ -183,7 +210,11 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
     [setSelectedToken, setDeleteOpen],
   );
 
-  const { data, getSearchText, getSearchContext } = useSearch(columns, searchValue, tokens);
+  const { data, getSearchText, getSearchContext } = useSearch(
+    columns,
+    searchValue,
+    tokens,
+  );
 
   const { headerGroups, rows, prepareRow, setHiddenColumns } = useTable(
     {
@@ -225,7 +256,11 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
         condition={!readOnly}
         show={
           <StyledHeader>
-            <Search initialValue={searchValue} onChange={setSearchValue} getSearchContext={getSearchContext} />
+            <Search
+              initialValue={searchValue}
+              onChange={setSearchValue}
+              getSearchContext={getSearchContext}
+            />
             <Button
               variant='contained'
               color='primary'
@@ -238,7 +273,11 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
         }
       />
       <SearchHighlightProvider value={getSearchText(searchValue)}>
-        <VirtualizedTable rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+        <VirtualizedTable
+          rows={rows}
+          headerGroups={headerGroups}
+          prepareRow={prepareRow}
+        />
       </SearchHighlightProvider>
       <ConditionallyRender
         condition={rows.length === 0}
@@ -254,7 +293,9 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
             }
             elseShow={
               <StyledTablePlaceholder>
-                <StyledPlaceholderTitle>You have no tokens for this service account yet.</StyledPlaceholderTitle>
+                <StyledPlaceholderTitle>
+                  You have no tokens for this service account yet.
+                </StyledPlaceholderTitle>
                 <StyledPlaceholderSubtitle>
                   Create a service account token for access to the Unleash API.
                 </StyledPlaceholderSubtitle>
@@ -272,7 +313,11 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
         tokens={tokens}
         onCreateClick={onCreateClick}
       />
-      <ServiceAccountTokenDialog open={tokenOpen} setOpen={setTokenOpen} token={newToken} />
+      <ServiceAccountTokenDialog
+        open={tokenOpen}
+        setOpen={setTokenOpen}
+        token={newToken}
+      />
       <Dialogue
         open={deleteOpen}
         primaryButtonText='Delete token'
@@ -284,8 +329,9 @@ export const ServiceAccountTokens = ({ serviceAccount, readOnly }: IServiceAccou
         title='Delete token?'
       >
         <Typography>
-          Any applications or scripts using this token "<strong>{selectedToken?.description}</strong>" will no longer be
-          able to access the Unleash API. You cannot undo this action.
+          Any applications or scripts using this token "
+          <strong>{selectedToken?.description}</strong>" will no longer be able
+          to access the Unleash API. You cannot undo this action.
         </Typography>
       </Dialogue>
     </>

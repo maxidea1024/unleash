@@ -7,9 +7,13 @@ export type MockTransaction = null;
 
 export type UnleashTransaction = KnexTransaction | MockTransaction;
 
-export type TransactionCreator<S> = <T>(scope: (trx: S) => void | Promise<T>) => Promise<T>;
+export type TransactionCreator<S> = <T>(
+  scope: (trx: S) => void | Promise<T>,
+) => Promise<T>;
 
-export const createKnexTransactionStarter = (knex: Knex): TransactionCreator<UnleashTransaction> => {
+export const createKnexTransactionStarter = (
+  knex: Knex,
+): TransactionCreator<UnleashTransaction> => {
   function transaction<T>(scope: (trx: KnexTransaction) => void | Promise<T>) {
     if (!knex) {
       console.warn(
@@ -27,7 +31,9 @@ export type DeferredServiceFactory<S> = (db: Knex) => S;
  * Limiting the input parameters, makes sure we don't inject already instantiated services
  * that might be bound to a different transaction.
  */
-export type ServiceFactory<S> = (config: IUnleashConfig) => DeferredServiceFactory<S>;
+export type ServiceFactory<S> = (
+  config: IUnleashConfig,
+) => DeferredServiceFactory<S>;
 
 export type WithTransactional<S> = S & {
   transactional: <R>(fn: (service: S) => R) => Promise<R>;
@@ -51,7 +57,10 @@ export type WithRollbackTransaction<S> = S & {
  *
  * https://github.com/knex/knex/blob/bbbe4d4637b3838e4a297a457460cd2c76a700d5/lib/knex-builder/make-knex.js#L143C5-L144C88
  */
-export async function inTransaction<R>(db: Knex, fn: (db: Knex) => R): Promise<R> {
+export async function inTransaction<R>(
+  db: Knex,
+  fn: (db: Knex) => R,
+): Promise<R> {
   if (db.isTransaction) {
     return fn(db);
   }
@@ -59,7 +68,10 @@ export async function inTransaction<R>(db: Knex, fn: (db: Knex) => R): Promise<R
   return db.transaction(async (tx) => fn(tx));
 }
 
-export function withTransactional<S>(serviceFactory: (db: Knex) => S, db: Knex): WithTransactional<S> {
+export function withTransactional<S>(
+  serviceFactory: (db: Knex) => S,
+  db: Knex,
+): WithTransactional<S> {
   const service = serviceFactory(db) as WithTransactional<S>;
 
   service.transactional = async <R>(fn: (service: S) => R) =>
@@ -73,7 +85,10 @@ export function withTransactional<S>(serviceFactory: (db: Knex) => S, db: Knex):
   return service;
 }
 
-export function withRollbackTransaction<S>(serviceFactory: (db: Knex) => S, db: Knex): WithRollbackTransaction<S> {
+export function withRollbackTransaction<S>(
+  serviceFactory: (db: Knex) => S,
+  db: Knex,
+): WithRollbackTransaction<S> {
   const service = serviceFactory(db) as WithRollbackTransaction<S>;
 
   service.rollbackTransaction = async <R>(fn: (service: S) => R) => {
@@ -94,7 +109,9 @@ export function withRollbackTransaction<S>(serviceFactory: (db: Knex) => S, db: 
 export function withFakeTransactional<S>(service: S): WithTransactional<S> {
   const serviceWithFakeTransactional = service as WithTransactional<S>;
 
-  serviceWithFakeTransactional.transactional = async <R>(fn: (service: S) => R) => fn(serviceWithFakeTransactional);
+  serviceWithFakeTransactional.transactional = async <R>(
+    fn: (service: S) => R,
+  ) => fn(serviceWithFakeTransactional);
 
   return serviceWithFakeTransactional;
 }

@@ -4,7 +4,11 @@ import type { IUnleashTest } from './test-helper';
 export const FEATURES_BASE_PATH = '/api/admin/projects/default/features';
 export const ADMIN_BASE_PATH = '/api/admin';
 
-export const createFeatureFlag = (app: IUnleashTest, postData: object, expectStatusCode = 201): Promise<unknown> =>
+export const createFeatureFlag = (
+  app: IUnleashTest,
+  postData: object,
+  expectStatusCode = 201,
+): Promise<unknown> =>
   app.request.post(FEATURES_BASE_PATH).send(postData).expect(expectStatusCode);
 
 export const addStrategyToFeatureEnv = (

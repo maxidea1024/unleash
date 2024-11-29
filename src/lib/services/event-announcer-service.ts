@@ -11,7 +11,10 @@ export default class EventAnnouncer {
 
   constructor(
     { eventStore }: Pick<IUnleashStores, 'eventStore'>,
-    { getLogger, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    {
+      getLogger,
+      flagResolver,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
   ) {
     this.logger = getLogger('event-announcer-service.ts');
 

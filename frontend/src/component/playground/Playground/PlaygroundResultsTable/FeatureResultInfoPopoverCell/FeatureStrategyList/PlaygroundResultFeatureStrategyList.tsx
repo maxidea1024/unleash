@@ -11,9 +11,16 @@ interface PlaygroundResultFeatureStrategyListProps {
   input?: PlaygroundRequestSchema;
 }
 
-export const PlaygroundResultFeatureStrategyList = ({ feature, input }: PlaygroundResultFeatureStrategyListProps) => {
-  const enabledStrategies = feature.strategies?.data?.filter((strategy) => !strategy.disabled);
-  const disabledStrategies = feature.strategies?.data?.filter((strategy) => strategy.disabled);
+export const PlaygroundResultFeatureStrategyList = ({
+  feature,
+  input,
+}: PlaygroundResultFeatureStrategyListProps) => {
+  const enabledStrategies = feature.strategies?.data?.filter(
+    (strategy) => !strategy.disabled,
+  );
+  const disabledStrategies = feature.strategies?.data?.filter(
+    (strategy) => strategy.disabled,
+  );
 
   const showDisabledStrategies = disabledStrategies?.length > 0;
 
@@ -23,16 +30,23 @@ export const PlaygroundResultFeatureStrategyList = ({ feature, input }: Playgrou
         condition={feature?.strategies?.data?.length === 0}
         show={
           <Alert severity='warning' sx={{ mt: 2 }}>
-            There are no strategies added to this feature flag in selected environment.
+            There are no strategies added to this feature flag in selected
+            environment.
           </Alert>
         }
       />
       <ConditionallyRender
         condition={
-          (feature.hasUnsatisfiedDependency || !feature.isEnabledInCurrentEnvironment) &&
+          (feature.hasUnsatisfiedDependency ||
+            !feature.isEnabledInCurrentEnvironment) &&
           Boolean(feature?.strategies?.data)
         }
-        show={<WrappedPlaygroundResultStrategyList feature={feature} input={input} />}
+        show={
+          <WrappedPlaygroundResultStrategyList
+            feature={feature}
+            input={input}
+          />
+        }
         elseShow={
           <>
             <PlaygroundResultStrategyLists
@@ -47,7 +61,9 @@ export const PlaygroundResultFeatureStrategyList = ({ feature, input }: Playgrou
                   strategies={disabledStrategies}
                   input={input}
                   titlePrefix={'Disabled'}
-                  infoText={'Disabled strategies are not evaluated for the overall result.'}
+                  infoText={
+                    'Disabled strategies are not evaluated for the overall result.'
+                  }
                 />
               }
             />

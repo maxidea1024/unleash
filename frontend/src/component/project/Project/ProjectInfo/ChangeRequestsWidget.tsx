@@ -3,7 +3,11 @@ import useLoading from 'hooks/useLoading';
 import { Box, styled, Typography } from '@mui/material';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';
 
-import { StyledCount, StyledProjectInfoWidgetContainer, StyledWidgetTitle } from './ProjectInfo.styles';
+import {
+  StyledCount,
+  StyledProjectInfoWidgetContainer,
+  StyledWidgetTitle,
+} from './ProjectInfo.styles';
 import { useProjectChangeRequests } from 'hooks/api/getters/useProjectChangeRequests/useProjectChangeRequests';
 import { WidgetFooterLink } from './WidgetFooterLink';
 
@@ -53,12 +57,20 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
 }));
 
 const ChangeRequestsLabel = () => (
-  <Typography component='span' variant='body2' color='text.secondary' lineHeight={1} data-loading={LOADING_LABEL}>
+  <Typography
+    component='span'
+    variant='body2'
+    color='text.secondary'
+    lineHeight={1}
+    data-loading={LOADING_LABEL}
+  >
     change requests
   </Typography>
 );
 
-export const ChangeRequestsWidget: FC<IChangeRequestsWidgetProps> = ({ projectId }) => {
+export const ChangeRequestsWidget: FC<IChangeRequestsWidgetProps> = ({
+  projectId,
+}) => {
   const { changeRequests, loading } = useProjectChangeRequests(projectId);
   const loadingRef = useLoading(loading, `[data-loading="${LOADING_LABEL}"]`);
   const toBeApplied = changeRequests?.filter(
@@ -72,10 +84,14 @@ export const ChangeRequestsWidget: FC<IChangeRequestsWidgetProps> = ({ projectId
     <StyledProjectInfoWidgetContainer ref={loadingRef}>
       <StyledWidgetTitle>Open change requests</StyledWidgetTitle>
       <StyledContentBox>
-        <StyledChangeBox sx={{ background: (theme) => theme.palette.success.light }}>
+        <StyledChangeBox
+          sx={{ background: (theme) => theme.palette.success.light }}
+        >
           <StyledSubtitle>To be applied</StyledSubtitle>
           <StyledChangeRequestStatusInfo>
-            <StyledApprovedCount data-loading={LOADING_LABEL}>{toBeApplied || 0}</StyledApprovedCount>{' '}
+            <StyledApprovedCount data-loading={LOADING_LABEL}>
+              {toBeApplied || 0}
+            </StyledApprovedCount>{' '}
             <ChangeRequestsLabel />
           </StyledChangeRequestStatusInfo>
         </StyledChangeBox>
@@ -86,12 +102,16 @@ export const ChangeRequestsWidget: FC<IChangeRequestsWidgetProps> = ({ projectId
         >
           <StyledSubtitle>To be reviewed</StyledSubtitle>
           <StyledChangeRequestStatusInfo>
-            <StyledInReviewCount data-loading={LOADING_LABEL}>{toBeReviewed || 0}</StyledInReviewCount>{' '}
+            <StyledInReviewCount data-loading={LOADING_LABEL}>
+              {toBeReviewed || 0}
+            </StyledInReviewCount>{' '}
             <ChangeRequestsLabel />
           </StyledChangeRequestStatusInfo>
         </StyledChangeBox>
       </StyledContentBox>
-      <WidgetFooterLink to={`/projects/${projectId}/change-requests`}>View change requests</WidgetFooterLink>
+      <WidgetFooterLink to={`/projects/${projectId}/change-requests`}>
+        View change requests
+      </WidgetFooterLink>
     </StyledProjectInfoWidgetContainer>
   );
 };

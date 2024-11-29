@@ -7,7 +7,8 @@ export const clientApplicationSchema = {
   description: 'A client application is an instance of one of our SDKs',
   properties: {
     appName: {
-      description: 'An identifier for the app that uses the sdk, should be static across SDK restarts',
+      description:
+        'An identifier for the app that uses the sdk, should be static across SDK restarts',
       type: 'string',
       example: 'example-app',
     },
@@ -19,7 +20,8 @@ export const clientApplicationSchema = {
     },
     sdkVersion: {
       type: 'string',
-      description: 'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
+      description:
+        'An SDK version identifier. Usually formatted as "unleash-client-<language>:<version>"',
       example: 'unleash-client-java:7.0.0',
     },
     environment: {
@@ -47,7 +49,8 @@ export const clientApplicationSchema = {
       example: '1.0.0',
     },
     specVersion: {
-      description: 'The version of the Unleash client specification the client supports',
+      description:
+        'The version of the Unleash client specification the client supports',
       type: 'string',
       example: '3.0.0',
     },
@@ -58,7 +61,8 @@ export const clientApplicationSchema = {
       minimum: 0,
     },
     started: {
-      description: 'Either an RFC-3339 timestamp or a unix timestamp in seconds',
+      description:
+        'Either an RFC-3339 timestamp or a unix timestamp in seconds',
       oneOf: [{ type: 'string', format: 'date-time' }, { type: 'number' }],
       example: '2023-06-13T16:35:00.000Z',
     },
@@ -74,4 +78,6 @@ export const clientApplicationSchema = {
   components: {},
 } as const;
 
-export type ClientApplicationSchema = FromSchema<typeof clientApplicationSchema>;
+export type ClientApplicationSchema = FromSchema<
+  typeof clientApplicationSchema
+>;

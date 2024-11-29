@@ -1,7 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import { type FC, type ReactNode, useRef, type PropsWithChildren } from 'react';
 import { Box, Button } from '@mui/material';
-import { StyledDropdown, StyledPopover, ButtonLabel, StyledTooltipContent } from './ConfigButton.styles';
+import {
+  StyledDropdown,
+  StyledPopover,
+  ButtonLabel,
+  StyledTooltipContent,
+} from './ConfigButton.styles';
 import { TooltipResolver } from 'component/common/TooltipResolver/TooltipResolver';
 import { ScreenReaderOnly } from 'component/common/ScreenReaderOnly/ScreenReaderOnly';
 
@@ -71,7 +76,9 @@ export const ConfigButton: FC<PropsWithChildren<ConfigButtonProps>> = ({
               }
             }}
           >
-            <ButtonLabel labelWidth={button.labelWidth}>{button.label}</ButtonLabel>
+            <ButtonLabel labelWidth={button.labelWidth}>
+              {button.label}
+            </ButtonLabel>
           </Button>
         </TooltipResolver>
       </Box>
@@ -91,7 +98,9 @@ export const ConfigButton: FC<PropsWithChildren<ConfigButtonProps>> = ({
         <ScreenReaderOnly>
           <p id={descriptionId}>{description}</p>
         </ScreenReaderOnly>
-        <StyledDropdown aria-describedby={descriptionId}>{children}</StyledDropdown>
+        <StyledDropdown aria-describedby={descriptionId}>
+          {children}
+        </StyledDropdown>
       </StyledPopover>
     </>
   );

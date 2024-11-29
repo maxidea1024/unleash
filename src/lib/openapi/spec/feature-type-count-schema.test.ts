@@ -7,7 +7,11 @@ test('featureTypeCountSchema', () => {
     count: 1,
   };
 
-  expect(validateSchema('#/components/schemas/featureTypeCountSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureTypeCountSchema', data),
+  ).toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/featureTypeCountSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/featureTypeCountSchema', {}),
+  ).toMatchSnapshot();
 });

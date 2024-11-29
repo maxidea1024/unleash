@@ -81,7 +81,13 @@ export const NetworkTrafficUsagePlanSummary = ({
                 Incoming requests selected month{' '}
                 <StyledNumbersDiv>
                   <Badge
-                    color={includedTraffic > 0 ? (usageTotal <= includedTraffic ? 'success' : 'error') : 'neutral'}
+                    color={
+                      includedTraffic > 0
+                        ? usageTotal <= includedTraffic
+                          ? 'success'
+                          : 'error'
+                        : 'neutral'
+                    }
                   >
                     {usageTotal.toLocaleString()} requests
                   </Badge>
@@ -94,7 +100,9 @@ export const NetworkTrafficUsagePlanSummary = ({
                 <StyledCardDescription>
                   <RowContainer>
                     Included in your plan monthly
-                    <StyledNumbersDiv>{includedTraffic.toLocaleString()} requests</StyledNumbersDiv>
+                    <StyledNumbersDiv>
+                      {includedTraffic.toLocaleString()} requests
+                    </StyledNumbersDiv>
                   </RowContainer>
                 </StyledCardDescription>
               }
@@ -113,8 +121,14 @@ export const NetworkTrafficUsagePlanSummary = ({
                 </Box>
                 <StyledCardDescription>
                   <RowContainer>
-                    Requests overages this month (<Link href='https://www.getunleash.io/pricing'>pricing</Link>)
-                    <StyledNumbersDiv>{overages.toLocaleString()} requests</StyledNumbersDiv>
+                    Requests overages this month (
+                    <Link href='https://www.getunleash.io/pricing'>
+                      pricing
+                    </Link>
+                    )
+                    <StyledNumbersDiv>
+                      {overages.toLocaleString()} requests
+                    </StyledNumbersDiv>
                   </RowContainer>
                   <RowContainer>
                     Accrued traffic charges
@@ -128,7 +142,9 @@ export const NetworkTrafficUsagePlanSummary = ({
                       <RowContainer>
                         Estimated traffic charges based on current usage
                         <StyledNumbersDiv>
-                          <Badge color='secondary'>{estimatedMonthlyCost} USD</Badge>
+                          <Badge color='secondary'>
+                            {estimatedMonthlyCost} USD
+                          </Badge>
                         </StyledNumbersDiv>
                       </RowContainer>
                     }

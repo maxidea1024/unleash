@@ -71,11 +71,18 @@ export const FeatureStrategySegmentChip = ({
     />
   );
 
-  const previewIconTooltip = segment === preview ? 'Hide segment constraints' : 'Preview segment constraints';
+  const previewIconTooltip =
+    segment === preview
+      ? 'Hide segment constraints'
+      : 'Preview segment constraints';
 
   return (
     <StyledChip>
-      <StyledLink to={`/segments/edit/${segment.id}`} target='_blank' rel='noreferrer'>
+      <StyledLink
+        to={`/segments/edit/${segment.id}`}
+        target='_blank'
+        rel='noreferrer'
+      >
         {segment.name}
       </StyledLink>
       <Tooltip title={previewIconTooltip} arrow>

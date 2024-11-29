@@ -134,7 +134,9 @@ export const ValidationStage: FC<{
   return (
     <ImportLayoutContainer>
       <ImportInfoContainer>
-        <Typography sx={{ mb: 1.5 }}>You are importing this configuration in:</Typography>
+        <Typography sx={{ mb: 1.5 }}>
+          You are importing this configuration in:
+        </Typography>
         <Box sx={{ display: 'flex', gap: 3 }}>
           <span>
             <Label>Environment: </Label>
@@ -151,8 +153,8 @@ export const ValidationStage: FC<{
         show={
           <ErrorContainer>
             <ErrorHeader>
-              <strong>Missing permissions!</strong> There are some permissions that you need to be granted before
-              importing this configuration
+              <strong>Missing permissions!</strong> There are some permissions
+              that you need to be granted before importing this configuration
             </ErrorHeader>
             {validationResult.permissions.map((error) => (
               <Box key={error.message} sx={{ p: 2 }}>
@@ -172,7 +174,8 @@ export const ValidationStage: FC<{
         show={
           <ErrorContainer>
             <ErrorHeader>
-              <strong>Conflict!</strong> There are some errors that need to be fixed before the import.
+              <strong>Conflict!</strong> There are some errors that need to be
+              fixed before the import.
             </ErrorHeader>
             {validationResult.errors.map((error) => (
               <Box key={error.message} sx={{ p: 2 }}>
@@ -192,7 +195,8 @@ export const ValidationStage: FC<{
         show={
           <WarningContainer>
             <WarningHeader>
-              <strong>Warning!</strong> It is recommended to verify the following information before importing.
+              <strong>Warning!</strong> It is recommended to verify the
+              following information before importing.
             </WarningHeader>
             {validationResult.warnings.map((warning) => (
               <Box key={warning.message} sx={{ p: 2 }}>
@@ -227,11 +231,20 @@ export const ValidationStage: FC<{
           type='submit'
           onClick={onSubmit}
           data-testid={IMPORT_CONFIGURATION_BUTTON}
-          disabled={validationResult.errors.length > 0 || validationResult.permissions.length > 0 || !validJSON}
+          disabled={
+            validationResult.errors.length > 0 ||
+            validationResult.permissions.length > 0 ||
+            !validJSON
+          }
         >
           Import configuration
         </PermissionButton>
-        <Button sx={{ position: 'static', ml: 2 }} variant='outlined' type='submit' onClick={onClose}>
+        <Button
+          sx={{ position: 'static', ml: 2 }}
+          variant='outlined'
+          type='submit'
+          onClick={onClose}
+        >
           Cancel import
         </Button>
       </ActionsContainer>

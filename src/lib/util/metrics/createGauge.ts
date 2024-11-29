@@ -17,7 +17,9 @@ export type Gauge<T extends string = string> = {
  *               See prom-client documentation for detailed options: https://github.com/siimon/prom-client#gauge
  * @returns An object containing the wrapped Gauge instance and custom methods.
  */
-export const createGauge = <T extends string>(options: GaugeConfiguration<T>): Gauge<T> => {
+export const createGauge = <T extends string>(
+  options: GaugeConfiguration<T>,
+): Gauge<T> => {
   /**
    * The underlying instance of prom-client's Gauge.
    */

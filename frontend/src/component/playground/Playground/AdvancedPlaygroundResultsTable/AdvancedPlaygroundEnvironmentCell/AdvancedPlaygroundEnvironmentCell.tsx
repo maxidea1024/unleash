@@ -1,5 +1,12 @@
 import { ConditionallyRender } from '../../../../common/ConditionallyRender/ConditionallyRender';
-import { Box, IconButton, Popover, styled, Typography, useTheme } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Popover,
+  styled,
+  Typography,
+  useTheme,
+} from '@mui/material';
 import { flexRow } from '../../../../../themes/themeStyles';
 import { PlaygroundResultChip } from '../../PlaygroundResultsTable/PlaygroundResultChip/PlaygroundResultChip';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
@@ -28,11 +35,14 @@ export interface IAdvancedPlaygroundEnvironmentCellProps {
   value: AdvancedPlaygroundEnvironmentFeatureSchema[];
 }
 
-export const AdvancedPlaygroundEnvironmentCell = ({ value }: IAdvancedPlaygroundEnvironmentCellProps) => {
+export const AdvancedPlaygroundEnvironmentCell = ({
+  value,
+}: IAdvancedPlaygroundEnvironmentCellProps) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
-  const onOpen = (event: React.FormEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+  const onOpen = (event: React.FormEvent<HTMLButtonElement>) =>
+    setAnchorEl(event.currentTarget);
 
   const onClose = () => setAnchorEl(null);
 
@@ -46,11 +56,23 @@ export const AdvancedPlaygroundEnvironmentCell = ({ value }: IAdvancedPlayground
       <StyledPlaygroundChipContainer>
         <ConditionallyRender
           condition={enabled.length > 0}
-          show={<PlaygroundResultChip enabled={true} label={`${enabled.length}`} showIcon={true} />}
+          show={
+            <PlaygroundResultChip
+              enabled={true}
+              label={`${enabled.length}`}
+              showIcon={true}
+            />
+          }
         />
         <ConditionallyRender
           condition={disabled.length > 0}
-          show={<PlaygroundResultChip enabled={false} label={`${disabled.length}`} showIcon={true} />}
+          show={
+            <PlaygroundResultChip
+              enabled={false}
+              label={`${disabled.length}`}
+              showIcon={true}
+            />
+          }
         />
       </StyledPlaygroundChipContainer>
       <>

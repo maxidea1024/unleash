@@ -24,16 +24,29 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
     this.db = db;
   }
 
-  static addOwnerData<T extends { id: string }>(projects: T[], owners: ProjectOwnersDictionary): WithProjectOwners<T> {
+  static addOwnerData<T extends { id: string }>(
+    projects: T[],
+    owners: ProjectOwnersDictionary,
+  ): WithProjectOwners<T> {
     return projects.map((project) => ({
       ...project,
       owners: owners[project.id] || [{ ownerType: 'system' }],
     }));
   }
 
-  private async getAllProjectUsersByRole(roleId: number): Promise<Record<string, UserProjectOwner[]>> {
+  private async getAllProjectUsersByRole(
+    roleId: number,
+  ): Promise<Record<string, UserProjectOwner[]>> {
     const usersResult = await this.db
-      .select('user.id', 'user.username', 'user.name', 'user.email', 'user.image_url', 'ru.created_at', 'ru.project')
+      .select(
+        'user.id',
+        'user.username',
+        'user.name',
+        'user.email',
+        'user.image_url',
+        'ru.created_at',
+        'ru.project',
+      )
       .from(`${T.ROLE_USER} as ru`)
       .orderBy('ru.created_at', 'asc')
       .join(`${T.ROLES} as r`, 'ru.role_id', 'r.id')
@@ -61,7 +74,9 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
     return usersDict;
   }
 
-  private async getAllProjectGroupsByRole(roleId: number): Promise<Record<string, GroupProjectOwner[]>> {
+  private async getAllProjectGroupsByRole(
+    roleId: number,
+  ): Promise<Record<string, GroupProjectOwner[]>> {
     const groupsResult = await this.db
       .select('groups.name', 'gr.created_at', 'gr.project')
       .from(`${T.GROUP_ROLE} as gr`)
@@ -91,11 +106,16 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
   }
 
   async getProjectOwnersDictionary(): Promise<ProjectOwnersDictionary> {
-    const ownerRole = await this.db(T.ROLES).where({ name: RoleName.OWNER }).first();
+    const ownerRole = await this.db(T.ROLES)
+      .where({ name: RoleName.OWNER })
+      .first();
     const usersDict = await this.getAllProjectUsersByRole(ownerRole.id);
     const groupsDict = await this.getAllProjectGroupsByRole(ownerRole.id);
 
-    const dict: Record<string, Array<UserProjectOwner | GroupProjectOwner>> = usersDict;
+    const dict: Record<
+      string,
+      Array<UserProjectOwner | GroupProjectOwner>
+    > = usersDict;
 
     Object.keys(groupsDict).forEach((project) => {
       if (project in dict) {
@@ -108,7 +128,9 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
     return dict;
   }
 
-  async getAllUserProjectOwners(projects?: Set<string>): Promise<UserProjectOwner[]> {
+  async getAllUserProjectOwners(
+    projects?: Set<string>,
+  ): Promise<UserProjectOwner[]> {
     const allOwners = await this.getProjectOwnersDictionary();
 
     const owners = projects
@@ -130,7 +152,9 @@ export class ProjectOwnersReadModel implements IProjectOwnersReadModel {
     return Object.values(ownersDict);
   }
 
-  async addOwners<T extends { id: string }>(projects: T[]): Promise<WithProjectOwners<T>> {
+  async addOwners<T extends { id: string }>(
+    projects: T[],
+  ): Promise<WithProjectOwners<T>> {
     const owners = await this.getProjectOwnersDictionary();
 
     return ProjectOwnersReadModel.addOwnerData(projects, owners);

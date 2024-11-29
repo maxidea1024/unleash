@@ -12,7 +12,10 @@ export const useCreateFeaturePath = (filter: {
 }): IUseCreateFeaturePathOutput | undefined => {
   const defaultProjectId = useDefaultProjectId();
 
-  const projectId = filter.project === '*' || !filter.project ? defaultProjectId : filter.project;
+  const projectId =
+    filter.project === '*' || !filter.project
+      ? defaultProjectId
+      : filter.project;
 
   if (!projectId) {
     return;

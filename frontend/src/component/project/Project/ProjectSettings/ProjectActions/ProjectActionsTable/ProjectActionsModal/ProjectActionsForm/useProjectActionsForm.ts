@@ -18,7 +18,10 @@ export type ActionsFilterState = ParameterMatch & {
   error?: string;
 };
 
-export type ActionsActionState = Omit<IAction, 'id' | 'createdAt' | 'createdByUserId'> & {
+export type ActionsActionState = Omit<
+  IAction,
+  'id' | 'createdAt' | 'createdByUserId'
+> & {
   id: string;
   error?: string;
 };
@@ -52,7 +55,10 @@ export const useProjectActionsForm = (action?: IActionSet) => {
     setSourceId(action?.match?.sourceId ?? 0);
     setFilters(
       Object.entries(action?.match?.payload ?? {}).map(
-        ([parameter, { inverted, operator, caseInsensitive, value, values }]) => ({
+        ([
+          parameter,
+          { inverted, operator, caseInsensitive, value, values },
+        ]) => ({
           id: uuidv4(),
           parameter,
           inverted,
@@ -80,7 +86,9 @@ export const useProjectActionsForm = (action?: IActionSet) => {
     reloadForm();
   }, [action]);
 
-  const [errors, setErrors] = useState<ProjectActionsFormErrors>(DEFAULT_PROJECT_ACTIONS_FORM_ERRORS);
+  const [errors, setErrors] = useState<ProjectActionsFormErrors>(
+    DEFAULT_PROJECT_ACTIONS_FORM_ERRORS,
+  );
   const [validated, setValidated] = useState(false);
 
   const clearError = (field: ErrorField) => {
@@ -101,7 +109,8 @@ export const useProjectActionsForm = (action?: IActionSet) => {
 
   const isEmpty = (value: string) => !value.length;
 
-  const isNameNotUnique = (value: string) => actionSets?.some(({ id, name }) => id !== action?.id && name === value);
+  const isNameNotUnique = (value: string) =>
+    actionSets?.some(({ id, name }) => id !== action?.id && name === value);
 
   const isIdEmpty = (value: number) => value === 0;
 
@@ -175,7 +184,9 @@ export const useProjectActionsForm = (action?: IActionSet) => {
 
     setValidated(true);
 
-    return validName && validSourceId && validFilters && validActorId && validActions;
+    return (
+      validName && validSourceId && validFilters && validActorId && validActions
+    );
   };
 
   return {

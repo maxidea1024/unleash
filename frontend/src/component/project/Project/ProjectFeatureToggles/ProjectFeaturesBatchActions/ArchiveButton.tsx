@@ -18,10 +18,17 @@ const DEFAULT_USAGE_THRESHOLD_DAYS = 7;
 
 const isFeatureInUse = (feature?: FeatureSchema): boolean => {
   const aWeekAgo = addDays(new Date(), -DEFAULT_USAGE_THRESHOLD_DAYS);
-  return !!(feature?.lastSeenAt && isBefore(new Date(feature.lastSeenAt), aWeekAgo));
+  return !!(
+    feature?.lastSeenAt && isBefore(new Date(feature.lastSeenAt), aWeekAgo)
+  );
 };
 
-export const ArchiveButton: VFC<IArchiveButtonProps> = ({ projectId, featureIds, features, onConfirm }) => {
+export const ArchiveButton: VFC<IArchiveButtonProps> = ({
+  projectId,
+  featureIds,
+  features,
+  onConfirm,
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { trackEvent } = usePlausibleTracker();
 

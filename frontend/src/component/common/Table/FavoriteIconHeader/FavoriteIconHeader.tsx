@@ -10,7 +10,10 @@ interface IFavoriteIconHeaderProps {
   onClick: (isPinned: boolean) => void;
 }
 
-export const FavoriteIconHeader: VFC<IFavoriteIconHeaderProps> = ({ isActive = false, onClick }) => {
+export const FavoriteIconHeader: VFC<IFavoriteIconHeaderProps> = ({
+  isActive = false,
+  onClick,
+}) => {
   const [internalState, setInternalState] = useState(isActive);
   const onToggle = () => {
     setInternalState(!internalState);
@@ -19,7 +22,11 @@ export const FavoriteIconHeader: VFC<IFavoriteIconHeaderProps> = ({ isActive = f
 
   return (
     <TooltipResolver
-      title={internalState ? 'Unpin favorite features from the top' : 'Pin favorite features to the top'}
+      title={
+        internalState
+          ? 'Unpin favorite features from the top'
+          : 'Pin favorite features to the top'
+      }
     >
       <IconButton
         sx={{

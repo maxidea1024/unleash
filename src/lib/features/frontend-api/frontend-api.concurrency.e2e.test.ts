@@ -1,4 +1,7 @@
-import { type IUnleashNoSupertest, setupAppWithoutSupertest } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashNoSupertest,
+  setupAppWithoutSupertest,
+} from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import { randomId } from '../../util';
@@ -47,12 +50,13 @@ beforeEach(async () => {
  * which is why it should be the only test of this file
  */
 test('multiple parallel calls to api/frontend should not create multiple instances', async () => {
-  const frontendTokenDefault = await app.services.apiTokenService.createApiTokenWithProjects({
-    type: ApiTokenType.FRONTEND,
-    projects: ['default'],
-    environment: 'default',
-    tokenName: `test-token-${randomId()}`,
-  });
+  const frontendTokenDefault =
+    await app.services.apiTokenService.createApiTokenWithProjects({
+      type: ApiTokenType.FRONTEND,
+      projects: ['default'],
+      environment: 'default',
+      tokenName: `test-token-${randomId()}`,
+    });
   const address = app.server.address();
   expect(address).not.toBeNull();
   expect(address).toHaveProperty('port');

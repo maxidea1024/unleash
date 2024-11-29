@@ -11,12 +11,16 @@ const setupEnterpriseApi = () => {
       current: { enterprise: 'present' },
     },
   });
-  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
-    {
-      environment: 'default',
-      changeRequestEnabled: true,
-    },
-  ]);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/change-requests/config',
+    [
+      {
+        environment: 'default',
+        changeRequestEnabled: true,
+      },
+    ],
+  );
   testServerRoute(server, '/api/admin/projects/default/change-requests/count', {
     total: 14,
     approved: 2,

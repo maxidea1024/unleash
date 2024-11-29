@@ -1,4 +1,7 @@
-import { CommandResultGroup, type CommandResultGroupItem } from './RecentlyVisited/CommandResultGroup';
+import {
+  CommandResultGroup,
+  type CommandResultGroupItem,
+} from './RecentlyVisited/CommandResultGroup';
 import { useFeatureSearch } from 'hooks/api/getters/useFeatureSearch/useFeatureSearch';
 import { useEffect } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -48,7 +51,14 @@ export const CommandSearchFeatures = ({
   return (
     <ConditionallyRender
       condition={!loading}
-      show={<CommandResultGroup groupName={'Flags'} icon={'flag'} items={flags} onClick={onClick} />}
+      show={
+        <CommandResultGroup
+          groupName={'Flags'}
+          icon={'flag'}
+          items={flags}
+          onClick={onClick}
+        />
+      }
     />
   );
 };

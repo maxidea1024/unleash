@@ -69,10 +69,16 @@ export const ArchivedFeatureReviveConfirm = ({
       <ConditionallyRender
         condition={Boolean(project.archivedAt)}
         show={
-          <Alert severity='warning'>Cannot revive feature flag in archived project (Project ID: {projectId})</Alert>
+          <Alert severity='warning'>
+            Cannot revive feature flag in archived project (Project ID:{' '}
+            {projectId})
+          </Alert>
         }
         elseShow={
-          <Alert severity='info'>Revived feature flags will be automatically disabled in all environments</Alert>
+          <Alert severity='info'>
+            Revived feature flags will be automatically disabled in all
+            environments
+          </Alert>
         }
       />
 
@@ -80,7 +86,9 @@ export const ArchivedFeatureReviveConfirm = ({
         condition={revivedFeatures.length > 1}
         show={
           <>
-            <StyledParagraph>You are about to revive feature flags:</StyledParagraph>
+            <StyledParagraph>
+              You are about to revive feature flags:
+            </StyledParagraph>
             <ul>
               {revivedFeatures.map((name) => (
                 <li key={`revive-${name}`}>{name}</li>
@@ -88,7 +96,11 @@ export const ArchivedFeatureReviveConfirm = ({
             </ul>
           </>
         }
-        elseShow={<StyledParagraph>You are about to revive feature flag: {revivedFeatures[0]}</StyledParagraph>}
+        elseShow={
+          <StyledParagraph>
+            You are about to revive feature flag: {revivedFeatures[0]}
+          </StyledParagraph>
+        }
       />
     </Dialogue>
   );

@@ -1,4 +1,7 @@
-import type { IStatTrafficUsageKey, IStatTrafficUsage } from './traffic-data-usage-store-type';
+import type {
+  IStatTrafficUsageKey,
+  IStatTrafficUsage,
+} from './traffic-data-usage-store-type';
 import type { ITrafficDataUsageStore } from '../../types';
 import { isSameMonth, parse } from 'date-fns';
 
@@ -44,7 +47,9 @@ export class FakeTrafficDataUsageStore implements ITrafficDataUsageStore {
     }
   }
 
-  async getTrafficDataUsageForPeriod(period: string): Promise<IStatTrafficUsage[]> {
+  async getTrafficDataUsageForPeriod(
+    period: string,
+  ): Promise<IStatTrafficUsage[]> {
     const periodDate = parse(period, 'yyyy-MM', new Date());
 
     return this.trafficData.filter((data) => isSameMonth(data.day, periodDate));

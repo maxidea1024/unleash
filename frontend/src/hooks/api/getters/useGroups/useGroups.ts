@@ -13,7 +13,10 @@ export interface IUseGroupsOutput {
 }
 
 export const useGroups = (): IUseGroupsOutput => {
-  const { data, error, mutate } = useSWR(formatApiPath(`api/admin/groups`), fetcher);
+  const { data, error, mutate } = useSWR(
+    formatApiPath(`api/admin/groups`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

@@ -2,10 +2,18 @@ import { ADMIN, type IUnleashConfig, type IUnleashServices } from '../../types';
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
 import type { Logger } from '../../logger';
-import { createRequestSchema, createResponseSchema, emptyResponse, getStandardResponses } from '../../openapi';
+import {
+  createRequestSchema,
+  createResponseSchema,
+  emptyResponse,
+  getStandardResponses,
+} from '../../openapi';
 import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../../routes/unleash-types';
-import { type MaintenanceSchema, maintenanceSchema } from '../../openapi/spec/maintenance-schema';
+import {
+  type MaintenanceSchema,
+  maintenanceSchema,
+} from '../../openapi/spec/maintenance-schema';
 import type MaintenanceService from '../../features/maintenance/maintenance-service';
 import type { ToggleMaintenanceSchema } from '../../openapi/spec/toggle-maintenance-schema';
 
@@ -16,7 +24,10 @@ export default class MaintenanceController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { maintenanceService, openApiService }: Pick<IUnleashServices, 'maintenanceService' | 'openApiService'>,
+    {
+      maintenanceService,
+      openApiService,
+    }: Pick<IUnleashServices, 'maintenanceService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -54,7 +65,8 @@ export default class MaintenanceController extends Controller {
       middleware: [
         this.openApiService.validPath({
           summary: 'Get maintenance mode status',
-          description: 'Tells you whether maintenance mode is enabled or disabled',
+          description:
+            'Tells you whether maintenance mode is enabled or disabled',
           tags: ['Maintenance'],
           operationId: 'getMaintenance',
           responses: {
@@ -76,6 +88,11 @@ export default class MaintenanceController extends Controller {
 
   async getMaintenance(req: Request, res: Response): Promise<void> {
     const settings = await this.maintenanceService.getMaintenanceSetting();
-    this.openApiService.respondWithValidation(200, res, maintenanceSchema.$id, settings);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      maintenanceSchema.$id,
+      settings,
+    );
   }
 }

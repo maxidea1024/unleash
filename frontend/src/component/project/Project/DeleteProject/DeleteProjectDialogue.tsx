@@ -55,7 +55,12 @@ export const DeleteProjectDialogue = ({
   };
 
   return (
-    <Dialogue open={open} onClick={onClick} onClose={onClose} title='Are you sure?'>
+    <Dialogue
+      open={open}
+      onClick={onClick}
+      onClose={onClose}
+      title='Are you sure?'
+    >
       <StyledParagraph>
         This will irreversibly remove:
         <ul>
@@ -73,7 +78,8 @@ export const DeleteProjectDialogue = ({
         show={
           <>
             <StyledParagraph>
-              Are you sure you'd like to permanently delete project <strong>{projectName}</strong>?
+              Are you sure you'd like to permanently delete project{' '}
+              <strong>{projectName}</strong>?
             </StyledParagraph>
             <StyledParagraph>
               Project ID: <ProjectId>{projectId}</ProjectId>

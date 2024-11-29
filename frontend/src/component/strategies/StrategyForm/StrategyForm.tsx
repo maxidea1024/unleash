@@ -78,13 +78,18 @@ export const StrategyForm: React.FC<IStrategyFormProps> = ({
   };
 
   const appParameter = () => {
-    setParams((prev) => [...prev, { name: '', type: 'string', description: '', required: false }]);
+    setParams((prev) => [
+      ...prev,
+      { name: '', type: 'string', description: '', required: false },
+    ]);
   };
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledContainer>
-        <StyledInputDescription>What would you like to call your strategy?</StyledInputDescription>
+        <StyledInputDescription>
+          What would you like to call your strategy?
+        </StyledInputDescription>
         <StyledInput
           disabled={mode === 'Edit'}
           autoFocus
@@ -96,7 +101,9 @@ export const StrategyForm: React.FC<IStrategyFormProps> = ({
           onFocus={clearErrors}
           onBlur={validateStrategyName}
         />
-        <StyledInputDescription>What is your strategy description?</StyledInputDescription>
+        <StyledInputDescription>
+          What is your strategy description?
+        </StyledInputDescription>
         <StyledInput
           label='Strategy description'
           value={strategyDesc}
@@ -105,7 +112,12 @@ export const StrategyForm: React.FC<IStrategyFormProps> = ({
           multiline
         />
 
-        <StrategyParameters input={params} updateParameter={updateParameter} setParams={setParams} errors={errors} />
+        <StrategyParameters
+          input={params}
+          updateParameter={updateParameter}
+          setParams={setParams}
+          errors={errors}
+        />
         <StyledParamButton
           onClick={(e) => {
             e.preventDefault();

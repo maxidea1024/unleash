@@ -27,7 +27,9 @@ interface IReportStatusCellProps {
   };
 }
 
-export const ReportStatusCell: VFC<IReportStatusCellProps> = ({ row }): ReactElement => {
+export const ReportStatusCell: VFC<IReportStatusCellProps> = ({
+  row,
+}): ReactElement => {
   if (row.original.status === 'potentially-stale') {
     return (
       <TextCell>

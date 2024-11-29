@@ -2,7 +2,10 @@ import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
 import type { IUnleashConfig } from '../types/options';
 import type { IUser } from '../types/user';
-import type { IUserFeedback, IUserFeedbackStore } from '../types/stores/user-feedback-store';
+import type {
+  IUserFeedback,
+  IUserFeedbackStore,
+} from '../types/stores/user-feedback-store';
 
 export default class UserFeedbackService {
   private readonly userFeedbackStore: IUserFeedbackStore;
@@ -30,7 +33,10 @@ export default class UserFeedbackService {
     }
   }
 
-  async getFeedback(user_id: number, feedback_id: string): Promise<IUserFeedback> {
+  async getFeedback(
+    user_id: number,
+    feedback_id: string,
+  ): Promise<IUserFeedback> {
     return this.userFeedbackStore.getFeedback(user_id, feedback_id);
   }
 

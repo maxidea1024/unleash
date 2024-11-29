@@ -1,6 +1,13 @@
 import { useMemo, useState, type VFC } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
-import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
+import {
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -35,13 +42,15 @@ const ContextList: VFC = () => {
     }
 
     return context
-      .map(({ name, description, sortOrder, usedInProjects, usedInFeatures }) => ({
-        name,
-        description,
-        sortOrder,
-        usedInProjects,
-        usedInFeatures,
-      }))
+      .map(
+        ({ name, description, sortOrder, usedInProjects, usedInFeatures }) => ({
+          name,
+          description,
+          sortOrder,
+          usedInProjects,
+          usedInFeatures,
+        }),
+      )
       .sort((a, b) => a.sortOrder - b.sortOrder);
   }, [context, loading]);
 
@@ -60,13 +69,21 @@ const ContextList: VFC = () => {
           row: {
             original: { name, description },
           },
-        }: any) => <LinkCell title={name} to={`/context/edit/${name}`} subtitle={description} />,
+        }: any) => (
+          <LinkCell
+            title={name}
+            to={`/context/edit/${name}`}
+            subtitle={description}
+          />
+        ),
         sortType: 'alphanumeric',
       },
       {
         Header: 'Used in',
         width: '60%',
-        Cell: ({ row: { original } }: any) => <UsedInCell original={original} />,
+        Cell: ({ row: { original } }: any) => (
+          <UsedInCell original={original} />
+        ),
       },
       {
         Header: 'Actions',
@@ -203,7 +220,11 @@ const ContextList: VFC = () => {
                 &rdquo;
               </TablePlaceholder>
             }
-            elseShow={<TablePlaceholder>No contexts available. Get started by adding one.</TablePlaceholder>}
+            elseShow={
+              <TablePlaceholder>
+                No contexts available. Get started by adding one.
+              </TablePlaceholder>
+            }
           />
         }
       />

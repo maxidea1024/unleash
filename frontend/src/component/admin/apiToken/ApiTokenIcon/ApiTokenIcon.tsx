@@ -11,7 +11,11 @@ interface IApiTokenIconProps {
   secret?: string;
 }
 
-export const isOrphanedToken = ({ secret, project, projects }: IApiTokenIconProps): boolean => {
+export const isOrphanedToken = ({
+  secret,
+  project,
+  projects,
+}: IApiTokenIconProps): boolean => {
   const tokenFormat = secret?.includes(':') ? 'v2' : 'v1'; // see https://docs.getunleash.io/reference/api-tokens-and-client-keys#format
   const isWildcardSecret = secret?.startsWith('*:');
   const hasProjects =
@@ -30,8 +34,10 @@ export const ApiTokenIcon: FC<IApiTokenIconProps> = ({ ...props }) => {
           <HtmlTooltip
             title={
               <p>
-                This is an orphaned token. All of its original projects have been deleted and it now has access to all
-                current and future projects. You should stop using this token and delete it. Read more in{' '}
+                This is an orphaned token. All of its original projects have
+                been deleted and it now has access to all current and future
+                projects. You should stop using this token and delete it. Read
+                more in{' '}
                 <Link
                   target='_blank'
                   rel='noopener noreferrer'
@@ -45,7 +51,11 @@ export const ApiTokenIcon: FC<IApiTokenIconProps> = ({ ...props }) => {
             placement='bottom-start'
             arrow
           >
-            <WarningIcon aria-label='Orphaned token' color='warning' data-testid='orphaned-token-icon' />
+            <WarningIcon
+              aria-label='Orphaned token'
+              color='warning'
+              data-testid='orphaned-token-icon'
+            />
           </HtmlTooltip>
         }
       />

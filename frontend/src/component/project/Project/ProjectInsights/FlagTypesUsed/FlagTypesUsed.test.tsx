@@ -29,7 +29,9 @@ test('Show outdated SDKs and apps using them', async () => {
     <Routes>
       <Route
         path={'/projects/:projectId'}
-        element={<FlagTypesUsed featureTypeCounts={[{ type: 'release', count: 57 }]} />}
+        element={
+          <FlagTypesUsed featureTypeCounts={[{ type: 'release', count: 57 }]} />
+        }
       />
     </Routes>,
     {

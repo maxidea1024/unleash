@@ -1,15 +1,28 @@
-import type { FeatureEnvironmentKey, IFeatureEnvironmentStore } from '../../lib/types/stores/feature-environment-store';
+import type {
+  FeatureEnvironmentKey,
+  IFeatureEnvironmentStore,
+} from '../../lib/types/stores/feature-environment-store';
 import type { IFeatureEnvironment, IVariant } from '../../lib/types/model';
 import NotFoundError from '../../lib/error/notfound-error';
 
-export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentStore {
+export default class FakeFeatureEnvironmentStore
+  implements IFeatureEnvironmentStore
+{
   featureEnvironments: IFeatureEnvironment[] = [];
 
-  async addEnvironmentToFeature(featureName: string, environment: string, enabled: boolean): Promise<void> {
+  async addEnvironmentToFeature(
+    featureName: string,
+    environment: string,
+    enabled: boolean,
+  ): Promise<void> {
     this.featureEnvironments.push({ environment, enabled, featureName });
   }
 
-  async addVariantsToFeatureEnvironment(featureName: string, environment: string, variants: IVariant[]): Promise<void> {
+  async addVariantsToFeatureEnvironment(
+    featureName: string,
+    environment: string,
+    variants: IVariant[],
+  ): Promise<void> {
     this.setVariantsToFeatureEnvironments(featureName, [environment], variants);
   }
 
@@ -19,7 +32,11 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
     variants: IVariant[],
   ): Promise<void> {
     this.featureEnvironments
-      .filter((fe) => fe.featureName === featureName && environments.includes(fe.environment))
+      .filter(
+        (fe) =>
+          fe.featureName === featureName &&
+          environments.includes(fe.environment),
+      )
       .forEach((fe) => {
         fe.variants = variants;
       });
@@ -28,7 +45,9 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
   async delete(key: FeatureEnvironmentKey): Promise<void> {
     this.featureEnvironments.splice(
       this.featureEnvironments.findIndex(
-        (fE) => fE.environment === key.environment && fE.featureName === key.featureName,
+        (fE) =>
+          fE.environment === key.environment &&
+          fE.featureName === key.featureName,
       ),
       1,
     );
@@ -51,33 +70,48 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
 
   async exists(key: FeatureEnvironmentKey): Promise<boolean> {
     return this.featureEnvironments.some(
-      (fE) => fE.featureName === key.featureName && fE.environment === key.environment,
+      (fE) =>
+        fE.featureName === key.featureName &&
+        fE.environment === key.environment,
     );
   }
 
-  async featureHasEnvironment(environment: string, featureName: string): Promise<boolean> {
+  async featureHasEnvironment(
+    environment: string,
+    featureName: string,
+  ): Promise<boolean> {
     return this.exists({ environment, featureName });
   }
 
   async get(key: FeatureEnvironmentKey): Promise<IFeatureEnvironment> {
     const featureEnvironment = this.featureEnvironments.find(
-      (fE) => fE.environment === key.environment && fE.featureName === key.featureName,
+      (fE) =>
+        fE.environment === key.environment &&
+        fE.featureName === key.featureName,
     );
     if (featureEnvironment) {
       return featureEnvironment;
     }
-    throw new NotFoundError(`Could not find environment ${key.environment} for feature: ${key.featureName}`);
+    throw new NotFoundError(
+      `Could not find environment ${key.environment} for feature: ${key.featureName}`,
+    );
   }
 
   async getAll(): Promise<IFeatureEnvironment[]> {
     return this.featureEnvironments;
   }
 
-  getEnvironmentMetaData(environment: string, featureName: string): Promise<IFeatureEnvironment> {
+  getEnvironmentMetaData(
+    environment: string,
+    featureName: string,
+  ): Promise<IFeatureEnvironment> {
     return this.get({ environment, featureName });
   }
 
-  async isEnvironmentEnabled(featureName: string, environment: string): Promise<boolean> {
+  async isEnvironmentEnabled(
+    featureName: string,
+    environment: string,
+  ): Promise<boolean> {
     try {
       const fE = await this.get({ featureName, environment });
       return fE.enabled;
@@ -86,11 +120,18 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
     }
   }
 
-  async removeEnvironmentForFeature(featureName: string, environment: string): Promise<void> {
+  async removeEnvironmentForFeature(
+    featureName: string,
+    environment: string,
+  ): Promise<void> {
     return this.delete({ featureName, environment });
   }
 
-  async setEnvironmentEnabledStatus(environment: string, featureName: string, enabled: boolean): Promise<number> {
+  async setEnvironmentEnabledStatus(
+    environment: string,
+    featureName: string,
+    enabled: boolean,
+  ): Promise<number> {
     const fE = await this.get({ environment, featureName });
     if (fE.enabled !== enabled) {
       fE.enabled = enabled;
@@ -165,7 +206,9 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
     throw new Error('Method not implemented.');
   }
 
-  async addFeatureEnvironment(featureEnvironment: IFeatureEnvironment): Promise<void> {
+  async addFeatureEnvironment(
+    featureEnvironment: IFeatureEnvironment,
+  ): Promise<void> {
     this.featureEnvironments.push(featureEnvironment);
     return Promise.resolve();
   }
@@ -185,7 +228,8 @@ export default class FakeFeatureEnvironmentStore implements IFeatureEnvironmentS
   ): Promise<IFeatureEnvironment[]> {
     return this.featureEnvironments.filter(
       (featureEnv) =>
-        (environment ? featureEnv.environment === environment : true) && features.includes(featureEnv.featureName),
+        (environment ? featureEnv.environment === environment : true) &&
+        features.includes(featureEnv.featureName),
     );
   }
 

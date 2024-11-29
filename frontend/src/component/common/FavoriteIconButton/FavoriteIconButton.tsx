@@ -10,9 +10,15 @@ interface IFavoriteIconButtonProps extends IconButtonProps {
   size?: 'medium' | 'large';
 }
 
-export const FavoriteIconButton: VFC<IFavoriteIconButtonProps> = ({ isFavorite, size = 'large', ...props }) => {
+export const FavoriteIconButton: VFC<IFavoriteIconButtonProps> = ({
+  isFavorite,
+  size = 'large',
+  ...props
+}) => {
   return (
-    <TooltipResolver title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}>
+    <TooltipResolver
+      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+    >
       <IconButton size={size} data-loading {...props}>
         <ConditionallyRender
           condition={isFavorite}
@@ -20,7 +26,8 @@ export const FavoriteIconButton: VFC<IFavoriteIconButtonProps> = ({ isFavorite, 
             <StarIcon
               color='primary'
               sx={{
-                fontSize: (theme) => (size === 'medium' ? theme.spacing(2) : theme.spacing(3)),
+                fontSize: (theme) =>
+                  size === 'medium' ? theme.spacing(2) : theme.spacing(3),
               }}
             />
           }
@@ -28,7 +35,8 @@ export const FavoriteIconButton: VFC<IFavoriteIconButtonProps> = ({ isFavorite, 
             <StarBorderIcon
               color='primary'
               sx={{
-                fontSize: (theme) => (size === 'medium' ? theme.spacing(2) : theme.spacing(3)),
+                fontSize: (theme) =>
+                  size === 'medium' ? theme.spacing(2) : theme.spacing(3),
               }}
             />
           }

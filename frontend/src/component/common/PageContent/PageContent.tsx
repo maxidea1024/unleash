@@ -66,16 +66,24 @@ export const PageContent: FC<IPageContentProps> = ({
 }) => {
   const { classes: styles } = useStyles();
 
-  const headerClasses = classnames('header', headerClass || styles.headerPadding, {
-    [styles.paddingDisabled]: disablePadding,
-    [styles.borderDisabled]: disableBorder,
-    [styles.withTabs]: withTabs,
-  });
+  const headerClasses = classnames(
+    'header',
+    headerClass || styles.headerPadding,
+    {
+      [styles.paddingDisabled]: disablePadding,
+      [styles.borderDisabled]: disableBorder,
+      [styles.withTabs]: withTabs,
+    },
+  );
 
-  const bodyClasses = classnames('body', bodyClass ? bodyClass : styles.bodyContainer, {
-    [styles.paddingDisabled]: disablePadding,
-    [styles.borderDisabled]: disableBorder,
-  });
+  const bodyClasses = classnames(
+    'body',
+    bodyClass ? bodyClass : styles.bodyContainer,
+    {
+      [styles.paddingDisabled]: disablePadding,
+      [styles.borderDisabled]: disableBorder,
+    },
+  );
 
   const paperProps = disableBorder ? { elevation: 0 } : {};
 
@@ -101,5 +109,7 @@ export const PageContent: FC<IPageContentProps> = ({
     return <div>{content}</div>;
   }
 
-  return <PageContentLoading isLoading={isLoading}>{content}</PageContentLoading>;
+  return (
+    <PageContentLoading isLoading={isLoading}>{content}</PageContentLoading>
+  );
 };

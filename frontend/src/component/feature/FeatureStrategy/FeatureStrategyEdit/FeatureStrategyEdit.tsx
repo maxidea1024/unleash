@@ -7,7 +7,11 @@ import useFeatureStrategyApi from 'hooks/api/actions/useFeatureStrategyApi/useFe
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useNavigate } from 'react-router-dom';
 import useToast from 'hooks/useToast';
-import type { IFeatureStrategy, IFeatureStrategyPayload, IStrategy } from 'interfaces/strategy';
+import type {
+  IFeatureStrategy,
+  IFeatureStrategyPayload,
+  IStrategy,
+} from 'interfaces/strategy';
 import { UPDATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import type { ISegment } from 'interfaces/segment';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
@@ -104,27 +108,29 @@ export const FeatureStrategyEdit = () => {
   const navigate = useNavigate();
   const { addChange } = useChangeRequestApi();
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
-  const { refetch: refetchChangeRequests, data: pendingChangeRequests } = usePendingChangeRequests(projectId);
+  const { refetch: refetchChangeRequests, data: pendingChangeRequests } =
+    usePendingChangeRequests(projectId);
   const { setPreviousTitle } = useTitleTracking();
 
   const { feature, refetchFeature } = useFeature(projectId, featureId);
 
   const ref = useRef<IFeatureToggle>(feature);
 
-  const { data, staleDataNotification, forceRefreshCache } = useCollaborateData<IFeatureToggle>(
-    {
-      unleashGetter: useFeature,
-      params: [projectId, featureId],
-      dataKey: 'feature',
-      refetchFunctionKey: 'refetchFeature',
-      options: {},
-    },
-    feature,
-    {
-      afterSubmitAction: refetchFeature,
-    },
-    comparisonModerator,
-  );
+  const { data, staleDataNotification, forceRefreshCache } =
+    useCollaborateData<IFeatureToggle>(
+      {
+        unleashGetter: useFeature,
+        params: [projectId, featureId],
+        dataKey: 'feature',
+        refetchFunctionKey: 'refetchFeature',
+        options: {},
+      },
+      feature,
+      {
+        afterSubmitAction: refetchFeature,
+      },
+      comparisonModerator,
+    );
 
   useEffect(() => {
     if (ref.current.name === '' && feature.name) {
@@ -134,10 +140,8 @@ export const FeatureStrategyEdit = () => {
   }, [feature]);
 
   const { trackEvent } = usePlausibleTracker();
-  const { changeRequests: scheduledChangeRequestThatUseStrategy } = useScheduledChangeRequestsWithStrategy(
-    projectId,
-    strategyId,
-  );
+  const { changeRequests: scheduledChangeRequestThatUseStrategy } =
+    useScheduledChangeRequestsWithStrategy(projectId, strategyId);
 
   const pendingCrsUsingThisStrategy = getChangeRequestConflictCreatedData(
     pendingChangeRequests,
@@ -146,23 +150,28 @@ export const FeatureStrategyEdit = () => {
     uiConfig,
   );
 
-  const scheduledCrsUsingThisStrategy = getChangeRequestConflictCreatedDataFromScheduleData(
-    scheduledChangeRequestThatUseStrategy,
-    uiConfig,
-  );
-
-  const emitConflictsCreatedEvents = (): void =>
-    [...pendingCrsUsingThisStrategy, ...scheduledCrsUsingThisStrategy].forEach((data) =>
-      trackEvent('change_request', {
-        props: {
-          ...data,
-          action: 'edit-strategy',
-          eventType: 'conflict-created',
-        },
-      }),
+  const scheduledCrsUsingThisStrategy =
+    getChangeRequestConflictCreatedDataFromScheduleData(
+      scheduledChangeRequestThatUseStrategy,
+      uiConfig,
     );
 
-  const { segments: savedStrategySegments, refetchSegments: refetchSavedStrategySegments } = useSegments(strategyId);
+  const emitConflictsCreatedEvents = (): void =>
+    [...pendingCrsUsingThisStrategy, ...scheduledCrsUsingThisStrategy].forEach(
+      (data) =>
+        trackEvent('change_request', {
+          props: {
+            ...data,
+            action: 'edit-strategy',
+            eventType: 'conflict-created',
+          },
+        }),
+    );
+
+  const {
+    segments: savedStrategySegments,
+    refetchSegments: refetchSavedStrategySegments,
+  } = useSegments(strategyId);
 
   useEffect(() => {
     const savedStrategy = data?.environments
@@ -188,7 +197,13 @@ export const FeatureStrategyEdit = () => {
   const payload = createStrategyPayload(strategy, segments);
 
   const onStrategyEdit = async (payload: IFeatureStrategyPayload) => {
-    await updateStrategyOnFeature(projectId, featureId, environmentId, strategyId, payload);
+    await updateStrategyOnFeature(
+      projectId,
+      featureId,
+      environmentId,
+      strategyId,
+      payload,
+    );
 
     await refetchSavedStrategySegments();
     setToastData({
@@ -295,7 +310,10 @@ export const createStrategyPayload = (
   disabled: strategy.disabled ?? false,
 });
 
-export const formatFeaturePath = (projectId: string, featureId: string): string => {
+export const formatFeaturePath = (
+  projectId: string,
+  featureId: string,
+): string => {
   return `/projects/${projectId}/features/${featureId}`;
 };
 
@@ -327,7 +345,10 @@ export const formatUpdateStrategyApiCode = (
   // the order of the input fields in the form, for usability.
   const sortedStrategy = {
     ...strategy,
-    parameters: sortStrategyParameters(strategy.parameters ?? {}, strategyDefinition),
+    parameters: sortStrategyParameters(
+      strategy.parameters ?? {},
+      strategyDefinition,
+    ),
   };
 
   const url = `${unleashUrl}/api/admin/projects/${projectId}/features/${featureId}/environments/${environmentId}/strategies/${strategyId}`;
@@ -344,6 +365,7 @@ export const featureStrategyHelp = `
     If any of a feature flag's activation strategies returns true, the user will get access.
 `;
 
-export const featureStrategyDocsLink = 'https://docs.getunleash.io/reference/activation-strategies';
+export const featureStrategyDocsLink =
+  'https://docs.getunleash.io/reference/activation-strategies';
 
 export const featureStrategyDocsLinkLabel = 'Strategies documentation';

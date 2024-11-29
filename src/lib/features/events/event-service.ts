@@ -1,7 +1,10 @@
 import type { IUnleashConfig } from '../../types/options';
 import type { IFeatureTagStore, IUnleashStores } from '../../types/stores';
 import type { Logger } from '../../logger';
-import type { IEventSearchParams, IEventStore } from '../../types/stores/event-store';
+import type {
+  IEventSearchParams,
+  IEventStore,
+} from '../../types/stores/event-store';
 import type { IBaseEvent, IEventList } from '../../types/events';
 import type { DeprecatedSearchEventsSchema } from '../../openapi/spec/deprecated-search-events-schema';
 import type EventEmitter from 'events';
@@ -24,7 +27,10 @@ export default class EventService {
   private readonly eventBus: EventEmitter;
 
   constructor(
-    { eventStore, featureTagStore }: Pick<IUnleashStores, 'eventStore' | 'featureTagStore'>,
+    {
+      eventStore,
+      featureTagStore,
+    }: Pick<IUnleashStores, 'eventStore' | 'featureTagStore'>,
     { getLogger, eventBus }: Pick<IUnleashConfig, 'getLogger' | 'eventBus'>,
     privateProjectChecker: IPrivateProjectChecker,
     accessReadModel: IAccessReadModel,
@@ -47,7 +53,9 @@ export default class EventService {
     };
   }
 
-  async deprecatedSearchEvents(search: DeprecatedSearchEventsSchema): Promise<IEventList> {
+  async deprecatedSearchEvents(
+    search: DeprecatedSearchEventsSchema,
+  ): Promise<IEventList> {
     const totalEvents = await this.eventStore.deprecatedFilteredCount(search);
     const events = await this.eventStore.deprecatedSearchEvents(search);
     return {
@@ -56,8 +64,12 @@ export default class EventService {
     };
   }
 
-  async searchEvents(search: IEventSearchParams, userId: number): Promise<IEventList> {
-    const projectAccess = await this.privateProjectChecker.getUserAccessibleProjects(userId);
+  async searchEvents(
+    search: IEventSearchParams,
+    userId: number,
+  ): Promise<IEventList> {
+    const projectAccess =
+      await this.privateProjectChecker.getUserAccessibleProjects(userId);
 
     search.project = filterAccessibleProjects(search.project, projectAccess);
 
@@ -87,11 +99,16 @@ export default class EventService {
     };
   }
 
-  async onEvent(eventName: string | symbol, listener: (...args: any[]) => void): Promise<EventEmitter> {
+  async onEvent(
+    eventName: string | symbol,
+    listener: (...args: any[]) => void,
+  ): Promise<EventEmitter> {
     return this.eventStore.on(eventName, listener);
   }
 
-  private async enhanceEventsWithTags(events: IBaseEvent[]): Promise<IBaseEvent[]> {
+  private async enhanceEventsWithTags(
+    events: IBaseEvent[],
+  ): Promise<IBaseEvent[]> {
     const featureNamesSet = new Set<string>();
     for (const event of events) {
       if (event.featureName && !event.tags) {
@@ -100,7 +117,9 @@ export default class EventService {
     }
 
     const featureTagsMap: Map<string, ITag[]> = new Map();
-    const allTagsInFeatures = await this.featureTagStore.getAllByFeatures(Array.from(featureNamesSet));
+    const allTagsInFeatures = await this.featureTagStore.getAllByFeatures(
+      Array.from(featureNamesSet),
+    );
 
     for (const tag of allTagsInFeatures) {
       const featureTags = featureTagsMap.get(tag.featureName) || [];
@@ -176,7 +195,10 @@ export default class EventService {
     }
 
     if (params.createdBy) {
-      const parsed = parseSearchOperatorValue('created_by_user_id', params.createdBy);
+      const parsed = parseSearchOperatorValue(
+        'created_by_user_id',
+        params.createdBy,
+      );
       if (parsed) queryParams.push(parsed);
     }
 
@@ -220,7 +242,9 @@ export const filterAccessibleProjects = (
     } else {
       const searchProjectList = projectParam.split(',');
       const filteredProjects = searchProjectList
-        .filter((proj) => allowedProjects.includes(proj.replace(/^(IS|IS_ANY_OF):/, '')))
+        .filter((proj) =>
+          allowedProjects.includes(proj.replace(/^(IS|IS_ANY_OF):/, '')),
+        )
         .join(',');
 
       if (!filteredProjects) {

@@ -5,7 +5,10 @@ import type { Logger } from '../../logger';
 import type { IUnleashConfig } from '../../types/options';
 import type { OpenApiService } from '../../services/openapi-service';
 import { ADMIN, NONE } from '../../types/permissions';
-import { featureTypesSchema, type FeatureTypesSchema } from '../../openapi/spec/feature-types-schema';
+import {
+  featureTypesSchema,
+  type FeatureTypesSchema,
+} from '../../openapi/spec/feature-types-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import Controller from '../controller';
 import {
@@ -28,7 +31,10 @@ export class FeatureTypeController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { featureTypeService, openApiService }: Pick<IUnleashServices, 'featureTypeService' | 'openApiService'>,
+    {
+      featureTypeService,
+      openApiService,
+    }: Pick<IUnleashServices, 'featureTypeService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -81,11 +87,19 @@ When a feature flag type's expected lifetime is changed, this will also cause an
     });
   }
 
-  async getAllFeatureTypes(_: Request, res: Response<FeatureTypesSchema>): Promise<void> {
-    this.openApiService.respondWithValidation(200, res, featureTypesSchema.$id, {
-      version,
-      types: await this.featureTypeService.getAll(),
-    });
+  async getAllFeatureTypes(
+    _: Request,
+    res: Response<FeatureTypesSchema>,
+  ): Promise<void> {
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureTypesSchema.$id,
+      {
+        version,
+        types: await this.featureTypeService.getAll(),
+      },
+    );
   }
 
   async updateLifetime(
@@ -98,6 +112,11 @@ When a feature flag type's expected lifetime is changed, this will also cause an
       req.audit,
     );
 
-    this.openApiService.respondWithValidation(200, res, featureTypeSchema.$id, result);
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureTypeSchema.$id,
+      result,
+    );
   }
 }

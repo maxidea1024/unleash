@@ -15,15 +15,17 @@ export const FlagExposure: FC<{
   className?: string;
 }> = ({ project, flagName, onArchive, className }) => {
   const { feature, refetchFeature } = useFeature(project, flagName);
-  const lastSeenEnvironments: ILastSeenEnvironments[] = feature.environments?.map((env) => ({
-    name: env.name,
-    lastSeenAt: env.lastSeenAt,
-    enabled: env.enabled,
-    yes: env.yes,
-    no: env.no,
-  }));
+  const lastSeenEnvironments: ILastSeenEnvironments[] =
+    feature.environments?.map((env) => ({
+      name: env.name,
+      lastSeenAt: env.lastSeenAt,
+      enabled: env.enabled,
+      yes: env.yes,
+      no: env.no,
+    }));
   const [showDelDialog, setShowDelDialog] = useState(false);
-  const [showMarkCompletedDialogue, setShowMarkCompletedDialogue] = useState(false);
+  const [showMarkCompletedDialogue, setShowMarkCompletedDialogue] =
+    useState(false);
 
   return (
     <Box sx={{ display: 'flex' }} className={className}>

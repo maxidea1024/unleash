@@ -147,4 +147,6 @@ export const personalDashboardSchema = {
   },
 } as const;
 
-export type PersonalDashboardSchema = FromSchema<typeof personalDashboardSchema>;
+export type PersonalDashboardSchema = FromSchema<
+  typeof personalDashboardSchema
+>;

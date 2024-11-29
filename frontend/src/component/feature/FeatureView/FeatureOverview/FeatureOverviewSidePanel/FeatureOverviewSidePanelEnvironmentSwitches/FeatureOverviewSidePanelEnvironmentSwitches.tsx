@@ -59,7 +59,9 @@ export const FeatureOverviewSidePanelEnvironmentSwitches = ({
       {header}
       {feature.environments.map((environment) => {
         const strategiesLabel =
-          environment.strategies.length === 1 ? '1 strategy' : `${environment.strategies.length} strategies`;
+          environment.strategies.length === 1
+            ? '1 strategy'
+            : `${environment.strategies.length} strategies`;
 
         const variants = environment.variants ?? [];
 
@@ -72,13 +74,18 @@ export const FeatureOverviewSidePanelEnvironmentSwitches = ({
                 to={`/projects/${feature.project}/features/${feature.name}/variants`}
                 underline='hover'
               >
-                {variants.length === 1 ? '1 variant' : `${variants.length} variants`}
+                {variants.length === 1
+                  ? '1 variant'
+                  : `${variants.length} variants`}
               </StyledLink>
             </Tooltip>
           </>
         );
 
-        const hasWarning = environment.enabled && variants.length === 0 && someEnabledEnvironmentHasVariants;
+        const hasWarning =
+          environment.enabled &&
+          variants.length === 0 &&
+          someEnabledEnvironmentHasVariants;
         return (
           <FeatureOverviewSidePanelEnvironmentSwitch
             key={environment.name}

@@ -1,7 +1,14 @@
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import { USER_CREATED, USER_DELETED, USER_UPDATED } from '../../../../lib/types/events';
+import {
+  USER_CREATED,
+  USER_DELETED,
+  USER_UPDATED,
+} from '../../../../lib/types/events';
 import type { IRole } from '../../../../lib/types/stores/access-store';
 import type { IEventStore } from '../../../../lib/types/stores/event-store';
 import type { IUserStore } from '../../../../lib/types/stores/user-store';
@@ -150,7 +157,9 @@ test('should require username or email on create', async () => {
     .set('Content-Type', 'application/json')
     .expect(400)
     .expect((res) => {
-      expect(res.body.details[0].message).toEqual('You must specify username or email');
+      expect(res.body.details[0].message).toEqual(
+        'You must specify username or email',
+      );
     });
 });
 
@@ -191,7 +200,9 @@ test('should not require any fields on update', async () => {
     .set('Content-Type', 'application/json')
     .expect(200);
 
-  expect(updated).toEqual(omitKeys(created, 'emailSent', 'inviteLink', 'rootRole'));
+  expect(updated).toEqual(
+    omitKeys(created, 'emailSent', 'inviteLink', 'rootRole'),
+  );
 });
 
 test('get a single user', async () => {
@@ -204,7 +215,9 @@ test('get a single user', async () => {
     })
     .set('Content-Type', 'application/json');
 
-  const { body: user } = await app.request.get(`/api/admin/user-admin/${body.id}`).expect(200);
+  const { body: user } = await app.request
+    .get(`/api/admin/user-admin/${body.id}`)
+    .expect(200);
 
   expect(user.email).toBe('some2@getunelash.ai');
   expect(user.name).toBe('Some Name 2');
@@ -219,11 +232,17 @@ test('should delete user', async () => {
 });
 
 test('validator should require strong password', async () => {
-  return app.request.post('/api/admin/user-admin/validate-password').send({ password: 'simple' }).expect(400);
+  return app.request
+    .post('/api/admin/user-admin/validate-password')
+    .send({ password: 'simple' })
+    .expect(400);
 });
 
 test('validator should accept strong password', async () => {
-  return app.request.post('/api/admin/user-admin/validate-password').send({ password: 'simple123-_ASsad' }).expect(200);
+  return app.request
+    .post('/api/admin/user-admin/validate-password')
+    .send({ password: 'simple123-_ASsad' })
+    .expect(200);
 });
 
 test('should change password', async () => {
@@ -378,7 +397,9 @@ test('Anonymises name, username and email fields if anonymiseEventLog flag is se
       rootRole: editorRole.id,
     })
     .set('Content-Type', 'application/json');
-  const response = await anonymisedApp.request.get('/api/admin/user-admin/access');
+  const response = await anonymisedApp.request.get(
+    '/api/admin/user-admin/access',
+  );
   const body = response.body;
   expect(body.users[0].email).toEqual('aeb83743e@unleash.run');
   expect(body.users[0].name).toEqual('3a8b17647@unleash.run');
@@ -395,9 +416,14 @@ test('creates user with email md5 hash', async () => {
     })
     .set('Content-Type', 'application/json');
 
-  const user = await db.rawDatabase('users').where({ email: 'hasher@getunleash.ai' }).first(['email_hash']);
+  const user = await db
+    .rawDatabase('users')
+    .where({ email: 'hasher@getunleash.ai' })
+    .first(['email_hash']);
 
-  const expectedHash = createHash('md5').update('hasher@getunleash.ai').digest('hex');
+  const expectedHash = createHash('md5')
+    .update('hasher@getunleash.ai')
+    .digest('hex');
 
   expect(user.email_hash).toBe(expectedHash);
 });

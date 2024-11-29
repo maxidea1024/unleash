@@ -9,6 +9,8 @@ test('features count based on feature types', () => {
       ],
     }),
   ).toBe(30);
-  expect(featuresCount({ featureTypeCounts: [{ type: 'release', count: 10 }] })).toBe(10);
+  expect(
+    featuresCount({ featureTypeCounts: [{ type: 'release', count: 10 }] }),
+  ).toBe(10);
   expect(featuresCount({ featureTypeCounts: [] })).toBe(0);
 });

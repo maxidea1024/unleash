@@ -18,7 +18,12 @@ interface IRemoveApiTokenButtonProps {
   project?: string;
 }
 
-export const RemoveApiTokenButton = ({ token, permission, onRemove, project }: IRemoveApiTokenButtonProps) => {
+export const RemoveApiTokenButton = ({
+  token,
+  permission,
+  onRemove,
+  project,
+}: IRemoveApiTokenButtonProps) => {
   const [open, setOpen] = useState(false);
   const { setToastData, setToastApiError } = useToast();
 
@@ -47,7 +52,12 @@ export const RemoveApiTokenButton = ({ token, permission, onRemove, project }: I
       >
         <Delete />
       </PermissionIconButton>
-      <Dialogue open={open} onClick={onRemoveToken} onClose={() => setOpen(false)} title='Confirm deletion'>
+      <Dialogue
+        open={open}
+        onClick={onRemoveToken}
+        onClose={() => setOpen(false)}
+        title='Confirm deletion'
+      >
         <div>
           Are you sure you want to delete the following API token?
           <br />

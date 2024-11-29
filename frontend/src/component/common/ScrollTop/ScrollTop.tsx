@@ -13,4 +13,9 @@ export const ScrollTop = (): null => {
   return null;
 };
 
-const noScrollPaths = ['/admin/api', '/admin/users', '/admin/auth', '/admin/roles'];
+const noScrollPaths = [
+  '/admin/api',
+  '/admin/users',
+  '/admin/auth',
+  '/admin/roles',
+];

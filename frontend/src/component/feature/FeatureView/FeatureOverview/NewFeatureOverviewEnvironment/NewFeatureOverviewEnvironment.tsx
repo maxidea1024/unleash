@@ -15,7 +15,9 @@ const StyledFeatureOverviewEnvironment = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const StyledFeatureOverviewEnvironmentBody = styled(FeatureOverviewEnvironmentBody)(({ theme }) => ({
+const StyledFeatureOverviewEnvironmentBody = styled(
+  FeatureOverviewEnvironmentBody,
+)(({ theme }) => ({
   width: '100%',
   position: 'relative',
   paddingBottom: theme.spacing(2),
@@ -53,15 +55,21 @@ interface INewFeatureOverviewEnvironmentProps {
   environmentId: string;
 }
 
-export const NewFeatureOverviewEnvironment = ({ environmentId }: INewFeatureOverviewEnvironmentProps) => {
+export const NewFeatureOverviewEnvironment = ({
+  environmentId,
+}: INewFeatureOverviewEnvironmentProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { metrics } = useFeatureMetrics(projectId, featureId);
   const { feature } = useFeature(projectId, featureId);
 
   const featureMetrics = getFeatureMetrics(feature?.environments, metrics);
-  const environmentMetric = featureMetrics.find(({ environment }) => environment === environmentId);
-  const featureEnvironment = feature?.environments.find(({ name }) => name === environmentId);
+  const environmentMetric = featureMetrics.find(
+    ({ environment }) => environment === environmentId,
+  );
+  const featureEnvironment = feature?.environments.find(
+    ({ name }) => name === environmentId,
+  );
 
   if (!featureEnvironment)
     return (
@@ -89,7 +97,9 @@ export const NewFeatureOverviewEnvironment = ({ environmentId }: INewFeatureOver
       <StyledFeatureOverviewEnvironmentBody
         featureEnvironment={featureEnvironment}
         isDisabled={!featureEnvironment.enabled}
-        otherEnvironments={feature?.environments.map(({ name }) => name).filter((name) => name !== environmentId)}
+        otherEnvironments={feature?.environments
+          .map(({ name }) => name)
+          .filter((name) => name !== environmentId)}
       />
       <ConditionallyRender
         condition={(featureEnvironment?.strategies?.length || 0) > 0}

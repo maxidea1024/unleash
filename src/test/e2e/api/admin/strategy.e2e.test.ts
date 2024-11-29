@@ -1,5 +1,8 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
 let app: IUnleashTest;
@@ -36,13 +39,19 @@ test('gets all strategies', async () => {
 test('gets a strategy by name', async () => {
   expect.assertions(0);
 
-  return app.request.get('/api/admin/strategies/default').expect('Content-Type', /json/).expect(200);
+  return app.request
+    .get('/api/admin/strategies/default')
+    .expect('Content-Type', /json/)
+    .expect(200);
 });
 
 test('cant get a strategy by name that does not exist', async () => {
   expect.assertions(0);
 
-  return app.request.get('/api/admin/strategies/mystrategy').expect('Content-Type', /json/).expect(404);
+  return app.request
+    .get('/api/admin/strategies/mystrategy')
+    .expect('Content-Type', /json/)
+    .expect(404);
 });
 
 test('creates a new strategy', async () => {
@@ -175,7 +184,9 @@ test('can update a exiting strategy with deprecated', async () => {
     .set('Content-Type', 'application/json')
     .expect(201);
 
-  const { body: strategy } = await app.request.get('/api/admin/strategies/myCustomStrategyDeprecated');
+  const { body: strategy } = await app.request.get(
+    '/api/admin/strategies/myCustomStrategyDeprecated',
+  );
 
   strategy.description = 'A new desc';
 
@@ -198,7 +209,9 @@ test('can create a strategy with a title', async () => {
     .set('Content-Type', 'application/json')
     .expect(201);
 
-  const { body: strategy } = await app.request.get('/api/admin/strategies/myCustomStrategyWithTitle');
+  const { body: strategy } = await app.request.get(
+    '/api/admin/strategies/myCustomStrategyWithTitle',
+  );
 
   expect(strategy.title).toBe('This is the best strategy ever');
 
@@ -222,7 +235,9 @@ test('can update a strategy with a title', async () => {
     .set('Content-Type', 'application/json')
     .expect(201);
 
-  const { body: strategy } = await app.request.get('/api/admin/strategies/myCustomStrategy2');
+  const { body: strategy } = await app.request.get(
+    '/api/admin/strategies/myCustomStrategy2',
+  );
 
   strategy.title = 'This is the best strategy ever';
 

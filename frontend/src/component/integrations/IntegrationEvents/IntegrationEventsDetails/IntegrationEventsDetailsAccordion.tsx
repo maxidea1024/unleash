@@ -1,5 +1,11 @@
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Accordion, AccordionDetails, AccordionSummary, IconButton, styled } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  IconButton,
+  styled,
+} from '@mui/material';
 import type { ReactNode } from 'react';
 
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
@@ -20,7 +26,10 @@ interface IIntegrationEventsDetailsEventProps {
   children: ReactNode;
 }
 
-export const IntegrationEventsDetailsAccordion = ({ header, children }: IIntegrationEventsDetailsEventProps) => (
+export const IntegrationEventsDetailsAccordion = ({
+  header,
+  children,
+}: IIntegrationEventsDetailsEventProps) => (
   <StyledAccordion>
     <StyledAccordionSummary
       expandIcon={

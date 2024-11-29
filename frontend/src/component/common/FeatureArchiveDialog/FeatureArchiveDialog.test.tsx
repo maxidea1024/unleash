@@ -6,15 +6,24 @@ import { FeatureArchiveDialog } from './FeatureArchiveDialog';
 
 const server = testServerSetup();
 const setupHappyPathForChangeRequest = () => {
-  testServerRoute(server, '/api/admin/projects/projectId/environments/development/change-requests', {}, 'post');
-  testServerRoute(server, '/api/admin/projects/projectId/change-requests/config', [
-    {
-      environment: 'development',
-      type: 'development',
-      requiredApprovals: 1,
-      changeRequestEnabled: true,
-    },
-  ]);
+  testServerRoute(
+    server,
+    '/api/admin/projects/projectId/environments/development/change-requests',
+    {},
+    'post',
+  );
+  testServerRoute(
+    server,
+    '/api/admin/projects/projectId/change-requests/config',
+    [
+      {
+        environment: 'development',
+        type: 'development',
+        requiredApprovals: 1,
+        changeRequestEnabled: true,
+      },
+    ],
+  );
 };
 const setupArchiveValidation = (orphanParents: string[]) => {
   testServerRoute(server, '/api/admin/ui-config', {
@@ -33,8 +42,14 @@ const setupArchiveValidation = (orphanParents: string[]) => {
   );
 };
 
-const setupFlagScheduleConflicts = (scheduledCRs: { id: number; title?: string }[]) => {
-  testServerRoute(server, '/api/admin/projects/projectId/change-requests/scheduled', scheduledCRs);
+const setupFlagScheduleConflicts = (
+  scheduledCRs: { id: number; title?: string }[],
+) => {
+  testServerRoute(
+    server,
+    '/api/admin/projects/projectId/change-requests/scheduled',
+    scheduledCRs,
+  );
 };
 
 test('Add single archive feature change to change request', async () => {
@@ -54,7 +69,9 @@ test('Add single archive feature change to change request', async () => {
   );
 
   expect(screen.getByText('Archive feature flag')).toBeInTheDocument();
-  await screen.findByText('Archiving features with dependencies will also remove those dependencies.');
+  await screen.findByText(
+    'Archiving features with dependencies will also remove those dependencies.',
+  );
   const button = await screen.findByText('Add change to draft');
 
   button.click();
@@ -82,7 +99,9 @@ test('Add multiple archive feature changes to change request', async () => {
   );
 
   await screen.findByText('Archive feature flags');
-  await screen.findByText('Archiving features with dependencies will also remove those dependencies.');
+  await screen.findByText(
+    'Archiving features with dependencies will also remove those dependencies.',
+  );
   const button = await screen.findByText('Add to change request');
 
   button.click();
@@ -145,7 +164,9 @@ test('Show error message when multiple parents of orphaned children are archived
     'have child features that depend on them and are not part of the archive operation. These parent features can not be archived:',
   );
   expect(
-    screen.queryByText('Archiving features with dependencies will also remove those dependencies.'),
+    screen.queryByText(
+      'Archiving features with dependencies will also remove those dependencies.',
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -165,9 +186,13 @@ test('Show error message when 1 parent of orphaned children is archived', async 
   );
 
   await screen.findByText('parent');
-  await screen.findByText('has child features that depend on it and are not part of the archive operation.');
+  await screen.findByText(
+    'has child features that depend on it and are not part of the archive operation.',
+  );
   expect(
-    screen.queryByText('Archiving features with dependencies will also remove those dependencies.'),
+    screen.queryByText(
+      'Archiving features with dependencies will also remove those dependencies.',
+    ),
   ).not.toBeInTheDocument();
 });
 
@@ -176,7 +201,9 @@ describe('schedule conflicts', () => {
     'Shows a warning when archiving %s flag(s) with change request schedule conflicts',
     async (numberOfFlags) => {
       setupArchiveValidation([]);
-      const featureIds = new Array(numberOfFlags).fill(0).map((_, i) => `feature-flag-${i + 1}`);
+      const featureIds = new Array(numberOfFlags)
+        .fill(0)
+        .map((_, i) => `feature-flag-${i + 1}`);
 
       const conflicts = [{ id: 5, title: 'crTitle' }, { id: 6 }];
       setupFlagScheduleConflicts(conflicts);
@@ -201,7 +228,9 @@ describe('schedule conflicts', () => {
 
       const alerts = await screen.findAllByRole('alert');
       expect(alerts).toHaveLength(2);
-      expect(alerts[1]).toHaveTextContent('This archive operation would conflict with 2 scheduled change request(s).');
+      expect(alerts[1]).toHaveTextContent(
+        'This archive operation would conflict with 2 scheduled change request(s).',
+      );
     },
   );
 });

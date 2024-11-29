@@ -13,7 +13,8 @@ export const updateFeatureStrategySchema = {
     },
     sortOrder: {
       type: 'number',
-      description: 'The order of the strategy in the list in feature environment configuration',
+      description:
+        'The order of the strategy in the list in feature environment configuration',
     },
     constraints: {
       type: 'array',
@@ -48,4 +49,6 @@ export const updateFeatureStrategySchema = {
   },
 } as const;
 
-export type UpdateFeatureStrategySchema = FromSchema<typeof updateFeatureStrategySchema>;
+export type UpdateFeatureStrategySchema = FromSchema<
+  typeof updateFeatureStrategySchema
+>;

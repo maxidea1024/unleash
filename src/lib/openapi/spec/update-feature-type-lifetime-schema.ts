@@ -20,4 +20,6 @@ export const updateFeatureTypeLifetimeSchema = {
   components: {},
 } as const;
 
-export type UpdateFeatureTypeLifetimeSchema = FromSchema<typeof updateFeatureTypeLifetimeSchema>;
+export type UpdateFeatureTypeLifetimeSchema = FromSchema<
+  typeof updateFeatureTypeLifetimeSchema
+>;

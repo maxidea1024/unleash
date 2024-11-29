@@ -15,14 +15,20 @@ const MsgContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-export const CopyStrategiesMessage: VFC<ICopyStrategiesMessageProps> = ({ payload, fromEnvironment, environment }) => (
+export const CopyStrategiesMessage: VFC<ICopyStrategiesMessageProps> = ({
+  payload,
+  fromEnvironment,
+  environment,
+}) => (
   <MsgContainer>
     <Typography>
       <strong>Copy: </strong>
     </Typography>
     {payload?.map((strategy) => (
       <Typography>
-        <strong>{formatStrategyName(strategy?.name || '')} strategy </strong>{' '}
+        <strong>
+          {formatStrategyName(strategy?.name || '')} strategy{' '}
+        </strong>{' '}
       </Typography>
     ))}
     <Typography>

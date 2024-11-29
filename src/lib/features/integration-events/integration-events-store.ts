@@ -3,7 +3,10 @@ import type { Row } from '../../db/crud/row-type';
 import type { Db } from '../../db/db';
 import type { IntegrationEventSchema } from '../../openapi/spec/integration-event-schema';
 
-export type IntegrationEventWriteModel = Omit<IntegrationEventSchema, 'id' | 'createdAt'>;
+export type IntegrationEventWriteModel = Omit<
+  IntegrationEventSchema,
+  'id' | 'createdAt'
+>;
 
 export type IntegrationEventState = IntegrationEventWriteModel['state'];
 
@@ -18,7 +21,11 @@ export class IntegrationEventsStore extends CRUDStore<
     super('integration_events', db, config);
   }
 
-  async getPaginatedEvents(id: number, limit: number, offset: number): Promise<IntegrationEventSchema[]> {
+  async getPaginatedEvents(
+    id: number,
+    limit: number,
+    offset: number,
+  ): Promise<IntegrationEventSchema[]> {
     const endTimer = this.timer('getPaginatedEvents');
 
     const rows = await this.db(this.tableName)
@@ -44,12 +51,17 @@ export class IntegrationEventsStore extends CRUDStore<
           .limit(100);
       })
       .with('latest_per_integration', (qb) => {
-        qb.select(this.db.raw('MAX(id) as id')).from(this.tableName).groupBy('integration_id');
+        qb.select(this.db.raw('MAX(id) as id'))
+          .from(this.tableName)
+          .groupBy('integration_id');
       })
       .from(this.tableName)
       .whereNotIn(
         'id',
-        this.db.select('id').from('latest_events').union(this.db.select('id').from('latest_per_integration')),
+        this.db
+          .select('id')
+          .from('latest_events')
+          .union(this.db.select('id').from('latest_per_integration')),
       )
       .delete();
 

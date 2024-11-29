@@ -12,7 +12,10 @@ export interface IUsePersonalAPITokensOutput {
 }
 
 export const usePersonalAPITokens = (): IUsePersonalAPITokensOutput => {
-  const { data, error, mutate } = useSWR<PatsSchema>(formatApiPath('api/admin/user/tokens'), fetcher);
+  const { data, error, mutate } = useSWR<PatsSchema>(
+    formatApiPath('api/admin/user/tokens'),
+    fetcher,
+  );
 
   return {
     // FIXME: schema issue

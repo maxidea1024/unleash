@@ -46,8 +46,9 @@ export const IntegrationDelete: VFC<IIntegrationDeleteProps> = ({ id }) => {
     <>
       <StyledTitle>Delete integration</StyledTitle>
       <StyledHelpText>
-        Deleting an integration instance will delete all its configuration. It will stop working immediately. Other
-        instances of the same integration are unaffected.
+        Deleting an integration instance will delete all its configuration. It
+        will stop working immediately. Other instances of the same integration
+        are unaffected.
       </StyledHelpText>
       <StyledContainer>
         <PermissionButton
@@ -63,7 +64,12 @@ export const IntegrationDelete: VFC<IIntegrationDeleteProps> = ({ id }) => {
           Delete integration
         </PermissionButton>
       </StyledContainer>
-      <Dialogue open={isOpen} onClick={onSubmit} onClose={() => setIsOpen(false)} title='Confirm deletion'>
+      <Dialogue
+        open={isOpen}
+        onClick={onSubmit}
+        onClose={() => setIsOpen(false)}
+        title='Confirm deletion'
+      >
         <div>Are you sure you want to delete this Integration?</div>
       </Dialogue>
     </>

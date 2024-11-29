@@ -1,6 +1,8 @@
 import type FeatureToggleService from '../feature-toggle-service';
 import { createTestConfig } from '../../../../test/config/test-config';
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
 import { DEFAULT_ENV, extractAuditInfoFromUser } from '../../../util';
 import type { FeatureStrategySchema } from '../../../openapi';
 import type User from '../../../types/user';
@@ -14,9 +16,18 @@ import {
   TEST_AUDIT_USER,
 } from '../../../types';
 import EnvironmentService from '../../project-environments/environment-service';
-import { ForbiddenError, NotFoundError, PatternError, PermissionError } from '../../../error';
+import {
+  ForbiddenError,
+  NotFoundError,
+  PatternError,
+  PermissionError,
+} from '../../../error';
 import type { ISegmentService } from '../../segment/segment-service-interface';
-import { createEventsService, createFeatureToggleService, createSegmentService } from '../..';
+import {
+  createEventsService,
+  createFeatureToggleService,
+  createSegmentService,
+} from '../..';
 import { insertLastSeenAt } from '../../../../test/e2e/helpers/test-helper';
 import type { EventService } from '../../../services';
 
@@ -41,7 +52,10 @@ beforeAll(async () => {
   const config = createTestConfig({
     experimental: { flags: {} },
   });
-  db = await dbInit('feature_toggle_service_v2_service_serial', config.getLogger);
+  db = await dbInit(
+    'feature_toggle_service_v2_service_serial',
+    config.getLogger,
+  );
   unleashConfig = config;
   stores = db.stores;
 
@@ -174,7 +188,12 @@ test('should ignore name in the body when updating feature flag', async () => {
     description: "I'm changed",
   };
 
-  await service.updateFeatureToggle(projectId, update, featureName, TEST_AUDIT_USER);
+  await service.updateFeatureToggle(
+    projectId,
+    update,
+    featureName,
+    TEST_AUDIT_USER,
+  );
   const featureOne = await service.getFeature({ featureName });
   const featureTwo = await service.getFeature({
     featureName: secondFeatureName,
@@ -259,9 +278,21 @@ test('adding and removing an environment preserves variants when variants per en
     eventService,
   );
 
-  await environmentService.addEnvironmentToProject(prodEnv, 'default', SYSTEM_USER_AUDIT);
-  await environmentService.removeEnvironmentFromProject(prodEnv, 'default', SYSTEM_USER_AUDIT);
-  await environmentService.addEnvironmentToProject(prodEnv, 'default', SYSTEM_USER_AUDIT);
+  await environmentService.addEnvironmentToProject(
+    prodEnv,
+    'default',
+    SYSTEM_USER_AUDIT,
+  );
+  await environmentService.removeEnvironmentFromProject(
+    prodEnv,
+    'default',
+    SYSTEM_USER_AUDIT,
+  );
+  await environmentService.addEnvironmentToProject(
+    prodEnv,
+    'default',
+    SYSTEM_USER_AUDIT,
+  );
 
   const flag = await service.getFeature({
     featureName,
@@ -289,20 +320,36 @@ test('cloning a feature flag copies variant environments correctly', async () =>
     type: 'production',
   });
 
-  await stores.featureEnvironmentStore.connectFeatureToEnvironmentsForProject(newFlagName, 'default');
+  await stores.featureEnvironmentStore.connectFeatureToEnvironmentsForProject(
+    newFlagName,
+    'default',
+  );
 
-  await stores.featureEnvironmentStore.addVariantsToFeatureEnvironment(newFlagName, targetEnv, [
-    {
-      name: 'variant1',
-      weight: 100,
-      weightType: 'fix',
-      stickiness: 'default',
-    },
-  ]);
+  await stores.featureEnvironmentStore.addVariantsToFeatureEnvironment(
+    newFlagName,
+    targetEnv,
+    [
+      {
+        name: 'variant1',
+        weight: 100,
+        weightType: 'fix',
+        stickiness: 'default',
+      },
+    ],
+  );
 
-  await service.cloneFeatureToggle(newFlagName, 'default', clonedFlagName, SYSTEM_USER_AUDIT, true);
+  await service.cloneFeatureToggle(
+    newFlagName,
+    'default',
+    clonedFlagName,
+    SYSTEM_USER_AUDIT,
+    true,
+  );
 
-  const clonedFlag = await stores.featureStrategiesStore.getFeatureToggleWithVariantEnvs(clonedFlagName);
+  const clonedFlag =
+    await stores.featureStrategiesStore.getFeatureToggleWithVariantEnvs(
+      clonedFlagName,
+    );
 
   const defaultEnv = clonedFlag.environments.find((x) => x.name === 'default');
   const newEnv = clonedFlag.environments.find((x) => x.name === targetEnv);
@@ -317,8 +364,18 @@ test('cloning a feature flag not allowed for change requests enabled', async () 
     environment: 'default',
   });
   await expect(
-    service.cloneFeatureToggle('newFlagName', 'default', 'clonedFlagName', SYSTEM_USER_AUDIT, true),
-  ).rejects.toEqual(new ForbiddenError(`Cloning not allowed. Project default has change requests enabled.`));
+    service.cloneFeatureToggle(
+      'newFlagName',
+      'default',
+      'clonedFlagName',
+      SYSTEM_USER_AUDIT,
+      true,
+    ),
+  ).rejects.toEqual(
+    new ForbiddenError(
+      `Cloning not allowed. Project default has change requests enabled.`,
+    ),
+  );
 });
 
 test('changing to a project with change requests enabled should not be allowed', async () => {
@@ -326,8 +383,12 @@ test('changing to a project with change requests enabled should not be allowed',
     project: 'default',
     environment: 'default',
   });
-  await expect(service.changeProject('newFlagName', 'default', TEST_AUDIT_USER)).rejects.toEqual(
-    new ForbiddenError(`Changing project not allowed. Project default has change requests enabled.`),
+  await expect(
+    service.changeProject('newFlagName', 'default', TEST_AUDIT_USER),
+  ).rejects.toEqual(
+    new ForbiddenError(
+      `Changing project not allowed. Project default has change requests enabled.`,
+    ),
   );
 });
 
@@ -364,17 +425,30 @@ test('Cloning a feature flag also clones segments correctly', async () => {
     TEST_AUDIT_USER,
   );
 
-  await service.cloneFeatureToggle(featureName, 'default', clonedFeatureName, TEST_AUDIT_USER, true);
+  await service.cloneFeatureToggle(
+    featureName,
+    'default',
+    clonedFeatureName,
+    TEST_AUDIT_USER,
+    true,
+  );
 
   const feature = await service.getFeature({
     featureName: clonedFeatureName,
   });
-  expect(feature.environments.find((x) => x.name === 'default')?.strategies[0].segments).toHaveLength(1);
+  expect(
+    feature.environments.find((x) => x.name === 'default')?.strategies[0]
+      .segments,
+  ).toHaveLength(1);
 });
 
 test('If change requests are enabled, cannot change variants without going via CR', async () => {
   const featureName = 'feature-with-variants-per-env-and-cr';
-  await service.createFeatureToggle('default', { name: featureName }, TEST_AUDIT_USER);
+  await service.createFeatureToggle(
+    'default',
+    { name: featureName },
+    TEST_AUDIT_USER,
+  );
 
   // Force all feature flags on to make sure we have Change requests on
   const customFeatureService = createFeatureToggleService(db.rawDatabase, {
@@ -433,8 +507,14 @@ test('If CRs are protected for any environment in the project stops bulk update 
     type: 'production',
   });
 
-  await stores.projectStore.addEnvironmentToProject(project.id, enabledEnv.name);
-  await stores.projectStore.addEnvironmentToProject(project.id, disabledEnv.name);
+  await stores.projectStore.addEnvironmentToProject(
+    project.id,
+    enabledEnv.name,
+  );
+  await stores.projectStore.addEnvironmentToProject(
+    project.id,
+    disabledEnv.name,
+  );
 
   // Force all feature flags on to make sure we have Change requests on
   const customFeatureService = createFeatureToggleService(db.rawDatabase, {
@@ -445,7 +525,11 @@ test('If CRs are protected for any environment in the project stops bulk update 
     },
   });
 
-  const flag = await service.createFeatureToggle(project.id, { name: 'crOnVariantFlag' }, TEST_AUDIT_USER);
+  const flag = await service.createFeatureToggle(
+    project.id,
+    { name: 'crOnVariantFlag' },
+    TEST_AUDIT_USER,
+  );
 
   const variant: IVariant = {
     name: 'cr-enabled',
@@ -517,15 +601,23 @@ test('getPlaygroundFeatures should return ids and titles (if they exist) on clie
     TEST_AUDIT_USER,
   );
 
-  await service.createStrategy(config, { projectId, featureName, environment: DEFAULT_ENV }, TEST_AUDIT_USER);
+  await service.createStrategy(
+    config,
+    { projectId, featureName, environment: DEFAULT_ENV },
+    TEST_AUDIT_USER,
+  );
 
   const playgroundFeatures = await service.getPlaygroundFeatures();
 
-  const strategyWithTitle = playgroundFeatures.find((feature) => feature.name === featureName)!.strategies[0];
+  const strategyWithTitle = playgroundFeatures.find(
+    (feature) => feature.name === featureName,
+  )!.strategies[0];
 
   expect(strategyWithTitle.title).toStrictEqual(title);
 
-  for (const strategy of playgroundFeatures.flatMap((feature) => feature.strategies)) {
+  for (const strategy of playgroundFeatures.flatMap(
+    (feature) => feature.strategies,
+  )) {
     expect(strategy.id).not.toBeUndefined();
   }
 });
@@ -555,13 +647,15 @@ describe('flag name validation', () => {
     const invalidFeatures = ['a', 'b', 'c'];
 
     for (const feature of invalidFeatures) {
-      await expect(service.validateFeatureFlagNameAgainstPattern(feature, projectId)).rejects.toBeInstanceOf(
-        PatternError,
-      );
+      await expect(
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
+      ).rejects.toBeInstanceOf(PatternError);
     }
 
     for (const feature of validFeatures) {
-      await expect(service.validateFeatureFlagNameAgainstPattern(feature, projectId)).resolves.toBeFalsy();
+      await expect(
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
+      ).resolves.toBeFalsy();
     }
   });
 
@@ -570,7 +664,9 @@ describe('flag name validation', () => {
     const validFeatures = ['testpattern-feature', 'testpattern-feature2'];
 
     for (const feature of validFeatures) {
-      await expect(service.validateFeatureFlagNameAgainstPattern(feature, projectId)).resolves.toBeFalsy();
+      await expect(
+        service.validateFeatureFlagNameAgainstPattern(feature, projectId),
+      ).resolves.toBeFalsy();
     }
   });
 });
@@ -592,7 +688,10 @@ test('Should return last seen at per environment', async () => {
 
   const featureService = createFeatureToggleService(db.rawDatabase, config);
 
-  const lastSeenAtStoreDate = await insertLastSeenAt(featureName, db.rawDatabase);
+  const lastSeenAtStoreDate = await insertLastSeenAt(
+    featureName,
+    db.rawDatabase,
+  );
 
   const featureToggle = await featureService.getFeature({
     featureName,
@@ -600,7 +699,9 @@ test('Should return last seen at per environment', async () => {
     environmentVariants: false,
   });
 
-  expect(featureToggle.environments[0].lastSeenAt).toEqual(new Date(lastSeenAtStoreDate));
+  expect(featureToggle.environments[0].lastSeenAt).toEqual(
+    new Date(lastSeenAtStoreDate),
+  );
   expect(featureToggle.lastSeenAt).toEqual(new Date(lastSeenAtStoreDate));
 });
 
@@ -648,7 +749,9 @@ test('Should not allow to add flags to archived projects', async () => {
       },
       TEST_AUDIT_USER,
     ),
-  ).rejects.toEqual(new NotFoundError(`Active project with id archivedProject does not exist`));
+  ).rejects.toEqual(
+    new NotFoundError(`Active project with id archivedProject does not exist`),
+  );
 });
 
 test('Should not allow to revive flags to archived projects', async () => {
@@ -664,15 +767,27 @@ test('Should not allow to revive flags to archived projects', async () => {
     TEST_AUDIT_USER,
   );
 
-  await service.archiveToggle(flag.name, { email: 'test@example.com' } as User, TEST_AUDIT_USER);
+  await service.archiveToggle(
+    flag.name,
+    { email: 'test@example.com' } as User,
+    TEST_AUDIT_USER,
+  );
   await stores.projectStore.archive(project.id);
 
-  await expect(service.reviveFeature(flag.name, TEST_AUDIT_USER)).rejects.toEqual(
-    new NotFoundError(`Active project with id archivedProjectWithFlag does not exist`),
+  await expect(
+    service.reviveFeature(flag.name, TEST_AUDIT_USER),
+  ).rejects.toEqual(
+    new NotFoundError(
+      `Active project with id archivedProjectWithFlag does not exist`,
+    ),
   );
 
-  await expect(service.reviveFeatures([flag.name], project.id, TEST_AUDIT_USER)).rejects.toEqual(
-    new NotFoundError(`Active project with id archivedProjectWithFlag does not exist`),
+  await expect(
+    service.reviveFeatures([flag.name], project.id, TEST_AUDIT_USER),
+  ).rejects.toEqual(
+    new NotFoundError(
+      `Active project with id archivedProjectWithFlag does not exist`,
+    ),
   );
 });
 
@@ -689,7 +804,9 @@ test('Should enable disabled strategies on feature environment enabled', async (
   );
   const config: Omit<FeatureStrategySchema, 'id'> = {
     name: 'default',
-    constraints: [{ contextName: 'userId', operator: 'IN', values: ['1', '1'] }],
+    constraints: [
+      { contextName: 'userId', operator: 'IN', values: ['1', '1'] },
+    ],
     parameters: { param: 'a' },
     variants: [
       {

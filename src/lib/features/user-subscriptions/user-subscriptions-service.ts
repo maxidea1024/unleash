@@ -1,7 +1,14 @@
-import { UserPreferenceUpdatedEvent, type IUnleashConfig, type IUnleashStores } from '../../types';
+import {
+  UserPreferenceUpdatedEvent,
+  type IUnleashConfig,
+  type IUnleashStores,
+} from '../../types';
 import type { Logger } from '../../logger';
 import type { IAuditUser } from '../../types/user';
-import type { IUserUnsubscribeStore, UnsubscribeEntry } from './user-unsubscribe-store-type';
+import type {
+  IUserUnsubscribeStore,
+  UnsubscribeEntry,
+} from './user-unsubscribe-store-type';
 import type EventService from '../events/event-service';
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
 
@@ -15,7 +22,10 @@ export class UserSubscriptionsService {
     {
       userUnsubscribeStore,
       userSubscriptionsReadModel,
-    }: Pick<IUnleashStores, 'userUnsubscribeStore' | 'userSubscriptionsReadModel'>,
+    }: Pick<
+      IUnleashStores,
+      'userUnsubscribeStore' | 'userSubscriptionsReadModel'
+    >,
     { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
@@ -30,7 +40,11 @@ export class UserSubscriptionsService {
     return this.userSubscriptionsReadModel.getUserSubscriptions(userId);
   }
 
-  async subscribe(userId: number, subscription: string, auditUser: IAuditUser): Promise<void> {
+  async subscribe(
+    userId: number,
+    subscription: string,
+    auditUser: IAuditUser,
+  ): Promise<void> {
     const entry: UnsubscribeEntry = {
       userId,
       subscription,
@@ -46,7 +60,11 @@ export class UserSubscriptionsService {
     );
   }
 
-  async unsubscribe(userId: number, subscription: string, auditUser: IAuditUser): Promise<void> {
+  async unsubscribe(
+    userId: number,
+    subscription: string,
+    auditUser: IAuditUser,
+  ): Promise<void> {
     const entry: UnsubscribeEntry = {
       userId,
       subscription,

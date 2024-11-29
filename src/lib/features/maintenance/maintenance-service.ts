@@ -21,15 +21,21 @@ export default class MaintenanceService implements IMaintenanceStatus {
 
     this.config = config;
     this.settingService = settingService;
-    this.resolveMaintenance = memoizee(async () => (await this.getMaintenanceSetting()).enabled, {
-      promise: true,
-      maxAge: minutesToMilliseconds(1),
-    });
+    this.resolveMaintenance = memoizee(
+      async () => (await this.getMaintenanceSetting()).enabled,
+      {
+        promise: true,
+        maxAge: minutesToMilliseconds(1),
+      },
+    );
   }
 
   async isMaintenanceMode(): Promise<boolean> {
     try {
-      return this.config.flagResolver.isEnabled('maintenanceMode') || (await this.resolveMaintenance());
+      return (
+        this.config.flagResolver.isEnabled('maintenanceMode') ||
+        (await this.resolveMaintenance())
+      );
     } catch (e) {
       this.logger.warn('Error checking maintenance mode', e);
       return false;
@@ -42,9 +48,17 @@ export default class MaintenanceService implements IMaintenanceStatus {
     });
   }
 
-  async toggleMaintenanceMode(setting: MaintenanceSchema, auditUser: IAuditUser): Promise<void> {
+  async toggleMaintenanceMode(
+    setting: MaintenanceSchema,
+    auditUser: IAuditUser,
+  ): Promise<void> {
     //@ts-ignore
     this.resolveMaintenance.clear();
-    return this.settingService.insert(maintenanceSettingsKey, setting, auditUser, false);
+    return this.settingService.insert(
+      maintenanceSettingsKey,
+      setting,
+      auditUser,
+      false,
+    );
   }
 }

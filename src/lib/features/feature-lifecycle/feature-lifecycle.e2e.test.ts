@@ -1,5 +1,8 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithAuth } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithAuth,
+} from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 import {
   CLIENT_METRICS_ADDED,
@@ -36,7 +39,10 @@ beforeAll(async () => {
   );
   eventStore = db.stores.eventStore;
   eventBus = app.config.eventBus;
-  featureLifecycleReadModel = new FeatureLifecycleReadModel(db.rawDatabase, app.config.flagResolver);
+  featureLifecycleReadModel = new FeatureLifecycleReadModel(
+    db.rawDatabase,
+    app.config.flagResolver,
+  );
   featureLifecycleStore = db.stores.featureLifecycleStore;
 
   await app.request
@@ -57,23 +63,33 @@ beforeEach(async () => {
 });
 
 const getFeatureLifecycle = async (featureName: string, expectedCode = 200) => {
-  return app.request.get(`/api/admin/projects/default/features/${featureName}/lifecycle`).expect(expectedCode);
+  return app.request
+    .get(`/api/admin/projects/default/features/${featureName}/lifecycle`)
+    .expect(expectedCode);
 };
 
 const getCurrentStage = async (featureName: string) => {
   return featureLifecycleReadModel.findCurrentStage(featureName);
 };
 
-const completeFeature = async (featureName: string, status: FeatureLifecycleCompletedSchema, expectedCode = 200) => {
+const completeFeature = async (
+  featureName: string,
+  status: FeatureLifecycleCompletedSchema,
+  expectedCode = 200,
+) => {
   return app.request
-    .post(`/api/admin/projects/default/features/${featureName}/lifecycle/complete`)
+    .post(
+      `/api/admin/projects/default/features/${featureName}/lifecycle/complete`,
+    )
     .send(status)
     .expect(expectedCode);
 };
 
 const uncompleteFeature = async (featureName: string, expectedCode = 200) => {
   return app.request
-    .post(`/api/admin/projects/default/features/${featureName}/lifecycle/uncomplete`)
+    .post(
+      `/api/admin/projects/default/features/${featureName}/lifecycle/uncomplete`,
+    )
     .expect(expectedCode);
 };
 
@@ -86,7 +102,10 @@ function reachedStage(feature: string, stage: StageName) {
 }
 
 const expectFeatureStage = async (featureName: string, stage: StageName) => {
-  const { body: feature } = await app.getProjectFeatures('default', featureName);
+  const { body: feature } = await app.getProjectFeatures(
+    'default',
+    featureName,
+  );
   expect(feature.lifecycle).toMatchObject({
     stage,
     enteredStageAt: expect.any(String),

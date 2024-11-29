@@ -1,6 +1,11 @@
 import { RoleName } from '../../../types/model';
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../../test/e2e/helpers/test-helper';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../test/fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../util/constants';
 import { type IUserWithRootRole, TEST_AUDIT_USER } from '../../../types';
@@ -87,7 +92,12 @@ afterEach(async () => {
   await Promise.all(
     all
       .filter((env) => env.environment !== DEFAULT_ENV)
-      .map(async (env) => db.stores.projectStore.deleteEnvironmentForProject('default', env.environment)),
+      .map(async (env) =>
+        db.stores.projectStore.deleteEnvironmentForProject(
+          'default',
+          env.environment,
+        ),
+      ),
   );
 });
 
@@ -130,8 +140,16 @@ test('should support name prefix', async () => {
 
 test('should support filtering on project', async () => {
   expect.assertions(2);
-  await app.services.projectService.createProject({ name: 'projectA', id: 'projecta' }, dummyAdmin, TEST_AUDIT_USER);
-  await app.services.projectService.createProject({ name: 'projectB', id: 'projectb' }, dummyAdmin, TEST_AUDIT_USER);
+  await app.services.projectService.createProject(
+    { name: 'projectA', id: 'projecta' },
+    dummyAdmin,
+    TEST_AUDIT_USER,
+  );
+  await app.services.projectService.createProject(
+    { name: 'projectB', id: 'projectb' },
+    dummyAdmin,
+    TEST_AUDIT_USER,
+  );
   await app.createFeature('ab_test1', 'projecta');
   await app.createFeature('bd_test2', 'projectb');
   return app.request
@@ -173,7 +191,10 @@ test('should return correct data structure from /api/client/features', async () 
     'test2',
   );
 
-  const result = await app.request.get('/api/client/features').expect('Content-Type', /json/).expect(200);
+  const result = await app.request
+    .get('/api/client/features')
+    .expect('Content-Type', /json/)
+    .expect(200);
 
   expect(result.body.features).toEqual(apiClientResponse);
 });

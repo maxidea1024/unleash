@@ -31,6 +31,7 @@ test('Should create user with only id defined', () => {
   expect(user.email).toBeUndefined();
   expect(user.username).toBeUndefined();
 });
+
 test('Should create user with only email defined', () => {
   const user = new User({ id: 123, email: 'some@email.com' });
 

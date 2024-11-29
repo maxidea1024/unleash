@@ -4,7 +4,10 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import CloseIcon from '@mui/icons-material/Close';
 
 const StyledHeader = styled('div')(({ theme }) => ({
-  background: theme.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.light,
+  background:
+    theme.mode === 'light'
+      ? theme.palette.primary.main
+      : theme.palette.primary.light,
   color: theme.palette.primary.contrastText,
   display: 'flex',
   alignItems: 'center',

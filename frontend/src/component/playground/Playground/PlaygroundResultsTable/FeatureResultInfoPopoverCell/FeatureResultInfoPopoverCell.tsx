@@ -15,7 +15,10 @@ const FeatureResultPopoverWrapper = styled('div')(({ theme }) => ({
   color: theme.palette.divider,
 }));
 
-export const FeatureResultInfoPopoverCell = ({ feature, input }: FeatureResultInfoPopoverCellProps) => {
+export const FeatureResultInfoPopoverCell = ({
+  feature,
+  input,
+}: FeatureResultInfoPopoverCellProps) => {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
@@ -58,7 +61,11 @@ export const FeatureResultInfoPopoverCell = ({ feature, input }: FeatureResultIn
           horizontal: 'left',
         }}
       >
-        <FeatureDetails feature={feature} input={input} onClose={() => setOpen(false)} />
+        <FeatureDetails
+          feature={feature}
+          input={input}
+          onClose={() => setOpen(false)}
+        />
         <PlaygroundResultFeatureStrategyList feature={feature} input={input} />
       </Popover>
     </FeatureResultPopoverWrapper>

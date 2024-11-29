@@ -35,7 +35,10 @@ describe('unit tests', () => {
       project2: [{ ownerType: 'user' as const, name: 'Owner Name' }],
     };
 
-    const projectsWithOwners = ProjectOwnersReadModel.addOwnerData(projects, owners);
+    const projectsWithOwners = ProjectOwnersReadModel.addOwnerData(
+      projects,
+      owners,
+    );
 
     expect(projectsWithOwners).toMatchObject([
       {
@@ -56,7 +59,10 @@ describe('unit tests', () => {
 
     const owners = {};
 
-    const projectsWithOwners = ProjectOwnersReadModel.addOwnerData(projects, owners);
+    const projectsWithOwners = ProjectOwnersReadModel.addOwnerData(
+      projects,
+      owners,
+    );
 
     expect(projectsWithOwners).toMatchObject([
       {
@@ -142,7 +148,9 @@ describe('integration tests', () => {
 
     const owners = await readModel.getProjectOwnersDictionary();
     expect(owners).toMatchObject({
-      [projectId]: expect.arrayContaining([expect.objectContaining({ name: 'Owner Name' })]),
+      [projectId]: expect.arrayContaining([
+        expect.objectContaining({ name: 'Owner Name' }),
+      ]),
     });
   });
 
@@ -173,7 +181,11 @@ describe('integration tests', () => {
     const memberRole = await db.stores.roleStore.getRoleByName(RoleName.MEMBER);
     await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
-    await db.stores.accessStore.addUserToRole(member.id, memberRole.id, projectId);
+    await db.stores.accessStore.addUserToRole(
+      member.id,
+      memberRole.id,
+      projectId,
+    );
 
     const owners = await readModel.getProjectOwnersDictionary();
 
@@ -186,7 +198,12 @@ describe('integration tests', () => {
     const projectId = randomId();
     await db.stores.projectStore.create({ id: projectId, name: projectId });
 
-    await db.stores.accessStore.addGroupToRole(group.id, ownerRoleId, '', projectId);
+    await db.stores.accessStore.addGroupToRole(
+      group.id,
+      ownerRoleId,
+      '',
+      projectId,
+    );
 
     const owners = await readModel.getProjectOwnersDictionary();
 
@@ -204,7 +221,12 @@ describe('integration tests', () => {
     const projectId = randomId();
     await db.stores.projectStore.create({ id: projectId, name: projectId });
 
-    await db.stores.accessStore.addGroupToRole(group.id, ownerRoleId, '', projectId);
+    await db.stores.accessStore.addGroupToRole(
+      group.id,
+      ownerRoleId,
+      '',
+      projectId,
+    );
 
     await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
@@ -246,7 +268,12 @@ describe('integration tests', () => {
       created_at: new Date('2024-01-01T00:00:00.000Z'),
     });
 
-    await db.stores.accessStore.addGroupToRole(group.id, ownerRoleId, '', projectId);
+    await db.stores.accessStore.addGroupToRole(
+      group.id,
+      ownerRoleId,
+      '',
+      projectId,
+    );
 
     await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectId);
 
@@ -296,9 +323,16 @@ describe('integration tests', () => {
       name: projectIdB,
     });
 
-    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectIdB);
+    await db.stores.accessStore.addUserToRole(
+      owner.id,
+      ownerRoleId,
+      projectIdB,
+    );
 
-    const projectsWithOwners = await readModel.addOwners([mockProjectData(projectIdA), mockProjectData(projectIdB)]);
+    const projectsWithOwners = await readModel.addOwners([
+      mockProjectData(projectIdA),
+      mockProjectData(projectIdB),
+    ]);
 
     expect(projectsWithOwners).toMatchObject([
       { name: projectIdA, owners: [{ ownerType: 'system' }] },
@@ -320,11 +354,24 @@ describe('integration tests', () => {
     const projectC = await createProject();
     await createProject(); // <- no owner
 
-    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectA.id);
+    await db.stores.accessStore.addUserToRole(
+      owner.id,
+      ownerRoleId,
+      projectA.id,
+    );
 
-    await db.stores.accessStore.addUserToRole(owner2.id, ownerRoleId, projectB.id);
+    await db.stores.accessStore.addUserToRole(
+      owner2.id,
+      ownerRoleId,
+      projectB.id,
+    );
 
-    await db.stores.accessStore.addGroupToRole(group.id, ownerRoleId, '', projectC.id);
+    await db.stores.accessStore.addGroupToRole(
+      group.id,
+      ownerRoleId,
+      '',
+      projectC.id,
+    );
 
     const userOwners = await readModel.getAllUserProjectOwners();
     userOwners.sort((a, b) => a.name.localeCompare(b.name));
@@ -357,14 +404,24 @@ describe('integration tests', () => {
     const projectA = await createProject();
     const projectB = await createProject();
 
-    await db.stores.accessStore.addUserToRole(owner.id, ownerRoleId, projectA.id);
+    await db.stores.accessStore.addUserToRole(
+      owner.id,
+      ownerRoleId,
+      projectA.id,
+    );
 
-    await db.stores.accessStore.addUserToRole(owner2.id, ownerRoleId, projectB.id);
+    await db.stores.accessStore.addUserToRole(
+      owner2.id,
+      ownerRoleId,
+      projectB.id,
+    );
 
     const noOwners = await readModel.getAllUserProjectOwners(new Set());
     expect(noOwners).toMatchObject([]);
 
-    const onlyProjectA = await readModel.getAllUserProjectOwners(new Set([projectA.id]));
+    const onlyProjectA = await readModel.getAllUserProjectOwners(
+      new Set([projectA.id]),
+    );
     expect(onlyProjectA).toMatchObject([
       {
         name: owner.name,

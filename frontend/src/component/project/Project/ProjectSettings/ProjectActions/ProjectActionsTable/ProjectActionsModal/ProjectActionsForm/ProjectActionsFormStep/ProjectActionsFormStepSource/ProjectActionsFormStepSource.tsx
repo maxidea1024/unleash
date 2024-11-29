@@ -48,7 +48,8 @@ export const ProjectActionsFormStepSource = ({
   setFilters,
   validateSourceId,
 }: IProjectActionsFormStepSourceProps) => {
-  const { signalEndpoints, loading: signalEndpointsLoading } = useSignalEndpoints();
+  const { signalEndpoints, loading: signalEndpointsLoading } =
+    useSignalEndpoints();
   const { signalEndpointSignals } = useSignalEndpointSignals(sourceId, 1);
 
   const addFilter = () => {
@@ -64,7 +65,11 @@ export const ProjectActionsFormStepSource = ({
   };
 
   const updateInFilters = (updatedFilter: ActionsFilterState) => {
-    setFilters((filters) => filters.map((filter) => (filter.id === updatedFilter.id ? updatedFilter : filter)));
+    setFilters((filters) =>
+      filters.map((filter) =>
+        filter.id === updatedFilter.id ? updatedFilter : filter,
+      ),
+    );
   };
 
   const signalEndpointOptions = useMemo(() => {
@@ -82,14 +87,20 @@ export const ProjectActionsFormStepSource = ({
     const lastSourcePayload = signalEndpointSignals[0]?.payload;
     return {
       lastSourcePayload,
-      filterSuggestions: Object.keys(flattenPayload(lastSourcePayload) || {}).sort(),
+      filterSuggestions: Object.keys(
+        flattenPayload(lastSourcePayload) || {},
+      ).sort(),
     };
   }, [signalEndpointSignals]);
 
   return (
     <ProjectActionsFormStep
       name='When this'
-      resourceLink={<RouterLink to='/integrations/signals'>Create signal endpoint</RouterLink>}
+      resourceLink={
+        <RouterLink to='/integrations/signals'>
+          Create signal endpoint
+        </RouterLink>
+      }
     >
       <GeneralSelect
         label='Source'
@@ -112,21 +123,33 @@ export const ProjectActionsFormStepSource = ({
           filter={filter}
           stateChanged={updateInFilters}
           suggestions={filterSuggestions}
-          onDelete={() => setFilters((filters) => filters.filter(({ id }) => id !== filter.id))}
+          onDelete={() =>
+            setFilters((filters) =>
+              filters.filter(({ id }) => id !== filter.id),
+            )
+          }
         />
       ))}
       <StyledButtonContainer>
-        <Button startIcon={<Add />} onClick={addFilter} variant='outlined' color='primary'>
+        <Button
+          startIcon={<Add />}
+          onClick={addFilter}
+          variant='outlined'
+          color='primary'
+        >
           Add filter
         </Button>
         <HelpIcon
           htmlTooltip
           tooltip={
             <StyledTooltip>
-              <p>Filters allow you to add conditions to the execution of the actions based on the source payload.</p>
               <p>
-                If no filters are defined then the action will always be triggered from the selected source, no matter
-                the payload.
+                Filters allow you to add conditions to the execution of the
+                actions based on the source payload.
+              </p>
+              <p>
+                If no filters are defined then the action will always be
+                triggered from the selected source, no matter the payload.
               </p>
             </StyledTooltip>
           }

@@ -13,7 +13,9 @@ interface IInactiveUsersActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const InactiveUsersActionCell: VFC<IInactiveUsersActionsCellProps> = ({ onDelete }) => {
+export const InactiveUsersActionCell: VFC<IInactiveUsersActionsCellProps> = ({
+  onDelete,
+}) => {
   return (
     <StyledBox>
       <PermissionIconButton

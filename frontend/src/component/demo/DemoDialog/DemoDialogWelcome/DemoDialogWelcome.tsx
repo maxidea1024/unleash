@@ -60,15 +60,20 @@ interface IDemoDialogWelcomeProps {
   onStart: () => void;
 }
 
-export const DemoDialogWelcome = ({ open, onClose, onStart }: IDemoDialogWelcomeProps) => {
+export const DemoDialogWelcome = ({
+  open,
+  onClose,
+  onStart,
+}: IDemoDialogWelcomeProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   return (
     <DemoDialog open={open} onClose={onClose} preventCloseOnBackdropClick>
       <DemoDialog.Header>Explore Unleash</DemoDialog.Header>
       <Typography color='textSecondary' sx={{ mt: 2 }}>
-        You can explore Unleash on your own, however for the best experience it's recommended you follow our interactive
-        demo. To get started, you will need to open the demo website below.
+        You can explore Unleash on your own, however for the best experience
+        it's recommended you follow our interactive demo. To get started, you
+        will need to open the demo website below.
       </Typography>
       <StyledDemoPane>
         <StyledScanMessage>Scan the QR code with your phone</StyledScanMessage>
@@ -87,13 +92,20 @@ export const DemoDialogWelcome = ({ open, onClose, onStart }: IDemoDialogWelcome
             hello.unleash.run <Launch />
           </StyledLink>
         </Typography>
-        <Typography color='textSecondary'>(we recommend you keep the pages open side by side)</Typography>
+        <Typography color='textSecondary'>
+          (we recommend you keep the pages open side by side)
+        </Typography>
       </StyledDemoPane>
       <StyledButtons>
         <StyledButton variant='outlined' color='primary' onClick={onClose}>
           Explore on your own
         </StyledButton>
-        <StyledButton variant='contained' color='primary' onClick={onStart} data-testid='DEMO_START_BUTTON'>
+        <StyledButton
+          variant='contained'
+          color='primary'
+          onClick={onStart}
+          data-testid='DEMO_START_BUTTON'
+        >
           Go for a guided tour
         </StyledButton>
       </StyledButtons>

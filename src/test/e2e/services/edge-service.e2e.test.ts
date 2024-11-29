@@ -1,7 +1,10 @@
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import { createTestConfig } from '../../config/test-config';
-import { ApiTokenType, type IApiToken } from '../../../lib/types/models/api-token';
+import {
+  ApiTokenType,
+  type IApiToken,
+} from '../../../lib/types/models/api-token';
 import { DEFAULT_ENV } from '../../../lib/util/constants';
 import { addDays, subDays } from 'date-fns';
 import type ProjectService from '../../../lib/features/project/project-service';
@@ -52,7 +55,9 @@ afterAll(async () => {
 });
 afterEach(async () => {
   const tokens = await stores.apiTokenStore.getAll();
-  const deleteAll = tokens.map((t: IApiToken) => stores.apiTokenStore.delete(t.secret));
+  const deleteAll = tokens.map((t: IApiToken) =>
+    stores.apiTokenStore.delete(t.secret),
+  );
   await Promise.all(deleteAll);
 });
 
@@ -79,7 +84,10 @@ test('should only return valid tokens', async () => {
     environment: DEFAULT_ENV,
   });
 
-  const response = await edgeService.getValidTokens([activeToken.secret, expiredToken.secret]);
+  const response = await edgeService.getValidTokens([
+    activeToken.secret,
+    expiredToken.secret,
+  ]);
 
   expect(response.tokens.length).toBe(1);
   expect(activeToken.secret).toBe(response.tokens[0].token);

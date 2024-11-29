@@ -2,7 +2,14 @@ import type React from 'react';
 import type { ReactNode, FC, VFC } from 'react';
 import classnames from 'classnames';
 
-import { Divider, styled, type SxProps, type Theme, Typography, type TypographyProps } from '@mui/material';
+import {
+  Divider,
+  styled,
+  type SxProps,
+  type Theme,
+  Typography,
+  type TypographyProps,
+} from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 import { usePageTitle } from 'hooks/usePageTitle';
@@ -65,7 +72,17 @@ interface IPageHeaderProps {
 
 const PageHeaderComponent: FC<IPageHeaderProps> & {
   Divider: typeof PageHeaderDivider;
-} = ({ title, titleElement, actions, subtitle, variant, loading, className = '', secondary, children }) => {
+} = ({
+  title,
+  titleElement,
+  actions,
+  subtitle,
+  variant,
+  loading,
+  className = '',
+  secondary,
+  children,
+}) => {
   const headerClasses = classnames({ skeleton: loading });
 
   usePageTitle(secondary ? '' : title);
@@ -74,12 +91,18 @@ const PageHeaderComponent: FC<IPageHeaderProps> & {
     <StyledHeaderContainer>
       <StyledTopContainer>
         <StyledHeader className={classnames(headerClasses)} data-loading>
-          <StyledHeaderTitle variant={variant || secondary ? 'h2' : 'h1'} className={classnames(className)}>
+          <StyledHeaderTitle
+            variant={variant || secondary ? 'h2' : 'h1'}
+            className={classnames(className)}
+          >
             {titleElement || title}
           </StyledHeaderTitle>
           {subtitle && <small>{subtitle}</small>}
         </StyledHeader>
-        <ConditionallyRender condition={Boolean(actions)} show={<StyledHeaderActions>{actions}</StyledHeaderActions>} />
+        <ConditionallyRender
+          condition={Boolean(actions)}
+          show={<StyledHeaderActions>{actions}</StyledHeaderActions>}
+        />
       </StyledTopContainer>
       {children}
     </StyledHeaderContainer>

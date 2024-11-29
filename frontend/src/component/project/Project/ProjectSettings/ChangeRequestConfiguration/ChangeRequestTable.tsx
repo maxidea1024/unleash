@@ -1,7 +1,13 @@
 import { useContext, useMemo, useState, type VFC } from 'react';
 import { type HeaderGroup, useGlobalFilter, useTable } from 'react-table';
 import { Alert, Box, styled, Typography } from '@mui/material';
-import { SortableTableHeader, Table, TableBody, TableCell, TableRow } from 'component/common/Table';
+import {
+  SortableTableHeader,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow,
+} from 'component/common/Table';
 import { sortTypes } from 'utils/sortTypes';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
@@ -51,18 +57,25 @@ export const ChangeRequestTable: VFC = () => {
 
   const theme = useTheme();
   const projectId = useRequiredPathParam('projectId');
-  const { data, loading, refetchChangeRequestConfig } = useChangeRequestConfig(projectId);
+  const { data, loading, refetchChangeRequestConfig } =
+    useChangeRequestConfig(projectId);
   const { updateChangeRequestEnvironmentConfig } = useChangeRequestApi();
   const { setToastData, setToastApiError } = useToast();
 
-  const onRowChange = (enableEnvironment: string, isEnabled: boolean, requiredApprovals: number) => () => {
-    setDialogState({
-      isOpen: true,
-      enableEnvironment,
-      isEnabled,
-      requiredApprovals,
-    });
-  };
+  const onRowChange =
+    (
+      enableEnvironment: string,
+      isEnabled: boolean,
+      requiredApprovals: number,
+    ) =>
+    () => {
+      setDialogState({
+        isOpen: true,
+        enableEnvironment,
+        isEnabled,
+        requiredApprovals,
+      });
+    };
 
   const onConfirm = async () => {
     if (dialogState.enableEnvironment) {
@@ -142,7 +155,12 @@ export const ChangeRequestTable: VFC = () => {
                     onChange={(approvals) => {
                       onRequiredApprovalsChange(original, approvals);
                     }}
-                    disabled={!hasAccess([UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_WRITE], projectId)}
+                    disabled={
+                      !hasAccess(
+                        [UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_WRITE],
+                        projectId,
+                      )
+                    }
                     IconComponent={KeyboardArrowDownOutlined}
                     fullWidth
                   />
@@ -168,7 +186,11 @@ export const ChangeRequestTable: VFC = () => {
               projectId={projectId}
               permission={[UPDATE_PROJECT, PROJECT_CHANGE_REQUEST_WRITE]}
               inputProps={{ 'aria-label': original.environment }}
-              onClick={onRowChange(original.environment, original.changeRequestEnabled, original.requiredApprovals)}
+              onClick={onRowChange(
+                original.environment,
+                original.changeRequestEnabled,
+                original.requiredApprovals,
+              )}
             />
           </StyledBox>
         ),
@@ -180,32 +202,40 @@ export const ChangeRequestTable: VFC = () => {
     [],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    {
-      // @ts-ignore
-      columns,
-      data,
-      sortTypes,
-      autoResetGlobalFilter: false,
-      disableSortRemove: true,
-      defaultColumn: {
-        Cell: TextCell,
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        // @ts-ignore
+        columns,
+        data,
+        sortTypes,
+        autoResetGlobalFilter: false,
+        disableSortRemove: true,
+        defaultColumn: {
+          Cell: TextCell,
+        },
       },
-    },
-    useGlobalFilter,
-  );
+      useGlobalFilter,
+    );
   return (
     <PageContent
-      header={<PageHeader titleElement='Change request configuration' actions={<ChangeRequestProcessHelp />} />}
+      header={
+        <PageHeader
+          titleElement='Change request configuration'
+          actions={<ChangeRequestProcessHelp />}
+        />
+      }
       isLoading={loading}
     >
       <Alert severity='info' sx={{ mb: 3 }}>
-        If change request is enabled for an environment, then any change in that environment needs to be approved before
-        it will be applied
+        If change request is enabled for an environment, then any change in that
+        environment needs to be approved before it will be applied
       </Alert>
 
       <Table {...getTableProps()}>
-        <SortableTableHeader headerGroups={headerGroups as HeaderGroup<object>[]} />
+        <SortableTableHeader
+          headerGroups={headerGroups as HeaderGroup<object>[]}
+        />
         <TableBody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
@@ -243,7 +273,8 @@ export const ChangeRequestTable: VFC = () => {
         title={`${dialogState.isEnabled ? 'Disable' : 'Enable'} change requests`}
       >
         <Typography sx={{ mb: 1 }}>
-          You are about to {dialogState.isEnabled ? 'disable' : 'enable'} “Change request”
+          You are about to {dialogState.isEnabled ? 'disable' : 'enable'}{' '}
+          “Change request”
           <ConditionallyRender
             condition={Boolean(dialogState.enableEnvironment)}
             show={
@@ -259,9 +290,10 @@ export const ChangeRequestTable: VFC = () => {
           condition={!dialogState.isEnabled}
           show={
             <Typography variant='body2' color='text.secondary'>
-              To enable change requests for an environment, you need to ensure that your Unleash Admin has created the
-              necessary custom project roles in your Unleash instance. This will allow you to assign project members
-              from the project access page.
+              To enable change requests for an environment, you need to ensure
+              that your Unleash Admin has created the necessary custom project
+              roles in your Unleash instance. This will allow you to assign
+              project members from the project access page.
             </Typography>
           }
         />

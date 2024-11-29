@@ -1,9 +1,15 @@
 import type { IAction, IActionSet } from 'interfaces/action';
 import useAPI from '../useApi/useApi';
 
-export type ActionPayload = Omit<IAction, 'id' | 'createdAt' | 'createdByUserId'>;
+export type ActionPayload = Omit<
+  IAction,
+  'id' | 'createdAt' | 'createdByUserId'
+>;
 
-export type ActionSetPayload = Omit<IActionSet, 'id' | 'project' | 'actions' | 'createdAt' | 'createdByUserId'> & {
+export type ActionSetPayload = Omit<
+  IActionSet,
+  'id' | 'project' | 'actions' | 'createdAt' | 'createdByUserId'
+> & {
   actions: ActionPayload[];
 };
 
@@ -28,7 +34,10 @@ export const useActionsApi = (project: string) => {
     return response.json();
   };
 
-  const updateActionSet = async (actionSetId: number, actionSet: ActionSetPayload) => {
+  const updateActionSet = async (
+    actionSetId: number,
+    actionSet: ActionSetPayload,
+  ) => {
     const requestId = 'updateActionSet';
     const req = createRequest(
       `${endpoint}/${actionSetId}`,
@@ -78,7 +87,11 @@ export const useActionsApi = (project: string) => {
 
   const removeActionSet = async (actionSetId: number) => {
     const requestId = 'removeActionSet';
-    const req = createRequest(`${endpoint}/${actionSetId}`, { method: 'DELETE' }, requestId);
+    const req = createRequest(
+      `${endpoint}/${actionSetId}`,
+      { method: 'DELETE' },
+      requestId,
+    );
 
     await makeRequest(req.caller, req.id);
   };

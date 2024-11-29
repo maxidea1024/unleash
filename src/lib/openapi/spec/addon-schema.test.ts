@@ -13,5 +13,7 @@ test('addonSchema', () => {
     events: ['some-event'],
   };
 
-  expect(validateSchema('#/components/schemas/addonSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/addonSchema', data),
+  ).toBeUndefined();
 });

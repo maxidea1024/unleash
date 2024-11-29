@@ -7,7 +7,9 @@ type PlaceholderDataOptions = {
   type?: 'rising' | 'constant' | 'double';
 };
 
-export const usePlaceholderData = (placeholderDataOptions?: PlaceholderDataOptions) => {
+export const usePlaceholderData = (
+  placeholderDataOptions?: PlaceholderDataOptions,
+) => {
   const { fill = false, type = 'constant' } = placeholderDataOptions || {};
   const theme = useTheme();
 
@@ -21,7 +23,9 @@ export const usePlaceholderData = (placeholderDataOptions?: PlaceholderDataOptio
           ? [
               {
                 label: 'Total flags',
-                data: [43, 66, 55, 65, 62, 72, 75, 73, 80, 65, 62, 61, 69, 70, 77],
+                data: [
+                  43, 66, 55, 65, 62, 72, 75, 73, 80, 65, 62, 61, 69, 70, 77,
+                ],
                 borderColor: theme.palette.primary.light,
                 backgroundColor: theme.palette.primary.light,
               },
@@ -38,9 +42,14 @@ export const usePlaceholderData = (placeholderDataOptions?: PlaceholderDataOptio
                 data:
                   type === 'rising'
                     ? [3, 5, 15, 17, 25, 40, 47, 48, 55, 65, 62, 72, 75, 73, 80]
-                    : [54, 52, 53, 49, 54, 50, 47, 46, 51, 51, 50, 51, 49, 49, 51],
+                    : [
+                        54, 52, 53, 49, 54, 50, 47, 46, 51, 51, 50, 51, 49, 49,
+                        51,
+                      ],
                 borderColor: theme.palette.primary.light,
-                backgroundColor: fill ? fillGradientPrimary : theme.palette.primary.light,
+                backgroundColor: fill
+                  ? fillGradientPrimary
+                  : theme.palette.primary.light,
                 fill,
               },
             ],

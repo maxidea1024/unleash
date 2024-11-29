@@ -19,7 +19,8 @@ export const segmentSchema = {
     createdAt: {
       type: 'string',
       format: 'date-time',
-      description: 'The time the segment was created as a RFC 3339-conformant timestamp.',
+      description:
+        'The time the segment was created as a RFC 3339-conformant timestamp.',
       example: '2023-07-05T12:56:00.000Z',
     },
     createdBy: {

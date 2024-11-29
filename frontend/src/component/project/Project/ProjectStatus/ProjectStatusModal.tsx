@@ -80,9 +80,10 @@ const LifecycleTooltip: FC = () => {
       tooltip={
         <TooltipContent>
           <TooltipText>
-            Based on usage metrics and interactions with Unleash, feature flags can go through five distinct lifecycle
-            stages. These stages mirror the typical software development process and allow you to identify bottlenecks
-            at any stage of the lifecycle.
+            Based on usage metrics and interactions with Unleash, feature flags
+            can go through five distinct lifecycle stages. These stages mirror
+            the typical software development process and allow you to identify
+            bottlenecks at any stage of the lifecycle.
           </TooltipText>
 
           <TooltipText>

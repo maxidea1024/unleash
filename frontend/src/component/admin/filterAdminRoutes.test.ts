@@ -23,7 +23,9 @@ describe('filterAdminRoutes - open souce routes', () => {
 
     expect(filterAdminRoutes({ mode: ['pro'] }, state)).toBe(false);
     expect(filterAdminRoutes({ mode: ['enterprise'] }, state)).toBe(false);
-    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(false);
+    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(
+      false,
+    );
     expect(filterAdminRoutes({ billing: true }, state)).toBe(false);
   });
 
@@ -35,7 +37,9 @@ describe('filterAdminRoutes - open souce routes', () => {
     };
 
     expect(filterAdminRoutes({ mode: ['pro'] }, state)).toBe(true);
-    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(true);
+    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(
+      true,
+    );
     // This is to show enterprise badge in pro mode
     expect(filterAdminRoutes({ mode: ['enterprise'] }, state)).toBe(true);
   });
@@ -48,7 +52,9 @@ describe('filterAdminRoutes - open souce routes', () => {
     };
 
     expect(filterAdminRoutes({ mode: ['enterprise'] }, state)).toBe(true);
-    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(true);
+    expect(filterAdminRoutes({ mode: ['pro', 'enterprise'] }, state)).toBe(
+      true,
+    );
     expect(filterAdminRoutes({ mode: ['pro'] }, state)).toBe(false);
   });
 

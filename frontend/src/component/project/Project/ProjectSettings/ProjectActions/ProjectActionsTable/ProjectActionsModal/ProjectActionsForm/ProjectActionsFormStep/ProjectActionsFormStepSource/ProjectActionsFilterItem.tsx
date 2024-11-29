@@ -1,10 +1,22 @@
-import { Autocomplete, IconButton, TextField, Tooltip, styled } from '@mui/material';
+import {
+  Autocomplete,
+  IconButton,
+  TextField,
+  Tooltip,
+  styled,
+} from '@mui/material';
 import type { ActionsFilterState } from '../../useProjectActionsForm';
 import Delete from '@mui/icons-material/Delete';
 import Input from 'component/common/Input/Input';
 import { ProjectActionsFormItem } from '../ProjectActionsFormItem';
 import { ConstraintOperatorSelect } from 'component/common/ConstraintAccordion/ConstraintOperatorSelect';
-import { type Operator, allOperators, dateOperators, inOperators, stringOperators } from 'constants/operators';
+import {
+  type Operator,
+  allOperators,
+  dateOperators,
+  inOperators,
+  stringOperators,
+} from 'constants/operators';
 import { useEffect, useState } from 'react';
 import { oneOf } from 'utils/oneOf';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -104,7 +116,8 @@ export const ProjectActionsFilterItem = ({
   suggestions,
   onDelete,
 }: IProjectActionsFilterItemProps) => {
-  const { parameter, inverted, operator, caseInsensitive, value, values } = filter;
+  const { parameter, inverted, operator, caseInsensitive, value, values } =
+    filter;
 
   const header = (
     <>
@@ -124,7 +137,9 @@ export const ProjectActionsFilterItem = ({
 
   const caseInsensitiveInOperators = useUiFlag('caseInsensitiveInOperators');
 
-  const validOperators = allOperators.filter((operator) => !oneOf(dateOperators, operator));
+  const validOperators = allOperators.filter(
+    (operator) => !oneOf(dateOperators, operator),
+  );
 
   const { input, validator, setError, error } = useConstraintInput({
     contextDefinition: { legalValues: [] },
@@ -151,7 +166,10 @@ export const ProjectActionsFilterItem = ({
   }, [value, error]);
 
   useEffect(() => {
-    if (oneOf(stringOperators, operator) || (oneOf(inOperators, operator) && caseInsensitiveInOperators)) {
+    if (
+      oneOf(stringOperators, operator) ||
+      (oneOf(inOperators, operator) && caseInsensitiveInOperators)
+    ) {
       setShowCaseSensitiveButton(true);
     } else {
       setShowCaseSensitiveButton(false);
@@ -159,7 +177,10 @@ export const ProjectActionsFilterItem = ({
   }, [operator, caseInsensitiveInOperators]);
 
   const onOperatorChange = (operator: Operator) => {
-    if (oneOf(stringOperators, operator) || (oneOf(inOperators, operator) && caseInsensitiveInOperators)) {
+    if (
+      oneOf(stringOperators, operator) ||
+      (oneOf(inOperators, operator) && caseInsensitiveInOperators)
+    ) {
       setShowCaseSensitiveButton(true);
     } else {
       setShowCaseSensitiveButton(false);
@@ -207,7 +228,9 @@ export const ProjectActionsFilterItem = ({
                   parameter,
                 })
               }
-              renderInput={(params) => <TextField {...params} size='small' label='Parameter' />}
+              renderInput={(params) => (
+                <TextField {...params} size='small' label='Parameter' />
+              )}
             />
           </StyledInputContainer>
           <StyledOperatorOptions>
@@ -223,7 +246,11 @@ export const ProjectActionsFilterItem = ({
               />
             </StyledOperatorButtonWrapper>
             <StyledOperatorSelectWrapper>
-              <ConstraintOperatorSelect options={validOperators} value={operator} onChange={onOperatorChange} />
+              <ConstraintOperatorSelect
+                options={validOperators}
+                value={operator}
+                onChange={onOperatorChange}
+              />
             </StyledOperatorSelectWrapper>
             <ConditionallyRender
               condition={showCaseSensitiveButton}

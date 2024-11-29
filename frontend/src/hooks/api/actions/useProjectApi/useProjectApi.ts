@@ -21,7 +21,9 @@ const useProjectApi = () => {
     propagateErrors: true,
   });
 
-  const createProject = async (payload: CreateProjectSchema): Promise<ProjectCreatedSchema> => {
+  const createProject = async (
+    payload: CreateProjectSchema,
+  ): Promise<ProjectCreatedSchema> => {
     const path = `api/admin/projects`;
 
     const req = createRequest(path, {
@@ -57,7 +59,10 @@ const useProjectApi = () => {
     return res;
   };
 
-  const editProjectSettings = async (id: string, payload: UpdateProjectEnterpriseSettingsSchema) => {
+  const editProjectSettings = async (
+    id: string,
+    payload: UpdateProjectEnterpriseSettingsSchema,
+  ) => {
     const path = `api/admin/projects/${id}/settings`;
 
     const req = createRequest(path, {
@@ -96,7 +101,10 @@ const useProjectApi = () => {
     return res;
   };
 
-  const addEnvironmentToProject = async (projectId: string, environment: string) => {
+  const addEnvironmentToProject = async (
+    projectId: string,
+    environment: string,
+  ) => {
     const path = `api/admin/projects/${projectId}/environments`;
 
     const req = createRequest(path, {
@@ -108,7 +116,10 @@ const useProjectApi = () => {
     return res;
   };
 
-  const removeEnvironmentFromProject = async (projectId: string, environment: string) => {
+  const removeEnvironmentFromProject = async (
+    projectId: string,
+    environment: string,
+  ) => {
     const path = `api/admin/projects/${projectId}/environments/${environment}`;
 
     const req = createRequest(path, { method: 'DELETE' });
@@ -117,7 +128,10 @@ const useProjectApi = () => {
     return res;
   };
 
-  const addAccessToProject = async (projectId: string, payload: IAccessPayload) => {
+  const addAccessToProject = async (
+    projectId: string,
+    payload: IAccessPayload,
+  ) => {
     const path = `api/admin/projects/${projectId}/access`;
 
     const req = createRequest(path, {
@@ -144,7 +158,11 @@ const useProjectApi = () => {
     return await makeRequest(req.caller, req.id);
   };
 
-  const setUserRoles = (projectId: string, roleIds: number[], userId: number) => {
+  const setUserRoles = (
+    projectId: string,
+    roleIds: number[],
+    userId: number,
+  ) => {
     const path = `api/admin/projects/${projectId}/users/${userId}/roles`;
 
     const req = createRequest(path, {
@@ -155,7 +173,11 @@ const useProjectApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const setGroupRoles = (projectId: string, roleIds: number[], groupId: number) => {
+  const setGroupRoles = (
+    projectId: string,
+    roleIds: number[],
+    groupId: number,
+  ) => {
     const path = `api/admin/projects/${projectId}/groups/${groupId}/roles`;
 
     const req = createRequest(path, {
@@ -177,7 +199,10 @@ const useProjectApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const verifyArchiveFeatures = async (projectId: string, featureIds: string[]) => {
+  const verifyArchiveFeatures = async (
+    projectId: string,
+    featureIds: string[],
+  ) => {
     const path = `api/admin/projects/${projectId}/archive/validate`;
 
     const req = createRequest(path, {
@@ -220,7 +245,11 @@ const useProjectApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  const staleFeatures = async (projectId: string, featureIds: string[], stale = true) => {
+  const staleFeatures = async (
+    projectId: string,
+    featureIds: string[],
+    stale = true,
+  ) => {
     const payload: BatchStaleSchema = {
       features: featureIds,
       stale,

@@ -9,7 +9,8 @@ const STICKINESS = {
 };
 
 export default class FlexibleRolloutStrategy extends Strategy {
-  private randomGenerator: Function = () => `${Math.round(Math.random() * 10_000) + 1}`;
+  private randomGenerator: Function = () =>
+    `${Math.round(Math.random() * 10_000) + 1}`;
 
   constructor(radnomGenerator?: Function) {
     super('flexibleRollout');
@@ -39,7 +40,10 @@ export default class FlexibleRolloutStrategy extends Strategy {
     },
     context: Context,
   ): boolean {
-    const groupId: string = parameters.groupId || (context.featureToggle && String(context.featureToggle)) || '';
+    const groupId: string =
+      parameters.groupId ||
+      (context.featureToggle && String(context.featureToggle)) ||
+      '';
     const percentage = Number(parameters.rollout);
     const stickiness: string = parameters.stickiness || STICKINESS.default;
     const stickinessId = this.resolveStickiness(stickiness, context);

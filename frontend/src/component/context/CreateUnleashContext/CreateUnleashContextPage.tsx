@@ -5,5 +5,10 @@ import { GO_BACK } from 'constants/navigate';
 export const CreateUnleashContextPage = () => {
   const navigate = useNavigate();
 
-  return <CreateUnleashContext onSubmit={() => navigate('/context')} onCancel={() => navigate(GO_BACK)} />;
+  return (
+    <CreateUnleashContext
+      onSubmit={() => navigate('/context')}
+      onCancel={() => navigate(GO_BACK)}
+    />
+  );
 };

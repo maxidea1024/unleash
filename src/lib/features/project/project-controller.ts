@@ -74,7 +74,8 @@ export default class ProjectController extends Controller {
           tags: ['Projects'],
           operationId: 'getProjects',
           summary: 'Get a list of all projects.',
-          description: 'This endpoint returns an list of all the projects in the Unleash instance.',
+          description:
+            'This endpoint returns an list of all the projects in the Unleash instance.',
           parameters: [
             {
               name: 'archived',
@@ -165,7 +166,8 @@ export default class ProjectController extends Controller {
           tags: ['Projects'],
           operationId: 'getProjectApplications',
           summary: 'Get a list of all applications for a project.',
-          description: 'This endpoint returns an list of all the applications for a project.',
+          description:
+            'This endpoint returns an list of all the applications for a project.',
           parameters: [...projectApplicationsQueryParameters],
           responses: {
             200: createResponseSchema('projectApplicationsSchema'),
@@ -185,7 +187,8 @@ export default class ProjectController extends Controller {
           tags: ['Projects'],
           operationId: 'getProjectFlagCreators',
           summary: 'Get a list of all flag creators for a project.',
-          description: 'This endpoint returns every user who created a flag in the project.',
+          description:
+            'This endpoint returns every user who created a flag in the project.',
           responses: {
             200: createResponseSchema('projectFlagCreatorsSchema'),
             ...getStandardResponses(401, 403, 404),
@@ -204,7 +207,8 @@ export default class ProjectController extends Controller {
           tags: ['Projects'],
           operationId: 'getOutdatedProjectSdks',
           summary: 'Get outdated project SDKs',
-          description: 'Returns a list of the outdated SDKS with the applications using them.',
+          description:
+            'Returns a list of the outdated SDKS with the applications using them.',
           responses: {
             200: createResponseSchema('outdatedSdksSchema'),
             ...getStandardResponses(404),
@@ -213,19 +217,36 @@ export default class ProjectController extends Controller {
       ],
     });
 
-    this.use('/', new ProjectFeaturesController(config, services, createKnexTransactionStarter(db)).router);
+    this.use(
+      '/',
+      new ProjectFeaturesController(
+        config,
+        services,
+        createKnexTransactionStarter(db),
+      ).router,
+    );
     this.use('/', new DependentFeaturesController(config, services).router);
     this.use('/', new EnvironmentsController(config, services).router);
     this.use('/', new ProjectHealthReport(config, services).router);
     this.use('/', new VariantsController(config, services).router);
     this.use('/', new ProjectApiTokenController(config, services).router);
-    this.use('/', new ProjectArchiveController(config, services, createKnexTransactionStarter(db)).router);
+    this.use(
+      '/',
+      new ProjectArchiveController(
+        config,
+        services,
+        createKnexTransactionStarter(db),
+      ).router,
+    );
     this.use('/', new ProjectInsightsController(config, services).router);
     this.use('/', new ProjectStatusController(config, services).router);
     this.use('/', new FeatureLifecycleController(config, services).router);
   }
 
-  async getProjects(req: IAuthRequest, res: Response<ProjectsSchema>): Promise<void> {
+  async getProjects(
+    req: IAuthRequest,
+    res: Response<ProjectsSchema>,
+  ): Promise<void> {
     const { user } = req;
     const projects = await this.projectService.getProjects(
       {
@@ -234,7 +255,8 @@ export default class ProjectController extends Controller {
       user.id,
     );
 
-    const projectsWithOwners = await this.projectService.addOwnersToProjects(projects);
+    const projectsWithOwners =
+      await this.projectService.addOwnersToProjects(projects);
 
     this.openApiService.respondWithValidation(200, res, projectsSchema.$id, {
       version: 1,
@@ -249,9 +271,18 @@ export default class ProjectController extends Controller {
     const { projectId } = req.params;
     const { archived } = req.query;
     const { user } = req;
-    const overview = await this.projectService.getProjectHealth(projectId, archived, user.id);
+    const overview = await this.projectService.getProjectHealth(
+      projectId,
+      archived,
+      user.id,
+    );
 
-    this.openApiService.respondWithValidation(200, res, deprecatedProjectOverviewSchema.$id, serializeDates(overview));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      deprecatedProjectOverviewSchema.$id,
+      serializeDates(overview),
+    );
   }
 
   async getProjectOverview(
@@ -261,9 +292,18 @@ export default class ProjectController extends Controller {
     const { projectId } = req.params;
     const { archived } = req.query;
     const { user } = req;
-    const overview = await this.projectService.getProjectOverview(projectId, archived, user.id);
+    const overview = await this.projectService.getProjectOverview(
+      projectId,
+      archived,
+      user.id,
+    );
 
-    this.openApiService.respondWithValidation(200, res, projectOverviewSchema.$id, serializeDates(overview));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectOverviewSchema.$id,
+      serializeDates(overview),
+    );
   }
 
   // /** @deprecated use projectInsights instead */
@@ -283,16 +323,21 @@ export default class ProjectController extends Controller {
   //   );
   // }
 
-  async getProjectApplications(req: IAuthRequest, res: Response<ProjectApplicationsSchema>): Promise<void> {
+  async getProjectApplications(
+    req: IAuthRequest,
+    res: Response<ProjectApplicationsSchema>,
+  ): Promise<void> {
     const { projectId } = req.params;
 
-    const { normalizedQuery, normalizedSortOrder, normalizedOffset, normalizedLimit } = normalizeQueryParams(
-      req.query,
-      {
-        limitDefault: 50,
-        maxLimit: 100,
-      },
-    );
+    const {
+      normalizedQuery,
+      normalizedSortOrder,
+      normalizedOffset,
+      normalizedLimit,
+    } = normalizeQueryParams(req.query, {
+      limitDefault: 50,
+      maxLimit: 100,
+    });
 
     const applications = await this.projectService.getApplications({
       searchParams: normalizedQuery,
@@ -303,7 +348,12 @@ export default class ProjectController extends Controller {
       sortOrder: normalizedSortOrder,
     });
 
-    this.openApiService.respondWithValidation(200, res, projectApplicationsSchema.$id, serializeDates(applications));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectApplicationsSchema.$id,
+      serializeDates(applications),
+    );
   }
 
   async getProjectFlagCreators(
@@ -312,15 +362,30 @@ export default class ProjectController extends Controller {
   ): Promise<void> {
     const { projectId } = req.params;
 
-    const flagCreators = await this.projectService.getProjectFlagCreators(projectId);
+    const flagCreators =
+      await this.projectService.getProjectFlagCreators(projectId);
 
-    this.openApiService.respondWithValidation(200, res, projectFlagCreatorsSchema.$id, serializeDates(flagCreators));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectFlagCreatorsSchema.$id,
+      serializeDates(flagCreators),
+    );
   }
 
-  async getOutdatedProjectSdks(req: IAuthRequest<IProjectParam>, res: Response<OutdatedSdksSchema>) {
+  async getOutdatedProjectSdks(
+    req: IAuthRequest<IProjectParam>,
+    res: Response<OutdatedSdksSchema>,
+  ) {
     const { projectId } = req.params;
-    const outdatedSdks = await this.clientInstanceService.getOutdatedSdksByProject(projectId);
+    const outdatedSdks =
+      await this.clientInstanceService.getOutdatedSdksByProject(projectId);
 
-    this.openApiService.respondWithValidation(200, res, outdatedSdksSchema.$id, { sdks: outdatedSdks });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      outdatedSdksSchema.$id,
+      { sdks: outdatedSdks },
+    );
   }
 }

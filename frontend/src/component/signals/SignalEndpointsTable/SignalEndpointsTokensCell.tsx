@@ -40,7 +40,10 @@ export const SignalEndpointsTokensCell = ({
             ))}
           </>
         }
-        highlighted={searchQuery.length > 0 && value.toLowerCase().includes(searchQuery.toLowerCase())}
+        highlighted={
+          searchQuery.length > 0 &&
+          value.toLowerCase().includes(searchQuery.toLowerCase())
+        }
       >
         {tokens?.length === 1 ? '1 token' : `${tokens?.length} tokens`}
       </TooltipLink>

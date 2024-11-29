@@ -18,7 +18,9 @@ const localStorageItems = (key: string) => {
 
 export const useLastViewedFlags = () => {
   const key = `${basePath}:unleash-lastViewedFlags`;
-  const [lastViewed, setLastViewed] = useState<LastViewedFlag[]>(() => localStorageItems(key));
+  const [lastViewed, setLastViewed] = useState<LastViewedFlag[]>(() =>
+    localStorageItems(key),
+  );
 
   const { emitEvent } = useCustomEvent(
     'lastViewedFlagsUpdated',
@@ -45,7 +47,11 @@ export const useLastViewedFlags = () => {
       }
 
       const updatedLastViewed = removeIncorrect([...lastViewed, flag]);
-      setLastViewed(updatedLastViewed.length > MAX_ITEMS ? updatedLastViewed.slice(-MAX_ITEMS) : updatedLastViewed);
+      setLastViewed(
+        updatedLastViewed.length > MAX_ITEMS
+          ? updatedLastViewed.slice(-MAX_ITEMS)
+          : updatedLastViewed,
+      );
     },
     [JSON.stringify(lastViewed)],
   );

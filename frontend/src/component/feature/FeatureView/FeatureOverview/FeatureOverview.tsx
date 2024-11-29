@@ -52,9 +52,14 @@ const FeatureOverview = () => {
   const [environmentId, setEnvironmentId] = useState('');
 
   const flagOverviewRedesign = useUiFlag('flagOverviewRedesign');
-  const FeatureOverviewMetaData = flagOverviewRedesign ? NewFeatureOverviewMetaData : OldFeatureOverviewMetaData;
+  const FeatureOverviewMetaData = flagOverviewRedesign
+    ? NewFeatureOverviewMetaData
+    : OldFeatureOverviewMetaData;
   const FeatureOverviewSidePanel = flagOverviewRedesign ? (
-    <NewFeatureOverviewSidePanel environmentId={environmentId} setEnvironmentId={setEnvironmentId} />
+    <NewFeatureOverviewSidePanel
+      environmentId={environmentId}
+      setEnvironmentId={setEnvironmentId}
+    />
   ) : (
     <OldFeatureOverviewSidePanel
       hiddenEnvironments={hiddenEnvironments}
@@ -79,7 +84,11 @@ const FeatureOverview = () => {
         <Route
           path='strategies/create'
           element={
-            <SidebarModal label='Create feature strategy' onClose={onSidebarClose} open>
+            <SidebarModal
+              label='Create feature strategy'
+              onClose={onSidebarClose}
+              open
+            >
               <FeatureStrategyCreate />
             </SidebarModal>
           }
@@ -87,7 +96,11 @@ const FeatureOverview = () => {
         <Route
           path='strategies/edit'
           element={
-            <SidebarModal label='Edit feature strategy' onClose={onSidebarClose} open>
+            <SidebarModal
+              label='Edit feature strategy'
+              onClose={onSidebarClose}
+              open
+            >
               <FeatureStrategyEdit />
             </SidebarModal>
           }

@@ -1,9 +1,14 @@
 import { countCombinations, getBucket } from './combinationCounter';
-import type { AdvancedPlaygroundEnvironmentFeatureSchema, AdvancedPlaygroundFeatureSchema } from 'openapi';
+import type {
+  AdvancedPlaygroundEnvironmentFeatureSchema,
+  AdvancedPlaygroundFeatureSchema,
+} from 'openapi';
 // @ts-expect-error no types available
 import cartesian from 'cartesian';
 
-const generateFeature = (context: Record<string, string>): AdvancedPlaygroundEnvironmentFeatureSchema => ({
+const generateFeature = (
+  context: Record<string, string>,
+): AdvancedPlaygroundEnvironmentFeatureSchema => ({
   isEnabled: false,
   isEnabledInCurrentEnvironment: true,
   variant: {
@@ -58,12 +63,18 @@ const generateInput = (
   return Array.from(Array(featureCount)).map((_, i) => ({
     name: `feature-${i}`,
     projectId: 'default',
-    environments: Object.fromEntries(environments.map((env) => [env, cartesianContext.map(generateFeature)])),
+    environments: Object.fromEntries(
+      environments.map((env) => [env, cartesianContext.map(generateFeature)]),
+    ),
   }));
 };
 
 it('counts the correct number of combinations', () => {
-  const assertCount = (numberOfFeatures: number, envs: string[], context: { [k: string]: string[] }) => {
+  const assertCount = (
+    numberOfFeatures: number,
+    envs: string[],
+    context: { [k: string]: string[] },
+  ) => {
     const totalCombinations =
       numberOfFeatures *
       envs.length *

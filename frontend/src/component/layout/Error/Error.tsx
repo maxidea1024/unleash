@@ -52,7 +52,11 @@ export const Error: VFC<IErrorProps> = ({ error }) => {
         }}
         maxWidth='xl'
         customButton={
-          <ConditionallyRender condition={showZendeskButton} show={<ZendeskButton />} elseShow={undefined} />
+          <ConditionallyRender
+            condition={showZendeskButton}
+            show={<ZendeskButton />}
+            elseShow={undefined}
+          />
         }
       >
         <Box component='pre' sx={{ color: 'error.main' }}>

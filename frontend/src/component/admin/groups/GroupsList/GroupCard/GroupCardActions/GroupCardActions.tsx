@@ -35,7 +35,12 @@ interface IGroupCardActions {
   isScimGroup?: boolean;
 }
 
-export const GroupCardActions: FC<IGroupCardActions> = ({ groupId, onEditUsers, onRemove, isScimGroup }) => {
+export const GroupCardActions: FC<IGroupCardActions> = ({
+  groupId,
+  onEditUsers,
+  onRemove,
+  isScimGroup,
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -56,7 +61,11 @@ export const GroupCardActions: FC<IGroupCardActions> = ({ groupId, onEditUsers, 
         e.stopPropagation();
       }}
     >
-      <Tooltip title={isScimGroup ? scimGroupTooltip : 'Group actions'} arrow describeChild>
+      <Tooltip
+        title={isScimGroup ? scimGroupTooltip : 'Group actions'}
+        arrow
+        describeChild
+      >
         <div>
           <IconButton
             id={id}
@@ -80,7 +89,11 @@ export const GroupCardActions: FC<IGroupCardActions> = ({ groupId, onEditUsers, 
         disableScrollLock={true}
       >
         <MenuList aria-labelledby={id}>
-          <MenuItem onClick={handleClose} component={Link} to={`/admin/groups/${groupId}/edit`}>
+          <MenuItem
+            onClick={handleClose}
+            component={Link}
+            to={`/admin/groups/${groupId}/edit`}
+          >
             <ListItemIcon>
               <Edit />
             </ListItemIcon>

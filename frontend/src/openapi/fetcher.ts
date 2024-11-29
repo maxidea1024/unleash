@@ -19,16 +19,19 @@ export const fetcher = async <T>({
   headers?: HeadersInit;
   credentials?: RequestCredentials;
 }): Promise<T> => {
-  const response = await fetch(`${formatApiPath(url)}${new URLSearchParams(params)}`, {
-    method,
-    credentials,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...headers,
+  const response = await fetch(
+    `${formatApiPath(url)}${new URLSearchParams(params)}`,
+    {
+      method,
+      credentials,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        ...headers,
+      },
+      ...(data ? { body: JSON.stringify(data) } : {}),
     },
-    ...(data ? { body: JSON.stringify(data) } : {}),
-  });
+  );
 
   return response.json();
 };

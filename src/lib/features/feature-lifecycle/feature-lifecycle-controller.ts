@@ -39,7 +39,10 @@ export default class FeatureLifecycleController extends Controller {
     {
       transactionalFeatureLifecycleService,
       openApiService,
-    }: Pick<IUnleashServices, 'openApiService' | 'transactionalFeatureLifecycleService'>,
+    }: Pick<
+      IUnleashServices,
+      'openApiService' | 'transactionalFeatureLifecycleService'
+    >,
   ) {
     super(config);
 
@@ -114,13 +117,23 @@ export default class FeatureLifecycleController extends Controller {
   ): Promise<void> {
     const { featureName } = req.params;
 
-    const result = await this.featureLifecycleService.getFeatureLifecycle(featureName);
+    const result =
+      await this.featureLifecycleService.getFeatureLifecycle(featureName);
 
-    this.openApiService.respondWithValidation(200, res, featureLifecycleSchema.$id, serializeDates(result));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureLifecycleSchema.$id,
+      serializeDates(result),
+    );
   }
 
   async complete(
-    req: IAuthRequest<FeatureLifecycleParams, any, FeatureLifecycleCompletedSchema>,
+    req: IAuthRequest<
+      FeatureLifecycleParams,
+      any,
+      FeatureLifecycleCompletedSchema
+    >,
     res: Response,
   ): Promise<void> {
     const { featureName, projectId } = req.params;
@@ -134,7 +147,10 @@ export default class FeatureLifecycleController extends Controller {
     res.status(200).end();
   }
 
-  async uncomplete(req: IAuthRequest<FeatureLifecycleParams>, res: Response): Promise<void> {
+  async uncomplete(
+    req: IAuthRequest<FeatureLifecycleParams>,
+    res: Response,
+  ): Promise<void> {
     const { featureName, projectId } = req.params;
 
     await this.featureLifecycleService.transactional((service) =>

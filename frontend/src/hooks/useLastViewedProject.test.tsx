@@ -2,13 +2,20 @@ import type React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useLastViewedProject } from './useLastViewedProject';
 
-const TestComponent: React.FC<{ testId: string; buttonLabel: string }> = ({ testId, buttonLabel }) => {
+const TestComponent: React.FC<{ testId: string; buttonLabel: string }> = ({
+  testId,
+  buttonLabel,
+}) => {
   const { lastViewed, setLastViewed } = useLastViewedProject();
 
   return (
     <div>
       <span data-testid={testId}>{lastViewed}</span>
-      <button type='button' onClick={() => setLastViewed(`${buttonLabel} Project`)} data-testid={`update-${testId}`}>
+      <button
+        type='button'
+        onClick={() => setLastViewed(`${buttonLabel} Project`)}
+        data-testid={`update-${testId}`}
+      >
         Update to {buttonLabel} Project
       </button>
     </div>
@@ -32,12 +39,20 @@ describe('Synchronization between multiple components using useLastViewedProject
 
     fireEvent.click(screen.getByTestId('update-component1'));
 
-    expect(await screen.findByTestId('component1')).toHaveTextContent('First Project');
-    expect(await screen.findByTestId('component2')).toHaveTextContent('First Project');
+    expect(await screen.findByTestId('component1')).toHaveTextContent(
+      'First Project',
+    );
+    expect(await screen.findByTestId('component2')).toHaveTextContent(
+      'First Project',
+    );
 
     fireEvent.click(screen.getByTestId('update-component2'));
 
-    expect(await screen.findByTestId('component1')).toHaveTextContent('Second Project');
-    expect(await screen.findByTestId('component2')).toHaveTextContent('Second Project');
+    expect(await screen.findByTestId('component1')).toHaveTextContent(
+      'Second Project',
+    );
+    expect(await screen.findByTestId('component2')).toHaveTextContent(
+      'Second Project',
+    );
   });
 });

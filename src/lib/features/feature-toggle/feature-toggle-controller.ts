@@ -41,10 +41,17 @@ import {
   type UpdateFeatureSchema,
   type UpdateFeatureStrategySchema,
 } from '../../openapi';
-import type { FeatureTagService, FeatureToggleService, OpenApiService } from '../../services';
+import type {
+  FeatureTagService,
+  FeatureToggleService,
+  OpenApiService,
+} from '../../services';
 import { querySchema } from '../../schema/feature-schema';
 import type { BatchStaleSchema } from '../../openapi/spec/batch-stale-schema';
-import type { TransactionCreator, UnleashTransaction } from '../../db/transaction';
+import type {
+  TransactionCreator,
+  UnleashTransaction,
+} from '../../db/transaction';
 import { BadDataError } from '../../error';
 import { anonymise } from '../../util';
 import { throwOnInvalidSchema } from '../../openapi/validate';
@@ -106,7 +113,9 @@ type ProjectFeaturesServices = Pick<
 export default class ProjectFeaturesController extends Controller {
   private readonly featureService: FeatureToggleService;
   private readonly featureTagService: FeatureTagService;
-  private readonly transactionalFeatureToggleService: (db: UnleashTransaction) => FeatureToggleService;
+  private readonly transactionalFeatureToggleService: (
+    db: UnleashTransaction,
+  ) => FeatureToggleService;
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: IFlagResolver;
   private readonly logger: Logger;
@@ -243,7 +252,8 @@ export default class ProjectFeaturesController extends Controller {
           tags: ['Features'],
           summary: 'Get feature flag strategies',
           operationId: 'getFeatureStrategies',
-          description: 'Get strategies defined for a feature flag in the specified environment.',
+          description:
+            'Get strategies defined for a feature flag in the specified environment.',
           responses: {
             200: createResponseSchema('featureStrategySchema'),
             ...getStandardResponses(401, 403, 404),
@@ -261,7 +271,8 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Add a strategy to a feature flag',
-          description: 'Add a strategy to a feature flag in the specified environment.',
+          description:
+            'Add a strategy to a feature flag in the specified environment.',
           operationId: 'addFeatureStrategy',
           requestBody: createRequestSchema('createFeatureStrategySchema'),
           responses: {
@@ -281,7 +292,8 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Get a strategy configuration',
-          description: 'Get a strategy configuration for an environment in a feature flag.',
+          description:
+            'Get a strategy configuration for an environment in a feature flag.',
           operationId: 'getFeatureStrategy',
           responses: {
             200: createResponseSchema('featureStrategySchema'),
@@ -320,7 +332,8 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Update a strategy',
-          description: 'Replace strategy configuration for a feature flag in the specified environment.',
+          description:
+            'Replace strategy configuration for a feature flag in the specified environment.',
           operationId: 'updateFeatureStrategy',
           requestBody: createRequestSchema('updateFeatureStrategySchema'),
           responses: {
@@ -340,7 +353,8 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Change specific properties of a strategy',
-          description: 'Change specific properties of a strategy configuration in a feature flag.',
+          description:
+            'Change specific properties of a strategy configuration in a feature flag.',
           operationId: 'patchFeatureStrategy',
           requestBody: createRequestSchema('patchesSchema'),
           responses: {
@@ -361,7 +375,8 @@ export default class ProjectFeaturesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Delete a strategy from a feature flag',
-          description: 'Delete a strategy configuration from a feature flag in the specified environment.',
+          description:
+            'Delete a strategy configuration from a feature flag in the specified environment.',
           operationId: 'deleteFeatureStrategy',
           responses: {
             200: emptyResponse,
@@ -419,7 +434,8 @@ export default class ProjectFeaturesController extends Controller {
       middleware: [
         openApiService.validPath({
           summary: 'Clone a feature flag',
-          description: 'Creates a copy of the specified feature flag. The copy can be created in any project.',
+          description:
+            'Creates a copy of the specified feature flag. The copy can be created in any project.',
           tags: ['Features'],
           operationId: 'cloneFeature',
           requestBody: createRequestSchema('cloneFeatureSchema'),
@@ -446,7 +462,8 @@ export default class ProjectFeaturesController extends Controller {
           responses: {
             200: createResponseSchema('featureSchema'),
             403: {
-              description: 'You either do not have the required permissions or used an invalid URL.',
+              description:
+                'You either do not have the required permissions or used an invalid URL.',
             },
             ...getStandardResponses(401, 403, 404),
           },
@@ -506,11 +523,13 @@ export default class ProjectFeaturesController extends Controller {
           tags: ['Features'],
           operationId: 'archiveFeature',
           summary: 'Archive a feature flag',
-          description: 'This endpoint archives the specified feature if the feature belongs to the specified project.',
+          description:
+            'This endpoint archives the specified feature if the feature belongs to the specified project.',
           responses: {
             202: emptyResponse,
             403: {
-              description: 'You either do not have the required permissions or used an invalid URL.',
+              description:
+                'You either do not have the required permissions or used an invalid URL.',
             },
             ...getStandardResponses(401, 403, 404),
           },
@@ -548,7 +567,8 @@ export default class ProjectFeaturesController extends Controller {
           tags: ['Tags'],
           operationId: 'addTagToFeatures',
           summary: 'Adds a tag to the specified features',
-          description: 'Add a tag to a list of features. Create tags if needed.',
+          description:
+            'Add a tag to a list of features. Create tags if needed.',
           requestBody: createRequestSchema('tagsBulkAddSchema'),
           responses: {
             200: emptyResponse,
@@ -569,10 +589,15 @@ export default class ProjectFeaturesController extends Controller {
       ...query,
       userId: req.user.id,
     });
-    this.openApiService.respondWithValidation(200, res, projectFeaturesSchema.$id, {
-      version: 2,
-      features: serializeDates(features),
-    });
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectFeaturesSchema.$id,
+      {
+        version: 2,
+        features: serializeDates(features),
+      },
+    );
   }
 
   async prepQuery(
@@ -603,7 +628,11 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async cloneFeature(
-    req: IAuthRequest<FeatureParams, any, { name: string; replaceGroupId?: boolean }>,
+    req: IAuthRequest<
+      FeatureParams,
+      any,
+      { name: string; replaceGroupId?: boolean }
+    >,
     res: Response<FeatureSchema>,
   ): Promise<void> {
     const { projectId, featureName } = req.params;
@@ -616,7 +645,12 @@ export default class ProjectFeaturesController extends Controller {
       replaceGroupId,
     );
 
-    this.openApiService.respondWithValidation(201, res, featureSchema.$id, serializeDates(created));
+    this.openApiService.respondWithValidation(
+      201,
+      res,
+      featureSchema.$id,
+      serializeDates(created),
+    );
   }
 
   async createFeature(
@@ -634,7 +668,12 @@ export default class ProjectFeaturesController extends Controller {
       req.audit,
     );
 
-    this.openApiService.respondWithValidation(201, res, featureSchema.$id, serializeDates(created));
+    this.openApiService.respondWithValidation(
+      201,
+      res,
+      featureSchema.$id,
+      serializeDates(created),
+    );
   }
 
   maybeAnonymise(feature: FeatureToggleView): FeatureToggleView {
@@ -661,7 +700,10 @@ export default class ProjectFeaturesController extends Controller {
     return feature;
   }
 
-  async getFeature(req: IAuthRequest<FeatureParams, any, any, any>, res: Response<FeatureSchema>): Promise<void> {
+  async getFeature(
+    req: IAuthRequest<FeatureParams, any, any, any>,
+    res: Response<FeatureSchema>,
+  ): Promise<void> {
     const { featureName, projectId } = req.params;
     const { variantEnvironments } = req.query;
     const { user } = req;
@@ -677,7 +719,11 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async updateFeature(
-    req: IAuthRequest<{ projectId: string; featureName: string }, any, UpdateFeatureSchema>,
+    req: IAuthRequest<
+      { projectId: string; featureName: string },
+      any,
+      UpdateFeatureSchema
+    >,
     res: Response<FeatureSchema>,
   ): Promise<void> {
     const { projectId, featureName } = req.params;
@@ -695,34 +741,72 @@ export default class ProjectFeaturesController extends Controller {
       req.audit,
     );
 
-    this.openApiService.respondWithValidation(200, res, featureSchema.$id, serializeDates(created));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureSchema.$id,
+      serializeDates(created),
+    );
   }
 
   async patchFeature(
-    req: IAuthRequest<{ projectId: string; featureName: string }, any, Operation[], any>,
+    req: IAuthRequest<
+      { projectId: string; featureName: string },
+      any,
+      Operation[],
+      any
+    >,
     res: Response<FeatureSchema>,
   ): Promise<void> {
     const { projectId, featureName } = req.params;
-    const updated = await this.featureService.patchFeature(projectId, featureName, req.body, req.audit);
-    this.openApiService.respondWithValidation(200, res, featureSchema.$id, serializeDates(updated));
+    const updated = await this.featureService.patchFeature(
+      projectId,
+      featureName,
+      req.body,
+      req.audit,
+    );
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureSchema.$id,
+      serializeDates(updated),
+    );
   }
 
   async archiveFeature(
-    req: IAuthRequest<{ projectId: string; featureName: string }, any, any, any>,
+    req: IAuthRequest<
+      { projectId: string; featureName: string },
+      any,
+      any,
+      any
+    >,
     res: Response<void>,
   ): Promise<void> {
     const { featureName, projectId } = req.params;
     await this.startTransaction(async (tx) =>
-      this.transactionalFeatureToggleService(tx).archiveToggle(featureName, req.user, req.audit, projectId),
+      this.transactionalFeatureToggleService(tx).archiveToggle(
+        featureName,
+        req.user,
+        req.audit,
+        projectId,
+      ),
     );
     res.status(202).send();
   }
 
-  async staleFeatures(req: IAuthRequest<{ projectId: string }, void, BatchStaleSchema>, res: Response): Promise<void> {
+  async staleFeatures(
+    req: IAuthRequest<{ projectId: string }, void, BatchStaleSchema>,
+    res: Response,
+  ): Promise<void> {
     const { features, stale } = req.body;
     const { projectId } = req.params;
 
-    await this.featureService.setToggleStaleness(features, stale, projectId, req.audit);
+    await this.featureService.setToggleStaleness(
+      features,
+      stale,
+      projectId,
+      req.audit,
+    );
     res.status(202).end();
   }
 
@@ -731,21 +815,33 @@ export default class ProjectFeaturesController extends Controller {
     res: Response<FeatureEnvironmentSchema>,
   ): Promise<void> {
     const { environment, featureName, projectId } = req.params;
-    const { defaultStrategy, ...environmentInfo } = await this.featureService.getEnvironmentInfo(
-      projectId,
-      environment,
-      featureName,
-    );
+    const { defaultStrategy, ...environmentInfo } =
+      await this.featureService.getEnvironmentInfo(
+        projectId,
+        environment,
+        featureName,
+      );
 
     const result = {
       ...environmentInfo,
       strategies: environmentInfo.strategies.map((strategy) => {
-        const { strategyName, projectId: project, environment: environmentId, createdAt, ...rest } = strategy;
+        const {
+          strategyName,
+          projectId: project,
+          environment: environmentId,
+          createdAt,
+          ...rest
+        } = strategy;
         return { ...rest, name: strategyName };
       }),
     };
 
-    this.openApiService.respondWithValidation(200, res, featureEnvironmentSchema.$id, serializeDates(result));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      featureEnvironmentSchema.$id,
+      serializeDates(result),
+    );
   }
 
   async toggleFeatureEnvironmentOn(
@@ -767,7 +863,12 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async bulkToggleFeaturesEnvironmentOn(
-    req: IAuthRequest<BulkFeaturesStrategyParams, any, BulkToggleFeaturesSchema, FeatureStrategyQuery>,
+    req: IAuthRequest<
+      BulkFeaturesStrategyParams,
+      any,
+      BulkToggleFeaturesSchema,
+      FeatureStrategyQuery
+    >,
     res: Response<void>,
   ): Promise<void> {
     const { environment, projectId } = req.params;
@@ -794,7 +895,12 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async bulkToggleFeaturesEnvironmentOff(
-    req: IAuthRequest<BulkFeaturesStrategyParams, any, BulkToggleFeaturesSchema, FeatureStrategyQuery>,
+    req: IAuthRequest<
+      BulkFeaturesStrategyParams,
+      any,
+      BulkToggleFeaturesSchema,
+      FeatureStrategyQuery
+    >,
     res: Response<void>,
   ): Promise<void> {
     const { environment, projectId } = req.params;
@@ -825,7 +931,14 @@ export default class ProjectFeaturesController extends Controller {
     res: Response<void>,
   ): Promise<void> {
     const { featureName, environment, projectId } = req.params;
-    await this.featureService.updateEnabled(projectId, featureName, environment, false, req.audit, req.user);
+    await this.featureService.updateEnabled(
+      projectId,
+      featureName,
+      environment,
+      false,
+      req.audit,
+      req.user,
+    );
     res.status(200).end();
   }
 
@@ -856,16 +969,22 @@ export default class ProjectFeaturesController extends Controller {
     res: Response<FeatureStrategySchema[]>,
   ): Promise<void> {
     const { projectId, featureName, environment } = req.params;
-    const featureStrategies = await this.featureService.getStrategiesForEnvironment(
-      projectId,
-      featureName,
-      environment,
-    );
+    const featureStrategies =
+      await this.featureService.getStrategiesForEnvironment(
+        projectId,
+        featureName,
+        environment,
+      );
     res.status(200).json(featureStrategies);
   }
 
   async setStrategiesSortOrder(
-    req: IAuthRequest<FeatureStrategyParams, any, SetStrategySortOrderSchema, any>,
+    req: IAuthRequest<
+      FeatureStrategyParams,
+      any,
+      SetStrategySortOrderSchema,
+      any
+    >,
     res: Response,
   ): Promise<void> {
     const { featureName, projectId, environment } = req.params;
@@ -943,7 +1062,10 @@ export default class ProjectFeaturesController extends Controller {
     res.status(200).json(strategy);
   }
 
-  async deleteFeatureStrategy(req: IAuthRequest<StrategyIdParams, any, any, any>, res: Response<void>): Promise<void> {
+  async deleteFeatureStrategy(
+    req: IAuthRequest<StrategyIdParams, any, any, any>,
+    res: Response<void>,
+  ): Promise<void> {
     this.logger.info('Deleting strategy');
     const { environment, projectId, featureName } = req.params;
     const { strategyId } = req.params;
@@ -958,7 +1080,12 @@ export default class ProjectFeaturesController extends Controller {
   }
 
   async updateStrategyParameter(
-    req: IAuthRequest<StrategyIdParams, any, { name: string; value: string | number }, any>,
+    req: IAuthRequest<
+      StrategyIdParams,
+      any,
+      { name: string; value: string | number },
+      any
+    >,
     res: Response<FeatureStrategySchema>,
   ): Promise<void> {
     const { strategyId, environment, projectId, featureName } = req.params;
@@ -974,9 +1101,17 @@ export default class ProjectFeaturesController extends Controller {
     res.status(200).json(updatedStrategy);
   }
 
-  async updateFeaturesTags(req: IAuthRequest<void, void, TagsBulkAddSchema>, res: Response<TagSchema>): Promise<void> {
+  async updateFeaturesTags(
+    req: IAuthRequest<void, void, TagsBulkAddSchema>,
+    res: Response<TagSchema>,
+  ): Promise<void> {
     const { features, tags } = req.body;
-    await this.featureTagService.updateTags(features, tags.addedTags, tags.removedTags, req.audit);
+    await this.featureTagService.updateTags(
+      features,
+      tags.addedTags,
+      tags.removedTags,
+      req.audit,
+    );
     res.status(200).end();
   }
 }

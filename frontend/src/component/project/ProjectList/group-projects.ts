@@ -1,6 +1,9 @@
 import type { ProjectSchema } from 'openapi';
 
-export const groupProjects = (myProjectIds: Set<string>, filteredProjects: ProjectSchema[]) => {
+export const groupProjects = (
+  myProjectIds: Set<string>,
+  filteredProjects: ProjectSchema[],
+) => {
   const mine: ProjectSchema[] = [];
   const other: ProjectSchema[] = [];
 

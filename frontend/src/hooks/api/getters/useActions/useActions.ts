@@ -16,7 +16,12 @@ export const useActions = (project: string) => {
 
   const { data, error, mutate } = useConditionalSWR<{
     actions: IActionSet[];
-  }>(isEnterprise() && actionsEnabled, DEFAULT_DATA, formatApiPath(`api/admin/projects/${project}/actions`), fetcher);
+  }>(
+    isEnterprise() && actionsEnabled,
+    DEFAULT_DATA,
+    formatApiPath(`api/admin/projects/${project}/actions`),
+    fetcher,
+  );
 
   return useMemo(
     () => ({

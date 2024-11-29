@@ -34,11 +34,18 @@ test('sets created_by_user_id on events with user username/email set as created_
 
   await store.setCreatedByUserId(200);
 
-  const user = await db.rawDatabase('users').where({ username: 'test1' }).first('id');
+  const user = await db
+    .rawDatabase('users')
+    .where({ username: 'test1' })
+    .first('id');
 
   const events = await db.rawDatabase('events').select('*');
-  const notSet = events.filter((e) => !e.created_by_user_id && e.data.test === 'data-migrate');
-  const test1 = events.filter((e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate');
+  const notSet = events.filter(
+    (e) => !e.created_by_user_id && e.data.test === 'data-migrate',
+  );
+  const test1 = events.filter(
+    (e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate',
+  );
   expect(notSet).toHaveLength(0);
   expect(test1).toHaveLength(1);
 });
@@ -97,11 +104,18 @@ test('sets created_by_user_id on a mix of events and created_bys', async () => {
 
   await store.setCreatedByUserId(200);
 
-  const user = await db.rawDatabase('users').where({ username: 'test2' }).first('id');
+  const user = await db
+    .rawDatabase('users')
+    .where({ username: 'test2' })
+    .first('id');
 
   const events = await db.rawDatabase('events').select('*');
-  const notSet = events.filter((e) => !e.created_by_user_id && e.data.test === 'data-migrate');
-  const test = events.filter((e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate');
+  const notSet = events.filter(
+    (e) => !e.created_by_user_id && e.data.test === 'data-migrate',
+  );
+  const test = events.filter(
+    (e) => e.created_by_user_id === user.id && e.data.test === 'data-migrate',
+  );
   expect(notSet).toHaveLength(1);
   expect(test).toHaveLength(1);
 });

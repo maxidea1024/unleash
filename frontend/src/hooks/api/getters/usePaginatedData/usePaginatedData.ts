@@ -10,7 +10,10 @@ type GenericSearchOutput<T> = {
   total: number;
 } & T;
 
-export function createPaginatedHook<T extends { total?: number }>(customFallbackData: T, defaultPrefixKey = '') {
+export function createPaginatedHook<T extends { total?: number }>(
+  customFallbackData: T,
+  defaultPrefixKey = '',
+) {
   return (
     params: Record<string, any> = {},
     dynamicPrefixKey: string = '',

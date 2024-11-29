@@ -1,6 +1,9 @@
 import type { ISegment } from 'interfaces/segment';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
-import { DELETE_SEGMENT, UPDATE_PROJECT_SEGMENT } from 'component/providers/AccessProvider/permissions';
+import {
+  DELETE_SEGMENT,
+  UPDATE_PROJECT_SEGMENT,
+} from 'component/providers/AccessProvider/permissions';
 import Delete from '@mui/icons-material/Delete';
 import { SEGMENT_DELETE_BTN_ID } from 'utils/testIds';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
@@ -52,7 +55,12 @@ export const RemoveSegmentButton = ({ segment }: IRemoveSegmentButtonProps) => {
       <ConditionallyRender
         condition={showModal}
         show={() => (
-          <SegmentDelete segment={segment} open={showModal} onClose={() => toggleModal(false)} onRemove={onRemove} />
+          <SegmentDelete
+            segment={segment}
+            open={showModal}
+            onClose={() => toggleModal(false)}
+            onRemove={onRemove}
+          />
         )}
       />
     </>

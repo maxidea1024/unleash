@@ -1,7 +1,11 @@
 import { validateSemver, validateLegalValues } from './constraint-types';
 import type { ILegalValue } from '../../types/stores/context-field-store';
 
-const legalValues: Readonly<ILegalValue[]> = [{ value: '100' }, { value: '200' }, { value: '300' }];
+const legalValues: Readonly<ILegalValue[]> = [
+  { value: '100' },
+  { value: '200' },
+  { value: '300' },
+];
 
 test('semver validation should throw with bad format', () => {
   const badSemver = 'a.b.c';
@@ -36,7 +40,9 @@ test('semver validation should fail partial semver', () => {
   try {
     validateSemver(partial);
   } catch (e) {
-    expect(e.message).toContain(`the provided value is not a valid semver format. The value provided was: ${partial}`);
+    expect(e.message).toContain(
+      `the provided value is not a valid semver format. The value provided was: ${partial}`,
+    );
   }
 });
 
@@ -47,7 +53,9 @@ test('semver validation should fail with leading v', () => {
   try {
     validateSemver(leadingV);
   } catch (e) {
-    expect(e.message).toContain(`the provided value is not a valid semver format. The value provided was: ${leadingV}`);
+    expect(e.message).toContain(
+      `the provided value is not a valid semver format. The value provided was: ${leadingV}`,
+    );
   }
 });
 
@@ -59,7 +67,9 @@ test('should fail validation if value does not exist in single legal value', () 
   try {
     validateLegalValues(legalValues, value);
   } catch (error) {
-    expect(error.message).toContain(`${value} is not specified as a legal value on this context field`);
+    expect(error.message).toContain(
+      `${value} is not specified as a legal value on this context field`,
+    );
   }
 });
 
@@ -70,7 +80,9 @@ test('should pass validation if value exists in single legal value', () => {
   try {
     validateLegalValues(legalValues, value);
   } catch (error) {
-    expect(error.message).toContain(`${value} is not specified as a legal value on this context field`);
+    expect(error.message).toContain(
+      `${value} is not specified as a legal value on this context field`,
+    );
   }
 });
 
@@ -81,7 +93,9 @@ test('should fail validation if one of the values does not exist in multiple leg
   try {
     validateLegalValues(legalValues, values);
   } catch (error) {
-    expect(error.message).toContain(`input values are not specified as a legal value on this context field`);
+    expect(error.message).toContain(
+      `input values are not specified as a legal value on this context field`,
+    );
   }
 });
 
@@ -92,6 +106,8 @@ test('should pass validation if all of the values exists in legal values', () =>
   try {
     validateLegalValues(legalValues, values);
   } catch (error) {
-    expect(error.message).toContain(`input values are not specified as a legal value on this context field`);
+    expect(error.message).toContain(
+      `input values are not specified as a legal value on this context field`,
+    );
   }
 });

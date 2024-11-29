@@ -1,6 +1,9 @@
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
 import getLogger from '../../../../fixtures/no-logger';
-import { type IUnleashTest, setupAppWithAuth } from '../../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithAuth,
+} from '../../../helpers/test-helper';
 
 let app: IUnleashTest;
 let db: ITestDb;

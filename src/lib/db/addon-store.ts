@@ -1,6 +1,10 @@
 import type EventEmitter from 'events';
 import type { Logger, LogProvider } from '../logger';
-import type { IAddon, IAddonDto, IAddonStore } from '../types/stores/addon-store';
+import type {
+  IAddon,
+  IAddonDto,
+  IAddonStore,
+} from '../types/stores/addon-store';
 
 import metricsHelper from '../util/metrics-helper';
 import { DB_TIME } from '../metric-events';
@@ -64,7 +68,10 @@ export default class AddonStore implements IAddonStore {
   async insert(addon: IAddonDto): Promise<IAddon> {
     const stopTimer = this.timer('insert');
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const rows = await this.db(TABLE).insert(this.addonToRow(addon), ['id', 'created_at']);
+    const rows = await this.db(TABLE).insert(this.addonToRow(addon), [
+      'id',
+      'created_at',
+    ]);
     stopTimer();
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { id, created_at } = rows[0];
@@ -72,7 +79,10 @@ export default class AddonStore implements IAddonStore {
   }
 
   async update(id: number, addon: IAddonDto): Promise<IAddon> {
-    const rows = await this.db(TABLE).where({ id }).update(this.addonToRow(addon)).returning(COLUMNS);
+    const rows = await this.db(TABLE)
+      .where({ id })
+      .update(this.addonToRow(addon))
+      .returning(COLUMNS);
 
     if (!rows) {
       throw new NotFoundError('Could not find addon');
@@ -94,7 +104,10 @@ export default class AddonStore implements IAddonStore {
 
   async exists(id: number): Promise<boolean> {
     const stopTimer = this.timer('exists');
-    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
+      [id],
+    );
     const { present } = result.rows[0];
     stopTimer();
     return present;

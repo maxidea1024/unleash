@@ -31,5 +31,7 @@ test('applicationOverviewSchema', () => {
     ],
   };
 
-  expect(validateSchema('#/components/schemas/applicationOverviewSchema', app)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/applicationOverviewSchema', app),
+  ).toBeUndefined();
 });

@@ -1,7 +1,11 @@
 import { useMemo } from 'react';
 import { styled, type SvgIconTypeMap } from '@mui/material';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
-import { StyledCount, StyledProjectInfoWidgetContainer, StyledWidgetTitle } from './ProjectInfo.styles';
+import {
+  StyledCount,
+  StyledProjectInfoWidgetContainer,
+  StyledWidgetTitle,
+} from './ProjectInfo.styles';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 import type { FeatureTypeCount } from 'interfaces/project';
 
@@ -51,17 +55,31 @@ const ToggleTypesRow = ({ type, Icon, count }: IToggleTypeRowProps) => {
 /**
  * @Deprecated in favor of FlagTypesUsed.tsx
  */
-export const FlagTypesWidget = ({ featureTypeCounts }: IFlagTypesWidgetProps) => {
+export const FlagTypesWidget = ({
+  featureTypeCounts,
+}: IFlagTypesWidgetProps) => {
   const featureTypeStats = useMemo(() => {
-    const release = featureTypeCounts.find((featureType) => featureType.type === 'release')?.count || 0;
+    const release =
+      featureTypeCounts.find((featureType) => featureType.type === 'release')
+        ?.count || 0;
 
-    const experiment = featureTypeCounts.find((featureType) => featureType.type === 'experiment')?.count || 0;
+    const experiment =
+      featureTypeCounts.find((featureType) => featureType.type === 'experiment')
+        ?.count || 0;
 
-    const operational = featureTypeCounts.find((featureType) => featureType.type === 'operational')?.count || 0;
+    const operational =
+      featureTypeCounts.find(
+        (featureType) => featureType.type === 'operational',
+      )?.count || 0;
 
-    const kill = featureTypeCounts.find((featureType) => featureType.type === 'kill-switch')?.count || 0;
+    const kill =
+      featureTypeCounts.find(
+        (featureType) => featureType.type === 'kill-switch',
+      )?.count || 0;
 
-    const permission = featureTypeCounts.find((featureType) => featureType.type === 'permission')?.count || 0;
+    const permission =
+      featureTypeCounts.find((featureType) => featureType.type === 'permission')
+        ?.count || 0;
 
     return {
       release,
@@ -73,7 +91,9 @@ export const FlagTypesWidget = ({ featureTypeCounts }: IFlagTypesWidgetProps) =>
   }, [featureTypeCounts]);
 
   return (
-    <StyledProjectInfoWidgetContainer sx={{ padding: (theme) => theme.spacing(3) }}>
+    <StyledProjectInfoWidgetContainer
+      sx={{ padding: (theme) => theme.spacing(3) }}
+    >
       <StyledWidgetTitle data-loading>Toggle types used</StyledWidgetTitle>
       {Object.keys(featureTypeStats).map((type) => (
         <ToggleTypesRow

@@ -10,7 +10,8 @@ export const featureTypeCountSchema = {
     type: {
       type: 'string',
       example: 'kill-switch',
-      description: 'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
+      description:
+        'Type of the flag e.g. experiment, kill-switch, release, operational, permission',
     },
     count: {
       type: 'number',

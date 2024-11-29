@@ -8,7 +8,9 @@ export const InviteLinkBar: VFC = () => {
   const onInviteLinkActionClick = (inviteLink?: string) => {
     trackEvent('invite', {
       props: {
-        eventType: inviteLink ? 'link bar action: edit' : 'link bar action: create',
+        eventType: inviteLink
+          ? 'link bar action: edit'
+          : 'link bar action: create',
       },
     });
   };

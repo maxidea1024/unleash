@@ -1,5 +1,14 @@
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { type ITab, VerticalTabs } from 'component/common/VerticalTabs/VerticalTabs';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
+import {
+  type ITab,
+  VerticalTabs,
+} from 'component/common/VerticalTabs/VerticalTabs';
 import { ProjectAccess } from 'component/project/ProjectAccess/ProjectAccess';
 import ProjectEnvironmentList from 'component/project/ProjectEnvironment/ProjectEnvironment';
 import { ChangeRequestConfiguration } from './ChangeRequestConfiguration/ChangeRequestConfiguration';
@@ -85,7 +94,11 @@ export const ProjectSettings = () => {
   return (
     <VerticalTabs
       tabs={tabs}
-      value={tabs.find(({ id }) => id && location.pathname?.includes(`/settings/${id}`))?.id || tabs[0].id}
+      value={
+        tabs.find(
+          ({ id }) => id && location.pathname?.includes(`/settings/${id}`),
+        )?.id || tabs[0].id
+      }
       onChange={onChange}
     >
       <Routes>
@@ -93,9 +106,15 @@ export const ProjectSettings = () => {
         <Route path='environments/*' element={<ProjectEnvironmentList />} />
         <Route path='access/*' element={<ProjectAccess />} />
         <Route path='segments/*' element={<ProjectSegments />} />
-        <Route path='change-requests/*' element={<ChangeRequestConfiguration />} />
+        <Route
+          path='change-requests/*'
+          element={<ChangeRequestConfiguration />}
+        />
         <Route path='api-access/*' element={<ProjectApiAccess />} />
-        <Route path='default-strategy/*' element={<ProjectDefaultStrategySettings />} />
+        <Route
+          path='default-strategy/*'
+          element={<ProjectDefaultStrategySettings />}
+        />
         <Route path='actions/*' element={<ProjectActions />} />
         <Route path='*' element={<Navigate replace to={tabs[0].id} />} />
       </Routes>

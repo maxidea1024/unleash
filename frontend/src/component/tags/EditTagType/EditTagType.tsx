@@ -18,10 +18,15 @@ const EditTagType = () => {
   const navigate = useNavigate();
   const name = useRequiredPathParam('name');
   const { tagType } = useTagType(name);
-  const { tagName, tagDesc, setTagName, setTagDesc, getTagPayload, errors, clearErrors } = useTagTypeForm(
-    tagType?.name,
-    tagType?.description,
-  );
+  const {
+    tagName,
+    tagDesc,
+    setTagName,
+    setTagDesc,
+    getTagPayload,
+    errors,
+    clearErrors,
+  } = useTagTypeForm(tagType?.name, tagType?.description);
   const { updateTagType, loading } = useTagTypesApi();
 
   const handleSubmit = async (e: Event) => {

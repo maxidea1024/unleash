@@ -3,7 +3,10 @@ import { ArcherContainer, ArcherElement } from 'react-archer';
 import { useNavigate } from 'react-router-dom';
 import type React from 'react';
 import { type FC, useLayoutEffect, useRef, useState } from 'react';
-import type { ApplicationOverviewEnvironmentSchema, ApplicationOverviewSchema } from 'openapi';
+import type {
+  ApplicationOverviewEnvironmentSchema,
+  ApplicationOverviewSchema,
+} from 'openapi';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { HelpIcon } from '../common/HelpIcon/HelpIcon';
 import CheckCircle from '@mui/icons-material/CheckCircle';
@@ -49,8 +52,10 @@ const StyledEnvironmentBox = styled(Box)<{
 }>(({ theme, mode }) => ({
   borderRadius: theme.shape.borderRadiusMedium,
   border: '1px solid',
-  borderColor: theme.palette[mode === 'success' ? 'secondary' : 'warning'].border,
-  backgroundColor: theme.palette[mode === 'success' ? 'secondary' : 'warning'].light,
+  borderColor:
+    theme.palette[mode === 'success' ? 'secondary' : 'warning'].border,
+  backgroundColor:
+    theme.palette[mode === 'success' ? 'secondary' : 'warning'].light,
   display: 'inline-block',
   padding: theme.spacing(1.5, 1.5, 1.5, 1.5),
   zIndex: 1,
@@ -146,7 +151,10 @@ const WarningStatus: FC<{ children?: React.ReactNode }> = ({ children }) => (
   </StyledStatus>
 );
 
-const ApplicationCounters = ({ environmentCount, featureCount }: IApplicationCountersProps) => {
+const ApplicationCounters = ({
+  environmentCount,
+  featureCount,
+}: IApplicationCountersProps) => {
   return (
     <StyledIconRow>
       <StyledIconContainer>
@@ -172,8 +180,12 @@ const useTracking = () => {
   };
 };
 
-const getEnvironmentMode = (environment: ApplicationOverviewEnvironmentSchema) => {
-  return environment.issues.missingFeatures.length + environment.issues.outdatedSdks.length === 0
+const getEnvironmentMode = (
+  environment: ApplicationOverviewEnvironmentSchema,
+) => {
+  return environment.issues.missingFeatures.length +
+    environment.issues.outdatedSdks.length ===
+    0
     ? 'success'
     : 'warning';
 };
@@ -189,7 +201,10 @@ export const ApplicationChart = ({ data }: IApplicationChartProps) => {
 
   return (
     <Box sx={{ width }}>
-      <ArcherContainer strokeColor={theme.palette.secondary.border} endMarker={false}>
+      <ArcherContainer
+        strokeColor={theme.palette.secondary.border}
+        endMarker={false}
+      >
         <StyleApplicationContainer>
           <ArcherElement
             id='application'
@@ -222,7 +237,10 @@ export const ApplicationChart = ({ data }: IApplicationChartProps) => {
               >
                 {applicationName}
               </Typography>
-              <ApplicationCounters environmentCount={data.environments.length} featureCount={data.featureCount} />
+              <ApplicationCounters
+                environmentCount={data.environments.length}
+                featureCount={data.featureCount}
+              />
               <StyledDivider />
               {mode.applicationMode === 'success' ? (
                 <SuccessStatus />
@@ -242,17 +260,24 @@ export const ApplicationChart = ({ data }: IApplicationChartProps) => {
                 sx={{ cursor: 'pointer' }}
                 onClick={(e) => {
                   trackClick();
-                  navigate(`/applications/${applicationName}/instances?environment=${environment.name}`);
+                  navigate(
+                    `/applications/${applicationName}/instances?environment=${environment.name}`,
+                  );
                 }}
               >
-                <EnvironmentHeader>{environment.name} environment</EnvironmentHeader>
+                <EnvironmentHeader>
+                  {environment.name} environment
+                </EnvironmentHeader>
 
                 <StyledTable>
                   <tbody>
                     <tr>
                       <StyledCell sx={{ display: 'flex' }}>
                         Instances:{' '}
-                        <HelpIcon size={theme.fontSizes.smallBody} tooltip='Active instances in the last 2 days' />
+                        <HelpIcon
+                          size={theme.fontSizes.smallBody}
+                          tooltip='Active instances in the last 2 days'
+                        />
                       </StyledCell>
                       <StyledCell>{environment.instanceCount}</StyledCell>
                     </tr>

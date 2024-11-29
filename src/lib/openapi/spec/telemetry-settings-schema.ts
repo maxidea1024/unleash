@@ -15,11 +15,14 @@ export const telemetrySettingsSchema = {
     },
     featureInfoCollectionEnabled: {
       type: 'boolean',
-      description: 'Whether collection of feature usage metrics is enabled/active.',
+      description:
+        'Whether collection of feature usage metrics is enabled/active.',
       example: true,
     },
   },
   components: {},
 } as const;
 
-export type TelemetrySettingsSchema = FromSchema<typeof telemetrySettingsSchema>;
+export type TelemetrySettingsSchema = FromSchema<
+  typeof telemetrySettingsSchema
+>;

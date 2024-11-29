@@ -1,5 +1,12 @@
 import { type MouseEvent, useState, type VFC } from 'react';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Tooltip } from '@mui/material';
+import {
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from '@mui/material';
 import CopyIcon from '@mui/icons-material/AddToPhotos';
 import Lock from '@mui/icons-material/Lock';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
@@ -25,7 +32,11 @@ interface ICopyStrategyIconMenuProps {
   strategy: IFeatureStrategyPayload;
 }
 
-export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environmentId, environments, strategy }) => {
+export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({
+  environmentId,
+  environments,
+  strategy,
+}) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
 
@@ -34,7 +45,10 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
   const { addStrategyToFeature } = useFeatureStrategyApi();
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(projectId, featureId);
-  const { refetchFeature: refetchFeatureImmutable } = useFeatureImmutable(projectId, featureId);
+  const { refetchFeature: refetchFeatureImmutable } = useFeatureImmutable(
+    projectId,
+    featureId,
+  );
   const onClose = () => {
     setAnchorEl(null);
   };
@@ -54,12 +68,21 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
       targetEnvironment,
     };
     if (isChangeRequestConfigured(targetEnvironment)) {
-      await onChangeRequestAddStrategy(targetEnvironment, strategyCopy, environmentId);
+      await onChangeRequestAddStrategy(
+        targetEnvironment,
+        strategyCopy,
+        environmentId,
+      );
       return;
     }
 
     try {
-      await addStrategyToFeature(projectId, featureId, targetEnvironment, strategy);
+      await addStrategyToFeature(
+        projectId,
+        featureId,
+        targetEnvironment,
+        strategy,
+      );
       refetchFeature();
       refetchFeatureImmutable();
       setToastData({
@@ -73,7 +96,9 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
     onClose();
   };
 
-  const enabled = environments.some((environment) => checkAccess(CREATE_FEATURE_STRATEGY, environment));
+  const enabled = environments.some((environment) =>
+    checkAccess(CREATE_FEATURE_STRATEGY, environment),
+  );
 
   return (
     <div>
@@ -89,7 +114,9 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
           />
         }
       />
-      <Tooltip title={`Copy to environment${enabled ? '' : ' (Access denied)'}`}>
+      <Tooltip
+        title={`Copy to environment${enabled ? '' : ' (Access denied)'}`}
+      >
         <div>
           <IconButton
             size='large'
@@ -121,11 +148,18 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
 
           return (
             <Tooltip
-              title={access ? '' : "You don't have access to add a strategy to this environment"}
+              title={
+                access
+                  ? ''
+                  : "You don't have access to add a strategy to this environment"
+              }
               key={environment}
             >
               <div>
-                <MenuItem onClick={() => onCopyStrategy(environment)} disabled={!access}>
+                <MenuItem
+                  onClick={() => onCopyStrategy(environment)}
+                  disabled={!access}
+                >
                   <ConditionallyRender
                     condition={!access}
                     show={
@@ -135,7 +169,9 @@ export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({ environm
                     }
                   />
                   <ListItemText>
-                    {environment === environmentId ? 'Duplicate in current' : `Copy to ${environment}`}
+                    {environment === environmentId
+                      ? 'Duplicate in current'
+                      : `Copy to ${environment}`}
                   </ListItemText>
                 </MenuItem>
               </div>

@@ -17,7 +17,9 @@ export type Counter<T extends string = string> = {
  *               See prom-client documentation for detailed options: https://github.com/siimon/prom-client#counter
  * @returns An object containing the wrapped Counter instance and custom methods.
  */
-export const createCounter = <T extends string>(options: CounterConfiguration<T>): Counter<T> => {
+export const createCounter = <T extends string>(
+  options: CounterConfiguration<T>,
+): Counter<T> => {
   /**
    * The underlying instance of prom-client's Counter.
    */
@@ -47,7 +49,8 @@ export const createCounter = <T extends string>(options: CounterConfiguration<T>
    * @param labels - An object where keys are label names and values are the label values.
    * @param value - (Optional) The value to increment the counter by. If not provided, defaults to 1.
    */
-  const increment = (labels: Record<T, string | number>, value?: number) => counter.labels(labels).inc(value);
+  const increment = (labels: Record<T, string | number>, value?: number) =>
+    counter.labels(labels).inc(value);
 
   return {
     counter,

@@ -1,4 +1,10 @@
-import { type IRouter, Router, type Request, type Response, type RequestHandler } from 'express';
+import {
+  type IRouter,
+  Router,
+  type Request,
+  type Response,
+  type RequestHandler,
+} from 'express';
 import type { Logger } from '../logger';
 import { type IUnleashConfig, NONE } from '../types';
 import { handleErrors } from './util';
@@ -35,7 +41,9 @@ type IRouteOptions = IRouteOptionsNonGet | IRouteOptionsGet;
 const checkPermission =
   (permission: Permission = []) =>
   async (req, res, next) => {
-    const permissions = (Array.isArray(permission) ? permission : [permission]).filter((p) => p !== NONE);
+    const permissions = (
+      Array.isArray(permission) ? permission : [permission]
+    ).filter((p) => p !== NONE);
 
     if (!permissions.length) {
       return next();
@@ -49,7 +57,10 @@ const checkPermission =
   };
 
 const checkPrivateProjectPermissions = () => async (req, res, next) => {
-  if (!req.checkPrivateProjectPermissions || (await req.checkPrivateProjectPermissions())) {
+  if (
+    !req.checkPrivateProjectPermissions ||
+    (await req.checkPrivateProjectPermissions())
+  ) {
     return next();
   }
 
@@ -105,7 +116,11 @@ export default class Controller {
     );
   }
 
-  get(path: string, handler: IRequestHandler, permission: Permission = NONE): void {
+  get(
+    path: string,
+    handler: IRequestHandler,
+    permission: Permission = NONE,
+  ): void {
     this.route({
       method: 'get',
       path,
@@ -114,7 +129,12 @@ export default class Controller {
     });
   }
 
-  post(path: string, handler: IRequestHandler, permission: Permission = NONE, ...acceptedContentTypes: string[]): void {
+  post(
+    path: string,
+    handler: IRequestHandler,
+    permission: Permission = NONE,
+    ...acceptedContentTypes: string[]
+  ): void {
     this.route({
       method: 'post',
       path,
@@ -124,7 +144,12 @@ export default class Controller {
     });
   }
 
-  put(path: string, handler: IRequestHandler, permission: Permission = NONE, ...acceptedContentTypes: string[]): void {
+  put(
+    path: string,
+    handler: IRequestHandler,
+    permission: Permission = NONE,
+    ...acceptedContentTypes: string[]
+  ): void {
     this.route({
       method: 'put',
       path,
@@ -149,7 +174,11 @@ export default class Controller {
     });
   }
 
-  delete(path: string, handler: IRequestHandler, permission: Permission = NONE): void {
+  delete(
+    path: string,
+    handler: IRequestHandler,
+    permission: Permission = NONE,
+  ): void {
     this.route({
       method: 'delete',
       path,
@@ -159,7 +188,12 @@ export default class Controller {
     });
   }
 
-  fileupload(path: string, filehandler: IRequestHandler, handler: Function, permission: Permission = NONE): void {
+  fileupload(
+    path: string,
+    filehandler: IRequestHandler,
+    handler: Function,
+    permission: Permission = NONE,
+  ): void {
     this.app.post(
       path,
       storeRequestedRoute,

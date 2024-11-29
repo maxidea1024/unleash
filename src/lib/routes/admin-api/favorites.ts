@@ -13,7 +13,10 @@ export default class FavoritesController extends Controller {
 
   constructor(
     config: IUnleashConfig,
-    { favoritesService, openApiService }: Pick<IUnleashServices, 'favoritesService' | 'openApiService'>,
+    {
+      favoritesService,
+      openApiService,
+    }: Pick<IUnleashServices, 'favoritesService' | 'openApiService'>,
   ) {
     super(config);
 
@@ -51,7 +54,8 @@ export default class FavoritesController extends Controller {
           tags: ['Features'],
           operationId: 'removeFavoriteFeature',
           summary: 'Remove feature from favorites',
-          description: 'This endpoint removes the feature in the url from favorites',
+          description:
+            'This endpoint removes the feature in the url from favorites',
           responses: {
             200: emptyResponse,
             ...getStandardResponses(401, 404),
@@ -88,7 +92,8 @@ export default class FavoritesController extends Controller {
         openApiService.validPath({
           tags: ['Features'],
           summary: 'Remove project from favorites',
-          description: 'This endpoint removes the project in the url from favorites',
+          description:
+            'This endpoint removes the project in the url from favorites',
           operationId: 'removeFavoriteProject',
           responses: {
             200: emptyResponse,
@@ -99,7 +104,10 @@ export default class FavoritesController extends Controller {
     });
   }
 
-  async addFavoriteFeature(req: IAuthRequest<{ featureName: string }>, res: Response): Promise<void> {
+  async addFavoriteFeature(
+    req: IAuthRequest<{ featureName: string }>,
+    res: Response,
+  ): Promise<void> {
     const { featureName } = req.params;
     const { user } = req;
     await this.favoritesService.favoriteFeature(
@@ -112,7 +120,10 @@ export default class FavoritesController extends Controller {
     res.status(200).end();
   }
 
-  async removeFavoriteFeature(req: IAuthRequest<{ featureName: string }>, res: Response): Promise<void> {
+  async removeFavoriteFeature(
+    req: IAuthRequest<{ featureName: string }>,
+    res: Response,
+  ): Promise<void> {
     const { featureName } = req.params;
     const { user } = req;
     await this.favoritesService.unfavoriteFeature(
@@ -125,7 +136,10 @@ export default class FavoritesController extends Controller {
     res.status(200).end();
   }
 
-  async addFavoriteProject(req: IAuthRequest<{ projectId: string }>, res: Response): Promise<void> {
+  async addFavoriteProject(
+    req: IAuthRequest<{ projectId: string }>,
+    res: Response,
+  ): Promise<void> {
     const { projectId } = req.params;
     const { user } = req;
     await this.favoritesService.favoriteProject(
@@ -138,7 +152,10 @@ export default class FavoritesController extends Controller {
     res.status(200).end();
   }
 
-  async removeFavoriteProject(req: IAuthRequest<{ projectId: string }>, res: Response): Promise<void> {
+  async removeFavoriteProject(
+    req: IAuthRequest<{ projectId: string }>,
+    res: Response,
+  ): Promise<void> {
     const { projectId } = req.params;
     const { user } = req;
     await this.favoritesService.unfavoriteProject(

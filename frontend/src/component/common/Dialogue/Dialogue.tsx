@@ -1,6 +1,13 @@
 import type React from 'react';
 import type { KeyboardEvent } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, styled } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  styled,
+} from '@mui/material';
 
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DIALOGUE_CONFIRM_ID } from 'utils/testIds';
@@ -127,10 +134,17 @@ export const Dialogue: React.FC<IDialogue> = ({
 
           <ConditionallyRender
             condition={Boolean(onClose)}
-            show={<Button onClick={onClose}>{secondaryButtonText || 'No, take me back'}</Button>}
+            show={
+              <Button onClick={onClose}>
+                {secondaryButtonText || 'No, take me back'}
+              </Button>
+            }
           />
 
-          <ConditionallyRender condition={Boolean(customButton)} show={customButton} />
+          <ConditionallyRender
+            condition={Boolean(customButton)}
+            show={customButton}
+          />
         </StyledDialogActions>
       </StyledDialogBody>
     </StyledDialog>

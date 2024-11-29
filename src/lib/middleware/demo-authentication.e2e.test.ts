@@ -43,9 +43,13 @@ test('if the demoAllowAdminLogin flag is disabled, using `admin` should have the
   const nonAdminUsername = 'not-an-email';
   const adminUsername = 'admin';
 
-  const nonAdminUser = await app.request.post(`/auth/demo/login`).send({ email: nonAdminUsername });
+  const nonAdminUser = await app.request
+    .post(`/auth/demo/login`)
+    .send({ email: nonAdminUsername });
 
-  const adminUser = await app.request.post(`/auth/demo/login`).send({ email: adminUsername });
+  const adminUser = await app.request
+    .post(`/auth/demo/login`)
+    .send({ email: adminUsername });
 
   expect(nonAdminUser.status).toBe(adminUser.status);
 

@@ -1,7 +1,13 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
-import { ApiTokenType, type IApiToken } from '../../../../lib/types/models/api-token';
+import {
+  ApiTokenType,
+  type IApiToken,
+} from '../../../../lib/types/models/api-token';
 
 let app: IUnleashTest;
 let db: ITestDb;
@@ -100,11 +106,17 @@ test('should show correct application metrics', async () => {
     }),
   ]);
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 
-  const { body } = await app.request.get(`/api/admin/metrics/applications/${metrics.appName}/overview`).expect(200);
+  const { body } = await app.request
+    .get(`/api/admin/metrics/applications/${metrics.appName}/overview`)
+    .expect(200);
 
   const expected = {
     projects: ['default'],
@@ -127,7 +139,11 @@ test('should show correct application metrics', async () => {
     .get(`/api/admin/metrics/instances/${metrics.appName}/environment/default`)
     .expect(200);
 
-  expect(instancesBody.instances.sort((a, b) => a.instanceId.localeCompare(b.instanceId))).toMatchObject([
+  expect(
+    instancesBody.instances.sort((a, b) =>
+      a.instanceId.localeCompare(b.instanceId),
+    ),
+  ).toMatchObject([
     {
       instanceId: 'another-instance',
       sdkVersion: 'unleash-client-node:3.2.2',
@@ -135,7 +151,9 @@ test('should show correct application metrics', async () => {
     { instanceId: 'instanceId', sdkVersion: 'unleash-client-node:3.2.1' },
   ]);
 
-  const { body: outdatedSdks } = await app.request.get(`/api/admin/projects/default/sdks/outdated`).expect(200);
+  const { body: outdatedSdks } = await app.request
+    .get(`/api/admin/projects/default/sdks/outdated`)
+    .expect(200);
 
   expect(outdatedSdks).toMatchObject({
     sdks: [
@@ -164,11 +182,17 @@ test('should show missing features and strategies', async () => {
     }),
   ]);
   await app.services.clientInstanceService.bulkAdd();
-  await app.request.post('/api/client/metrics').set('Authorization', defaultToken.secret).send(metrics).expect(202);
+  await app.request
+    .post('/api/client/metrics')
+    .set('Authorization', defaultToken.secret)
+    .send(metrics)
+    .expect(202);
 
   await app.services.clientMetricsServiceV2.bulkAdd();
 
-  const { body } = await app.request.get(`/api/admin/metrics/applications/${metrics.appName}/overview`).expect(200);
+  const { body } = await app.request
+    .get(`/api/admin/metrics/applications/${metrics.appName}/overview`)
+    .expect(200);
 
   const expected = {
     projects: ['default'],

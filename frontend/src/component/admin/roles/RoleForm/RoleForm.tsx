@@ -34,7 +34,9 @@ interface IRoleFormProps {
   setDescription: (description: string) => void;
   validateDescription: (description: string) => boolean;
   checkedPermissions: ICheckedPermissions;
-  setCheckedPermissions: React.Dispatch<React.SetStateAction<ICheckedPermissions>>;
+  setCheckedPermissions: React.Dispatch<
+    React.SetStateAction<ICheckedPermissions>
+  >;
   validatePermissions: (permissions: ICheckedPermissions) => boolean;
   errors: IRoleFormErrors;
   showErrors: boolean;
@@ -60,7 +62,9 @@ export const RoleForm = ({
 
   return (
     <div>
-      <StyledInputDescription>What is your new role name?</StyledInputDescription>
+      <StyledInputDescription>
+        What is your new role name?
+      </StyledInputDescription>
       <StyledInput
         autoFocus
         label='Role name *'
@@ -74,7 +78,9 @@ export const RoleForm = ({
         onBlur={(e) => handleOnBlur(() => validateName(e.target.value))}
         autoComplete='off'
       />
-      <StyledInputDescription>What is your new role description?</StyledInputDescription>
+      <StyledInputDescription>
+        What is your new role description?
+      </StyledInputDescription>
       <StyledInputFullWidth
         label='Role description *'
         error={Boolean(errors.description)}
@@ -87,7 +93,9 @@ export const RoleForm = ({
         onBlur={(e) => handleOnBlur(() => validateDescription(e.target.value))}
         autoComplete='off'
       />
-      <StyledInputDescription>What is your role allowed to do?</StyledInputDescription>
+      <StyledInputDescription>
+        What is your role allowed to do?
+      </StyledInputDescription>
       <Alert severity='info'>You must select at least one permission.</Alert>
       <RolePermissionCategories
         type={type}

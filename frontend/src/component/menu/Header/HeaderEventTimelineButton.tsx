@@ -8,12 +8,16 @@ import { Highlight } from 'component/common/Highlight/Highlight';
 export const HeaderEventTimelineButton = () => {
   const { trackEvent } = usePlausibleTracker();
   const { isOss } = useUiConfig();
-  const { open: showTimeline, setOpen: setShowTimeline } = useEventTimelineContext();
+  const { open: showTimeline, setOpen: setShowTimeline } =
+    useEventTimelineContext();
 
   if (isOss()) return null;
 
   return (
-    <Tooltip title={showTimeline ? 'Hide event timeline' : 'Show event timeline'} arrow>
+    <Tooltip
+      title={showTimeline ? 'Hide event timeline' : 'Show event timeline'}
+      arrow
+    >
       <Highlight highlightKey='eventTimeline'>
         <IconButton
           onClick={() => {

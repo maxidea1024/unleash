@@ -32,7 +32,8 @@ const usernameSchema = {
     username: {
       deprecated: true,
       type: 'string',
-      description: 'The name of the token. This property was deprecated in v5. Use `tokenName` instead.',
+      description:
+        'The name of the token. This property was deprecated in v5. Use `tokenName` instead.',
       example: 'token-64523',
     },
   },
@@ -50,7 +51,8 @@ const clientFrontendSchema = {
     },
     environment: {
       type: 'string',
-      description: 'The environment that the token should be valid for. Defaults to "default"',
+      description:
+        'The environment that the token should be valid for. Defaults to "default"',
       example: 'development',
     },
     project: {

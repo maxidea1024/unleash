@@ -9,7 +9,12 @@ interface IApiErrorProps {
   style?: React.CSSProperties;
 }
 
-const ApiError: React.FC<IApiErrorProps> = ({ className, onClick, text, ...rest }) => {
+const ApiError: React.FC<IApiErrorProps> = ({
+  className,
+  onClick,
+  text,
+  ...rest
+}) => {
   return (
     <Alert
       className={className ? className : ''}

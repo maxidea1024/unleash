@@ -37,7 +37,12 @@ interface IRoleModalProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const RoleModal = ({ type = ROOT_ROLE_TYPE, roleId, open, setOpen }: IRoleModalProps) => {
+export const RoleModal = ({
+  type = ROOT_ROLE_TYPE,
+  roleId,
+  open,
+  setOpen,
+}: IRoleModalProps) => {
   const { role, refetch: refetchRole } = useRole(roleId?.toString());
 
   const {

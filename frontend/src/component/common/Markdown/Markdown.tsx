@@ -3,10 +3,14 @@ import type { AnchorHTMLAttributes, ComponentProps } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useNavigate } from 'react-router-dom';
 
-const LinkRenderer = ({ href = '', children }: AnchorHTMLAttributes<HTMLAnchorElement>) => {
+const LinkRenderer = ({
+  href = '',
+  children,
+}: AnchorHTMLAttributes<HTMLAnchorElement>) => {
   const navigate = useNavigate();
 
-  if (href.startsWith('/')) return <Link onClick={() => navigate(href)}>{children}</Link>;
+  if (href.startsWith('/'))
+    return <Link onClick={() => navigate(href)}>{children}</Link>;
 
   return (
     <Link href={href} target='_blank' rel='noreferrer'>
@@ -15,6 +19,9 @@ const LinkRenderer = ({ href = '', children }: AnchorHTMLAttributes<HTMLAnchorEl
   );
 };
 
-export const Markdown = ({ components, ...props }: ComponentProps<typeof ReactMarkdown>) => (
+export const Markdown = ({
+  components,
+  ...props
+}: ComponentProps<typeof ReactMarkdown>) => (
   <ReactMarkdown components={{ a: LinkRenderer, ...components }} {...props} />
 );

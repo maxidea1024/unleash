@@ -19,4 +19,6 @@ export const bulkToggleFeaturesSchema = {
   components: {},
 } as const;
 
-export type BulkToggleFeaturesSchema = FromSchema<typeof bulkToggleFeaturesSchema>;
+export type BulkToggleFeaturesSchema = FromSchema<
+  typeof bulkToggleFeaturesSchema
+>;

@@ -1,4 +1,6 @@
-import GeneralSelect, { type IGeneralSelectProps } from 'component/common/GeneralSelect/GeneralSelect';
+import GeneralSelect, {
+  type IGeneralSelectProps,
+} from 'component/common/GeneralSelect/GeneralSelect';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useEffect } from 'react';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -11,7 +13,11 @@ interface IFeatureMetricsHoursProps {
 
 export const FEATURE_METRIC_HOURS_BACK_DEFAULT = 48;
 
-export const FeatureMetricsHours = ({ hoursBack, setHoursBack, label = 'Period' }: IFeatureMetricsHoursProps) => {
+export const FeatureMetricsHours = ({
+  hoursBack,
+  setHoursBack,
+  label = 'Period',
+}: IFeatureMetricsHoursProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onChange: IGeneralSelectProps['onChange'] = (key) => {
@@ -24,9 +30,13 @@ export const FeatureMetricsHours = ({ hoursBack, setHoursBack, label = 'Period' 
     });
   };
   const { isEnterprise } = useUiConfig();
-  const options = isEnterprise() ? [...hourOptions, ...daysOptions] : hourOptions;
+  const options = isEnterprise()
+    ? [...hourOptions, ...daysOptions]
+    : hourOptions;
 
-  const normalizedHoursBack = options.map((option) => Number(option.key)).includes(hoursBack)
+  const normalizedHoursBack = options
+    .map((option) => Number(option.key))
+    .includes(hoursBack)
     ? hoursBack
     : FEATURE_METRIC_HOURS_BACK_DEFAULT;
 

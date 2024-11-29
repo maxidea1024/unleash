@@ -16,7 +16,10 @@ test('Show outdated SDKs and apps using them', async () => {
   };
   render(
     <Routes>
-      <Route path={'/projects/:projectId'} element={<LeadTimeForChanges leadTime={leadTime} loading={false} />} />
+      <Route
+        path={'/projects/:projectId'}
+        element={<LeadTimeForChanges leadTime={leadTime} loading={false} />}
+      />
     </Routes>,
     {
       route: '/projects/default',

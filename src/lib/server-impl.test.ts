@@ -88,7 +88,9 @@ test('should call preRouterHook', async () => {
 });
 
 test('should auto-create server on start()', async () => {
-  const { server, stop } = await start(createTestConfig({ server: { port: 0 } }));
+  const { server, stop } = await start(
+    createTestConfig({ server: { port: 0 } }),
+  );
   expect(typeof server === 'undefined').toBe(false);
   await stop();
 });
@@ -101,7 +103,9 @@ test('should not create a server using create()', async () => {
 });
 
 test('should shutdown the server when calling stop()', async () => {
-  const { server, stop } = await start(createTestConfig({ server: { port: 0 } }));
+  const { server, stop } = await start(
+    createTestConfig({ server: { port: 0 } }),
+  );
   await stop();
   expect(server?.address()).toBe(null);
 });

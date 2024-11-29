@@ -26,12 +26,17 @@ const isProxyApi = ({ path }) => {
   );
 };
 
-export const TOKEN_TYPE_ERROR_MESSAGE = 'invalid token: expected a different token type for this endpoint';
+export const TOKEN_TYPE_ERROR_MESSAGE =
+  'invalid token: expected a different token type for this endpoint';
 
 export const NO_TOKEN_WHERE_TOKEN_WAS_REQUIRED =
   'This endpoint requires an API token. Please add an authorization header to your request with a valid token';
 const apiAccessMiddleware = (
-  { getLogger, authentication, flagResolver }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
+  {
+    getLogger,
+    authentication,
+    flagResolver,
+  }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
   { apiTokenService }: Pick<IUnleashServices, 'apiTokenService'>,
 ): any => {
   const logger = getLogger('api-token-middleware.ts');
@@ -50,12 +55,16 @@ const apiAccessMiddleware = (
     try {
       const apiToken = req.header('authorization');
       if (!apiToken?.startsWith('user:')) {
-        const apiUser = apiToken ? await apiTokenService.getUserForToken(apiToken) : undefined;
+        const apiUser = apiToken
+          ? await apiTokenService.getUserForToken(apiToken)
+          : undefined;
         const { CLIENT, FRONTEND } = ApiTokenType;
 
         if (apiUser) {
           if (
-            (apiUser.type === CLIENT && !isClientApi(req) && !isEdgeMetricsApi(req)) ||
+            (apiUser.type === CLIENT &&
+              !isClientApi(req) &&
+              !isEdgeMetricsApi(req)) ||
             (apiUser.type === FRONTEND && !isProxyApi(req)) ||
             (apiUser.type === FRONTEND && !flagResolver.isEnabled('embedProxy'))
           ) {

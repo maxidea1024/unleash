@@ -90,7 +90,8 @@ const FeatureOverviewMetaData = () => {
   const navigate = useNavigate();
 
   const [archiveDialogOpen, setArchiveDialogOpen] = useState(false);
-  const [markCompletedDialogueOpen, setMarkCompletedDialogueOpen] = useState(false);
+  const [markCompletedDialogueOpen, setMarkCompletedDialogueOpen] =
+    useState(false);
 
   const { project, description, type } = feature;
 
@@ -116,7 +117,9 @@ const FeatureOverviewMetaData = () => {
         <StyledBody>
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Project:</StyledMetaDataItemLabel>
-            <StyledMetaDataItemText data-loading>{project}</StyledMetaDataItemText>
+            <StyledMetaDataItemText data-loading>
+              {project}
+            </StyledMetaDataItemText>
           </StyledMetaDataItem>
           <ConditionallyRender
             condition={Boolean(feature.lifecycle)}
@@ -135,7 +138,10 @@ const FeatureOverviewMetaData = () => {
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Created at:</StyledMetaDataItemLabel>
             <StyledMetaDataItemText data-loading>
-              {formatDateYMD(parseISO(feature.createdAt), locationSettings.locale)}
+              {formatDateYMD(
+                parseISO(feature.createdAt),
+                locationSettings.locale,
+              )}
             </StyledMetaDataItemText>
           </StyledMetaDataItem>
           <ConditionallyRender
@@ -144,13 +150,18 @@ const FeatureOverviewMetaData = () => {
               <StyledMetaDataItem>
                 <StyledMetaDataItemLabel>Created by:</StyledMetaDataItemLabel>
                 <StyledMetaDataItemValue>
-                  <StyledMetaDataItemText data-loading>{feature.createdBy?.name}</StyledMetaDataItemText>
+                  <StyledMetaDataItemText data-loading>
+                    {feature.createdBy?.name}
+                  </StyledMetaDataItemText>
                   <StyledUserAvatar user={feature.createdBy} />
                 </StyledMetaDataItemValue>
               </StyledMetaDataItem>
             )}
           />
-          <ConditionallyRender condition={showDependentFeatures} show={<DependencyRow feature={feature} />} />
+          <ConditionallyRender
+            condition={showDependentFeatures}
+            show={<DependencyRow feature={feature} />}
+          />
           <TagRow feature={feature} />
         </StyledBody>
       </StyledMetaDataContainer>

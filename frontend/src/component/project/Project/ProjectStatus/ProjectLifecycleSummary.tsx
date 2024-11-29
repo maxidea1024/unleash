@@ -50,7 +50,11 @@ const LifecycleBox = ({
 }) => {
   return (
     <li>
-      <HtmlTooltip arrow maxWidth='850px' title={<LifecycleBoxTooltip text={tooltipText} />}>
+      <HtmlTooltip
+        arrow
+        maxWidth='850px'
+        title={<LifecycleBoxTooltip text={tooltipText} />}
+      >
         <LifecycleBoxContent tabIndex={0}>{children}</LifecycleBoxContent>
       </HtmlTooltip>
     </li>
@@ -91,7 +95,9 @@ const NoData = styled('span')({
   fontWeight: 'normal',
 });
 
-const AverageDaysStat: FC<{ averageDays?: number | null }> = ({ averageDays }) => {
+const AverageDaysStat: FC<{ averageDays?: number | null }> = ({
+  averageDays,
+}) => {
   const Content = () => {
     if (averageDays === null || averageDays === undefined) {
       return <NoData>No data</NoData>;
@@ -123,7 +129,10 @@ export const ProjectLifecycleSummary = () => {
   const projectId = useRequiredPathParam('projectId');
   const { data, loading } = useProjectStatus(projectId);
 
-  const loadingRef = useLoading<HTMLUListElement>(loading, '[data-loading-project-lifecycle-summary=true]');
+  const loadingRef = useLoading<HTMLUListElement>(
+    loading,
+    '[data-loading-project-lifecycle-summary=true]',
+  );
   const flagWord = (stage: keyof ProjectStatusSchemaLifecycleSummary) => {
     if (data?.lifecycleSummary[stage].currentFlags === 1) {
       return 'flag';
@@ -138,51 +147,74 @@ export const ProjectLifecycleSummary = () => {
           <Counter>
             <BigNumber value={data?.lifecycleSummary.initial.currentFlags} />
 
-            <FeatureLifecycleStageIcon aria-hidden='true' stage={{ name: 'initial' }} />
+            <FeatureLifecycleStageIcon
+              aria-hidden='true'
+              stage={{ name: 'initial' }}
+            />
           </Counter>
           <span>{flagWord('initial')} in initial</span>
         </p>
-        <AverageDaysStat averageDays={data?.lifecycleSummary.initial.averageDays} />
+        <AverageDaysStat
+          averageDays={data?.lifecycleSummary.initial.averageDays}
+        />
       </LifecycleBox>
       <LifecycleBox tooltipText={lifecycleMessages.preLive}>
         <p>
           <Counter>
             <BigNumber value={data?.lifecycleSummary.preLive.currentFlags} />
 
-            <FeatureLifecycleStageIcon aria-hidden='true' stage={{ name: 'pre-live' }} />
+            <FeatureLifecycleStageIcon
+              aria-hidden='true'
+              stage={{ name: 'pre-live' }}
+            />
           </Counter>
           <span>{flagWord('preLive')} in pre-live</span>
         </p>
-        <AverageDaysStat averageDays={data?.lifecycleSummary.preLive.averageDays} />
+        <AverageDaysStat
+          averageDays={data?.lifecycleSummary.preLive.averageDays}
+        />
       </LifecycleBox>
       <LifecycleBox tooltipText={lifecycleMessages.live}>
         <p>
           <Counter>
             <BigNumber value={data?.lifecycleSummary.live.currentFlags} />
 
-            <FeatureLifecycleStageIcon aria-hidden='true' stage={{ name: 'live' }} />
+            <FeatureLifecycleStageIcon
+              aria-hidden='true'
+              stage={{ name: 'live' }}
+            />
           </Counter>
           <span>{flagWord('live')} in live</span>
         </p>
-        <AverageDaysStat averageDays={data?.lifecycleSummary.live.averageDays} />
+        <AverageDaysStat
+          averageDays={data?.lifecycleSummary.live.averageDays}
+        />
       </LifecycleBox>
       <LifecycleBox tooltipText={lifecycleMessages.completed}>
         <p>
           <Counter>
             <BigNumber value={data?.lifecycleSummary.completed.currentFlags} />
 
-            <FeatureLifecycleStageIcon aria-hidden='true' stage={{ name: 'completed' }} />
+            <FeatureLifecycleStageIcon
+              aria-hidden='true'
+              stage={{ name: 'completed' }}
+            />
           </Counter>
           <span>{flagWord('completed')} in cleanup</span>
         </p>
-        <AverageDaysStat averageDays={data?.lifecycleSummary.completed.averageDays} />
+        <AverageDaysStat
+          averageDays={data?.lifecycleSummary.completed.averageDays}
+        />
       </LifecycleBox>
       <LifecycleBox tooltipText={lifecycleMessages.archived}>
         <p>
           <Counter>
             <BigNumber value={data?.lifecycleSummary.archived.currentFlags} />
 
-            <FeatureLifecycleStageIcon aria-hidden='true' stage={{ name: 'archived' }} />
+            <FeatureLifecycleStageIcon
+              aria-hidden='true'
+              stage={{ name: 'archived' }}
+            />
           </Counter>
           <span>{flagWord('archived')} in archived</span>
         </p>

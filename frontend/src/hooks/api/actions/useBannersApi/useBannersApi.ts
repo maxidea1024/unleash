@@ -75,7 +75,11 @@ export const useBannersApi = () => {
 
   const removeBanner = async (bannerId: number) => {
     const requestId = 'removeBanner';
-    const req = createRequest(`${ENDPOINT}/${bannerId}`, { method: 'DELETE' }, requestId);
+    const req = createRequest(
+      `${ENDPOINT}/${bannerId}`,
+      { method: 'DELETE' },
+      requestId,
+    );
 
     await makeRequest(req.caller, req.id);
   };

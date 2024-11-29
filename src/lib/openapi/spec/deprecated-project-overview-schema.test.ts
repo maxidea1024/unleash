@@ -12,7 +12,14 @@ test('deprecatedProjectOverviewSchema', () => {
     },
   };
 
-  expect(validateSchema('#/components/schemas/deprecatedProjectOverviewSchema', data)).toBeUndefined();
+  expect(
+    validateSchema(
+      '#/components/schemas/deprecatedProjectOverviewSchema',
+      data,
+    ),
+  ).toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/deprecatedProjectOverviewSchema', {})).toMatchSnapshot();
+  expect(
+    validateSchema('#/components/schemas/deprecatedProjectOverviewSchema', {}),
+  ).toMatchSnapshot();
 });

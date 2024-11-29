@@ -13,7 +13,10 @@ export default class EdgeService {
 
   constructor(
     { apiTokenService }: { apiTokenService: ApiTokenService },
-    { getLogger, eventBus }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
+    {
+      getLogger,
+      eventBus,
+    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
   ) {
     this.logger = getLogger('edge-service.ts');
 

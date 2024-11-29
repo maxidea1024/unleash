@@ -7,7 +7,8 @@
 /**
  * The billing model in use for this Unleash instance.
  */
-export type UiConfigSchemaBilling = (typeof UiConfigSchemaBilling)[keyof typeof UiConfigSchemaBilling];
+export type UiConfigSchemaBilling =
+  (typeof UiConfigSchemaBilling)[keyof typeof UiConfigSchemaBilling];
 
 // eslint-disable-next-line @typescript-eslint/no-redeclare
 export const UiConfigSchemaBilling = {

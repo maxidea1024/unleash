@@ -42,7 +42,9 @@ export const YourAdmins: React.FC<{
                     }}
                     user={admin}
                   />
-                  <Typography>{admin.name || admin.username || admin.email}</Typography>
+                  <Typography>
+                    {admin.name || admin.username || admin.email}
+                  </Typography>
                 </StyledListItem>
               );
             })}

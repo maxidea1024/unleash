@@ -19,7 +19,11 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { VariantsTooltip } from './VariantsTooltip';
 import { styled } from '@mui/material';
-import { StyledMetaDataItem, StyledMetaDataItemLabel, StyledMetaDataItemValue } from './FeatureOverviewMetaData';
+import {
+  StyledMetaDataItem,
+  StyledMetaDataItemLabel,
+  StyledMetaDataItemValue,
+} from './FeatureOverviewMetaData';
 
 const StyledPermissionButton = styled(PermissionButton)(({ theme }) => ({
   '&&&': {
@@ -36,7 +40,8 @@ const useDeleteDependency = (project: string, featureId: string) => {
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(project, featureId);
   const environment = useHighestPermissionChangeRequestEnvironment(project)();
-  const { isChangeRequestConfiguredInAnyEnv } = useChangeRequestsEnabled(project);
+  const { isChangeRequestConfiguredInAnyEnv } =
+    useChangeRequestsEnabled(project);
   const { removeDependencies } = useDependentFeaturesApi(project);
 
   const handleAddChange = async () => {
@@ -93,10 +98,15 @@ interface IDependencyRowProps {
 export const DependencyRow = ({ feature }: IDependencyRowProps) => {
   const [showDependencyDialogue, setShowDependencyDialogue] = useState(false);
   const canAddParentDependency =
-    Boolean(feature.project) && feature.dependencies.length === 0 && feature.children.length === 0;
-  const hasParentDependency = Boolean(feature.project) && Boolean(feature.dependencies.length > 0);
+    Boolean(feature.project) &&
+    feature.dependencies.length === 0 &&
+    feature.children.length === 0;
+  const hasParentDependency =
+    Boolean(feature.project) && Boolean(feature.dependencies.length > 0);
   const hasChildren = Boolean(feature.project) && feature.children.length > 0;
-  const environment = useHighestPermissionChangeRequestEnvironment(feature.project)();
+  const environment = useHighestPermissionChangeRequestEnvironment(
+    feature.project,
+  )();
   const checkAccess = useCheckProjectAccess(feature.project);
   const deleteDependency = useDeleteDependency(feature.project, feature.name);
 
@@ -127,7 +137,9 @@ export const DependencyRow = ({ feature }: IDependencyRowProps) => {
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Dependency:</StyledMetaDataItemLabel>
             <StyledMetaDataItemValue>
-              <StyledLink to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}>
+              <StyledLink
+                to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
+              >
                 {feature.dependencies[0]?.feature}
               </StyledLink>
               <ConditionallyRender
@@ -154,11 +166,16 @@ export const DependencyRow = ({ feature }: IDependencyRowProps) => {
         }
       />
       <ConditionallyRender
-        condition={hasParentDependency && Boolean(feature.dependencies[0]?.variants?.length)}
+        condition={
+          hasParentDependency &&
+          Boolean(feature.dependencies[0]?.variants?.length)
+        }
         show={
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Dependency value:</StyledMetaDataItemLabel>
-            <VariantsTooltip variants={feature.dependencies[0]?.variants || []} />
+            <VariantsTooltip
+              variants={feature.dependencies[0]?.variants || []}
+            />
           </StyledMetaDataItem>
         }
       />
@@ -167,7 +184,10 @@ export const DependencyRow = ({ feature }: IDependencyRowProps) => {
         show={
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Children:</StyledMetaDataItemLabel>
-            <ChildrenTooltip childFeatures={feature.children} project={feature.project} />
+            <ChildrenTooltip
+              childFeatures={feature.children}
+              project={feature.project}
+            />
           </StyledMetaDataItem>
         }
       />

@@ -8,15 +8,22 @@ type IPartialFeatures = Array<{
   type?: string;
 }>;
 
-const getPotentiallyStaleCount = (features: IPartialFeatures, featureTypes: IFeatureType[]) => {
+const getPotentiallyStaleCount = (
+  features: IPartialFeatures,
+  featureTypes: IFeatureType[],
+) => {
   const today = new Date().valueOf();
 
   return features.filter((feature) => {
     const diff = today - feature.createdAt?.valueOf()!;
-    const featureTypeExpectedLifetime = featureTypes.find((t) => t.id === feature.type)?.lifetimeDays;
+    const featureTypeExpectedLifetime = featureTypes.find(
+      (t) => t.id === feature.type,
+    )?.lifetimeDays;
 
     return (
-      !feature.stale && featureTypeExpectedLifetime && diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24)
+      !feature.stale &&
+      featureTypeExpectedLifetime &&
+      diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24)
     );
   }).length;
 };
@@ -24,20 +31,30 @@ const getPotentiallyStaleCount = (features: IPartialFeatures, featureTypes: IFea
 export const calculateProjectHealth = (
   features: IPartialFeatures,
   featureTypes: IFeatureType[],
-): Pick<IProjectHealthReport, 'staleCount' | 'potentiallyStaleCount' | 'activeCount'> => ({
+): Pick<
+  IProjectHealthReport,
+  'staleCount' | 'potentiallyStaleCount' | 'activeCount'
+> => ({
   potentiallyStaleCount: getPotentiallyStaleCount(features, featureTypes),
   activeCount: features.filter((f) => !f.stale).length,
   staleCount: features.filter((f) => f.stale).length,
 });
 
-export const calculateHealthRating = (features: IPartialFeatures, featureTypes: IFeatureType[]): number => {
-  const { potentiallyStaleCount, activeCount, staleCount } = calculateProjectHealth(features, featureTypes);
+export const calculateHealthRating = (
+  features: IPartialFeatures,
+  featureTypes: IFeatureType[],
+): number => {
+  const { potentiallyStaleCount, activeCount, staleCount } =
+    calculateProjectHealth(features, featureTypes);
   const toggleCount = activeCount + staleCount;
 
   const startPercentage = 100;
   const stalePercentage = (staleCount / toggleCount) * 100 || 0;
-  const potentiallyStalePercentage = (potentiallyStaleCount / toggleCount) * 100 || 0;
-  const rating = Math.round(startPercentage - stalePercentage - potentiallyStalePercentage);
+  const potentiallyStalePercentage =
+    (potentiallyStaleCount / toggleCount) * 100 || 0;
+  const rating = Math.round(
+    startPercentage - stalePercentage - potentiallyStalePercentage,
+  );
 
   return rating;
 };

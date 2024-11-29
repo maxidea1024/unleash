@@ -1,4 +1,7 @@
-import { parseInputValue, formatInputValue } from 'component/admin/cors/CorsForm';
+import {
+  parseInputValue,
+  formatInputValue,
+} from 'component/admin/cors/CorsForm';
 
 test('parseInputValue', () => {
   const fn = parseInputValue;

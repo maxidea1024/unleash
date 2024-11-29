@@ -1,9 +1,17 @@
 import { useMemo, useRef } from 'react';
-import { useFlexLayout, useGlobalFilter, useSortBy, useTable } from 'react-table';
+import {
+  useFlexLayout,
+  useGlobalFilter,
+  useSortBy,
+  useTable,
+} from 'react-table';
 
 import { VirtualizedTable } from 'component/common/Table';
 import { sortTypes } from 'utils/sortTypes';
-import type { AdvancedPlaygroundEnvironmentFeatureSchema, PlaygroundFeatureSchema } from 'openapi';
+import type {
+  AdvancedPlaygroundEnvironmentFeatureSchema,
+  PlaygroundFeatureSchema,
+} from 'openapi';
 import { Box, useMediaQuery, useTheme } from '@mui/material';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
 import { FeatureStatusCell } from '../PlaygroundResultsTable/FeatureStatusCell/FeatureStatusCell';
@@ -16,16 +24,21 @@ interface IPlaygroundEnvironmentTableProps {
   features: AdvancedPlaygroundEnvironmentFeatureSchema[];
 }
 
-export const PlaygroundEnvironmentTable = ({ features }: IPlaygroundEnvironmentTableProps) => {
+export const PlaygroundEnvironmentTable = ({
+  features,
+}: IPlaygroundEnvironmentTableProps) => {
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const dynamicHeaders = Object.keys(features[0].context).map((contextField) => ({
-    Header: capitalizeFirst(contextField),
-    accessor: (row: { context: Record<string, unknown> }) => row.context[contextField],
-    minWidth: 160,
-    Cell: HighlightCell,
-  }));
+  const dynamicHeaders = Object.keys(features[0].context).map(
+    (contextField) => ({
+      Header: capitalizeFirst(contextField),
+      accessor: (row: { context: Record<string, unknown> }) =>
+        row.context[contextField],
+      minWidth: 160,
+      Cell: HighlightCell,
+    }),
+  );
 
   const COLUMNS = useMemo(() => {
     return [
@@ -56,7 +69,11 @@ export const PlaygroundEnvironmentTable = ({ features }: IPlaygroundEnvironmentT
         Header: 'isEnabled',
         filterName: 'isEnabled',
         accessor: (row: PlaygroundFeatureSchema) =>
-          row?.isEnabled ? 'true' : row?.strategies?.result === 'unknown' ? 'unknown' : 'false',
+          row?.isEnabled
+            ? 'true'
+            : row?.strategies?.result === 'unknown'
+              ? 'unknown'
+              : 'false',
         Cell: ({ row }: any) => <FeatureStatusCell feature={row.original} />,
         sortType: 'playgroundResultState',
         maxWidth: 120,
@@ -116,7 +133,12 @@ export const PlaygroundEnvironmentTable = ({ features }: IPlaygroundEnvironmentT
         maxHeight: '800px',
       }}
     >
-      <VirtualizedTable parentRef={parentRef} rows={rows} headerGroups={headerGroups} prepareRow={prepareRow} />
+      <VirtualizedTable
+        parentRef={parentRef}
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+      />
     </Box>
   );
 };

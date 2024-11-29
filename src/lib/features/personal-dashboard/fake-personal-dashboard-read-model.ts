@@ -5,8 +5,13 @@ import type {
   PersonalFeature,
 } from './personal-dashboard-read-model-type';
 
-export class FakePersonalDashboardReadModel implements IPersonalDashboardReadModel {
-  async getLatestHealthScores(project: string, count: number): Promise<number[]> {
+export class FakePersonalDashboardReadModel
+  implements IPersonalDashboardReadModel
+{
+  async getLatestHealthScores(
+    project: string,
+    count: number,
+  ): Promise<number[]> {
     return [];
   }
 

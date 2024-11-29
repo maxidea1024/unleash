@@ -88,7 +88,8 @@ export const OFFICIAL_SDKS: Sdk[] = [
     name: 'javascript',
     displayName: 'Javascript Proxy SDK',
     description: 'Official Unleash Client for Javascript',
-    documentationUrl: 'https://docs.getunleash.io/reference/sdks/javascript-browser',
+    documentationUrl:
+      'https://docs.getunleash.io/reference/sdks/javascript-browser',
     type: 'client',
   },
   {

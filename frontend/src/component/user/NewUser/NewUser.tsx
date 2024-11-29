@@ -24,10 +24,20 @@ export const NewUser = () => {
   const [apiError, setApiError] = useState('');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
-  const { token, data: passwordResetData, loading: resetLoading, isValidToken } = useResetPassword();
-  const { secret, loading: inviteLoading, isValid: isValidInvite } = useUserInvite();
+  const {
+    token,
+    data: passwordResetData,
+    loading: resetLoading,
+    isValidToken,
+  } = useResetPassword();
+  const {
+    secret,
+    loading: inviteLoading,
+    isValid: isValidInvite,
+  } = useUserInvite();
   const { addUser, loading: isUserSubmitting } = useInviteTokenApi();
-  const { resetPassword, loading: isPasswordSubmitting } = useAuthResetPasswordApi();
+  const { resetPassword, loading: isPasswordSubmitting } =
+    useAuthResetPasswordApi();
   const passwordDisabled = authDetails?.defaultHidden === true;
 
   const onSubmitInvitedUser = async (password: string) => {
@@ -36,7 +46,9 @@ export const NewUser = () => {
       if (res.status === CREATED) {
         navigate('/login?invited=true');
       } else {
-        setToastApiError("Couldn't create user. Check if your invite link is valid.");
+        setToastApiError(
+          "Couldn't create user. Check if your invite link is valid.",
+        );
       }
     } catch (error) {
       setToastApiError(formatUnknownError(error));
@@ -77,7 +89,12 @@ export const NewUser = () => {
 
   return (
     <NewUserWrapper
-      loading={resetLoading || inviteLoading || isUserSubmitting || isPasswordSubmitting}
+      loading={
+        resetLoading ||
+        inviteLoading ||
+        isUserSubmitting ||
+        isPasswordSubmitting
+      }
       title={
         passwordDisabled
           ? 'Connect your account and start your journey'
@@ -87,7 +104,11 @@ export const NewUser = () => {
       <ConditionallyRender
         condition={passwordResetData?.createdBy}
         show={
-          <Typography variant='body1' data-loading sx={{ textAlign: 'center', mb: 2 }}>
+          <Typography
+            variant='body1'
+            data-loading
+            sx={{ textAlign: 'center', mb: 2 }}
+          >
             {passwordResetData?.createdBy}
             <br /> has invited you to join Unleash.
           </Typography>
@@ -110,7 +131,9 @@ export const NewUser = () => {
       />
       <ConditionallyRender
         condition={Boolean(authDetails?.options?.length) && !passwordDisabled}
-        show={<DividerText text='or sign-up with an email address' data-loading />}
+        show={
+          <DividerText text='or sign-up with an email address' data-loading />
+        }
       />
       <ConditionallyRender
         condition={!passwordDisabled}
@@ -165,7 +188,10 @@ export const NewUser = () => {
             <Typography variant='body1' data-loading sx={{ mt: 2 }}>
               Set a password for your account.
             </Typography>
-            <ConditionallyRender condition={isValidToken} show={<ResetPasswordError>{apiError}</ResetPasswordError>} />
+            <ConditionallyRender
+              condition={isValidToken}
+              show={<ResetPasswordError>{apiError}</ResetPasswordError>}
+            />
             <ResetPasswordForm onSubmit={onSubmit} />
           </>
         }

@@ -23,7 +23,9 @@ export const EditGroupContainer = () => {
 
   if (!group) return null;
 
-  return <EditGroup group={group} groupId={groupId} refetchGroup={refetchGroup} />;
+  return (
+    <EditGroup group={group} groupId={groupId} refetchGroup={refetchGroup} />
+  );
 };
 
 interface IEditGroupProps {
@@ -32,7 +34,11 @@ interface IEditGroupProps {
   refetchGroup: () => void;
 }
 
-export const EditGroup = ({ group, groupId, refetchGroup }: IEditGroupProps) => {
+export const EditGroup = ({
+  group,
+  groupId,
+  refetchGroup,
+}: IEditGroupProps) => {
   const { refetchGroups } = useGroups();
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
@@ -58,7 +64,13 @@ export const EditGroup = ({ group, groupId, refetchGroup }: IEditGroupProps) => 
     clearErrors,
     errors,
     setErrors,
-  } = useGroupForm(group?.name, group?.description, group?.mappingsSSO, group?.users, group?.rootRole);
+  } = useGroupForm(
+    group?.name,
+    group?.description,
+    group?.mappingsSSO,
+    group?.users,
+    group?.rootRole,
+  );
 
   const { groups } = useGroups();
   const { updateGroup, loading } = useGroupApi();
@@ -94,7 +106,9 @@ export const EditGroup = ({ group, groupId, refetchGroup }: IEditGroupProps) => 
   };
 
   const isNameNotEmpty = (name: string) => name.length;
-  const isNameUnique = (name: string) => !groups?.filter((group) => group.name === name && group.id !== groupId).length;
+  const isNameUnique = (name: string) =>
+    !groups?.filter((group) => group.name === name && group.id !== groupId)
+      .length;
   const isValid = isNameNotEmpty(name) && isNameUnique(name);
 
   const onSetName = (name: string) => {
@@ -133,7 +147,13 @@ export const EditGroup = ({ group, groupId, refetchGroup }: IEditGroupProps) => 
       >
         <Tooltip title={isScimGroup ? scimGroupTooltip : ''} arrow>
           <div>
-            <Button type='submit' variant='contained' color='primary' disabled={!isValid} data-testid={UG_SAVE_BTN_ID}>
+            <Button
+              type='submit'
+              variant='contained'
+              color='primary'
+              disabled={!isValid}
+              data-testid={UG_SAVE_BTN_ID}
+            >
               Save
             </Button>
           </div>

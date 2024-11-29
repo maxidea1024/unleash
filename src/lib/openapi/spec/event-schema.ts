@@ -36,7 +36,8 @@ export const eventSchema = {
     createdAt: {
       type: 'string',
       format: 'date-time',
-      description: 'The time the event happened as a RFC 3339-conformant timestamp.',
+      description:
+        'The time the event happened as a RFC 3339-conformant timestamp.',
       example: '2023-07-05T12:56:00.000Z',
     },
     type: {
@@ -59,7 +60,8 @@ export const eventSchema = {
     },
     environment: {
       type: 'string',
-      description: 'The feature flag environment the event relates to, if applicable.',
+      description:
+        'The feature flag environment the event relates to, if applicable.',
       nullable: true,
       example: 'development',
     },
@@ -72,13 +74,15 @@ export const eventSchema = {
     featureName: {
       type: 'string',
       nullable: true,
-      description: 'The name of the feature flag the event relates to, if applicable.',
+      description:
+        'The name of the feature flag the event relates to, if applicable.',
       example: 'my.first.feature',
     },
     data: eventDataSchema,
     preData: {
       ...eventDataSchema,
-      description: "Data relating to the previous state of the event's subject.",
+      description:
+        "Data relating to the previous state of the event's subject.",
     },
     tags: {
       type: 'array',

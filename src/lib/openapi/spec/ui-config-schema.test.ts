@@ -19,5 +19,7 @@ test('uiConfigSchema', () => {
     },
   };
 
-  expect(validateSchema('#/components/schemas/uiConfigSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/uiConfigSchema', data),
+  ).toBeUndefined();
 });

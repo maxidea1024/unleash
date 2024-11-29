@@ -12,7 +12,11 @@ test('userSchema', () => {
     createdAt: '2022-04-08T10:59:25.072Z',
   };
 
-  expect(validateSchema('#/components/schemas/userSchema', {})).not.toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/userSchema', {}),
+  ).not.toBeUndefined();
 
-  expect(validateSchema('#/components/schemas/userSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/userSchema', data),
+  ).toBeUndefined();
 });

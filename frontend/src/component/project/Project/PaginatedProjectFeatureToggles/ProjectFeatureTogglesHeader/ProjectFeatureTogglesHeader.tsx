@@ -1,5 +1,12 @@
 import { type ReactNode, type FC, useState } from 'react';
-import { Box, Button, IconButton, Tooltip, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  IconButton,
+  Tooltip,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import useLoading from 'hooks/useLoading';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -34,7 +41,10 @@ interface IProjectFeatureTogglesHeaderProps {
 
 interface IFlagCreationButtonProps {
   text?: string;
-  variant?: OverridableStringUnion<'text' | 'outlined' | 'contained', ButtonPropsVariantOverrides>;
+  variant?: OverridableStringUnion<
+    'text' | 'outlined' | 'contained',
+    ButtonPropsVariantOverrides
+  >;
   skipNavigationOnComplete?: boolean;
   onSuccess?: () => void;
 }
@@ -79,7 +89,9 @@ export const FlagCreationButton = ({
   );
 };
 
-export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> = ({
+export const ProjectFeatureTogglesHeader: FC<
+  IProjectFeatureTogglesHeaderProps
+> = ({
   isLoading,
   totalItems,
   searchQuery,
@@ -95,7 +107,9 @@ export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> 
   const featuresExportImportFlag = useUiFlag('featuresExportImport');
   const [showExportDialog, setShowExportDialog] = useState(false);
   const { trackEvent } = usePlausibleTracker();
-  const projectOverviewRefactorFeedback = useUiFlag('projectOverviewRefactorFeedback');
+  const projectOverviewRefactorFeedback = useUiFlag(
+    'projectOverviewRefactorFeedback',
+  );
   const { openFeedback } = useFeedback('newProjectOverview', 'automatic');
   const handleSearch = (query: string) => {
     onChangeSearchQuery?.(query);
@@ -110,8 +124,10 @@ export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> 
   const createFeedbackContext = () => {
     openFeedback({
       title: 'How easy was it to work with the project overview in Unleash?',
-      positiveLabel: 'What do you like most about the updated project overview?',
-      areasForImprovementsLabel: 'What improvements are needed in the project overview?',
+      positiveLabel:
+        'What do you like most about the updated project overview?',
+      areasForImprovementsLabel:
+        'What improvements are needed in the project overview?',
     });
   };
 
@@ -125,7 +141,11 @@ export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> 
       })}
     >
       <PageHeader
-        titleElement={showTitle ? `Feature flags ${totalItems !== undefined ? `(${totalItems})` : ''}` : null}
+        titleElement={
+          showTitle
+            ? `Feature flags ${totalItems !== undefined ? `(${totalItems})` : ''}`
+            : null
+        }
         actions={
           <>
             <ConditionallyRender
@@ -180,7 +200,12 @@ export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> 
             <ConditionallyRender
               condition={projectOverviewRefactorFeedback && !isSmallScreen}
               show={
-                <Button startIcon={<ReviewsOutlined />} onClick={createFeedbackContext} variant='outlined' data-loading>
+                <Button
+                  startIcon={<ReviewsOutlined />}
+                  onClick={createFeedbackContext}
+                  variant='outlined'
+                  data-loading
+                >
                   Provide feedback
                 </Button>
               }
@@ -191,7 +216,14 @@ export const ProjectFeatureTogglesHeader: FC<IProjectFeatureTogglesHeaderProps> 
       >
         <ConditionallyRender
           condition={isSmallScreen}
-          show={<Search initialValue={searchQuery || ''} onChange={handleSearch} hasFilters id='projectFeatureFlags' />}
+          show={
+            <Search
+              initialValue={searchQuery || ''}
+              onChange={handleSearch}
+              hasFilters
+              id='projectFeatureFlags'
+            />
+          }
         />
       </PageHeader>
     </Box>

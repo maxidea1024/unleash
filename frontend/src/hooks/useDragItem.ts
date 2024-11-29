@@ -1,6 +1,10 @@
 import { useRef, useEffect, type RefObject } from 'react';
 
-export type MoveListItem = (dragIndex: number, dropIndex: number, save?: boolean) => void;
+export type MoveListItem = (
+  dragIndex: number,
+  dropIndex: number,
+  save?: boolean,
+) => void;
 
 export const useDragItem = <T extends HTMLElement>(
   listItemIndex: number,
@@ -12,17 +16,29 @@ export const useDragItem = <T extends HTMLElement>(
   useEffect(() => {
     if (ref.current) {
       ref.current.dataset.index = String(listItemIndex);
-      return addEventListeners(ref.current, moveListItem, handle?.current ?? undefined);
+      return addEventListeners(
+        ref.current,
+        moveListItem,
+        handle?.current ?? undefined,
+      );
     }
   }, [listItemIndex, moveListItem]);
 
   return ref;
 };
 
-const addEventListeners = (el: HTMLElement, moveListItem: MoveListItem, handle?: HTMLElement): (() => void) => {
+const addEventListeners = (
+  el: HTMLElement,
+  moveListItem: MoveListItem,
+  handle?: HTMLElement,
+): (() => void) => {
   const moveDraggedElement = (save: boolean) => {
     if (globalDraggedElement) {
-      moveListItem(Number(globalDraggedElement.dataset.index), Number(el.dataset.index), save);
+      moveListItem(
+        Number(globalDraggedElement.dataset.index),
+        Number(el.dataset.index),
+        save,
+      );
     }
   };
 

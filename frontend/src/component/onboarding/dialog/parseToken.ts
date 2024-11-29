@@ -1,4 +1,6 @@
-export const parseToken = (token?: string): { project: string; environment: string; secret: string } | null => {
+export const parseToken = (
+  token?: string,
+): { project: string; environment: string; secret: string } | null => {
   if (!token) return null;
 
   const [project, rest] = token.split(':', 2);

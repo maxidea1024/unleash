@@ -141,7 +141,9 @@ export const ProfileTab = ({ user }: IProfileTabProps) => {
               show={() => (
                 <>
                   <Typography variant='body2'>Your root role</Typography>
-                  <RoleBadge roleId={profile?.rootRole.id!}>{profile?.rootRole.name}</RoleBadge>
+                  <RoleBadge roleId={profile?.rootRole.id!}>
+                    {profile?.rootRole.name}
+                  </RoleBadge>
                 </>
               )}
             />
@@ -151,7 +153,13 @@ export const ProfileTab = ({ user }: IProfileTabProps) => {
             <ConditionallyRender
               condition={Boolean(profile?.projects.length)}
               show={profile?.projects.map((project) => (
-                <Tooltip key={project} title='View project' arrow placement='bottom-end' describeChild>
+                <Tooltip
+                  key={project}
+                  title='View project'
+                  arrow
+                  placement='bottom-end'
+                  describeChild
+                >
                   <StyledBadge
                     onClick={(e) => {
                       e.preventDefault();
@@ -165,7 +173,11 @@ export const ProfileTab = ({ user }: IProfileTabProps) => {
                 </Tooltip>
               ))}
               elseShow={
-                <Tooltip title='You are not assigned to any projects' arrow describeChild>
+                <Tooltip
+                  title='You are not assigned to any projects'
+                  arrow
+                  describeChild
+                >
                   <Badge>No projects</Badge>
                 </Tooltip>
               }
@@ -174,9 +186,13 @@ export const ProfileTab = ({ user }: IProfileTabProps) => {
         </StyledAccess>
         <StyledDivider />
         <StyledSectionLabel>Date/Time Settings</StyledSectionLabel>
-        <Typography variant='body2'>This is the format used across the system for time and date</Typography>
+        <Typography variant='body2'>
+          This is the format used across the system for time and date
+        </Typography>
         <StyledFormControl variant='outlined' size='small'>
-          <StyledInputLabel htmlFor='locale-select'>Date/Time formatting</StyledInputLabel>
+          <StyledInputLabel htmlFor='locale-select'>
+            Date/Time formatting
+          </StyledInputLabel>
           <Select
             id='locale-select'
             value={currentLocale || ''}
@@ -203,7 +219,11 @@ export const ProfileTab = ({ user }: IProfileTabProps) => {
             <StyledSectionLabel>Email Settings</StyledSectionLabel>
             {profile?.subscriptions && (
               <ProductivityEmailSubscription
-                status={profile.subscriptions.includes('productivity-report') ? 'subscribed' : 'unsubscribed'}
+                status={
+                  profile.subscriptions.includes('productivity-report')
+                    ? 'subscribed'
+                    : 'unsubscribed'
+                }
                 onChange={refetchProfile}
               />
             )}

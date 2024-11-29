@@ -1,4 +1,9 @@
-export const rewriteHTML = (input: string, rewriteValue: string, cdnPrefix?: string, uiFlags?: string): string => {
+export const rewriteHTML = (
+  input: string,
+  rewriteValue: string,
+  cdnPrefix?: string,
+  uiFlags?: string,
+): string => {
   let result = input;
   result = result.replace(/::baseUriPath::/gi, rewriteValue);
   result = result.replace(/::cdnPrefix::/gi, cdnPrefix || '');

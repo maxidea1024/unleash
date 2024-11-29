@@ -17,8 +17,13 @@ interface IUseFeatureMetricsRawResponse {
   data: IFeatureMetricsRaw[];
 }
 
-export const useFeatureMetricsRaw = (featureId: string, hoursBack: number): IUseFeatureMetricsRawOutput => {
-  const path = formatApiPath(`api/admin/client-metrics/features/${featureId}/raw?hoursBack=${hoursBack}`);
+export const useFeatureMetricsRaw = (
+  featureId: string,
+  hoursBack: number,
+): IUseFeatureMetricsRawOutput => {
+  const path = formatApiPath(
+    `api/admin/client-metrics/features/${featureId}/raw?hoursBack=${hoursBack}`,
+  );
 
   const { data, error } = useSWR(path, () => {
     return fetchFeatureMetricsRaw(path);
@@ -36,7 +41,9 @@ export const useFeatureMetricsRaw = (featureId: string, hoursBack: number): IUse
   };
 };
 
-const fetchFeatureMetricsRaw = (path: string): Promise<IUseFeatureMetricsRawResponse> => {
+const fetchFeatureMetricsRaw = (
+  path: string,
+): Promise<IUseFeatureMetricsRawResponse> => {
   return fetch(path)
     .then(handleErrorResponses('Features'))
     .then((res) => res.json())

@@ -1,6 +1,12 @@
-import dbInit, { type ITestDb } from '../../../../test/e2e/helpers/database-init';
+import dbInit, {
+  type ITestDb,
+} from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
-import type { IFeatureToggleStore, IProjectStore, IUnleashStores } from '../../../types';
+import type {
+  IFeatureToggleStore,
+  IProjectStore,
+  IUnleashStores,
+} from '../../../types';
 import type { FeatureToggleInsert } from '../feature-toggle-store';
 
 let stores: IUnleashStores;
@@ -51,9 +57,12 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       },
     ];
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
+    await Promise.all(
+      features.map((feature) => featureToggleStore.create('default', feature)),
+    );
 
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures();
+    const markedToggles =
+      await featureToggleStore.updatePotentiallyStaleFeatures();
 
     expect(markedToggles).toStrictEqual([]);
   });
@@ -71,11 +80,18 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       },
     ];
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
+    await Promise.all(
+      features.map((feature) => featureToggleStore.create('default', feature)),
+    );
 
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(41));
+    const markedToggles =
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(41),
+      );
 
-    expect(markedToggles).toStrictEqual([{ name: 'feature1', potentiallyStale: true, project: 'default' }]);
+    expect(markedToggles).toStrictEqual([
+      { name: 'feature1', potentiallyStale: true, project: 'default' },
+    ]);
   });
 
   test.each([
@@ -83,33 +99,49 @@ describe('potentially_stale marking', () => {
     [7, ['operational']],
     [40, ['operational', 'release', 'experiment']],
     [10000, ['operational', 'release', 'experiment']],
-  ])('it marks toggles based on their type (days elapsed: %s)', async (daysElapsed, expectedMarkedFeatures) => {
-    const features: FeatureToggleInsert[] = ['release', 'experiment', 'operational', 'kill-switch', 'permission'].map(
-      (type) => ({ name: type, type, createdByUserId: 9999 }),
-    );
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
+  ])(
+    'it marks toggles based on their type (days elapsed: %s)',
+    async (daysElapsed, expectedMarkedFeatures) => {
+      const features: FeatureToggleInsert[] = [
+        'release',
+        'experiment',
+        'operational',
+        'kill-switch',
+        'permission',
+      ].map((type) => ({ name: type, type, createdByUserId: 9999 }));
+      await Promise.all(
+        features.map((feature) =>
+          featureToggleStore.create('default', feature),
+        ),
+      );
 
-    for (const feature of expectedMarkedFeatures) {
-      expect(await featureToggleStore.get(feature)).toBeTruthy();
-    }
+      for (const feature of expectedMarkedFeatures) {
+        expect(await featureToggleStore.get(feature)).toBeTruthy();
+      }
 
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(daysElapsed));
+      const markedToggles =
+        await featureToggleStore.updatePotentiallyStaleFeatures(
+          getFutureTimestamp(daysElapsed),
+        );
 
-    expect(markedToggles).toEqual(
-      expect.arrayContaining(
-        expectedMarkedFeatures.map((name: string) => ({
-          name,
-          potentiallyStale: true,
-          project: 'default',
-        })),
-      ),
-    );
-    expect(markedToggles.length).toEqual(expectedMarkedFeatures.length);
+      expect(markedToggles).toEqual(
+        expect.arrayContaining(
+          expectedMarkedFeatures.map((name: string) => ({
+            name,
+            potentiallyStale: true,
+            project: 'default',
+          })),
+        ),
+      );
+      expect(markedToggles.length).toEqual(expectedMarkedFeatures.length);
 
-    for (const feature of expectedMarkedFeatures) {
-      expect(await featureToggleStore.isPotentiallyStale(feature)).toBeTruthy();
-    }
-  });
+      for (const feature of expectedMarkedFeatures) {
+        expect(
+          await featureToggleStore.isPotentiallyStale(feature),
+        ).toBeTruthy();
+      }
+    },
+  );
   test('it does not mark toggles already flagged as stale', async () => {
     const features: FeatureToggleInsert[] = [
       {
@@ -119,8 +151,13 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       },
     ];
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(1000));
+    await Promise.all(
+      features.map((feature) => featureToggleStore.create('default', feature)),
+    );
+    const markedToggles =
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(1000),
+      );
     expect(markedToggles).toStrictEqual([]);
   });
 
@@ -133,8 +170,13 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       },
     ];
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(1000));
+    await Promise.all(
+      features.map((feature) => featureToggleStore.create('default', feature)),
+    );
+    const markedToggles =
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(1000),
+      );
     expect(markedToggles).toStrictEqual([]);
   });
 
@@ -146,14 +188,25 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       },
     ];
-    await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
-    const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(50));
+    await Promise.all(
+      features.map((feature) => featureToggleStore.create('default', feature)),
+    );
+    const markedToggles =
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(50),
+      );
 
-    expect(markedToggles).toStrictEqual([{ name: 'feature1', potentiallyStale: true, project: 'default' }]);
+    expect(markedToggles).toStrictEqual([
+      { name: 'feature1', potentiallyStale: true, project: 'default' },
+    ]);
 
-    expect(await featureToggleStore.isPotentiallyStale('feature1')).toBeTruthy();
+    expect(
+      await featureToggleStore.isPotentiallyStale('feature1'),
+    ).toBeTruthy();
 
-    const secondPass = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(100));
+    const secondPass = await featureToggleStore.updatePotentiallyStaleFeatures(
+      getFutureTimestamp(100),
+    );
 
     expect(secondPass).toStrictEqual([]);
   });
@@ -167,8 +220,15 @@ describe('potentially_stale marking', () => {
           createdByUserId: 9999,
         },
       ];
-      await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
-      const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(50));
+      await Promise.all(
+        features.map((feature) =>
+          featureToggleStore.create('default', feature),
+        ),
+      );
+      const markedToggles =
+        await featureToggleStore.updatePotentiallyStaleFeatures(
+          getFutureTimestamp(50),
+        );
 
       expect(markedToggles).toStrictEqual([
         {
@@ -178,14 +238,18 @@ describe('potentially_stale marking', () => {
         },
       ]);
 
-      expect(await featureToggleStore.isPotentiallyStale('feature1')).toBeTruthy();
+      expect(
+        await featureToggleStore.isPotentiallyStale('feature1'),
+      ).toBeTruthy();
 
       await featureToggleStore.update('default', {
         name: 'feature1',
         type: 'kill-switch',
       });
 
-      expect(await featureToggleStore.updatePotentiallyStaleFeatures()).toStrictEqual([
+      expect(
+        await featureToggleStore.updatePotentiallyStaleFeatures(),
+      ).toStrictEqual([
         {
           name: 'feature1',
           potentiallyStale: false,
@@ -193,7 +257,8 @@ describe('potentially_stale marking', () => {
         },
       ]);
 
-      const potentiallyStale = await featureToggleStore.isPotentiallyStale('feature1');
+      const potentiallyStale =
+        await featureToggleStore.isPotentiallyStale('feature1');
 
       expect(potentiallyStale).toBeFalsy();
     });
@@ -206,8 +271,15 @@ describe('potentially_stale marking', () => {
           createdByUserId: 9999,
         },
       ];
-      await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
-      const markedToggles = await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(50));
+      await Promise.all(
+        features.map((feature) =>
+          featureToggleStore.create('default', feature),
+        ),
+      );
+      const markedToggles =
+        await featureToggleStore.updatePotentiallyStaleFeatures(
+          getFutureTimestamp(50),
+        );
 
       expect(markedToggles).toStrictEqual([]);
 
@@ -216,8 +288,11 @@ describe('potentially_stale marking', () => {
         type: 'release',
       });
 
-      await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(40));
-      const potentiallyStale = await featureToggleStore.isPotentiallyStale('feature1');
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(40),
+      );
+      const potentiallyStale =
+        await featureToggleStore.isPotentiallyStale('feature1');
 
       expect(potentiallyStale).toBeTruthy();
     });
@@ -231,16 +306,23 @@ describe('potentially_stale marking', () => {
           createdByUserId: 9999,
         },
       ];
-      await Promise.all(features.map((feature) => featureToggleStore.create('default', feature)));
+      await Promise.all(
+        features.map((feature) =>
+          featureToggleStore.create('default', feature),
+        ),
+      );
 
       await featureToggleStore.update('default', {
         name: 'feature1',
         type: 'release',
       });
 
-      await featureToggleStore.updatePotentiallyStaleFeatures(getFutureTimestamp(40));
+      await featureToggleStore.updatePotentiallyStaleFeatures(
+        getFutureTimestamp(40),
+      );
 
-      const potentiallyStale = await featureToggleStore.isPotentiallyStale('feature1');
+      const potentiallyStale =
+        await featureToggleStore.isPotentiallyStale('feature1');
 
       expect(potentiallyStale).toBeFalsy();
     });
@@ -261,9 +343,11 @@ describe('potentially_stale marking', () => {
         createdByUserId: 9999,
       });
 
-      const playgroundFeatures = await featureToggleStore.getPlaygroundFeatures({
-        project: ['MyProject'],
-      });
+      const playgroundFeatures = await featureToggleStore.getPlaygroundFeatures(
+        {
+          project: ['MyProject'],
+        },
+      );
 
       expect(playgroundFeatures).toHaveLength(1);
       expect(playgroundFeatures[0].project).toBe('MyProject');

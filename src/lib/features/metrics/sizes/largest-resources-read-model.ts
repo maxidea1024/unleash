@@ -14,7 +14,9 @@ export class LargestResourcesReadModel implements ILargestResourcesReadModel {
     const result = await this.db('feature_strategies')
       .select('project_name', 'environment')
       .sum({
-        total_size: this.db.raw('pg_column_size(constraints) + pg_column_size(variants) + pg_column_size(parameters)'),
+        total_size: this.db.raw(
+          'pg_column_size(constraints) + pg_column_size(variants) + pg_column_size(parameters)',
+        ),
       })
       .groupBy('project_name', 'environment')
       .orderBy('total_size', 'desc')
@@ -39,7 +41,9 @@ export class LargestResourcesReadModel implements ILargestResourcesReadModel {
     const result = await this.db('feature_strategies')
       .select('feature_name', 'environment')
       .sum({
-        total_size: this.db.raw('pg_column_size(constraints) + pg_column_size(variants) + pg_column_size(parameters)'),
+        total_size: this.db.raw(
+          'pg_column_size(constraints) + pg_column_size(variants) + pg_column_size(parameters)',
+        ),
       })
       .groupBy('feature_name', 'environment')
       .orderBy('total_size', 'desc')

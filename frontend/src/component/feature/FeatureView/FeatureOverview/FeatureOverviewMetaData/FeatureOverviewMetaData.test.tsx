@@ -15,8 +15,18 @@ const setupApi = () => {
       current: { oss: 'irrelevant', enterprise: 'some value' },
     },
   });
-  testServerRoute(server, '/api/admin/projects/default/features/feature/parents', ['some_parent']);
-  testServerRoute(server, '/api/admin/projects/default/features/feature/dependencies', {}, 'delete', 200);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/features/feature/parents',
+    ['some_parent'],
+  );
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/features/feature/dependencies',
+    {},
+    'delete',
+    200,
+  );
   testServerRoute(server, '/api/admin/projects/default/dependencies', false);
 };
 
@@ -30,20 +40,38 @@ const setupOssWithExistingDependencies = () => {
 };
 
 const setupChangeRequestApi = () => {
-  testServerRoute(server, '/api/admin/projects/default/change-requests/config', [
-    {
-      environment: 'development',
-      type: 'development',
-      requiredApprovals: null,
-      changeRequestEnabled: true,
-    },
-  ]);
-  testServerRoute(server, '/api/admin/projects/default/change-requests/pending', []);
-  testServerRoute(server, '/api/admin/projects/default/environments/development/change-requests', {}, 'post', 200);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/change-requests/config',
+    [
+      {
+        environment: 'development',
+        type: 'development',
+        requiredApprovals: null,
+        changeRequestEnabled: true,
+      },
+    ],
+  );
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/change-requests/pending',
+    [],
+  );
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/environments/development/change-requests',
+    {},
+    'post',
+    200,
+  );
 };
 
 const setupFeatureApi = (feature: IFeatureToggle) => {
-  testServerRoute(server, '/api/admin/projects/default/features/feature', feature);
+  testServerRoute(
+    server,
+    '/api/admin/projects/default/features/feature',
+    feature,
+  );
 };
 
 beforeEach(() => {
@@ -56,11 +84,16 @@ test('show dependency dialogue', async () => {
   setupFeatureApi(feature);
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     {
       route,
-      permissions: [{ permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' }],
+      permissions: [
+        { permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' },
+      ],
     },
   );
 
@@ -81,11 +114,16 @@ test('show dependency dialogue for OSS with dependencies', async () => {
   } as IFeatureToggle);
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     {
       route,
-      permissions: [{ permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' }],
+      permissions: [
+        { permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' },
+      ],
     },
   );
 
@@ -105,7 +143,10 @@ test('show child', async () => {
   } as IFeatureToggle);
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     { route },
   );
@@ -123,7 +164,10 @@ test('show children', async () => {
   } as IFeatureToggle);
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     { route },
   );
@@ -148,12 +192,17 @@ test('delete dependency', async () => {
     <>
       <ToastRenderer />
       <Routes>
-        <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+        <Route
+          path={'/projects/:projectId/features/:featureId'}
+          element={<FeatureOverviewMetaData />}
+        />
       </Routes>
     </>,
     {
       route,
-      permissions: [{ permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' }],
+      permissions: [
+        { permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' },
+      ],
     },
   );
 
@@ -181,7 +230,10 @@ test('delete dependency with change request', async () => {
     <>
       <ToastRenderer />
       <Routes>
-        <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+        <Route
+          path={'/projects/:projectId/features/:featureId'}
+          element={<FeatureOverviewMetaData />}
+        />
       </Routes>
     </>,
     {
@@ -213,11 +265,16 @@ test('edit dependency', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     {
       route,
-      permissions: [{ permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' }],
+      permissions: [
+        { permission: 'UPDATE_FEATURE_DEPENDENCY', project: 'default' },
+      ],
     },
   );
 
@@ -250,7 +307,10 @@ test('show variant dependencies', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     { route },
   );
@@ -276,7 +336,10 @@ test('show variant dependency', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     { route },
   );
@@ -296,7 +359,10 @@ test('show disabled dependency', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId/features/:featureId'} element={<FeatureOverviewMetaData />} />
+      <Route
+        path={'/projects/:projectId/features/:featureId'}
+        element={<FeatureOverviewMetaData />}
+      />
     </Routes>,
     { route },
   );

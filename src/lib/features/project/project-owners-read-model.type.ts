@@ -14,7 +14,9 @@ export type GroupProjectOwner = {
   name: string;
 };
 
-export type ProjectOwners = [SystemOwner] | Array<UserProjectOwner | GroupProjectOwner>;
+export type ProjectOwners =
+  | [SystemOwner]
+  | Array<UserProjectOwner | GroupProjectOwner>;
 
 export type ProjectOwnersDictionary = Record<string, ProjectOwners>;
 
@@ -27,7 +29,9 @@ export type WithProjectOwners<T extends { id: string }> = (T & {
 })[];
 
 export interface IProjectOwnersReadModel {
-  addOwners<T extends { id: string }>(projects: T[]): Promise<WithProjectOwners<T>>;
+  addOwners<T extends { id: string }>(
+    projects: T[],
+  ): Promise<WithProjectOwners<T>>;
 
   getProjectOwners(projectId: string): Promise<ProjectOwners>;
 

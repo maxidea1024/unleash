@@ -13,17 +13,32 @@ interface IConfirmUserLink {
   type?: string;
 }
 
-export const ConfirmToken = ({ open, setOpen, closeConfirm, token, type }: IConfirmUserLink) => {
+export const ConfirmToken = ({
+  open,
+  setOpen,
+  closeConfirm,
+  token,
+  type,
+}: IConfirmUserLink) => {
   return (
-    <Dialogue open={open} setOpen={setOpen} onClick={closeConfirm} primaryButtonText='Close' title='New token created'>
-      <Typography variant='body1'>Your new token has been created successfully.</Typography>
+    <Dialogue
+      open={open}
+      setOpen={setOpen}
+      onClick={closeConfirm}
+      primaryButtonText='Close'
+      title='New token created'
+    >
+      <Typography variant='body1'>
+        Your new token has been created successfully.
+      </Typography>
       <UserToken token={token} />
       <ConditionallyRender
         condition={type === TokenType.FRONTEND}
         show={
           <Alert sx={{ mt: 2 }} severity='info'>
-            By default, all {TokenType.FRONTEND} tokens may be used from any CORS origin. If you'd like to configure a
-            strict set of origins, please use the{' '}
+            By default, all {TokenType.FRONTEND} tokens may be used from any
+            CORS origin. If you'd like to configure a strict set of origins,
+            please use the{' '}
             <Link to='/admin/cors' target='_blank' rel='noreferrer'>
               CORS origins configuration page
             </Link>

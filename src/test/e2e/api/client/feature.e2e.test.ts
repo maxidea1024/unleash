@@ -1,4 +1,7 @@
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
@@ -63,7 +66,11 @@ beforeAll(async () => {
     TEST_AUDIT_USER,
   );
 
-  await app.services.featureToggleServiceV2.archiveToggle('featureArchivedX', testUser, TEST_AUDIT_USER);
+  await app.services.featureToggleServiceV2.archiveToggle(
+    'featureArchivedX',
+    testUser,
+    TEST_AUDIT_USER,
+  );
 
   await app.services.featureToggleServiceV2.createFeatureToggle(
     'default',
@@ -74,7 +81,11 @@ beforeAll(async () => {
     TEST_AUDIT_USER,
   );
 
-  await app.services.featureToggleServiceV2.archiveToggle('featureArchivedY', testUser, TEST_AUDIT_USER);
+  await app.services.featureToggleServiceV2.archiveToggle(
+    'featureArchivedY',
+    testUser,
+    TEST_AUDIT_USER,
+  );
   await app.services.featureToggleServiceV2.createFeatureToggle(
     'default',
     {
@@ -83,7 +94,11 @@ beforeAll(async () => {
     },
     TEST_AUDIT_USER,
   );
-  await app.services.featureToggleServiceV2.archiveToggle('featureArchivedZ', testUser, TEST_AUDIT_USER);
+  await app.services.featureToggleServiceV2.archiveToggle(
+    'featureArchivedZ',
+    testUser,
+    TEST_AUDIT_USER,
+  );
   await app.services.featureToggleServiceV2.createFeatureToggle(
     'default',
     {
@@ -160,7 +175,10 @@ test('returns four feature flags without createdAt', async () => {
 });
 
 test('gets a feature by name', async () => {
-  return app.request.get('/api/client/features/featureX').expect('Content-Type', /json/).expect(200);
+  return app.request
+    .get('/api/client/features/featureX')
+    .expect('Content-Type', /json/)
+    .expect(200);
 });
 
 test('returns a feature flags impression data', async () => {
@@ -182,7 +200,10 @@ test('returns a false for impression data when not specified', async () => {
 });
 
 test('cant get feature that does not exist', async () => {
-  return app.request.get('/api/client/features/myfeature').expect('Content-Type', /json/).expect(404);
+  return app.request
+    .get('/api/client/features/myfeature')
+    .expect('Content-Type', /json/)
+    .expect(404);
 });
 
 test('Can filter features by namePrefix', async () => {
@@ -208,7 +229,9 @@ test('Can get strategies for specific environment', async () => {
 
   // Add global strategy
   await app.request
-    .post(`/api/admin/projects/default/features/${featureName}/environments/${env}/strategies`)
+    .post(
+      `/api/admin/projects/default/features/${featureName}/environments/${env}/strategies`,
+    )
     .send({
       name: 'default',
     })
@@ -221,10 +244,16 @@ test('Can get strategies for specific environment', async () => {
     type: 'test',
   });
 
-  await app.services.environmentService.addEnvironmentToProject('testing', 'default', SYSTEM_USER_AUDIT);
+  await app.services.environmentService.addEnvironmentToProject(
+    'testing',
+    'default',
+    SYSTEM_USER_AUDIT,
+  );
 
   await app.request
-    .post(`/api/admin/projects/default/features/${featureName}/environments/testing/strategies`)
+    .post(
+      `/api/admin/projects/default/features/${featureName}/environments/testing/strategies`,
+    )
     .send({
       name: 'default',
     })
@@ -237,7 +266,9 @@ test('Can get strategies for specific environment', async () => {
     .expect((res) => {
       expect(res.body.name).toBe(featureName);
       expect(res.body.strategies).toHaveLength(1);
-      expect(res.body.strategies.find((s) => s.name === 'default')).toBeDefined();
+      expect(
+        res.body.strategies.find((s) => s.name === 'default'),
+      ).toBeDefined();
     });
 });
 
@@ -264,9 +295,18 @@ test('Can use multiple filters', async () => {
   });
   const tag = { value: 'Crazy', type: 'simple' };
   const tag2 = { value: 'tagb', type: 'simple' };
-  await app.request.post('/api/admin/features/test.feature/tags').send(tag).expect(201);
-  await app.request.post('/api/admin/features/test.feature2/tags').send(tag2).expect(201);
-  await app.request.post('/api/admin/features/notestprefix.feature3/tags').send(tag).expect(201);
+  await app.request
+    .post('/api/admin/features/test.feature/tags')
+    .send(tag)
+    .expect(201);
+  await app.request
+    .post('/api/admin/features/test.feature2/tags')
+    .send(tag2)
+    .expect(201);
+  await app.request
+    .post('/api/admin/features/notestprefix.feature3/tags')
+    .send(tag)
+    .expect(201);
   await app.request
     .get('/api/client/features?tag=simple:Crazy')
     .expect('Content-Type', /json/)
@@ -309,7 +349,9 @@ test('returns a feature flags impression data for a different project', async ()
     .get('/api/client/features')
     .expect('Content-Type', /json/)
     .expect((res) => {
-      const projectFlag = res.body.features.find((resFlag) => resFlag.project === project.id);
+      const projectFlag = res.body.features.find(
+        (resFlag) => resFlag.project === project.id,
+      );
 
       expect(projectFlag.name).toBe(flag.name);
       expect(projectFlag.project).toBe(project.id);

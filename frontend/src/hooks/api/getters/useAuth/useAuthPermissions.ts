@@ -1,5 +1,8 @@
 import type { IPermission } from 'interfaces/user';
-import { type IUseAuthEndpointOutput, useAuthEndpoint } from './useAuthEndpoint';
+import {
+  type IUseAuthEndpointOutput,
+  useAuthEndpoint,
+} from './useAuthEndpoint';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import type { IUiConfig } from 'interfaces/uiConfig';
 
@@ -10,10 +13,16 @@ interface IUseAuthPermissionsOutput {
   error?: Error;
 }
 
-const getPermissions = (auth: IUseAuthEndpointOutput, uiConfig: IUiConfig): IPermission[] | undefined => {
-  let permissions = auth.data && 'permissions' in auth.data ? auth.data.permissions : undefined;
+const getPermissions = (
+  auth: IUseAuthEndpointOutput,
+  uiConfig: IUiConfig,
+): IPermission[] | undefined => {
+  let permissions =
+    auth.data && 'permissions' in auth.data ? auth.data.permissions : undefined;
   if (permissions && uiConfig?.maintenanceMode) {
-    permissions = permissions.filter((permission) => permission.permission === 'ADMIN');
+    permissions = permissions.filter(
+      (permission) => permission.permission === 'ADMIN',
+    );
   }
   return permissions;
 };

@@ -10,4 +10,7 @@ export interface ISegment {
   constraints: IConstraint[];
 }
 
-export type ISegmentPayload = Pick<ISegment, 'name' | 'description' | 'constraints'>;
+export type ISegmentPayload = Pick<
+  ISegment,
+  'name' | 'description' | 'constraints'
+>;

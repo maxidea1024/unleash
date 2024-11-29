@@ -2,7 +2,14 @@ import type React from 'react';
 import { type FC, useState } from 'react';
 import Close from '@mui/icons-material/Close';
 import HelpOutline from '@mui/icons-material/HelpOutline';
-import { Box, IconButton, Popper, Paper, ClickAwayListener, styled } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  Popper,
+  Paper,
+  ClickAwayListener,
+  styled,
+} from '@mui/material';
 import { Feedback } from 'component/common/Feedback/Feedback';
 
 interface IHelpPopperProps {
@@ -21,7 +28,8 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 export const HelpPopper: FC<IHelpPopperProps> = ({ children, id }) => {
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
-  const onOpen = (event: React.FormEvent<HTMLButtonElement>) => setAnchorEl(event.currentTarget);
+  const onOpen = (event: React.FormEvent<HTMLButtonElement>) =>
+    setAnchorEl(event.currentTarget);
 
   const onClose = () => setAnchorEl(null);
 
@@ -37,10 +45,18 @@ export const HelpPopper: FC<IHelpPopperProps> = ({ children, id }) => {
         />
       </IconButton>
 
-      <Popper id={id} open={open} anchorEl={anchor} sx={(theme) => ({ zIndex: theme.zIndex.tooltip })}>
+      <Popper
+        id={id}
+        open={open}
+        anchorEl={anchor}
+        sx={(theme) => ({ zIndex: theme.zIndex.tooltip })}
+      >
         <ClickAwayListener onClickAway={onClose}>
           <StyledPaper elevation={3}>
-            <IconButton onClick={onClose} sx={{ position: 'absolute', right: 4, top: 4 }}>
+            <IconButton
+              onClick={onClose}
+              sx={{ position: 'absolute', right: 4, top: 4 }}
+            >
               <Close
                 sx={{
                   fontSize: (theme) => theme.typography.body1.fontSize,
@@ -48,7 +64,11 @@ export const HelpPopper: FC<IHelpPopperProps> = ({ children, id }) => {
               />
             </IconButton>
             {children}
-            <Feedback id={id} eventName='project_overview' localStorageKey='ProjectOverviewFeedback' />
+            <Feedback
+              id={id}
+              eventName='project_overview'
+              localStorageKey='ProjectOverviewFeedback'
+            />
           </StyledPaper>
         </ClickAwayListener>
       </Popper>

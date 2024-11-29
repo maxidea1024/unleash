@@ -2,10 +2,17 @@ import fc, { type Arbitrary } from 'fast-check';
 import { clientFeature, clientFeatures } from '../../../arbitraries.test';
 import { generate as generateRequest } from '../../../../lib/openapi/spec/playground-request-schema.test';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../helpers/test-helper';
 import { type FeatureToggle, WeightType } from '../../../../lib/types/model';
 import getLogger from '../../../fixtures/no-logger';
-import { ALL, ApiTokenType, type IApiToken } from '../../../../lib/types/models/api-token';
+import {
+  ALL,
+  ApiTokenType,
+  type IApiToken,
+} from '../../../../lib/types/models/api-token';
 import type { PlaygroundFeatureSchema } from '../../../../lib/openapi/spec/playground-feature-schema';
 import type { ClientFeatureSchema } from '../../../../lib/openapi/spec/client-feature-schema';
 import type { PlaygroundResponseSchema } from '../../../../lib/openapi/spec/playground-response-schema';
@@ -55,7 +62,11 @@ const playgroundRequest = async (
     body,
   }: {
     body: PlaygroundResponseSchema;
-  } = await testApp.request.post('/api/admin/playground').set('Authorization', secret).send(request).expect(200);
+  } = await testApp.request
+    .post('/api/admin/playground')
+    .set('Authorization', secret)
+    .send(request)
+    .expect(200);
 
   return body;
 };
@@ -83,11 +94,14 @@ describe('Playground API E2E', () => {
     return Promise.all(
       features.map(async (feature) => {
         // create feature
-        const toggle = await database.stores.featureToggleStore.create(feature.project!, {
-          ...(feature as any),
-          createdAt: undefined,
-          variants: null as any,
-        });
+        const toggle = await database.stores.featureToggleStore.create(
+          feature.project!,
+          {
+            ...(feature as any),
+            createdAt: undefined,
+            variants: null as any,
+          },
+        );
 
         // enable/disable the feature in environment
         await database.stores.featureEnvironmentStore.addEnvironmentToFeature(
@@ -96,13 +110,17 @@ describe('Playground API E2E', () => {
           feature.enabled,
         );
 
-        await database.stores.featureToggleStore.saveVariants(feature.project!, feature.name, [
-          ...(feature.variants ?? []).map((variant) => ({
-            ...variant,
-            weightType: WeightType.VARIABLE,
-            stickiness: 'default',
-          })),
-        ]);
+        await database.stores.featureToggleStore.saveVariants(
+          feature.project!,
+          feature.name,
+          [
+            ...(feature.variants ?? []).map((variant) => ({
+              ...variant,
+              weightType: WeightType.VARIABLE,
+              stickiness: 'default',
+            })),
+          ],
+        );
 
         // assign strategies
         await Promise.all(
@@ -128,17 +146,23 @@ describe('Playground API E2E', () => {
   it('Returned features should be a subset of the provided flags', async () => {
     await fc.assert(
       fc
-        .asyncProperty(clientFeatures({ minLength: 1 }), generateRequest(), async (features, request) => {
-          // seed the database
-          await seedDatabase(db, features, request.environment);
+        .asyncProperty(
+          clientFeatures({ minLength: 1 }),
+          generateRequest(),
+          async (features, request) => {
+            // seed the database
+            await seedDatabase(db, features, request.environment);
 
-          const body = await playgroundRequest(app, token.secret, request);
+            const body = await playgroundRequest(app, token.secret, request);
 
-          // the returned list should always be a subset of the provided list
-          expect(features.map((feature) => feature.name)).toEqual(
-            expect.arrayContaining(body.features.map((feature) => feature.name)),
-          );
-        })
+            // the returned list should always be a subset of the provided list
+            expect(features.map((feature) => feature.name)).toEqual(
+              expect.arrayContaining(
+                body.features.map((feature) => feature.name),
+              ),
+            );
+          },
+        )
         .afterEach(reset(db)),
       testParams,
     );
@@ -147,35 +171,45 @@ describe('Playground API E2E', () => {
   it('should filter the list according to the input parameters', async () => {
     await fc.assert(
       fc
-        .asyncProperty(generateRequest(), clientFeatures({ minLength: 1 }), async (request, features) => {
-          await seedDatabase(db, features, request.environment);
+        .asyncProperty(
+          generateRequest(),
+          clientFeatures({ minLength: 1 }),
+          async (request, features) => {
+            await seedDatabase(db, features, request.environment);
 
-          // get a subset of projects that exist among the features
-          const [projects] = fc.sample(
-            fc.oneof(
-              fc.constant(ALL as '*'),
-              fc.uniqueArray(fc.constantFrom(...features.map((feature) => feature.project))),
-            ),
-          );
+            // get a subset of projects that exist among the features
+            const [projects] = fc.sample(
+              fc.oneof(
+                fc.constant(ALL as '*'),
+                fc.uniqueArray(
+                  fc.constantFrom(
+                    ...features.map((feature) => feature.project),
+                  ),
+                ),
+              ),
+            );
 
-          request.projects = projects as any;
+            request.projects = projects as any;
 
-          // create a list of features that can be filtered
-          // pass in args that should filter the list
-          const body = await playgroundRequest(app, token.secret, request);
+            // create a list of features that can be filtered
+            // pass in args that should filter the list
+            const body = await playgroundRequest(app, token.secret, request);
 
-          switch (projects) {
-            case ALL:
-              // no features have been filtered out
-              return body.features.length === features.length;
-            case []:
-              // no feature should be without a project
-              return body.features.length === 0;
-            default:
-              // every feature should be in one of the prescribed projects
-              return body.features.every((feature) => projects.includes(feature.projectId));
-          }
-        })
+            switch (projects) {
+              case ALL:
+                // no features have been filtered out
+                return body.features.length === features.length;
+              case []:
+                // no feature should be without a project
+                return body.features.length === 0;
+              default:
+                // every feature should be in one of the prescribed projects
+                return body.features.every((feature) =>
+                  projects.includes(feature.projectId),
+                );
+            }
+          },
+        )
         .afterEach(reset(db)),
       testParams,
     );
@@ -186,36 +220,45 @@ describe('Playground API E2E', () => {
     // that's the SDK's responsibility and it's tested elsewhere.
     await fc.assert(
       fc
-        .asyncProperty(clientFeatures(), fc.context(), async (features, ctx) => {
-          await seedDatabase(db, features, 'default');
+        .asyncProperty(
+          clientFeatures(),
+          fc.context(),
+          async (features, ctx) => {
+            await seedDatabase(db, features, 'default');
 
-          const body = await playgroundRequest(app, token.secret, {
-            projects: ALL,
-            environment: 'default',
-            context: {
-              appName: 'playground-test',
-            },
-          });
+            const body = await playgroundRequest(app, token.secret, {
+              projects: ALL,
+              environment: 'default',
+              context: {
+                appName: 'playground-test',
+              },
+            });
 
-          const createDict = (xs: { name: string }[]) => xs.reduce((acc, next) => ({ ...acc, [next.name]: next }), {});
+            const createDict = (xs: { name: string }[]) =>
+              xs.reduce((acc, next) => ({ ...acc, [next.name]: next }), {});
 
-          const mappedToggles = createDict(body.features);
+            const mappedToggles = createDict(body.features);
 
-          if (features.length !== body.features.length) {
-            ctx.log(
-              `I expected the number of mapped flags (${body.features.length}) to be the same as the number of created toggles (${features.length}), but that was not the case.`,
-            );
-            return false;
-          }
+            if (features.length !== body.features.length) {
+              ctx.log(
+                `I expected the number of mapped flags (${body.features.length}) to be the same as the number of created toggles (${features.length}), but that was not the case.`,
+              );
+              return false;
+            }
 
-          return features.every((feature) => {
-            const mapped: PlaygroundFeatureSchema = mappedToggles[feature.name];
+            return features.every((feature) => {
+              const mapped: PlaygroundFeatureSchema =
+                mappedToggles[feature.name];
 
-            expect(mapped).toBeTruthy();
+              expect(mapped).toBeTruthy();
 
-            return feature.name === mapped.name && feature.project === mapped.projectId;
-          });
-        })
+              return (
+                feature.name === mapped.name &&
+                feature.project === mapped.projectId
+              );
+            });
+          },
+        )
         .afterEach(reset(db)),
       testParams,
     );
@@ -224,28 +267,35 @@ describe('Playground API E2E', () => {
   it('isEnabledInCurrentEnvironment should always match feature.enabled', async () => {
     await fc.assert(
       fc
-        .asyncProperty(clientFeatures(), fc.context(), async (features, ctx) => {
-          await seedDatabase(db, features, 'default');
+        .asyncProperty(
+          clientFeatures(),
+          fc.context(),
+          async (features, ctx) => {
+            await seedDatabase(db, features, 'default');
 
-          const body = await playgroundRequest(app, token.secret, {
-            projects: ALL,
-            environment: 'default',
-            context: {
-              appName: 'playground-test',
-            },
-          });
+            const body = await playgroundRequest(app, token.secret, {
+              projects: ALL,
+              environment: 'default',
+              context: {
+                appName: 'playground-test',
+              },
+            });
 
-          const createDict = (xs: { name: string }[]) => xs.reduce((acc, next) => ({ ...acc, [next.name]: next }), {});
+            const createDict = (xs: { name: string }[]) =>
+              xs.reduce((acc, next) => ({ ...acc, [next.name]: next }), {});
 
-          const mappedToggles = createDict(body.features);
+            const mappedToggles = createDict(body.features);
 
-          ctx.log(JSON.stringify(features));
-          ctx.log(JSON.stringify(mappedToggles));
+            ctx.log(JSON.stringify(features));
+            ctx.log(JSON.stringify(mappedToggles));
 
-          return features.every(
-            (feature) => feature.enabled === mappedToggles[feature.name].isEnabledInCurrentEnvironment,
-          );
-        })
+            return features.every(
+              (feature) =>
+                feature.enabled ===
+                mappedToggles[feature.name].isEnabledInCurrentEnvironment,
+            );
+          },
+        )
         .afterEach(reset(db)),
       testParams,
     );
@@ -290,15 +340,17 @@ describe('Playground API E2E', () => {
       await fc.assert(
         fc
           .asyncProperty(
-            fc.tuple(appName(), generateRequest()).map(([generatedAppName, req]) => ({
-              ...req,
-              // generate a context that has appName set to
-              // one of the above values
-              context: {
-                appName: generatedAppName,
-                environment: 'default',
-              },
-            })),
+            fc
+              .tuple(appName(), generateRequest())
+              .map(([generatedAppName, req]) => ({
+                ...req,
+                // generate a context that has appName set to
+                // one of the above values
+                context: {
+                  appName: generatedAppName,
+                  environment: 'default',
+                },
+              })),
             constrainedFeatures(),
             async (req, features) => {
               await seedDatabase(db, features, req.environment);
@@ -309,12 +361,16 @@ describe('Playground API E2E', () => {
                   ...acc,
                   [next.name]:
                     // @ts-ignore
-                    next.strategies[0].constraints[0].values[0] === req.context.appName,
+                    next.strategies[0].constraints[0].values[0] ===
+                    req.context.appName,
                 }),
                 {},
               );
 
-              return body.features.every((feature) => feature.isEnabled === shouldBeEnabled[feature.name]);
+              return body.features.every(
+                (feature) =>
+                  feature.isEnabled === shouldBeEnabled[feature.name],
+              );
             },
           )
           .afterEach(reset(db)),
@@ -373,15 +429,17 @@ describe('Playground API E2E', () => {
       await fc.assert(
         fc
           .asyncProperty(
-            fc.tuple(contextValue(), generateRequest()).map(([generatedContextValue, req]) => ({
-              ...req,
-              // generate a context that has a dynamic context field set to
-              // one of the above values
-              context: {
-                ...req.context,
-                [generatedContextValue.name]: generatedContextValue.value,
-              },
-            })),
+            fc
+              .tuple(contextValue(), generateRequest())
+              .map(([generatedContextValue, req]) => ({
+                ...req,
+                // generate a context that has a dynamic context field set to
+                // one of the above values
+                context: {
+                  ...req.context,
+                  [generatedContextValue.name]: generatedContextValue.value,
+                },
+              })),
             constrainedFeatures(),
             async (req, features) => {
               await seedDatabase(db, features, 'default');
@@ -393,11 +451,16 @@ describe('Playground API E2E', () => {
               const shouldBeEnabled = features.reduce(
                 (acc, next) => ({
                   ...acc,
-                  [next.name]: next.strategies![0].constraints![0].values![0] === contextField,
+                  [next.name]:
+                    next.strategies![0].constraints![0].values![0] ===
+                    contextField,
                 }),
                 {},
               );
-              return body.features.every((feature) => feature.isEnabled === shouldBeEnabled[feature.name]);
+              return body.features.every(
+                (feature) =>
+                  feature.isEnabled === shouldBeEnabled[feature.name],
+              );
             },
           )
           .afterEach(reset(db)),
@@ -442,7 +505,11 @@ describe('Playground API E2E', () => {
       // that contains that constraint value.
       const constraintAndRequest = () =>
         fc
-          .tuple(contextValue(), fc.constantFrom('top', 'nested'), generateRequest())
+          .tuple(
+            contextValue(),
+            fc.constantFrom('top', 'nested'),
+            generateRequest(),
+          )
           .map(([generatedContextValue, placement, req]) => {
             const request =
               placement === 'top'
@@ -460,7 +527,8 @@ describe('Playground API E2E', () => {
                     context: {
                       ...req.context,
                       properties: {
-                        [generatedContextValue.name]: generatedContextValue.value,
+                        [generatedContextValue.name]:
+                          generatedContextValue.value,
                       },
                     },
                   };
@@ -497,7 +565,10 @@ describe('Playground API E2E', () => {
                 `Got these ${JSON.stringify(body.features)} and I expect them to be enabled/disabled: ${JSON.stringify(shouldBeEnabled)}`,
               );
 
-              return body.features.every((feature) => feature.isEnabled === shouldBeEnabled[feature.name]);
+              return body.features.every(
+                (feature) =>
+                  feature.isEnabled === shouldBeEnabled[feature.name],
+              );
             },
           )
           .afterEach(reset(db)),

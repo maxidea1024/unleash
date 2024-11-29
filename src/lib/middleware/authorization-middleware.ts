@@ -4,7 +4,11 @@ import type { LogProvider } from '../logger';
 import { AuthenticationRequired } from '../server-impl';
 import UnauthorizedError from '../error/unauthorized-error';
 
-const authorizationMiddleware = (getLogger: LogProvider, baseUriPath: string, apiEndpoint?: string): any => {
+const authorizationMiddleware = (
+  getLogger: LogProvider,
+  baseUriPath: string,
+  apiEndpoint?: string,
+): any => {
   const logger = getLogger('authorization-middleware.ts');
 
   if (apiEndpoint) {

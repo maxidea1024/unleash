@@ -8,10 +8,20 @@ export const publicSignupTokenSchema = {
     'Used for transporting a [public invite link](https://docs.getunleash.io/reference/public-signup#public-sign-up-tokens)',
   type: 'object',
   additionalProperties: false,
-  required: ['secret', 'url', 'name', 'expiresAt', 'createdAt', 'createdBy', 'enabled', 'role'],
+  required: [
+    'secret',
+    'url',
+    'name',
+    'expiresAt',
+    'createdAt',
+    'createdBy',
+    'enabled',
+    'role',
+  ],
   properties: {
     secret: {
-      description: 'The actual value of the token. This is the part that is used by Unleash to create an invite link',
+      description:
+        'The actual value of the token. This is the part that is used by Unleash to create an invite link',
       type: 'string',
       example: 'a3c84b25409ea8ca1782ef17f94a42fc',
     },
@@ -20,7 +30,8 @@ export const publicSignupTokenSchema = {
         'The public signup link for the token. Users who follow this link will be taken to a signup page where they can create an Unleash user.',
       type: 'string',
       nullable: true,
-      example: 'https://sandbox.getunleash.io/enterprise/new-user?invite=a3c84b25409ea8ca1782ef17f94a42fc',
+      example:
+        'https://sandbox.getunleash.io/enterprise/new-user?invite=a3c84b25409ea8ca1782ef17f94a42fc',
     },
     name: {
       description: "The token's name. Only for displaying in the UI",
@@ -28,7 +39,8 @@ export const publicSignupTokenSchema = {
       example: 'Invite public viewers',
     },
     enabled: {
-      description: 'Whether the token is active. This property will always be `false` for a token that has expired.',
+      description:
+        'Whether the token is active. This property will always be `false` for a token that has expired.',
       type: 'boolean',
       example: true,
     },
@@ -59,7 +71,8 @@ export const publicSignupTokenSchema = {
       nullable: true,
     },
     role: {
-      description: 'Users who sign up using this token will be given this role.',
+      description:
+        'Users who sign up using this token will be given this role.',
       $ref: '#/components/schemas/roleSchema',
     },
   },
@@ -71,4 +84,6 @@ export const publicSignupTokenSchema = {
   },
 } as const;
 
-export type PublicSignupTokenSchema = FromSchema<typeof publicSignupTokenSchema>;
+export type PublicSignupTokenSchema = FromSchema<
+  typeof publicSignupTokenSchema
+>;

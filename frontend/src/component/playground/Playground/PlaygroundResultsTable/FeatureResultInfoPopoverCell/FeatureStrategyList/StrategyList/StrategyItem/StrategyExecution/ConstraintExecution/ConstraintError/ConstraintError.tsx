@@ -1,6 +1,9 @@
 import { styled, Typography } from '@mui/material';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
-import type { PlaygroundConstraintSchema, PlaygroundRequestSchema } from 'openapi';
+import type {
+  PlaygroundConstraintSchema,
+  PlaygroundRequestSchema,
+} from 'openapi';
 
 const StyledConstraintErrorDiv = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -14,7 +17,10 @@ interface IConstraintErrorProps {
   input?: PlaygroundRequestSchema;
 }
 
-export const ConstraintError = ({ constraint, input }: IConstraintErrorProps) => {
+export const ConstraintError = ({
+  constraint,
+  input,
+}: IConstraintErrorProps) => {
   const formatText = () => {
     const value = input?.context[constraint.contextName];
 

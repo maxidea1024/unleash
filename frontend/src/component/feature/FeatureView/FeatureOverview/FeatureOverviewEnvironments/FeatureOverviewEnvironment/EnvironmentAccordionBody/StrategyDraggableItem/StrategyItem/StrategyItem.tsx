@@ -36,7 +36,12 @@ export const StrategyItem: FC<IStrategyItemProps> = ({
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
 
-  const editStrategyPath = formatEditStrategyPath(projectId, featureId, environmentId, strategy.id);
+  const editStrategyPath = formatEditStrategyPath(
+    projectId,
+    featureId,
+    environmentId,
+    strategy.id,
+  );
 
   return (
     <StrategyItemContainer
@@ -48,7 +53,9 @@ export const StrategyItem: FC<IStrategyItemProps> = ({
         <>
           {headerChildren}
           <ConditionallyRender
-            condition={Boolean(otherEnvironments && otherEnvironments?.length > 0)}
+            condition={Boolean(
+              otherEnvironments && otherEnvironments?.length > 0,
+            )}
             show={() => (
               <CopyStrategyIconMenu
                 environmentId={environmentId}

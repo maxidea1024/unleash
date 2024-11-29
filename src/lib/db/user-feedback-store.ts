@@ -1,6 +1,10 @@
 import type { EventEmitter } from 'events';
 import type { LogProvider, Logger } from '../logger';
-import type { IUserFeedback, IUserFeedbackKey, IUserFeedbackStore } from '../types/stores/user-feedback-store';
+import type {
+  IUserFeedback,
+  IUserFeedbackKey,
+  IUserFeedbackStore,
+} from '../types/stores/user-feedback-store';
 import type { Db } from './db';
 
 const COLUMNS = ['given', 'user_id', 'feedback_id', 'nevershow'];
@@ -38,12 +42,18 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
   }
 
   async getAllUserFeedback(userId: number): Promise<IUserFeedback[]> {
-    const userFeedback = await this.db.table<IUserFeedbackTable>(TABLE).select().where({ user_id: userId });
+    const userFeedback = await this.db
+      .table<IUserFeedbackTable>(TABLE)
+      .select()
+      .where({ user_id: userId });
 
     return userFeedback.map(rowToField);
   }
 
-  async getFeedback(userId: number, feedbackId: string): Promise<IUserFeedback> {
+  async getFeedback(
+    userId: number,
+    feedbackId: string,
+  ): Promise<IUserFeedback> {
     const userFeedback = await this.db
       .table<IUserFeedbackTable>(TABLE)
       .select()
@@ -66,7 +76,9 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
   }
 
   async delete({ userId, feedbackId }: IUserFeedbackKey): Promise<void> {
-    await this.db(TABLE).where({ user_id: userId, feedback_id: feedbackId }).del();
+    await this.db(TABLE)
+      .where({ user_id: userId, feedback_id: feedbackId })
+      .del();
   }
 
   async deleteAll(): Promise<void> {
@@ -89,7 +101,9 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
   }
 
   async getAll(): Promise<IUserFeedback[]> {
-    const userFeedbacks = await this.db.table<IUserFeedbackTable>(TABLE).select();
+    const userFeedbacks = await this.db
+      .table<IUserFeedbackTable>(TABLE)
+      .select();
 
     return userFeedbacks.map(rowToField);
   }

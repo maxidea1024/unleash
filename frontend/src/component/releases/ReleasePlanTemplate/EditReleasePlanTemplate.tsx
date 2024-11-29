@@ -59,13 +59,22 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
 export const EditReleasePlanTemplate = () => {
   const releasePlansEnabled = useUiFlag('releasePlans');
   const templateId = useRequiredPathParam('templateId');
-  const { template, loading, error, refetch } = useReleasePlanTemplate(templateId);
+  const { template, loading, error, refetch } =
+    useReleasePlanTemplate(templateId);
   usePageTitle(`Edit template: ${template.name}`);
   const navigate = useNavigate();
   const { setToastApiError } = useToast();
   const { updateReleasePlanTemplate } = useReleasePlanTemplatesApi();
-  const { name, setName, description, setDescription, errors, clearErrors, validate, getTemplatePayload } =
-    useTemplateForm(template.name, template.description);
+  const {
+    name,
+    setName,
+    description,
+    setDescription,
+    errors,
+    clearErrors,
+    validate,
+    getTemplatePayload,
+  } = useTemplateForm(template.name, template.description);
 
   const handleCancel = () => {
     navigate('/release-management');
@@ -112,13 +121,17 @@ export const EditReleasePlanTemplate = () => {
           {template.milestones.map((milestone) => (
             <StyledMilestoneCard key={milestone.id}>
               <StyledMilestoneCardBody>
-                <StyledMilestoneCardTitle>{milestone.name}</StyledMilestoneCardTitle>
+                <StyledMilestoneCardTitle>
+                  {milestone.name}
+                </StyledMilestoneCardTitle>
               </StyledMilestoneCardBody>
             </StyledMilestoneCard>
           ))}
           <StyledButtonContainer>
             <UpdateButton name='template' permission={ADMIN} />
-            <StyledCancelButton onClick={handleCancel}>Cancel</StyledCancelButton>
+            <StyledCancelButton onClick={handleCancel}>
+              Cancel
+            </StyledCancelButton>
           </StyledButtonContainer>
         </StyledForm>
       </FormTemplate>

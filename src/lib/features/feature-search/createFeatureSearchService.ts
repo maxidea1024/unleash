@@ -9,12 +9,22 @@ export const createFeatureSearchService =
   (config: IUnleashConfig) =>
   (db: Db): FeatureSearchService => {
     const { getLogger, eventBus, flagResolver } = config;
-    const featureSearchStore = new FeatureSearchStore(db, eventBus, getLogger, flagResolver);
+    const featureSearchStore = new FeatureSearchStore(
+      db,
+      eventBus,
+      getLogger,
+      flagResolver,
+    );
 
-    return new FeatureSearchService({ featureSearchStore: featureSearchStore }, config);
+    return new FeatureSearchService(
+      { featureSearchStore: featureSearchStore },
+      config,
+    );
   };
 
-export const createFakeFeatureSearchService = (config: IUnleashConfig): FeatureSearchService => {
+export const createFakeFeatureSearchService = (
+  config: IUnleashConfig,
+): FeatureSearchService => {
   const fakeFeatureSearchStore = new FakeFeatureSearchStore();
 
   return new FeatureSearchService(

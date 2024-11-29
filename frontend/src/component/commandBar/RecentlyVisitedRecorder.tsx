@@ -13,7 +13,9 @@ export const RecentlyVisitedRecorder = () => {
   useEffect(() => {
     if (!location.pathname) return;
 
-    const path = routes.find((r) => r.path === location.pathname && r.path.indexOf('/', 1) === -1);
+    const path = routes.find(
+      (r) => r.path === location.pathname && r.path.indexOf('/', 1) === -1,
+    );
     if (path) {
       setLastVisited({ pathName: path.path });
     } else if (featureMatch?.params.featureId) {

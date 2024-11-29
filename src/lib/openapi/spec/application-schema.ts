@@ -4,7 +4,8 @@ import { applicationUsageSchema } from './application-usage-schema';
 export const applicationSchema = {
   $id: '#/components/schemas/applicationSchema',
   type: 'object',
-  description: "Data about an application that's connected to Unleash via an SDK.",
+  description:
+    "Data about an application that's connected to Unleash via an SDK.",
   additionalProperties: false,
   required: ['appName'],
   properties: {

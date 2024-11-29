@@ -1,6 +1,9 @@
 import { styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { getSearchTextGenerator, type IGetSearchContextOutput } from 'hooks/useSearch';
+import {
+  getSearchTextGenerator,
+  type IGetSearchContextOutput,
+} from 'hooks/useSearch';
 import type { VFC } from 'react';
 
 const StyledHeader = styled('span')(({ theme }) => ({
@@ -36,7 +39,8 @@ export const SearchDescription: VFC<ISearchDescriptionProps> = ({
           <>
             <StyledHeader>Searching for:</StyledHeader>
             <p>
-              <StyledCode>{searchText}</StyledCode> {searchableColumnsString ? ` in ${searchableColumnsString}` : ''}
+              <StyledCode>{searchText}</StyledCode>{' '}
+              {searchableColumnsString ? ` in ${searchableColumnsString}` : ''}
             </p>
           </>
         }
@@ -48,7 +52,8 @@ export const SearchDescription: VFC<ISearchDescriptionProps> = ({
             <StyledHeader>Filtering by:</StyledHeader>
             {searchFilters.map((filter) => (
               <p key={filter.name}>
-                <StyledCode>{filter.values.join(',')}</StyledCode> in {filter.header}. Options:{' '}
+                <StyledCode>{filter.values.join(',')}</StyledCode> in{' '}
+                {filter.header}. Options:{' '}
                 {[...new Set(filter.options)].slice(0, 10).join(', ')}
               </p>
             ))}

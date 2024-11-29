@@ -15,7 +15,9 @@ interface IServiceAccountsActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const ServiceAccountsActionsCell: VFC<IServiceAccountsActionsCellProps> = ({ onEdit, onDelete }) => {
+export const ServiceAccountsActionsCell: VFC<
+  IServiceAccountsActionsCellProps
+> = ({ onEdit, onDelete }) => {
   return (
     <StyledBox>
       <PermissionIconButton

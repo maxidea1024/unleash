@@ -12,10 +12,19 @@ export const IntegrationList: VFC = () => {
   const { providers, addons, loading } = useAddons();
 
   return (
-    <PageContent header={<PageHeader title='Integrations' />} isLoading={loading}>
+    <PageContent
+      header={<PageHeader title='Integrations' />}
+      isLoading={loading}
+    >
       <ConditionallyRender
         condition={addons.length > 0 || signalEndpoints.length > 0}
-        show={<ConfiguredIntegrations addons={addons} providers={providers} loading={loading} />}
+        show={
+          <ConfiguredIntegrations
+            addons={addons}
+            providers={providers}
+            loading={loading}
+          />
+        }
       />
       <AvailableIntegrations providers={providers} />
     </PageContent>

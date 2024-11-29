@@ -15,9 +15,13 @@ export default class FakeClientInstanceStore implements IClientInstanceStore {
     });
   }
 
-  async delete(key: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<void> {
+  async delete(
+    key: Pick<INewClientInstance, 'appName' | 'instanceId'>,
+  ): Promise<void> {
     this.instances.splice(
-      this.instances.findIndex((i) => i.instanceId === key.instanceId && i.appName === key.appName),
+      this.instances.findIndex(
+        (i) => i.instanceId === key.instanceId && i.appName === key.appName,
+      ),
       1,
     );
   }
@@ -27,17 +31,25 @@ export default class FakeClientInstanceStore implements IClientInstanceStore {
   }
 
   async getBySdkName(sdkName: string): Promise<IClientInstance[]> {
-    return this.instances.filter((instance) => instance.sdkVersion?.startsWith(sdkName));
+    return this.instances.filter((instance) =>
+      instance.sdkVersion?.startsWith(sdkName),
+    );
   }
 
-  async groupApplicationsBySdk(): Promise<{ sdkVersion: string; applications: string[] }[]> {
-    return Object.entries(groupBy(this.instances, 'sdkVersion')).map(([sdkVersion, apps]) => ({
-      sdkVersion,
-      applications: apps.map((item) => item.appName),
-    }));
+  async groupApplicationsBySdk(): Promise<
+    { sdkVersion: string; applications: string[] }[]
+  > {
+    return Object.entries(groupBy(this.instances, 'sdkVersion')).map(
+      ([sdkVersion, apps]) => ({
+        sdkVersion,
+        applications: apps.map((item) => item.appName),
+      }),
+    );
   }
 
-  async groupApplicationsBySdkAndProject(projectId: string): Promise<{ sdkVersion: string; applications: string[] }[]> {
+  async groupApplicationsBySdkAndProject(
+    projectId: string,
+  ): Promise<{ sdkVersion: string; applications: string[] }[]> {
     throw new Error('Not implemented in mock');
   }
 
@@ -51,12 +63,20 @@ export default class FakeClientInstanceStore implements IClientInstanceStore {
 
   destroy(): void {}
 
-  async exists(key: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<boolean> {
-    return this.instances.some((i) => i.appName === key.appName && i.instanceId === key.instanceId);
+  async exists(
+    key: Pick<INewClientInstance, 'appName' | 'instanceId'>,
+  ): Promise<boolean> {
+    return this.instances.some(
+      (i) => i.appName === key.appName && i.instanceId === key.instanceId,
+    );
   }
 
-  async get(key: Pick<INewClientInstance, 'appName' | 'instanceId'>): Promise<IClientInstance> {
-    const instance = this.instances.find((i) => i.appName === key.appName && i.instanceId === key.instanceId);
+  async get(
+    key: Pick<INewClientInstance, 'appName' | 'instanceId'>,
+  ): Promise<IClientInstance> {
+    const instance = this.instances.find(
+      (i) => i.appName === key.appName && i.instanceId === key.instanceId,
+    );
     if (instance) {
       return instance;
     }
@@ -71,8 +91,13 @@ export default class FakeClientInstanceStore implements IClientInstanceStore {
     return this.instances.filter((i) => i.appName === appName);
   }
 
-  async getByAppNameAndEnvironment(appName: string, environment: string): Promise<IClientInstance[]> {
-    return this.instances.filter((i) => i.appName === appName).filter((i) => i.environment === environment);
+  async getByAppNameAndEnvironment(
+    appName: string,
+    environment: string,
+  ): Promise<IClientInstance[]> {
+    return this.instances
+      .filter((i) => i.appName === appName)
+      .filter((i) => i.environment === environment);
   }
 
   async getDistinctApplications(): Promise<string[]> {

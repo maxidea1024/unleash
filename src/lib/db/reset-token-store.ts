@@ -61,13 +61,17 @@ export class ResetTokenStore implements IResetTokenStore {
   }
 
   async getActiveTokens(): Promise<IResetToken[]> {
-    const rows = await this.db<IResetTokenTable>(TABLE).whereNull('used_at').andWhere('expires_at', '>', new Date());
+    const rows = await this.db<IResetTokenTable>(TABLE)
+      .whereNull('used_at')
+      .andWhere('expires_at', '>', new Date());
 
     return rows.map(rowToResetToken);
   }
 
   async insert(newToken: IResetTokenCreate): Promise<IResetToken> {
-    const [row] = await this.db<IResetTokenTable>(TABLE).insert(newToken).returning(['created_at']);
+    const [row] = await this.db<IResetTokenTable>(TABLE)
+      .insert(newToken)
+      .returning(['created_at']);
     return {
       userId: newToken.user_id,
       token: newToken.reset_token,
@@ -113,9 +117,10 @@ export class ResetTokenStore implements IResetTokenStore {
   destroy(): void {}
 
   async exists(reset_token: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE reset_token = ?) AS present`, [
-      reset_token,
-    ]);
+    const result = await this.db.raw(
+      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE reset_token = ?) AS present`,
+      [reset_token],
+    );
     const { present } = result.rows[0];
     return present;
   }

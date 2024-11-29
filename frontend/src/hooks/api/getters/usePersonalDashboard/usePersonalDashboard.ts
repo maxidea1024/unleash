@@ -11,7 +11,10 @@ export interface IPersonalDashboardOutput {
 }
 
 export const usePersonalDashboard = (): IPersonalDashboardOutput => {
-  const { data, error, mutate } = useSWR(formatApiPath('api/admin/personal-dashboard'), fetcher);
+  const { data, error, mutate } = useSWR(
+    formatApiPath('api/admin/personal-dashboard'),
+    fetcher,
+  );
 
   return {
     personalDashboard: data,

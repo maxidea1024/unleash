@@ -43,7 +43,11 @@ export const useRolesApi = () => {
 
   const removeRole = async (roleId: number) => {
     const requestId = 'removeRole';
-    const req = createRequest(`api/admin/roles/${roleId}`, { method: 'DELETE' }, requestId);
+    const req = createRequest(
+      `api/admin/roles/${roleId}`,
+      { method: 'DELETE' },
+      requestId,
+    );
 
     await makeRequest(req.caller, req.id);
   };

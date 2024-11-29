@@ -68,7 +68,9 @@ const StyledAddCustomLabel = styled('div')(({ theme }) => ({
 }));
 
 export const useConstraintAccordionList = (
-  setConstraints: React.Dispatch<React.SetStateAction<IConstraint[]>> | undefined,
+  setConstraints:
+    | React.Dispatch<React.SetStateAction<IConstraint[]>>
+    | undefined,
   ref: React.RefObject<IConstraintAccordionListRef>,
 ) => {
   // Constraint metadata: This is a weak map to give a constraint an ID by using the placement in memory.
@@ -101,88 +103,92 @@ interface IConstraintList {
   state: IUseWeakMap<IConstraint, IConstraintAccordionListItemState>;
 }
 
-export const NewConstraintAccordionList = forwardRef<IConstraintAccordionListRef | undefined, IConstraintList>(
-  ({ constraints, setConstraints, state }, ref) => {
-    const { context } = useUnleashContext();
+export const NewConstraintAccordionList = forwardRef<
+  IConstraintAccordionListRef | undefined,
+  IConstraintList
+>(({ constraints, setConstraints, state }, ref) => {
+  const { context } = useUnleashContext();
 
-    const onEdit =
-      setConstraints &&
-      ((constraint: IConstraint) => {
-        state.set(constraint, { editing: true });
-      });
+  const onEdit =
+    setConstraints &&
+    ((constraint: IConstraint) => {
+      state.set(constraint, { editing: true });
+    });
 
-    const onRemove =
-      setConstraints &&
-      ((index: number) => {
-        const constraint = constraints[index];
-        state.set(constraint, {});
-        setConstraints(
-          produce((draft) => {
-            draft.splice(index, 1);
-          }),
-        );
-      });
-
-    const onSave =
-      setConstraints &&
-      ((index: number, constraint: IConstraint) => {
-        state.set(constraint, {});
-        setConstraints(
-          produce((draft) => {
-            draft[index] = constraint;
-          }),
-        );
-      });
-
-    const onAutoSave =
-      setConstraints &&
-      ((id: string | undefined) => (constraint: IConstraint) => {
-        state.set(constraint, { editing: true });
-        setConstraints(
-          produce((draft) => {
-            return draft.map((oldConstraint) => {
-              if (oldConstraint[constraintId] === id) {
-                return constraint;
-              }
-              return oldConstraint;
-            });
-          }),
-        );
-      });
-
-    const onCancel = (index: number) => {
+  const onRemove =
+    setConstraints &&
+    ((index: number) => {
       const constraint = constraints[index];
-      state.get(constraint)?.new && onRemove?.(index);
       state.set(constraint, {});
-    };
+      setConstraints(
+        produce((draft) => {
+          draft.splice(index, 1);
+        }),
+      );
+    });
 
-    if (context.length === 0) {
-      return null;
-    }
+  const onSave =
+    setConstraints &&
+    ((index: number, constraint: IConstraint) => {
+      state.set(constraint, {});
+      setConstraints(
+        produce((draft) => {
+          draft[index] = constraint;
+        }),
+      );
+    });
 
-    return (
-      <StyledContainer id={constraintAccordionListId}>
-        {constraints.map((constraint, index) => {
-          const id = constraint[constraintId];
+  const onAutoSave =
+    setConstraints &&
+    ((id: string | undefined) => (constraint: IConstraint) => {
+      state.set(constraint, { editing: true });
+      setConstraints(
+        produce((draft) => {
+          return draft.map((oldConstraint) => {
+            if (oldConstraint[constraintId] === id) {
+              return constraint;
+            }
+            return oldConstraint;
+          });
+        }),
+      );
+    });
 
-          return (
-            <Fragment key={id}>
-              <ConditionallyRender condition={index > 0} show={<StrategySeparator text='AND' />} />
+  const onCancel = (index: number) => {
+    const constraint = constraints[index];
+    state.get(constraint)?.new && onRemove?.(index);
+    state.set(constraint, {});
+  };
 
-              <NewConstraintAccordion
-                constraint={constraint}
-                onEdit={onEdit?.bind(null, constraint)}
-                onCancel={onCancel.bind(null, index)}
-                onDelete={onRemove?.bind(null, index)}
-                onSave={onSave?.bind(null, index)}
-                onAutoSave={onAutoSave?.(id)}
-                editing={Boolean(state.get(constraint)?.editing)}
-                compact
-              />
-            </Fragment>
-          );
-        })}
-      </StyledContainer>
-    );
-  },
-);
+  if (context.length === 0) {
+    return null;
+  }
+
+  return (
+    <StyledContainer id={constraintAccordionListId}>
+      {constraints.map((constraint, index) => {
+        const id = constraint[constraintId];
+
+        return (
+          <Fragment key={id}>
+            <ConditionallyRender
+              condition={index > 0}
+              show={<StrategySeparator text='AND' />}
+            />
+
+            <NewConstraintAccordion
+              constraint={constraint}
+              onEdit={onEdit?.bind(null, constraint)}
+              onCancel={onCancel.bind(null, index)}
+              onDelete={onRemove?.bind(null, index)}
+              onSave={onSave?.bind(null, index)}
+              onAutoSave={onAutoSave?.(id)}
+              editing={Boolean(state.get(constraint)?.editing)}
+              compact
+            />
+          </Fragment>
+        );
+      })}
+    </StyledContainer>
+  );
+});

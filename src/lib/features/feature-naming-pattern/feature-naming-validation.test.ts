@@ -1,4 +1,7 @@
-import { checkFeatureFlagNamesAgainstPattern, checkFeatureNamingData } from './feature-naming-validation';
+import {
+  checkFeatureFlagNamesAgainstPattern,
+  checkFeatureNamingData,
+} from './feature-naming-validation';
 
 describe('validate incoming feature naming data', () => {
   test('patterns with leading ^ and trailing $ are treated the same as without', () => {
@@ -51,15 +54,18 @@ describe('validate incoming feature naming data', () => {
     }
   });
 
-  test.each([' ', '\\t', '\\n'])('patterns with illegal characters (%s) are invalid', (string) => {
-    const pattern = `-${string}[0-9]+`;
+  test.each([' ', '\\t', '\\n'])(
+    'patterns with illegal characters (%s) are invalid',
+    (string) => {
+      const pattern = `-${string}[0-9]+`;
 
-    expect(
-      checkFeatureNamingData({
-        pattern,
-      }),
-    ).toMatchObject({ state: 'invalid' });
-  });
+      expect(
+        checkFeatureNamingData({
+          pattern,
+        }),
+      ).toMatchObject({ state: 'invalid' });
+    },
+  );
 
   test('feature naming data with a non-empty example but an empty pattern is invalid', () => {
     expect(
@@ -103,27 +109,39 @@ describe('validate feature flag names against a pattern', () => {
 
     const validFeatures = ['testpattern-feature', 'testpattern-feature2'];
     const invalidFeatures = ['a', 'b', 'c'];
-    const result = checkFeatureFlagNamesAgainstPattern([...validFeatures, ...invalidFeatures], featureNaming.pattern);
+    const result = checkFeatureFlagNamesAgainstPattern(
+      [...validFeatures, ...invalidFeatures],
+      featureNaming.pattern,
+    );
 
     expect(result).toMatchObject({
       state: 'invalid',
       invalidNames: new Set(invalidFeatures),
     });
 
-    const validResult = checkFeatureFlagNamesAgainstPattern(validFeatures, featureNaming.pattern);
+    const validResult = checkFeatureFlagNamesAgainstPattern(
+      validFeatures,
+      featureNaming.pattern,
+    );
 
     expect(validResult).toMatchObject({ state: 'valid' });
   });
 
-  test.each([null, undefined, ''])('should not validate names if the pattern is %s', (pattern) => {
-    const featureNaming = {
-      pattern,
-    };
-    const features = ['a', 'b'];
-    const result = checkFeatureFlagNamesAgainstPattern(features, featureNaming.pattern);
+  test.each([null, undefined, ''])(
+    'should not validate names if the pattern is %s',
+    (pattern) => {
+      const featureNaming = {
+        pattern,
+      };
+      const features = ['a', 'b'];
+      const result = checkFeatureFlagNamesAgainstPattern(
+        features,
+        featureNaming.pattern,
+      );
 
-    expect(result).toMatchObject({ state: 'valid' });
-  });
+      expect(result).toMatchObject({ state: 'valid' });
+    },
+  );
 
   test('should validate names as if the pattern is surrounded by ^ and $.', async () => {
     const pattern = '-[0-9]+';
@@ -132,7 +150,10 @@ describe('validate feature flag names against a pattern', () => {
     };
 
     const features = ['a-95', '-95-', 'b-52-z'];
-    const result = checkFeatureFlagNamesAgainstPattern(features, featureNaming.pattern);
+    const result = checkFeatureFlagNamesAgainstPattern(
+      features,
+      featureNaming.pattern,
+    );
 
     expect(result).toMatchObject({
       state: 'invalid',

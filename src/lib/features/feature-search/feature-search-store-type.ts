@@ -1,4 +1,7 @@
-import type { IFeatureSearchParams, IQueryParam } from '../feature-toggle/types/feature-toggle-strategies-store-type';
+import type {
+  IFeatureSearchParams,
+  IQueryParam,
+} from '../feature-toggle/types/feature-toggle-strategies-store-type';
 import type { IFeatureSearchOverview } from '../../types';
 
 export interface IFeatureSearchStore {

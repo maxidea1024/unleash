@@ -12,7 +12,9 @@ const EnvironmentIcon = ({ enabled, className }: IEnvironmentIcon) => {
   const title = enabled ? 'Environment enabled' : 'Environment disabled';
 
   const container = {
-    backgroundColor: enabled ? theme.palette.primary.light : theme.palette.neutral.border,
+    backgroundColor: enabled
+      ? theme.palette.primary.light
+      : theme.palette.neutral.border,
     borderRadius: '50%',
     width: '28px',
     height: '28px',

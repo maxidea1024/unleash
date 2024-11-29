@@ -2,7 +2,14 @@ import { useState } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
-import { AppBar, Box, Divider, IconButton, styled, Tooltip } from '@mui/material';
+import {
+  AppBar,
+  Box,
+  Divider,
+  IconButton,
+  styled,
+  Tooltip,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import UserProfile from 'component/user/UserProfile';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -105,8 +112,12 @@ const Header = () => {
   const adminRoutes = useAdminRoutes();
 
   const filteredMainRoutes = {
-    mainNavRoutes: getCondensedRoutes(routes.mainNavRoutes).filter(filterByConfig(uiConfig)).map(mapRouteLink),
-    mobileRoutes: getCondensedRoutes(routes.mobileRoutes).filter(filterByConfig(uiConfig)).map(mapRouteLink),
+    mainNavRoutes: getCondensedRoutes(routes.mainNavRoutes)
+      .filter(filterByConfig(uiConfig))
+      .map(mapRouteLink),
+    mobileRoutes: getCondensedRoutes(routes.mobileRoutes)
+      .filter(filterByConfig(uiConfig))
+      .map(mapRouteLink),
     adminRoutes,
   };
 
@@ -168,7 +179,14 @@ const Header = () => {
             <CommandBar />
             <HeaderEventTimelineButton />
             <InviteLinkButton />
-            <Tooltip title={themeMode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'} arrow>
+            <Tooltip
+              title={
+                themeMode === 'dark'
+                  ? 'Switch to light theme'
+                  : 'Switch to dark theme'
+              }
+              arrow
+            >
               <StyledIconButton onClick={onSetThemeMode} size='large'>
                 <ConditionallyRender
                   condition={themeMode === 'dark'}
@@ -177,7 +195,10 @@ const Header = () => {
                 />
               </StyledIconButton>
             </Tooltip>
-            <ConditionallyRender condition={!isOss() && !disableNotifications} show={<Notifications />} />
+            <ConditionallyRender
+              condition={!isOss() && !disableNotifications}
+              show={<Notifications />}
+            />
             <Tooltip title='Documentation' arrow>
               <StyledIconButton
                 component='a'
@@ -190,7 +211,12 @@ const Header = () => {
                 <MenuBookIcon />
               </StyledIconButton>
             </Tooltip>
-            <Divider orientation='vertical' variant='middle' flexItem sx={{ ml: 1 }} />
+            <Divider
+              orientation='vertical'
+              variant='middle'
+              flexItem
+              sx={{ ml: 1 }}
+            />
             <UserProfile />
           </StyledUserContainer>
         </StyledNav>

@@ -28,7 +28,14 @@ import type { Db } from '../../db/db';
 import type { CreateFeatureStrategySchema } from '../../openapi';
 import { applySearchFilters } from '../feature-search/search-utils';
 
-const COLUMNS = ['id', 'name', 'description', 'created_at', 'health', 'updated_at'];
+const COLUMNS = [
+  'id',
+  'name',
+  'description',
+  'created_at',
+  'health',
+  'updated_at',
+];
 const TABLE = 'projects';
 const SETTINGS_COLUMNS = [
   'project_mode',
@@ -62,7 +69,12 @@ export default class ProjectStore implements IProjectStore {
   private readonly flagResolver: IFlagResolver;
   private readonly timer: Function;
 
-  constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider, flagResolver: IFlagResolver) {
+  constructor(
+    db: Db,
+    eventBus: EventEmitter,
+    getLogger: LogProvider,
+    flagResolver: IFlagResolver,
+  ) {
     this.logger = getLogger('project-store.ts');
 
     this.db = db;
@@ -101,7 +113,11 @@ export default class ProjectStore implements IProjectStore {
   }
 
   async getAll(query: IProjectQuery = {}): Promise<IProject[]> {
-    let projects = this.db.select(COLUMNS).from(TABLE).where(query).orderBy('name', 'asc');
+    let projects = this.db
+      .select(COLUMNS)
+      .from(TABLE)
+      .where(query)
+      .orderBy('name', 'asc');
 
     projects = projects.where(`${TABLE}.archived_at`, null);
 
@@ -122,13 +138,19 @@ export default class ProjectStore implements IProjectStore {
   }
 
   async exists(id: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
+      [id],
+    );
     const { present } = result.rows[0];
     return present;
   }
 
   async hasProject(id: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`, [id]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE id = ?) AS present`,
+      [id],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -165,9 +187,10 @@ export default class ProjectStore implements IProjectStore {
   }
 
   private async hasProjectSettings(projectId: string): Promise<boolean> {
-    const result = await this.db.raw(`SELECT EXISTS(SELECT 1 FROM ${SETTINGS_TABLE} WHERE project = ?) AS present`, [
-      projectId,
-    ]);
+    const result = await this.db.raw(
+      `SELECT EXISTS(SELECT 1 FROM ${SETTINGS_TABLE} WHERE project = ?) AS present`,
+      [projectId],
+    );
     const { present } = result.rows[0];
     return present;
   }
@@ -176,7 +199,10 @@ export default class ProjectStore implements IProjectStore {
     try {
       await this.db(TABLE).where({ id: data.id }).update(this.fieldToRow(data));
 
-      if (data.defaultStickiness !== undefined || data.featureLimit !== undefined) {
+      if (
+        data.defaultStickiness !== undefined ||
+        data.featureLimit !== undefined
+      ) {
         if (await this.hasProjectSettings(data.id)) {
           await this.db(SETTINGS_TABLE).where({ project: data.id }).update({
             default_stickiness: data.defaultStickiness,
@@ -196,7 +222,9 @@ export default class ProjectStore implements IProjectStore {
     }
   }
 
-  async updateProjectEnterpriseSettings(data: IProjectEnterpriseSettingsUpdate): Promise<void> {
+  async updateProjectEnterpriseSettings(
+    data: IProjectEnterpriseSettingsUpdate,
+  ): Promise<void> {
     try {
       if (await this.hasProjectSettings(data.id)) {
         await this.db(SETTINGS_TABLE).where({ project: data.id }).update({
@@ -219,7 +247,10 @@ export default class ProjectStore implements IProjectStore {
     }
   }
 
-  async importProjects(projects: IProjectInsert[], environments?: IEnvironment[]): Promise<IProject[]> {
+  async importProjects(
+    projects: IProjectInsert[],
+    environments?: IEnvironment[],
+  ): Promise<IProject[]> {
     const rows = await this.db(TABLE)
       .insert(projects.map(this.fieldToRow))
       .returning(COLUMNS)
@@ -241,7 +272,10 @@ export default class ProjectStore implements IProjectStore {
       project_id: project.id,
       environment_name: DEFAULT_ENV,
     }));
-    await this.db('project_environments').insert(environments).onConflict(['project_id', 'environment_name']).ignore();
+    await this.db('project_environments')
+      .insert(environments)
+      .onConflict(['project_id', 'environment_name'])
+      .ignore();
   }
 
   async deleteAll(): Promise<void> {
@@ -265,14 +299,19 @@ export default class ProjectStore implements IProjectStore {
     await this.db(TABLE).where({ id }).update({ archived_at: null });
   }
 
-  async getProjectLinksForEnvironments(environments: string[]): Promise<IEnvironmentProjectLink[]> {
+  async getProjectLinksForEnvironments(
+    environments: string[],
+  ): Promise<IEnvironmentProjectLink[]> {
     const rows = await this.db('project_environments')
       .select(['project_id', 'environment_name'])
       .whereIn('environment_name', environments);
     return rows.map(this.mapLinkRow);
   }
 
-  async deleteEnvironmentForProject(id: string, environment: string): Promise<void> {
+  async deleteEnvironmentForProject(
+    id: string,
+    environment: string,
+  ): Promise<void> {
     await this.db('project_environments')
       .where({
         project_id: id,
@@ -281,7 +320,10 @@ export default class ProjectStore implements IProjectStore {
       .del();
   }
 
-  async addEnvironmentToProject(id: string, environment: string): Promise<void> {
+  async addEnvironmentToProject(
+    id: string,
+    environment: string,
+  ): Promise<void> {
     await this.db('project_environments')
       .insert({
         project_id: id,
@@ -291,7 +333,10 @@ export default class ProjectStore implements IProjectStore {
       .ignore();
   }
 
-  async addEnvironmentToProjects(environment: string, projects: string[]): Promise<void> {
+  async addEnvironmentToProjects(
+    environment: string,
+    projects: string[],
+  ): Promise<void> {
     const rows = await Promise.all(
       projects.map(async (projectId) => {
         return {
@@ -301,7 +346,10 @@ export default class ProjectStore implements IProjectStore {
       }),
     );
 
-    await this.db('project_environments').insert(rows).onConflict(['project_id', 'environment_name']).ignore();
+    await this.db('project_environments')
+      .insert(rows)
+      .onConflict(['project_id', 'environment_name'])
+      .ignore();
   }
 
   async getEnvironmentsForProject(id: string): Promise<ProjectEnvironment[]> {
@@ -309,10 +357,17 @@ export default class ProjectStore implements IProjectStore {
       .where({
         project_id: id,
       })
-      .innerJoin('environments', 'project_environments.environment_name', 'environments.name')
+      .innerJoin(
+        'environments',
+        'project_environments.environment_name',
+        'environments.name',
+      )
       .orderBy('environments.sort_order', 'asc')
       .orderBy('project_environments.environment_name', 'asc')
-      .returning(['project_environments.environment_name', 'project_environments.default_strategy']);
+      .returning([
+        'project_environments.environment_name',
+        'project_environments.default_strategy',
+      ]);
 
     return rows.map(this.mapProjectEnvironmentRow);
   }
@@ -323,7 +378,11 @@ export default class ProjectStore implements IProjectStore {
       .from('client_metrics_env as cme')
       .innerJoin('features', 'cme.feature_name', 'features.name')
       .innerJoin('projects', 'features.project', 'projects.id')
-      .innerJoin('project_environments', 'cme.environment', 'project_environments.environment_name')
+      .innerJoin(
+        'project_environments',
+        'cme.environment',
+        'project_environments.environment_name',
+      )
       .where('features.project', id)) as { count: string }[];
 
     return Number(count);
@@ -335,12 +394,18 @@ export default class ProjectStore implements IProjectStore {
         db.select('user_id')
           .from('role_user')
           .leftJoin('roles', 'role_user.role_id', 'roles.id')
-          .where((builder) => builder.where('project', projectId).whereNot('type', 'root'))
+          .where((builder) =>
+            builder.where('project', projectId).whereNot('type', 'root'),
+          )
           .union((queryBuilder) => {
             queryBuilder
               .select('user_id')
               .from('group_role')
-              .leftJoin('group_user', 'group_user.group_id', 'group_role.group_id')
+              .leftJoin(
+                'group_user',
+                'group_user.group_id',
+                'group_role.group_id',
+              )
               .where('project', projectId);
           })
           .as('query');
@@ -350,20 +415,30 @@ export default class ProjectStore implements IProjectStore {
     return Number(members.count);
   }
 
-  async getMembersCountByProjectAfterDate(projectId: string, date: string): Promise<number> {
+  async getMembersCountByProjectAfterDate(
+    projectId: string,
+    date: string,
+  ): Promise<number> {
     const members = await this.db
       .from((db) => {
         db.select('user_id')
           .from('role_user')
           .leftJoin('roles', 'role_user.role_id', 'roles.id')
           .where((builder) =>
-            builder.where('project', projectId).whereNot('type', 'root').andWhere('role_user.created_at', '>=', date),
+            builder
+              .where('project', projectId)
+              .whereNot('type', 'root')
+              .andWhere('role_user.created_at', '>=', date),
           )
           .union((queryBuilder) => {
             queryBuilder
               .select('user_id')
               .from('group_role')
-              .leftJoin('group_user', 'group_user.group_id', 'group_role.group_id')
+              .leftJoin(
+                'group_user',
+                'group_user.group_id',
+                'group_role.group_id',
+              )
               .where('project', projectId)
               .andWhere('group_role.created_at', '>=', date);
           })
@@ -374,9 +449,12 @@ export default class ProjectStore implements IProjectStore {
     return Number(members.count);
   }
 
-  async getApplicationsByProject(params: IProjectApplicationsSearchParams): Promise<IProjectApplications> {
+  async getApplicationsByProject(
+    params: IProjectApplicationsSearchParams,
+  ): Promise<IProjectApplications> {
     const { project, limit, sortOrder, searchParams, offset } = params;
-    const validatedSortOrder = sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
+    const validatedSortOrder =
+      sortOrder === 'asc' || sortOrder === 'desc' ? sortOrder : 'asc';
     const query = this.db
       .with('applications', (qb) => {
         qb.select('project', 'app_name', 'environment')
@@ -386,24 +464,37 @@ export default class ProjectStore implements IProjectStore {
           .where('project', project);
       })
       .with('ranked', (qb) => {
-        applySearchFilters(qb, searchParams, ['a.app_name', 'a.environment', 'ci.instance_id', 'ci.sdk_version']);
+        applySearchFilters(qb, searchParams, [
+          'a.app_name',
+          'a.environment',
+          'ci.instance_id',
+          'ci.sdk_version',
+        ]);
 
         qb.select(
           'a.app_name',
           'a.environment',
           'ci.instance_id',
           'ci.sdk_version',
-          this.db.raw(`DENSE_RANK() OVER (ORDER BY a.app_name ${validatedSortOrder}) AS rank`),
+          this.db.raw(
+            `DENSE_RANK() OVER (ORDER BY a.app_name ${validatedSortOrder}) AS rank`,
+          ),
         )
           .from('applications as a')
           .innerJoin('client_applications as ca', 'a.app_name', 'ca.app_name')
           .leftJoin('client_instances as ci', function () {
-            this.on('ci.app_name', '=', 'a.app_name').andOn('ci.environment', '=', 'a.environment');
+            this.on('ci.app_name', '=', 'a.app_name').andOn(
+              'ci.environment',
+              '=',
+              'a.environment',
+            );
           });
       })
       .with(
         'final_ranks',
-        this.db.raw('select row_number() over (order by min(rank)) as final_rank from ranked group by app_name'),
+        this.db.raw(
+          'select row_number() over (order by min(rank)) as final_rank from ranked group by app_name',
+        ),
       )
       .with('total', this.db.raw('select count(*) as total from final_ranks'))
       .select('*')
@@ -425,11 +516,16 @@ export default class ProjectStore implements IProjectStore {
     };
   }
 
-  async getDefaultStrategy(projectId: string, environment: string): Promise<CreateFeatureStrategySchema | null> {
-    const rows = await this.db(PROJECT_ENVIRONMENTS).select('default_strategy').where({
-      project_id: projectId,
-      environment_name: environment,
-    });
+  async getDefaultStrategy(
+    projectId: string,
+    environment: string,
+  ): Promise<CreateFeatureStrategySchema | null> {
+    const rows = await this.db(PROJECT_ENVIRONMENTS)
+      .select('default_strategy')
+      .where({
+        project_id: projectId,
+        environment_name: environment,
+      });
 
     return rows.length > 0 ? rows[0].default_strategy : null;
   }
@@ -462,7 +558,9 @@ export default class ProjectStore implements IProjectStore {
 
   async getProjectModeCounts(): Promise<ProjectModeCount[]> {
     let query = this.db
-      .select(this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open') as mode`))
+      .select(
+        this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open') as mode`),
+      )
       .count(`${TABLE}.id as count`)
       .from(`${TABLE}`)
       .leftJoin(`${SETTINGS_TABLE}`, `${TABLE}.id`, `${SETTINGS_TABLE}.project`)
@@ -522,7 +620,8 @@ export default class ProjectStore implements IProjectStore {
   }): ProjectEnvironment {
     return {
       environment: row.environment_name,
-      defaultStrategy: row.default_strategy === null ? undefined : row.default_strategy,
+      defaultStrategy:
+        row.default_strategy === null ? undefined : row.default_strategy,
     };
   }
 

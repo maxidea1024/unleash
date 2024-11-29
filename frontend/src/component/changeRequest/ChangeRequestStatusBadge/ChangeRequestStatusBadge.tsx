@@ -21,7 +21,9 @@ const ReviewRequiredBadge: VFC = () => (
 
 const DraftBadge: VFC = () => <Badge color='warning'>Draft</Badge>;
 
-export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({ changeRequest }) => {
+export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({
+  changeRequest,
+}) => {
   if (!changeRequest) {
     return null;
   }

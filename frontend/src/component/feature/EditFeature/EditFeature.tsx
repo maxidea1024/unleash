@@ -22,8 +22,23 @@ const EditFeature = () => {
   const { patchFeatureToggle: patchFeatureFlag, loading } = useFeatureApi();
   const { feature } = useFeature(projectId, featureId);
 
-  const { type, setType, name, project, description, setDescription, impressionData, setImpressionData, clearErrors } =
-    useFeatureForm(feature?.name, feature?.type, feature?.project, feature?.description, feature?.impressionData);
+  const {
+    type,
+    setType,
+    name,
+    project,
+    description,
+    setDescription,
+    impressionData,
+    setImpressionData,
+    clearErrors,
+  } = useFeatureForm(
+    feature?.name,
+    feature?.type,
+    feature?.project,
+    feature?.description,
+    feature?.impressionData,
+  );
 
   const createPatch = () => {
     const comparison = { ...feature, type, description, impressionData };

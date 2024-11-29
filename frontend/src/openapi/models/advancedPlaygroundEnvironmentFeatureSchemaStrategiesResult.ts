@@ -11,4 +11,6 @@
                                   if one or more of the strategies can't be fully evaluated and the rest of the strategies
                                   all resolve to `false`.
  */
-export type AdvancedPlaygroundEnvironmentFeatureSchemaStrategiesResult = boolean | 'unknown';
+export type AdvancedPlaygroundEnvironmentFeatureSchemaStrategiesResult =
+  | boolean
+  | 'unknown';

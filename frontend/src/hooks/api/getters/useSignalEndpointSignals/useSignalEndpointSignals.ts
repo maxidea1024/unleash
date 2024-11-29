@@ -1,4 +1,7 @@
-import useSWRInfinite, { type SWRInfiniteConfiguration, type SWRInfiniteKeyLoader } from 'swr/infinite';
+import useSWRInfinite, {
+  type SWRInfiniteConfiguration,
+  type SWRInfiniteKeyLoader,
+} from 'swr/infinite';
 import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 import useUiConfig from '../useUiConfig/useUiConfig';
@@ -25,22 +28,31 @@ export const useSignalEndpointSignals = (
   const { isEnterprise } = useUiConfig();
   const signalsEnabled = useUiFlag('signals');
 
-  const getKey: SWRInfiniteKeyLoader = (pageIndex: number, previousPageData: SignalsResponse) => {
+  const getKey: SWRInfiniteKeyLoader = (
+    pageIndex: number,
+    previousPageData: SignalsResponse,
+  ) => {
     // Does not meet conditions
     if (!signalEndpointId || !isEnterprise || !signalsEnabled) return null;
 
     // Reached the end
-    if (previousPageData && !previousPageData.signalEndpointSignals.length) return null;
+    if (previousPageData && !previousPageData.signalEndpointSignals.length)
+      return null;
 
-    return formatApiPath(`${ENDPOINT}/${signalEndpointId}/signals?limit=${limit}&offset=${pageIndex * limit}`);
+    return formatApiPath(
+      `${ENDPOINT}/${signalEndpointId}/signals?limit=${limit}&offset=${pageIndex * limit}`,
+    );
   };
 
-  const { data, error, size, setSize, mutate } = useSWRInfinite<SignalsResponse>(getKey, fetcher, {
-    ...options,
-    revalidateAll: true,
-  });
+  const { data, error, size, setSize, mutate } =
+    useSWRInfinite<SignalsResponse>(getKey, fetcher, {
+      ...options,
+      revalidateAll: true,
+    });
 
-  const signalEndpointSignals = data ? data.flatMap(({ signalEndpointSignals }) => signalEndpointSignals) : [];
+  const signalEndpointSignals = data
+    ? data.flatMap(({ signalEndpointSignals }) => signalEndpointSignals)
+    : [];
 
   const isLoadingInitialData = !data && !error;
   const isLoadingMore = size > 0 && !data?.[size - 1];

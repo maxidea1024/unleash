@@ -45,7 +45,11 @@ interface IEditGroupUsersProps {
   group: IGroup;
 }
 
-export const EditGroupUsers: FC<IEditGroupUsersProps> = ({ open, setOpen, group }) => {
+export const EditGroupUsers: FC<IEditGroupUsersProps> = ({
+  open,
+  setOpen,
+  group,
+}) => {
   const { refetchGroup } = useGroup(group.id);
   const { refetchGroups } = useGroups();
   const { updateGroup, loading } = useGroupApi();
@@ -107,14 +111,21 @@ export const EditGroupUsers: FC<IEditGroupUsersProps> = ({ open, setOpen, group 
       >
         <StyledForm onSubmit={handleSubmit}>
           <div>
-            <StyledInputDescription>Edit users in this group</StyledInputDescription>
+            <StyledInputDescription>
+              Edit users in this group
+            </StyledInputDescription>
             <GroupFormUsersSelect users={users} setUsers={setUsers} />
             <GroupFormUsersTable users={users} setUsers={setUsers} />
           </div>
 
           <StyledButtonContainer>
             <StyledBox>
-              <Button type='submit' variant='contained' color='primary' data-testid={UG_SAVE_BTN_ID}>
+              <Button
+                type='submit'
+                variant='contained'
+                color='primary'
+                data-testid={UG_SAVE_BTN_ID}
+              >
                 Save
               </Button>
               <StyledCancelButton

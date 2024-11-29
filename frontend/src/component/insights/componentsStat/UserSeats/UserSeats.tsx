@@ -48,7 +48,10 @@ export const UserSeats = () => {
           <SeatsUsageText>
             {users.length}/{seats} seats used
           </SeatsUsageText>
-          <SeatsUsageBar variant='determinate' value={Math.min(100, percentageSeats)} />
+          <SeatsUsageBar
+            variant='determinate'
+            value={Math.min(100, percentageSeats)}
+          />
         </SeatsUsageRow>
       </Box>
     );

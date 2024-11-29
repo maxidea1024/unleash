@@ -21,7 +21,8 @@ const newSession = {
     user: {
       id: 1,
       username: 'admin',
-      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl:
+        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
       seenAt: '2021-04-26T10:59:18.782Z',
       loginAttempts: 0,
       createdAt: '2021-04-22T05:12:54.368Z',
@@ -41,7 +42,8 @@ const otherSession = {
     user: {
       id: 2,
       username: 'editor',
-      imageUrl: 'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
+      imageUrl:
+        'https://gravatar.com/avatar/21232f297a57a5a743894a0e4a801fc3?size=42&default=retro',
       seenAt: '2021-04-26T10:59:18.782Z',
       loginAttempts: 0,
       createdAt: '2021-04-22T05:12:54.368Z',
@@ -105,7 +107,9 @@ test('Can delete session by sid', async () => {
   expect(sessions.length).toBe(2);
 
   await sessionService.deleteSession('abc123');
-  await expect(async () => sessionService.getSession('abc123')).rejects.toThrow(NotFoundError);
+  await expect(async () => sessionService.getSession('abc123')).rejects.toThrow(
+    NotFoundError,
+  );
 });
 
 test('Can delete stale sessions', async () => {
@@ -113,7 +117,10 @@ test('Can delete stale sessions', async () => {
   await sessionService.insertSession({ ...newSession, sid: 'new' });
 
   const sessionsToKeep = 1;
-  await sessionService.deleteStaleSessionsForUser(newSession.sess.user.id, sessionsToKeep);
+  await sessionService.deleteStaleSessionsForUser(
+    newSession.sess.user.id,
+    sessionsToKeep,
+  );
 
   const sessions = await sessionService.getSessionsForUser(1);
   expect(sessions.length).toBe(1);

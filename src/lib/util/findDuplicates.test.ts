@@ -22,5 +22,7 @@ test('should handle an empty array', () => {
 });
 
 test('should handle arrays with boolean values', () => {
-  expect(findDuplicates([true, true, false, false, true])).toEqual(expect.arrayContaining([true, false]));
+  expect(findDuplicates([true, true, false, false, true])).toEqual(
+    expect.arrayContaining([true, false]),
+  );
 });

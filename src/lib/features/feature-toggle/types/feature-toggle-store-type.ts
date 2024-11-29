@@ -53,7 +53,9 @@ export interface IFeatureToggleStore extends IStore<FeatureToggle, string> {
 
   getArchivedFeatures(project?: string): Promise<FeatureToggle[]>;
 
-  getPlaygroundFeatures(featureQuery?: IFeatureToggleQuery): Promise<FeatureConfigurationClient[]>;
+  getPlaygroundFeatures(
+    featureQuery?: IFeatureToggleQuery,
+  ): Promise<FeatureConfigurationClient[]>;
 
   countByDate(queryModifiers: {
     archived?: boolean;
@@ -87,11 +89,17 @@ export interface IFeatureToggleStore extends IStore<FeatureToggle, string> {
    * @param featureName
    * @param newVariants
    */
-  saveVariants(project: string, featureName: string, newVariants: IVariant[]): Promise<FeatureToggle>;
+  saveVariants(
+    project: string,
+    featureName: string,
+    newVariants: IVariant[],
+  ): Promise<FeatureToggle>;
 
   disableAllEnvironmentsForFeatures(names: string[]): Promise<void>;
 
-  getFeatureTypeCounts(params: IFeatureProjectUserParams): Promise<IFeatureTypeCount[]>;
+  getFeatureTypeCounts(
+    params: IFeatureProjectUserParams,
+  ): Promise<IFeatureTypeCount[]>;
 
   setCreatedByUserId(batchSize: number): Promise<number | undefined>;
 }

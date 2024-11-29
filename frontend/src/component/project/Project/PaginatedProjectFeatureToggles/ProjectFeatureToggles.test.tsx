@@ -47,7 +47,9 @@ test('filters by flag type', async () => {
     <Routes>
       <Route
         path={'/projects/:projectId'}
-        element={<ProjectFeatureToggles environments={['development', 'production']} />}
+        element={
+          <ProjectFeatureToggles environments={['development', 'production']} />
+        }
       />
     </Routes>,
     {
@@ -69,7 +71,9 @@ test('selects project features', async () => {
     <Routes>
       <Route
         path={'/projects/:projectId'}
-        element={<ProjectFeatureToggles environments={['development', 'production']} />}
+        element={
+          <ProjectFeatureToggles environments={['development', 'production']} />
+        }
       />
     </Routes>,
     {
@@ -107,7 +111,9 @@ test('filters by tag', async () => {
     <Routes>
       <Route
         path={'/projects/:projectId'}
-        element={<ProjectFeatureToggles environments={['development', 'production']} />}
+        element={
+          <ProjectFeatureToggles environments={['development', 'production']} />
+        }
       />
     </Routes>,
     {
@@ -128,7 +134,9 @@ test('filters by flag author', async () => {
     <Routes>
       <Route
         path={'/projects/:projectId'}
-        element={<ProjectFeatureToggles environments={['development', 'production']} />}
+        element={
+          <ProjectFeatureToggles environments={['development', 'production']} />
+        }
       />
     </Routes>,
     {
@@ -157,7 +165,10 @@ test('Project is onboarded', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId'} element={<ProjectFeatureToggles environments={[]} />} />
+      <Route
+        path={'/projects/:projectId'}
+        element={<ProjectFeatureToggles environments={[]} />}
+      />
     </Routes>,
     {
       route: `/projects/${projectId}`,
@@ -176,7 +187,10 @@ test('Project is not onboarded', async () => {
   });
   render(
     <Routes>
-      <Route path={'/projects/:projectId'} element={<ProjectFeatureToggles environments={[]} />} />
+      <Route
+        path={'/projects/:projectId'}
+        element={<ProjectFeatureToggles environments={[]} />}
+      />
     </Routes>,
     {
       route: `/projects/${projectId}`,

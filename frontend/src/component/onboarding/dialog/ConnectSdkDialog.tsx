@@ -1,4 +1,11 @@
-import { Box, Button, Dialog, styled, useMediaQuery, useTheme } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  styled,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material';
 import { GenerateApiKey } from './GenerateApiKey';
 import { useEffect, useState } from 'react';
 import { SelectSdk } from './SelectSdk';
@@ -77,8 +84,10 @@ export const ConnectSdkDialog = ({
   });
 
   const isSelectSdkStage = stage === 'select-sdk';
-  const isGenerateApiKeyStage = stage === 'generate-api-key' && sdk && environment;
-  const isTestConnectionStage = stage === 'test-connection' && sdk && environment && apiKey;
+  const isGenerateApiKeyStage =
+    stage === 'generate-api-key' && sdk && environment;
+  const isTestConnectionStage =
+    stage === 'test-connection' && sdk && environment && apiKey;
 
   const onboarded = project.onboardingStatus.status === 'onboarded';
 
@@ -174,9 +183,15 @@ export const ConnectSdkDialog = ({
         </ConnectSdk>
 
         {isLargeScreen && isSelectSdkStage ? <SelectSdkConcepts /> : null}
-        {isLargeScreen && isGenerateApiKeyStage ? <GenerateApiKeyConcepts /> : null}
+        {isLargeScreen && isGenerateApiKeyStage ? (
+          <GenerateApiKeyConcepts />
+        ) : null}
         {isLargeScreen && isTestConnectionStage ? (
-          <ConnectionInformation projectId={projectId} sdk={sdk.name} environment={environment} />
+          <ConnectionInformation
+            projectId={projectId}
+            sdk={sdk.name}
+            environment={environment}
+          />
         ) : null}
       </Box>
     </StyledDialog>

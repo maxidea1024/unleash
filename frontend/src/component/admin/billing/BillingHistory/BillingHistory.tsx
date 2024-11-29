@@ -1,4 +1,11 @@
-import { Table, SortableTableHeader, TableBody, TableCell, TableRow, TablePlaceholder } from 'component/common/Table';
+import {
+  Table,
+  SortableTableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  TablePlaceholder,
+} from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
 import { useMemo, type VFC } from 'react';
@@ -58,7 +65,10 @@ const columns = [
   },
 ];
 
-export const BillingHistory: VFC<IBillingHistoryProps> = ({ data, isLoading = false }) => {
+export const BillingHistory: VFC<IBillingHistoryProps> = ({
+  data,
+  isLoading = false,
+}) => {
   const initialState = useMemo(
     () => ({
       sortBy: [{ id: 'created', desc: true }],
@@ -66,21 +76,22 @@ export const BillingHistory: VFC<IBillingHistoryProps> = ({ data, isLoading = fa
     [],
   );
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable(
-    {
-      columns,
-      data,
-      initialState,
-      sortTypes,
-      autoResetGlobalFilter: false,
-      disableSortRemove: true,
-      defaultColumn: {
-        Cell: TextCell,
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+        initialState,
+        sortTypes,
+        autoResetGlobalFilter: false,
+        disableSortRemove: true,
+        defaultColumn: {
+          Cell: TextCell,
+        },
       },
-    },
-    useGlobalFilter,
-    useSortBy,
-  );
+      useGlobalFilter,
+      useSortBy,
+    );
 
   return (
     <PageContent isLoading={isLoading} disablePadding>

@@ -99,18 +99,20 @@ const OldFeatureOverviewMetaData = () => {
   const { project, description, type } = feature;
   const navigate = useNavigate();
   const [showDelDialog, setShowDelDialog] = useState(false);
-  const [showMarkCompletedDialogue, setShowMarkCompletedDialogue] = useState(false);
+  const [showMarkCompletedDialogue, setShowMarkCompletedDialogue] =
+    useState(false);
 
   const { locationSettings } = useLocationSettings();
   const showDependentFeatures = useShowDependentFeatures(feature.project);
 
-  const lastSeenEnvironments: ILastSeenEnvironments[] = feature.environments?.map((env) => ({
-    name: env.name,
-    lastSeenAt: env.lastSeenAt,
-    enabled: env.enabled,
-    yes: env.yes,
-    no: env.no,
-  }));
+  const lastSeenEnvironments: ILastSeenEnvironments[] =
+    feature.environments?.map((env) => ({
+      name: env.name,
+      lastSeenAt: env.lastSeenAt,
+      enabled: env.enabled,
+      yes: env.yes,
+      no: env.no,
+    }));
 
   const IconComponent = getFeatureTypeIcons(type);
 
@@ -197,10 +199,18 @@ const OldFeatureOverviewMetaData = () => {
             <StyledDetailsContainer>
               <StyledDetail>
                 <StyledLabel>Created at:</StyledLabel>
-                <span>{formatDateYMD(parseISO(feature.createdAt), locationSettings.locale)}</span>
+                <span>
+                  {formatDateYMD(
+                    parseISO(feature.createdAt),
+                    locationSettings.locale,
+                  )}
+                </span>
               </StyledDetail>
 
-              <FeatureEnvironmentSeen featureLastSeen={feature.lastSeenAt} environments={lastSeenEnvironments} />
+              <FeatureEnvironmentSeen
+                featureLastSeen={feature.lastSeenAt}
+                environments={lastSeenEnvironments}
+              />
             </StyledDetailsContainer>
           </BodyItemWithIcon>
           <ConditionallyRender
@@ -217,7 +227,10 @@ const OldFeatureOverviewMetaData = () => {
               </BodyItemWithIcon>
             )}
           />
-          <ConditionallyRender condition={showDependentFeatures} show={<OldDependencyRow feature={feature} />} />
+          <ConditionallyRender
+            condition={showDependentFeatures}
+            show={<OldDependencyRow feature={feature} />}
+          />
         </StyledBody>
       </StyledPaddingContainerTop>
       <ConditionallyRender

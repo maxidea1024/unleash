@@ -4,7 +4,9 @@ import { ProjectsList } from './ProjectsList';
 
 describe('ProjectsList', () => {
   it('should prioritize new "projects" array over deprecated "project"', async () => {
-    const { container } = render(<ProjectsList project='project' projects={['project1', 'project2']} />);
+    const { container } = render(
+      <ProjectsList project='project' projects={['project1', 'project2']} />,
+    );
 
     expect(container.textContent).toContain('2 projects');
   });
@@ -30,7 +32,11 @@ describe('ProjectsList', () => {
   });
 
   it('should show the number of projects', async () => {
-    const { container } = render(<ProjectsList projects={['project1', 'project2', 'project3', 'project4']} />);
+    const { container } = render(
+      <ProjectsList
+        projects={['project1', 'project2', 'project3', 'project4']}
+      />,
+    );
 
     expect(container.textContent).toContain('4 projects');
   });

@@ -37,5 +37,9 @@ export const HighlightProvider = ({ children }: IHighlightProviderProps) => {
     highlight,
   };
 
-  return <HighlightContext.Provider value={contextValue}>{children}</HighlightContext.Provider>;
+  return (
+    <HighlightContext.Provider value={contextValue}>
+      {children}
+    </HighlightContext.Provider>
+  );
 };

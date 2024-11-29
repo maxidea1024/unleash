@@ -27,7 +27,8 @@ const Login = () => {
   const query = useQueryParams();
   const resetPassword = query.get('reset') === 'true';
   const invited = query.get('invited') === 'true';
-  const redirect = query.get('redirect') || getSessionStorageItem('login-redirect') || '/';
+  const redirect =
+    query.get('redirect') || getSessionStorageItem('login-redirect') || '/';
 
   if (user) {
     setSessionStorageItem('login-redirect');

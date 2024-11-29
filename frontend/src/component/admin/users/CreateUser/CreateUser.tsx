@@ -101,7 +101,12 @@ const CreateUser = () => {
       >
         <CreateButton name='user' permission={ADMIN} />
       </UserForm>
-      <ConfirmUserAdded open={showConfirm} closeConfirm={closeConfirm} emailSent={sendEmail} inviteLink={inviteLink} />
+      <ConfirmUserAdded
+        open={showConfirm}
+        closeConfirm={closeConfirm}
+        emailSent={sendEmail}
+        inviteLink={inviteLink}
+      />
     </FormTemplate>
   );
 };

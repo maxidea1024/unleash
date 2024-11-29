@@ -47,4 +47,6 @@ export const advancedPlaygroundRequestSchema = {
   },
 } as const;
 
-export type AdvancedPlaygroundRequestSchema = FromSchema<typeof advancedPlaygroundRequestSchema>;
+export type AdvancedPlaygroundRequestSchema = FromSchema<
+  typeof advancedPlaygroundRequestSchema
+>;

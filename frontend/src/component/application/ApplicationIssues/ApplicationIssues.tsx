@@ -3,7 +3,10 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import WarningAmberRounded from '@mui/icons-material/WarningAmberRounded';
 import type { ApplicationOverviewSchema } from 'openapi';
 import { Link } from 'react-router-dom';
-import { CREATE_FEATURE, CREATE_STRATEGY } from 'component/providers/AccessProvider/permissions';
+import {
+  CREATE_FEATURE,
+  CREATE_STRATEGY,
+} from 'component/providers/AccessProvider/permissions';
 import { useContext } from 'react';
 import AccessContext from 'contexts/AccessContext';
 
@@ -121,7 +124,10 @@ const FeaturesMissing = ({ features }: IFeaturesMissingProps) => {
             <ConditionallyRender
               condition={hasAccess(CREATE_FEATURE)}
               show={
-                <StyledLink key={feature} to={`/projects/default?create=true&name=${feature}`}>
+                <StyledLink
+                  key={feature}
+                  to={`/projects/default?create=true&name=${feature}`}
+                >
                   Create feature flag
                 </StyledLink>
               }
@@ -180,10 +186,23 @@ const OutdatedSDKs = ({ sdks }: IOutdatedSDKsProps) => {
   );
 };
 
-export const getApplicationIssues = (application: ApplicationOverviewSchema): ApplicationIssues => {
-  const outdatedSdks = [...new Set(application.environments.flatMap((env) => env.issues.outdatedSdks))];
-  const missingFeatures = [...new Set(application.environments.flatMap((env) => env.issues.missingFeatures))];
-  const issueCount = outdatedSdks.length + missingFeatures.length + application.issues.missingStrategies.length;
+export const getApplicationIssues = (
+  application: ApplicationOverviewSchema,
+): ApplicationIssues => {
+  const outdatedSdks = [
+    ...new Set(
+      application.environments.flatMap((env) => env.issues.outdatedSdks),
+    ),
+  ];
+  const missingFeatures = [
+    ...new Set(
+      application.environments.flatMap((env) => env.issues.missingFeatures),
+    ),
+  ];
+  const issueCount =
+    outdatedSdks.length +
+    missingFeatures.length +
+    application.issues.missingStrategies.length;
 
   return {
     issueCount,

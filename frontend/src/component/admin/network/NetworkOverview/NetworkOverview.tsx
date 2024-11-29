@@ -4,7 +4,10 @@ import { useInstanceMetrics } from 'hooks/api/getters/useInstanceMetrics/useInst
 import { Alert, Typography, styled, useTheme } from '@mui/material';
 import { unknownify } from 'utils/unknownify';
 import { useMemo } from 'react';
-import type { RequestsPerSecondSchema, RequestsPerSecondSchemaDataResultItem } from 'openapi';
+import type {
+  RequestsPerSecondSchema,
+  RequestsPerSecondSchemaDataResultItem,
+} from 'openapi';
 import { ReactComponent as LogoIcon } from 'assets/icons/logoBg.svg';
 import { ReactComponent as LogoIconWhite } from 'assets/icons/logoWhiteBg.svg';
 import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
@@ -65,7 +68,9 @@ interface INetworkApp {
   type: string;
 }
 
-const asNetworkAppData = (result: RequestsPerSecondSchemaDataResultItem & { label: string }) => {
+const asNetworkAppData = (
+  result: RequestsPerSecondSchemaDataResultItem & { label: string },
+) => {
   const values = (result.values || []) as ResultValue[];
   const data = values.filter((value) => isRecent(value));
   const reqs = data.length ? Number.parseFloat(data[data.length - 1][1]) : 0;
@@ -98,7 +103,9 @@ const toGraphData = (metrics?: RequestsPerSecondSchema) => {
         label: unknownify(result.metric?.appName),
       }))
       .filter((result) => result.label !== 'unknown') || [];
-  const aggregated = results.map(asNetworkAppData).reduce(summingReqsByLabelAndType, {});
+  const aggregated = results
+    .map(asNetworkAppData)
+    .reduce(summingReqsByLabelAndType, {});
   return (
     Object.values(aggregated)
       .map((app) => ({ ...app, reqs: app.reqs.toFixed(2) }))
@@ -132,7 +139,9 @@ export const NetworkOverview = () => {
         <ArcherElement id='unleash'>
           <StyledElementBox>
             <ThemeMode darkmode={<LogoIconWhite />} lightmode={<LogoIcon />} />
-            <Typography sx={{ marginTop: theme.spacing(1) }}>Unleash</Typography>
+            <Typography sx={{ marginTop: theme.spacing(1) }}>
+              Unleash
+            </Typography>
           </StyledElementBox>
         </ArcherElement>
       </StyleUnleashContainer>

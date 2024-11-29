@@ -11,12 +11,14 @@ export const clientFeatureSchema = {
   $id: '#/components/schemas/clientFeatureSchema',
   type: 'object',
   required: ['name', 'enabled'],
-  description: 'Feature flag configuration used by SDKs to evaluate state of a flag',
+  description:
+    'Feature flag configuration used by SDKs to evaluate state of a flag',
   additionalProperties: false,
   properties: {
     name: {
       type: 'string',
-      description: 'The unique name of a feature flag. Is validated to be URL safe on creation',
+      description:
+        'The unique name of a feature flag. Is validated to be URL safe on creation',
       example: 'new.payment.flow.stripe',
     },
     type: {
@@ -57,7 +59,8 @@ export const clientFeatureSchema = {
     },
     strategies: {
       type: 'array',
-      description: 'Evaluation strategies for this flag. Each entry in this list will be evaluated and ORed together',
+      description:
+        'Evaluation strategies for this flag. Each entry in this list will be evaluated and ORed together',
       items: {
         $ref: '#/components/schemas/featureStrategySchema',
       },

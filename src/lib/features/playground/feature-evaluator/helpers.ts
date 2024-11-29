@@ -22,7 +22,10 @@ export function createFallbackFunction(
   return () => createEvalResult(false);
 }
 
-export function resolveContextValue(context: Context, field: string): string | undefined {
+export function resolveContextValue(
+  context: Context,
+  field: string,
+): string | undefined {
   if (context[field]) {
     return context[field] as string;
   }
@@ -49,13 +52,22 @@ export function getDefaultStrategy(featureName: string): IStrategyConfig {
   };
 }
 
-function resolveGroupId(defaultStrategy: IStrategyConfig, featureName: string): string {
-  const groupId = defaultStrategy?.parameters?.groupId !== '' ? defaultStrategy.parameters?.groupId : featureName;
+function resolveGroupId(
+  defaultStrategy: IStrategyConfig,
+  featureName: string,
+): string {
+  const groupId =
+    defaultStrategy?.parameters?.groupId !== ''
+      ? defaultStrategy.parameters?.groupId
+      : featureName;
 
   return groupId || '';
 }
 
-export function getProjectDefaultStrategy(defaultStrategy: IStrategyConfig, featureName: string): IStrategyConfig {
+export function getProjectDefaultStrategy(
+  defaultStrategy: IStrategyConfig,
+  featureName: string,
+): IStrategyConfig {
   return {
     ...defaultStrategy,
     parameters: {

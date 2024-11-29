@@ -315,7 +315,8 @@ describe('enterprise extension: enable change requests', () => {
       } as any,
       {} as any,
       {
-        getProjectGroups: async () => Promise.resolve([{ roles: [2, 5] } as any]),
+        getProjectGroups: async () =>
+          Promise.resolve([{ roles: [2, 5] } as any]),
       } as any,
       {} as any,
       {} as any,

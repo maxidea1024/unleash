@@ -85,7 +85,9 @@ const UserForm: React.FC<IUserForm> = ({
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledContainer>
-        <StyledInputDescription>Who is the new Unleash user?</StyledInputDescription>
+        <StyledInputDescription>
+          Who is the new Unleash user?
+        </StyledInputDescription>
         <StyledInput
           label='Full name'
           value={name}
@@ -107,7 +109,12 @@ const UserForm: React.FC<IUserForm> = ({
         <StyledRoleSubtitle variant='subtitle1' data-loading>
           What is your team member allowed to do?
         </StyledRoleSubtitle>
-        <RoleSelect roles={roles} value={rootRole} setValue={setRootRole} required />
+        <RoleSelect
+          roles={roles}
+          value={rootRole}
+          setValue={setRootRole}
+          required
+        />
         <ConditionallyRender
           condition={mode !== EDIT && Boolean(uiConfig?.emailEnabled)}
           show={
@@ -116,7 +123,11 @@ const UserForm: React.FC<IUserForm> = ({
                 Should we send an email to your new team member
               </StyledRoleSubtitle>
               <StyledFlexRow>
-                <Switch name='sendEmail' onChange={() => setSendEmail(!sendEmail)} checked={sendEmail} />
+                <Switch
+                  name='sendEmail'
+                  onChange={() => setSendEmail(!sendEmail)}
+                  checked={sendEmail}
+                />
                 <Typography>{sendEmail ? 'Yes' : 'No'}</Typography>
               </StyledFlexRow>
             </FormControl>

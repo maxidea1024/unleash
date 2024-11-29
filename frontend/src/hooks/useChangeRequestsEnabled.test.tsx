@@ -3,7 +3,10 @@ import { AccessProviderMock } from '../component/providers/AccessProvider/Access
 import { useChangeRequestsEnabled } from './useChangeRequestsEnabled';
 import type { FC } from 'react';
 import { testServerRoute, testServerSetup } from '../utils/testServer';
-import { SKIP_CHANGE_REQUEST, ADMIN } from '../component/providers/AccessProvider/permissions';
+import {
+  SKIP_CHANGE_REQUEST,
+  ADMIN,
+} from '../component/providers/AccessProvider/permissions';
 
 const project = 'project';
 const environment = 'production';
@@ -11,19 +14,25 @@ const environment = 'production';
 const TestComponent: FC = () => {
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(project);
 
-  const string = isChangeRequestConfigured('production') ? 'change request' : 'regular mode';
+  const string = isChangeRequestConfigured('production')
+    ? 'change request'
+    : 'regular mode';
 
   return <div>{string}</div>;
 };
 
 const server = testServerSetup();
 
-testServerRoute(server, `/api/admin/projects/${project}/change-requests/config`, [
-  {
-    environment,
-    changeRequestEnabled: true,
-  },
-]);
+testServerRoute(
+  server,
+  `/api/admin/projects/${project}/change-requests/config`,
+  [
+    {
+      environment,
+      changeRequestEnabled: true,
+    },
+  ],
+);
 testServerRoute(server, '/api/admin/ui-config', {
   versionInfo: {
     current: { enterprise: 'present' },

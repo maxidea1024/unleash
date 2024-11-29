@@ -1,6 +1,9 @@
 import { Box, styled } from '@mui/material';
 import PercentageCircle from 'component/common/PercentageCircle/PercentageCircle';
-import { StyledProjectInfoWidgetContainer, StyledWidgetTitle } from './ProjectInfo.styles';
+import {
+  StyledProjectInfoWidgetContainer,
+  StyledWidgetTitle,
+} from './ProjectInfo.styles';
 import { WidgetFooterLink } from './WidgetFooterLink';
 
 interface IHealthWidgetProps {
@@ -40,9 +43,13 @@ export const HealthWidget = ({ projectId, health }: IHealthWidgetProps) => {
         <StyledPercentageText data-loading>
           <PercentageCircle percentage={health} />
         </StyledPercentageText>
-        <StyledParagraphEmphasizedText data-loading>{health}%</StyledParagraphEmphasizedText>
+        <StyledParagraphEmphasizedText data-loading>
+          {health}%
+        </StyledParagraphEmphasizedText>
       </Box>
-      <WidgetFooterLink to={`/projects/${projectId}/health`}>View project health</WidgetFooterLink>
+      <WidgetFooterLink to={`/projects/${projectId}/health`}>
+        View project health
+      </WidgetFooterLink>
     </StyledProjectInfoWidgetContainer>
   );
 };

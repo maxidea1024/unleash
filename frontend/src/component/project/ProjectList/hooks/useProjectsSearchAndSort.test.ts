@@ -55,7 +55,11 @@ describe('useProjectsSearchAndSort', () => {
   it('should handle projects with no sorting key (default behavior)', () => {
     const { result } = renderHook(() => useProjectsSearchAndSort(projects));
 
-    expect(result.current.map((project) => `${project.name}${project.favorite ? ' - favorite' : ''}`)).toEqual([
+    expect(
+      result.current.map(
+        (project) => `${project.name}${project.favorite ? ' - favorite' : ''}`,
+      ),
+    ).toEqual([
       'D - Shark - favorite',
       'F - Zebra - favorite',
       'A - Eagle',
@@ -66,10 +70,15 @@ describe('useProjectsSearchAndSort', () => {
   });
 
   it('should return projects sorted by creation date in descending order', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, undefined, 'created'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, undefined, 'created'),
+    );
 
     expect(
-      result.current.map((project) => `${project.name} - ${project.createdAt}${project.favorite ? ' - favorite' : ''}`),
+      result.current.map(
+        (project) =>
+          `${project.name} - ${project.createdAt}${project.favorite ? ' - favorite' : ''}`,
+      ),
     ).toEqual([
       'D - Shark - 2024-03-01 - favorite',
       'F - Zebra - 2024-02-15 - favorite',
@@ -81,11 +90,14 @@ describe('useProjectsSearchAndSort', () => {
   });
 
   it('should return projects sorted by last updated date in descending order', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, undefined, 'updated'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, undefined, 'updated'),
+    );
 
     expect(
       result.current.map(
-        (project) => `${project.name} - ${project.lastUpdatedAt}${project.favorite ? ' - favorite' : ''}`,
+        (project) =>
+          `${project.name} - ${project.lastUpdatedAt}${project.favorite ? ' - favorite' : ''}`,
       ),
     ).toEqual([
       'D - Shark - 2024-03-10 - favorite',
@@ -98,11 +110,14 @@ describe('useProjectsSearchAndSort', () => {
   });
 
   it('should return projects sorted by last reported flag usage in descending order', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, undefined, 'seen'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, undefined, 'seen'),
+    );
 
     expect(
       result.current.map(
-        (project) => `${project.name} - ${project.lastReportedFlagUsage}${project.favorite ? ' - favorite' : ''}`,
+        (project) =>
+          `${project.name} - ${project.lastReportedFlagUsage}${project.favorite ? ' - favorite' : ''}`,
       ),
     ).toEqual([
       'D - Shark - 2024-03-15 - favorite',
@@ -115,26 +130,35 @@ describe('useProjectsSearchAndSort', () => {
   });
 
   it('should filter projects by query and return sorted by name', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, 'e', 'name'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, 'e', 'name'),
+    );
 
-    expect(result.current.map((project) => `${project.name}${project.favorite ? ' - favorite' : ''}`)).toEqual([
-      'F - Zebra - favorite',
-      'A - Eagle',
-      'B - Horse',
-      'E - Tiger',
-    ]);
+    expect(
+      result.current.map(
+        (project) => `${project.name}${project.favorite ? ' - favorite' : ''}`,
+      ),
+    ).toEqual(['F - Zebra - favorite', 'A - Eagle', 'B - Horse', 'E - Tiger']);
   });
 
   it('should handle query that does not match any projects', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, 'Nonexistent'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, 'Nonexistent'),
+    );
 
     expect(result.current).toEqual([]);
   });
 
   it('should handle query that matches some projects', () => {
-    const { result } = renderHook(() => useProjectsSearchAndSort(projects, 'R'));
+    const { result } = renderHook(() =>
+      useProjectsSearchAndSort(projects, 'R'),
+    );
 
-    expect(result.current.map((project) => `${project.name}${project.favorite ? ' - favorite' : ''}`)).toEqual([
+    expect(
+      result.current.map(
+        (project) => `${project.name}${project.favorite ? ' - favorite' : ''}`,
+      ),
+    ).toEqual([
       'D - Shark - favorite',
       'F - Zebra - favorite',
       'B - Horse',
@@ -170,13 +194,22 @@ describe('useProjectsSearchAndSort', () => {
       },
     );
 
-    expect(hook.result.current.map((project) => project.name)).toEqual(['Project B', 'Project A']);
+    expect(hook.result.current.map((project) => project.name)).toEqual([
+      'Project B',
+      'Project A',
+    ]);
 
     hook.rerender('updated');
-    expect(hook.result.current.map((project) => project.name)).toEqual(['Project A', 'Project B']);
+    expect(hook.result.current.map((project) => project.name)).toEqual([
+      'Project A',
+      'Project B',
+    ]);
 
     hook.rerender('seen');
-    expect(hook.result.current.map((project) => project.name)).toEqual(['Project B', 'Project A']);
+    expect(hook.result.current.map((project) => project.name)).toEqual([
+      'Project B',
+      'Project A',
+    ]);
   });
 
   it('should use createdAt if lastUpdatedAt is not available', () => {
@@ -204,6 +237,9 @@ describe('useProjectsSearchAndSort', () => {
       },
     );
 
-    expect(result.current.map((project) => project.name)).toEqual(['Project B', 'Project A']);
+    expect(result.current.map((project) => project.name)).toEqual([
+      'Project B',
+      'Project A',
+    ]);
   });
 });

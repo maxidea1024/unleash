@@ -12,7 +12,11 @@ export const useTrafficLimit = () => {
     return proPlanIncludedRequests;
   }
 
-  if (isEnterprisePaygEnabled && isEnterprise() && uiConfig.billing === 'pay-as-you-go') {
+  if (
+    isEnterprisePaygEnabled &&
+    isEnterprise() &&
+    uiConfig.billing === 'pay-as-you-go'
+  ) {
     return paygPlanIncludedRequests;
   }
 

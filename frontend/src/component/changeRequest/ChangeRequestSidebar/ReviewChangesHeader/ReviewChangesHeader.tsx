@@ -33,7 +33,9 @@ export const ReviewChangesHeader: FC = () => (
             <StyledHelpOutline />
           </Tooltip>
         </Box>
-        <StyledHeaderHint>Make sure you are sending the right changes to be reviewed</StyledHeaderHint>
+        <StyledHeaderHint>
+          Make sure you are sending the right changes to be reviewed
+        </StyledHeaderHint>
       </>
     }
   />

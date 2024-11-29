@@ -1,4 +1,10 @@
-import { Avatar, type AvatarProps, styled, type SxProps, type Theme } from '@mui/material';
+import {
+  Avatar,
+  type AvatarProps,
+  styled,
+  type SxProps,
+  type Theme,
+} from '@mui/material';
 import type { IUser } from 'interfaces/user';
 import { forwardRef } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -14,19 +20,26 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 export interface IUserAvatarProps extends AvatarProps {
-  user?: Partial<Pick<IUser, 'id' | 'name' | 'email' | 'username' | 'imageUrl'>>;
+  user?: Partial<
+    Pick<IUser, 'id' | 'name' | 'email' | 'username' | 'imageUrl'>
+  >;
   src?: string;
   className?: string;
   sx?: SxProps<Theme>;
   disableTooltip?: boolean;
 }
 
-const tooltipContent = (user: IUserAvatarProps['user']): { main: string; secondary?: string } | undefined => {
+const tooltipContent = (
+  user: IUserAvatarProps['user'],
+): { main: string; secondary?: string } | undefined => {
   if (!user) {
     return undefined;
   }
 
-  const [mainIdentifier, secondaryInfo] = [user.email || user.username, user.name];
+  const [mainIdentifier, secondaryInfo] = [
+    user.email || user.username,
+    user.name,
+  ];
 
   if (mainIdentifier) {
     return { main: mainIdentifier, secondary: secondaryInfo };
@@ -53,7 +66,8 @@ export const UserAvatar = forwardRef<HTMLDivElement, IUserAvatarProps>(
     if (!children && user) {
       fallback = user?.name || user?.email || user?.username;
       if (fallback?.includes(' ')) {
-        fallback = `${fallback.split(' ')[0][0]}${fallback.split(' ')[1][0]}`.toUpperCase();
+        fallback =
+          `${fallback.split(' ')[0][0]}${fallback.split(' ')[1][0]}`.toUpperCase();
       } else if (fallback) {
         fallback = fallback[0].toUpperCase();
       }
@@ -69,7 +83,11 @@ export const UserAvatar = forwardRef<HTMLDivElement, IUserAvatarProps>(
         alt={user?.name || user?.email || user?.username || 'Gravatar'}
         src={src || user?.imageUrl}
       >
-        <ConditionallyRender condition={Boolean(fallback)} show={fallback} elseShow={children} />
+        <ConditionallyRender
+          condition={Boolean(fallback)}
+          show={fallback}
+          elseShow={children}
+        />
       </StyledAvatar>
     );
 
@@ -81,7 +99,9 @@ export const UserAvatar = forwardRef<HTMLDivElement, IUserAvatarProps>(
           describeChild
           title={
             <>
-              <TooltipSecondaryContent>{tooltip.secondary}</TooltipSecondaryContent>
+              <TooltipSecondaryContent>
+                {tooltip.secondary}
+              </TooltipSecondaryContent>
               <TooltipMainContent>{tooltip.main}</TooltipMainContent>
             </>
           }

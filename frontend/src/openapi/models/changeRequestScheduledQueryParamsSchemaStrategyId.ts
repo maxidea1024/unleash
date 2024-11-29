@@ -7,4 +7,6 @@
 /**
  * One or more strategy IDs.
  */
-export type ChangeRequestScheduledQueryParamsSchemaStrategyId = string[] | string;
+export type ChangeRequestScheduledQueryParamsSchemaStrategyId =
+  | string[]
+  | string;

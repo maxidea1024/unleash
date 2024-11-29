@@ -3,7 +3,8 @@ import type { FromSchema } from 'json-schema-to-ts';
 export const batchStaleSchema = {
   $id: '#/components/schemas/batchStaleSchema',
   type: 'object',
-  description: 'A list of features to operate on and whether they should be marked as stale or as not stale.',
+  description:
+    'A list of features to operate on and whether they should be marked as stale or as not stale.',
   required: ['features', 'stale'],
   properties: {
     features: {

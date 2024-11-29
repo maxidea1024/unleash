@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 export const normalizeTopLevelPath = (pathname: string) => {
   const parts = pathname.split('/').filter((part) => part);
 
-  const isEmptyPath = parts.length === 0 || (parts[0] === 'admin' && parts.length === 1);
+  const isEmptyPath =
+    parts.length === 0 || (parts[0] === 'admin' && parts.length === 1);
   if (isEmptyPath) {
     return '/projects';
   }

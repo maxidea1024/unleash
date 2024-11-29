@@ -19,7 +19,8 @@ export const updateContextFieldSchema = {
     },
     sortOrder: {
       type: 'integer',
-      description: 'How this context field should be sorted if no other sort order is selected',
+      description:
+        'How this context field should be sorted if no other sort order is selected',
       example: 2,
     },
     legalValues: {
@@ -38,4 +39,6 @@ export const updateContextFieldSchema = {
   },
 } as const;
 
-export type UpdateContextFieldSchema = FromSchema<typeof updateContextFieldSchema>;
+export type UpdateContextFieldSchema = FromSchema<
+  typeof updateContextFieldSchema
+>;

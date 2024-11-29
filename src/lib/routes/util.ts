@@ -13,7 +13,11 @@ export const customJoi = joi.extend((j) => ({
   },
   validate(value, helpers) {
     // Base validation regardless of the rules applied
-    if (encodeURIComponent(value) !== value || value === '..' || value === '.') {
+    if (
+      encodeURIComponent(value) !== value ||
+      value === '..' ||
+      value === '.'
+    ) {
       // Generate an error, state and options need to be passed
       return { value, errors: helpers.error('isUrlFriendly.base') };
     }
@@ -24,7 +28,11 @@ export const customJoi = joi.extend((j) => ({
 
 export const nameType = customJoi.isUrlFriendly().min(1).max(100).required();
 
-export const handleErrors: (res: Response, logger: Logger, error: Error) => void = (res, logger, error) => {
+export const handleErrors: (
+  res: Response,
+  logger: Logger,
+  error: Error,
+) => void = (res, logger, error) => {
   if (createError.isHttpError(error)) {
     return res
       .status(
@@ -34,7 +42,8 @@ export const handleErrors: (res: Response, logger: Logger, error: Error) => void
       .json({ message: error.message });
   }
 
-  const finalError = error instanceof UnleashError ? error : fromLegacyError(error);
+  const finalError =
+    error instanceof UnleashError ? error : fromLegacyError(error);
 
   const format = (thing: object) => JSON.stringify(thing, null, 2);
 

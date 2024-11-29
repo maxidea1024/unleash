@@ -3,8 +3,14 @@ import { Box, styled } from '@mui/material';
 import type { IFeatureStrategyParameters } from 'interfaces/strategy';
 import RolloutSlider from '../RolloutSlider/RolloutSlider';
 import Input from 'component/common/Input/Input';
-import { FLEXIBLE_STRATEGY_GROUP_ID, FLEXIBLE_STRATEGY_STICKINESS_ID } from 'utils/testIds';
-import { parseParameterNumber, parseParameterString } from 'utils/parseParameter';
+import {
+  FLEXIBLE_STRATEGY_GROUP_ID,
+  FLEXIBLE_STRATEGY_STICKINESS_ID,
+} from 'utils/testIds';
+import {
+  parseParameterNumber,
+  parseParameterString,
+} from 'utils/parseParameter';
 import { StickinessSelect } from './StickinessSelect/StickinessSelect';
 import { useDefaultProjectSettings } from 'hooks/useDefaultProjectSettings';
 import Loader from '../../../common/Loader/Loader';
@@ -46,7 +52,12 @@ const StyledInnerBox2 = styled(Box)(({ theme }) => ({
   marginLeft: theme.spacing(0.5),
 }));
 
-const FlexibleStrategy = ({ updateParameter, parameters, editable = true, errors }: IFlexibleStrategyProps) => {
+const FlexibleStrategy = ({
+  updateParameter,
+  parameters,
+  editable = true,
+  errors,
+}: IFlexibleStrategyProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useOptionalPathParam('featureId');
   const { defaultStickiness, loading } = useDefaultProjectSettings(projectId);
@@ -58,7 +69,10 @@ const FlexibleStrategy = ({ updateParameter, parameters, editable = true, errors
     updateParameter('rollout', value.toString());
   };
 
-  const rollout = parameters.rollout !== undefined ? parseParameterNumber(parameters.rollout) : 100;
+  const rollout =
+    parameters.rollout !== undefined
+      ? parseParameterNumber(parameters.rollout)
+      : 100;
 
   const stickiness = useMemo(() => {
     if (!parameters.stickiness && !loading) {
@@ -86,7 +100,12 @@ const FlexibleStrategy = ({ updateParameter, parameters, editable = true, errors
 
   return (
     <StyledBox>
-      <RolloutSlider name='Rollout' value={rollout} disabled={!editable} onChange={updateRollout} />
+      <RolloutSlider
+        name='Rollout'
+        value={rollout}
+        disabled={!editable}
+        onChange={updateRollout}
+      />
       <StyledOuterBox>
         <StyledInnerBox1>
           <StickinessSelect
@@ -104,7 +123,9 @@ const FlexibleStrategy = ({ updateParameter, parameters, editable = true, errors
             id='groupId-input'
             value={groupId}
             disabled={!editable}
-            onChange={(e) => updateParameter('groupId', parseParameterString(e.target.value))}
+            onChange={(e) =>
+              updateParameter('groupId', parseParameterString(e.target.value))
+            }
             data-testid={FLEXIBLE_STRATEGY_GROUP_ID}
             error={Boolean(errors?.getFormError('groupId'))}
             helperText={errors?.getFormError('groupId')}

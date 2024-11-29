@@ -16,7 +16,9 @@ test('segmentStrategiesSchema', () => {
     },
   ];
   validExamples.forEach((obj) => {
-    expect(validateSchema('#/components/schemas/segmentStrategiesSchema', obj)).toBeUndefined();
+    expect(
+      validateSchema('#/components/schemas/segmentStrategiesSchema', obj),
+    ).toBeUndefined();
   });
 
   const invalidExamples = [
@@ -34,6 +36,8 @@ test('segmentStrategiesSchema', () => {
     },
   ];
   invalidExamples.forEach((obj) => {
-    expect(validateSchema('#/components/schemas/segmentStrategiesSchema', obj)).toMatchSnapshot();
+    expect(
+      validateSchema('#/components/schemas/segmentStrategiesSchema', obj),
+    ).toMatchSnapshot();
   });
 });

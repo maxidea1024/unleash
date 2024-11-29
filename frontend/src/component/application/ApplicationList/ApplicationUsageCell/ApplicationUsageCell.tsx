@@ -41,7 +41,9 @@ const formatProject = (projectInfo: IApplicationUsage, index: number) => {
 
 export const ApplicationUsageCell = ({ usage }: IApplicationUsageCellProps) => {
   const theme = useTheme();
-  const formattedProjects = usage?.flatMap((p, index) => formatProject(p, index));
+  const formattedProjects = usage?.flatMap((p, index) =>
+    formatProject(p, index),
+  );
   return (
     <TextCell>
       <ConditionallyRender

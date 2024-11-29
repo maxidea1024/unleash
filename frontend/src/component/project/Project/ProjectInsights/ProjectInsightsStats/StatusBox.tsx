@@ -103,7 +103,11 @@ export const StatusBox: FC<IStatusBoxProps> = ({
       <StyledTypographyCount data-loading>{boxText}</StyledTypographyCount>
       <ConditionallyRender
         condition={Boolean(customChangeElement)}
-        show={<StyledBoxChangeContainer data-loading>{customChangeElement}</StyledBoxChangeContainer>}
+        show={
+          <StyledBoxChangeContainer data-loading>
+            {customChangeElement}
+          </StyledBoxChangeContainer>
+        }
         elseShow={
           <ConditionallyRender
             condition={change !== undefined && change !== 0}
@@ -115,7 +119,9 @@ export const StatusBox: FC<IStatusBoxProps> = ({
                   }}
                 >
                   {resolveIcon(change as number)}
-                  <StyledTypographyChange color={resolveColor(change as number)}>
+                  <StyledTypographyChange
+                    color={resolveColor(change as number)}
+                  >
                     {(change as number) > 0 ? '+' : ''}
                     {change}
                     {percentage ? '%' : ''}
@@ -126,7 +132,9 @@ export const StatusBox: FC<IStatusBoxProps> = ({
             }
             elseShow={
               <StyledBoxChangeContainer>
-                <StyledTypographySubtext data-loading>No change</StyledTypographySubtext>
+                <StyledTypographySubtext data-loading>
+                  No change
+                </StyledTypographySubtext>
               </StyledBoxChangeContainer>
             }
           />

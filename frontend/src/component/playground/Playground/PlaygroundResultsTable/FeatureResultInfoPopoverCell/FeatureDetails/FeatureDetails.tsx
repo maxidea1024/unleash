@@ -4,7 +4,11 @@ import { PlaygroundResultChip } from '../../PlaygroundResultChip/PlaygroundResul
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 import type React from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { checkForEmptyValues, hasCustomStrategies, hasOnlyCustomStrategies } from './helpers';
+import {
+  checkForEmptyValues,
+  hasCustomStrategies,
+  hasOnlyCustomStrategies,
+} from './helpers';
 
 const StyledDivWrapper = styled('div')({
   display: 'flex',
@@ -41,7 +45,11 @@ interface PlaygroundFeatureResultDetailsProps {
   input?: PlaygroundRequestSchema;
   onClose: () => void;
 }
-export const FeatureDetails = ({ feature, input, onClose }: PlaygroundFeatureResultDetailsProps) => {
+export const FeatureDetails = ({
+  feature,
+  input,
+  onClose,
+}: PlaygroundFeatureResultDetailsProps) => {
   const theme = useTheme();
 
   const [description, reason, color] = (() => {
@@ -52,7 +60,10 @@ export const FeatureDetails = ({ feature, input, onClose }: PlaygroundFeatureRes
         theme.palette.success.main,
       ];
 
-    if (feature.hasUnsatisfiedDependency && !feature.isEnabledInCurrentEnvironment) {
+    if (
+      feature.hasUnsatisfiedDependency &&
+      !feature.isEnabledInCurrentEnvironment
+    ) {
       return [
         `This feature flag is False in ${input?.environment} because `,
         'parent dependency is not satisfied and the environment is disabled',
@@ -115,13 +126,24 @@ export const FeatureDetails = ({ feature, input, onClose }: PlaygroundFeatureRes
     <>
       <StyledDivWrapper>
         <StyledDivTitleRow>
-          <StyledTypographyName variant={'subtitle1'}>{feature.name}</StyledTypographyName>
+          <StyledTypographyName variant={'subtitle1'}>
+            {feature.name}
+          </StyledTypographyName>
           <ConditionallyRender
             condition={feature?.strategies?.result !== 'unknown'}
             show={() => (
-              <PlaygroundResultChip enabled={feature.isEnabled} label={feature.isEnabled ? 'True' : 'False'} />
+              <PlaygroundResultChip
+                enabled={feature.isEnabled}
+                label={feature.isEnabled ? 'True' : 'False'}
+              />
             )}
-            elseShow={() => <PlaygroundResultChip enabled='unknown' label={'Unknown'} showIcon={false} />}
+            elseShow={() => (
+              <PlaygroundResultChip
+                enabled='unknown'
+                label={'Unknown'}
+                showIcon={false}
+              />
+            )}
           />
         </StyledDivTitleRow>
         <StyledIconButton onClick={onCloseClick}>

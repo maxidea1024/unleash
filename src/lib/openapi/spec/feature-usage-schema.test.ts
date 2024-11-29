@@ -17,5 +17,7 @@ test('featureUsageSchema', () => {
     seenApplications: [],
   };
 
-  expect(validateSchema('#/components/schemas/featureUsageSchema', data)).toBeUndefined();
+  expect(
+    validateSchema('#/components/schemas/featureUsageSchema', data),
+  ).toBeUndefined();
 });

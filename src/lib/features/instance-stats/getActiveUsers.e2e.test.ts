@@ -81,9 +81,14 @@ test('should handle intervals of activity', async () => {
 });
 
 test('should count user as active if they have an active token', async () => {
-  const users = await db.rawDatabase('users').insert(mockUserDaysAgo(100)).returning('id');
+  const users = await db
+    .rawDatabase('users')
+    .insert(mockUserDaysAgo(100))
+    .returning('id');
   const userId = users[0].id;
-  await db.rawDatabase('personal_access_tokens').insert(mockTokenDaysAgo(userId, 31));
+  await db
+    .rawDatabase('personal_access_tokens')
+    .insert(mockTokenDaysAgo(userId, 31));
 
   await expect(getActiveUsers()).resolves.toEqual({
     last7: 0,
@@ -94,11 +99,18 @@ test('should count user as active if they have an active token', async () => {
 });
 
 test('should prioritize user seen_at if newer then token seen_at', async () => {
-  const users = await db.rawDatabase('users').insert(mockUserDaysAgo(14)).returning('id');
+  const users = await db
+    .rawDatabase('users')
+    .insert(mockUserDaysAgo(14))
+    .returning('id');
   const userId = users[0].id;
   await db
     .rawDatabase('personal_access_tokens')
-    .insert([mockTokenDaysAgo(userId, 31), mockTokenDaysAgo(userId, 61), mockTokenDaysAgo(userId, 91)]);
+    .insert([
+      mockTokenDaysAgo(userId, 31),
+      mockTokenDaysAgo(userId, 61),
+      mockTokenDaysAgo(userId, 91),
+    ]);
 
   await expect(getActiveUsers()).resolves.toEqual({
     last7: 0,

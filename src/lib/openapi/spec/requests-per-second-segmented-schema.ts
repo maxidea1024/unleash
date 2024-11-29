@@ -19,4 +19,6 @@ export const requestsPerSecondSegmentedSchema = {
   },
 } as const;
 
-export type RequestsPerSecondSegmentedSchema = FromSchema<typeof requestsPerSecondSegmentedSchema>;
+export type RequestsPerSecondSegmentedSchema = FromSchema<
+  typeof requestsPerSecondSegmentedSchema
+>;

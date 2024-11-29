@@ -36,7 +36,10 @@ import { TableEmptyState } from './TableEmptyState/TableEmptyState';
 import { useRowActions } from './hooks/useRowActions';
 import { useSelectedData } from './hooks/useSelectedData';
 import { FeatureOverviewCell } from 'component/common/Table/cells/FeatureOverviewCell/FeatureOverviewCell';
-import { useProjectFeatureSearch, useProjectFeatureSearchActions } from './useProjectFeatureSearch';
+import {
+  useProjectFeatureSearch,
+  useProjectFeatureSearchActions,
+} from './useProjectFeatureSearch';
 import { AvatarCell } from './AvatarCell';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { styled } from '@mui/material';
@@ -57,7 +60,8 @@ interface IPaginatedProjectFeatureTogglesProps {
   environments: string[];
 }
 
-const formatEnvironmentColumnId = (environment: string) => `environment:${environment}`;
+const formatEnvironmentColumnId = (environment: string) =>
+  `environment:${environment}`;
 
 const columnHelper = createColumnHelper<FeatureSearchResponseSchema>();
 const getRowId = (row: { name: string }) => row.name;
@@ -81,7 +85,9 @@ const ButtonGroup = styled('div')(({ theme }) => ({
   paddingInline: theme.spacing(1.5),
 }));
 
-export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeatureTogglesProps) => {
+export const ProjectFeatureToggles = ({
+  environments,
+}: IPaginatedProjectFeatureTogglesProps) => {
   const { trackEvent } = usePlausibleTracker();
   const onboardingUIEnabled = useUiFlag('onboardingUI');
   const projectId = useRequiredPathParam('projectId');
@@ -90,10 +96,18 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
   const simplifyProjectOverview = useUiFlag('simplifyProjectOverview');
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { features, total, refetch, loading, initialLoad, tableState, setTableState } =
-    useProjectFeatureSearch(projectId);
+  const {
+    features,
+    total,
+    refetch,
+    loading,
+    initialLoad,
+    tableState,
+    setTableState,
+  } = useProjectFeatureSearch(projectId);
 
-  const { onFlagTypeClick, onTagClick, onAvatarClick } = useProjectFeatureSearchActions(tableState, setTableState);
+  const { onFlagTypeClick, onTagClick, onAvatarClick } =
+    useProjectFeatureSearchActions(tableState, setTableState);
 
   const filterState = {
     tag: tableState.tag,
@@ -117,7 +131,8 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
     [projectId, refetch],
   );
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
-  const { onToggle: onFeatureToggle, modals: featureToggleModals } = useFeatureToggleSwitch(projectId);
+  const { onToggle: onFeatureToggle, modals: featureToggleModals } =
+    useFeatureToggleSwitch(projectId);
   const {
     rowActionsDialogs,
     setFeatureArchiveState,
@@ -129,21 +144,21 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
 
   const isPlaceholder = Boolean(initialLoad || (loading && total));
 
-  const [onboardingFlow, setOnboardingFlow] = useLocalStorageState<'visible' | 'closed'>(
-    `onboarding-flow:v1-${projectId}`,
-    'visible',
-  );
-  const [setupCompletedState, setSetupCompletedState] = useLocalStorageState<'hide-setup' | 'show-setup'>(
-    `onboarding-state:v1-${projectId}`,
-    'hide-setup',
-  );
+  const [onboardingFlow, setOnboardingFlow] = useLocalStorageState<
+    'visible' | 'closed'
+  >(`onboarding-flow:v1-${projectId}`, 'visible');
+  const [setupCompletedState, setSetupCompletedState] = useLocalStorageState<
+    'hide-setup' | 'show-setup'
+  >(`onboarding-state:v1-${projectId}`, 'hide-setup');
 
   const notOnboarding =
     !onboardingUIEnabled ||
     (onboardingUIEnabled && project.onboardingStatus.status === 'onboarded') ||
     onboardingFlow === 'closed';
   const isOnboarding =
-    onboardingUIEnabled && project.onboardingStatus.status !== 'onboarded' && onboardingFlow === 'visible';
+    onboardingUIEnabled &&
+    project.onboardingStatus.status !== 'onboarded' &&
+    onboardingFlow === 'visible';
   const noFeaturesExistInProject = project.featureTypeCounts?.length === 0;
   const showFeaturesTable = !noFeaturesExistInProject || notOnboarding;
 
@@ -194,7 +209,10 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
           />
         ),
         cell: ({ row: { original: feature } }) => (
-          <FavoriteIconCell value={feature?.favorite} onClick={() => onFavorite(feature)} />
+          <FavoriteIconCell
+            value={feature?.favorite}
+            onClick={() => onFavorite(feature)}
+          />
         ),
         enableSorting: false,
         enableHiding: false,
@@ -233,7 +251,9 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
       columnHelper.accessor('lastSeenAt', {
         id: 'lastSeenAt',
         header: 'Last seen',
-        cell: ({ row: { original } }) => <MemoizedFeatureEnvironmentSeenCell feature={original} data-loading />,
+        cell: ({ row: { original } }) => (
+          <MemoizedFeatureEnvironmentSeenCell feature={original} data-loading />
+        ),
         size: 50,
         meta: {
           align: 'center',
@@ -271,11 +291,15 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
           (row) => ({
             archived: row.archivedAt !== null,
             featureId: row.name,
-            environment: row.environments?.find((featureEnvironment) => featureEnvironment.name === name),
+            environment: row.environments?.find(
+              (featureEnvironment) => featureEnvironment.name === name,
+            ),
             someEnabledEnvironmentHasVariants:
               row.environments?.some(
                 (featureEnvironment) =>
-                  featureEnvironment.variantCount && featureEnvironment.variantCount > 0 && featureEnvironment.enabled,
+                  featureEnvironment.variantCount &&
+                  featureEnvironment.variantCount > 0 &&
+                  featureEnvironment.enabled,
               ) || false,
           }),
           {
@@ -286,7 +310,12 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
               width: 90,
             },
             cell: ({ getValue }) => {
-              const { featureId, environment, someEnabledEnvironmentHasVariants, archived } = getValue();
+              const {
+                featureId,
+                environment,
+                someEnabledEnvironmentHasVariants,
+                archived,
+              } = getValue();
 
               return isPlaceholder ? (
                 <PlaceholderFeatureToggleCell />
@@ -296,7 +325,9 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
                 <FeatureToggleCell
                   value={environment?.enabled || false}
                   featureId={featureId}
-                  someEnabledEnvironmentHasVariants={someEnabledEnvironmentHasVariants}
+                  someEnabledEnvironmentHasVariants={
+                    someEnabledEnvironmentHasVariants
+                  }
                   environment={environment}
                   projectId={projectId}
                   environmentName={name}
@@ -346,7 +377,13 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
         },
       }),
     ],
-    [projectId, environments, tableState.favoritesFirst, refetch, isPlaceholder],
+    [
+      projectId,
+      environments,
+      tableState.favoritesFirst,
+      refetch,
+      isPlaceholder,
+    ],
   );
 
   const placeholderData = useMemo(
@@ -395,7 +432,10 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
     }
     return features;
   }, [isPlaceholder, JSON.stringify(features)]);
-  const allColumnIds = useMemo(() => columns.map((column) => column.id).filter(Boolean) as string[], [columns]);
+  const allColumnIds = useMemo(
+    () => columns.map((column) => column.id).filter(Boolean) as string[],
+    [columns],
+  );
 
   const defaultColumnVisibility = useDefaultColumnVisibility(allColumnIds);
 
@@ -421,7 +461,8 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
       };
       setTableState({
         columns: Object.keys(newColumnVisibility).filter(
-          (columnId) => newColumnVisibility[columnId] && !columnId.includes(','),
+          (columnId) =>
+            newColumnVisibility[columnId] && !columnId.includes(','),
         ),
       });
     },
@@ -505,7 +546,10 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
                       ...environments.map((environment) => ({
                         header: environment,
                         id: formatEnvironmentColumnId(environment),
-                        isVisible: columnVisibility[formatEnvironmentColumnId(environment)],
+                        isVisible:
+                          columnVisibility[
+                            formatEnvironmentColumnId(environment)
+                          ],
                       })),
                     ]}
                     onToggle={onToggleColumnVisibility}
@@ -516,9 +560,17 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
             bodyClass='noop'
             style={{ cursor: 'inherit' }}
           >
-            <div ref={bodyLoadingRef} aria-busy={isPlaceholder} aria-live='polite'>
+            <div
+              ref={bodyLoadingRef}
+              aria-busy={isPlaceholder}
+              aria-live='polite'
+            >
               <FilterRow>
-                <ProjectOverviewFilters project={projectId} onChange={setTableState} state={filterState} />
+                <ProjectOverviewFilters
+                  project={projectId}
+                  onChange={setTableState}
+                  state={filterState}
+                />
                 {simplifyProjectOverview && (
                   <ButtonGroup>
                     <PermissionIconButton
@@ -559,7 +611,11 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
         }}
         project={projectId}
         environments={environments}
-        feature={'feature' in project.onboardingStatus ? project.onboardingStatus.feature : undefined}
+        feature={
+          'feature' in project.onboardingStatus
+            ? project.onboardingStatus.feature
+            : undefined
+        }
       />
       <BatchSelectionActionsBar count={selectedData.length}>
         {tableState.archived ? (
@@ -582,7 +638,11 @@ export const ProjectFeatureToggles = ({ environments }: IPaginatedProjectFeature
         )}
       </BatchSelectionActionsBar>
 
-      <ImportModal open={modalOpen} setOpen={setModalOpen} project={projectId} />
+      <ImportModal
+        open={modalOpen}
+        setOpen={setModalOpen}
+        project={projectId}
+      />
     </Container>
   );
 };

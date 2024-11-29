@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { AccessService, type AccessWithRoles } from '../../lib/services/access-service';
+import {
+  AccessService,
+  type AccessWithRoles,
+} from '../../lib/services/access-service';
 import type User from '../../lib/types/user';
 import noLoggerProvider from './no-logger';
 import type { IRole } from '../../lib/types/stores/access-store';
@@ -21,7 +24,11 @@ class AccessServiceMock extends AccessService {
     );
   }
 
-  hasPermission(user: User, permission: string, projectId?: string): Promise<boolean> {
+  hasPermission(
+    user: User,
+    permission: string,
+    projectId?: string,
+  ): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
@@ -37,11 +44,19 @@ class AccessServiceMock extends AccessService {
     return Promise.resolve();
   }
 
-  addPermissionToRole(roleId: number, permission: string, projectId?: string): Promise<void> {
+  addPermissionToRole(
+    roleId: number,
+    permission: string,
+    projectId?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  removePermissionFromRole(roleId: number, permission: string, projectId?: string): Promise<void> {
+  removePermissionFromRole(
+    roleId: number,
+    permission: string,
+    projectId?: string,
+  ): Promise<void> {
     throw new Error('Method not implemented.');
   }
 

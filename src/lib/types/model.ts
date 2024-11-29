@@ -4,7 +4,10 @@ import type { IRole } from './stores/access-store';
 import type { IUser } from './user';
 import type { ALL_OPERATORS } from '../util';
 import type { IProjectStats } from '../features/project/project-service';
-import type { CreateFeatureStrategySchema, ProjectOverviewSchema } from '../openapi';
+import type {
+  CreateFeatureStrategySchema,
+  ProjectOverviewSchema,
+} from '../openapi';
 import type { ProjectEnvironment } from '../features/project/project-store-type';
 import type { FeatureSearchEnvironmentSchema } from '../openapi/spec/feature-search-environment-schema';
 import type { IntegrationEventsService } from '../features/integration-events/integration-events-service';
@@ -167,7 +170,12 @@ export interface IDependency {
   enabled?: boolean;
 }
 
-export type StageName = 'initial' | 'pre-live' | 'live' | 'completed' | 'archived';
+export type StageName =
+  | 'initial'
+  | 'pre-live'
+  | 'live'
+  | 'completed'
+  | 'archived';
 
 export interface IFeatureLifecycleStage {
   stage: StageName;
@@ -250,7 +258,10 @@ export interface IFeatureOverview {
   lifecycle?: IFeatureLifecycleStage;
 }
 
-export type IFeatureSearchOverview = Exclude<IFeatureOverview, 'environments'> & {
+export type IFeatureSearchOverview = Exclude<
+  IFeatureOverview,
+  'environments'
+> & {
   dependencyType: 'parent' | 'child' | null;
   environments: FeatureSearchEnvironmentSchema[];
   archivedAt: string;

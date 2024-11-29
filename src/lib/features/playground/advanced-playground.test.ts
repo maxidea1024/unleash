@@ -1,4 +1,7 @@
-import { type IUnleashTest, setupAppWithCustomConfig } from '../../../test/e2e/helpers/test-helper';
+import {
+  type IUnleashTest,
+  setupAppWithCustomConfig,
+} from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { AdvancedPlaygroundResponseSchema } from '../../openapi';
@@ -42,15 +45,27 @@ const createFeatureToggleWithStrategy = async (
 ) => {
   await createFeatureToggle(featureName);
   return app.request
-    .post(`/api/admin/projects/default/features/${featureName}/environments/default/strategies`)
+    .post(
+      `/api/admin/projects/default/features/${featureName}/environments/default/strategies`,
+    )
     .send(strategy)
     .expect(200);
 };
 
 const enableToggle = (featureName: string) =>
-  app.request.post(`/api/admin/projects/default/features/${featureName}/environments/default/on`).send({}).expect(200);
+  app.request
+    .post(
+      `/api/admin/projects/default/features/${featureName}/environments/default/on`,
+    )
+    .send({})
+    .expect(200);
 const disableToggle = (featureName: string) =>
-  app.request.post(`/api/admin/projects/default/features/${featureName}/environments/default/off`).send({}).expect(200);
+  app.request
+    .post(
+      `/api/admin/projects/default/features/${featureName}/environments/default/off`,
+    )
+    .send({})
+    .expect(200);
 
 afterAll(async () => {
   await app.destroy();
@@ -335,16 +350,19 @@ test('show matching variant from variants selection only for enabled toggles', a
     weightType: 'variable',
   };
 
-  await createFeatureToggleWithStrategy('test-playground-feature-with-variants', {
-    name: 'flexibleRollout',
-    constraints: [],
-    parameters: {
-      rollout: '50',
-      stickiness: 'random',
-      groupId: 'test-playground-feature-with-variants',
+  await createFeatureToggleWithStrategy(
+    'test-playground-feature-with-variants',
+    {
+      name: 'flexibleRollout',
+      constraints: [],
+      parameters: {
+        rollout: '50',
+        stickiness: 'random',
+        groupId: 'test-playground-feature-with-variants',
+      },
+      variants: [variant],
     },
-    variants: [variant],
-  });
+  );
 
   await enableToggle('test-playground-feature-with-variants');
 
@@ -359,8 +377,12 @@ test('show matching variant from variants selection only for enabled toggles', a
     .expect(200);
 
   const typedResult: AdvancedPlaygroundResponseSchema = result;
-  const enabledFeatures = typedResult.features[0].environments.default.filter((item) => item.isEnabled);
-  const disabledFeatures = typedResult.features[0].environments.default.filter((item) => !item.isEnabled);
+  const enabledFeatures = typedResult.features[0].environments.default.filter(
+    (item) => item.isEnabled,
+  );
+  const disabledFeatures = typedResult.features[0].environments.default.filter(
+    (item) => !item.isEnabled,
+  );
 
   enabledFeatures.forEach((feature) => {
     expect(feature.variant?.name).toBe('a');
@@ -373,16 +395,19 @@ test('show matching variant from variants selection only for enabled toggles', a
 });
 
 test('should return disabled strategies with unevaluated result', async () => {
-  await createFeatureToggleWithStrategy('test-playground-feature-with-disabled-strategy', {
-    name: 'flexibleRollout',
-    constraints: [],
-    disabled: true,
-    parameters: {
-      rollout: '50',
-      stickiness: 'random',
-      groupId: 'test-playground-feature-with-variants',
+  await createFeatureToggleWithStrategy(
+    'test-playground-feature-with-disabled-strategy',
+    {
+      name: 'flexibleRollout',
+      constraints: [],
+      disabled: true,
+      parameters: {
+        rollout: '50',
+        stickiness: 'random',
+        groupId: 'test-playground-feature-with-variants',
+      },
     },
-  });
+  );
 
   const { body: result } = await app.request
     .post('/api/admin/playground/advanced')
@@ -397,8 +422,11 @@ test('should return disabled strategies with unevaluated result', async () => {
   const typedResult: AdvancedPlaygroundResponseSchema = result;
 
   const feature = typedResult.features.find(
-    (feature) => feature.name === 'test-playground-feature-with-disabled-strategy',
+    (feature) =>
+      feature.name === 'test-playground-feature-with-disabled-strategy',
   );
 
-  expect(feature?.environments.default[0].strategies.data[0].result.evaluationStatus).toBe('unevaluated');
+  expect(
+    feature?.environments.default[0].strategies.data[0].result.evaluationStatus,
+  ).toBe('unevaluated');
 });

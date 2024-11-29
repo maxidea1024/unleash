@@ -12,7 +12,11 @@ import {
 import { getStandardResponses } from '../../openapi/util/standard-responses';
 import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../../routes/unleash-types';
-import { createResponseSchema, projectStatusSchema, type ProjectStatusSchema } from '../../openapi';
+import {
+  createResponseSchema,
+  projectStatusSchema,
+  type ProjectStatusSchema,
+} from '../../openapi';
 import type { ProjectStatusService } from './project-status-service';
 
 export default class ProjectStatusController extends Controller {
@@ -53,8 +57,14 @@ export default class ProjectStatusController extends Controller {
     res: Response<ProjectStatusSchema>,
   ): Promise<void> {
     const { projectId } = req.params;
-    const status: ProjectStatusSchema = await this.projectStatusService.getProjectStatus(projectId);
+    const status: ProjectStatusSchema =
+      await this.projectStatusService.getProjectStatus(projectId);
 
-    this.openApiService.respondWithValidation(200, res, projectStatusSchema.$id, serializeDates(status));
+    this.openApiService.respondWithValidation(
+      200,
+      res,
+      projectStatusSchema.$id,
+      serializeDates(status),
+    );
   }
 }

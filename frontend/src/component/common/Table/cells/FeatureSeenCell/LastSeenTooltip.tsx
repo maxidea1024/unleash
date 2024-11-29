@@ -68,9 +68,15 @@ interface ILastSeenTooltipProps {
   sx?: SxProps<Theme>;
 }
 
-export const LastSeenTooltip = ({ environments, featureLastSeen, ...rest }: ILastSeenTooltipProps) => {
+export const LastSeenTooltip = ({
+  environments,
+  featureLastSeen,
+  ...rest
+}: ILastSeenTooltipProps) => {
   const getColor = useLastSeenColors();
-  const environmentsHaveLastSeen = environments?.some((environment) => Boolean(environment.lastSeenAt));
+  const environmentsHaveLastSeen = environments?.some((environment) =>
+    Boolean(environment.lastSeenAt),
+  );
 
   return (
     <StyledDescription {...rest} data-loading>
@@ -81,10 +87,16 @@ export const LastSeenTooltip = ({ environments, featureLastSeen, ...rest }: ILas
           <StyledListContainer>
             {environments?.map(({ name, lastSeenAt, yes, no }) => (
               <StyledDescriptionBlock key={name}>
-                <StyledDescriptionBlockHeader>{name}</StyledDescriptionBlockHeader>
+                <StyledDescriptionBlockHeader>
+                  {name}
+                </StyledDescriptionBlockHeader>
                 <StyledValueContainer>
                   <StyledValue color={getColor(lastSeenAt).text}>
-                    <TimeAgo date={lastSeenAt} refresh={false} fallback='no usage' />
+                    <TimeAgo
+                      date={lastSeenAt}
+                      refresh={false}
+                      fallback='no usage'
+                    />
                   </StyledValue>
                 </StyledValueContainer>
                 <LastSeenProgress yes={yes} no={no} />
@@ -93,7 +105,10 @@ export const LastSeenTooltip = ({ environments, featureLastSeen, ...rest }: ILas
           </StyledListContainer>
         }
         elseShow={
-          <Typography fontWeight={'bold'} color={getColor(featureLastSeen).text}>
+          <Typography
+            fontWeight={'bold'}
+            color={getColor(featureLastSeen).text}
+          >
             Reported <TimeAgo date={featureLastSeen} />
           </Typography>
         }

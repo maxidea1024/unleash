@@ -1,4 +1,7 @@
-import type { FeatureStrategySchema, ImportTogglesValidateItemSchema } from '../../openapi';
+import type {
+  FeatureStrategySchema,
+  ImportTogglesValidateItemSchema,
+} from '../../openapi';
 import type { IContextFieldDto } from '../../types/stores/context-field-store';
 import type { FeatureNameCheckResultWithFeaturePattern } from '../feature-toggle/feature-toggle-service';
 import type { ProjectFeaturesLimit } from './import-toggles-store-type';
@@ -22,7 +25,9 @@ export interface IWarningParams {
 }
 
 export class ImportValidationMessages {
-  static compilePermissionErrors(missingPermissions: string[]): ImportTogglesValidateItemSchema[] {
+  static compilePermissionErrors(
+    missingPermissions: string[],
+  ): ImportTogglesValidateItemSchema[] {
     const errors: ImportTogglesValidateItemSchema[] = [];
     if (missingPermissions.length > 0) {
       errors.push({
@@ -49,7 +54,8 @@ export class ImportValidationMessages {
 
     if (strategies.length > 0) {
       errors.push({
-        message: 'We detected the following custom strategy that needs to be created first:',
+        message:
+          'We detected the following custom strategy that needs to be created first:',
         affectedItems: strategies.map((strategy) => strategy.name),
       });
     }
@@ -68,7 +74,8 @@ export class ImportValidationMessages {
     }
     if (duplicateFeatures.length > 0) {
       errors.push({
-        message: 'We detected the following features are duplicate in your import data:',
+        message:
+          'We detected the following features are duplicate in your import data:',
         affectedItems: duplicateFeatures,
       });
     }
@@ -88,7 +95,11 @@ export class ImportValidationMessages {
         affectedItems: [...featureNameCheckResult.invalidNames].sort(),
       });
     }
-    if (featureLimitResult.currentFeaturesCount + featureLimitResult.newFeaturesCount > featureLimitResult.limit) {
+    if (
+      featureLimitResult.currentFeaturesCount +
+        featureLimitResult.newFeaturesCount >
+      featureLimitResult.limit
+    ) {
       errors.push({
         message: `We detected you want to create ${featureLimitResult.newFeaturesCount} new features to a project that already has ${featureLimitResult.currentFeaturesCount} existing features, exceeding the maximum limit of ${featureLimitResult.limit}.`,
         affectedItems: [],
@@ -97,14 +108,16 @@ export class ImportValidationMessages {
 
     if (segments.length > 0) {
       errors.push({
-        message: 'We detected the following segments that need to be created first:',
+        message:
+          'We detected the following segments that need to be created first:',
         affectedItems: segments,
       });
     }
 
     if (dependencies.length > 0) {
       errors.push({
-        message: 'We detected the following dependencies that need to be created first:',
+        message:
+          'We detected the following dependencies that need to be created first:',
         affectedItems: dependencies,
       });
     }
@@ -134,7 +147,8 @@ export class ImportValidationMessages {
     }
     if (existingFeatures.length > 0) {
       warnings.push({
-        message: 'The following features already exist in this project and will be overwritten:',
+        message:
+          'The following features already exist in this project and will be overwritten:',
         affectedItems: existingFeatures,
       });
     }

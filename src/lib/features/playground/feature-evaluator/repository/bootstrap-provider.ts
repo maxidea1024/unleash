@@ -32,6 +32,8 @@ export class DefaultBootstrapProvider implements BootstrapProvider {
   }
 }
 
-export function resolveBootstrapProvider(options: BootstrapOptions): BootstrapProvider {
+export function resolveBootstrapProvider(
+  options: BootstrapOptions,
+): BootstrapProvider {
   return new DefaultBootstrapProvider(options);
 }

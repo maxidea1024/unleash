@@ -11,7 +11,8 @@ export const personalDashboardProjectDetailsSchema = {
   properties: {
     insights: {
       type: 'object',
-      description: 'Insights for the project, including flag data and project health information.',
+      description:
+        'Insights for the project, including flag data and project health information.',
       additionalProperties: false,
       required: [
         'avgHealthCurrentWindow',
@@ -26,14 +27,16 @@ export const personalDashboardProjectDetailsSchema = {
         avgHealthCurrentWindow: {
           type: 'integer',
           minimum: 0,
-          description: "The project's average health score over the last 4 weeks",
+          description:
+            "The project's average health score over the last 4 weeks",
           example: 80,
           nullable: true,
         },
         avgHealthPastWindow: {
           type: 'integer',
           minimum: 0,
-          description: "The project's average health score over the previous 4-week window",
+          description:
+            "The project's average health score over the previous 4-week window",
           example: 70,
           nullable: true,
         },
@@ -47,19 +50,22 @@ export const personalDashboardProjectDetailsSchema = {
           type: 'integer',
           minimum: 0,
           example: 98,
-          description: 'The number of active flags that are not stale or potentially stale',
+          description:
+            'The number of active flags that are not stale or potentially stale',
         },
         staleFlags: {
           type: 'integer',
           minimum: 0,
           example: 0,
-          description: 'The current number of flags that have been manually marked as stale',
+          description:
+            'The current number of flags that have been manually marked as stale',
         },
         potentiallyStaleFlags: {
           type: 'integer',
           minimum: 0,
           example: 2,
-          description: 'The number of potentially stale flags as calculated by Unleash',
+          description:
+            'The number of potentially stale flags as calculated by Unleash',
         },
         health: {
           type: 'integer',
@@ -77,7 +83,13 @@ export const personalDashboardProjectDetailsSchema = {
         type: 'object',
         description: 'An event summary',
         additionalProperties: false,
-        required: ['summary', 'createdBy', 'createdByImageUrl', 'id', 'createdAt'],
+        required: [
+          'summary',
+          'createdBy',
+          'createdByImageUrl',
+          'id',
+          'createdAt',
+        ],
         properties: {
           id: {
             type: 'integer',
@@ -87,7 +99,8 @@ export const personalDashboardProjectDetailsSchema = {
           summary: {
             type: 'string',
             nullable: true,
-            description: '**[Experimental]** A markdown-formatted summary of the event.',
+            description:
+              '**[Experimental]** A markdown-formatted summary of the event.',
           },
           createdBy: {
             type: 'string',
@@ -143,4 +156,6 @@ export const personalDashboardProjectDetailsSchema = {
   },
 } as const;
 
-export type PersonalDashboardProjectDetailsSchema = FromSchema<typeof personalDashboardProjectDetailsSchema>;
+export type PersonalDashboardProjectDetailsSchema = FromSchema<
+  typeof personalDashboardProjectDetailsSchema
+>;

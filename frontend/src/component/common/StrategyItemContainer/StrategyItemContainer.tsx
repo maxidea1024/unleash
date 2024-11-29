@@ -3,7 +3,10 @@ import type { DragEventHandler, FC, ReactNode } from 'react';
 import DragIndicator from '@mui/icons-material/DragIndicator';
 import { Box, IconButton, styled } from '@mui/material';
 import type { IFeatureStrategy } from 'interfaces/strategy';
-import { formatStrategyName, getFeatureStrategyIcon } from 'utils/strategyNames';
+import {
+  formatStrategyName,
+  getFeatureStrategyIcon,
+} from 'utils/strategyNames';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { PlaygroundStrategySchema } from 'openapi';
@@ -70,21 +73,25 @@ const StyledContainer = styled(Box, {
   '& + &': {
     marginTop: theme.spacing(2),
   },
-  background: disabled ? theme.palette.envAccordion.disabled : theme.palette.background.paper,
+  background: disabled
+    ? theme.palette.envAccordion.disabled
+    : theme.palette.background.paper,
 }));
 
 const StyledHeader = styled('div', {
   shouldForwardProp: (prop) => prop !== 'draggable' && prop !== 'disabled',
-})<{ draggable: boolean; disabled: boolean }>(({ theme, draggable, disabled }) => ({
-  padding: theme.spacing(0.5, 2),
-  display: 'flex',
-  gap: theme.spacing(1),
-  alignItems: 'center',
-  borderBottom: `1px solid ${theme.palette.divider}`,
-  fontWeight: theme.typography.fontWeightMedium,
-  paddingLeft: draggable ? theme.spacing(1) : theme.spacing(2),
-  color: disabled ? theme.palette.text.secondary : theme.palette.text.primary,
-}));
+})<{ draggable: boolean; disabled: boolean }>(
+  ({ theme, draggable, disabled }) => ({
+    padding: theme.spacing(0.5, 2),
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    fontWeight: theme.typography.fontWeightMedium,
+    paddingLeft: draggable ? theme.spacing(1) : theme.spacing(2),
+    color: disabled ? theme.palette.text.secondary : theme.palette.text.primary,
+  }),
+);
 
 export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
   strategy,
@@ -110,7 +117,10 @@ export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
         show={<StyledIndexLabel>{orderNumber}</StyledIndexLabel>}
       />
       <StyledContainer disabled={strategy?.disabled || false} style={style}>
-        <StyledHeader draggable={Boolean(onDragStart)} disabled={Boolean(strategy?.disabled)}>
+        <StyledHeader
+          draggable={Boolean(onDragStart)}
+          disabled={Boolean(strategy?.disabled)}
+        >
           <ConditionallyRender
             condition={Boolean(onDragStart)}
             show={() => (
@@ -122,7 +132,11 @@ export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
                 onDragEnd={onDragEnd}
                 sx={{ cursor: 'move' }}
               >
-                <DragIndicator titleAccess='Drag to reorder' cursor='grab' sx={{ color: 'action.active' }} />
+                <DragIndicator
+                  titleAccess='Drag to reorder'
+                  cursor='grab'
+                  sx={{ color: 'action.active' }}
+                />
               </DragIcon>
             )}
           />
@@ -133,10 +147,18 @@ export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
           />
           <StyledHeaderContainer>
             <StrategyHeaderLink>
-              <StringTruncator maxWidth='400' maxLength={15} text={formatStrategyName(String(strategy.name))} />
+              <StringTruncator
+                maxWidth='400'
+                maxLength={15}
+                text={formatStrategyName(String(strategy.name))}
+              />
               <ConditionallyRender
                 condition={Boolean(strategy.title)}
-                show={<StyledCustomTitle>{formatStrategyName(String(strategy.title))}</StyledCustomTitle>}
+                show={
+                  <StyledCustomTitle>
+                    {formatStrategyName(String(strategy.title))}
+                  </StyledCustomTitle>
+                }
               />
             </StrategyHeaderLink>
             <ConditionallyRender

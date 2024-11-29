@@ -9,9 +9,15 @@ const emptyMetrics: IFeatureMetrics = {
   seenApplications: [],
 };
 
-const useFeatureMetrics = (projectId: string, featureId: string, options: SWRConfiguration = {}) => {
+const useFeatureMetrics = (
+  projectId: string,
+  featureId: string,
+  options: SWRConfiguration = {},
+) => {
   const fetcher = async () => {
-    const path = formatApiPath(`api/admin/client-metrics/features/${featureId}`);
+    const path = formatApiPath(
+      `api/admin/client-metrics/features/${featureId}`,
+    );
     const res = await fetch(path, {
       method: 'GET',
     }).then(handleErrorResponses('feature metrics'));
@@ -23,9 +29,13 @@ const useFeatureMetrics = (projectId: string, featureId: string, options: SWRCon
   };
 
   const FEATURE_METRICS_CACHE_KEY = `${projectId}_${featureId}_metrics`;
-  const { data, error } = useSWR<IFeatureMetrics>(FEATURE_METRICS_CACHE_KEY, fetcher, {
-    ...options,
-  });
+  const { data, error } = useSWR<IFeatureMetrics>(
+    FEATURE_METRICS_CACHE_KEY,
+    fetcher,
+    {
+      ...options,
+    },
+  );
 
   const [loading, setLoading] = useState(!error && !data);
 

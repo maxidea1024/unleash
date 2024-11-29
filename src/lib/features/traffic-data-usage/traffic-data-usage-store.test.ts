@@ -184,11 +184,13 @@ test('can query for data from specific periods', async () => {
   await trafficDataUsageStore.upsert(data3);
   await trafficDataUsageStore.upsert(data4);
 
-  const traffic_period_usage = await trafficDataUsageStore.getTrafficDataUsageForPeriod('2024-03');
+  const traffic_period_usage =
+    await trafficDataUsageStore.getTrafficDataUsageForPeriod('2024-03');
   expect(traffic_period_usage).toBeDefined();
   expect(traffic_period_usage.length).toBe(2);
 
-  const traffic_period_usage_older = await trafficDataUsageStore.getTrafficDataUsageForPeriod('2023-10');
+  const traffic_period_usage_older =
+    await trafficDataUsageStore.getTrafficDataUsageForPeriod('2023-10');
   expect(traffic_period_usage_older).toBeDefined();
   expect(traffic_period_usage_older.length).toBe(1);
   expect(traffic_period_usage_older[0].count).toBe(12);

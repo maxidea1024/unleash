@@ -18,7 +18,12 @@ export const projectInsightsSchema = {
     },
     health: {
       type: 'object',
-      required: ['rating', 'activeCount', 'potentiallyStaleCount', 'staleCount'],
+      required: [
+        'rating',
+        'activeCount',
+        'potentiallyStaleCount',
+        'staleCount',
+      ],
       properties: {
         rating: {
           type: 'integer',
@@ -67,7 +72,8 @@ export const projectInsightsSchema = {
         },
         change: {
           type: 'number',
-          description: 'The change in the number of project members compared to the previous month',
+          description:
+            'The change in the number of project members compared to the previous month',
           example: 10,
         },
       },

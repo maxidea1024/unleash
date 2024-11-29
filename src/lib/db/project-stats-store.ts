@@ -4,7 +4,10 @@ import metricsHelper from '../util/metrics-helper';
 import { DB_TIME } from '../metric-events';
 import type EventEmitter from 'events';
 import type { IProjectStats } from '../features/project/project-service';
-import type { ICreateEnabledDates, IProjectStatsStore } from '../types/stores/project-stats-store-type';
+import type {
+  ICreateEnabledDates,
+  IProjectStatsStore,
+} from '../types/stores/project-stats-store-type';
 import type { Db } from './db';
 import type { DoraFeaturesSchema } from '../openapi';
 
@@ -49,7 +52,10 @@ export default class ProjectStatsStore implements IProjectStatsStore {
       });
   }
 
-  async updateProjectStats(projectId: string, status: IProjectStats): Promise<void> {
+  async updateProjectStats(
+    projectId: string,
+    status: IProjectStats,
+  ): Promise<void> {
     await this.db(TABLE)
       .insert({
         avg_time_to_prod_current_window: status.avgTimeToProdCurrentWindow,
@@ -60,14 +66,18 @@ export default class ProjectStatsStore implements IProjectStatsStore {
         features_archived_past_window: status.archivedPastWindow,
         project_changes_current_window: status.projectActivityCurrentWindow,
         project_changes_past_window: status.projectActivityPastWindow,
-        project_members_added_current_window: status.projectMembersAddedCurrentWindow,
+        project_members_added_current_window:
+          status.projectMembersAddedCurrentWindow,
       })
       .onConflict('project')
       .merge();
   }
 
   async getProjectStats(projectId: string): Promise<IProjectStats> {
-    const row = await this.db(TABLE).select(PROJECT_STATS_COLUMNS).where({ project: projectId }).first();
+    const row = await this.db(TABLE)
+      .select(PROJECT_STATS_COLUMNS)
+      .where({ project: projectId })
+      .first();
 
     return this.mapRow(row);
   }
@@ -94,7 +104,8 @@ export default class ProjectStatsStore implements IProjectStatsStore {
       archivedPastWindow: row.features_archived_past_window,
       projectActivityCurrentWindow: row.project_changes_current_window,
       projectActivityPastWindow: row.project_changes_past_window,
-      projectMembersAddedCurrentWindow: row.project_members_added_current_window,
+      projectMembersAddedCurrentWindow:
+        row.project_members_added_current_window,
     };
   }
 
@@ -105,7 +116,11 @@ export default class ProjectStatsStore implements IProjectStatsStore {
       .select('events.feature_name')
       // select only first enabled event, distinct works with orderBy
       .distinctOn('events.feature_name')
-      .select(this.db.raw('events.created_at as enabled, features.created_at as created'))
+      .select(
+        this.db.raw(
+          'events.created_at as enabled, features.created_at as created',
+        ),
+      )
       .from('events')
       .innerJoin('environments', 'environments.name', '=', 'events.environment')
       .innerJoin('features', 'features.name', '=', 'events.feature_name')
@@ -128,7 +143,11 @@ export default class ProjectStatsStore implements IProjectStatsStore {
     const result = await this.db
       .select('events.feature_name')
       .distinctOn('events.feature_name')
-      .select(this.db.raw('events.created_at as enabled, features.created_at as created'))
+      .select(
+        this.db.raw(
+          'events.created_at as enabled, features.created_at as created',
+        ),
+      )
       .from('events')
       .innerJoin('environments', 'environments.name', '=', 'events.environment')
       .innerJoin('features', 'features.name', '=', 'events.feature_name')
@@ -144,7 +163,9 @@ export default class ProjectStatsStore implements IProjectStatsStore {
     const timeDifferenceData: DoraFeaturesSchema[] = result.map((row) => {
       const enabledDate = new Date(row.enabled).getTime();
       const createdDate = new Date(row.created).getTime();
-      const timeDifferenceInDays = Math.floor((enabledDate - createdDate) / (1000 * 60 * 60 * 24));
+      const timeDifferenceInDays = Math.floor(
+        (enabledDate - createdDate) / (1000 * 60 * 60 * 24),
+      );
 
       return {
         name: row.feature_name,
