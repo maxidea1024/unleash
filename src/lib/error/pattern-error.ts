@@ -3,7 +3,7 @@ import { type ApiErrorSchema, UnleashError } from './unleash-error';
 export default class PatternError extends UnleashError {
   statusCode = 400;
 
-  details?: { message: string }[];
+  private readonly details?: { message: string }[];
 
   constructor(message: string, details?: string[]) {
     super(message);

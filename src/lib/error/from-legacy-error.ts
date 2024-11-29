@@ -1,3 +1,5 @@
+// NOTE: error type name을 임의로 변경하면 아래 로직들이 망가진다. 이름을 변경할 경우에는 문제가 없도록 꼼꼼히 챙겨줘야한다.
+
 import { fromJoiError } from './bad-data-error';
 import { ValidationError as JoiValidationError } from 'joi';
 import {

@@ -11,7 +11,7 @@ type ValidationErrorDescription = {
 export default class BadDataError extends UnleashError {
   statusCode = 400;
 
-  details: ValidationErrorDescription[];
+  private readonly details: ValidationErrorDescription[];
 
   constructor(
     message: string,
