@@ -27,7 +27,6 @@ export const useConnectedInstances = (
     fetcher,
     options,
   );
-
   return {
     data: data || { instances: [] },
     error,

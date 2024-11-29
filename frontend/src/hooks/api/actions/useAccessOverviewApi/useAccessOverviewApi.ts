@@ -6,9 +6,10 @@ export const useAccessOverviewApi = () => {
   });
 
   const downloadCSV = async () => {
+    const path = 'api/admin/access/overview';
     const requestId = 'downloadCSV';
     const req = createRequest(
-      'api/admin/access/overview',
+      path,
       {
         method: 'GET',
         responseType: 'blob',

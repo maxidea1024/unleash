@@ -24,6 +24,7 @@ const getPermissions = (
       (permission) => permission.permission === 'ADMIN',
     );
   }
+
   return permissions;
 };
 

@@ -29,8 +29,9 @@ export const useIntegrationEvents = (
     if (!integrationId || !isAdmin) return null;
 
     // Reached the end
-    if (previousPageData && !previousPageData.integrationEvents.length)
+    if (previousPageData && !previousPageData.integrationEvents.length) {
       return null;
+    }
 
     return formatApiPath(
       `api/admin/addons/${integrationId}/events?limit=${limit}&offset=${pageIndex * limit}`,
@@ -54,7 +55,10 @@ export const useIntegrationEvents = (
   const hasMore = data?.[size - 1]?.integrationEvents.length === limit;
 
   const loadMore = () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore) {
+      return;
+    }
+
     setSize(size + 1);
   };
 

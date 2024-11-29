@@ -6,7 +6,6 @@ const isValid = (constraint: IConstraint) => {
   const hasValues =
     Array.isArray(constraint.values) && constraint.values.length > 0;
   const hasValue = Boolean(constraint.value);
-
   return hasValues || hasValue;
 };
 

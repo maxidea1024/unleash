@@ -42,6 +42,7 @@ const createFeatureSearch = () => {
     if (!internalCache[id]) {
       initCache(id);
     }
+
     internalCache[id][key] = value;
   };
 
@@ -49,6 +50,7 @@ const createFeatureSearch = () => {
     if (!internalCache[id]) {
       initCache(id);
     }
+
     return internalCache[id];
   };
 

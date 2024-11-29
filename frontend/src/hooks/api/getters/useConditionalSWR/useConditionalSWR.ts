@@ -13,7 +13,6 @@ export const useConditionalSWR = <Data = any, Error = any, T = boolean>(
   options: SWRConfiguration = {},
 ): SWRResponse<Data, Error> => {
   const result = useSWR(condition ? key : null, fetcher, options);
-
   return {
     ...result,
     error: condition ? result.error : undefined,

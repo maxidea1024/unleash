@@ -33,11 +33,14 @@ export const useSignalEndpointSignals = (
     previousPageData: SignalsResponse,
   ) => {
     // Does not meet conditions
-    if (!signalEndpointId || !isEnterprise || !signalsEnabled) return null;
+    if (!signalEndpointId || !isEnterprise || !signalsEnabled) {
+      return null;
+    }
 
     // Reached the end
-    if (previousPageData && !previousPageData.signalEndpointSignals.length)
+    if (previousPageData && !previousPageData.signalEndpointSignals.length) {
       return null;
+    }
 
     return formatApiPath(
       `${ENDPOINT}/${signalEndpointId}/signals?limit=${limit}&offset=${pageIndex * limit}`,
@@ -61,7 +64,10 @@ export const useSignalEndpointSignals = (
   const hasMore = data?.[size - 1]?.signalEndpointSignals.length === limit;
 
   const loadMore = () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore) {
+      return;
+    }
+
     setSize(size + 1);
   };
 

@@ -6,11 +6,8 @@ import type { RequestsPerSecondSchema } from 'openapi';
 
 export interface IInstanceMetricsResponse {
   metrics: RequestsPerSecondSchema;
-
   refetch: () => void;
-
   loading: boolean;
-
   error?: Error;
 }
 

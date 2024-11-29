@@ -49,6 +49,7 @@ const createEventSearch = () => {
     if (!internalCache[id]) {
       initCache(id);
     }
+
     return internalCache[id];
   };
 

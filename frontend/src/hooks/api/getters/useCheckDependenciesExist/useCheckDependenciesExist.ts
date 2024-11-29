@@ -15,7 +15,6 @@ export const useCheckDependenciesExist = (
     fetcher,
     options,
   );
-
   return {
     dependenciesExist: data,
     error,
