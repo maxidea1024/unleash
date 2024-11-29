@@ -172,13 +172,17 @@ export const ConstraintAccordionEdit = ({
       setError('');
       return true;
     }
+
     setError('You must provide a value for the constraint');
     return false;
   };
 
   const onSubmit = async () => {
     const hasValues = validateConstraintValues();
-    if (!hasValues) return;
+    if (!hasValues) {
+      return;
+    }
+
     const [typeValidatorResult, err] = validator();
 
     if (!typeValidatorResult) {

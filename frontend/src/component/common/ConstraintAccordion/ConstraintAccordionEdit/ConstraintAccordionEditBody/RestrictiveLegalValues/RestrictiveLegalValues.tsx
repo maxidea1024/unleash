@@ -32,6 +32,7 @@ const createValuesMap = (values: string[]): IValuesMap => {
     if (!result[currentValue]) {
       result[currentValue] = true;
     }
+
     return result;
   }, {});
 };

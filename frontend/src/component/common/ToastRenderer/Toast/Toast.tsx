@@ -1,3 +1,5 @@
+// TODO: 모양이 좀 안 이쁘다 다듬어 보자.
+
 import { useStyles } from './Toast.styles';
 import classnames from 'classnames';
 import { useContext } from 'react';

@@ -49,6 +49,7 @@ const StyledHeaderContainer = styled('div')(({ theme }) => ({
     position: 'relative',
   },
 }));
+
 const StyledSelectContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -56,6 +57,7 @@ const StyledSelectContainer = styled('div')(({ theme }) => ({
     flexDirection: 'column',
   },
 }));
+
 const StyledBottomSelect = styled('div')(({ theme }) => ({
   [theme.breakpoints.down(770)]: {
     marginTop: theme.spacing(2),

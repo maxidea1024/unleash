@@ -26,6 +26,7 @@ const StyledClose = styled(Close)(({ theme }) => ({
   width: '35px',
   height: '35px',
 }));
+
 const StyledCheck = styled(Check)(({ theme }) => ({
   color: theme.palette.common.white,
   width: '35px',

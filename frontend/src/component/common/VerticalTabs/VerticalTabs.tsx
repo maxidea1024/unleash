@@ -75,6 +75,7 @@ export const VerticalTabs = ({
       </StyledTabs>
     );
   }
+
   return (
     <StyledTabPage>
       <StyledTabs {...props}>{verticalTabs}</StyledTabs>

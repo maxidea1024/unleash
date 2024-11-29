@@ -7,6 +7,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
     fontWeight: theme.fontWeight.bold,
   },
 }));
+
 export const VariantInfoAlert: FC<{ mode: 'feature' | 'strategy' }> = ({
   mode,
 }) => {

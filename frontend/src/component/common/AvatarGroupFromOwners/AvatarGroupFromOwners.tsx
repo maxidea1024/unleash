@@ -11,6 +11,7 @@ type Props = {
   AvatarComponent?: AvatarComponentType;
   className?: string;
 };
+
 export const AvatarGroupFromOwners: React.FC<Props> = ({ users, ...props }) => {
   const { uiConfig } = useUiConfig();
 
@@ -32,6 +33,7 @@ export const AvatarGroupFromOwners: React.FC<Props> = ({ users, ...props }) => {
       imageUrl: `${uiConfig.unleashUrl}/logo-unleash.png`,
     };
   };
+
   const mappedOwners = users.map(mapOwners);
   return <AvatarGroup users={mappedOwners} {...props} />;
 };

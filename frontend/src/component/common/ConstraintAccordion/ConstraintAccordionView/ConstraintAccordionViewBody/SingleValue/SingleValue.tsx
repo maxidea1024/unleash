@@ -25,7 +25,9 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 }));
 
 export const SingleValue = ({ value, operator }: ISingleValueProps) => {
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
 
   return (
     <StyledDiv>

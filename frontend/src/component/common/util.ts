@@ -131,14 +131,17 @@ export function updateWeightEdit(
   if (variants.length === 0) {
     return [];
   }
+
   let { remainingPercentage, variableVariantCount } = variants.reduce(
     ({ remainingPercentage, variableVariantCount }, variant) => {
       if (variant.weight && variant.weightType === weightTypes.FIX) {
         remainingPercentage -= Number(variant.weight);
       }
+
       if (variant.weightType === weightTypes.VARIABLE) {
         variableVariantCount += 1;
       }
+
       return {
         remainingPercentage,
         variableVariantCount,

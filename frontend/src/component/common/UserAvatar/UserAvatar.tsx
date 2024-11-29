@@ -56,6 +56,7 @@ const TooltipSecondaryContent = styled('div')(({ theme }) => ({
   color: theme.palette.text.secondary,
   fontSize: theme.typography.body2.fontSize,
 }));
+
 const TooltipMainContent = styled('div')(({ theme }) => ({
   fontSize: theme.typography.body1.fontSize,
 }));

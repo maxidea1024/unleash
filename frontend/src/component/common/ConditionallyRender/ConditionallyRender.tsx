@@ -29,6 +29,7 @@ export const ConditionallyRender = ({
       );
       return null;
     }
+
     return result;
   };
 
@@ -47,7 +48,9 @@ export const ConditionallyRender = ({
     if (isFunc(elseShow)) {
       return handleFunction(elseShow as RenderFunc);
     }
+
     return elseShow as JSX.Element;
   }
+
   return null;
 };

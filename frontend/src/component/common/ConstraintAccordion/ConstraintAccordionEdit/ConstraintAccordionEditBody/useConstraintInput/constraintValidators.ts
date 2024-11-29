@@ -50,6 +50,7 @@ export const dateValidatorGenerator = (value: string) => {
     if (!isValid(parseISO(value))) {
       return [false, 'Value must be a valid date matching RFC3339'];
     }
+
     return [true, ''];
   };
 };

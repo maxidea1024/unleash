@@ -47,7 +47,9 @@ export const DateSingleValue = ({
     }
   }, [timezones, localTimezoneName]);
 
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
 
   return (
     <>

@@ -149,6 +149,7 @@ const tokenDescriptions: {
     label: 'FRONTEND',
     title: 'Connect web and mobile SDK',
   },
+  // TODO: 이건 제거해도 되는거 아닌가?
   admin: {
     label: 'ADMIN',
     title: 'Full access for managing Unleash',

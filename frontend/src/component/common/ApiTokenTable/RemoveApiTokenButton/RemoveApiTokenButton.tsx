@@ -14,7 +14,7 @@ const StyledUl = styled('ul')({
 interface IRemoveApiTokenButtonProps {
   token: IApiToken;
   permission: string;
-  onRemove: () => void;
+  onRemove: () => Promise<void>;
   project?: string;
 }
 

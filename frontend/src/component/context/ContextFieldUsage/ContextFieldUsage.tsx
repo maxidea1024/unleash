@@ -71,6 +71,7 @@ export const ContextFieldUsage = ({ contextName }: IContextFieldUsageProps) => {
       ))}
     </StyledUl>
   );
+
   if (projectsUsed.length > 0) {
     return (
       <StyledAlert severity='info'>

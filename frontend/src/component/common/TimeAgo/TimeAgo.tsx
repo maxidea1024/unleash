@@ -13,7 +13,7 @@ const formatTimeAgo = (date: string | number | Date) =>
     addSuffix: true,
   })
     .replace('about ', '')
-    .replace('less than a minute ago', '< 1 minute ago');
+    .replace('less than a minute ago', '< 1 minute ago'); // TODO: localization
 
 export const TimeAgo: FC<TimeAgoProps> = ({
   date,
@@ -23,7 +23,10 @@ export const TimeAgo: FC<TimeAgoProps> = ({
 }) => {
   const getValue = (): { description: string; dateTime?: Date } => {
     try {
-      if (!date) return { description: fallback };
+      if (!date) {
+        return { description: fallback };
+      }
+
       return {
         description: formatTimeAgo(date),
         dateTime: timeElement ? new Date(date) : undefined,
@@ -39,11 +42,13 @@ export const TimeAgo: FC<TimeAgoProps> = ({
   }, [date, fallback]);
 
   useEffect(() => {
-    if (!date || !refresh) return;
+    if (!date || !refresh) {
+      return;
+    }
 
     const intervalId = setInterval(() => {
       setState(getValue);
-    }, secondsToMilliseconds(12));
+    }, secondsToMilliseconds(12)); // 12초마다?
 
     return () => clearInterval(intervalId);
   }, [refresh]);

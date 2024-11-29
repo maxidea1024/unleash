@@ -23,7 +23,9 @@ export const ConstraintAccordion = ({
   onDelete,
   onSave,
 }: IConstraintAccordionProps) => {
-  if (!constraint) return null;
+  if (!constraint) {
+    return null;
+  }
 
   return (
     <ConditionallyRender

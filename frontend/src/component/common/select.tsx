@@ -13,6 +13,7 @@ export interface ISelectOption {
   title?: string;
   label?: string;
 }
+
 export interface ISelectMenuProps {
   name: string;
   id: string;

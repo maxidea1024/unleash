@@ -51,6 +51,7 @@ const StyledAccordionSummary = styled(AccordionSummary)(({ theme }) => ({
   MozUserSelect: 'auto',
   MsUserSelect: 'auto',
 }));
+
 const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   borderTop: `1px dashed ${theme.palette.divider}`,
   display: 'flex',

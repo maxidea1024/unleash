@@ -19,7 +19,9 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 export const MultipleValues = ({ values }: IMultipleValuesProps) => {
   const [filter, setFilter] = useState('');
 
-  if (!values || values.length === 0) return null;
+  if (!values || values.length === 0) {
+    return null;
+  }
 
   return (
     <>
