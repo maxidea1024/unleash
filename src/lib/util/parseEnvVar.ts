@@ -5,6 +5,7 @@ export function parseEnvVarNumber(
   if (!envVar) {
     return defaultVal;
   }
+
   const parsed = Number.parseInt(envVar, 10);
 
   if (Number.isNaN(parsed)) {

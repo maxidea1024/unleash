@@ -37,6 +37,7 @@ const metricsHelper = {
 };
 
 export default metricsHelper;
+
 module.exports = {
   wrapTimer,
 };
