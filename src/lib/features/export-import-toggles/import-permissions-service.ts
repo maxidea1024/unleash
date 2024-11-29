@@ -40,7 +40,6 @@ export class ImportPermissionsService {
     dto: ImportTogglesSchema,
   ): Promise<ContextFieldSchema[]> {
     const availableContextFields = await this.contextService.getAll();
-
     return (
       dto.data.contextFields?.filter(
         (contextField) =>

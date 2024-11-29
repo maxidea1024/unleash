@@ -8,7 +8,6 @@ const patMiddleware = (
   { accountService }: { accountService: AccountService },
 ): any => {
   const logger = getLogger('pat-middleware.ts');
-
   logger.debug('Enabling PAT middleware');
 
   return async (req: IAuthRequest, res, next) => {

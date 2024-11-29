@@ -64,13 +64,11 @@ export type IImportService = {
     dto: ImportTogglesSchema,
     user: IUser,
   ): Promise<ImportTogglesValidateSchema>;
-
   import(
     dto: ImportTogglesSchema,
     user: IUser,
     auditUser: IAuditUser,
   ): Promise<void>;
-
   importFromFile(
     file: string,
     project: string,

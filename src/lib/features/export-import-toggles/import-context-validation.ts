@@ -10,6 +10,7 @@ export const isValidField = (
   if (!matchingExistingField) {
     return true;
   }
+
   return (importedField.legalValues || []).every((value) =>
     (matchingExistingField.legalValues || []).find(
       (v) => v.value === value.value,

@@ -123,6 +123,7 @@ export default class EventStore implements IEventStore {
     if (!count) {
       return 0;
     }
+
     if (typeof count.count === 'string') {
       return Number.parseInt(count.count, 10);
     } else {
@@ -137,16 +138,20 @@ export default class EventStore implements IEventStore {
     if (eventSearch.type) {
       query = query.andWhere({ type: eventSearch.type });
     }
+
     if (eventSearch.project) {
       query = query.andWhere({ project: eventSearch.project });
     }
+
     if (eventSearch.feature) {
       query = query.andWhere({ feature_name: eventSearch.feature });
     }
+
     const count = await query.count().first();
     if (!count) {
       return 0;
     }
+
     if (typeof count.count === 'string') {
       return Number.parseInt(count.count, 10);
     } else {
@@ -163,6 +168,7 @@ export default class EventStore implements IEventStore {
     if (!count) {
       return 0;
     }
+
     if (typeof count.count === 'string') {
       return Number.parseInt(count.count, 10);
     } else {
@@ -572,16 +578,19 @@ export default class EventStore implements IEventStore {
           .update({ created_by_user_id: SYSTEM_USER_ID })
           .where({ id: row.id });
       }
+
       if (row.userid) {
         return this.db(TABLE)
           .update({ created_by_user_id: row.userid })
           .where({ id: row.id });
       }
+
       if (row.username) {
         return this.db(TABLE)
           .update({ created_by_user_id: ADMIN_TOKEN_USER.id })
           .where({ id: row.id });
       }
+
       this.logger.warn(`Could not find user for event ${row.id}`);
       return Promise.resolve();
     });

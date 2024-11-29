@@ -30,13 +30,11 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
 
   async getChildren(parents: string[]): Promise<string[]> {
     const rows = await this.db('dependent_features').whereIn('parent', parents);
-
     return [...new Set(rows.map((row) => row.child))];
   }
 
   async getParents(child: string): Promise<IDependency[]> {
     const rows = await this.db('dependent_features').where('child', child);
-
     return rows.map((row) => ({
       feature: row.parent,
       enabled: row.enabled,
@@ -46,7 +44,6 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
 
   async getDependencies(children: string[]): Promise<IFeatureDependency[]> {
     const rows = await this.db('dependent_features').whereIn('child', children);
-
     return rows.map((row) => ({
       feature: row.child,
       dependency: {
@@ -61,9 +58,11 @@ export class DependentFeaturesReadModel implements IDependentFeaturesReadModel {
     const result = await this.db('features')
       .where('features.name', child)
       .select('features.project');
+
     if (result.length === 0) {
       return [];
     }
+
     const rows = await this.db('features')
       .leftJoin(
         'dependent_features',

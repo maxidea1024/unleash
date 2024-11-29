@@ -5,7 +5,6 @@ export const bearerTokenMiddleware = ({
   getLogger,
 }: Pick<IUnleashConfig, 'getLogger'>) => {
   const logger = getLogger('bearer-token-middleware.ts');
-
   logger.debug('Enabling bearer token middleware');
 
   return (req: Request, _: Response, next: NextFunction) => {

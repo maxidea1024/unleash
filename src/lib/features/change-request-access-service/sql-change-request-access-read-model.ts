@@ -31,6 +31,7 @@ export class ChangeRequestAccessReadModel
         : Promise.resolve(false),
       this.isChangeRequestsEnabled(project, environment),
     ]);
+
     return canSkipChangeRequest || !changeRequestEnabled;
   }
 
@@ -44,6 +45,7 @@ export class ChangeRequestAccessReadModel
         : Promise.resolve(false),
       this.isChangeRequestsEnabledForProject(project),
     ]);
+
     return canSkipChangeRequest || !changeRequestEnabled;
   }
 

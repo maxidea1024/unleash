@@ -60,9 +60,11 @@ export class FeatureToggleRowConverter {
     if (!strategy) {
       return;
     }
+
     if (!strategy.segments) {
       strategy.segments = [];
     }
+
     strategy.segments.push(row.segment_id);
   };
 

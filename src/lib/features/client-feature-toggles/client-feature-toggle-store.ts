@@ -324,9 +324,11 @@ export default class FeatureToggleClientStore
     if (!strategy) {
       return;
     }
+
     if (!strategy.segments) {
       strategy.segments = [];
     }
+
     strategy.segments.push(row.segment_id);
   }
 

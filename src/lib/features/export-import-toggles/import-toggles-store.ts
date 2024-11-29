@@ -45,6 +45,7 @@ export class ImportTogglesStore implements IImportTogglesStore {
     if (featureNames.length === 0) {
       return true;
     }
+
     const joinedFeatureNames = featureNames.map(() => '?').join(',');
     const result = await this.db.raw(
       `SELECT EXISTS (SELECT 1 FROM feature_strategies WHERE environment = ? and feature_name in (${joinedFeatureNames})) AS present`,

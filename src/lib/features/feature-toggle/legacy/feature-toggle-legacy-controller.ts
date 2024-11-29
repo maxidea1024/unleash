@@ -23,6 +23,7 @@ import {
 } from '../../../openapi/util/standard-responses';
 import type { UpdateTagsSchema } from '../../../openapi/spec/update-tags-schema';
 import type { ValidateFeatureSchema } from '../../../openapi/spec/validate-feature-schema';
+import { ensureArray } from '../../../util/ensureArray';
 
 const version = 1;
 
@@ -158,7 +159,8 @@ export default class FeatureController extends Controller {
     if (!param) {
       return param;
     }
-    return Array.isArray(param) ? param : [param];
+
+    return ensureArray(param);
   }
 
   async prepQuery({
@@ -169,6 +171,7 @@ export default class FeatureController extends Controller {
     if (!tag && !project && !namePrefix) {
       return {};
     }
+
     const tagQuery = this.paramToArray(tag);
     const projectQuery = this.paramToArray(project);
     const query = await querySchema.validateAsync({
@@ -179,6 +182,7 @@ export default class FeatureController extends Controller {
     if (query.tag) {
       query.tag = query.tag.map((q) => q.split(':'));
     }
+
     return query;
   }
 

@@ -17,7 +17,6 @@ export class FeatureToggleListBuilder {
 
   query = (table: string) => {
     this.internalQuery = this.db(table);
-
     return this;
   };
 
@@ -30,7 +29,6 @@ export class FeatureToggleListBuilder {
       FeatureToggleStore.filterByArchived,
       includeArchived,
     );
-
     return this;
   };
 
@@ -43,7 +41,6 @@ export class FeatureToggleListBuilder {
       'fs.feature_name',
       'features.name',
     );
-
     return this;
   };
 
@@ -62,7 +59,6 @@ export class FeatureToggleListBuilder {
       'fe.feature_name',
       'features.name',
     );
-
     return this;
   };
 
@@ -72,13 +68,11 @@ export class FeatureToggleListBuilder {
       `fss.feature_strategy_id`,
       `fs.id`,
     );
-
     return this;
   };
 
   withSegments = () => {
     this.internalQuery.leftJoin('segments', `segments.id`, `fss.segment_id`);
-
     return this;
   };
 
@@ -88,7 +82,6 @@ export class FeatureToggleListBuilder {
       'df.child',
       'features.name',
     );
-
     return this;
   };
 
@@ -98,7 +91,6 @@ export class FeatureToggleListBuilder {
       'ft.feature_name',
       'features.name',
     );
-
     return this;
   };
 
@@ -118,7 +110,6 @@ export class FeatureToggleListBuilder {
         'features.name',
       );
     }
-
     return this;
   };
 
@@ -130,7 +121,6 @@ export class FeatureToggleListBuilder {
         userId,
       );
     });
-
     return this;
   };
 

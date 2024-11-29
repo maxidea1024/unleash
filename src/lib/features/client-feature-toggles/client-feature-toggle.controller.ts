@@ -164,6 +164,7 @@ export default class FeatureController extends Controller {
       if (!isAllProjects(user.projects)) {
         override.project = user.projects;
       }
+
       if (user.environment !== ALL) {
         override.environment = user.environment;
       }
@@ -184,6 +185,7 @@ export default class FeatureController extends Controller {
     if (!param) {
       return param;
     }
+
     return Array.isArray(param) ? param : [param];
   }
 
@@ -295,6 +297,7 @@ export default class FeatureController extends Controller {
     if (!toggle) {
       throw new NotFoundError(`Could not find feature flag ${name}`);
     }
+
     this.openApiService.respondWithValidation(
       200,
       res,

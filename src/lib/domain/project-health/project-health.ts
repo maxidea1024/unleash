@@ -23,7 +23,7 @@ const getPotentiallyStaleCount = (
     return (
       !feature.stale &&
       featureTypeExpectedLifetime &&
-      diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24)
+      diff >= featureTypeExpectedLifetime * hoursToMilliseconds(24) // * 1 day
     );
   }).length;
 };
