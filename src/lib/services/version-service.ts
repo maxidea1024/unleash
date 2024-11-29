@@ -184,6 +184,7 @@ export default class VersionService {
     this.logger.debug(
       `Checking for newest version for instanceId=${instanceId}`,
     );
+
     if (!this.enabled) {
       return;
     }
