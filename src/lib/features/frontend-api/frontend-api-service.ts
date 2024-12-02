@@ -217,7 +217,10 @@ export class FrontendApiService {
       this.logger.debug('Unable to fetch frontend settings', error);
     }
 
-    // TODO: handle null or undefined case.
+    if (!this.cachedFrontendSettings) {
+      throw new Error('Unabled to fetch frontend settings');
+    }
+
     return this.cachedFrontendSettings;
   }
 
@@ -225,6 +228,7 @@ export class FrontendApiService {
     if (useCache && this.cachedFrontendSettings) {
       return this.cachedFrontendSettings;
     }
+
     return this.fetchFrontendSettings();
   }
 }

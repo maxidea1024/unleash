@@ -225,6 +225,7 @@ export default class FrontendAPIController extends Controller {
     if (!this.config.flagResolver.isEnabled('embedProxy')) {
       throw new NotFoundError();
     }
+
     // Client registration is not yet supported by @unleash/proxy,
     // but proxy clients may still expect a 200 from this endpoint.
     res.sendStatus(200);

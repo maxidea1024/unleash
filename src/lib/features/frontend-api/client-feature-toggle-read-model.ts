@@ -161,9 +161,11 @@ export default class ClientFeatureToggleReadModel
     if (!strategy) {
       return;
     }
+
     if (!strategy.segments) {
       strategy.segments = [];
     }
+
     strategy.segments.push(row.segment_id);
   }
 

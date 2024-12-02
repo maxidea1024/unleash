@@ -59,11 +59,13 @@ export default class LogoutController extends Controller {
       }
       req.session.destroy();
     }
+
     res.clearCookie(this.cookieName);
 
     if (this.clearSiteDataOnLogout) {
       res.set('Clear-Site-Data', '"cookies", "storage"');
     }
+
     if (req.user?.id) {
       await this.sessionService.deleteSessionsForUser(req.user.id);
     }
