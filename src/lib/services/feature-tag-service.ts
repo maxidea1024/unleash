@@ -149,6 +149,7 @@ export default class FeatureTagService {
       if (error instanceof NotFoundError) {
         try {
           await this.tagStore.createTag(tag);
+
           await this.eventService.storeEvent({
             type: TAG_CREATED,
             createdBy: auditUser.username,
@@ -156,8 +157,8 @@ export default class FeatureTagService {
             ip: auditUser.ip,
             data: tag,
           });
-        } catch (err) {
-          if (err.code === FOREIGN_KEY_VIOLATION) {
+        } catch (error2) {
+          if (error2.code === FOREIGN_KEY_VIOLATION) {
             throw new BadDataError(`Tag type '${tag.type}' does not exist`);
           }
         }
