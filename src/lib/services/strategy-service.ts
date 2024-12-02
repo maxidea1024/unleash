@@ -49,7 +49,7 @@ export default class StrategyService {
     auditUser: IAuditUser,
   ): Promise<void> {
     const strategy = await this.strategyStore.get(strategyName);
-    this._validateEditable(strategy);
+    this.validateEditable(strategy);
     await this.strategyStore.delete(strategyName);
     await this.eventService.storeEvent(
       new StrategyDeletedEvent({
@@ -122,7 +122,7 @@ export default class StrategyService {
   ): Promise<void> {
     const value = await strategySchema.validateAsync(input);
     const strategy = await this.strategyStore.get(input.name);
-    this._validateEditable(strategy);
+    this.validateEditable(strategy);
     await this.strategyStore.updateStrategy(value);
     await this.eventService.storeEvent(
       new StrategyUpdatedEvent({
@@ -150,7 +150,7 @@ export default class StrategyService {
   }
 
   // This check belongs in the store.
-  _validateEditable(strategy: IStrategy): void {
+  private validateEditable(strategy: IStrategy): void {
     if (!strategy.editable) {
       throw new Error(`Cannot edit strategy ${strategy.name}`);
     }
