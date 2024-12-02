@@ -16,9 +16,10 @@ export default class HealthService {
     this.featureTypeStore = featureTypeStore;
   }
 
-  async dbIsUp(): Promise<boolean> {
-    // TODO: 이렇게 해야하나?
-    const row = await this.featureTypeStore.getAll();
-    return row.length > 0;
-  }
+  // CHECKME: 현재 사용되고 있지 않는것 같다.
+  // async dbIsUp(): Promise<boolean> {
+  //   // TODO: 이렇게 해야하나?
+  //   const row = await this.featureTypeStore.getAll();
+  //   return row.length > 0;
+  // }
 }

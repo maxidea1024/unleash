@@ -547,6 +547,7 @@ export default class UserService {
 
   /**
    * If the password is a strong password will update password and delete all sessions for the user we're changing the password for
+   *
    * @param token - the token authenticating this request
    * @param password - new password
    */
