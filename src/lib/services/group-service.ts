@@ -251,45 +251,47 @@ export class GroupService {
     // createdBy?: string, // deprecated
     // createdByUserId?: number, // deprecated
   ): Promise<void> {
-    if (Array.isArray(externalGroups)) {
-      const newGroups = await this.groupStore.getNewGroupsForExternalUser(
-        userId,
-        externalGroups,
-      );
-      await this.groupStore.addUserToGroups(
-        userId,
-        newGroups.map((g) => g.id),
-        SSO_SYNC_USER,
-      );
-      const oldGroups = await this.groupStore.getOldGroupsForExternalUser(
-        userId,
-        externalGroups,
-      );
-      await this.groupStore.deleteUsersFromGroup(oldGroups);
-
-      const events: IBaseEvent[] = [];
-      for (const group of newGroups) {
-        events.push(
-          new GroupUserAdded({
-            userId,
-            groupId: group.id,
-            auditUser: SYSTEM_USER_AUDIT,
-          }),
-        );
-      }
-
-      for (const group of oldGroups) {
-        events.push(
-          new GroupUserRemoved({
-            userId,
-            groupId: group.groupId,
-            auditUser: SYSTEM_USER_AUDIT,
-          }),
-        );
-      }
-
-      await this.eventService.storeEvents(events);
+    if (!Array.isArray(externalGroups)) {
+      return;
     }
+
+    const newGroups = await this.groupStore.getNewGroupsForExternalUser(
+      userId,
+      externalGroups,
+    );
+    await this.groupStore.addUserToGroups(
+      userId,
+      newGroups.map((g) => g.id),
+      SSO_SYNC_USER,
+    );
+    const oldGroups = await this.groupStore.getOldGroupsForExternalUser(
+      userId,
+      externalGroups,
+    );
+    await this.groupStore.deleteUsersFromGroup(oldGroups);
+
+    const events: IBaseEvent[] = [];
+    for (const group of newGroups) {
+      events.push(
+        new GroupUserAdded({
+          userId,
+          groupId: group.id,
+          auditUser: SYSTEM_USER_AUDIT,
+        }),
+      );
+    }
+
+    for (const group of oldGroups) {
+      events.push(
+        new GroupUserRemoved({
+          userId,
+          groupId: group.groupId,
+          auditUser: SYSTEM_USER_AUDIT,
+        }),
+      );
+    }
+
+    await this.eventService.storeEvents(events);
   }
 
   private mapGroupWithUsers(
