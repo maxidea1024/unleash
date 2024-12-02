@@ -29,13 +29,13 @@ const authorizationMiddleware = (
 
     if (req.header('authorization')) {
       // API clients should get 401 with a basic body
-      const error = new UnauthorizedError('You must log in to use Unleash.');
+      const error = new UnauthorizedError('You must log in to use Ganpa.');
       return res.status(error.statusCode).json(error);
     }
 
     const path = `${baseUriPath}/auth/simple/login`;
     const error = new AuthenticationRequired({
-      message: `You must log in to use Unleash. Your request had no authorization header, so we could not authorize you. Try logging in at ${path}`,
+      message: `You must log in to use Ganpa. Your request had no authorization header, so we could not authorize you. Try logging in at ${path}`,
       type: 'password',
       path,
     });
