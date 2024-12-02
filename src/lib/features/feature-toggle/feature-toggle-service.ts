@@ -254,7 +254,6 @@ export default class FeatureToggleService {
     projectId,
   }: IFeatureContext): Promise<void> {
     const id = await this.featureToggleStore.getProjectId(featureName);
-
     if (id !== projectId) {
       throw new NotFoundError(
         `There's no feature named "${featureName}" in project "${projectId}"${id === undefined ? '.' : `, but there's a feature with that name in project "${id}"`}`,
@@ -267,7 +266,6 @@ export default class FeatureToggleService {
     project: string,
   ): Promise<void> {
     const toggle = await this.featureToggleStore.get(featureName);
-
     if (toggle.archived || Boolean(toggle.archivedAt)) {
       throw new ArchivedFeatureError();
     }
@@ -285,7 +283,10 @@ export default class FeatureToggleService {
   }
 
   async validateNoOrphanParents(featureNames: string[]): Promise<void> {
-    if (featureNames.length === 0) return;
+    if (featureNames.length === 0) {
+      return;
+    }
+
     const parents =
       await this.dependentFeaturesReadModel.getOrphanParents(featureNames);
     if (parents.length > 0) {
@@ -832,6 +833,7 @@ export default class FeatureToggleService {
       );
       return data;
     }
+
     throw new NotFoundError(`Could not find strategy with id ${id}`);
   }
 
@@ -872,6 +874,7 @@ export default class FeatureToggleService {
       );
       return data;
     }
+
     throw new NotFoundError(`Could not find strategy with id ${id}`);
   }
 
@@ -988,6 +991,7 @@ export default class FeatureToggleService {
       }
       return result;
     }
+
     throw new NotFoundError(
       `Feature ${featureName} does not have environment ${environment}`,
     );
@@ -1237,6 +1241,7 @@ export default class FeatureToggleService {
 
       return createdToggle;
     }
+
     throw new NotFoundError(
       `Active project with id ${projectId} does not exist`,
     );
