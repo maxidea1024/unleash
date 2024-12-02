@@ -137,8 +137,8 @@ async function createApp(
   });
 }
 
-async function start(opts: IUnleashOptions = {}): Promise<IUnleash> {
-  const config = createConfig(opts);
+async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
+  const config = createConfig(options);
   const logger = config.getLogger('server-impl.ts');
 
   try {
@@ -173,8 +173,8 @@ async function start(opts: IUnleashOptions = {}): Promise<IUnleash> {
   return unleash;
 }
 
-async function create(opts: IUnleashOptions): Promise<IUnleash> {
-  const config = createConfig(opts);
+async function create(options: IUnleashOptions): Promise<IUnleash> {
+  const config = createConfig(options);
   const logger = config.getLogger('server-impl.ts');
 
   try {

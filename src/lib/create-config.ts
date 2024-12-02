@@ -82,6 +82,7 @@ function loadExperimental(options: IUnleashOptions): IExperimentalOptions {
   };
 }
 
+// default client caching options
 const defaultClientCachingOptions: IClientCachingOption = {
   enabled: true,
   maxAge: hoursToMilliseconds(1),
@@ -356,6 +357,7 @@ const defaultEmail: IEmailOption = {
   optionalHeaders: parseEnvVarJSON(process.env.EMAIL_OPTIONAL_HEADERS, {}),
 };
 
+// database port
 const dbPort = (dbConfig: Partial<IDBOption>): Partial<IDBOption> => {
   if (typeof dbConfig.port === 'string') {
     dbConfig.port = Number.parseInt(dbConfig.port, 10);
@@ -390,6 +392,8 @@ const formatServerOptions = (
   };
 };
 
+// load tokens from string
+// TODO: 별도의 소스파일로 정리해주는게 좋을듯?
 const loadTokensFromString = (
   tokenString: String | undefined,
   tokenType: ApiTokenType,
@@ -443,6 +447,7 @@ const loadEnvironmentEnableOverrides = () => {
   return [];
 };
 
+// CSP?
 const parseCspConfig = (
   cspConfig?: ICspDomainOptions,
 ): ICspDomainConfig | undefined => {
@@ -487,6 +492,7 @@ const parseCspEnvironmentVariables = (): ICspDomainConfig => {
   };
 };
 
+// parse frontend api origins(CORS)
 const parseFrontendApiOrigins = (options: IUnleashOptions): string[] => {
   const frontendApiOrigins = parseEnvVarStrings(
     process.env.UNLEASH_FRONTEND_API_ORIGINS,
