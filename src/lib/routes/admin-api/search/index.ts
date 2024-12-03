@@ -15,6 +15,7 @@ export class SearchApiController extends Controller {
       '/features',
       new FeatureSearchController(config, services).router,
     );
+
     this.app.use('/events', new EventSearchController(config, services).router);
   }
 }

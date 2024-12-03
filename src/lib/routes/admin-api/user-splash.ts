@@ -13,9 +13,9 @@ import { getStandardResponses } from '../../openapi';
 import type { SplashResponseSchema } from '../../openapi/spec/splash-response-schema';
 
 export default class UserSplashController extends Controller {
-  private readonly logger: Logger;
   private readonly userSplashService: UserSplashService;
   private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,

@@ -49,11 +49,11 @@ type AddonServices = Pick<
 const PATH = '/';
 
 export default class AddonController extends Controller {
-  private readonly logger: Logger;
   private readonly addonService: AddonService;
   private readonly openApiService: OpenApiService;
   private readonly integrationEventsService: IntegrationEventsService;
   private readonly flagResolver: IFlagResolver;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,

@@ -33,8 +33,8 @@ const PATH_DELETE = `${PATH}/delete`;
 const PATH_REVIVE = `${PATH}/revive`;
 
 export default class ProjectArchiveController extends Controller {
-  private readonly logger: Logger;
   private readonly featureService: FeatureToggleService;
+  private readonly logger: Logger;
 
   private transactionalFeatureToggleService: (
     db: UnleashTransaction,

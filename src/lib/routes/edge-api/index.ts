@@ -45,7 +45,7 @@ export default class EdgeController extends Controller {
           security: [{}],
           summary: 'Check which tokens are valid',
           description:
-            'This operation accepts a list of tokens to validate. Unleash will validate each token you provide. For each valid token you provide, Unleash will return the token along with its type and which projects it has access to.',
+            'This operation accepts a list of tokens to validate. Ganpa will validate each token you provide. For each valid token you provide, Ganpa will return the token along with its type and which projects it has access to.',
           operationId: 'getValidTokens',
           requestBody: createRequestSchema('tokenStringListSchema'),
           responses: {

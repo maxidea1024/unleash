@@ -18,9 +18,9 @@ import BadDataError from '../../error/bad-data-error';
 import { feedbackResponseSchema, getStandardResponses } from '../../openapi';
 
 export default class UserFeedbackController extends Controller {
-  private readonly logger: Logger;
   private readonly userFeedbackService: UserFeedbackService;
   private readonly openApiService: OpenApiService;
+  private readonly logger: Logger;
 
   constructor(
     config: IUnleashConfig,

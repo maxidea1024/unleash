@@ -687,10 +687,14 @@ export default class UserAdminController extends Controller {
     id,
     scimId,
   }: Pick<IUser, 'id' | 'scimId'>): Promise<void> {
-    if (!this.isEnterprise) return;
+    if (!this.isEnterprise) {
+      return;
+    }
 
     const isScimUser = await this.isScimUser({ id, scimId });
-    if (!isScimUser) return;
+    if (!isScimUser) {
+      return;
+    }
 
     const { enabled } = await this.settingService.getWithDefault('scim', {
       enabled: false,
