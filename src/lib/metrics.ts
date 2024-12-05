@@ -741,6 +741,7 @@ export function registerPrometheusMetrics(
     eventBus,
     events.REQUEST_ORIGIN,
     ({ type, method, source }) => {
+      source ??= '<unknown source>';
       requestOriginCounter.increment({ type, method, source });
     },
   );
@@ -1027,13 +1028,13 @@ export function registerPrometheusMetrics(
         productionChanges60.set(productionChanges.last60);
         productionChanges90.reset();
         productionChanges90.set(productionChanges.last90);
-      } catch (e) {}
+      } catch (e) { }
     },
   };
 }
 
 export default class MetricsMonitor {
-  constructor() {}
+  constructor() { }
 
   async startMonitoring(
     config: IUnleashConfig,
@@ -1087,7 +1088,7 @@ export default class MetricsMonitor {
         pendingAcquires: pool.numPendingAcquires(),
       });
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
   }
 }
 

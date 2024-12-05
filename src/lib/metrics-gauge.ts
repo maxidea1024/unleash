@@ -81,7 +81,7 @@ export class DbMetricsMonitor {
             }
           }
         }
-      } catch (e) {
+      } catch (e: unknown) {
         this.logger.warn(`Failed to refresh ${definition.name}`, e);
       }
     };
