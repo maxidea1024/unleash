@@ -102,11 +102,9 @@ export default class FeatureTagStore implements IFeatureTagStore {
         .where({ feature_name: featureName });
       stopTimer();
       return rows.map(this.featureTagRowToTag);
-    } else {
-      throw new NotFoundError(
-        `Could not find feature with name ${featureName}`,
-      );
     }
+
+    throw new NotFoundError(`Could not find feature with name ${featureName}`);
   }
 
   async getAllFeaturesForTag(tagValue: string): Promise<string[]> {

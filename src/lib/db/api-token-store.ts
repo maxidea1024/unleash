@@ -233,6 +233,7 @@ export class ApiTokenStore implements IApiTokenStore {
     if (rows.length > 0) {
       return toTokens(rows)[0];
     }
+
     throw new NotFoundError('Could not find api-token.');
   }
 

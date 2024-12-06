@@ -255,6 +255,7 @@ export default class ClientApplicationsStore
 
   /**
    * Updates all rows that have announced = false to announced =true and returns the rows altered
+   *
    * @return {[app]} - Apps that hadn't been announced
    */
   async setUnannouncedToAnnounced(): Promise<IClientApplication[]> {
@@ -337,6 +338,7 @@ export default class ClientApplicationsStore
     if (!rows.length) {
       throw new NotFoundError(`Could not find appName=${appName}`);
     }
+
     const existingStrategies: string[] = await this.db
       .select('name')
       .from('strategies')
