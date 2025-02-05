@@ -38,7 +38,6 @@ async function createApp(
   config: IUnleashConfig,
   startApp: boolean,
 ): Promise<IUnleash> {
-  // Database dependencies (stateful)
   const logger = config.getLogger('server-impl.ts');
 
   const serverVersion = config.enterpriseVersion ?? version;
@@ -75,6 +74,7 @@ async function createApp(
     const secret = await stores.settingStore.get<string>('unleash.secret');
     config.server.secret = secret!;
   }
+
   const app = await getApp(config, stores, services, unleashSession, db);
 
   await metricsMonitor.startMonitoring(

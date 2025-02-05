@@ -16,10 +16,10 @@ export async function loadIndexHTML(
     const res = await fetch(`${cdnPrefix}/index.html`);
     indexHTML = await res.text();
   } else {
+    const indexHtmlPath = path.join(config.publicFolder || publicFolder, 'index.html');
+
     indexHTML = fs
-      .readFileSync(
-        path.join(config.publicFolder || publicFolder, 'index.html'),
-      )
+      .readFileSync(indexHtmlPath)
       .toString();
   }
 
