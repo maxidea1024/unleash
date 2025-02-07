@@ -4,11 +4,11 @@ import type { LogProvider } from '../logger';
 import { AuthenticationRequired } from '../server-impl';
 import UnauthorizedError from '../error/unauthorized-error';
 
-const authorizationMiddleware = (
+export default function authorizationMiddleware(
   getLogger: LogProvider,
   baseUriPath: string,
   apiEndpoint?: string,
-): any => {
+): any {
   const logger = getLogger('authorization-middleware.ts');
 
   if (apiEndpoint) {
@@ -43,5 +43,3 @@ const authorizationMiddleware = (
     return res.status(error.statusCode).json(error);
   };
 };
-
-export default authorizationMiddleware;

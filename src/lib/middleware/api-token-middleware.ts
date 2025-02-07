@@ -31,14 +31,14 @@ export const TOKEN_TYPE_ERROR_MESSAGE =
 
 export const NO_TOKEN_WHERE_TOKEN_WAS_REQUIRED =
   'This endpoint requires an API token. Please add an authorization header to your request with a valid token';
-const apiAccessMiddleware = (
+export default function apiAccessMiddleware(
   {
     getLogger,
     authentication,
     flagResolver,
   }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
   { apiTokenService }: Pick<IUnleashServices, 'apiTokenService'>,
-): any => {
+): any {
   const logger = getLogger('api-token-middleware.ts');
   logger.debug('Enabling api-token middleware');
 
@@ -91,5 +91,3 @@ const apiAccessMiddleware = (
     next();
   };
 };
-
-export default apiAccessMiddleware;

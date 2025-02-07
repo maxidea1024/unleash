@@ -1,7 +1,7 @@
 import { BadDataError } from '../error';
 
 // TODO: 함수 이름은 변경하는게 좋을듯함.
-const idNumberMiddleware = (): any => {
+export default function idNumberMiddleware(): any {
   return async (req, res, next) => {
     const { id } = req.params;
 
@@ -15,5 +15,3 @@ const idNumberMiddleware = (): any => {
     next();
   };
 };
-
-export default idNumberMiddleware;

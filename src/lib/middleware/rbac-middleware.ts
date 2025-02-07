@@ -32,14 +32,14 @@ export function findParam(
   return found || defaultValue;
 }
 
-const rbacMiddleware = (
+export default function rbacMiddleware(
   config: Pick<IUnleashConfig, 'getLogger'>,
   {
     featureToggleStore,
     segmentStore,
   }: Pick<IUnleashStores, 'featureToggleStore' | 'segmentStore'>,
   accessService: PermissionChecker,
-): any => {
+): any {
   const logger = config.getLogger('rbac-middleware.ts');
   logger.debug('Enabling RBAC middleware');
 
@@ -121,5 +121,3 @@ const rbacMiddleware = (
     return next();
   };
 };
-
-export default rbacMiddleware;

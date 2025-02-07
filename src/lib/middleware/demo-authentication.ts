@@ -1,3 +1,5 @@
+// TODO demo 기능은 제거하는게 좋지 않을까?
+
 import type { Application } from 'express';
 import AuthenticationRequired from '../types/authentication-required';
 import type { IUnleashServices } from '../types/services';
@@ -8,7 +10,7 @@ import type { IAuthRequest, IUser } from '../server-impl';
 import type { IApiRequest } from '../routes/unleash-types';
 import { encrypt } from '../util';
 
-function demoAuthentication(
+export default function demoAuthentication(
   app: Application,
   basePath: string,
   { userService }: Pick<IUnleashServices, 'userService'>,
@@ -82,5 +84,3 @@ function demoAuthentication(
       .end();
   });
 }
-
-export default demoAuthentication;

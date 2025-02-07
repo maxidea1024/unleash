@@ -1,4 +1,3 @@
-import url from 'url';
 import type { RequestHandler } from 'express';
 import type { IUnleashConfig } from '../types/options';
 
@@ -8,7 +7,7 @@ const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
   return (req, res, next) => {
     if (enable) {
       res.on('finish', () => {
-        const { pathname } = url.parse(req.originalUrl);
+        const { pathname } = new URL(req.originalUrl);
         logger.info(`[${res.statusCode}] [${req.method}] ${pathname}`);
       });
     }

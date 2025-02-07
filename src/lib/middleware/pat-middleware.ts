@@ -3,10 +3,10 @@ import type { IAuthRequest } from '../routes/unleash-types';
 import NotFoundError from '../error/notfound-error';
 import type { AccountService } from '../services/account-service';
 
-const patMiddleware = (
+export default function patMiddleware(
   { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
   { accountService }: { accountService: AccountService },
-): any => {
+): any {
   const logger = getLogger('pat-middleware.ts');
   logger.debug('Enabling PAT middleware');
 
@@ -33,5 +33,3 @@ const patMiddleware = (
     next();
   };
 };
-
-export default patMiddleware;

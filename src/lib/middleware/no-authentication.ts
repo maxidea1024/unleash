@@ -9,8 +9,7 @@ import {
 } from '../server-impl';
 import { DEFAULT_ENV } from '../util';
 
-// eslint-disable-next-line
-function noneAuthentication(baseUriPath: string, app: Application): void {
+export default function noneAuthentication(baseUriPath: string, app: Application): void {
   app.use(`${baseUriPath || ''}/api/admin/`, (req: IAuthRequest, res, next) => {
     if (!req.user) {
       req.user = new NoAuthUser();
@@ -51,5 +50,3 @@ export function noApiToken(baseUriPath: string, app: Application) {
     next();
   });
 }
-
-export default noneAuthentication;

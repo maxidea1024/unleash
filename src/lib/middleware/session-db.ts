@@ -5,7 +5,7 @@ import type { RequestHandler } from 'express';
 import type { IUnleashConfig } from '../types/options';
 import { hoursToMilliseconds } from 'date-fns';
 
-function sessionDb(
+export default function sessionDb(
   config: Pick<IUnleashConfig, 'session' | 'server' | 'secureHeaders'>,
   knex: Knex,
 ): RequestHandler {
@@ -38,5 +38,3 @@ function sessionDb(
     },
   });
 }
-
-export default sessionDb;
