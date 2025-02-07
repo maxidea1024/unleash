@@ -16,12 +16,10 @@ const matcher =
  * @param {string} string
  * @return {boolean}
  */
-function isEmail(value: string): boolean {
+export default function isEmail(value: string): boolean {
   if (value.length > 500) {
     return false;
   }
 
   return matcher.test(value);
 }
-
-export default isEmail;

@@ -1,7 +1,7 @@
 import type { Logger } from '../logger';
 import type { IUnleash } from '../types/core';
 
-function registerGracefulShutdown(unleash: IUnleash, logger: Logger): void {
+export default function registerGracefulShutdown(unleash: IUnleash, logger: Logger): void {
   const closer = (signal: string) => async () => {
     try {
       logger.info(`Graceful shutdown signal (${signal}) received.`);
@@ -24,5 +24,3 @@ function registerGracefulShutdown(unleash: IUnleash, logger: Logger): void {
   process.on('SIGHUP', closer('SIGHUP'));
   process.on('SIGTERM', closer('SIGTERM'));
 }
-
-export default registerGracefulShutdown;
