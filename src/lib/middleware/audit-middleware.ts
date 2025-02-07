@@ -13,8 +13,8 @@ export const auditAccessMiddleware = ({
     } else {
       try {
         req.audit = extractAuditInfo(req);
-      } catch (e) {
-        logger.warn('Could not find audit info in request', e);
+      } catch (error) {
+        logger.warn('Could not find audit info in request', error);
       }
     }
 

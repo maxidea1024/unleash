@@ -72,6 +72,7 @@ const apiAccessMiddleware = (
             });
             return;
           }
+
           req.user = apiUser;
         } else if (isClientApi(req) || isProxyApi(req)) {
           // If we're here, we know that api token middleware was enabled, otherwise we'd returned a no-op middleware
