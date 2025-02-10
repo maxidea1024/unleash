@@ -42,4 +42,4 @@ export default function authorizationMiddleware(
 
     return res.status(error.statusCode).json(error);
   };
-};
+}
