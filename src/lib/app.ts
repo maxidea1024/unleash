@@ -61,7 +61,8 @@ export default async function getApp(
 
   app.use(requestLogger(config));
 
-  app.use(`${baseUriPath}/api`, bearerTokenMiddleware(config)); // We only need bearer token compatibility on /api paths.
+  // We only need bearer token compatibility on /api paths.
+  app.use(`${baseUriPath}/api`, bearerTokenMiddleware(config));
 
   if (typeof config.preHook === 'function') {
     config.preHook(app, config, services, db);

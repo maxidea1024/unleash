@@ -146,13 +146,16 @@ async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
       logger.info('DB migration: disabled');
     } else {
       logger.info('DB migration: start');
+
       if (config.flagResolver.isEnabled('migrationLock')) {
         logger.info('Running migration with lock');
+
         const lock = withDbLock(config.db, {
           lockKey: defaultLockKey,
           timeout: defaultTimeout,
           logger,
         });
+
         await lock(migrateDb)(config);
       } else {
         logger.info('Running migration without lock');
@@ -170,6 +173,7 @@ async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
   if (config.server.gracefulShutdownEnable) {
     registerGracefulShutdown(unleash, logger);
   }
+
   return unleash;
 }
 
