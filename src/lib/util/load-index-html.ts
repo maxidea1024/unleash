@@ -16,11 +16,12 @@ export async function loadIndexHTML(
     const res = await fetch(`${cdnPrefix}/index.html`);
     indexHTML = await res.text();
   } else {
-    const indexHtmlPath = path.join(config.publicFolder || publicFolder, 'index.html');
+    const indexHtmlPath = path.join(
+      config.publicFolder || publicFolder,
+      'index.html',
+    );
 
-    indexHTML = fs
-      .readFileSync(indexHtmlPath)
-      .toString();
+    indexHTML = fs.readFileSync(indexHtmlPath).toString();
   }
 
   return rewriteHTML(indexHTML, baseUriPath, cdnPrefix, uiFlags);
