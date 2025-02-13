@@ -49,8 +49,12 @@ const checkPermission =
       return next();
     }
 
-    if (req.checkRbac && (await req.checkRbac(permissions))) {
-      return next();
+    // check RBAC permissions.
+    if (req.checkRbac) {
+      const permit = await req.checkRback(permissions);
+      if (permit) {
+        return next();
+      }
     }
 
     return res.status(403).json(new PermissionError(permissions)).end();

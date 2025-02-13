@@ -7,7 +7,6 @@ import rateLimit from 'express-rate-limit';
 import Controller from './controller';
 import { AdminApi } from './admin-api';
 import ClientApi from './client-api';
-
 import { HealthCheckController } from './health-check';
 import FrontendAPIController from '../features/frontend-api/frontend-api-controller';
 import EdgeController from './edge-api';
