@@ -53,7 +53,7 @@ async function createApp(
   const unleashSession = sessionDb(config, db);
 
   const stopUnleash = async (server?: StoppableServer) => {
-    logger.info('Shutting down Unleash...');
+    logger.info('Shutting down Ganpa...');
     if (server) {
       const stopServer = promisify(server.stop);
       await stopServer();
@@ -116,7 +116,7 @@ async function createApp(
     if (startApp) {
       const server = stoppable(
         app.listen(config.listen, () =>
-          logger.info('Unleash has started.', server.address()),
+          logger.info('Ganpa has started.', server.address()),
         ),
         config.server.gracefulShutdownTimeout,
       );

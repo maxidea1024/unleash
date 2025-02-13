@@ -189,13 +189,14 @@ export class ApiTokenService {
     if (tokenCount > 0) {
       return;
     }
+
     try {
       const createAll = tokens
         .map(mapLegacyTokenWithSecret)
         .map((t) => this.insertNewApiToken(t, SYSTEM_USER_AUDIT));
       await Promise.all(createAll);
     } catch (e) {
-      this.logger.error('Unable to create initial Admin API tokens');
+      this.logger.error('Unable to create initial Admin API tokens', e);
     }
   }
 

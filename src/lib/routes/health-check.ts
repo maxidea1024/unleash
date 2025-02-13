@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 import type { IUnleashConfig } from '../types/options';
 import type { IUnleashServices } from '../types/services';
-import type { Logger } from '../logger';
-import type { OpenApiService } from '../services/openapi-service';
+// import type { Logger } from '../logger';
+// import type { OpenApiService } from '../services/openapi-service';
 
 import Controller from './controller';
 import { NONE } from '../types/permissions';
@@ -10,8 +10,8 @@ import { createResponseSchema } from '../openapi/util/create-response-schema';
 import type { HealthCheckSchema } from '../openapi/spec/health-check-schema';
 
 export class HealthCheckController extends Controller {
-  private readonly logger: Logger;
-  private readonly openApiService: OpenApiService;
+  // private readonly logger: Logger;
+  // private readonly openApiService: OpenApiService;
 
   constructor(
     config: IUnleashConfig,
@@ -19,9 +19,8 @@ export class HealthCheckController extends Controller {
   ) {
     super(config);
 
-    this.logger = config.getLogger('health-check.ts');
-
-    this.openApiService = openApiService;
+    // this.logger = config.getLogger('health-check.ts');
+    // this.openApiService = openApiService;
 
     this.route({
       method: 'get',
@@ -34,7 +33,7 @@ export class HealthCheckController extends Controller {
           operationId: 'getHealth',
           summary: 'Get instance operational status',
           description:
-            'This operation returns information about whether this Unleash instance is healthy and ready to serve requests or not. Typically used by your deployment orchestrator (e.g. Kubernetes, Docker Swarm, Mesos, et al.).',
+            'This operation returns information about whether this Ganpa instance is healthy and ready to serve requests or not. Typically used by your deployment orchestrator (e.g. Kubernetes, Docker Swarm, Mesos, et al.).',
           responses: {
             200: createResponseSchema('healthCheckSchema'),
             500: createResponseSchema('healthCheckSchema'),
