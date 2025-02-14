@@ -40,7 +40,9 @@ export const useSearch = <T>(
   }, [data, normalizedSearchValue, columns]);
 
   const search = useMemo(() => {
-    if (!normalizedSearchValue) return data;
+    if (!normalizedSearchValue) {
+      return data;
+    }
 
     const filteredData = filter(columns, normalizedSearchValue, data);
     const searchedData = searchInFilteredData(

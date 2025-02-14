@@ -20,4 +20,4 @@ export const usePageTitle = (title?: string) => {
   }, [setAnnouncement, title]);
 };
 
-const DEFAULT_PAGE_TITLE = 'Unleash';
+const DEFAULT_PAGE_TITLE = 'Ganpa';
