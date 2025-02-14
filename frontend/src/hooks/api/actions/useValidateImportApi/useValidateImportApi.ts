@@ -5,6 +5,7 @@ export interface ImportQuerySchema {
   environment: string;
   data: object;
 }
+
 export interface IValidationSchema {
   errors: Array<{ message: string; affectedItems: Array<string> }>;
   warnings: Array<{ message: string; affectedItems: Array<string> }>;
