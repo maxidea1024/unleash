@@ -51,7 +51,7 @@ const checkPermission =
 
     // check RBAC permissions.
     if (req.checkRbac) {
-      const permit = await req.checkRback(permissions);
+      const permit = await req.checkRbac(permissions);
       if (permit) {
         return next();
       }
@@ -61,10 +61,12 @@ const checkPermission =
   };
 
 const checkPrivateProjectPermissions = () => async (req, res, next) => {
-  if (
-    !req.checkPrivateProjectPermissions ||
-    (await req.checkPrivateProjectPermissions())
-  ) {
+  if (!req.checkPrivateProjectPermissions) {
+    return next();
+  }
+
+  const permit = await req.checkPrivateProjectPermissions();
+  if (permit) {
     return next();
   }
 

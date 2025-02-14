@@ -1,8 +1,10 @@
 import type { Request } from 'express';
 
 const ORIGIN = 'origin';
-const httpMatcher = /^https?:\/\//;
-const userAgentMatches = [
+
+const HTTP_MATCHER = /^https?:\/\//;
+
+const USER_AGENT_MATCHES = [
   { label: 'Axios', matcher: /^axios/ },
   { label: 'Curl', matcher: /^curl/ },
   { label: 'Go', matcher: /^Go-http-client/ },
@@ -17,7 +19,7 @@ const userAgentMatches = [
 
 export const getFilteredOrigin = (request: Request): string | undefined => {
   const origin = request.headers[ORIGIN];
-  if (origin && httpMatcher.test(origin)) {
+  if (origin && HTTP_MATCHER.test(origin)) {
     return origin;
   }
 
@@ -28,7 +30,7 @@ export const determineIntegrationSource = (
   userAgent: string,
 ): string /* | undefined*/ => {
   return (
-    userAgentMatches.find((candidate) => candidate.matcher.test(userAgent))
+    USER_AGENT_MATCHES.find((candidate) => candidate.matcher.test(userAgent))
       ?.label ?? 'Other'
   );
 };

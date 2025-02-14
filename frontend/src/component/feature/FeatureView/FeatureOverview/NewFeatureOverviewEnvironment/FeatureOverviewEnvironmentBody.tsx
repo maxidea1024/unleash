@@ -169,8 +169,12 @@ export const FeatureOverviewEnvironmentBody = ({
       targetIndex: number,
     ): DragEventHandler<HTMLDivElement> =>
     (event) => {
-      if (dragItem === null || ref.current === null) return;
-      if (dragItem.index === targetIndex || targetId === dragItem.id) return;
+      if (dragItem === null || ref.current === null) {
+        return;
+      }
+      if (dragItem.index === targetIndex || targetId === dragItem.id) {
+        return;
+      }
 
       const { top, bottom } = ref.current.getBoundingClientRect();
       const overTargetTop = event.clientY - top < dragItem.height;

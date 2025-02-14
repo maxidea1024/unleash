@@ -8,15 +8,18 @@ export default function patMiddleware(
   { accountService }: { accountService: AccountService },
 ): any {
   const logger = getLogger('pat-middleware.ts');
+
   logger.debug('Enabling PAT middleware');
 
   return async (req: IAuthRequest, res, next) => {
     try {
       const apiToken = req.header('authorization');
+
       if (apiToken?.startsWith('user:')) {
-        const user =
-          await accountService.getAccountByPersonalAccessToken(apiToken);
+        const user = await accountService.getAccountByPersonalAccessToken(apiToken);
+
         req.user = user;
+
         accountService.addPATSeen(apiToken);
       }
     } catch (error) {

@@ -14,6 +14,7 @@ const requestLogger: (config: IUnleashConfig) => RequestHandler = (config) => {
           // const { pathname } = new URL(req.originalUrl);
 
           const { pathname } = url.parse(req.originalUrl);
+
           logger.info(`[${res.statusCode}] [${req.method}] ${pathname}`);
         } catch (err) {
           logger.error('cannot parse url', {

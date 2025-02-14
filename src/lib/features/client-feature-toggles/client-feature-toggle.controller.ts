@@ -83,6 +83,7 @@ export default class FeatureController extends Controller {
     this.logger = config.getLogger('client-feature-toggle.controller.ts');
 
     const { clientFeatureCaching } = config;
+
     this.clientFeatureToggleService = clientFeatureToggleService;
     this.clientSpecService = clientSpecService;
     this.openApiService = openApiService;
@@ -267,7 +268,12 @@ export default class FeatureController extends Controller {
         200,
         res,
         clientFeaturesSchema.$id,
-        { version, features, query, meta },
+        {
+          version,
+          features,
+          query,
+          meta
+        },
       );
     }
   }

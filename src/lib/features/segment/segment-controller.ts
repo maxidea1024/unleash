@@ -255,7 +255,7 @@ export class SegmentsController extends Controller {
         openApiService.validPath({
           summary: 'Get all segments',
           description:
-            'Retrieves all segments that exist in this Unleash instance.',
+            'Retrieves all segments that exist in this Ganpa instance.',
           tags: ['Segments'],
           operationId: 'getSegments',
           responses: {

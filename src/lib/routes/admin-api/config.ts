@@ -148,6 +148,8 @@ export default class ConfigController extends Controller {
       unleashAIAvailable: this.config.openAIAPIKey !== undefined,
     };
 
+    // console.log('ui-config:', response);
+
     this.openApiService.respondWithValidation(
       200,
       res,

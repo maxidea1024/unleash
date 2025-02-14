@@ -57,8 +57,7 @@ export class SegmentService implements ISegmentService {
     this.featureStrategiesStore = featureStrategiesStore;
     this.eventService = eventService;
     this.changeRequestAccessReadModel = changeRequestAccessReadModel;
-    this.changeRequestSegmentUsageReadModel =
-      changeRequestSegmentUsageReadModel;
+    this.changeRequestSegmentUsageReadModel = changeRequestSegmentUsageReadModel;
     this.privateProjectChecker = privateProjectChecker;
     this.flagResolver = config.flagResolver;
     this.resourceLimits = config.resourceLimits;
@@ -266,7 +265,7 @@ export class SegmentService implements ISegmentService {
     );
   }
 
-  // Used by unleash-enterprise.
+  // Used by ganpa-enterprise.
   async removeFromStrategy(id: number, strategyId: string): Promise<void> {
     await this.segmentStore.removeFromStrategy(id, strategyId);
   }

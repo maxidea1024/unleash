@@ -41,6 +41,7 @@ export default function rbacMiddleware(
   accessService: PermissionChecker,
 ): any {
   const logger = config.getLogger('rbac-middleware.ts');
+
   logger.debug('Enabling RBAC middleware');
 
   return (req, res, next) => {

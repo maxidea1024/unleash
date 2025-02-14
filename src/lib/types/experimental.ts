@@ -1,3 +1,5 @@
+// TODO 코드를 좀 간단하게 해보자.
+
 import { PayloadType, type Variant } from 'unleash-client';
 import { parseEnvVarBoolean } from '../util';
 import { defaultVariant } from 'unleash-client/lib/variant';

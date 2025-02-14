@@ -35,6 +35,7 @@ export default function demoAuthentication(
       }
 
       req.session.user = user;
+
       return res.status(200).json(user);
     } catch (e) {
       res

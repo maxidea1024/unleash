@@ -181,6 +181,7 @@ export default class VersionService {
 
   async checkLatestVersion(): Promise<void> {
     const instanceId = await this.getInstanceId();
+
     this.logger.debug(
       `Checking for newest version for instanceId=${instanceId}`,
     );
