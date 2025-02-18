@@ -5,7 +5,6 @@ import type {
   IAddonDto,
   IAddonStore,
 } from '../types/stores/addon-store';
-
 import metricsHelper from '../util/metrics-helper';
 import { DB_TIME } from '../metric-events';
 import NotFoundError from '../error/notfound-error';
@@ -113,7 +112,6 @@ export default class AddonStore implements IAddonStore {
     return present;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   rowToAddon(row): IAddon {
     return {
       id: row.id,
@@ -128,7 +126,6 @@ export default class AddonStore implements IAddonStore {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   addonToRow(addon: IAddonDto) {
     return {
       provider: addon.provider,

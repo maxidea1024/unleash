@@ -31,7 +31,6 @@ export default class SlackAddon extends Addon {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async handleEvent(
     event: IEvent,
     parameters: ISlackAddonParameters,

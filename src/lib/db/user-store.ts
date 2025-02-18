@@ -2,7 +2,6 @@
 
 import type { Logger, LogProvider } from '../logger';
 import User from '../types/user';
-
 import NotFoundError from '../error/notfound-error';
 import type {
   ICreateUser,

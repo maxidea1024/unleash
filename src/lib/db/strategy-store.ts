@@ -86,7 +86,7 @@ export default class StrategyStore implements IStrategyStore {
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(name: string): Promise<boolean> {
     const result = await this.db.raw(
@@ -132,7 +132,6 @@ export default class StrategyStore implements IStrategyStore {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   eventDataToRow(data): IMinimalStrategyRow {
     return {
       name: data.name,
@@ -142,12 +141,10 @@ export default class StrategyStore implements IStrategyStore {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async createStrategy(data): Promise<void> {
     await this.db(TABLE).insert(this.eventDataToRow(data));
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async updateStrategy(data): Promise<void> {
     await this.db(TABLE)
       .where({ name: data.name })
@@ -182,7 +179,7 @@ export default class StrategyStore implements IStrategyStore {
 
   async dropCustomStrategies(): Promise<void> {
     await this.db(TABLE)
-      .where({ built_in: 0 }) // eslint-disable-line
+      .where({ built_in: 0 })
       .delete();
   }
 }

@@ -22,7 +22,6 @@ export const getAddons: (args: IAddonConfig) => IAddonProviders = (args) => {
   ];
 
   return addons.reduce((map, addon) => {
-    // eslint-disable-next-line no-param-reassign
     map[addon.name] = addon;
     return map;
   }, {});

@@ -94,7 +94,6 @@ export default class UserSplashStore implements IUserSplashStore {
 
   async getAll(): Promise<IUserSplash[]> {
     const userSplashs = await this.db.table<IUserSplashTable>(TABLE).select();
-
     return userSplashs.map(rowToField);
   }
 }

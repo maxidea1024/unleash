@@ -25,7 +25,6 @@ export default class TeamsAddon extends Addon {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   async handleEvent(
     event: IEvent,
     parameters: ITeamsParameters,

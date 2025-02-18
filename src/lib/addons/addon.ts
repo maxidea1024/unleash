@@ -79,7 +79,6 @@ export default abstract class Addon {
     return res;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   abstract handleEvent(
     event: IEvent,
     parameters: any,

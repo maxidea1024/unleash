@@ -1,6 +1,5 @@
 import type { Logger, LogProvider } from '../logger';
 import User from '../types/user';
-
 import NotFoundError from '../error/notfound-error';
 import type { IUserLookup } from '../types/stores/user-store';
 import type { IAdminCount } from '../types/stores/account-store';
