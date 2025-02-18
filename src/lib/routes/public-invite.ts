@@ -1,5 +1,4 @@
 import type { Response } from 'express';
-
 import Controller from './controller';
 import { NONE } from '../types/permissions';
 import type { Logger } from '../logger';

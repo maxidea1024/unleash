@@ -1,5 +1,4 @@
 import type { Response } from 'express';
-
 import Controller from '../controller';
 import {
   ADMIN,

@@ -3,7 +3,6 @@ import type { IUnleashConfig } from '../types/options';
 import type { IUnleashServices } from '../types/services';
 // import type { Logger } from '../logger';
 // import type { OpenApiService } from '../services/openapi-service';
-
 import Controller from './controller';
 import { NONE } from '../types/permissions';
 import { createResponseSchema } from '../openapi/util/create-response-schema';

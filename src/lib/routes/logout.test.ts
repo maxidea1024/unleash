@@ -1,7 +1,6 @@
 import supertest from 'supertest';
 import express from 'express';
 import { createTestConfig } from '../../test/config/test-config';
-
 import LogoutController from './logout';
 import type { IAuthRequest } from './unleash-types';
 import SessionService from '../services/session-service';

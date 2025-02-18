@@ -1,7 +1,5 @@
 import type { Request, Response } from 'express';
-
 import Controller from '../controller';
-
 import {
   CREATE_CONTEXT_FIELD,
   UPDATE_CONTEXT_FIELD,
@@ -13,7 +11,6 @@ import type { IUnleashServices } from '../../types/services';
 import type ContextService from '../../services/context-service';
 import type { Logger } from '../../logger';
 import type { IAuthRequest } from '../unleash-types';
-
 import type { OpenApiService } from '../../services/openapi-service';
 import {
   contextFieldSchema,
