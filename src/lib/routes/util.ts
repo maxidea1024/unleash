@@ -36,7 +36,6 @@ export const handleErrors: (
   if (createError.isHttpError(error)) {
     return res
       .status(
-        // @ts-expect-error - The error object here is not guaranteed to contain status
         error.status ?? 400,
       )
       .json({ message: error.message });

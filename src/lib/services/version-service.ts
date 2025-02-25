@@ -205,6 +205,7 @@ export default class VersionService {
           method: 'POST',
           body: JSON.stringify(versionPayload),
           headers: { 'Content-Type': 'application/json' },
+          timeout: undefined
         });
         if (res.ok) {
           const data = (await res.json()) as IVersionResponse;

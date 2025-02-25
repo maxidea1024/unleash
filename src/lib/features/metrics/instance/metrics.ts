@@ -89,7 +89,7 @@ export default class ClientMetricsController extends Controller {
         this.openApiService.validPath({
           tags: ['Edge'],
           summary: 'Send metrics in bulk',
-          description: `This operation accepts batched metrics from any client. Metrics will be inserted into Unleash's metrics storage`,
+          description: `This operation accepts batched metrics from any client. Metrics will be inserted into Ganpa's metrics storage`,
           operationId: 'clientBulkMetrics',
           requestBody: createRequestSchema('bulkMetricsSchema'),
           responses: {
