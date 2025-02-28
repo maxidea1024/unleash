@@ -26,10 +26,10 @@ export interface IFavoriteProjectProps {
 
 export class FavoritesService {
   private readonly config: IUnleashConfig;
-  private readonly logger: Logger;
   private readonly favoriteFeaturesStore: IFavoriteFeaturesStore;
   private readonly favoriteProjectsStore: IFavoriteProjectsStore;
   private readonly eventService: EventService;
+  private readonly logger: Logger;
 
   constructor(
     {
@@ -55,6 +55,7 @@ export class FavoritesService {
       feature: feature,
       userId: user.id,
     });
+
     await this.eventService.storeEvent(
       new FeatureFavoritedEvent({
         featureName: feature,
@@ -64,6 +65,7 @@ export class FavoritesService {
         auditUser,
       }),
     );
+
     return data;
   }
 
@@ -71,10 +73,11 @@ export class FavoritesService {
     { feature, user }: IFavoriteFeatureProps,
     auditUser: IAuditUser,
   ): Promise<void> {
-    const data = await this.favoriteFeaturesStore.delete({
+    await this.favoriteFeaturesStore.delete({
       feature: feature,
       userId: user.id,
     });
+
     await this.eventService.storeEvent(
       new FeatureUnfavoritedEvent({
         featureName: feature,
@@ -84,7 +87,6 @@ export class FavoritesService {
         auditUser,
       }),
     );
-    return data;
   }
 
   async favoriteProject(
@@ -95,6 +97,7 @@ export class FavoritesService {
       project,
       userId: user.id,
     });
+
     await this.eventService.storeEvent(
       new ProjectFavoritedEvent({
         data: {
@@ -104,6 +107,7 @@ export class FavoritesService {
         auditUser,
       }),
     );
+
     return data;
   }
 
@@ -111,10 +115,11 @@ export class FavoritesService {
     { project, user }: IFavoriteProjectProps,
     auditUser: IAuditUser,
   ): Promise<void> {
-    const data = this.favoriteProjectsStore.delete({
+    await this.favoriteProjectsStore.delete({
       project: project,
       userId: user.id,
     });
+
     await this.eventService.storeEvent(
       new ProjectUnfavoritedEvent({
         data: {
@@ -124,14 +129,13 @@ export class FavoritesService {
         auditUser,
       }),
     );
-    return data;
   }
 
   async isFavoriteProject(favorite: IFavoriteProjectKey): Promise<boolean> {
     if (favorite.userId) {
-      return this.favoriteProjectsStore.exists(favorite);
+      return await this.favoriteProjectsStore.exists(favorite);
     }
 
-    return Promise.resolve(false);
+    return false;
   }
 }
