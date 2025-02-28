@@ -36,7 +36,7 @@ export const handleErrors: (
   if (createError.isHttpError(error)) {
     return res
       .status(
-        error.status ?? 400,
+        (error as any).status ?? 400,
       )
       .json({ message: error.message });
   }
