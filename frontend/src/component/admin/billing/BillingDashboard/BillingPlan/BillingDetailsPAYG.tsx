@@ -19,13 +19,13 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: `${theme.spacing(3)} 0`,
 }));
 
-interface IBillingDetailsPAYGProps {
+type BillingDetailsPAYGProps = {
   instanceStatus: IInstanceStatus;
-}
+};
 
 export const BillingDetailsPAYG = ({
   instanceStatus,
-}: IBillingDetailsPAYGProps) => {
+}: BillingDetailsPAYGProps) => {
   const { users, loading } = useUsers();
 
   const eligibleUsers = users.filter((user) => user.email);

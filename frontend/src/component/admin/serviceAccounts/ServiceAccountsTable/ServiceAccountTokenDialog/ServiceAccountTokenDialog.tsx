@@ -8,13 +8,13 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-interface IServiceAccountDialogProps {
+type ServiceAccountDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: INewPersonalAPIToken;
 }
 
-export const ServiceAccountTokenDialog: FC<IServiceAccountDialogProps> = ({
+export const ServiceAccountTokenDialog: FC<ServiceAccountDialogProps> = ({
   open,
   setOpen,
   token,

@@ -1,4 +1,4 @@
-import { type FC, Fragment, useState, type ChangeEvent } from 'react';
+import { Fragment, useState, type ChangeEvent } from 'react';
 import {
   Checkbox,
   FormControlLabel,
@@ -9,16 +9,14 @@ import {
   Chip,
 } from '@mui/material';
 import { Autocomplete } from '@mui/material';
-
 import type {
   AutocompleteRenderGroupParams,
   AutocompleteRenderInputParams,
   AutocompleteRenderOptionState,
 } from '@mui/material/Autocomplete';
-
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import type { IAutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
+import type { AutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
 import { SelectAllButton } from './SelectAllButton/SelectAllButton';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -31,23 +29,23 @@ const SelectOptionCheckbox = styled(Checkbox)(({ theme }) => ({
   marginRight: theme.spacing(0.4),
 }));
 
-export interface ISelectProjectInputProps {
+export type SelectProjectInputProps = {
   disabled?: boolean;
-  options: IAutocompleteBoxOption[];
+  options: AutocompleteBoxOption[];
   defaultValue: string[];
   onChange: (value: string[]) => void;
   onFocus?: () => void;
   error?: string;
-}
+};
 
-export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
+export const SelectProjectInput = ({
   options,
   defaultValue = [ALL_PROJECTS],
   onChange,
   disabled,
   error,
   onFocus,
-}) => {
+}: SelectProjectInputProps) => {
   const [projects, setProjects] = useState<string[]>(
     typeof defaultValue === 'string' ? [defaultValue] : defaultValue,
   );
@@ -80,7 +78,7 @@ export const SelectProjectInput: FC<ISelectProjectInputProps> = ({
 
   const renderOption = (
     props: object & { key?: string },
-    option: IAutocompleteBoxOption,
+    option: AutocompleteBoxOption,
     { selected }: AutocompleteRenderOptionState,
   ) => {
     const { key, ...rest } = props;

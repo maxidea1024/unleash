@@ -2,20 +2,19 @@ import type React from 'react';
 import { StyledInput, StyledInputDescription } from '../ApiTokenForm.styles';
 import type { ApiTokenFormErrorType } from '../useApiTokenForm';
 
-interface ITokenInfoProps {
+type TokenInfoProps = {
   username: string;
   setUsername: React.Dispatch<React.SetStateAction<string>>;
-
   errors: { [key: string]: string };
   clearErrors: (error?: ApiTokenFormErrorType) => void;
-}
+};
 
 export const TokenInfo = ({
   username,
   setUsername,
   errors,
   clearErrors,
-}: ITokenInfoProps) => {
+}: TokenInfoProps) => {
   return (
     <>
       <StyledInputDescription>

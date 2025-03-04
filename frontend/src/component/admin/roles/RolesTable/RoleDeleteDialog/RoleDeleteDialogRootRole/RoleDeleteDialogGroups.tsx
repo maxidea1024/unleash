@@ -11,13 +11,13 @@ export type PageQueryType = Partial<
   Record<'sort' | 'order' | 'search', string>
 >;
 
-interface IRoleDeleteDialogGroupsProps {
+type RoleDeleteDialogGroupsProps = {
   groups: IGroup[];
 }
 
 export const RoleDeleteDialogGroups = ({
   groups,
-}: IRoleDeleteDialogGroupsProps) => {
+}: RoleDeleteDialogGroupsProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'createdAt', desc: true }],
   }));

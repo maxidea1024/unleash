@@ -1,4 +1,4 @@
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useGroups } from 'hooks/api/getters/useGroups/useGroups';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { IGroup } from 'interfaces/group';
@@ -37,7 +37,7 @@ const groupsSearch = (group: IGroup, searchValue: string) => {
   );
 };
 
-export const GroupsList: FC = () => {
+export const GroupsList = () => {
   const navigate = useNavigate();
   const [editUsersOpen, setEditUsersOpen] = useState(false);
   const [removeOpen, setRemoveOpen] = useState(false);

@@ -3,7 +3,7 @@ import { RoleDeleteDialogRootRole } from './RoleDeleteDialogRootRole/RoleDeleteD
 import { RoleDeleteDialogProjectRole } from './RoleDeleteDialogProjectRole/RoleDeleteDialogProjectRole';
 import { CUSTOM_PROJECT_ROLE_TYPE } from 'constants/roles';
 
-interface IRoleDeleteDialogProps {
+type RoleDeleteDialogProps = {
   role?: IRole;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +15,7 @@ export const RoleDeleteDialog = ({
   open,
   setOpen,
   onConfirm,
-}: IRoleDeleteDialogProps) => {
+}: RoleDeleteDialogProps) => {
   if (role?.type === CUSTOM_PROJECT_ROLE_TYPE) {
     return (
       <RoleDeleteDialogProjectRole

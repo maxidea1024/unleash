@@ -75,7 +75,7 @@ const StyledAutocompleteWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IGroupForm {
+type GroupFormProps = {
   name: string;
   description: string;
   mappingsSSO: string[];
@@ -92,9 +92,9 @@ interface IGroupForm {
   errors: { [key: string]: string };
   mode: 'Create' | 'Edit';
   children?: React.ReactNode;
-}
+};
 
-export const GroupForm: FC<IGroupForm> = ({
+export const GroupForm = ({
   name,
   description,
   mappingsSSO,
@@ -111,7 +111,7 @@ export const GroupForm: FC<IGroupForm> = ({
   errors,
   mode,
   children,
-}) => {
+}: GroupFormProps) => {
   const { config: oidcSettings } = useAuthSettings('oidc');
   const { config: samlSettings } = useAuthSettings('saml');
   const { roles } = useUsers();

@@ -14,16 +14,16 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface IUsersActionsCellProps {
+type UsersActionsCellProps = {
   onEdit: (event: React.SyntheticEvent) => void;
   onViewAccess?: (event: React.SyntheticEvent) => void;
   onChangePassword: (event: React.SyntheticEvent) => void;
   onResetPassword: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
   isScimUser?: boolean;
-}
+};
 
-export const UsersActionsCell: FC<IUsersActionsCellProps> = ({
+export const UsersActionsCell: FC<UsersActionsCellProps> = ({
   onEdit,
   onViewAccess,
   onChangePassword,

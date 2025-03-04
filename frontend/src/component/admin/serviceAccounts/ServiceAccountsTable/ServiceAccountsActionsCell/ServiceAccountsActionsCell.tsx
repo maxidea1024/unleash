@@ -10,13 +10,13 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface IServiceAccountsActionsCellProps {
+type ServiceAccountsActionsCellProps = {
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const ServiceAccountsActionsCell: FC<
-  IServiceAccountsActionsCellProps
+  ServiceAccountsActionsCellProps
 > = ({ onEdit, onDelete }) => {
   return (
     <StyledBox>

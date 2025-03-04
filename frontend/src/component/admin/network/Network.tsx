@@ -1,5 +1,4 @@
 import { lazy } from 'react';
-
 import { Tab, Tabs } from '@mui/material';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { TabLink } from 'component/common/TabNav/TabLink';

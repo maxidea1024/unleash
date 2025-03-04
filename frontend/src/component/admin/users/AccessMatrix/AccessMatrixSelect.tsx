@@ -1,12 +1,13 @@
 import { Autocomplete, type AutocompleteProps, TextField } from '@mui/material';
 
-interface IAccessMatrixSelectProps<T>
-  extends Partial<AutocompleteProps<T, false, false, false>> {
+type AccessMatrixSelectProps<T> = Partial<
+  AutocompleteProps<T, false, false, false>
+> & {
   label: string;
   options: T[];
   value: T;
   setValue: (role: T | null) => void;
-}
+};
 
 export const AccessMatrixSelect = <T,>({
   label,
@@ -14,7 +15,7 @@ export const AccessMatrixSelect = <T,>({
   value,
   setValue,
   ...rest
-}: IAccessMatrixSelectProps<T>) => (
+}: AccessMatrixSelectProps<T>) => (
   <Autocomplete
     options={options}
     value={value}

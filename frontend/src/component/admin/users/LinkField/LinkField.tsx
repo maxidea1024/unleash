@@ -3,14 +3,14 @@ import { Box, IconButton, styled, Tooltip } from '@mui/material';
 import CopyIcon from '@mui/icons-material/FileCopy';
 import useToast from 'hooks/useToast';
 
-interface ILinkFieldProps {
+type LinkFieldProps = {
   inviteLink: string;
   small?: boolean;
   successTitle?: string;
   errorTitle?: string;
   onCopy?: () => void;
   isExpired?: boolean;
-}
+};
 
 const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(
   ({ theme, small, isExpired }) => ({
@@ -38,7 +38,7 @@ const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(
   }),
 );
 
-export const LinkField: FC<ILinkFieldProps> = ({
+export const LinkField: FC<LinkFieldProps> = ({
   inviteLink,
   small,
   successTitle = 'Successfully copied invite link.',

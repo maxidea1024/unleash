@@ -5,13 +5,13 @@ import { UserToken } from './UserToken/UserToken';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TokenType } from 'interfaces/token';
 
-interface IConfirmUserLink {
+type ConfirmUserLinkProps = {
   open: boolean;
   setOpen: (status: boolean) => void;
   closeConfirm: () => void;
   token: string;
   type?: string;
-}
+};
 
 export const ConfirmToken = ({
   open,
@@ -19,7 +19,7 @@ export const ConfirmToken = ({
   closeConfirm,
   token,
   type,
-}: IConfirmUserLink) => {
+}: ConfirmUserLinkProps) => {
   return (
     <Dialogue
       open={open}

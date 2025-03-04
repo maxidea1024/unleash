@@ -2,7 +2,7 @@ import type React from 'react';
 import { FormControlLabel, Grid, Switch, TextField } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface SsoGroupSettingsProps {
+type SsoGroupSettingsProps = {
   ssoType: 'OIDC' | 'SAML';
   data?: {
     enabled: boolean;
@@ -12,7 +12,7 @@ interface SsoGroupSettingsProps {
   };
   setValue: (name: string, value: string | boolean) => void;
   disabled?: boolean;
-}
+};
 
 export const SsoGroupSettings = ({
   ssoType,

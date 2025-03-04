@@ -12,13 +12,13 @@ export type PageQueryType = Partial<
   Record<'sort' | 'order' | 'search', string>
 >;
 
-interface IRoleDeleteDialogServiceAccountsProps {
+type RoleDeleteDialogServiceAccountsProps = {
   serviceAccounts: IServiceAccount[];
 }
 
 export const RoleDeleteDialogServiceAccounts = ({
   serviceAccounts,
-}: IRoleDeleteDialogServiceAccountsProps) => {
+}: RoleDeleteDialogServiceAccountsProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'seenAt', desc: true }],
   }));

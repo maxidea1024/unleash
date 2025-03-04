@@ -9,7 +9,7 @@ import useToast from '../../../../hooks/useToast';
 import { formatUnknownError } from '../../../../utils/formatUnknownError';
 import type { IUser } from '../../../../interfaces/user';
 import type React from 'react';
-import { useMemo, useState } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import { TimeAgoCell } from '../../../common/Table/cells/TimeAgoCell/TimeAgoCell';
 import type { IRole } from '../../../../interfaces/role';
 import { RoleCell } from '../../../common/Table/cells/RoleCell/RoleCell';
@@ -20,7 +20,6 @@ import { Button } from '@mui/material';
 import { useFlexLayout, useSortBy, useTable } from 'react-table';
 import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 import { TablePlaceholder, VirtualizedTable } from '../../../common/Table';
-
 import { DateCell } from '../../../common/Table/cells/DateCell/DateCell';
 import { InactiveUsersActionCell } from './InactiveUsersActionCell/InactiveUsersActionCell';
 import { TextCell } from '../../../common/Table/cells/TextCell/TextCell';
@@ -29,7 +28,7 @@ import { DeleteInactiveUsers } from './DeleteInactiveUsers/DeleteInactiveUsers';
 import { Link } from 'react-router-dom';
 import { StyledUsersLinkDiv } from '../Users.styles';
 
-export const InactiveUsersList = () => {
+export const InactiveUsersList: FC = () => {
   const { removeUser, userApiErrors } = useAdminUsersApi();
   const { deleteInactiveUsers, errors: inactiveUsersApiErrors } =
     useInactiveUsersApi();

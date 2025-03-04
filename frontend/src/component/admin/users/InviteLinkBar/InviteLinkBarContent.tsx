@@ -8,10 +8,11 @@ import { add, formatDistanceToNowStrict, isAfter, parseISO } from 'date-fns';
 import { formatDateYMD } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
+import type { FC } from 'react';
 
-interface IInviteLinkBarContentProps {
+type InviteLinkBarContentProps = {
   onActionClick?: (inviteLink?: string) => void;
-}
+};
 
 export const StyledBox = styled(Box)(() => ({
   mb: {
@@ -29,9 +30,9 @@ export const StyledButtonBox = styled(Box)(() => ({
   flexGrow: 1,
 }));
 
-export const InviteLinkBarContent = ({
+export const InviteLinkBarContent: FC<InviteLinkBarContentProps> = ({
   onActionClick,
-}: IInviteLinkBarContentProps) => {
+}) => {
   const navigate = useNavigate();
   const { data, loading } = useInviteTokens();
   const ref = useLoading(loading);

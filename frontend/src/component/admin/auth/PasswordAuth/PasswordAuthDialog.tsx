@@ -3,7 +3,7 @@ import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IAdminCount } from 'hooks/api/getters/useAdminCount/useAdminCount';
 import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
 
-interface IPasswordAuthDialogProps {
+type PasswordAuthDialogProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   onClick: () => void;
@@ -17,7 +17,7 @@ export const PasswordAuthDialog = ({
   onClick,
   adminCount,
   tokens,
-}: IPasswordAuthDialogProps) => (
+}: PasswordAuthDialogProps) => (
   <Dialogue
     open={open}
     onClose={() => {

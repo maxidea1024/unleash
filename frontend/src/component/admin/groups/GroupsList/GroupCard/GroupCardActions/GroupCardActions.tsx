@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -28,19 +28,19 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-interface IGroupCardActions {
+type GroupCardActionsProps = {
   groupId: number;
   onEditUsers: () => void;
   onRemove: () => void;
   isScimGroup?: boolean;
-}
+};
 
-export const GroupCardActions: FC<IGroupCardActions> = ({
+export const GroupCardActions = ({
   groupId,
   onEditUsers,
   onRemove,
   isScimGroup,
-}) => {
+}: GroupCardActionsProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);

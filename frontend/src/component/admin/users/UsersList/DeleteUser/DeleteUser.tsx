@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import { useThemeStyles } from 'themes/themeStyles';
 import type { IUser } from 'interfaces/user';
 import { UserAvatar } from 'component/common/UserAvatar/UserAvatar';
+import type { FC } from 'react';
 
 const StyledUserAvatar = styled(UserAvatar)(({ theme }) => ({
   width: theme.spacing(5),
@@ -14,23 +15,23 @@ const StyledUserAvatar = styled(UserAvatar)(({ theme }) => ({
   margin: 0,
 }));
 
-interface IDeleteUserProps {
+type DeleteUserProps = {
   showDialog: boolean;
   closeDialog: () => void;
   user: IUser;
   userLoading: boolean;
   removeUser: () => void;
   userApiErrors: Record<string, string>;
-}
+};
 
-const DeleteUser = ({
+const DeleteUser: FC<DeleteUserProps> = ({
   showDialog,
   closeDialog,
   user,
   userLoading,
   removeUser,
   userApiErrors,
-}: IDeleteUserProps) => {
+}) => {
   const ref = useLoading(userLoading);
   const { classes: themeStyles } = useThemeStyles();
 

@@ -11,7 +11,7 @@ import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import useToast from 'hooks/useToast';
-import { type FormEvent, useEffect, useState } from 'react';
+import { type FC, type FormEvent, useEffect, useState } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import Input from 'component/common/Input/Input';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -106,19 +106,19 @@ interface IServiceAccountModalErrors {
 
 const DEFAULT_EXPIRATION = ExpirationOption['30DAYS'];
 
-interface IServiceAccountModalProps {
+type ServiceAccountModalProps = {
   serviceAccount?: IServiceAccount;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   newToken: (token: INewPersonalAPIToken) => void;
-}
+};
 
-export const ServiceAccountModal = ({
+export const ServiceAccountModal: FC<ServiceAccountModalProps> = ({
   serviceAccount,
   open,
   setOpen,
   newToken,
-}: IServiceAccountModalProps) => {
+}) => {
   const { users } = useUsers();
   const { serviceAccounts, roles, refetch } = useServiceAccounts();
   const { addServiceAccount, updateServiceAccount, loading } =

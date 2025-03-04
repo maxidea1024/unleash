@@ -4,22 +4,21 @@ import { useGroupApi } from 'hooks/api/actions/useGroupApi/useGroupApi';
 import { useGroup } from 'hooks/api/getters/useGroup/useGroup';
 import useToast from 'hooks/useToast';
 import type { IGroup, IGroupUser } from 'interfaces/group';
-import type { FC } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
-interface IRemoveGroupUserProps {
+type RemoveGroupUserProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   user?: IGroupUser;
   group: IGroup;
-}
+};
 
-export const RemoveGroupUser: FC<IRemoveGroupUserProps> = ({
+export const RemoveGroupUser = ({
   open,
   setOpen,
   user,
   group,
-}) => {
+}: RemoveGroupUserProps) => {
   const { refetchGroup } = useGroup(group.id);
   const { updateGroup } = useGroupApi();
   const { setToastData, setToastApiError } = useToast();

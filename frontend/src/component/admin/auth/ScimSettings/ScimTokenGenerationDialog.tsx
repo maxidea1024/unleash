@@ -5,17 +5,17 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-interface IScimTokenGenerationDialogProps {
+type ScimTokenGenerationDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: () => void;
-}
+};
 
 export const ScimTokenGenerationDialog = ({
   open,
   setOpen,
   onConfirm,
-}: IScimTokenGenerationDialogProps) => (
+}: ScimTokenGenerationDialogProps) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'

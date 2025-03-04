@@ -8,11 +8,11 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useId } from 'hooks/useId';
 
-interface ICorsFormProps {
+type CorsFormProps = {
   frontendApiOrigins: string[] | undefined;
-}
+};
 
-export const CorsForm = ({ frontendApiOrigins }: ICorsFormProps) => {
+export const CorsForm = ({ frontendApiOrigins }: CorsFormProps) => {
   const { setFrontendSettings } = useUiConfigApi();
   const { setToastData, setToastApiError } = useToast();
   const [value, setValue] = useState(formatInputValue(frontendApiOrigins));

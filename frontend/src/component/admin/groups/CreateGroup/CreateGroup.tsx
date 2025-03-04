@@ -41,7 +41,9 @@ export const CreateGroup = () => {
     e.preventDefault();
     clearErrors();
 
-    if (!isValid) return;
+    if (!isValid) {
+      return;
+    }
 
     const payload = getGroupPayload();
     try {

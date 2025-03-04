@@ -6,24 +6,25 @@ import useLoading from 'hooks/useLoading';
 import { Typography } from '@mui/material';
 import { useThemeStyles } from 'themes/themeStyles';
 import type { IInactiveUser } from '../../../../../hooks/api/getters/useInactiveUsers/useInactiveUsers';
+import type { FC } from 'react';
 
-interface IDeleteUserProps {
+type DeleteUserProps = {
   showDialog: boolean;
   closeDialog: () => void;
   user: IInactiveUser;
   userLoading: boolean;
   removeUser: () => void;
   userApiErrors: Record<string, string>;
-}
+};
 
-const DeleteUser = ({
+const DeleteUser: FC<DeleteUserProps> = ({
   showDialog,
   closeDialog,
   user,
   userLoading,
   removeUser,
   userApiErrors,
-}: IDeleteUserProps) => {
+}) => {
   const ref = useLoading(userLoading);
   const { classes: themeStyles } = useThemeStyles();
 

@@ -30,7 +30,7 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-interface IRoleModalProps {
+type RoleModalProps = {
   type?: PredefinedRoleType;
   roleId?: number;
   open: boolean;
@@ -42,7 +42,7 @@ export const RoleModal = ({
   roleId,
   open,
   setOpen,
-}: IRoleModalProps) => {
+}: RoleModalProps) => {
   const { role, refetch: refetchRole } = useRole(roleId?.toString());
 
   const {

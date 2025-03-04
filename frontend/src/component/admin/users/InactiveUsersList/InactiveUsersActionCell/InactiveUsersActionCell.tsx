@@ -9,11 +9,12 @@ const StyledBox = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
 }));
-interface IInactiveUsersActionsCellProps {
-  onDelete: (event: React.SyntheticEvent) => void;
-}
 
-export const InactiveUsersActionCell: FC<IInactiveUsersActionsCellProps> = ({
+type InactiveUsersActionsCellProps = {
+  onDelete: (event: React.SyntheticEvent) => void;
+};
+
+export const InactiveUsersActionCell: FC<InactiveUsersActionsCellProps> = ({
   onDelete,
 }) => {
   return (

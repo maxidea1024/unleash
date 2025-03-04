@@ -8,7 +8,7 @@ import {
 } from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
-import { type FC, useMemo, } from 'react';
+import { useMemo } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -21,10 +21,11 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(2.5),
   fontSize: theme.fontSizes.mainHeader,
 }));
-interface IBillingHistoryProps {
+
+type BillingHistoryProps = {
   data: Record<string, any>[];
   isLoading?: boolean;
-}
+};
 
 const columns = [
   {
@@ -65,10 +66,10 @@ const columns = [
   },
 ];
 
-export const BillingHistory: FC<IBillingHistoryProps> = ({
+export const BillingHistory = ({
   data,
   isLoading = false,
-}) => {
+}: BillingHistoryProps) => {
   const initialState = useMemo(
     () => ({
       sortBy: [{ id: 'created', desc: true }],

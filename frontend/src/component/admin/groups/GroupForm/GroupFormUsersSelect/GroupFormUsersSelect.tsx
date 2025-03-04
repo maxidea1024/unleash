@@ -65,15 +65,15 @@ type UserOption = IUser & {
   type: string;
 };
 
-interface IGroupFormUsersSelectProps {
+type GroupFormUsersSelectProps = {
   users: IGroupUser[];
   setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
-}
+};
 
-export const GroupFormUsersSelect: FC<IGroupFormUsersSelectProps> = ({
+export const GroupFormUsersSelect = ({
   users,
   setUsers,
-}) => {
+}: GroupFormUsersSelectProps) => {
   const { users: usersAll } = useUsers();
   const { serviceAccounts } = useServiceAccounts();
 

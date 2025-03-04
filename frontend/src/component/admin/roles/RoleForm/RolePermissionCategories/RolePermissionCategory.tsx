@@ -17,7 +17,7 @@ import type { ICheckedPermissions, IPermission } from 'interfaces/permissions';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { getRoleKey } from 'utils/permissions';
 
-interface IEnvironmentPermissionAccordionProps {
+type EnvironmentPermissionAccordionProps = {
   permissions: IPermission[];
   checkedPermissions: ICheckedPermissions;
   title: string;
@@ -51,7 +51,7 @@ export const RolePermissionCategory = ({
   context,
   onPermissionChange,
   onCheckAll,
-}: IEnvironmentPermissionAccordionProps) => {
+}: EnvironmentPermissionAccordionProps) => {
   const [expanded, setExpanded] = useState(isInitiallyExpanded);
   const permissionMap = useMemo(
     () =>

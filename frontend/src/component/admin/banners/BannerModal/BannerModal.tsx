@@ -30,13 +30,13 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-interface IBannerModalProps {
+type BannerModalProps = {
   banner?: IInternalBanner;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
-export const BannerModal = ({ banner, open, setOpen }: IBannerModalProps) => {
+export const BannerModal = ({ banner, open, setOpen }: BannerModalProps) => {
   const { refetch } = useBanners();
   const { addBanner, updateBanner, loading } = useBannersApi();
   const { setToastData, setToastApiError } = useToast();

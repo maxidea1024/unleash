@@ -93,7 +93,7 @@ const VARIANT_OPTIONS = [
 type IconOption = 'Default' | 'Custom' | 'None';
 type LinkOption = 'Link' | 'Dialog' | 'None';
 
-interface IBannerFormProps {
+type BannerFormProps = {
   enabled: boolean;
   message: string;
   variant: BannerVariant;
@@ -112,7 +112,7 @@ interface IBannerFormProps {
   setLinkText: Dispatch<SetStateAction<string>>;
   setDialogTitle: Dispatch<SetStateAction<string>>;
   setDialog: Dispatch<SetStateAction<string>>;
-}
+};
 
 export const BannerForm = ({
   enabled,
@@ -133,7 +133,7 @@ export const BannerForm = ({
   setLinkText,
   setDialogTitle,
   setDialog,
-}: IBannerFormProps) => {
+}: BannerFormProps) => {
   const [previewDialogOpen, setPreviewDialogOpen] = useState(false);
 
   const [iconOption, setIconOption] = useState<IconOption>(

@@ -27,9 +27,9 @@ import { Limit } from 'component/common/Limit/Limit';
 
 const pageTitle = 'Create API token';
 
-interface ICreateApiTokenProps {
+type CreateApiTokenProps = {
   modal?: boolean;
-}
+};
 
 const StyledLimit = styled(Limit)(({ theme }) => ({
   margin: theme.spacing(2, 0, 4),
@@ -48,7 +48,7 @@ const useApiTokenLimit = () => {
   };
 };
 
-export const CreateApiToken = ({ modal = false }: ICreateApiTokenProps) => {
+export const CreateApiToken = ({ modal = false }: CreateApiTokenProps) => {
   const { setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const navigate = useNavigate();

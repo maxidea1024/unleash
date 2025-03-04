@@ -9,11 +9,11 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface IRolesCellProps {
+type RolesCellProps = {
   role: IRole;
-}
+};
 
-export const RolesCell = ({ role }: IRolesCellProps) => (
+export const RolesCell = ({ role }: RolesCellProps) => (
   <HighlightCell
     value={role.name}
     subtitle={role.description}

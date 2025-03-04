@@ -5,17 +5,17 @@ import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
 import { Link } from '@mui/material';
 
-interface IApiTokenIconProps {
+type ApiTokenIconProps = {
   project?: string;
   projects?: string | string[];
   secret?: string;
-}
+};
 
 export const isOrphanedToken = ({
   secret,
   project,
   projects,
-}: IApiTokenIconProps): boolean => {
+}: ApiTokenIconProps): boolean => {
   const tokenFormat = secret?.includes(':') ? 'v2' : 'v1'; // see https://docs.getunleash.io/reference/api-tokens-and-client-keys#format
   const isWildcardSecret = secret?.startsWith('*:');
   const hasProjects =
@@ -26,7 +26,7 @@ export const isOrphanedToken = ({
   return tokenFormat === 'v2' && !isWildcardSecret && !hasProjects;
 };
 
-export const ApiTokenIcon: FC<IApiTokenIconProps> = ({ ...props }) => {
+export const ApiTokenIcon = ({ ...props }: ApiTokenIconProps) => {
   if (isOrphanedToken(props)) {
     return (
       <IconCell

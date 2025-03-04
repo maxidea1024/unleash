@@ -25,7 +25,7 @@ const StyledInputFullWidth = styled(Input)({
   width: '100%',
 });
 
-interface IRoleFormProps {
+type RoleFormProps = {
   type?: PredefinedRoleType;
   name: string;
   setName: (name: string) => void;
@@ -55,7 +55,7 @@ export const RoleForm = ({
   validateName,
   validateDescription,
   validatePermissions,
-}: IRoleFormProps) => {
+}: RoleFormProps) => {
   const handleOnBlur = (callback: Function) => {
     setTimeout(() => callback(), 300);
   };

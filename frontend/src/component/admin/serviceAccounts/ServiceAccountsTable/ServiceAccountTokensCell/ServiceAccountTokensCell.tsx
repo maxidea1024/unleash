@@ -11,13 +11,13 @@ const StyledItem = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface IServiceAccountTokensCellProps {
+type ServiceAccountTokensCellProps = {
   serviceAccount: IServiceAccount;
   value: string;
   onCreateToken?: () => void;
 }
 
-export const ServiceAccountTokensCell: FC<IServiceAccountTokensCellProps> = ({
+export const ServiceAccountTokensCell: FC<ServiceAccountTokensCellProps> = ({
   serviceAccount,
   value,
   onCreateToken,

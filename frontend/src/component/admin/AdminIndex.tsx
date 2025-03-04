@@ -37,7 +37,7 @@ export const AdminIndex: FC = () => {
   );
 
   return (
-    <PageContent header={<PageHeader title='Manage Unleash' />}>
+    <PageContent header={<PageHeader title='Manage Ganpa' />}>
       {routeGroups.map((group) => (
         <Box
           key={group.name}

@@ -1,10 +1,9 @@
-import type { FC } from 'react';
 import { Alert } from '@mui/material';
 import { useUsersPlan } from 'hooks/useUsersPlan';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 import { BILLING_PRO_USER_PRICE } from 'component/admin/billing/BillingDashboard/BillingPlan/BillingPlan';
 
-export const SeatCostWarning: FC = () => {
+export const SeatCostWarning = () => {
   const { users } = useUsers();
   const { isBillingUsers, seats, planUsers } = useUsersPlan(users);
 

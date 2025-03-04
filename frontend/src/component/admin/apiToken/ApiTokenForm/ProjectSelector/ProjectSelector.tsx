@@ -6,13 +6,13 @@ import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import type { ApiTokenFormErrorType } from '../useApiTokenForm';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 
-interface IProjectSelectorProps {
+type ProjectSelectorProps = {
   type: string;
   projects: string[];
   setProjects: React.Dispatch<React.SetStateAction<string[]>>;
   errors: { [key: string]: string };
   clearErrors: (error?: ApiTokenFormErrorType) => void;
-}
+};
 
 export const ProjectSelector = ({
   type,
@@ -20,7 +20,7 @@ export const ProjectSelector = ({
   setProjects,
   errors,
   clearErrors,
-}: IProjectSelectorProps) => {
+}: ProjectSelectorProps) => {
   const projectId = useOptionalPathParam('projectId');
   const { projects: availableProjects } = useProjects();
 

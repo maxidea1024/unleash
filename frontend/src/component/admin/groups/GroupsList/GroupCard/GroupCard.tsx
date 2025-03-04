@@ -91,7 +91,7 @@ const ProjectNameBadge = styled(Badge)({
   wordBreak: 'break-word',
 });
 
-interface IGroupCardProps {
+type GroupCardProps = {
   group: IGroup;
   onEditUsers: (group: IGroup) => void;
   onRemoveGroup: (group: IGroup) => void;
@@ -101,7 +101,7 @@ export const GroupCard = ({
   group,
   onEditUsers,
   onRemoveGroup,
-}: IGroupCardProps) => {
+}: GroupCardProps) => {
   const navigate = useNavigate();
 
   const {

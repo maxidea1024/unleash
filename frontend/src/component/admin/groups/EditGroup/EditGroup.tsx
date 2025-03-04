@@ -21,24 +21,22 @@ export const EditGroupContainer = () => {
   const groupId = Number(useRequiredPathParam('groupId'));
   const { group, refetchGroup } = useGroup(groupId);
 
-  if (!group) return null;
+  if (!group) {
+    return null;
+  }
 
   return (
     <EditGroup group={group} groupId={groupId} refetchGroup={refetchGroup} />
   );
 };
 
-interface IEditGroupProps {
+type EditGroupProps = {
   group: IGroup;
   groupId: number;
   refetchGroup: () => void;
-}
+};
 
-export const EditGroup = ({
-  group,
-  groupId,
-  refetchGroup,
-}: IEditGroupProps) => {
+export const EditGroup = ({ group, groupId, refetchGroup }: EditGroupProps) => {
   const { refetchGroups } = useGroups();
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();

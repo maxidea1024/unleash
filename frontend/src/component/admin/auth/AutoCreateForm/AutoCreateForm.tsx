@@ -10,7 +10,7 @@ import { RoleSelect } from 'component/common/RoleSelect/RoleSelect';
 import { useRoles } from 'hooks/api/getters/useRoles/useRoles';
 import type { IRole } from 'interfaces/role';
 
-interface IAutoCreateFormProps {
+type AutoCreateFormProps = {
   data?: {
     enabled: boolean;
     autoCreate: boolean;
@@ -31,7 +31,7 @@ export const AutoCreateForm = ({
   setValue,
   onUpdateRole,
   disabled = false,
-}: IAutoCreateFormProps) => {
+}: AutoCreateFormProps) => {
   const { roles } = useRoles();
 
   const updateAutoCreate = () => {

@@ -9,15 +9,15 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface IBannersActionsCellProps {
+type BannersActionsCellProps = {
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const BannersActionsCell = ({
   onEdit,
   onDelete,
-}: IBannersActionsCellProps) => {
+}: BannersActionsCellProps) => {
   return (
     <StyledBox>
       <PermissionIconButton

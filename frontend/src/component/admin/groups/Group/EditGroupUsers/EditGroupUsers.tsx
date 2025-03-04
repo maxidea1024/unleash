@@ -6,7 +6,7 @@ import { useGroup } from 'hooks/api/getters/useGroup/useGroup';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import useToast from 'hooks/useToast';
 import type { IGroup } from 'interfaces/group';
-import { type FC, type FormEvent, useEffect } from 'react';
+import { type FormEvent, useEffect } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { GroupFormUsersSelect } from 'component/admin/groups/GroupForm/GroupFormUsersSelect/GroupFormUsersSelect';
 import { GroupFormUsersTable } from 'component/admin/groups/GroupForm/GroupFormUsersTable/GroupFormUsersTable';
@@ -39,17 +39,17 @@ const StyledBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-interface IEditGroupUsersProps {
+type EditGroupUsersProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   group: IGroup;
-}
+};
 
-export const EditGroupUsers: FC<IEditGroupUsersProps> = ({
+export const EditGroupUsers = ({
   open,
   setOpen,
   group,
-}) => {
+}: EditGroupUsersProps) => {
   const { refetchGroup } = useGroup(group.id);
   const { refetchGroups } = useGroups();
   const { updateGroup, loading } = useGroupApi();

@@ -6,17 +6,17 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-interface IScimTokenDialogProps {
+type ScimTokenDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: string;
-}
+};
 
 export const ScimTokenDialog = ({
   open,
   setOpen,
   token,
-}: IScimTokenDialogProps) => (
+}: ScimTokenDialogProps) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'

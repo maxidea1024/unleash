@@ -19,7 +19,7 @@ import {
 import { RolePermissionCategory } from './RolePermissionCategory';
 import { useMemo } from 'react';
 
-interface IPermissionCategoriesProps {
+type PermissionCategoriesProps = {
   type: PredefinedRoleType;
   checkedPermissions: ICheckedPermissions;
   setCheckedPermissions: React.Dispatch<
@@ -33,7 +33,7 @@ export const RolePermissionCategories = ({
   checkedPermissions,
   setCheckedPermissions,
   validatePermissions,
-}: IPermissionCategoriesProps) => {
+}: PermissionCategoriesProps) => {
   const { permissions } = usePermissions({
     revalidateIfStale: false,
     revalidateOnReconnect: false,

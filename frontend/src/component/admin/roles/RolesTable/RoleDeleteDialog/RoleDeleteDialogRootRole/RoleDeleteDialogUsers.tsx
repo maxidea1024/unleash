@@ -11,13 +11,13 @@ export type PageQueryType = Partial<
   Record<'sort' | 'order' | 'search', string>
 >;
 
-interface IRoleDeleteDialogUsersProps {
+type RoleDeleteDialogUsersProps = {
   users: IUser[];
 }
 
 export const RoleDeleteDialogUsers = ({
   users,
-}: IRoleDeleteDialogUsersProps) => {
+}: RoleDeleteDialogUsersProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'last-login', desc: true }],
   }));

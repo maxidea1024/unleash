@@ -2,6 +2,7 @@ import AttachMoneyRounded from '@mui/icons-material/AttachMoneyRounded';
 import { styled, Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
+import type { FC } from 'react';
 
 const StyledMonetizationOn = styled(AttachMoneyRounded)(({ theme }) => ({
   color: theme.palette.primary.light,
@@ -10,11 +11,11 @@ const StyledMonetizationOn = styled(AttachMoneyRounded)(({ theme }) => ({
   borderRadius: theme.shape.borderRadiusLarge,
 }));
 
-interface IUserTypeCellProps {
+type UserTypeCellProps = {
   value: boolean;
-}
+};
 
-export const UserTypeCell = ({ value }: IUserTypeCellProps) => {
+export const UserTypeCell: FC<UserTypeCellProps> = ({ value }) => {
   return (
     <TextCell>
       <ConditionallyRender

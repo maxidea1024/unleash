@@ -2,18 +2,19 @@ import { Typography } from '@mui/material';
 import { Alert } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { LinkField } from '../../LinkField/LinkField';
+import type { FC } from 'react';
 
-interface IConfirmUserLink {
+type ConfirmUserLinkProps = {
   open: boolean;
   closeConfirm: () => void;
   inviteLink: string;
-}
+};
 
-const ConfirmUserLink = ({
+const ConfirmUserLink: FC<ConfirmUserLinkProps> = ({
   open,
   closeConfirm,
   inviteLink,
-}: IConfirmUserLink) => {
+}) => {
   return (
     <Dialogue
       open={open}

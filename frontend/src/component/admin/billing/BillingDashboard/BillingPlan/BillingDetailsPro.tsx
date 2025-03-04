@@ -31,13 +31,13 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: `${theme.spacing(3)} 0`,
 }));
 
-interface IBillingDetailsProProps {
+type BillingDetailsProProps = {
   instanceStatus: IInstanceStatus;
-}
+};
 
 export const BillingDetailsPro = ({
   instanceStatus,
-}: IBillingDetailsProProps) => {
+}: BillingDetailsProProps) => {
   const { users, loading } = useUsers();
 
   const {

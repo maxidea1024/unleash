@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, Link, styled } from '@mui/material';
 
 type SelectAllButtonProps = {
@@ -11,10 +10,10 @@ const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: theme.fontSizes.bodySize,
 })) as typeof Link;
 
-export const SelectAllButton: FC<SelectAllButtonProps> = ({
+export const SelectAllButton = ({
   isAllSelected,
   onClick,
-}) => {
+}: SelectAllButtonProps) => {
   return (
     <Box sx={{ ml: 3.5, my: 0.5 }}>
       <StyledLink onClick={onClick} component='button' underline='hover'>

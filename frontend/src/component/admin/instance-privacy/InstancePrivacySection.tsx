@@ -73,17 +73,17 @@ const StyledDataCollectionPropertyCell = styled('div')(() => ({
   display: 'table-cell',
 }));
 
-interface IToolTipInstructionContentProps {
+type ToolTipInstructionContentProps = {
   changeInfoText: string;
   variablesText: string;
   dependsOnText?: string;
-}
+};
 
 const ToolTipInstructionContent = ({
   changeInfoText,
   variablesText,
   dependsOnText,
-}: IToolTipInstructionContentProps) => {
+}: ToolTipInstructionContentProps) => {
   return (
     <StyledDescription>
       <ToolTipDescriptionText>{changeInfoText}</ToolTipDescriptionText>
@@ -122,7 +122,7 @@ const ToolTipDescriptionText = styled('p')(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-interface IInstancePrivacySectionProps {
+type InstancePrivacySectionProps = {
   title: string;
   infoText: string;
   concreteDetails: Record<string, string>;
@@ -130,7 +130,7 @@ interface IInstancePrivacySectionProps {
   changeInfoText: string;
   variablesText: string;
   dependsOnText?: string;
-}
+};
 
 export const InstancePrivacySection = ({
   title,
@@ -140,7 +140,7 @@ export const InstancePrivacySection = ({
   changeInfoText,
   variablesText,
   dependsOnText,
-}: IInstancePrivacySectionProps) => {
+}: InstancePrivacySectionProps) => {
   return (
     <StyledContainer>
       <StyledCardTitleRow>

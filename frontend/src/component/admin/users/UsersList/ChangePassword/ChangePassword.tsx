@@ -1,5 +1,5 @@
 import type React from 'react';
-import { useState } from 'react';
+import { type FC, useState } from 'react';
 import classnames from 'classnames';
 import { styled, TextField, Typography } from '@mui/material';
 import { trim } from 'component/common/util';
@@ -22,17 +22,17 @@ const StyledUserAvatar = styled(UserAvatar)(({ theme }) => ({
   margin: 0,
 }));
 
-interface IChangePasswordProps {
+type ChangePasswordProps = {
   showDialog: boolean;
   closeDialog: () => void;
   user: IUser;
-}
+};
 
-const ChangePassword = ({
+const ChangePassword: FC<ChangePasswordProps> = ({
   showDialog,
   closeDialog,
   user,
-}: IChangePasswordProps) => {
+}) => {
   const [data, setData] = useState<Record<string, string>>({});
   const [error, setError] = useState<string>();
   const [validPassword, setValidPassword] = useState(false);

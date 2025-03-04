@@ -23,7 +23,7 @@ import { RoleModal } from '../RoleModal/RoleModal';
 import { RolePermissionsCell } from './RolePermissionsCell/RolePermissionsCell';
 import { ROOT_ROLE_TYPE } from '@server/util/constants';
 
-interface IRolesTableProps {
+type RolesTableProps = {
   type?: PredefinedRoleType;
   searchValue?: string;
   modalOpen: boolean;
@@ -39,7 +39,7 @@ export const RolesTable = ({
   setModalOpen,
   selectedRole,
   setSelectedRole,
-}: IRolesTableProps) => {
+}: RolesTableProps) => {
   const { setToastData, setToastApiError } = useToast();
   const theme = useTheme();
 

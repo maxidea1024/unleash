@@ -6,11 +6,11 @@ import { useRole } from 'hooks/api/getters/useRole/useRole';
 import { RoleDescription } from 'component/common/RoleDescription/RoleDescription';
 import { PREDEFINED_ROLE_TYPES } from '@server/util/constants';
 
-interface IRolePermissionsCellProps {
+type RolePermissionsCellProps = {
   row: { original: IRole };
-}
+};
 
-export const RolePermissionsCell: FC<IRolePermissionsCellProps> = ({ row }) => {
+export const RolePermissionsCell: FC<RolePermissionsCellProps> = ({ row }) => {
   const { original: rowRole } = row;
   const { role } = useRole(rowRole.id.toString());
 

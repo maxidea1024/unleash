@@ -14,21 +14,19 @@ const StyledName = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-interface IGroupPopoverProps {
+type GroupPopoverProps = {
   user: Partial<IGroupUser & { description?: string }> | undefined;
-
   open: boolean;
   anchorEl: HTMLElement | null;
-
   onPopoverClose(event: React.MouseEvent<HTMLElement>): void;
-}
+};
 
 export const GroupPopover = ({
   user,
   open,
   anchorEl,
   onPopoverClose,
-}: IGroupPopoverProps) => {
+}: GroupPopoverProps) => {
   return (
     <StyledPopover
       open={open}

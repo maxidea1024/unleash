@@ -1,4 +1,4 @@
-import { type FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { IconButton, Tooltip, useMediaQuery } from '@mui/material';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { IGroupUser } from 'interfaces/group';
@@ -15,15 +15,15 @@ import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColum
 
 const hiddenColumnsSmall = ['imageUrl', 'name'];
 
-interface IGroupFormUsersTableProps {
+type GroupFormUsersTableProps = {
   users: IGroupUser[];
   setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
-}
+};
 
-export const GroupFormUsersTable: FC<IGroupFormUsersTableProps> = ({
+export const GroupFormUsersTable = ({
   users,
   setUsers,
-}) => {
+}: GroupFormUsersTableProps) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const columns = useMemo(

@@ -1,19 +1,20 @@
+import type { FC } from 'react';
 import ConfirmUserEmail from './ConfirmUserEmail/ConfirmUserEmail';
 import ConfirmUserLink from './ConfirmUserLink/ConfirmUserLink';
 
-interface IConfirmUserAddedProps {
+type ConfirmUserAddedProps = {
   open: boolean;
   closeConfirm: () => void;
   inviteLink: string;
   emailSent: boolean;
-}
+};
 
-const ConfirmUserAdded = ({
+const ConfirmUserAdded: FC<ConfirmUserAddedProps> = ({
   open,
   closeConfirm,
   emailSent,
   inviteLink,
-}: IConfirmUserAddedProps) => {
+}) => {
   if (emailSent) {
     return (
       <ConfirmUserEmail

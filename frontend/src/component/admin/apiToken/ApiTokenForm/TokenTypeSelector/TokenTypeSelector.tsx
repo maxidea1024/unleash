@@ -16,17 +16,17 @@ export type SelectOption = {
   enabled: boolean;
 };
 
-interface ITokenTypeSelectorProps {
+type TokenTypeSelectorProps = {
   type: string;
   setType: (value: TokenType) => void;
   apiTokenTypes: SelectOption[];
-}
+};
 
 export const TokenTypeSelector = ({
   type,
   setType,
   apiTokenTypes,
-}: ITokenTypeSelectorProps) => {
+}: TokenTypeSelectorProps) => {
   return (
     <StyledContainer>
       <FormControl sx={{ mb: 2, width: '100%' }}>

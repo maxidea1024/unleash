@@ -3,11 +3,11 @@ import CopyIcon from '@mui/icons-material/FileCopy';
 import copy from 'copy-to-clipboard';
 import useToast from 'hooks/useToast';
 
-interface IUserTokenProps {
+type UserTokenProps = {
   token: string;
-}
+};
 
-export const UserToken = ({ token }: IUserTokenProps) => {
+export const UserToken = ({ token }: UserTokenProps) => {
   const { setToastData } = useToast();
 
   const copyToken = () => {

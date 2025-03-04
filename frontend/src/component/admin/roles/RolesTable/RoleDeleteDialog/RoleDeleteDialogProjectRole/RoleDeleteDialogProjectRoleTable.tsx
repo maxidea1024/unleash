@@ -6,13 +6,13 @@ import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { IProjectRoleUsageCount } from 'interfaces/project';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 
-interface IRoleDeleteDialogProjectRoleTableProps {
+type RoleDeleteDialogProjectRoleTableProps = {
   projects: IProjectRoleUsageCount[];
 }
 
 export const RoleDeleteDialogProjectRoleTable = ({
   projects,
-}: IRoleDeleteDialogProjectRoleTableProps) => {
+}: RoleDeleteDialogProjectRoleTableProps) => {
   const [initialState] = useState(() => ({
     sortBy: [{ id: 'name' }],
   }));

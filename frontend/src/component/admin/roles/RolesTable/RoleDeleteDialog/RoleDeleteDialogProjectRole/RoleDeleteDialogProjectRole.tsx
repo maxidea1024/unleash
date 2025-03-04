@@ -13,7 +13,7 @@ const StyledLabel = styled('p')(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
 
-interface IRoleDeleteDialogProps {
+type RoleDeleteDialogProps = {
   role?: IRole;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -25,7 +25,7 @@ export const RoleDeleteDialogProjectRole = ({
   open,
   setOpen,
   onConfirm,
-}: IRoleDeleteDialogProps) => {
+}: RoleDeleteDialogProps) => {
   const { projects } = useProjectRoleAccessUsage(role?.id);
 
   const entitiesWithRole = Boolean(projects?.length);

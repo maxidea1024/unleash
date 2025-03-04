@@ -1,20 +1,20 @@
 import { Box, Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
-
 import { ReactComponent as EmailIcon } from 'assets/icons/email.svg';
 import { LinkField } from '../../LinkField/LinkField';
+import type { FC } from 'react';
 
-interface IConfirmUserEmailProps {
+type ConfirmUserEmailProps = {
   open: boolean;
   closeConfirm: () => void;
   inviteLink: string;
-}
+};
 
-const ConfirmUserEmail = ({
+const ConfirmUserEmail: FC<ConfirmUserEmailProps> = ({
   open,
   closeConfirm,
   inviteLink,
-}: IConfirmUserEmailProps) => (
+}) => (
   <Dialogue
     open={open}
     title='Team member added'

@@ -1,19 +1,19 @@
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IInternalBanner } from 'interfaces/banner';
 
-interface IBannerDeleteDialogProps {
+type BannerDeleteDialogProps = {
   banner?: IInternalBanner;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (banner: IInternalBanner) => void;
-}
+};
 
 export const BannerDeleteDialog = ({
   banner,
   open,
   setOpen,
   onConfirm,
-}: IBannerDeleteDialogProps) => (
+}: BannerDeleteDialogProps) => (
   <Dialogue
     title='Delete banner?'
     open={open}

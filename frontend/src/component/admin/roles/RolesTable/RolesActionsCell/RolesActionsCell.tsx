@@ -12,13 +12,13 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface IRolesActionsCellProps {
+type RolesActionsCellProps = {
   role: IRole;
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const RolesActionsCell: FC<IRolesActionsCellProps> = ({
+export const RolesActionsCell: FC<RolesActionsCellProps> = ({
   role,
   onEdit,
   onDelete,

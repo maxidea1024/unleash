@@ -53,19 +53,19 @@ const StyledNumbersDiv = styled('div')(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-interface INetworkTrafficUsagePlanSummary {
+type NetworkTrafficUsagePlanSummaryProps = {
   usageTotal: number;
   includedTraffic: number;
   overageCost: number;
   estimatedMonthlyCost: number;
-}
+};
 
 export const NetworkTrafficUsagePlanSummary = ({
   usageTotal,
   includedTraffic,
   overageCost,
   estimatedMonthlyCost,
-}: INetworkTrafficUsagePlanSummary) => {
+}: NetworkTrafficUsagePlanSummaryProps) => {
   const overages = usageTotal - includedTraffic;
   const estimateFlagEnabled = useUiFlag('estimateTrafficDataCost');
   return (

@@ -1,4 +1,4 @@
-import { Fragment, type FC } from 'react';
+import { Fragment } from 'react';
 import { styled } from '@mui/material';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
@@ -20,12 +20,12 @@ const StyledContainer = styled('div')({
   alignItems: 'center',
 });
 
-interface IProjectsListProps {
+type ProjectsListProps = {
   project?: string;
   projects?: string | string[];
-}
+};
 
-export const ProjectsList: FC<IProjectsListProps> = ({ projects, project }) => {
+export const ProjectsList = ({ projects, project }: ProjectsListProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const projectsList =
