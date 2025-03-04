@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface IAnimateOnMountProps {
+type AnimateOnMountProps = {
   mounted: boolean;
   enter: CSSProperties;
   start: CSSProperties;
@@ -16,9 +16,9 @@ interface IAnimateOnMountProps {
   onStart?: () => void;
   onEnd?: () => void;
   children?: React.ReactNode;
-}
+};
 
-const AnimateOnMount: FC<IAnimateOnMountProps> = ({
+const AnimateOnMount: FC<AnimateOnMountProps> = ({
   mounted,
   enter,
   start,

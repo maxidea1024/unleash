@@ -3,16 +3,15 @@ import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { Box, useMediaQuery, Link } from '@mui/material';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { ApiTokenDocs } from 'component/admin/apiToken/ApiTokenDocs/ApiTokenDocs';
-
 import theme from 'themes/theme';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
+import type { FC } from 'react';
 
 const hiddenColumnsNotExtraLarge = ['Icon', 'createdAt', 'seenAt'];
 const hiddenColumnsCompact = ['Icon', 'project', 'seenAt'];
 
-interface IApiTokenTableProps {
+type ApiTokenTableProps = {
   compact?: boolean;
   loading: boolean;
   setHiddenColumns: (param: any) => void;
@@ -21,9 +20,9 @@ interface IApiTokenTableProps {
   prepareRow: (row: Row<object>) => void;
   headerGroups: HeaderGroup<object>[];
   globalFilter: any;
-}
+};
 
-export const ApiTokenTable = ({
+export const ApiTokenTable: FC<ApiTokenTableProps> = ({
   compact = false,
   setHiddenColumns,
   columns,
@@ -32,7 +31,7 @@ export const ApiTokenTable = ({
   headerGroups,
   globalFilter,
   prepareRow,
-}: IApiTokenTableProps) => {
+}) => {
   const isNotExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
 
   useConditionallyHiddenColumns(

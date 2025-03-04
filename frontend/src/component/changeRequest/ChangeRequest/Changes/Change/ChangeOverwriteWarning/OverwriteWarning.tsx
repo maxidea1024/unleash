@@ -1,6 +1,7 @@
 import { Box, styled } from '@mui/material';
 import type { ChangeRequestState } from 'component/changeRequest/changeRequest.types';
 import type { ChangesThatWouldBeOverwritten } from './strategy-change-diff-calculation';
+import type { FC } from 'react';
 
 const ChangesToOverwriteContainer = styled(Box)(({ theme }) => ({
   color: theme.palette.warning.dark,
@@ -66,7 +67,7 @@ const OverwriteTable = styled('table')(({ theme }) => ({
   },
 }));
 
-const DetailsTable: React.FC<{
+const DetailsTable: FC<{
   changesThatWouldBeOverwritten: ChangesThatWouldBeOverwritten;
 }> = ({ changesThatWouldBeOverwritten }) => {
   return (
@@ -118,7 +119,7 @@ const DetailsTable: React.FC<{
   );
 };
 
-export const OverwriteWarning: React.FC<{
+export const OverwriteWarning: FC<{
   changeType: 'segment' | 'strategy' | 'environment variant configuration';
   changesThatWouldBeOverwritten: ChangesThatWouldBeOverwritten | null;
   changeRequestState: ChangeRequestState;

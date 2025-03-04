@@ -14,8 +14,8 @@ import Info from '@mui/icons-material/Info';
 import Loader from '../Loader/Loader';
 import copy from 'copy-to-clipboard';
 import useToast from 'hooks/useToast';
-import React from 'react';
-import { type ReactNode, useState } from 'react';
+import type { FC } from 'react';
+import React, { type ReactNode, useState } from 'react';
 import { ReactComponent as MobileGuidanceBG } from 'assets/img/mobileGuidanceBg.svg';
 import {
   formTemplateFixedSidebarWidth,
@@ -24,7 +24,7 @@ import {
 } from './FormTemplate.styles';
 import { relative } from 'themes/themeStyles';
 
-interface ICreateProps {
+type CreateProps = {
   title?: ReactNode;
   description: ReactNode;
   documentationLink?: string;
@@ -42,7 +42,7 @@ interface ICreateProps {
   showGuidance?: boolean;
   useFixedSidebar?: boolean;
   children?: React.ReactNode;
-}
+};
 
 const StyledContainer = styled('section', {
   shouldForwardProp: (prop) => !['modal', 'compact'].includes(prop.toString()),
@@ -233,7 +233,7 @@ const StyledDocumentationLink = styled('a')(({ theme }) => ({
   },
 }));
 
-const FormTemplate: React.FC<ICreateProps> = ({
+const FormTemplate: FC<CreateProps> = ({
   title,
   description,
   children,
@@ -408,7 +408,7 @@ const MobileGuidance = ({
   );
 };
 
-interface IGuidanceProps {
+type GuidanceProps = {
   description: ReactNode;
   documentationIcon?: ReactNode;
   documentationLink?: string;
@@ -416,10 +416,10 @@ interface IGuidanceProps {
   showDescription?: boolean;
   showLink?: boolean;
   children?: React.ReactNode;
-}
+};
 
-const GuidanceContent: React.FC<
-  IGuidanceProps & {
+const GuidanceContent: FC<
+  GuidanceProps & {
     fixedDocumentationHeight?: string;
   }
 > = ({
@@ -488,7 +488,7 @@ const GuidanceContent: React.FC<
   );
 };
 
-const Guidance: React.FC<IGuidanceProps> = (props) => {
+const Guidance: FC<GuidanceProps> = (props) => {
   return (
     <StyledSidebar>
       <GuidanceContent {...props} />
@@ -496,7 +496,7 @@ const Guidance: React.FC<IGuidanceProps> = (props) => {
   );
 };
 
-const FixedGuidance: React.FC<IGuidanceProps> = (props) => {
+const FixedGuidance: FC<GuidanceProps> = (props) => {
   return (
     <StyledSidebar
       sidebarWidth={formTemplateFixedSidebarWidth}

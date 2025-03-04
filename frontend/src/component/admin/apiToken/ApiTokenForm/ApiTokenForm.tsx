@@ -1,20 +1,20 @@
 import { Alert, Link } from '@mui/material';
 import type React from 'react';
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 // import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { CancelButton, StyledBox, StyledForm } from './ApiTokenForm.styles';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-interface IApiTokenFormProps {
+type ApiTokenFormProps = {
   handleSubmit: (e: any) => void;
   handleCancel: () => void;
   mode: 'Create' | 'Edit';
   actions?: ReactNode;
   children?: React.ReactNode;
-}
+};
 
-const ApiTokenForm: React.FC<IApiTokenFormProps> = ({
+const ApiTokenForm: FC<ApiTokenFormProps> = ({
   children,
   actions,
   handleSubmit,

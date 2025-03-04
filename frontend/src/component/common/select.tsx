@@ -7,28 +7,29 @@ import {
   type SelectChangeEvent,
 } from '@mui/material';
 import { SELECT_ITEM_ID } from 'utils/testIds';
+import type { FC } from 'react';
 
-export interface ISelectOption {
+export type SelectOption = {
   key: string;
   title?: string;
   label?: string;
-}
+};
 
-export interface ISelectMenuProps {
+export type SelectMenuProps = {
   name: string;
   id: string;
   value?: string;
   label?: string;
-  options: ISelectOption[];
+  options: SelectOption[];
   style?: object;
   onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
   disabled?: boolean;
   className?: string;
   classes?: any;
   formControlStyles?: React.CSSProperties;
-}
+};
 
-const SelectMenu: React.FC<ISelectMenuProps> = ({
+const SelectMenu: FC<SelectMenuProps> = ({
   name,
   value = '',
   label = '',

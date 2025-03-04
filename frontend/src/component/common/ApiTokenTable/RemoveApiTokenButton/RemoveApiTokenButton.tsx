@@ -1,7 +1,7 @@
 import Delete from '@mui/icons-material/Delete';
 import { styled } from '@mui/material';
 import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
-import { useState } from 'react';
+import { type FC, useState } from 'react';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import useToast from 'hooks/useToast';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
@@ -11,19 +11,19 @@ const StyledUl = styled('ul')({
   marginBottom: 0,
 });
 
-interface IRemoveApiTokenButtonProps {
+type RemoveApiTokenButtonProps = {
   token: IApiToken;
   permission: string;
   onRemove: () => Promise<void>;
   project?: string;
-}
+};
 
-export const RemoveApiTokenButton = ({
+export const RemoveApiTokenButton: FC<RemoveApiTokenButtonProps> = ({
   token,
   permission,
   onRemove,
   project,
-}: IRemoveApiTokenButtonProps) => {
+}) => {
   const [open, setOpen] = useState(false);
   const { setToastData, setToastApiError } = useToast();
 

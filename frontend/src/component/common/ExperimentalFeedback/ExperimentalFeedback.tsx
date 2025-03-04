@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type FC } from 'react';
 import { Box, Button, Divider, Typography, styled } from '@mui/material';
 import PermMedia from '@mui/icons-material/PermMedia';
 import Send from '@mui/icons-material/Send';
@@ -65,14 +65,14 @@ const StyledLink = styled('a')(({ theme }) => ({
   textDecoration: 'none',
 }));
 
-interface IExperimentalFeedbackProps {
+type ExperimentalFeedbackProps = {
   trackerKey: string;
   eventKey: CustomEvents;
   description: string;
   sketchURL: string;
-}
+};
 
-export const ExperimentalFeedback: React.FC<IExperimentalFeedbackProps> = ({
+export const ExperimentalFeedback: FC<ExperimentalFeedbackProps> = ({
   trackerKey,
   eventKey,
   description,

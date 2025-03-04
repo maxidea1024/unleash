@@ -1,10 +1,10 @@
-import type { ReactElement } from 'react';
+import type { FC, ReactElement } from 'react';
 import { ANNOUNCER_ELEMENT_TEST_ID } from 'utils/testIds';
 import { styled } from '@mui/material';
 
-interface IAnnouncerElementProps {
+type AnnouncerElementProps = {
   announcement?: string;
-}
+};
 
 const StyledContainer = styled('div')({
   clip: 'rect(0 0 0 0)',
@@ -17,9 +17,9 @@ const StyledContainer = styled('div')({
   overflow: 'hidden',
 });
 
-export const AnnouncerElement = ({
+export const AnnouncerElement: FC<AnnouncerElementProps> = ({
   announcement,
-}: IAnnouncerElementProps): ReactElement => {
+}): ReactElement => {
   return (
     <StyledContainer
       role='status'

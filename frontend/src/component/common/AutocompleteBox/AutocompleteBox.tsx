@@ -8,20 +8,20 @@ import {
   useTheme,
 } from '@mui/material';
 import type { AutocompleteRenderInputParams } from '@mui/material/Autocomplete';
-import { useState } from 'react';
+import { type FC, useState } from 'react';
 
-interface IAutocompleteBoxProps {
+type AutocompleteBoxProps = {
   label: string;
-  options: IAutocompleteBoxOption[];
-  value?: IAutocompleteBoxOption[];
-  onChange: (value: IAutocompleteBoxOption[]) => void;
+  options: AutocompleteBoxOption[];
+  value?: AutocompleteBoxOption[];
+  onChange: (value: AutocompleteBoxOption[]) => void;
   disabled?: boolean;
-}
+};
 
-export interface IAutocompleteBoxOption {
+export type AutocompleteBoxOption = {
   value: string;
   label: string;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -53,13 +53,13 @@ const StyledAutocomplete = styled(Autocomplete)({
   flex: 1,
 }) as typeof Autocomplete;
 
-export const AutocompleteBox = ({
+export const AutocompleteBox: FC<AutocompleteBoxProps> = ({
   label,
   options,
   value = [],
   onChange,
   disabled,
-}: IAutocompleteBoxProps) => {
+}) => {
   const [placeHolder, setPlaceholder] = useState('Add Segments');
   const { classes: styles } = useStyles();
   const theme = useTheme();

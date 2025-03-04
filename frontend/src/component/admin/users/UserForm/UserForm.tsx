@@ -7,6 +7,7 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { RoleSelect } from 'component/common/RoleSelect/RoleSelect';
 import type { IRole } from 'interfaces/role';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
+import type { FC } from 'react';
 
 const StyledForm = styled('form')(() => ({
   display: 'flex',
@@ -46,7 +47,7 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-interface IUserForm {
+type UserFormProps = {
   email: string;
   name: string;
   rootRole: IRole | null;
@@ -61,9 +62,9 @@ interface IUserForm {
   clearErrors: () => void;
   mode?: string;
   children?: React.ReactNode;
-}
+};
 
-const UserForm: React.FC<IUserForm> = ({
+const UserForm: FC<UserFormProps> = ({
   children,
   email,
   name,

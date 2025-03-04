@@ -9,7 +9,7 @@ import { Menu } from '@mui/material';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import { DropdownButton } from './DropdownButton/DropdownButton';
 
-export interface IDropdownMenuProps {
+export type DropdownMenuProps = {
   renderOptions: () => ReactNode;
   id: string;
   title?: string;
@@ -20,7 +20,7 @@ export interface IDropdownMenuProps {
   style?: CSSProperties;
 }
 
-const DropdownMenu: FC<IDropdownMenuProps> = ({
+const DropdownMenu: FC<DropdownMenuProps> = ({
   renderOptions,
   id,
   title,

@@ -1,12 +1,13 @@
 import { useTheme } from '@mui/material/styles';
 import Cloud from '@mui/icons-material/Cloud';
+import type { FC } from 'react';
 
-interface IEnvironmentIcon {
+type EnvironmentIconProps = {
   enabled: boolean;
   className?: string;
-}
+};
 
-const EnvironmentIcon = ({ enabled, className }: IEnvironmentIcon) => {
+const EnvironmentIcon: FC<EnvironmentIconProps> = ({ enabled, className }) => {
   const theme = useTheme();
 
   const title = enabled ? 'Environment enabled' : 'Environment disabled';
