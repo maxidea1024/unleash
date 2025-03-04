@@ -1,12 +1,12 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Alert } from '@mui/material';
 
-interface IFeatureStrategyChangeRequestAlertProps {
+type FeatureStrategyChangeRequestAlertProps = {
   environment?: string;
-}
+};
 
-export const FeatureStrategyChangeRequestAlert: VFC<
-  IFeatureStrategyChangeRequestAlertProps
+export const FeatureStrategyChangeRequestAlert: FC<
+  FeatureStrategyChangeRequestAlertProps
 > = ({ environment }) => (
   <Alert severity='info'>
     <strong>Change requests</strong> are enabled

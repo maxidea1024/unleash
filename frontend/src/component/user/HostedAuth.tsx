@@ -1,4 +1,4 @@
-import { type FormEventHandler, useState, type VFC } from 'react';
+import { type FC, type FormEventHandler, useState } from 'react';
 import { Button, Grid, styled, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import useQueryParams from 'hooks/useQueryParams';
@@ -14,10 +14,10 @@ import { BadRequestError, NotFoundError } from 'utils/apiUtils';
 import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 
-interface IHostedAuthProps {
+type HostedAuthProps = {
   authDetails: IAuthEndpointDetailsResponse;
   redirect: string;
-}
+};
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.error.main,
@@ -36,7 +36,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-const HostedAuth: VFC<IHostedAuthProps> = ({ authDetails, redirect }) => {
+const HostedAuth: FC<HostedAuthProps> = ({ authDetails, redirect }) => {
   const { refetchUser } = useAuthUser();
   const navigate = useNavigate();
   const params = useQueryParams();

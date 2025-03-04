@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
@@ -9,12 +9,12 @@ import {
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
 
-interface IContextActionsCellProps {
+type ContextActionsCellProps = {
   name: string;
   onDelete: () => void;
-}
+};
 
-export const ContextActionsCell: VFC<IContextActionsCellProps> = ({
+export const ContextActionsCell: FC<ContextActionsCellProps> = ({
   name,
   onDelete,
 }) => {

@@ -1,7 +1,7 @@
-import type { ReactNode, VFC } from 'react';
+import type { ReactNode, FC } from 'react';
 import { Button, type ButtonProps, Icon } from '@mui/material';
 
-interface IDropdownButtonProps {
+type DropdownButtonProps = {
   label: string;
   id?: string;
   title?: ButtonProps['title'];
@@ -10,9 +10,9 @@ interface IDropdownButtonProps {
   startIcon?: ButtonProps['startIcon'];
   style?: ButtonProps['style'];
   onClick: ButtonProps['onClick'];
-}
+};
 
-export const DropdownButton: VFC<IDropdownButtonProps> = ({
+export const DropdownButton: FC<DropdownButtonProps> = ({
   label,
   icon,
   ...rest

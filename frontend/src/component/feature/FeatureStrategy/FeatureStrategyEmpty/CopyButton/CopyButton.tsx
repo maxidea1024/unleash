@@ -1,4 +1,4 @@
-import { type MouseEvent, useContext, useState, type VFC } from 'react';
+import { type FC, type MouseEvent, useContext, useState } from 'react';
 import {
   Button,
   ListItemIcon,
@@ -14,13 +14,13 @@ import AccessContext from 'contexts/AccessContext';
 import { CREATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface ICopyButtonProps {
+type CopyButtonProps = {
   environmentId: IFeatureEnvironment['name'];
   environments: IFeatureEnvironment['name'][];
   onClick: (environmentId: string) => void;
-}
+};
 
-export const CopyButton: VFC<ICopyButtonProps> = ({
+export const CopyButton: FC<CopyButtonProps> = ({
   environmentId,
   environments,
   onClick,

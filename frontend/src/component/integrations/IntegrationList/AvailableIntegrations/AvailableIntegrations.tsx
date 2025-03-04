@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Box, Typography, styled } from '@mui/material';
 import type { AddonTypeSchema } from 'openapi';
 import { IntegrationCard } from '../IntegrationCard/IntegrationCard';
@@ -10,9 +10,9 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IAvailableIntegrationsProps {
+type AvailableIntegrationsProps = {
   providers: AddonTypeSchema[];
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -51,7 +51,7 @@ const StyledGrayContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const AvailableIntegrations: VFC<IAvailableIntegrationsProps> = ({
+export const AvailableIntegrations: FC<AvailableIntegrationsProps> = ({
   providers,
 }) => {
   const { isEnterprise } = useUiConfig();

@@ -1,13 +1,13 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { CardActions, Button } from '@mui/material';
 import type { IAuthEndpointDetailsResponse } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 
-interface IAuthenticationCustomComponentProps {
+type AuthenticationCustomComponentProps = {
   authDetails: IAuthEndpointDetailsResponse;
-}
+};
 
-export const AuthenticationCustomComponent: VFC<
-  IAuthenticationCustomComponentProps
+export const AuthenticationCustomComponent: FC<
+  AuthenticationCustomComponentProps
 > = ({ authDetails }) => (
   <div>
     <p>{authDetails.message}</p>

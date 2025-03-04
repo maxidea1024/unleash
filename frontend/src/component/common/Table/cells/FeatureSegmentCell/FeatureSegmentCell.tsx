@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import type { FeatureSearchResponseSchema } from 'openapi';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from '../TextCell/TextCell';
@@ -10,21 +10,22 @@ const StyledTag = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface IFeatureSegmentCellProps {
+type FeatureSegmentCellProps = {
   row: {
     original: FeatureSearchResponseSchema;
   };
   value: string;
-}
+};
 
-export const FeatureSegmentCell: VFC<IFeatureSegmentCellProps> = ({
+export const FeatureSegmentCell: FC<FeatureSegmentCellProps> = ({
   row,
   value,
 }) => {
   const { searchQuery } = useSearchHighlightContext();
 
-  if (!row.original.segments || row.original.segments.length === 0)
+  if (!row.original.segments || row.original.segments.length === 0) {
     return <TextCell />;
+  }
 
   return (
     <TextCell>

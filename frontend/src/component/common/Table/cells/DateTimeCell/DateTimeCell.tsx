@@ -1,15 +1,15 @@
-import type { VFC } from 'react';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHM } from 'utils/formatDate';
 import { parseISO } from 'date-fns';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
+import type { FC } from 'react';
 
-interface IDateTimeCellProps {
+type DateTimeCellProps = {
   value?: Date | string | null;
   timeZone?: string;
-}
+};
 
-export const DateTimeCell: VFC<IDateTimeCellProps> = ({ value, timeZone }) => {
+export const DateTimeCell: FC<DateTimeCellProps> = ({ value, timeZone }) => {
   const { locationSettings } = useLocationSettings();
 
   const date = value

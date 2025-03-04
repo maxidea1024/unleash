@@ -1,16 +1,16 @@
-import { useState, type VFC } from 'react';
+import { type FC, useState } from 'react';
 import { IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipResolver } from '../../TooltipResolver/TooltipResolver';
 
-interface IFavoriteIconHeaderProps {
+type FavoriteIconHeaderProps = {
   isActive: boolean;
   onClick: (isPinned: boolean) => void;
-}
+};
 
-export const FavoriteIconHeader: VFC<IFavoriteIconHeaderProps> = ({
+export const FavoriteIconHeader: FC<FavoriteIconHeaderProps> = ({
   isActive = false,
   onClick,
 }) => {

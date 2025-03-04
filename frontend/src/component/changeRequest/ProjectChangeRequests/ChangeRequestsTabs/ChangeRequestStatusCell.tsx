@@ -1,19 +1,22 @@
-import type { VFC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';
 import { ChangeRequestStatusBadge } from 'component/changeRequest/ChangeRequestStatusBadge/ChangeRequestStatusBadge';
+import type { FC } from 'react';
 
-interface IChangeRequestStatusCellProps {
+type ChangeRequestStatusCellProps = {
   value?: string | null; // FIXME: proper type
   row: { original: ChangeRequestType };
-}
+};
 
-export const ChangeRequestStatusCell: VFC<IChangeRequestStatusCellProps> = ({
+export const ChangeRequestStatusCell: FC<ChangeRequestStatusCellProps> = ({
   value,
   row: { original },
 }) => {
   const renderState = () => {
-    if (!value) return null;
+    if (!value) {
+      return null;
+    }
+
     return <ChangeRequestStatusBadge changeRequest={original} />;
   };
 

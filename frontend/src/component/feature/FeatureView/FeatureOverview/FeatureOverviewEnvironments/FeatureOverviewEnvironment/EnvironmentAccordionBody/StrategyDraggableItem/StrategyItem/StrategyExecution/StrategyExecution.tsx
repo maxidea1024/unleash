@@ -1,4 +1,4 @@
-import { Fragment, useMemo, type VFC } from 'react';
+import { type FC, Fragment, useMemo } from 'react';
 import { Alert, Box, Chip, Link, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PercentageCircle from 'component/common/PercentageCircle/PercentageCircle';
@@ -19,9 +19,9 @@ import type { CreateFeatureStrategySchema } from 'openapi';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 import { BuiltInStrategies } from 'utils/strategyNames';
 
-interface IStrategyExecutionProps {
+type StrategyExecutionProps = {
   strategy: IFeatureStrategyPayload | CreateFeatureStrategySchema;
-}
+};
 
 const StyledContainer = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'disabled',
@@ -54,7 +54,7 @@ const CustomStrategyDeprecationWarning = () => (
   </Alert>
 );
 
-const NoItems: VFC = () => (
+const NoItems: FC = () => (
   <Box sx={{ px: 3, color: 'text.disabled' }}>
     This strategy does not have constraints or parameters.
   </Box>
@@ -71,9 +71,7 @@ const StyledValueSeparator = styled('span')(({ theme }) => ({
   color: theme.palette.neutral.main,
 }));
 
-export const StrategyExecution: VFC<IStrategyExecutionProps> = ({
-  strategy,
-}) => {
+export const StrategyExecution: FC<StrategyExecutionProps> = ({ strategy }) => {
   const { parameters, constraints = [] } = strategy;
   const stickiness = parameters?.stickiness;
   const explainStickiness =
@@ -89,7 +87,9 @@ export const StrategyExecution: VFC<IStrategyExecutionProps> = ({
   });
 
   const parametersList = useMemo(() => {
-    if (!parameters || definition?.editable) return null;
+    if (!parameters || definition?.editable) {
+      return null;
+    }
 
     return Object.keys(parameters).map((key) => {
       switch (key) {
@@ -154,7 +154,10 @@ export const StrategyExecution: VFC<IStrategyExecutionProps> = ({
   }, [parameters, definition, constraints, strategy.disabled]);
 
   const customStrategyList = useMemo(() => {
-    if (!parameters || !definition?.editable) return null;
+    if (!parameters || !definition?.editable) {
+      return null;
+    }
+
     const isSetTo = (
       <StyledValueSeparator>{' is set to '}</StyledValueSeparator>
     );

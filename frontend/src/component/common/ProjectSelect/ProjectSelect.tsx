@@ -1,29 +1,29 @@
 import {
+  type FC,
   forwardRef,
   type ComponentProps,
   type Dispatch,
   type SetStateAction,
-  type VFC,
 } from 'react';
 import { Autocomplete, Chip, type SxProps, TextField } from '@mui/material';
 import { renderOption } from 'component/playground/Playground/PlaygroundForm/renderOption';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 
-interface IOption {
+type Option = {
   label: string;
   id: string;
-}
+};
 
 export const allOption = { label: 'ALL', id: '*' };
 
-interface IProjectSelectProps {
+type ProjectSelectProps = {
   selectedProjects: string[];
   onChange: Dispatch<SetStateAction<string[]>> | ((projects: string[]) => void);
   limitTags: number;
   dataTestId?: string;
   sx?: SxProps;
   disabled?: boolean;
-}
+};
 
 function findAllIndexes(arr: string[], name: string): number[] {
   const indexes: number[] = [];
@@ -35,7 +35,7 @@ function findAllIndexes(arr: string[], name: string): number[] {
   return indexes;
 }
 
-export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
+export const ProjectSelect: FC<ProjectSelectProps> = forwardRef(
   (
     {
       limitTags,
@@ -75,10 +75,11 @@ export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
       value,
       reason,
     ) => {
-      const newProjects = value as IOption | IOption[];
+      const newProjects = value as Option | Option[];
       if (reason === 'clear' || newProjects === null) {
         return onChange([allOption.id]);
       }
+
       if (Array.isArray(newProjects)) {
         if (newProjects.length === 0) {
           return onChange([allOption.id]);
@@ -88,6 +89,7 @@ export const ProjectSelect: VFC<IProjectSelectProps> = forwardRef(
         }
         return onChange(newProjects.map(({ id }) => id));
       }
+
       if (newProjects.id === allOption.id) {
         return onChange([allOption.id]);
       }

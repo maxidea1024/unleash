@@ -1,4 +1,4 @@
-import { type FC, Fragment, useMemo, useState, type VFC } from 'react';
+import { type FC, Fragment, useMemo, useState } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestSidebar } from 'component/changeRequest/ChangeRequestSidebar/ChangeRequestSidebar';
@@ -7,9 +7,9 @@ import type { ChangeRequestType } from 'component/changeRequest/changeRequest.ty
 import { changesCount } from 'component/changeRequest/changesCount';
 import { Sticky } from 'component/common/Sticky/Sticky';
 
-interface IDraftBannerProps {
+type DraftBannerProps = {
   project: string;
-}
+};
 
 const StyledDraftBannerContentWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -98,7 +98,7 @@ const StickyBanner = styled(Sticky)(({ theme }) => ({
   zIndex: 250,
 }));
 
-export const DraftBanner: VFC<IDraftBannerProps> = ({ project }) => {
+export const DraftBanner: FC<DraftBannerProps> = ({ project }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { data, loading } = usePendingChangeRequests(project);
 

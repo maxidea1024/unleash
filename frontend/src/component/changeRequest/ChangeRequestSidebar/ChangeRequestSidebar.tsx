@@ -1,4 +1,4 @@
-import { useState, type VFC } from 'react';
+import { type FC, useState } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import { DynamicSidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -13,11 +13,11 @@ import { EnvironmentChangeRequest } from './EnvironmentChangeRequest/Environment
 import { ReviewChangesHeader } from './ReviewChangesHeader/ReviewChangesHeader';
 import { ChangeRequestPlausibleProvider } from '../ChangeRequestContext';
 
-interface IChangeRequestSidebarProps {
+type ChangeRequestSidebarProps = {
   open: boolean;
   project: string;
   onClose: () => void;
-}
+};
 
 const StyledPageContent = styled(PageContent)(({ theme }) => ({
   height: '100vh',
@@ -67,7 +67,7 @@ export const Separator = () => (
   </Typography>
 );
 
-export const ChangeRequestSidebar: VFC<IChangeRequestSidebarProps> = ({
+export const ChangeRequestSidebar: FC<ChangeRequestSidebarProps> = ({
   open,
   project,
   onClose,

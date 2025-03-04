@@ -1,17 +1,17 @@
-import { useMemo, type VFC } from 'react';
+import { useMemo, type FC } from 'react';
 import PermissionSwitch from 'component/common/PermissionSwitch/PermissionSwitch';
 import { UPDATE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import { Tooltip } from '@mui/material';
 import { useId } from 'hooks/useId';
 import { useHasRootAccess } from 'hooks/useHasAccess';
 
-interface IStrategySwitchProps {
+type StrategySwitchProps = {
   deprecated: boolean;
   onToggle: (state: boolean) => void;
   disabled?: boolean;
-}
+};
 
-export const StrategySwitch: VFC<IStrategySwitchProps> = ({
+export const StrategySwitch: FC<StrategySwitchProps> = ({
   deprecated,
   disabled,
   onToggle,

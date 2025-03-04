@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import Add from '@mui/icons-material/Add';
@@ -7,9 +7,9 @@ import { CREATE_CONTEXT_FIELD } from 'component/providers/AccessProvider/permiss
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 
-type IAddContextButtonProps = {};
+type AddContextButtonProps = {};
 
-export const AddContextButton: VFC<IAddContextButtonProps> = () => {
+export const AddContextButton: FC<AddContextButtonProps> = () => {
   const smallScreen = useMediaQuery('(max-width:700px)');
   const navigate = useNavigate();
 

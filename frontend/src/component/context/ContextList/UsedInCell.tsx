@@ -1,14 +1,14 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import theme from 'themes/theme';
 import { Box } from '@mui/material';
 import type { IUnleashContextDefinition } from 'interfaces/context';
 
-interface IUsedInCellProps {
+type UsedInCellProps = {
   original: IUnleashContextDefinition;
-}
+};
 
-export const UsedInCell: VFC<IUsedInCellProps> = ({ original }) => {
+export const UsedInCell: FC<UsedInCellProps> = ({ original }) => {
   const projectText = original.usedInProjects === 1 ? 'project' : 'projects';
   const flagsText = original.usedInFeatures === 1 ? 'flag' : 'flags';
   return (

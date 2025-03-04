@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -9,14 +9,14 @@ const StyledTag = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface IArrayFieldCellProps<T> {
+type ArrayFieldCellProps<T> = {
   row: T;
   field: keyof T;
   singularLabel: string;
   pluralLabel?: string;
-}
+};
 
-export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({
+export const StringArrayCell: FC<ArrayFieldCellProps<any>> = ({
   row,
   field,
   singularLabel,
@@ -25,8 +25,9 @@ export const StringArrayCell: VFC<IArrayFieldCellProps<any>> = ({
   const { searchQuery } = useSearchHighlightContext();
   const fieldValue = row[field];
 
-  if (!Array.isArray(fieldValue) || fieldValue.length === 0)
+  if (!Array.isArray(fieldValue) || fieldValue.length === 0) {
     return <TextCell />;
+  }
 
   const labelForMultiple = pluralLabel || `${singularLabel}s`;
 

@@ -1,4 +1,4 @@
-import { useState, type VFC } from 'react';
+import { useState, type FC } from 'react';
 import { Box, Paper, Button, styled } from '@mui/material';
 import {
   type CustomEvents,
@@ -7,11 +7,11 @@ import {
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { createLocalStorage } from 'utils/createLocalStorage';
 
-interface IFeedbackProps {
+type FeedbackProps = {
   id: string;
   eventName: CustomEvents;
   localStorageKey: string;
-}
+};
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -19,7 +19,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(0.5),
 }));
 
-export const Feedback: VFC<IFeedbackProps> = ({
+export const Feedback: FC<FeedbackProps> = ({
   id,
   localStorageKey,
   eventName,

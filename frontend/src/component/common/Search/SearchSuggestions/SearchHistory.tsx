@@ -1,7 +1,7 @@
 import History from '@mui/icons-material/History';
 import { Box, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { StyledCode } from './SearchInstructions/SearchInstructions';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { onEnter } from './onEnter';
@@ -14,12 +14,13 @@ const StyledBox = styled(Box)(({ theme }) => ({
 const StyledHistory = styled(History)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
-interface ISearchHistoryProps {
+
+type SearchHistoryProps = {
   onSuggestion: (suggestion: string) => void;
   savedQuery?: string;
-}
+};
 
-export const SearchHistory: VFC<ISearchHistoryProps> = ({
+export const SearchHistory: FC<SearchHistoryProps> = ({
   onSuggestion,
   savedQuery,
 }) => {

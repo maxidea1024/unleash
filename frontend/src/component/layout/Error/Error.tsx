@@ -1,4 +1,4 @@
-import { useEffect, type VFC } from 'react';
+import { type FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -6,9 +6,9 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IErrorProps {
+type ErrorProps = {
   error: Error;
-}
+};
 
 const ZendeskButton = () => {
   const openZendeskSupport = () => {
@@ -18,7 +18,7 @@ const ZendeskButton = () => {
 };
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-export const Error: VFC<IErrorProps> = ({ error }) => {
+export const Error: FC<ErrorProps> = ({ error }) => {
   const navigate = useNavigate();
   const { trackEvent } = usePlausibleTracker();
   const { isOss } = useUiConfig();

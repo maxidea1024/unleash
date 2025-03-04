@@ -1,4 +1,4 @@
-import type { ReactNode, VFC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider, Drawer, styled } from '@mui/material';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
@@ -22,7 +22,7 @@ const StyledDrawerHeader = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IDrawerMenuProps {
+type DrawerMenuProps = {
   title?: string;
   open?: boolean;
   toggleDrawer: () => void;
@@ -37,9 +37,9 @@ interface IDrawerMenuProps {
     mobileRoutes: INavigationMenuItem[];
     adminRoutes: INavigationMenuItem[];
   };
-}
+};
 
-export const DrawerMenu: VFC<IDrawerMenuProps> = ({
+export const DrawerMenu: FC<DrawerMenuProps> = ({
   links = [],
   open = false,
   toggleDrawer,

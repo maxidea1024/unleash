@@ -1,4 +1,4 @@
-import { type MouseEvent, useState, type VFC } from 'react';
+import { type FC, type MouseEvent, useState } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -26,13 +26,13 @@ import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { useCheckProjectAccess } from 'hooks/useHasAccess';
 import { STRATEGY_FORM_COPY_ID } from 'utils/testIds';
 
-interface ICopyStrategyIconMenuProps {
+type CopyStrategyIconMenuProps = {
   environmentId: string;
   environments: IFeatureEnvironment['name'][];
   strategy: IFeatureStrategyPayload;
-}
+};
 
-export const CopyStrategyIconMenu: VFC<ICopyStrategyIconMenuProps> = ({
+export const CopyStrategyIconMenu: FC<CopyStrategyIconMenuProps> = ({
   environmentId,
   environments,
   strategy,

@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { styled } from '@mui/material';
@@ -14,17 +14,17 @@ import { formattedStrategyNames } from 'utils/strategyNames';
 import { StyledBoxSummary } from './StrategyExecution.styles';
 import { Badge } from 'component/common/Badge/Badge';
 
-interface IStrategyExecutionProps {
+type StrategyExecutionProps = {
   strategyResult: PlaygroundStrategySchema;
   percentageFill?: string;
   input?: PlaygroundRequestSchema;
-}
+};
 
 const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0),
 }));
 
-export const StrategyExecution: VFC<IStrategyExecutionProps> = ({
+export const StrategyExecution: FC<StrategyExecutionProps> = ({
   strategyResult,
   input,
 }) => {

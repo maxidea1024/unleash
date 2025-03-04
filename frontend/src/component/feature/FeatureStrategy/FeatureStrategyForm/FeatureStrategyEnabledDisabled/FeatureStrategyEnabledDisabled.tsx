@@ -5,12 +5,12 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 
-interface IFeatureStrategyEnabledDisabledProps {
+type FeatureStrategyEnabledDisabledProps = {
   enabled: boolean;
   onToggleEnabled: () => void;
-}
+};
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -21,8 +21,8 @@ const StyledBox = styled(Box)(({ theme }) => ({
   borderRadius: `${theme.shape.borderRadiusMedium}px`,
 }));
 
-export const FeatureStrategyEnabledDisabled: VFC<
-  IFeatureStrategyEnabledDisabledProps
+export const FeatureStrategyEnabledDisabled: FC<
+  FeatureStrategyEnabledDisabledProps
 > = ({ enabled, onToggleEnabled }) => {
   return (
     <StyledBox>

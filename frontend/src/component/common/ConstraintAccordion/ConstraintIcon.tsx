@@ -1,13 +1,13 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Box } from '@mui/material';
 import TrackChanges from '@mui/icons-material/TrackChanges';
 
-interface IConstraintIconProps {
+type ConstraintIconProps = {
   compact?: boolean;
   disabled?: boolean;
-}
+};
 
-export const ConstraintIcon: VFC<IConstraintIconProps> = ({
+export const ConstraintIcon: FC<ConstraintIconProps> = ({
   compact,
   disabled,
 }) => (

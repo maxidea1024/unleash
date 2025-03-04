@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ReactComponent as FeatureEnabledIcon } from 'assets/icons/isenabled-true.svg';
@@ -6,14 +6,14 @@ import { ReactComponent as FeatureDisabledIcon } from 'assets/icons/isenabled-fa
 import WarningOutlined from '@mui/icons-material/WarningOutlined';
 import { Badge } from 'component/common/Badge/Badge';
 
-interface IResultChipProps {
+type ResultChipProps = {
   enabled: boolean | 'unevaluated' | 'unknown';
   label: string;
   // Result icon - defaults to true
   showIcon?: boolean;
-}
+};
 
-export const PlaygroundResultChip: VFC<IResultChipProps> = ({
+export const PlaygroundResultChip: FC<ResultChipProps> = ({
   enabled,
   label,
   showIcon = true,

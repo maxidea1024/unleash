@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import type { PlaygroundConstraintSchema } from 'openapi';
 import { objectId } from 'utils/objectId';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -6,9 +6,9 @@ import { StrategySeparator } from 'component/common/StrategySeparator/StrategySe
 import { styled } from '@mui/material';
 import { ConstraintAccordionView } from 'component/common/ConstraintAccordion/ConstraintAccordionView/ConstraintAccordionView';
 
-interface IConstraintExecutionWithoutResultsProps {
+type ConstraintExecutionWithoutResultsProps = {
   constraints?: PlaygroundConstraintSchema[];
-}
+};
 
 export const ConstraintExecutionWrapper = styled('div')(() => ({
   width: '100%',
@@ -16,10 +16,12 @@ export const ConstraintExecutionWrapper = styled('div')(() => ({
   flexDirection: 'column',
 }));
 
-export const ConstraintExecutionWithoutResults: VFC<
-  IConstraintExecutionWithoutResultsProps
+export const ConstraintExecutionWithoutResults: FC<
+  ConstraintExecutionWithoutResultsProps
 > = ({ constraints }) => {
-  if (!constraints) return null;
+  if (!constraints) {
+    return null;
+  }
 
   return (
     <ConstraintExecutionWrapper>

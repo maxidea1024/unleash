@@ -1,4 +1,4 @@
-import { useEffect, useState, type VFC } from 'react';
+import { useEffect, useState, type FC } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -22,7 +22,7 @@ import {
   StyledMenuItem,
 } from './ColumnsMenu.styles';
 
-interface IColumnsMenuProps {
+type ColumnsMenuProps = {
   allColumns: {
     Header?: string | any;
     id: string;
@@ -36,13 +36,13 @@ interface IColumnsMenuProps {
   isCustomized?: boolean;
   setHiddenColumns: (hiddenColumns: string[]) => void;
   onCustomize?: () => void;
-}
+};
 
 const columnNameMap: Record<string, string> = {
   favorite: 'Favorite',
 };
 
-export const ColumnsMenu: VFC<IColumnsMenuProps> = ({
+export const ColumnsMenu: FC<ColumnsMenuProps> = ({
   allColumns,
   staticColumns = [],
   dividerBefore = [],

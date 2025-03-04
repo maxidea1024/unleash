@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { styled } from '@mui/material';
 import { Box, IconButton } from '@mui/material';
 import CloudCircle from '@mui/icons-material/CloudCircle';
@@ -27,11 +27,11 @@ const StyledCloudCircle = styled(CloudCircle, {
   color: deprecated ? theme.palette.neutral.border : theme.palette.primary.main,
 }));
 
-interface IEnvironmentIconCellProps {
+type EnvironmentIconCellProps = {
   environment: IEnvironment;
-}
+};
 
-export const EnvironmentIconCell: VFC<IEnvironmentIconCellProps> = ({
+export const EnvironmentIconCell: FC<EnvironmentIconCellProps> = ({
   environment,
 }) => (
   <StyledCell>

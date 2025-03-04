@@ -2,11 +2,11 @@ import type { ReactNode } from 'react';
 import { Tooltip, type TooltipProps } from '@mui/material';
 import { HtmlTooltip } from '../HtmlTooltip/HtmlTooltip';
 
-export interface ITooltipResolverProps extends Omit<TooltipProps, 'title'> {
+type TooltipResolverProps = Omit<TooltipProps, 'title'> & {
   title?: string | null;
   titleComponent?: ReactNode;
   variant?: 'default' | 'custom';
-}
+};
 
 export const TooltipResolver = ({
   title,
@@ -14,7 +14,7 @@ export const TooltipResolver = ({
   variant = 'default',
   titleComponent,
   ...rest
-}: ITooltipResolverProps) => {
+}: TooltipResolverProps) => {
   if (!title && !titleComponent) {
     return children;
   }

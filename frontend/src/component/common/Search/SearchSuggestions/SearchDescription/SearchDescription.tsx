@@ -4,7 +4,7 @@ import {
   getSearchTextGenerator,
   type IGetSearchContextOutput,
 } from 'hooks/useSearch';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 
 const StyledHeader = styled('span')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
@@ -15,13 +15,13 @@ const StyledCode = styled('span')(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-interface ISearchDescriptionProps {
+type SearchDescriptionProps = {
   filters: any[];
   getSearchContext: () => IGetSearchContextOutput;
   searchableColumnsString: string;
-}
+};
 
-export const SearchDescription: VFC<ISearchDescriptionProps> = ({
+export const SearchDescription: FC<SearchDescriptionProps> = ({
   filters,
   getSearchContext,
   searchableColumnsString,

@@ -1,17 +1,17 @@
-import React, { type VFC } from 'react';
+import React, { type FC } from 'react';
 import { FeatureEnvironmentSeen } from 'component/feature/FeatureView/FeatureEnvironmentSeen/FeatureEnvironmentSeen';
 import type { FeatureSearchEnvironmentSchema } from 'openapi';
 import { FeatureLifecycle } from 'component/feature/FeatureView/FeatureOverview/FeatureLifecycle/FeatureLifecycle';
 import { Box } from '@mui/material';
 
-interface IFeatureSeenCellProps {
+type FeatureSeenCellProps = {
   feature: {
     environments?: FeatureSearchEnvironmentSchema[];
     lastSeenAt?: string | null;
   };
-}
+};
 
-export const FeatureEnvironmentSeenCell: VFC<IFeatureSeenCellProps> = ({
+export const FeatureEnvironmentSeenCell: FC<FeatureSeenCellProps> = ({
   feature,
   ...rest
 }) => {
@@ -28,7 +28,7 @@ export const FeatureEnvironmentSeenCell: VFC<IFeatureSeenCellProps> = ({
   );
 };
 
-interface IFeatureLifecycleProps {
+type FeatureLifecycleProps = {
   feature: {
     environments?: FeatureSearchEnvironmentSchema[];
     lastSeenAt?: string | null;
@@ -38,9 +38,9 @@ interface IFeatureLifecycleProps {
   onComplete: () => void;
   onUncomplete: () => void;
   onArchive: () => void;
-}
+};
 
-export const FeatureLifecycleCell: VFC<IFeatureLifecycleProps> = ({
+export const FeatureLifecycleCell: FC<FeatureLifecycleProps> = ({
   feature,
   onComplete,
   onUncomplete,

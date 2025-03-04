@@ -3,7 +3,7 @@ import type React from 'react';
 import type { ReactNode } from 'react';
 import type { Link } from 'react-router-dom';
 import {
-  type ITooltipResolverProps,
+  type TooltipResolverProps,
   TooltipResolver,
 } from 'component/common/TooltipResolver/TooltipResolver';
 import { formatAccessText } from 'utils/formatAccessText';
@@ -13,7 +13,7 @@ import {
   useHasRootAccess,
 } from 'hooks/useHasAccess';
 
-interface IPermissionIconButtonProps {
+type PermissionIconButtonProps = {
   permission: string | string[];
   projectId?: string;
   environmentId?: string;
@@ -23,22 +23,22 @@ interface IPermissionIconButtonProps {
   hidden?: boolean;
   type?: 'button';
   edge?: IconButtonProps['edge'];
-  tooltipProps?: Omit<ITooltipResolverProps, 'children'>;
+  tooltipProps?: Omit<TooltipResolverProps, 'children'>;
   sx?: IconButtonProps['sx'];
   size?: 'small' | 'medium' | 'large';
-}
+};
 
-interface IButtonProps extends IPermissionIconButtonProps {
+type ButtonProps = PermissionIconButtonProps & {
   onClick: (event: React.SyntheticEvent) => void;
   style?: React.CSSProperties;
-}
+};
 
-interface ILinkProps extends IPermissionIconButtonProps {
+type LinkProps = PermissionIconButtonProps & {
   component: typeof Link;
   to: string;
-}
+};
 
-const RootPermissionIconButton = (props: IButtonProps | ILinkProps) => {
+const RootPermissionIconButton = (props: ButtonProps | LinkProps) => {
   const access = useHasRootAccess(
     props.permission,
     props.projectId,
@@ -49,7 +49,7 @@ const RootPermissionIconButton = (props: IButtonProps | ILinkProps) => {
 };
 
 const ProjectEnvironmentPermissionIconButton = (
-  props: (IButtonProps | ILinkProps) & {
+  props: (ButtonProps | LinkProps) & {
     environmentId: string;
     projectId: string;
   },
@@ -72,7 +72,7 @@ const BasePermissionIconButton = ({
   tooltipProps,
   disabled,
   ...rest
-}: (IButtonProps | ILinkProps) & { access: boolean }) => {
+}: (ButtonProps | LinkProps) & { access: boolean }) => {
   const id = useId();
 
   return (
@@ -96,7 +96,7 @@ const BasePermissionIconButton = ({
   );
 };
 
-const PermissionIconButton = (props: IButtonProps | ILinkProps) => {
+const PermissionIconButton = (props: ButtonProps | LinkProps) => {
   if (
     typeof props.projectId !== 'undefined' &&
     typeof props.environmentId !== 'undefined'

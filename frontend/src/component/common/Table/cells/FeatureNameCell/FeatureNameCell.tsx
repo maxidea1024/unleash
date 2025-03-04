@@ -1,7 +1,7 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 
-interface IFeatureNameCellProps {
+type FeatureNameCellProps = {
   row: {
     original: {
       name?: string | null;
@@ -9,9 +9,9 @@ interface IFeatureNameCellProps {
       project?: string | null;
     };
   };
-}
+};
 
-export const FeatureNameCell: VFC<IFeatureNameCellProps> = ({ row }) => (
+export const FeatureNameCell: FC<FeatureNameCellProps> = ({ row }) => (
   <LinkCell
     title={row.original.name || ''}
     subtitle={row.original.description || ''}

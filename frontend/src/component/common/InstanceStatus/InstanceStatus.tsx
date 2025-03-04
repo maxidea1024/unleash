@@ -1,11 +1,5 @@
 import { useInstanceStatus } from 'hooks/api/getters/useInstanceStatus/useInstanceStatus';
-import React, {
-  type FC,
-  type VFC,
-  useEffect,
-  useState,
-  useContext,
-} from 'react';
+import React, { type FC, useEffect, useState, useContext } from 'react';
 import { InstanceStatusBar } from 'component/common/InstanceStatus/InstanceStatusBar';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -19,12 +13,12 @@ import { trialHasExpired, canExtendTrial } from 'utils/instanceTrial';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
-interface ITrialDialogProps {
+type TrialDialogProps = {
   instanceStatus: IInstanceStatus;
   onExtendTrial: () => Promise<void>;
-}
+};
 
-const TrialDialog: VFC<ITrialDialogProps> = ({
+const TrialDialog: FC<TrialDialogProps> = ({
   instanceStatus,
   onExtendTrial,
 }) => {
@@ -120,7 +114,8 @@ export const InstanceStatus: FC<{ children?: React.ReactNode }> = ({
   const onExtendTrial = async () => {
     try {
       await extendTrial();
-      await refetchInstanceStatus();
+
+      refetchInstanceStatus();
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));
     }

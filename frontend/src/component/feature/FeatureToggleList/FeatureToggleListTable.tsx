@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState, type VFC } from 'react';
+import { type FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Box, Link, useMediaQuery, useTheme } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { createColumnHelper, useReactTable } from '@tanstack/react-table';
@@ -42,7 +42,7 @@ export const featuresPlaceholder = Array(15).fill({
 const columnHelper = createColumnHelper<FeatureSearchResponseSchema>();
 const feedbackCategory = 'search';
 
-export const FeatureToggleListTable: VFC = () => {
+export const FeatureToggleListTable: FC = () => {
   const theme = useTheme();
   const { trackEvent } = usePlausibleTracker();
   const { environments } = useEnvironments();

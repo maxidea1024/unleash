@@ -1,4 +1,4 @@
-import { useMemo, useState, type VFC } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import {
   Table,
@@ -26,7 +26,7 @@ import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
 import { Search } from 'component/common/Search/Search';
 import { UsedInCell } from '../UsedInCell';
 
-const ContextList: VFC = () => {
+const ContextList: FC = () => {
   const [showDelDialogue, setShowDelDialogue] = useState(false);
   const [name, setName] = useState<string>();
   const { context, refetchUnleashContext, loading } = useUnleashContext();

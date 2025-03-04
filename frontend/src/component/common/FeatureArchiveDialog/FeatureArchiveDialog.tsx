@@ -1,4 +1,4 @@
-import { useEffect, useState, type VFC } from 'react';
+import { type FC, useEffect, useState } from 'react';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useToast from 'hooks/useToast';
@@ -14,14 +14,14 @@ import { useHighestPermissionChangeRequestEnvironment } from 'hooks/useHighestPe
 import { useScheduledChangeRequestsWithFlags } from 'hooks/api/getters/useScheduledChangeRequestsWithFlags/useScheduledChangeRequestsWithFlags';
 import type { ScheduledChangeRequestViewModel } from 'hooks/api/getters/useScheduledChangeRequestsWithStrategy/useScheduledChangeRequestsWithStrategy';
 
-interface IFeatureArchiveDialogProps {
+type FeatureArchiveDialogProps = {
   isOpen: boolean;
   onConfirm: () => void;
   onClose: () => void;
   projectId: string;
   featureIds: string[];
   featuresWithUsage?: string[];
-}
+};
 
 const RemovedDependenciesAlert = () => {
   return (
@@ -102,7 +102,7 @@ const ArchiveParentError = ({
   return null;
 };
 
-const ScheduledChangeRequestAlert: VFC<{
+const ScheduledChangeRequestAlert: FC<{
   changeRequests?: ScheduledChangeRequestViewModel[];
   projectId: string;
 }> = ({ changeRequests, projectId }) => {
@@ -293,7 +293,7 @@ const useVerifyArchive = (
   return { disableArchive, offendingParents, hasDeletedDependencies };
 };
 
-export const FeatureArchiveDialog: VFC<IFeatureArchiveDialogProps> = ({
+export const FeatureArchiveDialog: FC<FeatureArchiveDialogProps> = ({
   isOpen,
   onClose,
   onConfirm,

@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import UnfoldMoreOutlined from '@mui/icons-material/UnfoldMoreOutlined';
@@ -6,11 +6,11 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import classnames from 'classnames';
 import type { Theme } from '@mui/material';
 
-interface ISortArrowProps {
+type SortArrowProps = {
   isSorted?: boolean;
   isDesc?: boolean;
   className?: string;
-}
+};
 
 const iconStyle = (theme: Theme) => ({
   marginLeft: theme.spacing(0.25),
@@ -19,7 +19,7 @@ const iconStyle = (theme: Theme) => ({
   verticalAlign: 'middle',
 });
 
-export const SortArrow: VFC<ISortArrowProps> = ({
+export const SortArrow: FC<SortArrowProps> = ({
   isSorted: sorted,
   isDesc: desc = false,
   className,

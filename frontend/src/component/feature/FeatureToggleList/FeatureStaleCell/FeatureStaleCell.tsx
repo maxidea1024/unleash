@@ -1,10 +1,10 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Box, styled, type Theme, Typography } from '@mui/material';
 import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 
-interface IFeatureStaleCellProps {
+type FeatureStaleCellProps = {
   value?: boolean;
-}
+};
 
 const staleStatus = (theme: Theme) => ({
   color: theme.palette.error.dark,
@@ -20,7 +20,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
 }));
 
-export const FeatureStaleCell: VFC<IFeatureStaleCellProps> = ({ value }) => {
+export const FeatureStaleCell: FC<FeatureStaleCellProps> = ({ value }) => {
   return (
     <StyledBox>
       <ConditionallyRender
