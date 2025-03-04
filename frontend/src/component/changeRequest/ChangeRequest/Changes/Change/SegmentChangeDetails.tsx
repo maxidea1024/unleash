@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { VFC, FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import type {
   ChangeRequestState,
@@ -50,7 +50,7 @@ const SegmentContainer = styled(Box, {
   borderRadius: `0 0 ${theme.shape.borderRadiusLarge}px ${theme.shape.borderRadiusLarge}px`,
 }));
 
-export const SegmentChangeDetails: VFC<{
+export const SegmentChangeDetails: FC<{
   actions?: ReactNode;
   change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
   changeRequestState: ChangeRequestState;

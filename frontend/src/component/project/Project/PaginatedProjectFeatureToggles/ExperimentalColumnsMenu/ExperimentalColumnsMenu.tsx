@@ -1,4 +1,4 @@
-import { useState, type VFC } from 'react';
+import { type FC, useState, } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -29,7 +29,7 @@ interface IColumnsMenuProps {
   onToggle?: (id: string) => void;
 }
 
-export const ExperimentalColumnsMenu: VFC<IColumnsMenuProps> = ({
+export const ExperimentalColumnsMenu: FC<IColumnsMenuProps> = ({
   columns,
   onToggle,
 }) => {

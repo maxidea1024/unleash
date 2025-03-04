@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { styled } from '@mui/material';
@@ -24,9 +24,11 @@ const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0),
 }));
 
-export const DisabledStrategyExecution: VFC<
-  IDisabledStrategyExecutionProps
-> = ({ strategyResult, input, percentageFill }) => {
+export const DisabledStrategyExecution: FC<IDisabledStrategyExecutionProps> = ({
+  strategyResult,
+  input,
+  percentageFill,
+}) => {
   const { name, constraints, segments, parameters } = strategyResult;
 
   const hasSegments = Boolean(segments && segments.length > 0);

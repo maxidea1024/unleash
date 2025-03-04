@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import PermissionIconButton from '../../../../common/PermissionIconButton/PermissionIconButton';
 import { ADMIN } from '../../../../providers/AccessProvider/permissions';
@@ -13,7 +13,7 @@ interface IInactiveUsersActionsCellProps {
   onDelete: (event: React.SyntheticEvent) => void;
 }
 
-export const InactiveUsersActionCell: VFC<IInactiveUsersActionsCellProps> = ({
+export const InactiveUsersActionCell: FC<IInactiveUsersActionsCellProps> = ({
   onDelete,
 }) => {
   return (

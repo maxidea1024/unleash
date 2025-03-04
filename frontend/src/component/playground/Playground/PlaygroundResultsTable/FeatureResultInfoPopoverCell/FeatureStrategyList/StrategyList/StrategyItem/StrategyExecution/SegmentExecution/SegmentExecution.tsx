@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import type { PlaygroundSegmentSchema, PlaygroundRequestSchema } from 'openapi';
 import { ConstraintExecution } from '../ConstraintExecution/ConstraintExecution';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
@@ -20,11 +20,13 @@ const SegmentResultTextWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const SegmentExecution: VFC<ISegmentExecutionProps> = ({
+export const SegmentExecution: FC<ISegmentExecutionProps> = ({
   segments,
   input,
 }) => {
-  if (!segments) return null;
+  if (!segments) {
+    return null;
+  }
 
   return (
     <>

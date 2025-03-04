@@ -1,12 +1,7 @@
 import CodeMirror from '@uiw/react-codemirror';
-import { useContext } from 'react';
+import { type FC, useContext } from 'react';
 import { json } from '@codemirror/lang-json';
-import {
-  type Dispatch,
-  type SetStateAction,
-  type VFC,
-  useCallback,
-} from 'react';
+import { type Dispatch, type SetStateAction, useCallback } from 'react';
 import { styled, useTheme, Box } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { duotoneDark, duotoneLight } from '@uiw/codemirror-theme-duotone';
@@ -83,7 +78,7 @@ const EditorStatusError = () => {
   );
 };
 
-export const PlaygroundEditor: VFC<IPlaygroundEditorProps> = ({
+export const PlaygroundEditor: FC<IPlaygroundEditorProps> = ({
   context,
   setContext,
   error,

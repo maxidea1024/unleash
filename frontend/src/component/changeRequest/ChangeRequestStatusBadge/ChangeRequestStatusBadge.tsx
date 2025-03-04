@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import type { ChangeRequestType } from '../changeRequest.types';
 import { Badge } from 'component/common/Badge/Badge';
 import AccessTime from '@mui/icons-material/AccessTime';
@@ -13,15 +13,15 @@ interface IChangeRequestStatusBadgeProps {
   changeRequest: ChangeRequestType | undefined;
 }
 
-const ReviewRequiredBadge: VFC = () => (
+const ReviewRequiredBadge: FC = () => (
   <Badge color='secondary' icon={<CircleOutlined fontSize={'small'} />}>
     Review required
   </Badge>
 );
 
-const DraftBadge: VFC = () => <Badge color='warning'>Draft</Badge>;
+const DraftBadge: FC = () => <Badge color='warning'>Draft</Badge>;
 
-export const ChangeRequestStatusBadge: VFC<IChangeRequestStatusBadgeProps> = ({
+export const ChangeRequestStatusBadge: FC<IChangeRequestStatusBadgeProps> = ({
   changeRequest,
 }) => {
   if (!changeRequest) {

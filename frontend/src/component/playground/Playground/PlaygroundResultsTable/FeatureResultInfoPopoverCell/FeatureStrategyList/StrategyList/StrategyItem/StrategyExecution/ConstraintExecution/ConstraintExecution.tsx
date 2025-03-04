@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import type {
   PlaygroundConstraintSchema,
   PlaygroundRequestSchema,
@@ -22,7 +22,7 @@ export const ConstraintExecutionWrapper = styled('div')(() => ({
   flexDirection: 'column',
 }));
 
-export const ConstraintExecution: VFC<IConstraintExecutionProps> = ({
+export const ConstraintExecution: FC<IConstraintExecutionProps> = ({
   constraints,
   input,
 }) => {

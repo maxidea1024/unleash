@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import type { IEnvironment } from 'interfaces/environments';
-import type { FormEvent, VFC } from 'react';
+import type { FC, FormEvent } from 'react';
 import { PlaygroundCodeFieldset } from './PlaygroundCodeFieldset/PlaygroundCodeFieldset';
 import { PlaygroundConnectionFieldset } from './PlaygroundConnectionFieldset/PlaygroundConnectionFieldset';
 
@@ -19,7 +19,7 @@ interface IPlaygroundFormProps {
   onClearChangeRequest?: () => void;
 }
 
-export const PlaygroundForm: VFC<IPlaygroundFormProps> = ({
+export const PlaygroundForm: FC<IPlaygroundFormProps> = ({
   availableEnvironments,
   environments,
   onSubmit,

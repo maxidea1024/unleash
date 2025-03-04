@@ -1,4 +1,4 @@
-import { useMemo, type VFC } from 'react';
+import { type FC, useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type {
@@ -86,7 +86,7 @@ const useEnvironmentTypeColor = () => {
   };
 };
 
-export const UpdatesPerEnvironmentTypeChart: VFC<
+export const UpdatesPerEnvironmentTypeChart: FC<
   IUpdatesPerEnvironmnetTypeChart
 > = ({ environmentTypeTrends, isLoading }) => {
   const theme = useTheme();

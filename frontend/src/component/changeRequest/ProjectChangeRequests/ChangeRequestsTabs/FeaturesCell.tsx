@@ -1,6 +1,6 @@
 import { Box, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
@@ -43,7 +43,7 @@ interface FeaturesCellProps {
   project: string;
 }
 
-export const FeaturesCell: VFC<FeaturesCellProps> = ({ value, project }) => {
+export const FeaturesCell: FC<FeaturesCellProps> = ({ value, project }) => {
   const { searchQuery } = useSearchHighlightContext();
   const featureNames = value?.map((feature: any) => feature.name);
   return (

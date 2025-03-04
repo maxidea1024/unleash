@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState, type VFC } from 'react';
+import { type FC, useEffect, useReducer, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   type AutocompleteProps,
@@ -20,13 +20,13 @@ type Payload = {
   removedTags: ITag[];
 };
 
-interface IManageBulkTagsDialogProps {
+type ManageBulkTagsDialogProps = {
   open: boolean;
   initialValues: ITag[];
   initialIndeterminateValues: ITag[];
   onCancel: () => void;
   onSubmit: (payload: Payload) => void;
-}
+};
 
 const StyledDialogFormContent = styled('section')(({ theme }) => ({
   '& > *': {
@@ -87,7 +87,7 @@ const emptyTagType = {
   icon: '',
 };
 
-export const ManageBulkTagsDialog: VFC<IManageBulkTagsDialogProps> = ({
+export const ManageBulkTagsDialog: FC<ManageBulkTagsDialogProps> = ({
   open,
   initialValues,
   initialIndeterminateValues,

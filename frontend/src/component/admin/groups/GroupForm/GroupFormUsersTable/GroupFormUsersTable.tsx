@@ -1,4 +1,4 @@
-import { useMemo, useState, type VFC } from 'react';
+import { type FC, useMemo, useState } from 'react';
 import { IconButton, Tooltip, useMediaQuery } from '@mui/material';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { IGroupUser } from 'interfaces/group';
@@ -20,7 +20,7 @@ interface IGroupFormUsersTableProps {
   setUsers: React.Dispatch<React.SetStateAction<IGroupUser[]>>;
 }
 
-export const GroupFormUsersTable: VFC<IGroupFormUsersTableProps> = ({
+export const GroupFormUsersTable: FC<IGroupFormUsersTableProps> = ({
   users,
   setUsers,
 }) => {

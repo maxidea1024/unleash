@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -118,7 +118,7 @@ type GaugeProps = {
   max?: number;
 };
 
-export const Gauge: VFC<GaugeProps> = ({ value, min = 0, max = 100 }) => {
+export const Gauge: FC<GaugeProps> = ({ value, min = 0, max = 100 }) => {
   const theme = useTheme();
   const radius = 1;
   const lineWidth = 0.25;

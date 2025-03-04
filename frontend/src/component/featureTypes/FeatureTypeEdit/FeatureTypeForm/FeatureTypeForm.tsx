@@ -1,4 +1,4 @@
-import { type FormEventHandler, type VFC, useState, useCallback } from 'react';
+import { type FormEventHandler, useState, useCallback, type FC } from 'react';
 import { Box, Button, Typography, Checkbox, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -36,7 +36,7 @@ const StyledForm = styled(Box)(() => ({
   flexGrow: 1,
 }));
 
-export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
+export const FeatureTypeForm: FC<FeatureTypeFormProps> = ({
   featureType,
   loading,
 }) => {
@@ -74,7 +74,9 @@ export const FeatureTypeForm: VFC<FeatureTypeFormProps> = ({
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     try {
-      if (!featureType?.id) throw new Error('No feature flag type loaded');
+      if (!featureType?.id) {
+        throw new Error('No feature flag type loaded');
+      }
 
       const value = doesntExpire ? 0 : lifetime;
       await updateFeatureTypeLifetime(featureType.id, value);

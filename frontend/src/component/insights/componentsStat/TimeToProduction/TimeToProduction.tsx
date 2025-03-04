@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Typography, styled } from '@mui/material';
 import { Gauge } from 'component/insights/components/Gauge/Gauge';
 
@@ -77,7 +77,7 @@ const resolveValue = (
   };
 };
 
-export const TimeToProduction: VFC<TimeToProductionProps> = ({
+export const TimeToProduction: FC<TimeToProductionProps> = ({
   daysToProduction,
 }) => {
   const { value, gauge, score } = resolveValue(daysToProduction);

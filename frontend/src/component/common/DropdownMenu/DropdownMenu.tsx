@@ -1,9 +1,9 @@
 import {
   type CSSProperties,
+  type FC,
   type MouseEventHandler,
   type ReactNode,
   useState,
-  type VFC,
 } from 'react';
 import { Menu } from '@mui/material';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
@@ -20,7 +20,7 @@ export interface IDropdownMenuProps {
   style?: CSSProperties;
 }
 
-const DropdownMenu: VFC<IDropdownMenuProps> = ({
+const DropdownMenu: FC<IDropdownMenuProps> = ({
   renderOptions,
   id,
   title,

@@ -1,4 +1,4 @@
-import { useMemo, type VFC, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, type FC } from 'react';
 import useTheme from '@mui/material/styles/useTheme';
 import styled from '@mui/material/styles/styled';
 import { usePageTitle } from 'hooks/usePageTitle';
@@ -18,7 +18,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-
 import { Bar } from 'react-chartjs-2';
 import { useInstanceTrafficMetrics } from 'hooks/api/getters/useInstanceTrafficMetrics/useInstanceTrafficMetrics';
 import type { Theme } from '@mui/material/styles/createTheme';
@@ -137,7 +136,7 @@ const createBarChartOptions = (
   },
 });
 
-export const NetworkTrafficUsage: VFC = () => {
+export const NetworkTrafficUsage: FC = () => {
   usePageTitle('Network - Data Usage');
   const theme = useTheme();
 

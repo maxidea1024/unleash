@@ -1,6 +1,5 @@
-import { useMemo, type VFC } from 'react';
+import { type FC, useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
-
 import type { InstanceInsightsSchema } from 'openapi';
 import {
   fillGradientPrimary,
@@ -23,7 +22,7 @@ interface IMetricsSummaryChartProps {
   isLoading?: boolean;
 }
 
-export const MetricsSummaryChart: VFC<IMetricsSummaryChartProps> = ({
+export const MetricsSummaryChart: FC<IMetricsSummaryChartProps> = ({
   metricsSummaryTrends,
   isAggregate,
   allDatapointsSorted,

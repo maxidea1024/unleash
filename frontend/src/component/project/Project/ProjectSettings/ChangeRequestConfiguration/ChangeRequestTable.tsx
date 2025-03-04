@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, type VFC } from 'react';
+import { type FC, useContext, useMemo, useState, } from 'react';
 import { type HeaderGroup, useGlobalFilter, useTable } from 'react-table';
 import { Alert, Box, styled, Typography } from '@mui/material';
 import {
@@ -41,7 +41,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const ChangeRequestTable: VFC = () => {
+export const ChangeRequestTable: FC = () => {
   const { trackEvent } = usePlausibleTracker();
   const [dialogState, setDialogState] = useState<{
     isOpen: boolean;

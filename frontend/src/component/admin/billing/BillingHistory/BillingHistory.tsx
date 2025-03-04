@@ -8,7 +8,7 @@ import {
 } from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
-import { useMemo, type VFC } from 'react';
+import { type FC, useMemo, } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -65,7 +65,7 @@ const columns = [
   },
 ];
 
-export const BillingHistory: VFC<IBillingHistoryProps> = ({
+export const BillingHistory: FC<IBillingHistoryProps> = ({
   data,
   isLoading = false,
 }) => {

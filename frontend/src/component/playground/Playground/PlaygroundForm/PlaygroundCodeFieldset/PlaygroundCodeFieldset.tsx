@@ -1,11 +1,11 @@
 import {
   type Dispatch,
+  type FC,
   type FormEvent,
   type SetStateAction,
   useEffect,
   useMemo,
   useState,
-  type VFC,
 } from 'react';
 import {
   Box,
@@ -20,7 +20,6 @@ import {
   Autocomplete,
   type SelectChangeEvent,
 } from '@mui/material';
-
 import debounce from 'debounce';
 import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
 import { formatUnknownError } from 'utils/formatUnknownError';
@@ -31,12 +30,13 @@ import {
   isStringOrStringArray,
   normalizeCustomContextProperties,
 } from '../../playground.utils';
+
 interface IPlaygroundCodeFieldsetProps {
   context: string | undefined;
   setContext: Dispatch<SetStateAction<string | undefined>>;
 }
 
-export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
+export const PlaygroundCodeFieldset: FC<IPlaygroundCodeFieldsetProps> = ({
   context,
   setContext,
 }) => {
@@ -115,7 +115,9 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
     e: FormEvent,
     newValue: string | (string | string[])[] | null,
   ) => {
-    if (!isStringOrStringArray(newValue)) return;
+    if (!isStringOrStringArray(newValue)) {
+      return;
+    }
 
     if (Array.isArray(newValue)) {
       const temp =
@@ -229,7 +231,7 @@ export const PlaygroundCodeFieldset: VFC<IPlaygroundCodeFieldsetProps> = ({
           color={theme.palette.text.primary}
           sx={{ ml: 1 }}
         >
-          Unleash context
+          Ganpa context
         </Typography>
       </Box>
 

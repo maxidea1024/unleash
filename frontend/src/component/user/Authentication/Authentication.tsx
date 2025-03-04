@@ -15,7 +15,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { Alert } from '@mui/material';
 import { useAuthDetails } from 'hooks/api/getters/useAuth/useAuthDetails';
 import { AUTH_PAGE_ID } from 'utils/testIds';
-import { type ReactElement, useEffect } from 'react';
+import { type ReactElement, useEffect, useLayoutEffect } from 'react';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { setSessionStorageItem } from 'utils/storage';
 
@@ -32,6 +32,12 @@ const Authentication = ({
   const params = useQueryParams();
   const error = params.get('errorMsg');
   const { trackEvent } = usePlausibleTracker();
+
+  useLayoutEffect(() => {
+    window.onload = () => {
+      window.focus();
+    }
+  }, []);
 
   useEffect(() => {
     if (redirect) {

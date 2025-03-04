@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import type { ChangeRequestType } from '../changeRequest.types';
 import { FeatureToggleChanges } from './Changes/FeatureToggleChanges';
@@ -13,7 +13,7 @@ interface IChangeRequestProps {
   onNavigate?: () => void;
 }
 
-export const ChangeRequest: VFC<IChangeRequestProps> = ({
+export const ChangeRequest: FC<IChangeRequestProps> = ({
   changeRequest,
   onRefetch,
   onNavigate,

@@ -7,7 +7,7 @@ import { Box, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 
 const StyledBox = styled(Box)(() => ({
   display: 'flex',
@@ -23,7 +23,7 @@ interface IUsersActionsCellProps {
   isScimUser?: boolean;
 }
 
-export const UsersActionsCell: VFC<IUsersActionsCellProps> = ({
+export const UsersActionsCell: FC<IUsersActionsCellProps> = ({
   onEdit,
   onViewAccess,
   onChangePassword,

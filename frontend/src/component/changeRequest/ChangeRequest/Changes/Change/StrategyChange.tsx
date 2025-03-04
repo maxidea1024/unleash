@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { VFC, FC, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Box, styled, Tooltip, Typography } from '@mui/material';
 import BlockIcon from '@mui/icons-material/Block';
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
@@ -63,7 +63,7 @@ const StyledTypography: FC<{ children?: React.ReactNode }> = styled(Typography)(
 const hasNameField = (payload: unknown): payload is { name: string } =>
   typeof payload === 'object' && payload !== null && 'name' in payload;
 
-const DisabledEnabledState: VFC<{ show?: boolean; disabled: boolean }> = ({
+const DisabledEnabledState: FC<{ show?: boolean; disabled: boolean }> = ({
   show = true,
   disabled,
 }) => {
@@ -98,7 +98,7 @@ const DisabledEnabledState: VFC<{ show?: boolean; disabled: boolean }> = ({
   );
 };
 
-const EditHeader: VFC<{
+const EditHeader: FC<{
   wasDisabled?: boolean;
   willBeDisabled?: boolean;
 }> = ({ wasDisabled = false, willBeDisabled = false }) => {
@@ -117,7 +117,7 @@ const EditHeader: VFC<{
   return <Typography>Editing strategy:</Typography>;
 };
 
-export const StrategyChange: VFC<{
+export const StrategyChange: FC<{
   actions?: ReactNode;
   change:
     | IChangeRequestAddStrategy

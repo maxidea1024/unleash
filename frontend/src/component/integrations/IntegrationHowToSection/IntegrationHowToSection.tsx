@@ -1,5 +1,5 @@
 import type { AddonTypeSchema } from 'openapi';
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { StyledRaisedSection } from '../IntegrationForm/IntegrationForm.styles';
 import { Typography, styled } from '@mui/material';
 import { IntegrationIcon } from '../IntegrationList/IntegrationIcon/IntegrationIcon';
@@ -10,16 +10,18 @@ const StyledHowDoesItWorkSection = styled(StyledRaisedSection)(({ theme }) => ({
   gap: theme.spacing(1.5),
 }));
 
-interface IIntegrationHowToSectionProps {
+type IntegrationHowToSectionProps = {
   provider?: Pick<AddonTypeSchema, 'howTo' | 'name'>;
   title?: string;
-}
+};
 
-export const IntegrationHowToSection: VFC<IIntegrationHowToSectionProps> = ({
+export const IntegrationHowToSection: FC<IntegrationHowToSectionProps> = ({
   provider,
   title = 'How does it work?',
 }) => {
-  if (!provider?.name || !provider?.howTo) return null;
+  if (!provider?.name || !provider?.howTo) {
+    return null;
+  }
 
   return (
     <StyledHowDoesItWorkSection>

@@ -1,4 +1,4 @@
-import type { ReactNode, VFC } from 'react';
+import type { FC, ReactNode } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import type {
   IChangeRequestAddDependency,
@@ -21,7 +21,7 @@ const AddDependencyWrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const DependencyChange: VFC<{
+export const DependencyChange: FC<{
   actions?: ReactNode;
   change: IChangeRequestAddDependency | IChangeRequestDeleteDependency;
   projectId: string;

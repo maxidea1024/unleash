@@ -1,4 +1,4 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import {
   parseParameterNumber,
   parseParameterString,
@@ -14,7 +14,7 @@ interface ICustomStrategyProps {
   strategyName: string;
 }
 
-export const CustomStrategyParams: VFC<ICustomStrategyProps> = ({
+export const CustomStrategyParams: FC<ICustomStrategyProps> = ({
   strategyName,
   parameters,
 }) => {

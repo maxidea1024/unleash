@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
 import type { IReportTableRow } from 'component/project/Project/ProjectHealth/ReportTable/ReportTable';
@@ -10,7 +10,7 @@ interface IReportExpiredCellProps {
   };
 }
 
-export const ReportExpiredCell: VFC<IReportExpiredCellProps> = ({ row }) => {
+export const ReportExpiredCell: FC<IReportExpiredCellProps> = ({ row }) => {
   const theme = useTheme();
 
   if (row.original.expiredAt) {

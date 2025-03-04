@@ -1,7 +1,7 @@
 import { Box, Paper, styled, Typography } from '@mui/material';
 import type { TooltipItem } from 'chart.js';
 import type React from 'react';
-import type { FC, VFC } from 'react';
+import type { FC } from 'react';
 import { objectId } from 'utils/objectId';
 
 export type TooltipState = {
@@ -17,10 +17,10 @@ export type TooltipState = {
   dataPoints: TooltipItem<any>[];
 };
 
-interface IChartTooltipProps {
+type ChartTooltipProps = {
   tooltip: TooltipState | null;
   children?: React.ReactNode;
-}
+};
 
 const StyledList = styled('ul')(({ theme }) => ({
   listStyle: 'none',
@@ -68,7 +68,7 @@ const getLeftOffset = (caretX = 0, align?: 'left' | 'right' | 'center') => {
   return caretX;
 };
 
-export const ChartTooltipContainer: FC<IChartTooltipProps> = ({
+export const ChartTooltipContainer: FC<ChartTooltipProps> = ({
   tooltip,
   children,
 }) => (
@@ -89,7 +89,7 @@ export const ChartTooltipContainer: FC<IChartTooltipProps> = ({
   </Box>
 );
 
-export const ChartTooltip: VFC<IChartTooltipProps> = ({ tooltip }) => (
+export const ChartTooltip: FC<ChartTooltipProps> = ({ tooltip }) => (
   <ChartTooltipContainer tooltip={tooltip}>
     <Paper
       elevation={3}

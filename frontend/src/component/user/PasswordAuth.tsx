@@ -1,4 +1,4 @@
-import { type FormEventHandler, useState, type VFC } from 'react';
+import { type FC, type FormEventHandler, useState } from 'react';
 import { Button, styled, TextField } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useNavigate } from 'react-router';
@@ -35,7 +35,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   flexDirection: 'column',
 }));
 
-const PasswordAuth: VFC<IPasswordAuthProps> = ({ authDetails, redirect }) => {
+const PasswordAuth: FC<IPasswordAuthProps> = ({ authDetails, redirect }) => {
   const navigate = useNavigate();
   const { refetchUser } = useAuthUser();
   const params = useQueryParams();

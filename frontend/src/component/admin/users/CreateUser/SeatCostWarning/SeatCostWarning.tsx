@@ -1,10 +1,10 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { Alert } from '@mui/material';
 import { useUsersPlan } from 'hooks/useUsersPlan';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 import { BILLING_PRO_USER_PRICE } from 'component/admin/billing/BillingDashboard/BillingPlan/BillingPlan';
 
-export const SeatCostWarning: VFC = () => {
+export const SeatCostWarning: FC = () => {
   const { users } = useUsers();
   const { isBillingUsers, seats, planUsers } = useUsersPlan(users);
 

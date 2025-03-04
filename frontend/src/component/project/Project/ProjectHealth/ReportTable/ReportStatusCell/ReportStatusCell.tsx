@@ -1,4 +1,4 @@
-import type { VFC, ReactElement } from 'react';
+import type { ReactElement, FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import Check from '@mui/icons-material/Check';
 import ReportProblemOutlined from '@mui/icons-material/ReportProblemOutlined';
@@ -27,7 +27,7 @@ interface IReportStatusCellProps {
   };
 }
 
-export const ReportStatusCell: VFC<IReportStatusCellProps> = ({
+export const ReportStatusCell: FC<IReportStatusCellProps> = ({
   row,
 }): ReactElement => {
   if (row.original.status === 'potentially-stale') {

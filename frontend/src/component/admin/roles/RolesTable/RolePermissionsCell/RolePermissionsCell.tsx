@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import type { IRole } from 'interfaces/role';
@@ -10,13 +10,13 @@ interface IRolePermissionsCellProps {
   row: { original: IRole };
 }
 
-export const RolePermissionsCell: VFC<IRolePermissionsCellProps> = ({
-  row,
-}) => {
+export const RolePermissionsCell: FC<IRolePermissionsCellProps> = ({ row }) => {
   const { original: rowRole } = row;
   const { role } = useRole(rowRole.id.toString());
 
-  if (!role || PREDEFINED_ROLE_TYPES.includes(role.type)) return null;
+  if (!role || PREDEFINED_ROLE_TYPES.includes(role.type)) {
+    return null;
+  }
 
   return (
     <TextCell>

@@ -1,4 +1,4 @@
-import type { VFC } from 'react';
+import type { FC } from 'react';
 import type { ProjectApplicationSchema } from 'openapi';
 import { styled } from '@mui/material';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -21,7 +21,7 @@ interface ISdkCellProps {
   };
 }
 
-export const SdkCell: VFC<ISdkCellProps> = ({ row }) => {
+export const SdkCell: FC<ISdkCellProps> = ({ row }) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const isHighlighted =
@@ -33,7 +33,9 @@ export const SdkCell: VFC<ISdkCellProps> = ({ row }) => {
         ) || sdk.name.toLowerCase().includes(searchQuery.toLowerCase()),
     );
 
-  if (!row.original.sdks || row.original.sdks.length === 0) return <TextCell />;
+  if (!row.original.sdks || row.original.sdks.length === 0) {
+    return <TextCell />;
+  }
 
   return (
     <TextCell>

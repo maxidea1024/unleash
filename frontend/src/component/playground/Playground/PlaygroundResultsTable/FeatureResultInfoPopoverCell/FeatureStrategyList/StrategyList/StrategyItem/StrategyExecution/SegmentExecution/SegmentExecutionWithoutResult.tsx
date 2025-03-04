@@ -1,16 +1,16 @@
-import { Fragment, type VFC } from 'react';
+import { type FC, Fragment } from 'react';
 import type { PlaygroundSegmentSchema } from 'openapi';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { SegmentItem } from 'component/common/SegmentItem/SegmentItem';
 import { ConstraintExecutionWithoutResults } from '../ConstraintExecution/ConstraintExecutionWithoutResults';
 
-interface ISegmentExecutionWithoutResultProps {
+type SegmentExecutionWithoutResultProps = {
   segments?: PlaygroundSegmentSchema[];
-}
+};
 
-export const SegmentExecutionWithoutResult: VFC<
-  ISegmentExecutionWithoutResultProps
+export const SegmentExecutionWithoutResult: FC<
+  SegmentExecutionWithoutResultProps
 > = ({ segments }) => {
   if (!segments) return null;
 
