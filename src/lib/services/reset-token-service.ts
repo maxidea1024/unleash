@@ -18,13 +18,18 @@ interface IInviteLinks {
 }
 
 export default class ResetTokenService {
-  private readonly store: IResetTokenStore;
   private readonly logger: Logger;
+  private readonly store: IResetTokenStore;
   private readonly unleashBase: string;
 
   constructor(
-    { resetTokenStore }: Pick<IUnleashStores, 'resetTokenStore'>,
-    { getLogger, server }: Pick<IUnleashConfig, 'getLogger' | 'server'>,
+    {
+      resetTokenStore
+    }: Pick<IUnleashStores, 'resetTokenStore'>,
+    {
+      getLogger,
+      server
+    }: Pick<IUnleashConfig, 'getLogger' | 'server'>,
   ) {
     this.logger = getLogger('reset-token-service.ts');
 

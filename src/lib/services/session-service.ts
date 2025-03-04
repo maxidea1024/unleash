@@ -9,8 +9,12 @@ export default class SessionService {
   private readonly sessionStore: ISessionStore;
 
   constructor(
-    { sessionStore }: Pick<IUnleashStores, 'sessionStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      sessionStore
+    }: Pick<IUnleashStores, 'sessionStore'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('session-service.ts');
 

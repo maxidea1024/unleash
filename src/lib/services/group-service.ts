@@ -30,7 +30,7 @@ import type EventService from '../features/events/event-service';
 import { SSO_SYNC_USER } from '../db/group-store';
 import type { IGroupWithProjectRoles } from '../types/stores/access-store';
 
-const setsAreEqual = (firstSet, secondSet) =>
+const setsAreEqual = (firstSet: any, secondSet: any) =>
   firstSet.size === secondSet.size &&
   [...firstSet].every((x) => secondSet.has(x));
 

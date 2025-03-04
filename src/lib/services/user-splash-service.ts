@@ -12,8 +12,12 @@ export default class UserSplashService {
   private readonly logger: Logger;
 
   constructor(
-    { userSplashStore }: Pick<IUnleashStores, 'userSplashStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      userSplashStore
+    }: Pick<IUnleashStores, 'userSplashStore'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('user-splash-service.ts');
 

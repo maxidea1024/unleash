@@ -17,7 +17,9 @@ export default class SettingService {
   private readonly eventService: EventService;
 
   constructor(
-    { settingStore }: Pick<IUnleashStores, 'settingStore'>,
+    {
+      settingStore
+    }: Pick<IUnleashStores, 'settingStore'>,
     config: IUnleashConfig,
     eventService: EventService,
   ) {

@@ -16,7 +16,9 @@ export class InactiveUsersService {
   private readonly userInactivityThresholdInDays: number;
 
   constructor(
-    { inactiveUsersStore }: Pick<IUnleashStores, 'inactiveUsersStore'>,
+    {
+      inactiveUsersStore
+    }: Pick<IUnleashStores, 'inactiveUsersStore'>,
     {
       getLogger,
       userInactivityThresholdInDays,

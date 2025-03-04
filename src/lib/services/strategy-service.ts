@@ -26,8 +26,12 @@ export default class StrategyService {
   private readonly eventService: EventService;
 
   constructor(
-    { strategyStore }: Pick<IUnleashStores, 'strategyStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      strategyStore
+    }: Pick<IUnleashStores, 'strategyStore'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('strategy-service.ts');

@@ -12,8 +12,12 @@ export default class UserFeedbackService {
   private readonly logger: Logger;
 
   constructor(
-    { userFeedbackStore }: Pick<IUnleashStores, 'userFeedbackStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      userFeedbackStore
+    }: Pick<IUnleashStores, 'userFeedbackStore'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('user-feedback-service.ts');
 

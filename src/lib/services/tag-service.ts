@@ -15,8 +15,12 @@ export default class TagService {
   private readonly logger: Logger;
 
   constructor(
-    { tagStore }: Pick<IUnleashStores, 'tagStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      tagStore
+    }: Pick<IUnleashStores, 'tagStore'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('tag-service.ts');

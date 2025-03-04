@@ -18,7 +18,9 @@ export class AccountService {
 
   constructor(
     stores: Pick<IUnleashStores, 'accountStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
     services: {
       accessService: AccessService;
     },

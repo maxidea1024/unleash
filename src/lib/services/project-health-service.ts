@@ -27,7 +27,9 @@ export default class ProjectHealthService {
       IUnleashStores,
       'projectStore' | 'featureTypeStore' | 'featureToggleStore'
     >,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
     projectService: ProjectService,
   ) {
     this.logger = getLogger('project-health-service.ts');

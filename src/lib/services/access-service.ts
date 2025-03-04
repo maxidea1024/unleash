@@ -141,7 +141,9 @@ export class AccessService {
       IUnleashStores,
       'accessStore' | 'accountStore' | 'roleStore' | 'environmentStore'
     > & { groupStore?: any }, // TODO remove groupStore later, kept for backward compatibility with enterprise
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    {
+      getLogger
+    }: Pick<IUnleashConfig, 'getLogger'>,
     groupService: GroupService,
     eventService: EventService,
   ) {

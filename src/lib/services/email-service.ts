@@ -36,15 +36,15 @@ export interface IEmailEnvelope {
   headers?: Record<string, string>;
 }
 
-const RESET_MAIL_SUBJECT = 'Unleash - Reset your password';
-const GETTING_STARTED_SUBJECT = 'Welcome to Unleash';
+const RESET_MAIL_SUBJECT = 'Ganpa - Reset your password';
+const GETTING_STARTED_SUBJECT = 'Welcome to Ganpa';
 const ORDER_ENVIRONMENTS_SUBJECT =
-  'Unleash - ordered environments successfully';
-const PRODUCTIVITY_REPORT = 'Unleash - productivity report';
+  'Ganpa - ordered environments successfully';
+const PRODUCTIVITY_REPORT = 'Ganpa - productivity report';
 const SCHEDULED_CHANGE_CONFLICT_SUBJECT =
-  'Unleash - Scheduled changes can no longer be applied';
+  'Ganpa - Scheduled changes can no longer be applied';
 const SCHEDULED_EXECUTION_FAILED_SUBJECT =
-  'Unleash - Scheduled change request could not be applied';
+  'Ganpa - Scheduled change request could not be applied';
 
 export const MAIL_ACCEPTED = '250 Accepted';
 
@@ -552,8 +552,8 @@ export class EmailService {
         attachments: [
           this.resolveTemplateAttachment(
             template,
-            'unleash-logo.png',
-            'unleashLogo',
+            'ganpa-logo.png',
+            'ganpaLogo',
           ),
         ],
         headers,
