@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box, styled } from '@mui/material';
 import { ChangeItemWrapper } from './StrategyChange';
 
@@ -8,13 +8,13 @@ const ArchiveBox = styled(Box)(({ theme }) => ({
   color: theme.palette.error.main,
 }));
 
-interface IArchiveFeatureChange {
+type ArchiveFeatureChangeProps = {
   actions?: ReactNode;
-}
+};
 
-export const ArchiveFeatureChange: FC<IArchiveFeatureChange> = ({
+export const ArchiveFeatureChange = ({
   actions,
-}) => (
+}: ArchiveFeatureChangeProps) => (
   <ChangeItemWrapper>
     <ArchiveBox>Archiving feature</ArchiveBox>
     {actions}

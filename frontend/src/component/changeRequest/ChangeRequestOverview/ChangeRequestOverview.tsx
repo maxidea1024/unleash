@@ -4,7 +4,7 @@ import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRe
 import { ChangeRequestHeader } from './ChangeRequestHeader/ChangeRequestHeader';
 import {
   ChangeRequestTimeline,
-  type ISuggestChangeTimelineProps,
+  type SuggestChangeTimelineProps,
 } from './ChangeRequestTimeline/ChangeRequestTimeline';
 import { ChangeRequest } from '../ChangeRequest/ChangeRequest';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
@@ -269,7 +269,7 @@ export const ChangeRequestOverview: FC = () => {
       ? changeRequest.schedule.scheduledAt
       : undefined;
 
-  const timelineProps: ISuggestChangeTimelineProps =
+  const timelineProps: SuggestChangeTimelineProps =
     changeRequest.state === 'Scheduled'
       ? {
           state: 'Scheduled',

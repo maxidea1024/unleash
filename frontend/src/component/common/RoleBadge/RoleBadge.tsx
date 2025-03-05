@@ -4,12 +4,12 @@ import { useRole } from 'hooks/api/getters/useRole/useRole';
 import UserIcon from '@mui/icons-material/Person';
 import { RoleDescription } from 'component/common/RoleDescription/RoleDescription';
 
-interface IRoleBadgeProps {
+type RoleBadgeProps = {
   roleId: number;
   children?: string;
-}
+};
 
-export const RoleBadge = ({ roleId, children }: IRoleBadgeProps) => {
+export const RoleBadge = ({ roleId, children }: RoleBadgeProps) => {
   const { role } = useRole(roleId.toString());
 
   if (!role) {

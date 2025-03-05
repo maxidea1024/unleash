@@ -1,13 +1,12 @@
-import type { FC, } from 'react';
 import { styled, Typography } from '@mui/material';
 import { formatStrategyName } from 'utils/strategyNames';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 
-interface ICopyStrategiesMessageProps {
+type CopyStrategiesMessageProps = {
   payload?: IFeatureStrategyPayload[];
   fromEnvironment?: string;
   environment?: string;
-}
+};
 
 const MsgContainer = styled('div')(({ theme }) => ({
   '&>*:nth-child(n)': {
@@ -15,11 +14,11 @@ const MsgContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-export const CopyStrategiesMessage: FC<ICopyStrategiesMessageProps> = ({
+export const CopyStrategiesMessage = ({
   payload,
   fromEnvironment,
   environment,
-}) => (
+}: CopyStrategiesMessageProps) => (
   <MsgContainer>
     <Typography>
       <strong>Copy: </strong>

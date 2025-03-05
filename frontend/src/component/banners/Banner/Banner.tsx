@@ -53,13 +53,13 @@ const StyledIcon = styled('div', {
   color: theme.palette[variant]?.main ?? theme.palette[DEFAULT_VARIANT].main,
 }));
 
-interface IBannerProps {
+type BannerProps = {
   banner: IBanner;
   inline?: boolean;
   maxHeight?: number;
-}
+};
 
-export const Banner = ({ banner, inline, maxHeight }: IBannerProps) => {
+export const Banner = ({ banner, inline, maxHeight }: BannerProps) => {
   const [open, setOpen] = useState(false);
 
   const {
@@ -117,34 +117,42 @@ const VariantIcons = {
   success: <Check />,
 };
 
-interface IBannerIconProps {
+type BannerIconProps = {
   variant: BannerVariant;
   icon?: string;
-}
+};
 
-const BannerIcon = ({ icon, variant }: IBannerIconProps) => {
-  if (icon === 'none') return null;
-  if (icon) return <Icon>{icon}</Icon>;
+const BannerIcon = ({ icon, variant }: BannerIconProps) => {
+  if (icon === 'none') {
+    return null;
+  }
+
+  if (icon) {
+    return <Icon>{icon}</Icon>;
+  }
+
   return VariantIcons[variant] ?? <InfoOutlined />;
 };
 
-interface IBannerButtonProps {
+type BannerButtonProps = {
   link?: string;
   plausibleEvent?: string;
   openDialog: () => void;
   children: React.ReactNode;
-}
+};
 
 const BannerButton = ({
   link,
   plausibleEvent,
   openDialog,
   children,
-}: IBannerButtonProps) => {
+}: BannerButtonProps) => {
   const navigate = useNavigate();
   const tracker = usePlausibleTracker();
 
-  if (!link) return null;
+  if (!link) {
+    return null;
+  }
 
   const dialog = link === 'dialog';
   const internal = link.startsWith('/');
@@ -156,7 +164,7 @@ const BannerButton = ({
     });
   };
 
-  if (dialog)
+  if (dialog) {
     return (
       <Link
         onClick={() => {
@@ -167,8 +175,9 @@ const BannerButton = ({
         {children}
       </Link>
     );
+  }
 
-  if (internal)
+  if (internal) {
     return (
       <Link
         onClick={() => {
@@ -179,6 +188,7 @@ const BannerButton = ({
         {children}
       </Link>
     );
+  }
 
   return (
     <Link href={link} target='_blank' rel='noreferrer' onClick={trackEvent}>

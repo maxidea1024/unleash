@@ -29,17 +29,17 @@ const StyledIconButton = styled(IconButton)({
   padding: 0,
 });
 
-export interface IAIChatInputProps {
+type AIChatInputProps = {
   onSend: (message: string) => void;
   loading: boolean;
   onHeightChange?: () => void;
-}
+};
 
 export const AIChatInput = ({
   onSend,
   loading,
   onHeightChange,
-}: IAIChatInputProps) => {
+}: AIChatInputProps) => {
   const [message, setMessage] = useState('');
 
   const inputContainerRef = useRef<HTMLDivElement | null>(null);
@@ -67,7 +67,10 @@ export const AIChatInput = ({
   }, [onHeightChange]);
 
   const send = () => {
-    if (!message.trim() || loading) return;
+    if (!message.trim() || loading) {
+      return;
+    }
+
     onSend(message);
     setMessage('');
   };

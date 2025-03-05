@@ -100,7 +100,7 @@ enum ErrorField {
   USERNAME = 'username',
 }
 
-interface IServiceAccountModalErrors {
+interface ServiceAccountModalErrors {
   [ErrorField.USERNAME]?: string;
 }
 
@@ -133,7 +133,7 @@ export const ServiceAccountModal: FC<ServiceAccountModalProps> = ({
   const [tokenGeneration, setTokenGeneration] = useState<TokenGeneration>(
     TokenGeneration.LATER,
   );
-  const [errors, setErrors] = useState<IServiceAccountModalErrors>({});
+  const [errors, setErrors] = useState<ServiceAccountModalErrors>({});
 
   const clearError = (field: ErrorField) => {
     setErrors((errors) => ({ ...errors, [field]: undefined }));

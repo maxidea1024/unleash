@@ -79,21 +79,21 @@ const StyledLink = styled(Link)(() => ({
   textDecoration: 'underline',
 }));
 
-export interface IApplicationIssuesProps {
+type ApplicationIssuesProps = {
   application: ApplicationOverviewSchema;
-}
+};
 
-export interface IFeaturesMissingProps {
+type FeaturesMissingProps = {
   features: string[];
-}
+};
 
-interface IStrategiesMissingProps {
+type StrategiesMissingProps = {
   strategies: string[];
-}
+};
 
-interface IOutdatedSDKsProps {
+type OutdatedSDKsProps = {
   sdks: string[];
-}
+};
 
 type ApplicationIssues =
   | {
@@ -106,7 +106,7 @@ type ApplicationIssues =
       missingFeatures: string[];
     };
 
-const FeaturesMissing = ({ features }: IFeaturesMissingProps) => {
+const FeaturesMissing = ({ features }: FeaturesMissingProps) => {
   const { hasAccess } = useContext(AccessContext);
   const length = features.length;
 
@@ -139,7 +139,7 @@ const FeaturesMissing = ({ features }: IFeaturesMissingProps) => {
   );
 };
 
-const StrategiesMissing = ({ strategies }: IStrategiesMissingProps) => {
+const StrategiesMissing = ({ strategies }: StrategiesMissingProps) => {
   const { hasAccess } = useContext(AccessContext);
   const length = strategies.length;
 
@@ -168,7 +168,7 @@ const StrategiesMissing = ({ strategies }: IStrategiesMissingProps) => {
   );
 };
 
-const OutdatedSDKs = ({ sdks }: IOutdatedSDKsProps) => {
+const OutdatedSDKs = ({ sdks }: OutdatedSDKsProps) => {
   if (sdks.length === 0) {
     return null;
   }
@@ -212,7 +212,7 @@ export const getApplicationIssues = (
   };
 };
 
-export const ApplicationIssues = ({ application }: IApplicationIssuesProps) => {
+export const ApplicationIssues = ({ application }: ApplicationIssuesProps) => {
   const mode = getApplicationIssues(application);
 
   if (mode.applicationMode === 'success') {

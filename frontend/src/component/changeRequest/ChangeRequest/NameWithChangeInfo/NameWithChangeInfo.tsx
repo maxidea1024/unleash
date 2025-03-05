@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Typography, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { textTruncated } from 'themes/themeStyles';
@@ -8,10 +7,15 @@ const Truncated = styled('div')(() => ({
   maxWidth: 500,
 }));
 
-export const NameWithChangeInfo: FC<{
+type NameWithChangeInfoProps = {
   newName: string | undefined;
   previousName: string | undefined;
-}> = ({ newName, previousName }) => {
+};
+
+export const NameWithChangeInfo = ({
+  newName,
+  previousName,
+}: NameWithChangeInfoProps) => {
   const titleHasChanged = Boolean(previousName && previousName !== newName);
 
   return (

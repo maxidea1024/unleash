@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import type { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const StyledNavLink = styled(NavLink)(({ theme }) => ({
@@ -16,9 +15,11 @@ const StyledNavLink = styled(NavLink)(({ theme }) => ({
   },
 }));
 
-export const CenteredNavLink: FC<{
+type CenteredNavLinkProps = {
   to: string;
   children?: React.ReactNode;
-}> = ({ to, children }) => {
+};
+
+export const CenteredNavLink = ({ to, children }: CenteredNavLinkProps) => {
   return <StyledNavLink to={to}>{children}</StyledNavLink>;
 };

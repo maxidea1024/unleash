@@ -7,15 +7,6 @@ import { useState } from 'react';
 import { ConstraintFormHeader } from '../ConstraintFormHeader/ConstraintFormHeader';
 import { parseParameterStrings } from 'utils/parseParameter';
 
-interface IFreeTextInputProps {
-  values: string[];
-  removeValue: (index: number) => void;
-  setValues: (values: string[]) => void;
-  beforeValues?: JSX.Element;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const useStyles = makeStyles()((theme) => ({
   valueChip: {
     margin: '0 0.5rem 0.5rem 0',
@@ -53,13 +44,22 @@ const useStyles = makeStyles()((theme) => ({
 
 const ENTER = 'Enter';
 
+type FreeTextInputProps = {
+  values: string[];
+  removeValue: (index: number) => void;
+  setValues: (values: string[]) => void;
+  beforeValues?: JSX.Element;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export const FreeTextInput = ({
   values,
   removeValue,
   setValues,
   error,
   setError,
-}: IFreeTextInputProps) => {
+}: FreeTextInputProps) => {
   const [inputValues, setInputValues] = useState('');
   const { classes: styles } = useStyles();
 

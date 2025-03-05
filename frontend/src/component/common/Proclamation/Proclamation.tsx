@@ -4,9 +4,9 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { Typography } from '@mui/material';
 import type { IProclamationToast } from 'interfaces/uiConfig';
 
-interface IProclamationProps {
+type ProclamationProps = {
   toast?: IProclamationToast;
-}
+};
 
 const StyledProclamation = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -33,7 +33,7 @@ const renderProclamation = (id: string) => {
   return true;
 };
 
-const Proclamation = ({ toast }: IProclamationProps) => {
+const Proclamation = ({ toast }: ProclamationProps) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -47,7 +47,9 @@ const Proclamation = ({ toast }: IProclamationProps) => {
     setShow(false);
   };
 
-  if (!toast) return null;
+  if (!toast) {
+    return null;
+  }
 
   return (
     <ConditionallyRender

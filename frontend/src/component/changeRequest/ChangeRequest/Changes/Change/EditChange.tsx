@@ -27,7 +27,19 @@ import { NewStrategyVariants } from 'component/feature/StrategyTypes/NewStrategy
 import { constraintId } from 'component/common/ConstraintAccordion/ConstraintAccordionList/createEmptyConstraint';
 import { v4 as uuidv4 } from 'uuid';
 
-interface IEditChangeProps {
+const addIdSymbolToConstraints = (
+  strategy?: ChangeRequestAddStrategy | ChangeRequestEditStrategy,
+) => {
+  if (!strategy) {
+    return;
+  }
+
+  return strategy?.constraints.map((constraint) => {
+    return { ...constraint, [constraintId]: uuidv4() };
+  });
+};
+
+type EditChangeProps = {
   change: IChangeRequestAddStrategy | IChangeRequestUpdateStrategy;
   changeRequestId: number;
   featureId: string;
@@ -37,16 +49,6 @@ interface IEditChangeProps {
   onClose: () => void;
 }
 
-const addIdSymbolToConstraints = (
-  strategy?: ChangeRequestAddStrategy | ChangeRequestEditStrategy,
-) => {
-  if (!strategy) return;
-
-  return strategy?.constraints.map((constraint) => {
-    return { ...constraint, [constraintId]: uuidv4() };
-  });
-};
-
 export const EditChange = ({
   change,
   changeRequestId,
@@ -55,7 +57,7 @@ export const EditChange = ({
   onSubmit,
   onClose,
   featureId,
-}: IEditChangeProps) => {
+}: EditChangeProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { editChange } = useChangeRequestApi();
   const [tab, setTab] = useState(0);
@@ -137,7 +139,9 @@ export const EditChange = ({
     return null;
   }
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   return (
     <SidebarModal

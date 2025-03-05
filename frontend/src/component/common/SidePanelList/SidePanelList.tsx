@@ -62,7 +62,7 @@ export type SidePanelListColumn<T> = {
   cell: (item: T) => ReactNode;
 };
 
-interface ISidePanelListProps<T> {
+type SidePanelListProps<T> = {
   items: T[];
   columns: SidePanelListColumn<T>[];
   sidePanelHeader: string;
@@ -70,7 +70,7 @@ interface ISidePanelListProps<T> {
   renderItem?: (item: T, children: ReactNode) => ReactNode;
   height?: number;
   listEnd?: ReactNode;
-}
+};
 
 export const SidePanelList = <T extends { id: string | number }>({
   items,
@@ -80,7 +80,7 @@ export const SidePanelList = <T extends { id: string | number }>({
   renderItem = (_, children) => children,
   height,
   listEnd,
-}: ISidePanelListProps<T>) => {
+}: SidePanelListProps<T>) => {
   const [selectedItem, setSelectedItem] = useState<T>(items[0]);
 
   if (items.length === 0) {

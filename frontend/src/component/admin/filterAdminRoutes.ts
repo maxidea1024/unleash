@@ -9,7 +9,9 @@ export const filterAdminRoutes = (
   }: { pro?: boolean; enterprise?: boolean; billing?: boolean },
 ): boolean => {
   const mode = menu?.mode;
-  if (menu?.billing && !billing) return false;
+  if (menu?.billing && !billing) {
+    return false;
+  }
 
   if (!mode || mode.length === 0) {
     return true;

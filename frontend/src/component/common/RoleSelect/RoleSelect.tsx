@@ -17,14 +17,15 @@ const StyledRoleOption = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IRoleSelectProps
-  extends Partial<AutocompleteProps<IRole, false, false, false>> {
+type RoleSelectProps = Partial<
+  AutocompleteProps<IRole, false, false, false>
+> & {
   roles: IRole[];
   value: IRole | null;
   setValue: (role: IRole | null) => void;
   required?: boolean;
   hideDescription?: boolean;
-}
+};
 
 export const RoleSelect = ({
   roles,
@@ -33,7 +34,7 @@ export const RoleSelect = ({
   required,
   hideDescription,
   ...rest
-}: IRoleSelectProps) => {
+}: RoleSelectProps) => {
   const renderRoleOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
     option: IRole,

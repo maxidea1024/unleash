@@ -17,16 +17,6 @@ import {
   semVerOperators,
 } from 'constants/operators';
 
-interface IConstraintAccordionViewProps {
-  constraint: IConstraint;
-  onDelete?: () => void;
-  onEdit?: () => void;
-  sx?: SxProps<Theme>;
-  compact?: boolean;
-  disabled?: boolean;
-  renderAfter?: JSX.Element;
-}
-
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadiusMedium,
@@ -64,6 +54,16 @@ const StyledWrapper = styled('div')({
   width: '100%',
 });
 
+type ConstraintAccordionViewProps = {
+  constraint: IConstraint;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  sx?: SxProps<Theme>;
+  compact?: boolean;
+  disabled?: boolean;
+  renderAfter?: JSX.Element;
+};
+
 export const ConstraintAccordionView = ({
   constraint,
   onEdit,
@@ -72,7 +72,7 @@ export const ConstraintAccordionView = ({
   compact = false,
   disabled = false,
   renderAfter,
-}: IConstraintAccordionViewProps) => {
+}: ConstraintAccordionViewProps) => {
   const [expandable, setExpandable] = useState(true);
   const [expanded, setExpanded] = useState(false);
 

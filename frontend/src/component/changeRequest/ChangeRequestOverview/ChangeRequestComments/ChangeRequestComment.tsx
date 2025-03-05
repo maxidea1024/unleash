@@ -10,6 +10,7 @@ const ChangeRequestCommentWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(2),
 }));
+
 const CommentPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(1.5, 3, 2.5, 3),
@@ -25,9 +26,11 @@ const CommentHeader = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(1.5),
 }));
 
-export const ChangeRequestComment: FC<{ comment: IChangeRequestComment }> = ({
+type ChangeRequestCommentProps = { comment: IChangeRequestComment };
+
+export const ChangeRequestComment = ({
   comment,
-}) => (
+}: ChangeRequestCommentProps) => (
   <ChangeRequestCommentWrapper>
     <StyledAvatar user={comment.createdBy} />
     <CommentPaper variant='outlined'>

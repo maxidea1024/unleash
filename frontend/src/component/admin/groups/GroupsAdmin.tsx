@@ -4,7 +4,7 @@ import { PermissionGuard } from 'component/common/PermissionGuard/PermissionGuar
 import { GroupsList } from './GroupsList/GroupsList';
 import { ADMIN } from '@server/types/permissions';
 import { CreateGroup } from './CreateGroup/CreateGroup';
-import { EditGroupContainer } from './EditGroup/EditGroup';
+import { EditGroupContainer } from './EditGroup/EditGroupContainer';
 import { Group } from './Group/Group';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { PremiumFeature } from 'component/common/PremiumFeature/PremiumFeature';

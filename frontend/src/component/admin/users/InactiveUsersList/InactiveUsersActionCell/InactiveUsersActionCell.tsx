@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import PermissionIconButton from '../../../../common/PermissionIconButton/PermissionIconButton';
 import { ADMIN } from '../../../../providers/AccessProvider/permissions';
@@ -14,9 +13,9 @@ type InactiveUsersActionsCellProps = {
   onDelete: (event: React.SyntheticEvent) => void;
 };
 
-export const InactiveUsersActionCell: FC<InactiveUsersActionsCellProps> = ({
+export const InactiveUsersActionCell = ({
   onDelete,
-}) => {
+}: InactiveUsersActionsCellProps) => {
   return (
     <StyledBox>
       <PermissionIconButton

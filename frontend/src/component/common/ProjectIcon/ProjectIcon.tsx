@@ -1,10 +1,8 @@
-import type { ComponentProps, FC } from 'react';
+import type { ComponentProps } from 'react';
 import { SvgIcon } from '@mui/material';
 import { ReactComponent as Svg } from 'assets/icons/projectIconSmall.svg';
 
-export const ProjectIcon: FC<ComponentProps<typeof SvgIcon>> = ({
-  ...props
-}) => (
+export const ProjectIcon = ({ ...props }: ComponentProps<typeof SvgIcon>) => (
   <SvgIcon
     component={Svg}
     viewBox={'0 0 14 10'}

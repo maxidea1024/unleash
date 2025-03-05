@@ -22,22 +22,6 @@ import { useOnBlur } from 'hooks/useOnBlur';
 import { SearchHistory } from './SearchSuggestions/SearchHistory';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface ISearchProps {
-  id?: string;
-  initialValue?: string;
-  onChange: (value: string) => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
-  className?: string;
-  placeholder?: string;
-  hasFilters?: boolean;
-  disabled?: boolean;
-  getSearchContext?: () => IGetSearchContextOutput;
-  containerStyles?: React.CSSProperties;
-  debounceTime?: number;
-  expandable?: boolean;
-}
-
 export const SearchPaper = styled(Paper)(({ theme }) => ({
   position: 'absolute',
   width: '100%',
@@ -95,6 +79,22 @@ const StyledClose = styled(Close)(({ theme }) => ({
   fontSize: theme.typography.body1.fontSize,
 }));
 
+type SearchProps = {
+  id?: string;
+  initialValue?: string;
+  onChange: (value: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  className?: string;
+  placeholder?: string;
+  hasFilters?: boolean;
+  disabled?: boolean;
+  getSearchContext?: () => IGetSearchContextOutput;
+  containerStyles?: React.CSSProperties;
+  debounceTime?: number;
+  expandable?: boolean;
+};
+
 export const Search = ({
   initialValue = '',
   id,
@@ -110,7 +110,7 @@ export const Search = ({
   expandable = false,
   debounceTime = 200,
   ...rest
-}: ISearchProps) => {
+}: SearchProps) => {
   const { trackEvent } = usePlausibleTracker();
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchContainerRef = useRef<HTMLInputElement>(null);

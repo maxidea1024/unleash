@@ -41,10 +41,11 @@ export const SegmentDiff: FC<{
     </StyledCodeSection>
   );
 };
-interface IStrategyTooltipLinkProps {
+
+type StrategyTooltipLinkProps = {
   change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
   children?: React.ReactNode;
-}
+};
 
 const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(
   ({ theme }) => ({
@@ -61,10 +62,10 @@ const Truncated = styled('div')(() => ({
   maxWidth: 500,
 }));
 
-export const SegmentTooltipLink: FC<IStrategyTooltipLinkProps> = ({
+export const SegmentTooltipLink = ({
   change,
   children,
-}) => (
+}: StrategyTooltipLinkProps) => (
   <StyledContainer>
     <Truncated>
       <TooltipLink

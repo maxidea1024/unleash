@@ -35,12 +35,12 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
 }));
 
-interface IAIChatHeaderProps {
+type AIChatHeaderProps = {
   onNew: () => void;
   onClose: () => void;
-}
+};
 
-export const AIChatHeader = ({ onNew, onClose }: IAIChatHeaderProps) => {
+export const AIChatHeader = ({ onNew, onClose }: AIChatHeaderProps) => {
   return (
     <StyledHeader>
       <StyledTitleContainer>

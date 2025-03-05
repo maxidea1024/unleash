@@ -12,12 +12,16 @@ const StyledCodeSection = styled('div')(({ theme }) => ({
   },
 }));
 type StrategyIds = { strategyIds: string[] };
-interface IDiffProps {
+
+type EnvironmentStrategyOrderDiff = {
   preData: StrategyIds;
   data: StrategyIds;
-}
+};
 
-export const EnvironmentStrategyOrderDiff = ({ preData, data }: IDiffProps) => (
+export const EnvironmentStrategyOrderDiff = ({
+  preData,
+  data,
+}: EnvironmentStrategyOrderDiff) => (
   <StyledCodeSection>
     <EventDiff
       entry={{

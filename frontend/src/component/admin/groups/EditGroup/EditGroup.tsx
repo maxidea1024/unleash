@@ -8,27 +8,12 @@ import { useGroupApi } from 'hooks/api/actions/useGroupApi/useGroupApi';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { Button, Tooltip } from '@mui/material';
 import { EDIT } from 'constants/misc';
-import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import { useGroup } from 'hooks/api/getters/useGroup/useGroup';
 import { UG_SAVE_BTN_ID } from 'utils/testIds';
 import { GO_BACK } from 'constants/navigate';
 import { useGroups } from 'hooks/api/getters/useGroups/useGroups';
 import type { IGroup } from 'interfaces/group';
 import { scimGroupTooltip } from '../group-constants';
 import { useScimSettings } from 'hooks/api/getters/useScimSettings/useScimSettings';
-
-export const EditGroupContainer = () => {
-  const groupId = Number(useRequiredPathParam('groupId'));
-  const { group, refetchGroup } = useGroup(groupId);
-
-  if (!group) {
-    return null;
-  }
-
-  return (
-    <EditGroup group={group} groupId={groupId} refetchGroup={refetchGroup} />
-  );
-};
 
 type EditGroupProps = {
   group: IGroup;

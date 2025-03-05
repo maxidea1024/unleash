@@ -7,7 +7,7 @@ import {
   useHasRootAccess,
 } from 'hooks/useHasAccess';
 
-interface IPermissionSwitchProps extends SwitchProps {
+type PermissionSwitchProps = SwitchProps & {
   permission: string | string[];
   tooltip?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -15,15 +15,15 @@ interface IPermissionSwitchProps extends SwitchProps {
   projectId?: string;
   environmentId?: string;
   checked: boolean;
-}
+};
 
-interface IBasePermissionSwitchProps extends IPermissionSwitchProps {
+type BasePermissionSwitchProps = PermissionSwitchProps & {
   access: boolean;
-}
+};
 
 const ProjectenvironmentPermissionSwitch = React.forwardRef<
   HTMLButtonElement,
-  IPermissionSwitchProps & { projectId: string; environmentId: string }
+  PermissionSwitchProps & { projectId: string; environmentId: string }
 >((props, ref) => {
   const access = useHasProjectEnvironmentAccess(
     props.permission,
@@ -36,7 +36,7 @@ const ProjectenvironmentPermissionSwitch = React.forwardRef<
 
 const RootPermissionSwitch = React.forwardRef<
   HTMLButtonElement,
-  IPermissionSwitchProps
+  PermissionSwitchProps
 >((props, ref) => {
   const access = useHasRootAccess(
     props.permission,
@@ -49,7 +49,7 @@ const RootPermissionSwitch = React.forwardRef<
 
 const BasePermissionSwitch = React.forwardRef<
   HTMLButtonElement,
-  IBasePermissionSwitchProps
+  BasePermissionSwitchProps
 >((props, ref) => {
   const {
     access,
@@ -85,7 +85,7 @@ const BasePermissionSwitch = React.forwardRef<
 
 const PermissionSwitch = React.forwardRef<
   HTMLButtonElement,
-  IPermissionSwitchProps
+  PermissionSwitchProps
 >((props, ref) => {
   if (
     typeof props.projectId !== 'undefined' &&

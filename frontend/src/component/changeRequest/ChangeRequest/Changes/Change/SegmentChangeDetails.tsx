@@ -50,11 +50,17 @@ const SegmentContainer = styled(Box, {
   borderRadius: `0 0 ${theme.shape.borderRadiusLarge}px ${theme.shape.borderRadiusLarge}px`,
 }));
 
-export const SegmentChangeDetails: FC<{
+type SegmentChangeDetailsProps = {
   actions?: ReactNode;
   change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
   changeRequestState: ChangeRequestState;
-}> = ({ actions, change, changeRequestState }) => {
+};
+
+export const SegmentChangeDetails = ({
+  actions,
+  change,
+  changeRequestState,
+}: SegmentChangeDetailsProps) => {
   const { segment: currentSegment } = useSegment(change.payload.id);
 
   return (

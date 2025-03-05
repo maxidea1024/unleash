@@ -34,14 +34,14 @@ const StyledStickinessContainer = styled('div')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-interface IVariantPatchProps {
+type VariantPatchProps = {
   feature: string;
   project: string;
   environment: string;
   change: IChangeRequestPatchVariant;
   actions?: ReactNode;
   changeRequestState: ChangeRequestState;
-}
+};
 
 export const VariantPatch = ({
   feature,
@@ -50,7 +50,7 @@ export const VariantPatch = ({
   change,
   actions,
   changeRequestState,
-}: IVariantPatchProps) => {
+}: VariantPatchProps) => {
   const { feature: featureData } = useFeature(project, feature);
 
   const preData =

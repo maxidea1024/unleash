@@ -1,17 +1,16 @@
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';
 import { ChangeRequestStatusBadge } from 'component/changeRequest/ChangeRequestStatusBadge/ChangeRequestStatusBadge';
-import type { FC } from 'react';
 
 type ChangeRequestStatusCellProps = {
   value?: string | null; // FIXME: proper type
   row: { original: ChangeRequestType };
 };
 
-export const ChangeRequestStatusCell: FC<ChangeRequestStatusCellProps> = ({
+export const ChangeRequestStatusCell = ({
   value,
   row: { original },
-}) => {
+}: ChangeRequestStatusCellProps) => {
   const renderState = () => {
     if (!value) {
       return null;

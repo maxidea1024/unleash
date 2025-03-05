@@ -2,17 +2,17 @@ import { Typography } from '@mui/material';
 import { formatStrategyName } from 'utils/strategyNames';
 import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 
-export interface CopyStrategyMsg {
+type CopyStrategyMessageProps = {
   payload?: IFeatureStrategyPayload;
   fromEnvironment?: string;
   environment?: string;
-}
+};
 
 export const CopyStrategyMessage = ({
   payload,
   fromEnvironment,
   environment,
-}: CopyStrategyMsg) => (
+}: CopyStrategyMessageProps) => (
   <Typography>
     <strong>Copy {formatStrategyName(payload?.name || '')} strategy </strong>{' '}
     from {fromEnvironment} to {environment}

@@ -2,9 +2,8 @@
 import { Box } from '@mui/material';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { InviteLinkBarContent } from './InviteLinkBarContent';
-import type { FC } from 'react';
 
-export const InviteLinkBar: FC = () => {
+export const InviteLinkBar = () => {
   const { trackEvent } = usePlausibleTracker();
   const onInviteLinkActionClick = (inviteLink?: string) => {
     trackEvent('invite', {

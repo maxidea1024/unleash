@@ -7,7 +7,6 @@ import { Box, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
-import type { FC } from 'react';
 
 const StyledBox = styled(Box)(() => ({
   display: 'flex',
@@ -23,14 +22,14 @@ type UsersActionsCellProps = {
   isScimUser?: boolean;
 };
 
-export const UsersActionsCell: FC<UsersActionsCellProps> = ({
+export const UsersActionsCell = ({
   onEdit,
   onViewAccess,
   onChangePassword,
   onResetPassword,
   onDelete,
   isScimUser,
-}) => {
+}: UsersActionsCellProps) => {
   const scimTooltip =
     'This user is managed by your SCIM provider and cannot be changed manually';
 

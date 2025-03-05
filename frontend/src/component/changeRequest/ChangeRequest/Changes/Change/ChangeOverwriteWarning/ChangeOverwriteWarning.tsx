@@ -13,7 +13,6 @@ import {
   getSegmentChangesThatWouldBeOverwritten,
   getStrategyChangesThatWouldBeOverwritten,
 } from './strategy-change-diff-calculation';
-import type { FC } from 'react';
 
 type ChangeData =
   | {
@@ -32,10 +31,15 @@ type ChangeData =
       change: IChangeRequestUpdateStrategy;
     };
 
-export const ChangeOverwriteWarning: FC<{
+type ChangeOverwriteWarningProps = {
   data: ChangeData;
   changeRequestState: ChangeRequestState;
-}> = ({ data, changeRequestState }) => {
+};
+
+export const ChangeOverwriteWarning = ({
+  data,
+  changeRequestState,
+}: ChangeOverwriteWarningProps) => {
   const getChangesThatWouldBeOverwritten = () => {
     switch (data.changeType) {
       case 'segment':

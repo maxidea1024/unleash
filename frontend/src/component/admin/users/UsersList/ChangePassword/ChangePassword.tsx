@@ -28,11 +28,11 @@ type ChangePasswordProps = {
   user: IUser;
 };
 
-const ChangePassword: FC<ChangePasswordProps> = ({
+const ChangePassword = ({
   showDialog,
   closeDialog,
   user,
-}) => {
+}: ChangePasswordProps) => {
   const [data, setData] = useState<Record<string, string>>({});
   const [error, setError] = useState<string>();
   const [validPassword, setValidPassword] = useState(false);

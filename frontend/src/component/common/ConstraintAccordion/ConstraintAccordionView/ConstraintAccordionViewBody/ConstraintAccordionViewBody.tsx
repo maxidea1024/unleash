@@ -5,19 +5,19 @@ import { MultipleValues } from './MultipleValues/MultipleValues';
 import { SingleValue } from './SingleValue/SingleValue';
 import { styled } from '@mui/material';
 
-interface IConstraintAccordionViewBodyProps {
-  constraint: IConstraint;
-}
-
 const StyledValueContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 0),
   maxHeight: '400px',
   overflowY: 'auto',
 }));
 
+type ConstraintAccordionViewBodyProps = {
+  constraint: IConstraint;
+};
+
 export const ConstraintAccordionViewBody = ({
   constraint,
-}: IConstraintAccordionViewBodyProps) => {
+}: ConstraintAccordionViewBodyProps) => {
   const { locationSettings } = useLocationSettings();
 
   return (

@@ -50,14 +50,14 @@ export const StrategyDiff: FC<{
   );
 };
 
-interface IStrategyTooltipLinkProps {
+type StrategyTooltipLinkProps = {
   change:
     | IChangeRequestAddStrategy
     | IChangeRequestUpdateStrategy
     | IChangeRequestDeleteStrategy;
   previousTitle?: string;
   children?: React.ReactNode;
-}
+};
 
 const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(
   ({ theme }) => ({
@@ -74,11 +74,11 @@ const Truncated = styled('div')(() => ({
   maxWidth: 500,
 }));
 
-export const StrategyTooltipLink: FC<IStrategyTooltipLinkProps> = ({
+export const StrategyTooltipLink = ({
   change,
   previousTitle,
   children,
-}) => (
+}: StrategyTooltipLinkProps) => (
   <StyledContainer>
     <GetFeatureStrategyIcon strategyName={change.payload.name} />
     <Truncated>

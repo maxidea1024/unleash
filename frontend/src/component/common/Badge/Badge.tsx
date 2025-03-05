@@ -19,7 +19,7 @@ type Color =
   | 'neutral'
   | 'disabled'; // TODO: refactor theme
 
-interface IBadgeProps {
+type BadgeProps = {
   as?: React.ElementType;
   color?: Color;
   icon?: ReactElement;
@@ -29,14 +29,14 @@ interface IBadgeProps {
   children?: ReactNode;
   title?: string;
   onClick?: (event: React.SyntheticEvent) => void;
-}
+};
 
-interface IBadgeIconProps {
+type BadgeIconProps = {
   color?: Color;
   iconRight?: boolean;
-}
+};
 
-const StyledBadge = styled('span')<IBadgeProps>(
+const StyledBadge = styled('span')<BadgeProps>(
   ({ theme, color = 'neutral', icon }) => ({
     display: 'inline-flex',
     alignItems: 'center',
@@ -61,7 +61,7 @@ const StyledBadge = styled('span')<IBadgeProps>(
 );
 
 const StyledBadgeIcon = styled('span')<
-  IBadgeIconProps & { hasChildren?: boolean }
+  BadgeIconProps & { hasChildren?: boolean }
 >(({ theme, color = 'neutral' }) => ({
   display: 'flex',
   color:
@@ -86,7 +86,7 @@ const BadgeIcon = (color: Color, icon?: ReactElement) => (
   </StyledBadgeIcon>
 );
 
-export const Badge: FC<IBadgeProps> = forwardRef(
+export const Badge: FC<BadgeProps> = forwardRef(
   (
     {
       as = 'span',
@@ -97,7 +97,7 @@ export const Badge: FC<IBadgeProps> = forwardRef(
       sx,
       children,
       ...props
-    }: IBadgeProps,
+    }: BadgeProps,
     ref: ForwardedRef<HTMLDivElement>,
   ) => (
     <StyledBadge

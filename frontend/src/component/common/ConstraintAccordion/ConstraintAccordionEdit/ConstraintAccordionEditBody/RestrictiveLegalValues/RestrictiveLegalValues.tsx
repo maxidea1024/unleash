@@ -10,25 +10,12 @@ import {
   LegalValueLabel,
 } from '../LegalValueLabel/LegalValueLabel';
 
-interface IRestrictiveLegalValuesProps {
-  data: {
-    legalValues: ILegalValue[];
-    deletedLegalValues: ILegalValue[];
-  };
-  constraintValues: string[];
-  values: string[];
-  setValues: (values: string[]) => void;
-  beforeValues?: JSX.Element;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-}
-
-interface IValuesMap {
+type ValuesMap = {
   [key: string]: boolean;
-}
+};
 
-const createValuesMap = (values: string[]): IValuesMap => {
-  return values.reduce((result: IValuesMap, currentValue: string) => {
+const createValuesMap = (values: string[]): ValuesMap => {
+  return values.reduce((result: ValuesMap, currentValue: string) => {
     if (!result[currentValue]) {
       result[currentValue] = true;
     }
@@ -50,6 +37,19 @@ export const getIllegalValues = (
   return constraintValues.filter((value) => deletedValuesSet.has(value));
 };
 
+type RestrictiveLegalValuesProps = {
+  data: {
+    legalValues: ILegalValue[];
+    deletedLegalValues: ILegalValue[];
+  };
+  constraintValues: string[];
+  values: string[];
+  setValues: (values: string[]) => void;
+  beforeValues?: JSX.Element;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export const RestrictiveLegalValues = ({
   data,
   values,
@@ -57,7 +57,7 @@ export const RestrictiveLegalValues = ({
   error,
   setError,
   constraintValues,
-}: IRestrictiveLegalValuesProps) => {
+}: RestrictiveLegalValuesProps) => {
   const [filter, setFilter] = useState('');
   const { legalValues, deletedLegalValues } = data;
 

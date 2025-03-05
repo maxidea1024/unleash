@@ -12,7 +12,7 @@ const StyledLabel = styled('p')(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
 
-interface IServiceAccountDeleteDialogProps {
+type ServiceAccountDeleteDialogProps = {
   serviceAccount?: IServiceAccount;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +24,7 @@ export const ServiceAccountDeleteDialog = ({
   open,
   setOpen,
   onConfirm,
-}: IServiceAccountDeleteDialogProps) => {
+}: ServiceAccountDeleteDialogProps) => {
   const deleteMessage = (
     <>
       You are about to delete service account:{' '}

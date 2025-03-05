@@ -3,15 +3,15 @@ import { Box } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
 import { ChangeItemWrapper } from './StrategyChange';
 
-type ToggleStatusChange = {
+type ToggleStatusChangeProps = {
   enabled: boolean;
   actions?: ReactNode;
 };
 
-export const ToggleStatusChange: FC<ToggleStatusChange> = ({
+export const ToggleStatusChange = ({
   enabled,
   actions,
-}) => {
+}: ToggleStatusChangeProps) => {
   return (
     <ChangeItemWrapper>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>

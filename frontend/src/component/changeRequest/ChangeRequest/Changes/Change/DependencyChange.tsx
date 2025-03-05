@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import type {
   IChangeRequestAddDependency,
@@ -21,12 +21,19 @@ const AddDependencyWrapper = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const DependencyChange: FC<{
+type DependencyChangeProps = {
   actions?: ReactNode;
   change: IChangeRequestAddDependency | IChangeRequestDeleteDependency;
   projectId: string;
   onNavigate?: () => void;
-}> = ({ actions, change, projectId, onNavigate }) => {
+};
+
+export const DependencyChange = ({
+  actions,
+  change,
+  projectId,
+  onNavigate,
+}: DependencyChangeProps) => {
   return (
     <>
       {change.action === 'addDependency' && (

@@ -4,12 +4,12 @@ import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { Badge } from 'component/common/Badge/Badge';
 
-export interface IChangesScheduledBadgeProps {
+type ChangesScheduledBadgeProps = {
   scheduledChangeRequestIds: number[];
-}
+};
 export const ChangesScheduledBadge = ({
   scheduledChangeRequestIds,
-}: IChangesScheduledBadgeProps) => {
+}: ChangesScheduledBadgeProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const project = useRequiredPathParam('projectId');

@@ -2,11 +2,11 @@ import type { IRoute } from 'interfaces/route';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import { LoginRedirect } from 'component/common/LoginRedirect/LoginRedirect';
 
-interface IProtectedRouteProps {
+type ProtectedRouteProps = {
   route: IRoute;
-}
+};
 
-export const ProtectedRoute = ({ route }: IProtectedRouteProps) => {
+export const ProtectedRoute = ({ route }: ProtectedRouteProps) => {
   const { user } = useAuthUser();
   const isLoggedIn = Boolean(user?.id);
 

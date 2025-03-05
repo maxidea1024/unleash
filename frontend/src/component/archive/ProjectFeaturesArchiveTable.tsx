@@ -1,18 +1,17 @@
 import { useFeaturesArchive } from 'hooks/api/getters/useFeaturesArchive/useFeaturesArchive';
-import type { FC } from 'react';
 import type { SortingRule } from 'react-table';
 import { createLocalStorage } from 'utils/createLocalStorage';
 import { ArchiveTable } from './ArchiveTable/ArchiveTable';
 
 const defaultSort: SortingRule<string> = { id: 'archivedAt' };
 
-interface IProjectFeaturesTable {
+type ProjectFeaturesTableProps = {
   projectId: string;
-}
+};
 
-export const ProjectFeaturesArchiveTable: FC<IProjectFeaturesTable> = ({
+export const ProjectFeaturesArchiveTable = ({
   projectId,
-}) => {
+}: ProjectFeaturesTableProps) => {
   const { archivedFeatures, loading, refetchArchived } =
     useFeaturesArchive(projectId);
 

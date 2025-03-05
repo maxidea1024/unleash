@@ -13,18 +13,18 @@ const StyledCodeSection = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IDiffProps {
-  preData: IFeatureVariant[];
-  data: IFeatureVariant[];
-}
-
 const variantsArrayToObject = (variants: IFeatureVariant[]) =>
   variants.reduce(
     (object, { name, ...variant }) => ({ ...object, [name]: variant }),
     {},
   );
 
-export const VariantDiff = ({ preData, data }: IDiffProps) => (
+type VariantDiffProp = {
+  preData: IFeatureVariant[];
+  data: IFeatureVariant[];
+};
+
+export const VariantDiff = ({ preData, data }: VariantDiffProp) => (
   <StyledCodeSection>
     <EventDiff
       entry={{

@@ -7,7 +7,6 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { RoleSelect } from 'component/common/RoleSelect/RoleSelect';
 import type { IRole } from 'interfaces/role';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
-import type { FC } from 'react';
 
 const StyledForm = styled('form')(() => ({
   display: 'flex',
@@ -64,7 +63,7 @@ type UserFormProps = {
   children?: React.ReactNode;
 };
 
-const UserForm: FC<UserFormProps> = ({
+const UserForm = ({
   children,
   email,
   name,
@@ -79,7 +78,7 @@ const UserForm: FC<UserFormProps> = ({
   errors,
   clearErrors,
   mode,
-}) => {
+}: UserFormProps) => {
   const { uiConfig } = useUiConfig();
   const { roles } = useUsers();
 

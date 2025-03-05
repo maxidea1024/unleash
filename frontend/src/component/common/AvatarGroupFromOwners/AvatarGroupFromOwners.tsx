@@ -4,7 +4,6 @@ import {
   type AvatarComponentType,
   AvatarGroup,
 } from '../AvatarGroup/AvatarGroup';
-import type { FC } from 'react';
 
 type Props = {
   users: ProjectSchemaOwners;
@@ -13,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-export const AvatarGroupFromOwners: FC<Props> = ({ users, ...props }) => {
+export const AvatarGroupFromOwners = ({ users, ...props }: Props) => {
   const { uiConfig } = useUiConfig();
 
   const mapOwners = (owner: ProjectSchemaOwners[number]) => {

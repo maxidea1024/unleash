@@ -1,12 +1,6 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box, Paper, styled, Typography } from '@mui/material';
 import { BATCH_ACTIONS_BAR, BATCH_SELECTED_COUNT } from 'utils/testIds';
-
-interface IBatchSelectionActionsBarProps {
-  count: number;
-  children?: React.ReactNode;
-}
 
 const StyledStickyContainer = styled('div')(({ theme }) => ({
   position: 'sticky',
@@ -51,10 +45,15 @@ const StyledText = styled(Typography)(({ theme }) => ({
   marginRight: 'auto',
 }));
 
-export const BatchSelectionActionsBar: FC<IBatchSelectionActionsBarProps> = ({
+type BatchSelectionActionsBarProps = {
+  count: number;
+  children?: React.ReactNode;
+};
+
+export const BatchSelectionActionsBar = ({
   count,
   children,
-}) => {
+}: BatchSelectionActionsBarProps) => {
   if (count === 0) {
     return null;
   }

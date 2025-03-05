@@ -9,11 +9,6 @@ import { ReactComponent as CaseSensitive } from 'assets/icons/24_Text format.svg
 import { oneOf } from 'utils/oneOf';
 import { useTheme } from '@mui/material';
 
-interface ConstraintViewHeaderOperatorProps {
-  constraint: IConstraint;
-  disabled?: boolean;
-}
-
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'stretch',
@@ -27,6 +22,11 @@ const StyledHeaderConstraintContainer = styled('div')(({ theme }) => ({
     paddingRight: 0,
   },
 }));
+
+type ConstraintViewHeaderOperatorProps = {
+  constraint: IConstraint;
+  disabled?: boolean;
+};
 
 export const ConstraintViewHeaderOperator = ({
   constraint,

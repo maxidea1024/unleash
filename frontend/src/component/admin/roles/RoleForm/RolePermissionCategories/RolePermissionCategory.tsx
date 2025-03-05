@@ -17,17 +17,6 @@ import type { ICheckedPermissions, IPermission } from 'interfaces/permissions';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { getRoleKey } from 'utils/permissions';
 
-type EnvironmentPermissionAccordionProps = {
-  permissions: IPermission[];
-  checkedPermissions: ICheckedPermissions;
-  title: string;
-  Icon: ReactNode;
-  isInitiallyExpanded?: boolean;
-  context: string;
-  onPermissionChange: (permission: IPermission) => void;
-  onCheckAll: () => void;
-}
-
 const AccordionHeader = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -41,6 +30,17 @@ const StyledTitle = styled(StringTruncator)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
   marginRight: theme.spacing(1),
 }));
+
+type EnvironmentPermissionAccordionProps = {
+  permissions: IPermission[];
+  checkedPermissions: ICheckedPermissions;
+  title: string;
+  Icon: ReactNode;
+  isInitiallyExpanded?: boolean;
+  context: string;
+  onPermissionChange: (permission: IPermission) => void;
+  onCheckAll: () => void;
+}
 
 export const RolePermissionCategory = ({
   title,

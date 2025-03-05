@@ -7,14 +7,6 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import useToast from 'hooks/useToast';
 import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
 
-interface IArchivedFeatureDeleteConfirmProps {
-  deletedFeatures: string[];
-  projectId: string;
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  refetch: () => void;
-}
-
 const StyledDeleteParagraph = styled('p')(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
@@ -26,13 +18,21 @@ const StyledFormInput = styled(Input)(({ theme }) => ({
 
 const confirmationText = 'I want to delete';
 
+type ArchivedFeatureDeleteConfirmProps = {
+  deletedFeatures: string[];
+  projectId: string;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  refetch: () => void;
+};
+
 export const ArchivedFeatureDeleteConfirm = ({
   deletedFeatures,
   projectId,
   open,
   setOpen,
   refetch,
-}: IArchivedFeatureDeleteConfirmProps) => {
+}: ArchivedFeatureDeleteConfirmProps) => {
   const [confirmName, setConfirmName] = useState('');
   const { setToastData, setToastApiError } = useToast();
   const { deleteFeatures } = useProjectApi();
@@ -46,7 +46,8 @@ export const ArchivedFeatureDeleteConfirm = ({
       }
       await deleteFeatures(projectId, deletedFeatures);
 
-      await refetch();
+      refetch();
+
       setToastData({
         type: 'success',
         title: `Feature ${singularOrPluralFlags} deleted`,

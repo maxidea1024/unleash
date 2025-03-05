@@ -1,6 +1,5 @@
 import { Button } from '@mui/material';
 import { Alert } from '@mui/material';
-import type { FC } from 'react';
 
 type ApiErrorProps = {
   className?: string;
@@ -9,7 +8,7 @@ type ApiErrorProps = {
   style?: React.CSSProperties;
 };
 
-const ApiError: FC<ApiErrorProps> = ({ className, onClick, text, ...rest }) => {
+const ApiError = ({ className, onClick, text, ...rest }: ApiErrorProps) => {
   return (
     <Alert
       className={className ? className : ''}

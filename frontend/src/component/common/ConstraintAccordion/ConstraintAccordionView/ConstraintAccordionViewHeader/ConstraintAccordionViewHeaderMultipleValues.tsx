@@ -17,14 +17,6 @@ const StyledValuesSpan = styled('span')(({ theme }) => ({
   },
 }));
 
-interface ConstraintSingleValueProps {
-  constraint: IConstraint;
-  expanded: boolean;
-  maxLength: number;
-  allowExpand: (shouldExpand: boolean) => void;
-  disabled?: boolean;
-}
-
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'stretch',
@@ -50,6 +42,14 @@ const StyledHeaderValuesExpand = styled('p')(({ theme }) => ({
     textAlign: 'center',
   },
 }));
+
+type ConstraintSingleValueProps = {
+  constraint: IConstraint;
+  expanded: boolean;
+  maxLength: number;
+  allowExpand: (shouldExpand: boolean) => void;
+  disabled?: boolean;
+};
 
 export const ConstraintAccordionViewHeaderMultipleValues = ({
   constraint,

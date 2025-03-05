@@ -7,19 +7,19 @@ const StyledList = styled('ul')(({ theme }) => ({
   paddingInlineStart: theme.spacing(2),
 }));
 
-interface IPermissionGuardProps {
+type PermissionGuardProps = {
   permissions: string | string[];
   project?: string;
   environment?: string;
   children: JSX.Element;
-}
+};
 
 export const PermissionGuard = ({
   permissions,
   project,
   environment,
   children,
-}: IPermissionGuardProps) => {
+}: PermissionGuardProps) => {
   const { hasAccess } = useContext(AccessContext);
 
   const permissionsArray = Array.isArray(permissions)

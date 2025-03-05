@@ -4,13 +4,14 @@ import { styled, Typography, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
 import type { ApplicationUsageSchema } from 'openapi';
 
-export interface IApplicationUsageCellProps {
+type ApplicationUsageCellProps = {
   usage: ApplicationUsageSchema[] | undefined;
-}
-export interface IApplicationUsage {
+};
+
+type ApplicationUsage = {
   project: string;
   environments: string[];
-}
+};
 
 const StyledLink = styled(Link)(() => ({
   overflow: 'hidden',
@@ -22,7 +23,7 @@ const StyledLink = styled(Link)(() => ({
   },
 }));
 
-const formatProject = (projectInfo: IApplicationUsage, index: number) => {
+const formatProject = (projectInfo: ApplicationUsage, index: number) => {
   const separator = index !== 0 ? ', ' : '';
   const key = projectInfo.project;
   const projectElement =
@@ -39,7 +40,7 @@ const formatProject = (projectInfo: IApplicationUsage, index: number) => {
   return [separator, projectElement, environments];
 };
 
-export const ApplicationUsageCell = ({ usage }: IApplicationUsageCellProps) => {
+export const ApplicationUsageCell = ({ usage }: ApplicationUsageCellProps) => {
   const theme = useTheme();
   const formattedProjects = usage?.flatMap((p, index) =>
     formatProject(p, index),

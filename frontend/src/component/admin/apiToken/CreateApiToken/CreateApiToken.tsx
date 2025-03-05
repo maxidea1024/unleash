@@ -27,10 +27,6 @@ import { Limit } from 'component/common/Limit/Limit';
 
 const pageTitle = 'Create API token';
 
-type CreateApiTokenProps = {
-  modal?: boolean;
-};
-
 const StyledLimit = styled(Limit)(({ theme }) => ({
   margin: theme.spacing(2, 0, 4),
 }));
@@ -46,6 +42,10 @@ const useApiTokenLimit = () => {
     limitReached: tokens.length >= apiTokensLimit,
     loading: loadingConfig || loadingTokens,
   };
+};
+
+type CreateApiTokenProps = {
+  modal?: boolean;
 };
 
 export const CreateApiToken = ({ modal = false }: CreateApiTokenProps) => {

@@ -6,13 +6,6 @@ import { useMemo, useState } from 'react';
 import { styled } from '@mui/material';
 import TimezoneCountries from 'countries-and-timezones';
 
-interface IDateSingleValueProps {
-  setValue: (value: string) => void;
-  value?: string;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const StyledWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
@@ -21,12 +14,19 @@ const StyledWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
+type DateSingleValueProps = {
+  setValue: (value: string) => void;
+  value?: string;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export const DateSingleValue = ({
   setValue,
   value,
   error,
   setError,
-}: IDateSingleValueProps) => {
+}: DateSingleValueProps) => {
   const timezones = Object.values(
     TimezoneCountries.getAllTimezones({ deprecated: false }),
   ).map((timezone) => ({

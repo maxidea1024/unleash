@@ -1,6 +1,5 @@
 import { Box, styled, Tooltip } from '@mui/material';
 import HelpOutline from '@mui/icons-material/HelpOutline';
-import type { FC } from 'react';
 import { PageHeader } from '../../../common/PageHeader/PageHeader';
 
 const StyledHelpOutline = styled(HelpOutline)(({ theme }) => ({
@@ -14,7 +13,7 @@ const StyledHeaderHint = styled('div')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-export const ReviewChangesHeader: FC = () => (
+export const ReviewChangesHeader = () => (
   <PageHeader
     actions={''}
     titleElement={

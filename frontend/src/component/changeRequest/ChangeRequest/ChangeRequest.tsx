@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import type { ChangeRequestType } from '../changeRequest.types';
 import { FeatureToggleChanges } from './Changes/FeatureToggleChanges';
@@ -7,17 +6,17 @@ import { ChangeActions } from './Changes/Change/ChangeActions';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { SegmentChange } from './Changes/Change/SegmentChange';
 
-interface IChangeRequestProps {
+type ChangeRequestProps = {
   changeRequest: ChangeRequestType;
   onRefetch?: () => void;
   onNavigate?: () => void;
-}
+};
 
-export const ChangeRequest: FC<IChangeRequestProps> = ({
+export const ChangeRequest = ({
   changeRequest,
   onRefetch,
   onNavigate,
-}) => {
+}: ChangeRequestProps) => {
   return (
     <Box>
       <ConditionallyRender

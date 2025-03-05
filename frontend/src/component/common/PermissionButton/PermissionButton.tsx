@@ -3,7 +3,7 @@ import Lock from '@mui/icons-material/Lock';
 import React from 'react';
 import {
   TooltipResolver,
-  type ITooltipResolverProps,
+  type TooltipResolverProps,
 } from 'component/common/TooltipResolver/TooltipResolver';
 import { formatAccessText } from 'utils/formatAccessText';
 import { useId } from 'hooks/useId';
@@ -18,7 +18,7 @@ export interface IPermissionButtonProps extends Omit<ButtonProps, 'title'> {
   disabled?: boolean;
   projectId?: string;
   environmentId?: string;
-  tooltipProps?: Omit<ITooltipResolverProps, 'children'>;
+  tooltipProps?: Omit<TooltipResolverProps, 'children'>;
   hideLockIcon?: boolean;
   children?: React.ReactNode;
 }

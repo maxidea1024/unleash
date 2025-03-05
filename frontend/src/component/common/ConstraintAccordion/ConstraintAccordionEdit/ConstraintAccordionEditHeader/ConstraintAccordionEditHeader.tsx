@@ -1,5 +1,4 @@
 import type { IConstraint } from 'interfaces/strategy';
-
 import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import { ConstraintIcon } from 'component/common/ConstraintAccordion/ConstraintIcon';
@@ -26,18 +25,6 @@ import { CaseSensitiveButton } from '../StyledToggleButton/CaseSensitiveButton/C
 import { ConstraintAccordionHeaderActions } from '../../ConstraintAccordionHeaderActions/ConstraintAccordionHeaderActions';
 import { styled } from '@mui/material';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-
-interface IConstraintAccordionViewHeader {
-  localConstraint: IConstraint;
-  setContextName: (contextName: string) => void;
-  setOperator: (operator: Operator) => void;
-  setLocalConstraint: React.Dispatch<React.SetStateAction<IConstraint>>;
-  action: string;
-  compact: boolean;
-  onDelete?: () => void;
-  setInvertedOperator: () => void;
-  setCaseInsensitive: () => void;
-}
 
 const StyledHeaderContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -91,6 +78,18 @@ const StyledHeaderText = styled('p')(({ theme }) => ({
   },
 }));
 
+type ConstraintAccordionViewHeaderProps = {
+  localConstraint: IConstraint;
+  setContextName: (contextName: string) => void;
+  setOperator: (operator: Operator) => void;
+  setLocalConstraint: React.Dispatch<React.SetStateAction<IConstraint>>;
+  action: string;
+  compact: boolean;
+  onDelete?: () => void;
+  setInvertedOperator: () => void;
+  setCaseInsensitive: () => void;
+};
+
 export const ConstraintAccordionEditHeader = ({
   compact,
   localConstraint,
@@ -100,7 +99,7 @@ export const ConstraintAccordionEditHeader = ({
   onDelete,
   setInvertedOperator,
   setCaseInsensitive,
-}: IConstraintAccordionViewHeader) => {
+}: ConstraintAccordionViewHeaderProps) => {
   const { context } = useUnleashContext();
   const { contextName, operator } = localConstraint;
   const [showCaseSensitiveButton, setShowCaseSensitiveButton] = useState(false);

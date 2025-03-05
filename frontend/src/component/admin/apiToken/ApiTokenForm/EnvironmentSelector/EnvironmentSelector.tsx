@@ -7,17 +7,17 @@ import {
 } from '../ApiTokenForm.styles';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 
-interface IEnvironmentSelectorProps {
+type EnvironmentSelectorProps = {
   type: string;
   environment?: string;
   setEnvironment: React.Dispatch<React.SetStateAction<string | undefined>>;
-}
+};
 
 export const EnvironmentSelector = ({
   type,
   environment,
   setEnvironment,
-}: IEnvironmentSelectorProps) => {
+}: EnvironmentSelectorProps) => {
   const { environments } = useEnvironments();
   const selectableEnvs =
     type === TokenType.ADMIN

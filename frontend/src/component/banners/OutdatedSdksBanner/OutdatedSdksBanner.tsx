@@ -8,11 +8,11 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
 const StyledList = styled('ul')({ margin: 0 });
 
-interface IOutdatedSdksBannerProps {
+type OutdatedSdksBannerProps = {
   project: string;
 }
 
-export const OutdatedSdksBanner = ({ project }: IOutdatedSdksBannerProps) => {
+export const OutdatedSdksBanner = ({ project }: OutdatedSdksBannerProps) => {
   const {
     data: { sdks },
   } = useOutdatedSdks(project);

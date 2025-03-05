@@ -1,10 +1,11 @@
 import { Alert } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { FC } from 'react';
 
-export const ConflictWarning: FC<{
+type ConflictWarningProps = {
   conflict: string | null | undefined;
-}> = ({ conflict }) => (
+};
+
+export const ConflictWarning = ({ conflict }: ConflictWarningProps) => (
   <ConditionallyRender
     condition={Boolean(conflict)}
     show={

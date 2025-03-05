@@ -107,14 +107,14 @@ const StyledText = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-interface IApplicationChartProps {
+type ApplicationChartProps = {
   data: ApplicationOverviewSchema;
-}
+};
 
-interface IApplicationCountersProps {
+type ApplicationCountersProps = {
   environmentCount: number;
   featureCount: number;
-}
+};
 
 const useElementWidth = () => {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -154,7 +154,7 @@ const WarningStatus: FC<{ children?: React.ReactNode }> = ({ children }) => (
 const ApplicationCounters = ({
   environmentCount,
   featureCount,
-}: IApplicationCountersProps) => {
+}: ApplicationCountersProps) => {
   return (
     <StyledIconRow>
       <StyledIconContainer>
@@ -190,7 +190,7 @@ const getEnvironmentMode = (
     : 'warning';
 };
 
-export const ApplicationChart = ({ data }: IApplicationChartProps) => {
+export const ApplicationChart = ({ data }: ApplicationChartProps) => {
   const trackClick = useTracking();
   const applicationName = useRequiredPathParam('name');
   const { elementRef, width } = useElementWidth();

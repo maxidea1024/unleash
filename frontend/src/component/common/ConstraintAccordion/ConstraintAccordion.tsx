@@ -1,10 +1,9 @@
 import type { IConstraint } from 'interfaces/strategy';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-
 import { ConstraintAccordionEdit } from './ConstraintAccordionEdit/ConstraintAccordionEdit';
 import { ConstraintAccordionView } from './ConstraintAccordionView/ConstraintAccordionView';
 
-interface IConstraintAccordionProps {
+type ConstraintAccordionProps = {
   compact: boolean;
   editing: boolean;
   constraint: IConstraint;
@@ -12,7 +11,7 @@ interface IConstraintAccordionProps {
   onEdit?: () => void;
   onDelete?: () => void;
   onSave?: (constraint: IConstraint) => void;
-}
+};
 
 export const ConstraintAccordion = ({
   constraint,
@@ -22,7 +21,7 @@ export const ConstraintAccordion = ({
   onCancel,
   onDelete,
   onSave,
-}: IConstraintAccordionProps) => {
+}: ConstraintAccordionProps) => {
   if (!constraint) {
     return null;
   }

@@ -1,13 +1,12 @@
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import type { FC, } from 'react';
 import { adminGroups } from './adminRoutes';
 import type { INavigationMenuItem } from 'interfaces/route';
 import { Box, Link, Typography } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAdminRoutes } from './useAdminRoutes';
 
-export const AdminIndex: FC = () => {
+export const AdminIndex = () => {
   const adminRoutes = useAdminRoutes();
 
   const routeGroups = adminRoutes.reduce(

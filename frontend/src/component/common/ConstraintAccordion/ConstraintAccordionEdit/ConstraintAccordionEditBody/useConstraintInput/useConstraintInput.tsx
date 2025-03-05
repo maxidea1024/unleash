@@ -20,17 +20,17 @@ import {
 } from './constraintValidators';
 import { nonEmptyArray } from 'utils/nonEmptyArray';
 
-interface IUseConstraintInputProps {
+type UseConstraintInputProps = {
   contextDefinition: IUnleashContextDefinition;
   localConstraint: IConstraint;
-}
+};
 
-interface IUseConstraintOutput {
+type UseConstraintOutput = {
   input: Input;
   error: string;
   validator: () => ConstraintValidatorOutput;
   setError: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export const IN_OPERATORS_LEGAL_VALUES = 'IN_OPERATORS_LEGAL_VALUES';
 export const STRING_OPERATORS_LEGAL_VALUES = 'STRING_OPERATORS_LEGAL_VALUES';
@@ -67,7 +67,7 @@ type Validator =
 export const useConstraintInput = ({
   contextDefinition,
   localConstraint,
-}: IUseConstraintInputProps): IUseConstraintOutput => {
+}: UseConstraintInputProps): UseConstraintOutput => {
   const [input, setInput] = useState<Input>(IN_OPERATORS_LEGAL_VALUES);
   const [validator, setValidator] = useState<Validator>(STRING_ARRAY_VALIDATOR);
   const [error, setError] = useState('');

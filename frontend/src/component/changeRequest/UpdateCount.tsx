@@ -1,11 +1,15 @@
-import type { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import { ConditionallyRender } from '../common/ConditionallyRender/ConditionallyRender';
 
-export const UpdateCount: FC<{
+type UpdateCountProps = {
   featuresCount: number;
   segmentsCount: number;
-}> = ({ featuresCount, segmentsCount }) => (
+};
+
+export const UpdateCount = ({
+  featuresCount,
+  segmentsCount,
+}: UpdateCountProps) => (
   <Box component={'span'} sx={{ display: 'inline', pl: 0.5 }}>
     <Typography
       component='span'

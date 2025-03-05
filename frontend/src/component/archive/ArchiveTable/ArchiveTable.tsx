@@ -35,7 +35,7 @@ import { FeatureEnvironmentSeenCell } from 'component/common/Table/cells/Feature
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ArchivedFeatureReviveConfirm } from './ArchivedFeatureActionCell/ArchivedFeatureReviveConfirm/ArchivedFeatureReviveConfirm';
 
-export interface IFeaturesArchiveTableProps {
+type FeaturesArchiveTableProps = {
   archivedFeatures: ArchivedFeatureSchema[];
   title: string;
   refetch: () => void;
@@ -47,7 +47,7 @@ export interface IFeaturesArchiveTableProps {
       | ((prev: SortingRule<string>) => SortingRule<string>),
   ) => SortingRule<string>;
   projectId?: string;
-}
+};
 
 export const ArchiveTable = ({
   archivedFeatures = [],
@@ -57,7 +57,7 @@ export const ArchiveTable = ({
   setStoredParams,
   title,
   projectId,
-}: IFeaturesArchiveTableProps) => {
+}: FeaturesArchiveTableProps) => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('lg'));
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);

@@ -12,17 +12,17 @@ const StyledSingleValueChip = styled(Chip)(({ theme }) => ({
   },
 }));
 
-interface ConstraintSingleValueProps {
-  constraint: IConstraint;
-  allowExpand: (shouldExpand: boolean) => void;
-  disabled?: boolean;
-}
-
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'stretch',
   margin: 'auto 0',
 }));
+
+type ConstraintSingleValueProps = {
+  constraint: IConstraint;
+  allowExpand: (shouldExpand: boolean) => void;
+  disabled?: boolean;
+};
 
 export const ConstraintAccordionViewHeaderSingleValue = ({
   constraint,

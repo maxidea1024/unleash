@@ -15,7 +15,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHMS } from 'utils/formatDate';
 
-export type ISuggestChangeTimelineProps =
+export type SuggestChangeTimelineProps =
   | {
       state: Exclude<ChangeRequestState, 'Scheduled'>;
       schedule?: undefined;
@@ -83,10 +83,10 @@ export const determineColor = (
   return 'grey';
 };
 
-export const ChangeRequestTimeline: FC<ISuggestChangeTimelineProps> = ({
+export const ChangeRequestTimeline = ({
   state,
   schedule,
-}) => {
+}: SuggestChangeTimelineProps) => {
   let data: ChangeRequestState[];
   switch (state) {
     case 'Rejected':

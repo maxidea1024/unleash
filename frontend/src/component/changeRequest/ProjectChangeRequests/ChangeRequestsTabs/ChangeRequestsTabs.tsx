@@ -30,11 +30,11 @@ import { useStyles } from './ChangeRequestsTabs.styles';
 import { FeaturesCell } from './FeaturesCell';
 import { HighlightCell } from '../../../common/Table/cells/HighlightCell/HighlightCell';
 
-export interface IChangeRequestTableProps {
+type ChangeRequestTableProps = {
   changeRequests: any[];
   loading: boolean;
   projectId: string;
-}
+};
 
 const defaultSort: SortingRule<string> & {
   columns?: string[];
@@ -64,7 +64,7 @@ export const ChangeRequestsTabs = ({
   changeRequests = [],
   loading,
   projectId,
-}: IChangeRequestTableProps) => {
+}: ChangeRequestTableProps) => {
   const { classes } = useStyles();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
   const [searchParams, setSearchParams] = useSearchParams();

@@ -2,7 +2,6 @@ import { styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { IGroupUser } from 'interfaces/group';
 import {
-  type FC,
   type ForwardRefExoticComponent,
   type FunctionComponent,
   type RefAttributes,
@@ -49,7 +48,7 @@ type AvatarGroupProps = {
   className?: string;
 };
 
-export const AvatarGroup: FC<AvatarGroupProps> = ({ ...props }) => (
+export const AvatarGroup = ({ ...props }: AvatarGroupProps) => (
   <AvatarGroupInner
     AvatarComponent={props.AvatarComponent ?? AvatarComponent}
     {...props}

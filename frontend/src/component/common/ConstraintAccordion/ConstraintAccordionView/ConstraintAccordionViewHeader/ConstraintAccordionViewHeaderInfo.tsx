@@ -44,14 +44,14 @@ const StyledHeaderMetaInfo = styled('div')(({ theme }) => ({
   },
 }));
 
-interface ConstraintAccordionViewHeaderMetaInfoProps {
+type ConstraintAccordionViewHeaderMetaInfoProps = {
   constraint: IConstraint;
   singleValue: boolean;
   expanded: boolean;
   allowExpand: (shouldExpand: boolean) => void;
   disabled?: boolean;
   maxLength?: number;
-}
+};
 
 export const ConstraintAccordionViewHeaderInfo = ({
   constraint,

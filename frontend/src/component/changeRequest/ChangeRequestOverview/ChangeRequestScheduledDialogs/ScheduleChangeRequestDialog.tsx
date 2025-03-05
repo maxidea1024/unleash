@@ -6,7 +6,7 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { DateTimePicker } from 'component/common/DateTimePicker/DateTimePicker';
 import { getBrowserTimezone } from '../ChangeRequestReviewStatus/utils';
 
-export interface ScheduleChangeRequestDialogProps {
+export type ScheduleChangeRequestDialogProps = {
   title: string;
   primaryButtonText: string;
   open: boolean;
@@ -16,7 +16,7 @@ export interface ScheduleChangeRequestDialogProps {
   environment: string;
   disabled?: boolean;
   scheduledAt?: string;
-}
+};
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -25,9 +25,7 @@ const StyledContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-export const ScheduleChangeRequestDialog: FC<
-  ScheduleChangeRequestDialogProps
-> = ({
+export const ScheduleChangeRequestDialog = ({
   open,
   onConfirm,
   onClose,
@@ -37,7 +35,7 @@ export const ScheduleChangeRequestDialog: FC<
   environment,
   disabled,
   scheduledAt,
-}) => {
+}: ScheduleChangeRequestDialogProps) => {
   const [selectedDate, setSelectedDate] = useState(
     scheduledAt ? new Date(scheduledAt) : new Date(),
   );

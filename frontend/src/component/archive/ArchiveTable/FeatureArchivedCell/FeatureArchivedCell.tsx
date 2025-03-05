@@ -5,13 +5,13 @@ import { formatDateYMD } from 'utils/formatDate';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 
-interface IFeatureArchivedCellProps {
+type FeatureArchivedCellProps = {
   value?: string | Date | null;
-}
+};
 
-export const FeatureArchivedCell: FC<IFeatureArchivedCellProps> = ({
+export const FeatureArchivedCell = ({
   value: archivedAt,
-}) => {
+}: FeatureArchivedCellProps) => {
   const { locationSettings } = useLocationSettings();
   const theme = useTheme();
 

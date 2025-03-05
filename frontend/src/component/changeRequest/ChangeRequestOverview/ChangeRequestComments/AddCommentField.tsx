@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box, styled, TextField } from '@mui/material';
 import { StyledAvatar } from './StyledAvatar';
 import type { IUser } from 'interfaces/user';
@@ -10,12 +9,19 @@ const AddCommentWrapper = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-export const AddCommentField: FC<{
+type AddCommentFieldProps = {
   user: IUser | undefined;
   commentText: string;
   onTypeComment: (text: string) => void;
   children?: React.ReactNode;
-}> = ({ user, commentText, onTypeComment, children }) => (
+};
+
+export const AddCommentField = ({
+  user,
+  commentText,
+  onTypeComment,
+  children,
+}: AddCommentFieldProps) => (
   <>
     <AddCommentWrapper>
       <StyledAvatar user={user} />

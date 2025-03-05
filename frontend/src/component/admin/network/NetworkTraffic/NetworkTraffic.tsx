@@ -31,19 +31,19 @@ import type { Theme } from '@mui/material/styles/createTheme';
 
 const pointStyles = ['circle', 'rect', 'rectRounded', 'rectRot', 'triangle'];
 
-interface IPoint {
+interface Point {
   x: number;
   y: number;
 }
 
-type ChartDatasetType = ChartDataset<'line', IPoint[]>;
+type ChartDatasetType = ChartDataset<'line', Point[]>;
 
 type ResultValue = [number, string];
 
 const createChartPoints = (
   values: ResultValue[],
   y: (m: string) => number,
-): IPoint[] => {
+): Point[] => {
   return values.map((row) => ({
     x: row[0],
     y: y(row[1]),
@@ -186,7 +186,7 @@ const toChartData = (
   return [];
 };
 
-export const NetworkTraffic: FC = () => {
+export const NetworkTraffic = () => {
   const { locationSettings } = useLocationSettings();
   const { metrics } = useInstanceMetrics();
   const theme = useTheme();

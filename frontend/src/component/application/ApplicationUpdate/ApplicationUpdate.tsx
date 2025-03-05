@@ -10,17 +10,17 @@ import useApplication from 'hooks/api/getters/useApplication/useApplication';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-interface IApplicationUpdateProps {
-  application: IApplication;
-}
-
 const StyledSelectContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   gap: theme.spacing(1),
 }));
 
-export const ApplicationUpdate = ({ application }: IApplicationUpdateProps) => {
+type ApplicationUpdateProps = {
+  application: IApplication;
+};
+
+export const ApplicationUpdate = ({ application }: ApplicationUpdateProps) => {
   const { storeApplicationMetaData } = useApplicationsApi();
   const { appName, icon, url, description } = application;
   const { refetchApplication } = useApplication(appName);

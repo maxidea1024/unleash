@@ -42,10 +42,8 @@ export const RolesTable = ({
 }: RolesTableProps) => {
   const { setToastData, setToastApiError } = useToast();
   const theme = useTheme();
-
   const { roles, projectRoles, refetch, loading } = useRoles();
   const { removeRole } = useRolesApi();
-
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const onDeleteConfirm = async (role: IRole) => {

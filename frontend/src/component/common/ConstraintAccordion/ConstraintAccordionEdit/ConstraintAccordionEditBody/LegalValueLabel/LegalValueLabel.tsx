@@ -3,12 +3,12 @@ import { useStyles } from './LegalValueLabel.styles';
 import type React from 'react';
 import { FormControlLabel } from '@mui/material';
 
-interface ILegalValueTextProps {
+type LegalValueTextProps = {
   legal: ILegalValue;
   control: React.ReactElement;
-}
+};
 
-export const LegalValueLabel = ({ legal, control }: ILegalValueTextProps) => {
+export const LegalValueLabel = ({ legal, control }: LegalValueTextProps) => {
   const { classes: styles } = useStyles();
 
   return (

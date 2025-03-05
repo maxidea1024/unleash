@@ -1,15 +1,15 @@
 import { TextField, InputAdornment } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 
-interface IConstraintValueSearchProps {
+type ConstraintValueSearchProps = {
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export const ConstraintValueSearch = ({
   filter,
   setFilter,
-}: IConstraintValueSearchProps) => {
+}: ConstraintValueSearchProps) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ width: '100%' }}>

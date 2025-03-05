@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import classnames from 'classnames';
 import { Box, styled, Typography } from '@mui/material';
 import { modalStyles } from 'component/admin/users/util';
@@ -24,11 +24,11 @@ type ChangePasswordProps = {
   user: IUser;
 };
 
-const ResetPassword: FC<ChangePasswordProps> = ({
+const ResetPassword = ({
   showDialog,
   closeDialog,
   user,
-}) => {
+}: ChangePasswordProps) => {
   const { classes: themeStyles } = useThemeStyles();
   const { resetPassword } = useAdminUsersApi();
   const { setToastApiError } = useToast();

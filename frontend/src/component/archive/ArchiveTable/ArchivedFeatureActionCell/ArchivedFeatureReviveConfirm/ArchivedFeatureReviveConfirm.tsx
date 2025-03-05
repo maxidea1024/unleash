@@ -6,17 +6,17 @@ import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 
-interface IArchivedFeatureReviveConfirmProps {
+const StyledParagraph = styled('p')(({ theme }) => ({
+  marginTop: theme.spacing(2),
+}));
+
+type ArchivedFeatureReviveConfirmProps = {
   revivedFeatures: string[];
   projectId: string;
   open: boolean;
   setOpen: (open: boolean) => void;
   refetch: () => void;
-}
-
-const StyledParagraph = styled('p')(({ theme }) => ({
-  marginTop: theme.spacing(2),
-}));
+};
 
 export const ArchivedFeatureReviveConfirm = ({
   revivedFeatures,
@@ -24,7 +24,7 @@ export const ArchivedFeatureReviveConfirm = ({
   open,
   setOpen,
   refetch,
-}: IArchivedFeatureReviveConfirmProps) => {
+}: ArchivedFeatureReviveConfirmProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { reviveFeatures } = useProjectApi();
   const { project, loading } = useProjectOverview(projectId);
@@ -36,7 +36,8 @@ export const ArchivedFeatureReviveConfirm = ({
       }
       await reviveFeatures(projectId, revivedFeatures);
 
-      await refetch();
+      refetch();
+
       setToastData({
         type: 'success',
         title: "And we're back!",

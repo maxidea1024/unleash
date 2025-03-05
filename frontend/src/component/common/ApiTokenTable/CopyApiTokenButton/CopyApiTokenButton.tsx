@@ -3,7 +3,6 @@ import useToast from 'hooks/useToast';
 import copy from 'copy-to-clipboard';
 import FileCopy from '@mui/icons-material/FileCopy';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
-import type { FC } from 'react';
 
 type CopyApiTokenButtonProps = {
   token: IApiToken;
@@ -12,12 +11,12 @@ type CopyApiTokenButtonProps = {
   track?: () => void;
 };
 
-export const CopyApiTokenButton: FC<CopyApiTokenButtonProps> = ({
+export const CopyApiTokenButton = ({
   token,
   project,
   permission,
   track,
-}) => {
+}: CopyApiTokenButtonProps) => {
   const { setToastData } = useToast();
 
   const copyToken = (value: string) => {

@@ -1,9 +1,5 @@
 import { styled } from '@mui/material';
 
-interface ICodeboxProps {
-  text: string;
-}
-
 const StyledContainer = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.codebox,
   padding: theme.spacing(2),
@@ -21,7 +17,11 @@ const StyledCode = styled('pre')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-const Codebox = ({ text }: ICodeboxProps) => {
+type CodeboxProps = {
+  text: string;
+};
+
+const Codebox = ({ text }: CodeboxProps) => {
   return (
     <StyledContainer>
       <StyledCode>{text}</StyledCode>

@@ -1,15 +1,14 @@
 import type { IChangeRequestApproval } from '../../changeRequest.types';
-import type { FC } from 'react';
 import { Typography } from '@mui/material';
 import { ChangeRequestRejector } from './ChangeRequestReviewer';
 
-interface ChangeRequestRejectionProps {
+type ChangeRequestRejectionProps = {
   rejections: IChangeRequestApproval[];
-}
+};
 
-export const ChangeRequestRejections: FC<ChangeRequestRejectionProps> = ({
+export const ChangeRequestRejections = ({
   rejections = [],
-}) => (
+}: ChangeRequestRejectionProps) => (
   <>
     <Typography variant='body1' color='text.secondary'>
       Rejected by

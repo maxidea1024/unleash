@@ -21,11 +21,11 @@ type SearchDescriptionProps = {
   searchableColumnsString: string;
 };
 
-export const SearchDescription: FC<SearchDescriptionProps> = ({
+export const SearchDescription = ({
   filters,
   getSearchContext,
   searchableColumnsString,
-}) => {
+}: SearchDescriptionProps) => {
   const searchContext = getSearchContext();
   const getSearchText = getSearchTextGenerator(searchContext.columns);
   const searchText = getSearchText(searchContext.searchValue);

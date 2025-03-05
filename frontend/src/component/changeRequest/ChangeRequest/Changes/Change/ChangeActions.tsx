@@ -59,12 +59,19 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-export const ChangeActions: FC<{
+type ChangeActionsProps = {
   changeRequest: ChangeRequestType;
   feature: string;
   change: IChange;
   onRefetch?: () => void;
-}> = ({ changeRequest, feature, change, onRefetch }) => {
+};
+
+export const ChangeActions = ({
+  changeRequest,
+  feature,
+  change,
+  onRefetch,
+}: ChangeActionsProps) => {
   const { showDiscard, showEdit } = useShowActions(changeRequest, change);
   const { discardChange } = useChangeRequestApi();
   const { setToastData, setToastApiError } = useToast();

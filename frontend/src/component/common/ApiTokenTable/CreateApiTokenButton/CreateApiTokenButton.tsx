@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Add from '@mui/icons-material/Add';
 import { useApiTokens } from 'hooks/api/getters/useApiTokens/useApiTokens';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import type { FC } from 'react';
 
 type CreateApiTokenButtonProps = {
   path: string;
@@ -23,11 +22,11 @@ const useApiTokenLimit = (apiTokenLimit: number, apiTokenCount: number) => {
   };
 };
 
-export const CreateApiTokenButton: FC<CreateApiTokenButtonProps> = ({
+export const CreateApiTokenButton = ({
   path,
   permission,
   project,
-}) => {
+}: CreateApiTokenButtonProps) => {
   const navigate = useNavigate();
   const { tokens, loading } = useApiTokens();
   const { uiConfig } = useUiConfig();

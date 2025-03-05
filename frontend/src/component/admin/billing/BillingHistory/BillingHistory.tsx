@@ -22,11 +22,6 @@ const StyledTitle = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.mainHeader,
 }));
 
-type BillingHistoryProps = {
-  data: Record<string, any>[];
-  isLoading?: boolean;
-};
-
 const columns = [
   {
     Header: 'Amount',
@@ -65,6 +60,11 @@ const columns = [
     disableSortBy: true,
   },
 ];
+
+type BillingHistoryProps = {
+  data: Record<string, any>[];
+  isLoading?: boolean;
+};
 
 export const BillingHistory = ({
   data,

@@ -82,7 +82,7 @@ export type PageQueryType = Partial<
 
 const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 
-interface IServiceAccountTokensProps {
+type ServiceAccountTokensProps = {
   serviceAccount: IServiceAccount;
   readOnly?: boolean;
 }
@@ -90,7 +90,7 @@ interface IServiceAccountTokensProps {
 export const ServiceAccountTokens = ({
   serviceAccount,
   readOnly,
-}: IServiceAccountTokensProps) => {
+}: ServiceAccountTokensProps) => {
   const theme = useTheme();
   const { setToastData, setToastApiError } = useToast();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

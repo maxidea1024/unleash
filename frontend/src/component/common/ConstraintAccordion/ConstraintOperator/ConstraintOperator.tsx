@@ -2,12 +2,6 @@ import type { IConstraint } from 'interfaces/strategy';
 import { formatOperatorDescription } from 'component/common/ConstraintAccordion/ConstraintOperator/formatOperatorDescription';
 import { styled } from '@mui/material';
 
-interface IConstraintOperatorProps {
-  constraint: IConstraint;
-  hasPrefix?: boolean;
-  disabled?: boolean;
-}
-
 const StyledContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(0.5, 1.5),
   borderRadius: theme.shape.borderRadius,
@@ -30,11 +24,17 @@ const StyledText = styled('p', {
   color: disabled ? theme.palette.text.secondary : theme.palette.neutral.main,
 }));
 
+type ConstraintOperatorProps = {
+  constraint: IConstraint;
+  hasPrefix?: boolean;
+  disabled?: boolean;
+};
+
 export const ConstraintOperator = ({
   constraint,
   hasPrefix,
   disabled = false,
-}: IConstraintOperatorProps) => {
+}: ConstraintOperatorProps) => {
   const operatorName = constraint.operator;
   const operatorText = formatOperatorDescription(constraint.operator);
 

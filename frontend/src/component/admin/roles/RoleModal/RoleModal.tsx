@@ -85,7 +85,9 @@ export const RoleModal = ({
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
 
     try {
       if (editing) {

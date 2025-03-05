@@ -2,14 +2,6 @@ import Input from 'component/common/Input/Input';
 import { makeStyles } from 'tss-react/mui';
 import { ConstraintFormHeader } from '../ConstraintFormHeader/ConstraintFormHeader';
 
-interface ISingleValueProps {
-  setValue: (value: string) => void;
-  value?: string;
-  type: string;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-}
-
 const useStyles = makeStyles()((theme) => ({
   singleValueContainer: { maxWidth: '300px', marginTop: '-1rem' },
   singleValueInput: {
@@ -18,14 +10,23 @@ const useStyles = makeStyles()((theme) => ({
   },
 }));
 
+type SingleValueProps = {
+  setValue: (value: string) => void;
+  value?: string;
+  type: string;
+  error: string;
+  setError: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export const SingleValue = ({
   setValue,
   value,
   type,
   error,
   setError,
-}: ISingleValueProps) => {
+}: SingleValueProps) => {
   const { classes: styles } = useStyles();
+
   return (
     <>
       <ConstraintFormHeader>

@@ -1,6 +1,6 @@
 import { Box, Paper, styled, Typography } from '@mui/material';
 import type React from 'react';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestRejections } from './ChangeRequestRejections';
 import { ChangeRequestApprovals } from './ChangeRequestApprovals';
@@ -10,10 +10,15 @@ const StyledBox = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-export const ChangeRequestReviewersHeader: FC<{
+type ChangeRequestReviewersHeaderProps = {
   actualApprovals: number;
   minApprovals: number;
-}> = ({ actualApprovals, minApprovals }) => {
+};
+
+export const ChangeRequestReviewersHeader = ({
+  actualApprovals,
+  minApprovals,
+}: ChangeRequestReviewersHeaderProps) => {
   return (
     <>
       Reviewers{' '}
@@ -24,10 +29,15 @@ export const ChangeRequestReviewersHeader: FC<{
   );
 };
 
-export const ChangeRequestReviewersWrapper: FC<{
+type ChangeRequestReviewersWrapperProps = {
   header: ReactNode;
   children?: React.ReactNode;
-}> = ({ header, children }) => {
+};
+
+export const ChangeRequestReviewersWrapper = ({
+  header,
+  children,
+}: ChangeRequestReviewersWrapperProps) => {
   return (
     <Paper
       elevation={0}
@@ -43,12 +53,16 @@ export const ChangeRequestReviewersWrapper: FC<{
   );
 };
 
-export const ChangeRequestReviewers: FC<{
+type ChangeRequestReviewersProps = {
   changeRequest: Pick<
     ChangeRequestType,
     'approvals' | 'rejections' | 'state' | 'minApprovals'
   >;
-}> = ({ changeRequest }) => (
+};
+
+export const ChangeRequestReviewers = ({
+  changeRequest,
+}: ChangeRequestReviewersProps) => (
   <ChangeRequestReviewersWrapper
     header={
       <ChangeRequestReviewersHeader

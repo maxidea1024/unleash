@@ -8,10 +8,10 @@ import {
 } from '../StyledToggleButton';
 import { ConditionallyRender } from '../../../../ConditionallyRender/ConditionallyRender';
 
-interface InvertedOperatorButtonProps {
+type InvertedOperatorButtonProps = {
   localConstraint: IConstraint;
   setInvertedOperator: () => void;
-}
+};
 
 export const InvertedOperatorButton = ({
   localConstraint,

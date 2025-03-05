@@ -69,12 +69,12 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
 }));
 
-interface IAIChatMessageProps {
+type AIChatMessageProps = {
   from: ChatMessage['role'];
   children: string;
 }
 
-export const AIChatMessage = ({ from, children }: IAIChatMessageProps) => {
+export const AIChatMessage = ({ from, children }: AIChatMessageProps) => {
   const { user } = useAuthUser();
 
   if (from === 'user') {

@@ -9,19 +9,19 @@ const StyledMarkdown = styled(Markdown)(({ theme }) => ({
   },
 }));
 
-interface IBannerDialogProps {
+type BannerDialogProps = {
   title: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: ReactNode;
-}
+};
 
 export const BannerDialog = ({
   open,
   setOpen,
   title,
   children,
-}: IBannerDialogProps) => {
+}: BannerDialogProps) => {
   const handleClose = () => {
     setOpen(false);
   };

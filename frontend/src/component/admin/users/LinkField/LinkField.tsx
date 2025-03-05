@@ -1,16 +1,6 @@
-import type { FC } from 'react';
 import { Box, IconButton, styled, Tooltip } from '@mui/material';
 import CopyIcon from '@mui/icons-material/FileCopy';
 import useToast from 'hooks/useToast';
-
-type LinkFieldProps = {
-  inviteLink: string;
-  small?: boolean;
-  successTitle?: string;
-  errorTitle?: string;
-  onCopy?: () => void;
-  isExpired?: boolean;
-};
 
 const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(
   ({ theme, small, isExpired }) => ({
@@ -38,14 +28,23 @@ const StyledBox = styled(Box)<{ isExpired?: boolean; small?: boolean }>(
   }),
 );
 
-export const LinkField: FC<LinkFieldProps> = ({
+type LinkFieldProps = {
+  inviteLink: string;
+  small?: boolean;
+  successTitle?: string;
+  errorTitle?: string;
+  onCopy?: () => void;
+  isExpired?: boolean;
+};
+
+export const LinkField = ({
   inviteLink,
   small,
   successTitle = 'Successfully copied invite link.',
   errorTitle = 'Could not copy invite link.',
   onCopy,
   isExpired,
-}) => {
+}: LinkFieldProps) => {
   const { setToastData } = useToast();
 
   const setError = () =>

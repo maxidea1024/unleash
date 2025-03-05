@@ -4,21 +4,21 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Box, Card, Typography, Link } from '@mui/material';
 import { ConflictWarning } from './Change/ConflictWarning';
 
-interface IFeatureToggleChanges {
+type FeatureToggleChangesProps = {
   featureName: string;
   projectId: string;
   conflict?: string;
   onNavigate?: () => void;
   children?: React.ReactNode;
-}
+};
 
-export const FeatureToggleChanges: FC<IFeatureToggleChanges> = ({
+export const FeatureToggleChanges = ({
   featureName,
   projectId,
   conflict,
   onNavigate,
   children,
-}) => (
+}: FeatureToggleChangesProps) => (
   <Card
     elevation={0}
     sx={(theme) => ({

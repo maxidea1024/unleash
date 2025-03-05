@@ -92,7 +92,7 @@ type Handler =
 
 type Size = { width: string; height: string };
 
-interface IResizableProps extends HTMLAttributes<HTMLDivElement> {
+type ResizableProps = HTMLAttributes<HTMLDivElement> & {
   handlers: Handler[];
   minSize: Size;
   maxSize: Size;
@@ -111,7 +111,7 @@ export const Resizable = ({
   onResizeEnd,
   children,
   ...props
-}: IResizableProps) => {
+}: ResizableProps) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [currentSize, setCurrentSize] = useState(defaultSize);
   const [animate, setAnimate] = useState(false);
@@ -131,7 +131,9 @@ export const Resizable = ({
     e.preventDefault();
 
     const chatContainer = containerRef.current;
-    if (!chatContainer) return;
+    if (!chatContainer) {
+      return;
+    }
 
     const startX = e.clientX;
     const startY = e.clientY;

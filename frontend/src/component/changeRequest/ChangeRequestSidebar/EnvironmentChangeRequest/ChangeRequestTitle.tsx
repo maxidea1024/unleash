@@ -25,12 +25,19 @@ export const StyledHeader = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.mainHeader,
 }));
 
-export const ChangeRequestTitle: FC<{
+type ChangeRequestTitleProps = {
   environmentChangeRequest: ChangeRequestType;
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   children?: React.ReactNode;
-}> = ({ environmentChangeRequest, title, setTitle, children }) => {
+};
+
+export const ChangeRequestTitle = ({
+  environmentChangeRequest,
+  title,
+  setTitle,
+  children,
+}: ChangeRequestTitleProps) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const { updateTitle } = useChangeRequestApi();
   const { setToastData, setToastApiError } = useToast();

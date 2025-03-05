@@ -19,8 +19,6 @@ import { LinkField } from '../LinkField/LinkField';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-type InviteLinkProps = {};
-
 const expiryOptions = [
   {
     key: add(new Date(), { hours: 48 }).toISOString(),
@@ -52,7 +50,7 @@ const useFormatApiCode = (isUpdating: boolean, expiry: string) => {
 --data-raw '${JSON.stringify({ name: 'default', expiresAt: expiry }, undefined, 2)}'`;
 };
 
-export const InviteLink: FC<InviteLinkProps> = () => {
+export const InviteLink = () => {
   const navigate = useNavigate();
   const { data, loading } = useInviteTokens();
   const [inviteLink, setInviteLink] = useState('');

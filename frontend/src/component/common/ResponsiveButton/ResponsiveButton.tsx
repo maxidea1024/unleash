@@ -3,14 +3,14 @@ import { useMediaQuery } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
-import type { ITooltipResolverProps } from '../TooltipResolver/TooltipResolver';
+import type { TooltipResolverProps } from '../TooltipResolver/TooltipResolver';
 import type { OverridableStringUnion } from '@mui/types';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button/Button';
 
-interface IResponsiveButtonProps {
+type ResponsiveButtonProps = {
   Icon: React.ElementType;
   endIcon?: React.ReactNode;
-  tooltipProps?: Omit<ITooltipResolverProps, 'children'>;
+  tooltipProps?: Omit<TooltipResolverProps, 'children'>;
   onClick: () => void;
   disabled?: boolean;
   permission: string | string[];
@@ -23,9 +23,9 @@ interface IResponsiveButtonProps {
   >;
   className?: string;
   children?: React.ReactNode;
-}
+};
 
-const ResponsiveButton: React.FC<IResponsiveButtonProps> = ({
+const ResponsiveButton = ({
   Icon,
   onClick,
   maxWidth,
@@ -37,7 +37,7 @@ const ResponsiveButton: React.FC<IResponsiveButtonProps> = ({
   endIcon,
   variant,
   ...rest
-}) => {
+}: ResponsiveButtonProps) => {
   const smallScreen = useMediaQuery(`(max-width:${maxWidth})`);
 
   return (

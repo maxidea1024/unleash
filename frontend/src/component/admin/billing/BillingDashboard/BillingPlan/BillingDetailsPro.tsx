@@ -64,6 +64,7 @@ export const BillingDetailsPro = ({
     if (!includedTraffic) {
       return 0;
     }
+
     const trafficData = toChartData(
       getDayLabels(currentPeriod.dayCount),
       traffic,
@@ -75,7 +76,9 @@ export const BillingDetailsPro = ({
 
   const totalCost = planPrice + paidAssignedPrice + overageCost;
 
-  if (loading) return null;
+  if (loading) {
+    return null;
+  }
 
   return (
     <>

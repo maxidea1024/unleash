@@ -38,11 +38,11 @@ const firstFilterOption = (filter: { name: string; options: string[] }) =>
 const secondFilterOption = (filter: { name: string; options: string[] }) =>
   `${filter.name}:${filter.options.slice(0, 2).join(',')}`;
 
-export const SearchInstructions: FC<SearchInstructionsProps> = ({
+export const SearchInstructions = ({
   filters,
   searchableColumnsString,
   onClick,
-}) => {
+}: SearchInstructionsProps) => {
   return (
     <>
       <StyledHeader>

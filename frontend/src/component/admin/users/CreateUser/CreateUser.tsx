@@ -6,7 +6,7 @@ import useAdminUsersApi from 'hooks/api/actions/useAdminUsersApi/useAdminUsersAp
 import useToast from 'hooks/useToast';
 import useAddUserForm from '../hooks/useAddUserForm';
 import ConfirmUserAdded from '../ConfirmUserAdded/ConfirmUserAdded';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { scrollToTop } from 'component/common/util';
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
@@ -14,7 +14,7 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { GO_BACK } from 'constants/navigate';
 import { SeatCostWarning } from './SeatCostWarning/SeatCostWarning';
 
-const CreateUser: FC = () => {
+const CreateUser = () => {
   const { setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const navigate = useNavigate();

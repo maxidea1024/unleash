@@ -38,12 +38,12 @@ const StyledTooltipContainer = styled(Box)(({ theme }) => ({
   whiteSpace: 'nowrap',
 }));
 
-interface FeaturesCellProps {
+type FeaturesCellProps = {
   value: any;
   project: string;
-}
+};
 
-export const FeaturesCell: FC<FeaturesCellProps> = ({ value, project }) => {
+export const FeaturesCell = ({ value, project }: FeaturesCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
   const featureNames = value?.map((feature: any) => feature.name);
   return (

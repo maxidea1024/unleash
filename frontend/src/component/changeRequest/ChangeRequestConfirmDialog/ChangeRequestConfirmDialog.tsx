@@ -6,7 +6,7 @@ import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useChangeRequestInReviewWarning } from 'hooks/useChangeRequestInReviewWarning';
 
-interface IChangeRequestDialogueProps {
+type ChangeRequestDialogueProps = {
   isOpen: boolean;
   onConfirm: () => void;
   onClose: () => void;
@@ -14,9 +14,9 @@ interface IChangeRequestDialogueProps {
   showBanner?: boolean;
   messageComponent: JSX.Element;
   disabled?: boolean;
-}
+};
 
-export const ChangeRequestDialogue: FC<IChangeRequestDialogueProps> = ({
+export const ChangeRequestDialogue = ({
   isOpen,
   disabled = false,
   onConfirm,
@@ -24,7 +24,7 @@ export const ChangeRequestDialogue: FC<IChangeRequestDialogueProps> = ({
   showBanner,
   environment,
   messageComponent,
-}) => {
+}: ChangeRequestDialogueProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { data } = usePendingChangeRequests(projectId);
   const { changeRequestInReviewOrApproved, alert } =

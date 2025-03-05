@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Tooltip, type TooltipProps } from '@mui/material';
 import { HtmlTooltip } from '../HtmlTooltip/HtmlTooltip';
 
-type TooltipResolverProps = Omit<TooltipProps, 'title'> & {
+export type TooltipResolverProps = Omit<TooltipProps, 'title'> & {
   title?: string | null;
   titleComponent?: ReactNode;
   variant?: 'default' | 'custom';

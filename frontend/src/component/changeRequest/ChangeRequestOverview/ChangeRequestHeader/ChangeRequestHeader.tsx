@@ -15,9 +15,13 @@ import { Separator } from '../../ChangeRequestSidebar/ChangeRequestSidebar';
 import { ChangeRequestTitle } from '../../ChangeRequestSidebar/EnvironmentChangeRequest/ChangeRequestTitle';
 import { UpdateCount } from 'component/changeRequest/UpdateCount';
 
-export const ChangeRequestHeader: FC<{ changeRequest: ChangeRequestType }> = ({
+type ChangeRequestHeaderProps = {
+  changeRequest: ChangeRequestType;
+};
+
+export const ChangeRequestHeader = ({
   changeRequest,
-}) => {
+}: ChangeRequestHeaderProps) => {
   const [title, setTitle] = useState(changeRequest.title);
   return (
     <StyledPaper elevation={0}>

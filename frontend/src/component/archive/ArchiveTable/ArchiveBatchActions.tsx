@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import Undo from '@mui/icons-material/Undo';
@@ -12,17 +12,17 @@ import { ArchivedFeatureDeleteConfirm } from './ArchivedFeatureActionCell/Archiv
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { ArchivedFeatureReviveConfirm } from './ArchivedFeatureActionCell/ArchivedFeatureReviveConfirm/ArchivedFeatureReviveConfirm';
 
-interface IArchiveBatchActionsProps {
+type ArchiveBatchActionsProps = {
   selectedIds: string[];
   projectId: string;
   onConfirm?: () => void;
-}
+};
 
-export const ArchiveBatchActions: FC<IArchiveBatchActionsProps> = ({
+export const ArchiveBatchActions = ({
   selectedIds,
   projectId,
   onConfirm,
-}) => {
+}: ArchiveBatchActionsProps) => {
   const { refetchArchived } = useFeaturesArchive(projectId);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [reviveModalOpen, setReviveModalOpen] = useState(false);

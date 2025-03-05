@@ -1,11 +1,5 @@
 import type { ReactNode } from 'react';
 
-interface IConditionallyRenderProps {
-  condition: boolean;
-  show: TargetElement;
-  elseShow?: TargetElement;
-}
-
 type TargetElement =
   | JSX.Element
   | JSX.Element[]
@@ -15,11 +9,17 @@ type TargetElement =
 
 type RenderFunc = () => JSX.Element;
 
+type ConditionallyRenderProps = {
+  condition: boolean;
+  show: TargetElement;
+  elseShow?: TargetElement;
+};
+
 export const ConditionallyRender = ({
   condition,
   show,
   elseShow,
-}: IConditionallyRenderProps): JSX.Element | null => {
+}: ConditionallyRenderProps): JSX.Element | null => {
   const handleFunction = (renderFunc: RenderFunc): JSX.Element | null => {
     const result = renderFunc();
     if (!result) {
@@ -44,6 +44,7 @@ export const ConditionallyRender = ({
 
     return show as JSX.Element;
   }
+
   if (!condition && elseShow) {
     if (isFunc(elseShow)) {
       return handleFunction(elseShow as RenderFunc);

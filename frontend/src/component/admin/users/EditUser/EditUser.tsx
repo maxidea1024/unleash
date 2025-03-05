@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import UserForm from '../UserForm/UserForm';
 import useAddUserForm from '../hooks/useAddUserForm';
 import { scrollToTop } from 'component/common/util';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { UpdateButton } from 'component/common/UpdateButton/UpdateButton';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
@@ -15,7 +15,7 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { GO_BACK } from 'constants/navigate';
 
-const EditUser: FC = () => {
+const EditUser = () => {
   useEffect(() => {
     scrollToTop();
   }, []);

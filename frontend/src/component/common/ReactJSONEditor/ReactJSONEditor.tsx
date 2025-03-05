@@ -61,11 +61,11 @@ const JSONEditorThemeWrapper = styled('div', {
   }),
 }));
 
-interface IReactJSONEditorProps extends JSONEditorPropsOptional {
+type ReactJSONEditorProps = JSONEditorPropsOptional & {
   editorStyle?: EditorStyle;
-}
+};
 
-const VanillaJSONEditor: React.FC<IReactJSONEditorProps> = (props) => {
+const VanillaJSONEditor: React.FC<ReactJSONEditorProps> = (props) => {
   const refContainer = useRef<HTMLDivElement | null>(null);
   const refEditor = useRef<JSONEditor | null>(null);
 
@@ -97,7 +97,7 @@ const VanillaJSONEditor: React.FC<IReactJSONEditorProps> = (props) => {
   return <div ref={refContainer} />;
 };
 
-const ReactJSONEditor: React.FC<IReactJSONEditorProps> = (props) => {
+const ReactJSONEditor: React.FC<ReactJSONEditorProps> = (props) => {
   const { themeMode } = useContext(UIContext);
   return (
     <JSONEditorThemeWrapper

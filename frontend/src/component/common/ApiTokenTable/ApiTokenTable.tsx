@@ -6,7 +6,6 @@ import { ApiTokenDocs } from 'component/admin/apiToken/ApiTokenDocs/ApiTokenDocs
 import theme from 'themes/theme';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
-import type { FC } from 'react';
 
 const hiddenColumnsNotExtraLarge = ['Icon', 'createdAt', 'seenAt'];
 const hiddenColumnsCompact = ['Icon', 'project', 'seenAt'];
@@ -22,7 +21,7 @@ type ApiTokenTableProps = {
   globalFilter: any;
 };
 
-export const ApiTokenTable: FC<ApiTokenTableProps> = ({
+export const ApiTokenTable = ({
   compact = false,
   setHiddenColumns,
   columns,
@@ -31,7 +30,7 @@ export const ApiTokenTable: FC<ApiTokenTableProps> = ({
   headerGroups,
   globalFilter,
   prepareRow,
-}) => {
+}: ApiTokenTableProps) => {
   const isNotExtraLarge = useMediaQuery(theme.breakpoints.down('xl'));
 
   useConditionallyHiddenColumns(

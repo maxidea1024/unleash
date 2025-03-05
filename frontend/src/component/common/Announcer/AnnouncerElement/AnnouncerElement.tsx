@@ -1,4 +1,4 @@
-import type { FC, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { ANNOUNCER_ELEMENT_TEST_ID } from 'utils/testIds';
 import { styled } from '@mui/material';
 
@@ -17,9 +17,9 @@ const StyledContainer = styled('div')({
   overflow: 'hidden',
 });
 
-export const AnnouncerElement: FC<AnnouncerElementProps> = ({
+export const AnnouncerElement = ({
   announcement,
-}): ReactElement => {
+}: AnnouncerElementProps): ReactElement => {
   return (
     <StyledContainer
       role='status'

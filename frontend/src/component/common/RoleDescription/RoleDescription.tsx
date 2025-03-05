@@ -66,21 +66,23 @@ const StyledPermissionsList = styled('ul')(({ theme }) => ({
   paddingLeft: theme.spacing(2),
 }));
 
-interface IRoleDescriptionProps {
+type RoleDescriptionProps = {
   roleId: number;
   tooltip?: boolean;
   className?: string;
   sx?: SxProps<Theme>;
-}
+};
 
 export const RoleDescription = ({
   roleId,
   tooltip,
   ...rest
-}: IRoleDescriptionProps) => {
+}: RoleDescriptionProps) => {
   const { role } = useRole(roleId.toString());
 
-  if (!role) return null;
+  if (!role) {
+    return null;
+  }
 
   const { name, description, permissions, type } = role;
 

@@ -4,13 +4,6 @@ import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import { ConditionallyRender } from '../../ConditionallyRender/ConditionallyRender';
 
-interface ConstraintAccordionHeaderActionsProps {
-  onDelete?: () => void;
-  onEdit?: () => void;
-  disableEdit?: boolean;
-  disableDelete?: boolean;
-}
-
 const StyledHeaderActions = styled('div')(({ theme }) => ({
   marginLeft: 'auto',
   whiteSpace: 'nowrap',
@@ -18,6 +11,13 @@ const StyledHeaderActions = styled('div')(({ theme }) => ({
     display: 'none',
   },
 }));
+
+type ConstraintAccordionHeaderActionsProps = {
+  onDelete?: () => void;
+  onEdit?: () => void;
+  disableEdit?: boolean;
+  disableDelete?: boolean;
+};
 
 export const ConstraintAccordionHeaderActions = ({
   onEdit,

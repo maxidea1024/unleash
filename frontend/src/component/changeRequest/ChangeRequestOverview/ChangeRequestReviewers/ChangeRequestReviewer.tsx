@@ -1,12 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
-import type { FC } from 'react';
 import { StyledAvatar } from '../ChangeRequestHeader/ChangeRequestHeader.styles';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Cancel from '@mui/icons-material/Cancel';
-interface IChangeRequestReviewerProps {
-  name?: string;
-  imageUrl?: string;
-}
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -34,10 +29,15 @@ export const ReviewerName = styled(Typography)({
   color: 'text.primary',
 });
 
-export const ChangeRequestApprover: FC<IChangeRequestReviewerProps> = ({
+type ChangeRequestReviewerProps = {
+  name?: string;
+  imageUrl?: string;
+};
+
+export const ChangeRequestApprover = ({
   name,
   imageUrl,
-}) => {
+}: ChangeRequestReviewerProps) => {
   return (
     <StyledBox>
       <StyledAvatar user={{ name, imageUrl }} />
@@ -47,10 +47,10 @@ export const ChangeRequestApprover: FC<IChangeRequestReviewerProps> = ({
   );
 };
 
-export const ChangeRequestRejector: FC<IChangeRequestReviewerProps> = ({
+export const ChangeRequestRejector = ({
   name,
   imageUrl,
-}) => {
+}: ChangeRequestReviewerProps) => {
   return (
     <StyledBox>
       <StyledAvatar user={{ name, imageUrl }} />

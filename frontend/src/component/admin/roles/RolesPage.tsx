@@ -33,6 +33,7 @@ const StyledActions = styled('div')({
 
 export const RolesPage = () => {
   usePageTitle('Roles');
+
   const { pathname } = useLocation();
 
   const { roles, projectRoles, loading } = useRoles();

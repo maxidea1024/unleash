@@ -108,7 +108,9 @@ export function getEnvVariantChangesThatWouldBeOverwritten(
   change: IChangeRequestPatchVariant,
 ): ChangesThatWouldBeOverwritten | null {
   const { snapshot } = change.payload;
-  if (!snapshot || !currentVariantConfig) return null;
+  if (!snapshot || !currentVariantConfig) {
+    return null;
+  }
 
   const conflict = getChangedPropertyWithFallbacks({})(
     'variants',

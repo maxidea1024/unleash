@@ -1,20 +1,20 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { TextField, Box } from '@mui/material';
 import { Dialogue } from '../../../common/Dialogue/Dialogue';
 
-interface IChangeRequestDialogueProps {
+type ChangeRequestDialogueProps = {
   open: boolean;
   onConfirm: (comment?: string) => void;
   onClose: () => void;
   disabled?: boolean;
-}
+};
 
-export const ChangeRequestRejectDialogue: FC<IChangeRequestDialogueProps> = ({
+export const ChangeRequestRejectDialogue = ({
   open,
   onConfirm,
   onClose,
   disabled = false,
-}) => {
+}: ChangeRequestDialogueProps) => {
   const [commentText, setCommentText] = useState('');
 
   return (

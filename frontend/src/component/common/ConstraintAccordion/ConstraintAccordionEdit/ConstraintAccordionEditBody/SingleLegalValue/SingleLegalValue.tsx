@@ -12,7 +12,7 @@ import {
 } from '../LegalValueLabel/LegalValueLabel';
 import { getIllegalValues } from '../RestrictiveLegalValues/RestrictiveLegalValues';
 
-interface ISingleLegalValueProps {
+type SingleLegalValueProps = {
   setValue: (value: string) => void;
   value?: string;
   type: string;
@@ -24,7 +24,7 @@ interface ISingleLegalValueProps {
     deletedLegalValues: ILegalValue[];
   };
   constraintValue: string;
-}
+};
 
 export const SingleLegalValue = ({
   setValue,
@@ -35,7 +35,7 @@ export const SingleLegalValue = ({
   setError,
   data,
   constraintValue,
-}: ISingleLegalValueProps) => {
+}: SingleLegalValueProps) => {
   const [filter, setFilter] = useState('');
   const { classes: styles } = useThemeStyles();
   const filteredValues = filterLegalValues(legalValues, filter);

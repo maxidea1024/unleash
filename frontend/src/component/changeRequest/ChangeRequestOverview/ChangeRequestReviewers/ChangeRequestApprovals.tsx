@@ -1,16 +1,15 @@
-import type { FC } from 'react';
 import { Typography } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestApprover } from './ChangeRequestReviewer';
 import type { IChangeRequestApproval } from '../../changeRequest.types';
 
-interface ChangeRequestApprovalProps {
+type ChangeRequestApprovalProps = {
   approvals: IChangeRequestApproval[];
-}
+};
 
-export const ChangeRequestApprovals: FC<ChangeRequestApprovalProps> = ({
+export const ChangeRequestApprovals = ({
   approvals = [],
-}) => (
+}: ChangeRequestApprovalProps) => (
   <>
     <Typography variant='body1' color='text.secondary'>
       <ConditionallyRender

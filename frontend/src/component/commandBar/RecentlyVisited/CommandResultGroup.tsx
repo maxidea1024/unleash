@@ -136,7 +136,10 @@ export const RecentlyVisitedProjectButton = ({
     onClick();
   };
 
-  if (projectDeleted) return null;
+  if (projectDeleted) {
+    return null;
+  }
+
   return (
     <ListItemButton
       key={keyName}

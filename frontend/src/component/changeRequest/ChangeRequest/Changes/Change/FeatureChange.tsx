@@ -73,14 +73,23 @@ const ChangeInnerBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const FeatureChange: FC<{
+type FeatureChangeProps = {
   actions: ReactNode;
   index: number;
   changeRequest: ChangeRequestType;
   change: IFeatureChange;
   feature: IChangeRequestFeature;
   onNavigate?: () => void;
-}> = ({ index, change, feature, changeRequest, actions, onNavigate }) => {
+};
+
+export const FeatureChange = ({
+  index,
+  change,
+  feature,
+  changeRequest,
+  actions,
+  onNavigate,
+}: FeatureChangeProps) => {
   const lastIndex = feature.defaultChange
     ? feature.changes.length + 1
     : feature.changes.length;

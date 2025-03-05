@@ -1,10 +1,4 @@
-import {
-  type ReactElement,
-  useMemo,
-  useState,
-  type ReactNode,
-  type FC,
-} from 'react';
+import { type ReactElement, useMemo, useState, type ReactNode } from 'react';
 import { AnnouncerContext } from '../AnnouncerContext/AnnouncerContext';
 import { AnnouncerElement } from 'component/common/Announcer/AnnouncerElement/AnnouncerElement';
 
@@ -12,9 +6,9 @@ type AnnouncerProviderProps = {
   children: ReactNode;
 };
 
-export const AnnouncerProvider: FC<AnnouncerProviderProps> = ({
+export const AnnouncerProvider = ({
   children,
-}): ReactElement => {
+}: AnnouncerProviderProps): ReactElement => {
   const [announcement, setAnnouncement] = useState<string>();
 
   const value = useMemo(

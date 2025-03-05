@@ -8,7 +8,6 @@ import {
   getFilterValues,
   type IGetSearchContextOutput,
 } from 'hooks/useSearch';
-import type { FC } from 'react';
 import { SearchDescription } from './SearchDescription/SearchDescription';
 import {
   SearchInstructions,
@@ -37,19 +36,19 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: theme.spacing(1.5, 0),
 }));
 
-interface SearchSuggestionsProps {
+type SearchSuggestionsProps = {
   getSearchContext: () => IGetSearchContextOutput;
   onSuggestion: (suggestion: string) => void;
   savedQuery?: string;
-}
+};
 
 const quote = (item: string) => (item.includes(' ') ? `"${item}"` : item);
 
-export const SearchSuggestions: FC<SearchSuggestionsProps> = ({
+export const SearchSuggestions = ({
   getSearchContext,
   onSuggestion,
   savedQuery,
-}) => {
+}: SearchSuggestionsProps) => {
   const { trackEvent } = usePlausibleTracker();
   const searchContext = getSearchContext();
 

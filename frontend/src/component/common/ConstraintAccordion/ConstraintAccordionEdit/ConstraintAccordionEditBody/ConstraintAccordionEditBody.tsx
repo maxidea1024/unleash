@@ -2,17 +2,6 @@ import { Button, styled } from '@mui/material';
 import type { IConstraint } from 'interfaces/strategy';
 import { CANCEL } from '../ConstraintAccordionEdit';
 import type React from 'react';
-import type { FC } from 'react';
-
-type ConstraintAccordionBodyProps = {
-  localConstraint: IConstraint;
-  setValues: (values: string[]) => void;
-  triggerTransition: () => void;
-  setValue: (value: string) => void;
-  setAction: React.Dispatch<React.SetStateAction<string>>;
-  onSubmit: () => void;
-  children?: React.ReactNode;
-};
 
 const StyledInputContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -41,13 +30,23 @@ const StyledRightButton = styled(Button)(({ theme }) => ({
   minWidth: '125px',
 }));
 
-export const ConstraintAccordionEditBody: FC<ConstraintAccordionBodyProps> = ({
+type ConstraintAccordionBodyProps = {
+  localConstraint: IConstraint;
+  setValues: (values: string[]) => void;
+  triggerTransition: () => void;
+  setValue: (value: string) => void;
+  setAction: React.Dispatch<React.SetStateAction<string>>;
+  onSubmit: () => void;
+  children?: React.ReactNode;
+};
+
+export const ConstraintAccordionEditBody = ({
   localConstraint,
   children,
   triggerTransition,
   setAction,
   onSubmit,
-}) => {
+}: ConstraintAccordionBodyProps) => {
   return (
     <>
       <StyledInputContainer>{children}</StyledInputContainer>

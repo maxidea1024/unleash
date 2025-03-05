@@ -1,6 +1,5 @@
 import type React from 'react';
-import { type FC, useContext } from 'react';
-
+import { useContext } from 'react';
 import CheckBox from '@mui/icons-material/Check';
 import Clear from '@mui/icons-material/Clear';
 import { MultiActionButton } from 'component/common/MultiActionButton/MultiActionButton';
@@ -10,12 +9,19 @@ import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import AccessContext from 'contexts/AccessContext';
 import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRequest';
 
-export const ReviewButton: FC<{
+type ReviewButtonProps = {
   disabled: boolean;
   onReject: () => void;
   onApprove: () => void;
   children?: React.ReactNode;
-}> = ({ disabled, onReject, onApprove, children }) => {
+};
+
+export const ReviewButton = ({
+  disabled,
+  onReject,
+  onApprove,
+  children,
+}: ReviewButtonProps) => {
   const { isAdmin } = useContext(AccessContext);
   const projectId = useRequiredPathParam('projectId');
   const id = useRequiredPathParam('id');

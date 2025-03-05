@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import DonutLarge from '@mui/icons-material/DonutLarge';
 import type { ISegment } from 'interfaces/segment';
@@ -12,14 +12,6 @@ import {
 } from '@mui/material';
 import { ConstraintAccordionList } from 'component/common/ConstraintAccordion/ConstraintAccordionList/ConstraintAccordionList';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-
-type SegmentItemProps = {
-  segment: Partial<ISegment>;
-  isExpanded?: boolean;
-  disabled?: boolean | null;
-  constraintList?: JSX.Element;
-  headerContent?: JSX.Element;
-};
 
 const StyledAccordion = styled(Accordion, {
   shouldForwardProp: (prop) => prop !== 'isDisabled',
@@ -62,13 +54,21 @@ const StyledText = styled('span', {
   color: disabled ? theme.palette.text.secondary : 'inherit',
 }));
 
-export const SegmentItem: FC<SegmentItemProps> = ({
+type SegmentItemProps = {
+  segment: Partial<ISegment>;
+  isExpanded?: boolean;
+  disabled?: boolean | null;
+  constraintList?: JSX.Element;
+  headerContent?: JSX.Element;
+};
+
+export const SegmentItem = ({
   segment,
   isExpanded,
   headerContent,
   constraintList,
   disabled = false,
-}) => {
+}: SegmentItemProps) => {
   const [isOpen, setIsOpen] = useState(isExpanded || false);
 
   return (

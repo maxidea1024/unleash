@@ -4,10 +4,6 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { ConstraintValueSearch } from '../../../ConstraintValueSearch/ConstraintValueSearch';
 
-interface IMultipleValuesProps {
-  values: string[] | undefined;
-}
-
 const StyledTruncator = styled(StringTruncator)({
   whiteSpace: 'pre',
 });
@@ -16,7 +12,11 @@ const StyledChip = styled(Chip)(({ theme }) => ({
   margin: theme.spacing(0, 1, 1, 0),
 }));
 
-export const MultipleValues = ({ values }: IMultipleValuesProps) => {
+type MultipleValuesProps = {
+  values: string[] | undefined;
+};
+
+export const MultipleValues = ({ values }: MultipleValuesProps) => {
   const [filter, setFilter] = useState('');
 
   if (!values || values.length === 0) {

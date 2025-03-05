@@ -1,11 +1,5 @@
 import type React from 'react';
-import {
-  type CSSProperties,
-  useEffect,
-  useState,
-  useRef,
-  type FC,
-} from 'react';
+import { type CSSProperties, useEffect, useState, useRef } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 type AnimateOnMountProps = {
@@ -18,7 +12,7 @@ type AnimateOnMountProps = {
   children?: React.ReactNode;
 };
 
-const AnimateOnMount: FC<AnimateOnMountProps> = ({
+const AnimateOnMount = ({
   mounted,
   enter,
   start,
@@ -26,7 +20,7 @@ const AnimateOnMount: FC<AnimateOnMountProps> = ({
   children,
   onStart,
   onEnd,
-}) => {
+}: AnimateOnMountProps) => {
   const [show, setShow] = useState(mounted);
   const [styles, setStyles] = useState<CSSProperties>({});
   const mountedRef = useRef<null | boolean>(null);

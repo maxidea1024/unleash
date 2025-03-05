@@ -1,28 +1,28 @@
-import { useContext, type FC, type ReactElement } from 'react';
+import { useContext, type ReactElement } from 'react';
 import AccessContext from 'contexts/AccessContext';
 import {
-  type ITooltipResolverProps,
+  type TooltipResolverProps,
   TooltipResolver,
 } from 'component/common/TooltipResolver/TooltipResolver';
 import { formatAccessText } from 'utils/formatAccessText';
 
-type IPermissionHOCProps = {
+type PermissionHOCProps = {
   permission: string;
   projectId?: string;
   environmentId?: string;
   tooltip?: string;
-  tooltipProps?: Omit<ITooltipResolverProps, 'children' | 'title'>;
+  tooltipProps?: Omit<TooltipResolverProps, 'children' | 'title'>;
   children: ({ hasAccess }: { hasAccess?: boolean }) => ReactElement;
 };
 
-export const PermissionHOC: FC<IPermissionHOCProps> = ({
+export const PermissionHOC = ({
   permission,
   projectId,
   children,
   environmentId,
   tooltip,
   tooltipProps,
-}) => {
+}: PermissionHOCProps) => {
   const { hasAccess } = useContext(AccessContext);
   let access: boolean;
 

@@ -5,14 +5,6 @@ import Fade from '@mui/material/Fade';
 import { SIDEBAR_MODAL_ID } from 'utils/testIds';
 import type * as React from 'react';
 
-interface ISidebarModalProps {
-  open: boolean;
-  onClose: () => void;
-  label: string;
-  onClick?: (e: React.SyntheticEvent) => void;
-  children: React.ReactElement<any, any>;
-}
-
 const TRANSITION_DURATION = 250;
 
 const ModalContentWrapper = styled('div')({
@@ -37,13 +29,21 @@ const StyledIconButton = styled(IconButton)(({ theme }) => ({
   right: theme.spacing(3),
 }));
 
-export const BaseModal: FC<ISidebarModalProps> = ({
+type SidebarModalProps = {
+  open: boolean;
+  onClose: () => void;
+  label: string;
+  onClick?: (e: React.SyntheticEvent) => void;
+  children: React.ReactElement<any, any>;
+};
+
+export const BaseModal = ({
   open,
   onClose,
   onClick,
   label,
   children,
-}) => {
+}: SidebarModalProps) => {
   return (
     <Modal
       open={open}
@@ -63,7 +63,7 @@ export const BaseModal: FC<ISidebarModalProps> = ({
   );
 };
 
-export const SidebarModal: FC<ISidebarModalProps> = (props) => {
+export const SidebarModal: FC<SidebarModalProps> = (props) => {
   return (
     <BaseModal {...props}>
       <FixedWidthContentWrapper>{props.children}</FixedWidthContentWrapper>
@@ -71,7 +71,7 @@ export const SidebarModal: FC<ISidebarModalProps> = (props) => {
   );
 };
 
-export const DynamicSidebarModal: FC<ISidebarModalProps> = (props) => {
+export const DynamicSidebarModal: FC<SidebarModalProps> = (props) => {
   return (
     <BaseModal {...props}>
       <ModalContentWrapper>

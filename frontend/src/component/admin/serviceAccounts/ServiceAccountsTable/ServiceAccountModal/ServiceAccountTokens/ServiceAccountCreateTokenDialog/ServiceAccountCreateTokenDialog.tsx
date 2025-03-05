@@ -11,7 +11,7 @@ import type { IPersonalAPIToken } from 'interfaces/personalAPIToken';
 
 const DEFAULT_EXPIRATION = ExpirationOption['30DAYS'];
 
-interface IServiceAccountCreateTokenDialogProps {
+type ServiceAccountCreateTokenDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   tokens: IPersonalAPIToken[];
@@ -23,7 +23,7 @@ export const ServiceAccountCreateTokenDialog = ({
   setOpen,
   tokens,
   onCreateClick,
-}: IServiceAccountCreateTokenDialogProps) => {
+}: ServiceAccountCreateTokenDialogProps) => {
   const [patDescription, setPatDescription] = useState('');
   const [patExpiration, setPatExpiration] =
     useState<ExpirationOption>(DEFAULT_EXPIRATION);

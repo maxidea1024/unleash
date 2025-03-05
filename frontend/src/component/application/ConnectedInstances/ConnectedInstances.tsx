@@ -1,4 +1,4 @@
-import { type FC, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useConnectedInstancesTable } from './useConnectedInstancesTable';
 import { ConnectedInstancesTable } from './ConnectedInstancesTable';
@@ -52,7 +52,7 @@ const useTracking = () => {
   };
 };
 
-export const ConnectedInstances: FC = () => {
+export const ConnectedInstances = () => {
   const trackEnvironmentChange = useTracking();
   const name = useRequiredPathParam('name');
 

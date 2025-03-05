@@ -9,21 +9,21 @@ import ErrorIcon from '@mui/icons-material/Error';
 import PauseCircle from '@mui/icons-material/PauseCircle';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
-interface IChangeRequestStatusBadgeProps {
+type ChangeRequestStatusBadgeProps = {
   changeRequest: ChangeRequestType | undefined;
-}
+};
 
-const ReviewRequiredBadge: FC = () => (
+const ReviewRequiredBadge = () => (
   <Badge color='secondary' icon={<CircleOutlined fontSize={'small'} />}>
     Review required
   </Badge>
 );
 
-const DraftBadge: FC = () => <Badge color='warning'>Draft</Badge>;
+const DraftBadge = () => <Badge color='warning'>Draft</Badge>;
 
-export const ChangeRequestStatusBadge: FC<IChangeRequestStatusBadgeProps> = ({
+export const ChangeRequestStatusBadge = ({
   changeRequest,
-}) => {
+}: ChangeRequestStatusBadgeProps) => {
   if (!changeRequest) {
     return null;
   }

@@ -26,6 +26,7 @@ type ConnectedInstancesTableProps = {
   ) => TableBodyProps;
   headerGroups: HeaderGroup<object>[];
 };
+
 export const ConnectedInstancesTable = ({
   loading,
   rows,

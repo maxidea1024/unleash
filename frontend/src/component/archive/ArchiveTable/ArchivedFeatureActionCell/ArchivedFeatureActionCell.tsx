@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
 import Delete from '@mui/icons-material/Delete';
 import Undo from '@mui/icons-material/Undo';
@@ -8,17 +7,17 @@ import {
   UPDATE_FEATURE,
 } from 'component/providers/AccessProvider/permissions';
 
-interface IReviveArchivedFeatureCell {
+type ReviveArchivedFeatureCellProps = {
   onRevive: () => void;
   onDelete: () => void;
   project: string;
-}
+};
 
-export const ArchivedFeatureActionCell: FC<IReviveArchivedFeatureCell> = ({
+export const ArchivedFeatureActionCell = ({
   onRevive,
   onDelete,
   project,
-}) => {
+}: ReviveArchivedFeatureCellProps) => {
   return (
     <ActionCell>
       <PermissionIconButton

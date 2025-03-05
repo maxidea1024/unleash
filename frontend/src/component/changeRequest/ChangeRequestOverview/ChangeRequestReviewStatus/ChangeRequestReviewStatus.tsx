@@ -36,10 +36,6 @@ import type {
 import { getBrowserTimezone } from './utils';
 import { formatDateYMDHMS } from 'utils/formatDate';
 
-interface ISuggestChangeReviewsStatusProps {
-  changeRequest: ChangeRequestType;
-  onEditClick?: () => void;
-}
 const resolveBorder = (state: ChangeRequestState, theme: Theme) => {
   if (state === 'Approved' || state === 'Scheduled') {
     return `2px solid ${theme.palette.success.main}`;
@@ -73,9 +69,15 @@ const resolveIconColors = (state: ChangeRequestState, theme: Theme) => {
   };
 };
 
-export const ChangeRequestReviewStatus: FC<
-  ISuggestChangeReviewsStatusProps
-> = ({ changeRequest, onEditClick }) => {
+type SuggestChangeReviewsStatusProps = {
+  changeRequest: ChangeRequestType;
+  onEditClick?: () => void;
+};
+
+export const ChangeRequestReviewStatus = ({
+  changeRequest,
+  onEditClick,
+}: SuggestChangeReviewsStatusProps) => {
   const theme = useTheme();
   return (
     <StyledOuterContainer>

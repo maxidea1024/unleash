@@ -35,13 +35,13 @@ const StyledStrategyContainer = styled('div')({
   width: '100%',
 });
 
-interface IEnvironmentStrategyExecutionOrderProps {
+type EnvironmentStrategyExecutionOrderProps = {
   feature: string;
   project: string;
   environment: string;
   change: IChangeRequestReorderStrategy;
   actions?: ReactNode;
-}
+};
 
 export const EnvironmentStrategyExecutionOrder = ({
   feature,
@@ -49,10 +49,12 @@ export const EnvironmentStrategyExecutionOrder = ({
   change,
   project,
   actions,
-}: IEnvironmentStrategyExecutionOrderProps) => {
+}: EnvironmentStrategyExecutionOrderProps) => {
   const { feature: featureData, loading } = useFeature(project, feature);
 
-  if (loading) return null;
+  if (loading) {
+    return null;
+  }
 
   const featureEnvironment = featureData.environments.find(
     ({ name }) => environment === name,

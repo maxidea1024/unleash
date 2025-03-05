@@ -29,7 +29,7 @@ const SelectOptionCheckbox = styled(Checkbox)(({ theme }) => ({
   marginRight: theme.spacing(0.4),
 }));
 
-export type SelectProjectInputProps = {
+type SelectProjectInputProps = {
   disabled?: boolean;
   options: AutocompleteBoxOption[];
   defaultValue: string[];

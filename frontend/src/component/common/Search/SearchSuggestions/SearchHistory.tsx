@@ -20,10 +20,10 @@ type SearchHistoryProps = {
   savedQuery?: string;
 };
 
-export const SearchHistory: FC<SearchHistoryProps> = ({
+export const SearchHistory = ({
   onSuggestion,
   savedQuery,
-}) => {
+}: SearchHistoryProps) => {
   const { trackEvent } = usePlausibleTracker();
   const onSavedQuery = () => {
     onSuggestion(savedQuery || '');
