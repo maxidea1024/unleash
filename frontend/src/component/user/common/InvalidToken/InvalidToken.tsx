@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { INVALID_TOKEN_BUTTON } from 'utils/testIds';
@@ -8,7 +7,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useAuthDetails } from 'hooks/api/getters/useAuth/useAuthDetails';
 import { useUserInvite } from 'hooks/api/getters/useUserInvite/useUserInvite';
 
-const InvalidToken: FC = () => {
+const InvalidToken = () => {
   const { authDetails } = useAuthDetails();
   const { classes: themeStyles } = useThemeStyles();
   const passwordDisabled = authDetails?.defaultHidden === true;

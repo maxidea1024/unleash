@@ -85,15 +85,15 @@ const StyledAIIcon = styled(AIIcon)(({ theme }) => ({
   },
 }));
 
-interface INewInUnleashProps {
+type NewInUnleashProps = {
   mode?: NavigationMode;
   onMiniModeClick?: () => void;
-}
+};
 
 export const NewInUnleash = ({
   mode = 'full',
   onMiniModeClick,
-}: INewInUnleashProps) => {
+}: NewInUnleashProps) => {
   const navigate = useNavigate();
   const { highlight } = useHighlightContext();
   const { trackEvent } = usePlausibleTracker();

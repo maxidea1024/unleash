@@ -77,9 +77,9 @@ const resolveValue = (
   };
 };
 
-export const TimeToProduction: FC<TimeToProductionProps> = ({
+export const TimeToProduction = ({
   daysToProduction,
-}) => {
+}: TimeToProductionProps) => {
   const { value, gauge, score } = resolveValue(daysToProduction);
 
   return (

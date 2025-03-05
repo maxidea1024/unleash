@@ -23,7 +23,10 @@ export const StrategyView = () => {
     navigate(`/strategies/${name}/edit`);
   };
 
-  if (!strategy) return null;
+  if (!strategy) {
+    return null;
+  }
+
   return (
     <PageContent
       header={

@@ -12,11 +12,11 @@ import { Link } from 'react-router-dom';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { FeatureSchema } from 'openapi';
 
-interface ITogglesLinkListProps {
+type TogglesLinkListProps = {
   toggles: FeatureSchema[];
-}
+};
 
-export const TogglesLinkList = ({ toggles }: ITogglesLinkListProps) => (
+export const TogglesLinkList = ({ toggles }: TogglesLinkListProps) => (
   <List style={{ textAlign: 'left' }} className={styles.truncate}>
     <ConditionallyRender
       condition={toggles.length > 0}

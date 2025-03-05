@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type { InstanceInsightsSchema } from 'openapi';
@@ -10,12 +10,12 @@ import {
 import { useUiFlag } from 'hooks/useUiFlag';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
-interface IUsersChartProps {
+type UsersChartProps = {
   userTrends: InstanceInsightsSchema['userTrends'];
   isLoading?: boolean;
-}
+};
 
-export const UsersChart: FC<IUsersChartProps> = ({ userTrends, isLoading }) => {
+export const UsersChart = ({ userTrends, isLoading }: UsersChartProps) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
   const theme = useTheme();
   const notEnoughData = !isLoading && userTrends.length < 2;

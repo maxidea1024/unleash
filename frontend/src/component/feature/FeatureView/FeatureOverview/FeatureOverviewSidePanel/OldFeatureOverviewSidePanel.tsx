@@ -39,15 +39,15 @@ const StyledHeader = styled('h3')(({ theme }) => ({
   },
 }));
 
-interface IFeatureOverviewSidePanelProps {
+type OldFeatureOverviewSidePanelProps = {
   hiddenEnvironments: Set<String>;
   setHiddenEnvironments: (environment: string) => void;
-}
+};
 
 export const OldFeatureOverviewSidePanel = ({
   hiddenEnvironments,
   setHiddenEnvironments,
-}: IFeatureOverviewSidePanelProps) => {
+}: OldFeatureOverviewSidePanelProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { feature } = useFeature(projectId, featureId);

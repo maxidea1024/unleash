@@ -1,11 +1,10 @@
 import Input from 'component/common/Input/Input';
 import { TextField, Button, styled } from '@mui/material';
-
 import type React from 'react';
 import { trim } from 'component/common/util';
 import { EDIT } from 'constants/misc';
 
-interface ITagTypeForm {
+type TagTypeFormProps = {
   tagName: string;
   tagDesc: string;
   setTagName: React.Dispatch<React.SetStateAction<string>>;
@@ -17,7 +16,7 @@ interface ITagTypeForm {
   clearErrors: () => void;
   validateNameUniqueness?: () => void;
   children?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -53,7 +52,7 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-const TagTypeForm: React.FC<ITagTypeForm> = ({
+const TagTypeForm = ({
   children,
   handleSubmit,
   handleCancel,
@@ -65,7 +64,7 @@ const TagTypeForm: React.FC<ITagTypeForm> = ({
   mode,
   validateNameUniqueness,
   clearErrors,
-}) => {
+}: TagTypeFormProps) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledContainer>

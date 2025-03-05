@@ -17,12 +17,12 @@ export type FilterItemParamHolder = Record<
   FilterItemParams | null | undefined
 >;
 
-interface IFilterProps {
+type FilterProps = {
   state: FilterItemParamHolder;
   onChange: (value: FilterItemParamHolder) => void;
   availableFilters: IFilterItem[];
   className?: string;
-}
+};
 
 type IBaseFilterItem = {
   label: string;
@@ -58,12 +58,12 @@ const StyledIcon = styled(Icon)(({ theme }) => ({
   },
 }));
 
-export const Filters: FC<IFilterProps> = ({
+export const Filters = ({
   state,
   onChange,
   availableFilters,
   className,
-}) => {
+}: FilterProps) => {
   const [unselectedFilters, setUnselectedFilters] = useState<string[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 

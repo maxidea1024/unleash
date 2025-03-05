@@ -1,11 +1,13 @@
 import { Alert, AlertTitle } from '@mui/material';
 
-interface IResetPasswordErrorProps {
+type ResetPasswordErrorProps = {
   children: string;
-}
+};
 
-const ResetPasswordError = ({ children }: IResetPasswordErrorProps) => {
-  if (!children) return null;
+const ResetPasswordError = ({ children }: ResetPasswordErrorProps) => {
+  if (!children) {
+    return null;
+  }
 
   return (
     <Alert severity='error' data-loading>

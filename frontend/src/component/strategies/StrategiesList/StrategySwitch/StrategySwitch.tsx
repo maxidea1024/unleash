@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react';
+import { useMemo, } from 'react';
 import PermissionSwitch from 'component/common/PermissionSwitch/PermissionSwitch';
 import { UPDATE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import { Tooltip } from '@mui/material';
@@ -11,11 +11,11 @@ type StrategySwitchProps = {
   disabled?: boolean;
 };
 
-export const StrategySwitch: FC<StrategySwitchProps> = ({
+export const StrategySwitch = ({
   deprecated,
   disabled,
   onToggle,
-}) => {
+}: StrategySwitchProps) => {
   const onClick = () => {
     onToggle(deprecated);
   };

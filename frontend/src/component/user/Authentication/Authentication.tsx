@@ -19,15 +19,12 @@ import { type ReactElement, useEffect, useLayoutEffect } from 'react';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { setSessionStorageItem } from 'utils/storage';
 
-interface IAuthenticationProps {
+type AuthenticationProps = {
   redirect: string;
   invited?: boolean;
-}
+};
 
-const Authentication = ({
-  redirect,
-  invited = false,
-}: IAuthenticationProps) => {
+const Authentication = ({ redirect, invited = false }: AuthenticationProps) => {
   const { authDetails } = useAuthDetails();
   const params = useQueryParams();
   const error = params.get('errorMsg');
@@ -36,7 +33,7 @@ const Authentication = ({
   useLayoutEffect(() => {
     window.onload = () => {
       window.focus();
-    }
+    };
   }, []);
 
   useEffect(() => {

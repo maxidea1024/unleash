@@ -3,10 +3,10 @@ import produce from 'immer';
 import type { IFeedbackCESForm } from 'component/feedback/FeedbackCES/FeedbackCESForm';
 import { styled } from '@mui/material';
 
-interface IFeedbackCESScoreProps {
+type FeedbackCESScoreProps = {
   form: Partial<IFeedbackCESForm>;
   setForm: React.Dispatch<React.SetStateAction<Partial<IFeedbackCESForm>>>;
-}
+};
 
 const StyledScoreInput = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -62,7 +62,7 @@ const StyledScoreValue = styled('label')(({ theme }) => ({
   },
 }));
 
-export const FeedbackCESScore = ({ form, setForm }: IFeedbackCESScoreProps) => {
+export const FeedbackCESScore = ({ form, setForm }: FeedbackCESScoreProps) => {
   const onScoreChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm(
       produce((draft) => {

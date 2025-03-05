@@ -51,12 +51,11 @@ const StyledItemButtonClose = styled(IconButton)(({ theme }) => ({
   padding: theme.spacing(0.25),
 }));
 
-interface INewInUnleashItemProps
-  extends Omit<NewInUnleashItemDetails, 'show' | 'beta'> {
+type NewInUnleashItemProps = Omit<NewInUnleashItemDetails, 'show' | 'beta'> & {
   onClick: () => void;
   onDismiss: () => void;
   beta: boolean;
-}
+};
 
 const useTooltip = () => {
   const [open, setOpen] = useState(false);
@@ -83,7 +82,7 @@ export const NewInUnleashItem = ({
   preview,
   summary,
   beta,
-}: INewInUnleashItemProps) => {
+}: NewInUnleashItemProps) => {
   const { open, handleTooltipOpen, handleTooltipClose } = useTooltip();
 
   const onDismissClick = (e: React.MouseEvent) => {

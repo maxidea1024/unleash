@@ -1,4 +1,4 @@
-import { type FormEventHandler, useState, useCallback, type FC } from 'react';
+import { type FormEventHandler, useState, useCallback } from 'react';
 import { Box, Button, Typography, Checkbox, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -36,10 +36,10 @@ const StyledForm = styled(Box)(() => ({
   flexGrow: 1,
 }));
 
-export const FeatureTypeForm: FC<FeatureTypeFormProps> = ({
+export const FeatureTypeForm = ({
   featureType,
   loading,
-}) => {
+}: FeatureTypeFormProps) => {
   const navigate = useNavigate();
   const { uiConfig } = useUiConfig();
   const { refetch } = useFeatureTypes();

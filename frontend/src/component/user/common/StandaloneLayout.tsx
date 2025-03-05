@@ -1,12 +1,11 @@
-import type { FC } from 'react';
 import StandaloneBanner from 'component/user/StandaloneBanner';
 import { styled } from '@mui/material';
 
-interface IStandaloneLayout {
+type StandaloneLayoutProps = {
   BannerComponent?: JSX.Element;
   showMenu?: boolean;
   children?: React.ReactNode;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(11),
@@ -64,10 +63,10 @@ const StyledInnerRightContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const StandaloneLayout: FC<IStandaloneLayout> = ({
+const StandaloneLayout = ({
   children,
   BannerComponent,
-}) => {
+}: StandaloneLayoutProps) => {
   let banner = <StandaloneBanner title='Unleash' />;
 
   if (BannerComponent) {

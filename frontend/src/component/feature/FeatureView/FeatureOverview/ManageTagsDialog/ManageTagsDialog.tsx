@@ -21,10 +21,10 @@ import cloneDeep from 'lodash.clonedeep';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import useTagTypes from 'hooks/api/getters/useTagTypes/useTagTypes';
 
-interface IManageTagsProps {
+type ManageTagsProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const StyledDialogFormContent = styled('section')(({ theme }) => ({
   '& > *': {
@@ -49,7 +49,7 @@ const optionsToTags = (options: TagOption[], type: string): ITag[] => {
   });
 };
 
-export const ManageTagsDialog = ({ open, setOpen }: IManageTagsProps) => {
+export const ManageTagsDialog = ({ open, setOpen }: ManageTagsProps) => {
   const { tagTypes } = useTagTypes();
   const featureId = useRequiredPathParam('featureId');
   const { createTag } = useTagApi();

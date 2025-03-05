@@ -7,11 +7,11 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import type { IAuthOptions } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 import { SSO_LOGIN_BUTTON } from 'utils/testIds';
 
-interface IAuthOptionProps {
+type AuthOptionProps = {
   options?: IAuthOptions[];
-}
+};
 
-const AuthOptions = ({ options }: IAuthOptionProps) => {
+const AuthOptions = ({ options }: AuthOptionProps) => {
   const { classes: themeStyles } = useThemeStyles();
   return (
     <>

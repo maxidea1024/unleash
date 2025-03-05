@@ -1,6 +1,5 @@
 import {
   type ChangeEventHandler,
-  type FC,
   type FormEventHandler,
   useState,
 } from 'react';
@@ -15,12 +14,12 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import type { IAuthEndpointDetailsResponse } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 
-interface IDemoAuthProps {
+type DemoAuthProps = {
   authDetails: IAuthEndpointDetailsResponse;
   redirect: string;
-}
+};
 
-const DemoAuth: FC<IDemoAuthProps> = ({ authDetails, redirect }) => {
+const DemoAuth = ({ authDetails, redirect }: DemoAuthProps) => {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
   const { refetchUser } = useAuthUser();

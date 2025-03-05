@@ -78,7 +78,9 @@ export const PasswordTab = () => {
     setLoading(false);
   };
 
-  if (authSettingsLoading) return null;
+  if (authSettingsLoading) {
+    return null;
+  }
 
   return (
     <PageContent isLoading={loading} header='Change password'>

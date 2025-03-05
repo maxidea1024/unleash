@@ -1,5 +1,4 @@
-import type { FC } from 'react';
-import type { IAutocompleteBoxOption } from '../../../common/AutocompleteBox/AutocompleteBox';
+import type { AutocompleteBoxOption } from '../../../common/AutocompleteBox/AutocompleteBox';
 import type {
   AutocompleteRenderInputParams,
   AutocompleteRenderOptionState,
@@ -17,8 +16,8 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 
-export interface IIntegrationMultiSelectorProps {
-  options: IAutocompleteBoxOption[];
+export type IntegrationMultiSelectorProps = {
+  options: AutocompleteBoxOption[];
   selectedItems: string[];
   onChange: (value: string[]) => void;
   error?: string;
@@ -27,7 +26,7 @@ export interface IIntegrationMultiSelectorProps {
   description: string;
   note?: string;
   required?: boolean;
-}
+};
 
 const StyledCheckbox = styled(Checkbox)(() => ({
   marginRight: '0.2em',
@@ -35,7 +34,7 @@ const StyledCheckbox = styled(Checkbox)(() => ({
 
 const CustomPaper = ({ ...props }) => <Paper elevation={8} {...props} />;
 
-export const IntegrationMultiSelector: FC<IIntegrationMultiSelectorProps> = ({
+export const IntegrationMultiSelector = ({
   options,
   selectedItems,
   onChange,
@@ -45,7 +44,7 @@ export const IntegrationMultiSelector: FC<IIntegrationMultiSelectorProps> = ({
   description,
   note,
   required,
-}) => {
+}: IntegrationMultiSelectorProps) => {
   const renderInput = (params: AutocompleteRenderInputParams) => (
     <TextField
       {...params}

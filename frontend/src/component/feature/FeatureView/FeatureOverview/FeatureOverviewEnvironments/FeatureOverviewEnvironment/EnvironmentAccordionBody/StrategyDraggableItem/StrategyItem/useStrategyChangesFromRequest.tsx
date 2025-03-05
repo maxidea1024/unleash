@@ -7,6 +7,7 @@ export type UseStrategyChangeFromRequestResult = Array<{
   change: IFeatureChange;
   isScheduledChange: boolean;
 }>;
+
 export const useStrategyChangesFromRequest = (
   projectId: string,
   featureId: string,

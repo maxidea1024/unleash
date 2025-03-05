@@ -51,17 +51,17 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(4),
 }));
 
-interface IIntegrationEventsModalProps {
+type IntegrationEventsModalProps = {
   addon?: AddonSchema;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 export const IntegrationEventsModal = ({
   addon,
   open,
   setOpen,
-}: IIntegrationEventsModalProps) => {
+}: IntegrationEventsModalProps) => {
   const navigate = useNavigate();
   const { locationSettings } = useLocationSettings();
   const { integrationEvents, hasMore, loadMore, loading } =

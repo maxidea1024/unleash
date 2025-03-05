@@ -18,7 +18,7 @@ import {
   useScheduledChangeRequestsWithStrategy,
 } from 'hooks/api/getters/useScheduledChangeRequestsWithStrategy/useScheduledChangeRequestsWithStrategy';
 
-interface IStrategyDraggableItemProps {
+type StrategyDraggableItemProps = {
   strategy: IFeatureStrategy;
   environmentName: string;
   index: number;
@@ -33,7 +33,7 @@ interface IStrategyDraggableItemProps {
     index: number,
   ) => DragEventHandler<HTMLDivElement>;
   onDragEnd: () => void;
-}
+};
 
 export const StrategyDraggableItem = ({
   strategy,
@@ -44,7 +44,7 @@ export const StrategyDraggableItem = ({
   onDragStartRef,
   onDragOver,
   onDragEnd,
-}: IStrategyDraggableItemProps) => {
+}: StrategyDraggableItemProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const ref = useRef<HTMLDivElement>(null);

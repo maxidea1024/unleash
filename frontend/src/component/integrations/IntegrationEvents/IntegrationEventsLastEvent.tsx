@@ -24,14 +24,14 @@ const StyledLastEventSpan = styled('span')(({ theme }) => ({
   fontSize: theme.fontSizes.bodySize,
 }));
 
-interface IIntegrationEventsLastEventProps extends BoxProps {
+type IntegrationEventsLastEventProps = BoxProps & {
   integration?: AddonSchema;
-}
+};
 
 export const IntegrationEventsLastEvent = ({
   integration,
   ...props
-}: IIntegrationEventsLastEventProps) => {
+}: IntegrationEventsLastEventProps) => {
   const { integrationEvents } = useIntegrationEvents(integration?.id, 1, {
     refreshInterval: 5000,
   });

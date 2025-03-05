@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { Box, Typography, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -66,12 +65,12 @@ const StyledLink = styled(Link)({
   justifyContent: 'center',
 });
 
-interface IUserStatsProps {
+type IUserStatsProps = {
   count: number;
   active?: number;
   inactive?: number;
   isLoading?: boolean;
-}
+};
 
 const StyledLoadingSkeleton = styled(Box)(() => ({
   '&:before': {
@@ -79,12 +78,12 @@ const StyledLoadingSkeleton = styled(Box)(() => ({
   },
 }));
 
-export const UserStats: FC<IUserStatsProps> = ({
+export const UserStats = ({
   count,
   active,
   inactive,
   isLoading,
-}) => {
+}: IUserStatsProps) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
   const showDistribution =
     showInactiveUsers && active !== undefined && inactive !== undefined;

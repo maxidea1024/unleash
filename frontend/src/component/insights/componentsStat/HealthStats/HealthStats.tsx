@@ -1,14 +1,14 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Divider, Link, styled } from '@mui/material';
 import { ReactComponent as InstanceHealthIcon } from 'assets/icons/instance-health.svg';
 
-interface IHealthStatsProps {
+type HealthStatsProps = {
   value?: string | number;
   healthy: number;
   stale: number;
   potentiallyStale: number;
   title?: ReactNode;
-}
+};
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
@@ -63,13 +63,13 @@ const StyledMainValue = styled(StyledValue)(({ theme }) => ({
   fontSize: theme.fontSizes.largeHeader,
 }));
 
-export const HealthStats: FC<IHealthStatsProps> = ({
+export const HealthStats = ({
   value,
   healthy,
   stale,
   potentiallyStale,
   title,
-}) => (
+}: HealthStatsProps) => (
   <StyledContainer>
     <StyledHeader>
       <StyledSection>{title}</StyledSection>

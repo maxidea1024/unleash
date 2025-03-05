@@ -22,11 +22,11 @@ import type { IFeatureStrategy } from 'interfaces/strategy';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-interface IEnvironmentAccordionBodyProps {
+type EnvironmentAccordionBodyProps = {
   isDisabled: boolean;
   featureEnvironment?: IFeatureEnvironment;
   otherEnvironments?: IFeatureEnvironment['name'][];
-}
+};
 
 const StyledAccordionBody = styled('div')(({ theme }) => ({
   width: '100%',
@@ -44,7 +44,7 @@ const EnvironmentAccordionBody = ({
   featureEnvironment,
   isDisabled,
   otherEnvironments,
-}: IEnvironmentAccordionBodyProps) => {
+}: EnvironmentAccordionBodyProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { setStrategiesSortOrder } = useFeatureStrategyApi();

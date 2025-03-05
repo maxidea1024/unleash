@@ -1,7 +1,5 @@
 import { styled, Typography } from '@mui/material';
-
 import { formatAssetPath } from 'utils/formatPath';
-import type { FC } from 'react';
 
 export const StyledFigure = styled('figure')(({ theme }) => ({
   display: 'flex',
@@ -23,17 +21,17 @@ export const StyledImg = styled('img')({
   height: 'auto',
 });
 
-interface JiraIntegrationProps {
+type JiraIntegrationProps = {
   title: string;
   description: string;
   src: string;
-}
+};
 
-export const JiraImageContainer: FC<JiraIntegrationProps> = ({
+export const JiraImageContainer = ({
   title,
   description,
   src,
-}) => {
+}: JiraIntegrationProps) => {
   return (
     <StyledFigure>
       <StyledFigCaption>

@@ -118,7 +118,7 @@ type GaugeProps = {
   max?: number;
 };
 
-export const Gauge: FC<GaugeProps> = ({ value, min = 0, max = 100 }) => {
+export const Gauge = ({ value, min = 0, max = 100 }: GaugeProps) => {
   const theme = useTheme();
   const radius = 1;
   const lineWidth = 0.25;

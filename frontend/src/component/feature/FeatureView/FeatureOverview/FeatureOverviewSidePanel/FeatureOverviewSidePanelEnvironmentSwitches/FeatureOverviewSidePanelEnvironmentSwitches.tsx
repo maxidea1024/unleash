@@ -38,19 +38,19 @@ const StyledLink = styled(Link<typeof RouterLink | 'a'>)(() => ({
   },
 }));
 
-interface IFeatureOverviewSidePanelEnvironmentSwitchesProps {
+type FeatureOverviewSidePanelEnvironmentSwitchesProps = {
   feature: IFeatureToggle;
   header: React.ReactNode;
   hiddenEnvironments: Set<String>;
   setHiddenEnvironments: (environment: string) => void;
-}
+};
 
 export const FeatureOverviewSidePanelEnvironmentSwitches = ({
   feature,
   header,
   hiddenEnvironments,
   setHiddenEnvironments,
-}: IFeatureOverviewSidePanelEnvironmentSwitchesProps) => {
+}: FeatureOverviewSidePanelEnvironmentSwitchesProps) => {
   const someEnabledEnvironmentHasVariants = feature.environments.some(
     (environment) => environment.enabled && environment.variants?.length,
   );

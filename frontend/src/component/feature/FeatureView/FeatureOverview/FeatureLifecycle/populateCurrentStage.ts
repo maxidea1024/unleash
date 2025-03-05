@@ -4,7 +4,9 @@ import type { LifecycleFeature } from './FeatureLifecycle';
 export const populateCurrentStage = (
   feature: Pick<LifecycleFeature, 'lifecycle' | 'environments'>,
 ): LifecycleStage | undefined => {
-  if (!feature.lifecycle) return undefined;
+  if (!feature.lifecycle) {
+    return undefined;
+  }
 
   const getFilteredEnvironments = (
     condition: (env: { type: string; enabled: boolean }) => boolean,

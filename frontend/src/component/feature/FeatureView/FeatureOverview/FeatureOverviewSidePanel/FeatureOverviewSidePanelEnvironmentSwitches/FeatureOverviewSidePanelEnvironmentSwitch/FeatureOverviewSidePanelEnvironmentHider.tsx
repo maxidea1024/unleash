@@ -17,17 +17,17 @@ const StyledVisibilityToggle = styled(IconButton, {
   },
 }));
 
-interface IFeatureOverviewSidePanelEnvironmentHiderProps {
+type FeatureOverviewSidePanelEnvironmentHiderProps = {
   environment: IFeatureEnvironment;
   hiddenEnvironments: Set<String>;
   setHiddenEnvironments: (environment: string) => void;
-}
+};
 
 export const FeatureOverviewSidePanelEnvironmentHider = ({
   environment,
   hiddenEnvironments,
   setHiddenEnvironments,
-}: IFeatureOverviewSidePanelEnvironmentHiderProps) => {
+}: FeatureOverviewSidePanelEnvironmentHiderProps) => {
   const toggleHiddenEnvironments = () => {
     setHiddenEnvironments(environment.name);
   };

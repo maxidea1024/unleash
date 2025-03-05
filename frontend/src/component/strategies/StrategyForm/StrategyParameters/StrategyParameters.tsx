@@ -2,19 +2,19 @@ import { StrategyParameter } from './StrategyParameter/StrategyParameter';
 import type React from 'react';
 import type { IStrategyParameter } from 'interfaces/strategy';
 
-interface IStrategyParametersProps {
+type StrategyParametersProps = {
   input: IStrategyParameter[];
   updateParameter: (index: number, updated: object) => void;
   setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
   errors: { [key: string]: string };
-}
+};
 
 export const StrategyParameters = ({
   input = [],
   updateParameter,
   setParams,
   errors,
-}: IStrategyParametersProps) => (
+}: StrategyParametersProps) => (
   <div style={{ marginTop: '0.5rem' }}>
     {input.map((item, index) => (
       <StrategyParameter

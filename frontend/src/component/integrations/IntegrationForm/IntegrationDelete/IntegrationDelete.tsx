@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -11,9 +11,9 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { DELETE_ADDON } from 'component/providers/AccessProvider/permissions';
 import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 
-interface IIntegrationDeleteProps {
+type IntegrationDeleteProps = {
   id: AddonSchema['id'];
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   margin: theme.spacing(1, 0, 6),
@@ -21,7 +21,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export const IntegrationDelete: FC<IIntegrationDeleteProps> = ({ id }) => {
+export const IntegrationDelete = ({ id }: IntegrationDeleteProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { removeAddon } = useAddonsApi();
   const { refetchAddons } = useAddons();

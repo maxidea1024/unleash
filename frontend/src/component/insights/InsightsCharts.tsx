@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, Paper, styled } from '@mui/material';
 import { UserStats } from './componentsStat/UserStats/UserStats';
 import { UsersChart } from './componentsChart/UsersChart/UsersChart';
@@ -19,7 +18,7 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { WidgetTitle } from './components/WidgetTitle/WidgetTitle';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-export interface IChartsProps {
+type ChartsProps = {
   flagTrends: InstanceInsightsSchema['flagTrends'];
   projectsData: InstanceInsightsSchema['projectFlagTrends'];
   groupedProjectsData: GroupedDataByProject<
@@ -44,7 +43,7 @@ export interface IChartsProps {
   loading: boolean;
   projects: string[];
   allMetricsDatapoints: string[];
-}
+};
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -90,7 +89,7 @@ const StyledChartContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(3),
 }));
 
-export const InsightsCharts: FC<IChartsProps> = ({
+export const InsightsCharts = ({
   projects,
   summary,
   userTrends,
@@ -100,7 +99,7 @@ export const InsightsCharts: FC<IChartsProps> = ({
   environmentTypeTrends,
   allMetricsDatapoints,
   loading,
-}) => {
+}: ChartsProps) => {
   const showAllProjects = projects[0] === allOption.id;
   const isOneProjectSelected = projects.length === 1;
   const { isEnterprise } = useUiConfig();

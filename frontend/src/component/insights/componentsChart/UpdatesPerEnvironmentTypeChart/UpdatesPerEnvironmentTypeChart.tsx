@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type {
@@ -12,10 +12,10 @@ import {
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 import { UpdatesPerEnvironmentTypeChartTooltip } from './UpdatesPerEnvironmentTypeChartTooltip/UpdatesPerEnvironmentTypeChartTooltip';
 
-interface IUpdatesPerEnvironmnetTypeChart {
+type UpdatesPerEnvironmentTypeChartProps = {
   environmentTypeTrends: InstanceInsightsSchema['environmentTypeTrends'];
   isLoading?: boolean;
-}
+};
 
 export const groupByDateAndFillMissingDatapoints = (
   items: InstanceInsightsSchemaEnvironmentTypeTrendsItem[],
@@ -86,9 +86,10 @@ const useEnvironmentTypeColor = () => {
   };
 };
 
-export const UpdatesPerEnvironmentTypeChart: FC<
-  IUpdatesPerEnvironmnetTypeChart
-> = ({ environmentTypeTrends, isLoading }) => {
+export const UpdatesPerEnvironmentTypeChart = ({
+  environmentTypeTrends,
+  isLoading,
+}: UpdatesPerEnvironmentTypeChartProps) => {
   const theme = useTheme();
   const getEnvironmentTypeColor = useEnvironmentTypeColor();
   const notEnoughData = !isLoading && environmentTypeTrends?.length < 2;

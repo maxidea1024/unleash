@@ -37,15 +37,15 @@ const StyledVerticalTabs = styled(VerticalTabs)(({ theme }) => ({
   },
 }));
 
-interface IFeatureOverviewSidePanelProps {
+type FeatureOverviewSidePanelProps = {
   environmentId: string;
   setEnvironmentId: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export const FeatureOverviewSidePanel = ({
   environmentId,
   setEnvironmentId,
-}: IFeatureOverviewSidePanelProps) => {
+}: FeatureOverviewSidePanelProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { feature } = useFeature(projectId, featureId);

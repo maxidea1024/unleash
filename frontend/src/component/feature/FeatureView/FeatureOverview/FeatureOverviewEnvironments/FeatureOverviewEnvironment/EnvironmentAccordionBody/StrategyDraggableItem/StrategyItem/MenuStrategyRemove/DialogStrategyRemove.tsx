@@ -12,14 +12,15 @@ import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useCh
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import { useScheduledChangeRequestsWithStrategy } from 'hooks/api/getters/useScheduledChangeRequestsWithStrategy/useScheduledChangeRequestsWithStrategy';
-interface IFeatureStrategyRemoveProps {
+
+type FeatureStrategyRemoveProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
   strategyId: string;
   disabled?: boolean;
   icon?: boolean;
-}
+};
 
 type ChangeRequest = {
   id: number;
@@ -31,12 +32,12 @@ type ScheduledChangeRequestData = {
   projectId: string;
 };
 
-interface IFeatureStrategyRemoveDialogueProps {
+type FeatureStrategyRemoveDialogueProps = {
   onRemove: (event: React.FormEvent) => Promise<void>;
   onClose: () => void;
   isOpen: boolean;
   scheduledChangeRequestsForStrategy: ScheduledChangeRequestData;
-}
+};
 
 const RemoveAlert: FC = () => (
   <Alert severity='error'>
@@ -109,7 +110,7 @@ const Alerts: FC<{
 );
 
 export const FeatureStrategyRemoveDialogue: FC<
-  IFeatureStrategyRemoveDialogueProps
+  FeatureStrategyRemoveDialogueProps
 > = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
   return (
     <Dialogue
@@ -133,7 +134,7 @@ const MsgContainer = styled('div')(({ theme }) => ({
 }));
 
 export const SuggestFeatureStrategyRemoveDialogue: FC<
-  IFeatureStrategyRemoveDialogueProps
+  FeatureStrategyRemoveDialogueProps
 > = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
   return (
     <Dialogue
@@ -236,7 +237,7 @@ export const DialogStrategyRemove = ({
   strategyId,
   isOpen,
   onClose,
-}: IFeatureStrategyRemoveProps & {
+}: FeatureStrategyRemoveProps & {
   isOpen: boolean;
   onClose: () => void;
 }) => {

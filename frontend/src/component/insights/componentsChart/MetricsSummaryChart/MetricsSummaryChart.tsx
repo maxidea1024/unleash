@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import type { InstanceInsightsSchema } from 'openapi';
 import {
@@ -13,21 +13,21 @@ import { useTheme } from '@mui/material';
 import { aggregateDataPerDate } from './aggregate-metrics-by-day';
 import { useFilledMetricsSummary } from '../../hooks/useFilledMetricsSummary';
 
-interface IMetricsSummaryChartProps {
+type MetricsSummaryChartProps = {
   metricsSummaryTrends: GroupedDataByProject<
     InstanceInsightsSchema['metricsSummaryTrends']
   >;
   isAggregate?: boolean;
   allDatapointsSorted: string[];
   isLoading?: boolean;
-}
+};
 
-export const MetricsSummaryChart: FC<IMetricsSummaryChartProps> = ({
+export const MetricsSummaryChart = ({
   metricsSummaryTrends,
   isAggregate,
   allDatapointsSorted,
   isLoading,
-}) => {
+}: MetricsSummaryChartProps) => {
   const theme = useTheme();
   const metricsSummary = useFilledMetricsSummary(
     metricsSummaryTrends,

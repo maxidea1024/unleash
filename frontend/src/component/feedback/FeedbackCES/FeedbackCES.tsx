@@ -7,9 +7,9 @@ import {
 import { FeedbackCESForm } from 'component/feedback/FeedbackCES/FeedbackCESForm';
 import CloseOutlined from '@mui/icons-material/CloseOutlined';
 
-export interface IFeedbackCESProps {
+type FeedbackCESProps = {
   state?: IFeedbackCESState;
-}
+};
 
 const StyledOverlay = styled('div')(({ theme }) => ({
   pointerEvents: 'none',
@@ -46,7 +46,7 @@ const StyledCloseIcon = styled(CloseOutlined)(({ theme }) => ({
   color: theme.palette.action.active,
 }));
 
-export const FeedbackCES = ({ state }: IFeedbackCESProps) => {
+export const FeedbackCES = ({ state }: FeedbackCESProps) => {
   const { hideFeedbackCES } = useContext(feedbackCESContext);
 
   const modalContent = state && (

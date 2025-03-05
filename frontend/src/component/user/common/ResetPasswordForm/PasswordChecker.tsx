@@ -7,21 +7,21 @@ import { Alert } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-interface IPasswordCheckerProps {
+type PasswordCheckerProps = {
   password: string;
   callback: Dispatch<SetStateAction<boolean>>;
   style?: object;
   hideOnCompletion?: boolean;
-}
+};
 
-interface IErrorResponse {
-  details: IErrorDetails[];
-}
+type ErrorResponse = {
+  details: ErrorDetails[];
+};
 
-interface IErrorDetails {
+type ErrorDetails = {
   message: string;
   validationErrors: string[];
-}
+};
 
 const LENGTH_ERROR = 'The password must be at least 10 characters long.';
 const NUMBER_ERROR = 'The password must contain at least one number.';
@@ -96,7 +96,7 @@ const PasswordChecker = ({
   password,
   callback,
   style = {},
-}: IPasswordCheckerProps) => {
+}: PasswordCheckerProps) => {
   const [casingError, setCasingError] = useState(true);
   const [numberError, setNumberError] = useState(true);
   const [symbolError, setSymbolError] = useState(true);
@@ -157,7 +157,7 @@ const PasswordChecker = ({
     setLengthError(flag);
   };
 
-  const handleErrorResponse = (data: IErrorResponse) => {
+  const handleErrorResponse = (data: ErrorResponse) => {
     const errors = data.details[0].validationErrors;
 
     if (errors.includes(NUMBER_ERROR)) {

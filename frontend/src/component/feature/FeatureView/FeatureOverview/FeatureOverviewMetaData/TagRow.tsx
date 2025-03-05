@@ -65,11 +65,11 @@ const StyledAddedTag = styled(StyledChip)(({ theme }) => ({
   },
 }));
 
-interface IFeatureOverviewSidePanelTagsProps {
+type FeatureOverviewSidePanelTagsProps = {
   feature: IFeatureToggle;
-}
+};
 
-export const TagRow = ({ feature }: IFeatureOverviewSidePanelTagsProps) => {
+export const TagRow = ({ feature }: FeatureOverviewSidePanelTagsProps) => {
   const { tags, refetch } = useFeatureTags(feature.name);
   const { deleteTagFromFeature } = useFeatureApi();
 

@@ -4,7 +4,6 @@ import PermissionIconButton from 'component/common/PermissionIconButton/Permissi
 import { CREATE_TAG_TYPE } from 'component/providers/AccessProvider/permissions';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useNavigate } from 'react-router-dom';
-
 import Add from '@mui/icons-material/Add';
 
 export const AddTagTypeButton = () => {

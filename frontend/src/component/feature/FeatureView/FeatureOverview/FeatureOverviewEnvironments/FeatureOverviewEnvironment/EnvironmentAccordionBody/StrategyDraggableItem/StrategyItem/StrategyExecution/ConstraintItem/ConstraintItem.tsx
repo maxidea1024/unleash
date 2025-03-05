@@ -2,10 +2,10 @@ import { Chip, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 
-interface IConstraintItemProps {
+type ConstraintItemProps = {
   value: string[];
   text: string;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   width: '100%',
@@ -27,7 +27,7 @@ const StyledChip = styled(Chip)(({ theme }) => ({
   margin: theme.spacing(0.5),
 }));
 
-export const ConstraintItem = ({ value, text }: IConstraintItemProps) => {
+export const ConstraintItem = ({ value, text }: ConstraintItemProps) => {
   return (
     <StyledContainer>
       <ConditionallyRender

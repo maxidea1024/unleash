@@ -26,17 +26,17 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-interface IDependencyActionsProps {
+type DependencyActionsProps = {
   feature: string;
   onEdit: () => void;
   onDelete: () => void;
-}
+};
 
 export const DependencyActions = ({
   feature,
   onEdit,
   onDelete,
-}: IDependencyActionsProps) => {
+}: DependencyActionsProps) => {
   const id = `dependency-${feature}-actions`;
   const menuId = `${id}-menu`;
 

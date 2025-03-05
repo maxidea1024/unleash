@@ -65,17 +65,17 @@ const StyledIcon = styled(Icon)(({ theme }) => ({
   fontSize: '15px!important',
 }));
 
-interface IFlagStatsProps {
+type FlagStatsProps = {
   count: number;
   flagsPerUser?: string;
   isLoading?: boolean;
-}
+};
 
-export const FlagStats: React.FC<IFlagStatsProps> = ({
+export const FlagStats = ({
   count,
   flagsPerUser,
   isLoading,
-}) => {
+}: FlagStatsProps) => {
   return (
     <>
       <StyledRingContainer>

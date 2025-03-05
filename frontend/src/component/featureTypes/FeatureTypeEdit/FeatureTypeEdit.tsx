@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import type { FeatureTypeSchema } from 'openapi';
 import { FeatureTypeForm } from './FeatureTypeForm/FeatureTypeForm';
@@ -8,10 +7,10 @@ type FeatureTypeEditProps = {
   loading: boolean;
 };
 
-export const FeatureTypeEdit: FC<FeatureTypeEditProps> = ({
+export const FeatureTypeEdit = ({
   featureTypes,
   loading,
-}) => {
+}: FeatureTypeEditProps) => {
   const { featureTypeId } = useParams();
   const featureType = featureTypes.find(
     (featureType) => featureType.id === featureTypeId,

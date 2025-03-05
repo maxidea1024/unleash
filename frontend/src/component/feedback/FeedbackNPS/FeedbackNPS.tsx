@@ -33,11 +33,11 @@ const StyledHeader = styled('h3')(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface IFeedbackNPSProps {
+type FeedbackNPSProps = {
   openUrl: string;
-}
+};
 
-export const FeedbackNPS = ({ openUrl }: IFeedbackNPSProps) => {
+export const FeedbackNPS = ({ openUrl }: FeedbackNPSProps) => {
   const { showFeedback, setShowFeedback } = useContext(UIContext);
   const { createFeedback, updateFeedback } = useAuthFeedbackApi();
   const { feedback } = useAuthFeedback();

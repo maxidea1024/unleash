@@ -2,11 +2,11 @@ import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 import { Box, Button, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export interface IAddonInstallProps {
+type AddonInstallProps = {
   url: string;
   title?: string;
   helpText?: string;
-}
+};
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -18,7 +18,7 @@ export const IntegrationInstall = ({
   url,
   title = 'Install addon',
   helpText = 'Click this button to install this integration.',
-}: IAddonInstallProps) => {
+}: AddonInstallProps) => {
   return (
     <Box>
       <StyledTitle>{title}</StyledTitle>

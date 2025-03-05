@@ -3,7 +3,6 @@ import { Avatar, styled } from '@mui/material';
 import DeviceHub from '@mui/icons-material/DeviceHub';
 import { formatAssetPath } from 'utils/formatPath';
 import { capitalizeFirst } from 'utils/capitalizeFirst';
-
 import dataDogIcon from 'assets/icons/datadog.svg';
 import newRelicIcon from 'assets/icons/new-relic.svg';
 import jiraIcon from 'assets/icons/jira.svg';
@@ -29,9 +28,9 @@ import rust from 'assets/icons/sdks/Logo-rust.svg';
 import svelte from 'assets/icons/sdks/Logo-svelte.svg';
 import vue from 'assets/icons/sdks/Logo-vue.svg';
 
-interface IIntegrationIconProps {
+type IntegrationIconProps = {
   name: string;
-}
+};
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   background: 'transparent',
@@ -77,7 +76,7 @@ const integrations: Record<
   vue: { title: 'Vue', icon: vue },
 };
 
-export const IntegrationIcon = ({ name }: IIntegrationIconProps) => {
+export const IntegrationIcon = ({ name }: IntegrationIconProps) => {
   const integration = integrations[name];
 
   if (!integration) {

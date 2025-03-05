@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import type { InstanceInsightsSchema } from 'openapi';
@@ -8,12 +8,12 @@ import {
 } from 'component/insights/components/LineChart/LineChart';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
-interface IFlagsChartProps {
+type FlagsChartProps = {
   flagTrends: InstanceInsightsSchema['flagTrends'];
   isLoading?: boolean;
-}
+};
 
-export const FlagsChart: FC<IFlagsChartProps> = ({ flagTrends, isLoading }) => {
+export const FlagsChart = ({ flagTrends, isLoading }: FlagsChartProps) => {
   const theme = useTheme();
   const notEnoughData = !isLoading && flagTrends.length < 2;
   const placeholderData = usePlaceholderData({ fill: true, type: 'double' });

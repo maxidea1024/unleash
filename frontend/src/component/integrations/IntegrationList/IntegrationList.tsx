@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import useAddons from 'hooks/api/getters/useAddons/useAddons';
 import { AvailableIntegrations } from './AvailableIntegrations/AvailableIntegrations';
 import { ConfiguredIntegrations } from './ConfiguredIntegrations/ConfiguredIntegrations';
@@ -7,7 +6,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { useSignalEndpoints } from 'hooks/api/getters/useSignalEndpoints/useSignalEndpoints';
 
-export const IntegrationList: FC = () => {
+export const IntegrationList = () => {
   const { signalEndpoints } = useSignalEndpoints();
   const { providers, addons, loading } = useAddons();
 

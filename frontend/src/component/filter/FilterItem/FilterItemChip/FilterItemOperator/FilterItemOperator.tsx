@@ -1,11 +1,11 @@
 import { styled, Menu, MenuItem } from '@mui/material';
-import { type FC, useState, type MouseEvent } from 'react';
+import { useState, type MouseEvent } from 'react';
 
-interface IFilterItemOperatorProps {
+type FilterItemOperatorProps = {
   options: string[];
   value: string;
   onChange: (value: string) => void;
-}
+};
 
 const StyledOperator = styled('button')(({ theme }) => ({
   borderRadius: 0,
@@ -32,11 +32,11 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
 const formatOption = (option: string) =>
   option.replaceAll('_', ' ').toLocaleLowerCase();
 
-export const FilterItemOperator: FC<IFilterItemOperatorProps> = ({
+export const FilterItemOperator = ({
   options,
   value,
   onChange,
-}) => {
+}: FilterItemOperatorProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClose = () => {

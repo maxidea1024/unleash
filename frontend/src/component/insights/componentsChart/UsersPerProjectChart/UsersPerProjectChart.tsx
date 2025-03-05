@@ -9,17 +9,17 @@ import { useProjectChartData } from 'component/insights/hooks/useProjectChartDat
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 
-interface IUsersPerProjectChartProps {
+type UsersPerProjectChartProps = {
   projectFlagTrends: GroupedDataByProject<
     InstanceInsightsSchema['projectFlagTrends']
   >;
   isLoading?: boolean;
-}
+};
 
-export const UsersPerProjectChart: FC<IUsersPerProjectChartProps> = ({
+export const UsersPerProjectChart = ({
   projectFlagTrends,
   isLoading,
-}) => {
+}: UsersPerProjectChartProps) => {
   const placeholderData = usePlaceholderData({
     type: 'constant',
   });

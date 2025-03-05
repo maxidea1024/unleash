@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, } from 'react';
 import { styled } from '@mui/material';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import { allOption } from 'component/common/ProjectSelect/ProjectSelect';
@@ -23,11 +23,11 @@ const StickyContainer = styled(Sticky)(({ theme }) => ({
   transition: 'padding 0.3s ease',
 }));
 
-interface InsightsProps {
+type InsightsProps = {
   withCharts?: boolean;
-}
+};
 
-export const Insights: FC<InsightsProps> = ({ withCharts = true }) => {
+export const Insights = ({ withCharts = true }: InsightsProps) => {
   const [scrolled, setScrolled] = useState(false);
 
   const stateConfig = {

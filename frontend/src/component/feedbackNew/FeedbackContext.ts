@@ -2,6 +2,7 @@ import { createContext } from 'react';
 import type { IFeedbackCategory } from 'hooks/useSubmittedFeedback';
 
 export type FeedbackMode = 'automatic' | 'manual';
+
 export interface IFeedbackContext {
   feedbackData: FeedbackData | undefined;
   openFeedback: (

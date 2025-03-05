@@ -5,12 +5,12 @@ import {
   Typography,
   styled,
 } from '@mui/material';
-import type { FC, MouseEventHandler } from 'react';
+import type { MouseEventHandler } from 'react';
 
 type IntegrationStateSwitchProps = {
   checked: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
-}
+};
 
 const StyledContainer = styled('div')({
   display: 'flex',
@@ -19,10 +19,10 @@ const StyledContainer = styled('div')({
   width: '100%',
 });
 
-export const IntegrationStateSwitch: FC<IntegrationStateSwitchProps> = ({
+export const IntegrationStateSwitch = ({
   checked,
   onClick,
-}) => {
+}: IntegrationStateSwitchProps) => {
   return (
     <StyledContainer>
       <Typography component='span'>Integration status</Typography>

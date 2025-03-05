@@ -15,11 +15,11 @@ import {
 import { useFeedbackCESSeen } from 'component/feedback/FeedbackCESContext/useFeedbackCESSeen';
 import { useFeedbackCESEnabled } from 'component/feedback/FeedbackCESContext/useFeedbackCESEnabled';
 
-interface IFeedbackProviderProps {
+type FeedbackProviderProps = {
   children: ReactNode;
-}
+};
 
-export const FeedbackCESProvider = ({ children }: IFeedbackProviderProps) => {
+export const FeedbackCESProvider = ({ children }: FeedbackProviderProps) => {
   const [state, setState] = useState<IFeedbackCESState>();
   const { isSeen, setSeen } = useFeedbackCESSeen();
   const enabled = useFeedbackCESEnabled();

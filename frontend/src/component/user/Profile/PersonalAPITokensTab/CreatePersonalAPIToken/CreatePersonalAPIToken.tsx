@@ -3,7 +3,7 @@ import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import useToast from 'hooks/useToast';
-import { type FC, type FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { usePersonalAPITokens } from 'hooks/api/getters/usePersonalAPITokens/usePersonalAPITokens';
 import { usePersonalAPITokensApi } from 'hooks/api/actions/usePersonalAPITokensApi/usePersonalAPITokensApi';
@@ -36,17 +36,17 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
 
 const DEFAULT_EXPIRATION = ExpirationOption['30DAYS'];
 
-interface ICreatePersonalAPITokenProps {
+type CreatePersonalAPITokenProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   newToken: (token: INewPersonalAPIToken) => void;
-}
+};
 
-export const CreatePersonalAPIToken: FC<ICreatePersonalAPITokenProps> = ({
+export const CreatePersonalAPIToken = ({
   open,
   setOpen,
   newToken,
-}) => {
+}: CreatePersonalAPITokenProps) => {
   const { tokens, refetchTokens } = usePersonalAPITokens();
   const { createPersonalAPIToken, loading } = usePersonalAPITokensApi();
   const { setToastApiError } = useToast();

@@ -37,14 +37,14 @@ const paramTypesOptions = [
   },
 ];
 
-interface IStrategyParameterProps {
+type StrategyParameterProps = {
   set: React.Dispatch<React.SetStateAction<object>>;
   input: IStrategyParameter;
   index: number;
   params: IStrategyParameter[];
   setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
   errors: { [key: string]: string };
-}
+};
 
 const StyledParamsContainer = styled('div')(({ theme }) => ({
   maxWidth: '400px',
@@ -96,7 +96,7 @@ export const StrategyParameter = ({
   params,
   setParams,
   errors,
-}: IStrategyParameterProps) => {
+}: StrategyParameterProps) => {
   const onTypeChange = (type: string) => {
     set({ type });
   };

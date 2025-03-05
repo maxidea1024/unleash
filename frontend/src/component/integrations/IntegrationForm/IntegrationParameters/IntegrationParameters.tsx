@@ -1,17 +1,17 @@
 import React from 'react';
 import {
   IntegrationParameter,
-  type IIntegrationParameterProps,
+  type IntegrationParameterProps,
 } from './IntegrationParameter/IntegrationParameter';
 import type { AddonTypeSchema } from 'openapi';
 
-interface IIntegrationParametersProps {
+type IntegrationParametersProps = {
   provider?: AddonTypeSchema;
-  parametersErrors: IIntegrationParameterProps['parametersErrors'];
+  parametersErrors: IntegrationParameterProps['parametersErrors'];
   editMode: boolean;
-  setParameterValue: IIntegrationParameterProps['setParameterValue'];
-  config: IIntegrationParameterProps['config'];
-}
+  setParameterValue: IntegrationParameterProps['setParameterValue'];
+  config: IntegrationParameterProps['config'];
+};
 
 export const IntegrationParameters = ({
   provider,
@@ -19,7 +19,7 @@ export const IntegrationParameters = ({
   parametersErrors,
   setParameterValue,
   editMode,
-}: IIntegrationParametersProps) => {
+}: IntegrationParametersProps) => {
   if (!provider) return null;
   return (
     <React.Fragment>

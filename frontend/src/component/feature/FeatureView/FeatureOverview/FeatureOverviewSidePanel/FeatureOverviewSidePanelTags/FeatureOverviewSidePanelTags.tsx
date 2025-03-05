@@ -40,15 +40,15 @@ const StyledButton = styled(Button)(({ theme }) => ({
   alignSelf: 'center',
 }));
 
-interface IFeatureOverviewSidePanelTagsProps {
+type FeatureOverviewSidePanelTagsProps = {
   feature: IFeatureToggle;
   header: React.ReactNode;
-}
+};
 
 export const FeatureOverviewSidePanelTags = ({
   feature,
   header,
-}: IFeatureOverviewSidePanelTagsProps) => {
+}: FeatureOverviewSidePanelTagsProps) => {
   const { tags, refetch } = useFeatureTags(feature.name);
   const { deleteTagFromFeature } = useFeatureApi();
 

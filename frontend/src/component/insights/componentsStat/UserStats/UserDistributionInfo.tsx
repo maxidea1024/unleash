@@ -1,11 +1,11 @@
-import type React from 'react';
 import { Box, Typography, styled } from '@mui/material';
 
 type UserType = 'active' | 'inactive';
 
-interface StyledLinearProgressProps {
+type StyledLinearProgressProps = {
   type: UserType;
-}
+};
+
 const StyledUserDistContainer = styled(Box)(({ theme }) => ({
   padding: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
   borderRadius: `${theme.shape.borderRadius}px`,
@@ -25,11 +25,11 @@ const StyledUserDistIndicator = styled(Box)<StyledLinearProgressProps>(
   }),
 );
 
-interface IUserDistributionInfoProps {
+type UserDistributionInfoProps = {
   type: UserType;
   count: string;
   percentage: string;
-}
+};
 
 const StyledDistInfoInnerContainer = styled(Box)(() => ({
   display: 'flex',
@@ -47,11 +47,11 @@ const StyledCountTypography = styled(Typography)(() => ({
   fontWeight: 'normal',
 }));
 
-export const UserDistributionInfo: React.FC<IUserDistributionInfoProps> = ({
+export const UserDistributionInfo = ({
   type,
   count,
   percentage,
-}) => {
+}: UserDistributionInfoProps) => {
   return (
     <StyledUserDistContainer>
       <StyledDistInfoInnerContainer>

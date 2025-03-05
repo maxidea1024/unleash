@@ -5,13 +5,13 @@ import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { IFeatureEnvironment } from 'interfaces/featureToggle';
 
-interface IFeatureOverviewEnvironmentToggleProps {
+type FeatureOverviewEnvironmentToggleProps = {
   environment: IFeatureEnvironment;
-}
+};
 
 export const FeatureOverviewEnvironmentToggle = ({
   environment: { name, type, strategies, enabled },
-}: IFeatureOverviewEnvironmentToggleProps) => {
+}: FeatureOverviewEnvironmentToggleProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { refetchFeature } = useFeature(projectId, featureId);

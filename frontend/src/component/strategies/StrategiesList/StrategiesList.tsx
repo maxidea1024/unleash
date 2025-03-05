@@ -32,11 +32,11 @@ import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import { CustomStrategyInfo } from '../CustomStrategyInfo/CustomStrategyInfo';
 import { AddStrategyButton } from './AddStrategyButton/AddStrategyButton';
 
-interface IDialogueMetaData {
+type DialogueMetaData = {
   show: boolean;
   title: string;
   onConfirm: () => void;
-}
+};
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -129,7 +129,7 @@ const StrategyDeprecationWarning = () => (
 
 export const StrategiesList = () => {
   const navigate = useNavigate();
-  const [dialogueMetaData, setDialogueMetaData] = useState<IDialogueMetaData>({
+  const [dialogueMetaData, setDialogueMetaData] = useState<DialogueMetaData>({
     show: false,
     title: '',
     onConfirm: () => {},
@@ -380,7 +380,7 @@ export const StrategiesList = () => {
 
   const onDialogConfirm = () => {
     dialogueMetaData?.onConfirm();
-    setDialogueMetaData((prev: IDialogueMetaData) => ({
+    setDialogueMetaData((prev: DialogueMetaData) => ({
       ...prev,
       show: false,
     }));
@@ -431,7 +431,7 @@ export const StrategiesList = () => {
           onClick={onDialogConfirm}
           title={dialogueMetaData?.title}
           onClose={() =>
-            setDialogueMetaData((prev: IDialogueMetaData) => ({
+            setDialogueMetaData((prev: DialogueMetaData) => ({
               ...prev,
               show: false,
             }))
@@ -481,7 +481,7 @@ export const StrategiesList = () => {
           onClick={onDialogConfirm}
           title={dialogueMetaData?.title}
           onClose={() =>
-            setDialogueMetaData((prev: IDialogueMetaData) => ({
+            setDialogueMetaData((prev: DialogueMetaData) => ({
               ...prev,
               show: false,
             }))

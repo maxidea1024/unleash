@@ -3,11 +3,11 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface IPasswordMatcherProps {
+type PasswordMatcherProps = {
   started: boolean;
   passwordsDoNotMatch: boolean;
   sameAsOldPassword?: boolean;
-}
+};
 
 const StyledMatcher = styled('div', {
   shouldForwardProp: (prop) => prop !== 'error',
@@ -30,7 +30,7 @@ const PasswordMatcher = ({
   started,
   passwordsDoNotMatch,
   sameAsOldPassword = false,
-}: IPasswordMatcherProps) => {
+}: PasswordMatcherProps) => {
   const error = passwordsDoNotMatch || sameAsOldPassword;
 
   if (!started) return null;

@@ -1,5 +1,5 @@
 import type * as React from 'react';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 import {
   Box,
@@ -86,7 +86,7 @@ const StyledCheckItOutButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-export const NewInUnleashTooltip: FC<{
+type NewInUnleashTooltipProps = {
   children: React.ReactElement<any, any>;
   title: string;
   longDescription: ReactNode;
@@ -96,7 +96,9 @@ export const NewInUnleashTooltip: FC<{
   preview?: ReactNode;
   onClose: () => void;
   beta: boolean;
-}> = ({
+};
+
+export const NewInUnleashTooltip = ({
   children,
   title,
   longDescription,
@@ -106,7 +108,7 @@ export const NewInUnleashTooltip: FC<{
   open,
   onClose,
   beta,
-}) => (
+}: NewInUnleashTooltipProps) => (
   <HtmlTooltip
     disableFocusListener
     disableHoverListener

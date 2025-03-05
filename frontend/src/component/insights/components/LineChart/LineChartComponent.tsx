@@ -71,7 +71,7 @@ const customHighlightPlugin = {
   },
 };
 
-const LineChartComponent: FC<{
+type LineChartComponentProps = {
   data: ChartData<'line', unknown>;
   aspectRatio?: number;
   cover?: ReactNode;
@@ -79,13 +79,15 @@ const LineChartComponent: FC<{
   TooltipComponent?: ({
     tooltip,
   }: { tooltip: TooltipState | null }) => ReturnType<FC>;
-}> = ({
+};
+
+const LineChartComponent = ({
   data,
   aspectRatio = 2.5,
   cover,
   overrideOptions,
   TooltipComponent,
-}) => {
+}: LineChartComponentProps) => {
   const theme = useTheme();
   const { locationSettings } = useLocationSettings();
 

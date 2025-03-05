@@ -7,6 +7,7 @@ export const VariantsTooltip: FC<{
   if (variants.length === 1 && variants[0].length < 20) {
     return <span>{variants[0]}</span>;
   }
+
   return (
     <TooltipLink
       tooltip={

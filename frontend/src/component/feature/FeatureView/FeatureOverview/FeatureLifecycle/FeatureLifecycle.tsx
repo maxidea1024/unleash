@@ -2,7 +2,6 @@ import { FeatureLifecycleStageIcon } from './FeatureLifecycleStageIcon';
 import { FeatureLifecycleTooltip } from './FeatureLifecycleTooltip';
 import useFeatureLifecycleApi from 'hooks/api/actions/useFeatureLifecycleApi/useFeatureLifecycleApi';
 import { populateCurrentStage } from './populateCurrentStage';
-import type { FC } from 'react';
 import type { Lifecycle } from 'interfaces/featureToggle';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
@@ -18,12 +17,19 @@ export interface LifecycleFeature {
   }>;
 }
 
-export const FeatureLifecycle: FC<{
+type FeatureLifecycleProps = {
   onArchive: () => void;
   onComplete: () => void;
   onUncomplete: () => void;
   feature: LifecycleFeature;
-}> = ({ feature, onComplete, onUncomplete, onArchive }) => {
+};
+
+export const FeatureLifecycle = ({
+  feature,
+  onComplete,
+  onUncomplete,
+  onArchive,
+}: FeatureLifecycleProps) => {
   const currentStage = populateCurrentStage(feature);
 
   const { markFeatureUncompleted, loading } = useFeatureLifecycleApi();
@@ -32,7 +38,9 @@ export const FeatureLifecycle: FC<{
 
   const onUncompleteHandler = async () => {
     await markFeatureUncompleted(feature.name, feature.project);
+
     onUncomplete();
+
     trackEvent('feature-lifecycle', {
       props: {
         eventType: 'uncomplete',

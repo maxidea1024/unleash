@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, Typography, styled } from '@mui/material';
 import type { AddonTypeSchema } from 'openapi';
 import { IntegrationCard } from '../IntegrationCard/IntegrationCard';
@@ -51,9 +50,9 @@ const StyledGrayContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const AvailableIntegrations: FC<AvailableIntegrationsProps> = ({
+export const AvailableIntegrations = ({
   providers,
-}) => {
+}: AvailableIntegrationsProps) => {
   const { isEnterprise } = useUiConfig();
   const signalsEnabled = useUiFlag('signals');
 

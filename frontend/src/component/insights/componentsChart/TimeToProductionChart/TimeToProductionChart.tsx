@@ -1,4 +1,4 @@
-import { useMemo, type FC } from 'react';
+import { useMemo, } from 'react';
 import 'chartjs-adapter-date-fns';
 import type { InstanceInsightsSchema } from 'openapi';
 import {
@@ -13,19 +13,19 @@ import { TimeToProductionTooltip } from './TimeToProductionTooltip/TimeToProduct
 import { useTheme } from '@mui/material';
 import { medianTimeToProduction } from './median-time-to-production';
 
-interface ITimeToProductionChartProps {
+type TimeToProductionChartProps = {
   projectFlagTrends: GroupedDataByProject<
     InstanceInsightsSchema['projectFlagTrends']
   >;
   isAggregate?: boolean;
   isLoading?: boolean;
-}
+};
 
-export const TimeToProductionChart: FC<ITimeToProductionChartProps> = ({
+export const TimeToProductionChart = ({
   projectFlagTrends,
   isAggregate,
   isLoading,
-}) => {
+}: TimeToProductionChartProps) => {
   const theme = useTheme();
   const projectsDatasets = useProjectChartData(projectFlagTrends);
   const notEnoughData = useMemo(

@@ -47,7 +47,7 @@ const StyledActionsSmallScreen = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-export const InsightsHeader: FC<DashboardHeaderProps> = ({ actions }) => {
+export const InsightsHeader = ({ actions }: DashboardHeaderProps) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

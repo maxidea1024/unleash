@@ -110,7 +110,7 @@ export interface IPersonalAPITokenFormErrors {
   [ErrorField.EXPIRES_AT]?: string;
 }
 
-interface IPersonalAPITokenFormProps {
+type PersonalAPITokenFormProps = {
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   isDescriptionUnique?: (description: string) => boolean;
@@ -132,7 +132,7 @@ export const PersonalAPITokenForm = ({
   setExpiresAt,
   errors,
   setErrors,
-}: IPersonalAPITokenFormProps) => {
+}: PersonalAPITokenFormProps) => {
   const { locationSettings } = useLocationSettings();
 
   const clearError = (field: ErrorField) => {

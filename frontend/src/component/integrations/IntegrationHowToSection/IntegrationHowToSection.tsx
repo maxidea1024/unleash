@@ -1,5 +1,4 @@
 import type { AddonTypeSchema } from 'openapi';
-import type { FC } from 'react';
 import { StyledRaisedSection } from '../IntegrationForm/IntegrationForm.styles';
 import { Typography, styled } from '@mui/material';
 import { IntegrationIcon } from '../IntegrationList/IntegrationIcon/IntegrationIcon';
@@ -15,10 +14,10 @@ type IntegrationHowToSectionProps = {
   title?: string;
 };
 
-export const IntegrationHowToSection: FC<IntegrationHowToSectionProps> = ({
+export const IntegrationHowToSection = ({
   provider,
   title = 'How does it work?',
-}) => {
+}: IntegrationHowToSectionProps) => {
   if (!provider?.name || !provider?.howTo) {
     return null;
   }

@@ -23,13 +23,13 @@ const StyledLabel = styled('label')(() => ({
   cursor: 'pointer',
 }));
 
-interface IFeatureOverviewSidePanelEnvironmentSwitchProps {
+type FeatureOverviewSidePanelEnvironmentSwitchProps = {
   environment: IFeatureEnvironment;
   callback?: () => void;
   children?: React.ReactNode;
   hiddenEnvironments: Set<String>;
   setHiddenEnvironments: (environment: string) => void;
-}
+};
 
 export const FeatureOverviewSidePanelEnvironmentSwitch = ({
   environment,
@@ -37,7 +37,7 @@ export const FeatureOverviewSidePanelEnvironmentSwitch = ({
   children,
   hiddenEnvironments,
   setHiddenEnvironments,
-}: IFeatureOverviewSidePanelEnvironmentSwitchProps) => {
+}: FeatureOverviewSidePanelEnvironmentSwitchProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { feature, refetchFeature } = useFeature(projectId, featureId);

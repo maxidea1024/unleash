@@ -1,4 +1,4 @@
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -18,7 +18,7 @@ const ZendeskButton = () => {
 };
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>
-export const Error: FC<ErrorProps> = ({ error }) => {
+export const Error = ({ error }: ErrorProps) => {
   const navigate = useNavigate();
   const { trackEvent } = usePlausibleTracker();
   const { isOss } = useUiConfig();

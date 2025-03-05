@@ -91,11 +91,11 @@ const useDeleteDependency = (project: string, featureId: string) => {
   return deleteDependency;
 };
 
-interface IDependencyRowProps {
+type DependencyRowProps = {
   feature: IFeatureToggle;
-}
+};
 
-export const DependencyRow = ({ feature }: IDependencyRowProps) => {
+export const DependencyRow = ({ feature }: DependencyRowProps) => {
   const [showDependencyDialogue, setShowDependencyDialogue] = useState(false);
   const canAddParentDependency =
     Boolean(feature.project) &&

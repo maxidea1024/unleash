@@ -8,12 +8,12 @@ import {
 } from '@mui/material';
 import type { ITagType } from 'interfaces/tags';
 
-interface ITagSelect {
+type TagSelectProps = {
   options: ITagType[];
   value: ITagType;
   disabled?: boolean;
   onChange: AutocompleteProps<ITagType, false, any, any>['onChange'];
-}
+};
 
 const ListItem = styled('li')({
   flexDirection: 'column',
@@ -24,7 +24,7 @@ export const TagTypeSelect = ({
   value,
   disabled = false,
   onChange,
-}: ITagSelect) => {
+}: TagSelectProps) => {
   const theme = useTheme();
 
   return (

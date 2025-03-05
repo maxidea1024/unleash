@@ -1,16 +1,13 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { MainLayout } from '../MainLayout/MainLayout';
 
-interface ILayoutPickerProps {
+type LayoutPickerProps = {
   children: ReactNode;
   isStandalone?: boolean;
-}
+};
 
-export const LayoutPicker: FC<ILayoutPickerProps> = ({
-  isStandalone,
-  children,
-}) => (
+export const LayoutPicker = ({ isStandalone, children }: LayoutPickerProps) => (
   <ConditionallyRender
     condition={isStandalone === true}
     show={children}

@@ -1,4 +1,4 @@
-import type { ComponentProps, FC, ReactNode } from 'react';
+import type { ComponentProps, ReactNode } from 'react';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import Close from '@mui/icons-material/Close';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -68,7 +68,7 @@ const Arrow = () => (
   />
 );
 
-interface IFilterItemChipProps {
+type FilterItemChipProps = {
   name: string;
   label: ReactNode;
   selectedDisplayOptions?: string[];
@@ -77,9 +77,9 @@ interface IFilterItemChipProps {
   onChangeOperator: (value: string) => void;
   onClick?: () => void;
   onDelete?: () => void;
-}
+};
 
-export const FilterItemChip: FC<IFilterItemChipProps> = ({
+export const FilterItemChip = ({
   name,
   label,
   selectedDisplayOptions = [],
@@ -88,7 +88,7 @@ export const FilterItemChip: FC<IFilterItemChipProps> = ({
   onChangeOperator,
   onClick,
   onDelete,
-}) => {
+}: FilterItemChipProps) => {
   const hasSelectedOptions = selectedDisplayOptions.length > 0;
   const maxExplicitOptions = 2;
   const explicitOptions = selectedDisplayOptions.slice(0, maxExplicitOptions);

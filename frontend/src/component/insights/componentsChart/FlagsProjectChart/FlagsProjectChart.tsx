@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import type { InstanceInsightsSchema } from 'openapi';
 import {
@@ -9,17 +9,17 @@ import { useProjectChartData } from 'component/insights/hooks/useProjectChartDat
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 
-interface IFlagsProjectChartProps {
+type FlagsProjectChartProps = {
   projectFlagTrends: GroupedDataByProject<
     InstanceInsightsSchema['projectFlagTrends']
   >;
   isLoading?: boolean;
-}
+};
 
-export const FlagsProjectChart: FC<IFlagsProjectChartProps> = ({
+export const FlagsProjectChart = ({
   projectFlagTrends,
   isLoading,
-}) => {
+}: FlagsProjectChartProps) => {
   const placeholderData = usePlaceholderData({
     type: 'constant',
   });

@@ -1,4 +1,4 @@
-import { type FC, type MouseEvent, useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -32,11 +32,11 @@ type CopyStrategyIconMenuProps = {
   strategy: IFeatureStrategyPayload;
 };
 
-export const CopyStrategyIconMenu: FC<CopyStrategyIconMenuProps> = ({
+export const CopyStrategyIconMenu = ({
   environmentId,
   environments,
   strategy,
-}) => {
+}: CopyStrategyIconMenuProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
 

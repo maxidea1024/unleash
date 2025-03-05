@@ -15,15 +15,15 @@ import styles from '../../strategies.module.scss';
 import type { IStrategy, IStrategyParameter } from 'interfaces/strategy';
 import type { ApplicationSchema } from 'openapi';
 
-interface IStrategyDetailsProps {
+type StrategyDetailsProps = {
   strategy: IStrategy;
   applications: ApplicationSchema[];
-}
+};
 
 export const StrategyDetails = ({
   strategy,
   applications,
-}: IStrategyDetailsProps) => {
+}: StrategyDetailsProps) => {
   const theme = useTheme();
   const { parameters = [] } = strategy;
   const renderParameters = (params: IStrategyParameter[]) => {

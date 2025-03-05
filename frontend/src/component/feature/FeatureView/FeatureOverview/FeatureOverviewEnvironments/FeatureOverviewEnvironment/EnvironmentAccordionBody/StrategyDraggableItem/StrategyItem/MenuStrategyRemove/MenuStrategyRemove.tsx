@@ -27,19 +27,19 @@ import {
   STRATEGY_REMOVE_MENU_BTN,
 } from 'utils/testIds';
 
-export interface IRemoveStrategyMenuProps {
+type RemoveStrategyMenuProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
   strategy: IFeatureStrategy;
-}
+};
 
 const MenuStrategyRemove = ({
   projectId,
   strategy,
   featureId,
   environmentId,
-}: IRemoveStrategyMenuProps) => {
+}: RemoveStrategyMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isDisableEnableDialogOpen, setDisableEnableDialogOpen] =
     useState(false);

@@ -23,9 +23,9 @@ import { FeatureStrategyIcons } from 'component/feature/FeatureStrategy/FeatureS
 import { useGlobalLocalStorage } from 'hooks/useGlobalLocalStorage';
 import { Badge } from 'component/common/Badge/Badge';
 
-interface IFeatureOverviewEnvironmentProps {
+type FeatureOverviewEnvironmentProps = {
   env: IFeatureEnvironment;
-}
+};
 
 const StyledFeatureOverviewEnvironment = styled('div', {
   shouldForwardProp: (prop) => prop !== 'enabled',
@@ -117,7 +117,7 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
 
 const FeatureOverviewEnvironment = ({
   env,
-}: IFeatureOverviewEnvironmentProps) => {
+}: FeatureOverviewEnvironmentProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { metrics } = useFeatureMetrics(projectId, featureId);

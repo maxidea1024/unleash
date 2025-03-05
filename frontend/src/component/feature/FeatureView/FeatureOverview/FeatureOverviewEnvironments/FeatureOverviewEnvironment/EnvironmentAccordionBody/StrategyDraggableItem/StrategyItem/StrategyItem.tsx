@@ -14,7 +14,8 @@ import { StrategyItemContainer } from 'component/common/StrategyItemContainer/St
 import MenuStrategyRemove from './MenuStrategyRemove/MenuStrategyRemove';
 import SplitPreviewSlider from 'component/feature/StrategyTypes/SplitPreviewSlider/SplitPreviewSlider';
 import { Box } from '@mui/material';
-interface IStrategyItemProps {
+
+type StrategyItemProps = {
   environmentId: string;
   strategy: IFeatureStrategy;
   onDragStart?: DragEventHandler<HTMLButtonElement>;
@@ -22,9 +23,9 @@ interface IStrategyItemProps {
   otherEnvironments?: IFeatureEnvironment['name'][];
   orderNumber?: number;
   headerChildren?: JSX.Element[] | JSX.Element;
-}
+};
 
-export const StrategyItem: FC<IStrategyItemProps> = ({
+export const StrategyItem = ({
   environmentId,
   strategy,
   onDragStart,
@@ -32,7 +33,7 @@ export const StrategyItem: FC<IStrategyItemProps> = ({
   otherEnvironments,
   orderNumber,
   headerChildren,
-}) => {
+}: StrategyItemProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
 

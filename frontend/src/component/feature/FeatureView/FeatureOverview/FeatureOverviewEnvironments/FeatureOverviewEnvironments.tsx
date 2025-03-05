@@ -7,7 +7,9 @@ const FeatureOverviewEnvironments = () => {
   const featureId = useRequiredPathParam('featureId');
   const { feature } = useFeature(projectId, featureId);
 
-  if (!feature) return null;
+  if (!feature) {
+    return null;
+  }
 
   const { environments } = feature;
 

@@ -6,7 +6,7 @@ import { StrategyParameters } from './StrategyParameters/StrategyParameters';
 import type { IStrategyParameter } from 'interfaces/strategy';
 import type React from 'react';
 
-interface IStrategyFormProps {
+type StrategyFormProps = {
   strategyName: string;
   strategyDesc: string;
   params: IStrategyParameter[];
@@ -21,7 +21,7 @@ interface IStrategyFormProps {
   clearErrors: () => void;
   setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   children?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -56,7 +56,7 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-export const StrategyForm: React.FC<IStrategyFormProps> = ({
+export const StrategyForm = ({
   children,
   handleSubmit,
   handleCancel,
@@ -70,7 +70,7 @@ export const StrategyForm: React.FC<IStrategyFormProps> = ({
   errors,
   mode,
   clearErrors,
-}) => {
+}: StrategyFormProps) => {
   const updateParameter = (index: number, updated: object) => {
     const item = { ...params[index] };
     params[index] = Object.assign({}, item, updated);

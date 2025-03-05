@@ -6,10 +6,10 @@ import PercentageCircle from 'component/common/PercentageCircle/PercentageCircle
 import { PrettifyLargeNumber } from 'component/common/PrettifyLargeNumber/PrettifyLargeNumber';
 import { styled } from '@mui/material';
 
-interface IFeatureOverviewEnvironmentMetrics {
+type FeatureOverviewEnvironmentMetrics = {
   environmentMetric?: IFeatureEnvironmentMetrics;
   disabled?: boolean;
-}
+};
 
 const StyledContainer = styled('div')({
   marginLeft: 'auto',
@@ -58,10 +58,12 @@ const StyledPercentageCircle = styled('div')(({ theme }) => ({
 const FeatureOverviewEnvironmentMetrics = ({
   environmentMetric,
   disabled = false,
-}: IFeatureOverviewEnvironmentMetrics) => {
+}: FeatureOverviewEnvironmentMetrics) => {
   const theme = useTheme();
 
-  if (!environmentMetric) return null;
+  if (!environmentMetric) {
+    return null;
+  }
 
   const total = environmentMetric.yes + environmentMetric.no;
   const percentage = calculatePercentage(total, environmentMetric?.yes);

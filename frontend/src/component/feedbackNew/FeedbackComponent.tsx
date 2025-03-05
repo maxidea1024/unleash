@@ -38,6 +38,7 @@ export const ParentContainer = styled('div')(({ theme }) => ({
     zIndex: theme.zIndex.fab,
   },
 }));
+
 export const StyledContainer = styled('div')(({ theme }) => ({
   position: 'fixed',
   top: 0,
@@ -187,19 +188,19 @@ export const FeedbackComponentWrapper = () => {
   );
 };
 
-interface IFeedbackComponent {
+type FeedbackComponentProps = {
   feedbackData: FeedbackData;
   showFeedback: boolean;
   feedbackMode: FeedbackMode;
   closeFeedback: () => void;
-}
+};
 
 export const FeedbackComponent = ({
   feedbackData,
   showFeedback,
   closeFeedback,
   feedbackMode,
-}: IFeedbackComponent) => {
+}: FeedbackComponentProps) => {
   const { setToastData } = useToast();
   const userType = useUserType();
   const { trackEvent } = usePlausibleTracker();

@@ -2,7 +2,6 @@ import type { AddonSchema, AddonTypeSchema } from 'openapi';
 import useLoading from 'hooks/useLoading';
 import { StyledCardsGrid } from '../IntegrationList.styles';
 import { IntegrationCard } from '../IntegrationCard/IntegrationCard';
-import type { FC } from 'react';
 import { Typography, styled } from '@mui/material';
 import { useSignalEndpoints } from 'hooks/api/getters/useSignalEndpoints/useSignalEndpoints';
 import { useUiFlag } from 'hooks/useUiFlag';
@@ -22,11 +21,11 @@ type ConfiguredIntegrationsProps = {
   providers: AddonTypeSchema[];
 };
 
-export const ConfiguredIntegrations: FC<ConfiguredIntegrationsProps> = ({
+export const ConfiguredIntegrations = ({
   loading,
   addons,
   providers,
-}) => {
+}: ConfiguredIntegrationsProps) => {
   const { signalEndpoints } = useSignalEndpoints();
   const signalsEnabled = useUiFlag('signals');
   const { isEnterprise } = useUiConfig();

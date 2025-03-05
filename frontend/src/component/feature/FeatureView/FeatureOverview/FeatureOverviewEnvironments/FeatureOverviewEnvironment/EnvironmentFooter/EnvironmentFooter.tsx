@@ -2,13 +2,13 @@ import type { IFeatureEnvironmentMetrics } from 'interfaces/featureToggle';
 import { FeatureMetricsStats } from 'component/feature/FeatureView/FeatureMetrics/FeatureMetricsStats/FeatureMetricsStats';
 import { SectionSeparator } from '../SectionSeparator/SectionSeparator';
 
-interface IEnvironmentFooterProps {
+type EnvironmentFooterProps = {
   environmentMetric?: IFeatureEnvironmentMetrics;
-}
+};
 
 export const EnvironmentFooter = ({
   environmentMetric,
-}: IEnvironmentFooterProps) => {
+}: EnvironmentFooterProps) => {
   if (!environmentMetric) {
     return null;
   }

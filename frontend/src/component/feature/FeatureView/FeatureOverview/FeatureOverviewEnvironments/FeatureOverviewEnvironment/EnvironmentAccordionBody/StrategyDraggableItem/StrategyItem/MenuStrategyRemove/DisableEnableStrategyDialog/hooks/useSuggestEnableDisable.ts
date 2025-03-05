@@ -2,14 +2,14 @@ import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useCh
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import type { IDisableEnableStrategyProps } from '../IDisableEnableStrategyProps';
+import type { DisableEnableStrategyProps } from '../DisableEnableStrategyProps';
 
 export const useSuggestEnableDisable = ({
   projectId,
   environmentId,
   featureId,
   strategy,
-}: IDisableEnableStrategyProps) => {
+}: DisableEnableStrategyProps) => {
   const { addChange } = useChangeRequestApi();
   const { refetch: refetchChangeRequests } =
     usePendingChangeRequests(projectId);

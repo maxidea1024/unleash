@@ -19,7 +19,7 @@ export type TagOption = {
   inputValue?: string;
 };
 
-interface ITagsInputProps {
+type TagsInputProps = {
   options: TagOption[];
   existingTags: ITag[];
   tagType: ITagType;
@@ -27,7 +27,7 @@ interface ITagsInputProps {
   indeterminateOptions?: TagOption[];
   disabled?: boolean;
   onChange: AutocompleteProps<TagOption, true, false, false>['onChange'];
-}
+};
 
 const filter = createFilterOptions<TagOption>();
 
@@ -39,7 +39,7 @@ export const TagsInput = ({
   existingTags,
   disabled = false,
   onChange,
-}: ITagsInputProps) => {
+}: TagsInputProps) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
 
   const getOptionLabel = (option: TagOption) => {

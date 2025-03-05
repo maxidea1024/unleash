@@ -6,9 +6,9 @@ import PasswordChecker from './PasswordChecker';
 import PasswordMatcher from './PasswordMatcher';
 import PasswordField from 'component/common/PasswordField/PasswordField';
 
-interface IResetPasswordProps {
+type ResetPasswordProps = {
   onSubmit: (password: string) => void;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -26,7 +26,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   display: 'block',
 }));
 
-const ResetPasswordForm = ({ onSubmit }: IResetPasswordProps) => {
+const ResetPasswordForm = ({ onSubmit }: ResetPasswordProps) => {
   const [password, setPassword] = useState('');
   const [showPasswordChecker, setShowPasswordChecker] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');

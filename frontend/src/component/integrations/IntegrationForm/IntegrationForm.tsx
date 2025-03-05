@@ -5,7 +5,6 @@ import {
   useContext,
   useEffect,
   useState,
-  type FC,
 } from 'react';
 import {
   Alert,
@@ -74,12 +73,12 @@ type IntegrationFormProps = {
   addon: AddonSchema | Omit<AddonSchema, 'id'>;
 };
 
-export const IntegrationForm: FC<IntegrationFormProps> = ({
+export const IntegrationForm = ({
   editMode,
   provider,
   addon: initialValues,
   fetch,
-}) => {
+}: IntegrationFormProps) => {
   const { createAddon, updateAddon } = useAddonsApi();
   const { setToastData, setToastApiError } = useToast();
   const navigate = useNavigate();

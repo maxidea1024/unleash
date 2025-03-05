@@ -37,13 +37,13 @@ const StyledIcon = styled(Icon)(({ theme }) => ({
   },
 }));
 
-interface IAddFilterButtonProps {
+type AddFilterButtonProps = {
   visibleOptions: string[];
   setVisibleOptions: (filters: string[]) => void;
   hiddenOptions: string[];
   setHiddenOptions: (filters: string[]) => void;
   availableFilters: IFilterItem[];
-}
+};
 
 export const AddFilterButton = ({
   visibleOptions,
@@ -51,7 +51,7 @@ export const AddFilterButton = ({
   hiddenOptions,
   setHiddenOptions,
   availableFilters,
-}: IAddFilterButtonProps) => {
+}: AddFilterButtonProps) => {
   const projectId = useOptionalPathParam('projectId');
   const simplifyProjectOverview = useUiFlag('simplifyProjectOverview');
   const { user } = useAuthUser();

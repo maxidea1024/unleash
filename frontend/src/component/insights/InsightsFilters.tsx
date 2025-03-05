@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import {
   type FilterItemParamHolder,
@@ -6,15 +6,15 @@ import {
   type IFilterItem,
 } from 'component/filter/Filters/Filters';
 
-interface IFeatureToggleFiltersProps {
+type FeatureToggleFiltersProps = {
   state: FilterItemParamHolder;
   onChange: (value: FilterItemParamHolder) => void;
-}
+};
 
-export const InsightsFilters: FC<IFeatureToggleFiltersProps> = ({
+export const InsightsFilters = ({
   state,
   onChange,
-}) => {
+}: FeatureToggleFiltersProps) => {
   const { projects } = useProjects();
 
   const [availableFilters, setAvailableFilters] = useState<IFilterItem[]>([]);

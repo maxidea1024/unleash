@@ -1,21 +1,20 @@
-import type { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import StandaloneLayout from 'component/user/common/StandaloneLayout';
 import StandaloneBanner from 'component/user/StandaloneBanner';
 import useLoading from 'hooks/useLoading';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface INewUserWrapperProps {
+type NewUserWrapperProps = {
   loading?: boolean;
   title?: string;
   children?: React.ReactNode;
-}
+};
 
-export const NewUserWrapper: FC<INewUserWrapperProps> = ({
+export const NewUserWrapper = ({
   children,
   loading,
   title,
-}) => {
+}: NewUserWrapperProps) => {
   const ref = useLoading(loading || false);
 
   return (

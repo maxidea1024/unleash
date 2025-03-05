@@ -3,19 +3,19 @@ import { StyledAddonParameterContainer } from '../../IntegrationForm.styles';
 import type { AddonParameterSchema, AddonSchema } from 'openapi';
 import { IntegrationParameterTextField } from './IntegrationParameterTextField';
 
-export interface IIntegrationParameterProps {
+export type IntegrationParameterProps = {
   parametersErrors: Record<string, string>;
   definition: AddonParameterSchema;
   setParameterValue: (param: string) => ChangeEventHandler<HTMLInputElement>;
   config: AddonSchema;
-}
+};
 
 export const IntegrationParameter = ({
   definition,
   config,
   parametersErrors,
   setParameterValue,
-}: IIntegrationParameterProps) => {
+}: IntegrationParameterProps) => {
   return (
     <StyledAddonParameterContainer>
       <IntegrationParameterTextField

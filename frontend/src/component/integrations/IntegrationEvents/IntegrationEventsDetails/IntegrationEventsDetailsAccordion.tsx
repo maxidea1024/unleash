@@ -21,15 +21,15 @@ const StyledAccordionSummary = styled(AccordionSummary)({
   lineHeight: '1.5rem',
 });
 
-interface IIntegrationEventsDetailsEventProps {
+type IntegrationEventsDetailsEventProps = {
   header: ReactNode;
   children: ReactNode;
-}
+};
 
 export const IntegrationEventsDetailsAccordion = ({
   header,
   children,
-}: IIntegrationEventsDetailsEventProps) => (
+}: IntegrationEventsDetailsEventProps) => (
   <StyledAccordion>
     <StyledAccordionSummary
       expandIcon={

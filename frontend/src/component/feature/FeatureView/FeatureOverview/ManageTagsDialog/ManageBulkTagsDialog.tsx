@@ -87,13 +87,13 @@ const emptyTagType = {
   icon: '',
 };
 
-export const ManageBulkTagsDialog: FC<ManageBulkTagsDialogProps> = ({
+export const ManageBulkTagsDialog = ({
   open,
   initialValues,
   initialIndeterminateValues,
   onCancel,
   onSubmit,
-}) => {
+}: ManageBulkTagsDialogProps) => {
   const { tagTypes, loading: tagTypesLoading } = useTagTypes();
   const [tagType, setTagType] = useState<(typeof tagTypes)[0]>(emptyTagType);
   const [selectedTags, setSelectedTags] = useState<TagOption[]>([]);

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import type { ILastSeenEnvironments } from 'interfaces/featureToggle';
 import { Box } from '@mui/material';
@@ -8,12 +8,19 @@ import { FeatureArchiveNotAllowedDialog } from 'component/common/FeatureArchiveD
 import { FeatureArchiveDialog } from 'component/common/FeatureArchiveDialog/FeatureArchiveDialog';
 import { MarkCompletedDialogue } from './MarkCompletedDialogue';
 
-export const FlagExposure: FC<{
+type FlagExposureProps = {
   project: string;
   flagName: string;
   onArchive: () => void;
   className?: string;
-}> = ({ project, flagName, onArchive, className }) => {
+};
+
+export const FlagExposure = ({
+  project,
+  flagName,
+  onArchive,
+  className,
+}: FlagExposureProps) => {
   const { feature, refetchFeature } = useFeature(project, flagName);
   const lastSeenEnvironments: ILastSeenEnvironments[] =
     feature.environments?.map((env) => ({

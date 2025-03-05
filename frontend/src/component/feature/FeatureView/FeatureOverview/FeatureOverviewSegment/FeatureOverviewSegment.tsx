@@ -4,15 +4,15 @@ import { StrategySeparator } from 'component/common/StrategySeparator/StrategySe
 import { SegmentItem } from '../../../../common/SegmentItem/SegmentItem';
 import type { ISegment } from 'interfaces/segment';
 
-interface IFeatureOverviewSegmentProps {
+type FeatureOverviewSegmentProps = {
   segments?: ISegment[];
   disabled?: boolean | null;
-}
+};
 
 export const FeatureOverviewSegment = ({
   segments,
   disabled = false,
-}: IFeatureOverviewSegmentProps) => {
+}: FeatureOverviewSegmentProps) => {
   if (!segments || segments.length === 0) {
     return null;
   }

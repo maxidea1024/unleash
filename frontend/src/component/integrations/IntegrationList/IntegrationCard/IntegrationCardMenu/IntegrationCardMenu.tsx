@@ -1,4 +1,4 @@
-import { type FC, useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import {
   Alert,
   IconButton,
@@ -29,9 +29,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
 import { IntegrationEventsModal } from 'component/integrations/IntegrationEvents/IntegrationEventsModal';
 
-interface IIntegrationCardMenuProps {
+type IntegrationCardMenuProps = {
   addon: AddonSchema;
-}
+};
 
 const StyledMenu = styled('div')(({ theme }) => ({
   marginLeft: theme.spacing(1),
@@ -42,9 +42,7 @@ const StyledMenu = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export const IntegrationCardMenu: FC<IIntegrationCardMenuProps> = ({
-  addon,
-}) => {
+export const IntegrationCardMenu = ({ addon }: IntegrationCardMenuProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isToggleOpen, setIsToggleOpen] = useState(false);

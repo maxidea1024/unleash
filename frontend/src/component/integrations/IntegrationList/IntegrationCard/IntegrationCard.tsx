@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Link, styled, Tooltip, Typography } from '@mui/material';
 import { IntegrationIcon } from '../IntegrationIcon/IntegrationIcon';
@@ -13,7 +12,7 @@ import { IntegrationEventsLastEvent } from 'component/integrations/IntegrationEv
 
 type CardVariant = 'default' | 'stacked';
 
-interface IIntegrationCardBaseProps {
+type IntegrationCardBaseProps = {
   variant?: CardVariant;
   id?: string | number;
   icon?: string;
@@ -23,23 +22,23 @@ interface IIntegrationCardBaseProps {
   configureActionText?: string;
   addon?: AddonSchema;
   deprecated?: string;
-}
+};
 
-interface IIntegrationCardWithLinkProps extends IIntegrationCardBaseProps {
+type IntegrationCardWithLinkProps = IntegrationCardBaseProps & {
   link: string;
   isExternal?: boolean;
   onClick?: never;
-}
+};
 
-interface IIntegrationCardWithOnClickProps extends IIntegrationCardBaseProps {
+type IntegrationCardWithOnClickProps = IntegrationCardBaseProps & {
   link?: never;
   isExternal?: never;
   onClick: () => void;
-}
+};
 
-type IIntegrationCardProps =
-  | IIntegrationCardWithLinkProps
-  | IIntegrationCardWithOnClickProps;
+type IntegrationCardProps =
+  | IntegrationCardWithLinkProps
+  | IntegrationCardWithOnClickProps;
 
 const StyledCard = styled('div', {
   shouldForwardProp: (prop) => prop !== 'variant',
@@ -112,7 +111,7 @@ const StyledOpenInNewIcon = styled(OpenInNewIcon)(({ theme }) => ({
   fontSize: theme.fontSizes.bodySize,
 }));
 
-export const IntegrationCard: FC<IIntegrationCardProps> = ({
+export const IntegrationCard = ({
   variant = 'default',
   icon,
   title,
@@ -124,7 +123,7 @@ export const IntegrationCard: FC<IIntegrationCardProps> = ({
   addon,
   deprecated,
   isExternal = false,
-}) => {
+}: IntegrationCardProps) => {
   const { trackEvent } = usePlausibleTracker();
   const isConfigured = addon !== undefined;
 

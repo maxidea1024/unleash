@@ -12,13 +12,13 @@ import { useTheme } from '@mui/material';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
 
-interface IProjectHealthChartProps {
+type ProjectHealthChartProps = {
   projectFlagTrends: GroupedDataByProject<
     InstanceInsightsSchema['projectFlagTrends']
   >;
   isAggregate?: boolean;
   isLoading?: boolean;
-}
+};
 
 type WeekData = {
   total: number;
@@ -34,11 +34,11 @@ const calculateHealth = (item: WeekData) =>
     100
   ).toFixed(2);
 
-export const ProjectHealthChart: FC<IProjectHealthChartProps> = ({
+export const ProjectHealthChart = ({
   projectFlagTrends,
   isAggregate,
   isLoading,
-}) => {
+}: ProjectHealthChartProps) => {
   const projectsData = useProjectChartData(projectFlagTrends);
   const theme = useTheme();
   const placeholderData = usePlaceholderData();

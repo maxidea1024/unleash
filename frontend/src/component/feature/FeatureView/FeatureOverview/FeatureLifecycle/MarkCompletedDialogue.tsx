@@ -8,13 +8,13 @@ import { SingleVariantOptions } from './SingleVariantOptions';
 import { useParentVariantOptions } from 'hooks/api/getters/useFeatureDependencyOptions/useFeatureDependencyOptions';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface IMarkCompletedDialogueProps {
+type MarkCompletedDialogueProps = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   onComplete: () => void;
   projectId: string;
   featureId: string;
-}
+};
 
 type Status = 'kept' | 'discarded' | 'kept-with-variant';
 
@@ -24,7 +24,7 @@ export const MarkCompletedDialogue = ({
   isOpen,
   setIsOpen,
   onComplete,
-}: IMarkCompletedDialogueProps) => {
+}: MarkCompletedDialogueProps) => {
   const { markFeatureCompleted } = useFeatureLifecycleApi();
   const { parentVariantOptions: variantOptions } = useParentVariantOptions(
     projectId,

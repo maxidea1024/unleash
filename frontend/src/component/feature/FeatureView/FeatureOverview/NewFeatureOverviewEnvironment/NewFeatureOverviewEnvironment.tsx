@@ -51,13 +51,13 @@ const StyledHeaderTitle = styled('span')(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-interface INewFeatureOverviewEnvironmentProps {
+type NewFeatureOverviewEnvironmentProps = {
   environmentId: string;
-}
+};
 
 export const NewFeatureOverviewEnvironment = ({
   environmentId,
-}: INewFeatureOverviewEnvironmentProps) => {
+}: NewFeatureOverviewEnvironmentProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const { metrics } = useFeatureMetrics(projectId, featureId);
