@@ -5,7 +5,6 @@ import {
   Switch,
   Typography,
 } from '@mui/material';
-import type { FC } from 'react';
 
 type FeatureStrategyEnabledDisabledProps = {
   enabled: boolean;
@@ -21,9 +20,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
   borderRadius: `${theme.shape.borderRadiusMedium}px`,
 }));
 
-export const FeatureStrategyEnabledDisabled: FC<
-  FeatureStrategyEnabledDisabledProps
-> = ({ enabled, onToggleEnabled }) => {
+export const FeatureStrategyEnabledDisabled = ({
+  enabled,
+  onToggleEnabled,
+}: FeatureStrategyEnabledDisabledProps) => {
   return (
     <StyledBox>
       <Typography>Strategy Status</Typography>

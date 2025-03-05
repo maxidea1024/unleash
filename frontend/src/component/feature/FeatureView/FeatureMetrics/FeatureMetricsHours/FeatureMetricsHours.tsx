@@ -5,7 +5,7 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useEffect } from 'react';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IFeatureMetricsHoursProps {
+type FeatureMetricsHoursProps = {
   hoursBack: number;
   setHoursBack: (value: number) => void;
   label?: string;
@@ -17,7 +17,7 @@ export const FeatureMetricsHours = ({
   hoursBack,
   setHoursBack,
   label = 'Period',
-}: IFeatureMetricsHoursProps) => {
+}: FeatureMetricsHoursProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onChange: IGeneralSelectProps['onChange'] = (key) => {

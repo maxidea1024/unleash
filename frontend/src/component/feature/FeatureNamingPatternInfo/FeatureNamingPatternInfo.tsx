@@ -28,9 +28,7 @@ type Props = {
   featureNaming: FeatureNamingType;
 };
 
-export const FeatureNamingPatternInfo: React.FC<Props> = ({
-  featureNaming,
-}) => {
+export const FeatureNamingPatternInfo = ({ featureNaming }: Props) => {
   return (
     <StyledFlagNamingInfo>
       <p>This project has feature flag naming patterns enabled.</p>

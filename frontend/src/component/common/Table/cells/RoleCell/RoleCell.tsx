@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { RoleDescription } from 'component/common/RoleDescription/RoleDescription';
@@ -29,7 +28,7 @@ type TMultipleRolesProps = {
 
 type TRoleCellProps = TSingleRoleProps | TMultipleRolesProps;
 
-export const RoleCell: FC<TRoleCellProps> = ({ role, roles, value }) => {
+export const RoleCell = ({ role, roles, value }: TRoleCellProps) => {
   const { isEnterprise } = useUiConfig();
 
   if (isEnterprise()) {

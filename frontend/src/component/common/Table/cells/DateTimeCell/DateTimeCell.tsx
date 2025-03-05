@@ -2,14 +2,13 @@ import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHM } from 'utils/formatDate';
 import { parseISO } from 'date-fns';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
-import type { FC } from 'react';
 
 type DateTimeCellProps = {
   value?: Date | string | null;
   timeZone?: string;
 };
 
-export const DateTimeCell: FC<DateTimeCellProps> = ({ value, timeZone }) => {
+export const DateTimeCell = ({ value, timeZone }: DateTimeCellProps) => {
   const { locationSettings } = useLocationSettings();
 
   const date = value

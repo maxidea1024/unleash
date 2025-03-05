@@ -15,19 +15,19 @@ const StyledInput = styled(Input)(() => ({
   width: '100%',
 }));
 
-interface IEnvironmentDeleteDialogProps {
+type EnvironmentDeleteDialogProps = {
   environment: IEnvironment;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: () => void;
-}
+};
 
 export const EnvironmentDeleteDialog = ({
   environment,
   open,
   setOpen,
   onConfirm,
-}: IEnvironmentDeleteDialogProps) => {
+}: EnvironmentDeleteDialogProps) => {
   const [confirmName, setConfirmName] = useState('');
 
   useEffect(() => {

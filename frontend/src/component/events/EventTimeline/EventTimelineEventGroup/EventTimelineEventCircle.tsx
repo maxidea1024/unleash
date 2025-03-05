@@ -87,15 +87,14 @@ const isValidVariant = (variant?: string): variant is EventVariant =>
   variant !== undefined &&
   ['secondary', 'success', 'neutral', 'warning', 'error'].includes(variant);
 
-interface IEventTimelineEventCircleProps
-  extends HTMLAttributes<HTMLDivElement> {
+type EventTimelineEventCircleProps = HTMLAttributes<HTMLDivElement> & {
   group: TimelineEventGroup;
-}
+};
 
 export const EventTimelineEventCircle = ({
   group,
   ...props
-}: IEventTimelineEventCircleProps) => {
+}: EventTimelineEventCircleProps) => {
   if (
     group.length === 1 ||
     !group.some(

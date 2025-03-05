@@ -17,15 +17,15 @@ const StyledToggleWarning = styled('p', {
   color: warning ? theme.palette.error.dark : theme.palette.text.primary,
 }));
 
-interface IEnvironmentTableSingleProps {
+type EnvironmentTableSingleProps = {
   environment: IEnvironment;
   warnEnabledToggles?: boolean;
-}
+};
 
 export const EnvironmentTableSingle = ({
   environment,
   warnEnabledToggles,
-}: IEnvironmentTableSingleProps) => {
+}: EnvironmentTableSingleProps) => {
   const COLUMNS = useMemo(
     () => [
       {

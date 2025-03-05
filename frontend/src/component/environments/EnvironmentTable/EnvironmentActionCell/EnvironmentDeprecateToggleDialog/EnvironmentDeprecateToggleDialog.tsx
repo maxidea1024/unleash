@@ -5,19 +5,19 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { EnvironmentTableSingle } from 'component/environments/EnvironmentTable/EnvironmentTableSingle';
 
-interface IEnvironmentDeprecateToggleDialogProps {
+type EnvironmentDeprecateToggleDialogProps = {
   environment: IEnvironment;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: () => void;
-}
+};
 
 export const EnvironmentDeprecateToggleDialog = ({
   environment,
   open,
   setOpen,
   onConfirm,
-}: IEnvironmentDeprecateToggleDialogProps) => {
+}: EnvironmentDeprecateToggleDialogProps) => {
   const { enabled } = environment;
   const actionName = enabled ? 'Deprecate' : 'Undeprecate';
 

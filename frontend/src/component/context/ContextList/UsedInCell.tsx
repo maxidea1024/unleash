@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import theme from 'themes/theme';
 import { Box } from '@mui/material';
@@ -8,7 +7,7 @@ type UsedInCellProps = {
   original: IUnleashContextDefinition;
 };
 
-export const UsedInCell: FC<UsedInCellProps> = ({ original }) => {
+export const UsedInCell = ({ original }: UsedInCellProps) => {
   const projectText = original.usedInProjects === 1 ? 'project' : 'projects';
   const flagsText = original.usedInFeatures === 1 ? 'flag' : 'flags';
   return (

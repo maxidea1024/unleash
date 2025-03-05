@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, } from 'react';
 import {
   Box,
   Button,
@@ -90,12 +90,12 @@ const ENVIRONMENT_TYPES = [
   'production',
 ];
 
-export const OrderEnvironmentsDialog: FC<OrderEnvironmentsDialogProps> = ({
+export const OrderEnvironmentsDialog = ({
   open,
   onClose,
   onSubmit,
   errors,
-}) => {
+}: OrderEnvironmentsDialogProps) => {
   const { trackEvent } = usePlausibleTracker();
   const [selectedOption, setSelectedOption] = useState(OPTIONS[0]);
   const [costCheckboxChecked, setCostCheckboxChecked] = useState(false);

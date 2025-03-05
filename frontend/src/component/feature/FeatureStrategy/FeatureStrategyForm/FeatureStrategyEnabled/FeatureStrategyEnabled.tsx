@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Alert } from '@mui/material';
@@ -6,18 +5,18 @@ import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { formatFeaturePath } from '../../FeatureStrategyEdit/FeatureStrategyEdit';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 
-interface IFeatureStrategyEnabledProps {
+type FeatureStrategyEnabledProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
   isChangeRequest?: boolean;
-}
+};
 
-export const FeatureStrategyEnabled: FC<IFeatureStrategyEnabledProps> = ({
+export const FeatureStrategyEnabled = ({
   projectId,
   featureId,
   environmentId,
-}) => {
+}: FeatureStrategyEnabledProps) => {
   const featurePagePath = formatFeaturePath(projectId, featureId);
   const { feature } = useFeature(projectId, featureId);
 

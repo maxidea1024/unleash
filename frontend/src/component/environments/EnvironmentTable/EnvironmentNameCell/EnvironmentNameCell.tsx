@@ -20,13 +20,13 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface IEnvironmentNameCellProps {
+type EnvironmentNameCellProps = {
   environment: IEnvironment;
-}
+};
 
 export const EnvironmentNameCell = ({
   environment,
-}: IEnvironmentNameCellProps) => {
+}: EnvironmentNameCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   return (

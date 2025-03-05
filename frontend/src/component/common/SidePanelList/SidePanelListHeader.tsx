@@ -21,17 +21,17 @@ const StyledHeaderHalf = styled('div', {
   ...(maxWidth && { maxWidth }),
 }));
 
-interface ISidePanelListHeaderProps<T> {
+type SidePanelListHeaderProps<T> = {
   columns: SidePanelListColumn<T>[];
   sidePanelHeader: string;
   leftPanelMaxWidth?: number;
-}
+};
 
 export const SidePanelListHeader = <T,>({
   columns,
   sidePanelHeader,
   leftPanelMaxWidth,
-}: ISidePanelListHeaderProps<T>) => (
+}: SidePanelListHeaderProps<T>) => (
   <StyledHeader>
     <StyledHeaderHalf maxWidth={leftPanelMaxWidth}>
       {columns.map(({ header, maxWidth, align }) => (

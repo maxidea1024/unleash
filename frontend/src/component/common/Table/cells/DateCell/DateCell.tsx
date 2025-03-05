@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { getLocalizedDateString } from '../../../util';
@@ -9,7 +8,7 @@ type DateCellProps = {
 };
 
 // `getValue is for new @tanstack/react-table (v8), `value` is for legacy react-table (v7)
-export const DateCell: FC<DateCellProps> = ({ value, getValue }) => {
+export const DateCell = ({ value, getValue }: DateCellProps) => {
   const input = value || getValue?.() || null;
   const { locationSettings } = useLocationSettings();
   const date = getLocalizedDateString(input, locationSettings.locale);

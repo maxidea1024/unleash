@@ -12,21 +12,21 @@ import {
   StyledDescription,
 } from './LinkCell.styles';
 
-interface ILinkCellProps {
+type LinkCellProps = {
   title?: string;
   to?: string;
   onClick?: () => void;
   subtitle?: string;
   children?: React.ReactNode;
-}
+};
 
-export const LinkCell: React.FC<ILinkCellProps> = ({
+export const LinkCell = ({
   title,
   to,
   onClick,
   subtitle,
   children,
-}) => {
+}: LinkCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const renderSubtitle = (

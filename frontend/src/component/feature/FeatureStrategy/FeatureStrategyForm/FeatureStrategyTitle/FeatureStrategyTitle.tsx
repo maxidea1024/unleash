@@ -1,16 +1,15 @@
 import { Box, Typography } from '@mui/material';
 import Input from 'component/common/Input/Input';
-import type { FC } from 'react';
 
 type FeatureStrategyTitleProps = {
   title: string;
   setTitle: (title: string) => void;
 };
 
-export const FeatureStrategyTitle: FC<FeatureStrategyTitleProps> = ({
+export const FeatureStrategyTitle = ({
   title,
   setTitle,
-}) => {
+}: FeatureStrategyTitleProps) => {
   return (
     <Box sx={{ paddingBottom: (theme) => theme.spacing(2) }}>
       <Typography

@@ -18,12 +18,12 @@ const MainCircularProgress = styled(CircularProgress)(({ theme }) => ({
   left: 0,
 }));
 
-interface ILastSeenProgressProps {
+type LastSeenProgressProps = {
   yes: number | undefined;
   no: number | undefined;
-}
+};
 
-export const LastSeenProgress = ({ yes, no }: ILastSeenProgressProps) => {
+export const LastSeenProgress = ({ yes, no }: LastSeenProgressProps) => {
   const noData = yes === undefined || no === undefined || yes + no === 0;
   if (noData) {
     return <Box />;

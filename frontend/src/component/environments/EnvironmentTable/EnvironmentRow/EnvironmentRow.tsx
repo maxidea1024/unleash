@@ -16,12 +16,12 @@ const StyledTableRow = styled(TableRow)(() => ({
   },
 }));
 
-interface IEnvironmentRowProps {
+type EnvironmentRowProps = {
   row: Row;
   moveListItem: MoveListItem;
-}
+};
 
-export const EnvironmentRow = ({ row, moveListItem }: IEnvironmentRowProps) => {
+export const EnvironmentRow = ({ row, moveListItem }: EnvironmentRowProps) => {
   const { hasAccess } = useContext(AccessContext);
   const dragHandleRef = useRef(null);
   const { searchQuery } = useSearchHighlightContext();

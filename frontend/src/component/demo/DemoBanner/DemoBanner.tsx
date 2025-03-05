@@ -34,11 +34,11 @@ const StyledQuestionsButton = styled(StyledButton)(({ theme }) => ({
   border: `1px solid rgba(255, 255, 255, 0.5)`,
 })) as typeof Button;
 
-interface IDemoBannerProps {
+type DemoBannerProps = {
   onPlans: () => void;
 }
 
-export const DemoBanner = ({ onPlans }: IDemoBannerProps) => {
+export const DemoBanner = ({ onPlans }: DemoBannerProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   return (

@@ -13,18 +13,6 @@ import type { PlaygroundStrategySchema } from 'openapi';
 import { Badge } from '../Badge/Badge';
 import { Link } from 'react-router-dom';
 
-interface IStrategyItemContainerProps {
-  strategy: IFeatureStrategy | PlaygroundStrategySchema;
-  onDragStart?: DragEventHandler<HTMLButtonElement>;
-  onDragEnd?: DragEventHandler<HTMLButtonElement>;
-  actions?: ReactNode;
-  orderNumber?: number;
-  className?: string;
-  style?: React.CSSProperties;
-  description?: string;
-  children?: React.ReactNode;
-}
-
 const DragIcon = styled(IconButton)({
   padding: 0,
   cursor: 'inherit',
@@ -42,6 +30,7 @@ const StyledIndexLabel = styled('div')(({ theme }) => ({
     display: 'block',
   },
 }));
+
 const StyledDescription = styled('div')(({ theme }) => ({
   fontSize: theme.typography.fontSize,
   fontWeight: 'normal',
@@ -52,6 +41,7 @@ const StyledDescription = styled('div')(({ theme }) => ({
     display: 'block',
   },
 }));
+
 const StyledCustomTitle = styled('div')(({ theme }) => ({
   fontWeight: 'normal',
   display: 'none',
@@ -59,6 +49,7 @@ const StyledCustomTitle = styled('div')(({ theme }) => ({
     display: 'block',
   },
 }));
+
 const StyledHeaderContainer = styled('div')({
   flexDirection: 'column',
   justifyContent: 'center',
@@ -93,7 +84,19 @@ const StyledHeader = styled('div', {
   }),
 );
 
-export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
+type StrategyItemContainerProps = {
+  strategy: IFeatureStrategy | PlaygroundStrategySchema;
+  onDragStart?: DragEventHandler<HTMLButtonElement>;
+  onDragEnd?: DragEventHandler<HTMLButtonElement>;
+  actions?: ReactNode;
+  orderNumber?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  description?: string;
+  children?: React.ReactNode;
+};
+
+export const StrategyItemContainer = ({
   strategy,
   onDragStart,
   onDragEnd,
@@ -102,7 +105,7 @@ export const StrategyItemContainer: FC<IStrategyItemContainerProps> = ({
   orderNumber,
   style = {},
   description,
-}) => {
+}: StrategyItemContainerProps) => {
   const Icon = getFeatureStrategyIcon(strategy.name);
 
   const StrategyHeaderLink: React.FC<{ children?: React.ReactNode }> =

@@ -9,21 +9,21 @@ const DIFF_PREFIXES: Record<string, string> = {
   N: '+',
 };
 
-interface IEventDiffResult {
+type EventDiffResult = {
   key: string;
   value: JSX.Element;
   index: number;
-}
+};
 
-interface IEventDiffProps {
+type EventDiffProps = {
   entry: { data?: unknown; preData?: unknown };
-  sort?: (a: IEventDiffResult, b: IEventDiffResult) => number;
-}
+  sort?: (a: EventDiffResult, b: EventDiffResult) => number;
+};
 
 const EventDiff = ({
   entry,
   sort = (a, b) => a.key.localeCompare(b.key),
-}: IEventDiffProps) => {
+}: EventDiffProps) => {
   const theme = useTheme();
 
   const styles: Record<string, CSSProperties> = {
@@ -55,7 +55,7 @@ const EventDiff = ({
     return change;
   };
 
-  const buildDiff = (diff: any, index: number): IEventDiffResult => {
+  const buildDiff = (diff: any, index: number): EventDiffResult => {
     let change: JSX.Element | undefined;
     const key = diff.path?.join('.') ?? diff.index;
 

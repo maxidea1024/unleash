@@ -1,7 +1,7 @@
 import { Switch, Tooltip } from '@mui/material';
 import { TextCell } from '../TextCell/TextCell';
 
-interface IToggleCellProps {
+type ToggleCellProps = {
   checked: boolean;
   setChecked: (value: boolean) => void;
   title?: string;
@@ -11,7 +11,7 @@ export const ToggleCell = ({
   checked,
   setChecked,
   title,
-}: IToggleCellProps) => (
+}: ToggleCellProps) => (
   <TextCell>
     <Tooltip title={title ? title : checked ? 'Disable' : 'Enable'} arrow>
       <Switch

@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import useAllTags from 'hooks/api/getters/useAllTags/useAllTags';
@@ -13,10 +13,10 @@ type FeatureToggleFiltersProps = {
   onChange: (value: FilterItemParamHolder) => void;
 };
 
-export const FeatureToggleFilters: FC<FeatureToggleFiltersProps> = ({
+export const FeatureToggleFilters = ({
   state,
   onChange,
-}) => {
+}: FeatureToggleFiltersProps) => {
   const { projects } = useProjects();
   const { segments } = useSegments();
   const { tags } = useAllTags();

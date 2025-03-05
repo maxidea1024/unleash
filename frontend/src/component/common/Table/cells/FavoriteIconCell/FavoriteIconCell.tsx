@@ -32,10 +32,7 @@ type FavoriteIconCellProps = {
   onClick?: () => void;
 };
 
-export const FavoriteIconCell: FC<FavoriteIconCellProps> = ({
-  value,
-  onClick,
-}) => (
+export const FavoriteIconCell = ({ value, onClick }: FavoriteIconCellProps) => (
   <StyledCell>
     <ConditionallyRender
       condition={Boolean(value)}

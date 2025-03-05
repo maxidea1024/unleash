@@ -5,15 +5,15 @@ import { Box, Typography } from '@mui/material';
 import { useId } from 'hooks/useId';
 import React, { Suspense } from 'react';
 
-interface IFeatureMetricsContentProps {
+type FeatureMetricsContentProps = {
   metrics: IFeatureMetricsRaw[];
   hoursBack: number;
-}
+};
 
 export const FeatureMetricsContent = ({
   metrics,
   hoursBack,
-}: IFeatureMetricsContentProps) => {
+}: FeatureMetricsContentProps) => {
   const statsSectionId = useId();
   const tableSectionId = useId();
 

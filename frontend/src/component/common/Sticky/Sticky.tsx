@@ -23,11 +23,11 @@ const StyledSticky = styled('div', {
     : {}),
 }));
 
-interface IStickyProps extends HTMLAttributes<HTMLDivElement> {
+type StickyProps = HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
-}
+};
 
-export const Sticky = ({ children, ...props }: IStickyProps) => {
+export const Sticky = ({ children, ...props }: StickyProps) => {
   const context = useContext(StickyContext);
   const ref = useRef<HTMLDivElement>(null);
   const [initialTopOffset, setInitialTopOffset] = useState<number | null>(null);

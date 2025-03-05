@@ -20,11 +20,11 @@ type CopyButtonProps = {
   onClick: (environmentId: string) => void;
 };
 
-export const CopyButton: FC<CopyButtonProps> = ({
+export const CopyButton = ({
   environmentId,
   environments,
   onClick,
-}) => {
+}: CopyButtonProps) => {
   const projectId = useRequiredPathParam('projectId');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

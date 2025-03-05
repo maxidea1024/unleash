@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, styled, type Theme, Typography } from '@mui/material';
 import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 
@@ -20,7 +19,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
 }));
 
-export const FeatureStaleCell: FC<FeatureStaleCellProps> = ({ value }) => {
+export const FeatureStaleCell = ({ value }: FeatureStaleCellProps) => {
   return (
     <StyledBox>
       <ConditionallyRender

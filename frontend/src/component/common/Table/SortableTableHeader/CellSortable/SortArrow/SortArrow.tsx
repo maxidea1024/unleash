@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import UnfoldMoreOutlined from '@mui/icons-material/UnfoldMoreOutlined';
@@ -19,11 +18,11 @@ const iconStyle = (theme: Theme) => ({
   verticalAlign: 'middle',
 });
 
-export const SortArrow: FC<SortArrowProps> = ({
+export const SortArrow = ({
   isSorted: sorted,
   isDesc: desc = false,
   className,
-}) => (
+}: SortArrowProps) => (
   <ConditionallyRender
     condition={Boolean(sorted)}
     show={

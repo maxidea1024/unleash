@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
@@ -14,10 +13,10 @@ type ContextActionsCellProps = {
   onDelete: () => void;
 };
 
-export const ContextActionsCell: FC<ContextActionsCellProps> = ({
+export const ContextActionsCell = ({
   name,
   onDelete,
-}) => {
+}: ContextActionsCellProps) => {
   const navigate = useNavigate();
 
   return (

@@ -7,9 +7,7 @@ import { CREATE_CONTEXT_FIELD } from 'component/providers/AccessProvider/permiss
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 
-type AddContextButtonProps = {};
-
-export const AddContextButton: FC<AddContextButtonProps> = () => {
+export const AddContextButton = () => {
   const smallScreen = useMediaQuery('(max-width:700px)');
   const navigate = useNavigate();
 

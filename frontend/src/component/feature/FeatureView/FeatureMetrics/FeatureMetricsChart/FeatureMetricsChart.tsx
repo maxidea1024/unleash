@@ -18,17 +18,17 @@ import { createChartData } from './createChartData';
 import { createChartOptions } from './createChartOptions';
 import { useTheme } from '@mui/material';
 
-interface IFeatureMetricsChartProps {
+type FeatureMetricsChartProps = {
   metrics: IFeatureMetricsRaw[];
   hoursBack: number;
   statsSectionId: string;
-}
+};
 
 export const FeatureMetricsChart = ({
   metrics,
   hoursBack,
   statsSectionId,
-}: IFeatureMetricsChartProps) => {
+}: FeatureMetricsChartProps) => {
   const theme = useTheme();
   const { locationSettings } = useLocationSettings();
 

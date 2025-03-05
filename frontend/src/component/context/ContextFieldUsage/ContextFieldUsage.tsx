@@ -16,11 +16,11 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-interface IContextFieldUsageProps {
+type ContextFieldUsageProps = {
   contextName: string;
-}
+};
 
-export const ContextFieldUsage = ({ contextName }: IContextFieldUsageProps) => {
+export const ContextFieldUsage = ({ contextName }: ContextFieldUsageProps) => {
   const { strategies } = useStrategiesByContext(contextName);
   const { projects } = useProjects();
   const { trackEvent } = usePlausibleTracker();

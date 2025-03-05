@@ -39,13 +39,13 @@ const StyledTimelineEventsCount = styled('span')(({ theme }) => ({
   marginTop: theme.spacing(0.25),
 }));
 
-interface IEventTimelineHeaderProps {
+type EventTimelineHeaderProps = {
   totalEvents: number;
-}
+};
 
 export const EventTimelineHeader = ({
   totalEvents,
-}: IEventTimelineHeaderProps) => {
+}: EventTimelineHeaderProps) => {
   const { timeSpan, environment, setOpen, setTimeSpan, setEnvironment } =
     useEventTimelineContext();
   const { environments } = useEnvironments();

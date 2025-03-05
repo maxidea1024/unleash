@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useState, } from 'react';
 import { formatDistanceToNow, secondsToMilliseconds } from 'date-fns';
 
 type TimeAgoProps = {
@@ -15,12 +15,12 @@ const formatTimeAgo = (date: string | number | Date) =>
     .replace('about ', '')
     .replace('less than a minute ago', '< 1 minute ago'); // TODO: localization
 
-export const TimeAgo: FC<TimeAgoProps> = ({
+export const TimeAgo = ({
   date,
   fallback = '',
   refresh = true,
   timeElement = true,
-}) => {
+}: TimeAgoProps) => {
   const getValue = (): { description: string; dateTime?: Date } => {
     try {
       if (!date) {

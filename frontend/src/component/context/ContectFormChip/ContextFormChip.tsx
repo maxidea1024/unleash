@@ -2,11 +2,11 @@ import Cancel from '@mui/icons-material/Cancel';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { styled } from '@mui/material';
 
-interface IContextFormChipProps {
+type ContextFormChipProps = {
   label: string;
   description?: string;
   onRemove: () => void;
-}
+};
 
 const StyledContainer = styled('li')(({ theme }) => ({
   display: 'grid',
@@ -49,7 +49,7 @@ export const ContextFormChip = ({
   label,
   description,
   onRemove,
-}: IContextFormChipProps) => {
+}: ContextFormChipProps) => {
   return (
     <StyledContainer>
       <div>

@@ -16,7 +16,7 @@ import { ContextFormChip } from 'component/context/ContectFormChip/ContextFormCh
 import { ContextFormChipList } from 'component/context/ContectFormChip/ContextFormChipList';
 import { ContextFieldUsage } from '../ContextFieldUsage/ContextFieldUsage';
 
-interface IContextForm {
+type ContextFormProps = {
   contextName: string;
   contextDesc: string;
   legalValues: ILegalValue[];
@@ -33,7 +33,7 @@ interface IContextForm {
   validateContext?: () => void;
   setErrors: React.Dispatch<React.SetStateAction<Object>>;
   children?: React.ReactNode;
-}
+};
 
 const ENTER = 'Enter';
 
@@ -79,7 +79,7 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-export const ContextForm: React.FC<IContextForm> = ({
+export const ContextForm = ({
   children,
   handleSubmit,
   onCancel,
@@ -96,7 +96,7 @@ export const ContextForm: React.FC<IContextForm> = ({
   validateContext,
   setErrors,
   clearErrors,
-}) => {
+}: ContextFormProps) => {
   const [value, setValue] = useState('');
   const [valueDesc, setValueDesc] = useState('');
   const [valueFocused, setValueFocused] = useState(false);

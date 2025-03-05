@@ -1,13 +1,12 @@
-import type { FC } from 'react';
 import { Alert } from '@mui/material';
 
 type FeatureStrategyChangeRequestAlertProps = {
   environment?: string;
 };
 
-export const FeatureStrategyChangeRequestAlert: FC<
-  FeatureStrategyChangeRequestAlertProps
-> = ({ environment }) => (
+export const FeatureStrategyChangeRequestAlert = ({
+  environment,
+}: FeatureStrategyChangeRequestAlertProps) => (
   <Alert severity='info'>
     <strong>Change requests</strong> are enabled
     {environment ? ` for ${environment}` : ''}. Your changes needs to be

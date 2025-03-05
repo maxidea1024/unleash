@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
 import type { ReactNode } from 'react';
 
-interface IIconCellProps {
+type IconCellProps = {
   icon: ReactNode;
-}
+};
 
-export const IconCell = ({ icon }: IIconCellProps) => {
+export const IconCell = ({ icon }: IconCellProps) => {
   return (
     <Box
       sx={{

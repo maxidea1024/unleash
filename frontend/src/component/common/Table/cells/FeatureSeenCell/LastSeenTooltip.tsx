@@ -61,18 +61,18 @@ const StyledListContainer = styled('div')(({ theme }) => ({
   paddingRight: theme.spacing(2),
 }));
 
-interface ILastSeenTooltipProps {
+type LastSeenTooltipProps = {
   featureLastSeen: string;
   environments?: ILastSeenEnvironments[];
   className?: string;
   sx?: SxProps<Theme>;
-}
+};
 
 export const LastSeenTooltip = ({
   environments,
   featureLastSeen,
   ...rest
-}: ILastSeenTooltipProps) => {
+}: LastSeenTooltipProps) => {
   const getColor = useLastSeenColors();
   const environmentsHaveLastSeen = environments?.some((environment) =>
     Boolean(environment.lastSeenAt),

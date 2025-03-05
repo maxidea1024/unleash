@@ -4,7 +4,7 @@ import Input from 'component/common/Input/Input';
 import EnvironmentTypeSelector from './EnvironmentTypeSelector/EnvironmentTypeSelector';
 import { trim } from 'component/common/util';
 
-interface IEnvironmentForm {
+type EnvironmentFormProps = {
   name: string;
   type: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
@@ -17,7 +17,7 @@ interface IEnvironmentForm {
   clearErrors: () => void;
   children?: React.ReactNode;
   Limit?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')({
   display: 'flex',
@@ -61,7 +61,7 @@ const LimitContainer = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-const EnvironmentForm: React.FC<IEnvironmentForm> = ({
+const EnvironmentForm = ({
   children,
   handleSubmit,
   handleCancel,
@@ -74,7 +74,7 @@ const EnvironmentForm: React.FC<IEnvironmentForm> = ({
   mode,
   clearErrors,
   Limit,
-}) => {
+}: EnvironmentFormProps) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormHeader>Environment information</StyledFormHeader>

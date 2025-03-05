@@ -9,17 +9,17 @@ import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashCon
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
-interface ICreateContextProps {
+type CreateContextProps = {
   onSubmit: () => void;
   onCancel: () => void;
   modal?: boolean;
-}
+};
 
 export const CreateUnleashContext = ({
   onSubmit,
   onCancel,
   modal,
-}: ICreateContextProps) => {
+}: CreateContextProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const {

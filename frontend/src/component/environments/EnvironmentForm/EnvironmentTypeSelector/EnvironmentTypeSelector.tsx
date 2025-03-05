@@ -7,10 +7,10 @@ import {
 } from '@mui/material';
 import type React from 'react';
 
-interface IEnvironmentTypeSelectorProps {
+type EnvironmentTypeSelectorProps = {
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
   value: string;
-}
+};
 
 const StyledRadioGroup = styled(RadioGroup)({
   flexDirection: 'row',
@@ -24,7 +24,7 @@ const StyledRadioButtonGroup = styled('div')({
 const EnvironmentTypeSelector = ({
   onChange,
   value,
-}: IEnvironmentTypeSelectorProps) => {
+}: EnvironmentTypeSelectorProps) => {
   return (
     <FormControl component='fieldset'>
       <StyledRadioGroup data-loading value={value} onChange={onChange}>

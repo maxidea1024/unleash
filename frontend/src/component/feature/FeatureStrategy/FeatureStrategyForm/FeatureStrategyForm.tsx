@@ -47,7 +47,7 @@ import { BuiltInStrategies, formatStrategyName } from 'utils/strategyNames';
 import { Badge } from 'component/common/Badge/Badge';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 
-interface IFeatureStrategyFormProps {
+type FeatureStrategyFormProps = {
   feature: IFeatureToggle;
   projectId: string;
   environmentId: string;
@@ -66,7 +66,7 @@ interface IFeatureStrategyFormProps {
   StrategyVariants: JSX.Element;
   Limit?: JSX.Element;
   disabled?: boolean;
-}
+};
 
 const StyledDividerContent = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.75, 1),
@@ -207,7 +207,7 @@ export const FeatureStrategyForm = ({
   StrategyVariants,
   Limit,
   disabled,
-}: IFeatureStrategyFormProps) => {
+}: FeatureStrategyFormProps) => {
   const { trackEvent } = usePlausibleTracker();
   const [showProdGuard, setShowProdGuard] = useState(false);
   const hasValidConstraints = useConstraintsValidation(strategy.constraints);

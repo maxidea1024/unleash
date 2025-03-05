@@ -11,15 +11,15 @@ import theme from 'themes/theme';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
 import { ApplicationsCell } from './ApplicationsCell';
 
-interface IFeatureMetricsTableProps {
+type FeatureMetricsTableProps = {
   metrics: IFeatureMetricsRaw[];
   tableSectionId?: string;
-}
+};
 
 export const FeatureMetricsTable = ({
   metrics,
   tableSectionId,
-}: IFeatureMetricsTableProps) => {
+}: FeatureMetricsTableProps) => {
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const initialState = useMemo(() => ({ sortBy: [{ id: 'timestamp' }] }), []);

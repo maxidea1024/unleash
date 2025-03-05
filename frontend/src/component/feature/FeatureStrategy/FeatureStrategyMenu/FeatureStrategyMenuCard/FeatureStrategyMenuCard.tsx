@@ -9,14 +9,14 @@ import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { styled } from '@mui/material';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface IFeatureStrategyMenuCardProps {
+type FeatureStrategyMenuCardProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
   strategy: Pick<IStrategy, 'name' | 'displayName' | 'description'> &
     Partial<IStrategy>;
   defaultStrategy?: boolean;
-}
+};
 
 const StyledIcon = styled('div')(({ theme }) => ({
   width: theme.spacing(4),
@@ -64,7 +64,7 @@ export const FeatureStrategyMenuCard = ({
   environmentId,
   strategy,
   defaultStrategy,
-}: IFeatureStrategyMenuCardProps) => {
+}: FeatureStrategyMenuCardProps) => {
   const StrategyIcon = getFeatureStrategyIcon(strategy.name);
   const strategyName = formatStrategyName(strategy.name);
   const { trackEvent } = usePlausibleTracker();

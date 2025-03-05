@@ -1,10 +1,6 @@
 import { Box, styled, useTheme } from '@mui/material';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
-interface IStrategySeparatorProps {
-  text: 'AND' | 'OR';
-}
-
 const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(0.75, 1),
   color: theme.palette.text.primary,
@@ -28,7 +24,11 @@ const StyledCenteredContent = styled(StyledContent)(({ theme }) => ({
   padding: theme.spacing(0.75, 1.5),
 }));
 
-export const StrategySeparator = ({ text }: IStrategySeparatorProps) => {
+type StrategySeparatorProps = {
+  text: 'AND' | 'OR';
+};
+
+export const StrategySeparator = ({ text }: StrategySeparatorProps) => {
   const theme = useTheme();
 
   return (

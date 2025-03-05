@@ -14,7 +14,7 @@ import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { getLocalizedDateString } from '../../../util';
 
-interface IFeatureNameCellProps {
+type FeatureNameCellProps = {
   row: {
     original: Pick<
       FeatureSearchResponseSchema,
@@ -27,7 +27,7 @@ interface IFeatureNameCellProps {
       | 'archivedAt'
     >;
   };
-}
+};
 
 const StyledFeatureLink = styled(Link)({
   textDecoration: 'none',
@@ -350,7 +350,7 @@ export const FeatureOverviewCell =
   (
     onTagClick: (tag: string) => void,
     onFlagTypeClick: (type: string) => void,
-  ): FC<IFeatureNameCellProps> =>
+  ): FC<FeatureNameCellProps> =>
   ({ row }) => {
     const { searchQuery } = useSearchHighlightContext();
 

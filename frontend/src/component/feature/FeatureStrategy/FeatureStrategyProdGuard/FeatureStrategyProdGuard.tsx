@@ -6,17 +6,17 @@ import { PRODUCTION } from 'constants/environmentTypes';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { createLocalStorage } from 'utils/createLocalStorage';
 
-interface IFeatureStrategyProdGuardProps {
+type FeatureStrategyProdGuardProps = {
   open: boolean;
   onClick: () => void;
   onClose: () => void;
   label: string;
   loading: boolean;
-}
+};
 
-interface IFeatureStrategyProdGuardSettings {
+type FeatureStrategyProdGuardSettings = {
   hide: boolean;
-}
+};
 
 export const FeatureStrategyProdGuard = ({
   open,
@@ -24,7 +24,7 @@ export const FeatureStrategyProdGuard = ({
   onClick,
   label,
   loading,
-}: IFeatureStrategyProdGuardProps) => {
+}: FeatureStrategyProdGuardProps) => {
   const { value: settings, setValue: setSettings } =
     getFeatureStrategyProdGuardSettings();
   const [hide, setHide] = useState(settings.hide);
@@ -82,7 +82,7 @@ export const useFeatureStrategyProdGuard = (
 const localStorageKey = 'useFeatureStrategyProdGuardSettings:v2';
 
 const getFeatureStrategyProdGuardSettings = () =>
-  createLocalStorage<IFeatureStrategyProdGuardSettings>(localStorageKey, {
+  createLocalStorage<FeatureStrategyProdGuardSettings>(localStorageKey, {
     hide: false,
   });
 

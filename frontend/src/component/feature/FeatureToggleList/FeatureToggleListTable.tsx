@@ -42,7 +42,7 @@ export const featuresPlaceholder = Array(15).fill({
 const columnHelper = createColumnHelper<FeatureSearchResponseSchema>();
 const feedbackCategory = 'search';
 
-export const FeatureToggleListTable: FC = () => {
+export const FeatureToggleListTable = () => {
   const theme = useTheme();
   const { trackEvent } = usePlausibleTracker();
   const { environments } = useEnvironments();

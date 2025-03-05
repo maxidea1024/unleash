@@ -9,11 +9,11 @@ import { ReactComponent as UsageRate } from 'assets/icons/usage-rate.svg';
 import { useLastSeenColors } from './useLastSeenColors';
 import { getLatestLastSeenAt } from './getLatestLastSeenAt';
 
-interface IFeatureEnvironmentSeenProps {
+type FeatureEnvironmentSeenProps = {
   featureLastSeen: string | undefined;
   environments: ILastSeenEnvironments[];
   sx?: SxProps;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -84,7 +84,7 @@ export const FeatureEnvironmentSeen = ({
   environments,
   sx,
   ...rest
-}: IFeatureEnvironmentSeenProps) => {
+}: FeatureEnvironmentSeenProps) => {
   const getColor = useLastSeenColors();
 
   const lastSeen = getLatestLastSeenAt(environments) || featureLastSeen;

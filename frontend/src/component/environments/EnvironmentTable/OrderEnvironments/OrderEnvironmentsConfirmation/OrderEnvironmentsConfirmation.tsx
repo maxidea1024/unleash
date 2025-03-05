@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 
@@ -8,9 +7,11 @@ type OrderEnvironmentsConfirmationProps = {
   onClose: () => void;
 };
 
-export const OrderEnvironmentsConfirmation: FC<
-  OrderEnvironmentsConfirmationProps
-> = ({ open, orderedEnvironments, onClose }) => {
+export const OrderEnvironmentsConfirmation = ({
+  open,
+  orderedEnvironments,
+  onClose,
+}: OrderEnvironmentsConfirmationProps) => {
   return (
     <Dialogue
       open={open}

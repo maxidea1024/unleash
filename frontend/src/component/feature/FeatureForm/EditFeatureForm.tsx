@@ -17,7 +17,7 @@ import Input from 'component/common/Input/Input';
 import type React from 'react';
 import type { CreateFeatureSchemaType } from 'openapi';
 
-interface IFeatureToggleForm {
+type FeatureToggleFormProps = {
   type: CreateFeatureSchemaType;
   name: string;
   description: string;
@@ -29,7 +29,7 @@ interface IFeatureToggleForm {
   handleCancel: () => void;
   children?: React.ReactNode;
   Limit?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')({
   height: '100%',
@@ -89,7 +89,7 @@ const LimitContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-const EditFeatureForm: React.FC<IFeatureToggleForm> = ({
+const EditFeatureForm = ({
   children,
   type,
   name,
@@ -101,7 +101,7 @@ const EditFeatureForm: React.FC<IFeatureToggleForm> = ({
   handleSubmit,
   handleCancel,
   Limit,
-}) => {
+}: FeatureToggleFormProps) => {
   const { featureTypes } = useFeatureTypes();
 
   const renderToggleDescription = () => {

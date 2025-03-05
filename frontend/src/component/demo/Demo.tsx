@@ -21,11 +21,11 @@ const defaultProgress = {
   stepsCompletion: Array(TOPICS.length).fill(0),
 };
 
-interface IDemoProps {
+type DemoProps = {
   children: JSX.Element;
-}
+};
 
-export const Demo = ({ children }: IDemoProps): JSX.Element => {
+export const Demo = ({ children }: DemoProps): JSX.Element => {
   const { uiConfig } = useUiConfig();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down(768));
   const { trackEvent } = usePlausibleTracker();

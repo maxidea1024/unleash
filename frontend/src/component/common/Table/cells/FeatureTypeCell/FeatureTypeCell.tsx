@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled, Tooltip } from '@mui/material';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
@@ -17,7 +16,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
 }));
 
 // `getValue is for new @tanstack/react-table (v8), `value` is for legacy react-table (v7)
-export const FeatureTypeCell: FC<FeatureTypeProps> = ({ value, getValue }) => {
+export const FeatureTypeCell = ({ value, getValue }: FeatureTypeProps) => {
   const type = value || getValue?.() || undefined;
   const { featureTypes } = useFeatureTypes();
   const IconComponent = getFeatureTypeIcons(type);

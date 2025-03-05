@@ -29,12 +29,12 @@ const StyledHeader = styled(Typography)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-interface IDemoDialogProps extends DialogProps {
+type DemoDialogProps = DialogProps & {
   open: boolean;
   onClose: () => void;
   preventCloseOnBackdropClick?: boolean;
   children: React.ReactNode;
-}
+};
 
 export const DemoDialog = ({
   open,
@@ -42,7 +42,7 @@ export const DemoDialog = ({
   preventCloseOnBackdropClick,
   children,
   ...props
-}: IDemoDialogProps) => (
+}: DemoDialogProps) => (
   <StyledDialog
     open={open}
     onClose={(_, r) => {

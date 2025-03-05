@@ -3,7 +3,7 @@ import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import type { ISegment } from 'interfaces/segment';
 import {
   AutocompleteBox,
-  type IAutocompleteBoxOption,
+  type AutocompleteBoxOption,
 } from 'component/common/AutocompleteBox/AutocompleteBox';
 import { FeatureStrategySegmentList } from 'component/feature/FeatureStrategy/FeatureStrategySegment/FeatureStrategySegmentList';
 import { SegmentDocsStrategyWarning } from 'component/segments/SegmentDocs';
@@ -11,11 +11,11 @@ import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentL
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-interface IFeatureStrategySegmentProps {
+type FeatureStrategySegmentProps = {
   segments: ISegment[];
   setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
   projectId: string;
-}
+};
 
 const StyledDivider = styled(Divider)(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
@@ -32,7 +32,7 @@ export const FeatureStrategySegment = ({
   segments: selectedSegments,
   setSegments: setSelectedSegments,
   projectId,
-}: IFeatureStrategySegmentProps) => {
+}: FeatureStrategySegmentProps) => {
   const { segments: allSegments } = useSegments();
   const { strategySegmentsLimit } = useSegmentLimits();
 
@@ -57,7 +57,7 @@ export const FeatureStrategySegment = ({
     label: segment.name,
   }));
 
-  const onChange = ([option]: IAutocompleteBoxOption[]) => {
+  const onChange = ([option]: AutocompleteBoxOption[]) => {
     const selectedSegment = allSegments.find((segment) => {
       return String(segment.id) === option.value;
     });

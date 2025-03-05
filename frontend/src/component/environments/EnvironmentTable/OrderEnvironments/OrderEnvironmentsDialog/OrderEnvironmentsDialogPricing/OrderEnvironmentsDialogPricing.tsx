@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, Card, styled, Typography } from '@mui/material';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import { BILLING_PRO_DEFAULT_INCLUDED_SEATS } from 'component/admin/billing/BillingDashboard/BillingPlan/BillingPlan';
@@ -35,9 +34,9 @@ const StyledExtraText = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(2),
 }));
 
-export const OrderEnvironmentsDialogPricing: FC<
-  OrderEnvironmentsDialogPricingProps
-> = ({ pricingOptions }) => (
+export const OrderEnvironmentsDialogPricing = ({
+  pricingOptions,
+}: OrderEnvironmentsDialogPricingProps) => (
   <StyledContainer>
     <Typography variant='h3' component='div' color='white' gutterBottom>
       Pricing

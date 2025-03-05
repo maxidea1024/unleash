@@ -15,11 +15,11 @@ import { StickyPaginationBar } from 'component/common/Table/StickyPaginationBar/
 import { EventActions } from './EventActions';
 import useLoading from 'hooks/useLoading';
 
-interface IEventLogProps {
+type EventLogProps = {
   title: string;
   project?: string;
   feature?: string;
-}
+};
 
 const StyledEventsList = styled('ul')(({ theme }) => ({
   listStyleType: 'none',
@@ -48,7 +48,7 @@ const Placeholder = styled('li')({
   '&[data-loading-events=true]': { zIndex: '1' }, // .skeleton has z-index: 9990
 });
 
-export const EventLog = ({ title, project, feature }: IEventLogProps) => {
+export const EventLog = ({ title, project, feature }: EventLogProps) => {
   const { isEnterprise } = useUiConfig();
   const showFilters = isEnterprise();
   const {

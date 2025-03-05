@@ -1,12 +1,12 @@
 import { Tooltip } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface IStringTruncatorProps {
+type StringTruncatorProps = {
   text: string;
   maxWidth: string;
   className?: string;
   maxLength: number;
-}
+};
 
 const StringTruncator = ({
   text,
@@ -14,7 +14,7 @@ const StringTruncator = ({
   maxLength,
   className,
   ...rest
-}: IStringTruncatorProps) => {
+}: StringTruncatorProps) => {
   return (
     <ConditionallyRender
       condition={(text?.length ?? 0) > maxLength}

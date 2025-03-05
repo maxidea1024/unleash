@@ -4,17 +4,17 @@ import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
 import { Link } from 'react-router-dom';
 
-interface IEnvironmentTokenDialogProps {
+type EnvironmentTokenDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: IApiToken;
-}
+};
 
 export const EnvironmentTokenDialog = ({
   open,
   setOpen,
   token,
-}: IEnvironmentTokenDialogProps) => (
+}: EnvironmentTokenDialogProps) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'

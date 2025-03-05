@@ -54,17 +54,17 @@ const StyledButton = styled(Button)(({ theme }) => ({
   height: theme.spacing(7),
 }));
 
-interface IDemoDialogWelcomeProps {
+type DemoDialogWelcomeProps = {
   open: boolean;
   onClose: () => void;
   onStart: () => void;
-}
+};
 
 export const DemoDialogWelcome = ({
   open,
   onClose,
   onStart,
-}: IDemoDialogWelcomeProps) => {
+}: DemoDialogWelcomeProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   return (

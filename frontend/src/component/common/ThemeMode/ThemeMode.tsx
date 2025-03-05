@@ -2,12 +2,12 @@ import UIContext from 'contexts/UIContext';
 import { useContext } from 'react';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
-interface IThemeModeProps {
+type ThemeModeProps = {
   darkmode: JSX.Element;
   lightmode: JSX.Element;
-}
+};
 
-export const ThemeMode = ({ darkmode, lightmode }: IThemeModeProps) => {
+export const ThemeMode = ({ darkmode, lightmode }: ThemeModeProps) => {
   const { themeMode } = useContext(UIContext);
 
   return (

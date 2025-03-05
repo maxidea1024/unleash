@@ -35,17 +35,17 @@ const StyledItem = styled(Button, {
   },
 }));
 
-interface ISidePanelListItemProps {
+type SidePanelListItemProps = {
   selected: boolean;
   onClick: () => void;
   children: ReactNode;
-}
+};
 
 export const SidePanelListItem = ({
   selected,
   onClick,
   children,
-}: ISidePanelListItemProps) => (
+}: SidePanelListItemProps) => (
   <StyledItemRow>
     <StyledItem selected={selected} onClick={onClick}>
       {children}

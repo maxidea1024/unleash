@@ -1,28 +1,29 @@
 import { Tooltip, Typography } from '@mui/material';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import type { FC } from 'react';
 import { formatDateYMD } from 'utils/formatDate';
 import { TextCell } from '../TextCell/TextCell';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 
-interface ITimeAgoCellProps {
+type TimeAgoCellProps = {
   value?: string | number | Date;
   live?: boolean;
   emptyText?: string;
   title?: (date: string) => string;
   dateFormat?: (value: string | number | Date, locale: string) => string;
-}
+};
 
-export const TimeAgoCell: FC<ITimeAgoCellProps> = ({
+export const TimeAgoCell = ({
   value,
   live = false,
   emptyText,
   title,
   dateFormat = formatDateYMD,
-}) => {
+}: TimeAgoCellProps) => {
   const { locationSettings } = useLocationSettings();
 
-  if (!value) return <TextCell>{emptyText}</TextCell>;
+  if (!value) {
+    return <TextCell>{emptyText}</TextCell>;
+  }
 
   const date = dateFormat(value, locationSettings.locale);
 

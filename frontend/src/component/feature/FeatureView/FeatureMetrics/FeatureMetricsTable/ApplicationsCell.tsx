@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
@@ -16,7 +15,7 @@ type FeatureTagCellProps = {
   };
 };
 
-export const ApplicationsCell: FC<FeatureTagCellProps> = ({ row }) => {
+export const ApplicationsCell = ({ row }: FeatureTagCellProps) => {
   if (
     row.original.selectedApplications &&
     row.original.selectedApplications.length > 1

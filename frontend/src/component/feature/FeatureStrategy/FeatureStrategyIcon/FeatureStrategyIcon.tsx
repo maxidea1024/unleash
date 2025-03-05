@@ -5,13 +5,11 @@ import {
 import { styled, Tooltip } from '@mui/material';
 import type { IFeatureStrategy } from 'interfaces/strategy';
 
-interface IFeatureStrategyIconProps {
+type FeatureStrategyIconProps = {
   strategy: IFeatureStrategy;
-}
+};
 
-export const FeatureStrategyIcon = ({
-  strategy,
-}: IFeatureStrategyIconProps) => {
+export const FeatureStrategyIcon = ({ strategy }: FeatureStrategyIconProps) => {
   const Icon = getFeatureStrategyIcon(strategy.name);
 
   return (

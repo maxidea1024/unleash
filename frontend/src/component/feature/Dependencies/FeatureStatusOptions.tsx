@@ -7,6 +7,7 @@ export const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   marginTop: theme.spacing(2),
   marginBottom: theme.spacing(1.5),
 }));
+
 export const FeatureStatusOptions: FC<{
   parentValue: ParentValue;
   onSelect: (parent: string) => void;

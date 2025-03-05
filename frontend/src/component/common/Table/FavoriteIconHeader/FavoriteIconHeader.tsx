@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -10,10 +10,10 @@ type FavoriteIconHeaderProps = {
   onClick: (isPinned: boolean) => void;
 };
 
-export const FavoriteIconHeader: FC<FavoriteIconHeaderProps> = ({
+export const FavoriteIconHeader = ({
   isActive = false,
   onClick,
-}) => {
+}: FavoriteIconHeaderProps) => {
   const [internalState, setInternalState] = useState(isActive);
   const onToggle = () => {
     setInternalState(!internalState);

@@ -1,4 +1,4 @@
-import React, { type FC } from 'react';
+import React from 'react';
 import { FeatureEnvironmentSeen } from 'component/feature/FeatureView/FeatureEnvironmentSeen/FeatureEnvironmentSeen';
 import type { FeatureSearchEnvironmentSchema } from 'openapi';
 import { FeatureLifecycle } from 'component/feature/FeatureView/FeatureOverview/FeatureLifecycle/FeatureLifecycle';
@@ -11,10 +11,10 @@ type FeatureSeenCellProps = {
   };
 };
 
-export const FeatureEnvironmentSeenCell: FC<FeatureSeenCellProps> = ({
+export const FeatureEnvironmentSeenCell = ({
   feature,
   ...rest
-}) => {
+}: FeatureSeenCellProps) => {
   const environments = feature.environments
     ? Object.values(feature.environments)
     : [];
@@ -40,13 +40,13 @@ type FeatureLifecycleProps = {
   onArchive: () => void;
 };
 
-export const FeatureLifecycleCell: FC<FeatureLifecycleProps> = ({
+export const FeatureLifecycleCell = ({
   feature,
   onComplete,
   onUncomplete,
   onArchive,
   ...rest
-}) => {
+}: FeatureLifecycleProps) => {
   const environments = feature.environments
     ? Object.values(feature.environments)
     : [];

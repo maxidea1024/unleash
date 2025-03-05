@@ -15,13 +15,13 @@ import { EnvironmentDeprecateToggleDialog } from './EnvironmentDeprecateToggleDi
 import { EnvironmentDeleteDialog } from './EnvironmentDeleteDialog/EnvironmentDeleteDialog';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IEnvironmentTableActionsProps {
+type EnvironmentTableActionsProps = {
   environment: IEnvironment;
-}
+};
 
 export const EnvironmentActionCell = ({
   environment,
-}: IEnvironmentTableActionsProps) => {
+}: EnvironmentTableActionsProps) => {
   const navigate = useNavigate();
   const { uiConfig } = useUiConfig();
   const environmentLimit = uiConfig.resourceLimits.environments;

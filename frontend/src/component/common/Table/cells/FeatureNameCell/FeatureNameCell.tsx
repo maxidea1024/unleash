@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 
 type FeatureNameCellProps = {
@@ -11,7 +10,7 @@ type FeatureNameCellProps = {
   };
 };
 
-export const FeatureNameCell: FC<FeatureNameCellProps> = ({ row }) => (
+export const FeatureNameCell = ({ row }: FeatureNameCellProps) => (
   <LinkCell
     title={row.original.name || ''}
     subtitle={row.original.description || ''}

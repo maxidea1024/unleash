@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { FeatureSearchResponseSchema } from 'openapi';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from '../TextCell/TextCell';
@@ -17,10 +16,7 @@ type FeatureSegmentCellProps = {
   value: string;
 };
 
-export const FeatureSegmentCell: FC<FeatureSegmentCellProps> = ({
-  row,
-  value,
-}) => {
+export const FeatureSegmentCell = ({ row, value }: FeatureSegmentCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (!row.original.segments || row.original.segments.length === 0) {

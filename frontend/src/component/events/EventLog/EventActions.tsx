@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import {
   IconButton,
   ListItemText,
@@ -24,11 +24,11 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-interface IEventActions {
+type EventActionsProps = {
   events: EventSchema[];
 }
 
-export const EventActions: FC<IEventActions> = ({ events }) => {
+export const EventActions = ({ events }: EventActionsProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { trackEvent } = usePlausibleTracker();
 

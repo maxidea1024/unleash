@@ -11,13 +11,13 @@ import { FeatureStatusOptions } from './FeatureStatusOptions';
 import { useManageDependency } from './useManageDependency';
 import { LazyParentOptions } from './LazyParentOptions';
 
-interface IAddDependencyDialogueProps {
+type AddDependencyDialogueProps = {
   project: string;
   featureId: string;
   parentDependency?: IDependency;
   showDependencyDialogue: boolean;
   onClose: () => void;
-}
+};
 
 export const AddDependencyDialogue = ({
   project,
@@ -25,7 +25,7 @@ export const AddDependencyDialogue = ({
   parentDependency,
   showDependencyDialogue,
   onClose,
-}: IAddDependencyDialogueProps) => {
+}: AddDependencyDialogueProps) => {
   const [parent, setParent] = useState(
     parentDependency?.feature || REMOVE_DEPENDENCY_OPTION.key,
   );

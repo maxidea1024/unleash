@@ -139,12 +139,12 @@ type EventLogFiltersProps = {
   onChange: (value: FilterItemParamHolder) => void;
 };
 
-export const EventLogFilters: FC<EventLogFiltersProps> = ({
+export const EventLogFilters = ({
   logType,
   className,
   state,
   onChange,
-}) => {
+}: EventLogFiltersProps) => {
   const availableFilters = useEventLogFiltersFromLogType(logType);
 
   return (

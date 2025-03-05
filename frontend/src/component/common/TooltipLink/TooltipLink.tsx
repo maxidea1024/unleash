@@ -16,12 +16,12 @@ const StyledLink = styled(Link, {
   whiteSpace: 'nowrap',
 }));
 
-interface ITooltipLinkProps extends LinkProps {
+type TooltipLinkProps = LinkProps & {
   tooltip: ReactNode;
   highlighted?: boolean;
   tooltipProps?: Omit<IHtmlTooltipProps, 'title' | 'children'>;
   children: ReactNode;
-}
+};
 
 export const TooltipLink = ({
   tooltip,
@@ -29,7 +29,7 @@ export const TooltipLink = ({
   tooltipProps,
   children,
   ...props
-}: ITooltipLinkProps) => (
+}: TooltipLinkProps) => (
   <HtmlTooltip title={tooltip} {...tooltipProps} arrow>
     <StyledLink tabIndex={0} highlighted={highlighted} {...props}>
       {children}

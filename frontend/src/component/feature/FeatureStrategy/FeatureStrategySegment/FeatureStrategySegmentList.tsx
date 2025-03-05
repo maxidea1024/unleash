@@ -6,10 +6,10 @@ import { FeatureStrategySegmentChip } from 'component/feature/FeatureStrategy/Fe
 import { SegmentItem } from 'component/common/SegmentItem/SegmentItem';
 import { styled } from '@mui/material';
 
-interface IFeatureStrategySegmentListProps {
+type FeatureStrategySegmentListProps = {
   segments: ISegment[];
   setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
-}
+};
 
 const StyledList = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -37,7 +37,7 @@ const StyledAnd = styled('p')(({ theme }) => ({
 export const FeatureStrategySegmentList = ({
   segments,
   setSegments,
-}: IFeatureStrategySegmentListProps) => {
+}: FeatureStrategySegmentListProps) => {
   const [preview, setPreview] = useState<ISegment>();
   const lastSegmentIndex = segments.length - 1;
 

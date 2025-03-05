@@ -8,12 +8,12 @@ import {
 import { useHasProjectEnvironmentAccess } from 'hooks/useHasAccess';
 import { FeatureStrategyConstraintAccordionList } from './FeatureStrategyConstraintAccordionList/FeatureStrategyConstraintAccordionList';
 
-interface IFeatureStrategyConstraintsProps {
+type FeatureStrategyConstraintsProps = {
   projectId: string;
   environmentId: string;
   strategy: Partial<IFeatureStrategy>;
   setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
-}
+};
 
 const filterConstraints = (constraint: any) => {
   if (
@@ -33,7 +33,7 @@ export const FeatureStrategyConstraints = ({
   environmentId,
   strategy,
   setStrategy,
-}: IFeatureStrategyConstraintsProps) => {
+}: FeatureStrategyConstraintsProps) => {
   useEffect(() => {
     return () => {
       if (!strategy.constraints) {

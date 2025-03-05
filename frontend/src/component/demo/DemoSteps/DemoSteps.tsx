@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { DemoStepTooltip } from './DemoStepTooltip/DemoStepTooltip';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface IDemoStepsProps {
+type DemoStepsProps = {
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
@@ -20,7 +20,7 @@ interface IDemoStepsProps {
   setTopic: React.Dispatch<React.SetStateAction<number>>;
   topics: ITutorialTopic[];
   onFinish: () => void;
-}
+};
 
 export const DemoSteps = ({
   setExpanded,
@@ -32,7 +32,7 @@ export const DemoSteps = ({
   setTopic,
   topics,
   onFinish,
-}: IDemoStepsProps) => {
+}: DemoStepsProps) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const location = useLocation();

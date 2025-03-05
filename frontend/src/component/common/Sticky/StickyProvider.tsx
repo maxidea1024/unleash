@@ -7,11 +7,11 @@ import {
 } from 'react';
 import { StickyContext } from './StickyContext';
 
-interface IStickyProviderProps {
+type StickyProviderProps = {
   children: ReactNode;
-}
+};
 
-export const StickyProvider = ({ children }: IStickyProviderProps) => {
+export const StickyProvider = ({ children }: StickyProviderProps) => {
   const [stickyItems, setStickyItems] = useState<RefObject<HTMLDivElement>[]>(
     [],
   );

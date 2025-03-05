@@ -2,11 +2,11 @@ import type { IFeatureMetricsRaw } from 'interfaces/featureToggle';
 import { useMemo } from 'react';
 import {
   FeatureMetricsStats,
-  type IFeatureMetricsStatsProps,
+  type FeatureMetricsStatsProps,
 } from './FeatureMetricsStats';
 
 interface IFeatureMetricsStatsRawProps
-  extends Omit<IFeatureMetricsStatsProps, 'totalYes' | 'totalNo'> {
+  extends Omit<FeatureMetricsStatsProps, 'totalYes' | 'totalNo'> {
   metrics: IFeatureMetricsRaw[];
 }
 

@@ -17,11 +17,11 @@ const StyledEvent = styled('div', {
   zIndex: 1,
 }));
 
-interface IEventTimelineEventProps {
+type EventTimelineEventProps = {
   group: TimelineEventGroup;
   startTime: number;
   endTime: number;
-}
+};
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '.MuiBadge-badge': {
@@ -34,7 +34,7 @@ export const EventTimelineEventGroup = ({
   group,
   startTime,
   endTime,
-}: IEventTimelineEventProps) => {
+}: EventTimelineEventProps) => {
   const { trackEvent } = usePlausibleTracker();
   const timelineDuration = endTime - startTime;
   const eventTime = group[0].timestamp;

@@ -12,7 +12,7 @@ import MoreVert from '@mui/icons-material/MoreVert';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-interface IFeatureStrategyMenuProps {
+type FeatureStrategyMenuProps = {
   label: string;
   projectId: string;
   featureId: string;
@@ -21,7 +21,7 @@ interface IFeatureStrategyMenuProps {
   matchWidth?: boolean;
   size?: IPermissionButtonProps['size'];
   disableReason?: string;
-}
+};
 
 const StyledStrategyMenu = styled('div')({
   flexShrink: 0,
@@ -46,7 +46,7 @@ export const FeatureStrategyMenu = ({
   size,
   matchWidth,
   disableReason,
-}: IFeatureStrategyMenuProps) => {
+}: FeatureStrategyMenuProps) => {
   const [anchor, setAnchor] = useState<Element>();
   const navigate = useNavigate();
   const { trackEvent } = usePlausibleTracker();

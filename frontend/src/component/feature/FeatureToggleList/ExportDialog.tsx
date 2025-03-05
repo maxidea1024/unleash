@@ -5,18 +5,17 @@ import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import { useExportApi } from 'hooks/api/actions/useExportApi/useExportApi';
 import useToast from 'hooks/useToast';
 import type { FeatureSchema } from 'openapi';
-
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { ConditionallyRender } from '../../common/ConditionallyRender/ConditionallyRender';
 
-interface IExportDialogProps {
+type ExportDialogProps = {
   showExportDialog: boolean;
   data: Pick<FeatureSchema, 'name'>[];
   project?: string;
   onClose: () => void;
   onConfirm?: () => void;
   environments: string[];
-}
+};
 
 const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   minWidth: '250px',
@@ -30,7 +29,7 @@ export const ExportDialog = ({
   onClose,
   onConfirm,
   environments,
-}: IExportDialogProps) => {
+}: ExportDialogProps) => {
   const [selected, setSelected] = useState(environments[0]);
   const { createExport } = useExportApi();
   const ref = createRef<HTMLDivElement>();

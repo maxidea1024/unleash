@@ -144,7 +144,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-interface IDemoTopicsProps {
+type DemoTopicsProps = {
   expanded: boolean;
   setExpanded: React.Dispatch<React.SetStateAction<boolean>>;
   stepsCompletion: number[];
@@ -152,7 +152,7 @@ interface IDemoTopicsProps {
   setCurrentTopic: (topic: number) => void;
   topics: ITutorialTopic[];
   onWelcome: () => void;
-}
+};
 
 export const DemoTopics = ({
   expanded,
@@ -162,7 +162,7 @@ export const DemoTopics = ({
   setCurrentTopic,
   topics,
   onWelcome,
-}: IDemoTopicsProps) => {
+}: DemoTopicsProps) => {
   const completedSteps = stepsCompletion.reduce(
     (acc, step) => acc + (step || 0),
     0,

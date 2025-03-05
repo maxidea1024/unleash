@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled } from '@mui/material';
 import { Box, IconButton } from '@mui/material';
 import CloudCircle from '@mui/icons-material/CloudCircle';
@@ -31,9 +30,9 @@ type EnvironmentIconCellProps = {
   environment: IEnvironment;
 };
 
-export const EnvironmentIconCell: FC<EnvironmentIconCellProps> = ({
+export const EnvironmentIconCell = ({
   environment,
-}) => (
+}: EnvironmentIconCellProps) => (
   <StyledCell>
     <DragIcon size='large' disableRipple className='drag-icon'>
       <DragIndicator titleAccess='Drag to reorder' />

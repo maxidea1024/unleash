@@ -26,13 +26,13 @@ const StyledItem = styled('div')(({ theme }) => ({
 
 const THRESHOLD = 5;
 
-interface IFeatureStrategyIconsProps {
+type FeatureStrategyIconsProps = {
   strategies: IFeatureStrategy[] | undefined;
-}
+};
 
 export const FeatureStrategyIcons = ({
   strategies,
-}: IFeatureStrategyIconsProps) => {
+}: FeatureStrategyIconsProps) => {
   if (!strategies?.length) {
     return null;
   }

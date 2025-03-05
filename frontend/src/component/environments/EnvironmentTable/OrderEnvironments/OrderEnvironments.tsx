@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState } from 'react';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { PurchasableFeature } from './PurchasableFeature/PurchasableFeature';
@@ -10,9 +10,7 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { useOrderEnvironmentApi } from 'hooks/api/actions/useOrderEnvironmentsApi/useOrderEnvironmentsApi';
 import type { OrderEnvironmentsSchema } from 'openapi';
 
-type OrderEnvironmentsProps = {};
-
-export const OrderEnvironments: FC<OrderEnvironmentsProps> = () => {
+export const OrderEnvironments = () => {
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
   const [confirmationState, setConfirmationState] = useState<{
     isOpen: boolean;

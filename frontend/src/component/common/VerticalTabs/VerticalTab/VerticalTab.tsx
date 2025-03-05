@@ -51,14 +51,14 @@ const StyledTabDescription = styled('div')(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-interface IVerticalTabProps {
+type VerticalTabProps = {
   label: string;
   description?: string;
   selected?: boolean;
   onClick: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-}
+};
 
 export const VerticalTab = ({
   label,
@@ -67,7 +67,7 @@ export const VerticalTab = ({
   onClick,
   startIcon,
   endIcon,
-}: IVerticalTabProps) => (
+}: VerticalTabProps) => (
   <StyledTab
     selected={Boolean(selected)}
     className={selected ? 'selected' : ''}

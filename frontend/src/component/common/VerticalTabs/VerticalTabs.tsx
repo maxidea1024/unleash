@@ -39,13 +39,12 @@ export interface ITab {
   endIcon?: React.ReactNode;
 }
 
-interface IVerticalTabsProps
-  extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> {
+type VerticalTabsProps = Omit<HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   tabs: ITab[];
   value: string;
   onChange: (tab: ITab) => void;
   children?: React.ReactNode;
-}
+};
 
 export const VerticalTabs = ({
   tabs,
@@ -53,7 +52,7 @@ export const VerticalTabs = ({
   onChange,
   children,
   ...props
-}: IVerticalTabsProps) => {
+}: VerticalTabsProps) => {
   const verticalTabs = tabs
     .filter((tab) => !tab.hidden)
     .map((tab) => (

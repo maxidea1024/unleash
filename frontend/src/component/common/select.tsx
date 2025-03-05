@@ -7,7 +7,6 @@ import {
   type SelectChangeEvent,
 } from '@mui/material';
 import { SELECT_ITEM_ID } from 'utils/testIds';
-import type { FC } from 'react';
 
 export type SelectOption = {
   key: string;
@@ -15,7 +14,7 @@ export type SelectOption = {
   label?: string;
 };
 
-export type SelectMenuProps = {
+type SelectMenuProps = {
   name: string;
   id: string;
   value?: string;
@@ -29,7 +28,7 @@ export type SelectMenuProps = {
   formControlStyles?: React.CSSProperties;
 };
 
-const SelectMenu: FC<SelectMenuProps> = ({
+const SelectMenu = ({
   name,
   value = '',
   label = '',
@@ -41,7 +40,7 @@ const SelectMenu: FC<SelectMenuProps> = ({
   classes,
   formControlStyles = {},
   ...rest
-}) => {
+}: SelectMenuProps) => {
   const renderSelectItems = () =>
     options.map((option) => (
       <MenuItem

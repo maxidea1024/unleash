@@ -83,12 +83,12 @@ const StyledCompareLink = styled('a')(({ theme }) => ({
   },
 }));
 
-interface IDemoDialogPlansProps {
+type DemoDialogPlansProps = {
   open: boolean;
   onClose: () => void;
-}
+};
 
-export const DemoDialogPlans = ({ open, onClose }: IDemoDialogPlansProps) => {
+export const DemoDialogPlans = ({ open, onClose }: DemoDialogPlansProps) => {
   const { trackEvent } = usePlausibleTracker();
   const isEnterprisePaygEnabled = useUiFlag('enterprise-payg');
 

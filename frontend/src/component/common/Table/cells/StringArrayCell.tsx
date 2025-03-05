@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -16,12 +15,12 @@ type ArrayFieldCellProps<T> = {
   pluralLabel?: string;
 };
 
-export const StringArrayCell: FC<ArrayFieldCellProps<any>> = ({
+export const StringArrayCell = ({
   row,
   field,
   singularLabel,
   pluralLabel,
-}) => {
+}: ArrayFieldCellProps<any>) => {
   const { searchQuery } = useSearchHighlightContext();
   const fieldValue = row[field];
 

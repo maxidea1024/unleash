@@ -3,13 +3,13 @@ import { Grid, styled } from '@mui/material';
 import { PrettifyLargeNumber } from 'component/common/PrettifyLargeNumber/PrettifyLargeNumber';
 import { daysOrHours } from '../daysOrHours';
 
-export interface IFeatureMetricsStatsProps {
+export type FeatureMetricsStatsProps = {
   totalYes: number;
   totalNo: number;
   hoursBack: number;
   statsSectionId?: string;
   tableSectionId?: string;
-}
+};
 
 const StyledItem = styled('article')(({ theme }) => ({
   padding: theme.spacing(2),
@@ -49,7 +49,7 @@ export const FeatureMetricsStats = ({
   hoursBack,
   statsSectionId,
   tableSectionId,
-}: IFeatureMetricsStatsProps) => {
+}: FeatureMetricsStatsProps) => {
   const hoursSuffix =
     hoursBack === 1
       ? 'in the last hour'

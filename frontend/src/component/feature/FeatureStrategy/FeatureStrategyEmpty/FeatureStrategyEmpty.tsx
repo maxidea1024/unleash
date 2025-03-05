@@ -13,11 +13,11 @@ import { CopyStrategiesMessage } from 'component/changeRequest/ChangeRequestConf
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { FeatureStrategyMenu } from '../FeatureStrategyMenu/FeatureStrategyMenu';
 
-interface IFeatureStrategyEmptyProps {
+type FeatureStrategyEmptyProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -49,7 +49,7 @@ export const FeatureStrategyEmpty = ({
   projectId,
   featureId,
   environmentId,
-}: IFeatureStrategyEmptyProps) => {
+}: FeatureStrategyEmptyProps) => {
   const { addStrategyToFeature } = useFeatureStrategyApi();
   const { setToastData, setToastApiError } = useToast();
   const { refetchFeature } = useFeature(projectId, featureId);

@@ -7,13 +7,13 @@ import {
 import AnimateOnMount from 'component/common/AnimateOnMount/AnimateOnMount';
 import { useMemo } from 'react';
 
-interface IStaleDataNotification {
+type StaleDataNotificationProps = {
   refresh: () => void;
   afterSubmitAction: () => void;
   data: unknown;
   cache: unknown;
   show: boolean;
-}
+};
 
 export const StaleDataNotification = ({
   refresh,
@@ -21,7 +21,7 @@ export const StaleDataNotification = ({
   afterSubmitAction,
   data,
   cache,
-}: IStaleDataNotification) => {
+}: StaleDataNotificationProps) => {
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 

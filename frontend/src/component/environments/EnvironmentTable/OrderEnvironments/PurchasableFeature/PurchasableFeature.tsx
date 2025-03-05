@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
 import { ReactComponent as ProPlanIcon } from 'assets/icons/pro-enterprise-feature-badge.svg';
@@ -46,11 +46,11 @@ const StyledButtonContainer = styled(Box)(() => ({
   whiteSpace: 'nowrap',
 }));
 
-export const PurchasableFeature: FC<PurchasableFeatureProps> = ({
+export const PurchasableFeature = ({
   title,
   description,
   onClick,
-}) => {
+}: PurchasableFeatureProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onViewPricingClick = () => {

@@ -70,7 +70,7 @@ const StyledTooltipActions = styled('div')(({ theme }) => ({
 }));
 
 // @ts-ignore
-export interface IDemoStepTooltipProps extends TooltipRenderProps {
+type DemoStepTooltipProps = TooltipRenderProps & {
   step: ITutorialTopicStep;
   topic: number;
   topics: ITutorialTopic[];
@@ -78,7 +78,7 @@ export interface IDemoStepTooltipProps extends TooltipRenderProps {
   onClose: () => void;
   onBack: (step: ITutorialTopicStep) => void;
   onNext: (step: number) => void;
-}
+};
 
 export const DemoStepTooltip = ({
   tooltipProps,
@@ -89,7 +89,7 @@ export const DemoStepTooltip = ({
   onClose,
   onBack,
   onNext,
-}: IDemoStepTooltipProps) => {
+}: DemoStepTooltipProps) => {
   const nextLabel =
     stepIndex === 0
       ? 'Start'

@@ -16,7 +16,7 @@ type FeatureTagCellProps = {
   };
 };
 
-export const FeatureTagCell: FC<FeatureTagCellProps> = ({ row }) => {
+export const FeatureTagCell = ({ row }: FeatureTagCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (!row.original.tags || row.original.tags.length === 0) {

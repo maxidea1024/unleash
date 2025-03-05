@@ -14,17 +14,17 @@ const StyledButton = styled(Button)(({ theme }) => ({
   height: theme.spacing(7),
 }));
 
-interface IDemoDialogFinishProps {
+type DemoDialogFinishProps = {
   open: boolean;
   onClose: () => void;
   onRestart: () => void;
-}
+};
 
 export const DemoDialogFinish = ({
   open,
   onClose,
   onRestart,
-}: IDemoDialogFinishProps) => (
+}: DemoDialogFinishProps) => (
   <>
     <ConditionallyRender
       condition={open}

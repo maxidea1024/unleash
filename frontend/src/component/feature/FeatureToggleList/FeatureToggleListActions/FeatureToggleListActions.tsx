@@ -31,13 +31,13 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-interface IFeatureFlagListActions {
+type FeatureFlagListActionsProps = {
   onExportClick: () => void;
-}
+};
 
-export const FeatureToggleListActions: FC<IFeatureFlagListActions> = ({
+export const FeatureToggleListActions = ({
   onExportClick,
-}: IFeatureFlagListActions) => {
+}: FeatureFlagListActionsProps) => {
   const { trackEvent } = usePlausibleTracker();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const featuresExportImport = useUiFlag('featuresExportImport');

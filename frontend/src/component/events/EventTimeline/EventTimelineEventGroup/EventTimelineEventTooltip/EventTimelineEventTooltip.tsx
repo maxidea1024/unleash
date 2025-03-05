@@ -69,13 +69,13 @@ const StyledEventTimelineEventCircle = styled(EventTimelineEventCircle)(
 
 const BoldToNormal = ({ children }: HTMLAttributes<HTMLElement>) => children;
 
-interface IEventTimelineEventTooltipProps {
+type EventTimelineEventTooltipProps = {
   group: TimelineEventGroup;
-}
+};
 
 export const EventTimelineEventTooltip = ({
   group,
-}: IEventTimelineEventTooltipProps) => {
+}: EventTimelineEventTooltipProps) => {
   const { locationSettings } = useLocationSettings();
 
   if (group.length === 1) {

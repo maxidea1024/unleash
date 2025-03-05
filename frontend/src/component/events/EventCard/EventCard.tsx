@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { styled } from '@mui/material';
 import type { EventSchema } from 'openapi';
 
-interface IEventCardProps {
+type EventCardProps = {
   entry: EventSchema;
-}
+};
 
 const StyledDefinitionTerm = styled('dt')(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -70,7 +70,7 @@ export const StyledCodeSection = styled('div')(({ theme }) => ({
   },
 }));
 
-const EventCard = ({ entry }: IEventCardProps) => {
+const EventCard = ({ entry }: EventCardProps) => {
   const { locationSettings } = useLocationSettings();
 
   const createdAtFormatted = formatDateYMDHMS(

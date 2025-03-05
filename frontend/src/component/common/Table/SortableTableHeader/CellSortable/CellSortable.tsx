@@ -1,6 +1,5 @@
 import type React from 'react';
 import {
-  type FC,
   type MouseEventHandler,
   useContext,
   useEffect,
@@ -20,7 +19,7 @@ import {
 } from './CellSortable.styles';
 import { SortArrow } from './SortArrow/SortArrow';
 
-interface ICellSortableProps {
+type CellSortableProps = {
   isSortable?: boolean;
   isSorted?: boolean;
   isDescending?: boolean;
@@ -34,9 +33,9 @@ interface ICellSortableProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   styles?: React.CSSProperties;
   children?: React.ReactNode;
-}
+};
 
-export const CellSortable: FC<ICellSortableProps> = ({
+export const CellSortable = ({
   children,
   isSortable = true,
   isSorted = false,
@@ -50,7 +49,7 @@ export const CellSortable: FC<ICellSortableProps> = ({
   isFlexGrow,
   onClick = () => {},
   styles,
-}) => {
+}: CellSortableProps) => {
   const { setAnnouncement } = useContext(AnnouncerContext);
   const [title, setTitle] = useState('');
   const ref = useRef<HTMLSpanElement>(null);

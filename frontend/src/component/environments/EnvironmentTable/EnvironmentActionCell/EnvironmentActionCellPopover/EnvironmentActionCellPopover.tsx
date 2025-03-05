@@ -41,13 +41,13 @@ const StyledListItemIconNegative = styled(ListItemIcon)(({ theme }) => ({
   color: theme.palette.error.main,
 }));
 
-interface IEnvironmentActionCellPopoverProps {
+type EnvironmentActionCellPopoverProps = {
   environment: IEnvironment;
   onEdit: () => void;
   onDeprecateToggle: () => void;
   onClone: () => void;
   onDelete: () => void;
-}
+};
 
 export const EnvironmentActionCellPopover = ({
   environment,
@@ -55,7 +55,7 @@ export const EnvironmentActionCellPopover = ({
   onDeprecateToggle,
   onClone,
   onDelete,
-}: IEnvironmentActionCellPopoverProps) => {
+}: EnvironmentActionCellPopoverProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);

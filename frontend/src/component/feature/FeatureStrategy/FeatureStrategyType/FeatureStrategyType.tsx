@@ -8,14 +8,14 @@ import produce from 'immer';
 import type React from 'react';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IFeatureStrategyTypeProps {
+type FeatureStrategyTypeProps = {
   hasAccess: boolean;
   strategy: Partial<IFeatureStrategy>;
   strategyDefinition: IStrategy;
   setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
   validateParameter: (name: string, value: string) => boolean;
   errors: IFormErrors;
-}
+};
 
 export const FeatureStrategyType = ({
   hasAccess,
@@ -24,7 +24,7 @@ export const FeatureStrategyType = ({
   setStrategy,
   validateParameter,
   errors,
-}: IFeatureStrategyTypeProps) => {
+}: FeatureStrategyTypeProps) => {
   const { context } = useUnleashContext();
 
   const updateParameter = (name: string, value: string) => {

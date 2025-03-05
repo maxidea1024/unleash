@@ -1,7 +1,7 @@
 import { useDefaultProjectId } from 'hooks/api/getters/useDefaultProject/useDefaultProjectId';
 import { getCreateTogglePath } from 'utils/routePathHelpers';
 
-interface IUseCreateFeaturePathOutput {
+type UseCreateFeaturePathOutput = {
   path: string;
   projectId: string;
 }
@@ -9,7 +9,7 @@ interface IUseCreateFeaturePathOutput {
 export const useCreateFeaturePath = (filter: {
   query?: string;
   project: string;
-}): IUseCreateFeaturePathOutput | undefined => {
+}): UseCreateFeaturePathOutput | undefined => {
   const defaultProjectId = useDefaultProjectId();
 
   const projectId =

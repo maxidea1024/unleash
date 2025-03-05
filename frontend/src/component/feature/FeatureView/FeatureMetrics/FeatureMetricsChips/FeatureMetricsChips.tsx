@@ -2,13 +2,13 @@ import { Chip, Button, styled } from '@mui/material';
 import { useMemo } from 'react';
 import { focusable } from 'themes/themeStyles';
 
-interface IFeatureMetricsChipsProps {
+type FeatureMetricsChipsProps = {
   title: string;
   values: Set<string>;
   selectedValues: string[];
   toggleValue: (value: string) => void;
   toggleValues?: () => void;
-}
+};
 
 const StyledTitle = styled('h2')(({ theme }) => ({
   margin: 0,
@@ -46,7 +46,7 @@ export const FeatureMetricsChips = ({
   selectedValues,
   toggleValue,
   toggleValues,
-}: IFeatureMetricsChipsProps) => {
+}: FeatureMetricsChipsProps) => {
   const onClick = (value: string) => () => {
     toggleValue(value);
   };

@@ -3,7 +3,6 @@ import { forwardRef, type RefObject } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import Add from '@mui/icons-material/Add';
 import type { IConstraint } from 'interfaces/strategy';
-
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import {
@@ -14,13 +13,13 @@ import { NewConstraintAccordionList } from 'component/common/NewConstraintAccord
 import { Limit } from 'component/common/Limit/Limit';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IConstraintAccordionListProps {
+type ConstraintAccordionListProps = {
   constraints: IConstraint[];
   setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;
   showCreateButton?: boolean;
   /* Add "constraints" title on the top - default `true` */
   showLabel?: boolean;
-}
+};
 
 export const constraintAccordionListId = 'constraintAccordionListId';
 
@@ -50,7 +49,7 @@ const useConstraintLimit = (constraintsCount: number) => {
 
 export const FeatureStrategyConstraintAccordionList = forwardRef<
   IConstraintAccordionListRef | undefined,
-  IConstraintAccordionListProps
+  ConstraintAccordionListProps
 >(({ constraints, setConstraints, showCreateButton }, ref) => {
   const { onAdd, state, context } = useConstraintAccordionList(
     setConstraints,

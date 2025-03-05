@@ -67,15 +67,15 @@ interface IProjectBase {
   description: string;
 }
 
-interface IEnvironmentProjectSelectProps {
+type EnvironmentProjectSelectProps = {
   projects: string[];
   setProjects: React.Dispatch<React.SetStateAction<string[]>>;
-}
+};
 
 export const EnvironmentProjectSelect = ({
   projects,
   setProjects,
-}: IEnvironmentProjectSelectProps) => {
+}: EnvironmentProjectSelectProps) => {
   const { projects: projectsAll } = useProjects();
 
   const projectOptions = projectsAll

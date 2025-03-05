@@ -42,7 +42,7 @@ const StyledCard = styled(Link)(({ theme }) => ({
   },
 }));
 
-interface IFeatureReleasePlanCardProps {
+type FeatureReleasePlanCardProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
@@ -54,7 +54,7 @@ export const FeatureReleasePlanCard = ({
   featureId,
   environmentId,
   releasePlanTemplate,
-}: IFeatureReleasePlanCardProps) => {
+}: FeatureReleasePlanCardProps) => {
   const Icon = getFeatureStrategyIcon('releasePlanTemplate');
   const { trackEvent } = usePlausibleTracker();
 

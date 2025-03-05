@@ -43,23 +43,23 @@ const StyledSelect = styled('select')(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-interface PaginationBarProps {
+type PaginationBarProps = {
   totalItems?: number;
   pageIndex: number;
   pageSize: number;
   fetchPrevPage: () => void;
   fetchNextPage: () => void;
   setPageLimit: (limit: number) => void;
-}
+};
 
-export const PaginationBar: React.FC<PaginationBarProps> = ({
+export const PaginationBar = ({
   totalItems,
   pageSize,
   pageIndex = 0,
   fetchPrevPage,
   fetchNextPage,
   setPageLimit,
-}) => {
+}: PaginationBarProps) => {
   const itemRange =
     totalItems !== undefined && pageSize && totalItems > 1
       ? `${pageIndex * pageSize + 1}-${Math.min(totalItems, (pageIndex + 1) * pageSize)}`

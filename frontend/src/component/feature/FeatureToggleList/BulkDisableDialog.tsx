@@ -4,7 +4,6 @@ import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import useToast from 'hooks/useToast';
 import type { FeatureSchema } from 'openapi';
-
 import { formatUnknownError } from 'utils/formatUnknownError';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
@@ -12,14 +11,14 @@ import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useCh
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface IExportDialogProps {
+type ExportDialogProps = {
   showExportDialog: boolean;
   data: Pick<FeatureSchema, 'name' | 'environments'>[];
   onClose: () => void;
   onConfirm?: () => void;
   environments: string[];
   projectId: string;
-}
+};
 
 const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   minWidth: '450px',
@@ -38,7 +37,7 @@ export const BulkDisableDialog = ({
   onConfirm,
   environments,
   projectId,
-}: IExportDialogProps) => {
+}: ExportDialogProps) => {
   const [selected, setSelected] = useState(environments[0]);
   const { bulkToggleFeaturesEnvironmentOff } = useFeatureApi();
   const { addChange } = useChangeRequestApi();
