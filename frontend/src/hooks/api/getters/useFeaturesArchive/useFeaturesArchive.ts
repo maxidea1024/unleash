@@ -3,12 +3,6 @@ import type { ArchivedFeaturesSchema } from 'openapi';
 import handleErrorResponses from '../httpErrorResponseHandler';
 import { formatApiPath } from 'utils/formatPath';
 
-const fetcher = (path: string) => {
-  return fetch(path)
-    .then(handleErrorResponses('Feature flag archive'))
-    .then((res) => res.json());
-};
-
 export const useFeaturesArchive = (projectId?: string) => {
   const { data, error, mutate, isLoading } = useSWR<ArchivedFeaturesSchema>(
     formatApiPath(
@@ -28,4 +22,10 @@ export const useFeaturesArchive = (projectId?: string) => {
     loading: isLoading,
     error,
   };
+};
+
+const fetcher = (path: string) => {
+  return fetch(path)
+    .then(handleErrorResponses('Feature flag archive'))
+    .then((res) => res.json());
 };

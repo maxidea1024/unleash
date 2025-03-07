@@ -17,11 +17,6 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-type FeatureTypeFormProps = {
-  featureType?: FeatureTypeSchema;
-  loading: boolean;
-};
-
 const StyledButtons = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'flex-end',
@@ -35,6 +30,11 @@ const StyledForm = styled(Box)(() => ({
   flexDirection: 'column',
   flexGrow: 1,
 }));
+
+type FeatureTypeFormProps = {
+  featureType?: FeatureTypeSchema;
+  loading: boolean;
+};
 
 export const FeatureTypeForm = ({
   featureType,
@@ -73,6 +73,7 @@ export const FeatureTypeForm = ({
 
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
+
     try {
       if (!featureType?.id) {
         throw new Error('No feature flag type loaded');
@@ -80,12 +81,16 @@ export const FeatureTypeForm = ({
 
       const value = doesntExpire ? 0 : lifetime;
       await updateFeatureTypeLifetime(featureType.id, value);
+
       refetch();
+
       setToastData({
         title: 'Feature type updated',
         type: 'success',
       });
+
       navigate('/feature-toggle-type');
+
       tracker.trackEvent('feature-type-edit', {
         props: {
           featureTypeId: featureType.id,

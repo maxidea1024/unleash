@@ -5,14 +5,6 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { AddonsSchema } from 'openapi';
 
 const useAddons = (options: SWRConfiguration = {}) => {
-  const fetcher = async () => {
-    const path = formatApiPath(`api/admin/addons`);
-    const res = await fetch(path, {
-      method: 'GET',
-    }).then(handleErrorResponses('Addons'));
-    return res.json();
-  };
-
   const KEY = `api/admin/addons`;
 
   const { data, error } = useSWR<AddonsSchema>(KEY, fetcher, options);
@@ -33,6 +25,14 @@ const useAddons = (options: SWRConfiguration = {}) => {
     loading,
     refetchAddons,
   };
+};
+
+const fetcher = async () => {
+  const path = formatApiPath(`api/admin/addons`);
+  const res = await fetch(path, {
+    method: 'GET',
+  }).then(handleErrorResponses('Addons'));
+  return res.json();
 };
 
 export default useAddons;

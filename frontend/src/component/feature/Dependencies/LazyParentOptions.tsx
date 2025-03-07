@@ -1,15 +1,21 @@
-import type { FC } from 'react';
 import { useParentOptions } from 'hooks/api/getters/useFeatureDependencyOptions/useFeatureDependencyOptions';
 import { REMOVE_DEPENDENCY_OPTION } from './constants';
 import { StyledSelect } from './FeatureStatusOptions';
 
-// Project can have 100s of parents. We want to read them only when the modal for dependencies opens.
-export const LazyParentOptions: FC<{
+type LazyParentOptionsProps = {
   project: string;
   featureId: string;
   parent: string;
   onSelect: (parent: string) => void;
-}> = ({ project, featureId, parent, onSelect }) => {
+};
+
+// Project can have 100s of parents. We want to read them only when the modal for dependencies opens.
+export const LazyParentOptions = ({
+  project,
+  featureId,
+  parent,
+  onSelect,
+}: LazyParentOptionsProps) => {
   const { parentOptions } = useParentOptions(project, featureId);
 
   const options = parentOptions

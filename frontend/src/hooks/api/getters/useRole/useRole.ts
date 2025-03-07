@@ -6,7 +6,7 @@ import type { IRoleWithPermissions } from 'interfaces/role';
 import useUiConfig from '../useUiConfig/useUiConfig';
 import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 
-export interface IUseRoleOutput {
+interface IUseRoleOutput {
   role?: IRoleWithPermissions;
   refetch: () => void;
   loading: boolean;

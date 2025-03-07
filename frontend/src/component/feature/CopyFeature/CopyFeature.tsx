@@ -95,7 +95,9 @@ export const CopyFeatureToggle = () => {
   const onValidateName = async () => {
     try {
       await validateFeatureToggleName(newToggleName, projectId);
+
       setNameError(undefined);
+
       return true;
     } catch (error) {
       setNameError(formatUnknownError(error));
@@ -117,6 +119,7 @@ export const CopyFeatureToggle = () => {
         name: newToggleName as string,
         replaceGroupId,
       });
+
       navigate(getTogglePath(projectId, newToggleName as string));
     } catch (error) {
       setApiError(formatUnknownError(error));

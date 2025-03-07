@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider, Drawer, styled } from '@mui/material';
-import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
-import { ReactComponent as UnleashLogoWhite } from 'assets/img/logoWithWhiteText.svg';
+import { ReactComponent as GanpaLogo } from 'assets/img/logoDarkWithText.svg';
+import { ReactComponent as GanpaLogoWhite } from 'assets/img/logoWithWhiteText.svg';
 import type { INavigationMenuItem } from 'interfaces/route';
 import styles from './DrawerMenu.module.scss'; // FIXME: useStyle - theme
 import theme from 'themes/theme';
@@ -62,8 +62,8 @@ export const DrawerMenu = ({
             onClick={() => toggleDrawer()}
           >
             <ThemeMode
-              darkmode={<UnleashLogoWhite aria-label='Unleash logo' />}
-              lightmode={<UnleashLogo aria-label='Unleash logo' />}
+              darkmode={<GanpaLogoWhite aria-label='Ganpa logo' />}
+              lightmode={<GanpaLogo aria-label='Ganpa logo' />}
             />
           </Link>
         </StyledDrawerHeader>

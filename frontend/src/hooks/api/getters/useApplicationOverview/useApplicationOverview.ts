@@ -11,6 +11,7 @@ const placeHolderApplication: ApplicationOverviewSchema = {
     missingStrategies: [],
   },
 };
+
 export const useApplicationOverview = (
   application: string,
   options: SWRConfiguration = {},

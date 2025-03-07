@@ -6,6 +6,7 @@ import type { IFeatureStrategy } from 'interfaces/strategy';
 import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 
 export type ChangeRequestInfo = { id: number; title: string | null };
+
 export type ChangeRequestNewStrategy = {
   projectId: string;
   featureName: string;
@@ -22,7 +23,7 @@ export type ChangeRequestStrategy =
   | ChangeRequestNewStrategy
   | ChangeRequestUpdatedStrategy;
 
-export interface IUseStrategiesBySegmentOutput {
+interface IUseStrategiesBySegmentOutput {
   strategies: IFeatureStrategy[];
   changeRequestStrategies: ChangeRequestStrategy[];
   refetchUsedSegments: () => void;

@@ -9,6 +9,7 @@ import type { IUser } from 'interfaces/user';
 import { forwardRef } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HtmlTooltip } from '../HtmlTooltip/HtmlTooltip';
+
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   width: theme.spacing(3.5),
   height: theme.spacing(3.5),

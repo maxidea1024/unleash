@@ -49,12 +49,15 @@ export const CreateUnleashContext = ({
       const payload = getContextPayload();
       try {
         await createContext(payload);
+
         refetchUnleashContext();
+
         setToastData({
           title: 'Context created',
           confetti: true,
           type: 'success',
         });
+
         onSubmit();
       } catch (error: unknown) {
         setToastApiError(formatUnknownError(error));

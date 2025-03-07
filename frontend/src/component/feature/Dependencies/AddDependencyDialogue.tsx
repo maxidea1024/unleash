@@ -31,15 +31,30 @@ export const AddDependencyDialogue = ({
   );
 
   const getInitialParentValue = (): ParentValue => {
-    if (!parentDependency) return { status: 'enabled' };
-    if (parentDependency.variants?.length)
+    if (!parentDependency) {
+      return {
+        status: 'enabled',
+      };
+    }
+
+    if (parentDependency.variants?.length) {
       return {
         status: 'enabled_with_variants',
         variants: parentDependency.variants,
       };
-    if (parentDependency.enabled === false) return { status: 'disabled' };
-    return { status: 'enabled' };
+    }
+
+    if (parentDependency.enabled === false) {
+      return {
+        status: 'disabled',
+      };
+    }
+
+    return {
+      status: 'enabled',
+    };
   };
+
   const [parentValue, setParentValue] = useState<ParentValue>(
     getInitialParentValue,
   );
@@ -72,6 +87,7 @@ export const AddDependencyDialogue = ({
     if (value === 'enabled' || value === 'disabled') {
       setParentValue({ status: value });
     }
+
     if (value === 'enabled_with_variants') {
       setParentValue({
         status: value,

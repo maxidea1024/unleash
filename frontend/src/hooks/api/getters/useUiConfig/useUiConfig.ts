@@ -19,6 +19,8 @@ const useUiConfig = (): IUseUIConfigOutput => {
   const path = formatApiPath(`api/admin/ui-config`);
   const { data, error, mutate } = useSWR<IUiConfig>(path, fetcher);
 
+  // TODO: 체크하는 방법이 모두 다름. 정리가 필요해보이는데?
+
   const isOss = useCallback(() => {
     return !data?.versionInfo?.current?.enterprise;
   }, [data]);
@@ -34,7 +36,7 @@ const useUiConfig = (): IUseUIConfigOutput => {
     );
   }, [data]);
 
-  const uiConfig: IUiConfig = useMemo(() => {
+  const uiConfig = useMemo<IUiConfig>(() => {
     return {
       ...defaultValue,
       ...data,

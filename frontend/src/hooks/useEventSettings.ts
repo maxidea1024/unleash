@@ -2,7 +2,7 @@ import { basePath } from 'utils/formatPath';
 import { createPersistentGlobalStateHook } from './usePersistentGlobalState';
 import type React from 'react';
 
-export interface IEventSettings {
+interface IEventSettings {
   showData: boolean;
 }
 

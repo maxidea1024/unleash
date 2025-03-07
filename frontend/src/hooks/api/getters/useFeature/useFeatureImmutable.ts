@@ -26,7 +26,8 @@ export const useFeatureImmutable = (
 
   const refetch = useCallback(async () => {
     await mutate();
-    await refetchFeature();
+
+    refetchFeature();
   }, [mutate, refetchFeature]);
 
   return {

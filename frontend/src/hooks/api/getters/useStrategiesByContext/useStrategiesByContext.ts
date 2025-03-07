@@ -5,7 +5,7 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import type { IFeatureStrategy } from 'interfaces/strategy';
 import { useConditionalSWR } from '../useConditionalSWR/useConditionalSWR';
 
-export interface IUseStrategiesByContextOutput {
+interface IUseStrategiesByContextOutput {
   strategies: IFeatureStrategy[];
   refetchUsedSegments: () => void;
   loading: boolean;

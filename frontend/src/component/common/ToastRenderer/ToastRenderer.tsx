@@ -29,7 +29,6 @@ const ToastRenderer = () => {
     return () => {
       clearTimeout(timeout);
     };
-    /* eslint-disable-next-line */
   }, [toastData?.show]);
 
   const animations = useMemo(

@@ -14,12 +14,6 @@ type SignalsResponse = {
   signalEndpointSignals: ISignalEndpointSignal[];
 };
 
-const fetcher = async (url: string) => {
-  const response = await fetch(url);
-  await handleErrorResponses('Signals')(response);
-  return response.json();
-};
-
 export const useSignalEndpointSignals = (
   signalEndpointId?: number,
   limit = 50,
@@ -79,4 +73,10 @@ export const useSignalEndpointSignals = (
     refetch: () => mutate(),
     error,
   };
+};
+
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  await handleErrorResponses('Signals')(response);
+  return response.json();
 };

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { ParentValue } from './constants';
 import { styled } from '@mui/material';
 import GeneralSelect from '../../common/GeneralSelect/GeneralSelect';
@@ -8,10 +7,15 @@ export const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
 
-export const FeatureStatusOptions: FC<{
+type FeatureStatusOptionsProps = {
   parentValue: ParentValue;
   onSelect: (parent: string) => void;
-}> = ({ onSelect, parentValue }) => {
+};
+
+export const FeatureStatusOptions = ({
+  onSelect,
+  parentValue,
+}: FeatureStatusOptionsProps) => {
   return (
     <StyledSelect
       fullWidth

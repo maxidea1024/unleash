@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
-export interface ITelemetrySettings {
+interface ITelemetrySettings {
   versionInfoCollectionEnabled: boolean;
   featureInfoCollectionEnabled: boolean;
 }
 
-export interface ITelemetrySettingsResponse {
+interface ITelemetrySettingsResponse {
   settings: ITelemetrySettings;
   refetchGroup: () => void;
   loading: boolean;

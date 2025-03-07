@@ -2,7 +2,8 @@ import { ResponseError } from 'utils/apiUtils';
 
 const handleErrorResponses = (target: string) => async (res: Response) => {
   if (!res.ok) {
-    throw new ResponseError(target, res.status, await parseErrorResponse(res));
+    const errorMessage = await parseErrorResponse(res);
+    throw new ResponseError(target, res.status, errorMessage);
   }
 
   return res;

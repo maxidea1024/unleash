@@ -5,7 +5,7 @@ import type { IGroup } from 'interfaces/group';
 import type { IUser } from 'interfaces/user';
 import type { IServiceAccount } from 'interfaces/service-account';
 
-export interface IUseAccessOutput {
+interface IUseAccessOutput {
   users?: IUser[];
   serviceAccounts?: IServiceAccount[];
   groups?: IGroup[];

@@ -3,12 +3,6 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 import { useEnterpriseSWR } from '../useEnterpriseSWR/useEnterpriseSWR';
 import type { ScheduledChangeRequestViewModel } from '../useScheduledChangeRequestsWithStrategy/useScheduledChangeRequestsWithStrategy';
 
-const fetcher = (path: string) => {
-  return fetch(path)
-    .then(handleErrorResponses('ChangeRequest'))
-    .then((res) => res.json());
-};
-
 export const useScheduledChangeRequestsWithVariant = (
   project: string,
   feature: string,
@@ -29,4 +23,10 @@ export const useScheduledChangeRequestsWithVariant = (
     refetch: mutate,
     error,
   };
+};
+
+const fetcher = (path: string) => {
+  return fetch(path)
+    .then(handleErrorResponses('ChangeRequest'))
+    .then((res) => res.json());
 };

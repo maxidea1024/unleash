@@ -48,11 +48,15 @@ const EditFeature = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     clearErrors();
+
     const patch = createPatch();
     try {
       await patchFeatureFlag(project, featureId, patch);
+
       navigate(`/projects/${project}/features/${name}`);
+
       setToastData({
         title: 'Flag updated successfully',
         type: 'success',

@@ -12,12 +12,6 @@ type ActionEventsResponse = {
   actionSetEvents: IActionSetEvent[];
 };
 
-const fetcher = async (url: string) => {
-  const response = await fetch(url);
-  await handleErrorResponses('Action events')(response);
-  return response.json();
-};
-
 export const useActionEvents = (
   actionSetId?: number,
   projectId?: string,
@@ -32,8 +26,9 @@ export const useActionEvents = (
     previousPageData: ActionEventsResponse,
   ) => {
     // Does not meet conditions
-    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled)
+    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled) {
       return null;
+    }
 
     // Reached the end
     if (previousPageData && !previousPageData.actionSetEvents.length) {
@@ -62,7 +57,10 @@ export const useActionEvents = (
   const hasMore = data?.[size - 1]?.actionSetEvents.length === limit;
 
   const loadMore = () => {
-    if (loading || !hasMore) return;
+    if (loading || !hasMore) {
+      return;
+    }
+
     setSize(size + 1);
   };
 
@@ -74,4 +72,10 @@ export const useActionEvents = (
     refetch: () => mutate(),
     error,
   };
+};
+
+const fetcher = async (url: string) => {
+  const response = await fetch(url);
+  await handleErrorResponses('Action events')(response);
+  return response.json();
 };

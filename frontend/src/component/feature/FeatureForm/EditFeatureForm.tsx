@@ -17,20 +17,6 @@ import Input from 'component/common/Input/Input';
 import type React from 'react';
 import type { CreateFeatureSchemaType } from 'openapi';
 
-type FeatureToggleFormProps = {
-  type: CreateFeatureSchemaType;
-  name: string;
-  description: string;
-  impressionData: boolean;
-  setType: React.Dispatch<React.SetStateAction<CreateFeatureSchemaType>>;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  setImpressionData: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSubmit: (e: any) => void;
-  handleCancel: () => void;
-  children?: React.ReactNode;
-  Limit?: React.ReactNode;
-};
-
 const StyledForm = styled('form')({
   height: '100%',
 });
@@ -88,6 +74,20 @@ const LimitContainer = styled(Box)(({ theme }) => ({
     marginBottom: theme.spacing(2),
   },
 }));
+
+type FeatureToggleFormProps = {
+  type: CreateFeatureSchemaType;
+  name: string;
+  description: string;
+  impressionData: boolean;
+  setType: React.Dispatch<React.SetStateAction<CreateFeatureSchemaType>>;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  setImpressionData: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: (e: any) => void;
+  handleCancel: () => void;
+  children?: React.ReactNode;
+  Limit?: React.ReactNode;
+};
 
 const EditFeatureForm = ({
   children,

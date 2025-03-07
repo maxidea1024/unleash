@@ -4,17 +4,6 @@ import { OK } from 'constants/statusCodes';
 import useQueryParams from 'hooks/useQueryParams';
 import { formatApiPath } from 'utils/formatPath';
 
-const getFetcher = (token: string, url: string) => () => {
-  if (!token) {
-    return Promise.resolve(false);
-  }
-
-  const path = formatApiPath(url);
-  return fetch(path, {
-    method: 'GET',
-  }).then((response) => response.status === OK);
-};
-
 export const useUserInvite = (options: SWRConfiguration = {}) => {
   const query = useQueryParams();
   const secret = query.get('invite') || '';
@@ -36,4 +25,16 @@ export const useUserInvite = (options: SWRConfiguration = {}) => {
     error,
     loading,
   };
+};
+
+const getFetcher = (token: string, url: string) => async () => {
+  if (!token) {
+    return Promise.resolve(false);
+  }
+
+  const path = formatApiPath(url);
+  const response = await fetch(path, {
+    method: 'GET',
+  });
+  return response.status === OK;
 };

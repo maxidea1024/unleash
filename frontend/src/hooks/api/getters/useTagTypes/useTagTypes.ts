@@ -5,14 +5,6 @@ import type { ITagType } from 'interfaces/tags';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
 const useTagTypes = (options: SWRConfiguration = {}) => {
-  const fetcher = async () => {
-    const path = formatApiPath(`api/admin/tag-types`);
-    const res = await fetch(path, {
-      method: 'GET',
-    }).then(handleErrorResponses('Tag types'));
-    return res.json();
-  };
-
   const KEY = `api/admin/tag-types`;
 
   const { data, error } = useSWR(KEY, fetcher, options);
@@ -32,6 +24,14 @@ const useTagTypes = (options: SWRConfiguration = {}) => {
     loading,
     refetch,
   };
+};
+
+const fetcher = async () => {
+  const path = formatApiPath(`api/admin/tag-types`);
+  const res = await fetch(path, {
+    method: 'GET',
+  }).then(handleErrorResponses('Tag types'));
+  return res.json();
 };
 
 export default useTagTypes;

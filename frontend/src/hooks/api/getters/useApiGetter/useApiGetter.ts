@@ -28,6 +28,10 @@ export const useApiGetter = <T>(
   };
 };
 
+// TODO:
+// 이걸 범용으로 사용하면 되는데, 개별로 만들고 있는 경우가 많다.
+// 이 함수를 사용하는 형태로 바꿔주자.
+
 export const fetcher = (path: string, errorTarget: string) => {
   return fetch(path)
     .then(handleErrorResponses(errorTarget))

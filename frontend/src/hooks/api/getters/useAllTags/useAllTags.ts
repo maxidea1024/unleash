@@ -5,14 +5,6 @@ import type { ITag } from 'interfaces/tags';
 import handleErrorResponses from '../httpErrorResponseHandler';
 
 const useAllTags = (options: SWRConfiguration = {}) => {
-  const fetcher = async () => {
-    const path = formatApiPath(`api/admin/tags`);
-    const res = await fetch(path, {
-      method: 'GET',
-    }).then(handleErrorResponses('Tags'));
-    return res.json();
-  };
-
   const KEY = `api/admin/tags`;
 
   const { data, error } = useSWR<{ tags: ITag[] }>(KEY, fetcher, options);
@@ -32,6 +24,14 @@ const useAllTags = (options: SWRConfiguration = {}) => {
     loading,
     refetch,
   };
+};
+
+const fetcher = async () => {
+  const path = formatApiPath(`api/admin/tags`);
+  const res = await fetch(path, {
+    method: 'GET',
+  }).then(handleErrorResponses('Tags'));
+  return res.json();
 };
 
 export default useAllTags;
