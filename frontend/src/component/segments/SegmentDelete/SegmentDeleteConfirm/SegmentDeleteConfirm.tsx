@@ -10,19 +10,19 @@ const StyledInput = styled(Input)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-interface ISegmentDeleteConfirmProps {
+type SegmentDeleteConfirmProps = {
   segment: ISegment;
   open: boolean;
   onClose: () => void;
   onRemove: () => void;
-}
+};
 
 export const SegmentDeleteConfirm = ({
   segment,
   open,
   onClose,
   onRemove,
-}: ISegmentDeleteConfirmProps) => {
+}: SegmentDeleteConfirmProps) => {
   const [confirmName, setConfirmName] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>

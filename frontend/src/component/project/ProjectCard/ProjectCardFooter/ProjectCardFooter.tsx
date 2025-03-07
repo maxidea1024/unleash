@@ -1,18 +1,17 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import {
   ProjectOwners,
-  type IProjectOwnersProps,
+  type ProjectOwnersProps,
 } from './ProjectOwners/ProjectOwners';
 
-interface IProjectCardFooterProps {
+type ProjectCardFooterProps = {
   id?: string;
   isFavorite?: boolean;
   children?: React.ReactNode;
   disabled?: boolean;
-  owners: IProjectOwnersProps['owners'];
-}
+  owners: ProjectOwnersProps['owners'];
+};
 
 const StyledFooter = styled(Box)<{ disabled: boolean }>(
   ({ theme, disabled }) => ({
@@ -27,11 +26,11 @@ const StyledFooter = styled(Box)<{ disabled: boolean }>(
   }),
 );
 
-export const ProjectCardFooter: FC<IProjectCardFooterProps> = ({
+export const ProjectCardFooter = ({
   children,
   owners,
   disabled = false,
-}) => {
+}: ProjectCardFooterProps) => {
   return (
     <StyledFooter disabled={disabled}>
       <ProjectOwners owners={owners} />

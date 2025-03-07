@@ -8,13 +8,6 @@ import {
 import { useHasProjectEnvironmentAccess } from 'hooks/useHasAccess';
 import { FeatureStrategyConstraintAccordionList } from './FeatureStrategyConstraintAccordionList/FeatureStrategyConstraintAccordionList';
 
-type FeatureStrategyConstraintsProps = {
-  projectId: string;
-  environmentId: string;
-  strategy: Partial<IFeatureStrategy>;
-  setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
-};
-
 const filterConstraints = (constraint: any) => {
   if (
     constraint.hasOwnProperty('values') &&
@@ -26,6 +19,13 @@ const filterConstraints = (constraint: any) => {
   if (constraint.hasOwnProperty('value')) {
     return constraint.value !== '';
   }
+};
+
+type FeatureStrategyConstraintsProps = {
+  projectId: string;
+  environmentId: string;
+  strategy: Partial<IFeatureStrategy>;
+  setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
 };
 
 export const FeatureStrategyConstraints = ({

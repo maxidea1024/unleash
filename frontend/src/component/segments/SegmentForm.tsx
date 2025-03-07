@@ -10,7 +10,7 @@ import { styled } from '@mui/material';
 export type SegmentFormStep = 1 | 2;
 export type SegmentFormMode = 'create' | 'edit';
 
-interface ISegmentProps {
+type SegmentFormProps = {
   name: string;
   description: string;
   project?: string;
@@ -24,7 +24,7 @@ interface ISegmentProps {
   clearErrors: () => void;
   mode: SegmentFormMode;
   children?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
@@ -32,7 +32,7 @@ const StyledForm = styled('form')(({ theme }) => ({
   height: '100%',
 }));
 
-export const SegmentForm: React.FC<ISegmentProps> = ({
+export const SegmentForm = ({
   children,
   name,
   description,
@@ -46,7 +46,7 @@ export const SegmentForm: React.FC<ISegmentProps> = ({
   errors,
   clearErrors,
   mode,
-}) => {
+}: SegmentFormProps) => {
   const totalSteps = 2;
   const [currentStep, setCurrentStep] = useState<SegmentFormStep>(1);
 

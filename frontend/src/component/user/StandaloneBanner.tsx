@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Typography, useTheme, useMediaQuery, styled } from '@mui/material';
 import Gradient from 'component/common/Gradient/Gradient';
 import { ReactComponent as Logo } from 'assets/icons/logoWhiteBg.svg';
@@ -6,9 +5,9 @@ import { ReactComponent as LogoWithText } from 'assets/img/logoWhiteTransparentH
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { Theme } from '@mui/material';
 
-interface IStandaloneBannerProps {
+type StandaloneBannerProps = {
   title: string;
-}
+};
 
 const StyledGradient = styled(Gradient)(({ theme }) => ({
   display: 'flex',
@@ -54,6 +53,7 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
   fontSize: theme.spacing(4),
   fontWeight: 'normal',
 }));
+
 const StyledLogoContainer = styled('div')(({ theme }) => ({
   position: 'absolute',
   [theme.breakpoints.up('md')]: {
@@ -83,7 +83,7 @@ const StyledLogo = styled(Logo)(({ theme }) => ({
   ...logoStyles(theme),
 }));
 
-const StandaloneBanner: FC<IStandaloneBannerProps> = ({ title }) => {
+const StandaloneBanner = ({ title }: StandaloneBannerProps) => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down('md'));
 

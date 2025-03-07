@@ -6,12 +6,12 @@ import {
 } from './ProjectInfo.styles';
 import { WidgetFooterLink } from './WidgetFooterLink';
 
-interface IHealthWidgetProps {
+type HealthWidgetProps = {
   projectId: string;
   health: number;
   total?: number;
   stale?: number;
-}
+};
 
 const StyledParagraphEmphasizedText = styled('p')(({ theme }) => ({
   fontSize: '1.5rem',
@@ -28,7 +28,7 @@ const StyledPercentageText = styled('p')(({ theme }) => ({
   },
 }));
 
-export const HealthWidget = ({ projectId, health }: IHealthWidgetProps) => {
+export const HealthWidget = ({ projectId, health }: HealthWidgetProps) => {
   return (
     <StyledProjectInfoWidgetContainer>
       <StyledWidgetTitle data-loading>Project health</StyledWidgetTitle>

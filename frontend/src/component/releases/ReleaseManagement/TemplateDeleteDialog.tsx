@@ -1,19 +1,19 @@
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IReleasePlanTemplate } from 'interfaces/releasePlans';
 
-interface ITemplateDeleteDialogProps {
+type TemplateDeleteDialogProps = {
   template?: IReleasePlanTemplate;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (template: IReleasePlanTemplate) => void;
-}
+};
 
-export const TemplateDeleteDialog: React.FC<ITemplateDeleteDialogProps> = ({
+export const TemplateDeleteDialog = ({
   template,
   open,
   setOpen,
   onConfirm,
-}) => {
+}: TemplateDeleteDialogProps) => {
   return (
     <Dialogue
       title='Delete release plan template?'

@@ -1,13 +1,13 @@
 import type { Theme } from '@mui/material';
 import type { ILocationSettings } from 'hooks/useLocationSettings';
-import type { TooltipState } from './ChartTooltip/ChartTooltip';
+import type { ITooltipState } from './ChartTooltip/ChartTooltip';
 import { createTooltip } from './createTooltip';
 import { legendOptions } from './legendOptions';
 
 export const createOptions = (
   theme: Theme,
   locationSettings: ILocationSettings,
-  setTooltip: React.Dispatch<React.SetStateAction<TooltipState | null>>,
+  setTooltip: React.Dispatch<React.SetStateAction<ITooltipState | null>>,
   isPlaceholder?: boolean,
 ) =>
   ({

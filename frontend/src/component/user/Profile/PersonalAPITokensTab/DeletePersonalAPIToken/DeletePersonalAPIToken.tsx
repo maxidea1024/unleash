@@ -4,20 +4,19 @@ import { usePersonalAPITokensApi } from 'hooks/api/actions/usePersonalAPITokensA
 import { usePersonalAPITokens } from 'hooks/api/getters/usePersonalAPITokens/usePersonalAPITokens';
 import useToast from 'hooks/useToast';
 import type { IPersonalAPIToken } from 'interfaces/personalAPIToken';
-import type { FC } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
-interface IDeletePersonalAPITokenProps {
+type DeletePersonalAPITokenProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: IPersonalAPIToken;
-}
+};
 
-export const DeletePersonalAPIToken: FC<IDeletePersonalAPITokenProps> = ({
+export const DeletePersonalAPIToken = ({
   open,
   setOpen,
   token,
-}) => {
+}: DeletePersonalAPITokenProps) => {
   const { refetchTokens } = usePersonalAPITokens();
   const { deletePersonalAPIToken } = usePersonalAPITokensApi();
   const { setToastData, setToastApiError } = useToast();

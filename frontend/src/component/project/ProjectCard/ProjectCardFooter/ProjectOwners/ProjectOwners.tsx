@@ -5,9 +5,9 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { AvatarComponent } from 'component/common/AvatarGroup/AvatarGroup';
 import { AvatarGroupFromOwners } from 'component/common/AvatarGroupFromOwners/AvatarGroupFromOwners';
 
-export interface IProjectOwnersProps {
+export type ProjectOwnersProps = {
   owners?: ProjectSchema['owners'];
-}
+};
 
 const StyledUserName = styled('span')(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
@@ -65,7 +65,7 @@ const getOwnerName = (owner?: ProjectSchemaOwners[number]) => {
   }
 };
 
-export const ProjectOwners: FC<IProjectOwnersProps> = ({ owners = [] }) => {
+export const ProjectOwners = ({ owners = [] }: ProjectOwnersProps) => {
   return (
     <StyledWrapper data-testid='test'>
       <StyledContainer data-loading>

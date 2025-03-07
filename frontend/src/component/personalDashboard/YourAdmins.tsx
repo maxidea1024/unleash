@@ -21,15 +21,17 @@ const Wrapper = styled('article')(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-export const YourAdmins: React.FC<{
+type YourAdminsProps = {
   admins: PersonalDashboardSchemaAdminsItem[];
-}> = ({ admins }) => {
+};
+
+export const YourAdmins = ({ admins }: YourAdminsProps) => {
   return (
     <Wrapper>
       {admins.length ? (
         <>
           <p>
-            Your Unleash administrator
+            Your Ganpa administrator
             {admins.length > 1 ? 's are' : ' is'}:
           </p>
           <StyledList>
@@ -51,7 +53,7 @@ export const YourAdmins: React.FC<{
           </StyledList>
         </>
       ) : (
-        <p>You have no Unleash administrators to contact.</p>
+        <p>You have no Ganpa administrators to contact.</p>
       )}
     </Wrapper>
   );

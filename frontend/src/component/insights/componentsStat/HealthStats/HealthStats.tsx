@@ -2,14 +2,6 @@ import type { ReactNode } from 'react';
 import { Box, Divider, Link, styled } from '@mui/material';
 import { ReactComponent as InstanceHealthIcon } from 'assets/icons/instance-health.svg';
 
-type HealthStatsProps = {
-  value?: string | number;
-  healthy: number;
-  stale: number;
-  potentiallyStale: number;
-  title?: ReactNode;
-};
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   display: 'flex',
@@ -62,6 +54,14 @@ const StyledHeader = styled('div')(() => ({
 const StyledMainValue = styled(StyledValue)(({ theme }) => ({
   fontSize: theme.fontSizes.largeHeader,
 }));
+
+type HealthStatsProps = {
+  value?: string | number;
+  healthy: number;
+  stale: number;
+  potentiallyStale: number;
+  title?: ReactNode;
+};
 
 export const HealthStats = ({
   value,

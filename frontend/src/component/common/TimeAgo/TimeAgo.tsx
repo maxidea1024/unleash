@@ -1,12 +1,5 @@
-import { useEffect, useState, } from 'react';
+import { useEffect, useState } from 'react';
 import { formatDistanceToNow, secondsToMilliseconds } from 'date-fns';
-
-type TimeAgoProps = {
-  date: Date | number | string | null | undefined;
-  fallback?: string;
-  refresh?: boolean;
-  timeElement?: boolean;
-};
 
 const formatTimeAgo = (date: string | number | Date) =>
   formatDistanceToNow(new Date(date), {
@@ -14,6 +7,13 @@ const formatTimeAgo = (date: string | number | Date) =>
   })
     .replace('about ', '')
     .replace('less than a minute ago', '< 1 minute ago'); // TODO: localization
+
+type TimeAgoProps = {
+  date: Date | number | string | null | undefined;
+  fallback?: string;
+  refresh?: boolean;
+  timeElement?: boolean;
+};
 
 export const TimeAgo = ({
   date,
@@ -54,7 +54,8 @@ export const TimeAgo = ({
   }, [refresh]);
 
   if (!state.dateTime) {
-    return state.description;
+    // return state.description;
+    return <>{state.description}</>;
   }
 
   return (

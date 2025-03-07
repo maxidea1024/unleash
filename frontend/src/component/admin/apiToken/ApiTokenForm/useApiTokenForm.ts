@@ -10,7 +10,7 @@ import {
   CREATE_PROJECT_API_TOKEN,
 } from '@server/types/permissions';
 import { useHasRootAccess } from 'hooks/useHasAccess';
-import type { SelectOption } from './TokenTypeSelector/TokenTypeSelector';
+import type { ISelectOption } from './TokenTypeSelector/TokenTypeSelector';
 import { useUiFlag } from '../../../../hooks/useUiFlag';
 
 export type ApiTokenFormErrorType = 'username' | 'projects';
@@ -27,7 +27,7 @@ export const useApiTokenForm = (project?: string) => {
     project,
   );
 
-  const apiTokenTypes: SelectOption[] = [
+  const apiTokenTypes: ISelectOption[] = [
     {
       key: TokenType.CLIENT,
       label: `Server-side SDK (${TokenType.CLIENT})`,

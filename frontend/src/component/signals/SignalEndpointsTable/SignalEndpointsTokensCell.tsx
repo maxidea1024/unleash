@@ -10,17 +10,17 @@ const StyledItem = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface ISignalEndpointsTokensCellProps {
+type SignalEndpointsTokensCellProps = {
   signalEndpoint: ISignalEndpoint;
   value: string;
   onCreateToken?: () => void;
-}
+};
 
 export const SignalEndpointsTokensCell = ({
   signalEndpoint: { tokens },
   value,
   onCreateToken,
-}: ISignalEndpointsTokensCellProps) => {
+}: SignalEndpointsTokensCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (!tokens || tokens.length === 0) {

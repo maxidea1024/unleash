@@ -8,18 +8,18 @@ import {
 } from '@mui/material';
 import { SELECT_ITEM_ID } from 'utils/testIds';
 
-export type SelectOption = {
+interface ISelectOption {
   key: string;
   title?: string;
   label?: string;
-};
+}
 
 type SelectMenuProps = {
   name: string;
   id: string;
   value?: string;
   label?: string;
-  options: SelectOption[];
+  options: ISelectOption[];
   style?: object;
   onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
   disabled?: boolean;

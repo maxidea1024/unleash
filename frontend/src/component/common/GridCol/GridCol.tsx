@@ -1,11 +1,12 @@
 import { Grid } from '@mui/material';
 import type React from 'react';
-import type { FC } from 'react';
 
-export const GridCol: FC<{
+type GridColProps = {
   vertical?: boolean;
   children?: React.ReactNode;
-}> = ({ children, vertical = false }) => {
+};
+
+export const GridCol = ({ children, vertical = false }: GridColProps) => {
   return (
     <Grid
       container={vertical}

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import { DynamicSidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -12,12 +12,6 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { EnvironmentChangeRequest } from './EnvironmentChangeRequest/EnvironmentChangeRequest';
 import { ReviewChangesHeader } from './ReviewChangesHeader/ReviewChangesHeader';
 import { ChangeRequestPlausibleProvider } from '../ChangeRequestContext';
-
-type ChangeRequestSidebarProps = {
-  open: boolean;
-  project: string;
-  onClose: () => void;
-};
 
 const StyledPageContent = styled(PageContent)(({ theme }) => ({
   height: '100vh',
@@ -67,11 +61,17 @@ export const Separator = () => (
   </Typography>
 );
 
-export const ChangeRequestSidebar: FC<ChangeRequestSidebarProps> = ({
+type ChangeRequestSidebarProps = {
+  open: boolean;
+  project: string;
+  onClose: () => void;
+};
+
+export const ChangeRequestSidebar = ({
   open,
   project,
   onClose,
-}) => {
+}: ChangeRequestSidebarProps) => {
   const {
     data,
     loading,

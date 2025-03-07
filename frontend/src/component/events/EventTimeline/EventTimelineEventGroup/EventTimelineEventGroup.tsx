@@ -17,18 +17,18 @@ const StyledEvent = styled('div', {
   zIndex: 1,
 }));
 
-type EventTimelineEventProps = {
-  group: TimelineEventGroup;
-  startTime: number;
-  endTime: number;
-};
-
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '.MuiBadge-badge': {
     backgroundColor: theme.palette.background.alternative,
     color: theme.palette.primary.contrastText,
   },
 }));
+
+type EventTimelineEventProps = {
+  group: TimelineEventGroup;
+  startTime: number;
+  endTime: number;
+};
 
 export const EventTimelineEventGroup = ({
   group,

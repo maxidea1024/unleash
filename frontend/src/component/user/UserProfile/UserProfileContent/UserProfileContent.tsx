@@ -50,19 +50,19 @@ const StyledDivider = styled('div')(({ theme }) => ({
   margin: theme.spacing(3, 0),
 }));
 
-interface IUserProfileContentProps {
+type UserProfileContentProps = {
   id: string;
   showProfile: boolean;
   setShowProfile: (showProfile: boolean) => void;
   profile: IUser;
-}
+};
 
 export const UserProfileContent = ({
   id,
   showProfile,
   setShowProfile,
   profile,
-}: IUserProfileContentProps) => (
+}: UserProfileContentProps) => (
   <ConditionallyRender
     condition={showProfile}
     show={

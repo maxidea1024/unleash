@@ -92,7 +92,7 @@ interface IAccessOption {
   type: ENTITY_TYPE;
 }
 
-interface IProjectAccessAssignProps {
+type ProjectAccessAssignProps = {
   selected?: IProjectAccess;
   accesses: IProjectAccess[];
   users: IUser[];
@@ -100,7 +100,7 @@ interface IProjectAccessAssignProps {
   groups: IGroup[];
   roles: IRole[];
   userRoles: IUserProjectRole[];
-}
+};
 
 export const ProjectAccessAssign = ({
   selected,
@@ -110,7 +110,7 @@ export const ProjectAccessAssign = ({
   groups,
   roles,
   userRoles,
-}: IProjectAccessAssignProps) => {
+}: ProjectAccessAssignProps) => {
   const { uiConfig } = useUiConfig();
   const { flags } = uiConfig;
   const entityType = flags.UG ? 'user / group' : 'user';

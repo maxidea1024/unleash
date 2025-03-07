@@ -1,17 +1,17 @@
 import type { ActionConfigurationParameter } from 'interfaces/action';
 import { ProjectActionsActionParameterAutocomplete } from './ProjectActionsActionParameterAutocomplete';
 
-interface IProjectActionsActionParameterProps {
+type ProjectActionsActionParameterProps = {
   parameter: ActionConfigurationParameter;
   value: string;
   onChange: (value: string) => void;
-}
+};
 
 export const ProjectActionsActionParameter = ({
   parameter,
   value,
   onChange,
-}: IProjectActionsActionParameterProps) => {
+}: ProjectActionsActionParameterProps) => {
   const { label, type } = parameter;
 
   if (type === 'select') {

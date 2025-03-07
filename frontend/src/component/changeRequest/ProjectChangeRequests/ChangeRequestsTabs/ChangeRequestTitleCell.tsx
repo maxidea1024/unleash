@@ -5,7 +5,7 @@ import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 
-export const StyledLink = styled('div')(({ theme }) => ({
+const StyledLink = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   margin: 0,
@@ -14,7 +14,7 @@ export const StyledLink = styled('div')(({ theme }) => ({
 type ChangeRequestTitleCellProps = {
   value?: any;
   row: { original: any };
-}
+};
 
 export const ChangeRequestTitleCell = ({
   value,

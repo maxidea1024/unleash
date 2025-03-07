@@ -5,10 +5,10 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
 import type { ProjectInsightsSchemaMembers } from '../../../../../openapi';
 
-interface IProjectMembersProps {
+type ProjectMembersProps = {
   members: ProjectInsightsSchemaMembers;
   projectId: string;
-}
+};
 
 const NavigationBar = styled(Link)(({ theme }) => ({
   marginLeft: 'auto',
@@ -18,10 +18,7 @@ const NavigationBar = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-export const ProjectMembers = ({
-  members,
-  projectId,
-}: IProjectMembersProps) => {
+export const ProjectMembers = ({ members, projectId }: ProjectMembersProps) => {
   const { uiConfig } = useUiConfig();
 
   const link = uiConfig?.versionInfo?.current?.enterprise

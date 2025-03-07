@@ -1,10 +1,10 @@
 import { Box, Button } from '@mui/material';
 import type { IEnvironment } from 'interfaces/environments';
-import type { FC, FormEvent } from 'react';
+import type { FormEvent } from 'react';
 import { PlaygroundCodeFieldset } from './PlaygroundCodeFieldset/PlaygroundCodeFieldset';
 import { PlaygroundConnectionFieldset } from './PlaygroundConnectionFieldset/PlaygroundConnectionFieldset';
 
-interface IPlaygroundFormProps {
+type PlaygroundFormProps = {
   availableEnvironments: IEnvironment[];
   onSubmit: (event: FormEvent<HTMLFormElement>) => void;
   environments: string | string[];
@@ -17,9 +17,9 @@ interface IPlaygroundFormProps {
   setContext: React.Dispatch<React.SetStateAction<string | undefined>>;
   changeRequest?: string;
   onClearChangeRequest?: () => void;
-}
+};
 
-export const PlaygroundForm: FC<IPlaygroundFormProps> = ({
+export const PlaygroundForm = ({
   availableEnvironments,
   environments,
   onSubmit,
@@ -32,7 +32,7 @@ export const PlaygroundForm: FC<IPlaygroundFormProps> = ({
   setContext,
   changeRequest,
   onClearChangeRequest,
-}) => {
+}: PlaygroundFormProps) => {
   return (
     <Box
       component='form'

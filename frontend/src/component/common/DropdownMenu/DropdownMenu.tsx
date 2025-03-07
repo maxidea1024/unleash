@@ -1,6 +1,5 @@
 import {
   type CSSProperties,
-  type FC,
   type MouseEventHandler,
   type ReactNode,
   useState,
@@ -18,9 +17,9 @@ export type DropdownMenuProps = {
   label: string;
   startIcon?: ReactNode;
   style?: CSSProperties;
-}
+};
 
-const DropdownMenu: FC<DropdownMenuProps> = ({
+const DropdownMenu = ({
   renderOptions,
   id,
   title,
@@ -30,7 +29,7 @@ const DropdownMenu: FC<DropdownMenuProps> = ({
   style,
   startIcon,
   ...rest
-}) => {
+}: DropdownMenuProps) => {
   const [anchor, setAnchor] = useState<Element | null>(null);
 
   const handleOpen: MouseEventHandler<HTMLButtonElement> = (e) => {

@@ -6,19 +6,19 @@ import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import useToast from 'hooks/useToast';
 import { Typography } from '@mui/material';
 
-interface IDeleteProjectDialogueProps {
+type DeleteProjectDialogueProps = {
   project: string;
   open: boolean;
   onClose: (e: React.SyntheticEvent) => void;
   onSuccess?: () => void;
-}
+};
 
 export const ArchiveProjectDialogue = ({
   open,
   onClose,
   project,
   onSuccess,
-}: IDeleteProjectDialogueProps) => {
+}: DeleteProjectDialogueProps) => {
   const { archiveProject } = useProjectApi();
   const { refetch: refetchProjectOverview } = useProjects();
   const { setToastData, setToastApiError } = useToast();

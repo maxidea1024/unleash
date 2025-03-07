@@ -1,17 +1,13 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Link, Typography } from '@mui/material';
 import type React from 'react';
-import type { FC } from 'react';
 
-interface IWidgetFooterLinkProps {
+type WidgetFooterLinkProps = {
   to: string;
   children?: React.ReactNode;
-}
+};
 
-export const WidgetFooterLink: FC<IWidgetFooterLinkProps> = ({
-  children,
-  to,
-}) => {
+export const WidgetFooterLink = ({ children, to }: WidgetFooterLinkProps) => {
   return (
     <Typography
       data-loading

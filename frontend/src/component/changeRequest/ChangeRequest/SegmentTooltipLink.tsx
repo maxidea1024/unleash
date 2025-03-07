@@ -42,11 +42,6 @@ export const SegmentDiff: FC<{
   );
 };
 
-type StrategyTooltipLinkProps = {
-  change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
-  children?: React.ReactNode;
-};
-
 const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(
   ({ theme }) => ({
     display: 'grid',
@@ -61,6 +56,11 @@ const Truncated = styled('div')(() => ({
   ...textTruncated,
   maxWidth: 500,
 }));
+
+type StrategyTooltipLinkProps = {
+  change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
+  children?: React.ReactNode;
+};
 
 export const SegmentTooltipLink = ({
   change,

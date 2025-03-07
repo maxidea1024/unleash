@@ -211,6 +211,7 @@ export const IntegrationForm = ({
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
+
     if (!provider) {
       return;
     }

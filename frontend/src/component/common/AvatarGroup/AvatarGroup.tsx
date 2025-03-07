@@ -8,7 +8,7 @@ import {
   useMemo,
 } from 'react';
 import {
-  type IUserAvatarProps,
+  type UserAvatarProps,
   UserAvatar,
 } from 'component/common/UserAvatar/UserAvatar';
 import { objectId } from 'utils/objectId';
@@ -23,8 +23,8 @@ const StyledAvatars = styled('div')(({ theme }) => ({
 }));
 
 export type AvatarComponentType =
-  | FunctionComponent<IUserAvatarProps>
-  | ForwardRefExoticComponent<IUserAvatarProps & RefAttributes<HTMLDivElement>>;
+  | FunctionComponent<UserAvatarProps>
+  | ForwardRefExoticComponent<UserAvatarProps & RefAttributes<HTMLDivElement>>;
 
 export const AvatarComponent = styled(UserAvatar)(({ theme }) => ({
   outline: `${theme.spacing(0.25)} solid ${theme.palette.background.paper}`,

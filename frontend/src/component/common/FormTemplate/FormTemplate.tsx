@@ -233,7 +233,7 @@ const StyledDocumentationLink = styled('a')(({ theme }) => ({
   },
 }));
 
-const FormTemplate: FC<CreateProps> = ({
+const FormTemplate = ({
   title,
   description,
   children,
@@ -251,7 +251,7 @@ const FormTemplate: FC<CreateProps> = ({
   compact,
   showGuidance = true,
   useFixedSidebar,
-}) => {
+}: CreateProps) => {
   const { setToastData } = useToast();
   const smallScreen = useMediaQuery(`(max-width:${1099}px)`);
   const copyCommand = () => {

@@ -12,7 +12,7 @@ const StyledSingleValueChip = styled(Chip)(({ theme }) => ({
   },
 }));
 
-interface ConstraintSingleValueProps {
+type ConstraintSingleValueProps = {
   constraint: IConstraint;
   allowExpand: (shouldExpand: boolean) => void;
   disabled?: boolean;

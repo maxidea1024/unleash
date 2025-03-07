@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import KeyIcon from '@mui/icons-material/Key';
 import WarningIcon from '@mui/icons-material/WarningAmber';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';

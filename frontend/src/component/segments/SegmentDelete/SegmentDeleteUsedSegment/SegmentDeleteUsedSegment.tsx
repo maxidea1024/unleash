@@ -22,13 +22,13 @@ const StyledLink = styled(Link)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-interface ISegmentDeleteUsedSegmentProps {
+type SegmentDeleteUsedSegmentProps = {
   segment: ISegment;
   open: boolean;
   onClose: () => void;
   strategies: IFeatureStrategy[] | undefined;
   changeRequestStrategies: ChangeRequestStrategy[] | undefined;
-}
+};
 
 export const formatChangeRequestPath = (
   projectId: string,
@@ -43,7 +43,7 @@ export const SegmentDeleteUsedSegment = ({
   onClose,
   strategies,
   changeRequestStrategies,
-}: ISegmentDeleteUsedSegmentProps) => {
+}: SegmentDeleteUsedSegmentProps) => {
   const sortedStrategies = sortStrategiesByFeature<
     IFeatureStrategy,
     ChangeRequestUpdatedStrategy,

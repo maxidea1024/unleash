@@ -1,6 +1,5 @@
 import { Box, styled, useTheme } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { FC } from 'react';
 
 const Dot = styled('span', {
   shouldForwardProp: (prop) => prop !== 'color',
@@ -29,19 +28,21 @@ const StatusWithDot = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const FlagCounts: FC<{
+type FlagCountsProps = {
   projectId: string;
   activeCount: number;
   potentiallyStaleCount: number;
   staleCount: number;
   hideLinks?: boolean;
-}> = ({
+};
+
+export const FlagCounts = ({
   projectId,
   activeCount,
   potentiallyStaleCount,
   staleCount,
   hideLinks = false,
-}) => {
+}: FlagCountsProps) => {
   const theme = useTheme();
 
   return (

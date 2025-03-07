@@ -82,7 +82,9 @@ function getChangesThatWouldBeOverwritten<T>(
   fallbacks: Partial<T>,
 ): ChangesThatWouldBeOverwritten | null {
   const { snapshot } = change.payload;
-  if (!snapshot || !currentConfig) return null;
+  if (!snapshot || !currentConfig) {
+    return null;
+  }
 
   const getChangedProperty = getChangedPropertyWithFallbacks(fallbacks);
 

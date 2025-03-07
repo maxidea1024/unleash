@@ -5,13 +5,6 @@ import { Box, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
-type HighlightCellProps = {
-  value: string;
-  subtitle?: string;
-  afterTitle?: React.ReactNode;
-  subtitleTooltip?: boolean;
-};
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -39,6 +32,13 @@ const StyledSubtitle = styled('span')(({ theme }) => ({
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
 }));
+
+type HighlightCellProps = {
+  value: string;
+  subtitle?: string;
+  afterTitle?: React.ReactNode;
+  subtitleTooltip?: boolean;
+};
 
 export const HighlightCell = ({
   value,

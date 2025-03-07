@@ -33,13 +33,13 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-interface IProjectActionsFormStepSourceProps {
+type ProjectActionsFormStepSourceProps = {
   sourceId: number;
   setSourceId: React.Dispatch<React.SetStateAction<number>>;
   filters: ActionsFilterState[];
   setFilters: React.Dispatch<React.SetStateAction<ActionsFilterState[]>>;
   validateSourceId: (sourceId: number) => boolean;
-}
+};
 
 export const ProjectActionsFormStepSource = ({
   sourceId,
@@ -47,7 +47,7 @@ export const ProjectActionsFormStepSource = ({
   filters,
   setFilters,
   validateSourceId,
-}: IProjectActionsFormStepSourceProps) => {
+}: ProjectActionsFormStepSourceProps) => {
   const { signalEndpoints, loading: signalEndpointsLoading } =
     useSignalEndpoints();
   const { signalEndpointSignals } = useSignalEndpointSignals(sourceId, 1);

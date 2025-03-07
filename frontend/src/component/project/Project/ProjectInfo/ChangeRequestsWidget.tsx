@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import useLoading from 'hooks/useLoading';
 import { Box, styled, Typography } from '@mui/material';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';
@@ -13,9 +12,9 @@ import { WidgetFooterLink } from './WidgetFooterLink';
 
 const LOADING_LABEL = 'change-requests-widget';
 
-interface IChangeRequestsWidgetProps {
+type ChangeRequestsWidgetProps = {
   projectId: string;
-}
+};
 
 const StyledContentBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -68,9 +67,9 @@ const ChangeRequestsLabel = () => (
   </Typography>
 );
 
-export const ChangeRequestsWidget: FC<IChangeRequestsWidgetProps> = ({
+export const ChangeRequestsWidget = ({
   projectId,
-}) => {
+}: ChangeRequestsWidgetProps) => {
   const { changeRequests, loading } = useProjectChangeRequests(projectId);
   const loadingRef = useLoading(loading, `[data-loading="${LOADING_LABEL}"]`);
   const toBeApplied = changeRequests?.filter(

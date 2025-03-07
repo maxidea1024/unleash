@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { useFeedback } from 'component/feedbackNew/useFeedback';
 import ReviewsOutlined from '@mui/icons-material/ReviewsOutlined';
@@ -11,10 +11,6 @@ import {
 } from '@mui/material';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-
-type DashboardHeaderProps = {
-  actions?: ReactNode;
-};
 
 const StyledActionsContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -46,6 +42,10 @@ const StyledActionsSmallScreen = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
   marginTop: theme.spacing(2),
 }));
+
+type DashboardHeaderProps = {
+  actions?: ReactNode;
+};
 
 export const InsightsHeader = ({ actions }: DashboardHeaderProps) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');

@@ -1,7 +1,6 @@
-import type { FC } from 'react';
 import type { InstanceInsightsSchemaMetricsSummaryTrendsItem } from 'openapi';
 import { Box, Divider, Paper, styled, Typography } from '@mui/material';
-import type { TooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
+import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
 import { ConditionallyRender } from '../../../../common/ConditionallyRender/ConditionallyRender';
 
 const StyledTooltipItemContainer = styled(Paper)(({ theme }) => ({
@@ -59,9 +58,13 @@ export const InfoSummary = ({
   </Box>
 );
 
-export const MetricsSummaryTooltip: FC<{ tooltip: TooltipState | null }> = ({
+type MetricsSummaryTooltipProps = {
+  tooltip: ITooltipState | null;
+};
+
+export const MetricsSummaryTooltip = ({
   tooltip,
-}) => {
+}: MetricsSummaryTooltipProps) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,

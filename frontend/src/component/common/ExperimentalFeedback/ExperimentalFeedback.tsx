@@ -1,4 +1,4 @@
-import { useState, useEffect, type FC } from 'react';
+import { useState, useEffect, } from 'react';
 import { Box, Button, Divider, Typography, styled } from '@mui/material';
 import PermMedia from '@mui/icons-material/PermMedia';
 import Send from '@mui/icons-material/Send';
@@ -72,12 +72,12 @@ type ExperimentalFeedbackProps = {
   sketchURL: string;
 };
 
-export const ExperimentalFeedback: FC<ExperimentalFeedbackProps> = ({
+export const ExperimentalFeedback = ({
   trackerKey,
   eventKey,
   description,
   sketchURL,
-}) => {
+}: ExperimentalFeedbackProps) => {
   const { trackEvent } = usePlausibleTracker();
   const { value, setValue } = createLocalStorage(trackerKey, { sent: false });
   const [metrics, setMetrics] = useState(value);

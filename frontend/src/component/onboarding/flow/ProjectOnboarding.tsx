@@ -10,18 +10,6 @@ import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectO
 import { SdkExample } from './SdkExample';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface IProjectOnboardingProps {
-  projectId: string;
-  setConnectSdkOpen: (open: boolean) => void;
-  setOnboardingFlow: (status: 'visible' | 'closed') => void;
-  refetchFeatures: () => void;
-}
-
-interface ICreateFlagProps {
-  projectId: string;
-  refetchFeatures: () => void;
-}
-
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -112,12 +100,19 @@ const TitleRow = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
+type ProjectOnboardingProps = {
+  projectId: string;
+  setConnectSdkOpen: (open: boolean) => void;
+  setOnboardingFlow: (status: 'visible' | 'closed') => void;
+  refetchFeatures: () => void;
+};
+
 export const ProjectOnboarding = ({
   projectId,
   setConnectSdkOpen,
   setOnboardingFlow,
   refetchFeatures,
-}: IProjectOnboardingProps) => {
+}: ProjectOnboardingProps) => {
   const { project } = useProjectOverview(projectId);
   const isFirstFlagCreated =
     project.onboardingStatus?.status === 'first-flag-created';
@@ -182,7 +177,12 @@ export const ProjectOnboarding = ({
   );
 };
 
-const CreateFlag = ({ projectId, refetchFeatures }: ICreateFlagProps) => {
+type CreateFlagProps = {
+  projectId: string;
+  refetchFeatures: () => void;
+};
+
+const CreateFlag = ({ projectId, refetchFeatures }: CreateFlagProps) => {
   const { refetch } = useProjectOverview(projectId);
   return (
     <>

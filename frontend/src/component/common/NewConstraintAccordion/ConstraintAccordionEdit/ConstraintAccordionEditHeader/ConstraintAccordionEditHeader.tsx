@@ -27,7 +27,7 @@ import { ConstraintAccordionHeaderActions } from '../../ConstraintAccordionHeade
 import { styled } from '@mui/material';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface IConstraintAccordionViewHeader {
+type ConstraintAccordionViewHeader = {
   localConstraint: IConstraint;
   setContextName: (contextName: string) => void;
   setOperator: (operator: Operator) => void;
@@ -39,7 +39,7 @@ interface IConstraintAccordionViewHeader {
   setCaseInsensitive: () => void;
   onUndo: () => void;
   constraintChanges: IConstraint[];
-}
+};
 
 const StyledHeaderContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -102,7 +102,7 @@ export const ConstraintAccordionEditHeader = ({
   onUndo,
   setInvertedOperator,
   setCaseInsensitive,
-}: IConstraintAccordionViewHeader) => {
+}: ConstraintAccordionViewHeader) => {
   const { context } = useUnleashContext();
   const { contextName, operator } = localConstraint;
   const [showCaseSensitiveButton, setShowCaseSensitiveButton] = useState(false);

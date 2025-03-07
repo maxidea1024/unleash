@@ -1,20 +1,19 @@
-import type React from 'react';
 import { useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface ProgressComponentProps {
+type ProgressComponentProps = {
   active: number;
   stale: number;
   potentiallyStale: number;
   health: number;
-}
+};
 
-export const ProjectHealthChart: React.FC<ProgressComponentProps> = ({
+export const ProjectHealthChart = ({
   active,
   stale,
   potentiallyStale,
   health,
-}) => {
+}: ProgressComponentProps) => {
   const theme = useTheme();
   const gap =
     active === 0 || stale === 0 || active / stale > 30 || stale / active > 30

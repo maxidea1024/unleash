@@ -30,12 +30,6 @@ import { useStyles } from './ChangeRequestsTabs.styles';
 import { FeaturesCell } from './FeaturesCell';
 import { HighlightCell } from '../../../common/Table/cells/HighlightCell/HighlightCell';
 
-type ChangeRequestTableProps = {
-  changeRequests: any[];
-  loading: boolean;
-  projectId: string;
-};
-
 const defaultSort: SortingRule<string> & {
   columns?: string[];
 } = { id: 'createdAt', desc: true };
@@ -59,6 +53,12 @@ const ConftigurationLinkBox = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
   fontSize: theme.fontSizes.smallBody,
 }));
+
+type ChangeRequestTableProps = {
+  changeRequests: any[];
+  loading: boolean;
+  projectId: string;
+};
 
 export const ChangeRequestsTabs = ({
   changeRequests = [],

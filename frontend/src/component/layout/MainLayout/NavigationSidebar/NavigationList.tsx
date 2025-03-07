@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useCallback } from 'react';
+import { useCallback } from 'react';
 import type { INavigationMenuItem } from 'interfaces/route';
 import type { NavigationMode } from './NavigationMode';
 import {
@@ -55,12 +55,19 @@ const useShowBadge = () => {
   return showBadge;
 };
 
-export const SecondaryNavigationList: FC<{
+type SecondaryNavigationListProps = {
   routes: INavigationMenuItem[];
   mode: NavigationMode;
   onClick: (activeItem: string) => void;
   activeItem?: string;
-}> = ({ routes, mode, onClick, activeItem }) => {
+};
+
+export const SecondaryNavigationList = ({
+  routes,
+  mode,
+  onClick,
+  activeItem,
+}: SecondaryNavigationListProps) => {
   const showBadge = useShowBadge();
   const DynamicListItem = mode === 'mini' ? MiniListItem : FullListItem;
 
@@ -101,12 +108,19 @@ export const OtherLinksList = () => {
   );
 };
 
-export const RecentProjectsList: FC<{
+type RecentProjectsListProps = {
   projectId: string;
   projectName: string;
   mode: NavigationMode;
   onClick: () => void;
-}> = ({ projectId, projectName, mode, onClick }) => {
+};
+
+export const RecentProjectsList = ({
+  projectId,
+  projectName,
+  mode,
+  onClick,
+}: RecentProjectsListProps) => {
   const DynamicListItem = mode === 'mini' ? MiniListItem : FullListItem;
 
   return (
@@ -123,11 +137,17 @@ export const RecentProjectsList: FC<{
   );
 };
 
-export const RecentFlagsList: FC<{
+type RecentFlagsListProps = {
   flags: { featureId: string; projectId: string }[];
   mode: NavigationMode;
   onClick: () => void;
-}> = ({ flags, mode, onClick }) => {
+};
+
+export const RecentFlagsList = ({
+  flags,
+  mode,
+  onClick,
+}: RecentFlagsListProps) => {
   const DynamicListItem = mode === 'mini' ? MiniListItem : FullListItem;
 
   return (
@@ -147,11 +167,17 @@ export const RecentFlagsList: FC<{
   );
 };
 
-export const PrimaryNavigationList: FC<{
+type PrimaryNavigationListProps = {
   mode: NavigationMode;
   onClick: (activeItem: string) => void;
   activeItem?: string;
-}> = ({ mode, onClick, activeItem }) => {
+};
+
+export const PrimaryNavigationList = ({
+  mode,
+  onClick,
+  activeItem,
+}: PrimaryNavigationListProps) => {
   const DynamicListItem = mode === 'mini' ? MiniListItem : FullListItem;
   const personalDashboardUIEnabled = useUiFlag('personalDashboardUI');
   const { isOss } = useUiConfig();
@@ -210,7 +236,11 @@ export const PrimaryNavigationList: FC<{
   );
 };
 
-const AccordionHeader: FC<{ children?: React.ReactNode }> = ({ children }) => {
+type AccordionHeaderProps = {
+  children?: React.ReactNode;
+};
+
+const AccordionHeader = ({ children }: AccordionHeaderProps) => {
   return (
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
@@ -224,13 +254,21 @@ const AccordionHeader: FC<{ children?: React.ReactNode }> = ({ children }) => {
   );
 };
 
-export const SecondaryNavigation: FC<{
+type SecondaryNavigationProps = {
   expanded: boolean;
   onExpandChange: (expanded: boolean) => void;
   mode: NavigationMode;
   title: string;
   children?: React.ReactNode;
-}> = ({ mode, expanded, onExpandChange, title, children }) => {
+};
+
+export const SecondaryNavigation = ({
+  mode,
+  expanded,
+  onExpandChange,
+  title,
+  children,
+}: SecondaryNavigationProps) => {
   return (
     <Accordion
       disableGutters={true}
@@ -251,15 +289,24 @@ export const SecondaryNavigation: FC<{
   );
 };
 
-export const RecentProjectsNavigation: FC<{
+type RecentProjectsNavigationProps = {
   mode: NavigationMode;
   projectId: string;
   onClick: () => void;
-}> = ({ mode, onClick, projectId }) => {
+};
+
+export const RecentProjectsNavigation = ({
+  mode,
+  onClick,
+  projectId,
+}: RecentProjectsNavigationProps) => {
   const { project, loading } = useProjectOverview(projectId);
   const projectDeleted = !project.name && !loading;
 
-  if (projectDeleted) return null;
+  if (projectDeleted) {
+    return null;
+  }
+
   return (
     <Box>
       {mode === 'full' && (
@@ -284,11 +331,17 @@ export const RecentProjectsNavigation: FC<{
   );
 };
 
-export const RecentFlagsNavigation: FC<{
+type RecentFlagsNavigationProps = {
   mode: NavigationMode;
   flags: { featureId: string; projectId: string }[];
   onClick: () => void;
-}> = ({ mode, onClick, flags }) => {
+};
+
+export const RecentFlagsNavigation = ({
+  mode,
+  onClick,
+  flags,
+}: RecentFlagsNavigationProps) => {
   return (
     <Box>
       {mode === 'full' && (

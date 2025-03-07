@@ -26,7 +26,7 @@ import {
   UPDATE_PROJECT,
 } from '@server/types/permissions';
 
-interface IProjectDefaultStrategyFormProps {
+type ProjectDefaultStrategyFormProps = {
   projectId: string;
   environmentId: string;
   permission: string | string[];
@@ -39,7 +39,7 @@ interface IProjectDefaultStrategyFormProps {
   segments: ISegment[];
   setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
   errors: IFormErrors;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'grid',
@@ -73,7 +73,7 @@ export const ProjectDefaultStrategyForm = ({
   segments,
   setSegments,
   errors,
-}: IProjectDefaultStrategyFormProps) => {
+}: ProjectDefaultStrategyFormProps) => {
   const hasValidConstraints = useConstraintsValidation(strategy.constraints);
   const access = useHasProjectEnvironmentAccess(
     permission,

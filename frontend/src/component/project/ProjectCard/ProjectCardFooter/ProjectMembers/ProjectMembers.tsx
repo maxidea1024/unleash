@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled } from '@mui/material';
 import { AvatarGroup } from 'component/common/AvatarGroup/AvatarGroup';
 import { UserAvatar } from 'component/common/UserAvatar/UserAvatar';
@@ -35,10 +34,7 @@ const AvatarComponent = ({ ...props }) => (
   <StyledAvatar {...props} disableTooltip />
 );
 
-export const ProjectMembers: FC<ProjectMembersProps> = ({
-  count = 0,
-  members,
-}) => {
+export const ProjectMembers = ({ count = 0, members }: ProjectMembersProps) => {
   return (
     <StyledContainer>
       <StyledDescription data-loading>

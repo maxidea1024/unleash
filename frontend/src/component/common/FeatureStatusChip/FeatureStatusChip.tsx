@@ -1,14 +1,14 @@
 import { Badge } from 'component/common/Badge/Badge';
 
-interface IStatusChip {
+type StatusChipProps = {
   stale: boolean;
   showActive?: boolean;
-}
+};
 
 export const FeatureStatusChip = ({
   stale,
   showActive = true,
-}: IStatusChip) => {
+}: StatusChipProps) => {
   if (!stale && !showActive) {
     return null;
   }

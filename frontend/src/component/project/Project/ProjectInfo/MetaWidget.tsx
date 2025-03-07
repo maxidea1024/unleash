@@ -1,6 +1,4 @@
-import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
-
 import {
   StyledProjectInfoWidgetContainer,
   StyledWidgetTitle,
@@ -8,10 +6,10 @@ import {
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { WidgetFooterLink } from './WidgetFooterLink';
 
-interface IMetaWidgetProps {
+type MetaWidgetProps = {
   id?: string;
   description?: string;
-}
+};
 
 const StyledIDContainer = styled('div')(({ theme }) => ({
   textAlign: 'left',
@@ -21,7 +19,7 @@ const StyledIDContainer = styled('div')(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
 }));
 
-export const MetaWidget: FC<IMetaWidgetProps> = ({ id, description }) => {
+export const MetaWidget = ({ id, description }: MetaWidgetProps) => {
   return (
     <StyledProjectInfoWidgetContainer>
       <StyledWidgetTitle data-loading>Project Meta</StyledWidgetTitle>

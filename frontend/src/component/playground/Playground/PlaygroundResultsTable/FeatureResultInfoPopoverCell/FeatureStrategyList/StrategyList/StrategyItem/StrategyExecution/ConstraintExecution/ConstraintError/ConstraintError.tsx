@@ -12,15 +12,15 @@ const StyledConstraintErrorDiv = styled('div')(({ theme }) => ({
   color: theme.palette.error.main,
 }));
 
-interface IConstraintErrorProps {
+type ConstraintErrorProps = {
   constraint: PlaygroundConstraintSchema;
   input?: PlaygroundRequestSchema;
-}
+};
 
 export const ConstraintError = ({
   constraint,
   input,
-}: IConstraintErrorProps) => {
+}: ConstraintErrorProps) => {
   const formatText = () => {
     const value = input?.context[constraint.contextName];
 

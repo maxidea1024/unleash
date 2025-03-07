@@ -76,13 +76,13 @@ export type PageQueryType = Partial<
 
 const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 
-interface ISignalEndpointsTokensProps {
+type SignalEndpointsTokensProps = {
   signalEndpoint: ISignalEndpoint;
-}
+};
 
 export const SignalEndpointsTokens = ({
   signalEndpoint,
-}: ISignalEndpointsTokensProps) => {
+}: SignalEndpointsTokensProps) => {
   const theme = useTheme();
   const { setToastData, setToastApiError } = useToast();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

@@ -33,15 +33,15 @@ const StyledLink = styled(Link)<{
   },
 }));
 
-interface IProjectActionsSourceCellProps {
+type ProjectActionsSourceCellProps = {
   action: IActionSet;
   signalEndpoints: ISignalEndpoint[];
-}
+};
 
 export const ProjectActionsSourceCell = ({
   action,
   signalEndpoints,
-}: IProjectActionsSourceCellProps) => {
+}: ProjectActionsSourceCellProps) => {
   const { sourceId, source } = action.match;
 
   if (source === 'signal-endpoint') {

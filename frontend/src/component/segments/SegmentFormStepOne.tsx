@@ -24,7 +24,7 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import { Limit } from '../common/Limit/Limit';
 
-interface ISegmentFormPartOneProps {
+type SegmentFormPartOneProps = {
   name: string;
   description: string;
   project?: string;
@@ -34,7 +34,7 @@ interface ISegmentFormPartOneProps {
   errors: { [key: string]: string };
   clearErrors: () => void;
   setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
-}
+};
 
 const StyledForm = styled('div')({
   display: 'flex',
@@ -88,7 +88,7 @@ const useSegmentLimit = () => {
   };
 };
 
-export const SegmentFormStepOne: React.FC<ISegmentFormPartOneProps> = ({
+export const SegmentFormStepOne = ({
   name,
   description,
   project,
@@ -97,7 +97,7 @@ export const SegmentFormStepOne: React.FC<ISegmentFormPartOneProps> = ({
   setProject,
   errors,
   setCurrentStep,
-}) => {
+}: SegmentFormPartOneProps) => {
   const segmentId = useOptionalPathParam('segmentId');
   const projectId = useOptionalPathParam('projectId');
   const navigate = useNavigate();

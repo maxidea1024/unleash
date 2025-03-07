@@ -69,7 +69,6 @@ const StyledTooltipActions = styled('div')(({ theme }) => ({
   },
 }));
 
-// @ts-ignore
 type DemoStepTooltipProps = TooltipRenderProps & {
   step: ITutorialTopicStep;
   topic: number;
@@ -103,7 +102,9 @@ export const DemoStepTooltip = ({
         <StyledDialog
           open
           onClose={(_, r) => {
-            if (r !== 'backdropClick') onClose();
+            if (r !== 'backdropClick') {
+              onClose();
+            }
           }}
           transitionDuration={0}
           hideBackdrop

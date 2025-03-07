@@ -5,18 +5,18 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import classnames from 'classnames';
 import type { Theme } from '@mui/material';
 
-type SortArrowProps = {
-  isSorted?: boolean;
-  isDesc?: boolean;
-  className?: string;
-};
-
 const iconStyle = (theme: Theme) => ({
   marginLeft: theme.spacing(0.25),
   marginRight: theme.spacing(-0.5),
   fontSize: theme.fontSizes.mainHeader,
   verticalAlign: 'middle',
 });
+
+type SortArrowProps = {
+  isSorted?: boolean;
+  isDesc?: boolean;
+  className?: string;
+};
 
 export const SortArrow = ({
   isSorted: sorted,

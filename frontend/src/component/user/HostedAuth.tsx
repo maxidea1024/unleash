@@ -1,4 +1,4 @@
-import { type FC, type FormEventHandler, useState } from 'react';
+import { type FormEventHandler, useState } from 'react';
 import { Button, Grid, styled, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 import useQueryParams from 'hooks/useQueryParams';
@@ -36,7 +36,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
   textAlign: 'center',
 }));
 
-const HostedAuth: FC<HostedAuthProps> = ({ authDetails, redirect }) => {
+const HostedAuth = ({ authDetails, redirect }: HostedAuthProps) => {
   const { refetchUser } = useAuthUser();
   const navigate = useNavigate();
   const params = useQueryParams();

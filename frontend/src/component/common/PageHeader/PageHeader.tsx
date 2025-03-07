@@ -70,9 +70,7 @@ type PageHeaderProps = {
   children?: React.ReactNode;
 };
 
-const PageHeaderComponent: FC<PageHeaderProps> & {
-  Divider: typeof PageHeaderDivider;
-} = ({
+const PageHeaderComponent = ({
   title,
   titleElement,
   actions,
@@ -82,7 +80,7 @@ const PageHeaderComponent: FC<PageHeaderProps> & {
   className = '',
   secondary,
   children,
-}) => {
+}: PageHeaderProps) => {
   const headerClasses = classnames({ skeleton: loading });
 
   usePageTitle(secondary ? '' : title);

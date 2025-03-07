@@ -29,7 +29,7 @@ import IosShare from '@mui/icons-material/IosShare';
 import type { OverridableStringUnion } from '@mui/types';
 import type { ButtonPropsVariantOverrides } from '@mui/material/Button/Button';
 
-interface IProjectFeatureTogglesHeaderProps {
+type ProjectFeatureTogglesHeaderProps = {
   isLoading?: boolean;
   totalItems?: number;
   searchQuery?: string;
@@ -37,9 +37,9 @@ interface IProjectFeatureTogglesHeaderProps {
   dataToExport?: Pick<FeatureSchema, 'name'>[];
   environmentsToExport?: string[];
   actions?: ReactNode;
-}
+};
 
-interface IFlagCreationButtonProps {
+type FlagCreationButtonProps = {
   text?: string;
   variant?: OverridableStringUnion<
     'text' | 'outlined' | 'contained',
@@ -47,7 +47,7 @@ interface IFlagCreationButtonProps {
   >;
   skipNavigationOnComplete?: boolean;
   onSuccess?: () => void;
-}
+};
 
 const StyledResponsiveButton = styled(ResponsiveButton)(() => ({
   whiteSpace: 'nowrap',
@@ -58,7 +58,7 @@ export const FlagCreationButton = ({
   text = 'New feature flag',
   skipNavigationOnComplete,
   onSuccess,
-}: IFlagCreationButtonProps) => {
+}: FlagCreationButtonProps) => {
   const [searchParams] = useSearchParams();
   const projectId = useRequiredPathParam('projectId');
   const showCreateDialog = Boolean(searchParams.get('create'));
@@ -90,7 +90,7 @@ export const FlagCreationButton = ({
 };
 
 export const ProjectFeatureTogglesHeader: FC<
-  IProjectFeatureTogglesHeaderProps
+  ProjectFeatureTogglesHeaderProps
 > = ({
   isLoading,
   totalItems,

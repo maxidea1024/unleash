@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { IconButton, type IconButtonProps } from '@mui/material';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import StarIcon from '@mui/icons-material/Star';
@@ -10,11 +9,11 @@ type FavoriteIconButtonProps = IconButtonProps & {
   size?: 'medium' | 'large';
 };
 
-export const FavoriteIconButton: FC<FavoriteIconButtonProps> = ({
+export const FavoriteIconButton = ({
   isFavorite,
   size = 'large',
   ...props
-}) => {
+}: FavoriteIconButtonProps) => {
   return (
     <TooltipResolver
       title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}

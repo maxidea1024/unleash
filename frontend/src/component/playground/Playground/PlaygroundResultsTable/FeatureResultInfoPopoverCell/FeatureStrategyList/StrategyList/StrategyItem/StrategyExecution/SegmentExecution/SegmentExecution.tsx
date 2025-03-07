@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import type { PlaygroundSegmentSchema, PlaygroundRequestSchema } from 'openapi';
 import { ConstraintExecution } from '../ConstraintExecution/ConstraintExecution';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
@@ -6,11 +6,6 @@ import { StrategySeparator } from 'component/common/StrategySeparator/StrategySe
 import { styled, Typography } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { SegmentItem } from 'component/common/SegmentItem/SegmentItem';
-
-interface ISegmentExecutionProps {
-  segments?: PlaygroundSegmentSchema[];
-  input?: PlaygroundRequestSchema;
-}
 
 const SegmentResultTextWrapper = styled('div')(({ theme }) => ({
   color: theme.palette.error.main,
@@ -20,10 +15,15 @@ const SegmentResultTextWrapper = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export const SegmentExecution: FC<ISegmentExecutionProps> = ({
+type SegmentExecutionProps = {
+  segments?: PlaygroundSegmentSchema[];
+  input?: PlaygroundRequestSchema;
+};
+
+export const SegmentExecution = ({
   segments,
   input,
-}) => {
+}: SegmentExecutionProps) => {
   if (!segments) {
     return null;
   }

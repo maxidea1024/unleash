@@ -4,19 +4,19 @@ import TestSdkConnection from './TestSdkConnection';
 import type { Sdk } from './sharedTypes';
 import { SdkConnected } from './SdkConnected';
 
-interface ISdkConnectionProps {
+type SdkConnectionProps = {
   sdk: Sdk;
   apiKey: string;
   feature?: string;
   onSdkChange: () => void;
-}
+};
 
 export const SdkConnection = ({
   sdk,
   apiKey,
   feature,
   onSdkChange,
-}: ISdkConnectionProps) => {
+}: SdkConnectionProps) => {
   return (
     <Suspense fallback={<Loader />}>
       {feature ? (

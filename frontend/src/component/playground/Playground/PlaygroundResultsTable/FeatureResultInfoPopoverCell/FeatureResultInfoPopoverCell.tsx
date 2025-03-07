@@ -5,15 +5,15 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { FeatureDetails } from './FeatureDetails/FeatureDetails';
 import { PlaygroundResultFeatureStrategyList } from './FeatureStrategyList/PlaygroundResultFeatureStrategyList';
 
-interface FeatureResultInfoPopoverCellProps {
-  feature: PlaygroundFeatureSchema;
-  input?: PlaygroundRequestSchema;
-}
-
 const FeatureResultPopoverWrapper = styled('div')(({ theme }) => ({
   alignItems: 'flex-end',
   color: theme.palette.divider,
 }));
+
+type FeatureResultInfoPopoverCellProps = {
+  feature: PlaygroundFeatureSchema;
+  input?: PlaygroundRequestSchema;
+};
 
 export const FeatureResultInfoPopoverCell = ({
   feature,

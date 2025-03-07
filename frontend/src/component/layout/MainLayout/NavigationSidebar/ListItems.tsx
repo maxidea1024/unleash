@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import {
   ListItem,
   ListItemButton,
@@ -38,14 +38,23 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   margin: 0,
 }));
 
-export const FullListItem: FC<{
+type FullListItemProps = {
   href: string;
   text: string;
   badge?: ReactNode;
   onClick: () => void;
   selected?: boolean;
   children?: React.ReactNode;
-}> = ({ href, text, badge, onClick, selected, children }) => {
+};
+
+export const FullListItem = ({
+  href,
+  text,
+  badge,
+  onClick,
+  selected,
+  children,
+}: FullListItemProps) => {
   return (
     <ListItem disablePadding onClick={onClick}>
       <ListItemButton
@@ -65,11 +74,17 @@ export const FullListItem: FC<{
   );
 };
 
-export const ExternalFullListItem: FC<{
+type ExternalFullListItemProps = {
   href: string;
   text: string;
   children?: React.ReactNode;
-}> = ({ href, text, children }) => {
+};
+
+export const ExternalFullListItem = ({
+  href,
+  text,
+  children,
+}: ExternalFullListItemProps) => {
   return (
     <ListItem disablePadding>
       <ListItemButton
@@ -88,6 +103,7 @@ export const ExternalFullListItem: FC<{
     </ListItem>
   );
 };
+
 export const SignOutItem = () => {
   return (
     <form method='POST' action={`${basePath}/logout`}>
@@ -110,13 +126,21 @@ export const SignOutItem = () => {
   );
 };
 
-export const MiniListItem: FC<{
+type MiniListItemProps = {
   href: string;
   text: string;
   selected?: boolean;
   onClick: () => void;
   children?: React.ReactNode;
-}> = ({ href, text, selected, onClick, children }) => {
+};
+
+export const MiniListItem = ({
+  href,
+  text,
+  selected,
+  onClick,
+  children,
+}: MiniListItemProps) => {
   return (
     <ListItem disablePadding onClick={onClick}>
       <ListItemButton

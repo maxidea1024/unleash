@@ -13,12 +13,6 @@ import { CopyStrategiesMessage } from 'component/changeRequest/ChangeRequestConf
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { FeatureStrategyMenu } from '../FeatureStrategyMenu/FeatureStrategyMenu';
 
-type FeatureStrategyEmptyProps = {
-  projectId: string;
-  featureId: string;
-  environmentId: string;
-};
-
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -44,6 +38,12 @@ const StyledDescription = styled('p')(({ theme }) => ({
     color: theme.palette.links,
   },
 }));
+
+type FeatureStrategyEmptyProps = {
+  projectId: string;
+  featureId: string;
+  environmentId: string;
+};
 
 export const FeatureStrategyEmpty = ({
   projectId,

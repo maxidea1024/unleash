@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import type { TokenType } from 'interfaces/token';
 
-export type SelectOption = {
+export type ISelectOption = {
   key: string;
   label: string;
   title: string;
@@ -19,7 +19,7 @@ export type SelectOption = {
 type TokenTypeSelectorProps = {
   type: string;
   setType: (value: TokenType) => void;
-  apiTokenTypes: SelectOption[];
+  apiTokenTypes: ISelectOption[];
 };
 
 export const TokenTypeSelector = ({

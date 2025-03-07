@@ -12,7 +12,7 @@ export const NoProjectsContactAdmin: FC<{
       title={
         <>
           <NeutralCircleContainer>1</NeutralCircleContainer>
-          Contact Unleash admin
+          Contact Ganpa admin
         </>
       }
     >

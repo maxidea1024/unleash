@@ -15,13 +15,13 @@ import { HighlightCell } from '../../../common/Table/cells/HighlightCell/Highlig
 import { capitalizeFirst } from 'utils/capitalizeFirst';
 import { FeatureResultInfoPopoverCell } from '../PlaygroundResultsTable/FeatureResultInfoPopoverCell/FeatureResultInfoPopoverCell';
 
-interface IPlaygroundEnvironmentTableProps {
+type PlaygroundEnvironmentTableProps = {
   features: AdvancedPlaygroundFeatureSchemaEnvironments;
-}
+};
 
 export const PlaygroundEnvironmentDiffTable = ({
   features,
-}: IPlaygroundEnvironmentTableProps) => {
+}: PlaygroundEnvironmentTableProps) => {
   const environments = Object.keys(features);
   const firstEnvFeatures = features[environments[0]];
   const firstContext = firstEnvFeatures[0].context;

@@ -1,8 +1,7 @@
-import type { FC } from 'react';
 import type { InstanceInsightsSchemaProjectFlagTrendsItem } from 'openapi';
 import { Box, Paper, Typography, styled } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
-import type { TooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
+import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
 
 const StyledTooltipItemContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -54,9 +53,13 @@ const resolveBadge = (input?: number) => {
   }
 };
 
-export const TimeToProductionTooltip: FC<{ tooltip: TooltipState | null }> = ({
+type TimeToProductionTooltipProps = {
+  tooltip: ITooltipState | null;
+};
+
+export const TimeToProductionTooltip = ({
   tooltip,
-}) => {
+}: TimeToProductionTooltipProps) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useLastSeenColors } from 'component/feature/FeatureView/FeatureEnvironmentSeen/useLastSeenColors';
 import { Box, styled, Typography } from '@mui/material';
 import { ReactComponent as UsageLine } from 'assets/icons/usage-line.svg';
@@ -48,7 +47,7 @@ const Title = () => (
   </>
 );
 
-export const ProjectLastSeen: FC<ProjectLastSeenProps> = ({ date }) => {
+export const ProjectLastSeen = ({ date }: ProjectLastSeenProps) => {
   const getColor = useLastSeenColors();
   const { text, background } = getColor(date);
 

@@ -1,6 +1,6 @@
 import { Typography, styled, useTheme } from '@mui/material';
 import { Table, TableBody, TableCell, TableRow } from 'component/common/Table';
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { IFeatureVariant } from 'interfaces/featureToggle';
 import { calculateVariantWeight } from 'component/common/util';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
@@ -10,11 +10,6 @@ import { SortableTableHeader } from 'component/common/Table';
 import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
-
-interface IVariantInformationProps {
-  variants: IFeatureVariant[];
-  selectedVariant: string;
-}
 
 const StyledBox = styled('div')(({ theme }) => ({
   padding: theme.spacing(4),
@@ -29,10 +24,15 @@ const StyledCheckIcon = styled(CheckCircleOutlined)(({ theme }) => ({
   color: theme.palette.success.main,
 }));
 
-export const VariantInformation: FC<IVariantInformationProps> = ({
+type VariantInformationProps = {
+  variants: IFeatureVariant[];
+  selectedVariant: string;
+};
+
+export const VariantInformation = ({
   variants,
   selectedVariant,
-}) => {
+}: VariantInformationProps) => {
   const theme = useTheme();
   const data = useMemo(() => {
     return variants.map((variant) => {

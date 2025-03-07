@@ -83,7 +83,9 @@ const useTitleTracking = () => {
 };
 
 const addIdSymbolToConstraints = (strategy?: IFeatureStrategy) => {
-  if (!strategy) return;
+  if (!strategy) {
+    return;
+  }
 
   return strategy?.constraints.map((constraint) => {
     return { ...constraint, [constraintId]: uuidv4() };
@@ -247,7 +249,9 @@ export const FeatureStrategyEdit = () => {
     return null;
   }
 
-  if (!data) return null;
+  if (!data) {
+    return null;
+  }
 
   return (
     <FormTemplate

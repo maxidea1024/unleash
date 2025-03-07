@@ -1,4 +1,4 @@
-export interface Sdk {
+interface ISdk {
   name: string;
   displayName: string;
   description: string;
@@ -6,7 +6,7 @@ export interface Sdk {
   type: 'server' | 'client';
 }
 
-export const OFFICIAL_SDKS: Sdk[] = [
+export const OFFICIAL_SDKS: ISdk[] = [
   {
     name: 'go',
     displayName: 'GO SDK',

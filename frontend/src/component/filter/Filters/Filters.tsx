@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Icon, styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AddFilterButton } from '../AddFilterButton';
@@ -12,14 +12,14 @@ const StyledBox = styled(Box)(({ theme }) => ({
   flexWrap: 'wrap',
 }));
 
-export type FilterItemParamHolder = Record<
+export type IFilterItemParamHolder = Record<
   string,
   FilterItemParams | null | undefined
 >;
 
 type FilterProps = {
-  state: FilterItemParamHolder;
-  onChange: (value: FilterItemParamHolder) => void;
+  state: IFilterItemParamHolder;
+  onChange: (value: IFilterItemParamHolder) => void;
   availableFilters: IFilterItem[];
   className?: string;
 };

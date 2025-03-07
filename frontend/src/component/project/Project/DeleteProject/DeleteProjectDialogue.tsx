@@ -10,13 +10,13 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { styled, Typography } from '@mui/material';
 import { ProjectId } from 'component/project/ProjectId/ProjectId';
 
-interface IDeleteProjectDialogueProps {
+type DeleteProjectDialogueProps = {
   projectId: string;
   projectName?: string;
   open: boolean;
   onClose: (e: React.SyntheticEvent) => void;
   onSuccess?: () => void;
-}
+};
 
 const StyledParagraph = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
@@ -28,7 +28,7 @@ export const DeleteProjectDialogue = ({
   projectId,
   projectName,
   onSuccess,
-}: IDeleteProjectDialogueProps) => {
+}: DeleteProjectDialogueProps) => {
   const { deleteProject } = useProjectApi();
   const { refetch: refetchProjects } = useProjects();
   const { refetch: refetchProjectArchive } = useProjects({ archived: true });

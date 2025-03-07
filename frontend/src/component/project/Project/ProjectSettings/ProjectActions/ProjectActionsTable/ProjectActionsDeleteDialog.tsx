@@ -1,19 +1,19 @@
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IActionSet } from 'interfaces/action';
 
-interface IProjectActionsDeleteDialogProps {
+type ProjectActionsDeleteDialogProps = {
   action?: IActionSet;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (action: IActionSet) => void;
-}
+};
 
 export const ProjectActionsDeleteDialog = ({
   action,
   open,
   setOpen,
   onConfirm,
-}: IProjectActionsDeleteDialogProps) => (
+}: ProjectActionsDeleteDialogProps) => (
   <Dialogue
     title='Delete action?'
     open={open}

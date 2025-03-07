@@ -21,17 +21,17 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   },
 }));
 
-interface IInviteLinkContentProps {
+type InviteLinkContentProps = {
   id: string;
   showInviteLinkContent: boolean;
   setShowInviteLinkContent: (showInviteLinkContent: boolean) => void;
-}
+};
 
 export const InviteLinkContent = ({
   id,
   showInviteLinkContent,
   setShowInviteLinkContent,
-}: IInviteLinkContentProps) => {
+}: InviteLinkContentProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const onInviteLinkActionClick = (inviteLink?: string) => {

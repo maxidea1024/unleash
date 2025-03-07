@@ -10,10 +10,11 @@ const StyledContainer = styled('div')(({ theme }) => ({
   overflow: 'hidden',
 }));
 
-interface IDeleteProjectForm {
+type DeleteProjectForm = {
   featureCount: number;
-}
-export const ArchiveProjectForm = ({ featureCount }: IDeleteProjectForm) => {
+};
+
+export const ArchiveProjectForm = ({ featureCount }: DeleteProjectForm) => {
   const id = useRequiredPathParam('projectId');
   const { uiConfig } = useUiConfig();
   const { loading } = useProjectApi();

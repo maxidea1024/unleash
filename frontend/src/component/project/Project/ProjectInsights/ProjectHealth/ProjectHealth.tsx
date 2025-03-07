@@ -2,7 +2,6 @@ import { ProjectHealthChart } from './ProjectHealthChart';
 import { Alert, Box, styled, Typography } from '@mui/material';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { ProjectInsightsSchemaHealth } from '../../../../../openapi';
-import type { FC } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { FlagCounts } from './FlagCounts';
 
@@ -12,9 +11,11 @@ const Container = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-export const ProjectHealth: FC<{ health: ProjectInsightsSchemaHealth }> = ({
-  health,
-}) => {
+type ProjectHealthProps = {
+  health: ProjectInsightsSchemaHealth;
+};
+
+export const ProjectHealth = ({ health }: ProjectHealthProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { staleCount, potentiallyStaleCount, activeCount, rating } = health;
 

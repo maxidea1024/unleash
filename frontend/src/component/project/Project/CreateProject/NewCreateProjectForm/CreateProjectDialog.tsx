@@ -29,10 +29,10 @@ import { StyledDefinitionList } from './CreateProjectDialog.styles';
 import { ProjectIcon } from 'component/common/ProjectIcon/ProjectIcon';
 import { useUiFlag } from '../../../../../hooks/useUiFlag';
 
-interface ICreateProjectDialogProps {
+type CreateProjectDialogProps = {
   open: boolean;
   onClose: () => void;
-}
+};
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -111,7 +111,7 @@ const useProjectLimit = () => {
 export const CreateProjectDialog = ({
   open,
   onClose,
-}: ICreateProjectDialogProps) => {
+}: CreateProjectDialogProps) => {
   const { createProject, loading: creatingProject } = useProjectApi();
   const { refetchUser } = useAuthUser();
   const { uiConfig } = useUiConfig();

@@ -56,9 +56,9 @@ import { UPDATE_FEATURE } from '@server/types/permissions';
 import { ImportModal } from '../Import/ImportModal';
 import { IMPORT_BUTTON } from 'utils/testIds';
 
-interface IPaginatedProjectFeatureTogglesProps {
+type PaginatedProjectFeatureTogglesProps = {
   environments: string[];
-}
+};
 
 const formatEnvironmentColumnId = (environment: string) =>
   `environment:${environment}`;
@@ -87,7 +87,7 @@ const ButtonGroup = styled('div')(({ theme }) => ({
 
 export const ProjectFeatureToggles = ({
   environments,
-}: IPaginatedProjectFeatureTogglesProps) => {
+}: PaginatedProjectFeatureTogglesProps) => {
   const { trackEvent } = usePlausibleTracker();
   const onboardingUIEnabled = useUiFlag('onboardingUI');
   const projectId = useRequiredPathParam('projectId');

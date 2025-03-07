@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import {
-  type FilterItemParamHolder,
+  type IFilterItemParamHolder,
   Filters,
   type IFilterItem,
 } from 'component/filter/Filters/Filters';
 
 type FeatureToggleFiltersProps = {
-  state: FilterItemParamHolder;
-  onChange: (value: FilterItemParamHolder) => void;
+  state: IFilterItemParamHolder;
+  onChange: (value: IFilterItemParamHolder) => void;
 };
 
 export const InsightsFilters = ({

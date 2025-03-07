@@ -23,17 +23,17 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(3),
 }));
 
-interface IDeleteProjectProps {
+type DeleteProjectProps = {
   projectId: string;
   projectName?: string;
   featureCount: number;
-}
+};
 
 export const DeleteProject = ({
   projectId,
   projectName,
   featureCount,
-}: IDeleteProjectProps) => {
+}: DeleteProjectProps) => {
   const { isEnterprise } = useUiConfig();
   const automatedActionsEnabled = useUiFlag('automatedActions');
   const { actions } = useActions(projectId);

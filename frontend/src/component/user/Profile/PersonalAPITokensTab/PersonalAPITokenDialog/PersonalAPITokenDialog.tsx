@@ -2,23 +2,22 @@ import { Alert, styled, Typography } from '@mui/material';
 import { UserToken } from 'component/admin/apiToken/ConfirmToken/UserToken/UserToken';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { INewPersonalAPIToken } from 'interfaces/personalAPIToken';
-import type { FC } from 'react';
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-interface IPersonalAPITokenDialogProps {
+type PersonalAPITokenDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: INewPersonalAPIToken;
-}
+};
 
-export const PersonalAPITokenDialog: FC<IPersonalAPITokenDialogProps> = ({
+export const PersonalAPITokenDialog = ({
   open,
   setOpen,
   token,
-}) => (
+}: PersonalAPITokenDialogProps) => (
   <Dialogue
     open={open}
     setOpen={setOpen}

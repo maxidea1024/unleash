@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import useToast from 'hooks/useToast';
 import { useFavoriteProjectsApi } from 'hooks/api/actions/useFavoriteProjectsApi/useFavoriteProjectsApi';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
@@ -6,7 +5,7 @@ import { FavoriteIconButton } from 'component/common/FavoriteIconButton/Favorite
 
 type FavoriteActionProps = { id: string; isFavorite?: boolean };
 
-export const FavoriteAction: FC<FavoriteActionProps> = ({ id, isFavorite }) => {
+export const FavoriteAction = ({ id, isFavorite }: FavoriteActionProps) => {
   const { setToastApiError } = useToast();
   const { favorite, unfavorite } = useFavoriteProjectsApi();
   const { refetch } = useProjects();

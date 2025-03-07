@@ -5,9 +5,9 @@ import { MultipleValues } from './MultipleValues/MultipleValues';
 import { SingleValue } from './SingleValue/SingleValue';
 import { styled } from '@mui/material';
 
-interface IConstraintAccordionViewBodyProps {
+type ConstraintAccordionViewBodyProps = {
   constraint: IConstraint;
-}
+};
 
 const StyledValueContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 0),
@@ -17,7 +17,7 @@ const StyledValueContainer = styled('div')(({ theme }) => ({
 
 export const ConstraintAccordionViewBody = ({
   constraint,
-}: IConstraintAccordionViewBodyProps) => {
+}: ConstraintAccordionViewBodyProps) => {
   const { locationSettings } = useLocationSettings();
 
   return (

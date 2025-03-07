@@ -16,25 +16,6 @@ import { ContextFormChip } from 'component/context/ContectFormChip/ContextFormCh
 import { ContextFormChipList } from 'component/context/ContectFormChip/ContextFormChipList';
 import { ContextFieldUsage } from '../ContextFieldUsage/ContextFieldUsage';
 
-type ContextFormProps = {
-  contextName: string;
-  contextDesc: string;
-  legalValues: ILegalValue[];
-  stickiness: boolean;
-  setContextName: React.Dispatch<React.SetStateAction<string>>;
-  setContextDesc: React.Dispatch<React.SetStateAction<string>>;
-  setStickiness: React.Dispatch<React.SetStateAction<boolean>>;
-  setLegalValues: React.Dispatch<React.SetStateAction<ILegalValue[]>>;
-  handleSubmit: (e: any) => void;
-  onCancel: () => void;
-  errors: { [key: string]: string };
-  mode: 'Create' | 'Edit';
-  clearErrors: (key?: string) => void;
-  validateContext?: () => void;
-  setErrors: React.Dispatch<React.SetStateAction<Object>>;
-  children?: React.ReactNode;
-};
-
 const ENTER = 'Enter';
 
 const StyledForm = styled('form')({
@@ -78,6 +59,25 @@ const StyledButtonContainer = styled('div')({
 const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
+
+type ContextFormProps = {
+  contextName: string;
+  contextDesc: string;
+  legalValues: ILegalValue[];
+  stickiness: boolean;
+  setContextName: React.Dispatch<React.SetStateAction<string>>;
+  setContextDesc: React.Dispatch<React.SetStateAction<string>>;
+  setStickiness: React.Dispatch<React.SetStateAction<boolean>>;
+  setLegalValues: React.Dispatch<React.SetStateAction<ILegalValue[]>>;
+  handleSubmit: (e: any) => void;
+  onCancel: () => void;
+  errors: { [key: string]: string };
+  mode: 'Create' | 'Edit';
+  clearErrors: (key?: string) => void;
+  validateContext?: () => void;
+  setErrors: React.Dispatch<React.SetStateAction<Object>>;
+  children?: React.ReactNode;
+};
 
 export const ContextForm = ({
   children,

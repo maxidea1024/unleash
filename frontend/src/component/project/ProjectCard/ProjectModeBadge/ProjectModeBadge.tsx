@@ -1,12 +1,11 @@
-import type { FC } from 'react';
 import ProtectedProjectIcon from '@mui/icons-material/LockOutlined';
 import PrivateProjectIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 import { styled } from '@mui/material';
 
-interface IProjectModeBadgeProps {
+type ProjectModeBadgeProps = {
   mode?: 'private' | 'protected' | 'public' | string;
-}
+};
 
 const StyledIcon = styled('div')(({ theme }) => ({
   color: theme.palette.primary.main,
@@ -14,7 +13,7 @@ const StyledIcon = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(0.75),
 }));
 
-export const ProjectModeBadge: FC<IProjectModeBadgeProps> = ({ mode }) => {
+export const ProjectModeBadge = ({ mode }: ProjectModeBadgeProps) => {
   if (mode === 'private') {
     return (
       <HtmlTooltip

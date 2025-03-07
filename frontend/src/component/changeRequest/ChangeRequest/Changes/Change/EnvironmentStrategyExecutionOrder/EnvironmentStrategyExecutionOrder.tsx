@@ -20,6 +20,7 @@ const StyledChangeHeader = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(2),
   lineHeight: theme.spacing(3),
 }));
+
 const StyledStrategyExecutionWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',

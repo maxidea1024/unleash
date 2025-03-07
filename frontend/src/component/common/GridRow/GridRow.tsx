@@ -1,16 +1,17 @@
 import { Grid, styled, type SxProps, type Theme } from '@mui/material';
 import type React from 'react';
-import type { FC } from 'react';
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   flexWrap: 'nowrap',
   gap: theme.spacing(1),
 }));
 
-export const GridRow: FC<{
+type GridRowProps = {
   sx?: SxProps<Theme>;
   children?: React.ReactNode;
-}> = ({ sx, children }) => {
+};
+
+export const GridRow = ({ sx, children }: GridRowProps) => {
   return (
     <StyledGrid
       container

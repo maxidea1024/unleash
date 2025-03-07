@@ -15,13 +15,6 @@ import type { IFormErrors } from 'hooks/useFormErrors';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import type { OrderEnvironmentsSchemaEnvironmentsItem } from 'openapi';
 
-type OrderEnvironmentsDialogProps = {
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (environments: OrderEnvironmentsSchemaEnvironmentsItem[]) => void;
-  errors?: IFormErrors;
-};
-
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   maxWidth: '940px',
   margin: 'auto',
@@ -89,6 +82,13 @@ const ENVIRONMENT_TYPES = [
   'pre-production',
   'production',
 ];
+
+type OrderEnvironmentsDialogProps = {
+  open: boolean;
+  onClose: () => void;
+  onSubmit: (environments: OrderEnvironmentsSchemaEnvironmentsItem[]) => void;
+  errors?: IFormErrors;
+};
 
 export const OrderEnvironmentsDialog = ({
   open,

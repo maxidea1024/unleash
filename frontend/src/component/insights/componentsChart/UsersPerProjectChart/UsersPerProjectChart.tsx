@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import 'chartjs-adapter-date-fns';
 import type { InstanceInsightsSchema } from 'openapi';
 import {

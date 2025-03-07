@@ -1,4 +1,4 @@
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   type SortingRule,
   useFlexLayout,
@@ -89,7 +89,7 @@ const StyledGroupAvatar = styled(UserAvatar)(({ theme }) => ({
 const hiddenColumnsSmall = ['imageUrl', 'role', 'added', 'lastLogin'];
 const hiddenColumnsMedium = ['lastLogin', 'added'];
 
-export const ProjectAccessTable: FC = () => {
+export const ProjectAccessTable = () => {
   const projectId = useRequiredPathParam('projectId');
 
   const { uiConfig } = useUiConfig();

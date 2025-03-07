@@ -68,11 +68,11 @@ const StyledAlignedItem = styled('p')(({ theme }) => ({
   marginLeft: theme.spacing(4),
 }));
 
-interface IReportCardProps {
+type ReportCardProps = {
   healthReport: IProjectHealthReport;
-}
+};
 
-export const ReportCard = ({ healthReport }: IReportCardProps) => {
+export const ReportCard = ({ healthReport }: ReportCardProps) => {
   const healthRatingColor =
     healthReport.health < 50
       ? 'error.main'

@@ -11,7 +11,9 @@ export const HeaderEventTimelineButton = () => {
   const { open: showTimeline, setOpen: setShowTimeline } =
     useEventTimelineContext();
 
-  if (isOss()) return null;
+  if (isOss()) {
+    return null;
+  }
 
   return (
     <Tooltip

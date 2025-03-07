@@ -4,21 +4,6 @@ import Input from 'component/common/Input/Input';
 import EnvironmentTypeSelector from './EnvironmentTypeSelector/EnvironmentTypeSelector';
 import { trim } from 'component/common/util';
 
-type EnvironmentFormProps = {
-  name: string;
-  type: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setType: React.Dispatch<React.SetStateAction<string>>;
-  validateEnvironmentName?: (e: any) => void;
-  handleSubmit: (e: any) => void;
-  handleCancel: () => void;
-  errors: { [key: string]: string };
-  mode: 'Create' | 'Edit';
-  clearErrors: () => void;
-  children?: React.ReactNode;
-  Limit?: React.ReactNode;
-};
-
 const StyledForm = styled('form')({
   display: 'flex',
   flexDirection: 'column',
@@ -60,6 +45,21 @@ const LimitContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(3),
   marginBottom: theme.spacing(3),
 }));
+
+type EnvironmentFormProps = {
+  name: string;
+  type: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setType: React.Dispatch<React.SetStateAction<string>>;
+  validateEnvironmentName?: (e: any) => void;
+  handleSubmit: (e: any) => void;
+  handleCancel: () => void;
+  errors: { [key: string]: string };
+  mode: 'Create' | 'Edit';
+  clearErrors: () => void;
+  children?: React.ReactNode;
+  Limit?: React.ReactNode;
+};
 
 const EnvironmentForm = ({
   children,

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { APPLY_CHANGE_REQUEST } from '../../../providers/AccessProvider/permissions';
 import PermissionButton from '../../../common/PermissionButton/PermissionButton';
 import {
@@ -6,15 +5,21 @@ import {
   type ChangeRequestScheduledDialogProps,
 } from './ChangeRequestScheduledDialog';
 
-export const ChangeRequestApplyScheduledDialogue: FC<
-  Omit<
-    ChangeRequestScheduledDialogProps,
-    'message' | 'title' | 'primaryButtonText' | 'permissionButton'
-  > & {
-    projectId: string;
-    environment: string;
-  }
-> = ({ projectId, environment, disabled, onConfirm, ...rest }) => {
+type ChangeRequestApplyScheduledDialogueProps = Omit<
+  ChangeRequestScheduledDialogProps,
+  'message' | 'title' | 'primaryButtonText' | 'permissionButton'
+> & {
+  projectId: string;
+  environment: string;
+};
+
+export const ChangeRequestApplyScheduledDialogue = ({
+  projectId,
+  environment,
+  disabled,
+  onConfirm,
+  ...rest
+}: ChangeRequestApplyScheduledDialogueProps) => {
   const message =
     'Applying the changes now means the scheduled time will be ignored';
   const title = 'Apply changes';
@@ -43,12 +48,14 @@ export const ChangeRequestApplyScheduledDialogue: FC<
   );
 };
 
-export const ChangeRequestRejectScheduledDialogue: FC<
-  Omit<
-    ChangeRequestScheduledDialogProps,
-    'message' | 'title' | 'primaryButtonText'
-  >
-> = ({ ...rest }) => {
+type ChangeRequestRejectScheduledDialogueProps = Omit<
+  ChangeRequestScheduledDialogProps,
+  'message' | 'title' | 'primaryButtonText'
+>;
+
+export const ChangeRequestRejectScheduledDialogue = ({
+  ...rest
+}: ChangeRequestRejectScheduledDialogueProps) => {
   const message =
     'Rejecting this change request will delete its schedule and it can no longer be rescheduled or applied.';
   const title = 'Reject changes';

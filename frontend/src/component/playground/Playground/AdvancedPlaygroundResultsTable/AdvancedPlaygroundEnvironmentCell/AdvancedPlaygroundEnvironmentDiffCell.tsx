@@ -25,13 +25,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
   fontWeight: 'normal',
 }));
 
-export interface IAdvancedPlaygroundEnvironmentCellProps {
+type AdvancedPlaygroundEnvironmentCellProps = {
   value: AdvancedPlaygroundFeatureSchemaEnvironments;
-}
+};
 
 export const AdvancedPlaygroundEnvironmentDiffCell = ({
   value,
-}: IAdvancedPlaygroundEnvironmentCellProps) => {
+}: AdvancedPlaygroundEnvironmentCellProps) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 

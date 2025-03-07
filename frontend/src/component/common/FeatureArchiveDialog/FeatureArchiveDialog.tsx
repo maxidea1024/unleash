@@ -293,14 +293,14 @@ const useVerifyArchive = (
   return { disableArchive, offendingParents, hasDeletedDependencies };
 };
 
-export const FeatureArchiveDialog: FC<FeatureArchiveDialogProps> = ({
+export const FeatureArchiveDialog = ({
   isOpen,
   onClose,
   onConfirm,
   projectId,
   featureIds,
   featuresWithUsage,
-}) => {
+}: FeatureArchiveDialogProps) => {
   const isBulkArchive = featureIds?.length > 1;
 
   const buttonText = useActionButtonText(projectId, isBulkArchive);

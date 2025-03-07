@@ -33,11 +33,11 @@ const NavigationBar = styled(Link)(({ theme }) => ({
   color: theme.palette.text.primary,
 }));
 
-interface IProjectStatsProps {
+type ProjectStatsProps = {
   stats: ProjectStatsSchema;
-}
+};
 
-export const ProjectInsightsStats = ({ stats }: IProjectStatsProps) => {
+export const ProjectInsightsStats = ({ stats }: ProjectStatsProps) => {
   if (Object.keys(stats).length === 0) {
     return null;
   }

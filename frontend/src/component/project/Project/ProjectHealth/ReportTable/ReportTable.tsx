@@ -33,10 +33,10 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { FeatureEnvironmentSeenCell } from 'component/common/Table/cells/FeatureSeenCell/FeatureEnvironmentSeenCell';
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
 
-interface IReportTableProps {
+type ReportTableProps = {
   projectId: string;
   features: IFeatureFlagListItem[];
-}
+};
 
 export interface IReportTableRow {
   project: string;
@@ -50,7 +50,7 @@ export interface IReportTableRow {
   expiredAt?: string;
 }
 
-export const ReportTable = ({ projectId, features }: IReportTableProps) => {
+export const ReportTable = ({ projectId, features }: ReportTableProps) => {
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

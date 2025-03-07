@@ -6,11 +6,6 @@ import {
   Typography,
 } from '@mui/material';
 
-type FeatureStrategyEnabledDisabledProps = {
-  enabled: boolean;
-  onToggleEnabled: () => void;
-};
-
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -19,6 +14,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   borderRadius: `${theme.shape.borderRadiusMedium}px`,
 }));
+
+type FeatureStrategyEnabledDisabledProps = {
+  enabled: boolean;
+  onToggleEnabled: () => void;
+};
 
 export const FeatureStrategyEnabledDisabled = ({
   enabled,

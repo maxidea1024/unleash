@@ -22,7 +22,7 @@ import {
 } from '../useConstraintInput/useConstraintInput';
 import type React from 'react';
 
-interface IResolveInputProps {
+type ResolveInputProps = {
   contextDefinition: Pick<IUnleashContextDefinition, 'legalValues'>;
   localConstraint: Pick<IConstraint, 'value' | 'values'>;
   constraintValues: string[];
@@ -34,7 +34,7 @@ interface IResolveInputProps {
   removeValue: (index: number) => void;
   input: Input;
   error: string;
-}
+};
 
 const resolveLegalValues = (
   values: IConstraint['values'],
@@ -74,7 +74,7 @@ export const ResolveInput = ({
   setError,
   removeValue,
   error,
-}: IResolveInputProps) => {
+}: ResolveInputProps) => {
   const resolveInput = () => {
     switch (input) {
       case IN_OPERATORS_LEGAL_VALUES:

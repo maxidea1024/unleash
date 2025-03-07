@@ -19,7 +19,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-export interface IUserAvatarProps extends AvatarProps {
+export type UserAvatarProps = AvatarProps & {
   user?: Partial<
     Pick<IUser, 'id' | 'name' | 'email' | 'username' | 'imageUrl'>
   >;
@@ -27,10 +27,10 @@ export interface IUserAvatarProps extends AvatarProps {
   className?: string;
   sx?: SxProps<Theme>;
   disableTooltip?: boolean;
-}
+};
 
 const tooltipContent = (
-  user: IUserAvatarProps['user'],
+  user: UserAvatarProps['user'],
 ): { main: string; secondary?: string } | undefined => {
   if (!user) {
     return undefined;
@@ -61,7 +61,7 @@ const TooltipMainContent = styled('div')(({ theme }) => ({
   fontSize: theme.typography.body1.fontSize,
 }));
 
-export const UserAvatar = forwardRef<HTMLDivElement, IUserAvatarProps>(
+export const UserAvatar = forwardRef<HTMLDivElement, UserAvatarProps>(
   ({ user, src, className, sx, children, disableTooltip, ...props }, ref) => {
     let fallback: string | undefined;
     if (!children && user) {

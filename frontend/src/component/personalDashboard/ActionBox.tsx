@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import type { FC, PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 
 const Container = styled('article')(({ theme }) => ({
   padding: theme.spacing(1, 2),
@@ -17,14 +17,14 @@ const TitleContainer = styled('div')(({ theme }) => ({
   fontWeight: 'bold',
 }));
 
-type Props = {
+type ActionBoxProps = {
   title?: string | ReactNode;
 };
 
-export const ActionBox: FC<PropsWithChildren<Props>> = ({
+export const ActionBox = ({
   title,
   children,
-}) => {
+}: PropsWithChildren<ActionBoxProps>) => {
   return (
     <Container>
       {title ? <TitleContainer>{title}</TitleContainer> : null}

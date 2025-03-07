@@ -55,19 +55,19 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(4),
 }));
 
-interface ISignalEndpointsSignalsModalProps {
+type SignalEndpointsSignalsModalProps = {
   signalEndpoint?: ISignalEndpoint;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenConfiguration: () => void;
-}
+};
 
 export const SignalEndpointsSignalsModal = ({
   signalEndpoint,
   open,
   setOpen,
   onOpenConfiguration,
-}: ISignalEndpointsSignalsModalProps) => {
+}: SignalEndpointsSignalsModalProps) => {
   const { uiConfig } = useUiConfig();
   const { locationSettings } = useLocationSettings();
   const { signalEndpointSignals, hasMore, loadMore, loading } =

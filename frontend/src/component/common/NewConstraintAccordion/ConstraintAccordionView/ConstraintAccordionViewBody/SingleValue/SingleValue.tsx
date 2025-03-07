@@ -1,10 +1,10 @@
 import { Chip, styled } from '@mui/material';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 
-interface ISingleValueProps {
+type SingleValueProps = {
   value: string | undefined;
   operator: string;
-}
+};
 
 const StyledDiv = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -24,7 +24,7 @@ const StyledChip = styled(Chip)(({ theme }) => ({
   margin: theme.spacing(0, 1, 1, 0),
 }));
 
-export const SingleValue = ({ value, operator }: ISingleValueProps) => {
+export const SingleValue = ({ value, operator }: SingleValueProps) => {
   if (!value) return null;
 
   return (

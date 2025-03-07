@@ -1,6 +1,5 @@
 import {
   type Dispatch,
-  type FC,
   type FormEvent,
   type SetStateAction,
   useEffect,
@@ -31,15 +30,15 @@ import {
   normalizeCustomContextProperties,
 } from '../../playground.utils';
 
-interface IPlaygroundCodeFieldsetProps {
+type PlaygroundCodeFieldsetProps = {
   context: string | undefined;
   setContext: Dispatch<SetStateAction<string | undefined>>;
-}
+};
 
-export const PlaygroundCodeFieldset: FC<IPlaygroundCodeFieldsetProps> = ({
+export const PlaygroundCodeFieldset = ({
   context,
   setContext,
-}) => {
+}: PlaygroundCodeFieldsetProps) => {
   const theme = useTheme();
 
   const { setToastData } = useToast();

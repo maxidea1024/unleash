@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Markdown } from 'component/common/Markdown/Markdown';
 import Paper from '@mui/material/Paper';
 import { Box, styled, Typography } from '@mui/material';
@@ -26,7 +25,9 @@ const CommentHeader = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(1.5),
 }));
 
-type ChangeRequestCommentProps = { comment: IChangeRequestComment };
+type ChangeRequestCommentProps = {
+  comment: IChangeRequestComment;
+};
 
 export const ChangeRequestComment = ({
   comment,

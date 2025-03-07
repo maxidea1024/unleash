@@ -19,19 +19,19 @@ const StyledInput = styled(Input)(({ theme }) => ({
   maxWidth: theme.spacing(50),
 }));
 
-interface ISignalEndpointsTokensCreateDialogProps {
+type SignalEndpointsTokensCreateDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   tokens: ISignalEndpointToken[];
   onCreateClick: (newToken: SignalEndpointTokenPayload) => void;
-}
+};
 
 export const SignalEndpointsTokensCreateDialog = ({
   open,
   setOpen,
   tokens,
   onCreateClick,
-}: ISignalEndpointsTokensCreateDialogProps) => {
+}: SignalEndpointsTokensCreateDialogProps) => {
   const [name, setName] = useState('');
 
   const [nameError, setNameError] = useState('');

@@ -8,7 +8,6 @@ import {
   DialogTitle,
   styled,
 } from '@mui/material';
-
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DIALOGUE_CONFIRM_ID } from 'utils/testIds';
 
@@ -42,7 +41,7 @@ const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
   padding: 0,
 }));
 
-interface IDialogue {
+type DialogueProps = {
   primaryButtonText?: string;
   secondaryButtonText?: string;
   open: boolean;
@@ -58,9 +57,9 @@ interface IDialogue {
   permissionButton?: React.JSX.Element;
   customButton?: React.JSX.Element;
   children?: React.ReactNode;
-}
+};
 
-export const Dialogue: React.FC<IDialogue> = ({
+export const Dialogue = ({
   children,
   open,
   setOpen,
@@ -75,7 +74,7 @@ export const Dialogue: React.FC<IDialogue> = ({
   formId,
   permissionButton,
   customButton,
-}) => {
+}: DialogueProps) => {
   const handleClick = formId
     ? (e: React.SyntheticEvent) => {
         e.preventDefault();
@@ -90,6 +89,7 @@ export const Dialogue: React.FC<IDialogue> = ({
       setOpen?.(false);
     }
   };
+
   return (
     <StyledDialog
       open={open}

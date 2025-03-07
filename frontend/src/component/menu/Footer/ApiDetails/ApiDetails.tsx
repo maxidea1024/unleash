@@ -7,11 +7,11 @@ import {
 } from './apidetails.helpers';
 import { FooterTitle } from 'component/menu/Footer/FooterTitle';
 
-interface IApiDetailsProps {
+type ApiDetailsProps = {
   uiConfig: IPartialUiConfig;
-}
+};
 
-export const ApiDetails = (props: IApiDetailsProps): ReactElement => {
+export const ApiDetails = (props: ApiDetailsProps): ReactElement => {
   const instanceId = props.uiConfig.versionInfo?.instanceId;
   const { name, version, buildNumber } = formatCurrentVersion(props.uiConfig);
   const { environment, billing } = props.uiConfig;

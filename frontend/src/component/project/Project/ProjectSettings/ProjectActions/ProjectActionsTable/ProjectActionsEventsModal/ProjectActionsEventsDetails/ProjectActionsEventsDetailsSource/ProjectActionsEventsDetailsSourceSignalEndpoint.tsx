@@ -32,13 +32,13 @@ const StyledLink = styled(Link)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface IProjectActionsEventsDetailsSourceSignalEndpointProps {
+type ProjectActionsEventsDetailsSourceSignalEndpointProps = {
   signal: ISignal;
-}
+};
 
 export const ProjectActionsEventsDetailsSourceSignalEndpoint = ({
   signal,
-}: IProjectActionsEventsDetailsSourceSignalEndpointProps) => {
+}: ProjectActionsEventsDetailsSourceSignalEndpointProps) => {
   const { signalEndpoints } = useSignalEndpoints();
 
   const signalEndpointName = useMemo(() => {

@@ -16,7 +16,7 @@ import type {
 } from '@mui/material/Autocomplete';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import type { AutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
+import type { IAutocompleteBoxOption } from 'component/common/AutocompleteBox/AutocompleteBox';
 import { SelectAllButton } from './SelectAllButton/SelectAllButton';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -29,9 +29,9 @@ const SelectOptionCheckbox = styled(Checkbox)(({ theme }) => ({
   marginRight: theme.spacing(0.4),
 }));
 
-type SelectProjectInputProps = {
+export type SelectProjectInputProps = {
   disabled?: boolean;
-  options: AutocompleteBoxOption[];
+  options: IAutocompleteBoxOption[];
   defaultValue: string[];
   onChange: (value: string[]) => void;
   onFocus?: () => void;
@@ -78,7 +78,7 @@ export const SelectProjectInput = ({
 
   const renderOption = (
     props: object & { key?: string },
-    option: AutocompleteBoxOption,
+    option: IAutocompleteBoxOption,
     { selected }: AutocompleteRenderOptionState,
   ) => {
     const { key, ...rest } = props;

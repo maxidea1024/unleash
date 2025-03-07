@@ -2,16 +2,9 @@ import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import { IconButton, Popover, styled, useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { VariantInformation } from './VariantInformation/VariantInformation';
 import type { IFeatureVariant } from 'interfaces/featureToggle';
-
-interface IVariantCellProps {
-  variant: string;
-  variants: IFeatureVariant[];
-  feature: string;
-  isEnabled: boolean;
-}
 
 const StyledDiv = styled('div')(() => ({
   maxWidth: '100%',
@@ -20,12 +13,19 @@ const StyledDiv = styled('div')(() => ({
   wordBreak: 'break-all',
 }));
 
-export const VariantCell: FC<IVariantCellProps> = ({
+type VariantCellProps = {
+  variant: string;
+  variants: IFeatureVariant[];
+  feature: string;
+  isEnabled: boolean;
+};
+
+export const VariantCell = ({
   variant,
   variants,
   feature,
   isEnabled,
-}) => {
+}: VariantCellProps) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 

@@ -1,13 +1,15 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Typography } from '@mui/material';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 
-export const WidgetTitle: FC<{
+type WidgetTitleProps = {
   title: ReactNode;
   tooltip?: ReactNode;
-}> = ({ title, tooltip }) => (
+};
+
+export const WidgetTitle = ({ title, tooltip }: WidgetTitleProps) => (
   <Typography
     variant='h3'
     sx={(theme) => ({

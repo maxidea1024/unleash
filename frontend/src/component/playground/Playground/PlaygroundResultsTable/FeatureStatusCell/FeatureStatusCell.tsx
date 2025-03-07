@@ -2,10 +2,6 @@ import { Box, styled } from '@mui/material';
 import { PlaygroundResultChip } from '../PlaygroundResultChip/PlaygroundResultChip';
 import type { PlaygroundFeatureSchema } from 'openapi';
 
-interface IFeatureStatusCellProps {
-  feature: PlaygroundFeatureSchema;
-}
-
 const StyledCellBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -16,14 +12,20 @@ const StyledChipWrapper = styled(Box)(() => ({
   marginRight: 'auto',
 }));
 
-export const FeatureStatusCell = ({ feature }: IFeatureStatusCellProps) => {
+type FeatureStatusCellProps = {
+  feature: PlaygroundFeatureSchema;
+};
+
+export const FeatureStatusCell = ({ feature }: FeatureStatusCellProps) => {
   const [enabled, label]: [boolean | 'unknown', string] = (() => {
     if (feature?.isEnabled) {
       return [true, 'True'];
     }
+
     if (feature?.strategies?.result === 'unknown') {
       return ['unknown', 'Unknown'];
     }
+
     return [false, 'False'];
   })();
 

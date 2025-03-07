@@ -32,9 +32,10 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(4),
 }));
 
-interface IUpdateEnterpriseSettings {
+type UpdateEnterpriseSettings = {
   project: IProjectOverview;
-}
+};
+
 const EDIT_PROJECT_SETTINGS_BTN = 'EDIT_PROJECT_SETTINGS_BTN';
 
 export const useModeTracking = () => {
@@ -55,7 +56,7 @@ export const useModeTracking = () => {
 
 export const UpdateEnterpriseSettings = ({
   project,
-}: IUpdateEnterpriseSettings) => {
+}: UpdateEnterpriseSettings) => {
   const { uiConfig } = useUiConfig();
   const { setToastData, setToastApiError } = useToast();
   const id = useRequiredPathParam('projectId');

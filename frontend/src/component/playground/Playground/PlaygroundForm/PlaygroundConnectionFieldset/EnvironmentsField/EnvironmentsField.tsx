@@ -1,25 +1,25 @@
-import type { ComponentProps, Dispatch, FC, SetStateAction } from 'react';
+import type { ComponentProps, Dispatch, SetStateAction } from 'react';
 import { Autocomplete, Chip, TextField } from '@mui/material';
 import { renderOption } from '../../renderOption';
-
-interface IEnvironmentsFieldProps {
-  environments: string[];
-  setEnvironments: Dispatch<SetStateAction<string[]>>;
-  availableEnvironments: string[];
-  disabled?: boolean;
-}
 
 interface IOption {
   label: string;
   id: string;
 }
 
-export const EnvironmentsField: FC<IEnvironmentsFieldProps> = ({
+type EnvironmentsFieldProps = {
+  environments: string[];
+  setEnvironments: Dispatch<SetStateAction<string[]>>;
+  availableEnvironments: string[];
+  disabled?: boolean;
+};
+
+export const EnvironmentsField = ({
   environments,
   setEnvironments,
   availableEnvironments,
   disabled,
-}) => {
+}: EnvironmentsFieldProps) => {
   const environmentOptions = [
     ...availableEnvironments.map((name) => ({
       label: name,

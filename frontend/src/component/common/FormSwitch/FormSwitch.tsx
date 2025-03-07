@@ -24,18 +24,18 @@ const StyledSwitchSpan = styled('span')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-interface IFormSwitchProps extends BoxProps {
+type FormSwitchProps = BoxProps & {
   checked: boolean;
   setChecked: Dispatch<SetStateAction<boolean>>;
   children?: ReactNode;
-}
+};
 
 export const FormSwitch = ({
   checked,
   setChecked,
   children,
   ...props
-}: IFormSwitchProps) => {
+}: FormSwitchProps) => {
   return (
     <StyledContainer {...props}>
       {children}

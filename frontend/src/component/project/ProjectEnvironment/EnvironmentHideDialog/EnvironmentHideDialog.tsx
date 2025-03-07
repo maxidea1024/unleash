@@ -15,19 +15,19 @@ const StyledInput = styled(Input)(() => ({
   width: '100%',
 }));
 
-interface IEnvironmentHideDialogProps {
+type EnvironmentHideDialogProps = {
   environment?: IProjectEnvironment;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: () => void;
-}
+};
 
 export const EnvironmentHideDialog = ({
   environment,
   open,
   setOpen,
   onConfirm,
-}: IEnvironmentHideDialogProps) => {
+}: EnvironmentHideDialogProps) => {
   const [confirmName, setConfirmName] = useState('');
 
   useEffect(() => {

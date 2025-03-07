@@ -31,7 +31,7 @@ const StyledContainer = styled('div')(({ theme }) => ({
 
 type PageQueryType = Partial<Record<'search', string>>;
 
-export const ArchiveProjectList: FC = () => {
+export const ArchiveProjectList = () => {
   const { projects, loading, error, refetch } = useProjects({
     archived: true,
   });

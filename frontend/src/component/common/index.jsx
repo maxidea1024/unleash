@@ -13,7 +13,6 @@ import {
   Typography,
 } from '@mui/material';
 import Apps from '@mui/icons-material/Apps';
-
 import styles from './common.module.scss';
 import { ConditionallyRender } from './ConditionallyRender/ConditionallyRender';
 
@@ -134,6 +133,7 @@ const badNumbers = [
   Number.POSITIVE_INFINITY,
   Number.NEGATIVE_INFINITY,
 ];
+
 export function calc(value, total, decimal) {
   if (
     typeof value !== 'number' ||

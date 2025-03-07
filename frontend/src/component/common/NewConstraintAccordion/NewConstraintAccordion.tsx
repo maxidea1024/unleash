@@ -4,7 +4,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { ConstraintAccordionEdit } from './ConstraintAccordionEdit/ConstraintAccordionEdit';
 import { ConstraintAccordionView } from './ConstraintAccordionView/ConstraintAccordionView';
 
-export interface IConstraintAccordionProps {
+export type ConstraintAccordionProps = {
   compact: boolean;
   editing: boolean;
   constraint: IConstraint;
@@ -24,7 +24,7 @@ export const NewConstraintAccordion = ({
   onDelete,
   onSave,
   onAutoSave,
-}: IConstraintAccordionProps) => {
+}: ConstraintAccordionProps) => {
   if (!constraint) return null;
 
   return (

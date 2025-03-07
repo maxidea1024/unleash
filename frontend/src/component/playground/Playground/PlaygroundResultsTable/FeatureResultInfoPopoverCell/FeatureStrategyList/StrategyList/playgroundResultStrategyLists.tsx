@@ -28,17 +28,17 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.warning.border}!important`,
 }));
 
-interface PlaygroundResultStrategyListProps {
-  strategies: PlaygroundStrategySchema[];
-  input?: PlaygroundRequestSchema;
-  titlePrefix?: string;
-  infoText?: string;
-}
-
 const StyledSubtitle = styled(Typography)(({ theme }) => ({
   margin: theme.spacing(2, 1, 2, 0),
   color: 'text.secondary',
 }));
+
+type PlaygroundResultStrategyListProps = {
+  strategies: PlaygroundStrategySchema[];
+  input?: PlaygroundRequestSchema;
+  titlePrefix?: string;
+  infoText?: string;
+};
 
 export const PlaygroundResultStrategyLists = ({
   strategies,
@@ -80,10 +80,10 @@ export const PlaygroundResultStrategyLists = ({
   />
 );
 
-interface IWrappedPlaygroundResultStrategyListProps {
+type WrappedPlaygroundResultStrategyListProps = {
   feature: PlaygroundFeatureSchema;
   input?: PlaygroundRequestSchema;
-}
+};
 
 const resolveHintText = (feature: PlaygroundFeatureSchema) => {
   if (
@@ -104,7 +104,7 @@ const resolveHintText = (feature: PlaygroundFeatureSchema) => {
 export const WrappedPlaygroundResultStrategyList = ({
   feature,
   input,
-}: IWrappedPlaygroundResultStrategyListProps) => {
+}: WrappedPlaygroundResultStrategyListProps) => {
   const enabledStrategies = feature.strategies?.data?.filter(
     (strategy) => !strategy.disabled,
   );

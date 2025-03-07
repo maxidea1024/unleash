@@ -1,5 +1,5 @@
 import { Alert, Box, Button, styled, Typography } from '@mui/material';
-import { type FC, useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useChangeRequest } from 'hooks/api/getters/useChangeRequest/useChangeRequest';
 import { ChangeRequestHeader } from './ChangeRequestHeader/ChangeRequestHeader';
 import {
@@ -76,7 +76,7 @@ const ChangeRequestBody = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const ChangeRequestOverview: FC = () => {
+export const ChangeRequestOverview = () => {
   const projectId = useRequiredPathParam('projectId');
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showRejectDialog, setShowRejectDialog] = useState(false);

@@ -1,6 +1,5 @@
 import { Box, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { FC } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';

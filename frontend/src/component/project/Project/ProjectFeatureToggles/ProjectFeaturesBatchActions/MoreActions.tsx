@@ -21,19 +21,19 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { MORE_BATCH_ACTIONS } from 'utils/testIds';
 
-interface IMoreActionsProps {
+type MoreActionsProps = {
   projectId: string;
   data: FeatureSchema[];
   onChange?: () => void;
-}
+};
 
 const menuId = 'selection-actions-menu';
 
-export const MoreActions: FC<IMoreActionsProps> = ({
+export const MoreActions = ({
   projectId,
   data,
   onChange,
-}) => {
+}: MoreActionsProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { staleFeatures } = useProjectApi();
   const { setToastData, setToastApiError } = useToast();

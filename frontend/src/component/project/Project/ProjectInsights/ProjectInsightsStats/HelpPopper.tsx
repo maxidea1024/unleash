@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import Close from '@mui/icons-material/Close';
 import HelpOutline from '@mui/icons-material/HelpOutline';
 import {
@@ -12,10 +12,10 @@ import {
 } from '@mui/material';
 import { Feedback } from 'component/common/Feedback/Feedback';
 
-interface IHelpPopperProps {
+type HelpPopperProps = {
   id: string;
   children?: React.ReactNode;
-}
+};
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3, 3),
@@ -25,7 +25,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
 }));
 
-export const HelpPopper: FC<IHelpPopperProps> = ({ children, id }) => {
+export const HelpPopper = ({ children, id }: HelpPopperProps) => {
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 
   const onOpen = (event: React.FormEvent<HTMLButtonElement>) =>

@@ -10,7 +10,6 @@ import {
   Tooltip,
 } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
 import Delete from '@mui/icons-material/Delete';
 import PowerSettingsNew from '@mui/icons-material/PowerSettingsNew';
 import {
@@ -29,10 +28,6 @@ import Visibility from '@mui/icons-material/Visibility';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
 import { IntegrationEventsModal } from 'component/integrations/IntegrationEvents/IntegrationEventsModal';
 
-type IntegrationCardMenuProps = {
-  addon: AddonSchema;
-};
-
 const StyledMenu = styled('div')(({ theme }) => ({
   marginLeft: theme.spacing(1),
   marginTop: theme.spacing(-1),
@@ -41,6 +36,10 @@ const StyledMenu = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
 }));
+
+type IntegrationCardMenuProps = {
+  addon: AddonSchema;
+};
 
 export const IntegrationCardMenu = ({ addon }: IntegrationCardMenuProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

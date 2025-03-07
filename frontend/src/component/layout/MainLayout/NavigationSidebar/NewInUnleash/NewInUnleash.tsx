@@ -202,7 +202,9 @@ export const NewInUnleash = ({
     (item) => item.show && !seenItems.has(item.label),
   );
 
-  if (!visibleItems.length) return null;
+  if (!visibleItems.length) {
+    return null;
+  }
 
   if (mode === 'mini' && onMiniModeClick) {
     return (

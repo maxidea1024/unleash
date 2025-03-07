@@ -56,7 +56,7 @@ const StyledContent = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export const ProjectArchiveCard: FC<ProjectArchiveCardProps> = ({
+export const ProjectArchiveCard = ({
   id,
   name,
   archivedAt,
@@ -64,7 +64,7 @@ export const ProjectArchiveCard: FC<ProjectArchiveCardProps> = ({
   onDelete,
   mode,
   owners,
-}) => {
+}: ProjectArchiveCardProps) => {
   const { locationSettings } = useLocationSettings();
   const { searchQuery } = useSearchHighlightContext();
 

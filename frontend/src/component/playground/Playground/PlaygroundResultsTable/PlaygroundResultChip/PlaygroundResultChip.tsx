@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useTheme } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ReactComponent as FeatureEnabledIcon } from 'assets/icons/isenabled-true.svg';
@@ -13,11 +12,11 @@ type ResultChipProps = {
   showIcon?: boolean;
 };
 
-export const PlaygroundResultChip: FC<ResultChipProps> = ({
+export const PlaygroundResultChip = ({
   enabled,
   label,
   showIcon = true,
-}) => {
+}: ResultChipProps) => {
   const theme = useTheme();
   const icon = (
     <ConditionallyRender

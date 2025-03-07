@@ -4,7 +4,6 @@ import {
   getSearchTextGenerator,
   type IGetSearchContextOutput,
 } from 'hooks/useSearch';
-import type { FC } from 'react';
 
 const StyledHeader = styled('span')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,

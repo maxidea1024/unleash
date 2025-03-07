@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import {
   parseParameterNumber,
   parseParameterString,
@@ -9,15 +9,15 @@ import { StrategySeparator } from 'component/common/StrategySeparator/StrategySe
 import { useStrategies } from 'hooks/api/getters/useStrategies/useStrategies';
 import { CustomParameterItem } from './CustomParameterItem/CustomParameterItem';
 
-interface ICustomStrategyProps {
+type CustomStrategyProps = {
   parameters: { [key: string]: string };
   strategyName: string;
-}
+};
 
-export const CustomStrategyParams: FC<ICustomStrategyProps> = ({
+export const CustomStrategyParams = ({
   strategyName,
   parameters,
-}) => {
+}: CustomStrategyProps) => {
   const { strategies } = useStrategies();
   const definition = strategies.find((strategyDefinition) => {
     return strategyDefinition.name === strategyName;
@@ -94,6 +94,7 @@ export const CustomStrategyParams: FC<ICustomStrategyProps> = ({
       case 'default':
         return null;
     }
+
     return null;
   });
 

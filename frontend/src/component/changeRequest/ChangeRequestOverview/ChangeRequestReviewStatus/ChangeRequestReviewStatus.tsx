@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import {
   Box,
   IconButton,
@@ -106,15 +105,15 @@ export const ChangeRequestReviewStatus = ({
   );
 };
 
-interface IResolveComponentProps {
+type ResolveComponentProps = {
   changeRequest: ChangeRequestType;
   onEditClick?: () => void;
-}
+};
 
 const ResolveComponent = ({
   changeRequest,
   onEditClick,
-}: IResolveComponentProps) => {
+}: ResolveComponentProps) => {
   const { state } = changeRequest;
 
   if (!state) {
@@ -174,11 +173,11 @@ const Approved = () => {
   );
 };
 
-interface IReviewRequiredProps {
+type ReviewRequiredProps = {
   minApprovals: number;
-}
+};
 
-const ReviewRequired = ({ minApprovals }: IReviewRequiredProps) => {
+const ReviewRequired = ({ minApprovals }: ReviewRequiredProps) => {
   const theme = useTheme();
 
   return (
@@ -230,11 +229,12 @@ const StyledIconButton = styled(IconButton)({
   maxHeight: '32px',
 });
 
-interface IScheduledProps {
+type ScheduledProps = {
   schedule?: ChangeRequestSchedule;
   onEditClick?: () => any;
-}
-const Scheduled = ({ schedule, onEditClick }: IScheduledProps) => {
+};
+
+const Scheduled = ({ schedule, onEditClick }: ScheduledProps) => {
   const theme = useTheme();
 
   if (!schedule) {
@@ -303,6 +303,7 @@ const ScheduledFailed = ({
     </StyledFlexAlignCenterBox>
   );
 };
+
 const ScheduledSuspended = ({
   schedule,
 }: { schedule: ChangeRequestScheduleSuspended }) => {
@@ -356,6 +357,7 @@ const ScheduledPending = ({
     </StyledFlexAlignCenterBox>
   );
 };
+
 const Cancelled = () => {
   const theme = useTheme();
 

@@ -6,15 +6,15 @@ import {
   hasAccess,
 } from 'component/providers/AccessProvider/AccessProvider';
 
-interface IAccessProviderProps {
+type AccessProviderProps = {
   permissions: IPermission[];
   children: ReactNode;
-}
+};
 
 export const AccessProviderMock = ({
   permissions,
   children,
-}: IAccessProviderProps): ReactElement => {
+}: AccessProviderProps): ReactElement => {
   const value: IAccessContext = useMemo(
     () => ({
       isAdmin: checkAdmin(permissions),

@@ -7,14 +7,6 @@ import { Link } from 'react-router-dom';
 import { EnterpriseBadge } from '../../../common/EnterpriseBadge/EnterpriseBadge';
 import { useCallback } from 'react';
 
-interface INavigationMenuProps {
-  options: INavigationMenuItem[];
-  id: string;
-  anchorEl: any;
-  handleClose: () => void;
-  style: Object;
-}
-
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   alignItems: 'center',
@@ -43,13 +35,21 @@ const StyledBadgeContainer = styled('div')(({ theme }) => ({
   display: 'flex',
 }));
 
+type NavigationMenuProps = {
+  options: INavigationMenuItem[];
+  id: string;
+  anchorEl: any;
+  handleClose: () => void;
+  style: Object;
+};
+
 export const NavigationMenu = ({
   options,
   id,
   handleClose,
   anchorEl,
   style,
-}: INavigationMenuProps) => {
+}: NavigationMenuProps) => {
   const { isPro, isOss } = useUiConfig();
 
   const showBadge = useCallback(

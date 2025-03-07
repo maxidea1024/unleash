@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, IconButton, styled, Typography } from '@mui/material';
 import Input from 'component/common/Input/Input';
 import type { ChangeRequestType } from '../../changeRequest.types';

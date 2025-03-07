@@ -19,7 +19,7 @@ import { useLocationSettings } from 'hooks/useLocationSettings';
 import {
   ChartTooltip,
   ChartTooltipContainer,
-  type TooltipState,
+  type ITooltipState,
 } from './ChartTooltip/ChartTooltip';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { styled } from '@mui/material';
@@ -78,7 +78,7 @@ type LineChartComponentProps = {
   overrideOptions?: ChartOptions<'line'>;
   TooltipComponent?: ({
     tooltip,
-  }: { tooltip: TooltipState | null }) => ReturnType<FC>;
+  }: { tooltip: ITooltipState | null }) => ReturnType<FC>;
 };
 
 const LineChartComponent = ({
@@ -91,7 +91,7 @@ const LineChartComponent = ({
   const theme = useTheme();
   const { locationSettings } = useLocationSettings();
 
-  const [tooltip, setTooltip] = useState<null | TooltipState>(null);
+  const [tooltip, setTooltip] = useState<null | ITooltipState>(null);
   const options = useMemo(
     () => ({
       ...createOptions(theme, locationSettings, setTooltip, Boolean(cover)),

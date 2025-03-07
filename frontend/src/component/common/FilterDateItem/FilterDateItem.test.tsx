@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 import { render } from 'utils/testRenderer';
 import type { FilterItemParams } from 'component/filter/FilterItem/FilterItem';
-import { FilterDateItem, type IFilterDateItemProps } from './FilterDateItem';
+import { FilterDateItem, type FilterDateItemProps } from './FilterDateItem';
 
 const getDate = async (option: string) => screen.findByText(option);
 
 const setup = (initialState: FilterItemParams | null) => {
   const recordedChanges: FilterItemParams[] = [];
-  const mockProps: IFilterDateItemProps = {
+  const mockProps: FilterDateItemProps = {
     name: 'Test Label',
     label: 'irrelevant',
     onChange: (value: FilterItemParams) => {

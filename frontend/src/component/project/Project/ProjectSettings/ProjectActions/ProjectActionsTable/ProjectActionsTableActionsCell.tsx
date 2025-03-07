@@ -24,19 +24,19 @@ const StyledBoxCell = styled(Box)({
   justifyContent: 'center',
 });
 
-interface IProjectActionsTableActionsCellProps {
+type ProjectActionsTableActionsCellProps = {
   actionId: number;
   onOpenEvents: (event: React.SyntheticEvent) => void;
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const ProjectActionsTableActionsCell = ({
   actionId,
   onOpenEvents,
   onEdit,
   onDelete,
-}: IProjectActionsTableActionsCellProps) => {
+}: ProjectActionsTableActionsCellProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);

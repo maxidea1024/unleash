@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import CallMade from '@mui/icons-material/CallMade';
 import SouthEast from '@mui/icons-material/SouthEast';
 import { Box, Typography, styled } from '@mui/material';
@@ -32,14 +32,14 @@ const StyledTypographyChange = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-interface IStatusBoxProps {
+type StatusBoxProps = {
   title?: string;
   boxText: ReactNode;
   change?: number;
   percentage?: boolean;
   customChangeElement?: ReactNode;
   children?: React.ReactNode;
-}
+};
 
 const resolveIcon = (change: number) => {
   if (change > 0) {
@@ -55,14 +55,14 @@ const resolveColor = (change: number) => {
   return 'warning.dark';
 };
 
-export const StatusBox: FC<IStatusBoxProps> = ({
+export const StatusBox = ({
   title,
   boxText,
   change,
   percentage,
   children,
   customChangeElement,
-}) => (
+}: StatusBoxProps) => (
   <>
     <ConditionallyRender
       condition={Boolean(title)}

@@ -6,14 +6,14 @@ import Undo from '@mui/icons-material/Undo';
 import { ConditionallyRender } from '../../ConditionallyRender/ConditionallyRender';
 import type { IConstraint } from 'interfaces/strategy';
 
-interface ConstraintAccordionHeaderActionsProps {
+type ConstraintAccordionHeaderActionsProps = {
   onDelete?: () => void;
   onEdit?: () => void;
   onUndo?: () => void;
   constraintChanges?: IConstraint[];
   disableEdit?: boolean;
   disableDelete?: boolean;
-}
+};
 
 const StyledHeaderActions = styled('div')(({ theme }) => ({
   marginLeft: 'auto',

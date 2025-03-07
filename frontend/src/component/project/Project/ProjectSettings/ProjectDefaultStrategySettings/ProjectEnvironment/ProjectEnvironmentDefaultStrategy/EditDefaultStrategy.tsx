@@ -124,7 +124,10 @@ const EditDefaultStrategy = () => {
     return null;
   }
 
-  if (!defaultStrategy) return null;
+  if (!defaultStrategy) {
+    return null;
+  }
+
   return (
     <FormTemplate
       modal

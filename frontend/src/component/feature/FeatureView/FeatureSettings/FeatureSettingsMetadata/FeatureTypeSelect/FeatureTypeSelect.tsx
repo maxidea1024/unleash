@@ -1,13 +1,13 @@
 import useFeatureTypes from 'hooks/api/getters/useFeatureTypes/useFeatureTypes';
 import GeneralSelect, {
   type ISelectOption,
-  type IGeneralSelectProps,
+  type GeneralSelectProps,
 } from 'component/common/GeneralSelect/GeneralSelect';
 import type { CreateFeatureSchemaType } from 'openapi';
 
 interface IFeatureTypeSelectProps
   extends Omit<
-    IGeneralSelectProps<CreateFeatureSchemaType>,
+    GeneralSelectProps<CreateFeatureSchemaType>,
     'options' | 'value'
   > {
   value: CreateFeatureSchemaType;

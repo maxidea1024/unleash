@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { TextField, type TextFieldProps } from '@mui/material';
 
 type InputListFieldProps = {
@@ -13,13 +12,13 @@ type InputListFieldProps = {
   FormHelperTextProps?: TextFieldProps['FormHelperTextProps'];
 };
 
-export const InputListField: FC<InputListFieldProps> = ({
+export const InputListField = ({
   values = [],
   updateValues,
   placeholder = '',
   error,
   ...rest
-}) => {
+}: InputListFieldProps) => {
   const handleChange: TextFieldProps['onChange'] = (event) => {
     const values = event.target.value.split(/,\s?/);
     const trimmedValues = values.map((v) => v.trim());

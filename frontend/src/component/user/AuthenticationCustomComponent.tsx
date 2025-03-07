@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { CardActions, Button } from '@mui/material';
 import type { IAuthEndpointDetailsResponse } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 
@@ -6,9 +5,9 @@ type AuthenticationCustomComponentProps = {
   authDetails: IAuthEndpointDetailsResponse;
 };
 
-export const AuthenticationCustomComponent: FC<
-  AuthenticationCustomComponentProps
-> = ({ authDetails }) => (
+export const AuthenticationCustomComponent = ({
+  authDetails,
+}: AuthenticationCustomComponentProps) => (
   <div>
     <p>{authDetails.message}</p>
     <CardActions style={{ textAlign: 'center' }}>

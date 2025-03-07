@@ -1,4 +1,4 @@
-import { useRef, useState, type FC } from 'react';
+import { useRef, useState, } from 'react';
 import {
   useTheme,
   IconButton,
@@ -11,11 +11,7 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import HelpOutline from '@mui/icons-material/HelpOutline';
 import { ReactComponent as ChangeRequestProcessWithScheduleImage } from 'assets/img/changeRequestProcessWithSchedule.svg';
 
-type ChangeRequestProcessHelpProps = {};
-
-export const ChangeRequestProcessHelp: FC<
-  ChangeRequestProcessHelpProps
-> = () => {
+export const ChangeRequestProcessHelp = () => {
   const ref = useRef<HTMLButtonElement>(null);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

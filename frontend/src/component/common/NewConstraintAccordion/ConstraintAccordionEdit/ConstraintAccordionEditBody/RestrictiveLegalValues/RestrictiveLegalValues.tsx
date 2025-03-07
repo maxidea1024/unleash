@@ -10,7 +10,7 @@ import {
 } from '../LegalValueLabel/LegalValueLabel';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-interface IRestrictiveLegalValuesProps {
+type RestrictiveLegalValuesProps = {
   data: {
     legalValues: ILegalValue[];
     deletedLegalValues: ILegalValue[];
@@ -22,7 +22,7 @@ interface IRestrictiveLegalValuesProps {
   beforeValues?: JSX.Element;
   error: string;
   setError: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 interface IValuesMap {
   [key: string]: boolean;
@@ -79,7 +79,7 @@ export const RestrictiveLegalValues = ({
   error,
   setError,
   constraintValues,
-}: IRestrictiveLegalValuesProps) => {
+}: RestrictiveLegalValuesProps) => {
   const [filter, setFilter] = useState('');
   const { legalValues, deletedLegalValues } = data;
 

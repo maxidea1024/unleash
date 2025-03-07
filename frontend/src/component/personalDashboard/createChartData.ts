@@ -2,7 +2,7 @@ import type { IFeatureMetricsRaw } from 'interfaces/featureToggle';
 import type { ChartData } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 
-export interface IPoint {
+interface IPoint {
   x: string;
   y: number;
   variants: Record<string, number>;

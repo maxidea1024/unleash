@@ -27,12 +27,12 @@ const StyledHighlight = styled('div', {
   },
 }));
 
-interface IHighlightProps extends HTMLAttributes<HTMLDivElement> {
+type HighlightProps = HTMLAttributes<HTMLDivElement> & {
   highlightKey: HighlightKey;
   children: ReactNode;
-}
+};
 
-export const Highlight = forwardRef<HTMLDivElement, IHighlightProps>(
+export const Highlight = forwardRef<HTMLDivElement, HighlightProps>(
   ({ highlightKey, children, ...props }, ref) => {
     const { isHighlighted } = useHighlightContext();
 

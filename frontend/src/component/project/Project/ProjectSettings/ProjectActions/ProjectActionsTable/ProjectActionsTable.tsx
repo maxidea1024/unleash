@@ -26,21 +26,21 @@ import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 import { ProjectActionsEventsModal } from './ProjectActionsEventsModal/ProjectActionsEventsModal';
 
-interface IProjectActionsTableProps {
+type ProjectActionsTableProps = {
   modalOpen: boolean;
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedAction?: IActionSet;
   setSelectedAction: React.Dispatch<
     React.SetStateAction<IActionSet | undefined>
   >;
-}
+};
 
 export const ProjectActionsTable = ({
   modalOpen,
   setModalOpen,
   selectedAction,
   setSelectedAction,
-}: IProjectActionsTableProps) => {
+}: ProjectActionsTableProps) => {
   const { setToastData, setToastApiError } = useToast();
 
   const projectId = useRequiredPathParam('projectId');

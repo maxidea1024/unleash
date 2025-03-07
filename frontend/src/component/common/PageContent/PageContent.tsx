@@ -7,7 +7,7 @@ import { useStyles } from './PageContent.styles';
 import useLoading from 'hooks/useLoading';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
-interface IPageContentProps extends PaperProps {
+type PageContentProps = PaperProps & {
   header?: ReactNode;
   isLoading?: boolean;
   /**
@@ -22,7 +22,7 @@ interface IPageContentProps extends PaperProps {
   bodyClass?: string;
   headerClass?: string;
   withTabs?: boolean;
-}
+};
 
 const StyledHeader = styled('div')(({ theme }) => ({
   borderBottomStyle: 'solid',
@@ -51,7 +51,7 @@ const PageContentLoading: FC<{
   );
 };
 
-export const PageContent: FC<IPageContentProps> = ({
+export const PageContent = ({
   children,
   header,
   disablePadding = false,
@@ -63,7 +63,7 @@ export const PageContent: FC<IPageContentProps> = ({
   className,
   withTabs,
   ...rest
-}) => {
+}: PageContentProps) => {
   const { classes: styles } = useStyles();
 
   const headerClasses = classnames(

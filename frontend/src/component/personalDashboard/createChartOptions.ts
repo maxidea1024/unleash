@@ -13,7 +13,10 @@ const formatVariantEntry = (
   variant: [string, number],
   totalExposure: number,
 ) => {
-  if (totalExposure === 0) return '';
+  if (totalExposure === 0) {
+    return '';
+  }
+
   const [key, value] = variant;
   const percentage = Math.floor((Number(value) / totalExposure) * 100);
   return `${value} (${percentage}%) - ${key}`;

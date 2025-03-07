@@ -4,12 +4,6 @@ import { EnterpriseBadge } from 'component/common/EnterpriseBadge/EnterpriseBadg
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import type { INavigationMenuItem } from 'interfaces/route';
 import { Link as RouterLink } from 'react-router-dom';
-interface INavigationLinkProps {
-  path: string;
-  text: string;
-  handleClose: () => void;
-  mode?: INavigationMenuItem['menu']['mode'];
-}
 
 const StyledListItem = styled(ListItem)({
   minWidth: '150px',
@@ -48,12 +42,19 @@ const StyledBadgeContainer = styled('div')(({ theme }) => ({
   display: 'flex',
 }));
 
+type NavigationLinkProps = {
+  path: string;
+  text: string;
+  handleClose: () => void;
+  mode?: INavigationMenuItem['menu']['mode'];
+};
+
 const NavigationLink = ({
   path,
   text,
   handleClose,
   ...props
-}: INavigationLinkProps) => {
+}: NavigationLinkProps) => {
   const { isPro } = useUiConfig();
   const showEnterpriseBadgeToPro = Boolean(
     isPro() &&

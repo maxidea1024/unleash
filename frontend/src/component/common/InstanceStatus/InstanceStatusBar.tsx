@@ -56,13 +56,13 @@ const StyledInfoIcon = styled(InfoOutlined)(({ theme }) => ({
   color: theme.palette.info.main,
 }));
 
-interface IInstanceStatusBarProps {
+type InstanceStatusBarProps = {
   instanceStatus: IInstanceStatus;
-}
+};
 
 export const InstanceStatusBar = ({
   instanceStatus,
-}: IInstanceStatusBarProps) => {
+}: InstanceStatusBarProps) => {
   if (trialHasExpired(instanceStatus)) {
     return <StatusBarExpired instanceStatus={instanceStatus} />;
   }
@@ -78,7 +78,7 @@ export const InstanceStatusBar = ({
   return null;
 };
 
-const StatusBarExpired = ({ instanceStatus }: IInstanceStatusBarProps) => {
+const StatusBarExpired = ({ instanceStatus }: InstanceStatusBarProps) => {
   return (
     <StyledWarningBar data-testid={INSTANCE_STATUS_BAR_ID}>
       <StyledWarningIcon />
@@ -92,7 +92,7 @@ const StatusBarExpired = ({ instanceStatus }: IInstanceStatusBarProps) => {
   );
 };
 
-const StatusBarExpiresSoon = ({ instanceStatus }: IInstanceStatusBarProps) => {
+const StatusBarExpiresSoon = ({ instanceStatus }: InstanceStatusBarProps) => {
   const timeRemaining = formatDistanceToNowStrict(
     parseISO(instanceStatus.trialExpiry!),
     { roundingMethod: 'floor' },
@@ -110,7 +110,7 @@ const StatusBarExpiresSoon = ({ instanceStatus }: IInstanceStatusBarProps) => {
   );
 };
 
-const StatusBarExpiresLater = ({ instanceStatus }: IInstanceStatusBarProps) => {
+const StatusBarExpiresLater = ({ instanceStatus }: InstanceStatusBarProps) => {
   return (
     <StyledInfoBar data-testid={INSTANCE_STATUS_BAR_ID}>
       <StyledInfoIcon />
@@ -123,7 +123,7 @@ const StatusBarExpiresLater = ({ instanceStatus }: IInstanceStatusBarProps) => {
   );
 };
 
-const BillingLink = ({ instanceStatus }: IInstanceStatusBarProps) => {
+const BillingLink = ({ instanceStatus }: InstanceStatusBarProps) => {
   const { hasAccess } = useContext(AccessContext);
   const navigate = useNavigate();
 

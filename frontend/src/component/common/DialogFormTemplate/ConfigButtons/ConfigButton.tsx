@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { type FC, type ReactNode, useRef, type PropsWithChildren } from 'react';
+import { type ReactNode, useRef, type PropsWithChildren } from 'react';
 import { Box, Button } from '@mui/material';
 import {
   StyledDropdown,
@@ -29,7 +29,7 @@ export type ConfigButtonProps = {
   };
 };
 
-export const ConfigButton: FC<PropsWithChildren<ConfigButtonProps>> = ({
+export const ConfigButton = ({
   button,
   onOpen = () => {},
   onClose = () => {},
@@ -39,7 +39,7 @@ export const ConfigButton: FC<PropsWithChildren<ConfigButtonProps>> = ({
   anchorEl,
   setAnchorEl,
   tooltip,
-}) => {
+}: PropsWithChildren<ConfigButtonProps>) => {
   const ref = useRef<HTMLDivElement>(null);
   const descriptionId = uuidv4();
 

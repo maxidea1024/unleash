@@ -20,13 +20,13 @@ import { VariantCell } from '../PlaygroundResultsTable/VariantCell/VariantCell';
 import { HighlightCell } from '../../../common/Table/cells/HighlightCell/HighlightCell';
 import { capitalizeFirst } from 'utils/capitalizeFirst';
 
-interface IPlaygroundEnvironmentTableProps {
+type PlaygroundEnvironmentTableProps = {
   features: AdvancedPlaygroundEnvironmentFeatureSchema[];
-}
+};
 
 export const PlaygroundEnvironmentTable = ({
   features,
-}: IPlaygroundEnvironmentTableProps) => {
+}: PlaygroundEnvironmentTableProps) => {
   const theme = useTheme();
   const isExtraSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 

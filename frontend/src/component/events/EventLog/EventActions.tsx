@@ -26,7 +26,7 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
 
 type EventActionsProps = {
   events: EventSchema[];
-}
+};
 
 export const EventActions = ({ events }: EventActionsProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

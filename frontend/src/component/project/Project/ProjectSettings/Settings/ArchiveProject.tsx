@@ -21,15 +21,15 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(3),
 }));
 
-interface IDeleteProjectProps {
+type DeleteProjectProps = {
   projectId: string;
   featureCount: number;
-}
+};
 
 export const ArchiveProject = ({
   projectId,
   featureCount,
-}: IDeleteProjectProps) => {
+}: DeleteProjectProps) => {
   const [showArchiveDialog, setShowArchiveDialog] = useState(false);
   const navigate = useNavigate();
   const disabled = featureCount > 0;

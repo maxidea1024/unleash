@@ -101,13 +101,13 @@ const StyledResolveInputWrapper = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IProjectActionsFilterItemProps {
+type ProjectActionsFilterItemProps = {
   filter: ActionsFilterState;
   index: number;
   stateChanged: (updatedFilter: ActionsFilterState) => void;
   suggestions: string[];
   onDelete: () => void;
-}
+};
 
 export const ProjectActionsFilterItem = ({
   filter,
@@ -115,7 +115,7 @@ export const ProjectActionsFilterItem = ({
   stateChanged,
   suggestions,
   onDelete,
-}: IProjectActionsFilterItemProps) => {
+}: ProjectActionsFilterItemProps) => {
   const { parameter, inverted, operator, caseInsensitive, value, values } =
     filter;
 

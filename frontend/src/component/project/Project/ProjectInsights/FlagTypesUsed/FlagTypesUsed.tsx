@@ -1,7 +1,6 @@
 import { type FC, useMemo } from 'react';
 import { styled, type SvgIconTypeMap, Typography } from '@mui/material';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
-
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 import type { FeatureTypeCountSchema } from '../../../../../openapi';
 
@@ -30,11 +29,11 @@ const StyledTypeCount = styled(StyledCount)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-interface IFlagTypeRowProps {
+type FlagTypeRowProps = {
   type: string;
   Icon: OverridableComponent<SvgIconTypeMap>;
   count: number;
-}
+};
 
 const StyledParagraphGridRow = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -49,7 +48,7 @@ const StyledParagraphGridRow = styled('div')(({ theme }) => ({
   },
 }));
 
-const FlagTypesRow = ({ type, Icon, count }: IFlagTypeRowProps) => {
+const FlagTypesRow = ({ type, Icon, count }: FlagTypeRowProps) => {
   const getTitleText = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).replace('-', ' ');
   };

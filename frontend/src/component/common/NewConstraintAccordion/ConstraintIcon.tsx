@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box } from '@mui/material';
 import TrackChanges from '@mui/icons-material/TrackChanges';
 
@@ -7,10 +6,7 @@ type ConstraintIconProps = {
   disabled?: boolean;
 };
 
-export const ConstraintIcon: FC<ConstraintIconProps> = ({
-  compact,
-  disabled,
-}) => (
+export const ConstraintIcon = ({ compact, disabled }: ConstraintIconProps) => (
   <Box
     sx={(theme) => ({
       backgroundColor: disabled

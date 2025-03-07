@@ -1,6 +1,6 @@
 import Search from '@mui/icons-material/Search';
 import { Box, InputAdornment, List, ListItemText } from '@mui/material';
-import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import {
   StyledCheckbox,
   StyledDropdown,
@@ -10,7 +10,7 @@ import {
 } from './FilterItem.styles';
 import { FilterItemChip } from './FilterItemChip/FilterItemChip';
 
-export interface IFilterItemProps {
+export type FilterItemProps = {
   name: string;
   label: ReactNode;
   options: Array<{ label: string; value: string }>;
@@ -19,17 +19,17 @@ export interface IFilterItemProps {
   state: FilterItemParams | null | undefined;
   singularOperators: [string, ...string[]];
   pluralOperators: [string, ...string[]];
-}
+};
 
 export type FilterItemParams = {
   operator: string;
   values: string[];
 };
 
-interface UseSelectionManagementProps {
+type UseSelectionManagementProps = {
   options: Array<{ label: string; value: string }>;
   handleToggle: (value: string) => () => void;
-}
+};
 
 const useSelectionManagement = ({
   options,
@@ -71,7 +71,7 @@ const useSelectionManagement = ({
   return { listRefs, handleSelection };
 };
 
-export const FilterItem: FC<IFilterItemProps> = ({
+export const FilterItem = ({
   name,
   label,
   options,
@@ -80,7 +80,7 @@ export const FilterItem: FC<IFilterItemProps> = ({
   state,
   singularOperators,
   pluralOperators,
-}) => {
+}: FilterItemProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>();
   const [searchText, setSearchText] = useState('');

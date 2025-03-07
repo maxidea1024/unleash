@@ -3,7 +3,7 @@ import { screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { render } from 'utils/testRenderer';
 import {
-  type ISelectProjectInputProps,
+  type SelectProjectInputProps,
   SelectProjectInput,
 } from './SelectProjectInput';
 import { testServerRoute, testServerSetup } from 'utils/testServer';
@@ -11,7 +11,7 @@ import { testServerRoute, testServerSetup } from 'utils/testServer';
 const onChange = vi.fn();
 const onFocus = vi.fn();
 
-const mockProps: ISelectProjectInputProps = {
+const mockProps: SelectProjectInputProps = {
   options: [
     { label: 'Project1', value: 'project1' },
     { label: 'Project2', value: 'project2' },

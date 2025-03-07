@@ -55,16 +55,16 @@ export const StyledSidePanelListColumn = styled('div', {
   }),
 );
 
-export type SidePanelListColumn<T> = {
+export interface ISidePanelListColumn<T> {
   header: string;
   maxWidth?: number;
   align?: ColumnAlignment;
   cell: (item: T) => ReactNode;
-};
+}
 
 type SidePanelListProps<T> = {
   items: T[];
-  columns: SidePanelListColumn<T>[];
+  columns: ISidePanelListColumn<T>[];
   sidePanelHeader: string;
   renderContent: (item: T) => ReactNode;
   renderItem?: (item: T, children: ReactNode) => ReactNode;

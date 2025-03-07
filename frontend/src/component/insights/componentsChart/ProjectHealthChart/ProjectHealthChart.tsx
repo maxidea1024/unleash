@@ -1,5 +1,5 @@
 import 'chartjs-adapter-date-fns';
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import type { InstanceInsightsSchema } from 'openapi';
 import { HealthTooltip } from './HealthChartTooltip/HealthChartTooltip';
 import { useProjectChartData } from 'component/insights/hooks/useProjectChartData';
@@ -11,14 +11,6 @@ import {
 import { useTheme } from '@mui/material';
 import type { GroupedDataByProject } from 'component/insights/hooks/useGroupedProjectTrends';
 import { usePlaceholderData } from 'component/insights/hooks/usePlaceholderData';
-
-type ProjectHealthChartProps = {
-  projectFlagTrends: GroupedDataByProject<
-    InstanceInsightsSchema['projectFlagTrends']
-  >;
-  isAggregate?: boolean;
-  isLoading?: boolean;
-};
 
 type WeekData = {
   total: number;
@@ -33,6 +25,14 @@ const calculateHealth = (item: WeekData) =>
     ((item.total - item.stale - item.potentiallyStale) / item.total) *
     100
   ).toFixed(2);
+
+type ProjectHealthChartProps = {
+  projectFlagTrends: GroupedDataByProject<
+    InstanceInsightsSchema['projectFlagTrends']
+  >;
+  isAggregate?: boolean;
+  isLoading?: boolean;
+};
 
 export const ProjectHealthChart = ({
   projectFlagTrends,

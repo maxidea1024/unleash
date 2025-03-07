@@ -6,10 +6,10 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import type { PlaygroundFeatureSchema, PlaygroundRequestSchema } from 'openapi';
 import { Alert } from '@mui/material';
 
-interface PlaygroundResultFeatureStrategyListProps {
+type PlaygroundResultFeatureStrategyListProps = {
   feature: PlaygroundFeatureSchema;
   input?: PlaygroundRequestSchema;
-}
+};
 
 export const PlaygroundResultFeatureStrategyList = ({
   feature,

@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { styled } from '@mui/material';
@@ -14,20 +14,20 @@ import { formattedStrategyNames } from 'utils/strategyNames';
 import { StyledBoxSummary } from './StrategyExecution.styles';
 import { Badge } from 'component/common/Badge/Badge';
 
+const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0),
+}));
+
 type StrategyExecutionProps = {
   strategyResult: PlaygroundStrategySchema;
   percentageFill?: string;
   input?: PlaygroundRequestSchema;
 };
 
-const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0),
-}));
-
-export const StrategyExecution: FC<StrategyExecutionProps> = ({
+export const StrategyExecution = ({
   strategyResult,
   input,
-}) => {
+}: StrategyExecutionProps) => {
   const { name, constraints, segments, parameters } = strategyResult;
 
   const hasSegments = Boolean(segments && segments.length > 0);

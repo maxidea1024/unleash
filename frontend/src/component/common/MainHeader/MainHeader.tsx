@@ -31,17 +31,17 @@ const StyledDescription = styled('span')(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface IMainHeaderProps {
+type MainHeaderProps = {
   title?: string;
   description?: string;
   actions?: ReactNode;
-}
+};
 
 export const MainHeader = ({
   title,
   description,
   actions,
-}: IMainHeaderProps) => {
+}: MainHeaderProps) => {
   usePageTitle(title);
 
   return (

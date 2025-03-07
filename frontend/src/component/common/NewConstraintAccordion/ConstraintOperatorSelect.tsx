@@ -17,11 +17,11 @@ import {
 import { useState } from 'react';
 import { formatOperatorDescription } from 'component/common/ConstraintAccordion/ConstraintOperator/formatOperatorDescription';
 
-interface IConstraintOperatorSelectProps {
+type ConstraintOperatorSelectProps = {
   options: Operator[];
   value: Operator;
   onChange: (value: Operator) => void;
-}
+};
 
 const StyledValueContainer = styled('div')(({ theme }) => ({
   lineHeight: 1.1,
@@ -78,7 +78,7 @@ export const ConstraintOperatorSelect = ({
   options,
   value,
   onChange,
-}: IConstraintOperatorSelectProps) => {
+}: ConstraintOperatorSelectProps) => {
   const [open, setOpen] = useState(false);
 
   const onSelectChange = (event: SelectChangeEvent) => {

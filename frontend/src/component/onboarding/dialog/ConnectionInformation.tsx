@@ -4,11 +4,6 @@ import Pending from '@mui/icons-material/Pending';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
 import Check from '@mui/icons-material/Check';
 
-interface IConnectionInformationProps {
-  projectId: string;
-  sdk: string;
-  environment: string;
-}
 const Container = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.sidebar,
   padding: theme.spacing(6, 9, 6, 9),
@@ -57,11 +52,17 @@ const StyledCheck = styled(Check)(({ theme }) => ({
   height: '80px',
 }));
 
+type ConnectionInformationProps = {
+  projectId: string;
+  sdk: string;
+  environment: string;
+};
+
 export const ConnectionInformation = ({
   projectId,
   sdk,
   environment,
-}: IConnectionInformationProps) => {
+}: ConnectionInformationProps) => {
   const theme = useTheme();
   const { project } = useProjectOverview(projectId, {
     refreshInterval: 1000,

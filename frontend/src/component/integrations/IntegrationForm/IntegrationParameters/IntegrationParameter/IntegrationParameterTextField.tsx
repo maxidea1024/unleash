@@ -16,16 +16,16 @@ const resolveType = ({ type = 'text', sensitive = false }, value: string) => {
   return type;
 };
 
+const StyledTextField = styled(TextField)({
+  width: '100%',
+});
+
 type IntegrationParameterTextFieldProps = {
   parametersErrors: Record<string, string>;
   definition: AddonParameterSchema;
   setParameterValue: (param: string) => ChangeEventHandler<HTMLInputElement>;
   config: AddonSchema;
 };
-
-const StyledTextField = styled(TextField)({
-  width: '100%',
-});
 
 export const IntegrationParameterTextField = ({
   definition,

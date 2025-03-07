@@ -8,10 +8,10 @@ import {
 import { ConditionallyRender } from '../../../../ConditionallyRender/ConditionallyRender';
 import type { IConstraint } from 'interfaces/strategy';
 
-interface CaseSensitiveButtonProps {
+type CaseSensitiveButtonProps = {
   localConstraint: Pick<IConstraint, 'caseInsensitive'>;
   setCaseInsensitive: () => void;
-}
+};
 
 export const CaseSensitiveButton = ({
   localConstraint,

@@ -15,16 +15,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHMS } from 'utils/formatDate';
 
-export type SuggestChangeTimelineProps =
-  | {
-      state: Exclude<ChangeRequestState, 'Scheduled'>;
-      schedule?: undefined;
-    }
-  | {
-      state: 'Scheduled';
-      schedule: ChangeRequestSchedule;
-    };
-
 const StyledPaper = styled(Paper)(({ theme }) => ({
   marginTop: theme.spacing(2),
   borderRadius: `${theme.shape.borderRadiusLarge}px`,
@@ -82,6 +72,16 @@ export const determineColor = (
   if (changeRequestStateIndex + 1 === displayStageIndex) return 'primary';
   return 'grey';
 };
+
+export type SuggestChangeTimelineProps =
+  | {
+      state: Exclude<ChangeRequestState, 'Scheduled'>;
+      schedule?: undefined;
+    }
+  | {
+      state: 'Scheduled';
+      schedule: ChangeRequestSchedule;
+    };
 
 export const ChangeRequestTimeline = ({
   state,

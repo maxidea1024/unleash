@@ -13,13 +13,12 @@ import { useAuthDetails } from 'hooks/api/getters/useAuth/useAuthDetails';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 import { SplashPageRedirect } from 'component/splash/SplashPageRedirect/SplashPageRedirect';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-
 import MaintenanceBanner from './maintenance/MaintenanceBanner';
 import { styled } from '@mui/material';
 import { InitialRedirect } from './InitialRedirect';
-import { InternalBanners } from './banners/internalBanners/InternalBanners';
-import { ExternalBanners } from './banners/externalBanners/ExternalBanners';
-import { LicenseBanner } from './banners/internalBanners/LicenseBanner';
+import { InternalBanners } from './banners/InternalBanners/InternalBanners';
+import { ExternalBanners } from './banners/ExternalBanners/ExternalBanners';
+import { LicenseBanner } from './banners/InternalBanners/LicenseBanner';
 import { Demo } from './demo/Demo';
 import { LoginRedirect } from './common/LoginRedirect/LoginRedirect';
 

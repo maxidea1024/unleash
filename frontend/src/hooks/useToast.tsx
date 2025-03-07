@@ -30,7 +30,11 @@ const useToast = () => {
       if (toast.persist) {
         setToast({ ...toast, show: true });
       } else {
-        setToast({ autoHideDuration: 6000, ...toast, show: true });
+        setToast({
+          autoHideDuration: 2_000,
+          ...toast,
+          show: true,
+        });
       }
     },
     [setToast],

@@ -5,12 +5,6 @@ import { ReactComponent as ProPlanIcon } from 'assets/icons/pro-enterprise-featu
 import { ReactComponent as ProPlanIconLight } from 'assets/icons/pro-enterprise-feature-badge-light.svg';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-type PurchasableFeatureProps = {
-  title: ReactNode;
-  description: ReactNode;
-  onClick: () => void;
-};
-
 const Icon = () => (
   <ThemeMode darkmode={<ProPlanIconLight />} lightmode={<ProPlanIcon />} />
 );
@@ -45,6 +39,12 @@ const StyledButtonContainer = styled(Box)(() => ({
   alignItems: 'center',
   whiteSpace: 'nowrap',
 }));
+
+type PurchasableFeatureProps = {
+  title: ReactNode;
+  description: ReactNode;
+  onClick: () => void;
+};
 
 export const PurchasableFeature = ({
   title,

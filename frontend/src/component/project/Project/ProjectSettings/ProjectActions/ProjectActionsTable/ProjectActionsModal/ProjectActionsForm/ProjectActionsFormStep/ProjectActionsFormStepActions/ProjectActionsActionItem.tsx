@@ -30,7 +30,7 @@ const StyledFieldContainer = styled('div')(({ theme }) => ({
   minWidth: theme.spacing(25),
 }));
 
-interface IProjectActionsItemProps {
+type ProjectActionsItemProps = {
   action: ActionsActionState;
   index: number;
   stateChanged: (action: ActionsActionState) => void;
@@ -38,7 +38,7 @@ interface IProjectActionsItemProps {
   onDelete: () => void;
   actionConfigurations: ActionConfigurations;
   validated: boolean;
-}
+};
 
 export const ProjectActionsActionItem = ({
   action,
@@ -48,7 +48,7 @@ export const ProjectActionsActionItem = ({
   onDelete,
   actionConfigurations,
   validated,
-}: IProjectActionsItemProps) => {
+}: ProjectActionsItemProps) => {
   const { action: actionName, executionParams, error } = action;
   const projectId = useRequiredPathParam('projectId');
   const { permissions } = useServiceAccountAccessMatrix(

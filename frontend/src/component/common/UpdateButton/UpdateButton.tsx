@@ -1,11 +1,11 @@
 import PermissionButton, {
-  type IPermissionButtonProps,
+  type PermissionButtonProps,
 } from 'component/common/PermissionButton/PermissionButton';
 
 export const UpdateButton = ({
   children = 'Save',
   ...rest
-}: IPermissionButtonProps) => {
+}: PermissionButtonProps) => {
   return (
     <PermissionButton type='submit' {...rest}>
       {children}

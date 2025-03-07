@@ -12,6 +12,7 @@ export const renderOption = (
   { selected }: { selected: boolean },
 ) => {
   const { key, ...rest } = props;
+
   return (
     <li key={key} {...rest}>
       <SelectOptionCheckbox

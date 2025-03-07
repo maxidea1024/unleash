@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import type { PlaygroundSegmentSchema } from 'openapi';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -9,10 +9,12 @@ type SegmentExecutionWithoutResultProps = {
   segments?: PlaygroundSegmentSchema[];
 };
 
-export const SegmentExecutionWithoutResult: FC<
-  SegmentExecutionWithoutResultProps
-> = ({ segments }) => {
-  if (!segments) return null;
+export const SegmentExecutionWithoutResult = ({
+  segments,
+}: SegmentExecutionWithoutResultProps) => {
+  if (!segments) {
+    return null;
+  }
 
   return (
     <>

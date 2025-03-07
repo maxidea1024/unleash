@@ -1,7 +1,7 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useState } from 'react';
 import useAllTags from 'hooks/api/getters/useAllTags/useAllTags';
 import {
-  type FilterItemParamHolder,
+  type IFilterItemParamHolder,
   Filters,
   type IFilterItem,
 } from 'component/filter/Filters/Filters';
@@ -9,16 +9,16 @@ import { useProjectFlagCreators } from 'hooks/api/getters/useProjectFlagCreators
 import { useUiFlag } from 'hooks/useUiFlag';
 
 type ProjectOverviewFiltersProps = {
-  state: FilterItemParamHolder;
-  onChange: (value: FilterItemParamHolder) => void;
+  state: IFilterItemParamHolder;
+  onChange: (value: IFilterItemParamHolder) => void;
   project: string;
 };
 
-export const ProjectOverviewFilters: FC<ProjectOverviewFiltersProps> = ({
+export const ProjectOverviewFilters = ({
   state,
   onChange,
   project,
-}) => {
+}: ProjectOverviewFiltersProps) => {
   const { tags } = useAllTags();
   const { flagCreators } = useProjectFlagCreators(project);
   const [availableFilters, setAvailableFilters] = useState<IFilterItem[]>([]);

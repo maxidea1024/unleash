@@ -1,8 +1,7 @@
-import type { FC } from 'react';
 import type { InstanceInsightsSchemaProjectFlagTrendsItem } from 'openapi';
 import { Box, Divider, Paper, Typography, styled } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
-import type { TooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
+import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
 import { HorizontalDistributionChart } from 'component/insights/components/HorizontalDistributionChart/HorizontalDistributionChart';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
@@ -96,9 +95,11 @@ const Distribution = ({ stale = 0, potentiallyStale = 0, total = 0 }) => {
   );
 };
 
-export const HealthTooltip: FC<{ tooltip: TooltipState | null }> = ({
-  tooltip,
-}) => {
+type HealthTooltipProps = {
+  tooltip: ITooltipState | null;
+};
+
+export const HealthTooltip = ({ tooltip }: HealthTooltipProps) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,

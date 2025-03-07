@@ -40,7 +40,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginTop: theme.spacing(3),
 }));
 
-interface IProjectActionsFormProps {
+type ProjectActionsFormProps = {
   enabled: boolean;
   setEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   name: string;
@@ -60,7 +60,7 @@ interface IProjectActionsFormProps {
   validateSourceId: (sourceId: number) => boolean;
   validateActorId: (actorId: number) => boolean;
   validated: boolean;
-}
+};
 
 export const ProjectActionsForm = ({
   enabled,
@@ -82,7 +82,7 @@ export const ProjectActionsForm = ({
   validateSourceId,
   validateActorId,
   validated,
-}: IProjectActionsFormProps) => {
+}: ProjectActionsFormProps) => {
   const { serviceAccounts, loading: serviceAccountsLoading } =
     useServiceAccounts();
 

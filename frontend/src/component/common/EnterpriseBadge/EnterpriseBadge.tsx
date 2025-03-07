@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { ReactComponent as ProPlanIcon } from 'assets/icons/pro-enterprise-feature-badge.svg';
 import { ReactComponent as ProPlanIconLight } from 'assets/icons/pro-enterprise-feature-badge-light.svg';
 import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
@@ -7,7 +6,7 @@ type EnterpriseBadgeProps = {
   size?: number;
 };
 
-export const EnterpriseBadge: FC<EnterpriseBadgeProps> = ({ size = 16 }) => (
+export const EnterpriseBadge = ({ size = 16 }: EnterpriseBadgeProps) => (
   <ThemeMode
     darkmode={
       <ProPlanIconLight

@@ -33,13 +33,13 @@ export const StyledFailedIcon = styled(ErrorOutline)(({ theme }) => ({
   color: theme.palette.error.main,
 }));
 
-interface IProjectActionsLastEventProps {
+type ProjectActionsLastEventProps = {
   action: IActionSet;
-}
+};
 
 export const ProjectActionsLastEvent = ({
   action,
-}: IProjectActionsLastEventProps) => {
+}: ProjectActionsLastEventProps) => {
   const { id, project } = action;
   const { actionEvents } = useActionEvents(id, project, 1, {
     refreshInterval: 5000,

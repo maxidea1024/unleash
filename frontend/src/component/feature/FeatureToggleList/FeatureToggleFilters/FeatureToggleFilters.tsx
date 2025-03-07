@@ -3,14 +3,14 @@ import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import useAllTags from 'hooks/api/getters/useAllTags/useAllTags';
 import {
-  type FilterItemParamHolder,
+  type IFilterItemParamHolder,
   Filters,
   type IFilterItem,
 } from 'component/filter/Filters/Filters';
 
 type FeatureToggleFiltersProps = {
-  state: FilterItemParamHolder;
-  onChange: (value: FilterItemParamHolder) => void;
+  state: IFilterItemParamHolder;
+  onChange: (value: IFilterItemParamHolder) => void;
 };
 
 export const FeatureToggleFilters = ({

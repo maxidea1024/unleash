@@ -9,9 +9,9 @@ import {
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
 import type { FeatureTypeCount } from 'interfaces/project';
 
-export interface IFlagTypesWidgetProps {
+type FlagTypesWidgetProps = {
   featureTypeCounts: FeatureTypeCount[];
-}
+};
 
 const StyledTypeCount = styled(StyledCount)(({ theme }) => ({
   marginLeft: 'auto',
@@ -19,11 +19,11 @@ const StyledTypeCount = styled(StyledCount)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-interface IToggleTypeRowProps {
+type ToggleTypeRowProps = {
   type: string;
   Icon: OverridableComponent<SvgIconTypeMap>;
   count: number;
-}
+};
 
 const StyledParagraphGridRow = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -39,7 +39,7 @@ const StyledParagraphGridRow = styled('div')(({ theme }) => ({
   },
 }));
 
-const ToggleTypesRow = ({ type, Icon, count }: IToggleTypeRowProps) => {
+const ToggleTypesRow = ({ type, Icon, count }: ToggleTypeRowProps) => {
   const getTitleText = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).replace('-', ' ');
   };
@@ -57,7 +57,7 @@ const ToggleTypesRow = ({ type, Icon, count }: IToggleTypeRowProps) => {
  */
 export const FlagTypesWidget = ({
   featureTypeCounts,
-}: IFlagTypesWidgetProps) => {
+}: FlagTypesWidgetProps) => {
   const featureTypeStats = useMemo(() => {
     const release =
       featureTypeCounts.find((featureType) => featureType.type === 'release')

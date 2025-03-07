@@ -7,10 +7,6 @@ import type { ChangeRequestType } from 'component/changeRequest/changeRequest.ty
 import { changesCount } from 'component/changeRequest/changesCount';
 import { Sticky } from 'component/common/Sticky/Sticky';
 
-type DraftBannerProps = {
-  project: string;
-};
-
 const StyledDraftBannerContentWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -34,10 +30,15 @@ const StyledDraftBanner = styled(Box)(({ theme }) => ({
   },
 }));
 
-const DraftBannerContent: FC<{
+type DraftBannerContentProps = {
   changeRequests: ChangeRequestType[];
   onClick: () => void;
-}> = ({ changeRequests, onClick }) => {
+};
+
+const DraftBannerContent = ({
+  changeRequests,
+  onClick,
+}: DraftBannerContentProps) => {
   const environments = changeRequests.map(({ environment }) => environment);
   const allChangesCount = changeRequests.reduce(
     (acc, curr) => acc + changesCount(curr),
@@ -98,7 +99,11 @@ const StickyBanner = styled(Sticky)(({ theme }) => ({
   zIndex: 250,
 }));
 
-export const DraftBanner: FC<DraftBannerProps> = ({ project }) => {
+type DraftBannerProps = {
+  project: string;
+};
+
+export const DraftBanner = ({ project }: DraftBannerProps) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { data, loading } = usePendingChangeRequests(project);
 

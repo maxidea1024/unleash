@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Divider, Drawer, styled } from '@mui/material';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
@@ -39,12 +39,12 @@ type DrawerMenuProps = {
   };
 };
 
-export const DrawerMenu: FC<DrawerMenuProps> = ({
+export const DrawerMenu = ({
   links = [],
   open = false,
   toggleDrawer,
   routes,
-}) => {
+}: DrawerMenuProps) => {
   return (
     <Drawer
       className={styles.drawer}

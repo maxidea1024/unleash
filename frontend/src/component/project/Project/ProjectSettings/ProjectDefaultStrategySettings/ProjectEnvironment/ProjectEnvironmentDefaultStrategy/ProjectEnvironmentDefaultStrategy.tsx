@@ -13,10 +13,10 @@ import {
 } from '@server/types/permissions';
 import SplitPreviewSlider from 'component/feature/StrategyTypes/SplitPreviewSlider/SplitPreviewSlider';
 
-interface ProjectEnvironmentDefaultStrategyProps {
+type ProjectEnvironmentDefaultStrategyProps = {
   environment: ProjectEnvironmentType;
   description: string;
-}
+};
 
 export const formatEditProjectEnvironmentStrategyPath = (
   projectId: string,

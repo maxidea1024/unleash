@@ -65,15 +65,15 @@ const StyledPropertyLabel = styled('span')(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-interface IProjectActionsEventsDetailsActionProps {
+type ProjectActionsEventsDetailsActionProps = {
   action: IActionEvent;
   children: ReactNode;
-}
+};
 
 export const ProjectActionsEventsDetailsAction = ({
   action: { state, details, action, executionParams },
   children,
-}: IProjectActionsEventsDetailsActionProps) => {
+}: ProjectActionsEventsDetailsActionProps) => {
   const actionState =
     state === 'success' ? (
       <StyledSuccessIcon />

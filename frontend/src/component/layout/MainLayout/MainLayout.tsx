@@ -20,10 +20,6 @@ import { EventTimelineProvider } from 'component/events/EventTimeline/EventTimel
 import { AIChat } from 'component/ai/AIChat';
 import { NewInUnleash } from './NavigationSidebar/NewInUnleash/NewInUnleash';
 
-interface IMainLayoutProps {
-  children: ReactNode;
-}
-
 const MainLayoutContainer = styled(Grid)(() => ({
   height: '100%',
   justifyContent: 'space-between',
@@ -90,7 +86,11 @@ const MainLayoutContentContainer = styled('div')(({ theme }) => ({
   zIndex: 200,
 }));
 
-export const MainLayout = forwardRef<HTMLDivElement, IMainLayoutProps>(
+type MainLayoutProps = {
+  children: ReactNode;
+};
+
+export const MainLayout = forwardRef<HTMLDivElement, MainLayoutProps>(
   ({ children }, ref) => {
     const { uiConfig } = useUiConfig();
     const projectId = useOptionalPathParam('projectId');

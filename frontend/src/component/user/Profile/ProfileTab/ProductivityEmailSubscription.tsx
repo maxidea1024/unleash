@@ -1,14 +1,18 @@
 import { Box, FormControlLabel, Switch } from '@mui/material';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import type { FC } from 'react';
 import { useEmailSubscriptionApi } from 'hooks/api/actions/useEmailSubscriptionApi/useEmailSubscriptionApi';
 import useToast from 'hooks/useToast';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-export const ProductivityEmailSubscription: FC<{
+type ProductivityEmailSubscriptionProps = {
   status: 'subscribed' | 'unsubscribed';
   onChange: () => void;
-}> = ({ status, onChange }) => {
+};
+
+export const ProductivityEmailSubscription = ({
+  status,
+  onChange,
+}: ProductivityEmailSubscriptionProps) => {
   const {
     subscribe,
     unsubscribe,

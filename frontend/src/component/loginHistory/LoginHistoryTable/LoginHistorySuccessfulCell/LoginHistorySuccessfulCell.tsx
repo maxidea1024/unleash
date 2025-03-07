@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
@@ -11,16 +10,17 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface ILoginHistorySuccessfulCellProps {
+type LoginHistorySuccessfulCellProps = {
   row: {
     original: ILoginEvent;
   };
   value: boolean;
-}
+};
 
-export const LoginHistorySuccessfulCell: FC<
-  ILoginHistorySuccessfulCellProps
-> = ({ row, value }) => {
+export const LoginHistorySuccessfulCell = ({
+  row,
+  value,
+}: LoginHistorySuccessfulCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (value) {

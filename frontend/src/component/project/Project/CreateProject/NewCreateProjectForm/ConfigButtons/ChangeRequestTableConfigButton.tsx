@@ -33,16 +33,14 @@ type ChangeRequestTableConfigButtonProps = Pick<
   >;
 };
 
-export const ChangeRequestTableConfigButton: FC<
-  ChangeRequestTableConfigButtonProps
-> = ({
+export const ChangeRequestTableConfigButton = ({
   button,
   search,
   projectChangeRequestConfiguration,
   updateProjectChangeRequestConfiguration,
   activeEnvironments,
   ...props
-}) => {
+}: ChangeRequestTableConfigButtonProps) => {
   const configured = useMemo(() => {
     return Object.fromEntries(
       Object.entries(projectChangeRequestConfiguration).map(

@@ -19,12 +19,12 @@ const variantsArrayToObject = (variants: IFeatureVariant[]) =>
     {},
   );
 
-type VariantDiffProp = {
+type VariantDiffProps = {
   preData: IFeatureVariant[];
   data: IFeatureVariant[];
 };
 
-export const VariantDiff = ({ preData, data }: VariantDiffProp) => (
+export const VariantDiff = ({ preData, data }: VariantDiffProps) => (
   <StyledCodeSection>
     <EventDiff
       entry={{

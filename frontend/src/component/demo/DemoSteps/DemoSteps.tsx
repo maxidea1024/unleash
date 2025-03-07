@@ -197,10 +197,15 @@ export const DemoSteps = ({
   };
 
   useEffect(() => {
-    if (topic === -1) return;
+    if (topic === -1) {
+      return;
+    }
+
     const currentTopic = topics[topic];
     const currentStep = currentTopic.steps[step];
-    if (!currentStep) return;
+    if (!currentStep) {
+      return;
+    }
 
     setTimeout(() => {
       if (
@@ -217,7 +222,9 @@ export const DemoSteps = ({
     if (topic > -1) topics[topic].setup?.();
   }, [topic]);
 
-  if (topic === -1) return null;
+  if (topic === -1) {
+    return null;
+  }
 
   const joyrideSteps = topics[topic].steps.map((step) => ({
     ...step,

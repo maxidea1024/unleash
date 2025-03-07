@@ -24,11 +24,11 @@ const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
   marginBlockEnd: theme.spacing(2),
 }));
 
-type Props = {
+type FeatureNamingPatternInfoProps = {
   featureNaming: FeatureNamingType;
 };
 
-export const FeatureNamingPatternInfo = ({ featureNaming }: Props) => {
+export const FeatureNamingPatternInfo = ({ featureNaming }: FeatureNamingPatternInfoProps) => {
   return (
     <StyledFlagNamingInfo>
       <p>This project has feature flag naming patterns enabled.</p>

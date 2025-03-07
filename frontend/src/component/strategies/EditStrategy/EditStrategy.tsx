@@ -41,8 +41,10 @@ export const EditStrategy = () => {
   const { refetchStrategies } = useStrategies();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    clearErrors();
     e.preventDefault();
+
+    clearErrors();
+
     if (validateParams()) {
       const payload = getStrategyPayload();
       try {

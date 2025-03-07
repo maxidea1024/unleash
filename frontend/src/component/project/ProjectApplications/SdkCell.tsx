@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { ProjectApplicationSchema } from 'openapi';
 import { styled } from '@mui/material';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -15,13 +14,13 @@ const StyledList = styled('ul')(({ theme }) => ({
   margin: theme.spacing(0),
 }));
 
-interface ISdkCellProps {
+type SdkCellProps = {
   row: {
     original: ProjectApplicationSchema;
   };
-}
+};
 
-export const SdkCell: FC<ISdkCellProps> = ({ row }) => {
+export const SdkCell = ({ row }: SdkCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   const isHighlighted =

@@ -1,4 +1,4 @@
-import { type FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { ManageBulkTagsDialog } from 'component/feature/FeatureView/FeatureOverview/ManageTagsDialog/ManageBulkTagsDialog';
 import type { FeatureSchema } from 'openapi';
@@ -10,17 +10,13 @@ import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
 import { UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface IManageTagsProps {
+type ManageTagsProps = {
   data: FeatureSchema[];
   projectId: string;
   onChange?: () => void;
-}
+};
 
-export const ManageTags: FC<IManageTagsProps> = ({
-  projectId,
-  data,
-  onChange,
-}) => {
+export const ManageTags = ({ projectId, data, onChange }: ManageTagsProps) => {
   const { bulkUpdateTags } = useTagApi();
   const { setToastData, setToastApiError } = useToast();
   const { trackEvent } = usePlausibleTracker();

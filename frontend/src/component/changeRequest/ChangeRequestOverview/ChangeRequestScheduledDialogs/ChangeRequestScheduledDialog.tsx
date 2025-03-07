@@ -2,6 +2,13 @@ import type { ReactElement } from 'react';
 import { Alert, styled, Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 
+const StyledAlert = styled(Alert)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  backgroundColor: `${theme.palette.neutral.light}!important`,
+  color: `${theme.palette.text.primary}!important`,
+  borderColor: `${theme.palette.neutral.light}!important`,
+}));
+
 export type ChangeRequestScheduledDialogProps = {
   title: string;
   primaryButtonText: string;
@@ -13,13 +20,6 @@ export type ChangeRequestScheduledDialogProps = {
   permissionButton?: ReactElement;
   disabled?: boolean;
 };
-
-const StyledAlert = styled(Alert)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
-  backgroundColor: `${theme.palette.neutral.light}!important`,
-  color: `${theme.palette.text.primary}!important`,
-  borderColor: `${theme.palette.neutral.light}!important`,
-}));
 
 export const ChangeRequestScheduledDialog = ({
   open,

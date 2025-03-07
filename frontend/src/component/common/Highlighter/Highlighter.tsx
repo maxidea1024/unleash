@@ -1,12 +1,11 @@
-import type { FC } from 'react';
 import { safeRegExp } from '@server/util/escape-regex';
 import { styled } from '@mui/material';
 
-interface IHighlighterProps {
+type HighlighterProps = {
   search?: string;
   children?: string;
   caseSensitive?: boolean;
-}
+};
 
 export const StyledSpan = styled('span')(({ theme }) => ({
   '&>mark': {
@@ -14,11 +13,11 @@ export const StyledSpan = styled('span')(({ theme }) => ({
   },
 }));
 
-export const Highlighter: FC<IHighlighterProps> = ({
+export const Highlighter = ({
   search,
   children,
   caseSensitive,
-}) => {
+}: HighlighterProps) => {
   if (!children) {
     return null;
   }

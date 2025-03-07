@@ -1,6 +1,5 @@
 import {
   type ChangeEventHandler,
-  type FC,
   type FormEventHandler,
   useState,
 } from 'react';
@@ -14,12 +13,12 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import type { IAuthEndpointDetailsResponse } from 'hooks/api/getters/useAuth/useAuthEndpoint';
 
-interface ISimpleAuthProps {
+type SimpleAuthProps = {
   authDetails: IAuthEndpointDetailsResponse;
   redirect: string;
-}
+};
 
-const SimpleAuth: FC<ISimpleAuthProps> = ({ authDetails, redirect }) => {
+const SimpleAuth = ({ authDetails, redirect }: SimpleAuthProps) => {
   const [email, setEmail] = useState('');
   const { refetchUser } = useAuthUser();
   const { emailAuth } = useAuthApi();
@@ -48,14 +47,14 @@ const SimpleAuth: FC<ISimpleAuthProps> = ({ authDetails, redirect }) => {
       <div className={styles.container}>
         <p>{authDetails.message}</p>
         <p>
-          This instance of Unleash is not set up with a secure authentication
+          This instance of Ganpa is not set up with a secure authentication
           provider. You can read more about{' '}
           <a
             href='https://github.com/Unleash/unleash/blob/master/docs/securing-unleash.md'
             target='_blank'
             rel='noreferrer'
           >
-            securing Unleash on GitHub
+            securing Ganpa on GitHub
           </a>
         </p>
         <TextField

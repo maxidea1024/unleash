@@ -41,10 +41,14 @@ const EditEnvironment = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     try {
       await updateEnvironment(id, editPayload());
+
       refetch();
+
       navigate('/environments');
+
       setToastData({
         type: 'success',
         title: 'Successfully updated environment.',

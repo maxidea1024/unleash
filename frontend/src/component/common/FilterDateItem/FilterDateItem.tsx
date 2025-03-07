@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { type FC, type ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { StyledPopover } from 'component/filter/FilterItem/FilterItem.styles';
 import { FilterItemChip } from 'component/filter/FilterItem/FilterItemChip/FilterItemChip';
 import { DateCalendar, LocalizationProvider } from '@mui/x-date-pickers';
@@ -9,23 +9,23 @@ import { useLocationSettings } from 'hooks/useLocationSettings';
 import { getLocalizedDateString } from '../util';
 import type { FilterItemParams } from 'component/filter/FilterItem/FilterItem';
 
-export interface IFilterDateItemProps {
+export type FilterDateItemProps = {
   name: string;
   label: ReactNode;
   onChange: (value: FilterItemParams) => void;
   onChipClose: () => void;
   state: FilterItemParams | null | undefined;
   operators: [string, ...string[]];
-}
+};
 
-export const FilterDateItem: FC<IFilterDateItemProps> = ({
+export const FilterDateItem = ({
   name,
   label,
   onChange,
   onChipClose,
   state,
   operators,
-}) => {
+}: FilterDateItemProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLDivElement | null>(null);
   const { locationSettings } = useLocationSettings();

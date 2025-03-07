@@ -37,11 +37,11 @@ const StyledTimeToProductionDescription = styled(Typography)(({ theme }) => ({
   lineHeight: theme.typography.body2.lineHeight,
 }));
 
-interface IProjectStatsProps {
+type ProjectStatsProps = {
   stats: ProjectStatsSchema;
-}
+};
 
-export const ProjectStats = ({ stats }: IProjectStatsProps) => {
+export const ProjectStats = ({ stats }: ProjectStatsProps) => {
   if (Object.keys(stats).length === 0) {
     return null;
   }

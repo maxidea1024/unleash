@@ -28,10 +28,6 @@ import rust from 'assets/icons/sdks/Logo-rust.svg';
 import svelte from 'assets/icons/sdks/Logo-svelte.svg';
 import vue from 'assets/icons/sdks/Logo-vue.svg';
 
-type IntegrationIconProps = {
-  name: string;
-};
-
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
   background: 'transparent',
   marginRight: theme.spacing(2),
@@ -74,6 +70,10 @@ const integrations: Record<
   rust: { title: 'Rust', icon: rust },
   svelte: { title: 'Svelte', icon: svelte },
   vue: { title: 'Vue', icon: vue },
+};
+
+type IntegrationIconProps = {
+  name: string;
 };
 
 export const IntegrationIcon = ({ name }: IntegrationIconProps) => {

@@ -31,12 +31,12 @@ import { ToggleConfigButton } from 'component/common/DialogFormTemplate/ConfigBu
 import { useFlagLimits } from './useFlagLimits';
 import { useFeatureCreatedFeedback } from './hooks/useFeatureCreatedFeedback';
 
-interface ICreateFeatureDialogProps {
+type CreateFeatureDialogProps = {
   open: boolean;
   onClose: () => void;
   skipNavigationOnComplete?: boolean;
   onSuccess?: () => void;
-}
+};
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -76,7 +76,7 @@ export const CreateFeatureDialog = ({
   onClose,
   onSuccess,
   skipNavigationOnComplete,
-}: ICreateFeatureDialogProps) => {
+}: CreateFeatureDialogProps) => {
   if (open) {
     // wrap the inner component so that we only fetch data etc
     // when the dialog is actually open.
@@ -89,6 +89,8 @@ export const CreateFeatureDialog = ({
       />
     );
   }
+
+  return null;
 };
 
 const CreateFeatureDialogContent = ({
@@ -96,7 +98,7 @@ const CreateFeatureDialogContent = ({
   onClose,
   skipNavigationOnComplete,
   onSuccess,
-}: ICreateFeatureDialogProps) => {
+}: CreateFeatureDialogProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { uiConfig, isOss } = useUiConfig();
   const navigate = useNavigate();

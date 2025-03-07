@@ -37,11 +37,13 @@ const StyledFormContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(4),
 }));
 
-interface IUpdateProject {
+type UpdateProjectProps = {
   project: IProjectOverview;
-}
+};
+
 const EDIT_PROJECT_BTN = 'EDIT_PROJECT_BTN';
-export const UpdateProject = ({ project }: IUpdateProject) => {
+
+export const UpdateProject = ({ project }: UpdateProjectProps) => {
   const id = useRequiredPathParam('projectId');
   const { uiConfig } = useUiConfig();
   const { setToastData, setToastApiError } = useToast();

@@ -45,19 +45,19 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(4),
 }));
 
-interface IProjectActionsEventsModalProps {
+type ProjectActionsEventsModalProps = {
   action?: IActionSet;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenConfiguration: () => void;
-}
+};
 
 export const ProjectActionsEventsModal = ({
   action,
   open,
   setOpen,
   onOpenConfiguration,
-}: IProjectActionsEventsModalProps) => {
+}: ProjectActionsEventsModalProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { locationSettings } = useLocationSettings();
   const { actionEvents, hasMore, loadMore, loading } = useActionEvents(

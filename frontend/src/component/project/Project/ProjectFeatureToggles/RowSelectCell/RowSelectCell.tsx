@@ -1,13 +1,12 @@
 import React from 'react';
 import { Box, Checkbox, styled } from '@mui/material';
-import type { FC } from 'react';
 import { BATCH_SELECT } from 'utils/testIds';
 
-interface IRowSelectCellProps {
+type RowSelectCellProps = {
   onChange: (_?: unknown) => void;
   checked: boolean;
   title: string;
-}
+};
 
 const StyledBoxCell = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -16,11 +15,11 @@ const StyledBoxCell = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(1),
 }));
 
-export const RowSelectCell: FC<IRowSelectCellProps> = ({
+export const RowSelectCell = ({
   onChange,
   checked,
   title,
-}) => (
+}: RowSelectCellProps) => (
   <StyledBoxCell data-testid={BATCH_SELECT}>
     <Checkbox
       onChange={onChange}

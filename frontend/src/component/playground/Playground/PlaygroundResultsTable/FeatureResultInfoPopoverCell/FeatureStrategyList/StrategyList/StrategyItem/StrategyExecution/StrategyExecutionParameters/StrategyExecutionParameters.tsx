@@ -15,18 +15,18 @@ import { Badge } from 'component/common/Badge/Badge';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import DisabledPercentageCircle from 'component/common/PercentageCircle/DisabledPercentageCircle';
 
-export interface PlaygroundResultStrategyExecutionParametersProps {
-  parameters: { [key: string]: string };
-  constraints: PlaygroundConstraintSchema[];
-  input?: PlaygroundRequestSchema;
-  disabled?: boolean;
-}
-
 const StyledText = styled('div', {
   shouldForwardProp: (prop) => prop !== 'disabled',
 })<{ disabled: boolean }>(({ theme, disabled }) => ({
   color: disabled ? theme.palette.text.secondary : theme.palette.neutral.main,
 }));
+
+type PlaygroundResultStrategyExecutionParametersProps = {
+  parameters: { [key: string]: string };
+  constraints: PlaygroundConstraintSchema[];
+  input?: PlaygroundRequestSchema;
+  disabled?: boolean;
+};
 
 export const PlaygroundResultStrategyExecutionParameters = ({
   parameters,
@@ -37,6 +37,7 @@ export const PlaygroundResultStrategyExecutionParameters = ({
   const stickiness = parameters?.stickiness;
   const explainStickiness =
     typeof stickiness === 'string' && stickiness !== 'default';
+
   return (
     <>
       {Object.keys(parameters).map((key) => {

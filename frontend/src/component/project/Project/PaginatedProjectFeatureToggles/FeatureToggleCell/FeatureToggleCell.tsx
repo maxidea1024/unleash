@@ -28,7 +28,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-interface IFeatureToggleCellProps {
+type FeatureToggleCellProps = {
   projectId: string;
   environmentName: string;
   isChangeRequestEnabled: boolean;
@@ -38,7 +38,7 @@ interface IFeatureToggleCellProps {
   featureId: string;
   environment?: FeatureEnvironmentSchema;
   someEnabledEnvironmentHasVariants?: boolean;
-}
+};
 
 const FeatureToggleCellComponent = ({
   value,
@@ -49,7 +49,7 @@ const FeatureToggleCellComponent = ({
   someEnabledEnvironmentHasVariants,
   refetch,
   onFeatureToggleSwitch,
-}: IFeatureToggleCellProps) => {
+}: FeatureToggleCellProps) => {
   const hasWarning = useMemo(
     () =>
       someEnabledEnvironmentHasVariants &&

@@ -23,7 +23,7 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-interface IProjectActionsFormStepActionsProps {
+type ProjectActionsFormStepActionsProps = {
   serviceAccounts: IServiceAccount[];
   serviceAccountsLoading: boolean;
   actions: ActionsActionState[];
@@ -32,7 +32,7 @@ interface IProjectActionsFormStepActionsProps {
   setActorId: React.Dispatch<React.SetStateAction<number>>;
   validateActorId: (actorId: number) => boolean;
   validated: boolean;
-}
+};
 
 export const ProjectActionsFormStepActions = ({
   serviceAccounts,
@@ -43,7 +43,7 @@ export const ProjectActionsFormStepActions = ({
   setActorId,
   validateActorId,
   validated,
-}: IProjectActionsFormStepActionsProps) => {
+}: ProjectActionsFormStepActionsProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { actionConfigurations } = useActionConfigurations(projectId);
 

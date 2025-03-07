@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Box } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
 import { ChangeItemWrapper } from './StrategyChange';

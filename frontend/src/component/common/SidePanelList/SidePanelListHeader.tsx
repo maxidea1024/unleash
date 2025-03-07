@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import {
-  type SidePanelListColumn,
+  type ISidePanelListColumn,
   StyledSidePanelListColumn,
 } from './SidePanelList';
 
@@ -22,7 +22,7 @@ const StyledHeaderHalf = styled('div', {
 }));
 
 type SidePanelListHeaderProps<T> = {
-  columns: SidePanelListColumn<T>[];
+  columns: ISidePanelListColumn<T>[];
   sidePanelHeader: string;
   leftPanelMaxWidth?: number;
 };

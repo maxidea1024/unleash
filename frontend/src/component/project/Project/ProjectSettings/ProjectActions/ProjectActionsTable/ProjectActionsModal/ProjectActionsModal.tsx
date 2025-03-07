@@ -45,19 +45,19 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-interface IProjectActionsModalProps {
+type ProjectActionsModalProps = {
   action?: IActionSet;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onOpenEvents: () => void;
-}
+};
 
 export const ProjectActionsModal = ({
   action,
   open,
   setOpen,
   onOpenEvents,
-}: IProjectActionsModalProps) => {
+}: ProjectActionsModalProps) => {
   const projectId = useRequiredPathParam('projectId');
   const { refetch } = useActions(projectId);
   const { addActionSet, updateActionSet, loading } = useActionsApi(projectId);

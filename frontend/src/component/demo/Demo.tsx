@@ -78,7 +78,9 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
     setStep(0);
   };
 
-  if (!uiConfig.flags.demo) return children;
+  if (!uiConfig.flags.demo) {
+    return children;
+  }
 
   return (
     <>

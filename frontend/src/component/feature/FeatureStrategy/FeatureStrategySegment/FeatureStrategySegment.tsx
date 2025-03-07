@@ -3,7 +3,7 @@ import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import type { ISegment } from 'interfaces/segment';
 import {
   AutocompleteBox,
-  type AutocompleteBoxOption,
+  type IAutocompleteBoxOption,
 } from 'component/common/AutocompleteBox/AutocompleteBox';
 import { FeatureStrategySegmentList } from 'component/feature/FeatureStrategy/FeatureStrategySegment/FeatureStrategySegmentList';
 import { SegmentDocsStrategyWarning } from 'component/segments/SegmentDocs';
@@ -57,7 +57,7 @@ export const FeatureStrategySegment = ({
     label: segment.name,
   }));
 
-  const onChange = ([option]: AutocompleteBoxOption[]) => {
+  const onChange = ([option]: IAutocompleteBoxOption[]) => {
     const selectedSegment = allSegments.find((segment) => {
       return String(segment.id) === option.value;
     });

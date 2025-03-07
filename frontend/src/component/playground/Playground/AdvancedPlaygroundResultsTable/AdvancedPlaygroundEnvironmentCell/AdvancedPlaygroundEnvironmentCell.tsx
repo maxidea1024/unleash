@@ -31,13 +31,13 @@ const StyledPlaygroundChipContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-export interface IAdvancedPlaygroundEnvironmentCellProps {
+type AdvancedPlaygroundEnvironmentCellProps = {
   value: AdvancedPlaygroundEnvironmentFeatureSchema[];
-}
+};
 
 export const AdvancedPlaygroundEnvironmentCell = ({
   value,
-}: IAdvancedPlaygroundEnvironmentCellProps) => {
+}: AdvancedPlaygroundEnvironmentCellProps) => {
   const theme = useTheme();
   const [anchor, setAnchorEl] = useState<null | Element>(null);
 

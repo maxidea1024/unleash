@@ -14,11 +14,11 @@ export interface IHighlightContext {
   highlight: (key: HighlightKey, timeout?: number) => void;
 }
 
-interface IHighlightProviderProps {
+type HighlightProviderProps = {
   children: ReactNode;
-}
+};
 
-export const HighlightProvider = ({ children }: IHighlightProviderProps) => {
+export const HighlightProvider = ({ children }: HighlightProviderProps) => {
   const [state, setState] = useState<HighlightState>(defaultState);
 
   const isHighlighted = (key: HighlightKey) => state[key];

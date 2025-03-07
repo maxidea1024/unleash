@@ -1,7 +1,8 @@
 import { styled, Typography } from '@mui/material';
-interface IDividerTextProps {
+
+type DividerTextProps = {
   text: string;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -23,7 +24,7 @@ const StyleTypography = styled(Typography)(({ theme }) => ({
   margin: theme.spacing(0, 2),
 }));
 
-const DividerText = ({ text, ...rest }: IDividerTextProps) => {
+const DividerText = ({ text, ...rest }: DividerTextProps) => {
   return (
     <StyledContainer {...rest}>
       <StyledSpan />

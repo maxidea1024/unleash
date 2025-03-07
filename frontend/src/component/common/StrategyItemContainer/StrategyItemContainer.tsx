@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { DragEventHandler, FC, ReactNode } from 'react';
+import type { DragEventHandler, ReactNode } from 'react';
 import DragIndicator from '@mui/icons-material/DragIndicator';
 import { Box, IconButton, styled } from '@mui/material';
 import type { IFeatureStrategy } from 'interfaces/strategy';

@@ -51,13 +51,13 @@ const StyledAccordionDetails = styled(AccordionDetails)(({ theme }) => ({
   padding: 0,
 }));
 
-interface IProjectActionsPreviewPayloadProps {
+type ProjectActionsPreviewPayloadProps = {
   payload?: unknown;
-}
+};
 
 export const ProjectActionsPreviewPayload = ({
   payload,
-}: IProjectActionsPreviewPayloadProps) => {
+}: ProjectActionsPreviewPayloadProps) => {
   if (!payload) {
     return (
       <StyledNoSignalsSpan>

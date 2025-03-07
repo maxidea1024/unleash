@@ -191,7 +191,9 @@ export const FeatureStrategyCreate = () => {
 
   const emptyFeature = !data || !data.project;
 
-  if (emptyFeature) return null;
+  if (emptyFeature) {
+    return null;
+  }
 
   return (
     <FormTemplate

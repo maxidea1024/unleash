@@ -2,17 +2,17 @@ import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 import { Box, Button, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-type AddonInstallProps = {
-  url: string;
-  title?: string;
-  helpText?: string;
-};
-
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   columnGap: theme.spacing(3),
   [theme.breakpoints.down('sm')]: { flexDirection: 'column' },
 }));
+
+type AddonInstallProps = {
+  url: string;
+  title?: string;
+  helpText?: string;
+};
 
 export const IntegrationInstall = ({
   url,

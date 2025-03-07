@@ -8,11 +8,11 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 
-interface IEditSegmentButtonProps {
+type EditSegmentButtonProps = {
   segment: ISegment;
-}
+};
 
-export const EditSegmentButton = ({ segment }: IEditSegmentButtonProps) => {
+export const EditSegmentButton = ({ segment }: EditSegmentButtonProps) => {
   const projectId = useOptionalPathParam('projectId');
   const navigate = useNavigate();
 

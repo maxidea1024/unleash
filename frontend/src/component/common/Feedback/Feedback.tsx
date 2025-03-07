@@ -1,4 +1,4 @@
-import { useState, type FC } from 'react';
+import { useState, } from 'react';
 import { Box, Paper, Button, styled } from '@mui/material';
 import {
   type CustomEvents,
@@ -19,11 +19,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(0.5),
 }));
 
-export const Feedback: FC<FeedbackProps> = ({
-  id,
-  localStorageKey,
-  eventName,
-}) => {
+export const Feedback = ({ id, localStorageKey, eventName }: FeedbackProps) => {
   const { uiConfig } = useUiConfig();
   const { value: selectedValue, setValue: setSelectedValue } =
     createLocalStorage<{ value?: 'yes' | 'no' }>(

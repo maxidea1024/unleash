@@ -17,10 +17,15 @@ import { useLastViewedProject } from 'hooks/useLastViewedProject';
 import { useLastViewedFlags } from 'hooks/useLastViewedFlags';
 import type { NewInUnleash } from './NewInUnleash/NewInUnleash';
 
-export const MobileNavigationSidebar: FC<{
+type MobileNavigationSidebarProps = {
   onClick: () => void;
   NewInUnleash?: typeof NewInUnleash;
-}> = ({ onClick, NewInUnleash }) => {
+};
+
+export const MobileNavigationSidebar = ({
+  onClick,
+  NewInUnleash,
+}: MobileNavigationSidebarProps) => {
   const { routes } = useRoutes();
 
   return (

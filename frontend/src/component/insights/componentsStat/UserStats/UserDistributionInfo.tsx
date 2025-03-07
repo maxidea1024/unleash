@@ -1,18 +1,12 @@
 import { Box, Typography, styled } from '@mui/material';
 
-type UserType = 'active' | 'inactive';
-
-type StyledLinearProgressProps = {
-  type: UserType;
-};
-
 const StyledUserDistContainer = styled(Box)(({ theme }) => ({
   padding: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
   borderRadius: `${theme.shape.borderRadius}px`,
   border: `1px solid ${theme.palette.divider}`,
 }));
 
-const StyledUserDistIndicator = styled(Box)<StyledLinearProgressProps>(
+const StyledUserDistIndicator = styled(Box)<{ type: UserType }>(
   ({ theme, type }) => ({
     width: 8,
     height: 8,
@@ -24,12 +18,6 @@ const StyledUserDistIndicator = styled(Box)<StyledLinearProgressProps>(
     marginRight: theme.spacing(1),
   }),
 );
-
-type UserDistributionInfoProps = {
-  type: UserType;
-  count: string;
-  percentage: string;
-};
 
 const StyledDistInfoInnerContainer = styled(Box)(() => ({
   display: 'flex',
@@ -46,6 +34,14 @@ const StyledCountTypography = styled(Typography)(() => ({
   marginLeft: 'auto',
   fontWeight: 'normal',
 }));
+
+type UserType = 'active' | 'inactive';
+
+type UserDistributionInfoProps = {
+  type: UserType;
+  count: string;
+  percentage: string;
+};
 
 export const UserDistributionInfo = ({
   type,

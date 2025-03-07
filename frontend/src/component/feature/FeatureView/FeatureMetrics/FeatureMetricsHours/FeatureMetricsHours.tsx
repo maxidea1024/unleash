@@ -1,5 +1,5 @@
 import GeneralSelect, {
-  type IGeneralSelectProps,
+  type GeneralSelectProps,
 } from 'component/common/GeneralSelect/GeneralSelect';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useEffect } from 'react';
@@ -20,7 +20,7 @@ export const FeatureMetricsHours = ({
 }: FeatureMetricsHoursProps) => {
   const { trackEvent } = usePlausibleTracker();
 
-  const onChange: IGeneralSelectProps['onChange'] = (key) => {
+  const onChange: GeneralSelectProps['onChange'] = (key) => {
     setHoursBack(Number.parseInt(key));
     trackEvent('feature-metrics', {
       props: {

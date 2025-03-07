@@ -65,25 +65,25 @@ const StyledLink = styled(Link)({
   justifyContent: 'center',
 });
 
-type IUserStatsProps = {
-  count: number;
-  active?: number;
-  inactive?: number;
-  isLoading?: boolean;
-};
-
 const StyledLoadingSkeleton = styled(Box)(() => ({
   '&:before': {
     background: 'transparent',
   },
 }));
 
+type UserStatsProps = {
+  count: number;
+  active?: number;
+  inactive?: number;
+  isLoading?: boolean;
+};
+
 export const UserStats = ({
   count,
   active,
   inactive,
   isLoading,
-}: IUserStatsProps) => {
+}: UserStatsProps) => {
   const showInactiveUsers = useUiFlag('showInactiveUsers');
   const showDistribution =
     showInactiveUsers && active !== undefined && inactive !== undefined;

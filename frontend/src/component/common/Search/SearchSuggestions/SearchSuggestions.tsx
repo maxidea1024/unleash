@@ -23,9 +23,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const StyledHistory = styled(History)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-}));
+// const StyledHistory = styled(History)(({ theme }) => ({
+//   color: theme.palette.text.secondary,
+// }));
 
 const StyledFilterList = styled(FilterList)(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -36,13 +36,13 @@ const StyledDivider = styled(Divider)(({ theme }) => ({
   margin: theme.spacing(1.5, 0),
 }));
 
+const quote = (item: string) => (item.includes(' ') ? `"${item}"` : item);
+
 type SearchSuggestionsProps = {
   getSearchContext: () => IGetSearchContextOutput;
   onSuggestion: (suggestion: string) => void;
   savedQuery?: string;
 };
-
-const quote = (item: string) => (item.includes(' ') ? `"${item}"` : item);
 
 export const SearchSuggestions = ({
   getSearchContext,

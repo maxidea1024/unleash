@@ -6,15 +6,15 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-type ErrorProps = {
-  error: Error;
-};
-
 const ZendeskButton = () => {
   const openZendeskSupport = () => {
     window?.open('https://getunleash.zendesk.com', '_blank');
   };
   return <Button onClick={openZendeskSupport}>Open a ticket</Button>;
+};
+
+type ErrorProps = {
+  error: Error;
 };
 
 // biome-ignore lint/suspicious/noShadowRestrictedNames: <explanation>

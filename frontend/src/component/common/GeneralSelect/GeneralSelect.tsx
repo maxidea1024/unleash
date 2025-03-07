@@ -21,8 +21,10 @@ export interface ISelectOption {
   sx?: SxProps<Theme>;
 }
 
-export interface IGeneralSelectProps<T extends string = string>
-  extends Omit<SelectProps, 'onChange'> {
+export type GeneralSelectProps<T extends string = string> = Omit<
+  SelectProps,
+  'onChange'
+> & {
   name?: string;
   value?: T;
   label?: string;
@@ -33,7 +35,7 @@ export interface IGeneralSelectProps<T extends string = string>
   classes?: any;
   defaultValue?: string;
   visuallyHideLabel?: boolean;
-}
+};
 
 const StyledFormControl = styled(FormControl)({
   maxWidth: '100%',
@@ -53,7 +55,7 @@ function GeneralSelect<T extends string = string>({
   visuallyHideLabel,
   labelId,
   ...rest
-}: IGeneralSelectProps<T>) {
+}: GeneralSelectProps<T>) {
   const onSelectChange = (event: SelectChangeEvent) => {
     event.preventDefault();
     onChange(String(event.target.value) as T);

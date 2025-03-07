@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Avatar, Box, Link, styled, Typography } from '@mui/material';
 import { SectionHeader, StepperBox } from './SharedComponents';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -25,19 +24,19 @@ const ChangeSdk = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-interface ITestSdkConnectionProps {
+type TestSdkConnectionProps = {
   sdk: Sdk;
   apiKey: string;
   feature: string;
   onSdkChange: () => void;
-}
+};
 
-export const TestSdkConnection: FC<ITestSdkConnectionProps> = ({
+export const TestSdkConnection = ({
   sdk,
   apiKey,
   feature,
   onSdkChange,
-}) => {
+}: TestSdkConnectionProps) => {
   const { uiConfig } = useUiConfig();
 
   const sdkIcon = allSdks.find((item) => item.name === sdk.name)?.icon;

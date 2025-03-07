@@ -16,11 +16,11 @@ const StyledNotificationsIcon = styled(NotificationsIcon)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-interface IEmptyNotificationsProps {
+type EmptyNotificationsProps = {
   text: string;
-}
+};
 
-export const EmptyNotifications = ({ text }: IEmptyNotificationsProps) => {
+export const EmptyNotifications = ({ text }: EmptyNotificationsProps) => {
   return (
     <StyledBox>
       <StyledNotificationsIcon />

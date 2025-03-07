@@ -7,11 +7,11 @@ import { StatusBox } from '../ProjectStats/StatusBox';
 import { WidgetFooterLink } from './WidgetFooterLink';
 import { Box } from '@mui/material';
 
-interface IProjectMembersWidgetProps {
+type ProjectMembersWidgetProps = {
   projectId: string;
   memberCount: number;
   change?: number;
-}
+};
 
 /**
  * @deprecated in favor of ProjectMembers.tsx
@@ -20,7 +20,7 @@ export const ProjectMembersWidget = ({
   projectId,
   memberCount,
   change = 0,
-}: IProjectMembersWidgetProps) => {
+}: ProjectMembersWidgetProps) => {
   const { uiConfig } = useUiConfig();
 
   let link = `/admin/users`;

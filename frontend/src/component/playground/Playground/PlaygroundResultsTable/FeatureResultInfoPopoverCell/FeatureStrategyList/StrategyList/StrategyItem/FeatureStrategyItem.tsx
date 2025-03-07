@@ -10,17 +10,17 @@ import { objectId } from 'utils/objectId';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DisabledStrategyExecution } from './StrategyExecution/DisabledStrategyExecution';
 
-interface IFeatureStrategyItemProps {
+type FeatureStrategyItemProps = {
   strategy: PlaygroundStrategySchema;
   index: number;
   input?: PlaygroundRequestSchema;
-}
+};
 
 export const FeatureStrategyItem = ({
   strategy,
   input,
   index,
-}: IFeatureStrategyItemProps) => {
+}: FeatureStrategyItemProps) => {
   const { result } = strategy;
   const theme = useTheme();
   const label =

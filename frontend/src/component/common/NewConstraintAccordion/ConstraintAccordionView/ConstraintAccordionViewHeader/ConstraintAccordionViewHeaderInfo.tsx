@@ -44,7 +44,7 @@ const StyledHeaderMetaInfo = styled('div')(({ theme }) => ({
   },
 }));
 
-interface ConstraintAccordionViewHeaderMetaInfoProps {
+type ConstraintAccordionViewHeaderMetaInfoProps = {
   constraint: IConstraint;
   singleValue: boolean;
   expanded: boolean;

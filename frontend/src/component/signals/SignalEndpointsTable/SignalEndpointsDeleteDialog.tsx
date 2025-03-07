@@ -1,19 +1,19 @@
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { ISignalEndpoint } from 'interfaces/signal';
 
-interface ISignalEndpointsDeleteDialogProps {
+type SignalEndpointsDeleteDialogProps = {
   signalEndpoint?: ISignalEndpoint;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (signalEndpoint: ISignalEndpoint) => void;
-}
+};
 
 export const SignalEndpointsDeleteDialog = ({
   signalEndpoint,
   open,
   setOpen,
   onConfirm,
-}: ISignalEndpointsDeleteDialogProps) => (
+}: SignalEndpointsDeleteDialogProps) => (
   <Dialogue
     title='Delete signal endpoint?'
     open={open}

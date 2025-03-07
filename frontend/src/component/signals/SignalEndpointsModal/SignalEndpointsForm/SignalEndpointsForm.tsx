@@ -59,7 +59,7 @@ const StyledInlineContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-interface ISignalEndpointsFormProps {
+type SignalEndpointsFormProps = {
   signalEndpoint?: ISignalEndpoint;
   enabled: boolean;
   setEnabled: React.Dispatch<React.SetStateAction<boolean>>;
@@ -78,7 +78,7 @@ interface ISignalEndpointsFormProps {
     name: string,
   ) => boolean;
   validated: boolean;
-}
+};
 
 export const SignalEndpointsForm = ({
   signalEndpoint,
@@ -96,7 +96,7 @@ export const SignalEndpointsForm = ({
   validateName,
   validateTokenName,
   validated,
-}: ISignalEndpointsFormProps) => {
+}: SignalEndpointsFormProps) => {
   const handleOnBlur = (callback: Function) => {
     setTimeout(() => callback(), 300);
   };

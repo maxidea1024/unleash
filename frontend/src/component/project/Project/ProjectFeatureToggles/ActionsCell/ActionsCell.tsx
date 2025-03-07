@@ -34,7 +34,7 @@ const StyledBoxCell = styled(Box)(({ theme }) => ({
   paddingRight: theme.spacing(2),
 }));
 
-interface IActionsCellProps {
+type ActionsCellProps = {
   projectId: string;
   row: {
     original: {
@@ -44,14 +44,14 @@ interface IActionsCellProps {
   };
   onOpenArchiveDialog: (featureId: string) => void;
   onOpenStaleDialog: (props: { featureId: string; stale: boolean }) => void;
-}
+};
 
-export const ActionsCell: FC<IActionsCellProps> = ({
+export const ActionsCell = ({
   projectId,
   row,
   onOpenArchiveDialog,
   onOpenStaleDialog,
-}) => {
+}: ActionsCellProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isFeatureNameCopied, setIsFeatureNameCopied] = useState(false);
   const { setToastData } = useToast();

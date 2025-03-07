@@ -7,7 +7,7 @@ import Input from 'component/common/Input/Input';
 import { FeatureFlagNamingTooltip } from './FeatureFlagNamingTooltip';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
-interface IProjectEnterpriseSettingsForm {
+type ProjectEnterpriseSettingsFormProps = {
   projectId: string;
   projectMode?: string;
   featureNamingPattern?: string;
@@ -21,7 +21,7 @@ interface IProjectEnterpriseSettingsForm {
   errors: { [key: string]: string };
   clearErrors: () => void;
   children?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('form')(({ theme }) => ({
   height: '100%',
@@ -118,9 +118,7 @@ const useFeatureNamePatternTracking = () => {
   return { trackPattern, setPreviousPattern };
 };
 
-const ProjectEnterpriseSettingsForm: React.FC<
-  IProjectEnterpriseSettingsForm
-> = ({
+const ProjectEnterpriseSettingsForm = ({
   children,
   handleSubmit,
   projectId,
@@ -133,7 +131,7 @@ const ProjectEnterpriseSettingsForm: React.FC<
   setFeatureNamingDescription,
   setProjectMode,
   errors,
-}) => {
+}: ProjectEnterpriseSettingsFormProps) => {
   const { setPreviousPattern, trackPattern } = useFeatureNamePatternTracking();
 
   const projectModeOptions = [

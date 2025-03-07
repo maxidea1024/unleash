@@ -1,5 +1,4 @@
 import { Avatar, Box, Link, styled, Typography } from '@mui/material';
-import type { FC } from 'react';
 import { formatAssetPath } from 'utils/formatPath';
 import { SectionHeader, StepperBox } from './SharedComponents';
 import { clientSdks, type Sdk, serverSdks } from './sharedTypes';
@@ -54,10 +53,11 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
   boxShadow: theme.shadows[2],
 }));
 
-interface ISelectSdkProps {
+type SelectSdkProps = {
   onSelect: (sdk: Sdk) => void;
-}
-export const SelectSdk: FC<ISelectSdkProps> = ({ onSelect }) => {
+};
+
+export const SelectSdk = ({ onSelect }: SelectSdkProps) => {
   return (
     <SpacedContainer>
       <Typography variant='h2'>Connect an SDK to Unleash</Typography>

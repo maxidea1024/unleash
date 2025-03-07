@@ -15,7 +15,9 @@ import android from '../../../assets/icons/sdks/Logo-android.svg';
 import flutter from '../../../assets/icons/sdks/Logo-flutter.svg';
 
 export type SdkType = 'client' | 'frontend';
+
 export type Sdk = { name: SdkName; type: SdkType };
+
 export type ServerSdkName =
   | 'Node.js'
   | 'Go'
@@ -25,6 +27,7 @@ export type ServerSdkName =
   | 'Rust'
   | 'Java'
   | 'Python';
+
 export type ClientSdkName =
   | 'JavaScript'
   | 'React'
@@ -33,6 +36,7 @@ export type ClientSdkName =
   | 'Swift'
   | 'Android'
   | 'Flutter';
+
 export type SdkName = ServerSdkName | ClientSdkName;
 
 export const serverSdks: { name: ServerSdkName; icon: string }[] = [

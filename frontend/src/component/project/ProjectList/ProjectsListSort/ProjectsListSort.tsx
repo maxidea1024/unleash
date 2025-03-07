@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import { styled } from '@mui/material';
 
@@ -30,10 +29,10 @@ type ProjectsListSortProps = {
   setSortBy: (value: string) => void;
 };
 
-export const ProjectsListSort: FC<ProjectsListSortProps> = ({
+export const ProjectsListSort = ({
   sortBy,
   setSortBy,
-}) => {
+}: ProjectsListSortProps) => {
   return (
     <StyledWrapper>
       <StyledContainer>

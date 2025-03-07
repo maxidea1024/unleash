@@ -10,20 +10,10 @@ import { GenerateApiKey } from './GenerateApiKey';
 import { useEffect, useState } from 'react';
 import { SelectSdk } from './SelectSdk';
 import { GenerateApiKeyConcepts, SelectSdkConcepts } from './UnleashConcepts';
-
 import type { Sdk } from './sharedTypes';
 import { ConnectionInformation } from './ConnectionInformation';
 import { SdkConnection } from './SdkConnection';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
-
-interface IConnectSDKDialogProps {
-  open: boolean;
-  onClose: () => void;
-  onFinish: (sdkName: string) => void;
-  project: string;
-  environments: string[];
-  feature?: string;
-}
 
 const ConnectSdk = styled('main')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -64,6 +54,15 @@ const NextStepSectionSpacedContainer = styled('div')(({ theme }) => ({
 
 type OnboardingStage = 'select-sdk' | 'generate-api-key' | 'test-connection';
 
+type ConnectSDKDialogProps = {
+  open: boolean;
+  onClose: () => void;
+  onFinish: (sdkName: string) => void;
+  project: string;
+  environments: string[];
+  feature?: string;
+};
+
 export const ConnectSdkDialog = ({
   open,
   onClose,
@@ -71,7 +70,7 @@ export const ConnectSdkDialog = ({
   environments,
   project: projectId,
   feature,
-}: IConnectSDKDialogProps) => {
+}: ConnectSDKDialogProps) => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
   const [sdk, setSdk] = useState<Sdk | null>(null);

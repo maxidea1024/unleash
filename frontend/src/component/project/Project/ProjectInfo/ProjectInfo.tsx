@@ -12,14 +12,14 @@ import { flexRow } from 'themes/themeStyles';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import type { FeatureTypeCount } from 'interfaces/project';
 
-interface IProjectInfoProps {
+type ProjectInfoProps = {
   id: string;
   memberCount: number;
   featureTypeCounts: FeatureTypeCount[];
   health: number;
   description?: string;
   stats: ProjectStatsSchema;
-}
+};
 
 const StyledProjectInfoSidebarContainer = styled(Box)(({ theme }) => ({
   ...flexRow,
@@ -44,7 +44,7 @@ const ProjectInfo = ({
   health,
   featureTypeCounts,
   stats,
-}: IProjectInfoProps) => {
+}: ProjectInfoProps) => {
   const { isEnterprise } = useUiConfig();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));

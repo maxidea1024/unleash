@@ -3,7 +3,7 @@ import { render } from 'utils/testRenderer';
 import {
   FilterItem,
   type FilterItemParams,
-  type IFilterItemProps,
+  type FilterItemProps,
 } from './FilterItem';
 
 const getOption = (option: string) =>
@@ -11,7 +11,7 @@ const getOption = (option: string) =>
 
 const setup = (initialState: FilterItemParams | null) => {
   const recordedChanges: FilterItemParams[] = [];
-  const mockProps: IFilterItemProps = {
+  const mockProps: FilterItemProps = {
     name: 'Test Label',
     label: 'irrelevant',
     options: [

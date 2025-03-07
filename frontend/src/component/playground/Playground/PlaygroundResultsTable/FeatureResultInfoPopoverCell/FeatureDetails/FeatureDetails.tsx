@@ -40,11 +40,12 @@ const StyledIconButton = styled(IconButton)({
   textAlign: 'right',
 });
 
-interface PlaygroundFeatureResultDetailsProps {
+type PlaygroundFeatureResultDetailsProps = {
   feature: PlaygroundFeatureSchema;
   input?: PlaygroundRequestSchema;
   onClose: () => void;
-}
+};
+
 export const FeatureDetails = ({
   feature,
   input,

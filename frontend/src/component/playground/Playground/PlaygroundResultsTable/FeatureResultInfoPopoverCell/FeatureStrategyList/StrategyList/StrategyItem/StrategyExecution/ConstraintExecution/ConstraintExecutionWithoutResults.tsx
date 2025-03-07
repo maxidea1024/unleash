@@ -6,15 +6,15 @@ import { StrategySeparator } from 'component/common/StrategySeparator/StrategySe
 import { styled } from '@mui/material';
 import { ConstraintAccordionView } from 'component/common/ConstraintAccordion/ConstraintAccordionView/ConstraintAccordionView';
 
-type ConstraintExecutionWithoutResultsProps = {
-  constraints?: PlaygroundConstraintSchema[];
-};
-
 export const ConstraintExecutionWrapper = styled('div')(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
 }));
+
+type ConstraintExecutionWithoutResultsProps = {
+  constraints?: PlaygroundConstraintSchema[];
+};
 
 export const ConstraintExecutionWithoutResults: FC<
   ConstraintExecutionWithoutResultsProps

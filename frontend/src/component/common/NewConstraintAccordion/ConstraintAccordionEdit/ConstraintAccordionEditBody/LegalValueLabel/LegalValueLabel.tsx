@@ -8,19 +8,19 @@ import type React from 'react';
 import { FormControlLabel } from '@mui/material';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 
-interface ILegalValueTextProps {
+type LegalValueTextProps = {
   legal: ILegalValue;
   control: React.ReactElement;
   filter?: string;
   value?: string;
-}
+};
 
 export const LegalValueLabel = ({
   legal,
   control,
   filter,
   value,
-}: ILegalValueTextProps) => {
+}: LegalValueTextProps) => {
   return (
     <StyledContainer>
       <FormControlLabel

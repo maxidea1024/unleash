@@ -21,13 +21,14 @@ const StyledRoleOption = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IMultipleRoleSelectProps
-  extends Partial<AutocompleteProps<IRole, true, false, false>> {
+type MultipleRoleSelectProps = Partial<
+  AutocompleteProps<IRole, true, false, false>
+> & {
   roles: IRole[];
   value: IRole[];
   setValue: (role: IRole[]) => void;
   required?: boolean;
-}
+};
 
 export const MultipleRoleSelect = ({
   roles,
@@ -35,7 +36,7 @@ export const MultipleRoleSelect = ({
   setValue,
   required,
   ...rest
-}: IMultipleRoleSelectProps) => {
+}: MultipleRoleSelectProps) => {
   const renderRoleOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
     option: IRole,

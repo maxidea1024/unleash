@@ -1,16 +1,15 @@
-import type { FC } from 'react';
 import { Typography, useTheme } from '@mui/material';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
 import type { IReportTableRow } from 'component/project/Project/ProjectHealth/ReportTable/ReportTable';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 
-interface IReportExpiredCellProps {
+type ReportExpiredCellProps = {
   row: {
     original: IReportTableRow;
   };
-}
+};
 
-export const ReportExpiredCell: FC<IReportExpiredCellProps> = ({ row }) => {
+export const ReportExpiredCell = ({ row }: ReportExpiredCellProps) => {
   const theme = useTheme();
 
   if (row.original.expiredAt) {

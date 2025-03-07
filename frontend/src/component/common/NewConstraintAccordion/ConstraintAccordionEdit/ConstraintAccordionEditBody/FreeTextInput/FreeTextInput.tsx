@@ -9,14 +9,14 @@ import { parseParameterStrings } from 'utils/parseParameter';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { Limit } from 'component/common/Limit/Limit';
 
-interface IFreeTextInputProps {
+type FreeTextInputProps = {
   values: string[];
   removeValue: (index: number) => void;
   setValues: (values: string[]) => void;
   beforeValues?: JSX.Element;
   error: string;
   setError: (error: string) => void;
-}
+};
 
 const useStyles = makeStyles()((theme) => ({
   valueChip: {
@@ -67,7 +67,7 @@ export const FreeTextInput = ({
   setValues,
   error,
   setError,
-}: IFreeTextInputProps) => {
+}: FreeTextInputProps) => {
   const [inputValues, setInputValues] = useState('');
   const { classes: styles } = useStyles();
   const { uiConfig, loading } = useUiConfig();

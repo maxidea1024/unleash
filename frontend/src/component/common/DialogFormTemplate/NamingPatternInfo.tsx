@@ -38,7 +38,7 @@ type Props = {
   naming: FeatureNamingType;
 };
 
-export const NamingPatternInfo: React.FC<Props> = ({ naming }) => {
+export const NamingPatternInfo = ({ naming }: Props) => {
   const controlId = 'naming-pattern-info-summary';
   return (
     <StyledFlagNamingInfo>

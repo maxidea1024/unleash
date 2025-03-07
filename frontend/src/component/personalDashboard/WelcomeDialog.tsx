@@ -43,12 +43,12 @@ const StyledImg = styled('img')({
   width: '100%',
 });
 
-interface IWelcomeDialogProps {
+type WelcomeDialogProps = {
   open: boolean;
   onClose: () => void;
-}
+};
 
-export const WelcomeDialog: FC<IWelcomeDialogProps> = ({ open, onClose }) => {
+export const WelcomeDialog = ({ open, onClose }: WelcomeDialogProps) => {
   return (
     <StyledDialog open={open} onClose={onClose}>
       <ContentWrapper>

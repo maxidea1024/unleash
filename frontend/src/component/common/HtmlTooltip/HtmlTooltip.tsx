@@ -72,6 +72,9 @@ export interface IHtmlTooltipProps extends TooltipProps {
 }
 
 export const HtmlTooltip = (props: IHtmlTooltipProps) => {
-  if (!props.title) return props.children;
+  if (!props.title) {
+    return props.children;
+  }
+
   return <StyledHtmlTooltip {...props}>{props.children}</StyledHtmlTooltip>;
 };

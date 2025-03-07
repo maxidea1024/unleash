@@ -1,8 +1,8 @@
 import type { Chart, TooltipModel } from 'chart.js';
-import type { TooltipState } from './ChartTooltip/ChartTooltip';
+import type { ITooltipState } from './ChartTooltip/ChartTooltip';
 
 export const createTooltip =
-  (setTooltip: React.Dispatch<React.SetStateAction<TooltipState | null>>) =>
+  (setTooltip: React.Dispatch<React.SetStateAction<ITooltipState | null>>) =>
   (context: {
     chart: Chart;
     tooltip: TooltipModel<any>;

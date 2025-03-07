@@ -6,13 +6,13 @@ import type React from 'react';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
-interface IFeatureStaleDialogProps {
+type FeatureStaleDialogProps = {
   isStale: boolean;
   isOpen: boolean;
   projectId: string;
   featureId: string;
   onClose: () => void;
-}
+};
 
 export const FeatureStaleDialog = ({
   isStale,
@@ -20,7 +20,7 @@ export const FeatureStaleDialog = ({
   projectId,
   featureId,
   onClose,
-}: IFeatureStaleDialogProps) => {
+}: FeatureStaleDialogProps) => {
   const { setToastData, setToastApiError } = useToast();
   const { patchFeatureToggle } = useFeatureApi();
 

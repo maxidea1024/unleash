@@ -15,11 +15,11 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { useState } from 'react';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 
-interface IRemoveSegmentButtonProps {
+type RemoveSegmentButtonProps = {
   segment: ISegment;
-}
+};
 
-export const RemoveSegmentButton = ({ segment }: IRemoveSegmentButtonProps) => {
+export const RemoveSegmentButton = ({ segment }: RemoveSegmentButtonProps) => {
   const projectId = useOptionalPathParam('projectId');
   const { refetchSegments } = useSegments();
   const { deleteSegment } = useSegmentsApi();

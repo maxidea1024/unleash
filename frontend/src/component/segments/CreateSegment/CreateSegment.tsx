@@ -22,11 +22,11 @@ import { SEGMENT_CREATE_BTN_ID } from 'utils/testIds';
 import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentLimits';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 
-interface ICreateSegmentProps {
+type CreateSegmentProps = {
   modal?: boolean;
-}
+};
 
-export const CreateSegment = ({ modal }: ICreateSegmentProps) => {
+export const CreateSegment = ({ modal }: CreateSegmentProps) => {
   const projectId = useOptionalPathParam('projectId');
   const { uiConfig } = useUiConfig();
   const { setToastData, setToastApiError } = useToast();

@@ -1,4 +1,4 @@
-import type { AutocompleteBoxOption } from '../../../common/AutocompleteBox/AutocompleteBox';
+import type { IAutocompleteBoxOption } from '../../../common/AutocompleteBox/AutocompleteBox';
 import type {
   AutocompleteRenderInputParams,
   AutocompleteRenderOptionState,
@@ -16,8 +16,14 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 
+const StyledCheckbox = styled(Checkbox)(() => ({
+  marginRight: '0.2em',
+}));
+
+const CustomPaper = ({ ...props }) => <Paper elevation={8} {...props} />;
+
 export type IntegrationMultiSelectorProps = {
-  options: AutocompleteBoxOption[];
+  options: IAutocompleteBoxOption[];
   selectedItems: string[];
   onChange: (value: string[]) => void;
   error?: string;
@@ -27,12 +33,6 @@ export type IntegrationMultiSelectorProps = {
   note?: string;
   required?: boolean;
 };
-
-const StyledCheckbox = styled(Checkbox)(() => ({
-  marginRight: '0.2em',
-}));
-
-const CustomPaper = ({ ...props }) => <Paper elevation={8} {...props} />;
 
 export const IntegrationMultiSelector = ({
   options,

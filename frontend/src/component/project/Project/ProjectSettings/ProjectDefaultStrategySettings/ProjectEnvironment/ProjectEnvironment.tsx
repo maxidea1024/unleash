@@ -11,9 +11,9 @@ import { PROJECT_ENVIRONMENT_ACCORDION } from 'utils/testIds';
 import type { ProjectEnvironmentType } from '../../../../../../interfaces/environments';
 import ProjectEnvironmentDefaultStrategy from './ProjectEnvironmentDefaultStrategy/ProjectEnvironmentDefaultStrategy';
 
-interface IProjectEnvironmentProps {
+type ProjectEnvironmentProps = {
   environment: ProjectEnvironmentType;
-}
+};
 
 const StyledProjectEnvironmentOverview = styled('div', {
   shouldForwardProp: (prop) => prop !== 'enabled',
@@ -98,7 +98,7 @@ const StyledStringTruncator = styled(StringTruncator)(({ theme }) => ({
   },
 }));
 
-const ProjectEnvironment = ({ environment }: IProjectEnvironmentProps) => {
+const ProjectEnvironment = ({ environment }: ProjectEnvironmentProps) => {
   const { environment: name } = environment;
   const description = `Default strategy configuration in the ${name} environment`;
   const theme = useTheme();

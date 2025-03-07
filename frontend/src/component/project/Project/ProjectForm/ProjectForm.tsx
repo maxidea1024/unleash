@@ -10,7 +10,7 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { CollaborationModeTooltip } from '../ProjectEnterpriseSettingsForm/CollaborationModeTooltip';
 import Select from 'component/common/select';
 
-interface IProjectForm {
+type ProjectFormProps = {
   projectId: string;
   projectName: string;
   projectDesc: string;
@@ -81,7 +81,7 @@ const StyledInputContainer = styled('div')(() => ({
   alignItems: 'center',
 }));
 
-const ProjectForm: React.FC<IProjectForm> = ({
+const ProjectForm = ({
   children,
   handleSubmit,
   projectId,
@@ -101,7 +101,7 @@ const ProjectForm: React.FC<IProjectForm> = ({
   mode,
   validateProjectId,
   clearErrors,
-}) => {
+}: ProjectFormProps) => {
   const { isEnterprise } = useUiConfig();
 
   const projectModeOptions = [

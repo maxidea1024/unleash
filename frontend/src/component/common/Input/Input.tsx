@@ -2,7 +2,7 @@ import { INPUT_ERROR_TEXT } from 'utils/testIds';
 import { TextField, type OutlinedTextFieldProps, styled } from '@mui/material';
 import { useStyles } from './Input.styles';
 
-interface IInputProps extends Omit<OutlinedTextFieldProps, 'variant'> {
+type InputProps = Omit<OutlinedTextFieldProps, 'variant'> & {
   label: string;
   error?: boolean;
   errorText?: string;
@@ -14,7 +14,7 @@ interface IInputProps extends Omit<OutlinedTextFieldProps, 'variant'> {
   onBlur?: (e: any) => any;
   multiline?: boolean;
   rows?: number;
-}
+};
 
 const StyledDiv = styled('div')({
   position: 'relative',
@@ -31,7 +31,7 @@ const Input = ({
   onChange,
   size = 'small',
   ...rest
-}: IInputProps) => {
+}: InputProps) => {
   const { classes: styles } = useStyles();
   return (
     <StyledDiv data-loading>

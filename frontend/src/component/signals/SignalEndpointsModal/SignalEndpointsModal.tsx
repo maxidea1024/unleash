@@ -48,13 +48,13 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-interface ISignalEndpointsModalProps {
+type SignalEndpointsModalProps = {
   signalEndpoint?: ISignalEndpoint;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   newToken: (token: string, signalEndpoint: ISignalEndpoint) => void;
   onOpenSignals: () => void;
-}
+};
 
 export const SignalEndpointsModal = ({
   signalEndpoint,
@@ -62,7 +62,7 @@ export const SignalEndpointsModal = ({
   setOpen,
   newToken,
   onOpenSignals,
-}: ISignalEndpointsModalProps) => {
+}: SignalEndpointsModalProps) => {
   const { refetch } = useSignalEndpoints();
   const { addSignalEndpoint, updateSignalEndpoint, loading } =
     useSignalEndpointsApi();

@@ -14,21 +14,21 @@ const StyledRoleDescriptions = styled('div')(({ theme }) => ({
   },
 }));
 
-type TSingleRoleProps = {
+type SingleRoleProps = {
   value: string;
   role: number;
   roles?: never;
 };
 
-type TMultipleRolesProps = {
+type MultipleRolesProps = {
   value: string;
   roles: number[];
   role?: never;
 };
 
-type TRoleCellProps = TSingleRoleProps | TMultipleRolesProps;
+type RoleCellProps = SingleRoleProps | MultipleRolesProps;
 
-export const RoleCell = ({ role, roles, value }: TRoleCellProps) => {
+export const RoleCell = ({ role, roles, value }: RoleCellProps) => {
   const { isEnterprise } = useUiConfig();
 
   if (isEnterprise()) {

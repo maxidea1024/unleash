@@ -1,5 +1,4 @@
-import React, { type FC } from 'react';
-
+import React from 'react';
 import {
   ClickAwayListener,
   Grow,
@@ -10,7 +9,6 @@ import {
   Paper,
   Popper,
 } from '@mui/material';
-
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 
@@ -20,7 +18,7 @@ type Action = {
   icon: JSX.Element;
 };
 
-export const MultiActionButton: FC<{
+type MultiActionButtonProps = {
   disabled: boolean;
   actions: Action[];
   permission: string;
@@ -28,7 +26,9 @@ export const MultiActionButton: FC<{
   environmentId?: string;
   ariaLabel?: string;
   children?: React.ReactNode;
-}> = ({
+};
+
+export const MultiActionButton = ({
   disabled,
   children,
   actions,
@@ -36,7 +36,7 @@ export const MultiActionButton: FC<{
   projectId,
   ariaLabel,
   environmentId,
-}) => {
+}: MultiActionButtonProps) => {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLButtonElement>(null);
 

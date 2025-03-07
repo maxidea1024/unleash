@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 
-export interface IInputCaptionProps {
+type InputCaptionProps = {
   text?: string;
-}
+};
 
-export const InputCaption = ({ text }: IInputCaptionProps) => {
+export const InputCaption = ({ text }: InputCaptionProps) => {
   if (!text) {
     return null;
   }

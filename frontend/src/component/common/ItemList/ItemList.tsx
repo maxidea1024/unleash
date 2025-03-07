@@ -15,18 +15,18 @@ const StyledItemListAdd = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IItemListProps {
+type ItemListProps = {
   label: string;
   value: string[];
   onChange: React.Dispatch<React.SetStateAction<string[]>>;
-}
+};
 
 export const ItemList = ({
   label,
   value,
   onChange,
   ...props
-}: IItemListProps) => {
+}: ItemListProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const addItem = () => {

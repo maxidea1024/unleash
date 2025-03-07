@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import { SectionHeader, StepperBox } from './SharedComponents';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -16,10 +15,11 @@ const SpacedContainer = styled('div')(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
 }));
 
-interface ISdkConnectedProps {
+type SdkConnectedProps = {
   sdk: Sdk;
-}
-export const SdkConnected: FC<ISdkConnectedProps> = ({ sdk }) => {
+};
+
+export const SdkConnected = ({ sdk }: SdkConnectedProps) => {
   const { uiConfig } = useUiConfig();
 
   const clientApiUrl = `${uiConfig.unleashUrl}/api/`;

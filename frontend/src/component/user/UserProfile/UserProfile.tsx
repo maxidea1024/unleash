@@ -20,9 +20,9 @@ const StyledProfileContainer = styled('div')(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-interface IUserProfileProps {
+type UserProfileProps = {
   profile: IUser;
-}
+};
 
 const StyledUserAvatar = styled(UserAvatar)(({ theme }) => ({
   width: theme.spacing(4.75),
@@ -38,7 +38,7 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
   maxWidth: theme.spacing(35),
 }));
 
-const UserProfile = ({ profile }: IUserProfileProps) => {
+const UserProfile = ({ profile }: UserProfileProps) => {
   const [showProfile, setShowProfile] = useState(false);
   const modalId = useId();
 

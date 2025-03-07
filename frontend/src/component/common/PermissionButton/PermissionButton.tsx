@@ -12,7 +12,7 @@ import {
   useHasProjectEnvironmentAccess,
 } from 'hooks/useHasAccess';
 
-export interface IPermissionButtonProps extends Omit<ButtonProps, 'title'> {
+export type PermissionButtonProps = Omit<ButtonProps, 'title'> & {
   permission: string | string[];
   onClick?: (e: any) => void;
   disabled?: boolean;
@@ -21,16 +21,16 @@ export interface IPermissionButtonProps extends Omit<ButtonProps, 'title'> {
   tooltipProps?: Omit<TooltipResolverProps, 'children'>;
   hideLockIcon?: boolean;
   children?: React.ReactNode;
-}
+};
 
-interface IPermissionBaseButtonProps extends IPermissionButtonProps {
+type PermissionBaseButtonProps = PermissionButtonProps & {
   access: boolean;
-}
+};
 
-export interface IProjectPermissionButtonProps extends IPermissionButtonProps {
+export type ProjectPermissionButtonProps = PermissionButtonProps & {
   projectId: string;
   environmentId: string;
-}
+};
 
 const getEndIcon = (
   access: boolean,
@@ -50,7 +50,7 @@ const getEndIcon = (
 
 const ProjectEnvironmentPermissionButton = React.forwardRef<
   HTMLButtonElement,
-  IProjectPermissionButtonProps
+  ProjectPermissionButtonProps
 >((props, ref) => {
   const access = useHasProjectEnvironmentAccess(
     props.permission,
@@ -63,7 +63,7 @@ const ProjectEnvironmentPermissionButton = React.forwardRef<
 
 const RootPermissionButton = React.forwardRef<
   HTMLButtonElement,
-  IPermissionButtonProps
+  PermissionButtonProps
 >((props, ref) => {
   const access = useHasRootAccess(
     props.permission,
@@ -76,7 +76,7 @@ const RootPermissionButton = React.forwardRef<
 
 const BasePermissionButton = React.forwardRef<
   HTMLButtonElement,
-  IPermissionBaseButtonProps
+  PermissionBaseButtonProps
 >(
   (
     {
@@ -125,7 +125,7 @@ const BasePermissionButton = React.forwardRef<
 
 const PermissionButton = React.forwardRef<
   HTMLButtonElement,
-  IPermissionButtonProps
+  PermissionButtonProps
 >((props, ref) => {
   if (
     typeof props.projectId !== 'undefined' &&

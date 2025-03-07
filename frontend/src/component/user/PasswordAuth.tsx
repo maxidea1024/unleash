@@ -1,4 +1,4 @@
-import { type FC, type FormEventHandler, useState } from 'react';
+import { type FormEventHandler, useState } from 'react';
 import { Button, styled, TextField } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useNavigate } from 'react-router';
@@ -19,10 +19,10 @@ import {
 import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 
-interface IPasswordAuthProps {
+type PasswordAuthProps = {
   authDetails: IAuthEndpointDetailsResponse;
   redirect: string;
-}
+};
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
   color: theme.palette.error.main,
@@ -35,7 +35,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   flexDirection: 'column',
 }));
 
-const PasswordAuth: FC<IPasswordAuthProps> = ({ authDetails, redirect }) => {
+const PasswordAuth = ({ authDetails, redirect }: PasswordAuthProps) => {
   const navigate = useNavigate();
   const { refetchUser } = useAuthUser();
   const params = useQueryParams();

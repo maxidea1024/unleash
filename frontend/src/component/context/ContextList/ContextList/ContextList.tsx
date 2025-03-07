@@ -1,4 +1,4 @@
-import { type FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useGlobalFilter, useSortBy, useTable } from 'react-table';
 import {
   Table,
@@ -26,7 +26,7 @@ import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
 import { Search } from 'component/common/Search/Search';
 import { UsedInCell } from '../UsedInCell';
 
-const ContextList: FC = () => {
+const ContextList = () => {
   const [showDelDialogue, setShowDelDialogue] = useState(false);
   const [name, setName] = useState<string>();
   const { context, refetchUnleashContext, loading } = useUnleashContext();
@@ -132,8 +132,11 @@ const ContextList: FC = () => {
       if (name === undefined) {
         throw new Error();
       }
+
       await removeContext(name);
+
       refetchUnleashContext();
+
       setToastData({
         type: 'success',
         title: 'Successfully deleted context',

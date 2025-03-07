@@ -1,18 +1,18 @@
 import { Autocomplete, TextField } from '@mui/material';
 
-interface IProjectActionsActionParameterAutocompleteProps {
+type ProjectActionsActionParameterAutocompleteProps = {
   label: string;
   value: string;
   onChange: (value: string) => void;
   options: string[];
-}
+};
 
 export const ProjectActionsActionParameterAutocomplete = ({
   label,
   value,
   onChange,
   options,
-}: IProjectActionsActionParameterAutocompleteProps) => (
+}: ProjectActionsActionParameterAutocompleteProps) => (
   <Autocomplete
     options={options}
     autoHighlight

@@ -25,15 +25,15 @@ const StyledParameterList = styled('ul')(({ theme }) => ({
   margin: 0,
 }));
 
-interface IProjectActionsActionsCellProps {
+type ProjectActionsActionsCellProps = {
   action: IActionSet;
   onCreateAction?: () => void;
-}
+};
 
 export const ProjectActionsActionsCell = ({
   action,
   onCreateAction,
-}: IProjectActionsActionsCellProps) => {
+}: ProjectActionsActionsCellProps) => {
   const { actions } = action;
 
   if (actions.length === 0) {

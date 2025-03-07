@@ -1,6 +1,5 @@
 import { Box, IconButton, styled, Tooltip } from '@mui/material';
 import type { NavigationMode } from './NavigationMode';
-import type { FC } from 'react';
 import HideIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import ExpandIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -15,10 +14,12 @@ const ShowHideRow = styled(Box, {
   cursor: 'pointer',
 }));
 
-export const ShowHide: FC<{ mode: NavigationMode; onChange: () => void }> = ({
-  mode,
-  onChange,
-}) => {
+type ShowHideProps = {
+  mode: NavigationMode;
+  onChange: () => void;
+};
+
+export const ShowHide = ({ mode, onChange }: ShowHideProps) => {
   return (
     <ShowHideRow onClick={onChange} mode={mode}>
       {mode === 'full' && (
@@ -48,7 +49,11 @@ const ShowAdminWrapper = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2, 1, 0, 1.5),
 }));
 
-export const ShowAdmin: FC<{ onChange: () => void }> = ({ onChange }) => {
+type ShowAdminProps = {
+  onChange: () => void;
+};
+
+export const ShowAdmin = ({ onChange }: ShowAdminProps) => {
   return (
     <ShowAdminWrapper onClick={onChange}>
       <IconButton>

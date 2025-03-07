@@ -100,4 +100,6 @@ export const AIChatMessage = ({ from, children }: AIChatMessageProps) => {
       </StyledMessageContainer>
     );
   }
+
+  return null;
 };

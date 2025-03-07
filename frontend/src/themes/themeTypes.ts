@@ -16,6 +16,7 @@ declare module '@mui/material/styles' {
       smallBody: string;
       smallerBody: string;
     };
+
     /**
      * @deprecated
      */
@@ -25,6 +26,7 @@ declare module '@mui/material/styles' {
       semi: number;
       bold: number;
     };
+
     /**
      * @deprecated
      */

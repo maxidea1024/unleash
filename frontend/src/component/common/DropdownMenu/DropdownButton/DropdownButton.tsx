@@ -1,4 +1,4 @@
-import type { ReactNode, FC } from 'react';
+import type { ReactNode, } from 'react';
 import { Button, type ButtonProps, Icon } from '@mui/material';
 
 type DropdownButtonProps = {
@@ -12,11 +12,11 @@ type DropdownButtonProps = {
   onClick: ButtonProps['onClick'];
 };
 
-export const DropdownButton: FC<DropdownButtonProps> = ({
+export const DropdownButton = ({
   label,
   icon,
   ...rest
-}) => (
+}: DropdownButtonProps) => (
   <Button {...rest} endIcon={<Icon>{icon}</Icon>}>
     {label}
   </Button>

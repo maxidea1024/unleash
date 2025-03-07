@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Box, Card, Typography, Link } from '@mui/material';
 import { ConflictWarning } from './Change/ConflictWarning';

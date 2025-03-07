@@ -2,7 +2,7 @@ import type React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PermissionButton, {
-  type IPermissionButtonProps,
+  type PermissionButtonProps,
 } from 'component/common/PermissionButton/PermissionButton';
 import { CREATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/permissions';
 import { Popover, styled } from '@mui/material';
@@ -17,9 +17,9 @@ type FeatureStrategyMenuProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
-  variant?: IPermissionButtonProps['variant'];
+  variant?: PermissionButtonProps['variant'];
   matchWidth?: boolean;
-  size?: IPermissionButtonProps['size'];
+  size?: PermissionButtonProps['size'];
   disableReason?: string;
 };
 

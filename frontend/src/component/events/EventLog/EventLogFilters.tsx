@@ -1,6 +1,6 @@
 import { useState, useEffect, type FC } from 'react';
 import {
-  type FilterItemParamHolder,
+  type IFilterItemParamHolder,
   Filters,
   type IFilterItem,
 } from 'component/filter/Filters/Filters';
@@ -118,6 +118,7 @@ export const useEventLogFilters = (
 };
 
 type LogType = 'flag' | 'project' | 'global';
+
 const useEventLogFiltersFromLogType = (logType: LogType) => {
   switch (logType) {
     case 'flag':
@@ -135,8 +136,8 @@ const useEventLogFiltersFromLogType = (logType: LogType) => {
 type EventLogFiltersProps = {
   logType: LogType;
   className?: string;
-  state: FilterItemParamHolder;
-  onChange: (value: FilterItemParamHolder) => void;
+  state: IFilterItemParamHolder;
+  onChange: (value: IFilterItemParamHolder) => void;
 };
 
 export const EventLogFilters = ({

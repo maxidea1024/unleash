@@ -8,12 +8,12 @@ import {
   useTheme,
 } from '@mui/material';
 import type { AutocompleteRenderInputParams } from '@mui/material/Autocomplete';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
-export type AutocompleteBoxOption = {
+export interface IAutocompleteBoxOption {
   value: string;
   label: string;
-};
+}
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -47,9 +47,9 @@ const StyledAutocomplete = styled(Autocomplete)({
 
 type AutocompleteBoxProps = {
   label: string;
-  options: AutocompleteBoxOption[];
-  value?: AutocompleteBoxOption[];
-  onChange: (value: AutocompleteBoxOption[]) => void;
+  options: IAutocompleteBoxOption[];
+  value?: IAutocompleteBoxOption[];
+  onChange: (value: IAutocompleteBoxOption[]) => void;
   disabled?: boolean;
 };
 

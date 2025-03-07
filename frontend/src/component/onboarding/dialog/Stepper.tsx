@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import type { FC } from 'react';
 
 const StepContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -12,6 +11,7 @@ const Step = styled('div')(({ theme }) => ({
   width: theme.spacing(7),
   height: theme.spacing(1),
 }));
+
 const ActiveStep = styled('div')(({ theme }) => ({
   background: theme.palette.background.sidebar,
   borderRadius: theme.shape.borderRadius,
@@ -19,10 +19,12 @@ const ActiveStep = styled('div')(({ theme }) => ({
   height: theme.spacing(1),
 }));
 
-export const Stepper: FC<{ active: number; steps: number }> = ({
-  active,
-  steps,
-}) => {
+type StepperProps = {
+  active: number;
+  steps: number;
+};
+
+export const Stepper = ({ active, steps }: StepperProps) => {
   return (
     <StepContainer>
       {Array.from({ length: steps }, (_, index) =>

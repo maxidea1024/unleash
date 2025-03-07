@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import type { InstanceInsightsSchemaEnvironmentTypeTrendsItem } from 'openapi';
 import { Box, Divider, Paper, styled, Typography } from '@mui/material';
-import type { TooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
+import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
 
 const StyledTooltipItemContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -57,7 +57,7 @@ const InfoSummary = ({ data }: { data: { key: string; value: number }[] }) => (
 );
 
 export const UpdatesPerEnvironmentTypeChartTooltip: FC<{
-  tooltip: TooltipState | null;
+  tooltip: ITooltipState | null;
 }> = ({ tooltip }) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {

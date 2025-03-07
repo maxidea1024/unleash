@@ -17,7 +17,7 @@ const StyledValuesSpan = styled('span')(({ theme }) => ({
   },
 }));
 
-interface ConstraintSingleValueProps {
+type ConstraintSingleValueProps = {
   constraint: IConstraint;
   expanded: boolean;
   maxLength: number;

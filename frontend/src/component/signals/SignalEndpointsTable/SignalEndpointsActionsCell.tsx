@@ -25,13 +25,13 @@ const StyledBoxCell = styled(Box)({
   justifyContent: 'center',
 });
 
-interface ISignalEndpointsActionsCellProps {
+type SignalEndpointsActionsCellProps = {
   signalEndpointId: number;
   onCopyToClipboard: (event: React.SyntheticEvent) => void;
   onOpenSignals: (event: React.SyntheticEvent) => void;
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const SignalEndpointsActionsCell = ({
   signalEndpointId,
@@ -39,7 +39,7 @@ export const SignalEndpointsActionsCell = ({
   onOpenSignals,
   onEdit,
   onDelete,
-}: ISignalEndpointsActionsCellProps) => {
+}: SignalEndpointsActionsCellProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);

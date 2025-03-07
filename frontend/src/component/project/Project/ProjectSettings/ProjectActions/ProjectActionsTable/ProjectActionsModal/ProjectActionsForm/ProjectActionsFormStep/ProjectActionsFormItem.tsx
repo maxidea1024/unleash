@@ -39,19 +39,19 @@ const StyledHeaderRow = styled(StyledRow)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-interface IProjectActionsFormItemProps {
+type ProjectActionsFormItemProps = {
   index: number;
   header: ReactNode;
   separator?: string;
   children: ReactNode;
-}
+};
 
 export const ProjectActionsFormItem = ({
   index,
   header,
   separator = 'AND',
   children,
-}: IProjectActionsFormItemProps) => {
+}: ProjectActionsFormItemProps) => {
   return (
     <StyledItem>
       <ConditionallyRender

@@ -8,9 +8,8 @@ import {
 import ArchiveIcon from '@mui/icons-material/Inventory2Outlined';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import type { FC } from 'react';
 
-export const ProjectArchiveLink: FC = () => {
+export const ProjectArchiveLink = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));

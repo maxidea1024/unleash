@@ -2,13 +2,11 @@ import { Grid } from '@mui/material';
 import { ReleasePlanTemplateCard } from './ReleasePlanTemplateCard';
 import type { IReleasePlanTemplate } from 'interfaces/releasePlans';
 
-interface ITemplateList {
+type TemplateListProps = {
   templates: IReleasePlanTemplate[];
-}
+};
 
-export const ReleasePlanTemplateList: React.FC<ITemplateList> = ({
-  templates,
-}) => {
+export const ReleasePlanTemplateList = ({ templates }: TemplateListProps) => {
   return (
     <>
       {templates.map((template) => (

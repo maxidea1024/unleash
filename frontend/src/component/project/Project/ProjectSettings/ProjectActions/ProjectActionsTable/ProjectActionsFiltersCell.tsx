@@ -8,13 +8,13 @@ const StyledItem = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface IProjectActionsFiltersCellProps {
+type ProjectActionsFiltersCellProps = {
   action: IActionSet;
-}
+};
 
 export const ProjectActionsFiltersCell = ({
   action,
-}: IProjectActionsFiltersCellProps) => {
+}: ProjectActionsFiltersCellProps) => {
   const { payload } = action.match;
   const filters = Object.entries(payload);
 

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Typography, styled } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
@@ -11,7 +10,7 @@ const StyledList = styled('ul')(({ theme }) => ({
   paddingLeft: theme.spacing(2),
 }));
 
-interface IEnableEnvironmentDialogProps {
+type EnableEnvironmentDialogProps = {
   isOpen: boolean;
   onActivateDisabledStrategies: () => void;
   onAddDefaultStrategy: () => void;
@@ -19,16 +18,16 @@ interface IEnableEnvironmentDialogProps {
   environment?: string;
   featureId: string;
   showBanner?: boolean;
-}
+};
 
-export const EnableEnvironmentDialog: FC<IEnableEnvironmentDialogProps> = ({
+export const EnableEnvironmentDialog = ({
   isOpen,
   onAddDefaultStrategy,
   onActivateDisabledStrategies,
   onClose,
   environment,
   featureId,
-}) => {
+}: EnableEnvironmentDialogProps) => {
   const projectId = useRequiredPathParam('projectId');
 
   const { feature } = useFeature(projectId, featureId);

@@ -7,7 +7,6 @@ import {
   useSortBy,
   useTable,
 } from 'react-table';
-
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { sortTypes } from 'utils/sortTypes';
@@ -17,7 +16,6 @@ import { Search } from 'component/common/Search/Search';
 import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 import { useSearch } from 'hooks/useSearch';
 import { createLocalStorage } from 'utils/createLocalStorage';
-
 import { Box, Typography, useMediaQuery, useTheme } from '@mui/material';
 import useLoading from 'hooks/useLoading';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
@@ -33,22 +31,23 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { countCombinations, getBucket } from './combinationCounter';
 
 const defaultSort: SortingRule<string> = { id: 'name' };
+
 const { value, setValue } = createLocalStorage(
   'AdvancedPlaygroundResultsTable:v1',
   defaultSort,
 );
 
-interface IAdvancedPlaygroundResultsTableProps {
+type AdvancedPlaygroundResultsTableProps = {
   features?: AdvancedPlaygroundFeatureSchema[];
   input?: AdvancedPlaygroundRequestSchema;
   loading: boolean;
-}
+};
 
 export const AdvancedPlaygroundResultsTable = ({
   features,
   input,
   loading,
-}: IAdvancedPlaygroundResultsTableProps) => {
+}: AdvancedPlaygroundResultsTableProps) => {
   const { trackEvent } = usePlausibleTracker();
   if (features) {
     trackEvent('playground', {

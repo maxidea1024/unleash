@@ -31,13 +31,13 @@ const StyledSignalEndpointUrl = styled('div')(({ theme }) => ({
   wordBreak: 'break-all',
 }));
 
-interface ISignalEndpointsFormURLProps {
+type SignalEndpointsFormURLProps = {
   name: string;
-}
+};
 
 export const SignalEndpointsFormURL = ({
   name,
-}: ISignalEndpointsFormURLProps) => {
+}: SignalEndpointsFormURLProps) => {
   const { uiConfig } = useUiConfig();
   const { setToastData } = useToast();
 

@@ -2,10 +2,6 @@ import { Box, Card, styled, Typography } from '@mui/material';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import { BILLING_PRO_DEFAULT_INCLUDED_SEATS } from 'component/admin/billing/BillingDashboard/BillingPlan/BillingPlan';
 
-type OrderEnvironmentsDialogPricingProps = {
-  pricingOptions: Array<{ environments: number; price: number }>;
-};
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -33,6 +29,10 @@ const StyledCardContent = styled(Box)(({ theme }) => ({
 const StyledExtraText = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(2),
 }));
+
+type OrderEnvironmentsDialogPricingProps = {
+  pricingOptions: Array<{ environments: number; price: number }>;
+};
 
 export const OrderEnvironmentsDialogPricing = ({
   pricingOptions,

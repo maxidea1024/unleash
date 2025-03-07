@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { styled } from '@mui/material';
@@ -14,21 +14,21 @@ import { Badge } from 'component/common/Badge/Badge';
 import { ConstraintExecutionWithoutResults } from './ConstraintExecution/ConstraintExecutionWithoutResults';
 import { SegmentExecutionWithoutResult } from './SegmentExecution/SegmentExecutionWithoutResult';
 
-interface IDisabledStrategyExecutionProps {
-  strategyResult: PlaygroundStrategySchema;
-  percentageFill?: string;
-  input?: PlaygroundRequestSchema;
-}
-
 const StyledStrategyExecutionWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0),
 }));
 
-export const DisabledStrategyExecution: FC<IDisabledStrategyExecutionProps> = ({
+type DisabledStrategyExecutionProps = {
+  strategyResult: PlaygroundStrategySchema;
+  percentageFill?: string;
+  input?: PlaygroundRequestSchema;
+};
+
+export const DisabledStrategyExecution = ({
   strategyResult,
   input,
   percentageFill,
-}) => {
+}: DisabledStrategyExecutionProps) => {
   const { name, constraints, segments, parameters } = strategyResult;
 
   const hasSegments = Boolean(segments && segments.length > 0);

@@ -1,12 +1,11 @@
-import type { FC } from 'react';
 import { Box } from '@mui/material';
 import { TablePlaceholder } from 'component/common/Table';
 
-interface ITablePlaceholderProps {
+type TablePlaceholderProps = {
   query?: string;
-}
+};
 
-export const TableEmptyState: FC<ITablePlaceholderProps> = ({ query }) => {
+export const TableEmptyState = ({ query }: TablePlaceholderProps) => {
   if ((query || '')?.length > 0) {
     return (
       <Box

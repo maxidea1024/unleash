@@ -20,7 +20,10 @@ export const IntegrationParameters = ({
   setParameterValue,
   editMode,
 }: IntegrationParametersProps) => {
-  if (!provider) return null;
+  if (!provider) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       {editMode ? (

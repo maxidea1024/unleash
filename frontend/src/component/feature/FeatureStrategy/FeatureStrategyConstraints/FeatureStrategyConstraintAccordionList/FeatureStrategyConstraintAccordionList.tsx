@@ -13,14 +13,6 @@ import { NewConstraintAccordionList } from 'component/common/NewConstraintAccord
 import { Limit } from 'component/common/Limit/Limit';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-type ConstraintAccordionListProps = {
-  constraints: IConstraint[];
-  setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;
-  showCreateButton?: boolean;
-  /* Add "constraints" title on the top - default `true` */
-  showLabel?: boolean;
-};
-
 export const constraintAccordionListId = 'constraintAccordionListId';
 
 const StyledContainer = styled('div')({
@@ -45,6 +37,14 @@ const useConstraintLimit = (constraintsCount: number) => {
     limit: constraintsLimit,
     limitReached,
   };
+};
+
+type ConstraintAccordionListProps = {
+  constraints: IConstraint[];
+  setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;
+  showCreateButton?: boolean;
+  /* Add "constraints" title on the top - default `true` */
+  showLabel?: boolean;
 };
 
 export const FeatureStrategyConstraintAccordionList = forwardRef<

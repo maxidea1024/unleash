@@ -3,15 +3,15 @@ import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import type { IActionSet } from 'interfaces/action';
 import type { IServiceAccount } from 'interfaces/service-account';
 
-interface IProjectActionsActorCellProps {
+type ProjectActionsActorCellProps = {
   action: IActionSet;
   serviceAccounts: IServiceAccount[];
-}
+};
 
 export const ProjectActionsActorCell = ({
   action,
   serviceAccounts,
-}: IProjectActionsActorCellProps) => {
+}: ProjectActionsActorCellProps) => {
   const { actorId } = action;
   const actor = serviceAccounts.find(({ id }) => id === actorId);
 

@@ -4,19 +4,19 @@ import type { ISegment } from 'interfaces/segment';
 import { SegmentDeleteConfirm } from './SegmentDeleteConfirm/SegmentDeleteConfirm';
 import { SegmentDeleteUsedSegment } from './SegmentDeleteUsedSegment/SegmentDeleteUsedSegment';
 
-interface ISegmentDeleteProps {
+type SegmentDeleteProps = {
   segment: ISegment;
   open: boolean;
   onClose: () => void;
   onRemove: () => void;
-}
+};
 
 export const SegmentDelete = ({
   segment,
   open,
   onClose,
   onRemove,
-}: ISegmentDeleteProps) => {
+}: SegmentDeleteProps) => {
   const { strategies, changeRequestStrategies, loading } =
     useStrategiesBySegment(segment.id);
   const canDeleteSegment =

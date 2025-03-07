@@ -114,7 +114,7 @@ const columns = [
 
 const hiddenColumnsSmall = ['imageUrl', 'name', 'joined', 'lastLogin'];
 
-interface IProjectGroupViewProps {
+type ProjectGroupViewProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   group: IGroup;
@@ -122,9 +122,9 @@ interface IProjectGroupViewProps {
   subtitle: React.ReactNode;
   onEdit: () => void;
   onRemove: () => void;
-}
+};
 
-export const ProjectGroupView: FC<IProjectGroupViewProps> = ({
+export const ProjectGroupView = ({
   open,
   setOpen,
   group,
@@ -132,7 +132,7 @@ export const ProjectGroupView: FC<IProjectGroupViewProps> = ({
   subtitle,
   onEdit,
   onRemove,
-}) => {
+}: ProjectGroupViewProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 

@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-no-target-blank */
-
-import type { FC } from 'react';
 import { List, ListItem, ListItemText, Grid, styled } from '@mui/material';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ApiDetails } from './ApiDetails/ApiDetails';
@@ -34,7 +31,7 @@ const StyledListItem = styled(ListItem)(({ theme }) => ({
   },
 }));
 
-export const Footer: FC = () => {
+export const Footer = () => {
   const { uiConfig } = useUiConfig();
 
   return (
@@ -51,7 +48,7 @@ export const Footer: FC = () => {
         <Grid item xs={12} md='auto'>
           <Grid container spacing={7} direction='row'>
             <Grid item>
-              <section title='Unleash SDK'>
+              <section title='Ganpa SDK'>
                 <FooterTitle>Server SDKs</FooterTitle>
                 <StyledList dense>
                   <StyledListItem>
@@ -175,7 +172,7 @@ export const Footer: FC = () => {
               </section>
             </Grid>
             <Grid item>
-              <section title='Unleash SDK'>
+              <section title='Ganpa SDK'>
                 <FooterTitle>Frontend SDKs</FooterTitle>
                 <StyledList dense>
                   <StyledListItem>
@@ -186,7 +183,7 @@ export const Footer: FC = () => {
                           target='_blank'
                           rel='noreferrer'
                         >
-                          Unleash Proxy
+                          Ganpa Proxy
                         </a>
                       }
                     />

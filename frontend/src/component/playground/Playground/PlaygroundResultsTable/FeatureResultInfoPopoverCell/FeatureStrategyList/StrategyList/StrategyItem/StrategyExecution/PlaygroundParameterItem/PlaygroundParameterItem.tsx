@@ -3,14 +3,6 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
 
-interface IConstraintItemProps {
-  value: Array<string | number>;
-  text: string;
-  input?: string | number | boolean | 'no value';
-  showReason?: boolean;
-  disabled?: boolean;
-}
-
 const StyledDivContainer = styled('div', {
   shouldForwardProp: (prop) => prop !== 'showReason',
 })<{ showReason?: boolean }>(({ theme, showReason }) => ({
@@ -46,13 +38,21 @@ const StyledParagraph = styled('p', {
   color: disabled ? theme.palette.text.secondary : 'inherit',
 }));
 
+type ConstraintItemProps = {
+  value: Array<string | number>;
+  text: string;
+  input?: string | number | boolean | 'no value';
+  showReason?: boolean;
+  disabled?: boolean;
+};
+
 export const PlaygroundParameterItem = ({
   value,
   text,
   input,
   showReason = false,
   disabled = false,
-}: IConstraintItemProps) => {
+}: ConstraintItemProps) => {
   const theme = useTheme();
 
   const color = input === 'no value' && !disabled ? 'error' : 'neutral';

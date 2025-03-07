@@ -14,13 +14,13 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { NewConstraintAccordion } from 'component/common/NewConstraintAccordion/NewConstraintAccordion';
 
-export interface IConstraintAccordionListProps {
+export type ConstraintAccordionListProps = {
   constraints: IConstraint[];
   setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;
   showCreateButton?: boolean;
   /* Add "constraints" title on the top - default `true` */
   showLabel?: boolean;
-}
+};
 
 // Ref methods exposed by this component.
 export interface IConstraintAccordionListRef {
@@ -97,6 +97,7 @@ export const useConstraintAccordionList = (
 
   return { onAdd, state, context };
 };
+
 interface IConstraintList {
   constraints: IConstraint[];
   setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;

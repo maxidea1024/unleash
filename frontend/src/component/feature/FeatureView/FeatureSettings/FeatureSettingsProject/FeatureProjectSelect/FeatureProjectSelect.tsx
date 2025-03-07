@@ -2,11 +2,11 @@ import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import type { ProjectSchema } from 'openapi';
 import GeneralSelect, {
   type ISelectOption,
-  type IGeneralSelectProps,
+  type GeneralSelectProps,
 } from 'component/common/GeneralSelect/GeneralSelect';
 
 interface IFeatureProjectSelectProps
-  extends Omit<IGeneralSelectProps, 'options'> {
+  extends Omit<GeneralSelectProps, 'options'> {
   enabled: boolean;
   value: string;
   filter: (projectId: string) => boolean;

@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { ChangeRequestType } from '../changeRequest.types';
 import { Badge } from 'component/common/Badge/Badge';
 import AccessTime from '@mui/icons-material/AccessTime';
@@ -9,10 +8,6 @@ import ErrorIcon from '@mui/icons-material/Error';
 import PauseCircle from '@mui/icons-material/PauseCircle';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
-type ChangeRequestStatusBadgeProps = {
-  changeRequest: ChangeRequestType | undefined;
-};
-
 const ReviewRequiredBadge = () => (
   <Badge color='secondary' icon={<CircleOutlined fontSize={'small'} />}>
     Review required
@@ -20,6 +15,10 @@ const ReviewRequiredBadge = () => (
 );
 
 const DraftBadge = () => <Badge color='warning'>Draft</Badge>;
+
+type ChangeRequestStatusBadgeProps = {
+  changeRequest: ChangeRequestType | undefined;
+};
 
 export const ChangeRequestStatusBadge = ({
   changeRequest,

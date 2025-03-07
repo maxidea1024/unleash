@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 import PermissionSwitch from 'component/common/PermissionSwitch/PermissionSwitch';
 import { UPDATE_FEATURE_ENVIRONMENT } from 'component/providers/AccessProvider/permissions';
@@ -18,13 +17,13 @@ type FeatureToggleSwitchProps = {
   onToggle: (newState: boolean, onRollback: () => void) => void;
 };
 
-export const FeatureToggleSwitch: FC<FeatureToggleSwitchProps> = ({
+export const FeatureToggleSwitch = ({
   projectId,
   featureId,
   environmentName,
   value,
   onToggle,
-}) => {
+}: FeatureToggleSwitchProps) => {
   const [isChecked, setIsChecked, rollbackIsChecked] =
     useOptimisticUpdate<boolean>(value);
 

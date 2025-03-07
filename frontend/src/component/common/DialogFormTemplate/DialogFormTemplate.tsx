@@ -14,15 +14,15 @@ import {
 } from './DialogFormTemplate.styles';
 import { Button } from '@mui/material';
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
-import type { IPermissionButtonProps } from 'component/common/PermissionButton/PermissionButton';
+import type { PermissionButtonProps } from 'component/common/PermissionButton/PermissionButton';
 import type { FeatureNamingType } from 'interfaces/project';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import { NamingPatternInfo } from './NamingPatternInfo';
 
 type NamingPattern = FeatureNamingType;
 
-type FormProps = {
-  createButtonProps: IPermissionButtonProps;
+type DialogFormTemplateProps = {
+  createButtonProps: PermissionButtonProps;
   description: string;
   errors: { [key: string]: string };
   handleSubmit: FormEventHandler<HTMLFormElement>;
@@ -38,7 +38,7 @@ type FormProps = {
   namingPattern?: NamingPattern;
 };
 
-export const DialogFormTemplate: React.FC<FormProps> = ({
+export const DialogFormTemplate = ({
   Limit,
   handleSubmit,
   name,
@@ -53,7 +53,7 @@ export const DialogFormTemplate: React.FC<FormProps> = ({
   configButtons,
   createButtonProps,
   validateName = () => {},
-}) => {
+}: DialogFormTemplateProps) => {
   const displayNamingPattern = Boolean(namingPattern?.pattern);
 
   return (

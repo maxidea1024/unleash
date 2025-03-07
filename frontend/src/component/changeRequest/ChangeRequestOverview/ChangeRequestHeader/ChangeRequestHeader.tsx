@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Typography, Tooltip } from '@mui/material';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';

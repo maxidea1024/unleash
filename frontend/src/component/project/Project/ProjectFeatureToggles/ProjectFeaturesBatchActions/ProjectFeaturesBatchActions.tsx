@@ -1,4 +1,4 @@
-import { type FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import type { FeatureSchema } from 'openapi';
 import { ExportDialog } from 'component/feature/FeatureToggleList/ExportDialog';
@@ -11,17 +11,21 @@ import { BulkEnableDialog } from 'component/feature/FeatureToggleList/BulkEnable
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface IProjectFeaturesBatchActionsProps {
+type ProjectFeaturesBatchActionsProps = {
   selectedIds: string[];
   data: FeatureSchema[];
   projectId: string;
   onResetSelection: () => void;
   onChange?: () => void;
-}
+};
 
-export const ProjectFeaturesBatchActions: FC<
-  IProjectFeaturesBatchActionsProps
-> = ({ selectedIds, data, projectId, onResetSelection, onChange }) => {
+export const ProjectFeaturesBatchActions = ({
+  selectedIds,
+  data,
+  projectId,
+  onResetSelection,
+  onChange,
+}: ProjectFeaturesBatchActionsProps) => {
   const { uiConfig } = useUiConfig();
   const [showExportDialog, setShowExportDialog] = useState(false);
   const [showBulkEnableDialog, setShowBulkEnableDialog] = useState(false);

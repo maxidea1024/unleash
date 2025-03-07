@@ -2,7 +2,7 @@ import { fireEvent, screen } from '@testing-library/react';
 import { render } from 'utils/testRenderer';
 import { FILTER_ITEM, FILTERS_MENU } from 'utils/testIds';
 import {
-  type FilterItemParamHolder,
+  type IFilterItemParamHolder,
   Filters,
   type IFilterItem,
 } from './Filters';
@@ -134,7 +134,7 @@ test('should remove selected item from the add filter list', async () => {
 });
 
 test('should render filters in the order defined by the initial state', async () => {
-  const initialState: FilterItemParamHolder = {
+  const initialState: IFilterItemParamHolder = {
     filterB: { operator: '', values: [] },
     filterA: { operator: '', values: [] },
     filterC: { operator: '', values: [] },

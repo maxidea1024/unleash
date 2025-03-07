@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mui/material';
 import Add from '@mui/icons-material/Add';

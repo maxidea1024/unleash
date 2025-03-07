@@ -18,10 +18,7 @@ type TrialDialogProps = {
   onExtendTrial: () => Promise<void>;
 };
 
-const TrialDialog: FC<TrialDialogProps> = ({
-  instanceStatus,
-  onExtendTrial,
-}) => {
+const TrialDialog = ({ instanceStatus, onExtendTrial }: TrialDialogProps) => {
   const { hasAccess } = useContext(AccessContext);
   const navigate = useNavigate();
   const expired = trialHasExpired(instanceStatus);

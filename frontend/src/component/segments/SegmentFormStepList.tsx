@@ -3,10 +3,10 @@ import type React from 'react';
 import { styled } from '@mui/material';
 import { formTemplateSidebarWidth } from '../common/FormTemplate/FormTemplate.styles';
 
-interface ISegmentFormStepListProps {
+type SegmentFormStepListProps = {
   total: number;
   current: number;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -45,10 +45,10 @@ const StyledFiberManualRecord = styled(FiberManualRecord, {
   fontSize: filled ? 20 : 17,
 }));
 
-export const SegmentFormStepList: React.FC<ISegmentFormStepListProps> = ({
+export const SegmentFormStepList = ({
   total,
   current,
-}) => {
+}: SegmentFormStepListProps) => {
   // Create a list with all the step numbers, e.g. [1, 2, 3].
   const steps: number[] = Array.from({ length: total }).map((_, i) => {
     return i + 1;

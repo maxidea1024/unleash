@@ -43,10 +43,10 @@ const resolveDoraMetrics = (input: number) => {
   }
 };
 
-interface ILeadTimeForChangesProps {
+type LeadTimeForChangesProps = {
   leadTime: ProjectDoraMetricsSchema;
   loading: boolean;
-}
+};
 
 const loadingLeadTimeFeatures = [
   { name: 'feature1', timeToProduction: 0 },
@@ -59,7 +59,7 @@ const loadingLeadTimeFeatures = [
 export const LeadTimeForChanges = ({
   leadTime,
   loading,
-}: ILeadTimeForChangesProps) => {
+}: LeadTimeForChangesProps) => {
   const columns = useMemo(
     () => [
       {

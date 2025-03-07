@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { FeatureSchema } from 'openapi';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from '../TextCell/TextCell';

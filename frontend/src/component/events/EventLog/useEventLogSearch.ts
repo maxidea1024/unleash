@@ -9,7 +9,7 @@ import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import mapValues from 'lodash.mapvalues';
 import { useEventSearch } from 'hooks/api/getters/useEventSearch/useEventSearch';
 import type { SearchEventsParams } from 'openapi';
-import type { FilterItemParamHolder } from 'component/filter/Filters/Filters';
+import type { IFilterItemParamHolder } from 'component/filter/Filters/Filters';
 
 type Log =
   | { type: 'global' }
@@ -87,15 +87,15 @@ export const useEventLogSearch = (
     const { offset, limit, query, ...fs } = tableState;
     switch (logType.type) {
       case 'global':
-        return fs as FilterItemParamHolder;
+        return fs as IFilterItemParamHolder;
       case 'project':
-        return { ...fs, project: undefined } as FilterItemParamHolder;
+        return { ...fs, project: undefined } as IFilterItemParamHolder;
       case 'flag':
         return {
           ...fs,
           feature: undefined,
           project: undefined,
-        } as FilterItemParamHolder;
+        } as IFilterItemParamHolder;
     }
   })();
 

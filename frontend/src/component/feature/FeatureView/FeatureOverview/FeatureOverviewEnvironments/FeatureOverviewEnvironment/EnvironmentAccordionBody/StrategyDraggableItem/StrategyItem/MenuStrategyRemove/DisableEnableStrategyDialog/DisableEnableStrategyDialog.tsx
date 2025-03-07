@@ -5,13 +5,13 @@ import { useSuggestEnableDisable } from './hooks/useSuggestEnableDisable';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { FeatureStrategyChangeRequestAlert } from 'component/feature/FeatureStrategy/FeatureStrategyForm/FeatureStrategyChangeRequestAlert/FeatureStrategyChangeRequestAlert';
-import type { IDisableEnableStrategyProps } from './IDisableEnableStrategyProps';
+import type { DisableEnableStrategyProps } from './DisableEnableStrategyProps';
 
 export const DisableEnableStrategyDialog = ({
   isOpen,
   onClose,
   ...props
-}: IDisableEnableStrategyProps & {
+}: DisableEnableStrategyProps & {
   isOpen: boolean;
   onClose: () => void;
 }) => {

@@ -1,20 +1,14 @@
 import type React from 'react';
 
-interface IGradientProps {
+type GradientProps = {
   from: string;
   to: string;
   style?: object;
   className?: string;
   children?: React.ReactNode;
-}
+};
 
-const Gradient: React.FC<IGradientProps> = ({
-  children,
-  from,
-  to,
-  style,
-  ...rest
-}) => {
+const Gradient = ({ children, from, to, style, ...rest }: GradientProps) => {
   return (
     <div
       style={{

@@ -1,4 +1,4 @@
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import { Alert, Box, styled, Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { APPLY_CHANGE_REQUEST } from 'component/providers/AccessProvider/permissions';
@@ -6,7 +6,14 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { DateTimePicker } from 'component/common/DateTimePicker/DateTimePicker';
 import { getBrowserTimezone } from '../ChangeRequestReviewStatus/utils';
 
-export type ScheduleChangeRequestDialogProps = {
+const StyledContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  gap: theme.spacing(2),
+}));
+
+type ScheduleChangeRequestDialogProps = {
   title: string;
   primaryButtonText: string;
   open: boolean;
@@ -17,13 +24,6 @@ export type ScheduleChangeRequestDialogProps = {
   disabled?: boolean;
   scheduledAt?: string;
 };
-
-const StyledContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  alignItems: 'center',
-  gap: theme.spacing(2),
-}));
 
 export const ScheduleChangeRequestDialog = ({
   open,

@@ -1,17 +1,17 @@
 import { Box, styled, Typography } from '@mui/material';
-import type { FC } from 'react';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
 const StyledTitle = styled(Typography)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
   display: 'inline',
 }));
+
 const StyledDescription = styled(Typography)(({ theme }) => ({
   display: 'inline',
   color: theme.palette.text.secondary,
 }));
 
-export const CollaborationModeTooltip: FC = () => {
+export const CollaborationModeTooltip = () => {
   return (
     <HelpIcon
       htmlTooltip

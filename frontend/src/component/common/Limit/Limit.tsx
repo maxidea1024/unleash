@@ -63,14 +63,23 @@ const ExpandableBox = styled(Box)(({ theme }) => ({
   flex: 1,
 }));
 
-export const Limit: FC<{
+type LimitProps = {
   name: string;
   shortName?: string;
   limit: number;
   currentValue: number;
   onClose?: () => void;
   className?: string;
-}> = ({ name, shortName, limit, currentValue, onClose, className }) => {
+};
+
+export const Limit = ({
+  name,
+  shortName,
+  limit,
+  currentValue,
+  onClose,
+  className,
+}: LimitProps) => {
   const { isOss } = useUiConfig();
   const percentageLimit = Math.floor((currentValue / limit) * 100);
   const belowLimit = currentValue < limit;

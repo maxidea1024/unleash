@@ -18,33 +18,6 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { WidgetTitle } from './components/WidgetTitle/WidgetTitle';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-type ChartsProps = {
-  flagTrends: InstanceInsightsSchema['flagTrends'];
-  projectsData: InstanceInsightsSchema['projectFlagTrends'];
-  groupedProjectsData: GroupedDataByProject<
-    InstanceInsightsSchema['projectFlagTrends']
-  >;
-  metricsData: InstanceInsightsSchema['metricsSummaryTrends'];
-  groupedMetricsData: GroupedDataByProject<
-    InstanceInsightsSchema['metricsSummaryTrends']
-  >;
-  userTrends: InstanceInsightsSchema['userTrends'];
-  environmentTypeTrends: InstanceInsightsSchema['environmentTypeTrends'];
-  summary: {
-    total: number;
-    active: number;
-    stale: number;
-    potentiallyStale: number;
-    averageUsers: number;
-    averageHealth?: string;
-    flagsPerUser?: string;
-    medianTimeToProduction?: number;
-  };
-  loading: boolean;
-  projects: string[];
-  allMetricsDatapoints: string[];
-};
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -88,6 +61,33 @@ const StyledChartContainer = styled(Box)(({ theme }) => ({
   margin: 'auto 0',
   padding: theme.spacing(3),
 }));
+
+type ChartsProps = {
+  flagTrends: InstanceInsightsSchema['flagTrends'];
+  projectsData: InstanceInsightsSchema['projectFlagTrends'];
+  groupedProjectsData: GroupedDataByProject<
+    InstanceInsightsSchema['projectFlagTrends']
+  >;
+  metricsData: InstanceInsightsSchema['metricsSummaryTrends'];
+  groupedMetricsData: GroupedDataByProject<
+    InstanceInsightsSchema['metricsSummaryTrends']
+  >;
+  userTrends: InstanceInsightsSchema['userTrends'];
+  environmentTypeTrends: InstanceInsightsSchema['environmentTypeTrends'];
+  summary: {
+    total: number;
+    active: number;
+    stale: number;
+    potentiallyStale: number;
+    averageUsers: number;
+    averageHealth?: string;
+    flagsPerUser?: string;
+    medianTimeToProduction?: number;
+  };
+  loading: boolean;
+  projects: string[];
+  allMetricsDatapoints: string[];
+};
 
 export const InsightsCharts = ({
   projects,

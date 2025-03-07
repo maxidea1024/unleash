@@ -1,4 +1,4 @@
-import type { ReactElement, FC } from 'react';
+import type { ReactElement } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import Check from '@mui/icons-material/Check';
 import ReportProblemOutlined from '@mui/icons-material/ReportProblemOutlined';
@@ -21,15 +21,15 @@ const StyledTextHealthy = styled('span')(({ theme }) => ({
   '& svg': { color: theme.palette.success.main },
 }));
 
-interface IReportStatusCellProps {
+type ReportStatusCellProps = {
   row: {
     original: IReportTableRow;
   };
-}
+};
 
-export const ReportStatusCell: FC<IReportStatusCellProps> = ({
+export const ReportStatusCell = ({
   row,
-}): ReactElement => {
+}: ReportStatusCellProps): ReactElement => {
   if (row.original.status === 'potentially-stale') {
     return (
       <TextCell>

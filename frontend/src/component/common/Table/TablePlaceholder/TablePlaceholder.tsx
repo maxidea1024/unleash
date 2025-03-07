@@ -1,10 +1,11 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box } from '@mui/material';
 
-export const TablePlaceholder: FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => (
+type TablePlaceholderProps = {
+  children?: React.ReactNode;
+};
+
+export const TablePlaceholder = ({ children }: TablePlaceholderProps) => (
   <Box
     sx={{
       border: (theme) => `2px dashed ${theme.palette.divider}`,

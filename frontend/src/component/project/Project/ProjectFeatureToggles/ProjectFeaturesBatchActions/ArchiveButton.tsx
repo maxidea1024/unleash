@@ -1,4 +1,4 @@
-import { type FC, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Button } from '@mui/material';
 import { PermissionHOC } from 'component/common/PermissionHOC/PermissionHOC';
 import { DELETE_FEATURE } from 'component/providers/AccessProvider/permissions';
@@ -7,12 +7,12 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import type { FeatureSchema } from 'openapi';
 import { addDays, isBefore } from 'date-fns';
 
-interface IArchiveButtonProps {
+type ArchiveButtonProps = {
   projectId: string;
   featureIds: string[];
   features: FeatureSchema[];
   onConfirm?: () => void;
-}
+};
 
 const DEFAULT_USAGE_THRESHOLD_DAYS = 7;
 
@@ -23,12 +23,12 @@ const isFeatureInUse = (feature?: FeatureSchema): boolean => {
   );
 };
 
-export const ArchiveButton: FC<IArchiveButtonProps> = ({
+export const ArchiveButton = ({
   projectId,
   featureIds,
   features,
   onConfirm,
-}) => {
+}: ArchiveButtonProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { trackEvent } = usePlausibleTracker();
 

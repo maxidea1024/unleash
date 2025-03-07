@@ -28,13 +28,18 @@ const StyledCodeSection = styled('div')(({ theme }) => ({
   },
 }));
 
-export const StrategyDiff: FC<{
+type StrategyDiffProps = {
   change:
     | IChangeRequestAddStrategy
     | IChangeRequestUpdateStrategy
     | IChangeRequestDeleteStrategy;
   currentStrategy?: IFeatureStrategy;
-}> = ({ change, currentStrategy }) => {
+};
+
+export const StrategyDiff = ({
+  change,
+  currentStrategy,
+}: StrategyDiffProps) => {
   const changeRequestStrategy =
     change.action === 'deleteStrategy' ? undefined : change.payload;
 
@@ -48,15 +53,6 @@ export const StrategyDiff: FC<{
       />
     </StyledCodeSection>
   );
-};
-
-type StrategyTooltipLinkProps = {
-  change:
-    | IChangeRequestAddStrategy
-    | IChangeRequestUpdateStrategy
-    | IChangeRequestDeleteStrategy;
-  previousTitle?: string;
-  children?: React.ReactNode;
 };
 
 const StyledContainer: FC<{ children?: React.ReactNode }> = styled('div')(
@@ -73,6 +69,15 @@ const Truncated = styled('div')(() => ({
   ...textTruncated,
   maxWidth: 500,
 }));
+
+type StrategyTooltipLinkProps = {
+  change:
+    | IChangeRequestAddStrategy
+    | IChangeRequestUpdateStrategy
+    | IChangeRequestDeleteStrategy;
+  previousTitle?: string;
+  children?: React.ReactNode;
+};
 
 export const StrategyTooltipLink = ({
   change,

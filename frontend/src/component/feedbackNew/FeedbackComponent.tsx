@@ -23,7 +23,7 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUserType from './useUserType';
 
-export const ParentContainer = styled('div')(({ theme }) => ({
+const ParentContainer = styled('div')(({ theme }) => ({
   position: 'relative',
   width: '100vw',
   height: '100vh',
@@ -39,7 +39,7 @@ export const ParentContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-export const StyledContainer = styled('div')(({ theme }) => ({
+const StyledContainer = styled('div')(({ theme }) => ({
   position: 'fixed',
   top: 0,
   right: 0,
@@ -51,7 +51,7 @@ export const StyledContainer = styled('div')(({ theme }) => ({
   zIndex: theme.zIndex.sticky,
 }));
 
-export const StyledContent = styled('div')(({ theme }) => ({
+const StyledContent = styled('div')(({ theme }) => ({
   display: 'flex',
   padding: theme.spacing(6),
   flexDirection: 'column',
@@ -62,14 +62,14 @@ export const StyledContent = styled('div')(({ theme }) => ({
   alignSelf: 'stretch',
 }));
 
-export const StyledTitle = styled(Box)(({ theme }) => ({
+const StyledTitle = styled(Box)(({ theme }) => ({
   color: '#fff',
   fontSize: theme.spacing(3),
   fontWeight: 400,
   lineHeight: theme.spacing(2.5),
 }));
 
-export const StyledForm = styled('form')(({ theme }) => ({
+const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
   width: '400px',
   padding: theme.spacing(3),
@@ -87,21 +87,21 @@ export const StyledForm = styled('form')(({ theme }) => ({
   },
 }));
 
-export const FormTitle = styled(Box)(({ theme }) => ({
+const FormTitle = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: theme.spacing(2),
   lineHeight: theme.spacing(2.75),
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-export const FormSubTitle = styled(Box)(({ theme }) => ({
+const FormSubTitle = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
   fontSize: theme.spacing(1.75),
   lineHeight: theme.spacing(2.5),
   marginBottom: theme.spacing(0.5),
 }));
 
-export const StyledButton = styled(Button)(() => ({
+const StyledButton = styled(Button)(() => ({
   width: '100%',
 }));
 
@@ -176,7 +176,9 @@ export const FeedbackComponentWrapper = () => {
   const { feedbackData, showFeedback, closeFeedback, feedbackMode } =
     useFeedbackContext();
 
-  if (!feedbackData || !feedbackMode) return null;
+  if (!feedbackData || !feedbackMode) {
+    return null;
+  }
 
   return (
     <FeedbackComponent

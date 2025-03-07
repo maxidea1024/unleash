@@ -3,7 +3,6 @@ import {
   type Dispatch,
   type SetStateAction,
   useState,
-  type FC,
 } from 'react';
 import {
   Box,
@@ -31,25 +30,6 @@ import { ProjectSelect } from '../../../../common/ProjectSelect/ProjectSelect';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { EnvironmentsField } from './EnvironmentsField/EnvironmentsField';
 import { Link } from 'react-router-dom';
-
-interface IPlaygroundConnectionFieldsetProps {
-  environments: string[];
-  projects: string[];
-  token?: string;
-  setProjects: Dispatch<SetStateAction<string[]>>;
-  setEnvironments: Dispatch<SetStateAction<string[]>>;
-  setToken?: Dispatch<SetStateAction<string | undefined>>;
-  availableEnvironments: string[];
-  changeRequest?: string;
-  onClearChangeRequest?: () => void;
-}
-
-interface IOption {
-  label: string;
-  id: string;
-}
-
-const allOption: IOption = { label: 'ALL', id: '*' };
 
 const SmallClear = styled(Clear)({
   fontSize: '1.25rem',
@@ -79,9 +59,26 @@ const StyledChangeRequestInput = styled(StyledInput)(({ theme }) => ({
   },
 }));
 
-export const PlaygroundConnectionFieldset: FC<
-  IPlaygroundConnectionFieldsetProps
-> = ({
+interface IOption {
+  label: string;
+  id: string;
+}
+
+const allOption: IOption = { label: 'ALL', id: '*' };
+
+type PlaygroundConnectionFieldsetProps = {
+  environments: string[];
+  projects: string[];
+  token?: string;
+  setProjects: Dispatch<SetStateAction<string[]>>;
+  setEnvironments: Dispatch<SetStateAction<string[]>>;
+  setToken?: Dispatch<SetStateAction<string | undefined>>;
+  availableEnvironments: string[];
+  changeRequest?: string;
+  onClearChangeRequest?: () => void;
+};
+
+export const PlaygroundConnectionFieldset = ({
   environments,
   projects,
   token,
@@ -91,7 +88,7 @@ export const PlaygroundConnectionFieldset: FC<
   availableEnvironments,
   changeRequest,
   onClearChangeRequest,
-}) => {
+}: PlaygroundConnectionFieldsetProps) => {
   const theme = useTheme();
   const { tokens } = useApiTokens();
   const [tokenError, setTokenError] = useState<string | undefined>();

@@ -7,11 +7,6 @@ import {
 } from '@mui/material';
 import type React from 'react';
 
-type EnvironmentTypeSelectorProps = {
-  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
-  value: string;
-};
-
 const StyledRadioGroup = styled(RadioGroup)({
   flexDirection: 'row',
 });
@@ -20,6 +15,11 @@ const StyledRadioButtonGroup = styled('div')({
   display: 'flex',
   flexDirection: 'column',
 });
+
+type EnvironmentTypeSelectorProps = {
+  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
+  value: string;
+};
 
 const EnvironmentTypeSelector = ({
   onChange,

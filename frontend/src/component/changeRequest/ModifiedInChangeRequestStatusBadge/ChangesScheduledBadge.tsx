@@ -7,12 +7,14 @@ import { Badge } from 'component/common/Badge/Badge';
 type ChangesScheduledBadgeProps = {
   scheduledChangeRequestIds: number[];
 };
+
 export const ChangesScheduledBadge = ({
   scheduledChangeRequestIds,
 }: ChangesScheduledBadgeProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const project = useRequiredPathParam('projectId');
+
   if (isSmallScreen) {
     return null;
   }

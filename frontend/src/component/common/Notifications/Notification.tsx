@@ -94,7 +94,7 @@ const StyledCreatedBy = styled(Typography)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
 
-interface INotificationProps {
+type NotificationProps = {
   notification: NotificationsSchemaItem;
   onNotificationClick: (notification: NotificationsSchemaItem) => void;
 }
@@ -102,7 +102,7 @@ interface INotificationProps {
 export const Notification = ({
   notification,
   onNotificationClick,
-}: INotificationProps) => {
+}: NotificationProps) => {
   const theme = useTheme();
   const { readAt } = notification;
 

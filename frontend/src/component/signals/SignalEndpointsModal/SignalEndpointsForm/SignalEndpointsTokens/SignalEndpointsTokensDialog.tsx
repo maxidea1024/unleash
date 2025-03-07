@@ -17,19 +17,19 @@ const StyledCodeBlock = styled('pre')(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface ISignalEndpointsTokensDialogProps {
+type SignalEndpointsTokensDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: string;
   signalEndpoint?: ISignalEndpoint;
-}
+};
 
 export const SignalEndpointsTokensDialog = ({
   open,
   setOpen,
   token,
   signalEndpoint,
-}: ISignalEndpointsTokensDialogProps) => {
+}: SignalEndpointsTokensDialogProps) => {
   const { uiConfig } = useUiConfig();
 
   return (

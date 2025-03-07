@@ -3,12 +3,6 @@ import CancelOutlined from '@mui/icons-material/CancelOutlined';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 
-interface ICustomParameterItem {
-  text: string;
-  input?: string | null;
-  isRequired?: boolean;
-}
-
 const StyledWrapper = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: theme.spacing(2, 3),
@@ -20,11 +14,17 @@ const StyledWrapper = styled(Box)(({ theme }) => ({
   gap: 2,
 }));
 
+type CustomParameterItemProps = {
+  text: string;
+  input?: string | null;
+  isRequired?: boolean;
+};
+
 export const CustomParameterItem = ({
   text,
   input = null,
   isRequired = false,
-}: ICustomParameterItem) => {
+}: CustomParameterItemProps) => {
   const theme = useTheme();
 
   const color = input === null ? 'error' : 'neutral';

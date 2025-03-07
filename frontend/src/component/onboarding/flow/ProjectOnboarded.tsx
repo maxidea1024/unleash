@@ -6,11 +6,6 @@ import ExtensionOutlined from '@mui/icons-material/ExtensionOutlined';
 import MenuBookOutlined from '@mui/icons-material/MenuBookOutlined';
 import PeopleOutlined from '@mui/icons-material/PeopleOutlined';
 
-interface IProjectOnboardedProps {
-  projectId: string;
-  onClose: () => void;
-}
-
 const Container = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -79,10 +74,15 @@ const ColoredMenuBook = styled(MenuBookOutlined)(({ theme }) => ({
   color: theme.palette.primary.main,
 }));
 
+type ProjectOnboardedProps = {
+  projectId: string;
+  onClose: () => void;
+};
+
 export const ProjectOnboarded = ({
   projectId,
   onClose,
-}: IProjectOnboardedProps) => {
+}: ProjectOnboardedProps) => {
   return (
     <Container>
       <TitleRow>
@@ -91,7 +91,6 @@ export const ProjectOnboarded = ({
           <Typography fontWeight='bold'>Setup completed</Typography>
           <Typography variant='body2'>Next steps</Typography>
         </Title>
-
         <Tooltip title='Close' arrow sx={{ ml: 'auto' }}>
           <IconButton onClick={onClose} size='small'>
             <CloseIcon />
@@ -125,7 +124,7 @@ export const ProjectOnboarded = ({
             Add members to your project
           </TitleContainer>
           <Typography>
-            Unleash is best when collaborating with your co-workers.{' '}
+            Ganpa is best when collaborating with your co-workers.{' '}
             <Link
               className='unleash-action-button'
               to={`/projects/${projectId}/settings/access`}
@@ -138,7 +137,7 @@ export const ProjectOnboarded = ({
         <ActionBox>
           <TitleContainer>
             <ColoredMenuBook />
-            Learn about Unleash
+            Learn about Ganpa
           </TitleContainer>
           <Typography>
             Take a deep dive through our documentation,{' '}
@@ -148,7 +147,7 @@ export const ProjectOnboarded = ({
               target='_blank'
               rel='noopener noreferrer'
             >
-              starting with the foundations of Unleash
+              starting with the foundations of Ganpa
             </Link>
             .
           </Typography>

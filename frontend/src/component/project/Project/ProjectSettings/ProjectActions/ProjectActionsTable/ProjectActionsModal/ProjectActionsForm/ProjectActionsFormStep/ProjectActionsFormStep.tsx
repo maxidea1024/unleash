@@ -37,19 +37,19 @@ const StyledVerticalConnector = styled(Divider)(({ theme }) => ({
   height: theme.spacing(3),
 }));
 
-interface IProjectActionsFormStepProps {
+type ProjectActionsFormStepProps = {
   name: string;
   verticalConnector?: boolean;
   resourceLink?: ReactNode;
   children: ReactNode;
-}
+};
 
 export const ProjectActionsFormStep = ({
   name,
   verticalConnector,
   resourceLink,
   children,
-}: IProjectActionsFormStepProps) => (
+}: ProjectActionsFormStepProps) => (
   <>
     <ConditionallyRender
       condition={Boolean(verticalConnector)}

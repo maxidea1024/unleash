@@ -10,17 +10,17 @@ const StyledActionOption = styled('div')(({ theme }) => ({
   },
 }));
 
-interface IProjectActionsActionSelectProps {
+type ProjectActionsActionSelectProps = {
   value: string;
   onChange: (value: string) => void;
   actionConfigurations: ActionConfigurations;
-}
+};
 
 export const ProjectActionsActionSelect = ({
   value,
   onChange,
   actionConfigurations,
-}: IProjectActionsActionSelectProps) => {
+}: ProjectActionsActionSelectProps) => {
   const renderActionOption = (
     props: React.HTMLAttributes<HTMLLIElement>,
     option: { label: string; description?: string },

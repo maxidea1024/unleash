@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Box, styled } from '@mui/material';
 
 type DistributionLineTypes = 'default' | 'success' | 'warning' | 'error';
@@ -22,10 +21,15 @@ const StyledDistributionLine = styled(Box)<{
   };
 });
 
-export const HorizontalDistributionChart: FC<{
+type HorizontalDistributionChartProps = {
   sections: Array<{ type: DistributionLineTypes; value: number }>;
   size?: 'large' | 'small';
-}> = ({ sections, size }) => (
+};
+
+export const HorizontalDistributionChart = ({
+  sections,
+  size,
+}: HorizontalDistributionChartProps) => (
   <Box sx={(theme) => ({ display: 'flex', gap: theme.spacing(0.5) })}>
     {sections.map((section, index) =>
       section.value ? (

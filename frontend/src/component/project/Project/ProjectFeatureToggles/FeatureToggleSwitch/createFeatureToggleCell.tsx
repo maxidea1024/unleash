@@ -22,7 +22,7 @@ const StyledSwitchContainer = styled('div', {
   }),
 }));
 
-interface IFeatureToggleCellProps {
+type FeatureToggleCellProps = {
   projectId: string;
   environmentName: string;
   isChangeRequestEnabled: boolean;
@@ -30,7 +30,7 @@ interface IFeatureToggleCellProps {
   onFeatureToggleSwitch: ReturnType<UseFeatureToggleSwitchType>['onToggle'];
   value: boolean;
   feature: ListItemType;
-}
+};
 
 const FeatureToggleCellComponent = ({
   value,
@@ -40,7 +40,7 @@ const FeatureToggleCellComponent = ({
   isChangeRequestEnabled,
   refetch,
   onFeatureToggleSwitch,
-}: IFeatureToggleCellProps) => {
+}: FeatureToggleCellProps) => {
   const environment = feature.environments[environmentName];
 
   const hasWarning = useMemo(

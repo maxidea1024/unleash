@@ -1,10 +1,6 @@
 import { styled } from '@mui/material';
 import type { EventSchema } from 'openapi';
 
-type EventJsonProps = {
-  entry: EventSchema;
-};
-
 export const StyledJsonListItem = styled('li')(({ theme }) => ({
   padding: theme.spacing(4),
   backgroundColor: theme.palette.neutral.light,
@@ -18,6 +14,10 @@ export const StyledJsonListItem = styled('li')(({ theme }) => ({
     lineHeight: '100%',
   },
 }));
+
+type EventJsonProps = {
+  entry: EventSchema;
+};
 
 const EventJson = ({ entry }: EventJsonProps) => {
   const localEventData = JSON.parse(JSON.stringify(entry));

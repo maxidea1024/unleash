@@ -1,5 +1,5 @@
-import { useContext, type FC, type ReactNode } from 'react';
-import type { ITooltipResolverProps } from 'component/common/TooltipResolver/TooltipResolver';
+import { useContext, type ReactNode } from 'react';
+import type { TooltipResolverProps } from 'component/common/TooltipResolver/TooltipResolver';
 import AccessContext from 'contexts/AccessContext';
 import ResponsiveButton from 'component/common/ResponsiveButton/ResponsiveButton';
 import { CREATE_PROJECT } from 'component/providers/AccessProvider/permissions';
@@ -11,18 +11,18 @@ import { CreateProjectDialog } from '../../Project/CreateProject/NewCreateProjec
 import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-interface ICreateButtonData {
+type CreateButtonData = {
   disabled: boolean;
-  tooltip?: Omit<ITooltipResolverProps, 'children'>;
+  tooltip?: Omit<TooltipResolverProps, 'children'>;
   endIcon?: ReactNode;
-}
+};
 
 const NAVIGATE_TO_CREATE_PROJECT = 'NAVIGATE_TO_CREATE_PROJECT';
 
 function resolveCreateButtonData(
   isOss: boolean,
   hasAccess: boolean,
-): ICreateButtonData {
+): CreateButtonData {
   if (isOss) {
     return {
       disabled: true,
@@ -60,10 +60,10 @@ type ProjectCreationButtonProps = {
   setIsDialogOpen: (value: boolean) => void;
 };
 
-export const ProjectCreationButton: FC<ProjectCreationButtonProps> = ({
+export const ProjectCreationButton = ({
   isDialogOpen,
   setIsDialogOpen,
-}) => {
+}: ProjectCreationButtonProps) => {
   const { hasAccess } = useContext(AccessContext);
   const { isOss, loading } = useUiConfig();
 

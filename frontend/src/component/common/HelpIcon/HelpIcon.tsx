@@ -27,7 +27,7 @@ const StyledContainer = styled('span')<{ size: string | undefined }>(
   }),
 );
 
-type IHelpIconProps = {
+type HelpIconProps = {
   tooltip: React.ReactNode;
   placement?: TooltipProps['placement'];
   children?: React.ReactNode;
@@ -47,7 +47,7 @@ export const HelpIcon = ({
   children,
   size,
   ...props
-}: IHelpIconProps) => {
+}: HelpIconProps) => {
   if (htmlTooltip) {
     const { htmlTooltipMaxWidth } = props as {
       htmlTooltipMaxWidth?: IHtmlTooltipProps['maxWidth'];

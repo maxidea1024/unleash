@@ -98,7 +98,7 @@ const NoData = styled('span')({
 const AverageDaysStat: FC<{ averageDays?: number | null }> = ({
   averageDays,
 }) => {
-  const Content = () => {
+  const Content: FC = () => {
     if (averageDays === null || averageDays === undefined) {
       return <NoData>No data</NoData>;
     }

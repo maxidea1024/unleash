@@ -8,13 +8,13 @@ const StyledBox = styled(Box)(() => ({
   justifyContent: 'center',
 }));
 
-interface ILoginHistoryActionsCellProps {
+type LoginHistoryActionsCellProps = {
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const LoginHistoryActionsCell = ({
   onDelete,
-}: ILoginHistoryActionsCellProps) => {
+}: LoginHistoryActionsCellProps) => {
   return (
     <StyledBox>
       <PermissionIconButton

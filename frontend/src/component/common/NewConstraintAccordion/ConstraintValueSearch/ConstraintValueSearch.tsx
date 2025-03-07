@@ -2,15 +2,15 @@ import { TextField, InputAdornment, Chip } from '@mui/material';
 import Search from '@mui/icons-material/Search';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-interface IConstraintValueSearchProps {
+type ConstraintValueSearchProps = {
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export const ConstraintValueSearch = ({
   filter,
   setFilter,
-}: IConstraintValueSearchProps) => {
+}: ConstraintValueSearchProps) => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <div style={{ width: '300px' }}>

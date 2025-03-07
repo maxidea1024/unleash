@@ -55,6 +55,7 @@ export const relative = {
 } as const;
 
 export const formTemplateSidebarWidth = '27.5rem';
+
 export const defaultBorderRadius = (theme: Theme) => ({
   borderRadius: `${theme.shape.borderRadius}px`,
 });
@@ -66,6 +67,7 @@ export const fadeInBottomStart = () => ({
   bottom: '40px',
   transform: 'translateY(400px)',
 });
+
 export const fadeInBottomStartWithoutFixed: CSSProperties = {
   opacity: '0',
   right: '40px',
@@ -74,26 +76,31 @@ export const fadeInBottomStartWithoutFixed: CSSProperties = {
   zIndex: 1400,
   position: 'fixed',
 };
+
 export const fadeInBottomEnter: CSSProperties = {
   transform: 'translateY(0)',
   opacity: '1',
   transition: 'transform 0.6s ease, opacity 1s ease',
 };
+
 export const fadeInBottomLeave: CSSProperties = {
   transform: 'translateY(400px)',
   opacity: '0',
   transition: 'transform 1.25s ease, opacity 1s ease',
 };
+
 export const fadeInTopStart = (theme: Theme): CSSProperties => ({
   opacity: '0',
   position: 'fixed',
   transform: 'translateY(-400px)',
 });
+
 export const fadeInTopEnter: CSSProperties = {
   transform: 'translateY(100px)',
   opacity: '1',
   transition: 'transform 0.6s ease, opacity 1s ease',
 };
+
 export const fadeInTopLeave: CSSProperties = {
   transform: 'translateY(-400px)',
   opacity: '0',

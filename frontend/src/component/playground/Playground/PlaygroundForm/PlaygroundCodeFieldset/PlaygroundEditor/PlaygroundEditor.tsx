@@ -1,5 +1,5 @@
 import CodeMirror from '@uiw/react-codemirror';
-import { type FC, useContext } from 'react';
+import { useContext } from 'react';
 import { json } from '@codemirror/lang-json';
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 import { styled, useTheme, Box } from '@mui/material';
@@ -8,12 +8,6 @@ import { duotoneDark, duotoneLight } from '@uiw/codemirror-theme-duotone';
 import Check from '@mui/icons-material/Check';
 import ErrorIcon from '@mui/icons-material/Error';
 import UIContext from 'contexts/UIContext';
-
-interface IPlaygroundEditorProps {
-  context: string | undefined;
-  setContext: Dispatch<SetStateAction<string | undefined>>;
-  error: string | undefined;
-}
 
 const StyledEditorHeader = styled('aside')(({ theme }) => ({
   height: '50px',
@@ -78,11 +72,17 @@ const EditorStatusError = () => {
   );
 };
 
-export const PlaygroundEditor: FC<IPlaygroundEditorProps> = ({
+type PlaygroundEditorProps = {
+  context: string | undefined;
+  setContext: Dispatch<SetStateAction<string | undefined>>;
+  error: string | undefined;
+};
+
+export const PlaygroundEditor = ({
   context,
   setContext,
   error,
-}) => {
+}: PlaygroundEditorProps) => {
   const { themeMode } = useContext(UIContext);
   const theme = useTheme();
   const onCodeFieldChange = useCallback(

@@ -5,7 +5,7 @@ import { ConstraintAccordionHeaderActions } from '../../ConstraintAccordionHeade
 import { styled } from '@mui/system';
 import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
 
-interface IConstraintAccordionViewHeaderProps {
+type ConstraintAccordionViewHeaderProps = {
   constraint: IConstraint;
   onDelete?: () => void;
   onEdit?: () => void;
@@ -36,7 +36,7 @@ export const ConstraintAccordionViewHeader = ({
   expanded,
   compact,
   disabled,
-}: IConstraintAccordionViewHeaderProps) => {
+}: ConstraintAccordionViewHeaderProps) => {
   const { context } = useUnleashContext();
   const { contextName } = constraint;
 

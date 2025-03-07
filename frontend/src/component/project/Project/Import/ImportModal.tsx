@@ -43,13 +43,13 @@ const isValidJSON = (json: string) => {
   }
 };
 
-interface IImportModalProps {
+type ImportModalProps = {
   open: boolean;
   setOpen: (value: boolean) => void;
   project: string;
-}
+};
 
-export const ImportModal = ({ open, setOpen, project }: IImportModalProps) => {
+export const ImportModal = ({ open, setOpen, project }: ImportModalProps) => {
   const [importStage, setImportStage] = useState<StageName>('configure');
   const [environment, setEnvironment] = useState('');
   const [importPayload, setImportPayload] = useState('');

@@ -4,11 +4,6 @@ import { AvatarGroupFromOwners } from 'component/common/AvatarGroupFromOwners/Av
 import type { ProjectSchemaOwners } from 'openapi';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
-type Props = {
-  roles: string[];
-  owners: ProjectSchemaOwners;
-};
-
 const Wrapper = styled('div')(({ theme }) => ({
   width: '100%',
   display: 'flex',
@@ -47,7 +42,12 @@ const StyledAvatarGroup = styled(AvatarGroupFromOwners)({
   width: 'max-content',
 });
 
-export const RoleAndOwnerInfo = ({ roles, owners }: Props) => {
+type RoleAndOwnerInfoProps = {
+  roles: string[];
+  owners: ProjectSchemaOwners;
+};
+
+export const RoleAndOwnerInfo = ({ roles, owners }: RoleAndOwnerInfoProps) => {
   const firstRoles = roles.slice(0, 3);
   const extraRoles = roles.slice(3);
   return (

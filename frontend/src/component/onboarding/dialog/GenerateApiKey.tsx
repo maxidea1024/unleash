@@ -20,15 +20,17 @@ import { Stepper } from './Stepper';
 import { Badge } from 'component/common/Badge/Badge';
 import { usePlausibleTracker } from '../../../hooks/usePlausibleTracker';
 
+type ChooseEnvironmentProps = {
+  environments: string[];
+  currentEnvironment: string;
+  onSelect: (env: string) => void;
+};
+
 const ChooseEnvironment = ({
   environments,
   onSelect,
   currentEnvironment,
-}: {
-  environments: string[];
-  currentEnvironment: string;
-  onSelect: (env: string) => void;
-}) => {
+}: ChooseEnvironmentProps) => {
   const longestEnv = Math.max(
     ...environments.map((environment) => environment.length),
   );
@@ -96,11 +98,17 @@ const SpacedContainer = styled('div')(({ theme }) => ({
   gap: theme.spacing(3),
 }));
 
+type TokenExplanationProps = {
+  project: string;
+  environment: string;
+  secret: string;
+};
+
 const TokenExplanation = ({
   project,
   environment,
   secret,
-}: { project: string; environment: string; secret: string }) => {
+}: TokenExplanationProps) => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
@@ -177,14 +185,14 @@ const TokenExplanation = ({
   );
 };
 
-interface GenerateApiKeyProps {
+type GenerateApiKeyProps = {
   project: string;
   environments: string[];
   environment: string;
   sdkType: 'client' | 'frontend';
   onEnvSelect: (env: string) => void;
   onApiKey: (apiKey: string | null) => void;
-}
+};
 
 export const GenerateApiKey = ({
   environments,

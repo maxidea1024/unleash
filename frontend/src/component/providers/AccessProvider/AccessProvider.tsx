@@ -4,13 +4,13 @@ import { ADMIN, SKIP_CHANGE_REQUEST } from './permissions';
 import type { IPermission } from 'interfaces/user';
 import { useAuthPermissions } from 'hooks/api/getters/useAuth/useAuthPermissions';
 
-interface IAccessProviderProps {
+type AccessProviderProps = {
   children: ReactNode;
-}
+};
 
 export const AccessProvider = ({
   children,
-}: IAccessProviderProps): ReactElement => {
+}: AccessProviderProps): ReactElement => {
   const { permissions } = useAuthPermissions();
 
   const value: IAccessContext = useMemo(

@@ -17,15 +17,15 @@ const StyledToggleWarning = styled('p', {
   textAlign: 'center',
 }));
 
-interface IProjectEnvironmentTableSingleProps {
+type ProjectEnvironmentTableSingleProps = {
   environment: IProjectEnvironment;
   warnEnabledToggles?: boolean;
-}
+};
 
 export const ProjectEnvironmentTableSingle = ({
   environment,
   warnEnabledToggles,
-}: IProjectEnvironmentTableSingleProps) => {
+}: ProjectEnvironmentTableSingleProps) => {
   const COLUMNS = useMemo(
     () => [
       {

@@ -9,10 +9,6 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-type AvailableIntegrationsProps = {
-  providers: AddonTypeSchema[];
-};
-
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -49,6 +45,10 @@ const StyledGrayContainer = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   gap: theme.spacing(1),
 }));
+
+type AvailableIntegrationsProps = {
+  providers: AddonTypeSchema[];
+};
 
 export const AvailableIntegrations = ({
   providers,

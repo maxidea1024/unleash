@@ -21,6 +21,7 @@ import useProjectOverview, {
 const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(4),
 }));
+
 export const ProjectDefaultStrategySettings = () => {
   const projectId = useRequiredPathParam('projectId');
   const projectName = useProjectOverviewNameOrId(projectId);

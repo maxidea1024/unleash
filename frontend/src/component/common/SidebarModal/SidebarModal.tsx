@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Modal, Backdrop, styled, IconButton, Tooltip } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Fade from '@mui/material/Fade';
@@ -63,7 +62,7 @@ export const BaseModal = ({
   );
 };
 
-export const SidebarModal: FC<SidebarModalProps> = (props) => {
+export const SidebarModal = (props: SidebarModalProps) => {
   return (
     <BaseModal {...props}>
       <FixedWidthContentWrapper>{props.children}</FixedWidthContentWrapper>
@@ -71,7 +70,7 @@ export const SidebarModal: FC<SidebarModalProps> = (props) => {
   );
 };
 
-export const DynamicSidebarModal: FC<SidebarModalProps> = (props) => {
+export const DynamicSidebarModal = (props: SidebarModalProps) => {
   return (
     <BaseModal {...props}>
       <ModalContentWrapper>

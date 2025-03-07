@@ -1,5 +1,4 @@
 import { Alert, styled } from '@mui/material';
-import type { FC } from 'react';
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -8,9 +7,11 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   },
 }));
 
-export const VariantInfoAlert: FC<{ mode: 'feature' | 'strategy' }> = ({
-  mode,
-}) => {
+type VariantInfoAlertProps = {
+  mode: 'feature' | 'strategy';
+};
+
+export const VariantInfoAlert = ({ mode }: VariantInfoAlertProps) => {
   return (
     <StyledAlert severity='info'>
       Variant allows you to return a variant object if the{' '}

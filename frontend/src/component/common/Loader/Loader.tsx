@@ -1,7 +1,6 @@
 import logo from 'assets/img/unleashLogoIconDarkAlpha.gif';
 import { formatAssetPath } from 'utils/formatPath';
 import { styled } from '@mui/material';
-import type { FC } from 'react';
 
 type LoaderProps = {
   type?: 'fullscreen' | 'inline';
@@ -22,7 +21,7 @@ const StyledImg = styled('img')(({ theme }) => ({
   height: '100px',
 }));
 
-const Loader: FC<LoaderProps> = ({ type = 'inline' }) => {
+const Loader = ({ type = 'inline' }: LoaderProps) => {
   return (
     <StyledDiv role='alert' aria-label='Loading' type={type}>
       <StyledImg src={formatAssetPath(logo)} alt='' />

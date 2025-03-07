@@ -1,23 +1,26 @@
-import type { FC } from 'react';
 import { Dialogue } from '../Dialogue/Dialogue';
 import { styled } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-interface IFeatureArchiveNotAllowedDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  features: string[];
-  project: string;
-}
 
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.primary.main,
   fontWeight: theme.fontWeight.bold,
 }));
-export const FeatureArchiveNotAllowedDialog: FC<
-  IFeatureArchiveNotAllowedDialogProps
-> = ({ isOpen, onClose, features, project }) => {
+
+type FeatureArchiveNotAllowedDialogProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  features: string[];
+  project: string;
+};
+
+export const FeatureArchiveNotAllowedDialog = ({
+  isOpen,
+  onClose,
+  features,
+  project,
+}: FeatureArchiveNotAllowedDialogProps) => {
   return (
     <Dialogue
       title="You can't archive a feature that other features depend on"

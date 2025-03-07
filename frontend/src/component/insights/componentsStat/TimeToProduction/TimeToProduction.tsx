@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Typography, styled } from '@mui/material';
 import { Gauge } from 'component/insights/components/Gauge/Gauge';
 
@@ -16,10 +15,6 @@ const StyledText = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
 }));
-
-type TimeToProductionProps = {
-  daysToProduction: number | undefined;
-};
 
 const interpolate = (
   value: number,
@@ -75,6 +70,10 @@ const resolveValue = (
     gauge: interpolate(daysToProduction, [31, 365 / 4], [23, 0]),
     score: 'Slow',
   };
+};
+
+type TimeToProductionProps = {
+  daysToProduction: number | undefined;
 };
 
 export const TimeToProduction = ({

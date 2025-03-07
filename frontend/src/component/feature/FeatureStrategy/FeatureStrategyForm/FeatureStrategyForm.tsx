@@ -47,27 +47,6 @@ import { BuiltInStrategies, formatStrategyName } from 'utils/strategyNames';
 import { Badge } from 'component/common/Badge/Badge';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 
-type FeatureStrategyFormProps = {
-  feature: IFeatureToggle;
-  projectId: string;
-  environmentId: string;
-  permission: string;
-  onSubmit: () => void;
-  onCancel?: () => void;
-  loading: boolean;
-  isChangeRequest: boolean;
-  strategy: Partial<IFeatureStrategy>;
-  setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
-  segments: ISegment[];
-  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
-  errors: IFormErrors;
-  tab: number;
-  setTab: React.Dispatch<React.SetStateAction<number>>;
-  StrategyVariants: JSX.Element;
-  Limit?: JSX.Element;
-  disabled?: boolean;
-};
-
 const StyledDividerContent = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.75, 1),
   color: theme.palette.text.primary,
@@ -187,6 +166,27 @@ const StyledTab = styled(Tab)(({ theme }) => ({
 const StyledBadge = styled(Badge)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }));
+
+type FeatureStrategyFormProps = {
+  feature: IFeatureToggle;
+  projectId: string;
+  environmentId: string;
+  permission: string;
+  onSubmit: () => void;
+  onCancel?: () => void;
+  loading: boolean;
+  isChangeRequest: boolean;
+  strategy: Partial<IFeatureStrategy>;
+  setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
+  segments: ISegment[];
+  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
+  errors: IFormErrors;
+  tab: number;
+  setTab: React.Dispatch<React.SetStateAction<number>>;
+  StrategyVariants: JSX.Element;
+  Limit?: JSX.Element;
+  disabled?: boolean;
+};
 
 export const FeatureStrategyForm = ({
   projectId,

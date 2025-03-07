@@ -17,14 +17,14 @@ import { useConstraintInput } from './ConstraintAccordionEditBody/useConstraintI
 import type { Operator } from 'constants/operators';
 import { ResolveInput } from './ConstraintAccordionEditBody/ResolveInput/ResolveInput';
 
-interface IConstraintAccordionEditProps {
+type ConstraintAccordionEditProps = {
   constraint: IConstraint;
   onCancel: () => void;
   onSave: (constraint: IConstraint) => void;
   compact: boolean;
   onDelete?: () => void;
   onAutoSave?: (constraint: IConstraint) => void;
-}
+};
 
 export const CANCEL = 'cancel';
 export const SAVE = 'save';
@@ -84,7 +84,7 @@ export const ConstraintAccordionEdit = ({
   onSave,
   onDelete,
   onAutoSave,
-}: IConstraintAccordionEditProps) => {
+}: ConstraintAccordionEditProps) => {
   const [localConstraint, setLocalConstraint] = useState<IConstraint>(
     cleanConstraint(constraint),
   );

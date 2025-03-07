@@ -82,11 +82,11 @@ const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-interface IProfileTabProps {
+type ProfileTabProps = {
   user: IUser;
-}
+};
 
-export const ProfileTab = ({ user }: IProfileTabProps) => {
+export const ProfileTab = ({ user }: ProfileTabProps) => {
   const { profile, refetchProfile } = useProfile();
   const navigate = useNavigate();
   const { locationSettings, setLocationSettings } = useLocationSettings();

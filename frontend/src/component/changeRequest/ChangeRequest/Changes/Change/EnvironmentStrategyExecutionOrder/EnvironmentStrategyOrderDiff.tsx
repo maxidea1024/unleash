@@ -11,9 +11,10 @@ const StyledCodeSection = styled('div')(({ theme }) => ({
     fontSize: theme.fontSizes.smallBody,
   },
 }));
+
 type StrategyIds = { strategyIds: string[] };
 
-type EnvironmentStrategyOrderDiff = {
+type EnvironmentStrategyOrderDiffProps = {
   preData: StrategyIds;
   data: StrategyIds;
 };
@@ -21,7 +22,7 @@ type EnvironmentStrategyOrderDiff = {
 export const EnvironmentStrategyOrderDiff = ({
   preData,
   data,
-}: EnvironmentStrategyOrderDiff) => (
+}: EnvironmentStrategyOrderDiffProps) => (
   <StyledCodeSection>
     <EventDiff
       entry={{

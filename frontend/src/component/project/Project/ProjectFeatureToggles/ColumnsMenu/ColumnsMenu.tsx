@@ -1,4 +1,4 @@
-import { useEffect, useState, type FC } from 'react';
+import { useEffect, useState, } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -42,7 +42,7 @@ const columnNameMap: Record<string, string> = {
   favorite: 'Favorite',
 };
 
-export const ColumnsMenu: FC<ColumnsMenuProps> = ({
+export const ColumnsMenu = ({
   allColumns,
   staticColumns = [],
   dividerBefore = [],
@@ -50,7 +50,7 @@ export const ColumnsMenu: FC<ColumnsMenuProps> = ({
   isCustomized = false,
   onCustomize,
   setHiddenColumns,
-}) => {
+}: ColumnsMenuProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isTinyScreen = useMediaQuery(theme.breakpoints.down('sm'));

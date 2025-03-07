@@ -25,11 +25,11 @@ import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useChangeRequestApi';
 import { useHighestPermissionChangeRequestEnvironment } from 'hooks/useHighestPermissionChangeRequestEnvironment';
 
-interface IEditSegmentProps {
+type EditSegmentProps = {
   modal?: boolean;
-}
+};
 
-export const EditSegment = ({ modal }: IEditSegmentProps) => {
+export const EditSegment = ({ modal }: EditSegmentProps) => {
   const projectId = useOptionalPathParam('projectId');
   const segmentId = useRequiredPathParam('segmentId');
   const { segment } = useSegment(Number(segmentId));

@@ -11,15 +11,15 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { DELETE_ADDON } from 'component/providers/AccessProvider/permissions';
 import { StyledHelpText, StyledTitle } from '../IntegrationForm.styles';
 
-type IntegrationDeleteProps = {
-  id: AddonSchema['id'];
-};
-
 const StyledContainer = styled('div')(({ theme }) => ({
   margin: theme.spacing(1, 0, 6),
   display: 'flex',
   justifyContent: 'flex-end',
 }));
+
+type IntegrationDeleteProps = {
+  id: AddonSchema['id'];
+};
 
 export const IntegrationDelete = ({ id }: IntegrationDeleteProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +30,9 @@ export const IntegrationDelete = ({ id }: IntegrationDeleteProps) => {
   const onSubmit = async () => {
     try {
       await removeAddon(id);
+
       refetchAddons();
+
       setToastData({
         type: 'success',
         title: 'Success',

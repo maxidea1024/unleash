@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import type {
   PlaygroundConstraintSchema,
   PlaygroundRequestSchema,
@@ -11,22 +11,24 @@ import { ConstraintAccordionView } from 'component/common/ConstraintAccordion/Co
 import { ConstraintError } from './ConstraintError/ConstraintError';
 import { ConstraintOk } from './ConstraintOk/ConstraintOk';
 
-interface IConstraintExecutionProps {
-  constraints?: PlaygroundConstraintSchema[];
-  input?: PlaygroundRequestSchema;
-}
-
 export const ConstraintExecutionWrapper = styled('div')(() => ({
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
 }));
 
-export const ConstraintExecution: FC<IConstraintExecutionProps> = ({
+type ConstraintExecutionProps = {
+  constraints?: PlaygroundConstraintSchema[];
+  input?: PlaygroundRequestSchema;
+};
+
+export const ConstraintExecution = ({
   constraints,
   input,
-}) => {
-  if (!constraints) return null;
+}: ConstraintExecutionProps) => {
+  if (!constraints) {
+    return null;
+  }
 
   return (
     <ConstraintExecutionWrapper>

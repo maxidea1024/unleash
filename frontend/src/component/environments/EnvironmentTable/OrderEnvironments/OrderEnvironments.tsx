@@ -32,6 +32,7 @@ export const OrderEnvironments = () => {
     environments: OrderEnvironmentsSchema['environments'],
   ) => {
     let hasErrors = false;
+
     environments.forEach((environment, index) => {
       const field = `environment-${index}`;
       const environmentName = environment.name.trim();
@@ -45,17 +46,19 @@ export const OrderEnvironments = () => {
 
     if (hasErrors) {
       return;
-    } else {
-      try {
-        await orderEnvironments({ environments });
-        setPurchaseDialogOpen(false);
-        setConfirmationState({
-          isOpen: true,
-          environmentsCount: environments.length,
-        });
-      } catch (error) {
-        setToastApiError(formatUnknownError(error));
-      }
+    }
+
+    try {
+      await orderEnvironments({ environments });
+
+      setPurchaseDialogOpen(false);
+
+      setConfirmationState({
+        isOpen: true,
+        environmentsCount: environments.length,
+      });
+    } catch (error) {
+      setToastApiError(formatUnknownError(error));
     }
   };
 

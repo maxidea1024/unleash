@@ -9,10 +9,10 @@ import { ReactComponent as CaseSensitive } from 'assets/icons/24_Text format.svg
 import { oneOf } from 'utils/oneOf';
 import { useTheme } from '@mui/material';
 
-interface ConstraintViewHeaderOperatorProps {
+type ConstraintViewHeaderOperatorProps = {
   constraint: IConstraint;
   disabled?: boolean;
-}
+};
 
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
