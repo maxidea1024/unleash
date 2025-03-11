@@ -22,12 +22,6 @@ import type { IFeatureStrategy } from 'interfaces/strategy';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-type EnvironmentAccordionBodyProps = {
-  isDisabled: boolean;
-  featureEnvironment?: IFeatureEnvironment;
-  otherEnvironments?: IFeatureEnvironment['name'][];
-};
-
 const StyledAccordionBody = styled('div')(({ theme }) => ({
   width: '100%',
   position: 'relative',
@@ -39,6 +33,12 @@ const StyledAccordionBodyInnerContainer = styled('div')(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+type EnvironmentAccordionBodyProps = {
+  isDisabled: boolean;
+  featureEnvironment?: IFeatureEnvironment;
+  otherEnvironments?: IFeatureEnvironment['name'][];
+};
 
 const EnvironmentAccordionBody = ({
   featureEnvironment,
@@ -159,8 +159,12 @@ const EnvironmentAccordionBody = ({
       targetIndex: number,
     ): DragEventHandler<HTMLDivElement> =>
     (event) => {
-      if (dragItem === null || ref.current === null) return;
-      if (dragItem.index === targetIndex || targetId === dragItem.id) return;
+      if (dragItem === null || ref.current === null) {
+        return;
+      }
+      if (dragItem.index === targetIndex || targetId === dragItem.id) {
+        return;
+      }
 
       const { top, bottom } = ref.current.getBoundingClientRect();
       const overTargetTop = event.clientY - top < dragItem.height;

@@ -23,12 +23,6 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 import isEqual from 'lodash/isEqual';
 
-type EnvironmentAccordionBodyProps = {
-  isDisabled: boolean;
-  featureEnvironment?: IFeatureEnvironment;
-  otherEnvironments?: IFeatureEnvironment['name'][];
-};
-
 const StyledAccordionBody = styled('div')(({ theme }) => ({
   width: '100%',
   position: 'relative',
@@ -40,6 +34,12 @@ const StyledAccordionBodyInnerContainer = styled('div')(({ theme }) => ({
     padding: theme.spacing(1),
   },
 }));
+
+type EnvironmentAccordionBodyProps = {
+  isDisabled: boolean;
+  featureEnvironment?: IFeatureEnvironment;
+  otherEnvironments?: IFeatureEnvironment['name'][];
+};
 
 export const FeatureOverviewEnvironmentBody = ({
   featureEnvironment,

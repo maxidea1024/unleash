@@ -1,5 +1,4 @@
-// biome-ignore lint: we need this to correctly extend the MUI theme
-import { FormHelperTextOwnProps } from '@mui/material/FormHelperText';
+import type { PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface CustomTheme {
@@ -125,7 +124,7 @@ declare module '@mui/material/styles' {
 
     /**
      * Variants, percentage split in strategies
-     **/
+     */
     variants: string[];
 
     /**
@@ -167,7 +166,7 @@ declare module '@mui/material/styles' {
      * Add background color on hover for the interactive elements
      * that use the alternative primary color. First used to add
      * hover colors to button group elements
-     **/
+     */
     alternative: string;
   }
 
@@ -190,13 +189,14 @@ declare module '@mui/material/styles' {
     contrastText: string;
   }
 
-  interface PaletteColorOptions {
-    main?: string;
-    light?: string;
-    dark?: string;
-    border?: string;
-    contrastText?: string;
-  }
+  // mui index.d.ts에 이미 정의 되어 있음.
+  // interface PaletteColorOptions {
+  //   main?: string;
+  //   light?: string;
+  //   dark?: string;
+  //   border?: string;
+  //   contrastText?: string;
+  // }
 }
 
 declare module '@mui/system/createTheme/shape' {
