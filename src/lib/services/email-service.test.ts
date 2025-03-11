@@ -24,7 +24,7 @@ test('Can send reset email', async () => {
     resetLinkUrl,
   );
   expect(content.from).toBe('noreply@getunleash.ai');
-  expect(content.subject).toBe('Unleash - Reset your password');
+  expect(content.subject).toBe('Ganpa - Reset your password');
   expect(content.html.includes(resetLinkUrl)).toBe(true);
   expect(content.text.includes(resetLinkUrl)).toBe(true);
 });
@@ -47,7 +47,7 @@ test('Can send welcome mail', async () => {
     'abc123456',
   );
   expect(content.from).toBe('noreply@getunleash.ai');
-  expect(content.subject).toBe('Welcome to Unleash');
+  expect(content.subject).toBe('Welcome to Ganpa');
 });
 
 test('Can supply additional SMTP transport options', async () => {
@@ -129,7 +129,7 @@ test('Can send order environments email', async () => {
     environments,
   );
   expect(content.from).toBe('noreply@getunleash.ai');
-  expect(content.subject).toBe('Unleash - ordered environments successfully');
+  expect(content.subject).toBe('Ganpa - ordered environments successfully');
   expect(
     content.html.includes(
       `<li>Name: ${environments[0].name}, Type: ${environments[0].type}</li>`,
