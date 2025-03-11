@@ -1,4 +1,5 @@
-import type { PaletteColorOptions } from '@mui/material/styles';
+import type { FormHelperTextOwnProps } from '@mui/material/FormHelperText';
+// import type { PaletteColorOptions } from '@mui/material/styles';
 
 declare module '@mui/material/styles' {
   interface CustomTheme {
@@ -190,13 +191,13 @@ declare module '@mui/material/styles' {
   }
 
   // mui index.d.ts에 이미 정의 되어 있음.
-  // interface PaletteColorOptions {
-  //   main?: string;
-  //   light?: string;
-  //   dark?: string;
-  //   border?: string;
-  //   contrastText?: string;
-  // }
+  interface PaletteColorOptions {
+    main?: string;
+    light?: string;
+    dark?: string;
+    border?: string;
+    contrastText?: string;
+  }
 }
 
 declare module '@mui/system/createTheme/shape' {
