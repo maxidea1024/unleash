@@ -4,7 +4,6 @@ import {
   AvatarGroup,
 } from 'component/common/AvatarGroup/AvatarGroup';
 import type { Collaborator } from 'interfaces/featureToggle';
-import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const StyledAvatarComponent = styled(AvatarComponent)(({ theme }) => ({
@@ -31,7 +30,7 @@ const LastModifiedByAvatarAndLink = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const LastModifiedBy: FC<Collaborator> = ({ id, name, imageUrl }) => {
+const LastModifiedBy = ({ id, name, imageUrl }: Collaborator) => {
   return (
     <SectionContainer>
       <span>Last modified by</span>
@@ -47,9 +46,9 @@ const StyledAvatarGroup = styled(AvatarGroup)({
   flexWrap: 'nowrap',
 });
 
-const CollaboratorList: FC<{ collaborators: Collaborator[] }> = ({
+const CollaboratorList = ({
   collaborators,
-}) => {
+}: { collaborators: Collaborator[] }) => {
   return (
     <SectionContainer>
       <span className='description'>Collaborators</span>
@@ -84,7 +83,7 @@ const Separator = styled('div')(({ theme }) => ({
   flexGrow: 1,
 }));
 
-export const Collaborators: FC<Props> = ({ collaborators }) => {
+export const Collaborators = ({ collaborators }: Props) => {
   if (!collaborators || collaborators.length === 0) {
     return null;
   }

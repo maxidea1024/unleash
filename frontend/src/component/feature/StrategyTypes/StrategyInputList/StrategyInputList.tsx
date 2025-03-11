@@ -13,13 +13,13 @@ import { ADD_TO_STRATEGY_INPUT_LIST, STRATEGY_INPUT_LIST } from 'utils/testIds';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IStrategyInputList {
+type StrategyInputListProps = {
   name: string;
   list: string[];
   setConfig: (field: string, value: string) => void;
   disabled: boolean;
   errors: IFormErrors;
-}
+};
 
 const Container = styled('div')(({ theme }) => ({
   display: 'grid',
@@ -44,7 +44,7 @@ const StrategyInputList = ({
   setConfig,
   disabled,
   errors,
-}: IStrategyInputList) => {
+}: StrategyInputListProps) => {
   const [input, setInput] = useState('');
   const ENTERKEY = 'Enter';
 

@@ -1,18 +1,22 @@
-import type { FC } from 'react';
 import { useHasProjectEnvironmentAccess } from 'hooks/useHasAccess';
 import { Checkbox, MenuItem } from '@mui/material';
 
-interface PermissionCheckboxMenuItemProps {
+type PermissionCheckboxMenuItemProps = {
   permission: string | string[];
   projectId: string;
   environment: string;
   checked: boolean;
   onClick: () => void;
-}
+};
 
-export const PermissionCheckboxMenuItem: FC<
-  PermissionCheckboxMenuItemProps
-> = ({ permission, projectId, environment, checked, onClick, ...props }) => {
+export const PermissionCheckboxMenuItem = ({
+  permission,
+  projectId,
+  environment,
+  checked,
+  onClick,
+  ...props
+}: PermissionCheckboxMenuItemProps) => {
   const hasPermissions = useHasProjectEnvironmentAccess(
     permission,
     projectId,

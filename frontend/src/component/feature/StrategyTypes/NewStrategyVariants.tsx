@@ -1,7 +1,7 @@
 import { VariantForm } from '../FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsModal/VariantForm/VariantForm';
 import { updateWeightEdit } from '../../common/util';
 import type React from 'react';
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { IFeatureVariantEdit } from '../FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsModal/EnvironmentVariantsModal';
 import PermissionButton from '../../common/PermissionButton/PermissionButton';
 import { UPDATE_FEATURE_ENVIRONMENT_VARIANTS } from '../../providers/AccessProvider/permissions';
@@ -33,13 +33,21 @@ const StyledVariantsHeader = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(1.5),
 }));
 
-export const NewStrategyVariants: FC<{
+type NewStrategyVariantsProps = {
   setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
   strategy: Partial<IFeatureStrategy>;
   projectId: string;
   environment: string;
   editable?: boolean;
-}> = ({ strategy, setStrategy, projectId, environment, editable }) => {
+};
+
+export const NewStrategyVariants = ({
+  strategy,
+  setStrategy,
+  projectId,
+  environment,
+  editable,
+}: NewStrategyVariantsProps) => {
   const { trackEvent } = usePlausibleTracker();
   const initialVariants = (strategy.variants || []).map((variant) => ({
     ...variant,

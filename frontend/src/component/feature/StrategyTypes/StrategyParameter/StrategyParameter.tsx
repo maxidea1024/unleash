@@ -14,13 +14,13 @@ import {
 import { InputCaption } from 'component/common/InputCaption/InputCaption';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IStrategyParameterProps {
+type StrategyParameterProps = {
   definition: IStrategyParameter;
   parameters: IFeatureStrategyParameters;
   updateParameter: (field: string, value: string) => void;
   editable: boolean;
   errors: IFormErrors;
-}
+};
 
 export const StrategyParameter = ({
   definition,
@@ -28,7 +28,7 @@ export const StrategyParameter = ({
   updateParameter,
   editable,
   errors,
-}: IStrategyParameterProps) => {
+}: StrategyParameterProps) => {
   const { type, name, description, required } = definition;
   const value = parameters[name];
   const error = errors.getFormError(name);

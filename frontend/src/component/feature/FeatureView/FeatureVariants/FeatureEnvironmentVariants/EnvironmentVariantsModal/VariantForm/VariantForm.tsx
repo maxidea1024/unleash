@@ -165,7 +165,7 @@ interface IVariantFormErrors {
   [ErrorField.OTHER]?: string;
 }
 
-interface IVariantFormProps {
+type VariantFormProps = {
   variant: IFeatureVariantEdit;
   variants: IFeatureVariantEdit[];
   updateVariant: (updatedVariant: IFeatureVariantEdit) => void;
@@ -174,7 +174,7 @@ interface IVariantFormProps {
   disableOverrides?: boolean;
   decorationColor?: string;
   weightsError?: boolean;
-}
+};
 
 export const VariantForm = ({
   variant,
@@ -185,7 +185,7 @@ export const VariantForm = ({
   disableOverrides = false,
   decorationColor,
   weightsError,
-}: IVariantFormProps) => {
+}: VariantFormProps) => {
   const [name, setName] = useState(variant.name);
   const [customPercentage, setCustomPercentage] = useState(
     variant.weightType === WeightType.FIX,

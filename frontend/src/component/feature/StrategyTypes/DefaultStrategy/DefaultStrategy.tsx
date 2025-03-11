@@ -1,10 +1,10 @@
 import type { IStrategy } from 'interfaces/strategy';
 
-interface IDefaultStrategyProps {
+type DefaultStrategyProps = {
   strategyDefinition: IStrategy;
-}
+};
 
-const DefaultStrategy = ({ strategyDefinition }: IDefaultStrategyProps) => {
+const DefaultStrategy = ({ strategyDefinition }: DefaultStrategyProps) => {
   return <p>{strategyDefinition?.description}</p>;
 };
 

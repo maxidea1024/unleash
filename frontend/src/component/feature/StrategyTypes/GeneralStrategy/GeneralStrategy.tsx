@@ -6,18 +6,18 @@ import { styled } from '@mui/system';
 import { StrategyParameter } from 'component/feature/StrategyTypes/StrategyParameter/StrategyParameter';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IGeneralStrategyProps {
+const StyledContainer = styled('div')(({ theme }) => ({
+  display: 'grid',
+  gap: theme.spacing(4),
+}));
+
+type GeneralStrategyProps = {
   parameters: IFeatureStrategyParameters;
   strategyDefinition: IStrategy;
   updateParameter: (field: string, value: string) => void;
   editable: boolean;
   errors: IFormErrors;
-}
-
-const StyledContainer = styled('div')(({ theme }) => ({
-  display: 'grid',
-  gap: theme.spacing(4),
-}));
+};
 
 const GeneralStrategy = ({
   parameters,
@@ -25,7 +25,7 @@ const GeneralStrategy = ({
   updateParameter,
   editable,
   errors,
-}: IGeneralStrategyProps) => {
+}: GeneralStrategyProps) => {
   if (!strategyDefinition || strategyDefinition.parameters.length === 0) {
     return null;
   }

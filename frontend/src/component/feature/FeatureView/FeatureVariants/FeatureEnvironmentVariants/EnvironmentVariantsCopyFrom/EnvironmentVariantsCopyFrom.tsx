@@ -10,7 +10,7 @@ const StyledListItemText = styled(ListItemText)(({ theme }) => ({
   },
 }));
 
-interface IEnvironmentVariantsCopyFromProps {
+type EnvironmentVariantsCopyFromProps = {
   environment: IFeatureEnvironment;
   permission: string;
   projectId: string;
@@ -20,7 +20,7 @@ interface IEnvironmentVariantsCopyFromProps {
     toEnvironment: IFeatureEnvironment,
   ) => void;
   otherEnvsWithVariants: IFeatureEnvironment[];
-}
+};
 
 export const EnvironmentVariantsCopyFrom = ({
   environment,
@@ -29,7 +29,7 @@ export const EnvironmentVariantsCopyFrom = ({
   environmentId,
   onCopyVariantsFrom,
   otherEnvsWithVariants,
-}: IEnvironmentVariantsCopyFromProps) => {
+}: EnvironmentVariantsCopyFromProps) => {
   const [copyFromAnchorEl, setCopyFromAnchorEl] = useState<null | HTMLElement>(
     null,
   );

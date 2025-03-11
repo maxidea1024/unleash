@@ -69,15 +69,15 @@ const StyledTypographySubtitle = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-interface ISplitPreviewSliderProps {
+type SplitPreviewSliderProps = {
   variants: IFeatureVariant[];
   weightsError?: boolean;
-}
+};
 
 const SplitPreviewSlider = ({
   variants,
   weightsError,
-}: ISplitPreviewSliderProps) => {
+}: SplitPreviewSliderProps) => {
   if (variants.length < 1) {
     return null;
   }
@@ -124,7 +124,7 @@ const SplitPreviewSlider = ({
   );
 };
 
-const SplitPreviewHeader = ({ variants }: ISplitPreviewSliderProps) => {
+const SplitPreviewHeader = ({ variants }: SplitPreviewSliderProps) => {
   return (
     <StyledHeaderContainer>
       <StyledTypography variant='body2'>
@@ -142,10 +142,10 @@ const SplitPreviewHeader = ({ variants }: ISplitPreviewSliderProps) => {
   );
 };
 
-interface ISplitPreviewTooltip {
+type SplitPreviewTooltipProps = {
   variant: IFeatureVariant;
   index: number;
-}
+};
 
 const StyledTooltipContainer = styled(Box)(() => ({
   display: 'flex',
@@ -168,7 +168,7 @@ const StyledPayloadLabel = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-const SplitPreviewTooltip = ({ variant, index }: ISplitPreviewTooltip) => {
+const SplitPreviewTooltip = ({ variant, index }: SplitPreviewTooltipProps) => {
   return (
     <StyledTooltipContainer>
       <StyledVariantContainer>

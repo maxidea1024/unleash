@@ -23,13 +23,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
-interface IPushVariantsButtonProps {
+type PushVariantsButtonProps = {
   current: string;
   environments: IFeatureEnvironmentWithCrEnabled[];
   permission: string;
   projectId: string;
   onSubmit: (selected: IFeatureEnvironmentWithCrEnabled[]) => void;
-}
+};
 
 export const PushVariantsButton = ({
   current,
@@ -37,7 +37,7 @@ export const PushVariantsButton = ({
   permission,
   projectId,
   onSubmit,
-}: IPushVariantsButtonProps) => {
+}: PushVariantsButtonProps) => {
   const [pushToAnchorEl, setPushToAnchorEl] = useState<null | HTMLElement>(
     null,
   );

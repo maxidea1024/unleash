@@ -19,13 +19,13 @@ import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 import { useLocation } from 'react-router';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IFlexibleStrategyProps {
+type FlexibleStrategyProps = {
   parameters: IFeatureStrategyParameters;
   updateParameter: (field: string, value: string) => void;
   context: any;
   editable: boolean;
   errors?: IFormErrors;
-}
+};
 
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -57,7 +57,7 @@ const FlexibleStrategy = ({
   parameters,
   editable = true,
   errors,
-}: IFlexibleStrategyProps) => {
+}: FlexibleStrategyProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useOptionalPathParam('featureId');
   const { defaultStickiness, loading } = useDefaultProjectSettings(projectId);

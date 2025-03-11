@@ -2,20 +2,20 @@ import Select from 'component/common/select';
 import { type SelectChangeEvent, useTheme } from '@mui/material';
 import { useStickinessOptions } from 'hooks/useStickinessOptions';
 
-interface IStickinessSelectProps {
+type StickinessSelectProps = {
   label: string;
   value: string | undefined;
   editable: boolean;
   onChange: (event: SelectChangeEvent) => void;
   dataTestId?: string;
-}
+};
 export const StickinessSelect = ({
   label,
   editable,
   value,
   onChange,
   dataTestId,
-}: IStickinessSelectProps) => {
+}: StickinessSelectProps) => {
   const theme = useTheme();
   const stickinessOptions = useStickinessOptions(value);
 

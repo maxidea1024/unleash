@@ -73,21 +73,21 @@ const marks = [
   },
 ];
 
-interface IRolloutSliderProps {
+type RolloutSliderProps = {
   name: string;
   minLabel?: string;
   maxLabel?: string;
   value: number;
   onChange: (e: Event, newValue: number | number[]) => void;
   disabled?: boolean;
-}
+};
 
 const RolloutSlider = ({
   name,
   value,
   onChange,
   disabled = false,
-}: IRolloutSliderProps) => {
+}: RolloutSliderProps) => {
   const { classes } = useStyles();
 
   const valuetext = (value: number) => `${value}%`;

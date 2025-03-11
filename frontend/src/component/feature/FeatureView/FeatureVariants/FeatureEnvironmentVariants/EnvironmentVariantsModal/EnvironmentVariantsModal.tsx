@@ -110,13 +110,13 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-export type IFeatureVariantEdit = IFeatureVariant & {
+export interface IFeatureVariantEdit extends IFeatureVariant {
   isValid: boolean;
   new: boolean;
   id: string;
-};
+}
 
-interface IEnvironmentVariantModalProps {
+type EnvironmentVariantModalProps = {
   environment?: IFeatureEnvironment;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -130,7 +130,7 @@ interface IEnvironmentVariantModalProps {
     payload: { variants: IFeatureVariant[] };
   };
   onConfirm: (updatedVariants: IFeatureVariant[]) => void;
-}
+};
 
 const MemoizedVariantForm = memo(VariantForm);
 
@@ -141,7 +141,7 @@ export const EnvironmentVariantsModal = ({
   getApiPayload,
   getCrPayload,
   onConfirm,
-}: IEnvironmentVariantModalProps) => {
+}: EnvironmentVariantModalProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
 

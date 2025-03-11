@@ -19,21 +19,23 @@ const StyledVariantForms = styled('div')({
   flexDirection: 'column',
 });
 
-export const StrategyVariants: FC<{
+type StrategyVariantsProps = {
   setStrategy: React.Dispatch<React.SetStateAction<Partial<IFeatureStrategy>>>;
   strategy: Partial<IFeatureStrategy>;
   projectId: string;
   environment: string;
   editable?: boolean;
   permission?: string | string[];
-}> = ({
+};
+
+export const StrategyVariants = ({
   strategy,
   setStrategy,
   projectId,
   environment,
   editable,
   permission = UPDATE_FEATURE_ENVIRONMENT_VARIANTS,
-}) => {
+}: StrategyVariantsProps) => {
   const { trackEvent } = usePlausibleTracker();
   const [variantsEdit, setVariantsEdit] = useState<IFeatureVariantEdit[]>([]);
   const theme = useTheme();

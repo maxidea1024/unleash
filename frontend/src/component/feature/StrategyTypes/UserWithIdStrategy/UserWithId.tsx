@@ -3,19 +3,19 @@ import StrategyInputList from '../StrategyInputList/StrategyInputList';
 import { parseParameterStrings } from 'utils/parseParameter';
 import type { IFormErrors } from 'hooks/useFormErrors';
 
-interface IUserWithIdStrategyProps {
+type UserWithIdStrategyProps = {
   parameters: IFeatureStrategyParameters;
   updateParameter: (field: string, value: string) => void;
   editable: boolean;
   errors: IFormErrors;
-}
+};
 
 const UserWithIdStrategy = ({
   editable,
   parameters,
   updateParameter,
   errors,
-}: IUserWithIdStrategyProps) => {
+}: UserWithIdStrategyProps) => {
   return (
     <div>
       <StrategyInputList
