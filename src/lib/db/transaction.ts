@@ -5,7 +5,7 @@ export type KnexTransaction = Knex.Transaction;
 
 export type MockTransaction = null;
 
-export type UnleashTransaction = KnexTransaction | MockTransaction;
+export type GanpaTransaction = KnexTransaction | MockTransaction;
 
 export type TransactionCreator<S> = <T>(
   scope: (trx: S) => void | Promise<T>,
@@ -13,7 +13,7 @@ export type TransactionCreator<S> = <T>(
 
 export const createKnexTransactionStarter = (
   knex: Knex,
-): TransactionCreator<UnleashTransaction> => {
+): TransactionCreator<GanpaTransaction> => {
   function transaction<T>(scope: (trx: KnexTransaction) => void | Promise<T>) {
     if (!knex) {
       console.warn(

@@ -7,7 +7,7 @@ import type { Logger } from '../../logger';
 import type { IAuditUser } from '../../types/user';
 import type {
   IUserUnsubscribeStore,
-  UnsubscribeEntry,
+  IUnsubscribeEntry,
 } from './user-unsubscribe-store-type';
 import type EventService from '../events/event-service';
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
@@ -45,7 +45,7 @@ export class UserSubscriptionsService {
     subscription: string,
     auditUser: IAuditUser,
   ): Promise<void> {
-    const entry: UnsubscribeEntry = {
+    const entry: IUnsubscribeEntry = {
       userId,
       subscription,
     };
@@ -65,7 +65,7 @@ export class UserSubscriptionsService {
     subscription: string,
     auditUser: IAuditUser,
   ): Promise<void> {
-    const entry: UnsubscribeEntry = {
+    const entry: IUnsubscribeEntry = {
       userId,
       subscription,
     };

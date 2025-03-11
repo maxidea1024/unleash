@@ -15,7 +15,8 @@ export const useAuthFeedbackApi = (): IUseAuthFeedbackApi => {
   const createFeedback = useCallback(
     async (feedback: IAuthFeedback): Promise<void> => {
       await sendFeedback('POST', path, feedback);
-      await refetchFeedback();
+
+      refetchFeedback();
     },
     [path, refetchFeedback],
   );
@@ -24,7 +25,8 @@ export const useAuthFeedbackApi = (): IUseAuthFeedbackApi => {
     async (feedback: IAuthFeedback): Promise<void> => {
       const pathWithId = `${path}/${feedback.feedbackId}`;
       await sendFeedback('PUT', pathWithId, feedback);
-      await refetchFeedback();
+
+      refetchFeedback();
     },
     [path, refetchFeedback],
   );

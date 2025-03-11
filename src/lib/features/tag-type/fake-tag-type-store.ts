@@ -24,7 +24,7 @@ export default class FakeTagTypeStore implements ITagTypeStore {
     this.tagTypes = [];
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(key: string): Promise<boolean> {
     return this.tagTypes.some((t) => t.name === key);

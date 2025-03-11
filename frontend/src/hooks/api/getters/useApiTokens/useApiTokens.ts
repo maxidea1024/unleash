@@ -33,6 +33,7 @@ export const useApiTokens = (options: SWRConfiguration = {}) => {
   };
 };
 
+// schema 체크는 어떻게 하는거지?
 const fetcher = async (path: string): Promise<IApiToken[]> => {
   const res = await fetch(path).then(handleErrorResponses('Api tokens'));
   const data = await res.json();

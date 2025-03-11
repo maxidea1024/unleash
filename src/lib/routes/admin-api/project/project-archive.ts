@@ -23,7 +23,7 @@ import {
 import Controller from '../../controller';
 import type {
   TransactionCreator,
-  UnleashTransaction,
+  GanpaTransaction,
 } from '../../../db/transaction';
 
 const PATH = '/:projectId';
@@ -37,9 +37,9 @@ export default class ProjectArchiveController extends Controller {
   private readonly logger: Logger;
 
   private transactionalFeatureToggleService: (
-    db: UnleashTransaction,
+    db: GanpaTransaction,
   ) => FeatureToggleService;
-  private readonly startTransaction: TransactionCreator<UnleashTransaction>;
+  private readonly startTransaction: TransactionCreator<GanpaTransaction>;
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: IFlagResolver;
 
@@ -57,7 +57,7 @@ export default class ProjectArchiveController extends Controller {
       | 'featureToggleService'
       | 'openApiService'
     >,
-    startTransaction: TransactionCreator<UnleashTransaction>,
+    startTransaction: TransactionCreator<GanpaTransaction>,
   ) {
     super(config);
 

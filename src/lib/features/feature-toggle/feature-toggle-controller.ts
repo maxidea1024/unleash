@@ -50,7 +50,7 @@ import { querySchema } from '../../schema/feature-schema';
 import type { BatchStaleSchema } from '../../openapi/spec/batch-stale-schema';
 import type {
   TransactionCreator,
-  UnleashTransaction,
+  GanpaTransaction,
 } from '../../db/transaction';
 import { BadDataError } from '../../error';
 import { anonymise } from '../../util';
@@ -114,12 +114,12 @@ export default class ProjectFeaturesController extends Controller {
   private readonly featureService: FeatureToggleService;
   private readonly featureTagService: FeatureTagService;
   private readonly transactionalFeatureToggleService: (
-    db: UnleashTransaction,
+    db: GanpaTransaction,
   ) => FeatureToggleService;
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: IFlagResolver;
   private readonly logger: Logger;
-  private readonly startTransaction: TransactionCreator<UnleashTransaction>;
+  private readonly startTransaction: TransactionCreator<GanpaTransaction>;
 
   constructor(
     config: IUnleashConfig,
@@ -129,7 +129,7 @@ export default class ProjectFeaturesController extends Controller {
       transactionalFeatureToggleService,
       featureTagService,
     }: ProjectFeaturesServices,
-    startTransaction: TransactionCreator<UnleashTransaction>,
+    startTransaction: TransactionCreator<GanpaTransaction>,
   ) {
     super(config);
 

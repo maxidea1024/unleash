@@ -13,6 +13,7 @@ export const bearerTokenMiddleware = ({
   return (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
+    // strip 'Bearer ' prefix from token
     if (authHeader) {
       req.headers.authorization = authHeader.replace(/^Bearer\s+/i, '');
     }

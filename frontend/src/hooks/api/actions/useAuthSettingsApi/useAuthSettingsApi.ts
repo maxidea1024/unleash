@@ -9,7 +9,10 @@ export const handleBadRequest = async (
   setErrors?: Dispatch<SetStateAction<{}>>,
   res?: Response,
 ) => {
-  if (!setErrors) return;
+  if (!setErrors) {
+    return;
+  }
+
   if (res) {
     const data = await res.json();
     const message = data.details?.[0]?.message ?? data.message;

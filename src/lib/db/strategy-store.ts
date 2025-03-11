@@ -56,7 +56,7 @@ export default class StrategyStore implements IStrategyStore {
     const rows = await this.db
       .select(STRATEGY_COLUMNS)
       .from(TABLE)
-      .where({ built_in: 0 }) // eslint-disable-line
+      .where({ built_in: 0 })
       .orderBy('sort_order', 'asc')
       .orderBy('name', 'asc');
 

@@ -8,7 +8,7 @@ import useUiConfig from '../useUiConfig/useUiConfig';
 import type { IActionSetEvent } from 'interfaces/action';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-type ActionEventsResponse = {
+interface IActionEventsResponse {
   actionSetEvents: IActionSetEvent[];
 };
 
@@ -23,7 +23,7 @@ export const useActionEvents = (
 
   const getKey: SWRInfiniteKeyLoader = (
     pageIndex: number,
-    previousPageData: ActionEventsResponse,
+    previousPageData: IActionEventsResponse,
   ) => {
     // Does not meet conditions
     if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled) {
@@ -41,7 +41,7 @@ export const useActionEvents = (
   };
 
   const { data, error, size, setSize, mutate } =
-    useSWRInfinite<ActionEventsResponse>(getKey, fetcher, {
+    useSWRInfinite<IActionEventsResponse>(getKey, fetcher, {
       ...options,
       revalidateAll: true,
     });

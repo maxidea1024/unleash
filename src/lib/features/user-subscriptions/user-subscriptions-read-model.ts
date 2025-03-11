@@ -2,7 +2,7 @@ import type { Db } from '../../db/db';
 import {
   SUBSCRIPTION_TYPES,
   type IUserSubscriptionsReadModel,
-  type Subscriber,
+  type ISubscriber,
 } from './user-subscriptions-read-model-type';
 
 const USERS_TABLE = 'users';
@@ -20,7 +20,7 @@ const mapRowToSubscriber = (row) =>
   ({
     name: row.name || row.username || '',
     email: row.email,
-  }) as Subscriber;
+  }) as ISubscriber;
 
 export class UserSubscriptionsReadModel implements IUserSubscriptionsReadModel {
   private readonly db: Db;

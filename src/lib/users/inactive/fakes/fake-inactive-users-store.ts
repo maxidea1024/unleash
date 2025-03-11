@@ -7,9 +7,11 @@ import { subDays } from 'date-fns';
 
 export class FakeInactiveUsersStore implements IInactiveUsersStore {
   private users: IUser[] = [];
+
   constructor(users?: IUser[]) {
     this.users = users ?? [];
   }
+
   getInactiveUsers(daysInactive: number): Promise<IInactiveUserRow[]> {
     return Promise.resolve(
       this.users

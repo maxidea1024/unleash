@@ -79,7 +79,7 @@ interface IForFeaturesParams {
   features: string[];
 }
 
-export interface IEventTable {
+interface IEventTable {
   id: number;
   type: string;
   created_by: string;

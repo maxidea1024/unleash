@@ -1,9 +1,4 @@
-import {
-  type Dispatch,
-  type SetStateAction,
-  useCallback,
-  useState,
-} from 'react';
+import { useCallback, useState } from 'react';
 import {
   BAD_REQUEST,
   FORBIDDEN,
@@ -24,12 +19,13 @@ import { formatApiPath } from 'utils/formatPath';
 import { ACCESS_DENIED_TEXT } from 'utils/formatAccessText';
 
 type ApiErrorHandler = (
-  setErrors: Dispatch<SetStateAction<{}>>,
+  setErrors: React.Dispatch<React.SetStateAction<{}>>,
   res: Response,
   requestId: string,
 ) => void;
 
 type ApiCaller = () => Promise<Response>;
+
 type RequestFunction = (
   apiCaller: ApiCaller,
   requestId: string,

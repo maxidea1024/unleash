@@ -40,7 +40,6 @@ export const useAuthApi = (): IUseAuthApiOutput => {
 
     const res = await makeRequest(req.caller, req.id);
     const data = await res.json();
-
     return data;
   };
 

@@ -18,7 +18,7 @@ import {
 } from '../../openapi/util/standard-responses';
 import type {
   TransactionCreator,
-  UnleashTransaction,
+  GanpaTransaction,
 } from '../../db/transaction';
 import {
   archivedFeaturesSchema,
@@ -28,9 +28,9 @@ import {
 export default class ArchiveController extends Controller {
   private readonly featureService: FeatureToggleService;
   private readonly transactionalFeatureToggleService: (
-    db: UnleashTransaction,
+    db: GanpaTransaction,
   ) => FeatureToggleService;
-  private readonly startTransaction: TransactionCreator<UnleashTransaction>;
+  private readonly startTransaction: TransactionCreator<GanpaTransaction>;
   private readonly openApiService: OpenApiService;
 
   constructor(
@@ -45,7 +45,7 @@ export default class ArchiveController extends Controller {
       | 'featureToggleServiceV2'
       | 'openApiService'
     >,
-    startTransaction: TransactionCreator<UnleashTransaction>,
+    startTransaction: TransactionCreator<GanpaTransaction>,
   ) {
     super(config);
 

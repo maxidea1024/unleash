@@ -23,6 +23,7 @@ export const useFavoriteFeaturesApi = () => {
           title: 'Toggle added to favorites',
           type: 'success',
         });
+
         trackEvent('favorite', {
           props: {
             eventType: `feature favorited`,
@@ -51,6 +52,7 @@ export const useFavoriteFeaturesApi = () => {
           title: 'Toggle removed from favorites',
           type: 'success',
         });
+
         trackEvent('favorite', {
           props: {
             eventType: `feature unfavorited`,

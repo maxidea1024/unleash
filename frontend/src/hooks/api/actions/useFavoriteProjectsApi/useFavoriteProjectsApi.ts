@@ -23,6 +23,7 @@ export const useFavoriteProjectsApi = () => {
           title: 'Project added to favorites',
           type: 'success',
         });
+
         trackEvent('favorite', {
           props: {
             eventType: `project favorited`,
@@ -51,6 +52,7 @@ export const useFavoriteProjectsApi = () => {
           title: 'Project removed from favorites',
           type: 'success',
         });
+
         trackEvent('favorite', {
           props: {
             eventType: `project unfavorited`,

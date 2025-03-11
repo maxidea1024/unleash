@@ -31,6 +31,7 @@ export const TOKEN_TYPE_ERROR_MESSAGE =
 
 export const NO_TOKEN_WHERE_TOKEN_WAS_REQUIRED =
   'This endpoint requires an API token. Please add an authorization header to your request with a valid token';
+
 export default function apiAccessMiddleware(
   {
     getLogger,
@@ -53,6 +54,7 @@ export default function apiAccessMiddleware(
 
     try {
       const apiToken = req.header('authorization');
+
       if (!apiToken?.startsWith('user:')) {
         const apiUser = apiToken
           ? await apiTokenService.getUserForToken(apiToken)

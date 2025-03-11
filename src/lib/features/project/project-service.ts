@@ -91,6 +91,7 @@ import type EventEmitter from 'events';
 import type { ApiTokenService } from '../../services/api-token-service';
 import type { ProjectForUi } from './project-read-model-type';
 import { canGrantProjectRole } from './can-grant-project-role';
+import type { Logger } from '../../logger';
 
 type Days = number;
 type Count = number;
@@ -132,7 +133,7 @@ export default class ProjectService {
   private readonly featureEnvironmentStore: IFeatureEnvironmentStore;
   private readonly environmentStore: IEnvironmentStore;
   private readonly groupService: GroupService;
-  private readonly logger: any;
+  private readonly logger: Logger;
   private readonly featureToggleService: FeatureToggleService;
   private readonly privateProjectChecker: IPrivateProjectChecker;
   private readonly accountStore: IAccountStore;
@@ -357,10 +358,10 @@ export default class ProjectService {
     const envsToEnable = newProject.environments?.length
       ? newProject.environments
       : (
-          await this.environmentStore.getAll({
-            enabled: true,
-          })
-        ).map((env) => env.name);
+        await this.environmentStore.getAll({
+          enabled: true,
+        })
+      ).map((env) => env.name);
 
     await Promise.all(
       envsToEnable.map(async (env) => {
@@ -773,8 +774,9 @@ export default class ProjectService {
     const role = await this.accessService.getRole(roleId);
     const group = await this.groupService.getGroup(groupId);
     const project = await this.getProject(projectId);
-    if (group.id == null)
+    if (group.id == null) {
       throw new ValidationError('Unexpected empty group id', [], undefined);
+    }
 
     await this.accessService.addGroupToRole(
       group.id,
@@ -808,8 +810,9 @@ export default class ProjectService {
     const group = await this.groupService.getGroup(groupId);
     const role = await this.accessService.getRole(roleId);
     const project = await this.getProject(projectId);
-    if (group.id == null)
+    if (group.id == null) {
       throw new ValidationError('Unexpected empty group id', [], undefined);
+    }
 
     await this.validateAtLeastOneOwner(projectId, role);
 
@@ -1156,12 +1159,14 @@ export default class ProjectService {
   ): Promise<void> {
     const usersWithRoles = await this.getAccessToProject(projectId);
     const user = usersWithRoles.users.find((u) => u.id === userId);
-    if (!user)
+    if (!user) {
       throw new ValidationError('Unexpected empty user', [], undefined);
+    }
 
     const currentRole = usersWithRoles.roles.find((r) => r.id === user.roleId);
-    if (!currentRole)
+    if (!currentRole) {
       throw new ValidationError('Unexpected empty current role', [], undefined);
+    }
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1200,13 +1205,16 @@ export default class ProjectService {
   ): Promise<void> {
     const usersWithRoles = await this.getAccessToProject(projectId);
     const userGroup = usersWithRoles.groups.find((u) => u.id === userId);
-    if (!userGroup)
+    if (!userGroup) {
       throw new ValidationError('Unexpected empty user', [], undefined);
+    }
+
     const currentRole = usersWithRoles.roles.find((r) =>
       userGroup.roles?.includes(r.id),
     );
-    if (!currentRole)
+    if (!currentRole) {
       throw new ValidationError('Unexpected empty current role', [], undefined);
+    }
 
     if (currentRole.id === roleId) {
       // Nothing to do....
@@ -1396,9 +1404,9 @@ export default class ProjectService {
         this.projectStore.getMembersCountByProject(projectId),
         userId
           ? this.favoritesService.isFavoriteProject({
-              project: projectId,
-              userId,
-            })
+            project: projectId,
+            userId,
+          })
           : Promise.resolve(false),
         this.projectStatsStore.getProjectStats(projectId),
       ]);
@@ -1446,9 +1454,9 @@ export default class ProjectService {
       this.projectStore.getMembersCountByProject(projectId),
       userId
         ? this.favoritesService.isFavoriteProject({
-            project: projectId,
-            userId,
-          })
+          project: projectId,
+          userId,
+        })
         : Promise.resolve(false),
       this.projectStatsStore.getProjectStats(projectId),
       this.onboardingReadModel.getOnboardingStatusForProject(projectId),
@@ -1477,7 +1485,6 @@ export default class ProjectService {
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   removePropertiesForNonEnterprise(data): any {
     if (this.isEnterprise) {
       return data;

@@ -1,5 +1,4 @@
 import type { Logger, LogProvider } from '../../logger';
-
 import NotFoundError from '../../error/notfound-error';
 import type {
   IEnvironment,
@@ -86,7 +85,6 @@ export default class ProjectStore implements IProjectStore {
       });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   fieldToRow(data): Omit<IProjectInsert, 'mode'> {
     return {
       id: data.id,
@@ -95,7 +93,7 @@ export default class ProjectStore implements IProjectStore {
     };
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async isFeatureLimitReached(id: string): Promise<boolean> {
     const result = await this.db.raw(

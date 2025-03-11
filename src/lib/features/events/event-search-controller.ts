@@ -26,7 +26,7 @@ import {
 } from '../../addons/feature-event-formatter-md';
 
 const ANON_KEYS = ['email', 'username', 'createdBy'];
-const version = 1 as const;
+// const version = 1 as const;
 
 export default class EventSearchController extends Controller {
   private readonly eventService: EventService;

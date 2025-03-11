@@ -77,9 +77,11 @@ export class TrafficDataUsageStore implements ITrafficDataUsageStore {
       })
       .del();
   }
+
   async deleteAll(): Promise<void> {
     await this.db(TABLE).del();
   }
+
   destroy(): void {}
 
   async upsert(trafficDataUsage: IStatTrafficUsage): Promise<void> {

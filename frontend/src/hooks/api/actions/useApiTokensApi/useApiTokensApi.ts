@@ -29,7 +29,12 @@ const useApiTokensApi = () => {
     return makeRequest(req.caller, req.id);
   };
 
-  return { deleteToken, createToken, errors, loading };
+  return {
+    deleteToken,
+    createToken,
+    errors,
+    loading
+  };
 };
 
 export default useApiTokensApi;

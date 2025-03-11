@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
-
 import {
   CREATE_TAG_TYPE,
   DELETE_TAG_TYPE,

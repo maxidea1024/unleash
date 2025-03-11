@@ -69,72 +69,49 @@ export interface IProjectApplicationsSearchParams {
 
 export interface IProjectStore extends IStore<IProject, string> {
   hasProject(id: string): Promise<boolean>;
-
   hasActiveProject(id: string): Promise<boolean>;
-
   updateHealth(healthUpdate: IProjectHealthUpdate): Promise<void>;
-
   create(project: IProjectInsert): Promise<IProject>;
-
   update(update: IProjectInsert): Promise<void>;
-
   updateProjectEnterpriseSettings(
     update: IProjectEnterpriseSettingsUpdate,
   ): Promise<void>;
-
   importProjects(
     projects: IProjectInsert[],
     environments?: IEnvironment[],
   ): Promise<IProject[]>;
-
   addEnvironmentToProject(id: string, environment: string): Promise<void>;
-
   deleteEnvironmentForProject(id: string, environment: string): Promise<void>;
-
   getEnvironmentsForProject(id: string): Promise<ProjectEnvironment[]>;
-
   getConnectedEnvironmentCountForProject(id: string): Promise<number>;
-
   getMembersCountByProject(projectId: string): Promise<number>;
-
   getMembersCountByProjectAfterDate(
     projectId: string,
     date: string,
   ): Promise<number>;
-
   count(): Promise<number>;
-
   getAll(query?: IProjectQuery): Promise<IProject[]>;
-
   getProjectLinksForEnvironments(
     environments: string[],
   ): Promise<IEnvironmentProjectLink[]>;
-
   addEnvironmentToProjects(
     environment: string,
     projects: string[],
   ): Promise<void>;
-
   getDefaultStrategy(
     projectId: string,
     environment: string,
   ): Promise<CreateFeatureStrategySchema | null>;
-
   updateDefaultStrategy(
     projectId: string,
     environment: string,
     strategy: CreateFeatureStrategySchema,
   ): Promise<CreateFeatureStrategySchema>;
-
   isFeatureLimitReached(id: string): Promise<boolean>;
-
   getProjectModeCounts(): Promise<ProjectModeCount[]>;
-
   getApplicationsByProject(
     searchParams: IProjectApplicationsSearchParams,
   ): Promise<IProjectApplications>;
-
   archive(projectId: string): Promise<void>;
-
   revive(projectId: string): Promise<void>;
 }

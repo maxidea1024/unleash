@@ -1,14 +1,11 @@
 import NameExistsError from '../../error/name-exists-error';
-
 import { tagTypeSchema } from '../../services/tag-type-schema';
-
 import type { IUnleashStores } from '../../types/stores';
 import {
   TagTypeCreatedEvent,
   TagTypeDeletedEvent,
   TagTypeUpdatedEvent,
 } from '../../types/events';
-
 import type { Logger } from '../../logger';
 import type { ITagType, ITagTypeStore } from './tag-type-store-type';
 import type { IUnleashConfig } from '../../types/options';
@@ -62,11 +59,12 @@ export default class TagTypeService {
         `There already exists a tag-type with the name ${name}`,
       );
     }
-    return Promise.resolve(true);
+    return true;
   }
 
   async validate(tagType: Partial<ITagType> | undefined): Promise<void> {
     await tagTypeSchema.validateAsync(tagType);
+
     if (tagType?.name) {
       await this.validateUnique(tagType.name);
     }
@@ -74,7 +72,9 @@ export default class TagTypeService {
 
   async deleteTagType(name: string, auditUser: IAuditUser): Promise<void> {
     const tagType = await this.tagTypeStore.get(name);
+
     await this.tagTypeStore.delete(name);
+
     await this.eventService.storeEvent(
       new TagTypeDeletedEvent({
         preData: tagType,
@@ -88,13 +88,16 @@ export default class TagTypeService {
     auditUser: IAuditUser,
   ): Promise<ITagType> {
     const data = await tagTypeSchema.validateAsync(updatedTagType);
+
     await this.tagTypeStore.updateTagType(data);
+
     await this.eventService.storeEvent(
       new TagTypeUpdatedEvent({
         data,
         auditUser,
       }),
     );
+
     return data;
   }
 }

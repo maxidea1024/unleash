@@ -235,9 +235,9 @@ export class SegmentService implements ISegmentService {
     strategyId: string,
     segmentIds: number[],
   ): Promise<void> {
-    if (segmentIds.length > this.config.strategySegmentsLimit) {
+    if (segmentIds.length > this.config.resourceLimits.strategySegments) {
       throw new BadDataError(
-        `Strategies may not have more than ${this.config.strategySegmentsLimit} segments`,
+        `Strategies may not have more than ${this.config.resourceLimits.strategySegments} segments`,
       );
     }
 
@@ -283,13 +283,13 @@ export class SegmentService implements ISegmentService {
   private async validateStrategySegmentLimit(
     strategyId: string,
   ): Promise<void> {
-    const { strategySegmentsLimit } = this.config;
+    const { resourceLimits } = this.config;
 
     if (
-      (await this.getByStrategy(strategyId)).length >= strategySegmentsLimit
+      (await this.getByStrategy(strategyId)).length >= resourceLimits.strategySegments
     ) {
       throw new BadDataError(
-        `Strategies may not have more than ${strategySegmentsLimit} segments`,
+        `Strategies may not have more than ${resourceLimits.strategySegments} segments`,
       );
     }
   }

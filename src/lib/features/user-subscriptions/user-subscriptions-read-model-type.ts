@@ -1,10 +1,10 @@
-export type Subscriber = {
+export interface ISubscriber {
   name: string;
   email: string;
 };
 
 export interface IUserSubscriptionsReadModel {
-  getSubscribedUsers(subscription: string): Promise<Subscriber[]>;
+  getSubscribedUsers(subscription: string): Promise<ISubscriber[]>;
   getUserSubscriptions(userId: number): Promise<string[]>;
 }
 

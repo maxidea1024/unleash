@@ -16,11 +16,13 @@ export const useExportApi = () => {
     });
 
     const res = await makeRequest(req.caller, req.id);
+
     trackEvent('export_import', {
       props: {
         eventType: `features exported`,
       },
     });
+
     return res;
   };
 

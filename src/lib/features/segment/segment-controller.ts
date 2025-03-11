@@ -38,7 +38,6 @@ import {
   segmentsSchema,
   type SegmentsSchema,
 } from '../../openapi/spec/segments-schema';
-
 import { anonymiseKeys, extractUserIdFromUser } from '../../util';
 import { BadDataError } from '../../error';
 import idNumberMiddleware from '../../middleware/id-number-middleware';

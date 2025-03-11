@@ -13,6 +13,7 @@ export type JobModel = {
 };
 
 const TABLE = 'jobs';
+
 const toRow = (data: Partial<JobModel>) =>
   defaultToRow<JobModel, Row<JobModel>>(data);
 

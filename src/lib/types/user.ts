@@ -4,7 +4,7 @@ import { generateImageUrl } from '../util/generateImageUrl';
 export const AccountTypes = ['User', 'Service Account'] as const;
 type AccountType = (typeof AccountTypes)[number];
 
-export interface UserData {
+export interface IUserData {
   id: number;
   name?: string;
   username?: string;
@@ -76,7 +76,7 @@ export default class User implements IUser {
     createdAt,
     isService,
     scimId,
-  }: UserData) {
+  }: IUserData) {
     if (!id) {
       throw new ValidationError('Id is required', [], undefined);
     }

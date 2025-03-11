@@ -32,6 +32,7 @@ export const useDependentFeaturesApi = (project: string) => {
         method: 'DELETE',
       },
     );
+
     await makeRequest(req.caller, req.id);
   };
 
@@ -42,6 +43,7 @@ export const useDependentFeaturesApi = (project: string) => {
         method: 'DELETE',
       },
     );
+
     await makeRequest(req.caller, req.id);
   };
 
