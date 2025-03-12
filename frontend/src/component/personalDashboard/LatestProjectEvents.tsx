@@ -55,6 +55,7 @@ export const LatestProjectEvents = ({
   latestEvents,
 }: LatestProjectEventsProps) => {
   const { locationSettings } = useLocationSettings();
+
   return (
     <ActionBox
       title={

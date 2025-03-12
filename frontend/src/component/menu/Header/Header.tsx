@@ -18,7 +18,6 @@ import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
 import { ReactComponent as UnleashLogoWhite } from 'assets/img/logoWithWhiteText.svg';
 import { ReactComponent as CelebatoryUnleashLogo } from 'assets/img/unleashHoliday.svg';
 import { ReactComponent as CelebatoryUnleashLogoWhite } from 'assets/img/unleashHolidayDark.svg';
-
 import { DrawerMenu } from './DrawerMenu/DrawerMenu';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { flexRow, focusable } from 'themes/themeStyles';

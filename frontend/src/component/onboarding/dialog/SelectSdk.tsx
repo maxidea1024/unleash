@@ -1,7 +1,7 @@
 import { Avatar, Box, Link, styled, Typography } from '@mui/material';
 import { formatAssetPath } from 'utils/formatPath';
 import { SectionHeader, StepperBox } from './SharedComponents';
-import { clientSdks, type Sdk, serverSdks } from './sharedTypes';
+import { clientSdks, type ISdk, serverSdks } from './sharedTypes';
 import { Stepper } from './Stepper';
 import { Badge } from 'component/common/Badge/Badge';
 
@@ -54,7 +54,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 type SelectSdkProps = {
-  onSelect: (sdk: Sdk) => void;
+  onSelect: (sdk: ISdk) => void;
 };
 
 export const SelectSdk = ({ onSelect }: SelectSdkProps) => {

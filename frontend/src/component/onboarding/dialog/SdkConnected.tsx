@@ -1,7 +1,7 @@
 import { Box, styled, Typography } from '@mui/material';
 import { SectionHeader, StepperBox } from './SharedComponents';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import type { Sdk } from './sharedTypes';
+import type { ISdk } from './sharedTypes';
 import { Stepper } from './Stepper';
 import { Badge } from 'component/common/Badge/Badge';
 import { Markdown } from 'component/common/Markdown/Markdown';
@@ -16,7 +16,7 @@ const SpacedContainer = styled('div')(({ theme }) => ({
 }));
 
 type SdkConnectedProps = {
-  sdk: Sdk;
+  sdk: ISdk;
 };
 
 export const SdkConnected = ({ sdk }: SdkConnectedProps) => {
@@ -36,7 +36,7 @@ export const SdkConnected = ({ sdk }: SdkConnectedProps) => {
 
   return (
     <SpacedContainer>
-      <Typography variant='h2'>Connect an SDK to Unleash</Typography>
+      <Typography variant='h2'>Connect an SDK to Ganpa</Typography>
       <StepperBox>
         <Stepper active={2} steps={3} />
         <Badge color='secondary'>3/3 - Test connection</Badge>

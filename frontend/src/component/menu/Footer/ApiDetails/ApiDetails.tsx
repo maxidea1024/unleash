@@ -18,6 +18,7 @@ export const ApiDetails = (props: ApiDetailsProps): ReactElement => {
   const updateNotification = formatUpdateNotification(props.uiConfig);
 
   const buildInfo = buildNumber ? <small>({buildNumber})</small> : '';
+
   return (
     <section title='API details'>
       <FooterTitle>

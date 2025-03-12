@@ -36,6 +36,7 @@ export const InviteLinkContent = ({
 
   const onInviteLinkActionClick = (inviteLink?: string) => {
     setShowInviteLinkContent(false);
+
     trackEvent('invite', {
       props: {
         eventType: inviteLink

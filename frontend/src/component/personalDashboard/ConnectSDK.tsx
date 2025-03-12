@@ -12,7 +12,6 @@ const MainCircleContainer = styled(NeutralCircleContainer)(({ theme }) => ({
 const SuccessContainer = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-
   fontSize: theme.spacing(1.75),
   fontWeight: 'bold',
   backgroundColor: theme.palette.success.light,
@@ -20,7 +19,11 @@ const SuccessContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 2, 2, 2),
 }));
 
-export const CreateFlag = ({ project }: { project: string }) => {
+type CreateFlagProps = {
+  project: string;
+};
+
+export const CreateFlag = ({ project }: CreateFlagProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   return (
@@ -56,7 +59,11 @@ export const CreateFlag = ({ project }: { project: string }) => {
   );
 };
 
-export const ExistingFlag = ({ project }: { project: string }) => {
+type ExistingFlagProps = {
+  project: string;
+};
+
+export const ExistingFlag = ({ project }: ExistingFlagProps) => {
   return (
     <ActionBox
       title={
@@ -87,7 +94,11 @@ export const ExistingFlag = ({ project }: { project: string }) => {
   );
 };
 
-export const ConnectSDK = ({ project }: { project: string }) => {
+type ConnectSDKProps = {
+  project: string;
+};
+
+export const ConnectSDK = ({ project }: ConnectSDKProps) => {
   return (
     <ActionBox
       data-loading

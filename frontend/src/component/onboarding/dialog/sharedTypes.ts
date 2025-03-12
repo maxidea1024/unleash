@@ -16,7 +16,7 @@ import flutter from '../../../assets/icons/sdks/Logo-flutter.svg';
 
 export type SdkType = 'client' | 'frontend';
 
-export type Sdk = { name: SdkName; type: SdkType };
+export type ISdk = { name: SdkName; type: SdkType };
 
 export type ServerSdkName =
   | 'Node.js'

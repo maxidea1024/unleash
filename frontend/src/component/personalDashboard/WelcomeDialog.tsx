@@ -1,5 +1,4 @@
 import { Box, Button, Dialog, styled, Typography } from '@mui/material';
-import type { FC } from 'react';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
 import { ReactComponent as UnleashLogoWhite } from 'assets/img/logoWithWhiteText.svg';
 import { ThemeMode } from '../common/ThemeMode/ThemeMode';
@@ -64,7 +63,7 @@ export const WelcomeDialog = ({ open, onClose }: WelcomeDialogProps) => {
           <Typography component='span' color='primary' fontWeight='bold'>
             key concepts
           </Typography>{' '}
-          you'll need when working with Unleash
+          you'll need when working with Ganpa
         </Box>
         <StyledImg src={formatAssetPath(onboardingConcepts)} />
         <ScreenReaderOnly>

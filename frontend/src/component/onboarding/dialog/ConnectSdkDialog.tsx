@@ -10,7 +10,7 @@ import { GenerateApiKey } from './GenerateApiKey';
 import { useEffect, useState } from 'react';
 import { SelectSdk } from './SelectSdk';
 import { GenerateApiKeyConcepts, SelectSdkConcepts } from './UnleashConcepts';
-import type { Sdk } from './sharedTypes';
+import type { ISdk } from './sharedTypes';
 import { ConnectionInformation } from './ConnectionInformation';
 import { SdkConnection } from './SdkConnection';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
@@ -73,7 +73,7 @@ export const ConnectSdkDialog = ({
 }: ConnectSDKDialogProps) => {
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
-  const [sdk, setSdk] = useState<Sdk | null>(null);
+  const [sdk, setSdk] = useState<ISdk | null>(null);
   const [environment, setEnvironment] = useState<string | null>(null);
   const [apiKey, setApiKey] = useState<string | null>(null);
   const [stage, setStage] = useState<OnboardingStage>('select-sdk');

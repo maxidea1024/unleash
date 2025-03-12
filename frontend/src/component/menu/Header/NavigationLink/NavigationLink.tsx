@@ -56,6 +56,7 @@ const NavigationLink = ({
   ...props
 }: NavigationLinkProps) => {
   const { isPro } = useUiConfig();
+
   const showEnterpriseBadgeToPro = Boolean(
     isPro() &&
       !props.mode?.includes('pro') &&

@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 import Loader from 'component/common/Loader/Loader';
 import TestSdkConnection from './TestSdkConnection';
-import type { Sdk } from './sharedTypes';
+import type { ISdk } from './sharedTypes';
 import { SdkConnected } from './SdkConnected';
 
 type SdkConnectionProps = {
-  sdk: Sdk;
+  sdk: ISdk;
   apiKey: string;
   feature?: string;
   onSdkChange: () => void;

@@ -68,10 +68,10 @@ export const GenerateApiKeyConcepts = () => (
       <StyledCodeIcon />
       <Box>
         <ConceptSummary>
-          SDKs connect to Unleash to retrieve configuration
+          SDKs connect to Ganpa to retrieve configuration
         </ConceptSummary>
         <ConceptDetails>
-          When you connect an SDK to Unleash, it uses the API key to identify
+          When you connect an SDK to Ganpa, it uses the API key to identify
           which feature flags and configuration to retrieve from each
           environment.
         </ConceptDetails>
@@ -85,10 +85,10 @@ export const SelectSdkConcepts = () => (
     <ConceptItem>
       <StyledCodeIcon />
       <Box>
-        <ConceptSummary>SDKs and Unleash</ConceptSummary>
+        <ConceptSummary>SDKs and Ganpa</ConceptSummary>
         <ConceptDetails>
-          SDKs serve to bind your application to Unleash. The SDK can connect to
-          Unleash via HTTP and retrieve feature flag configuration that is then
+          SDKs serve to bind your application to Ganpa. The SDK can connect to
+          Ganpa via HTTP and retrieve feature flag configuration that is then
           cached in your application. Making sure none of your application data
           ever leaves your servers.
         </ConceptDetails>

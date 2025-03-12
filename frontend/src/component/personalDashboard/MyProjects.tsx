@@ -13,7 +13,7 @@ import { ProjectSetupComplete } from './ProjectSetupComplete';
 import { ConnectSDK, CreateFlag, ExistingFlag } from './ConnectSDK';
 import { LatestProjectEvents } from './LatestProjectEvents';
 import { RoleAndOwnerInfo } from './RoleAndOwnerInfo';
-import { type ReactNode, useEffect, useRef, type FC } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 import type {
   PersonalDashboardProjectDetailsSchema,
   PersonalDashboardProjectDetailsSchemaRolesItem,

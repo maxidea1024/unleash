@@ -65,7 +65,7 @@ export const ConnectionInformation = ({
 }: ConnectionInformationProps) => {
   const theme = useTheme();
   const { project } = useProjectOverview(projectId, {
-    refreshInterval: 1000,
+    refreshInterval: 1_000, // 1초에 한번씩 갱신하고 있음. 그런데, 이렇게 폴링을 하는게 필요한건가?
   });
 
   const onboarded = project.onboardingStatus.status === 'onboarded';

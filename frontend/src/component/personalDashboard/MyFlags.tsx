@@ -47,8 +47,10 @@ const FlagListItem = ({ flag, selected, onClick }: FlagListItemProps) => {
       });
     }
   }, []);
+
   const IconComponent = getFeatureTypeIcons(flag.type);
   const flagLink = `projects/${flag.project}/features/${flag.name}`;
+
   return (
     <ListItem
       key={flag.name}

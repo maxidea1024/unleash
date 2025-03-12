@@ -184,6 +184,7 @@ type CreateFlagProps = {
 
 const CreateFlag = ({ projectId, refetchFeatures }: CreateFlagProps) => {
   const { refetch } = useProjectOverview(projectId);
+
   return (
     <>
       <TitleContainer>
