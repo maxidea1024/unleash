@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, type FC } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert, Box, Link, Typography, styled } from '@mui/material';
 import Extension from '@mui/icons-material/Extension';
@@ -54,11 +54,13 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.mainHeader,
 }));
 
-const Subtitle: FC<{
+type SubtitleProps = {
   title: string;
   description: string;
   link: string;
-}> = ({ title, description, link }) => (
+};
+
+const Subtitle = ({ title, description, link }: SubtitleProps) => (
   <StyledTypography>
     {title}
     <HelpIcon
@@ -81,7 +83,7 @@ const Subtitle: FC<{
   </StyledTypography>
 );
 
-const CustomStrategyTitle: FC = () => (
+const CustomStrategyTitle = () => (
   <Box
     sx={(theme) => ({
       display: 'flex',

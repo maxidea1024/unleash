@@ -1,11 +1,9 @@
 import { SWRConfig } from 'swr';
-import type React from 'react';
+import type { ReactNode } from 'react';
 import { ResponseError } from 'utils/apiUtils';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 
-export const SWRProvider: React.FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+export const SWRProvider = ({ children }: { children?: ReactNode }) => {
   const { refetchUser } = useAuthUser();
 
   const onError = (error: Error) => {

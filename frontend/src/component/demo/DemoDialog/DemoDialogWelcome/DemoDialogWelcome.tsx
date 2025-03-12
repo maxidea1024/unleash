@@ -69,11 +69,11 @@ export const DemoDialogWelcome = ({
 
   return (
     <DemoDialog open={open} onClose={onClose} preventCloseOnBackdropClick>
-      <DemoDialog.Header>Explore Unleash</DemoDialog.Header>
+      <DemoDialog.Header>Explore Ganpa</DemoDialog.Header>
       <Typography color='textSecondary' sx={{ mt: 2 }}>
-        You can explore Unleash on your own, however for the best experience
-        it's recommended you follow our interactive demo. To get started, you
-        will need to open the demo website below.
+        You can explore Ganpa on your own, however for the best experience it's
+        recommended you follow our interactive demo. To get started, you will
+        need to open the demo website below.
       </Typography>
       <StyledDemoPane>
         <StyledScanMessage>Scan the QR code with your phone</StyledScanMessage>

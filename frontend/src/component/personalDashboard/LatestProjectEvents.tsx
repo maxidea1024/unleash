@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { Markdown } from '../common/Markdown/Markdown';
 import type { PersonalDashboardProjectDetailsSchema } from '../../openapi';
 import { UserAvatar } from '../common/UserAvatar/UserAvatar';
@@ -27,12 +26,12 @@ const Event = styled('li')(({ theme }) => ({
   },
 }));
 
-const TitleContainer = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  gap: theme.spacing(2),
-  alignItems: 'center',
-}));
+// const TitleContainer = styled('div')(({ theme }) => ({
+//   display: 'flex',
+//   flexDirection: 'row',
+//   gap: theme.spacing(2),
+//   alignItems: 'center',
+// }));
 
 const Timestamp = styled('time')(({ theme }) => ({
   color: theme.palette.text.secondary,
@@ -48,9 +47,13 @@ const StyledMarkdown = styled(Markdown)({
   overflowWrap: 'anywhere',
 });
 
-export const LatestProjectEvents: FC<{
+type LatestProjectEventsProps = {
   latestEvents: PersonalDashboardProjectDetailsSchema['latestEvents'];
-}> = ({ latestEvents }) => {
+};
+
+export const LatestProjectEvents = ({
+  latestEvents,
+}: LatestProjectEventsProps) => {
   const { locationSettings } = useLocationSettings();
   return (
     <ActionBox

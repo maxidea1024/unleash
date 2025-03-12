@@ -11,15 +11,6 @@ import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useCh
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
-type ExportDialogProps = {
-  showExportDialog: boolean;
-  data: Pick<FeatureSchema, 'name' | 'environments'>[];
-  onClose: () => void;
-  onConfirm?: () => void;
-  environments: string[];
-  projectId: string;
-};
-
 const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   minWidth: '450px',
   marginTop: theme.spacing(2),
@@ -29,6 +20,15 @@ const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
 const SpacedAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
+
+type ExportDialogProps = {
+  showExportDialog: boolean;
+  data: Pick<FeatureSchema, 'name' | 'environments'>[];
+  onClose: () => void;
+  onConfirm?: () => void;
+  environments: string[];
+  projectId: string;
+};
 
 export const BulkDisableDialog = ({
   showExportDialog,

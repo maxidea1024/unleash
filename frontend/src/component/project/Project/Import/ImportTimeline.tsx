@@ -1,6 +1,5 @@
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
-import type { FC } from 'react';
 import { alpha, Box, styled } from '@mui/material';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineDot from '@mui/lab/TimelineDot';
@@ -68,9 +67,11 @@ const TimelineItemDescription = styled(Box)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-export const ImportTimeline: FC<{
+type ImportTimelineProps = {
   stage: StageName;
-}> = ({ stage }) => {
+};
+
+export const ImportTimeline = ({ stage }: ImportTimelineProps) => {
   return (
     <StyledTimeline>
       <TimelineItem>
@@ -85,7 +86,7 @@ export const ImportTimeline: FC<{
             Import file
           </TimelineItemTitle>
           <TimelineItemDescription>
-            Import previously exported flag configuration from another Unleash
+            Import previously exported flag configuration from another Ganpa
             instance as a JSON file
           </TimelineItemDescription>
         </StyledTimelineContent>
@@ -117,7 +118,7 @@ export const ImportTimeline: FC<{
             Finish import
           </TimelineItemTitle>
           <TimelineItemDescription>
-            Feature flag configuration will be imported to your new Unleash
+            Feature flag configuration will be imported to your new Ganpa
             instance
           </TimelineItemDescription>
         </StyledTimelineContent>

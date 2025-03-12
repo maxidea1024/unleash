@@ -6,7 +6,7 @@ import SegmentsIcon from '@mui/icons-material/DonutLargeOutlined';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { Icon, styled } from '@mui/material';
 import type {
-  TimelineEvent,
+  ITimelineEvent,
   TimelineEventGroup,
   TimelineEventType,
 } from '../EventTimeline';
@@ -45,7 +45,7 @@ const StyledEventCircle = styled('div', {
   },
 }));
 
-const getEventIcon = ({ icon, type }: Pick<TimelineEvent, 'icon' | 'type'>) => {
+const getEventIcon = ({ icon, type }: Pick<ITimelineEvent, 'icon' | 'type'>) => {
   if (icon) {
     return <Icon>{icon}</Icon>;
   }

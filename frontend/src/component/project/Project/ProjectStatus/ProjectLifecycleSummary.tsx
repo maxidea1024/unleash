@@ -3,7 +3,6 @@ import { FeatureLifecycleStageIcon } from 'component/feature/FeatureView/Feature
 import { useProjectStatus } from 'hooks/api/getters/useProjectStatus/useProjectStatus';
 import useLoading from 'hooks/useLoading';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import type { FC } from 'react';
 import { PrettifyLargeNumber } from 'component/common/PrettifyLargeNumber/PrettifyLargeNumber';
 import type { ProjectStatusSchemaLifecycleSummary } from 'openapi';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
@@ -25,7 +24,7 @@ const LifecycleBoxContent = styled('div')(({ theme }) => ({
   },
 }));
 
-const LifecycleBoxTooltip: FC<{ text: string }> = ({ text }) => {
+const LifecycleBoxTooltip = ({ text }: { text: string }) => {
   const Container = styled('span')(({ theme }) => ({
     display: 'flex',
     alignItems: 'flex-start',
@@ -95,10 +94,8 @@ const NoData = styled('span')({
   fontWeight: 'normal',
 });
 
-const AverageDaysStat: FC<{ averageDays?: number | null }> = ({
-  averageDays,
-}) => {
-  const Content: FC = () => {
+const AverageDaysStat = ({ averageDays }: { averageDays?: number | null }) => {
+  const Content = () => {
     if (averageDays === null || averageDays === undefined) {
       return <NoData>No data</NoData>;
     }
@@ -118,13 +115,14 @@ const AverageDaysStat: FC<{ averageDays?: number | null }> = ({
   );
 };
 
-const BigNumber: FC<{ value?: number }> = ({ value }) => {
+const BigNumber = ({ value }: { value?: number }) => {
   return (
     <BigText data-loading-project-lifecycle-summary>
       <PrettifyLargeNumber value={value ?? 0} threshold={1000} precision={1} />
     </BigText>
   );
 };
+
 export const ProjectLifecycleSummary = () => {
   const projectId = useRequiredPathParam('projectId');
   const { data, loading } = useProjectStatus(projectId);

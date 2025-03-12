@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC } from 'react';
+import type { ChangeEvent } from 'react';
 import { IconButton, styled, TextField, Tooltip } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import { Autocomplete } from '@mui/material';
@@ -49,10 +49,10 @@ type OverrideConfigProps = {
   overridesDispatch: OverridesDispatchType;
 };
 
-export const OverrideConfig: FC<OverrideConfigProps> = ({
+export const OverrideConfig = ({
   overrides,
   overridesDispatch,
-}) => {
+}: OverrideConfigProps) => {
   const { context } = useUnleashContext();
   const contextNames = context.map(({ name }) => ({
     key: name,

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import type { EventSchema } from 'openapi';
 
-export const StyledJsonListItem = styled('li')(({ theme }) => ({
+const StyledJsonListItem = styled('li')(({ theme }) => ({
   padding: theme.spacing(4),
   backgroundColor: theme.palette.neutral.light,
   borderRadius: theme.shape.borderRadiusLarge,

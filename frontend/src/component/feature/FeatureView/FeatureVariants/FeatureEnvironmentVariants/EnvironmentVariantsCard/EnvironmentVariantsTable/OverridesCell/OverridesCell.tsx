@@ -9,14 +9,16 @@ const StyledItem = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
 }));
 
-interface IOverridesCellProps {
+type OverridesCellProps = {
   value?: IOverride[];
-}
+};
 
-export const OverridesCell = ({ value: overrides }: IOverridesCellProps) => {
+export const OverridesCell = ({ value: overrides }: OverridesCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
-  if (!overrides || overrides.length === 0) return <TextCell />;
+  if (!overrides || overrides.length === 0) {
+    return <TextCell />;
+  }
 
   const overrideToString = (override: IOverride) =>
     `${override.contextName}:${override.values.join()}`;

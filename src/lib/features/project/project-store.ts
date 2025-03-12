@@ -35,7 +35,9 @@ const COLUMNS = [
   'health',
   'updated_at',
 ];
+
 const TABLE = 'projects';
+
 const SETTINGS_COLUMNS = [
   'project_mode',
   'default_stickiness',
@@ -44,7 +46,9 @@ const SETTINGS_COLUMNS = [
   'feature_naming_example',
   'feature_naming_description',
 ];
+
 const SETTINGS_TABLE = 'project_settings';
+
 const PROJECT_ENVIRONMENTS = 'project_environments';
 
 export interface IEnvironmentProjectLink {
@@ -52,7 +56,7 @@ export interface IEnvironmentProjectLink {
   projectId: string;
 }
 
-export interface ProjectModeCount {
+export interface IProjectModeCount {
   mode: ProjectMode;
   count: number;
 }
@@ -554,7 +558,7 @@ export default class ProjectStore implements IProjectStore {
     return count.then((res) => Number(res[0].count));
   }
 
-  async getProjectModeCounts(): Promise<ProjectModeCount[]> {
+  async getProjectModeCounts(): Promise<IProjectModeCount[]> {
     let query = this.db
       .select(
         this.db.raw(`COALESCE(${SETTINGS_TABLE}.project_mode, 'open') as mode`),
@@ -566,13 +570,13 @@ export default class ProjectStore implements IProjectStore {
 
     query = query.where(`${TABLE}.archived_at`, null);
 
-    const result: ProjectModeCount[] = await query;
+    const result: IProjectModeCount[] = await query;
 
     return result.map(this.mapProjectModeCount);
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  private mapProjectModeCount(row): ProjectModeCount {
+  private mapProjectModeCount(row): IProjectModeCount {
     return {
       mode: row.mode,
       count: Number(row.count),

@@ -12,17 +12,6 @@ import MoreVert from '@mui/icons-material/MoreVert';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 
-type FeatureStrategyMenuProps = {
-  label: string;
-  projectId: string;
-  featureId: string;
-  environmentId: string;
-  variant?: PermissionButtonProps['variant'];
-  matchWidth?: boolean;
-  size?: PermissionButtonProps['size'];
-  disableReason?: string;
-};
-
 const StyledStrategyMenu = styled('div')({
   flexShrink: 0,
 });
@@ -36,6 +25,17 @@ const StyledAdditionalMenuButton = styled(PermissionButton)(({ theme }) => ({
   flexDirection: 'column',
   marginLeft: theme.spacing(1),
 }));
+
+type FeatureStrategyMenuProps = {
+  label: string;
+  projectId: string;
+  featureId: string;
+  environmentId: string;
+  variant?: PermissionButtonProps['variant'];
+  matchWidth?: boolean;
+  size?: PermissionButtonProps['size'];
+  disableReason?: string;
+};
 
 export const FeatureStrategyMenu = ({
   label,

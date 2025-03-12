@@ -1,5 +1,4 @@
 import { Autocomplete, Checkbox, styled, TextField } from '@mui/material';
-import type { FC } from 'react';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { useParentVariantOptions } from 'hooks/api/getters/useFeatureDependencyOptions/useFeatureDependencyOptions';
@@ -9,11 +8,17 @@ const StyledAutocomplete = styled(Autocomplete<string>)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
 
-export const SingleVariantOptions: FC<{
+type SingleVariantOptionsProps = {
   project: string;
   parent: string;
   onSelect: (value: string) => void;
-}> = ({ project, parent, onSelect }) => {
+};
+
+export const SingleVariantOptions = ({
+  project,
+  parent,
+  onSelect,
+}: SingleVariantOptionsProps) => {
   const { parentVariantOptions: variantOptions } = useParentVariantOptions(
     project,
     parent,

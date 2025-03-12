@@ -1,6 +1,6 @@
 import type {
   IEnvironmentProjectLink,
-  ProjectModeCount,
+  IProjectModeCount,
 } from './project-store';
 import type {
   IEnvironment,
@@ -108,7 +108,7 @@ export interface IProjectStore extends IStore<IProject, string> {
     strategy: CreateFeatureStrategySchema,
   ): Promise<CreateFeatureStrategySchema>;
   isFeatureLimitReached(id: string): Promise<boolean>;
-  getProjectModeCounts(): Promise<ProjectModeCount[]>;
+  getProjectModeCounts(): Promise<IProjectModeCount[]>;
   getApplicationsByProject(
     searchParams: IProjectApplicationsSearchParams,
   ): Promise<IProjectApplications>;

@@ -2,7 +2,7 @@ import { Box, Divider, styled, Typography, useTheme } from '@mui/material';
 import { ArcherContainer, ArcherElement } from 'react-archer';
 import { useNavigate } from 'react-router-dom';
 import type React from 'react';
-import { type FC, useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import type {
   ApplicationOverviewEnvironmentSchema,
   ApplicationOverviewSchema,
@@ -141,7 +141,7 @@ const SuccessStatus = () => (
   </StyledStatus>
 );
 
-const WarningStatus: FC<{ children?: React.ReactNode }> = ({ children }) => (
+const WarningStatus = ({ children }: { children?: React.ReactNode }) => (
   <StyledStatus mode='warning'>
     <WarningAmberRounded
       sx={(theme) => ({

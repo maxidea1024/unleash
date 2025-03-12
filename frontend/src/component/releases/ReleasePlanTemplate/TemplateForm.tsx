@@ -10,23 +10,23 @@ const StyledInput = styled(Input)(({ theme }) => ({
   marginBottom: theme.spacing(2),
 }));
 
-interface ITemplateForm {
+type TemplateFormProps = {
   name: string;
   setName: React.Dispatch<React.SetStateAction<string>>;
   description: string;
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   errors: { [key: string]: string };
   clearErrors: () => void;
-}
+};
 
-export const TemplateForm: React.FC<ITemplateForm> = ({
+export const TemplateForm = ({
   name,
   setName,
   description,
   setDescription,
   errors,
   clearErrors,
-}) => {
+}: TemplateFormProps) => {
   return (
     <>
       <StyledInputDescription>

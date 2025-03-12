@@ -1,6 +1,6 @@
 import { LastSeenTooltip } from 'component/common/Table/cells/FeatureSeenCell/LastSeenTooltip';
 import type React from 'react';
-import type { FC, ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import type { ILastSeenEnvironments } from 'interfaces/featureToggle';
 import { TooltipResolver } from 'component/common/TooltipResolver/TooltipResolver';
 import { Box, styled, type SxProps } from '@mui/material';
@@ -50,12 +50,19 @@ const StyledTooltipResolver = styled(TooltipResolver)(({ theme }) => ({
   maxWidth: theme.spacing(47.5),
 }));
 
-const TooltipContainer: FC<{
+type TooltipContainerProps = {
   color?: string;
   tooltip: ReactElement | string;
   sx?: SxProps;
   children?: React.ReactNode;
-}> = ({ sx, tooltip, color, children }) => {
+};
+
+const TooltipContainer = ({
+  sx,
+  tooltip,
+  color,
+  children,
+}: TooltipContainerProps) => {
   return (
     <StyledContainer sx={sx}>
       <StyledTooltipResolver

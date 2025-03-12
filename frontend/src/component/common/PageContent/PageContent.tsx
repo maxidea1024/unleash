@@ -1,5 +1,4 @@
-import type React from 'react';
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import classnames from 'classnames';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Paper, type PaperProps, styled } from '@mui/material';
@@ -38,10 +37,15 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   boxShadow: 'none',
 }));
 
-const PageContentLoading: FC<{
+type PageContentLoadingProps = {
   isLoading: boolean;
-  children?: React.ReactNode;
-}> = ({ children, isLoading }) => {
+  children?: ReactNode;
+};
+
+const PageContentLoading = ({
+  children,
+  isLoading,
+}: PageContentLoadingProps) => {
   const ref = useLoading(isLoading);
 
   return (

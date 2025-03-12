@@ -28,7 +28,7 @@ import {
 } from '../../types';
 import { CUSTOM_ROOT_ROLE_TYPE } from '../../util';
 import type { GetActiveUsers } from './getActiveUsers';
-import type { ProjectModeCount } from '../project/project-store';
+import type { IProjectModeCount } from '../project/project-store';
 import type { GetProductionChanges } from './getProductionChanges';
 import { format } from 'date-fns';
 import type { GetLicensedUsers } from './getLicensedUsers';
@@ -45,7 +45,7 @@ export interface InstanceStats {
   apiTokens: Map<string, number>;
   featureToggles: number;
   archivedFeatureToggles: number;
-  projects: ProjectModeCount[];
+  projects: IProjectModeCount[];
   contextFields: number;
   roles: number;
   customRootRoles: number;
@@ -172,7 +172,7 @@ export class InstanceStatsService {
     this.trafficDataUsageStore = trafficDataUsageStore;
   }
 
-  getProjectModeCount(): Promise<ProjectModeCount[]> {
+  getProjectModeCount(): Promise<IProjectModeCount[]> {
     return this.projectStore.getProjectModeCounts();
   }
 

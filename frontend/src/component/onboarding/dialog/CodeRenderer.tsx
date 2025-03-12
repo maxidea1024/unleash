@@ -1,5 +1,4 @@
 import type { CodeComponent } from 'react-markdown/lib/ast-to-react';
-import type { FC } from 'react';
 import copy from 'copy-to-clipboard';
 import useToast from 'hooks/useToast';
 import { IconButton, styled, Tooltip } from '@mui/material';
@@ -57,7 +56,12 @@ const CopyToClipboard = styled(Tooltip)(({ theme }) => ({
   right: theme.spacing(1),
 }));
 
-const CopyBlock: FC<{ title: string; code: string }> = ({ title, code }) => {
+type CopyBlockProps = {
+  title: string;
+  code: string;
+};
+
+const CopyBlock = ({ title, code }: CopyBlockProps) => {
   const onCopyToClipboard = (data: string) => () => {
     copy(data);
     setToastData({

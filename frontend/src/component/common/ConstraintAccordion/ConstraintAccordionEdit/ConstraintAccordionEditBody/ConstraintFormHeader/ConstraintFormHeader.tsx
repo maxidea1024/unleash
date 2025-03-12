@@ -8,8 +8,11 @@ const StyledHeader = styled('h3')(({ theme }) => ({
   marginBottom: theme.spacing(0.5),
 }));
 
-export const ConstraintFormHeader: React.FC<
-  React.HTMLAttributes<HTMLDivElement>
-> = ({ children, ...rest }) => {
+type ConstraintFormHeaderProps = React.HTMLAttributes<HTMLDivElement>;
+
+export const ConstraintFormHeader = ({
+  children,
+  ...rest
+}: ConstraintFormHeaderProps) => {
   return <StyledHeader {...rest}>{children}</StyledHeader>;
 };

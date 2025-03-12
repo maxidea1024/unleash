@@ -6,11 +6,6 @@ import { FeatureStrategySegmentChip } from 'component/feature/FeatureStrategy/Fe
 import { SegmentItem } from 'component/common/SegmentItem/SegmentItem';
 import { styled } from '@mui/material';
 
-type FeatureStrategySegmentListProps = {
-  segments: ISegment[];
-  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
-};
-
 const StyledList = styled('div')(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
@@ -33,6 +28,11 @@ const StyledAnd = styled('p')(({ theme }) => ({
   color: theme.palette.text.primary,
   backgroundColor: theme.palette.background.elevation2,
 }));
+
+type FeatureStrategySegmentListProps = {
+  segments: ISegment[];
+  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
+};
 
 export const FeatureStrategySegmentList = ({
   segments,

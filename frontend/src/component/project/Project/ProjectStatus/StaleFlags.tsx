@@ -4,7 +4,6 @@ import { PrettifyLargeNumber } from 'component/common/PrettifyLargeNumber/Pretti
 import { useProjectStatus } from 'hooks/api/getters/useProjectStatus/useProjectStatus';
 import useLoading from 'hooks/useLoading';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { HealthGridTile } from './ProjectHealthGrid.styles';
 
@@ -19,7 +18,7 @@ const BigText = styled('span')(({ theme }) => ({
   lineHeight: 0,
 }));
 
-const BigNumber: FC<{ value?: number }> = ({ value }) => {
+const BigNumber = ({ value }: { value?: number }) => {
   return (
     <BigText data-loading-stale-flags>
       <PrettifyLargeNumber value={value ?? 0} threshold={1000} precision={1} />

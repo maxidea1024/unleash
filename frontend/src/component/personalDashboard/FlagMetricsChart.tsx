@@ -10,7 +10,7 @@ import {
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { Bar } from 'react-chartjs-2';
 import useTheme from '@mui/material/styles/useTheme';
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Box, type Theme, styled, Typography } from '@mui/material';
 import { FeatureMetricsHours } from '../feature/FeatureView/FeatureMetrics/FeatureMetricsHours/FeatureMetricsHours';
 import GeneralSelect from '../common/GeneralSelect/GeneralSelect';
@@ -44,9 +44,13 @@ const ChartWrapper = styled('div')({
   flexGrow: 1,
 });
 
-const PlaceholderFlagMetricsChart: React.FC<{ label: string }> = ({
+type PlaceholderFlagMetricsChartProps = {
+  label: string;
+};
+
+const PlaceholderFlagMetricsChart = ({
   label,
-}) => {
+}: PlaceholderFlagMetricsChartProps) => {
   const theme = useTheme();
 
   const options = useMemo(() => {
@@ -154,11 +158,17 @@ const useFlagMetrics = (
   return { data, options, loading, error };
 };
 
-const EnvironmentSelect: FC<{
+type EnvironmentSelectProps = {
   activeEnvironments: { name: string }[];
   environment: string;
   setEnvironment: (environment: string | null) => void;
-}> = ({ activeEnvironments, environment, setEnvironment }) => {
+};
+
+const EnvironmentSelect = ({
+  activeEnvironments,
+  environment,
+  setEnvironment,
+}: EnvironmentSelectProps) => {
   return (
     <GeneralSelect
       name='feature-environments'
@@ -203,9 +213,13 @@ const ExposureAndMetricsRow = styled('div')(({ theme }) => ({
   gap: theme.spacing(4),
 }));
 
-export const PlaceholderFlagMetricsChartWithWrapper: React.FC<{
+type PlaceholderFlagMetricsChartWithWrapperProps = {
   label: string;
-}> = (props) => {
+};
+
+export const PlaceholderFlagMetricsChartWithWrapper = (
+  props: PlaceholderFlagMetricsChartWithWrapperProps,
+) => {
   return (
     <ChartContainer>
       <PlaceholderFlagMetricsChart {...props} />
@@ -213,10 +227,15 @@ export const PlaceholderFlagMetricsChartWithWrapper: React.FC<{
   );
 };
 
-export const FlagMetricsChart: FC<{
+type FlagMetricsChartProps = {
   flag: { name: string; project: string };
   onArchive: () => void;
-}> = ({ flag, onArchive }) => {
+};
+
+export const FlagMetricsChart = ({
+  flag,
+  onArchive,
+}: FlagMetricsChartProps) => {
   const [hoursBack, setHoursBack] = useState(48);
 
   const { environment, setEnvironment, activeEnvironments } =

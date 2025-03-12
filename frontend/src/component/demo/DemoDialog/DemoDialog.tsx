@@ -46,7 +46,10 @@ export const DemoDialog = ({
   <StyledDialog
     open={open}
     onClose={(_, r) => {
-      if (preventCloseOnBackdropClick && r === 'backdropClick') return;
+      if (preventCloseOnBackdropClick && r === 'backdropClick') {
+        return;
+      }
+
       onClose();
     }}
     {...props}

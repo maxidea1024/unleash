@@ -1,4 +1,4 @@
-import { type FC, type MouseEvent, useContext, useState } from 'react';
+import { type MouseEvent, useContext, useState } from 'react';
 import {
   Button,
   ListItemIcon,

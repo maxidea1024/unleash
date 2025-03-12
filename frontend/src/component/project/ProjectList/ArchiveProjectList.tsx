@@ -1,4 +1,4 @@
-import { type FC, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -63,9 +63,12 @@ export const ArchiveProjectList = () => {
     });
   }, [searchValue, setSearchParams]);
 
-  const ProjectCard: FC<
-    Omit<ProjectArchiveCardProps, 'onRevive' | 'onDelete'>
-  > = ({ id, ...props }) => (
+  type ProjectCardProps = Omit<
+    ProjectArchiveCardProps,
+    'onRevive' | 'onDelete'
+  >;
+
+  const ProjectCard = ({ id, ...props }: ProjectCardProps) => (
     <ProjectArchiveCard
       onRevive={() =>
         setReviveProject({

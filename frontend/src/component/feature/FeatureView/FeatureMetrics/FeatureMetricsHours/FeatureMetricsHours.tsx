@@ -5,13 +5,13 @@ import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useEffect } from 'react';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
+export const FEATURE_METRIC_HOURS_BACK_DEFAULT = 48;
+
 type FeatureMetricsHoursProps = {
   hoursBack: number;
   setHoursBack: (value: number) => void;
   label?: string;
-}
-
-export const FEATURE_METRIC_HOURS_BACK_DEFAULT = 48;
+};
 
 export const FeatureMetricsHours = ({
   hoursBack,

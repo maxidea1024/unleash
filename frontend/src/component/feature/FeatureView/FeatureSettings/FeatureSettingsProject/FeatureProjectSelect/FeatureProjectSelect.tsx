@@ -5,12 +5,11 @@ import GeneralSelect, {
   type GeneralSelectProps,
 } from 'component/common/GeneralSelect/GeneralSelect';
 
-interface IFeatureProjectSelectProps
-  extends Omit<GeneralSelectProps, 'options'> {
+type FeatureProjectSelectProps = Omit<GeneralSelectProps, 'options'> & {
   enabled: boolean;
   value: string;
   filter: (projectId: string) => boolean;
-}
+};
 
 const FeatureProjectSelect = ({
   enabled,
@@ -18,7 +17,7 @@ const FeatureProjectSelect = ({
   onChange,
   filter,
   ...rest
-}: IFeatureProjectSelectProps) => {
+}: FeatureProjectSelectProps) => {
   const { projects } = useProjects();
 
   if (!enabled) {

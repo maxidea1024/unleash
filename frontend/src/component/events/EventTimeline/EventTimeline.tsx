@@ -14,7 +14,7 @@ export type TimelineEventType = 'signal' | EventSchemaType;
 
 type RawTimelineEvent = EventSchema | ISignalQuerySignal;
 
-export type TimelineEvent = {
+export interface ITimelineEvent {
   id: number;
   timestamp: number;
   type: TimelineEventType;
@@ -24,7 +24,7 @@ export type TimelineEvent = {
   variant?: string;
 };
 
-export type TimelineEventGroup = TimelineEvent[];
+export type TimelineEventGroup = ITimelineEvent[];
 
 const StyledRow = styled('div')({
   display: 'flex',
@@ -120,7 +120,7 @@ const getTimelineEvent = (
   event: RawTimelineEvent,
   timestamp: number,
   environment?: IEnvironment,
-): TimelineEvent | undefined => {
+): ITimelineEvent | undefined => {
   if (isSignal(event)) {
     const {
       id,
@@ -198,7 +198,7 @@ export const EventTimeline = () => {
   const events = useMemo(
     () =>
       [...baseEvents, ...baseSignals]
-        .reduce<TimelineEvent[]>((acc, event) => {
+        .reduce<ITimelineEvent[]>((acc, event) => {
           const timestamp = getTimestamp(event);
           if (isInRange(timestamp, startTime, endTime)) {
             const timelineEvent = getTimelineEvent(

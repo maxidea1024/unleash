@@ -295,12 +295,13 @@ export class SegmentService implements ISegmentService {
   }
 
   private validateSegmentValuesLimit(segment: Omit<ISegment, 'id'>): void {
-    const { segmentValuesLimit } = this.config;
+    const { resourceLimits } = this.config;
 
     const valuesCount = segment.constraints
       .flatMap((constraint) => constraint.values?.length ?? 0)
       .reduce((acc, length) => acc + length, 0);
 
+    const segmentValuesLimit = resourceLimits.segmentValues;
     if (valuesCount > segmentValuesLimit) {
       throw new BadDataError(
         `Segments may not have more than ${segmentValuesLimit} values`,

@@ -24,15 +24,15 @@ import { PayloadCell } from './PayloadCell/PayloadCell';
 import { OverridesCell } from './OverridesCell/OverridesCell';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
 
-interface IEnvironmentVariantsTableProps {
+type EnvironmentVariantsTableProps = {
   variants: IFeatureVariant[];
   searchValue?: string;
-}
+};
 
 export const EnvironmentVariantsTable = ({
   variants,
   searchValue = '',
-}: IEnvironmentVariantsTableProps) => {
+}: EnvironmentVariantsTableProps) => {
   const projectId = useRequiredPathParam('projectId');
 
   const theme = useTheme();

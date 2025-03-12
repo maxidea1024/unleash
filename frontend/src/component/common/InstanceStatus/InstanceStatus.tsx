@@ -101,9 +101,9 @@ const TrialDialog = ({ instanceStatus, onExtendTrial }: TrialDialogProps) => {
   );
 };
 
-export const InstanceStatus: FC<{ children?: React.ReactNode }> = ({
+export const InstanceStatus = ({
   children,
-}) => {
+}: { children?: React.ReactNode }) => {
   const { instanceStatus, refetchInstanceStatus } = useInstanceStatus();
   const { extendTrial } = useInstanceStatusApi();
   const { setToastApiError } = useToast();

@@ -1,4 +1,4 @@
-import { type FC, Fragment } from 'react';
+import { Fragment } from 'react';
 import type { PlaygroundConstraintSchema } from 'openapi';
 import { objectId } from 'utils/objectId';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -16,9 +16,9 @@ type ConstraintExecutionWithoutResultsProps = {
   constraints?: PlaygroundConstraintSchema[];
 };
 
-export const ConstraintExecutionWithoutResults: FC<
-  ConstraintExecutionWithoutResultsProps
-> = ({ constraints }) => {
+export const ConstraintExecutionWithoutResults = ({
+  constraints,
+}: ConstraintExecutionWithoutResultsProps) => {
   if (!constraints) {
     return null;
   }

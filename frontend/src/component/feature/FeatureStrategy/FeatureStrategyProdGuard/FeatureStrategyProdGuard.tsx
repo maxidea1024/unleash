@@ -6,16 +6,16 @@ import { PRODUCTION } from 'constants/environmentTypes';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { createLocalStorage } from 'utils/createLocalStorage';
 
+type FeatureStrategyProdGuardSettings = {
+  hide: boolean;
+};
+
 type FeatureStrategyProdGuardProps = {
   open: boolean;
   onClick: () => void;
   onClose: () => void;
   label: string;
   loading: boolean;
-};
-
-type FeatureStrategyProdGuardSettings = {
-  hide: boolean;
 };
 
 export const FeatureStrategyProdGuard = ({

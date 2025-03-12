@@ -2,7 +2,6 @@ import { Box, styled, Typography } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 import type * as React from 'react';
-import type { FC } from 'react';
 import { ReactComponent as InitialStageIcon } from 'assets/icons/stage-initial.svg';
 import { ReactComponent as PreLiveStageIcon } from 'assets/icons/stage-pre-live.svg';
 import { ReactComponent as LiveStageIcon } from 'assets/icons/stage-live.svg';
@@ -109,9 +108,11 @@ const ColorFill = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2, 3),
 }));
 
-const LastSeenIcon: FC<{
+type LastSeenIconProps = {
   lastSeen: string;
-}> = ({ lastSeen }) => {
+};
+
+const LastSeenIcon = ({ lastSeen }: LastSeenIconProps) => {
   const getColor = useLastSeenColors();
   const { text, background } = getColor(lastSeen);
 
@@ -122,7 +123,7 @@ const LastSeenIcon: FC<{
   );
 };
 
-const InitialStageDescription: FC = () => {
+const InitialStageDescription = () => {
   return (
     <>
       <InfoText>
@@ -140,9 +141,11 @@ const InitialStageDescription: FC = () => {
   );
 };
 
-const StageTimeline: FC<{
+type StageTimelineProps = {
   stage: LifecycleStage;
-}> = ({ stage }) => {
+};
+
+const StageTimeline = ({ stage }: StageTimelineProps) => {
   return (
     <IconsRow>
       <StageBox data-after-content='Initial' active={stage.name === 'initial'}>
@@ -199,12 +202,14 @@ const CenteredBox = styled(Box)(({ theme }) => ({
   gap: theme.spacing(1),
 }));
 
-const Environments: FC<{
+type EnvironmentsProps = {
   environments: Array<{
     name: string;
     lastSeenAt: string;
   }>;
-}> = ({ environments }) => {
+};
+
+const Environments = ({ environments }: EnvironmentsProps) => {
   return (
     <Box>
       {environments.map((environment) => {
@@ -225,9 +230,13 @@ const Environments: FC<{
   );
 };
 
-const PreLiveStageDescription: FC<{ children?: React.ReactNode }> = ({
+type PreLiveStageDescriptionProps = {
+  children?: React.ReactNode;
+};
+
+const PreLiveStageDescription = ({
   children,
-}) => {
+}: PreLiveStageDescriptionProps) => {
   return (
     <>
       <InfoText>
@@ -246,12 +255,19 @@ const BoldTitle = styled(Typography)(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-const LiveStageDescription: FC<{
+type LiveStageDescriptionProps = {
   onComplete: () => void;
   loading: boolean;
-  children?: React.ReactNode;
   project: string;
-}> = ({ children, onComplete, loading, project }) => {
+  children?: React.ReactNode;
+};
+
+const LiveStageDescription = ({
+  children,
+  onComplete,
+  loading,
+  project,
+}: LiveStageDescriptionProps) => {
   return (
     <>
       <BoldTitle>Is this feature complete?</BoldTitle>
@@ -283,12 +299,19 @@ const LiveStageDescription: FC<{
   );
 };
 
-const SafeToArchive: FC<{
+type SafeToArchiveProps = {
   onArchive: () => void;
   onUncomplete: () => void;
   loading: boolean;
   project: string;
-}> = ({ onArchive, onUncomplete, loading, project }) => {
+};
+
+const SafeToArchive = ({
+  onArchive,
+  onUncomplete,
+  loading,
+  project,
+}: SafeToArchiveProps) => {
   return (
     <>
       <BoldTitle>Safe to archive</BoldTitle>
@@ -336,11 +359,17 @@ const SafeToArchive: FC<{
   );
 };
 
-const ActivelyUsed: FC<{
+type ActivelyUsedProps = {
   onUncomplete: () => void;
   loading: boolean;
   children?: React.ReactNode;
-}> = ({ children, onUncomplete, loading }) => (
+};
+
+const ActivelyUsed = ({
+  children,
+  onUncomplete,
+  loading,
+}: ActivelyUsedProps) => (
   <>
     <InfoText
       sx={{
@@ -375,7 +404,7 @@ const ActivelyUsed: FC<{
   </>
 );
 
-const CompletedStageDescription: FC<{
+type CompletedStageDescriptionProps = {
   onArchive: () => void;
   onUncomplete: () => void;
   loading: boolean;
@@ -385,14 +414,16 @@ const CompletedStageDescription: FC<{
   }>;
   children?: React.ReactNode;
   project: string;
-}> = ({
+};
+
+const CompletedStageDescription = ({
   children,
   environments,
   onArchive,
   onUncomplete,
   loading,
   project,
-}) => {
+}: CompletedStageDescriptionProps) => {
   return (
     <ConditionallyRender
       condition={isSafeToArchive(environments)}
@@ -413,23 +444,27 @@ const CompletedStageDescription: FC<{
   );
 };
 
-const FormatTime: FC<{
+type FormatTimeProps = {
   time: string;
-}> = ({ time }) => {
+};
+
+const FormatTime = ({ time }: FormatTimeProps) => {
   const { locationSettings } = useLocationSettings();
 
   return <span>{formatDateYMDHMS(time, locationSettings.locale)}</span>;
 };
 
-const FormatElapsedTime: FC<{
+type FormatElapsedTimeProps = {
   time: string;
-}> = ({ time }) => {
+};
+
+const FormatElapsedTime = ({ time }: FormatElapsedTimeProps) => {
   const pastTime = parseISO(time);
   const elapsedTime = formatDistanceToNow(pastTime, { addSuffix: false });
   return <span>{elapsedTime}</span>;
 };
 
-export const FeatureLifecycleTooltip: FC<{
+type FeatureLifecycleTooltipProps = {
   children: React.ReactElement<any, any>;
   stage: LifecycleStage;
   project: string;
@@ -437,7 +472,9 @@ export const FeatureLifecycleTooltip: FC<{
   onComplete: () => void;
   onUncomplete: () => void;
   loading: boolean;
-}> = ({
+};
+
+export const FeatureLifecycleTooltip = ({
   children,
   stage,
   project,
@@ -445,7 +482,7 @@ export const FeatureLifecycleTooltip: FC<{
   onComplete,
   onUncomplete,
   loading,
-}) => (
+}: FeatureLifecycleTooltipProps) => (
   <HtmlTooltip
     maxHeight={800}
     maxWidth={350}

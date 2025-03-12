@@ -1,4 +1,4 @@
-import { type FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useToast from 'hooks/useToast';
@@ -102,10 +102,15 @@ const ArchiveParentError = ({
   return null;
 };
 
-const ScheduledChangeRequestAlert: FC<{
+type ScheduledChangeRequestAlertProps = {
   changeRequests?: ScheduledChangeRequestViewModel[];
   projectId: string;
-}> = ({ changeRequests, projectId }) => {
+};
+
+const ScheduledChangeRequestAlert = ({
+  changeRequests,
+  projectId,
+}: ScheduledChangeRequestAlertProps) => {
   if (changeRequests && changeRequests.length > 0) {
     return (
       <Alert severity='warning' sx={{ m: (theme) => theme.spacing(2, 0) }}>

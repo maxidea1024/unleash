@@ -10,14 +10,16 @@ const StyledItem = styled(Typography)(({ theme }) => ({
   whiteSpace: 'pre-wrap',
 }));
 
-interface IPayloadCellProps {
+type PayloadCellProps = {
   value?: IPayload;
-}
+};
 
-export const PayloadCell = ({ value: payload }: IPayloadCellProps) => {
+export const PayloadCell = ({ value: payload }: PayloadCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
-  if (!payload) return <TextCell />;
+  if (!payload) {
+    return <TextCell />;
+  }
 
   if (payload.type === 'string' && payload.value.length < 20) {
     return (

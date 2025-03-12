@@ -98,10 +98,15 @@ const DisabledEnabledState: FC<{ show?: boolean; disabled: boolean }> = ({
   );
 };
 
-const EditHeader: FC<{
+type EditHeaderProps = {
   wasDisabled?: boolean;
-  willBeDisabled?: boolean;
-}> = ({ wasDisabled = false, willBeDisabled = false }) => {
+  willBeDisabled?: boolean; // eslint-disable-line react/no-unused-prop-types
+};
+
+const EditHeader = ({
+  wasDisabled = false,
+  willBeDisabled = false,
+}: EditHeaderProps) => {
   if (wasDisabled && willBeDisabled) {
     return <Typography color='action.disabled'>Editing strategy:</Typography>;
   }

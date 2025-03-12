@@ -1,6 +1,6 @@
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import KeyboardArrowDownOutlined from '@mui/icons-material/KeyboardArrowDownOutlined';
-import { type FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Box, styled, Typography } from '@mui/material';
 import { IMPORT_ENVIRONMENT } from 'utils/testIds';
 import useProjectOverview from 'hooks/api/getters/useProjectOverview/useProjectOverview';
@@ -20,17 +20,17 @@ const ImportOptionsDescription = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1.5),
 }));
 
-interface IImportOptionsProps {
+type ImportOptionsProps = {
   project: string;
   environment: string;
   onChange: (value: string) => void;
-}
+};
 
-export const ImportOptions: FC<IImportOptionsProps> = ({
+export const ImportOptions = ({
   project,
   environment,
   onChange,
-}) => {
+}: ImportOptionsProps) => {
   const { project: projectInfo } = useProjectOverview(project);
   const environmentOptions = projectInfo.environments.map(
     ({ environment }) => ({

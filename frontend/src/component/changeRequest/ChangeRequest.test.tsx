@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from 'themes/ThemeProvider';
@@ -223,11 +222,17 @@ const otherRequests = (feature: string) => {
   });
 };
 
-const UnleashUiSetup: FC<{
+type UnleashUiSetupProps = {
   path: string;
   pathTemplate: string;
   children?: React.ReactNode;
-}> = ({ children, path, pathTemplate }) => (
+};
+
+const UnleashUiSetup = ({
+  children,
+  path,
+  pathTemplate,
+}: UnleashUiSetupProps) => (
   <UIProviderContainer>
     <AccessProvider>
       <MemoryRouter initialEntries={[path]}>

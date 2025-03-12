@@ -5,14 +5,13 @@ import GeneralSelect, {
 } from 'component/common/GeneralSelect/GeneralSelect';
 import type { CreateFeatureSchemaType } from 'openapi';
 
-interface IFeatureTypeSelectProps
-  extends Omit<
-    GeneralSelectProps<CreateFeatureSchemaType>,
-    'options' | 'value'
-  > {
+type FeatureTypeSelectProps = Omit<
+  GeneralSelectProps<CreateFeatureSchemaType>,
+  'options' | 'value'
+> & {
   value: CreateFeatureSchemaType;
   editable: boolean;
-}
+};
 
 const FeatureTypeSelect = ({
   editable,
@@ -21,7 +20,7 @@ const FeatureTypeSelect = ({
   label,
   onChange,
   ...rest
-}: IFeatureTypeSelectProps) => {
+}: FeatureTypeSelectProps) => {
   const { featureTypes } = useFeatureTypes();
 
   const options: ISelectOption[] = featureTypes.map((t) => ({

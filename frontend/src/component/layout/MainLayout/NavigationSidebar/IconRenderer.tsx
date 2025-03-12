@@ -29,7 +29,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LaunchIcon from '@mui/icons-material/Launch';
 import PersonalDashboardIcon from '@mui/icons-material/DashboardOutlined';
-import type { FC } from 'react';
 
 // TODO: move to routes
 const icons: Record<string, typeof SvgIcon> = {
@@ -68,7 +67,11 @@ const findIcon = (key: string) => {
   return icons[key] || EmptyIcon;
 };
 
-export const IconRenderer: FC<{ path: string }> = ({ path }) => {
+type IconRendererProps = {
+  path: string;
+};
+
+export const IconRenderer = ({ path }: IconRendererProps) => {
   const IconComponent = findIcon(path); // Fallback to 'default' if the type is not found
 
   return <IconComponent />;

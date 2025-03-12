@@ -3,32 +3,32 @@ import { EventTimelineContext } from './EventTimelineContext';
 import { useLocalStorageState } from 'hooks/useLocalStorageState';
 import type { IEnvironment } from 'interfaces/environments';
 
-type TimeSpanOption = {
+interface ITimeSpanOption {
   key: string;
   label: string;
   value: Duration;
   markers: string[];
-};
+}
 
-type EventTimelinePersistentState = {
+interface IEventTimelinePersistentState {
   open: boolean;
-  timeSpan: TimeSpanOption;
+  timeSpan: ITimeSpanOption;
   environment?: IEnvironment;
   signalsSuggestionSeen?: boolean;
-};
+}
 
-type EventTimelineStateSetters = {
+interface IEventTimelineStateSetters {
   setOpen: (open: boolean) => void;
-  setTimeSpan: (timeSpan: TimeSpanOption) => void;
+  setTimeSpan: (timeSpan: ITimeSpanOption) => void;
   setEnvironment: (environment: IEnvironment) => void;
   setSignalsSuggestionSeen: (seen: boolean) => void;
-};
+}
 
 export interface IEventTimelineContext
-  extends EventTimelinePersistentState,
-    EventTimelineStateSetters {}
+  extends IEventTimelinePersistentState,
+    IEventTimelineStateSetters {}
 
-export const timeSpanOptions: TimeSpanOption[] = [
+export const timeSpanOptions: ITimeSpanOption[] = [
   {
     key: '30m',
     label: 'last 30 min',
@@ -67,26 +67,26 @@ export const timeSpanOptions: TimeSpanOption[] = [
   },
 ];
 
-const defaultState: EventTimelinePersistentState = {
+const defaultState: IEventTimelinePersistentState = {
   open: false,
   timeSpan: timeSpanOptions[0],
 };
 
-interface IEventTimelineProviderProps {
+type EventTimelineProviderProps = {
   children: ReactNode;
-}
+};
 
 export const EventTimelineProvider = ({
   children,
-}: IEventTimelineProviderProps) => {
-  const [state, setState] = useLocalStorageState<EventTimelinePersistentState>(
+}: EventTimelineProviderProps) => {
+  const [state, setState] = useLocalStorageState<IEventTimelinePersistentState>(
     'event-timeline:v1',
     defaultState,
   );
 
-  const setField = <K extends keyof EventTimelinePersistentState>(
+  const setField = <K extends keyof IEventTimelinePersistentState>(
     key: K,
-    value: EventTimelinePersistentState[K],
+    value: IEventTimelinePersistentState[K],
   ) => {
     setState((prevState) => ({ ...prevState, [key]: value }));
   };
@@ -94,7 +94,7 @@ export const EventTimelineProvider = ({
   const contextValue: IEventTimelineContext = {
     ...state,
     setOpen: (open: boolean) => setField('open', open),
-    setTimeSpan: (timeSpan: TimeSpanOption) => setField('timeSpan', timeSpan),
+    setTimeSpan: (timeSpan: ITimeSpanOption) => setField('timeSpan', timeSpan),
     setEnvironment: (environment: IEnvironment) =>
       setField('environment', environment),
     setSignalsSuggestionSeen: (seen: boolean) =>

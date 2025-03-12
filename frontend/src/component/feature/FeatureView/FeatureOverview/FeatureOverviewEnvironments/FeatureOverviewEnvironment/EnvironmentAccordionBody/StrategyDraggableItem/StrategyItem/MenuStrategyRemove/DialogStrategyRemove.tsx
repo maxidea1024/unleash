@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import useFeatureStrategyApi from 'hooks/api/actions/useFeatureStrategyApi/useFeatureStrategyApi';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { Link, useNavigate } from 'react-router-dom';
@@ -39,7 +38,7 @@ type FeatureStrategyRemoveDialogueProps = {
   scheduledChangeRequestsForStrategy: ScheduledChangeRequestData;
 };
 
-const RemoveAlert: FC = () => (
+const RemoveAlert = () => (
   <Alert severity='error'>
     Removing the strategy will change which users receive access to the feature.
   </Alert>
@@ -51,10 +50,15 @@ const AlertContainer = styled('div')(({ theme }) => ({
   },
 }));
 
-const StrategyInScheduledChangeRequestsWarning: FC<{
+type StrategyInScheduledChangeRequestsWarningProps = {
   changeRequests?: ChangeRequest[];
   projectId: string;
-}> = ({ changeRequests, projectId }) => {
+};
+
+const StrategyInScheduledChangeRequestsWarning = ({
+  changeRequests,
+  projectId,
+}: StrategyInScheduledChangeRequestsWarningProps) => {
   if (changeRequests && changeRequests.length > 0) {
     return (
       <Alert severity='warning'>
@@ -97,9 +101,11 @@ const StrategyInScheduledChangeRequestsWarning: FC<{
   return null;
 };
 
-const Alerts: FC<{
+type AlertsProps = {
   scheduledChangeRequestsForStrategy: ScheduledChangeRequestData;
-}> = ({ scheduledChangeRequestsForStrategy }) => (
+};
+
+const Alerts = ({ scheduledChangeRequestsForStrategy }: AlertsProps) => (
   <AlertContainer>
     <RemoveAlert />
     <StrategyInScheduledChangeRequestsWarning
@@ -109,9 +115,12 @@ const Alerts: FC<{
   </AlertContainer>
 );
 
-export const FeatureStrategyRemoveDialogue: FC<
-  FeatureStrategyRemoveDialogueProps
-> = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
+export const FeatureStrategyRemoveDialogue = ({
+  onRemove,
+  onClose,
+  isOpen,
+  scheduledChangeRequestsForStrategy,
+}: FeatureStrategyRemoveDialogueProps) => {
   return (
     <Dialogue
       title='Are you sure you want to delete this strategy?'
@@ -133,9 +142,12 @@ const MsgContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-export const SuggestFeatureStrategyRemoveDialogue: FC<
-  FeatureStrategyRemoveDialogueProps
-> = ({ onRemove, onClose, isOpen, scheduledChangeRequestsForStrategy }) => {
+export const SuggestFeatureStrategyRemoveDialogue = ({
+  onRemove,
+  onClose,
+  isOpen,
+  scheduledChangeRequestsForStrategy,
+}: FeatureStrategyRemoveDialogueProps) => {
   return (
     <Dialogue
       title='Suggest changes'
@@ -158,19 +170,19 @@ export const SuggestFeatureStrategyRemoveDialogue: FC<
   );
 };
 
-interface IRemoveProps {
+type RemoveProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
   strategyId: string;
-}
+};
 
 const useOnRemove = ({
   projectId,
   featureId,
   environmentId,
   strategyId,
-}: IRemoveProps) => {
+}: RemoveProps) => {
   const { deleteStrategyFromFeature } = useFeatureStrategyApi();
   const { setToastData, setToastApiError } = useToast();
   const navigate = useNavigate();
@@ -203,7 +215,7 @@ const useOnSuggestRemove = ({
   featureId,
   environmentId,
   strategyId,
-}: IRemoveProps) => {
+}: RemoveProps) => {
   const { addChange } = useChangeRequestApi();
   const { refetch: refetchChangeRequests } =
     usePendingChangeRequests(projectId);
@@ -230,6 +242,11 @@ const useOnSuggestRemove = ({
   return onSuggestRemove;
 };
 
+type DialogStrategyRemoveProps = FeatureStrategyRemoveProps & {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
 export const DialogStrategyRemove = ({
   projectId,
   featureId,
@@ -237,10 +254,7 @@ export const DialogStrategyRemove = ({
   strategyId,
   isOpen,
   onClose,
-}: FeatureStrategyRemoveProps & {
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
+}: DialogStrategyRemoveProps) => {
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);
 
   const { changeRequests } = useScheduledChangeRequestsWithStrategy(

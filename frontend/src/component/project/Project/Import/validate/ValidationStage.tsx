@@ -84,14 +84,23 @@ const StyledItem = styled('li')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
 
-export const ValidationStage: FC<{
+type ValidationStageProps = {
   environment: string;
   project: string;
   payload: string;
   onClose: () => void;
   onSubmit: () => void;
   onBack: () => void;
-}> = ({ environment, project, payload, onClose, onBack, onSubmit }) => {
+};
+
+export const ValidationStage = ({
+  environment,
+  project,
+  payload,
+  onClose,
+  onBack,
+  onSubmit,
+}: ValidationStageProps) => {
   const { validateImport } = useValidateImportApi();
   const { setToastData } = useToast();
   const { trackEvent } = usePlausibleTracker();

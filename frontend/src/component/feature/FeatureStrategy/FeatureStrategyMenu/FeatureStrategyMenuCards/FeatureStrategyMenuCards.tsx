@@ -5,16 +5,16 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { useReleasePlanTemplates } from 'hooks/api/getters/useReleasePlanTemplates/useReleasePlanTemplates';
 import { FeatureReleasePlanCard } from '../FeatureReleasePlanCard/FeatureReleasePlanCard';
 
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  fontSize: theme.fontSizes.smallBody,
+  padding: theme.spacing(1, 2),
+}));
+
 type FeatureStrategyMenuCardsProps = {
   projectId: string;
   featureId: string;
   environmentId: string;
 };
-
-const StyledTypography = styled(Typography)(({ theme }) => ({
-  fontSize: theme.fontSizes.smallBody,
-  padding: theme.spacing(1, 2),
-}));
 
 export const FeatureStrategyMenuCards = ({
   projectId,

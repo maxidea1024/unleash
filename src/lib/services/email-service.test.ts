@@ -15,6 +15,7 @@ test('Can send reset email', async () => {
     },
     getLogger: noLoggerProvider,
   } as unknown as IUnleashConfig);
+  // TODO: 미리 띄워놓은 서버의 주소같은데, 이걸 테스트할때만 사용하는건가?
   const resetLinkUrl =
     'https://unleash-hosted.com/reset-password?token=$2b$10$M06Ysso6KL4ueH/xR6rdSuY5GSymdIwmIkEUJMRkB.Qn26r5Gi5vW';
 
@@ -170,7 +171,7 @@ test('Can send productivity report email', async () => {
     },
   );
   expect(content.from).toBe('noreply@getunleash.ai');
-  expect(content.subject).toBe('Unleash - productivity report');
+  expect(content.subject).toBe('Ganpa - productivity report');
   expect(content.html.includes(`Productivity Report`)).toBe(true);
   expect(content.html.includes(`localhost/insights`)).toBe(true);
   expect(content.html.includes(`localhost/profile`)).toBe(true);

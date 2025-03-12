@@ -12,7 +12,7 @@ import { StyledFileDropZone } from './StyledFileDropZone';
 import { PulsingAvatar } from 'component/common/PulsingAvatar/PulsingAvatar';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
 import { ImportExplanation } from './ImportExplanation';
-import { type FC, type ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import useToast from 'hooks/useToast';
 import { ImportLayoutContainer } from '../ImportLayoutContainer';
 import { ActionsContainer } from '../ActionsContainer';
@@ -44,10 +44,15 @@ const MaxSizeMessage = styled(Typography)(({ theme }) => ({
 
 export type ImportMode = 'file' | 'code';
 
-export const ConfigurationTabs: FC<{
+type ConfigurationTabsProps = {
   activeTab: ImportMode;
   setActiveTab: (mode: ImportMode) => void;
-}> = ({ activeTab, setActiveTab }) => (
+};
+
+export const ConfigurationTabs = ({
+  activeTab,
+  setActiveTab,
+}: ConfigurationTabsProps) => (
   <Box
     sx={{
       borderBottom: 1,
@@ -70,12 +75,19 @@ export const ConfigurationTabs: FC<{
   </Box>
 );
 
-export const ImportArea: FC<{
+type ImportAreaProps = {
   activeTab: ImportMode;
   setActiveTab: (mode: ImportMode) => void;
   importPayload: string;
   setImportPayload: (payload: string) => void;
-}> = ({ activeTab, setActiveTab, importPayload, setImportPayload }) => {
+};
+
+export const ImportArea = ({
+  activeTab,
+  setActiveTab,
+  importPayload,
+  setImportPayload,
+}: ImportAreaProps) => {
   const [dragActive, setDragActive] = useState(false);
   const { setToastData } = useToast();
 
@@ -130,11 +142,13 @@ export const ImportArea: FC<{
   );
 };
 
-export const Actions: FC<{
+type ActionsProps = {
   onSubmit: () => void;
   onClose: () => void;
   disabled: boolean;
-}> = ({ onSubmit, onClose, disabled }) => (
+};
+
+export const Actions = ({ onSubmit, onClose, disabled }: ActionsProps) => (
   <ActionsContainer>
     <Button
       sx={{ position: 'static' }}
@@ -157,12 +171,19 @@ export const Actions: FC<{
   </ActionsContainer>
 );
 
-export const ConfigurationStage: FC<{
+type ConfigurationStageProps = {
   tabs: ReactNode;
   importOptions: ReactNode;
   importArea: ReactNode;
   actions: ReactNode;
-}> = ({ tabs, importOptions, importArea, actions }) => {
+};
+
+export const ConfigurationStage = ({
+  tabs,
+  importOptions,
+  importArea,
+  actions,
+}: ConfigurationStageProps) => {
   return (
     <ImportLayoutContainer>
       {tabs}

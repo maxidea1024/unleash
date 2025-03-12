@@ -1,5 +1,4 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Button, styled, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
@@ -39,7 +38,7 @@ const StyledHomeButton = styled(Button)(({ theme }) => ({
   top: 45,
 }));
 
-const NotFound: FC<{ children?: React.ReactNode }> = ({ children }) => {
+const NotFound = ({ children }: { children?: React.ReactNode }) => {
   const navigate = useNavigate();
 
   const onClickHome = () => {

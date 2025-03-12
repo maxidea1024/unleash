@@ -1,6 +1,5 @@
 import { Button, styled, Typography } from '@mui/material';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
-import type { FC } from 'react';
 import { ActionBox } from './ActionBox';
 import { Link } from 'react-router-dom';
 import { NeutralCircleContainer } from './SharedComponents';
@@ -21,8 +20,9 @@ const SuccessContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2, 2, 2, 2),
 }));
 
-export const CreateFlag: FC<{ project: string }> = ({ project }) => {
+export const CreateFlag = ({ project }: { project: string }) => {
   const { trackEvent } = usePlausibleTracker();
+
   return (
     <ActionBox
       data-loading
@@ -56,7 +56,7 @@ export const CreateFlag: FC<{ project: string }> = ({ project }) => {
   );
 };
 
-export const ExistingFlag: FC<{ project: string }> = ({ project }) => {
+export const ExistingFlag = ({ project }: { project: string }) => {
   return (
     <ActionBox
       title={
@@ -87,7 +87,7 @@ export const ExistingFlag: FC<{ project: string }> = ({ project }) => {
   );
 };
 
-export const ConnectSDK: FC<{ project: string }> = ({ project }) => {
+export const ConnectSDK = ({ project }: { project: string }) => {
   return (
     <ActionBox
       data-loading

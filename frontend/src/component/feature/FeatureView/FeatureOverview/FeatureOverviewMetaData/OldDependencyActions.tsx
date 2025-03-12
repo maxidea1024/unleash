@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import {
   IconButton,
   ListItemIcon,
@@ -21,11 +21,17 @@ const StyledPopover = styled(Popover)(({ theme }) => ({
   padding: theme.spacing(1, 1.5),
 }));
 
-export const OldDependencyActions: FC<{
+type OldDependencyActionsProps = {
   feature: string;
   onEdit: () => void;
   onDelete: () => void;
-}> = ({ feature, onEdit, onDelete }) => {
+};
+
+export const OldDependencyActions = ({
+  feature,
+  onEdit,
+  onDelete,
+}: OldDependencyActionsProps) => {
   const id = `dependency-${feature}-actions`;
   const menuId = `${id}-menu`;
 

@@ -1,6 +1,5 @@
 import { Box, styled, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import type { FC } from 'react';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { useChangeRequestsCount } from 'hooks/api/getters/useChangeRequestsCount/useChangeRequestsCount';
 
@@ -41,9 +40,9 @@ const ChangeRequestCount = styled(Typography)(({ theme }) => ({
   fontWeight: theme.fontWeight.bold,
 }));
 
-export const ProjectOverviewChangeRequests: FC<{ project: string }> = ({
+export const ProjectOverviewChangeRequests = ({
   project,
-}) => {
+}: { project: string }) => {
   const { isChangeRequestConfiguredInAnyEnv } =
     useChangeRequestsEnabled(project);
   const { data } = useChangeRequestsCount(project);

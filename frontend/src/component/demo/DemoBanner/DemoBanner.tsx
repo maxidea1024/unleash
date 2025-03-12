@@ -44,7 +44,7 @@ export const DemoBanner = ({ onPlans }: DemoBannerProps) => {
   return (
     <StyledBanner>
       <span>
-        This is a <strong>demo of Unleash</strong>. Play around as much as you
+        This is a <strong>demo of Ganpa</strong>. Play around as much as you
         want. Reach out when you're ready.
       </span>
       <StyledButtons>

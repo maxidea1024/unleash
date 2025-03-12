@@ -1,7 +1,6 @@
 import type React from 'react';
-import type { ReactNode, FC } from 'react';
+import type { ReactNode, } from 'react';
 import classnames from 'classnames';
-
 import {
   Divider,
   styled,
@@ -107,7 +106,11 @@ const PageHeaderComponent = ({
   );
 };
 
-const PageHeaderDivider: FC<{ sx?: SxProps<Theme> }> = ({ sx }) => {
+type PageHeaderDividerProps = {
+  sx?: SxProps<Theme>;
+};
+
+const PageHeaderDivider = ({ sx }: PageHeaderDividerProps) => {
   return <StyledDivider orientation='vertical' variant='middle' sx={sx} />;
 };
 

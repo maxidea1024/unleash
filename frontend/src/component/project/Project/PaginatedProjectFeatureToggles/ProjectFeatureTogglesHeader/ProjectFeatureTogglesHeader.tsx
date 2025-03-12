@@ -89,16 +89,14 @@ export const FlagCreationButton = ({
   );
 };
 
-export const ProjectFeatureTogglesHeader: FC<
-  ProjectFeatureTogglesHeaderProps
-> = ({
+export const ProjectFeatureTogglesHeader = ({
   isLoading,
   totalItems,
   searchQuery,
   onChangeSearchQuery,
   environmentsToExport,
   actions,
-}) => {
+}: ProjectFeatureTogglesHeaderProps) => {
   const projectId = useRequiredPathParam('projectId');
   const headerLoadingRef = useLoading(isLoading || false);
   const [showTitle, setShowTitle] = useState(true);
@@ -123,7 +121,7 @@ export const ProjectFeatureTogglesHeader: FC<
 
   const createFeedbackContext = () => {
     openFeedback({
-      title: 'How easy was it to work with the project overview in Unleash?',
+      title: 'How easy was it to work with the project overview in Ganpa?',
       positiveLabel:
         'What do you like most about the updated project overview?',
       areasForImprovementsLabel:

@@ -25,6 +25,7 @@ export const useEventLogFilters = (
   const { eventCreators } = useEventCreators();
 
   const [availableFilters, setAvailableFilters] = useState<IFilterItem[]>([]);
+
   useEffect(() => {
     const projectOptions =
       projects?.map((project: ProjectSchema) => ({

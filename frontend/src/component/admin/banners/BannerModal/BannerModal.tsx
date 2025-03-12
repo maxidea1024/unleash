@@ -121,7 +121,7 @@ export const BannerModal = ({ banner, open, setOpen }: BannerModalProps) => {
         loading={loading}
         modal
         title={title}
-        description='Banners allow you to display messages to other users inside your Unleash instance.'
+        description='Banners allow you to display messages to other users inside your Ganpa instance.'
         documentationLink='https://docs.getunleash.io/reference/banners'
         documentationLinkLabel='Banners documentation'
         formatApiCode={formatApiCode}

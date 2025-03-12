@@ -7,7 +7,7 @@ import type {
 import NotFoundError from '../../lib/error/notfound-error';
 import type {
   IEnvironmentProjectLink,
-  ProjectModeCount,
+  IProjectModeCount,
 } from '../../lib/features/project/project-store';
 import type { CreateFeatureStrategySchema } from '../../lib/openapi';
 import type {
@@ -185,7 +185,7 @@ export default class FakeProjectStore implements IProjectStore {
     return Promise.resolve(false);
   }
 
-  getProjectModeCounts(): Promise<ProjectModeCount[]> {
+  getProjectModeCounts(): Promise<IProjectModeCount[]> {
     return Promise.resolve([]);
   }
 

@@ -8,13 +8,6 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import { constraintAccordionListId } from 'component/common/ConstraintAccordion/ConstraintAccordionList/ConstraintAccordionList';
 import { styled, type Theme, Tooltip } from '@mui/material';
 
-type FeatureStrategySegmentListProps = {
-  segment: ISegment;
-  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
-  preview?: ISegment;
-  setPreview: React.Dispatch<React.SetStateAction<ISegment | undefined>>;
-};
-
 const StyledChip = styled('span')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -41,6 +34,13 @@ const StyledLink = styled(Link)(({ theme }) => ({
 }));
 
 const styledIcon = (theme: Theme) => ({ fontSize: theme.fontSizes.bodySize });
+
+type FeatureStrategySegmentListProps = {
+  segment: ISegment;
+  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
+  preview?: ISegment;
+  setPreview: React.Dispatch<React.SetStateAction<ISegment | undefined>>;
+};
 
 export const FeatureStrategySegmentChip = ({
   segment,

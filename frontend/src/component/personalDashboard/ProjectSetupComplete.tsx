@@ -1,5 +1,4 @@
 import { styled, Typography } from '@mui/material';
-import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Lightbulb from '@mui/icons-material/LightbulbOutlined';
 import type { PersonalDashboardProjectDetailsSchemaInsights } from '../../openapi';
@@ -9,7 +8,7 @@ const PercentageScore = styled('span')(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-const ConnectedSdkProject: FC<{ project: string }> = ({ project }) => {
+const ConnectedSdkProject = ({ project }: { project: string }) => {
   return (
     <>
       <Typography>
@@ -51,11 +50,17 @@ const determineProjectHealthTrend = (
   return 'consistent';
 };
 
-const ProjectHealthMessage: FC<{
+type ProjectHealthMessageProps = {
   trend: HealthTrend;
   insights: PersonalDashboardProjectDetailsSchemaInsights;
   project: string;
-}> = ({ trend, insights, project }) => {
+};
+
+const ProjectHealthMessage = ({
+  trend,
+  insights,
+  project,
+}: ProjectHealthMessageProps) => {
   const { avgHealthCurrentWindow, avgHealthPastWindow, health } = insights;
   const improveMessage =
     'Remember to archive your stale feature flags to keep the project health growing.';
@@ -124,10 +129,15 @@ const ProjectHealthMessage: FC<{
   return <ConnectedSdkProject project={project} />;
 };
 
-export const ProjectSetupComplete: FC<{
+type ProjectSetupCompleteProps = {
   project: string;
   insights: PersonalDashboardProjectDetailsSchemaInsights;
-}> = ({ project, insights }) => {
+};
+
+export const ProjectSetupComplete = ({
+  project,
+  insights,
+}: ProjectSetupCompleteProps) => {
   const projectHealthTrend = determineProjectHealthTrend(insights);
 
   return (

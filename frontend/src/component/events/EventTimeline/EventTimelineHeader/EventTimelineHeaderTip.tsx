@@ -54,7 +54,7 @@ export const EventTimelineHeaderTip = () => {
           label={
             <>
               See <Link to={signalsLink}>signals</Link> from external sources in
-              real-time within Unleash
+              real-time within Ganpa
             </>
           }
           onClick={() => {

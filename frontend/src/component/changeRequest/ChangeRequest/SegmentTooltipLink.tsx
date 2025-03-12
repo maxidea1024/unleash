@@ -23,10 +23,12 @@ const StyledCodeSection = styled('div')(({ theme }) => ({
   },
 }));
 
-export const SegmentDiff: FC<{
+type SegmentDiffProps = {
   change: IChangeRequestUpdateSegment | IChangeRequestDeleteSegment;
   currentSegment?: ISegment;
-}> = ({ change, currentSegment }) => {
+};
+
+export const SegmentDiff = ({ change, currentSegment }: SegmentDiffProps) => {
   const changeRequestSegment =
     change.action === 'deleteSegment' ? undefined : change.payload;
 

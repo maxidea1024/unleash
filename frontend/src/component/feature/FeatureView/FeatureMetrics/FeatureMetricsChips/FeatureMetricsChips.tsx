@@ -2,14 +2,6 @@ import { Chip, Button, styled } from '@mui/material';
 import { useMemo } from 'react';
 import { focusable } from 'themes/themeStyles';
 
-type FeatureMetricsChipsProps = {
-  title: string;
-  values: Set<string>;
-  selectedValues: string[];
-  toggleValue: (value: string) => void;
-  toggleValues?: () => void;
-};
-
 const StyledTitle = styled('h2')(({ theme }) => ({
   margin: 0,
   marginBottom: theme.spacing(1.5),
@@ -39,6 +31,14 @@ const StyledItem = styled('li')(({ theme }) => ({
     backgroundColor: theme.palette.primary.light,
   },
 }));
+
+type FeatureMetricsChipsProps = {
+  title: string;
+  values: Set<string>;
+  selectedValues: string[];
+  toggleValue: (value: string) => void;
+  toggleValues?: () => void;
+};
 
 export const FeatureMetricsChips = ({
   title,

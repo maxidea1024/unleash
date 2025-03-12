@@ -11,12 +11,6 @@ import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentL
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-type FeatureStrategySegmentProps = {
-  segments: ISegment[];
-  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
-  projectId: string;
-};
-
 const StyledDivider = styled(Divider)(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
 }));
@@ -27,6 +21,12 @@ const StyledHelpIconBox = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(1),
   marginBottom: theme.spacing(1),
 }));
+
+type FeatureStrategySegmentProps = {
+  segments: ISegment[];
+  setSegments: React.Dispatch<React.SetStateAction<ISegment[]>>;
+  projectId: string;
+};
 
 export const FeatureStrategySegment = ({
   segments: selectedSegments,

@@ -8,6 +8,11 @@ import type { FeatureSchema } from 'openapi';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { ConditionallyRender } from '../../common/ConditionallyRender/ConditionallyRender';
 
+const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
+  minWidth: '250px',
+  marginTop: theme.spacing(2),
+}));
+
 type ExportDialogProps = {
   showExportDialog: boolean;
   data: Pick<FeatureSchema, 'name'>[];
@@ -16,11 +21,6 @@ type ExportDialogProps = {
   onConfirm?: () => void;
   environments: string[];
 };
-
-const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
-  minWidth: '250px',
-  marginTop: theme.spacing(2),
-}));
 
 export const ExportDialog = ({
   showExportDialog,

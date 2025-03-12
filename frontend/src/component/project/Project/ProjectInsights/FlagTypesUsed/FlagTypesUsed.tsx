@@ -1,4 +1,4 @@
-import { type FC, useMemo } from 'react';
+import { useMemo } from 'react';
 import { styled, type SvgIconTypeMap, Typography } from '@mui/material';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
@@ -62,9 +62,11 @@ const FlagTypesRow = ({ type, Icon, count }: FlagTypeRowProps) => {
   );
 };
 
-export const FlagTypesUsed: FC<{
+type FlagTypesUsedProps = {
   featureTypeCounts: FeatureTypeCountSchema[];
-}> = ({ featureTypeCounts }) => {
+};
+
+export const FlagTypesUsed = ({ featureTypeCounts }: FlagTypesUsedProps) => {
   const featureTypeStats = useMemo(() => {
     const release =
       featureTypeCounts.find((featureType) => featureType.type === 'release')

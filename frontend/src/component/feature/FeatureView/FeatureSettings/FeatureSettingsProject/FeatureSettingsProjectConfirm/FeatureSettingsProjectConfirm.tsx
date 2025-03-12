@@ -23,14 +23,14 @@ const StyledList = styled(List)({
   padding: 0,
 });
 
-interface IFeatureSettingsProjectConfirm {
+type FeatureSettingsProjectConfirmProps = {
   projectId: string;
   open: boolean;
   onClose: () => void;
   onClick: (args: any) => void;
   feature: IFeatureToggle;
   changeRequests: ChangeRequestType[] | undefined;
-}
+};
 
 const FeatureSettingsProjectConfirm = ({
   projectId,
@@ -39,7 +39,7 @@ const FeatureSettingsProjectConfirm = ({
   onClick,
   feature,
   changeRequests,
-}: IFeatureSettingsProjectConfirm) => {
+}: FeatureSettingsProjectConfirmProps) => {
   const currentProjectId = useRequiredPathParam('projectId');
   const { project } = useProjectOverview(projectId);
 

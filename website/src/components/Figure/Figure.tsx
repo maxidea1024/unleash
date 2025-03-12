@@ -77,7 +77,7 @@ type Props = {
   img: string;
 };
 
-const Component: FC<Props> = ({ img, alt, caption }) => {
+const Component: FC<Props> = ({ img, alt, caption }: Props) => {
   return (
     <figure className={styles.figure}>
       <img alt={alt} src={useBaseUrl(img)} />

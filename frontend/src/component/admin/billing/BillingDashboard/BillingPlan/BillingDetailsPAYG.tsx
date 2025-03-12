@@ -38,7 +38,9 @@ export const BillingDetailsPAYG = ({
 
   const totalCost = usersCost;
 
-  if (loading) return null;
+  if (loading) {
+    return null;
+  }
 
   return (
     <>

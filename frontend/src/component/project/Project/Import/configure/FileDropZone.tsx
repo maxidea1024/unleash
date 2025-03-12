@@ -1,19 +1,19 @@
 import type React from 'react';
-import { type FC, useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Box } from '@mui/material';
 
 const formatJSON = (json: string) => JSON.stringify(JSON.parse(json), null, 4);
 
-interface IFileDropZoneProps {
+type FileDropZoneProps = {
   onSuccess: (message: string) => void;
   onError: (error: string) => void;
   onDragStatusChange: (dragOn: boolean) => void;
   children?: React.ReactNode;
-}
+};
 
 const onFileDropped =
-  ({ onSuccess, onError }: Omit<IFileDropZoneProps, 'onDragStatusChange'>) =>
+  ({ onSuccess, onError }: Omit<FileDropZoneProps, 'onDragStatusChange'>) =>
   (e: ProgressEvent<FileReader>) => {
     const contents = e?.target?.result;
     if (typeof contents === 'string') {
@@ -29,13 +29,13 @@ const onFileDropped =
   };
 
 // This component has no styling on purpose
-export const FileDropZone: FC<IFileDropZoneProps> = ({
+export const FileDropZone = ({
   onSuccess,
   onError,
   children,
   onDragStatusChange,
   ...props
-}) => {
+}: FileDropZoneProps) => {
   const onDrop = useCallback(([file]: Array<Blob>) => {
     const reader = new FileReader();
     reader.onload = onFileDropped({ onSuccess, onError });

@@ -66,7 +66,7 @@ export const PasswordAuth = () => {
     <>
       <form onSubmit={onSubmit}>
         <Alert severity='info' sx={{ mb: 3 }}>
-          Overview of administrators on your Unleash instance:
+          Overview of administrators on your Ganpa instance:
           <br />
           <br />
           <strong>Password based administrators: </strong>{' '}

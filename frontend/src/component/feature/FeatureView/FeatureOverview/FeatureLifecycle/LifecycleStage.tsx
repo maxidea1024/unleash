@@ -1,4 +1,5 @@
 type TimedStage = { enteredStageAt: string };
+
 export type LifecycleStage = TimedStage &
   (
     | { name: 'initial' }

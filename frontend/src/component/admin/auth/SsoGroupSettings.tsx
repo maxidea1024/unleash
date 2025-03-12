@@ -90,7 +90,7 @@ export const SsoGroupSettings = ({
             <Grid item md={5}>
               <strong>Request 'groups' Scope</strong>
               <p>
-                When enabled Unleash will also request the 'groups' scope as
+                When enabled Ganpa will also request the 'groups' scope as
                 part of the login request.
               </p>
             </Grid>

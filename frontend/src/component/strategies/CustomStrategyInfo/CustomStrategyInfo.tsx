@@ -1,8 +1,11 @@
 import { Alert, Box, Typography } from '@mui/material';
 import type React from 'react';
-import type { FC } from 'react';
 
-const Paragraph: FC<{ children?: React.ReactNode }> = ({ children }) => (
+type ParagraphProps = {
+  children?: React.ReactNode;
+};
+
+const Paragraph = ({ children }: ParagraphProps) => (
   <Typography
     component={'span'}
     variant='body2'
@@ -14,7 +17,11 @@ const Paragraph: FC<{ children?: React.ReactNode }> = ({ children }) => (
   </Typography>
 );
 
-export const CustomStrategyInfo: FC<{ alert?: boolean }> = ({ alert }) => {
+type CustomStrategyInfoProps = {
+  alert?: boolean;
+};
+
+export const CustomStrategyInfo = ({ alert }: CustomStrategyInfoProps) => {
   const content = (
     <>
       <Paragraph>
@@ -29,8 +36,8 @@ export const CustomStrategyInfo: FC<{ alert?: boolean }> = ({ alert }) => {
             differently
           </li>
           <li>
-            Custom strategies require a lot of configuration in both Unleash
-            admin UI and the SDK.
+            Custom strategies require a lot of configuration in both Ganpa admin
+            UI and the SDK.
           </li>
         </ul>
       </Paragraph>

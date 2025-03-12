@@ -3,7 +3,7 @@ import { Alert } from '@mui/material';
 export const StrategyVariantsUpgradeAlert = () => {
   return (
     <Alert severity='warning' sx={{ mb: 3 }}>
-      Remember to update your Unleash client! Strategy variants require new SDK
+      Remember to update your Ganpa client! Strategy variants require new SDK
       versions. <DocsSdkSupportLink />.
     </Alert>
   );

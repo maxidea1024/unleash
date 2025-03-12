@@ -5,11 +5,6 @@ import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import { UPDATE_FEATURE } from 'component/providers/AccessProvider/permissions';
 
-interface IFeatureSettingsInformationProps {
-  projectId: string;
-  featureId: string;
-}
-
 const StyledContainer = styled('div')({
   display: 'flex',
   alignItems: 'center',
@@ -19,10 +14,15 @@ const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.mainHeader,
 }));
 
+type FeatureSettingsInformationProps = {
+  projectId: string;
+  featureId: string;
+};
+
 export const FeatureSettingsInformation = ({
   projectId,
   featureId,
-}: IFeatureSettingsInformationProps) => {
+}: FeatureSettingsInformationProps) => {
   const { feature } = useFeature(projectId, featureId);
   const navigate = useNavigate();
 

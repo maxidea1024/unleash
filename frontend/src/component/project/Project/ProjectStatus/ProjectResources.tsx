@@ -1,6 +1,6 @@
 import { Typography, styled } from '@mui/material';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import type { ReactNode, FC, PropsWithChildren } from 'react';
+import type { ReactNode, PropsWithChildren } from 'react';
 import UsersIcon from '@mui/icons-material/Group';
 import { Link } from 'react-router-dom';
 import ApiKeyIcon from '@mui/icons-material/Key';
@@ -67,13 +67,13 @@ const ResourceList = styled('ul')(({ theme }) => ({
   }),
 }));
 
-const ListItem: FC<
-  PropsWithChildren<{
-    linkUrl: string;
-    linkText: string;
-    icon: ReactNode;
-  }>
-> = ({ children, linkUrl, linkText, icon }) => (
+type ListItemProps = PropsWithChildren<{
+  linkUrl: string;
+  linkText: string;
+  icon: ReactNode;
+}>;
+
+const ListItem = ({ children, linkUrl, linkText, icon }: ListItemProps) => (
   <ListItemRow>
     <ItemContent>
       {icon}

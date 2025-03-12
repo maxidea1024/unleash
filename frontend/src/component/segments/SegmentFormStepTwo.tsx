@@ -33,14 +33,14 @@ import AccessContext from 'contexts/AccessContext';
 import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentLimits';
 import { GO_BACK } from 'constants/navigate';
 
-interface ISegmentFormPartTwoProps {
+type SegmentFormPartTwoProps = {
   project?: string;
   constraints: IConstraint[];
   setConstraints: React.Dispatch<React.SetStateAction<IConstraint[]>>;
   setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
   mode: SegmentFormMode;
   children?: React.ReactNode;
-}
+};
 
 const StyledForm = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -103,14 +103,14 @@ const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
 
-export const SegmentFormStepTwo: React.FC<ISegmentFormPartTwoProps> = ({
+export const SegmentFormStepTwo = ({
   children,
   project,
   constraints,
   setConstraints,
   setCurrentStep,
   mode,
-}) => {
+}: SegmentFormPartTwoProps) => {
   const constraintsAccordionListRef = useRef<IConstraintAccordionListRef>();
   const navigate = useNavigate();
   const { hasAccess } = useContext(AccessContext);

@@ -92,7 +92,7 @@ export const AuthSettings = () => {
             condition={authenticationType === 'demo'}
             show={
               <Alert severity='warning'>
-                You are running Unleash in demo mode. You have to use the
+                You are running Ganpa in demo mode. You have to use the
                 Enterprise edition in order configure Single Sign-on.
               </Alert>
             }
@@ -111,7 +111,7 @@ export const AuthSettings = () => {
             condition={authenticationType === 'hosted'}
             show={
               <Alert severity='info'>
-                Your Unleash instance is managed by the Unleash team.
+                Your Ganpa instance is managed by the Ganpa team.
               </Alert>
             }
           />

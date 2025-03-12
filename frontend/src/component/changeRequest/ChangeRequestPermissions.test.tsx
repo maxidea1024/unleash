@@ -177,11 +177,13 @@ const featureEnvironments = (
   });
 };
 
-const UnleashUiSetup: FC<{
+type UnleashUiSetupProps = {
   path: string;
   pathTemplate: string;
   children?: React.ReactNode;
-}> = ({ children, path, pathTemplate }) => (
+};
+
+const UnleashUiSetup = ({ children, path, pathTemplate }: UnleashUiSetupProps) => (
   <SWRConfig
     value={{
       provider: () => new Map(),

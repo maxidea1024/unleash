@@ -7,9 +7,9 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 
-const PasswordField: FC<TextFieldProps> = ({ ...rest }) => {
+const PasswordField = ({ ...rest }: TextFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => {

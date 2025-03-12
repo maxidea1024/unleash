@@ -51,10 +51,15 @@ const Tag = styled('button')(({ theme }) => ({
   color: 'inherit',
 }));
 
-const CappedDescription: FC<{ text: string; searchQuery: string }> = ({
+type CappedDescriptionProps = {
+  text: string;
+  searchQuery: string;
+};
+
+const CappedDescription = ({
   text,
   searchQuery,
-}) => {
+}: CappedDescriptionProps) => {
   return (
     <ConditionallyRender
       condition={Boolean(text && text.length > 40)}
@@ -78,10 +83,15 @@ const CappedDescription: FC<{ text: string; searchQuery: string }> = ({
   );
 };
 
-const CappedTag: FC<{ tag: string; children: ReactElement }> = ({
+type CappedTagProps = {
+  tag: string;
+  children: ReactElement;
+};
+
+const CappedTag = ({
   tag,
   children,
-}) => {
+}: CappedTagProps) => {
   return (
     <ConditionallyRender
       condition={tag.length > 30}
@@ -118,11 +128,13 @@ const DependencyBadge = styled(Badge)(({ theme }) => ({
   textTransform: 'capitalize',
 }));
 
-const FeatureName: FC<{
+type FeatureNameProps = {
   project: string;
   feature: string;
   searchQuery: string;
-}> = ({ project, feature, searchQuery }) => {
+};
+
+const FeatureName = ({ project, feature, searchQuery }: FeatureNameProps) => {
   return (
     <Box sx={(theme) => ({ fontWeight: theme.typography.fontWeightBold })}>
       <StyledFeatureLink to={`/projects/${project}/features/${feature}`}>
@@ -139,10 +151,12 @@ const FeatureName: FC<{
   );
 };
 
-const ArchivedFeatureName: FC<{
+type ArchivedFeatureNameProps = {
   feature: string;
   searchQuery: string;
-}> = ({ feature, searchQuery }) => {
+};
+
+const ArchivedFeatureName = ({ feature, searchQuery }: ArchivedFeatureNameProps) => {
   return (
     <Box
       sx={(theme) => ({
@@ -155,10 +169,15 @@ const ArchivedFeatureName: FC<{
   );
 };
 
-const RestTags: FC<{ tags: string[]; onClick: (tag: string) => void }> = ({
+type RestTagsProps = {
+  tags: string[];
+  onClick: (tag: string) => void;
+};
+
+const RestTags = ({
   tags,
   onClick,
-}) => {
+}: RestTagsProps) => {
   return (
     <HtmlTooltip
       title={tags.map((tag) => (
@@ -172,10 +191,12 @@ const RestTags: FC<{ tags: string[]; onClick: (tag: string) => void }> = ({
   );
 };
 
-const Tags: FC<{
+type TagsProps = {
   tags: FeatureSearchResponseSchema['tags'];
   onClick: (tag: string) => void;
-}> = ({ tags, onClick }) => {
+};
+
+const Tags = ({ tags, onClick }: TagsProps) => {
   const [tag1, tag2, tag3, ...restTags] = (tags || []).map(
     ({ type, value }) => `${type}:${value}`,
   );
@@ -209,10 +230,15 @@ const StyledDependencyLink = styled(Link)({
   display: 'block',
 });
 
-const DependencyPreview: FC<{ feature: string; project: string }> = ({
+type DependencyPreviewProps = {
+  feature: string;
+  project: string;
+};
+
+const DependencyPreview = ({
   feature,
   project,
-}) => {
+}: DependencyPreviewProps) => {
   const { feature: fetchedFeature } = useFeature(project, feature);
   const children = fetchedFeature.children;
   const parents = fetchedFeature.dependencies;
@@ -246,7 +272,7 @@ const DependencyPreview: FC<{ feature: string; project: string }> = ({
   return <>Loading...</>;
 };
 
-export const PrimaryFeatureInfo: FC<{
+type PrimaryFeatureInfoProps = {
   project: string;
   feature: string;
   archivedAt: string | null;
@@ -255,7 +281,9 @@ export const PrimaryFeatureInfo: FC<{
   dependencyType: string;
   onTypeClick: (type: string) => void;
   delay?: number;
-}> = ({
+};
+
+export const PrimaryFeatureInfo = ({
   project,
   feature,
   archivedAt,
@@ -264,7 +292,7 @@ export const PrimaryFeatureInfo: FC<{
   dependencyType,
   onTypeClick,
   delay = 500,
-}) => {
+}: PrimaryFeatureInfoProps) => {
   const { featureTypes } = useFeatureTypes();
   const IconComponent = getFeatureTypeIcons(type);
   const typeName = featureTypes.find(
@@ -330,10 +358,12 @@ export const PrimaryFeatureInfo: FC<{
   );
 };
 
-const SecondaryFeatureInfo: FC<{
+type SecondaryFeatureInfoProps = {
   description: string;
   searchQuery: string;
-}> = ({ description, searchQuery }) => {
+};
+
+const SecondaryFeatureInfo = ({ description, searchQuery }: SecondaryFeatureInfoProps) => {
   return (
     <ConditionallyRender
       condition={Boolean(description)}

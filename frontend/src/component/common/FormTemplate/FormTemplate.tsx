@@ -14,7 +14,6 @@ import Info from '@mui/icons-material/Info';
 import Loader from '../Loader/Loader';
 import copy from 'copy-to-clipboard';
 import useToast from 'hooks/useToast';
-import type { FC } from 'react';
 import React, { type ReactNode, useState } from 'react';
 import { ReactComponent as MobileGuidanceBG } from 'assets/img/mobileGuidanceBg.svg';
 import {
@@ -418,11 +417,11 @@ type GuidanceProps = {
   children?: React.ReactNode;
 };
 
-const GuidanceContent: FC<
-  GuidanceProps & {
-    fixedDocumentationHeight?: string;
-  }
-> = ({
+type GuidanceContentProps = GuidanceProps & {
+  fixedDocumentationHeight?: string;
+};
+
+const GuidanceContent = ({
   description,
   children,
   documentationLink,
@@ -431,7 +430,7 @@ const GuidanceContent: FC<
   showDescription = true,
   showLink = true,
   fixedDocumentationHeight,
-}) => {
+}: GuidanceContentProps) => {
   const StyledDocumentationIconWrapper = styled('div')({
     height: '2rem',
     display: 'grid',
@@ -488,7 +487,7 @@ const GuidanceContent: FC<
   );
 };
 
-const Guidance: FC<GuidanceProps> = (props) => {
+const Guidance = (props: GuidanceProps) => {
   return (
     <StyledSidebar>
       <GuidanceContent {...props} />
@@ -496,7 +495,7 @@ const Guidance: FC<GuidanceProps> = (props) => {
   );
 };
 
-const FixedGuidance: FC<GuidanceProps> = (props) => {
+const FixedGuidance = (props: GuidanceProps) => {
   return (
     <StyledSidebar
       sidebarWidth={formTemplateFixedSidebarWidth}

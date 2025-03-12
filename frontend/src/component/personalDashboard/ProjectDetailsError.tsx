@@ -1,9 +1,8 @@
 import type { PersonalDashboardSchemaAdminsItem } from 'openapi';
-import type { FC } from 'react';
 import { YourAdmins } from './YourAdmins';
 import { ActionBox } from './ActionBox';
 
-export const DataError: FC<{ project: string }> = ({ project }) => {
+export const DataError = ({ project }: { project: string }) => {
   return (
     <ActionBox title={`Couldn't fetch data for project "${project}".`}>
       <p>
@@ -18,11 +17,13 @@ export const DataError: FC<{ project: string }> = ({ project }) => {
   );
 };
 
-export const ContactAdmins: FC<{
+type ContactAdminsProps = {
   admins: PersonalDashboardSchemaAdminsItem[];
-}> = ({ admins }) => {
+};
+
+export const ContactAdmins = ({ admins }: ContactAdminsProps) => {
   return (
-    <ActionBox title='Consider contacting one of your Unleash admins for help.'>
+    <ActionBox title='Consider contacting one of your Ganpa admins for help.'>
       <YourAdmins admins={admins} />
     </ActionBox>
   );

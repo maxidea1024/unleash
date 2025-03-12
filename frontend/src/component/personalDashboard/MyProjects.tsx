@@ -40,9 +40,11 @@ import useLoading from 'hooks/useLoading';
 import { NoProjectsContactAdmin } from './NoProjectsContactAdmin';
 import { AskOwnerToAddYouToTheirProject } from './AskOwnerToAddYouToTheirProject';
 
-const ActiveProjectDetails: FC<{
+type ActiveProjectDetailsProps = {
   project: PersonalDashboardSchemaProjectsItem;
-}> = ({ project }) => {
+};
+
+const ActiveProjectDetails = ({ project }: ActiveProjectDetailsProps) => {
   return (
     <Box sx={{ display: 'flex', gap: 2 }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -77,11 +79,17 @@ const SkeletonDiv = styled('div')({
   height: '80%',
 });
 
-const ProjectListItem: FC<{
+type ProjectListItemProps = {
   project: PersonalDashboardSchemaProjectsItem;
   selected: boolean;
   onClick: () => void;
-}> = ({ project, selected, onClick }) => {
+};
+
+const ProjectListItem = ({
+  project,
+  selected,
+  onClick,
+}: ProjectListItemProps) => {
   const activeProjectRef = useRef<HTMLLIElement>(null);
   const { trackEvent } = usePlausibleTracker();
 
@@ -126,21 +134,23 @@ const ProjectListItem: FC<{
   );
 };
 
-export const MyProjects: React.FC<{
+type MyProjectsProps = {
   projects: PersonalDashboardSchemaProjectsItem[];
   personalDashboardProjectDetails: RemoteData<PersonalDashboardProjectDetailsSchema>;
   activeProject: string;
   setActiveProject: (project: string) => void;
   admins: PersonalDashboardSchemaAdminsItem[];
   owners: PersonalDashboardSchemaProjectOwnersItem[];
-}> = ({
+};
+
+export const MyProjects = ({
   projects,
   personalDashboardProjectDetails,
   setActiveProject,
   activeProject,
   admins,
   owners,
-}) => {
+}: MyProjectsProps) => {
   const ref = useLoading(personalDashboardProjectDetails.state === 'loading');
 
   const getGridContents = (): {

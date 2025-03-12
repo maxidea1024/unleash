@@ -3,14 +3,6 @@ import { Grid, styled } from '@mui/material';
 import { PrettifyLargeNumber } from 'component/common/PrettifyLargeNumber/PrettifyLargeNumber';
 import { daysOrHours } from '../daysOrHours';
 
-export type FeatureMetricsStatsProps = {
-  totalYes: number;
-  totalNo: number;
-  hoursBack: number;
-  statsSectionId?: string;
-  tableSectionId?: string;
-};
-
 const StyledItem = styled('article')(({ theme }) => ({
   padding: theme.spacing(2),
   background: 'transparent',
@@ -42,6 +34,14 @@ const StyledText = styled('p')(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
   color: theme.palette.text.secondary,
 }));
+
+export type FeatureMetricsStatsProps = {
+  totalYes: number;
+  totalNo: number;
+  hoursBack: number;
+  statsSectionId?: string;
+  tableSectionId?: string;
+};
 
 export const FeatureMetricsStats = ({
   totalYes,

@@ -71,12 +71,13 @@ export const NewFeatureOverviewEnvironment = ({
     ({ name }) => name === environmentId,
   );
 
-  if (!featureEnvironment)
+  if (!featureEnvironment) {
     return (
       <StyledFeatureOverviewEnvironment className='skeleton'>
         <Box sx={{ height: '400px' }} />
       </StyledFeatureOverviewEnvironment>
     );
+  }
 
   return (
     <StyledFeatureOverviewEnvironment>

@@ -1,4 +1,4 @@
-import { type FC, type FormEventHandler, useEffect, useState } from 'react';
+import { type FormEventHandler, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Alert, Box, Paper, styled, useTheme } from '@mui/material';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -28,9 +28,13 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
 }));
 
-const GenerateWarningMessages: React.FC<{
+type GenerateWarningMessagesProps = {
   response?: AdvancedPlaygroundResponseSchema;
-}> = ({ response }) => {
+};
+
+const GenerateWarningMessages = ({
+  response,
+}: GenerateWarningMessagesProps) => {
   const invalidContextProperties = response?.warnings?.invalidContextProperties;
 
   if (invalidContextProperties && invalidContextProperties.length > 0) {
@@ -75,9 +79,13 @@ const GenerateWarningMessages: React.FC<{
   }
 };
 
-export const AdvancedPlayground: FC<{
+type AdvancedPlaygroundProps = {
   FormComponent?: typeof PlaygroundForm;
-}> = ({ FormComponent = PlaygroundForm }) => {
+};
+
+export const AdvancedPlayground = ({
+  FormComponent = PlaygroundForm,
+}: AdvancedPlaygroundProps) => {
   const defaultSettings: {
     projects: string[];
     environments: string[];

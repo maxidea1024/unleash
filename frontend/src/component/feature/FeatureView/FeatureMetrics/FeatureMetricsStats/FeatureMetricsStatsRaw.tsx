@@ -5,15 +5,17 @@ import {
   type FeatureMetricsStatsProps,
 } from './FeatureMetricsStats';
 
-interface IFeatureMetricsStatsRawProps
-  extends Omit<FeatureMetricsStatsProps, 'totalYes' | 'totalNo'> {
+type FeatureMetricsStatsRawProps = Omit<
+  FeatureMetricsStatsProps,
+  'totalYes' | 'totalNo'
+> & {
   metrics: IFeatureMetricsRaw[];
-}
+};
 
 export const FeatureMetricsStatsRaw = ({
   metrics,
   ...rest
-}: IFeatureMetricsStatsRawProps) => {
+}: FeatureMetricsStatsRawProps) => {
   const totalYes = useMemo(() => {
     return metrics.reduce((acc, m) => acc + m.yes, 0);
   }, [metrics]);

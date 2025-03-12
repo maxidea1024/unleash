@@ -1,12 +1,15 @@
 import { ActionBox } from './ActionBox';
 import { NeutralCircleContainer } from './SharedComponents';
 import type { PersonalDashboardSchemaProjectOwnersItem } from 'openapi';
-import type { FC } from 'react';
 import { AvatarGroupFromOwners } from 'component/common/AvatarGroupFromOwners/AvatarGroupFromOwners';
 
-export const AskOwnerToAddYouToTheirProject: FC<{
+type AskOwnerToAddYouToTheirProjectProps = {
   owners: PersonalDashboardSchemaProjectOwnersItem[];
-}> = ({ owners }) => {
+};
+
+export const AskOwnerToAddYouToTheirProject = ({
+  owners,
+}: AskOwnerToAddYouToTheirProjectProps) => {
   return (
     <ActionBox
       title={
@@ -18,11 +21,11 @@ export const AskOwnerToAddYouToTheirProject: FC<{
     >
       {owners.length ? (
         <>
-          <p>Project owners in Unleash:</p>
+          <p>Project owners in Ganpa:</p>
           <AvatarGroupFromOwners users={owners} avatarLimit={9} />
         </>
       ) : (
-        <p>There are no project owners in Unleash to ask for access.</p>
+        <p>There are no project owners in Ganpa to ask for access.</p>
       )}
     </ActionBox>
   );

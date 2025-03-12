@@ -1,4 +1,4 @@
-import { type FC, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import {
   ContentGridContainer,
   FlagGrid,
@@ -29,11 +29,13 @@ const NoActiveFlagsInfo = styled('div')(({ theme }) => ({
   gap: theme.spacing(2),
 }));
 
-const FlagListItem: FC<{
+type FlagListItemProps = {
   flag: { name: string; project: string; type: string };
   selected: boolean;
   onClick: () => void;
-}> = ({ flag, selected, onClick }) => {
+};
+
+const FlagListItem = ({ flag, selected, onClick }: FlagListItemProps) => {
   const activeFlagRef = useRef<HTMLLIElement>(null);
   const { trackEvent } = usePlausibleTracker();
 
@@ -89,19 +91,19 @@ type FlagData =
       state: 'no flags';
     };
 
-type Props = {
+type MyFlagsProps = {
   hasProjects: boolean;
   flagData: FlagData;
   setActiveFlag: (flag: PersonalDashboardSchemaFlagsItem) => void;
   refetchDashboard: () => void;
 };
 
-export const MyFlags: FC<Props> = ({
+export const MyFlags = ({
   hasProjects,
   flagData,
   setActiveFlag,
   refetchDashboard,
-}) => {
+}: MyFlagsProps) => {
   return (
     <ContentGridContainer>
       <FlagGrid>

@@ -1,10 +1,6 @@
 import { Box, styled, type Theme, Typography } from '@mui/material';
 import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 
-type FeatureStaleCellProps = {
-  value?: boolean;
-};
-
 const staleStatus = (theme: Theme) => ({
   color: theme.palette.error.dark,
   fontSize: 'inherit',
@@ -18,6 +14,10 @@ const activeStatus = (theme: Theme) => ({
 const StyledBox = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
 }));
+
+type FeatureStaleCellProps = {
+  value?: boolean;
+};
 
 export const FeatureStaleCell = ({ value }: FeatureStaleCellProps) => {
   return (

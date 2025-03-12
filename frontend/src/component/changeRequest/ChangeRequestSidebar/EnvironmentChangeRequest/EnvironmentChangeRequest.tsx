@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -26,11 +26,17 @@ import { ChangeRequestTitle } from './ChangeRequestTitle';
 import { UpdateCount } from 'component/changeRequest/UpdateCount';
 import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useChangeRequestApi';
 
-const SubmitChangeRequestButton: FC<{
+type SubmitChangeRequestButtonProps = {
   onClick: () => void;
   count: number;
   disabled?: boolean;
-}> = ({ onClick, count, disabled = false }) => (
+};
+
+const SubmitChangeRequestButton = ({
+  onClick,
+  count,
+  disabled = false,
+}: SubmitChangeRequestButtonProps) => (
   <Button
     sx={{ ml: 'auto' }}
     variant='contained'
@@ -61,13 +67,21 @@ const ChangeRequestContent = styled(Box)(({ theme }) => ({
   overflow: 'hidden',
 }));
 
-export const EnvironmentChangeRequest: FC<{
+type EnvironmentChangeRequestProps = {
   environmentChangeRequest: ChangeRequestType;
   onClose: () => void;
   onReview: (changeState: (project: string) => Promise<void>) => void;
   onDiscard: (id: number) => void;
   children?: React.ReactNode;
-}> = ({ environmentChangeRequest, onClose, onReview, onDiscard, children }) => {
+};
+
+export const EnvironmentChangeRequest = ({
+  environmentChangeRequest,
+  onClose,
+  onReview,
+  onDiscard,
+  children,
+}: EnvironmentChangeRequestProps) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const [commentText, setCommentText] = useState('');

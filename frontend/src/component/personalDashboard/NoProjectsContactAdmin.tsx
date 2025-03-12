@@ -2,11 +2,14 @@ import { ActionBox } from './ActionBox';
 import { YourAdmins } from './YourAdmins';
 import { NeutralCircleContainer } from './SharedComponents';
 import type { PersonalDashboardSchemaAdminsItem } from 'openapi';
-import type { FC } from 'react';
 
-export const NoProjectsContactAdmin: FC<{
+type NoProjectsContactAdminProps = {
   admins: PersonalDashboardSchemaAdminsItem[];
-}> = ({ admins }) => {
+};
+
+export const NoProjectsContactAdmin = ({
+  admins,
+}: NoProjectsContactAdminProps) => {
   return (
     <ActionBox
       title={

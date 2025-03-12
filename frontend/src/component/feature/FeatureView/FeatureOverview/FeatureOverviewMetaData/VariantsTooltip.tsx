@@ -1,9 +1,10 @@
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
-import type { FC } from 'react';
 
-export const VariantsTooltip: FC<{
+type VariantsTooltipProps = {
   variants: string[];
-}> = ({ variants }) => {
+};
+
+export const VariantsTooltip = ({ variants }: VariantsTooltipProps) => {
   if (variants.length === 1 && variants[0].length < 20) {
     return <span>{variants[0]}</span>;
   }

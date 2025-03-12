@@ -59,17 +59,17 @@ const StyledStickinessContainer = styled('div')(({ theme }) => ({
   marginBottom: theme.spacing(0.5),
 }));
 
-interface IEnvironmentVariantsCardProps {
+type EnvironmentVariantsCardProps = {
   environment: IFeatureEnvironment;
   searchValue: string;
   children?: React.ReactNode;
-}
+};
 
 export const EnvironmentVariantsCard = ({
   environment,
   searchValue,
   children,
-}: IEnvironmentVariantsCardProps) => {
+}: EnvironmentVariantsCardProps) => {
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const scheduledRequestIds = useVariantsFromScheduledRequests(

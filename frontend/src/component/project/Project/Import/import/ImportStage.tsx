@@ -53,17 +53,30 @@ const toApiStatus = (
   loading: boolean,
   errors: Record<string, string>,
 ): ApiStatus => {
-  if (loading) return { status: 'loading' };
-  if (Object.keys(errors).length > 0) return { status: 'error', errors };
+  if (loading) {
+    return { status: 'loading' };
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { status: 'error', errors };
+  }
+
   return { status: 'success' };
 };
 
-export const ImportStage: FC<{
+type ImportStageProps = {
   environment: string;
   project: string;
   payload: string;
   onClose: () => void;
-}> = ({ environment, project, payload, onClose }) => {
+};
+
+export const ImportStage = ({
+  environment,
+  project,
+  payload,
+  onClose,
+}: ImportStageProps) => {
   const { createImport, loading, errors } = useImportApi();
   const { refetch: refreshProject } = useProjectFeatureSearch(project);
   const { refetch: refreshChangeRequests } = usePendingChangeRequests(project);

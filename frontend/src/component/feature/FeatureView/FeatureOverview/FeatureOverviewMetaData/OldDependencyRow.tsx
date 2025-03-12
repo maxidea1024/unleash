@@ -1,7 +1,7 @@
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AddDependencyDialogue } from 'component/feature/Dependencies/AddDependencyDialogue';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
 import {
   FlexRow,
   StyledDetail,
@@ -82,9 +82,11 @@ const useDeleteDependency = (project: string, featureId: string) => {
   return deleteDependency;
 };
 
-export const OldDependencyRow: FC<{ feature: IFeatureToggle }> = ({
-  feature,
-}) => {
+type OldDependencyRowProps = {
+  feature: IFeatureToggle;
+};
+
+export const OldDependencyRow = ({ feature }: OldDependencyRowProps) => {
   const [showDependencyDialogue, setShowDependencyDialogue] = useState(false);
   const canAddParentDependency =
     Boolean(feature.project) &&

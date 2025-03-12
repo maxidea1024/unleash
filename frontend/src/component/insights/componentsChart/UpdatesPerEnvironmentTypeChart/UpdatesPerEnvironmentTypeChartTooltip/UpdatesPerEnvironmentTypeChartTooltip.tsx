@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import type { InstanceInsightsSchemaEnvironmentTypeTrendsItem } from 'openapi';
 import { Box, Divider, Paper, styled, Typography } from '@mui/material';
 import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
@@ -56,9 +55,13 @@ const InfoSummary = ({ data }: { data: { key: string; value: number }[] }) => (
   </Typography>
 );
 
-export const UpdatesPerEnvironmentTypeChartTooltip: FC<{
+type UpdatesPerEnvironmentTypeChartTooltipProps = {
   tooltip: ITooltipState | null;
-}> = ({ tooltip }) => {
+};
+
+export const UpdatesPerEnvironmentTypeChartTooltip = ({
+  tooltip,
+}: UpdatesPerEnvironmentTypeChartTooltipProps) => {
   const data = tooltip?.dataPoints.map((point) => {
     return {
       label: point.label,
