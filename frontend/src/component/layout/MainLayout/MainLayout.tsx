@@ -147,7 +147,7 @@ export const MainLayout = forwardRef<HTMLDivElement, MainLayoutProps>(
               </Box>
             </Box>
 
-            <ThemeMode
+            {/* <ThemeMode
               darkmode={
                 <StyledImg
                   style={{ opacity: 0.06 }}
@@ -158,7 +158,7 @@ export const MainLayout = forwardRef<HTMLDivElement, MainLayoutProps>(
               lightmode={
                 <StyledImg src={formatAssetPath(textureImage)} alt='' />
               }
-            />
+            /> */}
           </MainLayoutContentWrapper>
           <AIChat />
           <Footer />
