@@ -13,8 +13,13 @@ interface IUseUsersOutput {
   error?: Error;
 }
 
+interface IUseUsersResponse {
+  users?: IUser[];
+  rootRoles?: IRole[];
+}
+
 export const useUsers = (): IUseUsersOutput => {
-  const { data, error, mutate } = useSWR(
+  const { data, error, mutate } = useSWR<IUseUsersResponse>(
     formatApiPath(`api/admin/user-admin`),
     fetcher,
   );

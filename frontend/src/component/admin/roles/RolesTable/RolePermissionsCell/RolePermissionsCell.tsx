@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import type { IRole } from 'interfaces/role';
@@ -10,7 +9,7 @@ type RolePermissionsCellProps = {
   row: { original: IRole };
 };
 
-export const RolePermissionsCell: FC<RolePermissionsCellProps> = ({ row }) => {
+export const RolePermissionsCell = ({ row }: RolePermissionsCellProps) => {
   const { original: rowRole } = row;
   const { role } = useRole(rowRole.id.toString());
 

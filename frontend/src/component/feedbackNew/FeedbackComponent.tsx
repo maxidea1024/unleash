@@ -18,7 +18,7 @@ import { useUserFeedbackApi } from 'hooks/api/actions/useUserFeedbackApi/useUser
 import { useUserSubmittedFeedback } from 'hooks/useSubmittedFeedback';
 import type { IToast } from 'interfaces/toast';
 import { useTheme } from '@mui/material/styles';
-import type { FeedbackData, FeedbackMode } from './FeedbackContext';
+import type { IFeedbackData, FeedbackMode } from './FeedbackContext';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUserType from './useUserType';
@@ -191,7 +191,7 @@ export const FeedbackComponentWrapper = () => {
 };
 
 type FeedbackComponentProps = {
-  feedbackData: FeedbackData;
+  feedbackData: IFeedbackData;
   showFeedback: boolean;
   feedbackMode: FeedbackMode;
   closeFeedback: () => void;

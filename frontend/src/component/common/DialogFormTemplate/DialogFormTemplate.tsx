@@ -15,11 +15,11 @@ import {
 import { Button } from '@mui/material';
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
 import type { PermissionButtonProps } from 'component/common/PermissionButton/PermissionButton';
-import type { FeatureNamingType } from 'interfaces/project';
+import type { IFeatureNamingType } from 'interfaces/project';
 import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import { NamingPatternInfo } from './NamingPatternInfo';
 
-type NamingPattern = FeatureNamingType;
+type NamingPattern = IFeatureNamingType;
 
 type DialogFormTemplateProps = {
   createButtonProps: PermissionButtonProps;

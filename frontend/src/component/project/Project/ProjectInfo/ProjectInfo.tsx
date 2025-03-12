@@ -10,12 +10,12 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { ChangeRequestsWidget } from './ChangeRequestsWidget';
 import { flexRow } from 'themes/themeStyles';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
-import type { FeatureTypeCount } from 'interfaces/project';
+import type { IFeatureTypeCount } from 'interfaces/project';
 
 type ProjectInfoProps = {
   id: string;
   memberCount: number;
-  featureTypeCounts: FeatureTypeCount[];
+  featureTypeCounts: IFeatureTypeCount[];
   health: number;
   description?: string;
   stats: ProjectStatsSchema;

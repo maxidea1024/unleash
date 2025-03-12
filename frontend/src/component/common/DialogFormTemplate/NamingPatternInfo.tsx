@@ -5,7 +5,7 @@ import {
   styled,
 } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { FeatureNamingType } from 'interfaces/project';
+import type { IFeatureNamingType } from 'interfaces/project';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
@@ -35,7 +35,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 }));
 
 type Props = {
-  naming: FeatureNamingType;
+  naming: IFeatureNamingType;
 };
 
 export const NamingPatternInfo = ({ naming }: Props) => {

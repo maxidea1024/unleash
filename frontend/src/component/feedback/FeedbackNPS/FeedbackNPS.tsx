@@ -149,7 +149,7 @@ export const FeedbackNPS = ({ openUrl }: FeedbackNPSProps) => {
               darkmode={<UnleashLogoWhite />}
               lightmode={<UnleashLogo />}
             />
-            <StyledHeader>Unleash feedback</StyledHeader>
+            <StyledHeader>Ganpa feedback</StyledHeader>
           </Box>
 
           <ConditionallyRender
@@ -158,7 +158,7 @@ export const FeedbackNPS = ({ openUrl }: FeedbackNPSProps) => {
               <p>Alright, apologies for the disruption. Have a nice day!</p>
             }
             elseShow={
-              <p>Hi. Do you have 2 minutes to help us improve Unleash? </p>
+              <p>Hi. Do you have 2 minutes to help us improve Ganpa? </p>
             }
           />
 

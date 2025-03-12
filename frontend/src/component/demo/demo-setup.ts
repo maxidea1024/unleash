@@ -1,4 +1,4 @@
-import type { IUnleashContextDefinition } from 'interfaces/context';
+import type { IGanpaContextDefinition } from 'interfaces/context';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { formatApiPath } from 'utils/formatPath';
 
@@ -6,7 +6,7 @@ const PROJECT = 'demo-app';
 const ENVIRONMENT = 'dev';
 
 const ensureUserIdContextExists = async () => {
-  const contextFields: IUnleashContextDefinition[] =
+  const contextFields: IGanpaContextDefinition[] =
     (await fetch(formatApiPath('api/admin/context')).then((res) =>
       res.json(),
     )) || [];

@@ -1,6 +1,6 @@
 import type { EventSchema } from 'openapi';
 
-export type IntegrationEvent = {
+export interface IIntegrationEvent {
   id: string;
   integrationId: number;
   createdAt: string;
@@ -10,6 +10,6 @@ export type IntegrationEvent = {
   details: Record<string, unknown>;
 };
 
-export type IntegrationEvents = {
-  integrationEvents: IntegrationEvent[];
+export interface IIntegrationEvents {
+  integrationEvents: IIntegrationEvent[];
 };

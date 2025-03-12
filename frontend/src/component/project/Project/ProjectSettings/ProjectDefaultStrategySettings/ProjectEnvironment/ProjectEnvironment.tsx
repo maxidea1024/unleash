@@ -8,11 +8,11 @@ import {
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { PROJECT_ENVIRONMENT_ACCORDION } from 'utils/testIds';
-import type { ProjectEnvironmentType } from '../../../../../../interfaces/environments';
+import type { IProjectEnvironmentType } from '../../../../../../interfaces/environments';
 import ProjectEnvironmentDefaultStrategy from './ProjectEnvironmentDefaultStrategy/ProjectEnvironmentDefaultStrategy';
 
 type ProjectEnvironmentProps = {
-  environment: ProjectEnvironmentType;
+  environment: IProjectEnvironmentType;
 };
 
 const StyledProjectEnvironmentOverview = styled('div', {

@@ -2,7 +2,6 @@ import { Alert, styled, Typography } from '@mui/material';
 import { UserToken } from 'component/admin/apiToken/ConfirmToken/UserToken/UserToken';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { INewPersonalAPIToken } from 'interfaces/personalAPIToken';
-import type { FC } from 'react';
 
 const StyledAlert = styled(Alert)(({ theme }) => ({
   marginBottom: theme.spacing(3),
@@ -12,13 +11,13 @@ type ServiceAccountDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   token?: INewPersonalAPIToken;
-}
+};
 
-export const ServiceAccountTokenDialog: FC<ServiceAccountDialogProps> = ({
+export const ServiceAccountTokenDialog = ({
   open,
   setOpen,
   token,
-}) => (
+}: ServiceAccountDialogProps) => (
   <Dialogue
     open={open}
     secondaryButtonText='Close'

@@ -5,7 +5,6 @@ import { DEL_INACTIVE_USERS_ERROR } from '../../../../../hooks/api/actions/useIn
 import { ConditionallyRender } from '../../../../common/ConditionallyRender/ConditionallyRender';
 import type { IInactiveUser } from '../../../../../hooks/api/getters/useInactiveUsers/useInactiveUsers';
 import { flexRow } from '../../../../../themes/themeStyles';
-import type { FC } from 'react';
 
 type DeleteInactiveUsersProps = {
   showDialog: boolean;
@@ -16,14 +15,14 @@ type DeleteInactiveUsersProps = {
   inactiveUsers: IInactiveUser[];
 };
 
-export const DeleteInactiveUsers: FC<DeleteInactiveUsersProps> = ({
+export const DeleteInactiveUsers = ({
   showDialog,
   closeDialog,
   inactiveUsersLoading,
   removeInactiveUsers,
   inactiveUserApiErrors,
   inactiveUsers,
-}) => {
+}: DeleteInactiveUsersProps) => {
   const ref = useLoading(inactiveUsersLoading);
   return (
     <Dialogue

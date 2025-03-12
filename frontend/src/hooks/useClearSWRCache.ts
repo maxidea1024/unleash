@@ -19,9 +19,9 @@ export const clearCacheEntries = (
 };
 
 /**
- With dynamic search and filter parameters we want to prevent cache from growing extensively.
- We only keep the latest cache key `currentKey` and remove all other entries identified
- by the `clearPrefix`
+ * With dynamic search and filter parameters we want to prevent cache from growing extensively.
+ * We only keep the latest cache key `currentKey` and remove all other entries identified
+ * by the `clearPrefix`
  */
 export const useClearSWRCache = (
   currentKey: string,

@@ -12,7 +12,7 @@ import { cleanConstraint } from 'utils/cleanConstraint';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import type { IUnleashContextDefinition } from 'interfaces/context';
+import type { IGanpaContextDefinition } from 'interfaces/context';
 import { useConstraintInput } from './ConstraintAccordionEditBody/useConstraintInput/useConstraintInput';
 import type { Operator } from 'constants/operators';
 import { ResolveInput } from './ConstraintAccordionEditBody/ResolveInput/ResolveInput';
@@ -21,9 +21,9 @@ export const CANCEL = 'cancel';
 export const SAVE = 'save';
 
 const resolveContextDefinition = (
-  context: IUnleashContextDefinition[],
+  context: IGanpaContextDefinition[],
   contextName: string,
-): IUnleashContextDefinition => {
+): IGanpaContextDefinition => {
   const definition = context.find(
     (contextDef) => contextDef.name === contextName,
   );

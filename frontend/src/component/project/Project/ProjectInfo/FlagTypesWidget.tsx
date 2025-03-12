@@ -7,10 +7,10 @@ import {
   StyledWidgetTitle,
 } from './ProjectInfo.styles';
 import type { OverridableComponent } from '@mui/material/OverridableComponent';
-import type { FeatureTypeCount } from 'interfaces/project';
+import type { IFeatureTypeCount } from 'interfaces/project';
 
 type FlagTypesWidgetProps = {
-  featureTypeCounts: FeatureTypeCount[];
+  featureTypeCounts: IFeatureTypeCount[];
 };
 
 const StyledTypeCount = styled(StyledCount)(({ theme }) => ({

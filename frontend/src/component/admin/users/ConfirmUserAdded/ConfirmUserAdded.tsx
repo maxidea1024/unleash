@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import ConfirmUserEmail from './ConfirmUserEmail/ConfirmUserEmail';
 import ConfirmUserLink from './ConfirmUserLink/ConfirmUserLink';
 
@@ -9,12 +8,12 @@ type ConfirmUserAddedProps = {
   emailSent: boolean;
 };
 
-const ConfirmUserAdded: FC<ConfirmUserAddedProps> = ({
+const ConfirmUserAdded = ({
   open,
   closeConfirm,
   emailSent,
   inviteLink,
-}) => {
+}: ConfirmUserAddedProps) => {
   if (emailSent) {
     return (
       <ConfirmUserEmail

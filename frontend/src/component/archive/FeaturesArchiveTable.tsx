@@ -11,7 +11,7 @@ const { value, setValue } = createLocalStorage(
 );
 
 export const FeaturesArchiveTable = () => {
-  usePageTitle('Archive');
+  usePageTitle('Archive'); // TODO: Add translation
 
   const {
     archivedFeatures = [],

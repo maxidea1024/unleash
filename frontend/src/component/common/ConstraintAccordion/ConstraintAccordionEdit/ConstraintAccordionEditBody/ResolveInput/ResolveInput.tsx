@@ -1,6 +1,6 @@
 import type {
   ILegalValue,
-  IUnleashContextDefinition,
+  IGanpaContextDefinition,
 } from 'interfaces/context';
 import type { IConstraint } from 'interfaces/strategy';
 import { DateSingleValue } from '../DateSingleValue/DateSingleValue';
@@ -24,7 +24,7 @@ import type React from 'react';
 
 const resolveLegalValues = (
   values: IConstraint['values'],
-  legalValues: IUnleashContextDefinition['legalValues'],
+  legalValues: IGanpaContextDefinition['legalValues'],
 ): { legalValues: ILegalValue[]; deletedLegalValues: ILegalValue[] } => {
   if (legalValues?.length === 0) {
     return {
@@ -49,7 +49,7 @@ const resolveLegalValues = (
 };
 
 type ResolveInputProps = {
-  contextDefinition: IUnleashContextDefinition;
+  contextDefinition: IGanpaContextDefinition;
   localConstraint: IConstraint;
   constraintValues: string[];
   constraintValue: string;

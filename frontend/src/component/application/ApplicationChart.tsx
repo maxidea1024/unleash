@@ -129,6 +129,7 @@ const useElementWidth = () => {
     width,
   };
 };
+
 const SuccessStatus = () => (
   <StyledStatus mode='success'>
     <CheckCircle

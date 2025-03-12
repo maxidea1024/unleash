@@ -136,7 +136,7 @@ const createBarChartOptions = (
   },
 });
 
-export const NetworkTrafficUsage: FC = () => {
+export const NetworkTrafficUsage = () => {
   usePageTitle('Network - Data Usage');
   const theme = useTheme();
 

@@ -1,4 +1,4 @@
-import { type FormEventHandler, useState, type FC } from 'react';
+import { type FormEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSWRConfig } from 'swr';
 import { Box, Button, Typography } from '@mui/material';
@@ -124,7 +124,7 @@ export const InviteLink = () => {
     <FormTemplate
       loading={loading || isSending}
       title={isUpdating ? 'Update invite link' : 'Create invite link'}
-      description='When you send an invite link to someone, they will be able to create an account and get access to Unleash. This new user will only have read access, until you change their assigned role.'
+      description='When you send an invite link to someone, they will be able to create an account and get access to Ganpa. This new user will only have read access, until you change their assigned role.'
       documentationLink='https://docs.getunleash.io/reference/public-signup'
       documentationLinkLabel='Invite link documentation'
       formatApiCode={formatApiCode}
@@ -167,7 +167,7 @@ export const InviteLink = () => {
               Viewer
             </Typography>
             <Typography variant='body2' color='text.secondary'>
-              Users with this role can only read root resources in Unleash. The
+              Users with this role can only read root resources in Ganpa. The
               viewer can be added to specific projects as project member.
               Viewers may not view API tokens.
             </Typography>
@@ -213,12 +213,12 @@ export const InviteLink = () => {
       >
         <Box>
           <Typography variant='body1' sx={{ mb: 2 }}>
-            Using this link, new team members can now sign-up to Unleash.
+            Using this link, new team members can now sign-up to Ganpa.
           </Typography>
           <Typography variant='body1'>
             Please provide them with the following link to get started. This
             will allow them to set up their password and get started with their
-            Unleash account.
+            Ganpa account.
           </Typography>
           <LinkField inviteLink={inviteLink} />
         </Box>

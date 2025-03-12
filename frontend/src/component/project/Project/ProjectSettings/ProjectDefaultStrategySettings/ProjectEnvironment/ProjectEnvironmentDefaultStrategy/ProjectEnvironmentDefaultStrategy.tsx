@@ -4,7 +4,7 @@ import PermissionIconButton from 'component/common/PermissionIconButton/Permissi
 import { Link } from 'react-router-dom';
 import Edit from '@mui/icons-material/Edit';
 import { StrategyExecution } from 'component/feature/FeatureView/FeatureOverview/FeatureOverviewEnvironments/FeatureOverviewEnvironment/EnvironmentAccordionBody/StrategyDraggableItem/StrategyItem/StrategyExecution/StrategyExecution';
-import type { ProjectEnvironmentType } from 'interfaces/environments';
+import type { IProjectEnvironmentType } from 'interfaces/environments';
 import { useMemo } from 'react';
 import type { CreateFeatureStrategySchema } from 'openapi';
 import {
@@ -14,7 +14,7 @@ import {
 import SplitPreviewSlider from 'component/feature/StrategyTypes/SplitPreviewSlider/SplitPreviewSlider';
 
 type ProjectEnvironmentDefaultStrategyProps = {
-  environment: ProjectEnvironmentType;
+  environment: IProjectEnvironmentType;
   description: string;
 };
 

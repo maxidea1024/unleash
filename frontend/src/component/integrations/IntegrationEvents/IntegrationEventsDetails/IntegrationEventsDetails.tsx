@@ -1,5 +1,5 @@
 import { Alert, styled } from '@mui/material';
-import type { IntegrationEvent } from 'interfaces/integrationEvent';
+import type { IIntegrationEvent } from 'interfaces/integrationEvent';
 import { IntegrationEventsDetailsAccordion } from './IntegrationEventsDetailsAccordion';
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
 import { Link } from 'react-router-dom';
@@ -30,7 +30,7 @@ export const IntegrationEventsDetails = ({
   stateDetails,
   event,
   details,
-}: IntegrationEvent) => {
+}: IIntegrationEvent) => {
   const severity =
     state === 'failed' ? 'error' : state === 'success' ? 'success' : 'warning';
 

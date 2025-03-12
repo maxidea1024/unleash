@@ -86,7 +86,7 @@ const UserForm = ({
     <StyledForm onSubmit={handleSubmit}>
       <StyledContainer>
         <StyledInputDescription>
-          Who is the new Unleash user?
+          Who is the new Ganpa user?
         </StyledInputDescription>
         <StyledInput
           label='Full name'

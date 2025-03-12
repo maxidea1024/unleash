@@ -3,11 +3,6 @@ import produce from 'immer';
 import type { IFeedbackCESForm } from 'component/feedback/FeedbackCES/FeedbackCESForm';
 import { styled } from '@mui/material';
 
-type FeedbackCESScoreProps = {
-  form: Partial<IFeedbackCESForm>;
-  setForm: React.Dispatch<React.SetStateAction<Partial<IFeedbackCESForm>>>;
-};
-
 const StyledScoreInput = styled('div')(({ theme }) => ({
   display: 'flex',
   gap: theme.spacing(2),
@@ -61,6 +56,11 @@ const StyledScoreValue = styled('label')(({ theme }) => ({
     outlineColor: theme.palette.primary.main,
   },
 }));
+
+type FeedbackCESScoreProps = {
+  form: Partial<IFeedbackCESForm>;
+  setForm: React.Dispatch<React.SetStateAction<Partial<IFeedbackCESForm>>>;
+};
 
 export const FeedbackCESScore = ({ form, setForm }: FeedbackCESScoreProps) => {
   const onScoreChange = (event: React.ChangeEvent<HTMLInputElement>) => {

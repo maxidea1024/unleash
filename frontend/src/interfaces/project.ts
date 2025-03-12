@@ -3,13 +3,13 @@ import type { IFeatureFlagListItem } from './featureToggle';
 import type { ProjectEnvironmentType } from 'component/project/Project/ProjectFeatureToggles/hooks/useEnvironmentsRef';
 import type { ProjectMode } from 'component/project/Project/hooks/useProjectEnterpriseSettingsForm';
 
-export type FeatureNamingType = {
+export interface IFeatureNamingType {
   pattern: string;
   example: string;
   description: string;
 };
 
-export type FeatureTypeCount = {
+export interface IFeatureTypeCount {
   type: string;
   count: number;
 };
@@ -28,7 +28,7 @@ export interface IProject {
   mode: ProjectMode;
   defaultStickiness: string;
   featureLimit?: number;
-  featureNaming?: FeatureNamingType;
+  featureNaming?: IFeatureNamingType;
 }
 
 export interface IProjectOverview {
@@ -40,12 +40,12 @@ export interface IProjectOverview {
   environments: Array<ProjectEnvironmentType>;
   health: number;
   stats: ProjectStatsSchema;
-  featureTypeCounts: FeatureTypeCount[];
+  featureTypeCounts: IFeatureTypeCount[];
   favorite: boolean;
   mode: ProjectMode;
   defaultStickiness: string;
   featureLimit?: number;
-  featureNaming?: FeatureNamingType;
+  featureNaming?: IFeatureNamingType;
   archivedAt?: Date;
   onboardingStatus: ProjectOverviewSchema['onboardingStatus'];
 }

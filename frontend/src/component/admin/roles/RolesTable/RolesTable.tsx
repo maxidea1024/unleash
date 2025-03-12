@@ -30,7 +30,7 @@ type RolesTableProps = {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedRole?: IRole;
   setSelectedRole: React.Dispatch<React.SetStateAction<IRole | undefined>>;
-}
+};
 
 export const RolesTable = ({
   type = ROOT_ROLE_TYPE,

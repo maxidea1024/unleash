@@ -21,7 +21,7 @@ export interface IProjectEnvironment extends IEnvironment {
   defaultStrategy?: Partial<IFeatureStrategy> | CreateFeatureStrategySchema;
 }
 
-export type ProjectEnvironmentType = {
+export type IProjectEnvironmentType = {
   environment: string;
   defaultStrategy?: CreateFeatureStrategySchema;
 };

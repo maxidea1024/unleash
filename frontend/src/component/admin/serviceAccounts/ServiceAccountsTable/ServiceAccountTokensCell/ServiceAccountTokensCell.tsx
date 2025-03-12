@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { styled, Typography } from '@mui/material';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -15,13 +14,13 @@ type ServiceAccountTokensCellProps = {
   serviceAccount: IServiceAccount;
   value: string;
   onCreateToken?: () => void;
-}
+};
 
-export const ServiceAccountTokensCell: FC<ServiceAccountTokensCellProps> = ({
+export const ServiceAccountTokensCell = ({
   serviceAccount,
   value,
   onCreateToken,
-}) => {
+}: ServiceAccountTokensCellProps) => {
   const { searchQuery } = useSearchHighlightContext();
 
   if (!serviceAccount.tokens || serviceAccount.tokens.length === 0) {

@@ -72,7 +72,7 @@ export const ArchiveTable = ({
     searchParams.get('search') || '',
   );
 
-  const { uiConfig } = useUiConfig();
+  // const { uiConfig } = useUiConfig();
 
   const columns = useMemo(
     () => [

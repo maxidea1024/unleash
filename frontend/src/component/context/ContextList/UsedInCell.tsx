@@ -1,10 +1,10 @@
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import theme from 'themes/theme';
 import { Box } from '@mui/material';
-import type { IUnleashContextDefinition } from 'interfaces/context';
+import type { IGanpaContextDefinition } from 'interfaces/context';
 
 type UsedInCellProps = {
-  original: IUnleashContextDefinition;
+  original: IGanpaContextDefinition;
 };
 
 export const UsedInCell = ({ original }: UsedInCellProps) => {

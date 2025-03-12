@@ -2,7 +2,7 @@ import { styled } from '@mui/material';
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutline from '@mui/icons-material/ErrorOutline';
 import WarningAmber from '@mui/icons-material/WarningAmber';
-import type { IntegrationEvent } from 'interfaces/integrationEvent';
+import type { IIntegrationEvent } from 'interfaces/integrationEvent';
 
 const StyledSuccessIcon = styled(CheckCircleOutline)(({ theme }) => ({
   color: theme.palette.success.main,
@@ -16,7 +16,7 @@ const StyledSuccessWithErrorsIcon = styled(WarningAmber)(({ theme }) => ({
   color: theme.palette.warning.main,
 }));
 
-export const IntegrationEventsStateIcon = ({ state }: IntegrationEvent) => {
+export const IntegrationEventsStateIcon = ({ state }: IIntegrationEvent) => {
   if (state === 'success') {
     return <StyledSuccessIcon />;
   }

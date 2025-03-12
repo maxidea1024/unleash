@@ -16,42 +16,32 @@ interface IUseUIConfigOutput {
 }
 
 const useUiConfig = (): IUseUIConfigOutput => {
-  const path = formatApiPath(`api/admin/ui-config`);
+  const path = useMemo(() => formatApiPath(`api/admin/ui-config`), []);
   const { data, error, mutate } = useSWR<IUiConfig>(path, fetcher);
 
-  // TODO: 체크하는 방법이 모두 다름. 정리가 필요해보이는데?
+  const editionInfo = useMemo(() => {
+    const isEnterprise = data?.environment?.toLowerCase() !== 'pro' &&
+      Boolean(data?.versionInfo?.current?.enterprise);
+    const isPro = data?.environment?.toLowerCase() === 'pro';
+    const isOss = !data?.versionInfo?.current?.enterprise;
 
-  const isOss = useCallback(() => {
-    return !data?.versionInfo?.current?.enterprise;
+    return { isEnterprise, isPro, isOss };
   }, [data]);
 
-  const isPro = useCallback(() => {
-    return data?.environment?.toLowerCase() === 'pro';
-  }, [data]);
-
-  const isEnterprise = useCallback(() => {
-    return (
-      data?.environment?.toLowerCase() !== 'pro' &&
-      Boolean(data?.versionInfo?.current?.enterprise)
-    );
-  }, [data]);
-
-  const uiConfig = useMemo<IUiConfig>(() => {
-    return {
-      ...defaultValue,
-      ...data,
-      flags: { ...defaultValue.flags, ...data?.flags },
-    };
-  }, [data]);
+  const uiConfig = useMemo<IUiConfig>(() => ({
+    ...defaultValue,
+    ...data,
+    flags: { ...defaultValue.flags, ...data?.flags },
+  }), [data]);
 
   return {
     uiConfig,
     loading: !error && !data,
     error,
     refetch: mutate,
-    isOss,
-    isPro,
-    isEnterprise,
+    isOss: useCallback(() => editionInfo.isOss, [editionInfo]),
+    isPro: useCallback(() => editionInfo.isPro, [editionInfo]),
+    isEnterprise: useCallback(() => editionInfo.isEnterprise, [editionInfo]),
   };
 };
 

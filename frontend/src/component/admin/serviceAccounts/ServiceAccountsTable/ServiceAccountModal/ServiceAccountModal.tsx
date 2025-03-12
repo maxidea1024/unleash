@@ -11,7 +11,7 @@ import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import useToast from 'hooks/useToast';
-import { type FC, type FormEvent, useEffect, useState } from 'react';
+import { type FormEvent, useEffect, useState } from 'react';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import Input from 'component/common/Input/Input';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
@@ -100,7 +100,7 @@ enum ErrorField {
   USERNAME = 'username',
 }
 
-interface ServiceAccountModalErrors {
+interface IServiceAccountModalErrors {
   [ErrorField.USERNAME]?: string;
 }
 
@@ -113,12 +113,12 @@ type ServiceAccountModalProps = {
   newToken: (token: INewPersonalAPIToken) => void;
 };
 
-export const ServiceAccountModal: FC<ServiceAccountModalProps> = ({
+export const ServiceAccountModal = ({
   serviceAccount,
   open,
   setOpen,
   newToken,
-}) => {
+}: ServiceAccountModalProps) => {
   const { users } = useUsers();
   const { serviceAccounts, roles, refetch } = useServiceAccounts();
   const { addServiceAccount, updateServiceAccount, loading } =
@@ -133,7 +133,7 @@ export const ServiceAccountModal: FC<ServiceAccountModalProps> = ({
   const [tokenGeneration, setTokenGeneration] = useState<TokenGeneration>(
     TokenGeneration.LATER,
   );
-  const [errors, setErrors] = useState<ServiceAccountModalErrors>({});
+  const [errors, setErrors] = useState<IServiceAccountModalErrors>({});
 
   const clearError = (field: ErrorField) => {
     setErrors((errors) => ({ ...errors, [field]: undefined }));
@@ -263,7 +263,7 @@ export const ServiceAccountModal: FC<ServiceAccountModalProps> = ({
         loading={loading}
         modal
         title={editing ? 'Edit service account' : 'New service account'}
-        description='A service account is a special type of account that can only be used to authenticate with the Unleash API. Service accounts can be used to automate tasks.'
+        description='A service account is a special type of account that can only be used to authenticate with the Ganpa API. Service accounts can be used to automate tasks.'
         documentationLink='https://docs.getunleash.io'
         documentationLinkLabel='Service accounts documentation'
         formatApiCode={formatApiCode}

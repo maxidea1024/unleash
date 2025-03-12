@@ -30,7 +30,7 @@ export const sendFeedbackInput = async (
   };
 
   await fetch(
-    'https://europe-west3-metrics-304612.cloudfunctions.net/docs-app-feedback',
+    'https://europe-west3-metrics-304612.cloudfunctions.net/docs-app-feedback', // TODO: move to config
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

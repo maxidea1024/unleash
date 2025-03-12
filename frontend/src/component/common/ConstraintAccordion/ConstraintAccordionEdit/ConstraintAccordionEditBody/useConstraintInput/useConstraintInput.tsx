@@ -5,7 +5,7 @@ import {
   semVerOperators,
   dateOperators,
 } from 'constants/operators';
-import type { IUnleashContextDefinition } from 'interfaces/context';
+import type { IGanpaContextDefinition } from 'interfaces/context';
 import type { IConstraint } from 'interfaces/strategy';
 import type React from 'react';
 import { useCallback, useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ import {
 import { nonEmptyArray } from 'utils/nonEmptyArray';
 
 type UseConstraintInputProps = {
-  contextDefinition: IUnleashContextDefinition;
+  contextDefinition: IGanpaContextDefinition;
   localConstraint: IConstraint;
 };
 

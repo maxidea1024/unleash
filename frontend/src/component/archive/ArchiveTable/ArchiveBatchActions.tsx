@@ -35,6 +35,7 @@ export const ArchiveBatchActions = ({
   const onDelete = async () => {
     setDeleteModalOpen(true);
   };
+
   return (
     <>
       <PermissionHOC projectId={projectId} permission={UPDATE_FEATURE}>

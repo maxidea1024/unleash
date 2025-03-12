@@ -5,6 +5,7 @@ const useLoading = <T extends HTMLElement = HTMLDivElement>(
   selector = '[data-loading=true]',
 ) => {
   const ref = createRef<T>();
+
   useLayoutEffect(() => {
     if (ref.current) {
       const elements = ref.current.querySelectorAll(selector);

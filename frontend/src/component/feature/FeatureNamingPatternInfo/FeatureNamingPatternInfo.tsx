@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { FeatureNamingType } from 'interfaces/project';
+import type { IFeatureNamingType } from 'interfaces/project';
 
 const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
   fontSize: theme.fontSizes.smallBody,
@@ -25,7 +25,7 @@ const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
 }));
 
 type FeatureNamingPatternInfoProps = {
-  featureNaming: FeatureNamingType;
+  featureNaming: IFeatureNamingType;
 };
 
 export const FeatureNamingPatternInfo = ({ featureNaming }: FeatureNamingPatternInfoProps) => {

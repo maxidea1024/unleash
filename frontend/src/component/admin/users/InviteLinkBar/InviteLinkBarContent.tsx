@@ -7,7 +7,7 @@ import { LinkField } from '../LinkField/LinkField';
 import { add, formatDistanceToNowStrict, isAfter, parseISO } from 'date-fns';
 import { formatDateYMD } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
+// import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
 export const StyledBox = styled(Box)(() => ({
   mb: {
@@ -35,7 +35,7 @@ export const InviteLinkBarContent = ({
   const navigate = useNavigate();
   const { data, loading } = useInviteTokens();
   const ref = useLoading(loading);
-  const { trackEvent } = usePlausibleTracker();
+  // const { trackEvent } = usePlausibleTracker();
   const inviteToken =
     data?.tokens?.find((token) => token.name === 'default') ?? null;
   const inviteLink = inviteToken?.url;
@@ -86,7 +86,7 @@ export const InviteLinkBarContent = ({
           elseShow={
             <Typography variant='body2' data-loading>
               You can easily create an invite link here that you can share and
-              use to invite people from your company to your Unleash setup.
+              use to invite people from your company to your Ganpa setup.
             </Typography>
           }
         />

@@ -16,7 +16,7 @@ export const LicenseBanner = () => {
     !licenseInfo.error
   ) {
     const banner = {
-      message: licenseInfo.message || 'You have an invalid Unleash license.',
+      message: licenseInfo.message || 'You have an invalid Ganpa license.',
       variant: 'error' as BannerVariant,
       sticky: true,
     };

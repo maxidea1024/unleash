@@ -38,11 +38,11 @@ const renderNoResults = (query: string | null | undefined) => {
   return (
     <InfoMessage>
       You don't have have any connected applications. To connect your
-      application to Unleash you will require a{' '}
+      application to Ganpa you will require a{' '}
       <Link href='https://docs.getunleash.io/docs/sdks/'>Client SDK</Link>
       .
       <br />
-      You can read more about how to use Unleash in your application in the{' '}
+      You can read more about how to use Ganpa in your application in the{' '}
       <Link href='https://docs.getunleash.io/docs/sdks/'>documentation.</Link>
     </InfoMessage>
   );

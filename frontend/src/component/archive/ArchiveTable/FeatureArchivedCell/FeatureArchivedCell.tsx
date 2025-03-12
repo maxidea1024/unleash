@@ -1,4 +1,3 @@
-import type { FC } from 'react';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import { Tooltip, Typography, useTheme } from '@mui/material';
 import { formatDateYMD } from 'utils/formatDate';
@@ -15,7 +14,7 @@ export const FeatureArchivedCell = ({
   const { locationSettings } = useLocationSettings();
   const theme = useTheme();
 
-  if (!archivedAt)
+  if (!archivedAt) {
     return (
       <TextCell>
         <Typography variant='body2' color={theme.palette.text.secondary}>
@@ -23,6 +22,7 @@ export const FeatureArchivedCell = ({
         </Typography>
       </TextCell>
     );
+  }
 
   return (
     <TextCell>

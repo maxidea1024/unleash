@@ -8,7 +8,7 @@ export type IFeedbackCategory =
   | 'signals';
 
 export const useUserSubmittedFeedback = (category: IFeedbackCategory) => {
-  const key = `unleash-userSubmittedFeedback:${category}`;
+  const key = `ganpa-userSubmittedFeedback:${category}`;
 
   const { value: hasSubmittedFeedback, setValue: setHasSubmittedFeedback } =
     createLocalStorage<Boolean>(key, false);

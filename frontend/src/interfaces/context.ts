@@ -1,4 +1,4 @@
-export interface IUnleashContextDefinition {
+export interface IGanpaContextDefinition {
   name: string;
   description: string;
   createdAt: string;

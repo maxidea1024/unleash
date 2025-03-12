@@ -1,4 +1,5 @@
 export const AccountTypes = ['User', 'Service Account'] as const;
+
 type AccountType = (typeof AccountTypes)[number];
 
 export interface IUser {

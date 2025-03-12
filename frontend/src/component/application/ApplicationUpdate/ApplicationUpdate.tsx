@@ -67,7 +67,7 @@ export const ApplicationUpdate = ({ application }: ApplicationUpdateProps) => {
               htmlTooltip
               tooltip={
                 <>
-                  <p>Unleash is using Material Icons</p>
+                  <p>Ganpa is using Material Icons</p>
                   <br />
                   <a
                     href='https://mui.com/material-ui/material-icons/'

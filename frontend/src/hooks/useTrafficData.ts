@@ -5,7 +5,7 @@ import type { ChartDataset } from 'chart.js';
 const TRAFFIC_DATA_UNIT_COST = 5;
 const TRAFFIC_DATA_UNIT_SIZE = 1_000_000;
 
-export type SelectablePeriod = {
+export interface ISelectablePeriod {
   key: string;
   dayCount: number;
   label: string;
@@ -13,7 +13,7 @@ export type SelectablePeriod = {
   month: number;
 };
 
-export type EndpointInfo = {
+export interface IEndpointInfo {
   label: string;
   color: string;
   order: number;
@@ -21,7 +21,7 @@ export type EndpointInfo = {
 
 export type ChartDatasetType = ChartDataset<'bar'>;
 
-const endpointsInfo: Record<string, EndpointInfo> = {
+const endpointsInfo: Record<string, IEndpointInfo> = {
   '/api/admin': {
     label: 'Admin',
     color: '#6D66D9',
@@ -50,7 +50,7 @@ const padMonth = (month: number): string =>
 export const toSelectablePeriod = (
   date: Date,
   label?: string,
-): SelectablePeriod => {
+): ISelectablePeriod => {
   const year = date.getFullYear();
   const month = date.getMonth();
   const period = `${year}-${padMonth(month + 1)}`;
@@ -68,7 +68,7 @@ export const toSelectablePeriod = (
 const currentDate = new Date(Date.now());
 const currentPeriod = toSelectablePeriod(currentDate, 'Current month');
 
-const getSelectablePeriods = (): SelectablePeriod[] => {
+const getSelectablePeriods = (): ISelectablePeriod[] => {
   const selectablePeriods = [currentPeriod];
   for (
     let subtractMonthCount = 1;
@@ -90,21 +90,21 @@ const getSelectablePeriods = (): SelectablePeriod[] => {
 };
 
 const toPeriodsRecord = (
-  periods: SelectablePeriod[],
-): Record<string, SelectablePeriod> => {
+  periods: ISelectablePeriod[],
+): Record<string, ISelectablePeriod> => {
   return periods.reduce(
     (acc, period) => {
       acc[period.key] = period;
       return acc;
     },
-    {} as Record<string, SelectablePeriod>,
+    {} as Record<string, ISelectablePeriod>,
   );
 };
 
 const toChartData = (
   days: number[],
   traffic: IInstanceTrafficMetricsResponse,
-  endpointsInfo: Record<string, EndpointInfo>,
+  endpointsInfo: Record<string, IEndpointInfo>,
 ): ChartDatasetType[] => {
   if (!traffic || !traffic.usage || !traffic.usage.apiData) {
     return [];

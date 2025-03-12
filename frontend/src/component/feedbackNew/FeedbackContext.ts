@@ -4,9 +4,9 @@ import type { IFeedbackCategory } from 'hooks/useSubmittedFeedback';
 export type FeedbackMode = 'automatic' | 'manual';
 
 export interface IFeedbackContext {
-  feedbackData: FeedbackData | undefined;
+  feedbackData: IFeedbackData | undefined;
   openFeedback: (
-    data: FeedbackData,
+    data: IFeedbackData,
     mode: FeedbackMode,
     variant?: string,
   ) => void;
@@ -22,7 +22,7 @@ interface IFeedbackText {
   areasForImprovementsLabel: string;
 }
 
-export type FeedbackData = IFeedbackText & {
+export interface IFeedbackData extends IFeedbackText {
   category: IFeedbackCategory;
 };
 
