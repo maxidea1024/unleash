@@ -6,6 +6,7 @@ type IUseSegmentLimits = Pick<
   'segmentValuesLimit' | 'strategySegmentsLimit'
 >;
 
+// TODO: Do we really need this? Can't we just get it directly from useUiConfig?
 export const useSegmentLimits = (): IUseSegmentLimits => {
   const { uiConfig } = useUiConfig();
 
