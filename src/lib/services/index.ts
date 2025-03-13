@@ -294,7 +294,7 @@ export const createServices = (
     ? new FeatureCollaboratorsReadModel(db)
     : new FakeFeatureCollaboratorsReadModel();
 
-  const featureToggleServiceV2 = new FeatureToggleService(
+  const featureToggleService = new FeatureToggleService(
     stores,
     config,
     segmentService,
@@ -433,8 +433,7 @@ export const createServices = (
     accountService,
     addonService,
     eventAnnouncerService,
-    featureToggleService: featureToggleServiceV2,
-    featureToggleServiceV2,
+    featureToggleService,
     featureTypeService,
     healthService,
     projectService,

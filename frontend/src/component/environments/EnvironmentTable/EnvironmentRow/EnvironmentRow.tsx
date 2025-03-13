@@ -1,4 +1,4 @@
-import { type IMoveListItem, useDragItem } from 'hooks/useDragItem';
+import { type MoveListItem, useDragItem } from 'hooks/useDragItem';
 import type { Row } from 'react-table';
 import { styled, TableRow } from '@mui/material';
 import { TableCell } from 'component/common/Table';
@@ -18,7 +18,7 @@ const StyledTableRow = styled(TableRow)(() => ({
 
 type EnvironmentRowProps = {
   row: Row;
-  moveListItem: IMoveListItem;
+  moveListItem: MoveListItem;
 };
 
 export const EnvironmentRow = ({ row, moveListItem }: EnvironmentRowProps) => {

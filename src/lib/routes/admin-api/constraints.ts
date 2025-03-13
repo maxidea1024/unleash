@@ -17,15 +17,15 @@ export default class ConstraintController extends Controller {
   constructor(
     config: IUnleashConfig,
     {
-      featureToggleServiceV2,
+      featureToggleService,
       openApiService,
-    }: Pick<IUnleashServices, 'featureToggleServiceV2' | 'openApiService'>,
+    }: Pick<IUnleashServices, 'featureToggleService' | 'openApiService'>,
   ) {
     super(config);
 
     this.logger = config.getLogger('constrains.ts');
 
-    this.featureService = featureToggleServiceV2;
+    this.featureService = featureToggleService;
     this.openApiService = openApiService;
 
     this.route({

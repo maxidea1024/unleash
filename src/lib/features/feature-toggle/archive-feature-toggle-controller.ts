@@ -37,19 +37,19 @@ export default class ArchiveController extends Controller {
     config: IUnleashConfig,
     {
       transactionalFeatureToggleService,
-      featureToggleServiceV2,
+      featureToggleService,
       openApiService,
     }: Pick<
       IUnleashServices,
       | 'transactionalFeatureToggleService'
-      | 'featureToggleServiceV2'
+      | 'featureToggleService'
       | 'openApiService'
     >,
     startTransaction: TransactionCreator<GanpaTransaction>,
   ) {
     super(config);
 
-    this.featureService = featureToggleServiceV2;
+    this.featureService = featureToggleService;
     this.openApiService = openApiService;
     this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;

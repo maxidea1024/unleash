@@ -761,8 +761,6 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
     additionalCspAllowedDomains,
     frontendApiOrigins: parseFrontendApiOrigins(options),
     inlineSegmentConstraints,
-    // segmentValuesLimit,
-    // strategySegmentsLimit,
     resourceLimits,
     clientFeatureCaching,
     accessControlMaxAge,

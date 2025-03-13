@@ -103,7 +103,7 @@ const PATH_STRATEGY = `${PATH_STRATEGIES}/:strategyId`;
 
 type ProjectFeaturesServices = Pick<
   IUnleashServices,
-  | 'featureToggleServiceV2'
+  | 'featureToggleService'
   | 'projectHealthService'
   | 'openApiService'
   | 'transactionalFeatureToggleService'
@@ -124,7 +124,7 @@ export default class ProjectFeaturesController extends Controller {
   constructor(
     config: IUnleashConfig,
     {
-      featureToggleServiceV2,
+      featureToggleService,
       openApiService,
       transactionalFeatureToggleService,
       featureTagService,
@@ -135,7 +135,7 @@ export default class ProjectFeaturesController extends Controller {
 
     this.logger = config.getLogger('feature-toggle-controller.ts');
 
-    this.featureService = featureToggleServiceV2;
+    this.featureService = featureToggleService;
     this.transactionalFeatureToggleService = transactionalFeatureToggleService;
     this.startTransaction = startTransaction;
     this.openApiService = openApiService;

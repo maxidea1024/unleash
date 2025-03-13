@@ -261,10 +261,6 @@ export interface IUnleashConfig {
   environmentEnableOverrides?: string[];
   frontendApi: IFrontendApi;
   inlineSegmentConstraints: boolean;
-  // /** @deprecated: use resourceLimits.segmentValues */
-  // segmentValuesLimit: number;
-  // /** @deprecated: use resourceLimits.strategySegments */
-  // strategySegmentsLimit: number;
   resourceLimits: ResourceLimitsSchema;
   metricsRateLimiting: IMetricsRateLimiting;
   dailyMetricsStorageDays: number;
