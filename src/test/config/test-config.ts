@@ -1,6 +1,6 @@
 import merge from 'deepmerge';
 import {
-  IAuthType,
+  AuthType,
   type IUnleashConfig,
   type IUnleashOptions,
 } from '../../lib/types/options';
@@ -16,7 +16,7 @@ export function createTestConfig(config?: IUnleashOptions): IUnleashConfig {
   getLogger.setMuteError(true);
   const testConfig: IUnleashOptions = {
     getLogger,
-    authentication: { type: IAuthType.NONE, createAdminUser: false },
+    authentication: { type: AuthType.NONE, createAdminUser: false },
     server: { secret: 'really-secret' },
     session: { db: false },
     versionCheck: { enable: false },

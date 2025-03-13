@@ -4,7 +4,7 @@ import { createTestConfig } from '../../../../test/config/test-config';
 import { clientMetricsSchema } from '../shared/schema';
 import { createServices } from '../../../services';
 import {
-  IAuthType,
+  AuthType,
   type IUnleashOptions,
   type IUnleashServices,
   type IUnleashStores,
@@ -353,7 +353,7 @@ describe('bulk metrics', () => {
   test('bulk metrics requires a valid client token to accept metrics', async () => {
     const authed = await getSetup({
       authentication: {
-        type: IAuthType.DEMO,
+        type: AuthType.DEMO,
         enableApiToken: true,
       },
     });

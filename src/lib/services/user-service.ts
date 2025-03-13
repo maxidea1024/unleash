@@ -18,7 +18,7 @@ import type { EmailService } from './email-service';
 import type {
   IAuthOption,
   IUnleashConfig,
-  UsernameAdminUser,
+  IUsernameAdminUser,
 } from '../types/options';
 import type SessionService from './session-service';
 import type { IUnleashStores } from '../types/stores';
@@ -151,7 +151,7 @@ export default class UserService {
   }
 
   async initAdminUsernameUser(
-    usernameAdminUser?: UsernameAdminUser,
+    usernameAdminUser?: IUsernameAdminUser,
   ): Promise<void> {
     const username = usernameAdminUser?.username || 'admin';
     const password = usernameAdminUser?.password || 'unleash4all';

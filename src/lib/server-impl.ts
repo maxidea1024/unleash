@@ -12,7 +12,7 @@ import { createDb } from './db/db-pool';
 import sessionDb from './middleware/session-db';
 import {
   type CustomAuthHandler,
-  IAuthType,
+  AuthType,
   type IUnleash,
   type IUnleashConfig,
   type IUnleashOptions,
@@ -209,7 +209,7 @@ export {
   ApiUser,
   LogLevel,
   RoleName,
-  IAuthType,
+  AuthType as IAuthType,
   Knex,
   Db,
   permissions,

@@ -1,7 +1,7 @@
 import getLogger from '../../../fixtures/no-logger';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
-import { IAuthType, type IUnleashStores } from '../../../../lib/types';
+import { AuthType, type IUnleashStores } from '../../../../lib/types';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
 
 let app: IUnleashTest;
@@ -18,7 +18,7 @@ beforeAll(async () => {
   app = await setupAppWithAuth(
     stores,
     {
-      authentication: { enableApiToken: true, type: IAuthType.DEMO },
+      authentication: { enableApiToken: true, type: AuthType.DEMO },
     },
     db.rawDatabase,
   );
@@ -29,7 +29,7 @@ beforeAll(async () => {
         unleashUrl: 'http://localhost:4242',
         basePathUri: '/demo',
       },
-      authentication: { enableApiToken: true, type: IAuthType.DEMO },
+      authentication: { enableApiToken: true, type: AuthType.DEMO },
     },
     db.rawDatabase,
   );

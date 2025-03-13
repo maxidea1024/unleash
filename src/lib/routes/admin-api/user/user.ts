@@ -2,7 +2,7 @@ import type { Response } from 'express';
 import type { IAuthRequest } from '../../unleash-types';
 import Controller from '../../controller';
 import type { AccessService } from '../../../services/access-service';
-import { IAuthType, type IUnleashConfig } from '../../../types/options';
+import { AuthType, type IUnleashConfig } from '../../../types/options';
 import type { IUnleashServices } from '../../../types/services';
 import type UserService from '../../../services/user-service';
 import type UserFeedbackService from '../../../services/user-feedback-service';
@@ -200,7 +200,7 @@ export default class UserController extends Controller {
     res.setHeader('cache-control', 'no-store');
     const { user } = req;
     let permissions: IUserPermission[];
-    if (this.config.authentication.type === IAuthType.NONE) {
+    if (this.config.authentication.type === AuthType.NONE) {
       permissions = [{ permission: ADMIN }];
     } else {
       permissions = await this.accessService.getPermissionsForUser(user);

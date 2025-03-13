@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { createConfig, authTypeFromString } from '../../lib/create-config';
-import { IAuthType, type IDBOption } from '../../lib/types/options';
+import { AuthType, type IDBOption } from '../../lib/types/options';
 
 test('Should use DATABASE_URL from env', () => {
   const databaseUrl = 'postgres://u:p@localhost:5432/name';
@@ -73,18 +73,18 @@ test('Can set baseUriPath', () => {
 });
 
 test('can convert both upper and lowercase string to enum', () => {
-  expect(authTypeFromString('demo')).toBe(IAuthType.DEMO);
-  expect(authTypeFromString('DEMO')).toBe(IAuthType.DEMO);
-  expect(authTypeFromString('DeMo')).toBe(IAuthType.DEMO);
-  expect(authTypeFromString('open_source')).toBe(IAuthType.OPEN_SOURCE);
-  expect(authTypeFromString('OPEN_SOURCE')).toBe(IAuthType.OPEN_SOURCE);
-  expect(authTypeFromString('ENTERPRISE')).toBe(IAuthType.ENTERPRISE);
-  expect(authTypeFromString('enterprise')).toBe(IAuthType.ENTERPRISE);
-  expect(authTypeFromString('custom')).toBe(IAuthType.CUSTOM);
-  expect(authTypeFromString('CUSTOM')).toBe(IAuthType.CUSTOM);
-  expect(authTypeFromString('none')).toBe(IAuthType.NONE);
-  expect(authTypeFromString('NONE')).toBe(IAuthType.NONE);
-  expect(authTypeFromString('unknown-string')).toBe(IAuthType.OPEN_SOURCE);
+  expect(authTypeFromString('demo')).toBe(AuthType.DEMO);
+  expect(authTypeFromString('DEMO')).toBe(AuthType.DEMO);
+  expect(authTypeFromString('DeMo')).toBe(AuthType.DEMO);
+  expect(authTypeFromString('open_source')).toBe(AuthType.OPEN_SOURCE);
+  expect(authTypeFromString('OPEN_SOURCE')).toBe(AuthType.OPEN_SOURCE);
+  expect(authTypeFromString('ENTERPRISE')).toBe(AuthType.ENTERPRISE);
+  expect(authTypeFromString('enterprise')).toBe(AuthType.ENTERPRISE);
+  expect(authTypeFromString('custom')).toBe(AuthType.CUSTOM);
+  expect(authTypeFromString('CUSTOM')).toBe(AuthType.CUSTOM);
+  expect(authTypeFromString('none')).toBe(AuthType.NONE);
+  expect(authTypeFromString('NONE')).toBe(AuthType.NONE);
+  expect(authTypeFromString('unknown-string')).toBe(AuthType.OPEN_SOURCE);
 });
 
 test('Can set auth type programmatically with a string', () => {
@@ -94,7 +94,7 @@ test('Can set auth type programmatically with a string', () => {
       type: 'demo',
     },
   });
-  expect(config.authentication.type).toBe(IAuthType.DEMO);
+  expect(config.authentication.type).toBe(AuthType.DEMO);
 });
 
 test('should use DATABASE_URL_FILE from env', () => {

@@ -52,7 +52,7 @@ export interface IVersionOption {
   enable?: boolean;
 }
 
-export enum IAuthType {
+export enum AuthType {
   OPEN_SOURCE = 'open-source',
   DEMO = 'demo',
   ENTERPRISE = 'enterprise',
@@ -67,7 +67,7 @@ export type CustomAuthHandler = (
   services?: IUnleashServices,
 ) => void;
 
-export type UsernameAdminUser = {
+export type IUsernameAdminUser = {
   username: string;
   password: string;
 };
@@ -75,10 +75,10 @@ export type UsernameAdminUser = {
 export interface IAuthOption {
   demoAllowAdminLogin?: boolean;
   enableApiToken: boolean;
-  type: IAuthType;
+  type: AuthType;
   customAuthHandler?: CustomAuthHandler;
   createAdminUser?: boolean;
-  initialAdminUser?: UsernameAdminUser;
+  initialAdminUser?: IUsernameAdminUser;
   initApiTokens: ILegacyApiTokenCreate[];
 }
 
@@ -261,10 +261,10 @@ export interface IUnleashConfig {
   environmentEnableOverrides?: string[];
   frontendApi: IFrontendApi;
   inlineSegmentConstraints: boolean;
-  /** @deprecated: use resourceLimits.segmentValues */
-  segmentValuesLimit: number;
-  /** @deprecated: use resourceLimits.strategySegments */
-  strategySegmentsLimit: number;
+  // /** @deprecated: use resourceLimits.segmentValues */
+  // segmentValuesLimit: number;
+  // /** @deprecated: use resourceLimits.strategySegments */
+  // strategySegmentsLimit: number;
   resourceLimits: ResourceLimitsSchema;
   metricsRateLimiting: IMetricsRateLimiting;
   dailyMetricsStorageDays: number;

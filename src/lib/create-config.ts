@@ -3,7 +3,7 @@ import merge from 'deepmerge';
 import { readFileSync, existsSync } from 'fs';
 import {
   type IAuthOption,
-  IAuthType,
+  AuthType,
   type IClientCachingOption,
   type ICspDomainConfig,
   type ICspDomainOptions,
@@ -21,7 +21,7 @@ import {
   type IUnleashOptions,
   type IVersionOption,
   type ISSLOption,
-  type UsernameAdminUser,
+  type IUsernameAdminUser,
 } from './types/options';
 import { getDefaultLogProvider, LogLevel, validateLogProvider } from './logger';
 import { defaultCustomAuthDenyAll } from './default-custom-auth-deny-all';
@@ -61,10 +61,10 @@ type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export function authTypeFromString(
   s?: string,
-  defaultType: IAuthType = IAuthType.OPEN_SOURCE,
-): IAuthType {
+  defaultType: AuthType = AuthType.OPEN_SOURCE,
+): AuthType {
   const upperS = safeToUpper(s);
-  return upperS && IAuthType[upperS] ? IAuthType[upperS] : defaultType;
+  return upperS && AuthType[upperS] ? AuthType[upperS] : defaultType;
 }
 
 function mergeAll<T>(objects: Partial<T>[]): T {
@@ -319,7 +319,7 @@ const defaultVersionOption: IVersionOption = {
   enable: parseEnvVarBoolean(process.env.CHECK_VERSION, true),
 };
 
-const parseEnvVarInitialAdminUser = (): UsernameAdminUser | undefined => {
+const parseEnvVarInitialAdminUser = (): IUsernameAdminUser | undefined => {
   const username = process.env.UNLEASH_DEFAULT_ADMIN_USERNAME;
   const password = process.env.UNLEASH_DEFAULT_ADMIN_PASSWORD;
   return username && password ? { username, password } : undefined;
@@ -761,8 +761,8 @@ export function createConfig(options: IUnleashOptions): IUnleashConfig {
     additionalCspAllowedDomains,
     frontendApiOrigins: parseFrontendApiOrigins(options),
     inlineSegmentConstraints,
-    segmentValuesLimit,
-    strategySegmentsLimit,
+    // segmentValuesLimit,
+    // strategySegmentsLimit,
     resourceLimits,
     clientFeatureCaching,
     accessControlMaxAge,

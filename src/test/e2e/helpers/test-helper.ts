@@ -2,7 +2,7 @@ import supertest from 'supertest';
 
 import getApp from '../../../lib/app';
 import { createTestConfig } from '../../config/test-config';
-import { IAuthType, type IUnleashConfig } from '../../../lib/types/options';
+import { AuthType, type IUnleashConfig } from '../../../lib/types/options';
 import { createServices } from '../../../lib/services';
 import sessionDb from '../../../lib/middleware/session-db';
 import {
@@ -296,7 +296,7 @@ function httpApis(
 
 async function createApp(
   stores,
-  adminAuthentication = IAuthType.NONE,
+  adminAuthentication = AuthType.NONE,
   preHook?: Function,
   customOptions?: any,
   db?: Db,
@@ -358,7 +358,7 @@ export async function setupAppWithoutSupertest(
 ): Promise<IUnleashNoSupertest> {
   const config = createTestConfig({
     authentication: {
-      type: IAuthType.DEMO,
+      type: AuthType.DEMO,
     },
     server: {
       unleashUrl: 'http://localhost:4242',
@@ -413,7 +413,7 @@ export async function setupAppWithAuth(
   customOptions?: any,
   db?: Db,
 ): Promise<IUnleashTest> {
-  return createApp(stores, IAuthType.DEMO, undefined, customOptions, db);
+  return createApp(stores, AuthType.DEMO, undefined, customOptions, db);
 }
 
 export async function setupAppWithCustomAuth(
@@ -423,7 +423,7 @@ export async function setupAppWithCustomAuth(
   customOptions?: any,
   db?: Db,
 ): Promise<IUnleashTest> {
-  return createApp(stores, IAuthType.CUSTOM, preHook, customOptions, db);
+  return createApp(stores, AuthType.CUSTOM, preHook, customOptions, db);
 }
 
 export async function setupAppWithBaseUrl(

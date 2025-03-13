@@ -9,7 +9,7 @@ import { corsOriginMiddleware } from './middleware/cors-origin-middleware';
 import rbacMiddleware from './middleware/rbac-middleware';
 import apiTokenMiddleware from './middleware/api-token-middleware';
 import type { IUnleashServices } from './types/services';
-import { IAuthType, type IUnleashConfig } from './types/options';
+import { AuthType, type IUnleashConfig } from './types/options';
 import type { IUnleashStores } from './types';
 import IndexRouter from './routes';
 import requestLogger from './middleware/request-logger';
@@ -120,38 +120,38 @@ export default async function getApp(
   app.use(baseUriPath, patMiddleware(config, services));
 
   switch (config.authentication.type) {
-    case IAuthType.OPEN_SOURCE: {
+    case AuthType.OPEN_SOURCE: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       ossAuthentication(app, config.getLogger, config.server.baseUriPath);
       break;
     }
-    case IAuthType.ENTERPRISE: {
+    case AuthType.ENTERPRISE: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       if (config.authentication.customAuthHandler) {
         config.authentication.customAuthHandler(app, config, services);
       }
       break;
     }
-    case IAuthType.HOSTED: {
+    case AuthType.HOSTED: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       if (config.authentication.customAuthHandler) {
         config.authentication.customAuthHandler(app, config, services);
       }
       break;
     }
-    case IAuthType.DEMO: {
+    case AuthType.DEMO: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       demoAuthentication(app, config.server.baseUriPath, services, config);
       break;
     }
-    case IAuthType.CUSTOM: {
+    case AuthType.CUSTOM: {
       app.use(baseUriPath, apiTokenMiddleware(config, services));
       if (config.authentication.customAuthHandler) {
         config.authentication.customAuthHandler(app, config, services);
       }
       break;
     }
-    case IAuthType.NONE: {
+    case AuthType.NONE: {
       logger.warn(
         'The AuthType=none option for Unleash is no longer recommended and will be removed in version 6.',
       );

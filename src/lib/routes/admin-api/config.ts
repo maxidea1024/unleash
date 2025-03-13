@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import type { AuthedRequest } from '../../types/core';
 import type { IUnleashServices } from '../../types/services';
-import { IAuthType, type IUnleashConfig } from '../../types/options';
+import { AuthType, type IUnleashConfig } from '../../types/options';
 import version from '../../util/version';
 import Controller from '../controller';
 import type VersionService from '../../services/version-service';
@@ -117,7 +117,7 @@ export default class ConfigController extends Controller {
 
     const disablePasswordAuth =
       simpleAuthSettings?.disabled ||
-      this.config.authentication.type === IAuthType.NONE;
+      this.config.authentication.type === AuthType.NONE;
 
     const expFlags = this.config.flagResolver.getAll({
       email: req.user.email,
