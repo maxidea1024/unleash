@@ -11,7 +11,7 @@ import {
 import { useCallback, useMemo } from 'react';
 import { SearchHighlightProvider } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Alert, styled, TableBody } from '@mui/material';
-import type { MoveListItem } from 'hooks/useDragItem';
+import type { IMoveListItem } from 'hooks/useDragItem';
 import useToast from 'hooks/useToast';
 import useEnvironmentApi, {
   createSortOrderPayload,
@@ -43,7 +43,7 @@ export const EnvironmentTable = () => {
     'purchaseAdditionalEnvironments',
   );
 
-  const moveListItem: MoveListItem = useCallback(
+  const moveListItem: IMoveListItem = useCallback(
     async (dragIndex: number, dropIndex: number, save = false) => {
       const copy = [...environments];
       const tmp = copy[dragIndex];

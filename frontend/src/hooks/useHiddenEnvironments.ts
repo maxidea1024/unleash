@@ -16,8 +16,10 @@ export const useHiddenEnvironments = () => {
       const hiddenEnvironments = new Set(
         Array.from(params.hiddenEnvironments || []),
       );
+
       if (hiddenEnvironments.has(environment)) {
         hiddenEnvironments.delete(environment);
+
         trackEvent('hidden_environment', {
           props: {
             eventType: `environment unhidden`,
@@ -25,12 +27,14 @@ export const useHiddenEnvironments = () => {
         });
       } else {
         hiddenEnvironments.add(environment);
+
         trackEvent('hidden_environment', {
           props: {
             eventType: `environment hidden`,
           },
         });
       }
+
       setStoredHiddenEnvironments(hiddenEnvironments);
 
       return {

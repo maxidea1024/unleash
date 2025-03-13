@@ -1,13 +1,13 @@
 import { SKIP_CHANGE_REQUEST } from 'component/providers/AccessProvider/permissions';
-import React from 'react';
 import { useChangeRequestConfig } from './api/getters/useChangeRequestConfig/useChangeRequestConfig';
 import { useCheckProjectPermissions } from './useHasAccess';
+import { useCallback } from 'react';
 
 export const useChangeRequestsEnabled = (projectId: string) => {
   const { data } = useChangeRequestConfig(projectId);
   const checkAccess = useCheckProjectPermissions(projectId);
 
-  const isChangeRequestConfigured = React.useCallback(
+  const isChangeRequestConfigured = useCallback(
     (environment: string): boolean => {
       const canSkipChangeRequest = checkAccess(
         SKIP_CHANGE_REQUEST,
@@ -16,15 +16,15 @@ export const useChangeRequestsEnabled = (projectId: string) => {
       return canSkipChangeRequest
         ? false
         : data.some((draft) => {
-            return (
-              draft.environment === environment && draft.changeRequestEnabled
-            );
-          });
+          return (
+            draft.environment === environment && draft.changeRequestEnabled
+          );
+        });
     },
     [JSON.stringify(data)],
   );
 
-  const isChangeRequestConfiguredForReview = React.useCallback(
+  const isChangeRequestConfiguredForReview = useCallback(
     (environment: string): boolean => {
       return data.some((draft) => {
         return draft.environment === environment && draft.changeRequestEnabled;
@@ -33,7 +33,7 @@ export const useChangeRequestsEnabled = (projectId: string) => {
     [JSON.stringify(data)],
   );
 
-  const isChangeRequestConfiguredInAnyEnv = React.useCallback((): boolean => {
+  const isChangeRequestConfiguredInAnyEnv = useCallback((): boolean => {
     return data.some((draft) => draft.changeRequestEnabled);
   }, [JSON.stringify(data)]);
 

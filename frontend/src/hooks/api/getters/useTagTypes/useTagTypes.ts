@@ -7,7 +7,7 @@ import handleErrorResponses from '../httpErrorResponseHandler';
 const useTagTypes = (options: SWRConfiguration = {}) => {
   const KEY = `api/admin/tag-types`;
 
-  const { data, error } = useSWR(KEY, fetcher, options);
+  const { data, error } = useSWR(KEY, fetcher, options); // TODO: 가져온 데이터의 스키마 검증은 어떻게 하는가?
   const [loading, setLoading] = useState(!error && !data);
 
   const refetch = () => {
