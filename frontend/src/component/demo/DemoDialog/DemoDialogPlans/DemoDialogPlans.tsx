@@ -94,7 +94,7 @@ export const DemoDialogPlans = ({ open, onClose }: DemoDialogPlansProps) => {
 
   return (
     <StyledDemoDialog open={open} onClose={onClose}>
-      <DemoDialog.Header>Want to keep going with Unleash?</DemoDialog.Header>
+      <DemoDialog.Header>Want to keep going with Ganpa?</DemoDialog.Header>
       <StyledPlans>
         <StyledPlan>
           <Typography variant='h5' fontWeight='bold'>

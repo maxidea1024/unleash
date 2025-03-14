@@ -178,7 +178,7 @@ export const DemoTopics = ({
       <StyledAccordionSummary>
         <StyledStars />
         <StyledTitle>
-          <Typography fontWeight='bold'>Unleash demo</Typography>
+          <Typography fontWeight='bold'>Ganpa demo</Typography>
           <StyledExpandMoreIcon className='expand-icon' />
         </StyledTitle>
         <StyledSubtitle>Complete all steps to finish demo</StyledSubtitle>

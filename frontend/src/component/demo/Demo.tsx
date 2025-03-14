@@ -62,8 +62,11 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
 
   const onStart = () => {
     setTopic(0);
+
     setStep(0);
+
     setStepsCompletion(Array(TOPICS.length).fill(0));
+
     setExpanded(true);
   };
 
@@ -75,6 +78,7 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
 
   const closeGuide = () => {
     setTopic(-1);
+
     setStep(0);
   };
 
@@ -87,6 +91,7 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
       <DemoBanner
         onPlans={() => {
           closeGuide();
+
           setWelcomeOpen(false);
 
           setPlansOpen(true);
@@ -126,10 +131,12 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
               open={finishOpen}
               onClose={() => {
                 setFinishOpen(false);
+
                 setPlansOpen(true);
               }}
               onRestart={() => {
                 setFinishOpen(false);
+
                 onStart();
 
                 trackEvent('demo-restart');
@@ -142,9 +149,11 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
               currentTopic={topic}
               setCurrentTopic={(topic: number) => {
                 setTopic(topic);
+
                 setStep(0);
 
                 setWelcomeOpen(false);
+
                 setPlansOpen(false);
 
                 trackEvent('demo-start-topic', {
@@ -156,6 +165,7 @@ export const Demo = ({ children }: DemoProps): JSX.Element => {
               topics={TOPICS}
               onWelcome={() => {
                 closeGuide();
+
                 setPlansOpen(false);
 
                 setWelcomeOpen(true);

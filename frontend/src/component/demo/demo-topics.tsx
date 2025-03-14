@@ -53,7 +53,7 @@ export const TOPICS: ITutorialTopic[] = [
               >
                 Feature flags
               </a>{' '}
-              are the central concept of Unleash.
+              are the central concept of Ganpa.
             </Description>
             <Description sx={{ mt: 1 }}>
               Feature flags are organized within{' '}
@@ -192,7 +192,7 @@ export const TOPICS: ITutorialTopic[] = [
                 target='_blank'
                 rel='noreferrer'
               >
-                Unleash context
+                Ganpa context
               </a>{' '}
               contains information relating to the current feature flag request.
             </Description>
@@ -513,7 +513,7 @@ export const TOPICS: ITutorialTopic[] = [
                 target='_blank'
                 rel='noreferrer'
               >
-                Unleash context
+                Ganpa context
               </a>{' '}
               contains information relating to the current feature flag request.
             </Description>
