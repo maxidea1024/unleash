@@ -151,6 +151,7 @@ export const FilterItem = ({
       });
     }
   }, [state]);
+
   return (
     <>
       <Box ref={ref}>

@@ -40,7 +40,9 @@ export const EnvironmentActionCell = ({
   const onDeleteConfirm = async () => {
     try {
       await deleteEnvironment(environment.name);
+
       refetchPermissions();
+
       setToastData({
         type: 'success',
         title: 'Environment deleted',
@@ -50,6 +52,7 @@ export const EnvironmentActionCell = ({
       setToastApiError(formatUnknownError(error));
     } finally {
       setDeleteDialog(false);
+
       await refetchEnvironments();
     }
   };
@@ -58,12 +61,14 @@ export const EnvironmentActionCell = ({
     try {
       if (environment.enabled) {
         await toggleEnvironmentOff(environment.name);
+
         setToastData({
           type: 'success',
           title: 'Environment deprecated successfully',
         });
       } else {
         await toggleEnvironmentOn(environment.name);
+
         setToastData({
           type: 'success',
           title: 'Environment undeprecated successfully',
@@ -73,6 +78,7 @@ export const EnvironmentActionCell = ({
       setToastApiError(formatUnknownError(error));
     } finally {
       setDeprecateToggleDialog(false);
+
       await refetchEnvironments();
     }
   };

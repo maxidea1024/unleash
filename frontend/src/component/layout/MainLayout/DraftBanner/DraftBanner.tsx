@@ -1,6 +1,5 @@
-import { type FC, Fragment, useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestSidebar } from 'component/changeRequest/ChangeRequestSidebar/ChangeRequestSidebar';
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import type { ChangeRequestType } from 'component/changeRequest/changeRequest.types';
@@ -61,26 +60,23 @@ const DraftBannerContent = ({
       <StyledDraftBannerContentWrapper>
         <Typography variant='body2' sx={{ mr: 4 }}>
           <strong>Change request mode</strong> – You have changes{' '}
-          <ConditionallyRender
-            condition={Boolean(environments)}
-            show={
-              <>
-                in{' '}
-                {environments.map((env, i) =>
-                  i === 0 ? (
-                    <Fragment key={env}>
-                      <strong>{env}</strong>
-                    </Fragment>
-                  ) : (
-                    <Fragment key={env}>
-                      {i === environments.length - 1 ? ' and ' : ', '}
-                      <strong>{env}</strong>
-                    </Fragment>
-                  ),
-                )}
-              </>
-            }
-          />
+          {Boolean(environments) && (
+            <>
+              in{' '}
+              {environments.map((env, i) =>
+                i === 0 ? (
+                  <Fragment key={env}>
+                    <strong>{env}</strong>
+                  </Fragment>
+                ) : (
+                  <Fragment key={env}>
+                    {i === environments.length - 1 ? ' and ' : ', '}
+                    <strong>{env}</strong>
+                  </Fragment>
+                ),
+              )}
+            </>
+          )}
           {explanation}.
         </Typography>
         <Button variant='contained' onClick={onClick} sx={{ ml: 'auto' }}>
@@ -121,17 +117,14 @@ export const DraftBanner = ({ project }: DraftBannerProps) => {
 
   return (
     <StickyBanner>
-      <ConditionallyRender
-        condition={Boolean(unfinishedChangeRequests?.length)}
-        show={
-          <DraftBannerContent
-            changeRequests={unfinishedChangeRequests as ChangeRequestType[]}
-            onClick={() => {
-              setIsSidebarOpen(true);
-            }}
-          />
-        }
-      />
+      {Boolean(unfinishedChangeRequests?.length) && (
+        <DraftBannerContent
+          changeRequests={unfinishedChangeRequests as ChangeRequestType[]}
+          onClick={() => {
+            setIsSidebarOpen(true);
+          }}
+        />
+      )}
       <ChangeRequestSidebar
         project={project}
         open={isSidebarOpen}

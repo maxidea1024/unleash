@@ -94,10 +94,10 @@ enum ErrorField {
   PROJECTS = 'projects',
 }
 
-type EnvironmentCloneModalErrors = {
+interface IEnvironmentCloneModalErrors {
   [ErrorField.NAME]?: string;
   [ErrorField.PROJECTS]?: string;
-};
+}
 
 type EnvironmentCloneModalProps = {
   environment: IEnvironment;
@@ -126,7 +126,7 @@ export const EnvironmentCloneModal = ({
   const [clonePermissions, setClonePermissions] = useState(true);
   const [apiTokenGeneration, setApiTokenGeneration] =
     useState<APITokenGeneration>(APITokenGeneration.LATER);
-  const [errors, setErrors] = useState<EnvironmentCloneModalErrors>({});
+  const [errors, setErrors] = useState<IEnvironmentCloneModalErrors>({});
 
   const clearError = (field: ErrorField) => {
     setErrors((errors) => ({ ...errors, [field]: undefined }));
@@ -175,17 +175,21 @@ export const EnvironmentCloneModal = ({
 
     try {
       await cloneEnvironment(environment.name, getCloneEnvironmentPayload());
+
       if (apiTokenGeneration === APITokenGeneration.NOW) {
         const response = await createToken(getApiTokenCreatePayload());
         const token = await response.json();
         newToken(token);
       }
+
+      refetchEnvironments();
+
+      setOpen(false);
+
       setToastData({
         title: 'Environment successfully cloned!',
         type: 'success',
       });
-      refetchEnvironments();
-      setOpen(false);
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));
     }

@@ -1,6 +1,5 @@
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import { Box, Typography, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { Link } from 'react-router-dom';
 import { HorizontalDistributionChart } from '../../components/HorizontalDistributionChart/HorizontalDistributionChart';
@@ -94,58 +93,53 @@ export const UserStats = ({
       <StyledUserContainer>
         <StyledUserBox>
           <StyledUserCount variant='h2'>
-            <ConditionallyRender
-              condition={isLoading !== true}
-              show={
-                Number.parseInt(`${count}`, 10) === count
-                  ? count
-                  : count.toFixed(2)
-              }
-              elseShow={
-                <StyledLoadingSkeleton className='skeleton'>
-                  &nbsp;
-                </StyledLoadingSkeleton>
-              }
-            />
+            {!isLoading ? (
+              Number.parseInt(`${count}`, 10) === count ? (
+                count
+              ) : (
+                count.toFixed(2)
+              )
+            ) : (
+              <StyledLoadingSkeleton className='skeleton'>
+                &nbsp;
+              </StyledLoadingSkeleton>
+            )}
           </StyledUserCount>
         </StyledUserBox>
         <StyledCustomShadow />
       </StyledUserContainer>
 
-      <ConditionallyRender
-        condition={showDistribution}
-        show={
-          <>
-            <StyledUserDistributionContainer>
-              <HorizontalDistributionChart
-                sections={[
-                  {
-                    type: 'success',
-                    value: activeUsersPercentage,
-                  },
-                  {
-                    type: 'warning',
-                    value: 100 - activeUsersPercentage,
-                  },
-                ]}
-              />
-            </StyledUserDistributionContainer>
+      {showDistribution && (
+        <>
+          <StyledUserDistributionContainer>
+            <HorizontalDistributionChart
+              sections={[
+                {
+                  type: 'success',
+                  value: activeUsersPercentage,
+                },
+                {
+                  type: 'warning',
+                  value: 100 - activeUsersPercentage,
+                },
+              ]}
+            />
+          </StyledUserDistributionContainer>
 
-            <StyledDistInfoContainer>
-              <UserDistributionInfo
-                type='active'
-                percentage={`${activeUsersPercentage}`}
-                count={`${active}`}
-              />
-              <UserDistributionInfo
-                type='inactive'
-                percentage={`${100 - activeUsersPercentage}`}
-                count={`${inactive}`}
-              />
-            </StyledDistInfoContainer>
-          </>
-        }
-      />
+          <StyledDistInfoContainer>
+            <UserDistributionInfo
+              type='active'
+              percentage={`${activeUsersPercentage}`}
+              count={`${active}`}
+            />
+            <UserDistributionInfo
+              type='inactive'
+              percentage={`${100 - activeUsersPercentage}`}
+              count={`${inactive}`}
+            />
+          </StyledDistInfoContainer>
+        </>
+      )}
 
       <StyledLinkContainer>
         <StyledLink to='/admin/users'>

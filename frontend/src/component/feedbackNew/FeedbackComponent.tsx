@@ -293,7 +293,7 @@ export const FeedbackComponent = ({
                 </StyledCloseButton>
               </Tooltip>
               <StyledContent>
-                <StyledTitle>Help us to improve Unleash</StyledTitle>
+                <StyledTitle>Help us to improve Ganpa</StyledTitle>
                 <StyledForm onSubmit={onSubmission}>
                   <input
                     type='hidden'

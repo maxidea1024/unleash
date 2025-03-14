@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import UserProfile from 'component/user/UserProfile';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoDarkWithText.svg';
 import { ReactComponent as UnleashLogoWhite } from 'assets/img/logoWithWhiteText.svg';
@@ -157,18 +156,18 @@ const Header = () => {
         <StyledLink to='/' sx={flexRow} aria-label='Home'>
           <ThemeMode
             darkmode={
-              <ConditionallyRender
-                condition={celebatoryUnleash}
-                show={<CelebatoryUnleashLogoWhite />}
-                elseShow={<StyledUnleashLogoWhite aria-label='Unleash logo' />}
-              />
+              celebatoryUnleash ? (
+                <CelebatoryUnleashLogoWhite />
+              ) : (
+                <StyledUnleashLogoWhite aria-label='Ganpa logo' />
+              )
             }
             lightmode={
-              <ConditionallyRender
-                condition={celebatoryUnleash}
-                show={<StyledCelebatoryLogo />}
-                elseShow={<StyledUnleashLogo aria-label='Unleash logo' />}
-              />
+              celebatoryUnleash ? (
+                <StyledCelebatoryLogo />
+              ) : (
+                <StyledUnleashLogo aria-label='Ganpa logo' />
+              )
             }
           />
         </StyledLink>
@@ -187,17 +186,14 @@ const Header = () => {
               arrow
             >
               <StyledIconButton onClick={onSetThemeMode} size='large'>
-                <ConditionallyRender
-                  condition={themeMode === 'dark'}
-                  show={<DarkModeOutlined />}
-                  elseShow={<LightModeOutlined />}
-                />
+                {themeMode === 'dark' ? (
+                  <DarkModeOutlined />
+                ) : (
+                  <LightModeOutlined />
+                )}
               </StyledIconButton>
             </Tooltip>
-            <ConditionallyRender
-              condition={!isOss() && !disableNotifications}
-              show={<Notifications />}
-            />
+            {!isOss() && !disableNotifications && <Notifications />}
             <Tooltip title='Documentation' arrow>
               <StyledIconButton
                 component='a'

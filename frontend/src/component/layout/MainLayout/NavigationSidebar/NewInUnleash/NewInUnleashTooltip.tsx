@@ -12,7 +12,6 @@ import {
 import type { Link as RouterLink } from 'react-router-dom';
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { ReactComponent as UnleashLogo } from 'assets/img/logoWithWhiteText.svg';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Badge } from 'component/common/Badge/Badge';
 
 const Header = styled(Box)(({ theme }) => ({
@@ -135,46 +134,37 @@ export const NewInUnleashTooltip = ({
           <Body>
             <StyledTitle>
               <Typography>{title}</Typography>
-              <ConditionallyRender
-                condition={beta}
-                show={<Badge color='secondary'>Beta</Badge>}
-              />
+              {beta && <Badge color='secondary'>Beta</Badge>}
             </StyledTitle>
             <LongDescription>{longDescription}</LongDescription>
-            <ConditionallyRender
-              condition={Boolean(docsLink)}
-              show={
-                <ReadMore>
-                  <StyledLink
-                    component='a'
-                    href={docsLink}
-                    underline='hover'
-                    rel='noopener noreferrer'
-                    target='_blank'
-                  >
-                    <StyledOpenInNew /> Read more in our documentation
-                  </StyledLink>
-                </ReadMore>
-              }
-            />
-            <ConditionallyRender
-              condition={Boolean(onCheckItOut)}
-              show={
-                <StyledCheckItOutButton
-                  variant='contained'
-                  color='primary'
-                  type='submit'
-                  size='small'
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    onClose();
-                    onCheckItOut!();
-                  }}
+            {docsLink && (
+              <ReadMore>
+                <StyledLink
+                  component='a'
+                  href={docsLink}
+                  underline='hover'
+                  rel='noopener noreferrer'
+                  target='_blank'
                 >
-                  Check it out
-                </StyledCheckItOutButton>
-              }
-            />
+                  <StyledOpenInNew /> Read more in our documentation
+                </StyledLink>
+              </ReadMore>
+            )}
+            {onCheckItOut && (
+              <StyledCheckItOutButton
+                variant='contained'
+                color='primary'
+                type='submit'
+                size='small'
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onClose();
+                  onCheckItOut();
+                }}
+              >
+                Check it out
+              </StyledCheckItOutButton>
+            )}
           </Body>
         </Box>
       </ClickAwayListener>

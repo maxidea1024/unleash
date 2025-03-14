@@ -53,7 +53,7 @@ export const TestSdkConnection = ({
 
   return (
     <SpacedContainer>
-      <Typography variant='h2'>Connect an SDK to Unleash</Typography>
+      <Typography variant='h2'>Connect an SDK to Ganpa</Typography>
       <StepperBox>
         <Stepper active={2} steps={3} />
         <Badge color='secondary'>3/3 - Test connection</Badge>

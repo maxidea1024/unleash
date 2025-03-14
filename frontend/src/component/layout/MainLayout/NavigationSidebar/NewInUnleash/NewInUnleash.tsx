@@ -129,8 +129,8 @@ export const NewInUnleash = ({
           <p>
             <ul>
               <li>
-                <b>Signal endpoints</b> are used to send signals to Unleash.
-                This allows you to integrate Unleash with any external tool.
+                <b>Signal endpoints</b> are used to send signals to Ganpa.
+                This allows you to integrate Ganpa with any external tool.
               </li>
 
               <li>
@@ -172,9 +172,9 @@ export const NewInUnleash = ({
       ),
     },
     {
-      label: 'Unleash AI',
+      label: 'Ganpa AI',
       summary:
-        'Enhance your Unleash experience with the help of the Unleash AI assistant',
+        'Enhance your Ganpa experience with the help of the Ganpa AI assistant',
       icon: <StyledAIIcon />,
       preview: <AIPreview />,
       onCheckItOut: () => highlight('unleashAI'),
@@ -183,14 +183,14 @@ export const NewInUnleash = ({
       longDescription: (
         <>
           <p>
-            Meet the Unleash AI assistant, designed to make your experience with
-            Unleash easier and more intuitive, whether you're handling tasks or
+            Meet the Ganpa AI assistant, designed to make your experience with
+            Ganpa easier and more intuitive, whether you're handling tasks or
             looking for guidance.
           </p>
 
           <p>
             Start chatting by using the button in the bottom right corner of the
-            page, and discover all the ways the Unleash AI assistant can help
+            page, and discover all the ways the Ganpa AI assistant can help
             you.
           </p>
         </>
@@ -210,7 +210,7 @@ export const NewInUnleash = ({
     return (
       <StyledListItem disablePadding onClick={onMiniModeClick}>
         <StyledMiniItemButton dense>
-          <Tooltip title='New in Unleash' placement='right'>
+          <Tooltip title='New in Ganpa' placement='right'>
             <StyledMiniItemIcon>
               <Badge badgeContent={visibleItems.length} color='primary'>
                 <Icon>new_releases</Icon>
@@ -226,7 +226,7 @@ export const NewInUnleash = ({
     <StyledNewInUnleash>
       <StyledNewInUnleashHeader>
         <Icon>new_releases</Icon>
-        New in Unleash
+        New in Ganpa
       </StyledNewInUnleashHeader>
       <StyledNewInUnleashList>
         {visibleItems.map(

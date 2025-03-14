@@ -130,6 +130,7 @@ export const EnvironmentProjectSelect = ({
           ) {
             return;
           }
+
           setProjects(newValue.map(({ id }) => id));
         }}
         options={projectOptions}

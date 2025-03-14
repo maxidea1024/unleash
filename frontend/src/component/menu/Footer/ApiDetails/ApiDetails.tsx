@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import {
   formatCurrentVersion,
   formatUpdateNotification,
@@ -26,22 +25,16 @@ export const ApiDetails = (props: ApiDetailsProps): ReactElement => {
         {billing === 'pay-as-you-go' ? ' Pay-as-You-Go' : ''} {version}{' '}
         {buildInfo}
       </FooterTitle>
-      <ConditionallyRender
-        condition={Boolean(updateNotification)}
-        show={
-          <small>
-            {updateNotification}
-            <br />
-          </small>
-        }
-      />
+      {updateNotification && (
+        <small>
+          {updateNotification}
+          <br />
+        </small>
+      )}
       <br />
       <small>{props.uiConfig.slogan}</small>
       <br />
-      <ConditionallyRender
-        condition={Boolean(instanceId)}
-        show={<small>{`${instanceId}`}</small>}
-      />
+      {instanceId && <small>{`${instanceId}`}</small>}
     </section>
   );
 };

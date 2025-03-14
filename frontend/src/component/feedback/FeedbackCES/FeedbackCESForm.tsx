@@ -7,12 +7,6 @@ import type { IFeedbackCESState } from 'component/feedback/FeedbackCESContext/Fe
 import { FeedbackCESScore } from 'component/feedback/FeedbackCES/FeedbackCESScore';
 import { sendFeedbackInput } from 'component/feedback/FeedbackCES/sendFeedbackInput';
 
-export interface IFeedbackCESForm {
-  score: number;
-  comment: string;
-  path: string;
-}
-
 const StyledContainer = styled('div')(({ theme }) => ({
   fontWeight: theme.fontWeight.thin,
 }));
@@ -44,6 +38,12 @@ const StyledTextLabel = styled('label')(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
+export interface IFeedbackCESForm {
+  score: number;
+  comment: string;
+  path: string;
+}
+
 type FeedbackCESFormProps = {
   state: IFeedbackCESState;
   onClose: () => void;
@@ -74,13 +74,16 @@ export const FeedbackCESForm = ({ state, onClose }: FeedbackCESFormProps) => {
 
     try {
       setLoading(true);
+
       await sendFeedbackInput(form);
+
+      onClose();
+
       setToastData({
         type: 'success',
         title: 'Feedback sent. Thank you!',
         confetti: true,
       });
-      onClose();
     } finally {
       setLoading(false);
     }

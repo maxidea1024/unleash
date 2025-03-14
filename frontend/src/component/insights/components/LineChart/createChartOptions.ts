@@ -14,10 +14,10 @@ export const createOptions = (
     responsive: true,
     ...(isPlaceholder
       ? {
-          animation: {
-            duration: 0,
-          },
-        }
+        animation: {
+          duration: 0,
+        },
+      }
       : {}),
     plugins: {
       legend: {

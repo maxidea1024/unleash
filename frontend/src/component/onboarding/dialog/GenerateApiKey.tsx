@@ -245,7 +245,7 @@ export const GenerateApiKey = ({
 
   return (
     <SpacedContainer>
-      <Typography variant='h2'>Connect an SDK to Unleash</Typography>
+      <Typography variant='h2'>Connect an SDK to Ganpa</Typography>
       <StepperBox>
         <Stepper active={1} steps={3} />
         <Badge color='secondary'>2/3 - Generate API Key</Badge>
