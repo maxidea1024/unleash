@@ -2,7 +2,6 @@ import { Box, Typography } from '@mui/material';
 import StandaloneLayout from 'component/user/common/StandaloneLayout';
 import StandaloneBanner from 'component/user/StandaloneBanner';
 import useLoading from 'hooks/useLoading';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 type NewUserWrapperProps = {
   loading?: boolean;
@@ -28,22 +27,19 @@ export const NewUserWrapper = ({
             width: ['100%', '350px'],
           }}
         >
-          <ConditionallyRender
-            condition={Boolean(title)}
-            show={
-              <Typography
-                component='h2'
-                sx={{
-                  fontSize: (theme) => theme.fontSizes.mainHeader,
-                  marginBottom: 2,
-                  textAlign: 'center',
-                  fontWeight: (theme) => theme.fontWeight.bold,
-                }}
-              >
-                {title}
-              </Typography>
-            }
-          />
+          {Boolean(title) && (
+            <Typography
+              component='h2'
+              sx={{
+                fontSize: (theme) => theme.fontSizes.mainHeader,
+                marginBottom: 2,
+                textAlign: 'center',
+                fontWeight: (theme) => theme.fontWeight.bold,
+              }}
+            >
+              {title}
+            </Typography>
+          )}
           {children}
         </Box>
       </StandaloneLayout>
