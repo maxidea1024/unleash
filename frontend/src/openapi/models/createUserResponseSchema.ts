@@ -3,6 +3,7 @@
  * Do not edit manually.
  * See `gen:api` script in package.json
  */
+import type { CreateUserResponseSchemaAccountType } from './createUserResponseSchemaAccountType';
 import type { CreateUserResponseSchemaRootRole } from './createUserResponseSchemaRootRole';
 
 /**
@@ -10,9 +11,16 @@ import type { CreateUserResponseSchemaRootRole } from './createUserResponseSchem
  */
 export interface CreateUserResponseSchema {
   /** A user is either an actual User or a Service Account */
-  accountType?: string;
+  accountType?: CreateUserResponseSchemaAccountType;
+  /**
+   * Count of active browser sessions for this user
+   * @nullable
+   */
+  activeSessions?: number | null;
   /** The user was created at this time */
   createdAt?: string;
+  /** Experimental. The number of deleted browser sessions after last login */
+  deletedSessions?: number;
   /** Email of the user */
   email?: string;
   /** Is the welcome email sent to the user or not */

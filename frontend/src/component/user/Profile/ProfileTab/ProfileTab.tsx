@@ -109,7 +109,9 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
     const found = possibleLocales.find((locale) =>
       locale.toLowerCase().includes(locationSettings.locale.toLowerCase()),
     );
+
     setCurrentLocale(found);
+
     if (!found) {
       setPossibleLocales((prev) => [...prev, locationSettings.locale]);
     }
@@ -163,6 +165,7 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
                   <StyledBadge
                     onClick={(e) => {
                       e.preventDefault();
+
                       navigate(`/projects/${project}`);
                     }}
                     color='secondary'

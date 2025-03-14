@@ -24,7 +24,7 @@ interface IFeedbackText {
 
 export interface IFeedbackData extends IFeedbackText {
   category: IFeedbackCategory;
-};
+}
 
 export const FeedbackContext = createContext<IFeedbackContext | undefined>(
   undefined,

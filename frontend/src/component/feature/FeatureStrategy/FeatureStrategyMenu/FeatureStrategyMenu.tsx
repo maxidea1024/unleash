@@ -59,12 +59,13 @@ export const FeatureStrategyMenu = ({
   };
 
   const openDefaultStrategyCreationModal = (event: React.SyntheticEvent) => {
+    navigate(createStrategyPath);
+
     trackEvent('strategy-add', {
       props: {
         buttonTitle: label,
       },
     });
-    navigate(createStrategyPath);
   };
 
   const openMoreStrategies = (event: React.SyntheticEvent) => {

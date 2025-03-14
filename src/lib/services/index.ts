@@ -8,7 +8,7 @@ import EventService from '../features/events/event-service';
 import HealthService from './health-service';
 import ProjectService from '../features/project/project-service';
 import ClientInstanceService from '../features/metrics/instance/instance-service';
-import ClientMetricsServiceV2 from '../features/metrics/client-metrics/metrics-service-v2';
+import ClientMetricsService from '../features/metrics/client-metrics/metrics-service-v2';
 import TagTypeService from '../features/tag-type/tag-type-service';
 import TagService from './tag-service';
 import StrategyService from './strategy-service';
@@ -191,7 +191,7 @@ export const createServices = (
   const lastSeenService = db
     ? createLastSeenService(db, config)
     : createFakeLastSeenService(config);
-  const clientMetricsServiceV2 = new ClientMetricsServiceV2(
+  const clientMetricsService = new ClientMetricsService(
     stores,
     config,
     lastSeenService,
@@ -364,12 +364,12 @@ export const createServices = (
     ? createFrontendApiService(
         db,
         config,
-        clientMetricsServiceV2,
+        clientMetricsService,
         configurationRevisionService,
       )
     : createFakeFrontendApiService(
         config,
-        clientMetricsServiceV2,
+        clientMetricsService,
         configurationRevisionService,
       );
 
@@ -443,7 +443,7 @@ export const createServices = (
     transactionalTagTypeService,
     tagService,
     clientInstanceService,
-    clientMetricsServiceV2,
+    clientMetricsService,
     contextService,
     versionService,
     apiTokenService,
@@ -502,7 +502,7 @@ export {
   HealthService,
   ProjectService,
   ClientInstanceService,
-  ClientMetricsServiceV2,
+  ClientMetricsService,
   TagTypeService,
   TagService,
   StrategyService,

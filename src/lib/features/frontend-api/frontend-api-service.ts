@@ -39,7 +39,7 @@ export type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
 export type Services = Pick<
   IUnleashServices,
   | 'featureToggleService'
-  | 'clientMetricsServiceV2'
+  | 'clientMetricsService'
   | 'settingService'
   | 'configurationRevisionService'
 >;
@@ -112,12 +112,12 @@ export class FrontendApiService {
     FrontendApiService.assertExpectedTokenType(token);
 
     const environment =
-      this.services.clientMetricsServiceV2.resolveMetricsEnvironment(
+      this.services.clientMetricsService.resolveMetricsEnvironment(
         token as ApiUser,
         metrics,
       );
 
-    await this.services.clientMetricsServiceV2.registerClientMetrics(
+    await this.services.clientMetricsService.registerClientMetrics(
       {
         ...metrics,
         environment,

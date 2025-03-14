@@ -110,7 +110,7 @@ export const NewUser = () => {
             sx={{ textAlign: 'center', mb: 2 }}
           >
             {passwordResetData?.createdBy}
-            <br /> has invited you to join Unleash.
+            <br /> has invited you to join Ganpa.
           </Typography>
         }
       />

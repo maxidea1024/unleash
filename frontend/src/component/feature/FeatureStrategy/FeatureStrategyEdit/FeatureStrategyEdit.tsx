@@ -208,6 +208,7 @@ export const FeatureStrategyEdit = () => {
     );
 
     await refetchSavedStrategySegments();
+
     setToastData({
       title: 'Strategy updated',
       type: 'success',
@@ -221,13 +222,14 @@ export const FeatureStrategyEdit = () => {
       feature: featureId,
       payload: { ...payload, id: strategyId },
     });
+    refetchChangeRequests();
+
     // FIXME: segments in change requests
     setToastData({
       title: 'Change added to draft',
       type: 'success',
       confetti: true,
     });
-    refetchChangeRequests();
   };
 
   const onSubmit = async () => {
@@ -237,8 +239,11 @@ export const FeatureStrategyEdit = () => {
       } else {
         await onStrategyEdit(payload);
       }
+
       emitConflictsCreatedEvents();
+
       refetchFeature();
+
       navigate(formatFeaturePath(projectId, featureId));
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));

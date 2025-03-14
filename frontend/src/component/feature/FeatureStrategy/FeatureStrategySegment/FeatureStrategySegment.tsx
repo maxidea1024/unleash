@@ -11,9 +11,9 @@ import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentL
 import { Box, Divider, styled, Typography } from '@mui/material';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-const StyledDivider = styled(Divider)(({ theme }) => ({
-  fontSize: theme.fontSizes.smallBody,
-}));
+// const StyledDivider = styled(Divider)(({ theme }) => ({
+//   fontSize: theme.fontSizes.smallBody,
+// }));
 
 const StyledHelpIconBox = styled(Box)(({ theme }) => ({
   display: 'flex',

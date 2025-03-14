@@ -48,7 +48,9 @@ const useNavigationOnKeydown = (key: string, path: string) => {
     };
 
     window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+
+    const unregisterEventListener = () => window.removeEventListener('keydown', handler);
+    return unregisterEventListener;
   }, [key, path, navigate]);
 };
 

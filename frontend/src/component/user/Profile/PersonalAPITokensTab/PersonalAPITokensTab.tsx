@@ -281,8 +281,8 @@ export const PersonalAPITokensTab = () => {
       }
     >
       <StyledAlert severity='info'>
-        Use personal API tokens to authenticate to the Unleash API as yourself.
-        A personal API token has the same access privileges as your user.
+        Use personal API tokens to authenticate to the Ganpa API as yourself. A
+        personal API token has the same access privileges as your user.
       </StyledAlert>
       <SearchHighlightProvider value={getSearchText(searchValue)}>
         <VirtualizedTable
@@ -310,7 +310,7 @@ export const PersonalAPITokensTab = () => {
                 </StyledPlaceholderTitle>
                 <StyledPlaceholderSubtitle variant='body2'>
                   Need an API token for scripts or testing? Create a personal
-                  API token for quick access to the Unleash API.
+                  API token for quick access to the Ganpa API.
                 </StyledPlaceholderSubtitle>
                 <Button variant='outlined' onClick={() => setCreateOpen(true)}>
                   Create your first token

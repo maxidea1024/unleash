@@ -9,7 +9,7 @@ type PasswordAuthDialogProps = {
   onClick: () => void;
   adminCount: IAdminCount;
   tokens: IApiToken[];
-}
+};
 
 export const PasswordAuthDialog = ({
   open,

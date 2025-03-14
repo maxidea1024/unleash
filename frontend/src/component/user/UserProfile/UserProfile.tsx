@@ -20,10 +20,6 @@ const StyledProfileContainer = styled('div')(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-type UserProfileProps = {
-  profile: IUser;
-};
-
 const StyledUserAvatar = styled(UserAvatar)(({ theme }) => ({
   width: theme.spacing(4.75),
   height: theme.spacing(4.75),
@@ -37,6 +33,10 @@ const StyledSubtitle = styled(Typography)(({ theme }) => ({
   whiteSpace: 'nowrap',
   maxWidth: theme.spacing(35),
 }));
+
+type UserProfileProps = {
+  profile: IUser;
+};
 
 const UserProfile = ({ profile }: UserProfileProps) => {
   const [showProfile, setShowProfile] = useState(false);

@@ -299,14 +299,14 @@ describe('bulk metrics', () => {
         ],
       })
       .expect(202);
-    await services.clientMetricsServiceV2.bulkAdd(); // Force bulk collection.
+    await services.clientMetricsService.bulkAdd(); // Force bulk collection.
     const developmentReport =
-      await services.clientMetricsServiceV2.getClientMetricsForToggle(
+      await services.clientMetricsService.getClientMetricsForToggle(
         'test_feature_two',
         1,
       );
     const defaultReport =
-      await services.clientMetricsServiceV2.getClientMetricsForToggle(
+      await services.clientMetricsService.getClientMetricsForToggle(
         'test_feature_one',
         1,
       );

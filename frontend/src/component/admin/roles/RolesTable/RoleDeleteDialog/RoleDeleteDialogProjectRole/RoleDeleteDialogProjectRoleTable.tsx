@@ -8,7 +8,7 @@ import { LinkCell } from 'component/common/Table/cells/LinkCell/LinkCell';
 
 type RoleDeleteDialogProjectRoleTableProps = {
   projects: IProjectRoleUsageCount[];
-}
+};
 
 export const RoleDeleteDialogProjectRoleTable = ({
   projects,

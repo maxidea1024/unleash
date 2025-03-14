@@ -22,7 +22,6 @@ export enum TokenGeneration {
 
 export const useSignalEndpointsForm = (signalEndpoint?: ISignalEndpoint) => {
   const { signalEndpoints } = useSignalEndpoints();
-
   const [enabled, setEnabled] = useState(false);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

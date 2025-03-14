@@ -11,13 +11,13 @@ export interface ISelectablePeriod {
   label: string;
   year: number;
   month: number;
-};
+}
 
 export interface IEndpointInfo {
   label: string;
   color: string;
   order: number;
-};
+}
 
 export type ChartDatasetType = ChartDataset<'bar'>;
 

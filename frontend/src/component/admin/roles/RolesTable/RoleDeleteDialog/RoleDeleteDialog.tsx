@@ -8,7 +8,7 @@ type RoleDeleteDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (role: IRole) => void;
-}
+};
 
 export const RoleDeleteDialog = ({
   role,

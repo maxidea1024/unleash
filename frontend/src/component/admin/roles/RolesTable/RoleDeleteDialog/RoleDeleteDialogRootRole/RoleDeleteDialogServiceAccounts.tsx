@@ -14,7 +14,7 @@ export type PageQueryType = Partial<
 
 type RoleDeleteDialogServiceAccountsProps = {
   serviceAccounts: IServiceAccount[];
-}
+};
 
 export const RoleDeleteDialogServiceAccounts = ({
   serviceAccounts,

@@ -1,6 +1,6 @@
 import { FrontendApiService } from './frontend-api-service';
 import { SegmentReadModel } from '../segment/segment-read-model';
-import type ClientMetricsServiceV2 from '../metrics/client-metrics/metrics-service-v2';
+import type ClientMetricsService from '../metrics/client-metrics/metrics-service-v2';
 import SettingService from '../../services/setting-service';
 import SettingStore from '../../db/setting-store';
 import {
@@ -22,7 +22,7 @@ export const createFrontendApiService = (
   db: Db,
   config: IUnleashConfig,
   // client metrics service needs to be shared because it uses in-memory cache
-  clientMetricsServiceV2: ClientMetricsServiceV2,
+  clientMetricsService: ClientMetricsService,
   configurationRevisionService: ConfigurationRevisionService,
 ): FrontendApiService => {
   const segmentReadModel = new SegmentReadModel(db);
@@ -53,7 +53,7 @@ export const createFrontendApiService = (
     { segmentReadModel },
     {
       featureToggleService,
-      clientMetricsServiceV2,
+      clientMetricsService,
       settingService,
       configurationRevisionService,
     },
@@ -63,7 +63,7 @@ export const createFrontendApiService = (
 
 export const createFakeFrontendApiService = (
   config: IUnleashConfig,
-  clientMetricsServiceV2: ClientMetricsServiceV2,
+  clientMetricsService: ClientMetricsService,
   configurationRevisionService: ConfigurationRevisionService,
 ): FrontendApiService => {
   const segmentReadModel = new FakeSegmentReadModel();
@@ -91,7 +91,7 @@ export const createFakeFrontendApiService = (
     { segmentReadModel },
     {
       featureToggleService,
-      clientMetricsServiceV2,
+      clientMetricsService,
       settingService,
       configurationRevisionService,
     },

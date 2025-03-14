@@ -100,7 +100,7 @@ type ResizableProps = HTMLAttributes<HTMLDivElement> & {
   onResize?: () => void;
   onResizeEnd?: () => void;
   children: ReactNode;
-}
+};
 
 export const Resizable = ({
   handlers,

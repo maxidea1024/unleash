@@ -3658,7 +3658,7 @@ test('can get evaluation metrics', async () => {
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request.get(
     '/api/admin/projects/default/features/metric-feature',

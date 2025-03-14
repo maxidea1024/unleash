@@ -8,8 +8,8 @@ export interface IIntegrationEvent {
   stateDetails: string;
   event: EventSchema;
   details: Record<string, unknown>;
-};
+}
 
 export interface IIntegrationEvents {
   integrationEvents: IIntegrationEvent[];
-};
+}

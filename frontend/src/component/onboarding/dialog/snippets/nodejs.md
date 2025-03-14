@@ -1,33 +1,33 @@
 1\. Install the SDK
 ```sh
-npm install unleash-client
+npm install ganpa-client
 ```
 
-2\. Run Unleash
+2\. Run Ganpa
 ```js
-const { initialize } = require('unleash-client');
+const { initialize } = require('ganpa-client');
 
-const unleash = initialize({
+const ganpa = initialize({
   url: '<YOUR_API_URL>',
-  appName: 'unleash-onboarding-node',
+  appName: 'ganpa-onboarding-node',
   customHeaders: {
     Authorization: '<YOUR_API_TOKEN>' // in production use environment variable
   },
 });
 
 setInterval(() => {
-  console.log('Is enabled', unleash.isEnabled('<YOUR_FLAG>'));
+  console.log('Is enabled', ganpa.isEnabled('<YOUR_FLAG>'));
 }, 1000);
 ```
 
 ---
 ```js
-const { initialize } = require('unleash-client');
+const { initialize } = require('ganpa-client');
 
-const unleash = initialize({
-    url: '<YOUR_API_URL>',
-    appName: 'unleash-onboarding-node',
-    customHeaders: { Authorization: process.env.UNLEASH_API_KEY  },
+const ganpa = initialize({
+  url: '<YOUR_API_URL>',
+  appName: 'ganpa-onboarding-node',
+  customHeaders: { Authorization: process.env.UNLEASH_API_KEY  },
 });
 ```
 

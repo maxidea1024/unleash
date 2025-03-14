@@ -6,10 +6,6 @@ import PasswordChecker from './PasswordChecker';
 import PasswordMatcher from './PasswordMatcher';
 import PasswordField from 'component/common/PasswordField/PasswordField';
 
-type ResetPasswordProps = {
-  onSubmit: (password: string) => void;
-};
-
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -25,6 +21,10 @@ const StyledButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(2, 'auto'),
   display: 'block',
 }));
+
+type ResetPasswordProps = {
+  onSubmit: (password: string) => void;
+};
 
 const ResetPasswordForm = ({ onSubmit }: ResetPasswordProps) => {
   const [password, setPassword] = useState('');

@@ -14,7 +14,7 @@ type ConstraintAccordionViewHeaderProps = {
   allowExpand: (shouldExpand: boolean) => void;
   compact?: boolean;
   disabled?: boolean;
-}
+};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -21,7 +21,7 @@ import type FeatureToggleService from '../features/feature-toggle/feature-toggle
 import type EnvironmentService from '../features/project-environments/environment-service';
 import type FeatureTagService from '../services/feature-tag-service';
 import type ProjectHealthService from '../services/project-health-service';
-import type ClientMetricsServiceV2 from '../features/metrics/client-metrics/metrics-service-v2';
+import type ClientMetricsService from '../features/metrics/client-metrics/metrics-service-v2';
 import type UserSplashService from '../services/user-splash-service';
 import type { OpenApiService } from '../services/openapi-service';
 import type { ClientSpecService } from '../services/client-spec-service';
@@ -67,7 +67,7 @@ export interface IUnleashServices {
   addonService: AddonService;
   apiTokenService: ApiTokenService;
   clientInstanceService: ClientInstanceService;
-  clientMetricsServiceV2: ClientMetricsServiceV2;
+  clientMetricsService: ClientMetricsService;
   contextService: ContextService;
   emailService: EmailService;
   environmentService: EnvironmentService;

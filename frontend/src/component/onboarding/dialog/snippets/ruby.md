@@ -1,13 +1,13 @@
 1\. Install the SDK
 ```sh
-gem install unleash
+gem install ganpa
 ```
 
-2\. Run Unleash
+2\. Run Ganpa
 ```rb
 require 'unleash'
 
-@unleash = Unleash::Client.new(
+@ganpa = Ganpa::Client.new(
   url: "<YOUR_API_URL>",
   custom_http_headers: { 'Authorization': "<YOUR_API_TOKEN>" },  # in production use environment variable
   app_name: 'unleash-onboarding-ruby',
@@ -15,7 +15,7 @@ require 'unleash'
 )
 
 while true
-  if @unleash.is_enabled?("<YOUR_FLAG>")
+  if @ganpa.is_enabled?("<YOUR_FLAG>")
     puts "Flag is enabled"
   else
     puts "Flag is not enabled"
@@ -26,7 +26,7 @@ end
 ```
 ---
 ```rb
-@unleash = Unleash::Client.new(
+@unleash = Ganpa::Client.new(
   url: "<YOUR_API_URL>",
   custom_http_headers: { 'Authorization': ENV['UNLEASH_API_TOKEN'] },
   app_name: 'unleash-onboarding-ruby',

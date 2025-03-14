@@ -40,7 +40,7 @@ type EnvironmentPermissionAccordionProps = {
   context: string;
   onPermissionChange: (permission: IPermission) => void;
   onCheckAll: () => void;
-}
+};
 
 export const RolePermissionCategory = ({
   title,

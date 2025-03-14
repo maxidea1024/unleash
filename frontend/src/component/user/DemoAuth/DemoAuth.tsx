@@ -45,9 +45,9 @@ const DemoAuth = ({ authDetails, redirect }: DemoAuthProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Logo className={styles.logo} aria-label='Unleash logo' />
+      <Logo className={styles.logo} aria-label='Ganpa logo' />
       <div className={styles.container}>
-        <h2>Access the Unleash demo instance</h2>
+        <h2>Access the Ganpa demo instance</h2>
         <p>No further data or Credit Card required</p>
         <div className={styles.form}>
           <TextField
@@ -76,7 +76,7 @@ const DemoAuth = ({ authDetails, redirect }: DemoAuthProps) => {
           </Button>
         </div>
         <p>
-          By accessing our demo instance, you agree to the Unleash&nbsp;
+          By accessing our demo instance, you agree to the Ganpa&nbsp;
           <a
             href='https://www.unleash-hosted.com/tos/'
             target='_blank'

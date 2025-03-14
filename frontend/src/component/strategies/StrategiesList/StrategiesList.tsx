@@ -95,7 +95,7 @@ const CustomStrategyTitle = () => (
   >
     <Subtitle
       title='Custom strategies'
-      description='Custom activation strategies let you define your own activation strategies to use with Unleash.'
+      description='Custom activation strategies let you define your own activation strategies to use with Ganpa.'
       link='https://docs.getunleash.io/reference/custom-activation-strategies'
     />
     <AddStrategyButton />
@@ -106,7 +106,7 @@ const PredefinedStrategyTitle = () => (
   <Box>
     <Subtitle
       title='Predefined strategies'
-      description='Activation strategies let you enable a feature only for a specified audience. Different strategies use different parameters. Predefined strategies are bundled with Unleash.'
+      description='Activation strategies let you enable a feature only for a specified audience. Different strategies use different parameters. Predefined strategies are bundled with Ganpa.'
       link='https://docs.getunleash.io/reference/activation-strategies'
     />
   </Box>

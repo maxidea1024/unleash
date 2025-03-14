@@ -16,7 +16,7 @@ type ConstraintSingleValueProps = {
   constraint: IConstraint;
   allowExpand: (shouldExpand: boolean) => void;
   disabled?: boolean;
-}
+};
 
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',

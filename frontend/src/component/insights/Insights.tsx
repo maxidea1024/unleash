@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState } from 'react';
 import { styled } from '@mui/material';
 import { usePersistentTableState } from 'hooks/usePersistentTableState';
 import { allOption } from 'component/common/ProjectSelect/ProjectSelect';

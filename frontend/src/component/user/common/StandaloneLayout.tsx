@@ -1,12 +1,6 @@
 import StandaloneBanner from 'component/user/StandaloneBanner';
 import { styled } from '@mui/material';
 
-type StandaloneLayoutProps = {
-  BannerComponent?: JSX.Element;
-  showMenu?: boolean;
-  children?: React.ReactNode;
-};
-
 const StyledContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(11),
   background: theme.palette.background.application,
@@ -63,11 +57,17 @@ const StyledInnerRightContainer = styled('div')(({ theme }) => ({
   },
 }));
 
+type StandaloneLayoutProps = {
+  BannerComponent?: JSX.Element;
+  showMenu?: boolean;
+  children?: React.ReactNode;
+};
+
 const StandaloneLayout = ({
   children,
   BannerComponent,
 }: StandaloneLayoutProps) => {
-  let banner = <StandaloneBanner title='Unleash' />;
+  let banner = <StandaloneBanner title='Ganpa' />;
 
   if (BannerComponent) {
     banner = BannerComponent;

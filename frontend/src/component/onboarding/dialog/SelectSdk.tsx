@@ -60,7 +60,7 @@ type SelectSdkProps = {
 export const SelectSdk = ({ onSelect }: SelectSdkProps) => {
   return (
     <SpacedContainer>
-      <Typography variant='h2'>Connect an SDK to Unleash</Typography>
+      <Typography variant='h2'>Connect an SDK to Ganpa</Typography>
       <StepperBox>
         <Stepper active={0} steps={3} />
         <Badge color='secondary'>1/3 - Choose SDK</Badge>
@@ -79,7 +79,7 @@ export const SelectSdk = ({ onSelect }: SelectSdkProps) => {
                   onClick={() =>
                     onSelect({
                       name: sdk.name,
-                      type: 'client',
+                      type: 'client', // serverside로 변경해주는게 좋을듯?
                     })
                   }
                   component='button'
@@ -90,6 +90,7 @@ export const SelectSdk = ({ onSelect }: SelectSdkProps) => {
             </SdkTile>
           ))}
         </SdkListSection>
+
         <SecondarySectionHeader>Client side SDKs</SecondarySectionHeader>
         <SdkListSection>
           {clientSdks.map((sdk) => (
@@ -101,7 +102,7 @@ export const SelectSdk = ({ onSelect }: SelectSdkProps) => {
                   onClick={() =>
                     onSelect({
                       name: sdk.name,
-                      type: 'frontend',
+                      type: 'frontend', // clientside로 변경해주는게 좋을듯?
                     })
                   }
                   component='button'

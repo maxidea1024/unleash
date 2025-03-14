@@ -5,18 +5,18 @@ dotnet add package unleash.client
 dotnet add package Newtonsoft.Json
 ```
 
-2\. Initialize Unleash
+2\. Initialize Ganpa
 ```csharp
-using Unleash;
-using Unleash.ClientFactory;
+using Ganpa;
+using Ganpa.ClientFactory;
 
 public class Program
 {
     public static async Task Main()
     {
-        var settings = new UnleashSettings()
+        var settings = new GanpaSettings()
         {
-            AppName = "unleash-onboarding-dotnet",
+            AppName = "ganpa-onboarding-dotnet",
             UnleashApi = new Uri("<YOUR_API_URL>"),
             CustomHttpHeaders = new Dictionary<string, string>()
             {
@@ -24,10 +24,10 @@ public class Program
             }
         };
 
-        var unleash =  new DefaultUnleash(settings);
+        var ganpa =  new DefaultGanpa(settings);
 
         while (true) {
-            Console.WriteLine($"Flag is enabled: {unleash.IsEnabled("<YOUR_FLAG>")}");
+            Console.WriteLine($"Flag is enabled: {ganpa.IsEnabled("<YOUR_FLAG>")}");
             await Task.Delay(1000);
         }
     }
@@ -37,13 +37,13 @@ public class Program
 
 ---
 ```csharp
-var settings = new UnleashSettings()
+var settings = new GanpaSettings()
 {
-    AppName = "unleash-onboarding-dotnet",
-    UnleashApi = new Uri("<YOUR_API_URL>"),
+    AppName = "ganpa-onboarding-dotnet",
+    GanpaApi = new Uri("<YOUR_API_URL>"),
     CustomHttpHeaders = new Dictionary<string, string>()
     {
-        {"Authorization",Environment.GetEnvironmentVariable("UNLEASH_API_KEY")}
+        {"Authorization",Environment.GetEnvironmentVariable("GANPA_API_KEY")}
     }
 };
 ```

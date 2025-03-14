@@ -72,7 +72,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
 type AIChatMessageProps = {
   from: ChatMessage['role'];
   children: string;
-}
+};
 
 export const AIChatMessage = ({ from, children }: AIChatMessageProps) => {
   const { user } = useAuthUser();

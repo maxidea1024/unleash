@@ -3,12 +3,6 @@ import { ConditionallyRender } from 'component/common/ConditionallyRender/Condit
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
-type PasswordMatcherProps = {
-  started: boolean;
-  passwordsDoNotMatch: boolean;
-  sameAsOldPassword?: boolean;
-};
-
 const StyledMatcher = styled('div', {
   shouldForwardProp: (prop) => prop !== 'error',
 })<{ error: boolean }>(({ theme, error }) => ({
@@ -26,6 +20,12 @@ const StyledMatcherErrorIcon = styled(CloseIcon)({
   marginRight: '5px',
 });
 
+type PasswordMatcherProps = {
+  started: boolean;
+  passwordsDoNotMatch: boolean;
+  sameAsOldPassword?: boolean;
+};
+
 const PasswordMatcher = ({
   started,
   passwordsDoNotMatch,
@@ -33,7 +33,9 @@ const PasswordMatcher = ({
 }: PasswordMatcherProps) => {
   const error = passwordsDoNotMatch || sameAsOldPassword;
 
-  if (!started) return null;
+  if (!started) {
+    return null;
+  }
 
   const label = passwordsDoNotMatch
     ? 'Passwords do not match'

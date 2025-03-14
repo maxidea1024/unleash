@@ -16,7 +16,7 @@ type ServiceAccountCreateTokenDialogProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   tokens: IPersonalAPIToken[];
   onCreateClick: (newToken: ICreateServiceAccountTokenPayload) => void;
-}
+};
 
 export const ServiceAccountCreateTokenDialog = ({
   open,

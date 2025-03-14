@@ -26,7 +26,7 @@ import {
 import type { ClientMetricsSchema } from '../../../../lib/openapi';
 import { nameSchema } from '../../../schema/feature-schema';
 
-export default class ClientMetricsServiceV2 {
+export default class ClientMetricsService {
   private readonly config: IUnleashConfig;
   private unsavedMetrics: IClientMetricsEnv[] = [];
   private readonly clientMetricsStoreV2: IClientMetricsStoreV2;

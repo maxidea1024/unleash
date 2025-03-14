@@ -5,10 +5,6 @@ import { ReactComponent as LogoWithText } from 'assets/img/logoWhiteTransparentH
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { Theme } from '@mui/material';
 
-type StandaloneBannerProps = {
-  title: string;
-};
-
 const StyledGradient = styled(Gradient)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
@@ -83,6 +79,10 @@ const StyledLogo = styled(Logo)(({ theme }) => ({
   ...logoStyles(theme),
 }));
 
+type StandaloneBannerProps = {
+  title: string;
+};
+
 const StandaloneBanner = ({ title }: StandaloneBannerProps) => {
   const theme = useTheme();
   const smallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -102,8 +102,8 @@ const StandaloneBanner = ({ title }: StandaloneBannerProps) => {
       <StyledLogoContainer>
         <ConditionallyRender
           condition={smallScreen}
-          show={<StyledLogoWithText aria-label='Unleash logo' />}
-          elseShow={<StyledLogo aria-label='Unleash logo' />}
+          show={<StyledLogoWithText aria-label='Ganpa logo' />}
+          elseShow={<StyledLogo aria-label='Ganpa logo' />}
         />
       </StyledLogoContainer>
     </StyledGradient>

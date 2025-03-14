@@ -28,7 +28,9 @@ type FeatureNamingPatternInfoProps = {
   featureNaming: IFeatureNamingType;
 };
 
-export const FeatureNamingPatternInfo = ({ featureNaming }: FeatureNamingPatternInfoProps) => {
+export const FeatureNamingPatternInfo = ({
+  featureNaming,
+}: FeatureNamingPatternInfoProps) => {
   return (
     <StyledFlagNamingInfo>
       <p>This project has feature flag naming patterns enabled.</p>

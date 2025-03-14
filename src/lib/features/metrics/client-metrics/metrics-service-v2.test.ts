@@ -1,4 +1,4 @@
-import ClientMetricsServiceV2 from './metrics-service-v2';
+import ClientMetricsService from './metrics-service-v2';
 
 import getLogger from '../../../../test/fixtures/no-logger';
 
@@ -36,7 +36,7 @@ function initClientMetrics(flagEnabled = true) {
   );
   lastSeenService.updateLastSeen = jest.fn();
 
-  const service = new ClientMetricsServiceV2(stores, config, lastSeenService);
+  const service = new ClientMetricsService(stores, config, lastSeenService);
   return { clientMetricsService: service, eventBus, lastSeenService };
 }
 
@@ -161,7 +161,7 @@ test('get daily client metrics for a toggle', async () => {
     getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
+  const service = new ClientMetricsService(
     { clientMetricsStoreV2 },
     config,
     lastSeenService,
@@ -217,7 +217,7 @@ test('get hourly client metrics for a toggle', async () => {
     getLogger() {},
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
+  const service = new ClientMetricsService(
     { clientMetricsStoreV2 },
     config,
     lastSeenService,
@@ -287,7 +287,7 @@ const setupMetricsService = ({
     },
   } as unknown as IUnleashConfig;
   const lastSeenService = {} as LastSeenService;
-  const service = new ClientMetricsServiceV2(
+  const service = new ClientMetricsService(
     { clientMetricsStoreV2 },
     config,
     lastSeenService,

@@ -23,7 +23,6 @@ export const useEventLogFilters = (
   const { projects } = projectsHook();
   const { features } = featuresHook({});
   const { eventCreators } = useEventCreators();
-
   const [availableFilters, setAvailableFilters] = useState<IFilterItem[]>([]);
 
   useEffect(() => {

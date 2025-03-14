@@ -7,22 +7,6 @@ import { Alert } from '@mui/material';
 import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 
-type PasswordCheckerProps = {
-  password: string;
-  callback: Dispatch<SetStateAction<boolean>>;
-  style?: object;
-  hideOnCompletion?: boolean;
-};
-
-type ErrorResponse = {
-  details: ErrorDetails[];
-};
-
-type ErrorDetails = {
-  message: string;
-  validationErrors: string[];
-};
-
 const LENGTH_ERROR = 'The password must be at least 10 characters long.';
 const NUMBER_ERROR = 'The password must contain at least one number.';
 const SYMBOL_ERROR =
@@ -91,6 +75,22 @@ const StyledStatusBar = styled('div', {
     ? theme.palette.error.main
     : theme.palette.primary.main,
 }));
+
+type PasswordCheckerProps = {
+  password: string;
+  callback: Dispatch<SetStateAction<boolean>>;
+  style?: object;
+  hideOnCompletion?: boolean;
+};
+
+type ErrorResponse = {
+  details: ErrorDetails[];
+};
+
+type ErrorDetails = {
+  message: string;
+  validationErrors: string[];
+};
 
 const PasswordChecker = ({
   password,

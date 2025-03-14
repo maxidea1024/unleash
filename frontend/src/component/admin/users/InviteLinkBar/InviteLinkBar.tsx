@@ -1,4 +1,3 @@
-
 import { Box } from '@mui/material';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 import { InviteLinkBarContent } from './InviteLinkBarContent';

@@ -3,7 +3,7 @@
 npm install @unleash/proxy-client-svelte
 ```
 
-2\. Initialize Unleash
+2\. Initialize Ganpa
 ```svelte
 <script>
 	import { FlagProvider } from '@unleash/proxy-client-svelte';

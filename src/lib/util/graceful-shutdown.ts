@@ -11,11 +11,11 @@ export default function registerGracefulShutdown(
 
       await unleash.stop();
 
-      logger.info('Unleash has been successfully stopped.');
+      logger.info('Ganpa has been successfully stopped.');
 
       process.exit(0);
     } catch (e) {
-      logger.error('Unable to shutdown Unleash. Hard exit!');
+      logger.error('Unable to shutdown Ganpa. Hard exit!');
 
       process.exit(1);
     }

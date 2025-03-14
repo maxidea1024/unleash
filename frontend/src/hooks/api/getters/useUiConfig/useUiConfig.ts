@@ -20,7 +20,8 @@ const useUiConfig = (): IUseUIConfigOutput => {
   const { data, error, mutate } = useSWR<IUiConfig>(path, fetcher);
 
   const editionInfo = useMemo(() => {
-    const isEnterprise = data?.environment?.toLowerCase() !== 'pro' &&
+    const isEnterprise =
+      data?.environment?.toLowerCase() !== 'pro' &&
       Boolean(data?.versionInfo?.current?.enterprise);
     const isPro = data?.environment?.toLowerCase() === 'pro';
     const isOss = !data?.versionInfo?.current?.enterprise;
@@ -28,11 +29,14 @@ const useUiConfig = (): IUseUIConfigOutput => {
     return { isEnterprise, isPro, isOss };
   }, [data]);
 
-  const uiConfig = useMemo<IUiConfig>(() => ({
-    ...defaultValue,
-    ...data,
-    flags: { ...defaultValue.flags, ...data?.flags },
-  }), [data]);
+  const uiConfig = useMemo<IUiConfig>(
+    () => ({
+      ...defaultValue,
+      ...data,
+      flags: { ...defaultValue.flags, ...data?.flags },
+    }),
+    [data],
+  );
 
   return {
     uiConfig,

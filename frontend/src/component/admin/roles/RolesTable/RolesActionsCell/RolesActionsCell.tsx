@@ -15,7 +15,7 @@ type RolesActionsCellProps = {
   role: IRole;
   onEdit: (event: React.SyntheticEvent) => void;
   onDelete: (event: React.SyntheticEvent) => void;
-}
+};
 
 export const RolesActionsCell = ({
   role,

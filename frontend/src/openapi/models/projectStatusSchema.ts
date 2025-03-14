@@ -6,6 +6,7 @@
 import type { ProjectActivitySchema } from './projectActivitySchema';
 import type { ProjectStatusSchemaLifecycleSummary } from './projectStatusSchemaLifecycleSummary';
 import type { ProjectStatusSchemaResources } from './projectStatusSchemaResources';
+import type { ProjectStatusSchemaStaleFlags } from './projectStatusSchemaStaleFlags';
 
 /**
  * Schema representing the overall status of a project, including an array of activity records. Each record in the activity array contains a date and a count, providing a snapshot of the project’s activity level over time.
@@ -23,8 +24,5 @@ export interface ProjectStatusSchema {
   /** Key resources within the project */
   resources: ProjectStatusSchemaResources;
   /** Information on stale and potentially stale flags in this project. */
-  staleFlags: {
-    /** The total number of flags in this project that are stale or potentially stale. */
-    total: number;
-  };
+  staleFlags: ProjectStatusSchemaStaleFlags;
 }

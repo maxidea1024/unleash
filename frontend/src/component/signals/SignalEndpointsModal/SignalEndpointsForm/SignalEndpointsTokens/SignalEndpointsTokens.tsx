@@ -91,7 +91,6 @@ export const SignalEndpointsTokens = ({
   const { refetch } = useSignalEndpoints();
   const { addSignalEndpointToken, removeSignalEndpointToken } =
     useSignalEndpointTokensApi();
-
   const [initialState] = useState(() => ({
     sortBy: [defaultSort],
   }));

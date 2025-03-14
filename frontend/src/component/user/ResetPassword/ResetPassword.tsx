@@ -41,6 +41,7 @@ const ResetPassword = () => {
       const res = await resetPassword({ token, password });
       if (res.status === OK) {
         navigate('/login?reset=true');
+
         setApiError('');
       } else {
         setApiError(

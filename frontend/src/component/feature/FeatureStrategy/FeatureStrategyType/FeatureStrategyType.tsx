@@ -34,6 +34,7 @@ export const FeatureStrategyType = ({
         draft.parameters[name] = value;
       }),
     );
+
     validateParameter(name, value);
   };
 

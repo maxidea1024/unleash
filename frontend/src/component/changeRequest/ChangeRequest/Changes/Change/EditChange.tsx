@@ -47,7 +47,7 @@ type EditChangeProps = {
   open: boolean;
   onSubmit: () => void;
   onClose: () => void;
-}
+};
 
 export const EditChange = ({
   change,

@@ -104,7 +104,6 @@ export const TagTypeList = () => {
             >
               <Edit />
             </PermissionIconButton>
-
             <PermissionIconButton
               permission={DELETE_TAG_TYPE}
               tooltipProps={{ title: 'Delete tag type' }}

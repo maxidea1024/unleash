@@ -56,10 +56,7 @@ type CappedDescriptionProps = {
   searchQuery: string;
 };
 
-const CappedDescription = ({
-  text,
-  searchQuery,
-}: CappedDescriptionProps) => {
+const CappedDescription = ({ text, searchQuery }: CappedDescriptionProps) => {
   return (
     <ConditionallyRender
       condition={Boolean(text && text.length > 40)}
@@ -88,10 +85,7 @@ type CappedTagProps = {
   children: ReactElement;
 };
 
-const CappedTag = ({
-  tag,
-  children,
-}: CappedTagProps) => {
+const CappedTag = ({ tag, children }: CappedTagProps) => {
   return (
     <ConditionallyRender
       condition={tag.length > 30}
@@ -156,7 +150,10 @@ type ArchivedFeatureNameProps = {
   searchQuery: string;
 };
 
-const ArchivedFeatureName = ({ feature, searchQuery }: ArchivedFeatureNameProps) => {
+const ArchivedFeatureName = ({
+  feature,
+  searchQuery,
+}: ArchivedFeatureNameProps) => {
   return (
     <Box
       sx={(theme) => ({
@@ -174,10 +171,7 @@ type RestTagsProps = {
   onClick: (tag: string) => void;
 };
 
-const RestTags = ({
-  tags,
-  onClick,
-}: RestTagsProps) => {
+const RestTags = ({ tags, onClick }: RestTagsProps) => {
   return (
     <HtmlTooltip
       title={tags.map((tag) => (
@@ -235,10 +229,7 @@ type DependencyPreviewProps = {
   project: string;
 };
 
-const DependencyPreview = ({
-  feature,
-  project,
-}: DependencyPreviewProps) => {
+const DependencyPreview = ({ feature, project }: DependencyPreviewProps) => {
   const { feature: fetchedFeature } = useFeature(project, feature);
   const children = fetchedFeature.children;
   const parents = fetchedFeature.dependencies;
@@ -363,7 +354,10 @@ type SecondaryFeatureInfoProps = {
   searchQuery: string;
 };
 
-const SecondaryFeatureInfo = ({ description, searchQuery }: SecondaryFeatureInfoProps) => {
+const SecondaryFeatureInfo = ({
+  description,
+  searchQuery,
+}: SecondaryFeatureInfoProps) => {
   return (
     <ConditionallyRender
       condition={Boolean(description)}

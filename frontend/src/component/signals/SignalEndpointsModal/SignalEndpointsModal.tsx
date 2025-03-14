@@ -147,7 +147,7 @@ export const SignalEndpointsModal = ({
       <FormTemplate
         loading={loading}
         modal
-        description='Signal endpoints allow third-party services to send signals to Unleash.'
+        description='Signal endpoints allow third-party services to send signals to Ganpa.'
         documentationLink='https://docs.getunleash.io/reference/signals'
         documentationLinkLabel='Signals documentation'
         formatApiCode={formatApiCode}

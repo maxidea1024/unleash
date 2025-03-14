@@ -46,16 +46,20 @@ export const EditStrategy = () => {
     clearErrors();
 
     if (validateParams()) {
-      const payload = getStrategyPayload();
       try {
+        const payload = getStrategyPayload();
+
         await updateStrategy(payload);
+
         navigate(`/strategies/${strategyName}`);
+
+        refetchStrategies();
+
         setToastData({
           type: 'success',
           title: 'Success',
           text: 'Successfully updated strategy',
         });
-        refetchStrategies();
       } catch (error: unknown) {
         setToastApiError(formatUnknownError(error));
       }

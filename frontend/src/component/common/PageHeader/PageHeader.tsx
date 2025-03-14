@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { ReactNode, } from 'react';
+import type { ReactNode } from 'react';
 import classnames from 'classnames';
 import {
   Divider,

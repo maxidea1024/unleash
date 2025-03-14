@@ -1,4 +1,4 @@
-import type { ReactNode, } from 'react';
+import type { ReactNode } from 'react';
 import { Button, type ButtonProps, Icon } from '@mui/material';
 
 type DropdownButtonProps = {

@@ -31,7 +31,6 @@ type EventActionsProps = {
 export const EventActions = ({ events }: EventActionsProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { trackEvent } = usePlausibleTracker();
-
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

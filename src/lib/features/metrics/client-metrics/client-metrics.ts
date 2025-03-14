@@ -3,7 +3,7 @@ import Controller from '../../../routes/controller';
 import type { IUnleashConfig } from '../../../types/options';
 import type { IFlagResolver, IUnleashServices } from '../../../types';
 import type { Logger } from '../../../logger';
-import type ClientMetricsServiceV2 from './metrics-service-v2';
+import type ClientMetricsService from './metrics-service-v2';
 import { NONE } from '../../../types/permissions';
 import { createResponseSchema } from '../../../openapi/util/create-response-schema';
 import type { OpenApiService } from '../../../services/openapi-service';
@@ -28,7 +28,7 @@ interface IHoursBack {
 
 export default class ClientMetricsController extends Controller {
   private readonly logger: Logger;
-  private readonly metrics: ClientMetricsServiceV2;
+  private readonly metrics: ClientMetricsService;
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: Pick<IFlagResolver, 'isEnabled'>;
 
@@ -39,15 +39,15 @@ export default class ClientMetricsController extends Controller {
   constructor(
     config: IUnleashConfig,
     {
-      clientMetricsServiceV2,
+      clientMetricsService,
       openApiService,
-    }: Pick<IUnleashServices, 'clientMetricsServiceV2' | 'openApiService'>,
+    }: Pick<IUnleashServices, 'clientMetricsService' | 'openApiService'>,
   ) {
     super(config);
 
     this.logger = config.getLogger('client-metrics.ts');
 
-    this.metrics = clientMetricsServiceV2;
+    this.metrics = clientMetricsService;
     this.openApiService = openApiService;
     this.flagResolver = config.flagResolver;
 

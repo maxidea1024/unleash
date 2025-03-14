@@ -21,7 +21,7 @@ export const NewUserWrapper = ({
     <div ref={ref}>
       <StandaloneLayout
         showMenu={false}
-        BannerComponent={<StandaloneBanner title={'Unleash'} />}
+        BannerComponent={<StandaloneBanner title={'Ganpa'} />}
       >
         <Box
           sx={{

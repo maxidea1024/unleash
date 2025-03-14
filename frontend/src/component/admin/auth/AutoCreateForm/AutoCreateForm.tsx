@@ -24,7 +24,7 @@ type AutoCreateFormProps = {
   ) => void;
   onUpdateRole: (role: IRole | null) => void;
   disabled?: boolean;
-}
+};
 
 export const AutoCreateForm = ({
   data = { enabled: false, autoCreate: false },

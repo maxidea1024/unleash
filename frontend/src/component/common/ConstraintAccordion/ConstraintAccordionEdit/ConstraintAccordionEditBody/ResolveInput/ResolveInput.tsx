@@ -1,7 +1,4 @@
-import type {
-  ILegalValue,
-  IGanpaContextDefinition,
-} from 'interfaces/context';
+import type { ILegalValue, IGanpaContextDefinition } from 'interfaces/context';
 import type { IConstraint } from 'interfaces/strategy';
 import { DateSingleValue } from '../DateSingleValue/DateSingleValue';
 import { FreeTextInput } from '../FreeTextInput/FreeTextInput';

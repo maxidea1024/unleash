@@ -26,7 +26,7 @@ type PermissionCategoriesProps = {
     React.SetStateAction<ICheckedPermissions>
   >;
   validatePermissions: (permissions: ICheckedPermissions) => boolean;
-}
+};
 
 export const RolePermissionCategories = ({
   type,

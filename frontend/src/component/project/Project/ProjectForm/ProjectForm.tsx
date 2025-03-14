@@ -30,7 +30,7 @@ type ProjectFormProps = {
   clearErrors: () => void;
   validateProjectId: () => void;
   children?: React.ReactNode;
-}
+};
 
 const PROJECT_STICKINESS_SELECT = 'PROJECT_STICKINESS_SELECT';
 const PROJECT_ID_INPUT = 'PROJECT_ID_INPUT';

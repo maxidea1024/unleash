@@ -120,7 +120,7 @@ type PersonalAPITokenFormProps = {
   setExpiresAt: React.Dispatch<React.SetStateAction<Date>>;
   errors: IPersonalAPITokenFormErrors;
   setErrors: React.Dispatch<React.SetStateAction<IPersonalAPITokenFormErrors>>;
-}
+};
 
 export const PersonalAPITokenForm = ({
   description,

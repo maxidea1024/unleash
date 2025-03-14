@@ -17,7 +17,7 @@ type ServiceAccountDeleteDialogProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   onConfirm: (serviceAccount: IServiceAccount) => void;
-}
+};
 
 export const ServiceAccountDeleteDialog = ({
   serviceAccount,

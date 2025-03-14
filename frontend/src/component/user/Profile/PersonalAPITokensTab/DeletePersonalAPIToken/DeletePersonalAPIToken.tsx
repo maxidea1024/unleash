@@ -25,8 +25,11 @@ export const DeletePersonalAPIToken = ({
     if (token) {
       try {
         await deletePersonalAPIToken(token?.id);
+
         refetchTokens();
+
         setOpen(false);
+
         setToastData({
           title: 'Token deleted successfully',
           type: 'success',
@@ -51,7 +54,7 @@ export const DeletePersonalAPIToken = ({
       <Typography>
         Any applications or scripts using this token "
         <strong>{token?.description}</strong>" will no longer be able to access
-        the Unleash API. You cannot undo this action.
+        the Ganpa API. You cannot undo this action.
       </Typography>
     </Dialogue>
   );

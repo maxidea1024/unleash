@@ -95,7 +95,7 @@ test('should pick up environment from token', async () => {
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
   const metrics = await db.stores.clientMetricsStoreV2.getAll();
   expect(metrics[0].environment).toBe('test');
   expect(metrics[0].appName).toBe('some-fancy-app');
@@ -144,7 +144,7 @@ test('should set lastSeen for toggles with metrics both for toggle and toggle en
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
   await app.services.lastSeenService.store();
   const t1 = await app.services.featureToggleService.getFeature({
     featureName: 't1',

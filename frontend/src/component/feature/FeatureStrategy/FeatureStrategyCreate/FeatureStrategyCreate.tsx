@@ -157,13 +157,15 @@ export const FeatureStrategyCreate = () => {
       feature: featureId,
       payload,
     });
+
+    refetchChangeRequests();
+
     // FIXME: segments in change requests
     setToastData({
       title: 'Strategy added to draft',
       type: 'success',
       confetti: true,
     });
-    refetchChangeRequests();
   };
 
   const payload = createStrategyPayload(strategy, segments);

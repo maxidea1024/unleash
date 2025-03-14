@@ -33,7 +33,7 @@ const MainLayoutContentWrapper = styled('main')(({ theme }) => ({
   margin: theme.spacing(0, 'auto'),
   flexGrow: 1,
   width: '100%',
-  backgroundColor: theme.palette.background.application,
+  backgroundColor: '#F0F0F0', //theme.palette.background.application,
   position: 'relative',
 }));
 
@@ -65,16 +65,16 @@ const MainLayoutContent = styled(Grid)(({ theme }) => ({
   minHeight: '94vh',
 }));
 
-const StyledImg = styled('img')(() => ({
-  display: 'block',
-  position: 'fixed',
-  zIndex: 0,
-  bottom: 0,
-  right: 0,
-  width: 400,
-  pointerEvents: 'none',
-  userSelect: 'none',
-}));
+// const StyledImg = styled('img')(() => ({
+//   display: 'block',
+//   position: 'fixed',
+//   zIndex: 0,
+//   bottom: 0,
+//   right: 0,
+//   width: 400,
+//   pointerEvents: 'none',
+//   userSelect: 'none',
+// }));
 
 const MainLayoutContentContainer = styled('div')(({ theme }) => ({
   height: '100%',

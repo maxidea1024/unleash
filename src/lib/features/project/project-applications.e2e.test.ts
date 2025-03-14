@@ -81,7 +81,7 @@ test('should return applications', async () => {
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications')
@@ -123,7 +123,7 @@ test('should return applications if sdk was not in database', async () => {
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications')
@@ -161,7 +161,7 @@ test('should return application without version if sdk has just name', async () 
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications')
@@ -222,7 +222,7 @@ test('should sort by appName descending', async () => {
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications?sortOrder=desc')
@@ -294,7 +294,7 @@ test('should filter by sdk', async () => {
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications?&query=java')
@@ -363,7 +363,7 @@ test('should show correct number of total', async () => {
     })
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications?sortOrder=desc&limit=1')
@@ -397,7 +397,7 @@ test('should not show if metrics exist, but application does not', async () => {
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get('/api/admin/projects/default/applications?sortOrder=desc&limit=1')

@@ -7,7 +7,7 @@ cargo add serde tokio --features full
 cargo add serde anyhow cfg cfg-if enum-map@~2.0.0 surf
 ```
 
-2\. Run Unleash
+2\. Run Ganpa
 ```rust
 use enum_map::Enum;
 use serde::{Deserialize, Serialize};

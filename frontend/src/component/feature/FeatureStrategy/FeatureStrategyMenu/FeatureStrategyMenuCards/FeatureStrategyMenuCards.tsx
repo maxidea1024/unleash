@@ -38,6 +38,7 @@ export const FeatureStrategyMenuCards = ({
     description:
       'This is the default strategy defined for this environment in the project',
   };
+
   return (
     <List dense>
       <>

@@ -3,7 +3,7 @@
 npm install @unleash/proxy-client-vue
 ```
 
-2\. Initialize Unleash
+2\. Initialize Ganpa
 ```vue
 <script setup lang="ts">
     import { FlagProvider } from '@unleash/proxy-client-vue'

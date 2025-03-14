@@ -112,7 +112,7 @@ test('should show correct application metrics', async () => {
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get(`/api/admin/metrics/applications/${metrics.appName}/overview`)
@@ -188,7 +188,7 @@ test('should show missing features and strategies', async () => {
     .send(metrics)
     .expect(202);
 
-  await app.services.clientMetricsServiceV2.bulkAdd();
+  await app.services.clientMetricsService.bulkAdd();
 
   const { body } = await app.request
     .get(`/api/admin/metrics/applications/${metrics.appName}/overview`)

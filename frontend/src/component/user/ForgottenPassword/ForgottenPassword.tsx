@@ -58,7 +58,9 @@ const ForgottenPassword = () => {
 
   const onClick = async (e: SyntheticEvent) => {
     e.preventDefault();
+
     setState('loading');
+
     setAttemptedEmail(email);
 
     const path = formatApiPath('auth/reset/password-email');

@@ -1,7 +1,7 @@
 1\. Install the SDK
 
 ```gradle
-implementation("io.getunleash:unleash-android:1")
+implementation("io.getunleash:ganpa-android:1")
 ```
 
 2\. Enable required [permissions](https://developer.android.com/guide/topics/manifest/uses-permission-element)
@@ -11,14 +11,14 @@ implementation("io.getunleash:unleash-android:1")
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 ```
 
-2\. Initialize Unleash in your application
+2\. Initialize Ganpa in your application
 
 ```kotlin
 class MyApplication: Application() {
-    val unleash: Unleash by lazy {
-        val instance = DefaultUnleash(
+    val ganpa: Ganpa by lazy {
+        val instance = DefaultGanpa(
             androidContext = this,
-            unleashConfig = UnleashConfig.newBuilder(appName = "unleash-onboarding-android")
+            ganpaConfig = UnleashConfig.newBuilder(appName = "ganpa-onboarding-android")
                 .proxyUrl("<YOUR_API_URL>")
                 .clientKey("<YOUR_API_TOKEN>")
                 .build()
@@ -29,7 +29,7 @@ class MyApplication: Application() {
 
     override fun onTerminate() {
         super.onTerminate()
-        unleash.close()
+        ganpa.close()
     }
 }
 ```
@@ -40,7 +40,7 @@ class MyApplication: Application() {
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val unleashInstance = (application as MyApplication).unleash
+        val unleashInstance = (application as MyApplication).ganpa
 
         setContent {
             var flagStatus by remember { mutableStateOf("loading") }

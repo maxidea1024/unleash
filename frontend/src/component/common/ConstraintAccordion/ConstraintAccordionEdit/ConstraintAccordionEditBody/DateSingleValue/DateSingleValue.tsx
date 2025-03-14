@@ -19,7 +19,7 @@ type DateSingleValueProps = {
   value?: string;
   error: string;
   setError: React.Dispatch<React.SetStateAction<string>>;
-}
+};
 
 export const DateSingleValue = ({
   setValue,

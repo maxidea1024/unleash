@@ -40,7 +40,7 @@ type RoleFormProps = {
   validatePermissions: (permissions: ICheckedPermissions) => boolean;
   errors: IRoleFormErrors;
   showErrors: boolean;
-}
+};
 
 export const RoleForm = ({
   type = ROOT_ROLE_TYPE,

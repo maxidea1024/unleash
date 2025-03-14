@@ -13,7 +13,7 @@ export type PageQueryType = Partial<
 
 type RoleDeleteDialogUsersProps = {
   users: IUser[];
-}
+};
 
 export const RoleDeleteDialogUsers = ({
   users,

@@ -1,4 +1,4 @@
-import { useState, useEffect, } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, Divider, Typography, styled } from '@mui/material';
 import PermMedia from '@mui/icons-material/PermMedia';
 import Send from '@mui/icons-material/Send';

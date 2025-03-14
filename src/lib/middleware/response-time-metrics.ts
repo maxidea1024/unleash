@@ -64,6 +64,10 @@ export function responseTimeMetrics(
       (instanceStatsService.getAppCountSnapshot('7d') ??
         appNameReportingThreshold) < appNameReportingThreshold
     ) {
+      // TODO:
+      // X-GANPA-APPNAME is used by the client to report the app name
+      // appName = req.headers['x-ganpa-appname'] ?? req.query.appName;
+
       appName = req.headers['unleash-appname'] ?? req.query.appName;
     }
 

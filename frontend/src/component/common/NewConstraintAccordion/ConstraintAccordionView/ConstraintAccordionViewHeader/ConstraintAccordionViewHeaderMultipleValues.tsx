@@ -23,7 +23,7 @@ type ConstraintSingleValueProps = {
   maxLength: number;
   allowExpand: (shouldExpand: boolean) => void;
   disabled?: boolean;
-}
+};
 
 const StyledHeaderValuesContainerWrapper = styled('div')(({ theme }) => ({
   display: 'flex',

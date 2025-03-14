@@ -47,7 +47,7 @@ type FeatureReleasePlanCardProps = {
   featureId: string;
   environmentId: string;
   releasePlanTemplate: IReleasePlanTemplate;
-}
+};
 
 export const FeatureReleasePlanCard = ({
   projectId,

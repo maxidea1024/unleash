@@ -97,7 +97,7 @@ const StyledCreatedBy = styled(Typography)(({ theme }) => ({
 type NotificationProps = {
   notification: NotificationsSchemaItem;
   onNotificationClick: (notification: NotificationsSchemaItem) => void;
-}
+};
 
 export const Notification = ({
   notification,

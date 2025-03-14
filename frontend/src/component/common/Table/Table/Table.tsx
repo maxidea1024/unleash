@@ -1,11 +1,10 @@
-import type { FC } from 'react';
 import { Table as MUITable, type TableProps } from '@mui/material';
 
-export const Table: FC<
-  TableProps & {
-    rowHeight?: 'auto' | 'dense' | 'standard' | 'compact' | number;
-  }
-> = ({ rowHeight = 'auto', ...props }) => (
+type GanpaTableProps = TableProps & {
+  rowHeight?: 'auto' | 'dense' | 'standard' | 'compact' | number;
+};
+
+export const Table = ({ rowHeight = 'auto', ...props }: GanpaTableProps) => (
   <MUITable
     sx={{
       position: 'relative',

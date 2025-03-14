@@ -55,7 +55,9 @@ export const Profile = () => {
     setTab(tabFromUrl());
   }, [location]);
 
-  if (loading) return null;
+  if (loading) {
+    return null;
+  }
 
   return (
     <VerticalTabs tabs={tabs} value={tab} onChange={onChange}>

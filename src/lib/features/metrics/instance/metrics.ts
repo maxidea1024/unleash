@@ -9,7 +9,7 @@ import {
 import type ClientInstanceService from './instance-service';
 import type { Logger } from '../../../logger';
 import type { IAuthRequest } from '../../../routes/unleash-types';
-import type ClientMetricsServiceV2 from '../client-metrics/metrics-service-v2';
+import type ClientMetricsService from '../client-metrics/metrics-service-v2';
 import { NONE } from '../../../types/permissions';
 import type { OpenApiService } from '../../../services/openapi-service';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
@@ -27,17 +27,17 @@ export default class ClientMetricsController extends Controller {
   private readonly logger: Logger;
   private readonly clientInstanceService: ClientInstanceService;
   private readonly openApiService: OpenApiService;
-  private readonly metricsV2: ClientMetricsServiceV2;
+  private readonly metricsV2: ClientMetricsService;
   private readonly flagResolver: IFlagResolver;
 
   constructor(
     {
       clientInstanceService,
-      clientMetricsServiceV2,
+      clientMetricsService,
       openApiService,
     }: Pick<
       IUnleashServices,
-      'clientInstanceService' | 'clientMetricsServiceV2' | 'openApiService'
+      'clientInstanceService' | 'clientMetricsService' | 'openApiService'
     >,
     config: IUnleashConfig,
   ) {
@@ -49,7 +49,7 @@ export default class ClientMetricsController extends Controller {
 
     this.clientInstanceService = clientInstanceService;
     this.openApiService = openApiService;
-    this.metricsV2 = clientMetricsServiceV2;
+    this.metricsV2 = clientMetricsService;
     this.flagResolver = config.flagResolver;
 
     this.route({

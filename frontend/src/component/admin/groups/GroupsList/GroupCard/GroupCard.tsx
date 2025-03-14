@@ -95,7 +95,7 @@ type GroupCardProps = {
   group: IGroup;
   onEditUsers: (group: IGroup) => void;
   onRemoveGroup: (group: IGroup) => void;
-}
+};
 
 export const GroupCard = ({
   group,

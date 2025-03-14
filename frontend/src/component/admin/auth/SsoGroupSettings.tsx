@@ -90,8 +90,8 @@ export const SsoGroupSettings = ({
             <Grid item md={5}>
               <strong>Request 'groups' Scope</strong>
               <p>
-                When enabled Ganpa will also request the 'groups' scope as
-                part of the login request.
+                When enabled Ganpa will also request the 'groups' scope as part
+                of the login request.
               </p>
             </Grid>
             <Grid item md={6} style={{ padding: '20px' }}>

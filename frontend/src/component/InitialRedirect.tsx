@@ -36,6 +36,7 @@ export const InitialRedirect = () => {
 
   useEffect(() => {
     setSessionStorageItem('login-redirect');
+
     redirect();
   }, [getRedirect]);
 

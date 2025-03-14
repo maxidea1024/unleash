@@ -59,6 +59,7 @@ export const PasswordTab = () => {
           confirmPassword,
           oldPassword,
         });
+
         setToastData({
           title: 'Password changed successfully',
           text: 'Now you can sign in using your new password.',
@@ -88,7 +89,7 @@ export const PasswordTab = () => {
         condition={simpleAuthConfig.disabled}
         show={
           <Alert severity='error'>
-            Password based login is currently disabled for your Unleash
+            Password based login is currently disabled for your Ganpa
             instance.
           </Alert>
         }

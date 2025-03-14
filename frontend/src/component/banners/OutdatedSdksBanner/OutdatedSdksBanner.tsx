@@ -10,7 +10,7 @@ const StyledList = styled('ul')({ margin: 0 });
 
 type OutdatedSdksBannerProps = {
   project: string;
-}
+};
 
 export const OutdatedSdksBanner = ({ project }: OutdatedSdksBannerProps) => {
   const {

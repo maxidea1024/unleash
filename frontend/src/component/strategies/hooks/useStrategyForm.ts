@@ -39,15 +39,19 @@ export const useStrategyForm = (
   const validateStrategyName = () => {
     if (strategyName.length === 0) {
       setErrors((prev) => ({ ...prev, name: 'Name can not be empty.' }));
+
       return false;
     }
+
     if (strategies.some((strategy) => strategy.name === strategyName)) {
       setErrors((prev) => ({
         ...prev,
         name: 'A strategy name with that name already exist',
       }));
+
       return false;
     }
+
     return true;
   };
 

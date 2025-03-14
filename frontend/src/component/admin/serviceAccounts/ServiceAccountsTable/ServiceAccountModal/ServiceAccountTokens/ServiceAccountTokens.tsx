@@ -85,7 +85,7 @@ const defaultSort: SortingRule<string> = { id: 'createdAt', desc: true };
 type ServiceAccountTokensProps = {
   serviceAccount: IServiceAccount;
   readOnly?: boolean;
-}
+};
 
 export const ServiceAccountTokens = ({
   serviceAccount,

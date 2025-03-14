@@ -13,7 +13,7 @@ export type ConstraintAccordionProps = {
   onDelete?: () => void;
   onAutoSave?: (constraint: IConstraint) => void;
   onSave?: (constraint: IConstraint) => void;
-}
+};
 
 export const NewConstraintAccordion = ({
   constraint,

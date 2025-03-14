@@ -49,6 +49,7 @@ export const serverSdks: { name: ServerSdkName; icon: string }[] = [
   { name: 'Java', icon: java },
   { name: 'Python', icon: python },
 ];
+
 export const clientSdks: { name: ClientSdkName; icon: string }[] = [
   { name: 'JavaScript', icon: javascript },
   { name: 'React', icon: react },

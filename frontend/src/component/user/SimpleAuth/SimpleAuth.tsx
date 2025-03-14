@@ -30,7 +30,9 @@ const SimpleAuth = ({ authDetails, redirect }: SimpleAuthProps) => {
 
     try {
       await emailAuth(authDetails.path, email);
+
       refetchUser();
+
       navigate(redirect, { replace: true });
     } catch (error) {
       setToastApiError(formatUnknownError(error));

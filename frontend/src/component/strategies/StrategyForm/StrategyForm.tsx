@@ -6,23 +6,6 @@ import { StrategyParameters } from './StrategyParameters/StrategyParameters';
 import type { IStrategyParameter } from 'interfaces/strategy';
 import type React from 'react';
 
-type StrategyFormProps = {
-  strategyName: string;
-  strategyDesc: string;
-  params: IStrategyParameter[];
-  setStrategyName: React.Dispatch<React.SetStateAction<string>>;
-  validateStrategyName?: () => void;
-  setStrategyDesc: React.Dispatch<React.SetStateAction<string>>;
-  setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleCancel: () => void;
-  errors: { [key: string]: string };
-  mode: 'Create' | 'Edit';
-  clearErrors: () => void;
-  setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
-  children?: React.ReactNode;
-};
-
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -55,6 +38,23 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
 const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
+
+type StrategyFormProps = {
+  strategyName: string;
+  strategyDesc: string;
+  params: IStrategyParameter[];
+  setStrategyName: React.Dispatch<React.SetStateAction<string>>;
+  validateStrategyName?: () => void;
+  setStrategyDesc: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleCancel: () => void;
+  errors: { [key: string]: string };
+  mode: 'Create' | 'Edit';
+  clearErrors: () => void;
+  setErrors: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  children?: React.ReactNode;
+};
 
 export const StrategyForm = ({
   children,
@@ -121,6 +121,7 @@ export const StrategyForm = ({
         <StyledParamButton
           onClick={(e) => {
             e.preventDefault();
+
             appParameter();
           }}
           variant='outlined'

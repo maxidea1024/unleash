@@ -51,7 +51,7 @@ type ConstraintAccordionViewHeaderMetaInfoProps = {
   allowExpand: (shouldExpand: boolean) => void;
   disabled?: boolean;
   maxLength?: number;
-}
+};
 
 export const ConstraintAccordionViewHeaderInfo = ({
   constraint,

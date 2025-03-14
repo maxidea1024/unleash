@@ -4,7 +4,7 @@ import { getCreateTogglePath } from 'utils/routePathHelpers';
 type UseCreateFeaturePathOutput = {
   path: string;
   projectId: string;
-}
+};
 
 export const useCreateFeaturePath = (filter: {
   query?: string;
@@ -18,7 +18,7 @@ export const useCreateFeaturePath = (filter: {
       : filter.project;
 
   if (!projectId) {
-    return;
+    return undefined;
   }
 
   return {

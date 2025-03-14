@@ -14,11 +14,6 @@ import { BadRequestError, NotFoundError } from 'utils/apiUtils';
 import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 
-type HostedAuthProps = {
-  authDetails: IAuthEndpointDetailsResponse;
-  redirect: string;
-};
-
 const StyledTypography = styled(Typography)(({ theme }) => ({
   color: theme.palette.error.main,
 }));
@@ -35,6 +30,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   display: 'block',
   textAlign: 'center',
 }));
+
+type HostedAuthProps = {
+  authDetails: IAuthEndpointDetailsResponse;
+  redirect: string;
+};
 
 const HostedAuth = ({ authDetails, redirect }: HostedAuthProps) => {
   const { refetchUser } = useAuthUser();
@@ -87,7 +87,9 @@ const HostedAuth = ({ authDetails, redirect }: HostedAuthProps) => {
           ...prev,
           apiError: 'Invalid login details',
         }));
+
         setPassword('');
+
         setUsername('');
       } else {
         setErrors({

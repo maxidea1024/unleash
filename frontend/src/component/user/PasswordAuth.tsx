@@ -19,11 +19,6 @@ import {
 import { contentSpacingY } from 'themes/themeStyles';
 import useToast from 'hooks/useToast';
 
-type PasswordAuthProps = {
-  authDetails: IAuthEndpointDetailsResponse;
-  redirect: string;
-};
-
 const StyledAlert = styled(Alert)(({ theme }) => ({
   color: theme.palette.error.main,
   marginBottom: theme.spacing(1),
@@ -34,6 +29,11 @@ const StyledDiv = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
 }));
+
+type PasswordAuthProps = {
+  authDetails: IAuthEndpointDetailsResponse;
+  redirect: string;
+};
 
 const PasswordAuth = ({ authDetails, redirect }: PasswordAuthProps) => {
   const navigate = useNavigate();

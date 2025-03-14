@@ -1,7 +1,8 @@
 import type { ProvideFeedbackSchema } from '../../../../openapi';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-const DEFAULT_GANPA_FEEDBACK_ENDPOINT = 'https://app.unleash-hosted.com/hosted/feedback';
+const DEFAULT_GANPA_FEEDBACK_ENDPOINT =
+  'https://app.unleash-hosted.com/hosted/feedback';
 
 export const useUserFeedbackApi = () => {
   const { uiConfig } = useUiConfig();

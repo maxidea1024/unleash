@@ -35,7 +35,7 @@ type RoleModalProps = {
   roleId?: number;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 export const RoleModal = ({
   type = ROOT_ROLE_TYPE,

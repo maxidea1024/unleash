@@ -33,7 +33,7 @@ const useApiTokensApi = () => {
     deleteToken,
     createToken,
     errors,
-    loading
+    loading,
   };
 };
 

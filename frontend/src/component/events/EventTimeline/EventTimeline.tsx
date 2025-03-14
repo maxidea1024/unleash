@@ -22,7 +22,7 @@ export interface ITimelineEvent {
   summary: string;
   icon?: string;
   variant?: string;
-};
+}
 
 export type TimelineEventGroup = ITimelineEvent[];
 
@@ -185,14 +185,14 @@ export const EventTimeline = () => {
       to: `IS:${toISODateString(endDate)}`,
       type: `IS_ANY_OF:${RELEVANT_EVENT_TYPES.join(',')}`,
     },
-    { refreshInterval: 10 * 1000 },
+    { refreshInterval: 10_000 },
   );
   const { signals: baseSignals } = useSignalQuery(
     {
       from: `IS:${toISODateString(startOfDay(startDate))}`,
       to: `IS:${toISODateString(endDate)}`,
     },
-    { refreshInterval: 10 * 1000 },
+    { refreshInterval: 10_000 },
   );
 
   const events = useMemo(

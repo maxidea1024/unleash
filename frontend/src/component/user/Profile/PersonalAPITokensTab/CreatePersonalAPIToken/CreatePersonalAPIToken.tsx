@@ -114,7 +114,7 @@ export const CreatePersonalAPIToken = ({
         loading={loading}
         modal
         title='Create personal API token'
-        description='Use personal API tokens to authenticate to the Unleash API as
+        description='Use personal API tokens to authenticate to the Ganpa API as
                 yourself. A personal API token has the same access privileges as
                 your user.'
         documentationLink='https://docs.getunleash.io/reference/api-tokens-and-client-keys'

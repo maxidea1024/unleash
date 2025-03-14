@@ -45,7 +45,10 @@ const StyledEventCircle = styled('div', {
   },
 }));
 
-const getEventIcon = ({ icon, type }: Pick<ITimelineEvent, 'icon' | 'type'>) => {
+const getEventIcon = ({
+  icon,
+  type,
+}: Pick<ITimelineEvent, 'icon' | 'type'>) => {
   if (icon) {
     return <Icon>{icon}</Icon>;
   }

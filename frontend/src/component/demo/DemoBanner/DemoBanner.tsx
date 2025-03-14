@@ -36,7 +36,7 @@ const StyledQuestionsButton = styled(StyledButton)(({ theme }) => ({
 
 type DemoBannerProps = {
   onPlans: () => void;
-}
+};
 
 export const DemoBanner = ({ onPlans }: DemoBannerProps) => {
   const { trackEvent } = usePlausibleTracker();

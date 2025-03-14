@@ -82,7 +82,7 @@ export const StrategyDetails = ({
         <Grid item sm={12} md={12}>
           <h6>
             Applications using this strategy{' '}
-            {applications.length >= 1000 && '(Capped at 1000)'}
+            {applications.length >= 1_000 && '(Capped at 1000)'}
           </h6>
           <hr />
           <AppsLinkList apps={applications} />

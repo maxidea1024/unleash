@@ -33,7 +33,6 @@ export const SignalEndpointsTokensCreateDialog = ({
   onCreateClick,
 }: SignalEndpointsTokensCreateDialogProps) => {
   const [name, setName] = useState('');
-
   const [nameError, setNameError] = useState('');
 
   useEffect(() => {

@@ -13,7 +13,7 @@ export type PageQueryType = Partial<
 
 type RoleDeleteDialogGroupsProps = {
   groups: IGroup[];
-}
+};
 
 export const RoleDeleteDialogGroups = ({
   groups,

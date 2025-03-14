@@ -10,7 +10,7 @@ import { useUiFlag } from 'hooks/useUiFlag';
 
 interface IActionEventsResponse {
   actionSetEvents: IActionSetEvent[];
-};
+}
 
 export const useActionEvents = (
   actionSetId?: number,
@@ -26,7 +26,12 @@ export const useActionEvents = (
     previousPageData: IActionEventsResponse,
   ) => {
     // Does not meet conditions
-    if (!actionSetId || !projectId || !isEnterprise || !automatedActionsEnabled) {
+    if (
+      !actionSetId ||
+      !projectId ||
+      !isEnterprise ||
+      !automatedActionsEnabled
+    ) {
       return null;
     }
 

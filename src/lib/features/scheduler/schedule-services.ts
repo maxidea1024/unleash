@@ -30,7 +30,7 @@ export const scheduleServices = async (
     versionService,
     lastSeenService,
     frontendApiService,
-    clientMetricsServiceV2,
+    clientMetricsService,
     integrationEventsService,
   } = services;
 
@@ -137,13 +137,13 @@ export const scheduleServices = async (
   );
 
   schedulerService.schedule(
-    () => clientMetricsServiceV2.bulkAdd().catch(console.error),
+    () => clientMetricsService.bulkAdd().catch(console.error),
     secondsToMilliseconds(5),
     'bulkAddMetrics',
   );
 
   schedulerService.schedule(
-    () => clientMetricsServiceV2.clearMetrics(48).catch(console.error),
+    () => clientMetricsService.clearMetrics(48).catch(console.error),
     hoursToMilliseconds(12),
     'clearMetrics',
   );

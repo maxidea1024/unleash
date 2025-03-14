@@ -1,8 +1,8 @@
 type TokenInfo = {
   project: string;
   environment: string;
-  secret: string
-}
+  secret: string;
+};
 
 export const parseToken = (token?: string): TokenInfo | null => {
   if (!token) {

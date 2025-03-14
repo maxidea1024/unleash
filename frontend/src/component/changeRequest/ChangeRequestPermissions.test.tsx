@@ -183,7 +183,11 @@ type UnleashUiSetupProps = {
   children?: React.ReactNode;
 };
 
-const UnleashUiSetup = ({ children, path, pathTemplate }: UnleashUiSetupProps) => (
+const UnleashUiSetup = ({
+  children,
+  path,
+  pathTemplate,
+}: UnleashUiSetupProps) => (
   <SWRConfig
     value={{
       provider: () => new Map(),

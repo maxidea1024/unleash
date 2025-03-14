@@ -7,12 +7,12 @@ export interface IFeatureNamingType {
   pattern: string;
   example: string;
   description: string;
-};
+}
 
 export interface IFeatureTypeCount {
   type: string;
   count: number;
-};
+}
 
 export interface IProject {
   id?: string;

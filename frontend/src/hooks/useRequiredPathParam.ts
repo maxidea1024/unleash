@@ -4,13 +4,13 @@ import { useOptionalPathParam } from './useOptionalPathParam';
 // Returns a string value from the URL path parameter
 // Throws an error if the parameter is not found
 export const useRequiredPathParam = (key: string): string => {
-    // Get the optional path parameter
-    const value = useOptionalPathParam(key);
+  // Get the optional path parameter
+  const value = useOptionalPathParam(key);
 
-    // Throw error if the value is not present
-    if (!value) {
-        throw new Error(`Missing required path param: ${key}`);
-    }
+  // Throw error if the value is not present
+  if (!value) {
+    throw new Error(`Missing required path param: ${key}`);
+  }
 
-    return value;
+  return value;
 };

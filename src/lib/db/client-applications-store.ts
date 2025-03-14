@@ -141,8 +141,9 @@ export default class ClientApplicationsStore
 
   async upsert(details: Partial<IClientApplication>): Promise<void> {
     const row = remapRow(details);
-    await this.db(TABLE).insert(row).onConflict('app_name').merge();
     const usageRows = this.remapUsageRow(details);
+
+    await this.db(TABLE).insert(row).onConflict('app_name').merge();
     await this.db(TABLE_USAGE)
       .insert(usageRows)
       .onConflict(['app_name', 'project', 'environment'])
@@ -152,6 +153,7 @@ export default class ClientApplicationsStore
   async bulkUpsert(apps: Partial<IClientApplication>[]): Promise<void> {
     const rows = apps.map(remapRow);
     const usageRows = apps.flatMap(this.remapUsageRow);
+
     await this.db(TABLE).insert(rows).onConflict('app_name').merge();
     await this.db(TABLE_USAGE)
       .insert(usageRows)
