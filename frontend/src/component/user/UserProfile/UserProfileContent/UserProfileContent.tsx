@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Button, Link, Paper, styled } from '@mui/material';
 import { basePath } from 'utils/formatPath';
 import type { IUser } from 'interfaces/user';
@@ -62,40 +61,36 @@ export const UserProfileContent = ({
   showProfile,
   setShowProfile,
   profile,
-}: UserProfileContentProps) => (
-  <ConditionallyRender
-    condition={showProfile}
-    show={
-      <StyledPaper className='dropdown-outline' id={id}>
-        <StyledLink
-          component={RouterLink}
-          to='/profile'
-          underline='hover'
-          onClick={() => setShowProfile(false)}
-        >
-          View profile settings
-        </StyledLink>
+}: UserProfileContentProps) =>
+  showProfile && (
+    <StyledPaper className='dropdown-outline' id={id}>
+      <StyledLink
+        component={RouterLink}
+        to='/profile'
+        underline='hover'
+        onClick={() => setShowProfile(false)}
+      >
+        View profile settings
+      </StyledLink>
 
-        <StyledDivider />
+      <StyledDivider />
 
-        <StyledLink
-          component='a'
-          href='https://www.getunleash.io/privacy-policy'
-          underline='hover'
-          rel='noopener noreferrer'
-          target='_blank'
-        >
-          Privacy Policy <OpenInNew />
-        </StyledLink>
+      <StyledLink
+        component='a'
+        href='https://www.getunleash.io/privacy-policy'
+        underline='hover'
+        rel='noopener noreferrer'
+        target='_blank'
+      >
+        Privacy Policy <OpenInNew />
+      </StyledLink>
 
-        <StyledDivider />
+      <StyledDivider />
 
-        <form method='POST' action={`${basePath}/logout`}>
-          <StyledLogoutButton type='submit' variant='outlined' color='primary'>
-            Log out
-          </StyledLogoutButton>
-        </form>
-      </StyledPaper>
-    }
-  />
-);
+      <form method='POST' action={`${basePath}/logout`}>
+        <StyledLogoutButton type='submit' variant='outlined' color='primary'>
+          Log out
+        </StyledLogoutButton>
+      </form>
+    </StyledPaper>
+  );

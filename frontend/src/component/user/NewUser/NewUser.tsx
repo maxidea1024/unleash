@@ -4,7 +4,6 @@ import { Box, TextField, Typography } from '@mui/material';
 import { CREATED, OK } from 'constants/statusCodes';
 import useToast from 'hooks/useToast';
 import useResetPassword from 'hooks/api/getters/useResetPassword/useResetPassword';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useUserInvite } from 'hooks/api/getters/useUserInvite/useUserInvite';
 import { useInviteTokenApi } from 'hooks/api/actions/useInviteTokenApi/useInviteTokenApi';
 import { formatUnknownError } from 'utils/formatUnknownError';
@@ -101,19 +100,16 @@ export const NewUser = () => {
           : 'Enter your personal details and start your journey'
       }
     >
-      <ConditionallyRender
-        condition={passwordResetData?.createdBy}
-        show={
-          <Typography
-            variant='body1'
-            data-loading
-            sx={{ textAlign: 'center', mb: 2 }}
-          >
-            {passwordResetData?.createdBy}
-            <br /> has invited you to join Ganpa.
-          </Typography>
-        }
-      />
+      {passwordResetData?.createdBy && (
+        <Typography
+          variant='body1'
+          data-loading
+          sx={{ textAlign: 'center', mb: 2 }}
+        >
+          {passwordResetData?.createdBy}
+          <br /> has invited you to join Ganpa.
+        </Typography>
+      )}
       <Typography color='text.secondary'>
         We suggest using{' '}
         <Typography component='strong' fontWeight='bold'>
@@ -121,81 +117,63 @@ export const NewUser = () => {
         </Typography>
         .
       </Typography>
-      <ConditionallyRender
-        condition={Boolean(authDetails?.options?.length)}
-        show={
-          <Box sx={{ mt: 2 }}>
-            <AuthOptions options={authDetails?.options} />
-          </Box>
-        }
-      />
-      <ConditionallyRender
-        condition={Boolean(authDetails?.options?.length) && !passwordDisabled}
-        show={
-          <DividerText text='or sign-up with an email address' data-loading />
-        }
-      />
-      <ConditionallyRender
-        condition={!passwordDisabled}
-        show={
-          <>
-            <ConditionallyRender
-              condition={passwordResetData?.email}
-              show={() => (
-                <Typography data-loading variant='body1' sx={{ my: 1 }}>
-                  Your username is
-                </Typography>
-              )}
-            />
+      {Boolean(authDetails?.options?.length) && (
+        <Box sx={{ mt: 2 }}>
+          <AuthOptions options={authDetails?.options} />
+        </Box>
+      )}
+      {Boolean(authDetails?.options?.length) && !passwordDisabled && (
+        <DividerText text='or sign-up with an email address' data-loading />
+      )}
+      {!passwordDisabled && (
+        <>
+          {passwordResetData?.email && (
+            <Typography data-loading variant='body1' sx={{ my: 1 }}>
+              Your username is
+            </Typography>
+          )}
+          <TextField
+            data-loading
+            type='email'
+            value={isValidToken ? passwordResetData?.email || '' : email}
+            id='email'
+            label='Email'
+            variant='outlined'
+            size='small'
+            sx={{ my: 1 }}
+            disabled={isValidToken}
+            fullWidth
+            required
+            onChange={(e) => {
+              if (isValidToken) {
+                return;
+              }
+              setEmail(e.target.value);
+            }}
+          />
+          {Boolean(isValidInvite) && (
             <TextField
               data-loading
-              type='email'
-              value={isValidToken ? passwordResetData?.email || '' : email}
-              id='email'
-              label='Email'
+              value={name}
+              id='username'
+              label='Full name'
               variant='outlined'
               size='small'
               sx={{ my: 1 }}
-              disabled={isValidToken}
               fullWidth
               required
               onChange={(e) => {
-                if (isValidToken) {
-                  return;
-                }
-                setEmail(e.target.value);
+                setName(e.target.value);
               }}
             />
-            <ConditionallyRender
-              condition={Boolean(isValidInvite)}
-              show={() => (
-                <TextField
-                  data-loading
-                  value={name}
-                  id='username'
-                  label='Full name'
-                  variant='outlined'
-                  size='small'
-                  sx={{ my: 1 }}
-                  fullWidth
-                  required
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-              )}
-            />
-            <Typography variant='body1' data-loading sx={{ mt: 2 }}>
-              Set a password for your account.
-            </Typography>
-            <ConditionallyRender
-              condition={isValidToken}
-              show={<ResetPasswordError>{apiError}</ResetPasswordError>}
-            />
-            <ResetPasswordForm onSubmit={onSubmit} />
-          </>
-        }
-      />
+          )}
+          <Typography variant='body1' data-loading sx={{ mt: 2 }}>
+            Set a password for your account.
+          </Typography>
+          {isValidToken && <ResetPasswordError>{apiError}</ResetPasswordError>}
+          <ResetPasswordForm onSubmit={onSubmit} />
+        </>
+      )}
     </NewUserWrapper>
   );
 };

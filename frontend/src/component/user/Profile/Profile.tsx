@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import {
   type ITab,
   VerticalTabs,
@@ -61,18 +60,9 @@ export const Profile = () => {
 
   return (
     <VerticalTabs tabs={tabs} value={tab} onChange={onChange}>
-      <ConditionallyRender
-        condition={tab === 'profile'}
-        show={<ProfileTab user={user!} />}
-      />
-      <ConditionallyRender
-        condition={tab === 'password'}
-        show={<PasswordTab />}
-      />
-      <ConditionallyRender
-        condition={tab === 'pat'}
-        show={<PersonalAPITokensTab />}
-      />
+      {tab === 'profile' && <ProfileTab user={user!} />}
+      {tab === 'password' && <PasswordTab />}
+      {tab === 'pat' && <PersonalAPITokensTab />}
     </VerticalTabs>
   );
 };

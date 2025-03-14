@@ -1,6 +1,5 @@
 import { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { FeedbackNPS } from 'component/feedback/FeedbackNPS/FeedbackNPS';
 import { LayoutPicker } from 'component/layout/LayoutPicker/LayoutPicker';
 import Loader from 'component/common/Loader/Loader';
@@ -52,50 +51,43 @@ export const App = () => {
   return (
     <SWRProvider>
       <Suspense fallback={<Loader type='fullscreen' />}>
-        <ConditionallyRender
-          condition={!hasFetchedAuth}
-          show={<Loader type='fullscreen' />}
-          elseShow={
-            <Demo>
-              <>
-                <ConditionallyRender
-                  condition={Boolean(uiConfig?.maintenanceMode)}
-                  show={<MaintenanceBanner />}
-                />
-                <LicenseBanner />
-                <ExternalBanners />
-                <InternalBanners />
-                <StyledContainer>
-                  <ToastRenderer />
-                  <Routes>
-                    {availableRoutes.map((route) => (
-                      <Route
-                        key={route.path}
-                        path={route.path}
-                        element={
-                          <LayoutPicker
-                            isStandalone={route.isStandalone === true}
-                          >
-                            <ProtectedRoute route={route} />
-                          </LayoutPicker>
-                        }
-                      />
-                    ))}
-                    <Route path='/' element={<InitialRedirect />} />
+        {!hasFetchedAuth ? (
+          <Loader type='fullscreen' />
+        ) : (
+          <Demo>
+            <>
+              {Boolean(uiConfig?.maintenanceMode) && <MaintenanceBanner />}
+              <LicenseBanner />
+              <ExternalBanners />
+              <InternalBanners />
+              <StyledContainer>
+                <ToastRenderer />
+                <Routes>
+                  {availableRoutes.map((route) => (
                     <Route
-                      path='*'
-                      element={isLoggedIn ? <NotFound /> : <LoginRedirect />}
+                      key={route.path}
+                      path={route.path}
+                      element={
+                        <LayoutPicker
+                          isStandalone={route.isStandalone === true}
+                        >
+                          <ProtectedRoute route={route} />
+                        </LayoutPicker>
+                      }
                     />
-                  </Routes>
-
-                  <FeedbackNPS openUrl='http://feedback.unleash.run' />
-
-                  <SplashPageRedirect />
-                </StyledContainer>
-              </>
-            </Demo>
-          }
-        />
+                  ))}
+                  <Route path='/' element={<InitialRedirect />} />
+                  <Route
+                    path='*'
+                    element={isLoggedIn ? <NotFound /> : <LoginRedirect />}
+                  />
+                </Routes>
+                <FeedbackNPS openUrl='http://feedback.unleash.run' />
+                <SplashPageRedirect />
+              </StyledContainer>
+            </>
+          </Demo>
+        )}
       </Suspense>
     </SWRProvider>
   );

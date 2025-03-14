@@ -17,7 +17,6 @@ import type { IUser } from 'interfaces/user';
 import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
 import { useNavigate } from 'react-router-dom';
 import { PageContent } from 'component/common/PageContent/PageContent';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { RoleBadge } from 'component/common/RoleBadge/RoleBadge';
 import { useUiFlag } from 'hooks/useUiFlag';
 import { ProductivityEmailSubscription } from './ProductivityEmailSubscription';
@@ -138,23 +137,19 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
         <StyledSectionLabel>Access</StyledSectionLabel>
         <StyledAccess>
           <Box sx={{ width: '50%' }}>
-            <ConditionallyRender
-              condition={Boolean(profile?.rootRole)}
-              show={() => (
-                <>
-                  <Typography variant='body2'>Your root role</Typography>
-                  <RoleBadge roleId={profile?.rootRole.id!}>
-                    {profile?.rootRole.name}
-                  </RoleBadge>
-                </>
-              )}
-            />
+            {Boolean(profile?.rootRole) && (
+              <>
+                <Typography variant='body2'>Your root role</Typography>
+                <RoleBadge roleId={profile?.rootRole.id!}>
+                  {profile?.rootRole.name}
+                </RoleBadge>
+              </>
+            )}
           </Box>
           <Box>
             <Typography variant='body2'>Projects</Typography>
-            <ConditionallyRender
-              condition={Boolean(profile?.projects.length)}
-              show={profile?.projects.map((project) => (
+            {profile?.projects.length ? (
+              profile?.projects.map((project) => (
                 <Tooltip
                   key={project}
                   title='View project'
@@ -165,7 +160,6 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
                   <StyledBadge
                     onClick={(e) => {
                       e.preventDefault();
-
                       navigate(`/projects/${project}`);
                     }}
                     color='secondary'
@@ -174,17 +168,16 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
                     {project}
                   </StyledBadge>
                 </Tooltip>
-              ))}
-              elseShow={
-                <Tooltip
-                  title='You are not assigned to any projects'
-                  arrow
-                  describeChild
-                >
-                  <Badge>No projects</Badge>
-                </Tooltip>
-              }
-            />
+              ))
+            ) : (
+              <Tooltip
+                title='You are not assigned to any projects'
+                arrow
+                describeChild
+              >
+                <Badge>No projects</Badge>
+              </Tooltip>
+            )}
           </Box>
         </StyledAccess>
         <StyledDivider />
