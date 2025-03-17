@@ -109,12 +109,9 @@ export const MainLayout = forwardRef<HTMLDivElement, MainLayoutProps>(
         <SkipNavTarget />
         <MainLayoutContainer>
           <MainLayoutContentWrapper>
-            <ConditionallyRender
-              condition={Boolean(
-                projectId && isChangeRequestConfiguredInAnyEnv(),
-              )}
-              show={<DraftBanner project={projectId || ''} />}
-            />
+            {projectId && isChangeRequestConfiguredInAnyEnv() && (
+              <DraftBanner project={projectId} />
+            )}
 
             <Box
               sx={(theme) => ({
@@ -122,10 +119,9 @@ export const MainLayout = forwardRef<HTMLDivElement, MainLayoutProps>(
                 mt: theme.spacing(0.25),
               })}
             >
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={<NavigationSidebar NewInUnleash={NewInUnleash} />}
-              />
+              {!isSmallScreen && (
+                <NavigationSidebar NewInUnleash={NewInUnleash} />
+              )}
 
               <Box
                 sx={{

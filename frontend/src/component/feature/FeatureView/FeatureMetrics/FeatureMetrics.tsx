@@ -23,12 +23,11 @@ import {
 import { aggregateFeatureMetrics } from './aggregateFeatureMetrics';
 
 export const FeatureMetrics = () => {
+  usePageTitle('Metrics');
+
   const projectId = useRequiredPathParam('projectId');
   const featureId = useRequiredPathParam('featureId');
   const environments = useFeatureMetricsEnvironments(projectId, featureId);
-
-  usePageTitle('Metrics');
-
   const defaultEnvironment = Array.from(environments)[0];
 
   const [query, setQuery] = useQueryParams({

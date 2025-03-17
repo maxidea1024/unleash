@@ -28,13 +28,17 @@ const CreateTagType = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     clearErrors();
+
     const validName = await validateNameUniqueness();
     if (validName) {
       const payload = getTagPayload();
       try {
         await createTag(payload);
+
         navigate('/tag-types');
+
         setToastData({
           title: 'Tag type created',
           confetti: true,

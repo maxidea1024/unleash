@@ -39,6 +39,7 @@ export const CreateGroup = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     clearErrors();
 
     if (!isValid) {
@@ -48,7 +49,9 @@ export const CreateGroup = () => {
     const payload = getGroupPayload();
     try {
       const group = await createGroup(payload);
+
       navigate(`/admin/groups/${group.id}`);
+
       setToastData({
         title: 'Group created successfully',
         text: 'Now you can start using your group.',
@@ -78,9 +81,11 @@ export const CreateGroup = () => {
 
   const onSetName = (name: string) => {
     clearErrors();
+
     if (!isNameUnique(name)) {
       setErrors({ name: 'A group with that name already exists.' });
     }
+
     setName(name);
   };
 

@@ -37,8 +37,11 @@ export const ProjectActionsActionsCell = ({
   const { actions } = action;
 
   if (actions.length === 0) {
-    if (!onCreateAction) return <TextCell>0 actions</TextCell>;
-    else return <LinkCell title='Create action' onClick={onCreateAction} />;
+    if (!onCreateAction) {
+      return <TextCell>0 actions</TextCell>;
+    } else {
+      return <LinkCell title='Create action' onClick={onCreateAction} />;
+    }
   }
 
   return (

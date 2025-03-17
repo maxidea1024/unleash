@@ -5,7 +5,6 @@ import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { usePlaygroundApi } from 'hooks/api/actions/usePlayground/usePlayground';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 import { PlaygroundForm } from './PlaygroundForm/PlaygroundForm';
@@ -376,39 +375,26 @@ export const AdvancedPlayground = ({
             zIndex: 1,
           })}
         >
-          <ConditionallyRender
-            condition={Boolean(configurationError)}
-            show={
-              <StyledAlert severity='warning'>{configurationError}</StyledAlert>
-            }
-          />
-          <ConditionallyRender
-            condition={loading}
-            show={<Loader />}
-            elseShow={
-              <>
-                <ConditionallyRender
-                  condition={
-                    Boolean(results) && Object.values(errors).length === 0
-                  }
-                  show={
-                    <>
-                      <GenerateWarningMessages response={results} />
-                      <AdvancedPlaygroundResultsTable
-                        loading={loading}
-                        features={results?.features}
-                        input={results?.input}
-                      />
-                    </>
-                  }
-                />
-                <ConditionallyRender
-                  condition={!results && !hasFormBeenSubmitted}
-                  show={<PlaygroundGuidance />}
-                />
-              </>
-            }
-          />
+          {configurationError && (
+            <StyledAlert severity='warning'>{configurationError}</StyledAlert>
+          )}
+          {loading ? (
+            <Loader />
+          ) : (
+            <>
+              {Boolean(results) && Object.values(errors).length === 0 && (
+                <>
+                  <GenerateWarningMessages response={results} />
+                  <AdvancedPlaygroundResultsTable
+                    loading={loading}
+                    features={results?.features}
+                    input={results?.input}
+                  />
+                </>
+              )}
+              {!results && !hasFormBeenSubmitted && <PlaygroundGuidance />}
+            </>
+          )}
         </Box>
       </Box>
     </PageContent>

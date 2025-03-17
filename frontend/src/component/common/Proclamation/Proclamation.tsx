@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Alert, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Typography } from '@mui/material';
 import type { IProclamationToast } from 'interfaces/uiConfig';
 
@@ -23,13 +22,17 @@ const StyledLink = styled('a')(({ theme }) => ({
 }));
 
 const renderProclamation = (id: string) => {
-  if (!id) return false;
+  if (!id) {
+    return false;
+  }
+
   if (localStorage) {
     const value = localStorage.getItem(id);
     if (value) {
       return false;
     }
   }
+
   return true;
 };
 
@@ -51,23 +54,14 @@ const Proclamation = ({ toast }: ProclamationProps) => {
     return null;
   }
 
-  return (
-    <ConditionallyRender
-      condition={show}
-      show={
-        <StyledProclamation severity={toast.severity} onClose={onClose}>
-          <StyledContent variant='body2'>{toast.message}</StyledContent>
-          <StyledLink
-            href={toast.link}
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            View more
-          </StyledLink>
-        </StyledProclamation>
-      }
-    />
-  );
+  return show ? (
+    <StyledProclamation severity={toast.severity} onClose={onClose}>
+      <StyledContent variant='body2'>{toast.message}</StyledContent>
+      <StyledLink href={toast.link} target='_blank' rel='noopener noreferrer'>
+        View more
+      </StyledLink>
+    </StyledProclamation>
+  ) : null;
 };
 
 export default Proclamation;

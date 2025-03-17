@@ -11,7 +11,6 @@ import {
   TablePlaceholder,
 } from 'component/common/Table';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -284,12 +283,9 @@ export const StrategiesList = () => {
               subtitle={description}
               to={`/strategies/${name}`}
             >
-              <ConditionallyRender
-                condition={deprecated}
-                show={() => (
-                  <StyledBadge color='disabled'>Disabled</StyledBadge>
-                )}
-              />
+              {deprecated && (
+                <StyledBadge color='disabled'>Disabled</StyledBadge>
+              )}
             </LinkCell>
           );
         },
@@ -305,22 +301,19 @@ export const StrategiesList = () => {
               deprecated={original.deprecated}
               onToggle={onToggle(original)}
             />
-            <ConditionallyRender
-              condition={original.editable}
-              show={
-                <>
-                  <ActionCell.Divider />
-                  <StrategyEditButton
-                    strategy={original}
-                    onClick={() => onEditStrategy(original)}
-                  />
-                  <StrategyDeleteButton
-                    strategy={original}
-                    onClick={() => onDeleteStrategy(original)}
-                  />
-                </>
-              }
-            />
+            {original.editable && (
+              <>
+                <ActionCell.Divider />
+                <StrategyEditButton
+                  strategy={original}
+                  onClick={() => onEditStrategy(original)}
+                />
+                <StrategyDeleteButton
+                  strategy={original}
+                  onClick={() => onDeleteStrategy(original)}
+                />
+              </>
+            )}
           </ActionCell>
         ),
         width: 150,
@@ -422,10 +415,9 @@ export const StrategiesList = () => {
               })}
             </TableBody>
           </Table>
-          <ConditionallyRender
-            condition={rows.length === 0}
-            show={<TablePlaceholder>No strategies available.</TablePlaceholder>}
-          />
+          {rows.length === 0 && (
+            <TablePlaceholder>No strategies available.</TablePlaceholder>
+          )}
         </Box>
 
         <Dialogue
@@ -472,10 +464,7 @@ export const StrategiesList = () => {
               })}
             </TableBody>
           </Table>
-          <ConditionallyRender
-            condition={customRows.length === 0}
-            show={<CustomStrategyInfo />}
-          />
+          {customRows.length === 0 && <CustomStrategyInfo />}
         </Box>
 
         <Dialogue

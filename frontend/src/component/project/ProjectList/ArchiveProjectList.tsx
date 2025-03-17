@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import ApiError from 'component/common/ApiError/ApiError';
@@ -106,30 +105,21 @@ export const ArchiveProjectList = () => {
         <PageHeader
           title={`Projects archive (${projects.length || 0})`}
           actions={
-            <ConditionallyRender
-              condition={!isSmallScreen}
-              show={
-                <Search initialValue={searchValue} onChange={setSearchValue} />
-              }
-            />
+            !isSmallScreen && (
+              <Search initialValue={searchValue} onChange={setSearchValue} />
+            )
           }
         >
-          <ConditionallyRender
-            condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
-          />
+          {isSmallScreen && (
+            <Search initialValue={searchValue} onChange={setSearchValue} />
+          )}
         </PageHeader>
       }
     >
       <StyledContainer>
-        <ConditionallyRender
-          condition={error}
-          show={() => (
-            <StyledApiError onClick={refetch} text='Error fetching projects' />
-          )}
-        />
+        {error && (
+          <StyledApiError onClick={refetch} text='Error fetching projects' />
+        )}
 
         <SearchHighlightProvider value={searchValue}>
           <ProjectGroup

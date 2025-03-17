@@ -79,6 +79,7 @@ const PasswordAuth = ({ authDetails, redirect }: PasswordAuthProps) => {
       }
 
       refetchUser();
+
       navigate(redirect, { replace: true });
     } catch (error: any) {
       if (error instanceof NotFoundError || error instanceof BadRequestError) {
@@ -86,7 +87,9 @@ const PasswordAuth = ({ authDetails, redirect }: PasswordAuthProps) => {
           ...prev,
           apiError: 'Invalid login details',
         }));
+
         setPassword('');
+
         setUsername('');
       } else if (error instanceof AuthenticationError) {
         setErrors({

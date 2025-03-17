@@ -4,7 +4,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import type { IGroup } from 'interfaces/group';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Search } from 'component/common/Search/Search';
 import { Grid, useMediaQuery } from '@mui/material';
 import theme from 'themes/theme';
@@ -86,18 +85,15 @@ export const GroupsList = () => {
           title={`Groups (${data.length})`}
           actions={
             <>
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={
-                  <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
-                    <PageHeader.Divider />
-                  </>
-                }
-              />
+              {!isSmallScreen && (
+                <>
+                  <Search
+                    initialValue={searchValue}
+                    onChange={setSearchValue}
+                  />
+                  <PageHeader.Divider />
+                </>
+              )}
               <ResponsiveButton
                 onClick={() => navigate('/admin/groups/create-group')}
                 maxWidth='700px'
@@ -110,12 +106,9 @@ export const GroupsList = () => {
             </>
           }
         >
-          <ConditionallyRender
-            condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
-          />
+          {isSmallScreen && (
+            <Search initialValue={searchValue} onChange={setSearchValue} />
+          )}
         </PageHeader>
       }
     >
@@ -132,44 +125,31 @@ export const GroupsList = () => {
           ))}
         </Grid>
       </SearchHighlightProvider>
-      <ConditionallyRender
-        condition={!loading && data.length === 0}
-        show={
-          <ConditionallyRender
-            condition={searchValue?.length > 0}
-            show={
-              <TablePlaceholder>
-                No groups found matching &ldquo;
-                {searchValue}
-                &rdquo;
-              </TablePlaceholder>
-            }
-            elseShow={<GroupEmpty />}
-          />
-        }
-      />
+      {!loading && data.length === 0 && (
+        searchValue?.length > 0 ? (
+          <TablePlaceholder>
+            No groups found matching &ldquo;{searchValue}&rdquo;
+          </TablePlaceholder>
+        ) : (
+          <GroupEmpty />
+        )
+      )}
 
-      <ConditionallyRender
-        condition={Boolean(activeGroup)}
-        show={
-          <EditGroupUsers
-            open={editUsersOpen}
-            setOpen={setEditUsersOpen}
-            group={activeGroup!}
-          />
-        }
-      />
+      {activeGroup && (
+        <EditGroupUsers
+          open={editUsersOpen}
+          setOpen={setEditUsersOpen}
+          group={activeGroup}
+        />
+      )}
 
-      <ConditionallyRender
-        condition={Boolean(activeGroup)}
-        show={
-          <RemoveGroup
-            open={removeOpen}
-            setOpen={setRemoveOpen}
-            group={activeGroup!}
-          />
-        }
-      />
+      {activeGroup && (
+        <RemoveGroup
+          open={removeOpen}
+          setOpen={setRemoveOpen}
+          group={activeGroup}
+        />
+      )}
     </PageContent>
   );
 };

@@ -73,9 +73,13 @@ export const EditGroupUsers = ({
 
     try {
       await updateGroup(group.id, getGroupPayload());
+
       refetchGroup();
+
       refetchGroups();
+
       setOpen(false);
+
       setToastData({
         title: 'Group users saved successfully',
         type: 'success',

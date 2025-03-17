@@ -2,7 +2,6 @@ import type React from 'react';
 import { useRef, useState, useContext } from 'react';
 import { Button, styled } from '@mui/material';
 import Add from '@mui/icons-material/Add';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 import { SidebarModal } from 'component/common/SidebarModal/SidebarModal';
 import { CreateUnleashContext } from 'component/context/CreateUnleashContext/CreateUnleashContext';
@@ -185,17 +184,14 @@ export const SegmentFormStepTwo = ({
             </StyledError>
           )}
         </StyledAddContextContainer>
-        <ConditionallyRender
-          condition={constraints.length === 0}
-          show={
-            <StyledNoConstraintText>
-              <StyledSubtitle>
-                Start adding context fields by selecting an option from above,
-                or you can create a new context field and use it right away
-              </StyledSubtitle>
-            </StyledNoConstraintText>
-          }
-        />
+        {constraints.length === 0 && (
+          <StyledNoConstraintText>
+            <StyledSubtitle>
+              Start adding context fields by selecting an option from above, or
+              you can create a new context field and use it right away
+            </StyledSubtitle>
+          </StyledNoConstraintText>
+        )}
         <StyledConstraintContainer>
           <ConstraintAccordionList
             ref={constraintsAccordionListRef}

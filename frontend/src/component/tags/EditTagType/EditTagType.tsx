@@ -31,11 +31,15 @@ const EditTagType = () => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     clearErrors();
+
     const payload = getTagPayload();
     try {
       await updateTagType(tagName, payload);
+
       navigate('/tag-types');
+
       setToastData({
         title: 'Tag type updated',
         type: 'success',

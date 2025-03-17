@@ -1,6 +1,5 @@
 import type { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ProjectCard as NewProjectCard } from '../ProjectCard/ProjectCard';
 import type { ProjectSchema } from 'openapi';
 import loadingData from './loadingData';
@@ -72,87 +71,69 @@ export const ProjectGroup = ({
     <StyledContainer>
       <StyledHeaderContainer>
         <StyledHeaderTitle>
-          <ConditionallyRender
-            condition={Boolean(sectionTitle)}
-            show={
-              <Typography component='h2' variant='h2'>
-                {sectionTitle}
-              </Typography>
-            }
-          />
-          <ConditionallyRender
-            condition={Boolean(sectionSubtitle)}
-            show={
-              <Typography variant='body2' color='text.secondary'>
-                {sectionSubtitle}
-              </Typography>
-            }
-          />
+          {Boolean(sectionTitle) && (
+            <Typography component='h2' variant='h2'>
+              {sectionTitle}
+            </Typography>
+          )}
+          {Boolean(sectionSubtitle) && (
+            <Typography variant='body2' color='text.secondary'>
+              {sectionSubtitle}
+            </Typography>
+          )}
         </StyledHeaderTitle>
         {HeaderActions}
       </StyledHeaderContainer>
-      <ConditionallyRender
-        condition={projects.length < 1 && !loading}
-        show={
-          <ConditionallyRender
-            condition={searchQuery?.length > 0}
-            show={
-              <TablePlaceholder>
-                No projects found matching &ldquo;
-                {searchQuery}
-                &rdquo;
-              </TablePlaceholder>
-            }
-            elseShow={<TablePlaceholder>{placeholder}</TablePlaceholder>}
-          />
-        }
-        elseShow={
-          <StyledGridContainer>
-            <ConditionallyRender
-              condition={loading}
-              show={() => (
-                <>
-                  {loadingData.map((project: ProjectSchema) => (
-                    <ProjectCard
-                      data-loading
-                      createdAt={project.createdAt}
-                      key={project.id}
-                      name={project.name}
-                      id={project.id}
-                      mode={project.mode}
-                      memberCount={2}
-                      health={95}
-                      featureCount={4}
-                      owners={[
-                        {
-                          ownerType: 'user',
-                          name: 'Loading data',
-                        },
-                      ]}
-                    />
-                  ))}
-                </>
+      {projects.length < 1 && !loading ? (
+        searchQuery?.length > 0 ? (
+          <TablePlaceholder>
+            No projects found matching &ldquo;{searchQuery}&rdquo;
+          </TablePlaceholder>
+        ) : (
+          <TablePlaceholder>{placeholder}</TablePlaceholder>
+        )
+      ) : (
+        <StyledGridContainer>
+          {loading ? (
+            <>
+              {loadingData.map((project: ProjectSchema) => (
+                <ProjectCard
+                  data-loading
+                  createdAt={project.createdAt}
+                  key={project.id}
+                  name={project.name}
+                  id={project.id}
+                  mode={project.mode}
+                  memberCount={2}
+                  health={95}
+                  featureCount={4}
+                  owners={[
+                    {
+                      ownerType: 'user',
+                      name: 'Loading data',
+                    },
+                  ]}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              {projects.map((project) =>
+                link ? (
+                  <StyledCardLink
+                    key={project.id}
+                    to={`/projects/${project.id}`}
+                  >
+                    <ProjectCard {...project} />
+                  </StyledCardLink>
+                ) : (
+                  <ProjectCard key={project.id} {...project} />
+                ),
               )}
-              elseShow={() => (
-                <>
-                  {projects.map((project) =>
-                    link ? (
-                      <StyledCardLink
-                        key={project.id}
-                        to={`/projects/${project.id}`}
-                      >
-                        <ProjectCard {...project} />
-                      </StyledCardLink>
-                    ) : (
-                      <ProjectCard key={project.id} {...project} />
-                    ),
-                  )}
-                </>
-              )}
-            />
-          </StyledGridContainer>
-        }
-      />
+            </>
+          )}
+        </StyledGridContainer>
+      )}
     </StyledContainer>
   );
 };

@@ -8,7 +8,6 @@ import {
   useState,
 } from 'react';
 import { Tooltip } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AnnouncerContext } from 'component/common/Announcer/AnnouncerContext/AnnouncerContext';
 import {
   StyledButton,
@@ -111,36 +110,30 @@ export const CellSortable = ({
       isFlexGrow={isFlexGrow}
       isSortable={isSortable}
     >
-      <ConditionallyRender
-        condition={isSortable}
-        show={
-          <Tooltip title={title} arrow>
-            <StyledButton
-              isSorted={isSorted}
-              type='button'
-              onClick={onSortClick}
-            >
-              <StyledHiddenMeasurementLayer style={alignStyle} aria-hidden>
-                <StyledLabel tabIndex={-1} data-text={children}>
-                  {children}
-                </StyledLabel>
-                <SortArrow isSorted={isSorted} isDesc={isDescending} />
-              </StyledHiddenMeasurementLayer>
-              <StyledVisibleAbsoluteLayer style={alignStyle}>
-                <span ref={ref} tabIndex={-1}>
-                  <span>{children}</span>
-                </span>
-                <SortArrow
-                  isSorted={isSorted}
-                  isDesc={isDescending}
-                  className='sort-arrow'
-                />
-              </StyledVisibleAbsoluteLayer>
-            </StyledButton>
-          </Tooltip>
-        }
-        elseShow={<div style={alignStyle}>{children}</div>}
-      />
+      {isSortable ? (
+        <Tooltip title={title} arrow>
+          <StyledButton isSorted={isSorted} type='button' onClick={onSortClick}>
+            <StyledHiddenMeasurementLayer style={alignStyle} aria-hidden>
+              <StyledLabel tabIndex={-1} data-text={children}>
+                {children}
+              </StyledLabel>
+              <SortArrow isSorted={isSorted} isDesc={isDescending} />
+            </StyledHiddenMeasurementLayer>
+            <StyledVisibleAbsoluteLayer style={alignStyle}>
+              <span ref={ref} tabIndex={-1}>
+                <span>{children}</span>
+              </span>
+              <SortArrow
+                isSorted={isSorted}
+                isDesc={isDescending}
+                className='sort-arrow'
+              />
+            </StyledVisibleAbsoluteLayer>
+          </StyledButton>
+        </Tooltip>
+      ) : (
+        <div style={alignStyle}>{children}</div>
+      )}
     </StyledTableCell>
   );
 };

@@ -39,13 +39,14 @@ const ProjectOverview: FC = () => {
   const projectId = useRequiredPathParam('projectId');
   const projectName = useProjectOverviewNameOrId(projectId);
 
+  usePageTitle(`Project overview – ${projectName}`);
+
   const outdatedSdksBannerEnabled = useUiFlag('outdatedSdksBanner');
 
   const { project } = useProjectOverview(projectId, {
     refreshInterval,
   });
 
-  usePageTitle(`Project overview – ${projectName}`);
   const { setLastViewed } = useLastViewedProject();
   useEffect(() => {
     setLastViewed(projectId);

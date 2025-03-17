@@ -1,6 +1,5 @@
 import type React from 'react';
 import { useMediaQuery } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import type { TooltipResolverProps } from '../TooltipResolver/TooltipResolver';
@@ -40,39 +39,33 @@ const ResponsiveButton = ({
 }: ResponsiveButtonProps) => {
   const smallScreen = useMediaQuery(`(max-width:${maxWidth})`);
 
-  return (
-    <ConditionallyRender
-      condition={smallScreen}
-      show={
-        <PermissionIconButton
-          disabled={disabled}
-          onClick={onClick}
-          permission={permission}
-          projectId={projectId}
-          environmentId={environmentId}
-          data-loading
-          {...rest}
-        >
-          <Icon />
-        </PermissionIconButton>
-      }
-      elseShow={
-        <PermissionButton
-          onClick={onClick}
-          permission={permission}
-          projectId={projectId}
-          color='primary'
-          variant={variant}
-          disabled={disabled}
-          environmentId={environmentId}
-          endIcon={endIcon}
-          data-loading
-          {...rest}
-        >
-          {children}
-        </PermissionButton>
-      }
-    />
+  return smallScreen ? (
+    <PermissionIconButton
+      disabled={disabled}
+      onClick={onClick}
+      permission={permission}
+      projectId={projectId}
+      environmentId={environmentId}
+      data-loading
+      {...rest}
+    >
+      <Icon />
+    </PermissionIconButton>
+  ) : (
+    <PermissionButton
+      onClick={onClick}
+      permission={permission}
+      projectId={projectId}
+      color='primary'
+      variant={variant}
+      disabled={disabled}
+      environmentId={environmentId}
+      endIcon={endIcon}
+      data-loading
+      {...rest}
+    >
+      {children}
+    </PermissionButton>
   );
 };
 

@@ -5,7 +5,6 @@ import type { IGroupUser } from 'interfaces/group';
 import { HighlightCell } from 'component/common/Table/cells/HighlightCell/HighlightCell';
 import { ActionCell } from 'component/common/Table/cells/ActionCell/ActionCell';
 import Delete from '@mui/icons-material/Delete';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { VirtualizedTable } from 'component/common/Table';
 import { useFlexLayout, useSortBy, useTable } from 'react-table';
 import { sortTypes } from 'utils/sortTypes';
@@ -118,15 +117,12 @@ export const GroupFormUsersTable = ({
   );
 
   return (
-    <ConditionallyRender
-      condition={rows.length > 0}
-      show={
-        <VirtualizedTable
-          rows={rows}
-          headerGroups={headerGroups}
-          prepareRow={prepareRow}
-        />
-      }
-    />
+    rows.length > 0 && (
+      <VirtualizedTable
+        rows={rows}
+        headerGroups={headerGroups}
+        prepareRow={prepareRow}
+      />
+    )
   );
 };

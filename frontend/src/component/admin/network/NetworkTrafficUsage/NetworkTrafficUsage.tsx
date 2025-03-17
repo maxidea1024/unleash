@@ -138,8 +138,8 @@ const createBarChartOptions = (
 
 export const NetworkTrafficUsage = () => {
   usePageTitle('Network - Data Usage');
-  const theme = useTheme();
 
+  const theme = useTheme();
   const { isOss } = useUiConfig();
 
   const {

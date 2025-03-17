@@ -14,7 +14,6 @@ import Edit from '@mui/icons-material/Edit';
 import Label from '@mui/icons-material/Label';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { PageContent } from 'component/common/PageContent/PageContent';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import {
   DELETE_TAG_TYPE,
   UPDATE_TAG_TYPE,
@@ -164,8 +163,11 @@ export const TagTypeList = () => {
     try {
       if (deletion.name) {
         await deleteTagType(deletion.name);
+
         refetch();
+
         setDeletion({ open: false });
+
         setToastData({
           type: 'success',
           show: true,
@@ -215,26 +217,16 @@ export const TagTypeList = () => {
           </TableBody>
         </Table>
       </SearchHighlightProvider>
-      <ConditionallyRender
-        condition={rows.length === 0}
-        show={
-          <ConditionallyRender
-            condition={globalFilter?.length > 0}
-            show={
-              <TablePlaceholder>
-                No tags found matching &ldquo;
-                {globalFilter}
-                &rdquo;
-              </TablePlaceholder>
-            }
-            elseShow={
-              <TablePlaceholder>
-                No tags available. Get started by adding one.
-              </TablePlaceholder>
-            }
-          />
-        }
-      />
+      {rows.length === 0 &&
+        (globalFilter?.length > 0 ? (
+          <TablePlaceholder>
+            No tags found matching &ldquo;{globalFilter}&rdquo;
+          </TablePlaceholder>
+        ) : (
+          <TablePlaceholder>
+            No tags available. Get started by adding one.
+          </TablePlaceholder>
+        ))}
       <Dialogue
         title='Really delete Tag type?'
         open={deletion.open}

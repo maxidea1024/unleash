@@ -33,9 +33,13 @@ export const RemoveGroupUser = ({
             user: { id },
           })),
       };
+
       await updateGroup(group.id, groupPayload);
+
       refetchGroup();
+
       setOpen(false);
+
       setToastData({
         title: 'User removed from group successfully',
         type: 'success',

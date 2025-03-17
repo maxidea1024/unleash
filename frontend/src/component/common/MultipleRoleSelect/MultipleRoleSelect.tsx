@@ -10,7 +10,6 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import type { IRole } from 'interfaces/role';
 import { RoleDescription } from '../RoleDescription/RoleDescription';
-import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
 const StyledRoleOption = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -73,16 +72,13 @@ export const MultipleRoleSelect = ({
         )}
         {...rest}
       />
-      <ConditionallyRender
-        condition={value.length > 0}
-        show={() => (
-          <>
-            {value.map(({ id }) => (
-              <RoleDescription key={id} sx={{ marginTop: 1 }} roleId={id} />
-            ))}
-          </>
-        )}
-      />
+      {value.length > 0 && (
+        <>
+          {value.map(({ id }) => (
+            <RoleDescription key={id} sx={{ marginTop: 1 }} roleId={id} />
+          ))}
+        </>
+      )}
     </>
   );
 };

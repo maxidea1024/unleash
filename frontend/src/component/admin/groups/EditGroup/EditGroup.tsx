@@ -60,14 +60,19 @@ export const EditGroup = ({ group, groupId, refetchGroup }: EditGroupProps) => {
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();
+
     clearErrors();
 
     const payload = getGroupPayload();
     try {
       await updateGroup(groupId, payload);
+
       refetchGroup();
+
       refetchGroups();
+
       navigate(GO_BACK);
+
       setToastData({
         title: 'Group updated successfully',
         type: 'success',
@@ -96,9 +101,11 @@ export const EditGroup = ({ group, groupId, refetchGroup }: EditGroupProps) => {
 
   const onSetName = (name: string) => {
     clearErrors();
+
     if (!isNameUnique(name)) {
       setErrors({ name: 'A group with that name already exists.' });
     }
+
     setName(name);
   };
 

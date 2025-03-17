@@ -1,5 +1,4 @@
 import { Box, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { EventTimeline } from 'component/events/EventTimeline/EventTimeline';
 import { useEventTimelineContext } from 'component/events/EventTimeline/EventTimelineContext';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -36,7 +35,7 @@ export const MainLayoutEventTimeline = () => {
       }}
     >
       <StyledEventTimelineWrapper>
-        <ConditionallyRender condition={open} show={<EventTimeline />} />
+        {open && <EventTimeline />}
       </StyledEventTimelineWrapper>
     </StyledEventTimelineSlider>
   );

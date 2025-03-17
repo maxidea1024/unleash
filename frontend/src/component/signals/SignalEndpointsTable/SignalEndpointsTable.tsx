@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { Alert, Button, styled, useMediaQuery } from '@mui/material';
@@ -245,26 +244,23 @@ export const SignalEndpointsTable = () => {
           title={`Signal endpoints (${signalEndpoints.length})`}
           actions={
             <>
-              <ConditionallyRender
-                condition={!hasSubmittedFeedback}
-                show={
-                  <Button
-                    startIcon={<ReviewsOutlined />}
-                    variant='outlined'
-                    onClick={() => {
-                      openFeedback({
-                        title: 'Do you find signals and actions easy to use?',
-                        positiveLabel:
-                          'What do you like most about signals and actions?',
-                        areasForImprovementsLabel:
-                          'What needs to change to use signals and actions the way you want?',
-                      });
-                    }}
-                  >
-                    Provide feedback
-                  </Button>
-                }
-              />
+              {!hasSubmittedFeedback && (
+                <Button
+                  startIcon={<ReviewsOutlined />}
+                  variant='outlined'
+                  onClick={() => {
+                    openFeedback({
+                      title: 'Do you find signals and actions easy to use?',
+                      positiveLabel:
+                        'What do you like most about signals and actions?',
+                      areasForImprovementsLabel:
+                        'What needs to change to use signals and actions the way you want?',
+                    });
+                  }}
+                >
+                  Provide feedback
+                </Button>
+              )}
               <PermissionButton
                 variant='contained'
                 color='primary'
@@ -291,8 +287,8 @@ export const SignalEndpointsTable = () => {
         <StyledParagraph>
           <ul>
             <li>
-              <b>Signal endpoints</b> are used to send signals to Unleash. This
-              allows you to integrate Unleash with any external tool.
+              <b>Signal endpoints</b> are used to send signals to Ganpa. This
+              allows you to integrate Ganpa with any external tool.
             </li>
 
             <li>
@@ -330,14 +326,11 @@ export const SignalEndpointsTable = () => {
             headerGroups={headerGroups}
             prepareRow={prepareRow}
           />
-          <ConditionallyRender
-            condition={rows.length === 0}
-            show={
-              <TablePlaceholder>
-                No signal endpoints available. Get started by adding one.
-              </TablePlaceholder>
-            }
-          />
+          {rows.length === 0 && (
+            <TablePlaceholder>
+              No signal endpoints available. Get started by adding one.
+            </TablePlaceholder>
+          )}
           <SignalEndpointsModal
             signalEndpoint={selectedSignalEndpoint}
             open={modalOpen}

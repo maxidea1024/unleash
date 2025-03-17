@@ -22,9 +22,13 @@ export const RemoveGroup = ({ open, setOpen, group }: RemoveGroupProps) => {
   const onRemoveClick = async () => {
     try {
       await removeGroup(group.id);
+
       refetchGroups();
+
       setOpen(false);
+
       navigate('/admin/groups');
+
       setToastData({
         title: 'Group removed successfully',
         type: 'success',

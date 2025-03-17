@@ -122,10 +122,12 @@ const PasswordChecker = ({
       setAllErrors(true);
       return;
     }
+
     if (password.length < 3) {
       setLengthError(true);
       return;
     }
+
     try {
       const res = await makeValidatePassReq();
       if (res.status === BAD_REQUEST) {

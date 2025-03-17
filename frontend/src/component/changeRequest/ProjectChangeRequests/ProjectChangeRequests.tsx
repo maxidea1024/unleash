@@ -10,11 +10,12 @@ import { useProjectOverviewNameOrId } from 'hooks/api/getters/useProjectOverview
 export const ProjectChangeRequests = () => {
   const projectId = useRequiredPathParam('projectId');
   const projectName = useProjectOverviewNameOrId(projectId);
-  const { isOss, isPro } = useUiConfig();
 
   usePageTitle(`Change requests – ${projectName}`);
 
   const { changeRequests, loading } = useProjectChangeRequests(projectId);
+
+  const { isOss, isPro } = useUiConfig();
 
   if (isOss() || isPro()) {
     return (

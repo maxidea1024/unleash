@@ -1,10 +1,8 @@
 import type React from 'react';
-import type { FC } from 'react';
 import { Box, Button, styled } from '@mui/material';
 import { UG_DESC_ID, UG_NAME_ID } from 'utils/testIds';
 import Input from 'component/common/Input/Input';
 import type { IGroupUser } from 'interfaces/group';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { GroupFormUsersSelect } from './GroupFormUsersSelect/GroupFormUsersSelect';
 import { GroupFormUsersTable } from './GroupFormUsersTable/GroupFormUsersTable';
 import { ItemList } from 'component/common/ItemList/ItemList';
@@ -154,32 +152,28 @@ export const GroupForm = ({
           onChange={(e) => setDescription(e.target.value)}
           data-testid={UG_DESC_ID}
         />
-        <ConditionallyRender
-          condition={isGroupSyncingEnabled && !isScimGroup}
-          show={
-            <>
-              <StyledInputDescription>
-                Is this group associated with SSO groups?
-              </StyledInputDescription>
-              <StyledItemList
-                label='SSO group ID / name'
-                value={mappingsSSO}
-                onChange={setMappingsSSO}
-              />
-            </>
-          }
-          elseShow={() => (
-            <StyledDescriptionBlock>
-              <Box sx={{ display: 'flex' }}>
-                You can enable SSO groups synchronization if needed
-                <HelpIcon tooltip='SSO groups synchronization allows SSO groups to be mapped to Unleash groups, so that user group membership is properly synchronized.' />
-              </Box>
-              <Link data-loading to={`/admin/auth`}>
-                <span data-loading>View SSO configuration</span>
-              </Link>
-            </StyledDescriptionBlock>
-          )}
-        />
+        {isGroupSyncingEnabled && !isScimGroup ? (
+          <>
+            <StyledInputDescription>
+              Is this group associated with SSO groups?
+            </StyledInputDescription>
+            <StyledItemList
+              label='SSO group ID / name'
+              value={mappingsSSO}
+              onChange={setMappingsSSO}
+            />
+          </>
+        ) : (
+          <StyledDescriptionBlock>
+            <Box sx={{ display: 'flex' }}>
+              You can enable SSO groups synchronization if needed
+              <HelpIcon tooltip='SSO groups synchronization allows SSO groups to be mapped to Unleash groups, so that user group membership is properly synchronized.' />
+            </Box>
+            <Link data-loading to={`/admin/auth`}>
+              <span data-loading>View SSO configuration</span>
+            </Link>
+          </StyledDescriptionBlock>
+        )}
         <StyledInputDescription>
           <Box sx={{ display: 'flex' }}>
             Do you want to associate a root role with this group?
@@ -194,20 +188,17 @@ export const GroupForm = ({
             setValue={(role) => setRootRole(role?.id || null)}
           />
         </StyledAutocompleteWrapper>
-        <ConditionallyRender
-          condition={mode === 'Create'}
-          show={
-            <>
-              <StyledInputDescription>
-                Add users to this group
-              </StyledInputDescription>
-              <GroupFormUsersSelect users={users} setUsers={setUsers} />
-              <StyledGroupFormUsersTableWrapper>
-                <GroupFormUsersTable users={users} setUsers={setUsers} />
-              </StyledGroupFormUsersTableWrapper>
-            </>
-          }
-        />
+        {mode === 'Create' && (
+          <>
+            <StyledInputDescription>
+              Add users to this group
+            </StyledInputDescription>
+            <GroupFormUsersSelect users={users} setUsers={setUsers} />
+            <StyledGroupFormUsersTableWrapper>
+              <GroupFormUsersTable users={users} setUsers={setUsers} />
+            </StyledGroupFormUsersTableWrapper>
+          </>
+        )}
       </div>
 
       <StyledButtonContainer>

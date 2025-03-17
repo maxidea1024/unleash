@@ -1,7 +1,6 @@
 import { styled, Tooltip } from '@mui/material';
 import type { IGroup } from 'interfaces/group';
 import { Link, useNavigate } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Badge } from 'component/common/Badge/Badge';
 import { GroupCardActions } from './GroupCardActions/GroupCardActions';
 import TopicOutlinedIcon from '@mui/icons-material/TopicOutlined';
@@ -124,65 +123,53 @@ export const GroupCard = ({
               />
             </StyledHeaderActions>
           </StyledTitleRow>
-          <ConditionallyRender
-            condition={Boolean(group.rootRole)}
-            show={
-              <InfoBadgeDescription>
-                <p>Root role:</p>
-                <RoleBadge roleId={group.rootRole!} />
-              </InfoBadgeDescription>
-            }
-          />
+          {Boolean(group.rootRole) && (
+            <InfoBadgeDescription>
+              <p>Root role:</p>
+              <RoleBadge roleId={group.rootRole!} />
+            </InfoBadgeDescription>
+          )}
 
           <StyledDescription>{group.description}</StyledDescription>
           <StyledBottomRow>
-            <ConditionallyRender
-              condition={group.users?.length > 0}
-              show={<AvatarGroup users={group.users} />}
-              elseShow={
-                <StyledCounterDescription>
-                  This group has no users.
-                </StyledCounterDescription>
-              }
-            />
+            {group.users?.length > 0 ? (
+              <AvatarGroup users={group.users} />
+            ) : (
+              <StyledCounterDescription>
+                This group has no users.
+              </StyledCounterDescription>
+            )}
             <ProjectBadgeContainer>
-              <ConditionallyRender
-                condition={group.projects.length > 0}
-                show={group.projects.map((project) => (
-                  <Tooltip
-                    key={project}
-                    title='View project'
-                    arrow
-                    placement='bottom-end'
-                    describeChild
-                  >
-                    <ProjectNameBadge
-                      onClick={(e) => {
-                        e.preventDefault();
-                        navigate(`/projects/${project}/settings/access`);
-                      }}
-                      color='secondary'
-                      icon={<TopicOutlinedIcon />}
+              {group.projects.length > 0
+                ? group.projects.map((project) => (
+                    <Tooltip
+                      key={project}
+                      title='View project'
+                      arrow
+                      placement='bottom-end'
+                      describeChild
                     >
-                      {project}
-                    </ProjectNameBadge>
-                  </Tooltip>
-                ))}
-                elseShow={
-                  <ConditionallyRender
-                    condition={!group.rootRole}
-                    show={
-                      <Tooltip
-                        title='This group is not used in any project'
-                        arrow
-                        describeChild
+                      <ProjectNameBadge
+                        onClick={(e) => {
+                          e.preventDefault();
+                          navigate(`/projects/${project}/settings/access`);
+                        }}
+                        color='secondary'
+                        icon={<TopicOutlinedIcon />}
                       >
-                        <Badge>Not used</Badge>
-                      </Tooltip>
-                    }
-                  />
-                }
-              />
+                        {project}
+                      </ProjectNameBadge>
+                    </Tooltip>
+                  ))
+                : !group.rootRole && (
+                    <Tooltip
+                      title='This group is not used in any project'
+                      arrow
+                      describeChild
+                    >
+                      <Badge>Not used</Badge>
+                    </Tooltip>
+                  )}
             </ProjectBadgeContainer>
           </StyledBottomRow>
         </StyledGroupCard>

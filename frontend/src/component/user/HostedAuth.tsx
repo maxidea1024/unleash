@@ -78,7 +78,9 @@ const HostedAuth = ({ authDetails, redirect }: HostedAuthProps) => {
           text: `You can have up to ${data.activeSessions} active sessions at a time. To allow this login, we’ve logged out ${data.deletedSessions} session(s) from other browsers.`,
         });
       }
+
       refetchUser();
+
       navigate(redirect, { replace: true });
     } catch (error: any) {
       if (error instanceof NotFoundError || error instanceof BadRequestError) {

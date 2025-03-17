@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import Close from '@mui/icons-material/Close';
 import { NewInUnleashTooltip } from './NewInUnleashTooltip';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Badge } from 'component/common/Badge/Badge';
 
 export type NewInUnleashItemDetails = {
@@ -115,10 +114,7 @@ export const NewInUnleashItem = ({
               <Typography fontWeight='bold' fontSize='small'>
                 {label}
               </Typography>
-              <ConditionallyRender
-                condition={beta}
-                show={<Badge color='secondary'>Beta</Badge>}
-              />
+              {beta && <Badge color='secondary'>Beta</Badge>}
             </StyledItemTitle>
             <Typography fontSize='small'>{summary}</Typography>
           </LabelWithSummary>

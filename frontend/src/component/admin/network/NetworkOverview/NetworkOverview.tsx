@@ -115,6 +115,7 @@ const toGraphData = (metrics?: RequestsPerSecondSchema) => {
 
 export const NetworkOverview = () => {
   usePageTitle('Network - Overview');
+
   const theme = useTheme();
   const { metrics } = useInstanceMetrics();
   const apps = useMemo(() => {

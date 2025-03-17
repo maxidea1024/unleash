@@ -26,6 +26,7 @@ const useTagTypeForm = (initialTagName = '', initialTagDesc = '') => {
   const validateNameUniqueness = async () => {
     if (tagName.length === 0) {
       setErrors((prev) => ({ ...prev, name: 'Name can not be empty.' }));
+
       return false;
     }
     if (tagName.length < 2) {
@@ -33,10 +34,12 @@ const useTagTypeForm = (initialTagName = '', initialTagDesc = '') => {
         ...prev,
         name: 'Tag name length must be at least 2 characters long',
       }));
+
       return false;
     }
     try {
       await validateTagName(tagName);
+
       return true;
     } catch (err: unknown) {
       setErrors((prev) => ({

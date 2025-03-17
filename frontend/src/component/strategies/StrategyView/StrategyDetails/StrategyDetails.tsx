@@ -10,7 +10,6 @@ import {
 import Add from '@mui/icons-material/Add';
 import RadioButtonChecked from '@mui/icons-material/RadioButtonChecked';
 import { AppsLinkList } from 'component/common';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import styles from '../../strategies.module.scss';
 import type { IStrategy, IStrategyParameter } from 'interfaces/strategy';
 import type { ApplicationSchema } from 'openapi';
@@ -30,23 +29,17 @@ export const StrategyDetails = ({
     if (params.length > 0) {
       return params.map(({ name, type, description, required }, i) => (
         <ListItem key={`${name}-${i}`}>
-          <ConditionallyRender
-            condition={required}
-            show={
-              <ListItemAvatar>
-                <Tooltip title='Required parameter' arrow>
-                  <Add aria-hidden={false} />
-                </Tooltip>
-              </ListItemAvatar>
-            }
-            elseShow={
-              <ListItemAvatar>
-                <Tooltip title='Optional parameter' arrow>
-                  <RadioButtonChecked aria-hidden={false} />
-                </Tooltip>
-              </ListItemAvatar>
-            }
-          />
+          <ListItemAvatar>
+            {required ? (
+              <Tooltip title='Required parameter' arrow>
+                <Add aria-hidden={false} />
+              </Tooltip>
+            ) : (
+              <Tooltip title='Optional parameter' arrow>
+                <RadioButtonChecked aria-hidden={false} />
+              </Tooltip>
+            )}
+          </ListItemAvatar>
           <ListItemText
             primary={
               <div>
@@ -65,20 +58,16 @@ export const StrategyDetails = ({
   return (
     <div className={styles.listcontainer}>
       <Grid container>
-        <ConditionallyRender
-          condition={strategy.deprecated}
-          show={
-            <Grid item>
-              <h5 style={{ color: theme.palette.error.main }}>Deprecated</h5>
-            </Grid>
-          }
-        />
+        {strategy.deprecated && (
+          <Grid item>
+            <h5 style={{ color: theme.palette.error.main }}>Deprecated</h5>
+          </Grid>
+        )}
         <Grid item sm={12} md={12}>
           <h6>Parameters</h6>
           <hr />
           <List>{renderParameters(parameters)}</List>
         </Grid>
-
         <Grid item sm={12} md={12}>
           <h6>
             Applications using this strategy{' '}

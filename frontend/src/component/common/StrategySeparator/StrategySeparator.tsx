@@ -1,5 +1,4 @@
 import { Box, styled, useTheme } from '@mui/material';
-import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
 const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(0.75, 1),
@@ -39,11 +38,11 @@ export const StrategySeparator = ({ text }: StrategySeparatorProps) => {
         width: '100%',
       }}
     >
-      <ConditionallyRender
-        condition={text === 'AND'}
-        show={() => <StyledContent>{text}</StyledContent>}
-        elseShow={() => <StyledCenteredContent>{text}</StyledCenteredContent>}
-      />
+      {text === 'AND' ? (
+        <StyledContent>{text}</StyledContent>
+      ) : (
+        <StyledCenteredContent>{text}</StyledCenteredContent>
+      )}
     </Box>
   );
 };

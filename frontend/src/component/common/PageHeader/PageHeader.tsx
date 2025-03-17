@@ -9,8 +9,6 @@ import {
   Typography,
   type TypographyProps,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-
 import { usePageTitle } from 'hooks/usePageTitle';
 
 const StyledDivider = styled(Divider)(({ theme }) => ({
@@ -80,9 +78,9 @@ const PageHeaderComponent = ({
   secondary,
   children,
 }: PageHeaderProps) => {
-  const headerClasses = classnames({ skeleton: loading });
-
   usePageTitle(secondary ? '' : title);
+
+  const headerClasses = classnames({ skeleton: loading });
 
   return (
     <StyledHeaderContainer>
@@ -96,10 +94,9 @@ const PageHeaderComponent = ({
           </StyledHeaderTitle>
           {subtitle && <small>{subtitle}</small>}
         </StyledHeader>
-        <ConditionallyRender
-          condition={Boolean(actions)}
-          show={<StyledHeaderActions>{actions}</StyledHeaderActions>}
-        />
+        {Boolean(actions) && (
+          <StyledHeaderActions>{actions}</StyledHeaderActions>
+        )}
       </StyledTopContainer>
       {children}
     </StyledHeaderContainer>

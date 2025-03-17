@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import ApiError from 'component/common/ApiError/ApiError';
@@ -30,11 +29,8 @@ const StyledContainer = styled('div')(({ theme }) => ({
 
 export const ProjectList = () => {
   const { projects, loading, error, refetch } = useProjects();
-
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-
   const [state, setState] = useProjectsListState();
-
   const myProjects = new Set(useProfile().profile?.projects || []);
 
   const setSearchValue = useCallback(
@@ -62,19 +58,15 @@ export const ProjectList = () => {
           title={`Projects (${projectCount})`}
           actions={
             <>
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={
-                  <>
-                    <Search
-                      initialValue={state.query || ''}
-                      onChange={setSearchValue}
-                    />
-                    <PageHeader.Divider />
-                  </>
-                }
-              />
-
+              {!isSmallScreen && (
+                <>
+                  <Search
+                    initialValue={state.query || ''}
+                    onChange={setSearchValue}
+                  />
+                  <PageHeader.Divider />
+                </>
+              )}
               <ProjectArchiveLink />
               <ProjectCreationButton
                 isDialogOpen={Boolean(state.create)}
@@ -87,25 +79,19 @@ export const ProjectList = () => {
             </>
           }
         >
-          <ConditionallyRender
-            condition={isSmallScreen}
-            show={
-              <Search
-                initialValue={state.query || ''}
-                onChange={setSearchValue}
-              />
-            }
-          />
+          {isSmallScreen && (
+            <Search
+              initialValue={state.query || ''}
+              onChange={setSearchValue}
+            />
+          )}
         </PageHeader>
       }
     >
       <StyledContainer>
-        <ConditionallyRender
-          condition={error}
-          show={() => (
-            <StyledApiError onClick={refetch} text='Error fetching projects' />
-          )}
-        />
+        {error && (
+          <StyledApiError onClick={refetch} text='Error fetching projects' />
+        )}
         <SearchHighlightProvider value={state.query || ''}>
           <ProjectGroup
             sectionTitle='My projects'
@@ -126,7 +112,7 @@ export const ProjectList = () => {
 
           <ProjectGroup
             sectionTitle='Other projects'
-            sectionSubtitle='Projects in Unleash that you have access to.'
+            sectionSubtitle='Projects in Ganpa that you have access to.'
             loading={loading}
             projects={groupedProjects.otherProjects}
           />

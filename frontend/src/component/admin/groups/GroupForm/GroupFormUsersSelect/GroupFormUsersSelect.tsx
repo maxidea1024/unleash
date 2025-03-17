@@ -2,7 +2,6 @@ import { Autocomplete, Checkbox, styled, TextField } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import type { IUser } from 'interfaces/user';
-import type { FC } from 'react';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 import type { IGroupUser } from 'interfaces/group';
 import { UG_USERS_ID } from 'utils/testIds';

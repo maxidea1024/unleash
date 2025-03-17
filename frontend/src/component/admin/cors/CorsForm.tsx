@@ -21,10 +21,14 @@ export const CorsForm = ({ frontendApiOrigins }: CorsFormProps) => {
 
   const onSubmit = async (event: React.FormEvent) => {
     try {
-      const split = parseInputValue(value);
       event.preventDefault();
+
+      const split = parseInputValue(value);
+
       await setFrontendSettings(split);
+
       setValue(formatInputValue(split));
+
       setToastData({ title: 'Settings saved', type: 'success' });
     } catch (error) {
       setToastApiError(formatUnknownError(error));

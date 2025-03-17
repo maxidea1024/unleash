@@ -79,6 +79,7 @@ export const ProjectActionsFormStepActions = ({
       key: `${sa.id}`,
     }));
   }, [serviceAccountsLoading, serviceAccounts]);
+
   return (
     <ProjectActionsFormStep
       name='Do these actions'

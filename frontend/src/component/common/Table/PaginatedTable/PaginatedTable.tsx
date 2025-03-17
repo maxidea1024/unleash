@@ -8,7 +8,6 @@ import {
 import { TableCell } from '../TableCell/TableCell';
 import { CellSortable } from '../SortableTableHeader/CellSortable/CellSortable';
 import { StickyPaginationBar } from 'component/common/Table/StickyPaginationBar/StickyPaginationBar';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { styled } from '@mui/material';
 
 const HeaderCell = <T extends object>(header: Header<T, unknown>) => {
@@ -95,11 +94,8 @@ export const PaginatedTable = <T extends object>({
           </TableBody>
         </Table>
       </TableContainer>
-      <ConditionallyRender
-        condition={
-          tableInstance.getRowModel().rows.length > 0 && (totalItems || 0) > 25
-        }
-        show={
+      {tableInstance.getRowModel().rows.length > 0 &&
+        (totalItems || 0) > 25 && (
           <StickyPaginationBar
             totalItems={totalItems}
             pageIndex={pagination.pageIndex}
@@ -123,8 +119,7 @@ export const PaginatedTable = <T extends object>({
               })
             }
           />
-        }
-      />
+        )}
     </>
   );
 };

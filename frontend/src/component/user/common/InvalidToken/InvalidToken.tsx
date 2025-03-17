@@ -11,7 +11,6 @@ const InvalidToken = () => {
   const { classes: themeStyles } = useThemeStyles();
   const passwordDisabled = authDetails?.defaultHidden === true;
   const { secret } = useUserInvite(); // NOTE: can be enhanced with "expired token"
-
   const secretIsValid = Boolean(secret);
 
   return (

@@ -5,7 +5,6 @@ import { GridRow } from 'component/common/GridRow/GridRow';
 import { GridCol } from 'component/common/GridCol/GridCol';
 import { GridColLink } from './GridColLink/GridColLink';
 import type { IInstanceStatus } from 'interfaces/instance';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useMemo } from 'react';
 import { useUsers } from 'hooks/api/getters/useUsers/useUsers';
 import { useTrafficDataEstimation } from 'hooks/useTrafficData';
@@ -132,33 +131,30 @@ export const BillingDetailsPro = ({
             </Typography>
           </GridCol>
         </GridRow>
-        <ConditionallyRender
-          condition={overageCost > 0}
-          show={
-            <GridRow>
-              <GridCol vertical>
-                <Typography>
-                  <strong>Accrued traffic charges</strong>
-                  <GridColLink>
-                    <Link to='/admin/network/data-usage'>view details</Link>
-                  </GridColLink>
-                </Typography>
-                <StyledInfoLabel>
-                  $5 dollar per 1 million started above included data
-                </StyledInfoLabel>
-              </GridCol>
-              <GridCol>
-                <Typography
-                  sx={(theme) => ({
-                    fontSize: theme.fontSizes.mainHeader,
-                  })}
-                >
-                  ${overageCost.toFixed(2)}
-                </Typography>
-              </GridCol>
-            </GridRow>
-          }
-        />
+        {overageCost > 0 && (
+          <GridRow>
+            <GridCol vertical>
+              <Typography>
+                <strong>Accrued traffic charges</strong>
+                <GridColLink>
+                  <Link to='/admin/network/data-usage'>view details</Link>
+                </GridColLink>
+              </Typography>
+              <StyledInfoLabel>
+                $5 dollar per 1 million started above included data
+              </StyledInfoLabel>
+            </GridCol>
+            <GridCol>
+              <Typography
+                sx={(theme) => ({
+                  fontSize: theme.fontSizes.mainHeader,
+                })}
+              >
+                ${overageCost.toFixed(2)}
+              </Typography>
+            </GridCol>
+          </GridRow>
+        )}
       </Grid>
       <StyledDivider />
       <Grid container>

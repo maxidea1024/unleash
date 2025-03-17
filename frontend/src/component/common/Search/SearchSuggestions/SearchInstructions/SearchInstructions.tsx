@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { onEnter } from '../onEnter';
 
 const StyledHeader = styled('span')(({ theme }) => ({
@@ -52,35 +51,27 @@ export const SearchInstructions = ({
       {filters.map((filter) => (
         <StyledFilterHint key={filter.name}>
           {filter.header}:{' '}
-          <ConditionallyRender
-            condition={filter.options.length > 0}
-            show={
+          {filter.options.length > 0 && (
+            <StyledCode
+              tabIndex={0}
+              onKeyDown={onEnter(() => onClick(firstFilterOption(filter)))}
+              onClick={() => onClick(firstFilterOption(filter))}
+            >
+              {firstFilterOption(filter)}
+            </StyledCode>
+          )}
+          {filter.options.length > 1 && (
+            <>
+              {' or '}
               <StyledCode
                 tabIndex={0}
-                onKeyDown={onEnter(() => onClick(firstFilterOption(filter)))}
-                onClick={() => onClick(firstFilterOption(filter))}
+                onKeyDown={onEnter(() => onClick(secondFilterOption(filter)))}
+                onClick={() => onClick(secondFilterOption(filter))}
               >
-                {firstFilterOption(filter)}
+                {secondFilterOption(filter)}
               </StyledCode>
-            }
-          />
-          <ConditionallyRender
-            condition={filter.options.length > 1}
-            show={
-              <>
-                {' or '}
-                <StyledCode
-                  tabIndex={0}
-                  onKeyDown={onEnter(() => onClick(secondFilterOption(filter)))}
-                  onClick={() => {
-                    onClick(secondFilterOption(filter));
-                  }}
-                >
-                  {secondFilterOption(filter)}
-                </StyledCode>
-              </>
-            }
-          />
+            </>
+          )}
         </StyledFilterHint>
       ))}
     </>

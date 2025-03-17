@@ -24,7 +24,6 @@ import 'chartjs-adapter-date-fns';
 import { Alert, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { CyclicIterator } from 'utils/cyclicIterator';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { usePageTitle } from 'hooks/usePageTitle';
 import { unknownify } from 'utils/unknownify';
 import type { Theme } from '@mui/material/styles/createTheme';
@@ -187,6 +186,8 @@ const toChartData = (
 };
 
 export const NetworkTraffic = () => {
+  usePageTitle('Network - Traffic');
+
   const { locationSettings } = useLocationSettings();
   const { metrics } = useInstanceMetrics();
   const theme = useTheme();
@@ -194,17 +195,16 @@ export const NetworkTraffic = () => {
     return createInstanceChartOptions(theme, locationSettings);
   }, [theme, locationSettings]);
 
-  usePageTitle('Network - Traffic');
-
   const data = useMemo(() => {
     return { datasets: toChartData(theme, metrics) };
   }, [theme, metrics, locationSettings]);
 
   return (
-    <ConditionallyRender
-      condition={data.datasets.length === 0}
-      show={<Alert severity='warning'>No data available.</Alert>}
-      elseShow={
+    <>
+      {data.datasets.length === 0 && (
+        <Alert severity='warning'>No data available.</Alert>
+      )}
+      {data.datasets.length > 0 && (
         <Box sx={{ display: 'grid', gap: 4 }}>
           <div style={{ height: 400 }}>
             <Line
@@ -214,8 +214,8 @@ export const NetworkTraffic = () => {
             />
           </div>
         </Box>
-      }
-    />
+      )}
+    </>
   );
 };
 

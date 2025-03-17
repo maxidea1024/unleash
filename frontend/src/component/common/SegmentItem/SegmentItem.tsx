@@ -11,7 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import { ConstraintAccordionList } from 'component/common/ConstraintAccordion/ConstraintAccordionList/ConstraintAccordionList';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledAccordion = styled(Accordion, {
   shouldForwardProp: (prop) => prop !== 'isDisabled',
@@ -90,47 +89,33 @@ export const SegmentItem = ({
         <StyledLink to={`/segments/edit/${segment.id}`}>
           {segment.name}
         </StyledLink>
-        <ConditionallyRender
-          condition={Boolean(headerContent)}
-          show={headerContent}
-        />
-        <ConditionallyRender
-          condition={!isExpanded}
-          show={
-            <Button
-              size='small'
-              variant='outlined'
-              onClick={() => setIsOpen((value) => !value)}
-              sx={{
-                my: 0,
-                ml: 'auto',
-                fontSize: (theme) => theme.typography.body2.fontSize,
-              }}
-            >
-              {isOpen ? 'Close preview' : 'Preview'}
-            </Button>
-          }
-        />
+        {Boolean(headerContent) && headerContent}
+        {!isExpanded && (
+          <Button
+            size='small'
+            variant='outlined'
+            onClick={() => setIsOpen((value) => !value)}
+            sx={{
+              my: 0,
+              ml: 'auto',
+              fontSize: (theme) => theme.typography.body2.fontSize,
+            }}
+          >
+            {isOpen ? 'Close preview' : 'Preview'}
+          </Button>
+        )}
       </StyledAccordionSummary>
       <AccordionDetails sx={{ pt: 0 }}>
-        <ConditionallyRender
-          condition={Boolean(constraintList)}
-          show={constraintList}
-          elseShow={
-            <ConditionallyRender
-              condition={(segment?.constraints?.length || 0) > 0}
-              show={
-                <ConstraintAccordionList
-                  constraints={segment!.constraints!}
-                  showLabel={false}
-                />
-              }
-              elseShow={
-                <Typography>This segment has no constraints.</Typography>
-              }
-            />
-          }
-        />
+        {constraintList ? (
+          constraintList
+        ) : (segment?.constraints?.length || 0) > 0 ? (
+          <ConstraintAccordionList
+            constraints={segment!.constraints!}
+            showLabel={false}
+          />
+        ) : (
+          <Typography>This segment has no constraints.</Typography>
+        )}
       </AccordionDetails>
     </StyledAccordion>
   );

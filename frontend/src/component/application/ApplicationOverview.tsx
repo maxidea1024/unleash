@@ -61,7 +61,9 @@ const useTracking = () => {
 
 const ApplicationOverview = () => {
   usePageTitle('Applications - Overview');
+
   useTracking();
+
   const applicationName = useRequiredPathParam('name');
   const navigate = useNavigate();
   const { data, loading } = useApplicationOverview(applicationName);

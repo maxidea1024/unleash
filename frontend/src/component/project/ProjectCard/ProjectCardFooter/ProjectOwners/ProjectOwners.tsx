@@ -1,7 +1,6 @@
 import type { FC } from 'react';
 import { styled } from '@mui/material';
 import type { ProjectSchema, ProjectSchemaOwners } from 'openapi';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AvatarComponent } from 'component/common/AvatarGroup/AvatarGroup';
 import { AvatarGroupFromOwners } from 'component/common/AvatarGroupFromOwners/AvatarGroupFromOwners';
 
@@ -75,17 +74,14 @@ export const ProjectOwners = ({ owners = [] }: ProjectOwnersProps) => {
           AvatarComponent={StyledAvatarComponent}
         />
       </StyledContainer>
-      <ConditionallyRender
-        condition={owners.length === 1}
-        show={
-          <StyledOwnerName>
-            <StyledHeader data-loading>Owner</StyledHeader>
-            <StyledUserName data-loading>
-              {getOwnerName(owners[0])}
-            </StyledUserName>
-          </StyledOwnerName>
-        }
-      />
+      {owners.length === 1 && (
+        <StyledOwnerName>
+          <StyledHeader data-loading>Owner</StyledHeader>
+          <StyledUserName data-loading>
+            {getOwnerName(owners[0])}
+          </StyledUserName>
+        </StyledOwnerName>
+      )}
     </StyledWrapper>
   );
 };

@@ -46,12 +46,17 @@ export const PasswordTab = () => {
 
     if (hasError) {
       return;
-    } else if (!validPassword) {
+    }
+
+    if (!validPassword) {
       setError(PASSWORD_FORMAT_MESSAGE);
     } else {
       setLoading(true);
+
       setError(undefined);
+
       setAuthenticationError(undefined);
+
       try {
         await changePassword({
           password,
@@ -75,6 +80,7 @@ export const PasswordTab = () => {
         setToastApiError(formattedError);
       }
     }
+
     setLoading(false);
   };
 

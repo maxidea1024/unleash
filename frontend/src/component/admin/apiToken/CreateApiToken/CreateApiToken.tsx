@@ -49,6 +49,8 @@ type CreateApiTokenProps = {
 };
 
 export const CreateApiToken = ({ modal = false }: CreateApiTokenProps) => {
+  usePageTitle(pageTitle);
+
   const { setToastApiError } = useToast();
   const { uiConfig } = useUiConfig();
   const navigate = useNavigate();
@@ -79,8 +81,6 @@ export const CreateApiToken = ({ modal = false }: CreateApiTokenProps) => {
 
   const { createToken, loading: loadingCreateToken } = useApiTokensApi();
   const { refetch } = useApiTokens();
-
-  usePageTitle(pageTitle);
 
   const PATH = `api/admin/api-tokens`;
 
