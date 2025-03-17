@@ -1,4 +1,3 @@
-import { ConditionallyRender } from '../../../../common/ConditionallyRender/ConditionallyRender';
 import {
   Box,
   IconButton,
@@ -54,26 +53,20 @@ export const AdvancedPlaygroundEnvironmentCell = ({
   return (
     <StyledContainer>
       <StyledPlaygroundChipContainer>
-        <ConditionallyRender
-          condition={enabled.length > 0}
-          show={
-            <PlaygroundResultChip
-              enabled={true}
-              label={`${enabled.length}`}
-              showIcon={true}
-            />
-          }
-        />
-        <ConditionallyRender
-          condition={disabled.length > 0}
-          show={
-            <PlaygroundResultChip
-              enabled={false}
-              label={`${disabled.length}`}
-              showIcon={true}
-            />
-          }
-        />
+        {enabled.length > 0 && (
+          <PlaygroundResultChip
+            enabled={true}
+            label={`${enabled.length}`}
+            showIcon={true}
+          />
+        )}
+        {disabled.length > 0 && (
+          <PlaygroundResultChip
+            enabled={false}
+            label={`${disabled.length}`}
+            showIcon={true}
+          />
+        )}
       </StyledPlaygroundChipContainer>
       <>
         <IconButton onClick={onOpen}>
