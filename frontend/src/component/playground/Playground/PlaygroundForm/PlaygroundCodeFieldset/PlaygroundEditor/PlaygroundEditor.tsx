@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { json } from '@codemirror/lang-json';
 import { type Dispatch, type SetStateAction, useCallback } from 'react';
 import { styled, useTheme, Box } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { duotoneDark, duotoneLight } from '@uiw/codemirror-theme-duotone';
 import Check from '@mui/icons-material/Check';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -96,21 +95,19 @@ export const PlaygroundEditor = ({
     <Box sx={{ width: '100%' }}>
       <StyledEditorHeader>
         JSON
-        <ConditionallyRender
-          condition={Boolean(error)}
-          show={
-            <Box
-              sx={(theme) => ({
-                display: 'flex',
-                alignItems: 'center',
-              })}
-            >
-              <StyledErrorSpan>{error}</StyledErrorSpan>
-              <EditorStatusError />
-            </Box>
-          }
-          elseShow={<EditorStatusOk />}
-        />
+        {error ? (
+          <Box
+            sx={(theme) => ({
+              display: 'flex',
+              alignItems: 'center',
+            })}
+          >
+            <StyledErrorSpan>{error}</StyledErrorSpan>
+            <EditorStatusError />
+          </Box>
+        ) : (
+          <EditorStatusOk />
+        )}
       </StyledEditorHeader>
       <CodeMirror
         value={context}
