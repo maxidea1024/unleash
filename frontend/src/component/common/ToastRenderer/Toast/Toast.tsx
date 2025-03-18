@@ -6,7 +6,6 @@ import { useContext } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
 import CheckMarkBadge from 'component/common/CheckmarkBadge/CheckMarkBadge';
 import UIContext from 'contexts/UIContext';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import Close from '@mui/icons-material/Close';
 import type { IToast } from 'interfaces/toast';
 import { TOAST_TEXT } from 'utils/testIds';
@@ -69,11 +68,7 @@ const Toast = ({ title, text, type, confetti }: IToast) => {
               </div>
               <div className={styles.textContainer}>
                 <h3 className={styles.headerStyles}>{title}</h3>
-
-                <ConditionallyRender
-                  condition={Boolean(text)}
-                  show={<p data-testid={TOAST_TEXT}>{text}</p>}
-                />
+                {text && <p data-testid={TOAST_TEXT}>{text}</p>}
               </div>
             </div>
             <Tooltip title='Close' arrow>

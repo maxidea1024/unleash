@@ -16,7 +16,6 @@ import { Button } from '@mui/material';
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
 import type { PermissionButtonProps } from 'component/common/PermissionButton/PermissionButton';
 import type { IFeatureNamingType } from 'interfaces/project';
-import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import { NamingPatternInfo } from './NamingPatternInfo';
 
 type NamingPattern = IFeatureNamingType;
@@ -87,10 +86,9 @@ export const DialogFormTemplate = ({
             size='medium'
           />
 
-          <ConditionallyRender
-            condition={displayNamingPattern}
-            show={<NamingPatternInfo naming={namingPattern!} />}
-          />
+          {displayNamingPattern && (
+            <NamingPatternInfo naming={namingPattern!} />
+          )}
         </NameContainer>
         <DescriptionContainer>
           <StyledInput

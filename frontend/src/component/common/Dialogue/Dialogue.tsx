@@ -8,7 +8,6 @@ import {
   DialogTitle,
   styled,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DIALOGUE_CONFIRM_ID } from 'utils/testIds';
 
 const StyledDialog = styled(Dialog)(({ theme, maxWidth }) => ({
@@ -103,48 +102,32 @@ export const Dialogue = ({
     >
       <StyledDialogTitle>{title}</StyledDialogTitle>
       <StyledDialogBody>
-        <ConditionallyRender
-          condition={Boolean(children)}
-          show={<StyledDialogContent>{children}</StyledDialogContent>}
-        />
+        {children && <StyledDialogContent>{children}</StyledDialogContent>}
         <StyledDialogActions>
-          <ConditionallyRender
-            condition={Boolean(permissionButton)}
-            show={permissionButton!}
-            elseShow={
-              <ConditionallyRender
-                condition={Boolean(onClick)}
-                show={
-                  <Button
-                    form={formId}
-                    color='primary'
-                    variant='contained'
-                    onClick={handleClick}
-                    autoFocus={!formId}
-                    disabled={disabledPrimaryButton}
-                    data-testid={DIALOGUE_CONFIRM_ID}
-                    type={formId ? 'submit' : 'button'}
-                  >
-                    {primaryButtonText || "Yes, I'm sure"}
-                  </Button>
-                }
-              />
-            }
-          />
+          {permissionButton ? (
+            permissionButton
+          ) : onClick ? (
+            <Button
+              form={formId}
+              color='primary'
+              variant='contained'
+              onClick={handleClick}
+              autoFocus={!formId}
+              disabled={disabledPrimaryButton}
+              data-testid={DIALOGUE_CONFIRM_ID}
+              type={formId ? 'submit' : 'button'}
+            >
+              {primaryButtonText || "Yes, I'm sure"}
+            </Button>
+          ) : null}
 
-          <ConditionallyRender
-            condition={Boolean(onClose)}
-            show={
-              <Button onClick={onClose}>
-                {secondaryButtonText || 'No, take me back'}
-              </Button>
-            }
-          />
+          {onClose && (
+            <Button onClick={onClose}>
+              {secondaryButtonText || 'No, take me back'}
+            </Button>
+          )}
 
-          <ConditionallyRender
-            condition={Boolean(customButton)}
-            show={customButton}
-          />
+          {customButton && customButton}
         </StyledDialogActions>
       </StyledDialogBody>
     </StyledDialog>

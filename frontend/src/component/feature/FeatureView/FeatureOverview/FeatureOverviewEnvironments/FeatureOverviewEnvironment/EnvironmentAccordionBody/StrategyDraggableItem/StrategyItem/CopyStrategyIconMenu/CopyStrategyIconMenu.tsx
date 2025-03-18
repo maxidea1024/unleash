@@ -13,7 +13,6 @@ import type { IFeatureStrategyPayload } from 'interfaces/strategy';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { IFeatureEnvironment } from 'interfaces/featureToggle';
 import { CREATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/permissions';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import useFeatureStrategyApi from 'hooks/api/actions/useFeatureStrategyApi/useFeatureStrategyApi';
 import useToast from 'hooks/useToast';
@@ -160,14 +159,11 @@ export const CopyStrategyIconMenu = ({
                   onClick={() => onCopyStrategy(environment)}
                   disabled={!access}
                 >
-                  <ConditionallyRender
-                    condition={!access}
-                    show={
-                      <ListItemIcon>
-                        <Lock fontSize='small' />
-                      </ListItemIcon>
-                    }
-                  />
+                  {!access && (
+                    <ListItemIcon>
+                      <Lock fontSize='small' />
+                    </ListItemIcon>
+                  )}
                   <ListItemText>
                     {environment === environmentId
                       ? 'Duplicate in current'

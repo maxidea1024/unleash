@@ -8,7 +8,6 @@ import {
   Divider,
   styled,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import FileCopy from '@mui/icons-material/FileCopy';
 import Info from '@mui/icons-material/Info';
 import Loader from '../Loader/Loader';
@@ -279,10 +278,7 @@ const FormTemplate = ({
     if (!apiDisabled) {
       return (
         <>
-          <ConditionallyRender
-            condition={!dividerDisabled}
-            show={<StyledSidebarDivider />}
-          />
+          {!dividerDisabled && <StyledSidebarDivider />}
           <StyledSubtitle>
             API Command{' '}
             <Tooltip title='Copy command' arrow>
@@ -301,85 +297,71 @@ const FormTemplate = ({
 
   return (
     <StyledContainer modal={modal} compact={compact}>
-      <ConditionallyRender
-        condition={showGuidance && smallScreen}
-        show={
-          <StyledMobileGuidanceWrapper
-            guidanceHeight={useFixedSidebar ? '240px' : undefined}
-          >
-            <MobileGuidance
-              description={description}
-              documentationIcon={documentationIcon}
-              documentationLink={documentationLink}
-              documentationLinkLabel={documentationLinkLabel}
-            />
-          </StyledMobileGuidanceWrapper>
-        }
-      />
+      {showGuidance && smallScreen && (
+        <StyledMobileGuidanceWrapper
+          guidanceHeight={useFixedSidebar ? '240px' : undefined}
+        >
+          <MobileGuidance
+            description={description}
+            documentationIcon={documentationIcon}
+            documentationLink={documentationLink}
+            documentationLinkLabel={documentationLinkLabel}
+          />
+        </StyledMobileGuidanceWrapper>
+      )}
       <StyledMain useFixedSidebar={useFixedSidebar}>
         <StyledFormContent
           disablePadding={disablePadding}
           compactPadding={compactPadding}
         >
-          <ConditionallyRender
-            condition={loading || false}
-            show={<Loader />}
-            elseShow={
-              <>
-                <ConditionallyRender
-                  condition={title !== undefined}
-                  show={<StyledTitle>{title}</StyledTitle>}
-                />
-                {children}
-              </>
-            }
-          />
-        </StyledFormContent>
-        <ConditionallyRender
-          condition={footer !== undefined}
-          show={() => (
+          {loading ? (
+            <Loader />
+          ) : (
             <>
-              <Divider />
-              <StyledFooter>{footer}</StyledFooter>
+              {title !== undefined && <StyledTitle>{title}</StyledTitle>}
+              {children}
             </>
           )}
-        />
+        </StyledFormContent>
+        {footer !== undefined && (
+          <>
+            <Divider />
+            <StyledFooter>{footer}</StyledFooter>
+          </>
+        )}
       </StyledMain>
-      <ConditionallyRender
-        condition={showGuidance && !smallScreen}
-        show={
-          <SidebarComponent
-            documentationIcon={documentationIcon}
-            description={description}
-            documentationLink={documentationLink}
-            documentationLinkLabel={documentationLinkLabel}
-            showDescription={showDescription}
-            showLink={showLink}
-          >
-            {renderApiInfo(
-              formatApiCode === undefined,
-              !(showDescription || showLink),
-            )}
-          </SidebarComponent>
-        }
-      />
+      {showGuidance && !smallScreen && (
+        <SidebarComponent
+          documentationIcon={documentationIcon}
+          description={description}
+          documentationLink={documentationLink}
+          documentationLinkLabel={documentationLinkLabel}
+          showDescription={showDescription}
+          showLink={showLink}
+        >
+          {renderApiInfo(
+            formatApiCode === undefined,
+            !(showDescription || showLink),
+          )}
+        </SidebarComponent>
+      )}
     </StyledContainer>
   );
 };
 
-interface IMobileGuidance {
+type MobileGuidanceProps = {
   description: ReactNode;
   documentationLink?: string;
   documentationIcon?: ReactNode;
   documentationLinkLabel?: string;
-}
+};
 
 const MobileGuidance = ({
   description,
   documentationLink,
   documentationLinkLabel,
   documentationIcon,
-}: IMobileGuidance) => {
+}: MobileGuidanceProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -449,38 +431,28 @@ const GuidanceContent = ({
   return (
     <>
       <DocsWrapper>
-        <ConditionallyRender
-          condition={showDescription}
-          show={
-            <StyledDescriptionCard>
-              <ConditionallyRender
-                condition={!!documentationIcon}
-                show={
-                  <StyledDocumentationIconWrapper>
-                    {documentationIcon}
-                  </StyledDocumentationIconWrapper>
-                }
-              />
-              <StyledDescription>{description}</StyledDescription>
-            </StyledDescriptionCard>
-          }
-        />
-
-        <ConditionallyRender
-          condition={showLink && !!documentationLink}
-          show={
-            <StyledLinkContainer>
-              <StyledLinkIcon />
-              <StyledDocumentationLink
-                href={documentationLink}
-                rel='noopener noreferrer'
-                target='_blank'
-              >
-                {documentationLinkLabel}
-              </StyledDocumentationLink>
-            </StyledLinkContainer>
-          }
-        />
+        {showDescription && (
+          <StyledDescriptionCard>
+            {!!documentationIcon && (
+              <StyledDocumentationIconWrapper>
+                {documentationIcon}
+              </StyledDocumentationIconWrapper>
+            )}
+            <StyledDescription>{description}</StyledDescription>
+          </StyledDescriptionCard>
+        )}
+        {showLink && !!documentationLink && (
+          <StyledLinkContainer>
+            <StyledLinkIcon />
+            <StyledDocumentationLink
+              href={documentationLink}
+              rel='noopener noreferrer'
+              target='_blank'
+            >
+              {documentationLinkLabel}
+            </StyledDocumentationLink>
+          </StyledLinkContainer>
+        )}
       </DocsWrapper>
       {children}
     </>

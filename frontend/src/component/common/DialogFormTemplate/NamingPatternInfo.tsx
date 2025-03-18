@@ -4,9 +4,8 @@ import {
   AccordionSummary,
   styled,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import type { IFeatureNamingType } from 'interfaces/project';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import type { IFeatureNamingType } from 'interfaces/project';
 
 const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
@@ -57,24 +56,18 @@ export const NamingPatternInfo = ({ naming }: Props) => {
             <dd>
               <code>^{naming.pattern}$</code>
             </dd>
-            <ConditionallyRender
-              condition={Boolean(naming?.example)}
-              show={
-                <>
-                  <dt>Example</dt>
-                  <dd>{naming?.example}</dd>
-                </>
-              }
-            />
-            <ConditionallyRender
-              condition={Boolean(naming?.description)}
-              show={
-                <>
-                  <dt>Description</dt>
-                  <dd>{naming?.description}</dd>
-                </>
-              }
-            />
+            {naming?.example && (
+              <>
+                <dt>Example</dt>
+                <dd>{naming.example}</dd>
+              </>
+            )}
+            {naming?.description && (
+              <>
+                <dt>Description</dt>
+                <dd>{naming.description}</dd>
+              </>
+            )}
           </dl>
         </AccordionDetails>
       </StyledAccordion>

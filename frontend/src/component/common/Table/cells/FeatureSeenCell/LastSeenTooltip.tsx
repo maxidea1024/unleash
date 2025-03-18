@@ -1,7 +1,6 @@
 import { styled, type SxProps, type Theme, Typography } from '@mui/material';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import type { ILastSeenEnvironments } from 'interfaces/featureToggle';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useLastSeenColors } from 'component/feature/FeatureView/FeatureEnvironmentSeen/useLastSeenColors';
 import { LastSeenProgress } from './LastSeenProgress/LastSeenProgress';
 
@@ -81,38 +80,31 @@ export const LastSeenTooltip = ({
   return (
     <StyledDescription {...rest} data-loading>
       <StyledDescriptionHeader>Last usage reported</StyledDescriptionHeader>
-      <ConditionallyRender
-        condition={Boolean(environments) && Boolean(environmentsHaveLastSeen)}
-        show={
-          <StyledListContainer>
-            {environments?.map(({ name, lastSeenAt, yes, no }) => (
-              <StyledDescriptionBlock key={name}>
-                <StyledDescriptionBlockHeader>
-                  {name}
-                </StyledDescriptionBlockHeader>
-                <StyledValueContainer>
-                  <StyledValue color={getColor(lastSeenAt).text}>
-                    <TimeAgo
-                      date={lastSeenAt}
-                      refresh={false}
-                      fallback='no usage'
-                    />
-                  </StyledValue>
-                </StyledValueContainer>
-                <LastSeenProgress yes={yes} no={no} />
-              </StyledDescriptionBlock>
-            ))}
-          </StyledListContainer>
-        }
-        elseShow={
-          <Typography
-            fontWeight={'bold'}
-            color={getColor(featureLastSeen).text}
-          >
-            Reported <TimeAgo date={featureLastSeen} />
-          </Typography>
-        }
-      />
+      {Boolean(environments) && Boolean(environmentsHaveLastSeen) ? (
+        <StyledListContainer>
+          {environments?.map(({ name, lastSeenAt, yes, no }) => (
+            <StyledDescriptionBlock key={name}>
+              <StyledDescriptionBlockHeader>
+                {name}
+              </StyledDescriptionBlockHeader>
+              <StyledValueContainer>
+                <StyledValue color={getColor(lastSeenAt).text}>
+                  <TimeAgo
+                    date={lastSeenAt}
+                    refresh={false}
+                    fallback='no usage'
+                  />
+                </StyledValue>
+              </StyledValueContainer>
+              <LastSeenProgress yes={yes} no={no} />
+            </StyledDescriptionBlock>
+          ))}
+        </StyledListContainer>
+      ) : (
+        <Typography fontWeight={'bold'} color={getColor(featureLastSeen).text}>
+          Reported <TimeAgo date={featureLastSeen} />
+        </Typography>
+      )}
       <StyledDescriptionSubHeader>
         Usage is reported from connected applications through metrics
       </StyledDescriptionSubHeader>

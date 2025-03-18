@@ -3,7 +3,6 @@ import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
 import { Alert, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -347,81 +346,51 @@ export const FeatureArchiveDialog = ({
       title={dialogTitle}
       disabledPrimaryButton={disableArchive}
     >
-      <ConditionallyRender
-        condition={isBulkArchive}
-        show={
-          <>
-            <p>
-              Are you sure you want to archive{' '}
-              <strong>{featureIds?.length}</strong> feature flags?
-            </p>
+      {isBulkArchive ? (
+        <>
+          <p>
+            Are you sure you want to archive{' '}
+            <strong>{featureIds?.length}</strong> feature flags?
+          </p>
 
-            <ConditionallyRender
-              condition={Boolean(
-                featuresWithUsage && featuresWithUsage?.length > 0,
-              )}
-              show={
-                <UsageWarning ids={featuresWithUsage} projectId={projectId} />
-              }
-            />
-            <ConditionallyRender
-              condition={offendingParents.length > 0}
-              show={
-                <ArchiveParentError
-                  ids={offendingParents}
-                  projectId={projectId}
-                />
-              }
-            />
-            <ConditionallyRender
-              condition={removeDependenciesWarning}
-              show={<RemovedDependenciesAlert />}
-            />
+          {featuresWithUsage && featuresWithUsage?.length > 0 && (
+            <UsageWarning ids={featuresWithUsage} projectId={projectId} />
+          )}
+          {offendingParents.length > 0 && (
+            <ArchiveParentError ids={offendingParents} projectId={projectId} />
+          )}
+          {removeDependenciesWarning && <RemovedDependenciesAlert />}
 
-            <ScheduledChangeRequestAlert
-              changeRequests={changeRequests}
-              projectId={projectId}
-            />
+          <ScheduledChangeRequestAlert
+            changeRequests={changeRequests}
+            projectId={projectId}
+          />
 
-            <ConditionallyRender
-              condition={featureIds?.length <= 5}
-              show={
-                <ul>
-                  {featureIds?.map((id) => (
-                    <li key={id}>{id}</li>
-                  ))}
-                </ul>
-              }
-            />
-          </>
-        }
-        elseShow={
-          <>
-            <p>
-              Are you sure you want to archive{' '}
-              {isBulkArchive ? 'these feature flags' : 'this feature flag'}?
-            </p>
-            <ConditionallyRender
-              condition={offendingParents.length > 0}
-              show={
-                <ArchiveParentError
-                  ids={offendingParents}
-                  projectId={projectId}
-                />
-              }
-            />
-            <ConditionallyRender
-              condition={removeDependenciesWarning}
-              show={<RemovedDependenciesAlert />}
-            />
+          {featureIds?.length <= 5 && (
+            <ul>
+              {featureIds?.map((id) => (
+                <li key={id}>{id}</li>
+              ))}
+            </ul>
+          )}
+        </>
+      ) : (
+        <>
+          <p>
+            Are you sure you want to archive{' '}
+            {isBulkArchive ? 'these feature flags' : 'this feature flag'}?
+          </p>
+          {offendingParents.length > 0 && (
+            <ArchiveParentError ids={offendingParents} projectId={projectId} />
+          )}
+          {removeDependenciesWarning && <RemovedDependenciesAlert />}
 
-            <ScheduledChangeRequestAlert
-              changeRequests={changeRequests}
-              projectId={projectId}
-            />
-          </>
-        }
-      />
+          <ScheduledChangeRequestAlert
+            changeRequests={changeRequests}
+            projectId={projectId}
+          />
+        </>
+      )}
     </Dialogue>
   );
 };

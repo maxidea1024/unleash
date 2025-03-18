@@ -17,7 +17,6 @@ import { useLastViewedFlags } from 'hooks/useLastViewedFlags';
 import { useUiFlag } from 'hooks/useUiFlag';
 import OldFeatureOverviewMetaData from './FeatureOverviewMetaData/OldFeatureOverviewMetaData';
 import { OldFeatureOverviewSidePanel } from 'component/feature/FeatureView/FeatureOverview/FeatureOverviewSidePanel/OldFeatureOverviewSidePanel';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { NewFeatureOverviewEnvironment } from './NewFeatureOverviewEnvironment/NewFeatureOverviewEnvironment';
 
 const StyledContainer = styled('div')(({ theme }) => ({
@@ -74,11 +73,11 @@ const FeatureOverview = () => {
         {FeatureOverviewSidePanel}
       </div>
       <StyledMainContent>
-        <ConditionallyRender
-          condition={flagOverviewRedesign}
-          show={<NewFeatureOverviewEnvironment environmentId={environmentId} />}
-          elseShow={<FeatureOverviewEnvironments />}
-        />
+        {flagOverviewRedesign ? (
+          <NewFeatureOverviewEnvironment environmentId={environmentId} />
+        ) : (
+          <FeatureOverviewEnvironments />
+        )}
       </StyledMainContent>
       <Routes>
         <Route

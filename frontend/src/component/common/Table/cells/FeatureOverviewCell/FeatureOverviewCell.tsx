@@ -9,7 +9,6 @@ import { StyledDescription, StyledTitle } from '../LinkCell/LinkCell.styles';
 import { Link } from 'react-router-dom';
 import { Badge } from '../../../Badge/Badge';
 import { HtmlTooltip } from '../../../HtmlTooltip/HtmlTooltip';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { getLocalizedDateString } from '../../../util';
@@ -57,26 +56,20 @@ type CappedDescriptionProps = {
 };
 
 const CappedDescription = ({ text, searchQuery }: CappedDescriptionProps) => {
-  return (
-    <ConditionallyRender
-      condition={Boolean(text && text.length > 40)}
-      show={
-        <HtmlTooltip
-          title={<Highlighter search={searchQuery}>{text}</Highlighter>}
-          placement='bottom-start'
-          arrow
-        >
-          <StyledDescription>
-            <Highlighter search={searchQuery}>{text}</Highlighter>
-          </StyledDescription>
-        </HtmlTooltip>
-      }
-      elseShow={
-        <StyledDescription>
-          <Highlighter search={searchQuery}>{text}</Highlighter>
-        </StyledDescription>
-      }
-    />
+  return text && text.length > 40 ? (
+    <HtmlTooltip
+      title={<Highlighter search={searchQuery}>{text}</Highlighter>}
+      placement='bottom-start'
+      arrow
+    >
+      <StyledDescription>
+        <Highlighter search={searchQuery}>{text}</Highlighter>
+      </StyledDescription>
+    </HtmlTooltip>
+  ) : (
+    <StyledDescription>
+      <Highlighter search={searchQuery}>{text}</Highlighter>
+    </StyledDescription>
   );
 };
 
@@ -86,12 +79,10 @@ type CappedTagProps = {
 };
 
 const CappedTag = ({ tag, children }: CappedTagProps) => {
-  return (
-    <ConditionallyRender
-      condition={tag.length > 30}
-      show={<HtmlTooltip title={tag}>{children}</HtmlTooltip>}
-      elseShow={children}
-    />
+  return tag.length > 30 ? (
+    <HtmlTooltip title={tag}>{children}</HtmlTooltip>
+  ) : (
+    children
   );
 };
 
@@ -212,10 +203,7 @@ const Tags = ({ tags, onClick }: TagsProps) => {
           <Tag onClick={() => onClick(tag3)}>{tag3}</Tag>
         </CappedTag>
       )}
-      <ConditionallyRender
-        condition={restTags.length > 0}
-        show={<RestTags tags={restTags} onClick={onClick} />}
-      />
+      {restTags.length > 0 && <RestTags tags={restTags} onClick={onClick} />}
     </TagsContainer>
   );
 };
@@ -323,23 +311,19 @@ export const PrimaryFeatureInfo = ({
           searchQuery={searchQuery}
         />
       )}
-
-      <ConditionallyRender
-        condition={Boolean(dependencyType)}
-        show={
-          <HtmlTooltip
-            title={<DependencyPreview feature={feature} project={project} />}
-            enterDelay={delay}
-            enterNextDelay={delay}
+      {dependencyType && (
+        <HtmlTooltip
+          title={<DependencyPreview feature={feature} project={project} />}
+          enterDelay={delay}
+          enterNextDelay={delay}
+        >
+          <DependencyBadge
+            color={dependencyType === 'parent' ? 'warning' : 'secondary'}
           >
-            <DependencyBadge
-              color={dependencyType === 'parent' ? 'warning' : 'secondary'}
-            >
-              {dependencyType}
-            </DependencyBadge>
-          </HtmlTooltip>
-        }
-      />
+            {dependencyType}
+          </DependencyBadge>
+        </HtmlTooltip>
+      )}
       {archivedAt && (
         <HtmlTooltip arrow title={archivedDate} describeChild>
           <Badge color='neutral'>Archived</Badge>
@@ -358,16 +342,11 @@ const SecondaryFeatureInfo = ({
   description,
   searchQuery,
 }: SecondaryFeatureInfoProps) => {
-  return (
-    <ConditionallyRender
-      condition={Boolean(description)}
-      show={
-        <Box sx={(theme) => ({ display: 'flex', gap: theme.spacing(1) })}>
-          <CappedDescription text={description} searchQuery={searchQuery} />
-        </Box>
-      }
-    />
-  );
+  return description ? (
+    <Box sx={(theme) => ({ display: 'flex', gap: theme.spacing(1) })}>
+      <CappedDescription text={description} searchQuery={searchQuery} />
+    </Box>
+  ) : null;
 };
 
 export const FeatureOverviewCell =

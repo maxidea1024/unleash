@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Chip, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import { ConstraintValueSearch } from '../../../ConstraintValueSearch/ConstraintValueSearch';
 
@@ -25,10 +24,9 @@ export const MultipleValues = ({ values }: MultipleValuesProps) => {
 
   return (
     <>
-      <ConditionallyRender
-        condition={values.length > 20}
-        show={<ConstraintValueSearch filter={filter} setFilter={setFilter} />}
-      />
+      {values.length > 20 && (
+        <ConstraintValueSearch filter={filter} setFilter={setFilter} />
+      )}
       {values
         .filter((value) => value.includes(filter))
         .map((value, index) => (

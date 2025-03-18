@@ -1,7 +1,6 @@
 import { useInstanceStatus } from 'hooks/api/getters/useInstanceStatus/useInstanceStatus';
-import React, { type FC, useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { InstanceStatusBar } from 'component/common/InstanceStatus/InstanceStatusBar';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -27,6 +26,7 @@ const TrialDialog = ({ instanceStatus, onExtendTrial }: TrialDialogProps) => {
   const onClose = (event: React.SyntheticEvent, muiCloseReason?: string) => {
     if (!muiCloseReason) {
       setDialogOpen(false);
+
       if (canExtendTrial(instanceStatus)) {
         onExtendTrial().catch(console.error);
       }
@@ -120,18 +120,15 @@ export const InstanceStatus = ({
 
   return (
     <>
-      <ConditionallyRender
-        condition={Boolean(instanceStatus)}
-        show={() => (
-          <>
-            <InstanceStatusBarMemo instanceStatus={instanceStatus!} />
-            <TrialDialog
-              instanceStatus={instanceStatus!}
-              onExtendTrial={onExtendTrial}
-            />
-          </>
-        )}
-      />
+      {instanceStatus && (
+        <>
+          <InstanceStatusBarMemo instanceStatus={instanceStatus} />
+          <TrialDialog
+            instanceStatus={instanceStatus}
+            onExtendTrial={onExtendTrial}
+          />
+        </>
+      )}
       {children}
     </>
   );

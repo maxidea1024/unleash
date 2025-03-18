@@ -19,7 +19,7 @@ import {
   DELETE_FEATURE,
   UPDATE_FEATURE,
 } from 'component/providers/AccessProvider/permissions';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
+// import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { isSafeToArchive } from './isSafeToArchive';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHMS } from 'utils/formatDate';
@@ -424,23 +424,17 @@ const CompletedStageDescription = ({
   loading,
   project,
 }: CompletedStageDescriptionProps) => {
-  return (
-    <ConditionallyRender
-      condition={isSafeToArchive(environments)}
-      show={
-        <SafeToArchive
-          onArchive={onArchive}
-          onUncomplete={onUncomplete}
-          loading={loading}
-          project={project}
-        />
-      }
-      elseShow={
-        <ActivelyUsed onUncomplete={onUncomplete} loading={loading}>
-          {children}
-        </ActivelyUsed>
-      }
+  return isSafeToArchive(environments) ? (
+    <SafeToArchive
+      onArchive={onArchive}
+      onUncomplete={onUncomplete}
+      loading={loading}
+      project={project}
     />
+  ) : (
+    <ActivelyUsed onUncomplete={onUncomplete} loading={loading}>
+      {children}
+    </ActivelyUsed>
   );
 };
 

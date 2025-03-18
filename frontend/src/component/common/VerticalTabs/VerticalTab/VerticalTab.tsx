@@ -1,5 +1,4 @@
 import { Button, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledTab = styled(Button)<{ selected: boolean }>(
   ({ theme, selected }) => ({
@@ -79,10 +78,9 @@ export const VerticalTab = ({
     {startIcon}
     <StyledTabLabel>
       {label}
-      <ConditionallyRender
-        condition={Boolean(description)}
-        show={<StyledTabDescription>{description}</StyledTabDescription>}
-      />
+      {description && (
+        <StyledTabDescription>{description}</StyledTabDescription>
+      )}
     </StyledTabLabel>
     {endIcon}
   </StyledTab>
