@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AddDependencyDialogue } from 'component/feature/Dependencies/AddDependencyDialogue';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { useState } from 'react';
@@ -103,72 +102,56 @@ export const OldDependencyRow = ({ feature }: OldDependencyRowProps) => {
 
   return (
     <>
-      <ConditionallyRender
-        condition={canAddParentDependency}
-        show={
-          <FlexRow>
-            <StyledDetail>
-              <StyledLabel>Dependency:</StyledLabel>
-              <PermissionButton
-                size='small'
-                permission={UPDATE_FEATURE_DEPENDENCY}
-                projectId={feature.project}
-                variant='text'
-                onClick={() => {
-                  setShowDependencyDialogue(true);
-                }}
-                sx={(theme) => ({
-                  marginBottom: theme.spacing(0.4),
-                })}
-              >
-                Add parent feature
-              </PermissionButton>
-            </StyledDetail>
-          </FlexRow>
-        }
-      />
-      <ConditionallyRender
-        condition={hasParentDependency}
-        show={
-          <FlexRow>
-            <StyledDetail>
-              <StyledLabel>Dependency:</StyledLabel>
-              <StyledLink
-                to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
-              >
-                {feature.dependencies[0]?.feature}
-              </StyledLink>
-            </StyledDetail>
-            <ConditionallyRender
-              condition={checkAccess(UPDATE_FEATURE_DEPENDENCY, environment)}
-              show={
-                <OldDependencyActions
-                  feature={feature.name}
-                  onEdit={() => setShowDependencyDialogue(true)}
-                  onDelete={deleteDependency}
-                />
-              }
+      {canAddParentDependency && (
+        <FlexRow>
+          <StyledDetail>
+            <StyledLabel>Dependency:</StyledLabel>
+            <PermissionButton
+              size='small'
+              permission={UPDATE_FEATURE_DEPENDENCY}
+              projectId={feature.project}
+              variant='text'
+              onClick={() => {
+                setShowDependencyDialogue(true);
+              }}
+              sx={(theme) => ({
+                marginBottom: theme.spacing(0.4),
+              })}
+            >
+              Add parent feature
+            </PermissionButton>
+          </StyledDetail>
+        </FlexRow>
+      )}
+      {hasParentDependency && (
+        <FlexRow>
+          <StyledDetail>
+            <StyledLabel>Dependency:</StyledLabel>
+            <StyledLink
+              to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
+            >
+              {feature.dependencies[0]?.feature}
+            </StyledLink>
+          </StyledDetail>
+          {checkAccess(UPDATE_FEATURE_DEPENDENCY, environment) && (
+            <OldDependencyActions
+              feature={feature.name}
+              onEdit={() => setShowDependencyDialogue(true)}
+              onDelete={deleteDependency}
             />
-          </FlexRow>
-        }
-      />
-      <ConditionallyRender
-        condition={hasParentDependency && !feature.dependencies[0]?.enabled}
-        show={
-          <FlexRow>
-            <StyledDetail>
-              <StyledLabel>Dependency value:</StyledLabel>
-              <span>disabled</span>
-            </StyledDetail>
-          </FlexRow>
-        }
-      />
-      <ConditionallyRender
-        condition={
-          hasParentDependency &&
-          Boolean(feature.dependencies[0]?.variants?.length)
-        }
-        show={
+          )}
+        </FlexRow>
+      )}
+      {hasParentDependency && !feature.dependencies[0]?.enabled && (
+        <FlexRow>
+          <StyledDetail>
+            <StyledLabel>Dependency value:</StyledLabel>
+            <span>disabled</span>
+          </StyledDetail>
+        </FlexRow>
+      )}
+      {hasParentDependency &&
+        Boolean(feature.dependencies[0]?.variants?.length) && (
           <FlexRow>
             <StyledDetail>
               <StyledLabel>Dependency value:</StyledLabel>
@@ -177,35 +160,27 @@ export const OldDependencyRow = ({ feature }: OldDependencyRowProps) => {
               />
             </StyledDetail>
           </FlexRow>
-        }
-      />
-      <ConditionallyRender
-        condition={hasChildren}
-        show={
-          <FlexRow>
-            <StyledDetail>
-              <StyledLabel>Children:</StyledLabel>
-              <ChildrenTooltip
-                childFeatures={feature.children}
-                project={feature.project}
-              />
-            </StyledDetail>
-          </FlexRow>
-        }
-      />
-
-      <ConditionallyRender
-        condition={Boolean(feature.project)}
-        show={
-          <AddDependencyDialogue
-            project={feature.project}
-            featureId={feature.name}
-            parentDependency={feature.dependencies[0]}
-            onClose={() => setShowDependencyDialogue(false)}
-            showDependencyDialogue={showDependencyDialogue}
-          />
-        }
-      />
+        )}
+      {hasChildren && (
+        <FlexRow>
+          <StyledDetail>
+            <StyledLabel>Children:</StyledLabel>
+            <ChildrenTooltip
+              childFeatures={feature.children}
+              project={feature.project}
+            />
+          </StyledDetail>
+        </FlexRow>
+      )}
+      {Boolean(feature.project) && (
+        <AddDependencyDialogue
+          project={feature.project}
+          featureId={feature.name}
+          parentDependency={feature.dependencies[0]}
+          onClose={() => setShowDependencyDialogue(false)}
+          showDependencyDialogue={showDependencyDialogue}
+        />
+      )}
     </>
   );
 };
