@@ -2,7 +2,6 @@ import { capitalize, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { getFeatureTypeIcons } from 'utils/getFeatureTypeIcons';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { FeatureArchiveDialog } from 'component/common/FeatureArchiveDialog/FeatureArchiveDialog';
 import { useState } from 'react';
@@ -106,14 +105,11 @@ const FeatureOverviewMetaData = () => {
           <FlagTypeIcon />
           <h2>{capitalize(type || '')} flag</h2>
         </StyledMetaDataHeader>
-        <ConditionallyRender
-          condition={Boolean(description)}
-          show={
-            <StyledMetaDataItem data-loading>
-              <StyledMetaDataItemText>{description}</StyledMetaDataItemText>
-            </StyledMetaDataItem>
-          }
-        />
+        {description && (
+          <StyledMetaDataItem data-loading>
+            <StyledMetaDataItemText>{description}</StyledMetaDataItemText>
+          </StyledMetaDataItem>
+        )}
         <StyledBody>
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Project:</StyledMetaDataItemLabel>
@@ -121,20 +117,17 @@ const FeatureOverviewMetaData = () => {
               {project}
             </StyledMetaDataItemText>
           </StyledMetaDataItem>
-          <ConditionallyRender
-            condition={Boolean(feature.lifecycle)}
-            show={
-              <StyledMetaDataItem data-loading>
-                <StyledMetaDataItemLabel>Lifecycle:</StyledMetaDataItemLabel>
-                <FeatureLifecycle
-                  feature={feature}
-                  onArchive={() => setArchiveDialogOpen(true)}
-                  onComplete={() => setMarkCompletedDialogueOpen(true)}
-                  onUncomplete={refetchFeature}
-                />
-              </StyledMetaDataItem>
-            }
-          />
+          {feature.lifecycle && (
+            <StyledMetaDataItem data-loading>
+              <StyledMetaDataItemLabel>Lifecycle:</StyledMetaDataItemLabel>
+              <FeatureLifecycle
+                feature={feature}
+                onArchive={() => setArchiveDialogOpen(true)}
+                onComplete={() => setMarkCompletedDialogueOpen(true)}
+                onUncomplete={refetchFeature}
+              />
+            </StyledMetaDataItem>
+          )}
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Created at:</StyledMetaDataItemLabel>
             <StyledMetaDataItemText data-loading>
@@ -144,61 +137,48 @@ const FeatureOverviewMetaData = () => {
               )}
             </StyledMetaDataItemText>
           </StyledMetaDataItem>
-          <ConditionallyRender
-            condition={Boolean(feature.createdBy)}
-            show={() => (
-              <StyledMetaDataItem>
-                <StyledMetaDataItemLabel>Created by:</StyledMetaDataItemLabel>
-                <StyledMetaDataItemValue>
-                  <StyledMetaDataItemText data-loading>
-                    {feature.createdBy?.name}
-                  </StyledMetaDataItemText>
-                  <StyledUserAvatar user={feature.createdBy} />
-                </StyledMetaDataItemValue>
-              </StyledMetaDataItem>
-            )}
-          />
-          <ConditionallyRender
-            condition={showDependentFeatures}
-            show={<DependencyRow feature={feature} />}
-          />
+          {feature.createdBy ? (
+            <StyledMetaDataItem>
+              <StyledMetaDataItemLabel>Created by:</StyledMetaDataItemLabel>
+              <StyledMetaDataItemValue>
+                <StyledMetaDataItemText data-loading>
+                  {feature.createdBy?.name}
+                </StyledMetaDataItemText>
+                <StyledUserAvatar user={feature.createdBy} />
+              </StyledMetaDataItemValue>
+            </StyledMetaDataItem>
+          ) : null}
+          {showDependentFeatures && <DependencyRow feature={feature} />}
           <TagRow feature={feature} />
         </StyledBody>
       </StyledMetaDataContainer>
-      <ConditionallyRender
-        condition={feature.children.length > 0}
-        show={
-          <FeatureArchiveNotAllowedDialog
-            features={feature.children}
-            project={projectId}
-            isOpen={archiveDialogOpen}
-            onClose={() => setArchiveDialogOpen(false)}
-          />
-        }
-        elseShow={
-          <FeatureArchiveDialog
-            isOpen={archiveDialogOpen}
-            onConfirm={() => {
-              navigate(`/projects/${projectId}`);
-            }}
-            onClose={() => setArchiveDialogOpen(false)}
-            projectId={projectId}
-            featureIds={[featureId]}
-          />
-        }
-      />
-      <ConditionallyRender
-        condition={Boolean(feature.project)}
-        show={
-          <MarkCompletedDialogue
-            isOpen={markCompletedDialogueOpen}
-            setIsOpen={setMarkCompletedDialogueOpen}
-            projectId={feature.project}
-            featureId={feature.name}
-            onComplete={refetchFeature}
-          />
-        }
-      />
+      {feature.children.length > 0 ? (
+        <FeatureArchiveNotAllowedDialog
+          features={feature.children}
+          project={projectId}
+          isOpen={archiveDialogOpen}
+          onClose={() => setArchiveDialogOpen(false)}
+        />
+      ) : (
+        <FeatureArchiveDialog
+          isOpen={archiveDialogOpen}
+          onConfirm={() => {
+            navigate(`/projects/${projectId}`);
+          }}
+          onClose={() => setArchiveDialogOpen(false)}
+          projectId={projectId}
+          featureIds={[featureId]}
+        />
+      )}
+      {feature.project && (
+        <MarkCompletedDialogue
+          isOpen={markCompletedDialogueOpen}
+          setIsOpen={setMarkCompletedDialogueOpen}
+          projectId={feature.project}
+          featureId={feature.name}
+          onComplete={refetchFeature}
+        />
+      )}
     </>
   );
 };
