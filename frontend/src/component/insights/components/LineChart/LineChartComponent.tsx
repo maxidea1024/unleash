@@ -16,14 +16,13 @@ import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import { useTheme } from '@mui/material';
 import { useLocationSettings } from 'hooks/useLocationSettings';
+import { styled } from '@mui/material';
+import { createOptions } from './createChartOptions';
 import {
   ChartTooltip,
   ChartTooltipContainer,
   type ITooltipState,
 } from './ChartTooltip/ChartTooltip';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { styled } from '@mui/material';
-import { createOptions } from './createChartOptions';
 
 const StyledContainer = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -110,25 +109,21 @@ const LineChartComponent = ({
         height={100}
         width={100 * aspectRatio}
       />
-      <ConditionallyRender
-        condition={!cover}
-        show={
-          TooltipComponent ? (
-            <ChartTooltipContainer tooltip={tooltip}>
-              <TooltipComponent tooltip={tooltip} />
-            </ChartTooltipContainer>
-          ) : (
-            <ChartTooltip tooltip={tooltip} />
-          )
-        }
-        elseShow={
-          <StyledCover>
-            <StyledCoverContent>
-              {cover !== true ? cover : ' '}
-            </StyledCoverContent>
-          </StyledCover>
-        }
-      />
+      {!cover ? (
+        TooltipComponent ? (
+          <ChartTooltipContainer tooltip={tooltip}>
+            <TooltipComponent tooltip={tooltip} />
+          </ChartTooltipContainer>
+        ) : (
+          <ChartTooltip tooltip={tooltip} />
+        )
+      ) : (
+        <StyledCover>
+          <StyledCoverContent>
+            {cover !== true ? cover : ' '}
+          </StyledCoverContent>
+        </StyledCover>
+      )}
     </StyledContainer>
   );
 };

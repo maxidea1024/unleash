@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import { Box, useTheme } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const polarToCartesian = (
   centerX: number,
@@ -171,18 +170,15 @@ export const Gauge = ({ value, min = 0, max = 100 }: GaugeProps) => {
           strokeWidth={lineWidth - 0.01}
           strokeLinecap='round'
         />
-        <ConditionallyRender
-          condition={value !== undefined}
-          show={
-            <path
-              d={filledArcPath}
-              fill='none'
-              stroke='url(#Gauge__gradient)'
-              strokeWidth={lineWidth}
-              strokeLinecap='round'
-            />
-          }
-        />
+        {value !== undefined && (
+          <path
+            d={filledArcPath}
+            fill='none'
+            stroke='url(#Gauge__gradient)'
+            strokeWidth={lineWidth}
+            strokeLinecap='round'
+          />
+        )}
         <GaugeLines />
         <GaugeText />
       </svg>

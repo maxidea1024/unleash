@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Box, Icon, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AddFilterButton } from '../AddFilterButton';
 import { FilterDateItem } from 'component/common/FilterDateItem/FilterDateItem';
 import { FilterItem, type FilterItemParams } from '../FilterItem/FilterItem';
@@ -163,18 +162,15 @@ export const Filters = ({
         );
       })}
 
-      <ConditionallyRender
-        condition={hasAvailableFilters}
-        show={
-          <AddFilterButton
-            availableFilters={availableFilters}
-            visibleOptions={unselectedFilters}
-            setVisibleOptions={setUnselectedFilters}
-            hiddenOptions={selectedFilters}
-            setHiddenOptions={setSelectedFilters}
-          />
-        }
-      />
+      {hasAvailableFilters && (
+        <AddFilterButton
+          availableFilters={availableFilters}
+          visibleOptions={unselectedFilters}
+          setVisibleOptions={setUnselectedFilters}
+          hiddenOptions={selectedFilters}
+          setHiddenOptions={setSelectedFilters}
+        />
+      )}
     </StyledBox>
   );
 };

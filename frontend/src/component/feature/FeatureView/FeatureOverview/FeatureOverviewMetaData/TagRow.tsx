@@ -12,7 +12,6 @@ import type { ITag } from 'interfaces/tags';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import {
   StyledMetaDataItem,
   StyledMetaDataItemLabel,
@@ -102,71 +101,64 @@ export const TagRow = ({ feature }: FeatureOverviewSidePanelTagsProps) => {
 
   return (
     <>
-      <ConditionallyRender
-        condition={!tags.length}
-        show={
-          <StyledMetaDataItem>
-            <StyledMetaDataItemLabel>Tags:</StyledMetaDataItemLabel>
-            <StyledPermissionButton
-              size='small'
-              permission={UPDATE_FEATURE}
-              projectId={feature.project}
-              variant='text'
-              onClick={() => {
-                setManageTagsOpen(true);
-              }}
-            >
-              Add tag
-            </StyledPermissionButton>
-          </StyledMetaDataItem>
-        }
-        elseShow={
-          <StyledTagRow>
-            <StyledMetaDataItemLabel>Tags:</StyledMetaDataItemLabel>
-            <StyledTagContainer>
-              {tags.map((tag) => {
-                const tagLabel = `${tag.type}:${tag.value}`;
-                return (
-                  <Tooltip
-                    key={tagLabel}
-                    title={tagLabel.length > 35 ? tagLabel : ''}
-                    arrow
-                  >
-                    <StyledAddedTag
-                      label={tagLabel}
-                      size='small'
-                      deleteIcon={
-                        <Tooltip title='Remove tag' arrow>
-                          <ClearIcon />
-                        </Tooltip>
-                      }
-                      onDelete={
-                        canUpdateTags
-                          ? () => {
-                              setRemoveTagOpen(true);
-                              setSelectedTag(tag);
-                            }
-                          : undefined
-                      }
-                    />
-                  </Tooltip>
-                );
-              })}
-              <ConditionallyRender
-                condition={canUpdateTags}
-                show={
-                  <StyledChip
-                    icon={<Add />}
-                    label='Add tag'
+      {!tags.length ? (
+        <StyledMetaDataItem>
+          <StyledMetaDataItemLabel>Tags:</StyledMetaDataItemLabel>
+          <StyledPermissionButton
+            size='small'
+            permission={UPDATE_FEATURE}
+            projectId={feature.project}
+            variant='text'
+            onClick={() => {
+              setManageTagsOpen(true);
+            }}
+          >
+            Add tag
+          </StyledPermissionButton>
+        </StyledMetaDataItem>
+      ) : (
+        <StyledTagRow>
+          <StyledMetaDataItemLabel>Tags:</StyledMetaDataItemLabel>
+          <StyledTagContainer>
+            {tags.map((tag) => {
+              const tagLabel = `${tag.type}:${tag.value}`;
+              return (
+                <Tooltip
+                  key={tagLabel}
+                  title={tagLabel.length > 35 ? tagLabel : ''}
+                  arrow
+                >
+                  <StyledAddedTag
+                    label={tagLabel}
                     size='small'
-                    onClick={() => setManageTagsOpen(true)}
+                    deleteIcon={
+                      <Tooltip title='Remove tag' arrow>
+                        <ClearIcon />
+                      </Tooltip>
+                    }
+                    onDelete={
+                      canUpdateTags
+                        ? () => {
+                            setRemoveTagOpen(true);
+                            setSelectedTag(tag);
+                          }
+                        : undefined
+                    }
                   />
-                }
+                </Tooltip>
+              );
+            })}
+            {canUpdateTags && (
+              <StyledChip
+                icon={<Add />}
+                label='Add tag'
+                size='small'
+                onClick={() => setManageTagsOpen(true)}
               />
-            </StyledTagContainer>
-          </StyledTagRow>
-        }
-      />
+            )}
+          </StyledTagContainer>
+        </StyledTagRow>
+      )}
       <ManageTagsDialog open={manageTagsOpen} setOpen={setManageTagsOpen} />
       <Dialogue
         open={removeTagOpen}
