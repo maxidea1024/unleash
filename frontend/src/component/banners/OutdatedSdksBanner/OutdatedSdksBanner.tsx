@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Banner } from '../Banner/Banner';
 import type { IBanner } from 'interfaces/banner';
 import { useOutdatedSdks } from 'hooks/api/getters/useOutdatedSdks/useOutdatedSdks';
@@ -68,11 +67,6 @@ export const OutdatedSdksBanner = ({ project }: OutdatedSdksBannerProps) => {
     ),
   };
   return (
-    <>
-      <ConditionallyRender
-        condition={sdks.length > 0}
-        show={<Banner banner={outdatedSdksBanner} inline />}
-      />
-    </>
+    <>{sdks.length > 0 && <Banner banner={outdatedSdksBanner} inline />}</>
   );
 };

@@ -18,7 +18,6 @@ import { PageContent } from '../../../common/PageContent/PageContent';
 import { PageHeader } from '../../../common/PageHeader/PageHeader';
 import { Button } from '@mui/material';
 import { useFlexLayout, useSortBy, useTable } from 'react-table';
-import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 import { TablePlaceholder, VirtualizedTable } from '../../../common/Table';
 import { DateCell } from '../../../common/Table/cells/DateCell/DateCell';
 import { InactiveUsersActionCell } from './InactiveUsersActionCell/InactiveUsersActionCell';
@@ -231,23 +230,19 @@ export const InactiveUsersList = () => {
         headerGroups={headerGroups}
         prepareRow={prepareRow}
       />
-      <ConditionallyRender
-        condition={rows.length === 0}
-        show={<TablePlaceholder>No inactive users found.</TablePlaceholder>}
-      />
-      <ConditionallyRender
-        condition={Boolean(delUser)}
-        show={
-          <DeleteUser
-            showDialog={delDialog}
-            closeDialog={closeDelDialog}
-            user={delUser!}
-            userLoading={usersLoading}
-            removeUser={() => onDeleteUser(delUser!.id)}
-            userApiErrors={userApiErrors}
-          />
-        }
-      />
+      {rows.length === 0 && (
+        <TablePlaceholder>No inactive users found.</TablePlaceholder>
+      )}
+      {delUser && (
+        <DeleteUser
+          showDialog={delDialog}
+          closeDialog={closeDelDialog}
+          user={delUser}
+          userLoading={usersLoading}
+          removeUser={() => onDeleteUser(delUser.id)}
+          userApiErrors={userApiErrors}
+        />
+      )}
       <DeleteInactiveUsers
         showDialog={showDelInactiveDialog}
         closeDialog={closeDelInactiveDialog}

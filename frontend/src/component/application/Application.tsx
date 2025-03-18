@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import LinkIcon from '@mui/icons-material/Link';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { UPDATE_APPLICATION } from 'component/providers/AccessProvider/permissions';
 import { ConnectedInstances } from './ConnectedInstances/ConnectedInstances';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
@@ -92,12 +91,14 @@ export const Application = () => {
     evt.preventDefault();
     try {
       await deleteApplication(appName);
+
+      navigate('/applications');
+
       setToastData({
         title: 'Deleted Successfully',
         text: 'Application deleted successfully',
         type: 'success',
       });
-      navigate('/applications');
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));
     }
@@ -146,15 +147,11 @@ export const Application = () => {
             title={appName}
             actions={
               <>
-                <ConditionallyRender
-                  condition={Boolean(url)}
-                  show={
-                    <IconButton component={Link} href={url} size='large'>
-                      <LinkIcon titleAccess={url} />
-                    </IconButton>
-                  }
-                />
-
+                {Boolean(url) && (
+                  <IconButton component={Link} href={url} size='large'>
+                    <LinkIcon titleAccess={url} />
+                  </IconButton>
+                )}
                 <PermissionIconButton
                   tooltipProps={{
                     title: 'Delete application',
@@ -198,10 +195,7 @@ export const Application = () => {
         </TabContainer>
       </StyledHeader>
       <PageContent>
-        <ConditionallyRender
-          condition={hasAccess(UPDATE_APPLICATION)}
-          show={<div>{renderModal()}</div>}
-        />
+        {hasAccess(UPDATE_APPLICATION) && <div>{renderModal()}</div>}
         <Routes>
           <Route path='instances' element={<ConnectedInstances />} />
           <Route path='*' element={<ApplicationOverview />} />

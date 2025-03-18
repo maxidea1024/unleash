@@ -5,7 +5,6 @@ import {
   TextField,
   Tooltip,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useEnvironments } from 'hooks/api/getters/useEnvironments/useEnvironments';
 import { useEffect, useMemo } from 'react';
 import { timeSpanOptions } from '../EventTimelineProvider';
@@ -94,29 +93,26 @@ export const EventTimelineHeader = ({
       </StyledCol>
       <EventTimelineHeaderTip />
       <StyledCol>
-        <ConditionallyRender
-          condition={Boolean(environment) && environments.length > 0}
-          show={() => (
-            <StyledFilter
-              select
-              size='small'
-              variant='outlined'
-              value={environment!.name}
-              onChange={(e) =>
-                setEnvironment(
-                  environments.find(({ name }) => name === e.target.value) ||
-                    environments[0],
-                )
-              }
-            >
-              {environments.map(({ name }) => (
-                <MenuItem key={name} value={name}>
-                  {name}
-                </MenuItem>
-              ))}
-            </StyledFilter>
-          )}
-        />
+        {Boolean(environment) && environments.length > 0 && (
+          <StyledFilter
+            select
+            size='small'
+            variant='outlined'
+            value={environment!.name}
+            onChange={(e) =>
+              setEnvironment(
+                environments.find(({ name }) => name === e.target.value) ||
+                  environments[0],
+              )
+            }
+          >
+            {environments.map(({ name }) => (
+              <MenuItem key={name} value={name}>
+                {name}
+              </MenuItem>
+            ))}
+          </StyledFilter>
+        )}
         <Tooltip title='Hide event timeline' arrow>
           <IconButton
             aria-label='close'

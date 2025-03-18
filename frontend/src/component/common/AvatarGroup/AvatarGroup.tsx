@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { IGroupUser } from 'interfaces/group';
 import {
   type ForwardRefExoticComponent,
@@ -90,18 +89,15 @@ const AvatarGroupInner = ({
       {shownUsers.map((user) => (
         <AvatarComponent key={objectId(user)} user={user} />
       ))}
-      <ConditionallyRender
-        condition={overflow > 0}
-        show={
-          <AvatarComponent
-            user={{
-              username: `Total: ${millify(users.length)}`,
-            }}
-          >
-            +{Math.min(overflow, MAX_OVERFLOW_DISPLAY_NUMBER)}
-          </AvatarComponent>
-        }
-      />
+      {overflow > 0 && (
+        <AvatarComponent
+          user={{
+            username: `Total: ${millify(users.length)}`,
+          }}
+        >
+          +{Math.min(overflow, MAX_OVERFLOW_DISPLAY_NUMBER)}
+        </AvatarComponent>
+      )}
     </StyledAvatars>
   );
 };

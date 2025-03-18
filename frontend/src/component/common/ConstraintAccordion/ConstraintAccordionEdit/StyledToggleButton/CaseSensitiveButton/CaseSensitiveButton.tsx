@@ -5,7 +5,6 @@ import {
   StyledToggleButtonOff,
   StyledToggleButtonOn,
 } from '../StyledToggleButton';
-import { ConditionallyRender } from '../../../../ConditionallyRender/ConditionallyRender';
 import type { IConstraint } from 'interfaces/strategy';
 
 type CaseSensitiveButtonProps = {
@@ -26,23 +25,19 @@ export const CaseSensitiveButton = ({
     arrow
   >
     <Box sx={{ display: 'flex', alignItems: 'stretch' }}>
-      <ConditionallyRender
-        condition={Boolean(localConstraint.caseInsensitive)}
-        show={
-          <StyledToggleButtonOff onClick={setCaseInsensitive} disableRipple>
-            <CaseSensitiveOff />
-          </StyledToggleButtonOff>
-        }
-        elseShow={
-          <StyledToggleButtonOn
-            className='operator-is-active'
-            onClick={setCaseInsensitive}
-            disableRipple
-          >
-            <CaseSensitive />
-          </StyledToggleButtonOn>
-        }
-      />
+      {Boolean(localConstraint.caseInsensitive) ? (
+        <StyledToggleButtonOff onClick={setCaseInsensitive} disableRipple>
+          <CaseSensitiveOff />
+        </StyledToggleButtonOff>
+      ) : (
+        <StyledToggleButtonOn
+          className='operator-is-active'
+          onClick={setCaseInsensitive}
+          disableRipple
+        >
+          <CaseSensitive />
+        </StyledToggleButtonOn>
+      )}
     </Box>
   </Tooltip>
 );

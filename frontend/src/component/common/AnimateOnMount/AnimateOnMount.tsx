@@ -1,6 +1,5 @@
 import type React from 'react';
 import { type CSSProperties, useEffect, useState, useRef } from 'react';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 type AnimateOnMountProps = {
   mounted: boolean;
@@ -29,7 +28,9 @@ const AnimateOnMount = ({
     if (mountedRef.current !== mounted || mountedRef === null) {
       if (mounted) {
         setShow(true);
+
         onStart?.();
+
         setTimeout(() => {
           setStyles(enter);
         }, 50);
@@ -37,6 +38,7 @@ const AnimateOnMount = ({
         if (!leave) {
           setShow(false);
         }
+
         setStyles(leave || {});
       }
     }
@@ -50,14 +52,11 @@ const AnimateOnMount = ({
   };
 
   return (
-    <ConditionallyRender
-      condition={show}
-      show={
-        <div onTransitionEnd={onTransitionEnd} style={{ ...start, ...styles }}>
-          {children}
-        </div>
-      }
-    />
+    show && (
+      <div onTransitionEnd={onTransitionEnd} style={{ ...start, ...styles }}>
+        {children}
+      </div>
+    )
   );
 };
 

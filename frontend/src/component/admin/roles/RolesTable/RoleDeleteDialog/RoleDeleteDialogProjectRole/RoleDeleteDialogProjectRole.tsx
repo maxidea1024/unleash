@@ -1,5 +1,4 @@
 import { Alert, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import type { IRole } from 'interfaces/role';
 import { useProjectRoleAccessUsage } from 'hooks/api/getters/useProjectRoleAccessUsage/useProjectRoleAccessUsage';
@@ -43,35 +42,28 @@ export const RoleDeleteDialogProjectRole = ({
       }}
       maxWidth='md'
     >
-      <ConditionallyRender
-        condition={entitiesWithRole}
-        show={
-          <>
-            <Alert severity='error'>
-              You are not allowed to delete a role that is currently in use.
-              Please change the role of the following entities first:
-            </Alert>
-            <ConditionallyRender
-              condition={Boolean(projects?.length)}
-              show={
-                <>
-                  <StyledLabel>
-                    Role assigned in {projects?.length} projects:
-                  </StyledLabel>
-                  <StyledTableContainer>
-                    <RoleDeleteDialogProjectRoleTable projects={projects} />
-                  </StyledTableContainer>
-                </>
-              }
-            />
-          </>
-        }
-        elseShow={
-          <p>
-            You are about to delete role: <strong>{role?.name}</strong>
-          </p>
-        }
-      />
+      {entitiesWithRole ? (
+        <>
+          <Alert severity='error'>
+            You are not allowed to delete a role that is currently in use.
+            Please change the role of the following entities first:
+          </Alert>
+          {Boolean(projects?.length) && (
+            <>
+              <StyledLabel>
+                Role assigned in {projects?.length} projects:
+              </StyledLabel>
+              <StyledTableContainer>
+                <RoleDeleteDialogProjectRoleTable projects={projects} />
+              </StyledTableContainer>
+            </>
+          )}
+        </>
+      ) : (
+        <p>
+          You are about to delete role: <strong>{role?.name}</strong>
+        </p>
+      )}
     </Dialogue>
   );
 };

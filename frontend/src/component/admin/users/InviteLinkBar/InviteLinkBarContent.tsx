@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, styled, Typography } from '@mui/material';
 import useLoading from 'hooks/useLoading';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useInviteTokens } from 'hooks/api/getters/useInviteTokens/useInviteTokens';
 import { LinkField } from '../LinkField/LinkField';
 import { add, formatDistanceToNowStrict, isAfter, parseISO } from 'date-fns';
 import { formatDateYMD } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-// import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
 export const StyledBox = styled(Box)(() => ({
   mb: {
@@ -35,7 +33,6 @@ export const InviteLinkBarContent = ({
   const navigate = useNavigate();
   const { data, loading } = useInviteTokens();
   const ref = useLoading(loading);
-  // const { trackEvent } = usePlausibleTracker();
   const inviteToken =
     data?.tokens?.find((token) => token.name === 'default') ?? null;
   const inviteLink = inviteToken?.url;
@@ -68,28 +65,24 @@ export const InviteLinkBarContent = ({
   return (
     <>
       <StyledBox ref={ref}>
-        <ConditionallyRender
-          condition={Boolean(inviteLink)}
-          show={
-            <>
-              <Typography variant='body2' sx={{ mb: 1 }}>
-                {`You have an invite link created on ${formatDateYMD(createdAt, locationSettings.locale)} `}
-                <ConditionallyRender
-                  condition={isExpired}
-                  show={<>that expired {expireDateComponent} ago</>}
-                  elseShow={<>that will expire in {expireDateComponent}</>}
-                />
-              </Typography>
-              <LinkField small inviteLink={inviteLink!} isExpired={isExpired} />
-            </>
-          }
-          elseShow={
-            <Typography variant='body2' data-loading>
-              You can easily create an invite link here that you can share and
-              use to invite people from your company to your Ganpa setup.
+        {Boolean(inviteLink) ? (
+          <>
+            <Typography variant='body2' sx={{ mb: 1 }}>
+              {`You have an invite link created on ${formatDateYMD(createdAt, locationSettings.locale)} `}
+              {isExpired ? (
+                <>that expired {expireDateComponent} ago</>
+              ) : (
+                <>that will expire in {expireDateComponent}</>
+              )}
             </Typography>
-          }
-        />
+            <LinkField small inviteLink={inviteLink!} isExpired={isExpired} />
+          </>
+        ) : (
+          <Typography variant='body2' data-loading>
+            You can easily create an invite link here that you can share and use
+            to invite people from your company to your Ganpa setup.
+          </Typography>
+        )}
       </StyledBox>
       <StyledButtonBox
         sx={{

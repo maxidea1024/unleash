@@ -5,13 +5,12 @@ import useToast from 'hooks/useToast';
 import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useFeatureImmutable } from 'hooks/api/getters/useFeature/useFeatureImmutable';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { CopyButton } from './CopyButton/CopyButton';
 import { useChangeRequestAddStrategy } from 'hooks/useChangeRequestAddStrategy';
 import { ChangeRequestDialogue } from 'component/changeRequest/ChangeRequestConfirmDialog/ChangeRequestConfirmDialog';
 import { CopyStrategiesMessage } from 'component/changeRequest/ChangeRequestConfirmDialog/ChangeRequestMessages/CopyStrategiesMessage';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { FeatureStrategyMenu } from '../FeatureStrategyMenu/FeatureStrategyMenu';
+import { CopyButton } from './CopyButton/CopyButton';
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -165,18 +164,15 @@ export const FeatureStrategyEmpty = ({
             environmentId={environmentId}
             matchWidth={canCopyFromOtherEnvironment}
           />
-          <ConditionallyRender
-            condition={canCopyFromOtherEnvironment}
-            show={
-              <CopyButton
-                environmentId={environmentId}
-                environments={otherAvailableEnvironments.map(
-                  (environment) => environment.name,
-                )}
-                onClick={onCopyStrategies}
-              />
-            }
-          />
+          {canCopyFromOtherEnvironment && (
+            <CopyButton
+              environmentId={environmentId}
+              environments={otherAvailableEnvironments.map(
+                (environment) => environment.name,
+              )}
+              onClick={onCopyStrategies}
+            />
+          )}
         </Box>
       </StyledContainer>
     </>

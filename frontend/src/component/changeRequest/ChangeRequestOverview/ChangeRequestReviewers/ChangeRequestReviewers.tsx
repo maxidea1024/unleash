@@ -1,7 +1,6 @@
 import { Box, Paper, styled, Typography } from '@mui/material';
 import type React from 'react';
 import type { ReactNode } from 'react';
-import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestRejections } from './ChangeRequestRejections';
 import { ChangeRequestApprovals } from './ChangeRequestApprovals';
 import type { ChangeRequestType } from '../../changeRequest.types';
@@ -71,10 +70,10 @@ export const ChangeRequestReviewers = ({
       />
     }
   >
-    <ConditionallyRender
-      condition={changeRequest.state === 'Rejected'}
-      show={<ChangeRequestRejections rejections={changeRequest.rejections} />}
-      elseShow={<ChangeRequestApprovals approvals={changeRequest.approvals} />}
-    />
+    {changeRequest.state === 'Rejected' ? (
+      <ChangeRequestRejections rejections={changeRequest.rejections} />
+    ) : (
+      <ChangeRequestApprovals approvals={changeRequest.approvals} />
+    )}
   </ChangeRequestReviewersWrapper>
 );

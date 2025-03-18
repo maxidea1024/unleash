@@ -1,5 +1,4 @@
 import EventDiff from 'component/events/EventDiff/EventDiff';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHMS } from 'utils/formatDate';
 import { Link } from 'react-router-dom';
@@ -89,51 +88,39 @@ const EventCard = ({ entry }: EventCardProps) => {
         <dd>{entry.type}</dd>
         <StyledDefinitionTerm>Changed by:</StyledDefinitionTerm>
         <dd title={entry.createdBy}>{entry.createdBy}</dd>
-        <ConditionallyRender
-          condition={Boolean(entry.project)}
-          show={
-            <>
-              <StyledDefinitionTerm>Project:</StyledDefinitionTerm>
-              <dd>
-                <Link to={`/projects/${entry.project}`}>{entry.project}</Link>
-              </dd>
-            </>
-          }
-        />
-        <ConditionallyRender
-          condition={Boolean(entry.featureName)}
-          show={
-            <>
-              <StyledDefinitionTerm>Feature:</StyledDefinitionTerm>
-              <dd>
-                <Link
-                  to={`/projects/${entry.project}/features/${entry.featureName}`}
-                >
-                  {entry.featureName}
-                </Link>
-              </dd>
-            </>
-          }
-        />
-        <ConditionallyRender
-          condition={Boolean(entry.environment)}
-          show={
-            <>
-              <StyledDefinitionTerm>Environment:</StyledDefinitionTerm>
-              <dd>{entry.environment}</dd>
-            </>
-          }
-        />
+        {Boolean(entry.project) && (
+          <>
+            <StyledDefinitionTerm>Project:</StyledDefinitionTerm>
+            <dd>
+              <Link to={`/projects/${entry.project}`}>{entry.project}</Link>
+            </dd>
+          </>
+        )}
+        {Boolean(entry.featureName) && (
+          <>
+            <StyledDefinitionTerm>Feature:</StyledDefinitionTerm>
+            <dd>
+              <Link
+                to={`/projects/${entry.project}/features/${entry.featureName}`}
+              >
+                {entry.featureName}
+              </Link>
+            </dd>
+          </>
+        )}
+        {Boolean(entry.environment) && (
+          <>
+            <StyledDefinitionTerm>Environment:</StyledDefinitionTerm>
+            <dd>{entry.environment}</dd>
+          </>
+        )}
       </dl>
-      <ConditionallyRender
-        condition={Boolean(entry.data || entry.preData)}
-        show={
-          <StyledCodeSection>
-            <StyledChangesTitle>Changes:</StyledChangesTitle>
-            <EventDiff entry={entry} />
-          </StyledCodeSection>
-        }
-      />
+      {Boolean(entry.data || entry.preData) && (
+        <StyledCodeSection>
+          <StyledChangesTitle>Changes:</StyledChangesTitle>
+          <EventDiff entry={entry} />
+        </StyledCodeSection>
+      )}
     </StyledContainerListItem>
   );
 };

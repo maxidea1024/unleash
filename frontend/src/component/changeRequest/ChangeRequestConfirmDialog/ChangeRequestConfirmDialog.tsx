@@ -2,7 +2,6 @@ import { Alert, Typography } from '@mui/material';
 import { Dialogue } from 'component/common/Dialogue/Dialogue';
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useChangeRequestInReviewWarning } from 'hooks/useChangeRequestInReviewWarning';
 
 type ChangeRequestDialogueProps = {
@@ -47,20 +46,14 @@ export const ChangeRequestDialogue = ({
       title='Request changes'
       fullWidth
     >
-      <ConditionallyRender
-        condition={hasChangeRequestInReviewForEnvironment}
-        show={alert}
-      />
-      <ConditionallyRender
-        condition={Boolean(showBanner)}
-        show={
-          <Alert severity='info' sx={{ mb: 2 }}>
-            Change requests feature is enabled for {environment}. Your changes
-            need to be approved before they will be live. All the changes you do
-            now will be added into a draft that you can submit for review.
-          </Alert>
-        }
-      />
+      {hasChangeRequestInReviewForEnvironment && alert}
+      {Boolean(showBanner) && (
+        <Alert severity='info' sx={{ mb: 2 }}>
+          Change requests feature is enabled for {environment}. Your changes
+          need to be approved before they will be live. All the changes you do
+          now will be added into a draft that you can submit for review.
+        </Alert>
+      )}
 
       <Typography variant='body2' color='text.secondary'>
         Your suggestion:

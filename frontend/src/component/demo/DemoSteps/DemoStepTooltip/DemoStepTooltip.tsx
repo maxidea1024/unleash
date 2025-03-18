@@ -6,7 +6,6 @@ import {
   alpha,
   styled,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type {
   ITutorialTopic,
   ITutorialTopicStep,
@@ -113,40 +112,30 @@ export const DemoStepTooltip = ({
             <CloseIcon />
           </StyledCloseButton>
           <StyledTooltipTitle>
-            <ConditionallyRender
-              condition={Boolean(step.title)}
-              show={step.title}
-              elseShow={
-                <Typography fontWeight='bold'>{topics[topic].title}</Typography>
-              }
-            />
+            {step.title || (
+              <Typography fontWeight='bold'>{topics[topic].title}</Typography>
+            )}
           </StyledTooltipTitle>
           {step.content}
           <StyledTooltipActions>
             <div>
-              <ConditionallyRender
-                condition={topic > 0 || stepIndex > 0}
-                show={
-                  <Button variant='outlined' onClick={() => onBack(step)}>
-                    Back
-                  </Button>
-                }
-              />
+              {(topic > 0 || stepIndex > 0) && (
+                <Button variant='outlined' onClick={() => onBack(step)}>
+                  Back
+                </Button>
+              )}
             </div>
             <div>
-              <ConditionallyRender
-                condition={Boolean(step.nextButton)}
-                show={
-                  <Button
-                    onClick={() => onNext(stepIndex)}
-                    variant='contained'
-                    sx={{ alignSelf: 'flex-end' }}
-                    data-testid='DEMO_NEXT_BUTTON'
-                  >
-                    {nextLabel}
-                  </Button>
-                }
-              />
+              {step.nextButton && (
+                <Button
+                  onClick={() => onNext(stepIndex)}
+                  variant='contained'
+                  sx={{ alignSelf: 'flex-end' }}
+                  data-testid='DEMO_NEXT_BUTTON'
+                >
+                  {nextLabel}
+                </Button>
+              )}
             </div>
           </StyledTooltipActions>
         </StyledDialog>
@@ -160,40 +149,30 @@ export const DemoStepTooltip = ({
         <CloseIcon />
       </StyledCloseButton>
       <StyledTooltipTitle>
-        <ConditionallyRender
-          condition={Boolean(step.title)}
-          show={step.title}
-          elseShow={
-            <Typography fontWeight='bold'>{topics[topic].title}</Typography>
-          }
-        />
+        {step.title || (
+          <Typography fontWeight='bold'>{topics[topic].title}</Typography>
+        )}
       </StyledTooltipTitle>
       {step.content}
       <StyledTooltipActions>
         <div>
-          <ConditionallyRender
-            condition={topic > 0 || stepIndex > 0}
-            show={
-              <Button variant='outlined' onClick={() => onBack(step)}>
-                Back
-              </Button>
-            }
-          />
+          {(topic > 0 || stepIndex > 0) && (
+            <Button variant='outlined' onClick={() => onBack(step)}>
+              Back
+            </Button>
+          )}
         </div>
         <div>
-          <ConditionallyRender
-            condition={Boolean(step.nextButton)}
-            show={
-              <Button
-                onClick={() => onNext(stepIndex)}
-                variant='contained'
-                sx={{ alignSelf: 'flex-end' }}
-                data-testid='DEMO_NEXT_BUTTON'
-              >
-                {nextLabel}
-              </Button>
-            }
-          />
+          {step.nextButton && (
+            <Button
+              onClick={() => onNext(stepIndex)}
+              variant='contained'
+              sx={{ alignSelf: 'flex-end' }}
+              data-testid='DEMO_NEXT_BUTTON'
+            >
+              {nextLabel}
+            </Button>
+          )}
         </div>
       </StyledTooltipActions>
     </StyledTooltip>

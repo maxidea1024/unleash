@@ -1,6 +1,5 @@
 import { Alert, Divider, Grid, styled, Typography } from '@mui/material';
 import { BillingInformationButton } from './BillingInformationButton/BillingInformationButton';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { InstanceState } from 'interfaces/instance';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useInstanceStatus } from 'hooks/api/getters/useInstanceStatus/useInstanceStatus';
@@ -51,15 +50,12 @@ export const BillingInformation = () => {
     <Grid item xs={12} md={5}>
       <StyledInfoBox>
         <StyledTitle variant='body1'>Billing information</StyledTitle>
-        <ConditionallyRender
-          condition={inactive}
-          show={
-            <StyledAlert severity='warning'>
-              In order to <strong>Upgrade trial</strong> you need to provide us
-              your billing information.
-            </StyledAlert>
-          }
-        />
+        {inactive && (
+          <StyledAlert severity='warning'>
+            In order to <strong>Upgrade trial</strong> you need to provide us
+            your billing information.
+          </StyledAlert>
+        )}
         <BillingInformationButton update={!inactive} />
         <StyledInfoLabel>
           {inactive

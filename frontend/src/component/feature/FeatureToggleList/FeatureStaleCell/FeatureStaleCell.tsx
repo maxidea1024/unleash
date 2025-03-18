@@ -1,5 +1,4 @@
 import { Box, styled, type Theme, Typography } from '@mui/material';
-import { ConditionallyRender } from '../../../common/ConditionallyRender/ConditionallyRender';
 
 const staleStatus = (theme: Theme) => ({
   color: theme.palette.error.dark,
@@ -22,19 +21,15 @@ type FeatureStaleCellProps = {
 export const FeatureStaleCell = ({ value }: FeatureStaleCellProps) => {
   return (
     <StyledBox>
-      <ConditionallyRender
-        condition={Boolean(value)}
-        show={
-          <Typography component='span' sx={staleStatus} data-loading>
-            Stale
-          </Typography>
-        }
-        elseShow={
-          <Typography component='span' sx={activeStatus} data-loading>
-            Active
-          </Typography>
-        }
-      />
+      {value ? (
+        <Typography component='span' sx={staleStatus} data-loading>
+          Stale
+        </Typography>
+      ) : (
+        <Typography component='span' sx={activeStatus} data-loading>
+          Active
+        </Typography>
+      )}
     </StyledBox>
   );
 };

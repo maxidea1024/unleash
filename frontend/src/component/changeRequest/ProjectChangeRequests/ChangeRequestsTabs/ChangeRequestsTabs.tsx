@@ -14,7 +14,6 @@ import { Box, styled, Tab, Tabs, useMediaQuery } from '@mui/material';
 import { Link, useSearchParams } from 'react-router-dom';
 import { sortTypes } from 'utils/sortTypes';
 import { useEffect, useMemo, useState } from 'react';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Search } from 'component/common/Search/Search';
 import { featuresPlaceholder } from 'component/feature/FeatureToggleList/FeatureToggleListTable';
 import theme from 'themes/theme';
@@ -338,25 +337,13 @@ export const ChangeRequestsTabs = ({
           </TableBody>
         </Table>
       </SearchHighlightProvider>
-      <ConditionallyRender
-        condition={rows.length === 0}
-        show={() => (
-          <ConditionallyRender
-            condition={searchValue?.length > 0}
-            show={
-              <TablePlaceholder>
-                No changes found matching &ldquo;
-                {searchValue}&rdquo;
-              </TablePlaceholder>
-            }
-            elseShow={
-              <TablePlaceholder>
-                None of the changes were submitted yet.
-              </TablePlaceholder>
-            }
-          />
-        )}
-      />
+      {rows.length === 0 && (
+        <TablePlaceholder>
+          {searchValue?.length > 0
+            ? `No changes found matching "${searchValue}"`
+            : 'None of the changes were submitted yet.'}
+        </TablePlaceholder>
+      )}
     </PageContent>
   );
 };

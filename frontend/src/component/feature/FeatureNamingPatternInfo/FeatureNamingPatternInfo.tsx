@@ -1,5 +1,4 @@
 import { styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import type { IFeatureNamingType } from 'interfaces/project';
 
 const StyledFlagNamingInfo = styled('article')(({ theme }) => ({
@@ -39,24 +38,18 @@ export const FeatureNamingPatternInfo = ({
         <dd>
           <code>^{featureNaming.pattern}$</code>
         </dd>
-        <ConditionallyRender
-          condition={Boolean(featureNaming?.example)}
-          show={
-            <>
-              <dt>Example</dt>
-              <dd>{featureNaming?.example}</dd>
-            </>
-          }
-        />
-        <ConditionallyRender
-          condition={Boolean(featureNaming?.description)}
-          show={
-            <>
-              <dt>Description</dt>
-              <dd>{featureNaming?.description}</dd>
-            </>
-          }
-        />
+        {Boolean(featureNaming?.example) && (
+          <>
+            <dt>Example</dt>
+            <dd>{featureNaming?.example}</dd>
+          </>
+        )}
+        {Boolean(featureNaming?.description) && (
+          <>
+            <dt>Description</dt>
+            <dd>{featureNaming?.description}</dd>
+          </>
+        )}
       </dl>
     </StyledFlagNamingInfo>
   );

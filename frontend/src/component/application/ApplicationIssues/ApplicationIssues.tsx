@@ -1,5 +1,4 @@
 import { Box, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import WarningAmberRounded from '@mui/icons-material/WarningAmberRounded';
 import type { ApplicationOverviewSchema } from 'openapi';
 import { Link } from 'react-router-dom';
@@ -116,22 +115,19 @@ const FeaturesMissing = ({ features }: FeaturesMissingProps) => {
 
   return (
     <IssueTextContainer>
-      <Box>{`We detected ${length} feature flag${length !== 1 ? 's' : ''} defined in the SDK that ${length !== 1 ? 'do' : 'does'} not exist in Unleash`}</Box>
+      <Box>{`We detected ${length} feature flag${length !== 1 ? 's' : ''} defined in the SDK that ${length !== 1 ? 'do' : 'does'} not exist in Ganpa`}</Box>
       <StyledList>
         {features.map((feature) => (
           <IssueRowContainer key={feature}>
             <StyledListElement>{feature}</StyledListElement>
-            <ConditionallyRender
-              condition={hasAccess(CREATE_FEATURE)}
-              show={
-                <StyledLink
-                  key={feature}
-                  to={`/projects/default?create=true&name=${feature}`}
-                >
-                  Create feature flag
-                </StyledLink>
-              }
-            />
+            {hasAccess(CREATE_FEATURE) && (
+              <StyledLink
+                key={feature}
+                to={`/projects/default?create=true&name=${feature}`}
+              >
+                Create feature flag
+              </StyledLink>
+            )}
           </IssueRowContainer>
         ))}
       </StyledList>
@@ -148,19 +144,16 @@ const StrategiesMissing = ({ strategies }: StrategiesMissingProps) => {
   }
   return (
     <IssueTextContainer>
-      <Box>{`We detected ${length} strategy type${length !== 1 ? 's' : ''} defined in the SDK that ${length !== 1 ? 'do' : 'does'} not exist in Unleash`}</Box>
+      <Box>{`We detected ${length} strategy type${length !== 1 ? 's' : ''} defined in the SDK that ${length !== 1 ? 'do' : 'does'} not exist in Ganpa`}</Box>
       <StyledList>
         {strategies.map((strategy) => (
           <IssueRowContainer key={strategy}>
             <StyledListElement>{strategy}</StyledListElement>
-            <ConditionallyRender
-              condition={hasAccess(CREATE_STRATEGY)}
-              show={
-                <StyledLink key={strategy} to={`/strategies/create`}>
-                  Create strategy type
-                </StyledLink>
-              }
-            />
+            {hasAccess(CREATE_STRATEGY) && (
+              <StyledLink key={strategy} to={`/strategies/create`}>
+                Create strategy type
+              </StyledLink>
+            )}
           </IssueRowContainer>
         ))}
       </StyledList>

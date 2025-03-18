@@ -6,7 +6,6 @@ import EventCard from 'component/events/EventCard/EventCard';
 import { useEventSettings } from 'hooks/useEventSettings';
 import { Search } from 'component/common/Search/Search';
 import theme from 'themes/theme';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { styled } from '@mui/system';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { EventLogFilters } from './EventLogFilters';
@@ -116,14 +115,13 @@ export const EventLog = ({ title, project, feature }: EventLogProps) => {
     } else {
       return (
         <StyledEventsList>
-          {events.map((entry) => (
-            <ConditionallyRender
-              key={entry.id}
-              condition={eventSettings.showData}
-              show={<EventJson entry={entry} />}
-              elseShow={<EventCard entry={entry} />}
-            />
-          ))}
+          {events.map((entry) =>
+            eventSettings.showData ? (
+              <EventJson key={entry.id} entry={entry} />
+            ) : (
+              <EventCard key={entry.id} entry={entry} />
+            ),
+          )}
         </StyledEventsList>
       );
     }
@@ -149,31 +147,25 @@ export const EventLog = ({ title, project, feature }: EventLogProps) => {
         }
       >
         <EventResultWrapper ref={ref} withFilters={showFilters}>
-          <ConditionallyRender
-            condition={showFilters}
-            show={
-              <StyledFilters
-                logType={project ? 'project' : feature ? 'flag' : 'global'}
-                state={filterState}
-                onChange={setTableState}
-              />
-            }
-          />
+          {showFilters && (
+            <StyledFilters
+              logType={project ? 'project' : feature ? 'flag' : 'global'}
+              state={filterState}
+              onChange={setTableState}
+            />
+          )}
           {resultComponent()}
         </EventResultWrapper>
-        <ConditionallyRender
-          condition={total > 25}
-          show={
-            <StickyPaginationBar
-              totalItems={total}
-              pageSize={pagination.pageSize}
-              pageIndex={pagination.currentPage}
-              fetchPrevPage={pagination.prevPage}
-              fetchNextPage={pagination.nextPage}
-              setPageLimit={pagination.setPageLimit}
-            />
-          }
-        />
+        {total > 25 && (
+          <StickyPaginationBar
+            totalItems={total}
+            pageSize={pagination.pageSize}
+            pageIndex={pagination.currentPage}
+            fetchPrevPage={pagination.prevPage}
+            fetchNextPage={pagination.nextPage}
+            setPageLimit={pagination.setPageLimit}
+          />
+        )}
       </PageContent>
     </>
   );

@@ -2,7 +2,6 @@ import { Box, styled } from '@mui/material';
 import { Badge } from 'component/common/Badge/Badge';
 import ClearIcon from '@mui/icons-material/Clear';
 import CheckIcon from '@mui/icons-material/Check';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 
 const StyledContainer = styled('div')(({ theme }) => ({
@@ -92,10 +91,9 @@ const ToolTipInstructionContent = ({
         <div>{variablesText}</div>
       </ToolTipDescriptionCode>
 
-      <ConditionallyRender
-        condition={Boolean(dependsOnText)}
-        show={<ToolTipDescriptionText>{dependsOnText}</ToolTipDescriptionText>}
-      />
+      {Boolean(dependsOnText) && (
+        <ToolTipDescriptionText>{dependsOnText}</ToolTipDescriptionText>
+      )}
     </StyledDescription>
   );
 };
@@ -146,19 +144,15 @@ export const InstancePrivacySection = ({
       <StyledCardTitleRow>
         <b>{title}</b>
         <StyledDataCollectionBadge>
-          <ConditionallyRender
-            condition={enabled}
-            show={
-              <Badge color='success' icon={<CheckIcon />}>
-                Data is collected
-              </Badge>
-            }
-            elseShow={
-              <Badge color='neutral' icon={<ClearIcon />}>
-                No data is collected
-              </Badge>
-            }
-          />
+          {enabled ? (
+            <Badge color='success' icon={<CheckIcon />}>
+              Data is collected
+            </Badge>
+          ) : (
+            <Badge color='neutral' icon={<ClearIcon />}>
+              No data is collected
+            </Badge>
+          )}
         </StyledDataCollectionBadge>
       </StyledCardTitleRow>
 

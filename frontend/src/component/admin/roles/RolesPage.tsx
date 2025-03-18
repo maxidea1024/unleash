@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ADMIN } from 'component/providers/AccessProvider/permissions';
 import { RolesTable } from './RolesTable/RolesTable';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -92,18 +91,15 @@ export const RolesPage = () => {
               </Tabs>
             </StyledTabsContainer>
             <StyledActions>
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={
-                  <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
-                    <PageHeader.Divider />
-                  </>
-                }
-              />
+              {!isSmallScreen && (
+                <>
+                  <Search
+                    initialValue={searchValue}
+                    onChange={setSearchValue}
+                  />
+                  <PageHeader.Divider />
+                </>
+              )}
               <ResponsiveButton
                 onClick={() => {
                   setSelectedRole(undefined);
@@ -117,12 +113,9 @@ export const RolesPage = () => {
               </ResponsiveButton>
             </StyledActions>
           </StyledHeader>
-          <ConditionallyRender
-            condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
-          />
+          {isSmallScreen && (
+            <Search initialValue={searchValue} onChange={setSearchValue} />
+          )}
         </>
       }
     >

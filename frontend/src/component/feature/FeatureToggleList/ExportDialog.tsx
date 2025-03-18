@@ -6,7 +6,6 @@ import { useExportApi } from 'hooks/api/actions/useExportApi/useExportApi';
 import useToast from 'hooks/useToast';
 import type { FeatureSchema } from 'openapi';
 import { formatUnknownError } from 'utils/formatUnknownError';
-import { ConditionallyRender } from '../../common/ConditionallyRender/ConditionallyRender';
 
 const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   minWidth: '250px',
@@ -87,18 +86,14 @@ export const ExportDialog = ({
       secondaryButtonText='Cancel'
     >
       <Box ref={ref}>
-        <ConditionallyRender
-          condition={data.length > 0}
-          show={
-            <span>
-              The current search filter will be used to export feature flags.
-              Currently {data.length} feature flags will be exported.
-            </span>
-          }
-          elseShow={
-            <span>You will export all feature flags from this project.</span>
-          }
-        />
+        {data.length > 0 ? (
+          <span>
+            The current search filter will be used to export feature flags.
+            Currently {data.length} feature flags will be exported.
+          </span>
+        ) : (
+          <span>You will export all feature flags from this project.</span>
+        )}
 
         <br />
         <br />

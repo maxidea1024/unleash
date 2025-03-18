@@ -1,5 +1,4 @@
 import { Alert, Grid, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { InstanceState, InstancePlan } from 'interfaces/instance';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { trialHasExpired, isTrialInstance } from 'utils/instanceTrial';
@@ -83,59 +82,47 @@ export const BillingPlan = () => {
   return (
     <Grid item xs={12} md={7}>
       <StyledPlanBox>
-        <ConditionallyRender
-          condition={inactive}
-          show={
-            <StyledAlert severity='info'>
-              After you have sent your billing information, your instance will
-              be upgraded - you don't have to do anything.{' '}
-              <a
-                href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}
-              >
-                Get in touch with us
-              </a>{' '}
-              for any clarification
-            </StyledAlert>
-          }
-        />
+        {inactive && (
+          <StyledAlert severity='info'>
+            After you have sent your billing information, your instance will be
+            upgraded - you don't have to do anything.{' '}
+            <a
+              href={`mailto:support@getunleash.io?subject=${plan} plan clarifications`}
+            >
+              Get in touch with us
+            </a>{' '}
+            for any clarification
+          </StyledAlert>
+        )}
         <Badge color='success'>Current plan</Badge>
         <Grid container sx={(theme) => ({ marginBottom: theme.spacing(3) })}>
           <GridRow>
             <GridCol>
               <StyledPlanSpan>{instanceStatus.plan}</StyledPlanSpan>
-              <ConditionallyRender
-                condition={isTrialInstance(instanceStatus)}
-                show={
-                  <StyledTrialSpan
-                    sx={(theme) => ({
-                      color: expired
-                        ? theme.palette.error.dark
-                        : theme.palette.warning.dark,
-                    })}
-                  >
-                    {expired
-                      ? 'Trial expired'
-                      : instanceStatus.trialExtended
-                        ? 'Extended Trial'
-                        : 'Trial'}
-                  </StyledTrialSpan>
-                }
-              />
+              {isTrialInstance(instanceStatus) && (
+                <StyledTrialSpan
+                  sx={(theme) => ({
+                    color: expired
+                      ? theme.palette.error.dark
+                      : theme.palette.warning.dark,
+                  })}
+                >
+                  {expired
+                    ? 'Trial expired'
+                    : instanceStatus.trialExtended
+                      ? 'Extended Trial'
+                      : 'Trial'}
+                </StyledTrialSpan>
+              )}
             </GridCol>
             <GridCol>
-              <ConditionallyRender
-                condition={planPrice > 0}
-                show={
-                  <StyledPriceSpan>${planPrice.toFixed(2)}</StyledPriceSpan>
-                }
-              />
+              {planPrice > 0 && (
+                <StyledPriceSpan>${planPrice.toFixed(2)}</StyledPriceSpan>
+              )}
             </GridCol>
           </GridRow>
           <GridRow>
-            <ConditionallyRender
-              condition={isPAYG}
-              show={<StyledPAYGSpan>Pay-as-You-Go</StyledPAYGSpan>}
-            />
+            {isPAYG && <StyledPAYGSpan>Pay-as-You-Go</StyledPAYGSpan>}
           </GridRow>
         </Grid>
         <BillingDetails instanceStatus={instanceStatus} isPAYG={isPAYG} />

@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 import { TablePlaceholder, VirtualizedTable } from 'component/common/Table';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { PageContent } from 'component/common/PageContent/PageContent';
@@ -164,18 +163,15 @@ export const BannersTable = () => {
           title={`Banners (${rows.length})`}
           actions={
             <>
-              <ConditionallyRender
-                condition={!isSmallScreen}
-                show={
-                  <>
-                    <Search
-                      initialValue={searchValue}
-                      onChange={setSearchValue}
-                    />
-                    <PageHeader.Divider />
-                  </>
-                }
-              />
+              {!isSmallScreen && (
+                <>
+                  <Search
+                    initialValue={searchValue}
+                    onChange={setSearchValue}
+                  />
+                  <PageHeader.Divider />
+                </>
+              )}
               <Button
                 variant='contained'
                 color='primary'
@@ -189,12 +185,9 @@ export const BannersTable = () => {
             </>
           }
         >
-          <ConditionallyRender
-            condition={isSmallScreen}
-            show={
-              <Search initialValue={searchValue} onChange={setSearchValue} />
-            }
-          />
+          {isSmallScreen && (
+            <Search initialValue={searchValue} onChange={setSearchValue} />
+          )}
         </PageHeader>
       }
     >
@@ -205,26 +198,16 @@ export const BannersTable = () => {
           prepareRow={prepareRow}
         />
       </SearchHighlightProvider>
-      <ConditionallyRender
-        condition={rows.length === 0}
-        show={
-          <ConditionallyRender
-            condition={searchValue?.length > 0}
-            show={
-              <TablePlaceholder>
-                No banners found matching &ldquo;
-                {searchValue}
-                &rdquo;
-              </TablePlaceholder>
-            }
-            elseShow={
-              <TablePlaceholder>
-                No banners available. Get started by adding one.
-              </TablePlaceholder>
-            }
-          />
-        }
-      />
+      {rows.length === 0 &&
+        (searchValue?.length > 0 ? (
+          <TablePlaceholder>
+            No banners found matching &ldquo;{searchValue}&rdquo;
+          </TablePlaceholder>
+        ) : (
+          <TablePlaceholder>
+            No banners available. Get started by adding one.
+          </TablePlaceholder>
+        ))}
       <BannerModal
         banner={selectedBanner}
         open={modalOpen}

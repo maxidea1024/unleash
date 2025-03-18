@@ -9,7 +9,6 @@ import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { useChangeRequestApi } from 'hooks/api/actions/useChangeRequestApi/useChangeRequestApi';
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledSelect = styled(GeneralSelect)(({ theme }) => ({
   minWidth: '450px',
@@ -120,24 +119,18 @@ export const BulkEnableDialog = ({
           value={selected}
           onChange={(option: string) => setSelected(option)}
         />
-        <ConditionallyRender
-          condition={isChangeRequestConfigured(selected)}
-          show={
-            <SpacedAlert severity='warning'>
-              Change requests are enabled for this environment.
-            </SpacedAlert>
-          }
-        />
-        <ConditionallyRender
-          condition={alreadyEnabledCount > 0}
-          show={
-            <SpacedAlert severity='info'>
-              {alreadyEnabledCount} feature{' '}
-              {alreadyEnabledCount > 1 ? 'flags are ' : 'flag is '}
-              already enabled.
-            </SpacedAlert>
-          }
-        />
+        {isChangeRequestConfigured(selected) && (
+          <SpacedAlert severity='warning'>
+            Change requests are enabled for this environment.
+          </SpacedAlert>
+        )}
+        {alreadyEnabledCount > 0 && (
+          <SpacedAlert severity='info'>
+            {alreadyEnabledCount} feature{' '}
+            {alreadyEnabledCount > 1 ? 'flags are ' : 'flag is '}
+            already enabled.
+          </SpacedAlert>
+        )}
       </Box>
     </Dialogue>
   );

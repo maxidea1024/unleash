@@ -1,6 +1,5 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { Link, useLocation } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import AccessContext from 'contexts/AccessContext';
 import { useContext } from 'react';
 import { styled } from '@mui/material';
@@ -64,43 +63,25 @@ const BreadcrumbNav = () => {
 
   return (
     <StyledBreadcrumbContainer>
-      <ConditionallyRender
-        condition={
-          (location.pathname.includes('admin') && isAdmin) ||
-          !location.pathname.includes('admin')
-        }
-        show={
-          <ConditionallyRender
-            condition={paths.length > 1}
-            show={
-              <StyledBreadcrumbs aria-label='Breadcrumbs'>
-                {paths.map((path, index) => {
-                  const lastItem = index === paths.length - 1;
-                  if (lastItem) {
-                    return <StyledParagraph key={path}>{path}</StyledParagraph>;
-                  }
-
-                  let link = '/';
-
-                  paths.forEach((path, i) => {
-                    if (i !== index && i < index) {
-                      link += `${path}/`;
-                    } else if (i === index) {
-                      link += path;
-                    }
-                  });
-
-                  return (
-                    <StyledLink key={path} to={link}>
-                      <StyledParagraph>{path}</StyledParagraph>
-                    </StyledLink>
-                  );
-                })}
-              </StyledBreadcrumbs>
-            }
-          />
-        }
-      />
+      {((location.pathname.includes('admin') && isAdmin) ||
+        !location.pathname.includes('admin')) &&
+        paths.length > 1 && (
+          <StyledBreadcrumbs aria-label='Breadcrumbs'>
+            {paths.map((path, index) => {
+              const lastItem = index === paths.length - 1;
+              return lastItem ? (
+                <StyledParagraph key={path}>{path}</StyledParagraph>
+              ) : (
+                <StyledLink
+                  key={path}
+                  to={`/${paths.slice(0, index + 1).join('/')}`}
+                >
+                  <StyledParagraph>{path}</StyledParagraph>
+                </StyledLink>
+              );
+            })}
+          </StyledBreadcrumbs>
+        )}
     </StyledBreadcrumbContainer>
   );
 };

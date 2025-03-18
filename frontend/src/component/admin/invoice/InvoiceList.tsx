@@ -10,7 +10,6 @@ import {
 import OpenInNew from '@mui/icons-material/OpenInNew';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { formatApiPath } from 'utils/formatPath';
 import useInvoices from 'hooks/api/getters/useInvoices/useInvoices';
 import type { IInvoice } from 'interfaces/invoice';
@@ -27,30 +26,25 @@ const InvoiceList = () => {
   useEffect(() => {
     refetchInvoices();
     setLoaded(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <ConditionallyRender
-      condition={invoices.length > 0}
-      show={
-        <PageContent
-          header={
-            <PageHeader
-              title='Invoices'
-              actions={
-                <Button
-                  href={PORTAL_URL}
-                  rel='noreferrer'
-                  target='_blank'
-                  endIcon={<OpenInNew />}
-                >
-                  Billing portal
-                </Button>
-              }
-            />
-          }
-        >
+    <PageContent>
+      {invoices.length > 0 ? (
+        <>
+          <PageHeader
+            title='Invoices'
+            actions={
+              <Button
+                href={PORTAL_URL}
+                rel='noreferrer'
+                target='_blank'
+                endIcon={<OpenInNew />}
+              >
+                Billing portal
+              </Button>
+            }
+          />
           <div>
             <Table>
               <TableHead>
@@ -98,10 +92,12 @@ const InvoiceList = () => {
               </TableBody>
             </Table>
           </div>
-        </PageContent>
-      }
-      elseShow={<PageContent>{isLoaded && 'No invoices to show.'}</PageContent>}
-    />
+        </>
+      ) : (
+        isLoaded && 'No invoices to show.'
+      )}
+    </PageContent>
   );
 };
+
 export default InvoiceList;

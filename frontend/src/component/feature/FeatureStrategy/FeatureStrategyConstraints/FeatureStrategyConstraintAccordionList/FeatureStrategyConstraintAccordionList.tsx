@@ -3,7 +3,6 @@ import { forwardRef, type RefObject } from 'react';
 import { Box, Button, styled, Typography } from '@mui/material';
 import Add from '@mui/icons-material/Add';
 import type { IConstraint } from 'interfaces/strategy';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import {
   type IConstraintAccordionListRef,
@@ -63,67 +62,64 @@ export const FeatureStrategyConstraintAccordionList = forwardRef<
 
   return (
     <StyledContainer id={constraintAccordionListId}>
-      <ConditionallyRender
-        condition={Boolean(showCreateButton && onAdd)}
-        show={
-          <div>
-            <StyledHelpIconBox>
-              <Typography>Constraints</Typography>
-              <HelpIcon
-                htmlTooltip
-                tooltip={
-                  <Box>
-                    <Typography variant='body2'>
-                      Constraints are advanced targeting rules that you can use
-                      to enable a feature flag for a subset of your users. Read
-                      more about constraints{' '}
-                      <a
-                        href='https://docs.getunleash.io/reference/strategy-constraints'
-                        target='_blank'
-                        rel='noopener noreferrer'
-                      >
-                        here
-                      </a>
-                    </Typography>
-                  </Box>
-                }
-              />
-            </StyledHelpIconBox>
-            <NewConstraintAccordionList
-              ref={ref}
-              setConstraints={setConstraints}
-              constraints={constraints}
-              state={state}
+      {Boolean(showCreateButton && onAdd) && (
+        <div>
+          <StyledHelpIconBox>
+            <Typography>Constraints</Typography>
+            <HelpIcon
+              htmlTooltip
+              tooltip={
+                <Box>
+                  <Typography variant='body2'>
+                    Constraints are advanced targeting rules that you can use to
+                    enable a feature flag for a subset of your users. Read more
+                    about constraints{' '}
+                    <a
+                      href='https://docs.getunleash.io/reference/strategy-constraints'
+                      target='_blank'
+                      rel='noopener noreferrer'
+                    >
+                      here
+                    </a>
+                  </Typography>
+                </Box>
+              }
             />
+          </StyledHelpIconBox>
+          <NewConstraintAccordionList
+            ref={ref}
+            setConstraints={setConstraints}
+            constraints={constraints}
+            state={state}
+          />
 
-            <Box
-              sx={(theme) => ({
-                marginTop: theme.spacing(2),
-                marginBottom: theme.spacing(2),
-              })}
-            >
-              <Limit
-                name='constraints in this strategy'
-                shortName='constraints'
-                currentValue={constraints.length}
-                limit={limit}
-              />
-            </Box>
+          <Box
+            sx={(theme) => ({
+              marginTop: theme.spacing(2),
+              marginBottom: theme.spacing(2),
+            })}
+          >
+            <Limit
+              name='constraints in this strategy'
+              shortName='constraints'
+              currentValue={constraints.length}
+              limit={limit}
+            />
+          </Box>
 
-            <Button
-              type='button'
-              onClick={onAdd}
-              startIcon={<Add />}
-              variant='outlined'
-              color='primary'
-              data-testid='ADD_CONSTRAINT_BUTTON'
-              disabled={Boolean(limitReached)}
-            >
-              Add constraint
-            </Button>
-          </div>
-        }
-      />
+          <Button
+            type='button'
+            onClick={onAdd}
+            startIcon={<Add />}
+            variant='outlined'
+            color='primary'
+            data-testid='ADD_CONSTRAINT_BUTTON'
+            disabled={Boolean(limitReached)}
+          >
+            Add constraint
+          </Button>
+        </div>
+      )}
     </StyledContainer>
   );
 });

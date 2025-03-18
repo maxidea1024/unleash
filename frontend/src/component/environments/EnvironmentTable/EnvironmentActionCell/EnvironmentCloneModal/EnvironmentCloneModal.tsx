@@ -30,7 +30,6 @@ import useApiTokensApi, {
   type IApiTokenCreate,
 } from 'hooks/api/actions/useApiTokensApi/useApiTokensApi';
 import type { IApiToken } from 'hooks/api/getters/useApiTokens/useApiTokens';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 
 const StyledForm = styled('form')(() => ({
   display: 'flex',
@@ -327,23 +326,20 @@ export const EnvironmentCloneModal = ({
                   A new Server-side SDK (CLIENT) API token will be generated for
                   the cloned environment, so you can get started right away.
                 </StyledInputSecondaryDescription>
-                <ConditionallyRender
-                  condition={apiTokenGeneration === APITokenGeneration.NOW}
-                  show={
-                    <>
-                      <StyledInputDescription>
-                        Which projects do you want this token to give access to?
-                      </StyledInputDescription>
-                      <SelectProjectInput
-                        options={selectableProjects}
-                        defaultValue={tokenProjects}
-                        onChange={setTokenProjects}
-                        error={errors.projects}
-                        onFocus={() => clearError(ErrorField.PROJECTS)}
-                      />
-                    </>
-                  }
-                />
+                {apiTokenGeneration === APITokenGeneration.NOW && (
+                  <>
+                    <StyledInputDescription>
+                      Which projects do you want this token to give access to?
+                    </StyledInputDescription>
+                    <SelectProjectInput
+                      options={selectableProjects}
+                      defaultValue={tokenProjects}
+                      onChange={setTokenProjects}
+                      error={errors.projects}
+                      onFocus={() => clearError(ErrorField.PROJECTS)}
+                    />
+                  </>
+                )}
               </StyledInlineContainer>
             </StyledSecondaryContainer>
           </div>

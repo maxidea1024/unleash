@@ -6,7 +6,6 @@ import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useApplicationOverview } from 'hooks/api/getters/useApplicationOverview/useApplicationOverview';
 import { useConnectedInstances } from 'hooks/api/getters/useConnectedInstances/useConnectedInstances';
 import type { ApplicationEnvironmentInstancesSchemaInstancesItem } from '../../../openapi';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StringParam, useQueryParam, withDefault } from 'use-query-params';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
 
@@ -92,30 +91,27 @@ export const ConnectedInstances = () => {
           Select which environment to display data for. Only environments that
           have received traffic for this application will be shown here.
         </Box>
-        <ConditionallyRender
-          condition={Boolean(currentEnvironment)}
-          show={
-            <ToggleButtonGroup
-              color='primary'
-              value={currentEnvironment}
-              exclusive
-              onChange={(event, value) => {
-                if (value !== null) {
-                  trackEnvironmentChange();
-                  setCurrentEnvironment(value);
-                }
-              }}
-            >
-              {environments.map((env) => {
-                return (
-                  <ToggleButton key={env} value={env}>
-                    {env}
-                  </ToggleButton>
-                );
-              })}
-            </ToggleButtonGroup>
-          }
-        />
+        {Boolean(currentEnvironment) && (
+          <ToggleButtonGroup
+            color='primary'
+            value={currentEnvironment}
+            exclusive
+            onChange={(event, value) => {
+              if (value !== null) {
+                trackEnvironmentChange();
+                setCurrentEnvironment(value);
+              }
+            }}
+          >
+            {environments.map((env) => {
+              return (
+                <ToggleButton key={env} value={env}>
+                  {env}
+                </ToggleButton>
+              );
+            })}
+          </ToggleButtonGroup>
+        )}
       </Box>
       <ConnectedInstancesTable
         loading={loading}

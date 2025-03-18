@@ -1,6 +1,5 @@
 import { Box, styled } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { TooltipLink } from 'component/common/TooltipLink/TooltipLink';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
@@ -47,9 +46,8 @@ export const FeaturesCell = ({ value, project }: FeaturesCellProps) => {
   const featureNames = value?.map((feature: any) => feature.name);
   return (
     <StyledBox>
-      <ConditionallyRender
-        condition={featureNames?.length < 3}
-        show={featureNames?.map((featureName: string) => (
+      {featureNames?.length < 3 ? (
+        featureNames?.map((featureName: string) => (
           <StyledLink
             key={featureName}
             title={featureName}
@@ -57,30 +55,27 @@ export const FeaturesCell = ({ value, project }: FeaturesCellProps) => {
           >
             <Highlighter search={searchQuery}>{featureName}</Highlighter>
           </StyledLink>
-        ))}
-        elseShow={
-          <TooltipLink
-            tooltipProps={{ maxWidth: '800px' }}
-            tooltip={
-              <StyledTooltipContainer>
-                {featureNames?.map((featureName: string) => (
-                  <StyledTooltipLink
-                    key={featureName}
-                    title={featureName}
-                    to={`/projects/${project}/features/${featureName}`}
-                  >
-                    <Highlighter search={searchQuery}>
-                      {featureName}
-                    </Highlighter>
-                  </StyledTooltipLink>
-                ))}
-              </StyledTooltipContainer>
-            }
-          >
-            {featureNames?.length} toggles
-          </TooltipLink>
-        }
-      />
+        ))
+      ) : (
+        <TooltipLink
+          tooltipProps={{ maxWidth: '800px' }}
+          tooltip={
+            <StyledTooltipContainer>
+              {featureNames?.map((featureName: string) => (
+                <StyledTooltipLink
+                  key={featureName}
+                  title={featureName}
+                  to={`/projects/${project}/features/${featureName}`}
+                >
+                  <Highlighter search={searchQuery}>{featureName}</Highlighter>
+                </StyledTooltipLink>
+              ))}
+            </StyledTooltipContainer>
+          }
+        >
+          {featureNames?.length} toggles
+        </TooltipLink>
+      )}
     </StyledBox>
   );
 };

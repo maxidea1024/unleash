@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ChangeRequestApprover } from './ChangeRequestReviewer';
 import type { IChangeRequestApproval } from '../../changeRequest.types';
 
@@ -12,11 +11,7 @@ export const ChangeRequestApprovals = ({
 }: ChangeRequestApprovalProps) => (
   <>
     <Typography variant='body1' color='text.secondary'>
-      <ConditionallyRender
-        condition={approvals?.length > 0}
-        show={'Approved by'}
-        elseShow={'No approvals yet'}
-      />
+      {approvals?.length > 0 ? 'Approved by' : 'No approvals yet'}
     </Typography>
     {approvals.map((approver) => (
       <ChangeRequestApprover

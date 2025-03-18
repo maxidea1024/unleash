@@ -1,7 +1,6 @@
 import { List, ListItem, styled, Typography } from '@mui/material';
 import { useStrategies } from 'hooks/api/getters/useStrategies/useStrategies';
 import { FeatureStrategyMenuCard } from '../FeatureStrategyMenuCard/FeatureStrategyMenuCard';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useReleasePlanTemplates } from 'hooks/api/getters/useReleasePlanTemplates/useReleasePlanTemplates';
 import { FeatureReleasePlanCard } from '../FeatureReleasePlanCard/FeatureReleasePlanCard';
 
@@ -55,26 +54,23 @@ export const FeatureStrategyMenuCards = ({
           />
         </ListItem>
       </>
-      <ConditionallyRender
-        condition={templates.length > 0}
-        show={
-          <>
-            <StyledTypography color='textSecondary'>
-              Release templates
-            </StyledTypography>
-            {templates.map((template) => (
-              <ListItem key={template.id}>
-                <FeatureReleasePlanCard
-                  projectId={projectId}
-                  featureId={featureId}
-                  environmentId={environmentId}
-                  releasePlanTemplate={template}
-                />
-              </ListItem>
-            ))}
-          </>
-        }
-      />
+      {templates.length > 0 && (
+        <>
+          <StyledTypography color='textSecondary'>
+            Release templates
+          </StyledTypography>
+          {templates.map((template) => (
+            <ListItem key={template.id}>
+              <FeatureReleasePlanCard
+                projectId={projectId}
+                featureId={featureId}
+                environmentId={environmentId}
+                releasePlanTemplate={template}
+              />
+            </ListItem>
+          ))}
+        </>
+      )}
       <StyledTypography color='textSecondary'>
         Predefined strategy types
       </StyledTypography>
@@ -88,26 +84,23 @@ export const FeatureStrategyMenuCards = ({
           />
         </ListItem>
       ))}
-      <ConditionallyRender
-        condition={customStrategies.length > 0}
-        show={
-          <>
-            <StyledTypography color='textSecondary'>
-              Custom strategies
-            </StyledTypography>
-            {customStrategies.map((strategy) => (
-              <ListItem key={strategy.name}>
-                <FeatureStrategyMenuCard
-                  projectId={projectId}
-                  featureId={featureId}
-                  environmentId={environmentId}
-                  strategy={strategy}
-                />
-              </ListItem>
-            ))}
-          </>
-        }
-      />
+      {customStrategies.length > 0 && (
+        <>
+          <StyledTypography color='textSecondary'>
+            Custom strategies
+          </StyledTypography>
+          {customStrategies.map((strategy) => (
+            <ListItem key={strategy.name}>
+              <FeatureStrategyMenuCard
+                projectId={projectId}
+                featureId={featureId}
+                environmentId={environmentId}
+                strategy={strategy}
+              />
+            </ListItem>
+          ))}
+        </>
+      )}
     </List>
   );
 };

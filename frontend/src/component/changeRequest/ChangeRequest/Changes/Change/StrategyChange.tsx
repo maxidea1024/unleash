@@ -16,7 +16,6 @@ import type {
 } from 'component/changeRequest/changeRequest.types';
 import { useCurrentStrategy } from './hooks/useCurrentStrategy';
 import { Badge } from 'component/common/Badge/Badge';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { flexRow } from 'themes/themeStyles';
 import { EnvironmentVariantsTable } from 'component/feature/FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsCard/EnvironmentVariantsTable/EnvironmentVariantsTable';
 import { ChangeOverwriteWarning } from './ChangeOverwriteWarning/ChangeOverwriteWarning';
@@ -122,7 +121,7 @@ const EditHeader = ({
   return <Typography>Editing strategy:</Typography>;
 };
 
-export const StrategyChange: FC<{
+type StrategyChangeProps = {
   actions?: ReactNode;
   change:
     | IChangeRequestAddStrategy
@@ -132,14 +131,16 @@ export const StrategyChange: FC<{
   featureName: string;
   projectId: string;
   changeRequestState: ChangeRequestState;
-}> = ({
+};
+
+export const StrategyChange = ({
   actions,
   change,
   featureName,
   environmentName,
   projectId,
   changeRequestState,
-}) => {
+}: StrategyChangeProps) => {
   const currentStrategy = useCurrentStrategy(
     change,
     projectId,
@@ -186,21 +187,12 @@ export const StrategyChange: FC<{
             <div>{actions}</div>
           </ChangeItemCreateEditDeleteWrapper>
           <StrategyExecution strategy={change.payload} />
-          <ConditionallyRender
-            condition={hasVariantDiff}
-            show={
-              change.payload.variants && (
-                <StyledBox>
-                  <StyledTypography>
-                    Updating feature variants to:
-                  </StyledTypography>
-                  <EnvironmentVariantsTable
-                    variants={change.payload.variants}
-                  />
-                </StyledBox>
-              )
-            }
-          />
+          {hasVariantDiff && change.payload.variants && (
+            <StyledBox>
+              <StyledTypography>Updating feature variants to:</StyledTypography>
+              <EnvironmentVariantsTable variants={change.payload.variants} />
+            </StyledBox>
+          )}
         </>
       )}
       {change.action === 'deleteStrategy' && (
@@ -225,14 +217,11 @@ export const StrategyChange: FC<{
             </ChangeItemInfo>
             <div>{actions}</div>
           </ChangeItemCreateEditDeleteWrapper>
-          <ConditionallyRender
-            condition={Boolean(currentStrategy)}
-            show={
-              <Typography>
-                {<StrategyExecution strategy={currentStrategy!} />}
-              </Typography>
-            }
-          />
+          {Boolean(currentStrategy) && (
+            <Typography>
+              {<StrategyExecution strategy={currentStrategy!} />}
+            </Typography>
+          )}
         </>
       )}
       {change.action === 'updateStrategy' && (
@@ -263,38 +252,30 @@ export const StrategyChange: FC<{
             </ChangeItemInfo>
             <div>{actions}</div>
           </ChangeItemCreateEditDeleteWrapper>
-          <ConditionallyRender
-            condition={change.payload?.disabled !== currentStrategy?.disabled}
-            show={
-              <Typography
-                sx={{
-                  marginTop: (theme) => theme.spacing(2),
-                  marginBottom: (theme) => theme.spacing(2),
-                  ...flexRow,
-                  gap: (theme) => theme.spacing(1),
-                }}
-              >
-                This strategy will be{' '}
-                <DisabledEnabledState
-                  disabled={change.payload?.disabled || false}
-                />
-              </Typography>
-            }
-          />
+          {change.payload?.disabled !== currentStrategy?.disabled && (
+            <Typography
+              sx={{
+                marginTop: (theme) => theme.spacing(2),
+                marginBottom: (theme) => theme.spacing(2),
+                ...flexRow,
+                gap: (theme) => theme.spacing(1),
+              }}
+            >
+              This strategy will be{' '}
+              <DisabledEnabledState
+                disabled={change.payload?.disabled || false}
+              />
+            </Typography>
+          )}
           <StrategyExecution strategy={change.payload} />
-          <ConditionallyRender
-            condition={Boolean(hasVariantDiff)}
-            show={
-              <StyledBox>
-                <StyledTypography>
-                  Updating feature variants to:
-                </StyledTypography>
-                <EnvironmentVariantsTable
-                  variants={change.payload.variants || []}
-                />
-              </StyledBox>
-            }
-          />
+          {hasVariantDiff && (
+            <StyledBox>
+              <StyledTypography>Updating feature variants to:</StyledTypography>
+              <EnvironmentVariantsTable
+                variants={change.payload.variants || []}
+              />
+            </StyledBox>
+          )}
         </>
       )}
     </>

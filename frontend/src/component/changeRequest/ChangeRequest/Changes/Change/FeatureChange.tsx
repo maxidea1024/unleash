@@ -5,7 +5,6 @@ import type {
   IChangeRequestFeature,
 } from '../../../changeRequest.types';
 import { objectId } from 'utils/objectId';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Alert, Box, styled } from '@mui/material';
 import { ToggleStatusChange } from './ToggleStatusChange';
 import { StrategyChange } from './StrategyChange';
@@ -105,47 +104,41 @@ export const FeatureChange = ({
       )}
       $isLast={index + 1 === lastIndex}
     >
-      <ConditionallyRender
-        condition={Boolean(change.conflict) && !feature.conflict}
-        show={
-          <StyledAlert severity='warning'>
-            <strong>Conflict!</strong> This change can’t be applied.{' '}
-            {change.conflict}.
-          </StyledAlert>
-        }
-      />
+      {Boolean(change.conflict) && !feature.conflict && (
+        <StyledAlert severity='warning'>
+          <strong>Conflict!</strong> This change can’t be applied.{' '}
+          {change.conflict}.
+        </StyledAlert>
+      )}
 
-      <ConditionallyRender
-        condition={Boolean(change.scheduleConflicts)}
-        show={
-          <StyledAlert severity='warning'>
-            <strong>Potential conflict!</strong> This change would create
-            conflicts with the following scheduled change request(s):{' '}
-            <InlineList>
-              {(
-                change.scheduleConflicts ?? {
-                  changeRequests: [],
-                }
-              ).changeRequests.map(({ id, title }) => {
-                const text = title ? `#${id} (${title})` : `#${id}`;
-                return (
-                  <li key={id}>
-                    <Link
-                      to={`/projects/${changeRequest.project}/change-requests/${id}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      title={`Change request ${id}`}
-                    >
-                      {text}
-                    </Link>
-                  </li>
-                );
-              })}
-              .
-            </InlineList>
-          </StyledAlert>
-        }
-      />
+      {Boolean(change.scheduleConflicts) && (
+        <StyledAlert severity='warning'>
+          <strong>Potential conflict!</strong> This change would create
+          conflicts with the following scheduled change request(s):{' '}
+          <InlineList>
+            {(
+              change.scheduleConflicts ?? {
+                changeRequests: [],
+              }
+            ).changeRequests.map(({ id, title }) => {
+              const text = title ? `#${id} (${title})` : `#${id}`;
+              return (
+                <li key={id}>
+                  <Link
+                    to={`/projects/${changeRequest.project}/change-requests/${id}`}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    title={`Change request ${id}`}
+                  >
+                    {text}
+                  </Link>
+                </li>
+              );
+            })}
+            .
+          </InlineList>
+        </StyledAlert>
+      )}
 
       <ChangeInnerBox>
         {(change.action === 'addDependency' ||
@@ -167,9 +160,9 @@ export const FeatureChange = ({
           <ArchiveFeatureChange actions={actions} />
         )}
 
-        {change.action === 'addStrategy' ||
-        change.action === 'deleteStrategy' ||
-        change.action === 'updateStrategy' ? (
+        {(change.action === 'addStrategy' ||
+          change.action === 'deleteStrategy' ||
+          change.action === 'updateStrategy') && (
           <StrategyChange
             actions={actions}
             change={change}
@@ -178,7 +171,7 @@ export const FeatureChange = ({
             projectId={changeRequest.project}
             changeRequestState={changeRequest.state}
           />
-        ) : null}
+        )}
         {change.action === 'patchVariant' && (
           <VariantPatch
             feature={feature.name}

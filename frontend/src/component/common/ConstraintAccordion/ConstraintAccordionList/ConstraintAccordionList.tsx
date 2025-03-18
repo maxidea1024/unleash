@@ -14,16 +14,15 @@ import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashCon
 import { type IUseWeakMap, useWeakMap } from 'hooks/useWeakMap';
 import { objectId } from 'utils/objectId';
 import { createEmptyConstraint } from 'component/common/ConstraintAccordion/ConstraintAccordionList/createEmptyConstraint';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 
-export interface IConstraintAccordionListProps {
+type ConstraintAccordionListProps = {
   constraints: IConstraint[];
   setConstraints?: React.Dispatch<React.SetStateAction<IConstraint[]>>;
   showCreateButton?: boolean;
   /* Add "constraints" title on the top - default `true` */
   showLabel?: boolean;
-}
+};
 
 // Ref methods exposed by this component.
 export interface IConstraintAccordionListRef {
@@ -106,7 +105,7 @@ export const useConstraintAccordionList = (
 
 export const ConstraintAccordionList = forwardRef<
   IConstraintAccordionListRef | undefined,
-  IConstraintAccordionListProps
+  ConstraintAccordionListProps
 >(
   (
     { constraints, setConstraints, showCreateButton, showLabel = true },
@@ -123,46 +122,42 @@ export const ConstraintAccordionList = forwardRef<
 
     return (
       <StyledContainer id={constraintAccordionListId}>
-        <ConditionallyRender
-          condition={constraints && constraints.length > 0 && showLabel}
-          show={<StyledConstraintLabel>Constraints</StyledConstraintLabel>}
-        />
+        {constraints && constraints.length > 0 && showLabel && (
+          <StyledConstraintLabel>Constraints</StyledConstraintLabel>
+        )}
         <ConstraintList
           ref={ref}
           setConstraints={setConstraints}
           constraints={constraints}
           state={state}
         />
-        <ConditionallyRender
-          condition={Boolean(showCreateButton && onAdd)}
-          show={
-            <div>
-              <StyledAddCustomLabel>
-                <p>Add any number of constraints</p>
-                <StyledHelpWrapper title='View constraints documentation' arrow>
-                  <a
-                    href={
-                      'https://docs.getunleash.io/reference/strategy-constraints'
-                    }
-                    target='_blank'
-                    rel='noopener noreferrer'
-                  >
-                    <StyledHelp />
-                  </a>
-                </StyledHelpWrapper>
-              </StyledAddCustomLabel>
-              <Button
-                type='button'
-                onClick={onAdd}
-                variant='outlined'
-                color='primary'
-                data-testid='ADD_CONSTRAINT_BUTTON'
-              >
-                Add constraint
-              </Button>
-            </div>
-          }
-        />
+        {showCreateButton && onAdd && (
+          <div>
+            <StyledAddCustomLabel>
+              <p>Add any number of constraints</p>
+              <StyledHelpWrapper title='View constraints documentation' arrow>
+                <a
+                  href={
+                    'https://docs.getunleash.io/reference/strategy-constraints'
+                  }
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
+                  <StyledHelp />
+                </a>
+              </StyledHelpWrapper>
+            </StyledAddCustomLabel>
+            <Button
+              type='button'
+              onClick={onAdd}
+              variant='outlined'
+              color='primary'
+              data-testid='ADD_CONSTRAINT_BUTTON'
+            >
+              Add constraint
+            </Button>
+          </div>
+        )}
       </StyledContainer>
     );
   },
@@ -226,10 +221,7 @@ export const ConstraintList = forwardRef<
     >
       {constraints.map((constraint, index) => (
         <Fragment key={objectId(constraint)}>
-          <ConditionallyRender
-            condition={index > 0}
-            show={<StrategySeparator text='AND' />}
-          />
+          {index > 0 && <StrategySeparator text='AND' />}
           <ConstraintAccordion
             constraint={constraint}
             onEdit={onEdit?.bind(null, constraint)}

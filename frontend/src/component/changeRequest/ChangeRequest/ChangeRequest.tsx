@@ -3,7 +3,6 @@ import type { ChangeRequestType } from '../changeRequest.types';
 import { FeatureToggleChanges } from './Changes/FeatureToggleChanges';
 import { FeatureChange } from './Changes/Change/FeatureChange';
 import { ChangeActions } from './Changes/Change/ChangeActions';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { SegmentChange } from './Changes/Change/SegmentChange';
 
 type ChangeRequestProps = {
@@ -19,14 +18,11 @@ export const ChangeRequest = ({
 }: ChangeRequestProps) => {
   return (
     <Box>
-      <ConditionallyRender
-        condition={changeRequest.segments.length > 0}
-        show={
-          <Typography variant='body2' color='text.secondary'>
-            You request changes for these segments:
-          </Typography>
-        }
-      />
+      {changeRequest.segments.length > 0 && (
+        <Typography variant='body2' color='text.secondary'>
+          You request changes for these segments:
+        </Typography>
+      )}
 
       {changeRequest.segments?.map((segmentChange) => (
         <SegmentChange
@@ -44,14 +40,11 @@ export const ChangeRequest = ({
           }
         />
       ))}
-      <ConditionallyRender
-        condition={changeRequest.features.length > 0}
-        show={
-          <Typography variant='body2' color='text.secondary'>
-            You request changes for these feature flags:
-          </Typography>
-        }
-      />
+      {changeRequest.features.length > 0 && (
+        <Typography variant='body2' color='text.secondary'>
+          You request changes for these feature flags:
+        </Typography>
+      )}
       {changeRequest.features?.map((feature) => (
         <FeatureToggleChanges
           key={feature.name}

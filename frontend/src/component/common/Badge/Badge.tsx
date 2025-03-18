@@ -8,7 +8,6 @@ import {
   type ReactElement,
   type ReactNode,
 } from 'react';
-import { ConditionallyRender } from '../ConditionallyRender/ConditionallyRender';
 
 type Color =
   | 'info'
@@ -72,17 +71,9 @@ const StyledBadgeIcon = styled('span')<
 
 const BadgeIcon = (color: Color, icon?: ReactElement) => (
   <StyledBadgeIcon color={color}>
-    <ConditionallyRender
-      condition={Boolean(icon?.props.sx)}
-      show={icon}
-      elseShow={
-        icon
-          ? cloneElement(icon, {
-              sx: { fontSize: '16px' },
-            })
-          : null
-      }
-    />
+    {icon?.props.sx
+      ? icon
+      : icon && cloneElement(icon, { sx: { fontSize: '16px' } })}
   </StyledBadgeIcon>
 );
 
@@ -110,20 +101,11 @@ export const Badge: FC<BadgeProps> = forwardRef(
       {...props}
       ref={ref}
     >
-      <ConditionallyRender
-        condition={Boolean(icon) && !iconRight}
-        show={BadgeIcon(color, icon)}
-      />
-      <ConditionallyRender
-        condition={
-          children !== null && children !== undefined && children !== ''
-        }
-        show={<span>{children}</span>}
-      />
-      <ConditionallyRender
-        condition={Boolean(icon) && Boolean(iconRight)}
-        show={BadgeIcon(color, icon)}
-      />
+      {icon && !iconRight && BadgeIcon(color, icon)}
+      {children !== null && children !== undefined && children !== '' && (
+        <span>{children}</span>
+      )}
+      {icon && iconRight && BadgeIcon(color, icon)}
     </StyledBadge>
   ),
 );

@@ -2,7 +2,6 @@ import { Alert, Link } from '@mui/material';
 import type React from 'react';
 import type { ReactNode } from 'react';
 // import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { CancelButton, StyledBox, StyledForm } from './ApiTokenForm.styles';
 import { useUiFlag } from 'hooks/useUiFlag';
 
@@ -26,18 +25,15 @@ const ApiTokenForm = ({
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <ConditionallyRender
-        condition={isUnleashCloud}
-        show={
-          <Alert severity='info' sx={{ mb: 4 }}>
-            Please be aware of our{' '}
-            <Link href='https://www.getunleash.io/fair-use-policy'>
-              fair use policy
-            </Link>
-            .
-          </Alert>
-        }
-      />
+      {isUnleashCloud && (
+        <Alert severity='info' sx={{ mb: 4 }}>
+          Please be aware of our{' '}
+          <Link href='https://www.getunleash.io/fair-use-policy'>
+            fair use policy
+          </Link>
+          .
+        </Alert>
+      )}
       {children}
       <StyledBox>
         {actions}
