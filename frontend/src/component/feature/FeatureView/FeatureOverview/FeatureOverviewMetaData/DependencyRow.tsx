@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { AddDependencyDialogue } from 'component/feature/Dependencies/AddDependencyDialogue';
 import type { IFeatureToggle } from 'interfaces/featureToggle';
 import { useState } from 'react';
@@ -112,98 +111,74 @@ export const DependencyRow = ({ feature }: DependencyRowProps) => {
 
   return (
     <>
-      <ConditionallyRender
-        condition={canAddParentDependency}
-        show={
-          <StyledMetaDataItem>
-            <StyledMetaDataItemLabel>Dependency:</StyledMetaDataItemLabel>
-            <StyledPermissionButton
-              size='small'
-              permission={UPDATE_FEATURE_DEPENDENCY}
-              projectId={feature.project}
-              variant='text'
-              onClick={() => {
-                setShowDependencyDialogue(true);
-              }}
+      {canAddParentDependency && (
+        <StyledMetaDataItem>
+          <StyledMetaDataItemLabel>Dependency:</StyledMetaDataItemLabel>
+          <StyledPermissionButton
+            size='small'
+            permission={UPDATE_FEATURE_DEPENDENCY}
+            projectId={feature.project}
+            variant='text'
+            onClick={() => {
+              setShowDependencyDialogue(true);
+            }}
+          >
+            Add parent feature
+          </StyledPermissionButton>
+        </StyledMetaDataItem>
+      )}
+      {hasParentDependency && (
+        <StyledMetaDataItem>
+          <StyledMetaDataItemLabel>Dependency:</StyledMetaDataItemLabel>
+          <StyledMetaDataItemValue>
+            <StyledLink
+              to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
             >
-              Add parent feature
-            </StyledPermissionButton>
-          </StyledMetaDataItem>
-        }
-      />
-      <ConditionallyRender
-        condition={hasParentDependency}
-        show={
-          <StyledMetaDataItem>
-            <StyledMetaDataItemLabel>Dependency:</StyledMetaDataItemLabel>
-            <StyledMetaDataItemValue>
-              <StyledLink
-                to={`/projects/${feature.project}/features/${feature.dependencies[0]?.feature}`}
-              >
-                {feature.dependencies[0]?.feature}
-              </StyledLink>
-              <ConditionallyRender
-                condition={checkAccess(UPDATE_FEATURE_DEPENDENCY, environment)}
-                show={
-                  <DependencyActions
-                    feature={feature.name}
-                    onEdit={() => setShowDependencyDialogue(true)}
-                    onDelete={deleteDependency}
-                  />
-                }
+              {feature.dependencies[0]?.feature}
+            </StyledLink>
+            {checkAccess(UPDATE_FEATURE_DEPENDENCY, environment) && (
+              <DependencyActions
+                feature={feature.name}
+                onEdit={() => setShowDependencyDialogue(true)}
+                onDelete={deleteDependency}
               />
-            </StyledMetaDataItemValue>
-          </StyledMetaDataItem>
-        }
-      />
-      <ConditionallyRender
-        condition={hasParentDependency && !feature.dependencies[0]?.enabled}
-        show={
-          <StyledMetaDataItem>
-            <StyledMetaDataItemLabel>Dependency value:</StyledMetaDataItemLabel>
-            <span>disabled</span>
-          </StyledMetaDataItem>
-        }
-      />
-      <ConditionallyRender
-        condition={
-          hasParentDependency &&
-          Boolean(feature.dependencies[0]?.variants?.length)
-        }
-        show={
+            )}
+          </StyledMetaDataItemValue>
+        </StyledMetaDataItem>
+      )}
+      {hasParentDependency && !feature.dependencies[0]?.enabled && (
+        <StyledMetaDataItem>
+          <StyledMetaDataItemLabel>Dependency value:</StyledMetaDataItemLabel>
+          <span>disabled</span>
+        </StyledMetaDataItem>
+      )}
+      {hasParentDependency &&
+        Boolean(feature.dependencies[0]?.variants?.length) && (
           <StyledMetaDataItem>
             <StyledMetaDataItemLabel>Dependency value:</StyledMetaDataItemLabel>
             <VariantsTooltip
               variants={feature.dependencies[0]?.variants || []}
             />
           </StyledMetaDataItem>
-        }
-      />
-      <ConditionallyRender
-        condition={hasChildren}
-        show={
-          <StyledMetaDataItem>
-            <StyledMetaDataItemLabel>Children:</StyledMetaDataItemLabel>
-            <ChildrenTooltip
-              childFeatures={feature.children}
-              project={feature.project}
-            />
-          </StyledMetaDataItem>
-        }
-      />
-
-      <ConditionallyRender
-        condition={Boolean(feature.project)}
-        show={
-          <AddDependencyDialogue
+        )}
+      {hasChildren && (
+        <StyledMetaDataItem>
+          <StyledMetaDataItemLabel>Children:</StyledMetaDataItemLabel>
+          <ChildrenTooltip
+            childFeatures={feature.children}
             project={feature.project}
-            featureId={feature.name}
-            parentDependency={feature.dependencies[0]}
-            onClose={() => setShowDependencyDialogue(false)}
-            showDependencyDialogue={showDependencyDialogue}
           />
-        }
-      />
+        </StyledMetaDataItem>
+      )}
+      {Boolean(feature.project) && (
+        <AddDependencyDialogue
+          project={feature.project}
+          featureId={feature.name}
+          parentDependency={feature.dependencies[0]}
+          onClose={() => setShowDependencyDialogue(false)}
+          showDependencyDialogue={showDependencyDialogue}
+        />
+      )}
     </>
   );
 };

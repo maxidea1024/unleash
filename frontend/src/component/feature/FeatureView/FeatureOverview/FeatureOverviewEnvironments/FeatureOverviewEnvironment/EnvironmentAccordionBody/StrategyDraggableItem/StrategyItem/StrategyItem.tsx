@@ -8,7 +8,6 @@ import { UPDATE_FEATURE_STRATEGY } from 'component/providers/AccessProvider/perm
 import { formatEditStrategyPath } from 'component/feature/FeatureStrategy/FeatureStrategyEdit/FeatureStrategyEdit';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { StrategyExecution } from './StrategyExecution/StrategyExecution';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { CopyStrategyIconMenu } from './CopyStrategyIconMenu/CopyStrategyIconMenu';
 import { StrategyItemContainer } from 'component/common/StrategyItemContainer/StrategyItemContainer';
 import MenuStrategyRemove from './MenuStrategyRemove/MenuStrategyRemove';
@@ -53,18 +52,13 @@ export const StrategyItem = ({
       actions={
         <>
           {headerChildren}
-          <ConditionallyRender
-            condition={Boolean(
-              otherEnvironments && otherEnvironments?.length > 0,
-            )}
-            show={() => (
-              <CopyStrategyIconMenu
-                environmentId={environmentId}
-                environments={otherEnvironments as string[]}
-                strategy={strategy}
-              />
-            )}
-          />
+          {otherEnvironments && otherEnvironments.length > 0 && (
+            <CopyStrategyIconMenu
+              environmentId={environmentId}
+              environments={otherEnvironments as string[]}
+              strategy={strategy}
+            />
+          )}
           <PermissionIconButton
             permission={UPDATE_FEATURE_STRATEGY}
             environmentId={environmentId}

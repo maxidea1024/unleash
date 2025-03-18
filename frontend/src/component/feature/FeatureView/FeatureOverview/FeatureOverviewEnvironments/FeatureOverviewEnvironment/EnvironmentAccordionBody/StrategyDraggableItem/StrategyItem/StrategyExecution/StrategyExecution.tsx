@@ -1,6 +1,5 @@
 import { Fragment, useMemo } from 'react';
 import { Alert, Box, Chip, Link, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PercentageCircle from 'component/common/PercentageCircle/PercentageCircle';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
 import { ConstraintItem } from './ConstraintItem/ConstraintItem';
@@ -232,24 +231,16 @@ export const StrategyExecution = ({ strategy }: StrategyExecutionProps) => {
           return typeof parameters[name] !== 'undefined' ? (
             <StyledValueContainer>
               {nameItem}
-              <ConditionallyRender
-                condition={value === ''}
-                show={
-                  <StyledValueSeparator>
-                    {' is an empty string'}
-                  </StyledValueSeparator>
-                }
-                elseShow={
-                  <>
-                    {isSetTo}
-                    <StringTruncator
-                      maxWidth='300'
-                      text={value}
-                      maxLength={50}
-                    />
-                  </>
-                }
-              />
+              {value === '' ? (
+                <StyledValueSeparator>
+                  {' is an empty string'}
+                </StyledValueSeparator>
+              ) : (
+                <>
+                  {isSetTo}
+                  <StringTruncator maxWidth='300' text={value} maxLength={50} />
+                </>
+              )}
             </StyledValueContainer>
           ) : null;
         }
@@ -304,28 +295,22 @@ export const StrategyExecution = ({ strategy }: StrategyExecutionProps) => {
 
   return (
     <>
-      <ConditionallyRender
-        condition={!BuiltInStrategies.includes(strategy.name || 'default')}
-        show={<CustomStrategyDeprecationWarning />}
-      />
+      {!BuiltInStrategies.includes(strategy.name || 'default') && (
+        <CustomStrategyDeprecationWarning />
+      )}
 
-      <ConditionallyRender
-        condition={listItems.length > 0}
-        show={
-          <StyledContainer disabled={Boolean(strategy.disabled)}>
-            {listItems.map((item, index) => (
-              <Fragment key={index}>
-                <ConditionallyRender
-                  condition={index > 0}
-                  show={<StrategySeparator text='AND' />}
-                />
-                {item}
-              </Fragment>
-            ))}
-          </StyledContainer>
-        }
-        elseShow={<NoItems />}
-      />
+      {listItems.length > 0 ? (
+        <StyledContainer disabled={Boolean(strategy.disabled)}>
+          {listItems.map((item, index) => (
+            <Fragment key={index}>
+              {index > 0 && <StrategySeparator text='AND' />}
+              {item}
+            </Fragment>
+          ))}
+        </StyledContainer>
+      ) : (
+        <NoItems />
+      )}
     </>
   );
 };

@@ -10,7 +10,6 @@ import { useFeature } from 'hooks/api/getters/useFeature/useFeature';
 import useFeatureMetrics from 'hooks/api/getters/useFeatureMetrics/useFeatureMetrics';
 import type { IFeatureEnvironment } from 'interfaces/featureToggle';
 import { getFeatureMetrics } from 'utils/getFeatureMetrics';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import EnvironmentIcon from 'component/common/EnvironmentIcon/EnvironmentIcon';
 import StringTruncator from 'component/common/StringTruncator/StringTruncator';
 import EnvironmentAccordionBody from './EnvironmentAccordionBody/EnvironmentAccordionBody';
@@ -133,93 +132,84 @@ const FeatureOverviewEnvironment = ({
   );
 
   return (
-    <ConditionallyRender
-      condition={!new Set(globalStore.hiddenEnvironments).has(env.name)}
-      show={
-        <StyledFeatureOverviewEnvironment enabled={env.enabled}>
-          <StyledAccordion
-            TransitionProps={{ mountOnEnter: true }}
-            data-testid={`${FEATURE_ENVIRONMENT_ACCORDION}_${env.name}`}
-            className={`environment-accordion ${env.enabled ? '' : 'accordion-disabled'}`}
+    !new Set(globalStore.hiddenEnvironments).has(env.name) && (
+      <StyledFeatureOverviewEnvironment enabled={env.enabled}>
+        <StyledAccordion
+          TransitionProps={{ mountOnEnter: true }}
+          data-testid={`${FEATURE_ENVIRONMENT_ACCORDION}_${env.name}`}
+          className={`environment-accordion ${env.enabled ? '' : 'accordion-disabled'}`}
+        >
+          <StyledAccordionSummary
+            expandIcon={<ExpandMore titleAccess='Toggle' />}
           >
-            <StyledAccordionSummary
-              expandIcon={<ExpandMore titleAccess='Toggle' />}
-            >
-              <StyledHeader data-loading enabled={env.enabled}>
-                <StyledHeaderTitle>
-                  <StyledEnvironmentIcon enabled={env.enabled} />
-                  <div>
-                    <StyledStringTruncator
-                      text={env.name}
-                      maxWidth='100'
-                      maxLength={15}
-                    />
-                  </div>
-                  <ConditionallyRender
-                    condition={!env.enabled}
-                    show={
-                      <Badge color='neutral' sx={{ ml: 1 }}>
-                        Disabled
-                      </Badge>
-                    }
+            <StyledHeader data-loading enabled={env.enabled}>
+              <StyledHeaderTitle>
+                <StyledEnvironmentIcon enabled={env.enabled} />
+                <div>
+                  <StyledStringTruncator
+                    text={env.name}
+                    maxWidth='100'
+                    maxLength={15}
                   />
-                </StyledHeaderTitle>
-                <StyledButtonContainer>
+                </div>
+                {!env.enabled && (
+                  <Badge color='neutral' sx={{ ml: 1 }}>
+                    Disabled
+                  </Badge>
+                )}
+              </StyledHeaderTitle>
+              <StyledButtonContainer>
+                <FeatureStrategyMenu
+                  label='Add strategy'
+                  projectId={projectId}
+                  featureId={featureId}
+                  environmentId={env.name}
+                  variant='outlined'
+                  size='small'
+                />
+                <FeatureStrategyIcons
+                  strategies={featureEnvironment?.strategies}
+                />
+              </StyledButtonContainer>
+            </StyledHeader>
+
+            <FeatureOverviewEnvironmentMetrics
+              environmentMetric={environmentMetric}
+              disabled={!env.enabled}
+            />
+          </StyledAccordionSummary>
+
+          <StyledAccordionDetails enabled={env.enabled}>
+            <StyledEnvironmentAccordionBody
+              featureEnvironment={featureEnvironment}
+              isDisabled={!env.enabled}
+              otherEnvironments={feature?.environments
+                .map(({ name }) => name)
+                .filter((name) => name !== env.name)}
+            />
+            {(featureEnvironment?.strategies?.length || 0) > 0 && (
+              <>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    py: 1,
+                  }}
+                >
                   <FeatureStrategyMenu
                     label='Add strategy'
                     projectId={projectId}
                     featureId={featureId}
                     environmentId={env.name}
-                    variant='outlined'
-                    size='small'
                   />
-                  <FeatureStrategyIcons
-                    strategies={featureEnvironment?.strategies}
-                  />
-                </StyledButtonContainer>
-              </StyledHeader>
-
-              <FeatureOverviewEnvironmentMetrics
-                environmentMetric={environmentMetric}
-                disabled={!env.enabled}
-              />
-            </StyledAccordionSummary>
-
-            <StyledAccordionDetails enabled={env.enabled}>
-              <StyledEnvironmentAccordionBody
-                featureEnvironment={featureEnvironment}
-                isDisabled={!env.enabled}
-                otherEnvironments={feature?.environments
-                  .map(({ name }) => name)
-                  .filter((name) => name !== env.name)}
-              />
-              <ConditionallyRender
-                condition={(featureEnvironment?.strategies?.length || 0) > 0}
-                show={
-                  <>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        py: 1,
-                      }}
-                    >
-                      <FeatureStrategyMenu
-                        label='Add strategy'
-                        projectId={projectId}
-                        featureId={featureId}
-                        environmentId={env.name}
-                      />
-                    </Box>
-                    <EnvironmentFooter environmentMetric={environmentMetric} />
-                  </>
-                }
-              />
-            </StyledAccordionDetails>
-          </StyledAccordion>
-        </StyledFeatureOverviewEnvironment>
-      }
-    />
+                </Box>
+                <EnvironmentFooter environmentMetric={environmentMetric} />
+              </>
+            )}
+          </StyledAccordionDetails>
+        </StyledAccordion>
+      </StyledFeatureOverviewEnvironment>
+    )
   );
 };
 
