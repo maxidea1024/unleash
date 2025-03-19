@@ -12,7 +12,6 @@ import {
   TablePlaceholder,
 } from 'component/common/Table';
 import { PageContent } from 'component/common/PageContent/PageContent';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Badge } from 'component/common/Badge/Badge';
 import { useConditionallyHiddenColumns } from 'hooks/useConditionallyHiddenColumns';
@@ -213,7 +212,6 @@ export const ProjectDoraMetrics = () => {
                 <TableRow hover key={key} {...rowProps}>
                   {row.cells.map((cell) => {
                     const { key, ...cellProps } = cell.getCellProps();
-
                     return (
                       <TableCell key={key} {...cellProps}>
                         {cell.render('Cell')}
@@ -225,21 +223,13 @@ export const ProjectDoraMetrics = () => {
             })}
           </TableBody>
         </Table>
-        <ConditionallyRender
-          condition={rows.length === 0}
-          show={
-            <ConditionallyRender
-              condition={globalFilter?.length > 0}
-              show={
-                <TablePlaceholder>
-                  No features with data found &ldquo;
-                  {globalFilter}
-                  &rdquo;
-                </TablePlaceholder>
-              }
-            />
-          }
-        />
+        {rows.length === 0 && globalFilter?.length > 0 && (
+          <TablePlaceholder>
+            No features with data found &ldquo;
+            {globalFilter}
+            &rdquo;
+          </TablePlaceholder>
+        )}
       </PageContent>
     </>
   );

@@ -5,9 +5,8 @@ import type {
   PlaygroundRequestSchema,
   PlaygroundFeatureSchema,
 } from 'openapi';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { FeatureStrategyItem } from './StrategyItem/FeatureStrategyItem';
 import { StrategySeparator } from 'component/common/StrategySeparator/StrategySeparator';
+import { FeatureStrategyItem } from './StrategyItem/FeatureStrategyItem';
 
 const StyledAlertWrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -45,40 +44,30 @@ export const PlaygroundResultStrategyLists = ({
   input,
   titlePrefix,
   infoText,
-}: PlaygroundResultStrategyListProps) => (
-  <ConditionallyRender
-    condition={strategies.length > 0}
-    show={
-      <>
-        <StyledSubtitle
-          variant={'subtitle1'}
-        >{`${titlePrefix ? titlePrefix.concat(' strategies') : 'Strategies'} (${strategies?.length})`}</StyledSubtitle>
-        <ConditionallyRender
-          condition={Boolean(infoText)}
-          show={
-            <StyledSubtitle variant={'subtitle2'}>{infoText}</StyledSubtitle>
-          }
-        />
-        <Box sx={{ width: '100%' }}>
-          {strategies?.map((strategy, index) => (
-            <Fragment key={strategy.id}>
-              <ConditionallyRender
-                condition={index > 0}
-                show={<StrategySeparator text='OR' />}
-              />
-              <FeatureStrategyItem
-                key={strategy.id}
-                strategy={strategy}
-                index={index}
-                input={input}
-              />
-            </Fragment>
-          ))}
-        </Box>
-      </>
-    }
-  />
-);
+}: PlaygroundResultStrategyListProps) =>
+  strategies.length > 0 && (
+    <>
+      <StyledSubtitle
+        variant={'subtitle1'}
+      >{`${titlePrefix ? titlePrefix.concat(' strategies') : 'Strategies'} (${strategies?.length})`}</StyledSubtitle>
+      {Boolean(infoText) && (
+        <StyledSubtitle variant={'subtitle2'}>{infoText}</StyledSubtitle>
+      )}
+      <Box sx={{ width: '100%' }}>
+        {strategies?.map((strategy, index) => (
+          <Fragment key={strategy.id}>
+            {index > 0 && <StrategySeparator text='OR' />}
+            <FeatureStrategyItem
+              key={strategy.id}
+              strategy={strategy}
+              index={index}
+              input={input}
+            />
+          </Fragment>
+        ))}
+      </Box>
+    </>
+  );
 
 type WrappedPlaygroundResultStrategyListProps = {
   feature: PlaygroundFeatureSchema;
@@ -128,21 +117,18 @@ export const WrappedPlaygroundResultStrategyList = ({
           titlePrefix={showDisabledStrategies ? 'Enabled' : ''}
         />
       </StyledListWrapper>
-      <ConditionallyRender
-        condition={showDisabledStrategies}
-        show={
-          <StyledListWrapper sx={{ p: 2.5 }}>
-            <PlaygroundResultStrategyLists
-              strategies={disabledStrategies}
-              input={input}
-              titlePrefix={'Disabled'}
-              infoText={
-                'Disabled strategies are not evaluated for the overall result.'
-              }
-            />
-          </StyledListWrapper>
-        }
-      />
+      {showDisabledStrategies && (
+        <StyledListWrapper sx={{ p: 2.5 }}>
+          <PlaygroundResultStrategyLists
+            strategies={disabledStrategies}
+            input={input}
+            titlePrefix={'Disabled'}
+            infoText={
+              'Disabled strategies are not evaluated for the overall result.'
+            }
+          />
+        </StyledListWrapper>
+      )}
     </StyledAlertWrapper>
   );
 };

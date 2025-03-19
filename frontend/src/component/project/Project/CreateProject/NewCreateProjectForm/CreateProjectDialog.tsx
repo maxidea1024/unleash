@@ -18,7 +18,6 @@ import { useNavigate } from 'react-router-dom';
 import { Dialog, styled } from '@mui/material';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { Limit } from 'component/common/Limit/Limit';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DialogFormTemplate } from 'component/common/DialogFormTemplate/DialogFormTemplate';
 import { MultiSelectConfigButton } from 'component/common/DialogFormTemplate/ConfigButtons/MultiSelectConfigButton';
 import { SingleSelectConfigButton } from 'component/common/DialogFormTemplate/ConfigButtons/SingleSelectConfigButton';
@@ -28,11 +27,6 @@ import { ChangeRequestTableConfigButton } from './ConfigButtons/ChangeRequestTab
 import { StyledDefinitionList } from './CreateProjectDialog.styles';
 import { ProjectIcon } from 'component/common/ProjectIcon/ProjectIcon';
 import { useUiFlag } from '../../../../../hooks/useUiFlag';
-
-type CreateProjectDialogProps = {
-  open: boolean;
-  onClose: () => void;
-};
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialog-paper': {
@@ -106,6 +100,11 @@ const useProjectLimit = () => {
     limitReached,
     loading: loadingConfig || loadingProjects,
   };
+};
+
+type CreateProjectDialogProps = {
+  open: boolean;
+  onClose: () => void;
 };
 
 export const CreateProjectDialog = ({
@@ -317,65 +316,60 @@ export const CreateProjectDialog = ({
                 onClose={clearDocumentationOverride}
               />
 
-              <ConditionallyRender
-                condition={isEnterprise()}
-                show={
-                  <SingleSelectConfigButton
-                    tooltip={{
-                      header: 'Set project collaboration mode',
-                      additionalContent:
-                        configButtonData.mode.additionalTooltipContent,
-                    }}
-                    description={configButtonData.mode.text}
-                    options={projectModeOptions}
-                    onChange={(value: any) => {
-                      setProjectMode(value);
-                    }}
-                    button={{
-                      label: projectMode,
-                      icon: <ProjectModeIcon />,
-                      labelWidth: `${`protected`.length}ch`,
-                    }}
-                    search={{
-                      label: 'Filter project mode options',
-                      placeholder: 'Select project mode',
-                    }}
-                    onOpen={() => setDocumentation(configButtonData.mode)}
-                    onClose={clearDocumentationOverride}
-                  />
-                }
-              />
-              <ConditionallyRender
-                condition={isEnterprise()}
-                show={
-                  <ChangeRequestTableConfigButton
-                    tooltip={{
-                      header: 'Configure change requests',
-                    }}
-                    description={configButtonData.changeRequests.text}
-                    activeEnvironments={availableChangeRequestEnvironments}
-                    updateProjectChangeRequestConfiguration={
-                      updateProjectChangeRequestConfig
-                    }
-                    button={{
-                      label: changeRequestSelectorLabel,
-                      icon: <ChangeRequestIcon />,
-                      labelWidth: `${'nn environments configured'.length}ch`,
-                    }}
-                    search={{
-                      label: 'Filter environments',
-                      placeholder: 'Filter environments',
-                    }}
-                    projectChangeRequestConfiguration={
-                      projectChangeRequestConfiguration
-                    }
-                    onOpen={() =>
-                      setDocumentation(configButtonData.changeRequests)
-                    }
-                    onClose={clearDocumentationOverride}
-                  />
-                }
-              />
+              {isEnterprise() && (
+                <SingleSelectConfigButton
+                  tooltip={{
+                    header: 'Set project collaboration mode',
+                    additionalContent:
+                      configButtonData.mode.additionalTooltipContent,
+                  }}
+                  description={configButtonData.mode.text}
+                  options={projectModeOptions}
+                  onChange={(value: any) => {
+                    setProjectMode(value);
+                  }}
+                  button={{
+                    label: projectMode,
+                    icon: <ProjectModeIcon />,
+                    labelWidth: `${`protected`.length}ch`,
+                  }}
+                  search={{
+                    label: 'Filter project mode options',
+                    placeholder: 'Select project mode',
+                  }}
+                  onOpen={() => setDocumentation(configButtonData.mode)}
+                  onClose={clearDocumentationOverride}
+                />
+              )}
+
+              {isEnterprise() && (
+                <ChangeRequestTableConfigButton
+                  tooltip={{
+                    header: 'Configure change requests',
+                  }}
+                  description={configButtonData.changeRequests.text}
+                  activeEnvironments={availableChangeRequestEnvironments}
+                  updateProjectChangeRequestConfiguration={
+                    updateProjectChangeRequestConfig
+                  }
+                  button={{
+                    label: changeRequestSelectorLabel,
+                    icon: <ChangeRequestIcon />,
+                    labelWidth: `${'nn environments configured'.length}ch`,
+                  }}
+                  search={{
+                    label: 'Filter environments',
+                    placeholder: 'Filter environments',
+                  }}
+                  projectChangeRequestConfiguration={
+                    projectChangeRequestConfiguration
+                  }
+                  onOpen={() =>
+                    setDocumentation(configButtonData.changeRequests)
+                  }
+                  onClose={clearDocumentationOverride}
+                />
+              )}
             </>
           }
         />

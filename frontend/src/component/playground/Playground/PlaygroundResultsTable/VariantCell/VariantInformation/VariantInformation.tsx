@@ -8,7 +8,6 @@ import { sortTypes } from 'utils/sortTypes';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
 import { SortableTableHeader } from 'component/common/Table';
 import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { IconCell } from 'component/common/Table/cells/IconCell/IconCell';
 
 const StyledBox = styled('div')(({ theme }) => ({
@@ -71,18 +70,15 @@ export const VariantInformation = ({
       <StyledTypography variant='subtitle2'>
         Variant Information
       </StyledTypography>
-
       <StyledTypography variant='body2'>
         The following table shows the variants defined on this feature toggle
         and the variant result based on your context configuration.
       </StyledTypography>
-
       <StyledTypography variant='body2'>
         If you include "userId" or "sessionId" in your context, the variant will
         be the same every time because unleash uses these properties to ensure
         that the user receives the same experience.
       </StyledTypography>
-
       <Table {...getTableProps()} rowHeight='dense'>
         <SortableTableHeader headerGroups={headerGroups as any} />
         <TableBody {...getTableBodyProps()}>
@@ -122,14 +118,7 @@ const COLUMNS = [
       row: {
         original: { selected },
       },
-    }: any) => (
-      <>
-        <ConditionallyRender
-          condition={selected}
-          show={<IconCell icon={<StyledCheckIcon />} />}
-        />
-      </>
-    ),
+    }: any) => <>{selected && <IconCell icon={<StyledCheckIcon />} />}</>,
     maxWidth: 25,
     disableGlobalFilter: true,
   },

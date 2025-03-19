@@ -15,7 +15,6 @@ import { ProjectLastSeen } from './ProjectLastSeen/ProjectLastSeen';
 import { Highlighter } from 'component/common/Highlighter/Highlighter';
 import { useSearchHighlightContext } from 'component/common/Table/SearchHighlightContext/SearchHighlightContext';
 import { ProjectMembers } from './ProjectCardFooter/ProjectMembers/ProjectMembers';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { DEFAULT_PROJECT_ID } from 'hooks/api/getters/useDefaultProject/useDefaultProjectId';
 import type { ProjectSchema } from 'openapi';
 
@@ -102,10 +101,9 @@ export const ProjectCard = ({
         </StyledInfo>
       </StyledProjectCardBody>
       <ProjectCardFooter id={id} owners={owners}>
-        <ConditionallyRender
-          condition={id !== DEFAULT_PROJECT_ID}
-          show={<ProjectMembers count={memberCount} members={[]} />}
-        />
+        {id !== DEFAULT_PROJECT_ID && (
+          <ProjectMembers count={memberCount} members={[]} />
+        )}
       </ProjectCardFooter>
     </StyledProjectCard>
   );

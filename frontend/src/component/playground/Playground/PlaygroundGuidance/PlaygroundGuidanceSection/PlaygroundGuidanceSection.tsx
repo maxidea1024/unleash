@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { GuidanceIndicator } from 'component/common/GuidanceIndicator/GuidanceIndicator';
 
 type PlaygroundGuidanceSectionProps = {
@@ -29,14 +28,11 @@ export const PlaygroundGuidanceSection = ({
         <Typography variant='body1' sx={{ fontWeight: 'bold' }}>
           {headerText}
         </Typography>
-        <ConditionallyRender
-          condition={Boolean(bodyText)}
-          show={
-            <Typography variant='body1' sx={{ mt: 1 }}>
-              {bodyText}
-            </Typography>
-          }
-        />
+        {Boolean(bodyText) && (
+          <Typography variant='body1' sx={{ mt: 1 }}>
+            {bodyText}
+          </Typography>
+        )}
       </Box>
     </Box>
   </Box>

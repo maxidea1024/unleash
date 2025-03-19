@@ -4,7 +4,6 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Link as RouterLink } from 'react-router-dom';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ArchiveProjectDialogue } from '../../ArchiveProject/ArchiveProjectDialogue';
 
 const StyledContainer = styled('div')(({ theme }) => ({
@@ -40,20 +39,17 @@ export const ArchiveProject = ({
         Before you can archive a project, you must first archive all of the
         feature flags associated with it.
       </p>
-      <ConditionallyRender
-        condition={featureCount > 0}
-        show={
-          <p>
-            Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
-            <Link component={RouterLink} to='../..'>
-              <strong>
-                {featureCount} active feature{' '}
-                {featureCount === 1 ? 'flag' : 'flags'}.
-              </strong>
-            </Link>
-          </p>
-        }
-      />
+      {featureCount > 0 && (
+        <p>
+          Currently there {featureCount <= 1 ? 'is' : 'are'}{' '}
+          <Link component={RouterLink} to='../..'>
+            <strong>
+              {featureCount} active feature{' '}
+              {featureCount === 1 ? 'flag' : 'flags'}.
+            </strong>
+          </Link>
+        </p>
+      )}
       <StyledButtonContainer>
         <PermissionButton
           permission={DELETE_PROJECT}

@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router';
 import useLoading from 'hooks/useLoading';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { ReactComponent as ImportSvg } from 'assets/icons/import.svg';
 import { ReactComponent as ProjectStatusSvg } from 'assets/icons/projectStatus.svg';
 import {
@@ -269,20 +268,15 @@ export const Project = () => {
                 isFavorite={project?.favorite}
               />
               <StyledProjectTitle>
-                <ConditionallyRender
-                  condition={project?.mode === 'private'}
-                  show={<HiddenProjectIconWithTooltip />}
-                />
+                {project?.mode === 'private' && (
+                  <HiddenProjectIconWithTooltip />
+                )}
                 <StyledName data-loading-project>{projectName}</StyledName>
               </StyledProjectTitle>
             </StyledDiv>
             <StyledDiv>
-              <ConditionallyRender
-                condition={Boolean(
-                  !simplifyProjectOverview &&
-                    uiConfig?.flags?.featuresExportImport,
-                )}
-                show={
+              {!simplifyProjectOverview &&
+                uiConfig?.flags?.featuresExportImport && (
                   <PermissionIconButton
                     permission={UPDATE_FEATURE}
                     projectId={projectId}
@@ -293,8 +287,7 @@ export const Project = () => {
                   >
                     <ImportSvg />
                   </PermissionIconButton>
-                }
-              />
+                )}
               {simplifyProjectOverview && (
                 <ProjectStatusButton
                   onClick={() => setProjectStatusOpen(true)}

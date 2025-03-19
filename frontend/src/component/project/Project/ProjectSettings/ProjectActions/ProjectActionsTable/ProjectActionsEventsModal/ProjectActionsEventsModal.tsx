@@ -6,7 +6,6 @@ import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidePanelList } from 'component/common/SidePanelList/SidePanelList';
 import { formatDateYMDHMS } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { ProjectActionsEventsStateCell } from './ProjectActionsEventsStateCell';
 import { ProjectActionsEventsDetails } from './ProjectActionsEventsDetails/ProjectActionsEventsDetails';
@@ -128,17 +127,11 @@ export const ProjectActionsEventsModal = ({
 
               return children;
             }}
-            listEnd={
-              <ConditionallyRender
-                condition={hasMore}
-                show={<Button onClick={loadMore}>Load more</Button>}
-              />
-            }
+            listEnd={hasMore && <Button onClick={loadMore}>Load more</Button>}
           />
-          <ConditionallyRender
-            condition={actionEvents.length === 0}
-            show={<p>No events have been registered for this action set.</p>}
-          />
+          {actionEvents.length === 0 && (
+            <p>No events have been registered for this action set.</p>
+          )}
           <StyledButtonContainer>
             <Button
               onClick={() => {

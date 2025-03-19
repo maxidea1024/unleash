@@ -9,7 +9,6 @@ import Check from '@mui/icons-material/Check';
 import ErrorIcon from '@mui/icons-material/Error';
 import Pending from '@mui/icons-material/Pending';
 import { PulsingAvatar } from 'component/common/PulsingAvatar/PulsingAvatar';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { Box } from '@mui/system';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { usePendingChangeRequests } from 'hooks/api/getters/usePendingChangeRequests/usePendingChangeRequests';
@@ -105,57 +104,34 @@ export const ImportStage = ({
   return (
     <ImportLayoutContainer>
       <ImportStatusArea>
-        <ConditionallyRender
-          condition={importStatus.status === 'loading'}
-          show={
-            <PulsingAvatar sx={{ width: 80, height: 80 }} active={true}>
-              <Pending fontSize='large' />
-            </PulsingAvatar>
-          }
-        />
-        <ConditionallyRender
-          condition={importStatus.status === 'success'}
-          show={
-            <SuccessAvatar sx={{ width: 80, height: 80 }}>
-              <Check fontSize='large' />
-            </SuccessAvatar>
-          }
-        />
-        <ConditionallyRender
-          condition={importStatus.status === 'error'}
-          show={
-            <ErrorAvatar sx={{ width: 80, height: 80 }}>
-              <ErrorIcon fontSize='large' />
-            </ErrorAvatar>
-          }
-        />
+        {importStatus.status === 'loading' && (
+          <PulsingAvatar sx={{ width: 80, height: 80 }} active={true}>
+            <Pending fontSize='large' />
+          </PulsingAvatar>
+        )}
+        {importStatus.status === 'success' && (
+          <SuccessAvatar sx={{ width: 80, height: 80 }}>
+            <Check fontSize='large' />
+          </SuccessAvatar>
+        )}
+        {importStatus.status === 'error' && (
+          <ErrorAvatar sx={{ width: 80, height: 80 }}>
+            <ErrorIcon fontSize='large' />
+          </ErrorAvatar>
+        )}
         <ImportMessage>
-          <ConditionallyRender
-            condition={importStatus.status === 'loading'}
-            show={'Importing...'}
-          />
-          <ConditionallyRender
-            condition={importStatus.status === 'success'}
-            show={'Import completed'}
-          />
-          <ConditionallyRender
-            condition={importStatus.status === 'error'}
-            show={'Import failed'}
-          />
+          {importStatus.status === 'loading' && 'Importing...'}
+          {importStatus.status === 'success' && 'Import completed'}
+          {importStatus.status === 'error' && 'Import failed'}
         </ImportMessage>
       </ImportStatusArea>
-      <ConditionallyRender
-        condition={showChangeRequestInfo}
-        show={
-          <InfoContainer>
-            For this environment <strong>Change request</strong> is enabled.
-            This means that the import has generated a change request which
-            needs to be approved before the configuration will be visible in the
-            instance.
-          </InfoContainer>
-        }
-      />
-
+      {showChangeRequestInfo && (
+        <InfoContainer>
+          For this environment <strong>Change request</strong> is enabled. This
+          means that the import has generated a change request which needs to be
+          approved before the configuration will be visible in the instance.
+        </InfoContainer>
+      )}
       <ActionsContainer>
         <Button
           sx={{ position: 'static' }}

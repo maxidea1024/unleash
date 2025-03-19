@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { styled } from '@mui/material';
 import { flexRow } from 'themes/themeStyles';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import VariantsWarningTooltip from 'component/feature/FeatureView/FeatureVariants/VariantsTooltipWarning';
 import { FeatureToggleSwitch } from '../../ProjectFeatureToggles/FeatureToggleSwitch/FeatureToggleSwitch';
 import type { UseFeatureToggleSwitchType } from '../../ProjectFeatureToggles/FeatureToggleSwitch/FeatureToggleSwitch.types';
@@ -81,10 +80,7 @@ const FeatureToggleCellComponent = ({
         environmentName={environment?.name || ''}
         onToggle={onToggle}
       />
-      <ConditionallyRender
-        condition={hasWarning || false}
-        show={<VariantsWarningTooltip />}
-      />
+      {hasWarning && <VariantsWarningTooltip />}
     </StyledSwitchContainer>
   );
 };
@@ -96,6 +92,7 @@ export const PlaceholderFeatureToggleCell = () => (
     <div data-loading>toggle</div>
   </StyledSwitchContainer>
 );
+
 export const ArchivedFeatureToggleCell = () => (
   <StyledDiv aria-hidden='true'>-</StyledDiv>
 );

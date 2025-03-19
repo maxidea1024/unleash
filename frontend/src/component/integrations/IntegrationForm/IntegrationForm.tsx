@@ -46,7 +46,6 @@ import {
   StyledRaisedSection,
 } from './IntegrationForm.styles';
 import { GO_BACK } from 'constants/navigate';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { IntegrationDelete } from './IntegrationDelete/IntegrationDelete';
 import { IntegrationStateSwitch } from './IntegrationStateSwitch/IntegrationStateSwitch';
 import { capitalizeFirst } from 'utils/capitalizeFirst';
@@ -244,14 +243,18 @@ export const IntegrationForm = ({
     try {
       if (editMode) {
         await updateAddon(formValues as AddonSchema);
+
         navigate('/integrations');
+
         setToastData({
           type: 'success',
           title: 'Integration updated successfully',
         });
       } else {
         await createAddon(formValues as Omit<AddonSchema, 'id'>);
+
         navigate('/integrations');
+
         setToastData({
           type: 'success',
           confetti: true,
@@ -260,7 +263,9 @@ export const IntegrationForm = ({
       }
     } catch (error) {
       const message = formatUnknownError(error);
+
       setToastApiError(message);
+
       setErrors({
         parameters: {},
         general: message,
@@ -308,27 +313,21 @@ export const IntegrationForm = ({
           {submitText} {displayName || (name ? capitalizeFirst(name) : '')}{' '}
           integration
         </StyledHeaderTitle>
-        <ConditionallyRender
-          condition={editMode && isAdmin}
-          show={
-            <Link onClick={() => setEventsModalOpen(true)}>View events</Link>
-          }
-        />
+        {editMode && isAdmin && (
+          <Link onClick={() => setEventsModalOpen(true)}>View events</Link>
+        )}
       </StyledHeader>
       <StyledForm onSubmit={onSubmit}>
         <StyledContainer>
-          <ConditionallyRender
-            condition={Boolean(alerts)}
-            show={() => (
-              <StyledAlerts>
-                {alerts?.map(({ type, text }) => (
-                  <Alert severity={type} key={text}>
-                    {text}
-                  </Alert>
-                ))}
-              </StyledAlerts>
-            )}
-          />
+          {Boolean(alerts) && (
+            <StyledAlerts>
+              {alerts?.map(({ type, text }) => (
+                <Alert severity={type} key={text}>
+                  {text}
+                </Alert>
+              ))}
+            </StyledAlerts>
+          )}
           <StyledTextField
             size='small'
             label='Provider'
@@ -346,16 +345,13 @@ export const IntegrationForm = ({
             />
           </StyledRaisedSection>
           <StyledRaisedSection>
-            <ConditionallyRender
-              condition={Boolean(installation)}
-              show={() => (
-                <IntegrationInstall
-                  url={installation!.url}
-                  title={installation!.title}
-                  helpText={installation!.helpText}
-                />
-              )}
-            />
+            {Boolean(installation) && (
+              <IntegrationInstall
+                url={installation!.url}
+                title={installation!.title}
+                helpText={installation!.helpText}
+              />
+            )}
             <IntegrationParameters
               provider={provider}
               config={formValues as AddonSchema}
@@ -417,17 +413,14 @@ export const IntegrationForm = ({
               />
             </div>
           </StyledConfigurationSection>
-          <ConditionallyRender
-            condition={editMode}
-            show={
-              <>
-                <Divider />
-                <section>
-                  <IntegrationDelete id={(formValues as AddonSchema).id} />
-                </section>
-              </>
-            }
-          />
+          {editMode && (
+            <>
+              <Divider />
+              <section>
+                <IntegrationDelete id={(formValues as AddonSchema).id} />
+              </section>
+            </>
+          )}
         </StyledContainer>
       </StyledForm>
       <IntegrationEventsModal

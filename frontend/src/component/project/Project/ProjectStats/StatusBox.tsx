@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 import CallMade from '@mui/icons-material/CallMade';
 import SouthEast from '@mui/icons-material/SouthEast';
 import { Box, Typography, styled } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { flexRow } from 'themes/themeStyles';
 
 const StyledTypographyHeader = styled(Typography)(({ theme }) => ({
@@ -64,12 +63,9 @@ export const StatusBox = ({
   customChangeElement,
 }: StatusBoxProps) => (
   <>
-    <ConditionallyRender
-      condition={Boolean(title)}
-      show={
-        <StyledTypographyHeader data-loading>{title}</StyledTypographyHeader>
-      }
-    />
+    {title && (
+      <StyledTypographyHeader data-loading>{title}</StyledTypographyHeader>
+    )}
     {children}
     <Box
       sx={{
@@ -79,45 +75,33 @@ export const StatusBox = ({
       }}
     >
       <StyledTypographyCount data-loading>{boxText}</StyledTypographyCount>
-      <ConditionallyRender
-        condition={Boolean(customChangeElement)}
-        show={
-          <StyledBoxChangeContainer data-loading>
-            {customChangeElement}
-          </StyledBoxChangeContainer>
-        }
-        elseShow={
-          <ConditionallyRender
-            condition={change !== undefined && change !== 0}
-            show={
-              <StyledBoxChangeContainer data-loading>
-                <Box
-                  sx={{
-                    ...flexRow,
-                  }}
-                >
-                  {resolveIcon(change as number)}
-                  <StyledTypographyChange
-                    color={resolveColor(change as number)}
-                  >
-                    {(change as number) > 0 ? '+' : ''}
-                    {change}
-                    {percentage ? '%' : ''}
-                  </StyledTypographyChange>
-                </Box>
-                <StyledTypographySubtext>this month</StyledTypographySubtext>
-              </StyledBoxChangeContainer>
-            }
-            elseShow={
-              <StyledBoxChangeContainer>
-                <StyledTypographySubtext data-loading>
-                  No change
-                </StyledTypographySubtext>
-              </StyledBoxChangeContainer>
-            }
-          />
-        }
-      />
+      {customChangeElement ? (
+        <StyledBoxChangeContainer data-loading>
+          {customChangeElement}
+        </StyledBoxChangeContainer>
+      ) : change !== undefined && change !== 0 ? (
+        <StyledBoxChangeContainer data-loading>
+          <Box
+            sx={{
+              ...flexRow,
+            }}
+          >
+            {resolveIcon(change)}
+            <StyledTypographyChange color={resolveColor(change)}>
+              {change > 0 ? '+' : ''}
+              {change}
+              {percentage ? '%' : ''}
+            </StyledTypographyChange>
+          </Box>
+          <StyledTypographySubtext>this month</StyledTypographySubtext>
+        </StyledBoxChangeContainer>
+      ) : (
+        <StyledBoxChangeContainer>
+          <StyledTypographySubtext data-loading>
+            No change
+          </StyledTypographySubtext>
+        </StyledBoxChangeContainer>
+      )}
     </Box>
   </>
 );

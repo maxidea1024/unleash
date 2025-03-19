@@ -1,7 +1,6 @@
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import { styled, useMediaQuery, useTheme } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
@@ -202,20 +201,17 @@ export const ProjectGroupView = ({
             }
             actions={
               <>
-                <ConditionallyRender
-                  condition={!isSmallScreen}
-                  show={
-                    <>
-                      <Search
-                        initialValue={searchValue}
-                        onChange={setSearchValue}
-                        hasFilters
-                        getSearchContext={getSearchContext}
-                      />
-                      <PageHeader.Divider />
-                    </>
-                  }
-                />
+                {!isSmallScreen && (
+                  <>
+                    <Search
+                      initialValue={searchValue}
+                      onChange={setSearchValue}
+                      hasFilters
+                      getSearchContext={getSearchContext}
+                    />
+                    <PageHeader.Divider />
+                  </>
+                )}
                 <PermissionIconButton
                   permission={UPDATE_PROJECT}
                   projectId={projectId}
@@ -239,17 +235,14 @@ export const ProjectGroupView = ({
               </>
             }
           >
-            <ConditionallyRender
-              condition={isSmallScreen}
-              show={
-                <Search
-                  initialValue={searchValue}
-                  onChange={setSearchValue}
-                  hasFilters
-                  getSearchContext={getSearchContext}
-                />
-              }
-            />
+            {isSmallScreen && (
+              <Search
+                initialValue={searchValue}
+                onChange={setSearchValue}
+                hasFilters
+                getSearchContext={getSearchContext}
+              />
+            )}
           </PageHeader>
         }
       >
@@ -260,27 +253,16 @@ export const ProjectGroupView = ({
             prepareRow={prepareRow}
           />
         </SearchHighlightProvider>
-        <ConditionallyRender
-          condition={rows.length === 0}
-          show={
-            <ConditionallyRender
-              condition={searchValue?.length > 0}
-              show={
-                <TablePlaceholder>
-                  No users found matching &ldquo;
-                  {searchValue}
-                  &rdquo; in this group.
-                </TablePlaceholder>
-              }
-              elseShow={
-                <TablePlaceholder>
-                  This group is empty. Get started by adding a user to the
-                  group.
-                </TablePlaceholder>
-              }
-            />
-          }
-        />
+        {rows.length === 0 &&
+          (searchValue?.length > 0 ? (
+            <TablePlaceholder>
+              No users found matching &ldquo;{searchValue}&rdquo; in this group.
+            </TablePlaceholder>
+          ) : (
+            <TablePlaceholder>
+              This group is empty. Get started by adding a user to the group.
+            </TablePlaceholder>
+          ))}
       </StyledPageContent>
     </SidebarModal>
   );

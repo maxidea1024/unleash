@@ -1,4 +1,3 @@
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import PermissionIconButton from 'component/common/PermissionIconButton/PermissionIconButton';
 import Edit from '@mui/icons-material/Edit';
 import { IconButton, Tooltip } from '@mui/material';
@@ -17,27 +16,21 @@ export const StrategyEditButton = ({
 }: StrategyEditButtonProps) => {
   const id = useId();
 
-  return (
-    <ConditionallyRender
-      condition={strategy?.editable}
-      show={
-        <PermissionIconButton
-          onClick={onClick}
-          permission={UPDATE_STRATEGY}
-          tooltipProps={{ title: 'Edit strategy' }}
-        >
-          <Edit />
-        </PermissionIconButton>
-      }
-      elseShow={
-        <Tooltip title='You cannot edit a built-in strategy' arrow>
-          <div id={id}>
-            <IconButton disabled size='large'>
-              <Edit aria-labelledby={id} />
-            </IconButton>
-          </div>
-        </Tooltip>
-      }
-    />
+  return strategy?.editable ? (
+    <PermissionIconButton
+      onClick={onClick}
+      permission={UPDATE_STRATEGY}
+      tooltipProps={{ title: 'Edit strategy' }}
+    >
+      <Edit />
+    </PermissionIconButton>
+  ) : (
+    <Tooltip title='You cannot edit a built-in strategy' arrow>
+      <div id={id}>
+        <IconButton disabled size='large'>
+          <Edit aria-labelledby={id} />
+        </IconButton>
+      </div>
+    </Tooltip>
   );
 };

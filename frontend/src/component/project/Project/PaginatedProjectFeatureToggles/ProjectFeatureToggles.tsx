@@ -1,6 +1,5 @@
 import { ReactComponent as ImportSvg } from 'assets/icons/import.svg';
 import { useCallback, useMemo, useState } from 'react';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import { DateCell } from 'component/common/Table/cells/DateCell/DateCell';
@@ -56,10 +55,6 @@ import { UPDATE_FEATURE } from '@server/types/permissions';
 import { ImportModal } from '../Import/ImportModal';
 import { IMPORT_BUTTON } from 'utils/testIds';
 
-type PaginatedProjectFeatureTogglesProps = {
-  environments: string[];
-};
-
 const formatEnvironmentColumnId = (environment: string) =>
   `environment:${environment}`;
 
@@ -84,6 +79,10 @@ const ButtonGroup = styled('div')(({ theme }) => ({
   gap: theme.spacing(1),
   paddingInline: theme.spacing(1.5),
 }));
+
+type PaginatedProjectFeatureTogglesProps = {
+  environments: string[];
+};
 
 export const ProjectFeatureToggles = ({
   environments,
@@ -473,132 +472,122 @@ export const ProjectFeatureToggles = ({
 
   return (
     <Container>
-      <ConditionallyRender
-        condition={isOnboarding}
-        show={
-          <ProjectOnboarding
-            projectId={projectId}
-            setConnectSdkOpen={setConnectSdkOpen}
-            setOnboardingFlow={setOnboardingFlow}
-            refetchFeatures={refetch}
-          />
-        }
-      />
-      <ConditionallyRender
-        condition={setupCompletedState === 'show-setup' && !isOnboarding}
-        show={
-          <ProjectOnboarded
-            projectId={projectId}
-            onClose={() => {
-              setSetupCompletedState('hide-setup');
-            }}
-          />
-        }
-      />
-      <ConditionallyRender
-        condition={showFeaturesTable}
-        show={
-          <PageContent
-            disableLoading
-            disablePadding
-            header={
-              <ProjectFeatureTogglesHeader
-                isLoading={initialLoad}
-                totalItems={total}
-                searchQuery={tableState.query || ''}
-                onChangeSearchQuery={(query) => {
-                  setTableState({ query });
-                }}
-                dataToExport={data}
-                environmentsToExport={environments}
-                actions={
-                  <ColumnsMenu
-                    columns={[
-                      {
-                        header: 'Name',
-                        id: 'name',
-                        isVisible: columnVisibility.name,
-                        isStatic: true,
-                      },
-                      {
-                        header: 'Created',
-                        id: 'createdAt',
-                        isVisible: columnVisibility.createdAt,
-                      },
-                      {
-                        header: 'By',
-                        id: 'createdBy',
-                        isVisible: columnVisibility.createdBy,
-                      },
-                      {
-                        header: 'Last seen',
-                        id: 'lastSeenAt',
-                        isVisible: columnVisibility.lastSeenAt,
-                      },
-                      {
-                        header: 'Lifecycle',
-                        id: 'lifecycle',
-                        isVisible: columnVisibility.lifecycle,
-                      },
-                      {
-                        id: 'divider',
-                      },
-                      ...environments.map((environment) => ({
-                        header: environment,
-                        id: formatEnvironmentColumnId(environment),
-                        isVisible:
-                          columnVisibility[
-                            formatEnvironmentColumnId(environment)
-                          ],
-                      })),
-                    ]}
-                    onToggle={onToggleColumnVisibility}
-                  />
-                }
-              />
-            }
-            bodyClass='noop'
-            style={{ cursor: 'inherit' }}
-          >
-            <div
-              ref={bodyLoadingRef}
-              aria-busy={isPlaceholder}
-              aria-live='polite'
-            >
-              <FilterRow>
-                <ProjectOverviewFilters
-                  project={projectId}
-                  onChange={setTableState}
-                  state={filterState}
+      {isOnboarding && (
+        <ProjectOnboarding
+          projectId={projectId}
+          setConnectSdkOpen={setConnectSdkOpen}
+          setOnboardingFlow={setOnboardingFlow}
+          refetchFeatures={refetch}
+        />
+      )}
+      {setupCompletedState === 'show-setup' && !isOnboarding && (
+        <ProjectOnboarded
+          projectId={projectId}
+          onClose={() => {
+            setSetupCompletedState('hide-setup');
+          }}
+        />
+      )}
+      {showFeaturesTable && (
+        <PageContent
+          disableLoading
+          disablePadding
+          header={
+            <ProjectFeatureTogglesHeader
+              isLoading={initialLoad}
+              totalItems={total}
+              searchQuery={tableState.query || ''}
+              onChangeSearchQuery={(query) => {
+                setTableState({ query });
+              }}
+              dataToExport={data}
+              environmentsToExport={environments}
+              actions={
+                <ColumnsMenu
+                  columns={[
+                    {
+                      header: 'Name',
+                      id: 'name',
+                      isVisible: columnVisibility.name,
+                      isStatic: true,
+                    },
+                    {
+                      header: 'Created',
+                      id: 'createdAt',
+                      isVisible: columnVisibility.createdAt,
+                    },
+                    {
+                      header: 'By',
+                      id: 'createdBy',
+                      isVisible: columnVisibility.createdBy,
+                    },
+                    {
+                      header: 'Last seen',
+                      id: 'lastSeenAt',
+                      isVisible: columnVisibility.lastSeenAt,
+                    },
+                    {
+                      header: 'Lifecycle',
+                      id: 'lifecycle',
+                      isVisible: columnVisibility.lifecycle,
+                    },
+                    {
+                      id: 'divider',
+                    },
+                    ...environments.map((environment) => ({
+                      header: environment,
+                      id: formatEnvironmentColumnId(environment),
+                      isVisible:
+                        columnVisibility[
+                          formatEnvironmentColumnId(environment)
+                        ],
+                    })),
+                  ]}
+                  onToggle={onToggleColumnVisibility}
                 />
-                {simplifyProjectOverview && (
-                  <ButtonGroup>
-                    <PermissionIconButton
-                      permission={UPDATE_FEATURE}
-                      projectId={projectId}
-                      onClick={() => setModalOpen(true)}
-                      tooltipProps={{ title: 'Import' }}
-                      data-testid={IMPORT_BUTTON}
-                      data-loading-project
-                    >
-                      <ImportSvg />
-                    </PermissionIconButton>
-                  </ButtonGroup>
-                )}
-              </FilterRow>
-              <SearchHighlightProvider value={tableState.query || ''}>
-                <PaginatedTable tableInstance={table} totalItems={total} />
-              </SearchHighlightProvider>
-              <ConditionallyRender
-                condition={!data.length && !isPlaceholder}
-                show={<TableEmptyState query={tableState.query || ''} />}
+              }
+            />
+          }
+          bodyClass='noop'
+          style={{ cursor: 'inherit' }}
+        >
+          <div
+            ref={bodyLoadingRef}
+            aria-busy={isPlaceholder}
+            aria-live='polite'
+          >
+            <FilterRow>
+              <ProjectOverviewFilters
+                project={projectId}
+                onChange={setTableState}
+                state={filterState}
               />
-              {rowActionsDialogs}
-              {featureToggleModals}
-            </div>
-          </PageContent>
-        }
-      />
+              {simplifyProjectOverview && (
+                <ButtonGroup>
+                  <PermissionIconButton
+                    permission={UPDATE_FEATURE}
+                    projectId={projectId}
+                    onClick={() => setModalOpen(true)}
+                    tooltipProps={{ title: 'Import' }}
+                    data-testid={IMPORT_BUTTON}
+                    data-loading-project
+                  >
+                    <ImportSvg />
+                  </PermissionIconButton>
+                </ButtonGroup>
+              )}
+            </FilterRow>
+            <SearchHighlightProvider value={tableState.query || ''}>
+              <PaginatedTable tableInstance={table} totalItems={total} />
+            </SearchHighlightProvider>
+            {!data.length && !isPlaceholder && (
+              <TableEmptyState query={tableState.query || ''} />
+            )}
+            {rowActionsDialogs}
+            {featureToggleModals}
+          </div>
+        </PageContent>
+      )}
       <ConnectSdkDialog
         open={connectSdkOpen}
         onClose={() => {

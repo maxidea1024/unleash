@@ -7,7 +7,6 @@ import type {
   IStrategyParameter,
 } from 'interfaces/strategy';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { STRATEGY_FORM_SUBMIT_ID } from 'utils/testIds';
 import { useConstraintsValidation } from 'hooks/api/getters/useConstraintsValidation/useConstraintsValidation';
 import PermissionButton from 'component/common/PermissionButton/PermissionButton';
@@ -174,20 +173,15 @@ export const ProjectDefaultStrategyForm = ({
         errors={errors}
         hasAccess={access}
       />
-      <ConditionallyRender
-        condition={
-          strategy.parameters != null && 'stickiness' in strategy.parameters
-        }
-        show={
-          <StrategyVariants
-            strategy={strategy}
-            setStrategy={setStrategy}
-            environment={environmentId}
-            projectId={projectId}
-            permission={[PROJECT_DEFAULT_STRATEGY_WRITE, UPDATE_PROJECT]}
-          />
-        }
-      />
+      {strategy.parameters != null && 'stickiness' in strategy.parameters && (
+        <StrategyVariants
+          strategy={strategy}
+          setStrategy={setStrategy}
+          environment={environmentId}
+          projectId={projectId}
+          permission={[PROJECT_DEFAULT_STRATEGY_WRITE, UPDATE_PROJECT]}
+        />
+      )}
       <StyledHr />
       <StyledButtons>
         <PermissionButton

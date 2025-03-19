@@ -1,7 +1,6 @@
 import type { InstanceInsightsSchemaMetricsSummaryTrendsItem } from 'openapi';
 import { Box, Divider, Paper, styled, Typography } from '@mui/material';
 import type { ITooltipState } from 'component/insights/components/LineChart/ChartTooltip/ChartTooltip';
-import { ConditionallyRender } from '../../../../common/ConditionallyRender/ConditionallyRender';
 
 const StyledTooltipItemContainer = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -119,13 +118,9 @@ export const MetricsSummaryTooltip = ({
             title={`Not exposed: ${(point.value.totalNo ?? 0).toLocaleString()}`}
             color={'error'}
           />
-          <ConditionallyRender
-            condition={
-              Boolean(point.value.totalApps) &&
-              Boolean(point.value.totalEnvironments) &&
-              Boolean(point.value.totalFlags)
-            }
-            show={
+          {Boolean(point.value.totalApps) &&
+            Boolean(point.value.totalEnvironments) &&
+            Boolean(point.value.totalFlags) && (
               <>
                 <Divider
                   sx={(theme) => ({
@@ -149,8 +144,7 @@ export const MetricsSummaryTooltip = ({
                   ]}
                 />
               </>
-            }
-          />
+            )}
         </StyledTooltipItemContainer>
       )) || null}
     </Box>

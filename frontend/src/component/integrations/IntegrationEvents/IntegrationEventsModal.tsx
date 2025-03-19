@@ -6,7 +6,6 @@ import FormTemplate from 'component/common/FormTemplate/FormTemplate';
 import { SidePanelList } from 'component/common/SidePanelList/SidePanelList';
 import { formatDateYMDHMS } from 'utils/formatDate';
 import { useLocationSettings } from 'hooks/useLocationSettings';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { IntegrationEventsStateIcon } from './IntegrationEventsStateIcon';
 import { IntegrationEventsDetails } from './IntegrationEventsDetails/IntegrationEventsDetails';
 import { useNavigate } from 'react-router-dom';
@@ -142,22 +141,13 @@ export const IntegrationEventsModal = ({
 
               return children;
             }}
-            listEnd={
-              <ConditionallyRender
-                condition={hasMore}
-                show={<Button onClick={loadMore}>Load more</Button>}
-              />
-            }
+            listEnd={hasMore && <Button onClick={loadMore}>Load more</Button>}
           />
-          <ConditionallyRender
-            condition={integrationEvents.length === 0}
-            show={
-              <p>
-                No events have been registered for this integration
-                configuration.
-              </p>
-            }
-          />
+          {integrationEvents.length === 0 && (
+            <p>
+              No events have been registered for this integration configuration.
+            </p>
+          )}
           <StyledButtonContainer>
             <Button onClick={() => setOpen(false)}>Close</Button>
           </StyledButtonContainer>

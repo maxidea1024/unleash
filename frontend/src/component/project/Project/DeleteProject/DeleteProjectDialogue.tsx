@@ -4,11 +4,10 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import useProjectApi from 'hooks/api/actions/useProjectApi/useProjectApi';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import useToast from 'hooks/useToast';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
-import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { styled, Typography } from '@mui/material';
 import { ProjectId } from 'component/project/ProjectId/ProjectId';
+import { useUiFlag } from 'hooks/useUiFlag';
 
 type DeleteProjectDialogueProps = {
   projectId: string;
@@ -67,26 +66,22 @@ export const DeleteProjectDialogue = ({
           <li>project with all of its settings</li>
           <li>all feature flags archived in it</li>
           <li>all API keys scoped only to this project</li>
-          <ConditionallyRender
-            condition={isEnterprise() && automatedActionsEnabled}
-            show={<li>all actions configured for it</li>}
-          />
+          {isEnterprise() && automatedActionsEnabled && (
+            <li>all actions configured for it</li>
+          )}
         </ul>
       </StyledParagraph>
-      <ConditionallyRender
-        condition={Boolean(projectName)}
-        show={
-          <>
-            <StyledParagraph>
-              Are you sure you'd like to permanently delete project{' '}
-              <strong>{projectName}</strong>?
-            </StyledParagraph>
-            <StyledParagraph>
-              Project ID: <ProjectId>{projectId}</ProjectId>
-            </StyledParagraph>
-          </>
-        }
-      />
+      {Boolean(projectName) && (
+        <>
+          <StyledParagraph>
+            Are you sure you'd like to permanently delete project{' '}
+            <strong>{projectName}</strong>?
+          </StyledParagraph>
+          <StyledParagraph>
+            Project ID: <ProjectId>{projectId}</ProjectId>
+          </StyledParagraph>
+        </>
+      )}
     </Dialogue>
   );
 };

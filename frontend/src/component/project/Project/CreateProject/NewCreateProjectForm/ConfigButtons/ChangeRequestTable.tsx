@@ -10,7 +10,6 @@ import {
 } from 'component/common/Table';
 import { sortTypes } from 'utils/sortTypes';
 import { TextCell } from 'component/common/Table/cells/TextCell/TextCell';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import KeyboardArrowDownOutlined from '@mui/icons-material/KeyboardArrowDownOutlined';
 import { useTheme } from '@mui/material/styles';
@@ -94,26 +93,23 @@ export const ChangeRequestTable = (props: TableProps) => {
         Header: 'Required approvals',
         Cell: ({ row: { original } }: any) => {
           return (
-            <ConditionallyRender
-              condition={original.changeRequestEnabled}
-              show={
-                <StyledBox data-loading>
-                  <GeneralSelect
-                    label={`Set required approvals for ${original.environment}`}
-                    visuallyHideLabel
-                    id={`cr-approvals-${original.environment}`}
-                    sx={{ width: '140px' }}
-                    options={approvalOptions}
-                    value={original.requiredApprovals || 1}
-                    onChange={(approvals) => {
-                      onRequiredApprovalsChange(original, approvals);
-                    }}
-                    IconComponent={KeyboardArrowDownOutlined}
-                    fullWidth
-                  />
-                </StyledBox>
-              }
-            />
+            original.changeRequestEnabled && (
+              <StyledBox data-loading>
+                <GeneralSelect
+                  label={`Set required approvals for ${original.environment}`}
+                  visuallyHideLabel
+                  id={`cr-approvals-${original.environment}`}
+                  sx={{ width: '140px' }}
+                  options={approvalOptions}
+                  value={original.requiredApprovals || 1}
+                  onChange={(approvals) => {
+                    onRequiredApprovalsChange(original, approvals);
+                  }}
+                  IconComponent={KeyboardArrowDownOutlined}
+                  fullWidth
+                />
+              </StyledBox>
+            )
           );
         },
         width: 100,
@@ -187,7 +183,6 @@ export const ChangeRequestTable = (props: TableProps) => {
             <TableRow hover key={key} {...rowProps}>
               {row.cells.map((cell) => {
                 const { key, ...cellProps } = cell.getCellProps();
-
                 return (
                   <TableCell key={key} {...cellProps}>
                     {cell.render('Cell')}

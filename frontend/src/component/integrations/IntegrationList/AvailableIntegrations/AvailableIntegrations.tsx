@@ -5,7 +5,6 @@ import { JIRA_INFO } from '../../ViewIntegration/JiraIntegration/JiraIntegration
 import { StyledCardsGrid } from '../IntegrationList.styles';
 import { RequestIntegrationCard } from '../RequestIntegrationCard/RequestIntegrationCard';
 import { OFFICIAL_SDKS } from './SDKs';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { useUiFlag } from 'hooks/useUiFlag';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
@@ -65,11 +64,11 @@ export const AvailableIntegrations = ({
       <StyledSection>
         <div>
           <Typography component='h3' variant='h2'>
-            Unleash crafted
+            Ganpa crafted
           </Typography>
           <Typography variant='body2' color='text.secondary'>
-            Unleash is built to be extended. We have crafted integrations to
-            make it easier for you to get started.
+            Ganpa is built to be extended. We have crafted integrations to make
+            it easier for you to get started.
           </Typography>
         </div>
         <StyledCardsGrid>
@@ -85,17 +84,14 @@ export const AvailableIntegrations = ({
                 deprecated={deprecated}
               />
             ))}
-          <ConditionallyRender
-            condition={isEnterprise() && signalsEnabled}
-            show={
-              <IntegrationCard
-                icon='signals'
-                title='Signals'
-                description='Signal endpoints allow third-party services to send signals to Unleash.'
-                link='/integrations/signals'
-              />
-            }
-          />
+          {isEnterprise() && signalsEnabled && (
+            <IntegrationCard
+              icon='signals'
+              title='Signals'
+              description='Signal endpoints allow third-party services to send signals to Ganpa.'
+              link='/integrations/signals'
+            />
+          )}
           {/* TODO: sort providers from backend with custom providers */}
           {customProviders?.map(({ name, displayName, description }) => (
             <IntegrationCard
@@ -116,24 +112,24 @@ export const AvailableIntegrations = ({
             Performance and security
           </Typography>
           <Typography variant='body2' color='text.secondary'>
-            Connect Unleash to private, scalable, and distributed relays.
+            Connect Ganpa to private, scalable, and distributed relays.
           </Typography>
         </div>
         <StyledCardsGrid>
           <IntegrationCard
             icon='unleash'
-            title='Unleash Edge'
-            description="Unleash Edge is built to help you scale Unleash. As a successor of Unleash Proxy it's even faster and more versatile."
+            title='Ganpa Edge'
+            description="Ganpa Edge is built to help you scale Ganpa. As a successor of Ganpa Proxy it's even faster and more versatile."
             link='/integrations/view/edge'
             configureActionText='Learn more'
           />
           <IntegrationCard
             icon='unleash'
-            title='Unleash Proxy'
-            description='The Unleash Proxy is a lightweight, stateless proxy that sits between your Unleash client SDKs and the Unleash API.'
+            title='Ganpa Proxy'
+            description='The Ganpa Proxy is a lightweight, stateless proxy that sits between your Ganpa client SDKs and the Ganpa API.'
             link='https://docs.getunleash.io/reference/unleash-proxy'
             configureActionText='View documentation'
-            deprecated='Try Unleash Edge instead. It has all the features of Unleash Proxy and more.'
+            deprecated='Try Ganpa Edge instead. It has all the features of Ganpa Proxy and more.'
             isExternal
           />
         </StyledCardsGrid>
@@ -144,9 +140,8 @@ export const AvailableIntegrations = ({
             Official SDKs
           </Typography>
           <Typography variant='body2' color='text.secondary'>
-            In order to connect your application to Unleash you will need a
-            client SDK (software developer kit) for your programming language
-            and an{' '}
+            In order to connect your application to Ganpa you will need a client
+            SDK (software developer kit) for your programming language and an{' '}
             <a
               href='https://docs.getunleash.io/how-to/how-to-create-api-tokens'
               target='_blank'
@@ -164,7 +159,7 @@ export const AvailableIntegrations = ({
               </Typography>
               <Typography variant='body2' color='text.secondary'>
                 Server-side clients run on your server and communicate directly
-                with your Unleash instance.
+                with your Ganpa instance.
               </Typography>
             </Box>
             <StyledCardsGrid small>
@@ -195,7 +190,7 @@ export const AvailableIntegrations = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  Unleash Edge
+                  Ganpa Edge
                 </a>{' '}
                 or to the{' '}
                 <a
@@ -203,9 +198,9 @@ export const AvailableIntegrations = ({
                   target='_blank'
                   rel='noopener noreferrer'
                 >
-                  Unleash front-end API
+                  Ganpa front-end API
                 </a>
-                , but not to the regular Unleash client API.
+                , but not to the regular Ganpa client API.
               </Typography>
             </Box>
             <StyledCardsGrid small>
@@ -238,7 +233,7 @@ export const AvailableIntegrations = ({
                   >
                     Here's some of the fantastic work
                   </a>{' '}
-                  our community has built to make Unleash work in even more
+                  our community has built to make Ganpa work in even more
                   contexts.
                 </Typography>
               </div>

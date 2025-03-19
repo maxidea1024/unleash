@@ -8,7 +8,6 @@ import {
   SEGMENT_DESC_ID,
   SEGMENT_NEXT_BTN_ID,
 } from 'utils/testIds';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 import { GO_BACK } from 'constants/navigate';
@@ -166,35 +165,32 @@ export const SegmentFormStepOne = ({
           errorText={errors.description}
           data-testid={SEGMENT_DESC_ID}
         />
-        <ConditionallyRender
-          condition={!projectId && !loading}
-          show={
-            <>
-              <StyledInputDescription>
-                Is this segment tied to a specific project?
-              </StyledInputDescription>
-              <Autocomplete
-                size='small'
-                value={selectedProject}
-                onChange={(_, newValue) => {
-                  setProject(newValue?.id);
-                }}
-                options={availableProjects}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => (
-                  <TextField {...params} label='Project' />
-                )}
-                disabled={projectsUsed.size > 1}
-              />
-              <SegmentProjectAlert
-                projects={projects}
-                strategies={collectedStrategies}
-                projectsUsed={Array.from(projectsUsed)}
-                availableProjects={availableProjects}
-              />
-            </>
-          }
-        />
+        {!projectId && !loading && (
+          <>
+            <StyledInputDescription>
+              Is this segment tied to a specific project?
+            </StyledInputDescription>
+            <Autocomplete
+              size='small'
+              value={selectedProject}
+              onChange={(_, newValue) => {
+                setProject(newValue?.id);
+              }}
+              options={availableProjects}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField {...params} label='Project' />
+              )}
+              disabled={projectsUsed.size > 1}
+            />
+            <SegmentProjectAlert
+              projects={projects}
+              strategies={collectedStrategies}
+              projectsUsed={Array.from(projectsUsed)}
+              availableProjects={availableProjects}
+            />
+          </>
+        )}
       </StyledContainer>
 
       <LimitContainer>

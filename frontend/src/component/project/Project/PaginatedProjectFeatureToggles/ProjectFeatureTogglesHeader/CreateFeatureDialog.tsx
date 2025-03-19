@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import { Dialog, styled } from '@mui/material';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import { Limit } from 'component/common/Limit/Limit';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import useFeatureForm from 'component/feature/hooks/useFeatureForm';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
 import FlagIcon from '@mui/icons-material/Flag';
@@ -54,11 +53,11 @@ const StyledDialog = styled(Dialog)(({ theme }) => ({
 const configButtonData = {
   project: {
     icon: <ProjectIcon />,
-    text: 'Projects allow you to group feature flags together in the Unleash admin UI and in SDK payloads.',
+    text: 'Projects allow you to group feature flags together in the Ganpa admin UI and in SDK payloads.',
   },
   tags: {
     icon: <Label />,
-    text: 'Tags are used to label flags in Unleash. They can be used when filtering flags in the UI. Additionally, they are used by some integrations.',
+    text: 'Tags are used to label flags in Ganpa. They can be used when filtering flags in the UI. Additionally, they are used by some integrations.',
   },
   type: {
     icon: <FlagIcon />,
@@ -130,7 +129,7 @@ const CreateFeatureDialogContent = ({
     link?: { url: string; label: string };
   } = {
     icon: <FlagIcon />,
-    text: 'Feature flags are at the core of Unleash. Use them to control your feature rollouts.',
+    text: 'Feature flags are at the core of Ganpa. Use them to control your feature rollouts.',
     link: {
       url: 'https://docs.getunleash.io/reference/feature-toggles',
       label: 'Feature flags documentation',
@@ -254,35 +253,32 @@ const CreateFeatureDialogContent = ({
           setName={setName}
           configButtons={
             <>
-              <ConditionallyRender
-                condition={!isOss()}
-                show={
-                  <SingleSelectConfigButton
-                    tooltip={{
-                      header: 'Select a project for the flag',
-                    }}
-                    description={configButtonData.project.text}
-                    options={projects.map((project) => ({
-                      label: project.name,
-                      value: project.id,
-                    }))}
-                    onChange={(value: any) => {
-                      setProject(value);
-                    }}
-                    button={{
-                      label: currentProjectName ?? project,
-                      icon: configButtonData.project.icon,
-                      labelWidth: '20ch',
-                    }}
-                    search={{
-                      label: 'Filter projects',
-                      placeholder: 'Select project',
-                    }}
-                    onOpen={() => setDocumentation(configButtonData.project)}
-                    onClose={clearDocumentationOverride}
-                  />
-                }
-              />
+              {!isOss() && (
+                <SingleSelectConfigButton
+                  tooltip={{
+                    header: 'Select a project for the flag',
+                  }}
+                  description={configButtonData.project.text}
+                  options={projects.map((project) => ({
+                    label: project.name,
+                    value: project.id,
+                  }))}
+                  onChange={(value: any) => {
+                    setProject(value);
+                  }}
+                  button={{
+                    label: currentProjectName ?? project,
+                    icon: configButtonData.project.icon,
+                    labelWidth: '20ch',
+                  }}
+                  search={{
+                    label: 'Filter projects',
+                    placeholder: 'Select project',
+                  }}
+                  onOpen={() => setDocumentation(configButtonData.project)}
+                  onClose={clearDocumentationOverride}
+                />
+              )}
               <MultiSelectConfigButton<ITag>
                 tooltip={{
                   header: 'Select tags',

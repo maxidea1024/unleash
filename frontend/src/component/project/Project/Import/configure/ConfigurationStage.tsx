@@ -7,7 +7,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { StyledFileDropZone } from './StyledFileDropZone';
 import { PulsingAvatar } from 'component/common/PulsingAvatar/PulsingAvatar';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
@@ -91,53 +90,45 @@ export const ImportArea = ({
   const [dragActive, setDragActive] = useState(false);
   const { setToastData } = useToast();
 
-  return (
-    <ConditionallyRender
-      condition={activeTab === 'file'}
-      show={
-        <StyledFileDropZone
-          onSuccess={(data) => {
-            setImportPayload(data);
-            setActiveTab('code');
-            setToastData({
-              type: 'success',
-              title: 'File uploaded',
-            });
-          }}
-          onError={(error) => {
-            setImportPayload('');
-            setToastData({
-              type: 'error',
-              title: error,
-            });
-          }}
-          onDragStatusChange={setDragActive}
-        >
-          <PulsingAvatar sx={{ width: 80, height: 80 }} active={dragActive}>
-            <ArrowUpward fontSize='large' />
-          </PulsingAvatar>
-          <DropMessage>
-            {dragActive ? 'Drop your file to upload' : 'Drop your file here'}
-          </DropMessage>
-          <SelectFileMessage>
-            or select a file from your device
-          </SelectFileMessage>
-          <Button variant='outlined'>Select file</Button>
-          <MaxSizeMessage>JSON format: max 500 kB</MaxSizeMessage>
-        </StyledFileDropZone>
-      }
-      elseShow={
-        <StyledTextField
-          label='Exported toggles'
-          variant='outlined'
-          onChange={(event) => setImportPayload(event.target.value)}
-          value={importPayload}
-          data-testid={CODE_TEXT_FIELD}
-          multiline
-          minRows={13}
-          maxRows={13}
-        />
-      }
+  return activeTab === 'file' ? (
+    <StyledFileDropZone
+      onSuccess={(data) => {
+        setImportPayload(data);
+        setActiveTab('code');
+        setToastData({
+          type: 'success',
+          title: 'File uploaded',
+        });
+      }}
+      onError={(error) => {
+        setImportPayload('');
+        setToastData({
+          type: 'error',
+          title: error,
+        });
+      }}
+      onDragStatusChange={setDragActive}
+    >
+      <PulsingAvatar sx={{ width: 80, height: 80 }} active={dragActive}>
+        <ArrowUpward fontSize='large' />
+      </PulsingAvatar>
+      <DropMessage>
+        {dragActive ? 'Drop your file to upload' : 'Drop your file here'}
+      </DropMessage>
+      <SelectFileMessage>or select a file from your device</SelectFileMessage>
+      <Button variant='outlined'>Select file</Button>
+      <MaxSizeMessage>JSON format: max 500 kB</MaxSizeMessage>
+    </StyledFileDropZone>
+  ) : (
+    <StyledTextField
+      label='Exported toggles'
+      variant='outlined'
+      onChange={(event) => setImportPayload(event.target.value)}
+      value={importPayload}
+      data-testid={CODE_TEXT_FIELD}
+      multiline
+      minRows={13}
+      maxRows={13}
     />
   );
 };

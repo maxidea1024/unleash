@@ -2,7 +2,6 @@ import { ProjectHealthChart } from './ProjectHealthChart';
 import { Alert, Box, styled, Typography } from '@mui/material';
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import type { ProjectInsightsSchemaHealth } from '../../../../../openapi';
-import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { FlagCounts } from './FlagCounts';
 
 const Container = styled(Box)(({ theme }) => ({
@@ -22,14 +21,11 @@ export const ProjectHealth = ({ health }: ProjectHealthProps) => {
   return (
     <Container>
       <Typography variant='h3'>Project Health</Typography>
-      <ConditionallyRender
-        condition={staleCount > 0}
-        show={
-          <Alert severity='warning'>
-            <b>Health alert!</b> Review your flags and delete the stale flags
-          </Alert>
-        }
-      />
+      {staleCount > 0 && (
+        <Alert severity='warning'>
+          <b>Health alert!</b> Review your flags and delete the stale flags
+        </Alert>
+      )}
 
       <Box
         data-loading
