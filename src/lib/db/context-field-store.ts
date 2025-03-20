@@ -122,7 +122,7 @@ export default class ContextFieldStore implements IContextFieldStore {
     await this.db(T.contextFields).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(key: string): Promise<boolean> {
     const result = await this.db.raw(

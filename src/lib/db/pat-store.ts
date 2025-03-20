@@ -69,7 +69,7 @@ export default class PatStore implements IPatStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(

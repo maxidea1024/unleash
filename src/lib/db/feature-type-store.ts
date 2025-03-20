@@ -57,7 +57,7 @@ export default class FeatureTypeStore implements IFeatureTypeStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(key: string): Promise<boolean> {
     const result = await this.db.raw(

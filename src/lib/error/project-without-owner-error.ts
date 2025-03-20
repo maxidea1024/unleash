@@ -1,6 +1,6 @@
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
-export default class ProjectWithoutOwnerError extends UnleashError {
+export default class ProjectWithoutOwnerError extends GanpaError {
   statusCode = 409;
 
   constructor() {

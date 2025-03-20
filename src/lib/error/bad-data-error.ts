@@ -1,14 +1,14 @@
 import type { ErrorObject } from 'ajv';
 import type { ValidationError } from 'joi';
 import getProp from 'lodash.get';
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
 type ValidationErrorDescription = {
   message: string;
   path?: string;
 };
 
-export default class BadDataError extends UnleashError {
+export default class BadDataError extends GanpaError {
   statusCode = 400;
 
   private readonly details: ValidationErrorDescription[];

@@ -3,11 +3,11 @@
 import { fromJoiError } from './bad-data-error';
 import { ValidationError as JoiValidationError } from 'joi';
 import {
-  GenericUnleashError,
-  type UnleashApiErrorName,
-  UnleashApiErrorTypes,
-  UnleashError,
-} from './unleash-error';
+  GenericGanpaError,
+  type GanpaApiErrorName,
+  GanpaApiErrorTypes,
+  GanpaError,
+} from './ganpa-error';
 
 const getStatusCode = (errorName: string): number => {
   switch (errorName) {
@@ -70,19 +70,19 @@ const getStatusCode = (errorName: string): number => {
   }
 };
 
-export const fromLegacyError = (e: Error): UnleashError => {
-  if (e instanceof UnleashError) {
+export const fromLegacyError = (e: Error): GanpaError => {
+  if (e instanceof GanpaError) {
     return e;
   }
 
-  const name = UnleashApiErrorTypes.includes(e.name as UnleashApiErrorName)
-    ? (e.name as UnleashApiErrorName)
+  const name = GanpaApiErrorTypes.includes(e.name as GanpaApiErrorName)
+    ? (e.name as GanpaApiErrorName)
     : 'UnknownError';
 
   const statusCode = getStatusCode(name);
 
   if (name === 'NoAccessError') {
-    return new GenericUnleashError({
+    return new GenericGanpaError({
       name: 'NoAccessError',
       message: e.message,
       statusCode,
@@ -94,7 +94,7 @@ export const fromLegacyError = (e: Error): UnleashError => {
   }
 
   if (name === 'ValidationError' || name === 'BadDataError') {
-    return new GenericUnleashError({
+    return new GenericGanpaError({
       name: 'BadDataError',
       message: e.message,
       statusCode,
@@ -102,7 +102,7 @@ export const fromLegacyError = (e: Error): UnleashError => {
   }
 
   if (name === 'OwaspValidationError') {
-    return new GenericUnleashError({
+    return new GenericGanpaError({
       name: 'OwaspValidationError',
       message: e.message,
       statusCode,
@@ -110,15 +110,15 @@ export const fromLegacyError = (e: Error): UnleashError => {
   }
 
   if (name === 'AuthenticationRequired') {
-    return new GenericUnleashError({
+    return new GenericGanpaError({
       name: 'AuthenticationRequired',
       message: `You must be authenticated to view this content. Please log in.`,
       statusCode,
     });
   }
 
-  return new GenericUnleashError({
-    name: name as UnleashApiErrorName,
+  return new GenericGanpaError({
+    name: name as GanpaApiErrorName,
     message: e.message,
     statusCode,
   });

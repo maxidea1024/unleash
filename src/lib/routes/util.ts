@@ -1,7 +1,7 @@
 import joi from 'joi';
 import type { Response } from 'express';
 import type { Logger } from '../logger';
-import { UnleashError } from '../error/unleash-error';
+import { GanpaError } from '../error/ganpa-error';
 import { fromLegacyError } from '../error/from-legacy-error';
 import createError from 'http-errors';
 
@@ -42,13 +42,13 @@ export const handleErrors: (
   }
 
   const finalError =
-    error instanceof UnleashError ? error : fromLegacyError(error);
+    error instanceof GanpaError ? error : fromLegacyError(error);
 
   const format = (thing: object) => JSON.stringify(thing, null, 2);
 
-  if (!(error instanceof UnleashError)) {
+  if (!(error instanceof GanpaError)) {
     logger.debug(
-      `I encountered an error that wasn't an instance of the \`UnleashError\` type. The original error was: ${format(error)}. It was mapped to ${format(finalError.toJSON())}`,
+      `I encountered an error that wasn't an instance of the \`GanpaError\` type. The original error was: ${format(error)}. It was mapped to ${format(finalError.toJSON())}`,
     );
   }
 

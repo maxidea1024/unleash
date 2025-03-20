@@ -15,7 +15,7 @@ import NotFoundError from '../error/notfound-error';
 const COLUMNS = ['feature_name', 'tag_type', 'tag_value'];
 const TABLE = 'feature_tag';
 
-interface FeatureTagTable {
+interface IFeatureTagTable {
   feature_name: string;
   tag_type: string;
   tag_value: string;
@@ -48,7 +48,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
       .del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists({
     featureName,
@@ -98,7 +98,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
     if (await this.featureExists(featureName)) {
       const rows = await this.db
         .select(COLUMNS)
-        .from<FeatureTagTable>(TABLE)
+        .from<IFeatureTagTable>(TABLE)
         .where({ feature_name: featureName });
       stopTimer();
       return rows.map(this.featureTagRowToTag);
@@ -110,7 +110,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
   async getAllFeaturesForTag(tagValue: string): Promise<string[]> {
     const rows = await this.db
       .select('feature_name')
-      .from<FeatureTagTable>(TABLE)
+      .from<IFeatureTagTable>(TABLE)
       .where({ tag_value: tagValue });
     return rows.map(({ feature_name }) => feature_name);
   }
@@ -127,7 +127,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
   async getAllByFeatures(features: string[]): Promise<IFeatureTag[]> {
     const query = this.db
       .select(COLUMNS)
-      .from<FeatureTagTable>(TABLE)
+      .from<IFeatureTagTable>(TABLE)
       .whereIn('feature_name', features)
       .orderBy('feature_name', 'asc');
     const rows = await query;
@@ -145,7 +145,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
     createdByUserId: number,
   ): Promise<ITag> {
     const stopTimer = this.timer('tagFeature');
-    await this.db<FeatureTagTable>(TABLE)
+    await this.db<IFeatureTagTable>(TABLE)
       .insert(this.featureAndTagToRow(featureName, tag, createdByUserId))
       .onConflict(COLUMNS)
       .merge();
@@ -222,14 +222,14 @@ export default class FeatureTagStore implements IFeatureTagStore {
     stopTimer();
   }
 
-  featureTagRowToTag(row: FeatureTagTable): ITag {
+  featureTagRowToTag(row: IFeatureTagTable): ITag {
     return {
       value: row.tag_value,
       type: row.tag_type,
     };
   }
 
-  rowToFeatureAndTag(row: FeatureTagTable): IFeatureAndTag {
+  rowToFeatureAndTag(row: IFeatureTagTable): IFeatureAndTag {
     return {
       featureName: row.feature_name,
       tag: {
@@ -244,7 +244,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
     tagType,
     tagValue,
     createdByUserId,
-  }: IFeatureTagInsert): FeatureTagTable {
+  }: IFeatureTagInsert): IFeatureTagTable {
     return {
       feature_name: featureName,
       tag_type: tagType,
@@ -261,7 +261,7 @@ export default class FeatureTagStore implements IFeatureTagStore {
     featureName: string,
     { type, value }: ITag,
     createdByUserId: number,
-  ): FeatureTagTable {
+  ): IFeatureTagTable {
     return {
       feature_name: featureName,
       tag_type: type,

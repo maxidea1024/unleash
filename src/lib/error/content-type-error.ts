@@ -1,6 +1,6 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class ContentTypeError extends UnleashError {
+export default class ContentTypeError extends GanpaError {
   statusCode = 415;
 
   constructor(

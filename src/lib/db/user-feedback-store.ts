@@ -85,7 +85,7 @@ export default class UserFeedbackStore implements IUserFeedbackStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists({ userId, feedbackId }: IUserFeedbackKey): Promise<boolean> {
     const result = await this.db.raw(

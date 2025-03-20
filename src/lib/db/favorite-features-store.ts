@@ -5,9 +5,7 @@ import type { IFavoriteFeatureKey } from '../types/stores/favorite-features';
 import type { IFavoriteFeature } from '../types/favorites';
 import type { Db } from './db';
 
-const T = {
-  FAVORITE_FEATURES: 'favorite_features',
-};
+const TABLE = 'favorite_features';
 
 interface IFavoriteFeatureRow {
   user_id: number;
@@ -29,7 +27,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.logger = getLogger('favorites-store.ts');
+    this.logger = getLogger('favorite-features-store.ts');
 
     this.db = db;
     this.eventBus = eventBus;
@@ -39,9 +37,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
     userId,
     feature,
   }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
-    const insertedFeature = await this.db<IFavoriteFeatureRow>(
-      T.FAVORITE_FEATURES,
-    )
+    const insertedFeature = await this.db<IFavoriteFeatureRow>(TABLE)
       .insert({ feature, user_id: userId })
       .onConflict(['user_id', 'feature'])
       .merge()
@@ -51,20 +47,20 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   }
 
   async delete({ userId, feature }: IFavoriteFeatureKey): Promise<void> {
-    return this.db(T.FAVORITE_FEATURES)
+    return this.db(TABLE)
       .where({ feature, user_id: userId })
       .del();
   }
 
   async deleteAll(): Promise<void> {
-    await this.db(T.FAVORITE_FEATURES).del();
+    await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists({ userId, feature }: IFavoriteFeatureKey): Promise<boolean> {
     const result = await this.db.raw(
-      `SELECT EXISTS (SELECT 1 FROM ${T.FAVORITE_FEATURES} WHERE user_id = ? AND feature = ?) AS present`,
+      `SELECT EXISTS (SELECT 1 FROM ${TABLE} WHERE user_id = ? AND feature = ?) AS present`,
       [userId, feature],
     );
     const { present } = result.rows[0];
@@ -76,7 +72,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
     feature,
   }: IFavoriteFeatureKey): Promise<IFavoriteFeature> {
     const favorite = await this.db
-      .table<IFavoriteFeatureRow>(T.FAVORITE_FEATURES)
+      .table<IFavoriteFeatureRow>(TABLE)
       .select()
       .where({ feature, user_id: userId })
       .first();
@@ -85,9 +81,7 @@ export class FavoriteFeaturesStore implements IFavoriteFeaturesStore {
   }
 
   async getAll(): Promise<IFavoriteFeature[]> {
-    const groups = await this.db<IFavoriteFeatureRow>(
-      T.FAVORITE_FEATURES,
-    ).select();
+    const groups = await this.db<IFavoriteFeatureRow>(TABLE).select();
     return groups.map(rowToFavorite);
   }
 }

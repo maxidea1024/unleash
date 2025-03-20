@@ -7,9 +7,7 @@ import type {
 } from '../types/stores/favorite-projects';
 import type { Db } from './db';
 
-const T = {
-  FAVORITE_PROJECTS: 'favorite_projects',
-};
+const TABLE = 'favorite_projects';
 
 interface IFavoriteProjectRow {
   user_id: number;
@@ -31,7 +29,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
   private readonly db: Db;
 
   constructor(db: Db, eventBus: EventEmitter, getLogger: LogProvider) {
-    this.logger = getLogger('favorites-store.ts');
+    this.logger = getLogger('favorite-projects-store.ts');
 
     this.db = db;
     this.eventBus = eventBus;
@@ -41,9 +39,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
     userId,
     project,
   }: IFavoriteProjectKey): Promise<IFavoriteProject> {
-    const insertedProject = await this.db<IFavoriteProjectRow>(
-      T.FAVORITE_PROJECTS,
-    )
+    const insertedProject = await this.db<IFavoriteProjectRow>(TABLE)
       .insert({ project, user_id: userId })
       .onConflict(['user_id', 'project'])
       .merge()
@@ -53,20 +49,20 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
   }
 
   async delete({ userId, project }: IFavoriteProjectKey): Promise<void> {
-    return this.db(T.FAVORITE_PROJECTS)
+    return this.db(TABLE)
       .where({ project, user_id: userId })
       .del();
   }
 
   async deleteAll(): Promise<void> {
-    await this.db(T.FAVORITE_PROJECTS).del();
+    await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists({ userId, project }: IFavoriteProjectKey): Promise<boolean> {
     const result = await this.db.raw(
-      `SELECT EXISTS(SELECT 1 FROM ${T.FAVORITE_PROJECTS} WHERE user_id = ? AND project = ?) AS present`,
+      `SELECT EXISTS(SELECT 1 FROM ${TABLE} WHERE user_id = ? AND project = ?) AS present`,
       [userId, project],
     );
     const { present } = result.rows[0];
@@ -78,7 +74,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
     project,
   }: IFavoriteProjectKey): Promise<IFavoriteProject> {
     const favorite = await this.db
-      .table<IFavoriteProjectRow>(T.FAVORITE_PROJECTS)
+      .table<IFavoriteProjectRow>(TABLE)
       .select()
       .where({ project, user_id: userId })
       .first();
@@ -87,9 +83,7 @@ export class FavoriteProjectsStore implements IFavoriteProjectsStore {
   }
 
   async getAll(): Promise<IFavoriteProject[]> {
-    const groups = await this.db<IFavoriteProjectRow>(
-      T.FAVORITE_PROJECTS,
-    ).select();
+    const groups = await this.db<IFavoriteProjectRow>(TABLE).select();
     return groups.map(rowToFavorite);
   }
 }

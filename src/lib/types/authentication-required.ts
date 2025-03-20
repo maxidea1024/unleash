@@ -1,4 +1,4 @@
-import { type ApiErrorSchema, UnleashError } from '../error/unleash-error';
+import { type ApiErrorSchema, GanpaError } from '../error/ganpa-error';
 
 interface IBaseOptions {
   type: string;
@@ -11,7 +11,7 @@ interface IOptions extends IBaseOptions {
   options?: IBaseOptions[];
 }
 
-export default class AuthenticationRequired extends UnleashError {
+export default class AuthenticationRequired extends GanpaError {
   statusCode = 401;
 
   private readonly type: string;

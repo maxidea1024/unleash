@@ -25,6 +25,7 @@ const COLUMNS = [
   'color',
   'icon',
 ];
+
 const TABLE = 'client_applications';
 
 const TABLE_USAGE = 'client_applications_usage';

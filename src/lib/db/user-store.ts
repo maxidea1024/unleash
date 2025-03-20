@@ -28,7 +28,7 @@ const USER_COLUMNS_PUBLIC = [
 
 const USER_COLUMNS = [...USER_COLUMNS_PUBLIC, 'login_attempts', 'created_at'];
 
-const emptify = (value) => {
+const emptify = (value: any) => {
   if (!value) {
     return undefined;
   }
@@ -45,7 +45,7 @@ const mapUserToColumns = (user: ICreateUser) => ({
   image_url: user.imageUrl,
 });
 
-const rowToUser = (row) => {
+const rowToUser = (row: any) => {
   if (!row) {
     throw new NotFoundError('No user found');
   }
@@ -295,7 +295,7 @@ export default class UserStore implements IUserStore {
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(

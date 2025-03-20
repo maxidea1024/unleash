@@ -21,6 +21,7 @@ const COLUMNS = [
   'environments',
   'created_at',
 ];
+
 const TABLE = 'addons';
 
 export default class AddonStore implements IAddonStore {
@@ -39,7 +40,7 @@ export default class AddonStore implements IAddonStore {
       });
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async getAll(query = {}): Promise<IAddon[]> {
     const stopTimer = this.timer('getAll');
@@ -112,7 +113,7 @@ export default class AddonStore implements IAddonStore {
     return present;
   }
 
-  rowToAddon(row): IAddon {
+  rowToAddon(row: any): IAddon {
     return {
       id: row.id,
       provider: row.provider,

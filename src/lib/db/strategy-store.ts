@@ -1,5 +1,4 @@
 import type { Logger, LogProvider } from '../logger';
-
 import NotFoundError from '../error/notfound-error';
 import type {
   IEditableStrategy,

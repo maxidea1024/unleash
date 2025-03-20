@@ -1,7 +1,7 @@
 import { v4 as uuidV4 } from 'uuid';
 import type { FromSchema } from 'json-schema-to-ts';
 
-export const UnleashApiErrorTypes = [
+export const GanpaApiErrorTypes = [
   'ContentTypeError',
   'DisabledError',
   'FeatureHasTagError',
@@ -35,9 +35,9 @@ export const UnleashApiErrorTypes = [
   'InternalError',
 ] as const;
 
-export type UnleashApiErrorName = (typeof UnleashApiErrorTypes)[number];
+export type GanpaApiErrorName = (typeof GanpaApiErrorTypes)[number];
 
-export abstract class UnleashError extends Error {
+export abstract class GanpaError extends Error {
   id: string;
   name: string;
   abstract statusCode: number;
@@ -69,7 +69,7 @@ export abstract class UnleashError extends Error {
   }
 }
 
-export class GenericUnleashError extends UnleashError {
+export class GenericGanpaError extends GanpaError {
   statusCode: number;
 
   constructor({
@@ -77,7 +77,7 @@ export class GenericUnleashError extends UnleashError {
     message,
     statusCode,
   }: {
-    name: UnleashApiErrorName;
+    name: GanpaApiErrorName;
     message: string;
     statusCode: number;
   }) {
@@ -92,7 +92,7 @@ export const apiErrorSchema = {
   type: 'object',
   required: ['id', 'name', 'message'],
   description:
-    'An Unleash API error. Contains information about what went wrong.',
+    'An Ganpa API error. Contains information about what went wrong.',
   properties: {
     name: {
       type: 'string',

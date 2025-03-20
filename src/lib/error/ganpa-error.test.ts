@@ -1,7 +1,7 @@
 import owasp from 'owasp-password-strength-test';
 import type { ErrorObject } from 'ajv';
 import AuthenticationRequired from '../types/authentication-required';
-import type { ApiErrorSchema } from './unleash-error';
+import type { ApiErrorSchema } from './ganpa-error';
 import BadDataError, {
   fromOpenApiValidationError,
   fromOpenApiValidationErrors,
@@ -578,7 +578,7 @@ describe('Error serialization special cases', () => {
     const config = {
       type: 'password',
       path: `base-path/auth/simple/login`,
-      message: 'You must sign in order to use Unleash',
+      message: 'You must sign in order to use Ganpa',
       defaultHidden: true,
       options: [
         {

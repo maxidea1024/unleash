@@ -95,7 +95,7 @@ export default class TagStore implements ITagStore {
       .ignore();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async get({ type, value }: ITag): Promise<ITag> {
     const stopTimer = this.timer('getTag');

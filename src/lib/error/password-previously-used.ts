@@ -1,6 +1,6 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class PasswordPreviouslyUsedError extends UnleashError {
+export default class PasswordPreviouslyUsedError extends GanpaError {
   statusCode = 400;
 
   constructor(

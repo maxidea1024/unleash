@@ -170,7 +170,7 @@ export class PublicSignupTokenStore implements IPublicSignupTokenStore {
     return valid;
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(secret: string): Promise<boolean> {
     const result = await this.db.raw(

@@ -1,6 +1,6 @@
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
-export default class PasswordUndefinedError extends UnleashError {
+export default class PasswordUndefinedError extends GanpaError {
   statusCode = 400;
 
   constructor() {

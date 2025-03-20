@@ -20,7 +20,7 @@ const USER_COLUMNS_PUBLIC = [
 
 const USER_COLUMNS = [...USER_COLUMNS_PUBLIC, 'login_attempts', 'created_at'];
 
-const emptify = (value) => {
+const emptify = (value: any) => {
   if (!value) {
     return undefined;
   }
@@ -30,7 +30,7 @@ const emptify = (value) => {
 
 const safeToLower = (s?: string) => (s ? s.toLowerCase() : s);
 
-const rowToUser = (row) => {
+const rowToUser = (row: any) => {
   if (!row) {
     throw new NotFoundError('No user found');
   }
@@ -47,6 +47,8 @@ const rowToUser = (row) => {
     isService: row.is_service,
   });
 };
+
+const ADMIN_ROLE_NAME = 'Admin';
 
 export class AccountStore implements IAccountStore {
   private readonly db: Db;
@@ -135,7 +137,7 @@ export class AccountStore implements IAccountStore {
       .then((res) => Number(res[0].count));
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(
@@ -182,7 +184,7 @@ export class AccountStore implements IAccountStore {
       .where(
         'ru.role_id',
         '=',
-        this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']),
+        this.db.raw('(SELECT id FROM roles WHERE name = ?)', [ADMIN_ROLE_NAME]),
       )
       .select(
         this.db.raw(
@@ -204,7 +206,7 @@ export class AccountStore implements IAccountStore {
   }
 
   async getAdmins(): Promise<MinimalUser[]> {
-    const rowToAdminUser = (row) => {
+    const rowToAdminUser = (row: any) => {
       const user = rowToUser(row);
       return {
         id: user.id,
@@ -220,7 +222,7 @@ export class AccountStore implements IAccountStore {
       .where(
         'ru.role_id',
         '=',
-        this.db.raw('(SELECT id FROM roles WHERE name = ?)', ['Admin']),
+        this.db.raw('(SELECT id FROM roles WHERE name = ?)', [ADMIN_ROLE_NAME]),
       )
       .andWhereNot('users.is_service', true)
       .select(

@@ -28,8 +28,7 @@ export abstract class CRUDStore<
   OutputRowModel = Row<OutputModel>,
   InputRowModel = Row<InputModel>,
   IdType = number,
-> implements IStore<OutputModel, IdType>
-{
+> implements IStore<OutputModel, IdType> {
   protected readonly db: Db;
   protected readonly tableName: string;
   protected readonly timer: (action: string) => Function;
@@ -105,7 +104,7 @@ export abstract class CRUDStore<
     return this.db(this.tableName).delete();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(id: IdType): Promise<boolean> {
     const endTimer = this.timer('exists');

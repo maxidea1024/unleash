@@ -1,8 +1,8 @@
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
 type Permission = string | string[];
 
-export default class PermissionError extends UnleashError {
+export default class PermissionError extends GanpaError {
   statusCode = 403;
 
   private readonly permissions: Permission;

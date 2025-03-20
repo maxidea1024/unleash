@@ -1,5 +1,5 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class ForbiddenError extends UnleashError {
+export default class ForbiddenError extends GanpaError {
   statusCode = 403;
 }

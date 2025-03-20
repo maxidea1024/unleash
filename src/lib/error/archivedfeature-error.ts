@@ -1,6 +1,6 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class ArchivedFeatureError extends UnleashError {
+export default class ArchivedFeatureError extends GanpaError {
   statusCode = 400;
 
   constructor(

@@ -1,6 +1,6 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class UsedTokenError extends UnleashError {
+export default class UsedTokenError extends GanpaError {
   statusCode = 403;
 
   constructor(usedAt: Date) {

@@ -1,12 +1,12 @@
 import type { TestResult } from 'owasp-password-strength-test';
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
 type ValidationError = {
   validationErrors: string[];
   message: string;
 };
 
-export default class OwaspValidationError extends UnleashError {
+export default class OwaspValidationError extends GanpaError {
   statusCode = 400;
 
   private readonly details: [ValidationError];

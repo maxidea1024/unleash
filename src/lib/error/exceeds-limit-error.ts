@@ -1,8 +1,8 @@
-import { GenericUnleashError } from './unleash-error';
+import { GenericGanpaError } from './ganpa-error';
 import { EXCEEDS_LIMIT } from '../metric-events';
 import type EventEmitter from 'events';
 
-export class ExceedsLimitError extends GenericUnleashError {
+export class ExceedsLimitError extends GenericGanpaError {
   constructor(resource: string, limit: number) {
     super({
       name: 'ExceedsLimitError',

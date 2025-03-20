@@ -1,6 +1,6 @@
-import { type ApiErrorSchema, UnleashError } from './unleash-error';
+import { type ApiErrorSchema, GanpaError } from './ganpa-error';
 
-export default class IncompatibleProjectError extends UnleashError {
+export default class IncompatibleProjectError extends GanpaError {
   statusCode = 403;
 
   constructor(targetProject: string) {

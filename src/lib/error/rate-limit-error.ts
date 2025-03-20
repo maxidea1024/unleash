@@ -1,6 +1,6 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class RateLimitError extends UnleashError {
+export default class RateLimitError extends GanpaError {
   statusCode = 429;
 
   constructor(

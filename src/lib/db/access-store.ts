@@ -153,7 +153,7 @@ export class AccessStore implements IAccessStore {
     await this.db(T.ROLES).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(key: number): Promise<boolean> {
     const result = await this.db.raw(

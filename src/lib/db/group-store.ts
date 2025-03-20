@@ -195,7 +195,7 @@ export default class GroupStore implements IGroupStore {
     await this.db(T.GROUPS).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists(id: number): Promise<boolean> {
     const result = await this.db.raw(

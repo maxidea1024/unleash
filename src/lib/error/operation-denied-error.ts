@@ -1,5 +1,5 @@
-import { UnleashError } from './unleash-error';
+import { GanpaError } from './ganpa-error';
 
-export default class OperationDeniedError extends UnleashError {
+export default class OperationDeniedError extends GanpaError {
   statusCode = 403;
 }

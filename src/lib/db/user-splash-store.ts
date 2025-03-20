@@ -77,7 +77,7 @@ export default class UserSplashStore implements IUserSplashStore {
     await this.db(TABLE).del();
   }
 
-  destroy(): void {}
+  destroy(): void { }
 
   async exists({ userId, splashId }: IUserSplashKey): Promise<boolean> {
     const result = await this.db.raw(
