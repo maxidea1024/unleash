@@ -16,7 +16,7 @@ import {
   type SearchFeaturesSchema,
   searchFeaturesSchema,
 } from '../../openapi';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import {
   type FeatureSearchQueryParameters,
   featureSearchQueryParameters,

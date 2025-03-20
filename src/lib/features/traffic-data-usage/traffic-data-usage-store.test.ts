@@ -1,8 +1,8 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import type { ITrafficDataUsageStore, IUnleashStores } from '../../types';
+import type { ITrafficDataUsageStore, IGanpaStores } from '../../types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let trafficDataUsageStore: ITrafficDataUsageStore;
 

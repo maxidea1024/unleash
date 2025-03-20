@@ -14,7 +14,7 @@ import type {
   IUserWithProjectRoles,
 } from '../types/stores/access-store';
 import type { Logger } from '../logger';
-import type { IAccountStore, IUnleashStores } from '../types/stores';
+import type { IAccountStore, IGanpaStores } from '../types/stores';
 import {
   type IAvailablePermissions,
   type ICustomRole,
@@ -138,7 +138,7 @@ export class AccessService {
       roleStore,
       environmentStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'accessStore' | 'accountStore' | 'roleStore' | 'environmentStore'
     > & { groupStore?: any }, // TODO remove groupStore later, kept for backward compatibility with enterprise
     {

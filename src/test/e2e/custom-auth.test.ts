@@ -2,12 +2,12 @@ import dbInit, { type ITestDb } from './helpers/database-init';
 import { setupAppWithCustomAuth } from './helpers/test-helper';
 import {
   type IGanpaServices,
-  type IUnleashStores,
+  type IGanpaStores,
   RoleName,
 } from '../../lib/types';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 
 const preHook = (
   app,

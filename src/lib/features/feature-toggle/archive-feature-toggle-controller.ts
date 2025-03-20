@@ -8,7 +8,7 @@ import {
 } from '../../util/extract-user';
 import { DELETE_FEATURE, NONE, UPDATE_FEATURE } from '../../types/permissions';
 import type FeatureToggleService from './feature-toggle-service';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import { serializeDates } from '../../types/serialize-dates';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';

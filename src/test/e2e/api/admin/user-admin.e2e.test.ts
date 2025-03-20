@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
@@ -17,12 +17,12 @@ import type { IRoleStore } from '../../../../lib/types/stores/role-store';
 import { randomId } from '../../../../lib/util/random-id';
 import { omitKeys } from '../../../../lib/util/omit-keys';
 import type { ISessionStore } from '../../../../lib/types/stores/session-store';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 import { createHash } from 'crypto';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 let userStore: IUserStore;
 let eventStore: IEventStore;

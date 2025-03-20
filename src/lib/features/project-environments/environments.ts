@@ -19,7 +19,7 @@ import {
   type ProjectEnvironmentSchema,
 } from '../../openapi';
 import type { OpenApiService, ProjectService } from '../../services';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import type { WithTransactional } from '../../db/transaction';
 
 const PREFIX = '/:projectId/environments';

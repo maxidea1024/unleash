@@ -12,12 +12,12 @@ import type { IUser, IUserWithRootRole } from '../../../lib/types/user';
 import SettingService from '../../../lib/services/setting-service';
 import FakeSettingStore from '../../fixtures/fake-setting-store';
 import { GroupService } from '../../../lib/services/group-service';
-import { type IUnleashStores, TEST_AUDIT_USER } from '../../../lib/types';
+import { type IGanpaStores, TEST_AUDIT_USER } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
 const config: IGanpaConfig = createTestConfig();
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let adminUser: IUserWithRootRole;
 let userToCreateResetFor: IUser;

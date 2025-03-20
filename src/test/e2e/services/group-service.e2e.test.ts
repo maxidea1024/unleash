@@ -5,13 +5,13 @@ import { GroupService } from '../../../lib/services/group-service';
 import type { EventService } from '../../../lib/services';
 import {
   type IGroupStore,
-  type IUnleashStores,
+  type IGanpaStores,
   type IUser,
   TEST_AUDIT_USER,
 } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 let eventService: EventService;

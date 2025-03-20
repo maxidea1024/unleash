@@ -1,7 +1,7 @@
 import SettingService from '../../../lib/services/setting-service';
 import { createTestConfig } from '../../config/test-config';
 import dbInit, { type ITestDb } from '../helpers/database-init';
-import type { IUnleashStores } from '../../../lib/types/stores';
+import type { IGanpaStores } from '../../../lib/types/stores';
 import {
   SETTING_CREATED,
   SETTING_DELETED,
@@ -10,7 +10,7 @@ import {
 import { TEST_AUDIT_USER } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let service: SettingService;
 const TEST_USER_ID = -9999;

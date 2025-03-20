@@ -17,7 +17,7 @@ import {
   inactiveUsersSchema,
   type InactiveUsersSchema,
 } from '../../openapi';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services';
 import { anonymise } from '../../util';

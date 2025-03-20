@@ -9,7 +9,7 @@ import {
   DEFAULT_STRATEGY_SEGMENTS_LIMIT,
 } from '../../util/segments';
 import type TestAgent from 'supertest/lib/agent';
-import type { IUnleashStores } from '../../types';
+import type { IGanpaStores } from '../../types';
 
 const uiConfig = {
   headerBackground: 'red',
@@ -36,7 +36,7 @@ async function getSetup() {
 
 let request: TestAgent<Test>;
 let base: string;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 
 beforeEach(async () => {
   const setup = await getSetup();

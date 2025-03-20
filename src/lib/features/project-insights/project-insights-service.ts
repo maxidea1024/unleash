@@ -4,7 +4,7 @@ import type {
   IFeatureToggleStore,
   IFeatureTypeStore,
   IProjectStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import { calculateAverageTimeToProd } from '../feature-toggle/time-to-production/time-to-production';
 import type { IProjectStatsStore } from '../../types/stores/project-stats-store-type';
@@ -29,7 +29,7 @@ export class ProjectInsightsService {
     projectStatsStore,
     featureStrategiesStore,
   }: Pick<
-    IUnleashStores,
+    IGanpaStores,
     | 'projectStore'
     | 'featureToggleStore'
     | 'projectStatsStore'

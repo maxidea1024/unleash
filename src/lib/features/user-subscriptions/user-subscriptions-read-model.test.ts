@@ -3,11 +3,11 @@ import getLogger from '../../../test/fixtures/no-logger';
 import { UserSubscriptionsReadModel } from './user-subscriptions-read-model';
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
 import { SUBSCRIPTION_TYPES } from './user-subscriptions-read-model-type';
-import type { IUnleashStores, IUserStore } from '../../types';
+import type { IGanpaStores, IUserStore } from '../../types';
 import type { IUserUnsubscribeStore } from './user-unsubscribe-store-type';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let userStore: IUserStore;
 let userUnsubscribeStore: IUserUnsubscribeStore;
 let userSubscriptionsReadModel: IUserSubscriptionsReadModel;

@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithAuth,
 } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
@@ -11,7 +11,7 @@ import {
   type IEventStore,
   type IFeatureToggleStore,
   type IProjectStore,
-  type IUnleashStores,
+  type IGanpaStores,
   RoleName,
 } from '../../types';
 import type { ImportTogglesSchema, VariantsSchema } from '../../openapi';
@@ -20,7 +20,7 @@ import type { AccessService } from '../../services';
 import { DEFAULT_ENV } from '../../util';
 import type { IRole } from '../../types/stores/access-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let eventStore: IEventStore;
 let environmentStore: IEnvironmentStore;
@@ -29,7 +29,7 @@ let projectStore: IProjectStore;
 let toggleStore: IFeatureToggleStore;
 let accessService: AccessService;
 let adminRole: IRole;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 
 const regularUserName = 'import-user';
 const adminUserName = 'admin-user';

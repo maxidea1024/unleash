@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type { IGanpaConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';

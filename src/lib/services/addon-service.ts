@@ -20,7 +20,7 @@ import type {
 import {
   type IAuditUser,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   SYSTEM_USER_AUDIT,
 } from '../types';
 import type { IAddonDefinition } from '../types/model';
@@ -54,7 +54,7 @@ export default class AddonService {
     {
       addonStore,
       featureToggleStore,
-    }: Pick<IUnleashStores, 'addonStore' | 'featureToggleStore'>,
+    }: Pick<IGanpaStores, 'addonStore' | 'featureToggleStore'>,
     {
       getLogger,
       server,

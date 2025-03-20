@@ -1,5 +1,5 @@
 export const simpleAuthSettingsKey = 'unleash.auth.simple';
 
-export interface SimpleAuthSettings {
+export interface ISimpleAuthSettings {
   disabled: boolean;
 }

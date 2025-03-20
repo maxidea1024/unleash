@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../../server-impl';
+import type { Db, IGanpaConfig } from '../../../server-impl';
 import FeatureToggleStore from '../../feature-toggle/feature-toggle-store';
 import { FakeProjectLifecycleSummaryReadModel } from './fake-project-lifecycle-summary-read-model';
 import type { IProjectLifecycleSummaryReadModel } from './project-lifecycle-read-model-type';
@@ -6,7 +6,7 @@ import { ProjectLifecycleSummaryReadModel } from './project-lifecycle-summary-re
 
 export const createProjectLifecycleSummaryReadModel = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): IProjectLifecycleSummaryReadModel => {
   const { eventBus, getLogger, flagResolver } = config;
   const featureToggleStore = new FeatureToggleStore(

@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
@@ -7,7 +7,7 @@ import getLogger from '../../../fixtures/no-logger';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
 import { type IUser, TEST_AUDIT_USER } from '../../../../lib/types';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 const featureName = 'feature.default.1';

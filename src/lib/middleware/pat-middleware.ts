@@ -1,5 +1,5 @@
 import type { IGanpaConfig } from '../types';
-import type { IAuthRequest } from '../routes/unleash-types';
+import type { IAuthRequest } from '../routes/ganpa-types';
 import NotFoundError from '../error/notfound-error';
 import type { AccountService } from '../services/account-service';
 

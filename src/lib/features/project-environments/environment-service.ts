@@ -8,7 +8,7 @@ import {
   type IProjectEnvironment,
   type ISortOrder,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   ProjectEnvironmentAdded,
   ProjectEnvironmentRemoved,
   SYSTEM_USER_AUDIT,
@@ -40,7 +40,7 @@ export default class EnvironmentService {
       featureEnvironmentStore,
       projectStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'environmentStore'
       | 'featureStrategiesStore'
       | 'featureEnvironmentStore'

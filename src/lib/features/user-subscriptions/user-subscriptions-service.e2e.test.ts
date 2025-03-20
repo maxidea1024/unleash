@@ -1,7 +1,7 @@
 import {
   type IEventStore,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   type IUserStore,
   TEST_AUDIT_USER,
 } from '../../types';
@@ -12,7 +12,7 @@ import getLogger from '../../../test/fixtures/no-logger';
 import { createUserSubscriptionsService } from './createUserSubscriptionsService';
 import type { IUserSubscriptionsReadModel } from './user-subscriptions-read-model-type';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let userStore: IUserStore;
 let userSubscriptionService: UserSubscriptionsService;

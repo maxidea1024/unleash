@@ -9,7 +9,7 @@ import type User from '../../../types/user';
 import {
   type IConstraint,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   type IVariant,
   SKIP_CHANGE_REQUEST,
   SYSTEM_USER_AUDIT,
@@ -31,7 +31,7 @@ import {
 import { insertLastSeenAt } from '../../../../test/e2e/helpers/test-helper';
 import type { EventService } from '../../../services';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let service: FeatureToggleService;
 let segmentService: ISegmentService;

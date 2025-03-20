@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
@@ -27,7 +27,7 @@ import type {
 } from '../../openapi';
 import type { IContextFieldDto } from '../../types/stores/context-field-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let eventStore: IEventStore;
 let environmentStore: IEnvironmentStore;

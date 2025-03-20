@@ -55,6 +55,7 @@ export class OnboardingService {
       if (event.loginOrder === 0) {
         await this.insert({ type: 'first-user-login' });
       }
+
       if (event.loginOrder === 1) {
         await this.insert({
           type: 'second-user-login',

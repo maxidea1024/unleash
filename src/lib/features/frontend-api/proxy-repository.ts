@@ -9,7 +9,7 @@ import type { IApiUser } from '../../types/api-user';
 import type {
   IGanpaConfig,
   IGanpaServices,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import {
   mapFeaturesForClient,
@@ -28,7 +28,7 @@ import metricsHelper from '../../util/metrics-helper';
 
 type Config = Pick<IGanpaConfig, 'getLogger' | 'frontendApi' | 'eventBus'>;
 
-type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
+type Stores = Pick<IGanpaStores, 'segmentReadModel'>;
 
 type Services = Pick<
   IGanpaServices,

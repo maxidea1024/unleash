@@ -71,9 +71,11 @@ export class FeatureLifecycleService {
 
   listen() {
     this.featureLifecycleStore.backfill();
+
     this.eventStore.on(FEATURE_CREATED, async (event) => {
       await this.featureInitialized(event.featureName);
     });
+
     this.eventBus.on(
       CLIENT_METRICS_ADDED,
       async (events: IClientMetricsEnv[]) => {
@@ -89,9 +91,11 @@ export class FeatureLifecycleService {
         }
       },
     );
+
     this.eventStore.on(FEATURE_ARCHIVED, async (event) => {
       await this.featureArchived(event.featureName);
     });
+
     this.eventStore.on(FEATURE_REVIVED, async (event) => {
       await this.featureRevived(event.featureName);
     });
@@ -105,6 +109,7 @@ export class FeatureLifecycleService {
     const result = await this.featureLifecycleStore.insert([
       { feature, stage: 'initial' },
     ]);
+
     this.recordStagesEntered(result);
   }
 
@@ -129,6 +134,7 @@ export class FeatureLifecycleService {
     }
     newlyEnteredStages.forEach(({ stage, feature }) => {
       this.eventBus.emit(STAGE_ENTERED, { stage, feature });
+
       if (this.flagResolver.isEnabled('trackLifecycleMetrics')) {
         this.logger.info(
           `STAGE_ENTERED emitted ${JSON.stringify({ stage, feature })}`,
@@ -147,15 +153,19 @@ export class FeatureLifecycleService {
       if (!env) {
         return;
       }
+
       await this.stageReceivedMetrics(features, 'pre-live');
+
       if (env.type === 'production') {
         const featureEnv = await this.featureEnvironmentStore.getAllByFeatures(
           features,
           env.name,
         );
+
         const enabledFeatures = featureEnv
           .filter((feature) => feature.enabled)
           .map((feature) => feature.featureName);
+
         await this.stageReceivedMetrics(enabledFeatures, 'live');
       }
     } catch (e) {
@@ -180,7 +190,9 @@ export class FeatureLifecycleService {
         statusValue: status.statusValue,
       },
     ]);
+
     this.recordStagesEntered(result);
+
     await this.eventService.storeEvent(
       new FeatureCompletedEvent({
         project: projectId,
@@ -200,6 +212,7 @@ export class FeatureLifecycleService {
       feature,
       stage: 'completed',
     });
+
     await this.eventService.storeEvent(
       new FeatureUncompletedEvent({
         project: projectId,
@@ -213,11 +226,13 @@ export class FeatureLifecycleService {
     const result = await this.featureLifecycleStore.insert([
       { feature, stage: 'archived' },
     ]);
+
     this.recordStagesEntered(result);
   }
 
   private async featureRevived(feature: string) {
     await this.featureLifecycleStore.delete(feature);
+
     await this.featureInitialized(feature);
   }
 }

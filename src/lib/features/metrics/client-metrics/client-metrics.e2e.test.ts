@@ -2,14 +2,14 @@ import dbInit, {
   type ITestDb,
 } from '../../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../../test/fixtures/no-logger';
 import type { IClientMetricsEnv } from './client-metrics-store-v2-type';
 import { subHours } from 'date-fns';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 const fetchHoursBack = (hoursBack: number, feature: string = 'demo') => {

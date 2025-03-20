@@ -1,6 +1,6 @@
 import { APPLICATION_CREATED, CLIENT_REGISTER } from '../../../types/events';
 import type { IApplication, IApplicationOverview } from './models';
-import type { IUnleashStores } from '../../../types/stores';
+import type { IGanpaStores } from '../../../types/stores';
 import type { IGanpaConfig } from '../../../types/options';
 import type { IEventStore } from '../../../types/stores/event-store';
 import type {
@@ -49,7 +49,7 @@ export default class ClientInstanceService {
       clientApplicationsStore,
       eventStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'clientMetricsStoreV2'
       | 'strategyStore'
       | 'featureToggleStore'

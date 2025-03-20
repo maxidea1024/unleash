@@ -1,17 +1,17 @@
 import type { Application, NextFunction, Request, Response } from 'express';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomAuth,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import type { IGanpaConfig } from '../../../../lib/types/options';
 import type { IGanpaServices } from '../../../../lib/types/services';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('splash_api_serial', getLogger);

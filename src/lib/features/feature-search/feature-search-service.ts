@@ -2,7 +2,7 @@ import type { Logger } from '../../logger';
 import type {
   IFeatureSearchStore,
   IGanpaConfig,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import type {
   IFeatureSearchParams,
@@ -15,7 +15,7 @@ export class FeatureSearchService {
   private readonly logger: Logger;
 
   constructor(
-    { featureSearchStore }: Pick<IUnleashStores, 'featureSearchStore'>,
+    { featureSearchStore }: Pick<IGanpaStores, 'featureSearchStore'>,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('feature-search-service.ts');

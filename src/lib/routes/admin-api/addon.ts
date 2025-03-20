@@ -15,7 +15,7 @@ import {
   NONE,
   UPDATE_ADDON,
 } from '../../types/permissions';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import type { OpenApiService } from '../../services/openapi-service';

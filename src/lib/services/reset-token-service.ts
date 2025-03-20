@@ -5,7 +5,7 @@ import type { Logger } from '../logger';
 import UsedTokenError from '../error/used-token-error';
 import InvalidTokenError from '../error/invalid-token-error';
 import type { IGanpaConfig } from '../types/options';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type {
   IResetQuery,
   IResetToken,
@@ -25,7 +25,7 @@ export default class ResetTokenService {
   constructor(
     {
       resetTokenStore
-    }: Pick<IUnleashStores, 'resetTokenStore'>,
+    }: Pick<IGanpaStores, 'resetTokenStore'>,
     {
       getLogger,
       server

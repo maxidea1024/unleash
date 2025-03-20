@@ -5,7 +5,7 @@ import type {
   IContextFieldStore,
 } from '../types/stores/context-field-store';
 import type { IProjectStore } from '../features/project/project-store-type';
-import type { IFeatureStrategiesStore, IUnleashStores } from '../types/stores';
+import type { IFeatureStrategiesStore, IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { ContextFieldStrategiesSchema } from '../openapi/spec/context-field-strategies-schema';
 import {
@@ -37,7 +37,7 @@ export default class ContextService {
       contextFieldStore,
       featureStrategiesStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'projectStore' | 'contextFieldStore' | 'featureStrategiesStore'
     >,
     {

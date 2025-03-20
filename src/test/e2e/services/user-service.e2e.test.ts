@@ -19,7 +19,7 @@ import type { EventService } from '../../../lib/services';
 import {
   CREATE_ADDON,
   type IFlagResolver,
-  type IUnleashStores,
+  type IGanpaStores,
   type IUserStore,
   SYSTEM_USER_AUDIT,
   TEST_AUDIT_USER,
@@ -34,7 +34,7 @@ import type EventEmitter from 'events';
 import { USER_LOGIN } from '../../../lib/metric-events';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let userService: UserService;
 let userStore: IUserStore;
 let adminRole: IRole;

@@ -27,7 +27,7 @@ import type {
   ProjectService,
   FrontendApiService,
 } from '../../../services';
-import type { IAuthRequest } from '../../unleash-types';
+import type { IAuthRequest } from '../../ganpa-types';
 import Controller from '../../controller';
 import type { Logger } from '../../../logger';
 import type { Response } from 'express';

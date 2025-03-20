@@ -1,4 +1,4 @@
-import type { IAuthRequest } from '../routes/unleash-types';
+import type { IAuthRequest } from '../routes/ganpa-types';
 import type { NextFunction, Response } from 'express';
 import type { LogProvider } from '../logger';
 import { AuthenticationRequired } from '../server-impl';

@@ -2,10 +2,10 @@ import type { IEnvironmentStore } from '../project-environments/environment-stor
 
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
-import type { IProjectStore, IUnleashStores } from '../../types';
+import type { IProjectStore, IGanpaStores } from '../../types';
 import type { IProjectInsert } from './project-store-type';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let projectStore: IProjectStore;
 let environmentStore: IEnvironmentStore;

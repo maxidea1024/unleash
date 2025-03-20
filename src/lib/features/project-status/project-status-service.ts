@@ -4,7 +4,7 @@ import type {
   IEventStore,
   IProjectStore,
   ISegmentStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import type { IPersonalDashboardReadModel } from '../personal-dashboard/personal-dashboard-read-model-type';
 import type { IProjectLifecycleSummaryReadModel } from './project-lifecycle-read-model/project-lifecycle-read-model-type';
@@ -26,7 +26,7 @@ export class ProjectStatusService {
       apiTokenStore,
       segmentStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'eventStore' | 'projectStore' | 'apiTokenStore' | 'segmentStore'
     >,
     personalDashboardReadModel: IPersonalDashboardReadModel,

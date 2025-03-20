@@ -1,7 +1,7 @@
 import {
   type IAuditUser,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   serializeDates,
 } from '../../types';
 import type { IInactiveUsersStore } from './types/inactive-users-store-type';
@@ -18,7 +18,7 @@ export class InactiveUsersService {
   constructor(
     {
       inactiveUsersStore
-    }: Pick<IUnleashStores, 'inactiveUsersStore'>,
+    }: Pick<IGanpaStores, 'inactiveUsersStore'>,
     {
       getLogger,
       userInactivityThresholdInDays,

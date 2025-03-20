@@ -3,7 +3,7 @@ import {
   type IBaseEvent,
   type IFeatureCollaboratorsReadModel,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../types';
 import { createTestConfig } from '../../test/config/test-config';
 import FeatureToggleService from '../features/feature-toggle/feature-toggle-service';
@@ -55,7 +55,7 @@ test('Should only store events for potentially stale on', async () => {
       featureTagStore: {
         getAllTagsForFeature: () => [],
       },
-    } as unknown as IUnleashStores,
+    } as unknown as IGanpaStores,
     {
       ...config,
       flagResolver: { isEnabled: () => true },

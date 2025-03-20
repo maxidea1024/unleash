@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
@@ -11,7 +11,7 @@ import { type IGanpaConfig, SYSTEM_USER } from '../../../../lib/types';
 import { createEventsService } from '../../../../lib/features';
 import { createTestConfig } from '../../../config/test-config';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let eventService: EventService;
 const TEST_USER_ID = -9999;

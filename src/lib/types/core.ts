@@ -5,7 +5,7 @@ import type * as http from 'http';
 import type User from './user';
 import type { IAuditUser, IUser } from './user';
 import type { IGanpaConfig } from './options';
-import type { IUnleashStores } from './stores';
+import type { IGanpaStores } from './stores';
 import type { IGanpaServices } from './services';
 
 export interface AuthedRequest extends Request {
@@ -16,7 +16,7 @@ export interface IGanpa {
   app: any;
   config: IGanpaConfig;
   eventBus: EventEmitter;
-  stores: IUnleashStores;
+  stores: IGanpaStores;
   server?: http.Server | https.Server;
   services: IGanpaServices;
   stop: () => Promise<void>;

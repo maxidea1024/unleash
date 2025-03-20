@@ -19,7 +19,7 @@ import {
 } from '../../openapi';
 import Controller from '../../routes/controller';
 import type { Request, Response } from 'express';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import type { WithTransactional } from '../../db/transaction';
 
 interface FeatureLifecycleParams {

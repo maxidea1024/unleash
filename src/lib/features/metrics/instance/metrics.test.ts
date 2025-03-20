@@ -7,7 +7,7 @@ import {
   AuthType,
   type IGanpaOptions,
   type IGanpaServices,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../../../types';
 import dbInit, {
   type ITestDb,
@@ -34,7 +34,7 @@ async function getSetup(opts?: IGanpaOptions) {
 }
 
 let request: TestAgent<Test>;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let services: IGanpaServices;
 let destroy: () => Promise<void>;
 

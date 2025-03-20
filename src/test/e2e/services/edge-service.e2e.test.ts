@@ -10,11 +10,11 @@ import { addDays, subDays } from 'date-fns';
 import type ProjectService from '../../../lib/features/project/project-service';
 import { createProjectService } from '../../../lib/features';
 import { EdgeService } from '../../../lib/services';
-import { type IUnleashStores, TEST_AUDIT_USER } from '../../../lib/types';
+import { type IGanpaStores, TEST_AUDIT_USER } from '../../../lib/types';
 import { createApiTokenService } from '../../../lib/features/api-tokens/createApiTokenService';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let edgeService: EdgeService;
 let projectService: ProjectService;
 

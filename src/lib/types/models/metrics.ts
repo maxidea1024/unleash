@@ -1,12 +1,12 @@
-export interface GroupedClientMetrics {
+export interface IGroupedClientMetrics {
   environment: string;
   timestamp: Date;
   yes: number;
   no: number;
 }
 
-export interface ToggleMetricsSummary {
+export interface IToggleMetricsSummary {
   featureName: string;
-  lastHourUsage: GroupedClientMetrics[];
+  lastHourUsage: IGroupedClientMetrics[];
   seenApplications: string[];
 }

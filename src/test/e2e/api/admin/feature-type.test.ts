@@ -1,13 +1,13 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import { validateSchema } from '../../../../lib/openapi/validate';
 import { featureTypesSchema } from '../../../../lib/openapi/spec/feature-types-schema';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

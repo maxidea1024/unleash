@@ -1,6 +1,6 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
@@ -9,7 +9,7 @@ import type { IAddonDto } from '../../types/stores/addon-store';
 import type { IntegrationEventsService } from './integration-events-service';
 import type { IntegrationEventWriteModel } from './integration-events-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let integrationEventsService: IntegrationEventsService;
 let integrationId: number;

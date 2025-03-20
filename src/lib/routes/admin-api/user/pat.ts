@@ -19,7 +19,7 @@ import type { OpenApiService } from '../../../services/openapi-service';
 
 import type PatService from '../../../services/pat-service';
 import { NONE } from '../../../types/permissions';
-import type { IAuthRequest } from '../../unleash-types';
+import type { IAuthRequest } from '../../ganpa-types';
 import { serializeDates } from '../../../types/serialize-dates';
 import { type PatSchema, patSchema } from '../../../openapi/spec/pat-schema';
 import { type PatsSchema, patsSchema } from '../../../openapi/spec/pats-schema';

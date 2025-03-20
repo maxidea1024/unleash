@@ -3,7 +3,7 @@ import type {
   IEventStore,
   IFlagResolver,
   IGanpaConfig,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import EventEmitter from 'events';
 
@@ -18,7 +18,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
   private readonly flagResolver: IFlagResolver;
 
   private constructor(
-    { eventStore }: Pick<IUnleashStores, 'eventStore'>,
+    { eventStore }: Pick<IGanpaStores, 'eventStore'>,
     {
       getLogger,
       flagResolver,
@@ -34,7 +34,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
   }
 
   static getInstance(
-    { eventStore }: Pick<IUnleashStores, 'eventStore'>,
+    { eventStore }: Pick<IGanpaStores, 'eventStore'>,
     {
       getLogger,
       flagResolver,

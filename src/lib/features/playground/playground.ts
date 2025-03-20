@@ -20,7 +20,7 @@ import {
   advancedPlaygroundViewModel,
   playgroundViewModel,
 } from './playground-view-model';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import { extractUserIdFromUser } from '../../util';
 
 export default class PlaygroundController extends Controller {

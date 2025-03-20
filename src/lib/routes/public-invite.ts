@@ -2,7 +2,7 @@ import type { Response } from 'express';
 import Controller from './controller';
 import { NONE } from '../types/permissions';
 import type { Logger } from '../logger';
-import type { IAuthRequest } from './unleash-types';
+import type { IAuthRequest } from './ganpa-types';
 import type { IGanpaConfig, IGanpaServices } from '../types';
 import type { OpenApiService } from '../services/openapi-service';
 import { createRequestSchema } from '../openapi/util/create-request-schema';

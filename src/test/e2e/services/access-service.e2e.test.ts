@@ -11,7 +11,7 @@ import * as permissions from '../../../lib/types/permissions';
 import { RoleName } from '../../../lib/types/model';
 import {
   type ICreateGroupUserModel,
-  type IUnleashStores,
+  type IGanpaStores,
   type IUser,
   type IUserAccessOverview,
   SYSTEM_USER_AUDIT,
@@ -35,7 +35,7 @@ import type { IRole } from '../../../lib/types/stores/access-store';
 import { extractAuditInfoFromUser } from '../../../lib/util';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let accessService: AccessService;
 let featureToggleService: FeatureToggleService;
 let projectService: ProjectService;

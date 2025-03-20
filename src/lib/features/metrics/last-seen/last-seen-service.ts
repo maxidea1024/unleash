@@ -1,8 +1,8 @@
 import type { Logger } from '../../../logger';
-import type { IUnleashConfig } from '../../../server-impl';
+import type { IGanpaConfig } from '../../../server-impl';
 import type { IClientMetricsEnv } from '../client-metrics/client-metrics-store-v2-type';
 import type { ILastSeenStore } from './types/last-seen-store-type';
-import type { IUnleashStores } from '../../../types';
+import type { IGanpaStores } from '../../../types';
 
 export type LastSeenInput = {
   featureName: string;
@@ -15,8 +15,8 @@ export class LastSeenService {
   private lastSeenToggles: Map<String, LastSeenInput> = new Map();
 
   constructor(
-    { lastSeenStore }: Pick<IUnleashStores, 'lastSeenStore'>,
-    config: IUnleashConfig,
+    { lastSeenStore }: Pick<IGanpaStores, 'lastSeenStore'>,
+    config: IGanpaConfig,
   ) {
     this.logger = config.getLogger('last-seen-service.ts');
 

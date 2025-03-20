@@ -3,7 +3,7 @@ import { createTestConfig } from '../../../test/config/test-config';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import NotFoundError from '../../error/notfound-error';
 import {
-  type IUnleashStores,
+  type IGanpaStores,
   SYSTEM_USER,
   SYSTEM_USER_AUDIT,
 } from '../../types';
@@ -11,7 +11,7 @@ import NameExistsError from '../../error/name-exists-error';
 import type { EventService } from '../../services';
 import { createEventsService } from '../events/createEventsService';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let service: EnvironmentService;
 let eventService: EventService;

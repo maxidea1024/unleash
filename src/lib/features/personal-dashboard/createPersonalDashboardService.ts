@@ -1,5 +1,5 @@
 import type { Db } from '../../db/db';
-import type { IGanpaConfig, IUnleashStores } from '../../types';
+import type { IGanpaConfig, IGanpaStores } from '../../types';
 import { PersonalDashboardService } from './personal-dashboard-service';
 import { PersonalDashboardReadModel } from './personal-dashboard-read-model';
 import { FakePersonalDashboardReadModel } from './fake-personal-dashboard-read-model';
@@ -22,7 +22,7 @@ import FakeAccessStore from '../../../test/fixtures/fake-access-store';
 export const createPersonalDashboardService = (
   db: Db,
   config: IGanpaConfig,
-  stores: IUnleashStores,
+  stores: IGanpaStores,
 ) => {
   return new PersonalDashboardService(
     new PersonalDashboardReadModel(db),

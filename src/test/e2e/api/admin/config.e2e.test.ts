@@ -1,6 +1,6 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
@@ -8,7 +8,7 @@ import { simpleAuthSettingsKey } from '../../../../lib/types/settings/simple-aut
 import { TEST_AUDIT_USER } from '../../../../lib/types';
 
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('config_api_serial', getLogger);

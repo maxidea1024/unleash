@@ -38,7 +38,7 @@ import {
   type IStrategyConfig,
   type IStrategyStore,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   type IVariant,
   PotentiallyStaleOnEvent,
   type Saved,
@@ -178,7 +178,7 @@ export default class FeatureToggleService {
       contextFieldStore,
       strategyStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'featureStrategiesStore'
       | 'featureToggleStore'
       | 'clientFeatureToggleStore'

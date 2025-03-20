@@ -1,14 +1,14 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
-import type { IUnleashStores } from '../../types';
+import type { IGanpaStores } from '../../types';
 import getLogger from '../../../test/fixtures/no-logger';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 const flag = {
   name: 'test-flag',

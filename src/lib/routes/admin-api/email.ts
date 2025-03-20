@@ -23,6 +23,7 @@ export default class EmailController extends Controller {
     this.logger = config.getLogger('email.ts');
 
     this.emailService = emailService;
+
     this.get('/preview/html/:template', this.getHtmlPreview, ADMIN);
     this.get('/preview/text/:template', this.getTextPreview, ADMIN);
   }

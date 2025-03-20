@@ -7,7 +7,7 @@ import type {
   IEventStore,
   IFeatureStrategiesReadModel,
   ITrafficDataUsageStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types/stores';
 import type { IContextFieldStore } from '../../types/stores/context-field-store';
 import type { IEnvironmentStore } from '../project-environments/environment-store-type';
@@ -120,7 +120,7 @@ export class InstanceStatsService {
       featureStrategiesReadModel,
       trafficDataUsageStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'featureToggleStore'
       | 'userStore'
       | 'projectStore'

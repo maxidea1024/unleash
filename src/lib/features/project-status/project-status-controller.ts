@@ -11,7 +11,7 @@ import {
 
 import { getStandardResponses } from '../../openapi/util/standard-responses';
 import type { OpenApiService } from '../../services';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import {
   createResponseSchema,
   projectStatusSchema,

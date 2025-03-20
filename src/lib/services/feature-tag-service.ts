@@ -7,7 +7,7 @@ import {
   TAG_CREATED,
 } from '../types/events';
 import type { IGanpaConfig } from '../types/options';
-import type { IFeatureToggleStore, IUnleashStores } from '../types/stores';
+import type { IFeatureToggleStore, IGanpaStores } from '../types/stores';
 import { tagSchema } from './tag-schema';
 import type {
   IFeatureTag,
@@ -33,7 +33,7 @@ export default class FeatureTagService {
       featureTagStore,
       featureToggleStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'tagStore' | 'featureTagStore' | 'featureToggleStore'
     >,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,

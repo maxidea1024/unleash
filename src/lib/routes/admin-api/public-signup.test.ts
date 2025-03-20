@@ -5,7 +5,7 @@ import getApp from '../../app';
 import supertest, { type Test } from 'supertest';
 import permissions from '../../../test/fixtures/permissions';
 import { RoleName, RoleType } from '../../types/model';
-import type { IUnleashStores } from '../../types';
+import type { IGanpaStores } from '../../types';
 import type TestAgent from 'supertest/lib/agent';
 
 describe('Public Signup API', () => {
@@ -38,7 +38,7 @@ describe('Public Signup API', () => {
     };
   }
 
-  let stores: IUnleashStores;
+  let stores: IGanpaStores;
   let request: TestAgent<Test>;
 
   const user = {

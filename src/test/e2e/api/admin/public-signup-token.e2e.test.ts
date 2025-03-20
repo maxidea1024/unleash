@@ -3,9 +3,9 @@ import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { RoleName } from '../../../../lib/types/model';
 import type { PublicSignupTokenCreateSchema } from '../../../../lib/openapi/spec/public-signup-token-create-schema';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

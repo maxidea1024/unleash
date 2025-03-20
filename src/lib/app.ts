@@ -10,7 +10,7 @@ import rbacMiddleware from './middleware/rbac-middleware';
 import apiTokenMiddleware from './middleware/api-token-middleware';
 import type { IGanpaServices } from './types/services';
 import { AuthType, type IGanpaConfig } from './types/options';
-import type { IUnleashStores } from './types';
+import type { IGanpaStores } from './types';
 import IndexRouter from './routes';
 import requestLogger from './middleware/request-logger';
 import demoAuthentication from './middleware/demo-authentication';
@@ -31,7 +31,7 @@ import { originMiddleware } from './middleware/origin-middleware';
 
 export default async function getApp(
   config: IGanpaConfig,
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   services: IGanpaServices,
   unleashSession?: RequestHandler,
   db?: Knex,

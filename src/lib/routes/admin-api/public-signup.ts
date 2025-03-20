@@ -13,7 +13,7 @@ import type {
   OpenApiService,
   PublicSignupTokenService,
 } from '../../services';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import {
   createRequestSchema,
   createResponseSchema,

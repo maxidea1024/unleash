@@ -10,7 +10,7 @@ import type { IGanpaConfig } from '../../types/options';
 import type { IGanpaServices } from '../../types/services';
 import type ContextService from '../../services/context-service';
 import type { Logger } from '../../logger';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type { OpenApiService } from '../../services/openapi-service';
 import {
   contextFieldSchema,
@@ -37,7 +37,7 @@ import type { UpdateContextFieldSchema } from '../../openapi/spec/update-context
 import type { CreateContextFieldSchema } from '../../openapi/spec/create-context-field-schema';
 import { extractUserIdFromUser } from '../../util';
 
-interface ContextParam {
+interface IContextParam {
   contextField: string;
 }
 
@@ -209,7 +209,7 @@ export class ContextController extends Controller {
   }
 
   async getContextField(
-    req: Request<ContextParam>,
+    req: Request<IContextParam>,
     res: Response<ContextFieldSchema>,
   ): Promise<void> {
     try {
@@ -249,7 +249,7 @@ export class ContextController extends Controller {
   }
 
   async updateContextField(
-    req: IAuthRequest<ContextParam, void, UpdateContextFieldSchema>,
+    req: IAuthRequest<IContextParam, void, UpdateContextFieldSchema>,
     res: Response,
   ): Promise<void> {
     const name = req.params.contextField;
@@ -263,7 +263,7 @@ export class ContextController extends Controller {
   }
 
   async deleteContextField(
-    req: IAuthRequest<ContextParam>,
+    req: IAuthRequest<IContextParam>,
     res: Response,
   ): Promise<void> {
     const name = req.params.contextField;

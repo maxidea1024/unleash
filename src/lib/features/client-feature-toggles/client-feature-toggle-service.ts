@@ -3,7 +3,7 @@ import type {
   IFeatureToggleQuery,
   ISegmentReadModel,
   IGanpaConfig,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 
 import type { Logger } from '../../logger';
@@ -18,7 +18,7 @@ export class ClientFeatureToggleService {
   constructor(
     {
       clientFeatureToggleStore,
-    }: Pick<IUnleashStores, 'clientFeatureToggleStore'>,
+    }: Pick<IGanpaStores, 'clientFeatureToggleStore'>,
     segmentReadModel: ISegmentReadModel,
     { getLogger }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {

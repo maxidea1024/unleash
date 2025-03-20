@@ -8,12 +8,12 @@ import type { EventService, FeatureToggleService } from '../../lib/services';
 import {
   ADMIN_TOKEN_USER,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../../lib/types';
 import { createTestConfig } from '../config/test-config';
 import dbInit, { type ITestDb } from './helpers/database-init';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let service: FeatureToggleService;
 let eventBus: EventEmitter;

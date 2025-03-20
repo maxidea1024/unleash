@@ -1,7 +1,7 @@
 import type {
   IGanpaConfig,
   IGanpaServices,
-  IUnleashStores,
+  IGanpaStores,
 } from '../types';
 import FeatureTypeService from './feature-type-service';
 import EventService from '../features/events/event-service';
@@ -162,7 +162,7 @@ import {
 import { ProjectStatusService } from '../features/project-status/project-status-service';
 
 export const createServices = (
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   config: IGanpaConfig,
   db?: Db,
 ): IGanpaServices => {

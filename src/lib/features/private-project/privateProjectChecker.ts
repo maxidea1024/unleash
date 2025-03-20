@@ -1,4 +1,4 @@
-import type { IGanpaConfig, IUnleashStores } from '../../types';
+import type { IGanpaConfig, IGanpaStores } from '../../types';
 import type { IPrivateProjectStore } from './privateProjectStoreType';
 import type { IPrivateProjectChecker } from './privateProjectCheckerType';
 import { ALL_PROJECT_ACCESS, type ProjectAccess } from './privateProjectStore';
@@ -8,7 +8,7 @@ export class PrivateProjectChecker implements IPrivateProjectChecker {
   private readonly isEnterprise: boolean;
 
   constructor(
-    { privateProjectStore }: Pick<IUnleashStores, 'privateProjectStore'>,
+    { privateProjectStore }: Pick<IGanpaStores, 'privateProjectStore'>,
     { isEnterprise }: Pick<IGanpaConfig, 'isEnterprise'>,
   ) {
     this.privateProjectStore = privateProjectStore;

@@ -14,7 +14,7 @@ import type { Logger } from '../../logger';
 import { querySchema } from '../../schema/feature-schema';
 import type { IFeatureToggleQuery } from '../../types/model';
 import NotFoundError from '../../error/notfound-error';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import ApiUser from '../../types/api-user';
 import { ALL, isAllProjects } from '../../types/models/api-token';
 import type { FeatureConfigurationClient } from '../feature-toggle/types/feature-toggle-strategies-store-type';

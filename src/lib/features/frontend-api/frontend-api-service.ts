@@ -3,7 +3,7 @@ import type {
   IAuditUser,
   IGanpaConfig,
   IGanpaServices,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../types';
 import type { Logger } from '../../logger';
 import type {
@@ -34,7 +34,7 @@ export type Config = Pick<
   'getLogger' | 'frontendApi' | 'frontendApiOrigins' | 'eventBus'
 >;
 
-export type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
+export type Stores = Pick<IGanpaStores, 'segmentReadModel'>;
 
 export type Services = Pick<
   IGanpaServices,

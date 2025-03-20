@@ -2,7 +2,7 @@ import { auditAccessMiddleware } from './audit-middleware';
 import { createTestConfig } from '../../test/config/test-config';
 import express from 'express';
 import noAuthentication from './no-authentication';
-import type { IAuthRequest } from '../routes/unleash-types';
+import type { IAuthRequest } from '../routes/ganpa-types';
 import type { IAuditUser } from '../types';
 import supertest from 'supertest';
 

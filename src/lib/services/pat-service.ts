@@ -1,7 +1,7 @@
 import {
   type IAuditUser,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   PatCreatedEvent,
   PatDeletedEvent,
 } from '../types';
@@ -22,7 +22,7 @@ export default class PatService {
   private readonly eventService: EventService;
 
   constructor(
-    { patStore }: Pick<IUnleashStores, 'patStore'>,
+    { patStore }: Pick<IGanpaStores, 'patStore'>,
     config: IGanpaConfig,
     eventService: EventService,
   ) {

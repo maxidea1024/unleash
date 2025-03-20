@@ -1,18 +1,18 @@
 import type { CreateFeatureStrategySchema } from '../../../lib/openapi';
-import type { IUnleashTest } from './test-helper';
+import type { IGanpaTest } from './test-helper';
 
 export const FEATURES_BASE_PATH = '/api/admin/projects/default/features';
 export const ADMIN_BASE_PATH = '/api/admin';
 
 export const createFeatureFlag = (
-  app: IUnleashTest,
+  app: IGanpaTest,
   postData: object,
   expectStatusCode = 201,
 ): Promise<unknown> =>
   app.request.post(FEATURES_BASE_PATH).send(postData).expect(expectStatusCode);
 
 export const addStrategyToFeatureEnv = (
-  app: IUnleashTest,
+  app: IGanpaTest,
   postData: CreateFeatureStrategySchema,
   envName: string,
   featureName: string,

@@ -47,9 +47,9 @@ export const checkFeatureNamingData = (
 export type FeatureNameCheckResult =
   | { state: 'valid' }
   | {
-      state: 'invalid';
-      invalidNames: Set<string>;
-    };
+    state: 'invalid';
+    invalidNames: Set<string>;
+  };
 
 export const checkFeatureFlagNamesAgainstPattern = (
   featureNames: string[],
@@ -66,5 +66,6 @@ export const checkFeatureFlagNamesAgainstPattern = (
       };
     }
   }
+
   return { state: 'valid' };
 };

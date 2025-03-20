@@ -1,4 +1,4 @@
-import type { IOnboardingReadModel, IUnleashStores } from '../../../lib/types';
+import type { IOnboardingReadModel, IGanpaStores } from '../../../lib/types';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import { minutesToMilliseconds } from 'date-fns';
@@ -9,7 +9,7 @@ import type EventEmitter from 'events';
 import { STAGE_ENTERED, USER_LOGIN } from '../../metric-events';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let onboardingService: OnboardingService;
 let eventBus: EventEmitter;
 let onboardingReadModel: IOnboardingReadModel;

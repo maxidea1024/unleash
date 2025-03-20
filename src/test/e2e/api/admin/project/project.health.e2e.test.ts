@@ -1,13 +1,13 @@
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../helpers/test-helper';
 import getLogger from '../../../../fixtures/no-logger';
 import type { IUser } from '../../../../../lib/types';
 import { extractAuditInfoFromUser } from '../../../../../lib/util';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let user: IUser;
 

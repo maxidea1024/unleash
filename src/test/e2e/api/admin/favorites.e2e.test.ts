@@ -1,13 +1,13 @@
-import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
-import { type IUnleashStores, RoleName } from '../../../../lib/types';
+import { type IGanpaTest, setupAppWithAuth } from '../../helpers/test-helper';
+import { type IGanpaStores, RoleName } from '../../../../lib/types';
 import type { AccessService } from '../../../../lib/services';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import type { IRole } from '../../../../lib/types/stores/access-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let accessService: AccessService;
 let editorRole: IRole;
 

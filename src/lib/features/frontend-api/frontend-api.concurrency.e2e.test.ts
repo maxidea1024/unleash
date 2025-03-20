@@ -1,5 +1,5 @@
 import {
-  type IUnleashNoSupertest,
+  type IGanpaNoSupertest,
   setupAppWithoutSupertest,
 } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
@@ -7,7 +7,7 @@ import getLogger from '../../../test/fixtures/no-logger';
 import { randomId } from '../../util';
 import { ApiTokenType } from '../../types/models/api-token';
 
-let app: IUnleashNoSupertest;
+let app: IGanpaNoSupertest;
 let db: ITestDb;
 let appErrorLogs: string[] = [];
 

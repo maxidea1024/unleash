@@ -28,7 +28,7 @@ import {
 } from '../../openapi';
 import { getStandardResponses } from '../../openapi/util/standard-responses';
 import type { OpenApiService } from '../../services';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import { ProjectApiTokenController } from '../../routes/admin-api/project/api-token';
 import ProjectArchiveController from '../../routes/admin-api/project/project-archive';
 import { createKnexTransactionStarter } from '../../db/transaction';

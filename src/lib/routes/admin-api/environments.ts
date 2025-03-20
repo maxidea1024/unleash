@@ -26,11 +26,11 @@ import {
   type EnvironmentsProjectSchema,
 } from '../../openapi/spec/environments-project-schema';
 
-interface EnvironmentParam {
+interface IEnvironmentParam {
   name: string;
 }
 
-interface ProjectParam {
+interface IProjectParam {
   projectId: string;
 }
 
@@ -63,7 +63,7 @@ export class EnvironmentsController extends Controller {
           tags: ['Environments'],
           summary: 'Get all environments',
           description:
-            'Retrieves all environments that exist in this Unleash instance.',
+            'Retrieves all environments that exist in this Ganpa instance.',
           operationId: 'getAllEnvironments',
           responses: {
             200: createResponseSchema('environmentsSchema'),
@@ -84,7 +84,7 @@ export class EnvironmentsController extends Controller {
           operationId: 'getEnvironment',
           summary: 'Get the environment with `name`',
           description:
-            'Retrieves the environment with `name` if it exists in this Unleash instance',
+            'Retrieves the environment with `name` if it exists in this Ganpa instance',
           responses: {
             200: createResponseSchema('environmentSchema'),
             ...getStandardResponses(401, 403, 404),
@@ -178,7 +178,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async getAllEnvironments(
-    _: Request,
+    req: Request,
     res: Response<EnvironmentsSchema>,
   ): Promise<void> {
     this.openApiService.respondWithValidation(
@@ -201,7 +201,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async toggleEnvironmentOn(
-    req: Request<EnvironmentParam>,
+    req: Request<IEnvironmentParam>,
     res: Response,
   ): Promise<void> {
     const { name } = req.params;
@@ -210,7 +210,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async toggleEnvironmentOff(
-    req: Request<EnvironmentParam>,
+    req: Request<IEnvironmentParam>,
     res: Response,
   ): Promise<void> {
     const { name } = req.params;
@@ -219,7 +219,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async getEnvironment(
-    req: Request<EnvironmentParam>,
+    req: Request<IEnvironmentParam>,
     res: Response<EnvironmentSchema>,
   ): Promise<void> {
     this.openApiService.respondWithValidation(
@@ -231,7 +231,7 @@ export class EnvironmentsController extends Controller {
   }
 
   async getProjectEnvironments(
-    req: Request<ProjectParam>,
+    req: Request<IProjectParam>,
     res: Response<EnvironmentsProjectSchema>,
   ): Promise<void> {
     this.openApiService.respondWithValidation(

@@ -21,7 +21,7 @@ import {
 import {
   type IAuditUser,
   type IGroup,
-  type IUnleashStores,
+  type IGanpaStores,
   type IUser,
   SYSTEM_USER_AUDIT,
   SYSTEM_USER_ID,
@@ -33,7 +33,7 @@ import { DEFAULT_ENV, extractAuditInfoFromUser } from '../../util';
 import { ApiTokenType } from '../../types/models/api-token';
 import { createApiTokenService } from '../api-tokens/createApiTokenService';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 let projectService: ProjectService;

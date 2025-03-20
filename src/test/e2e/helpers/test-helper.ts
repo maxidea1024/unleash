@@ -1,5 +1,4 @@
 import supertest from 'supertest';
-
 import getApp from '../../../lib/app';
 import { createTestConfig } from '../../config/test-config';
 import { AuthType, type IGanpaConfig } from '../../../lib/types/options';
@@ -8,7 +7,7 @@ import sessionDb from '../../../lib/middleware/session-db';
 import {
   DEFAULT_PROJECT,
   type FeatureToggleDTO,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../../../lib/types';
 import type { IGanpaServices } from '../../../lib/types/services';
 import type { Db } from '../../../lib/db/db';
@@ -24,16 +23,17 @@ import type { Knex } from 'knex';
 import type TestAgent from 'supertest/lib/agent';
 import type Test from 'supertest/lib/test';
 import type { Server } from 'node:http';
+
 process.env.NODE_ENV = 'test';
 
-export interface IUnleashTest extends IUnleashHttpAPI {
+export interface IGanpaTest extends IGanpaHttpAPI {
   request: TestAgent<Test>;
   destroy: () => Promise<void>;
   services: IGanpaServices;
   config: IGanpaConfig;
 }
 
-export interface IUnleashNoSupertest {
+export interface IGanpaNoSupertest {
   server: Server;
   services: IGanpaServices;
   config: IGanpaConfig;
@@ -45,7 +45,7 @@ export interface IUnleashNoSupertest {
  *
  * All functions return a supertest.Test object, which can be used to compose more assertions on the response.
  */
-export interface IUnleashHttpAPI {
+export interface IGanpaHttpAPI {
   addStrategyToFeatureEnv(
     postData: CreateFeatureStrategySchema,
     envName: string,
@@ -122,7 +122,7 @@ export interface IUnleashHttpAPI {
 function httpApis(
   request: TestAgent<Test>,
   config: IGanpaConfig,
-): IUnleashHttpAPI {
+): IGanpaHttpAPI {
   const base = config.server.baseUriPath || '';
 
   return {
@@ -300,7 +300,7 @@ async function createApp(
   preHook?: Function,
   customOptions?: any,
   db?: Db,
-): Promise<IUnleashTest> {
+): Promise<IGanpaTest> {
   const config = createTestConfig({
     authentication: {
       type: adminAuthentication,
@@ -347,7 +347,7 @@ async function createApp(
   };
 }
 
-export async function setupApp(stores: IUnleashStores): Promise<IUnleashTest> {
+export async function setupApp(stores: IGanpaStores): Promise<IGanpaTest> {
   return createApp(stores);
 }
 
@@ -355,7 +355,7 @@ export async function setupAppWithoutSupertest(
   stores,
   customOptions?: any,
   db?: Db,
-): Promise<IUnleashNoSupertest> {
+): Promise<IGanpaNoSupertest> {
   const config = createTestConfig({
     authentication: {
       type: AuthType.DEMO,
@@ -399,37 +399,37 @@ export async function setupAppWithoutSupertest(
 }
 
 export async function setupAppWithCustomConfig(
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   customOptions: any,
   db?: Db,
-): Promise<IUnleashTest> {
+): Promise<IGanpaTest> {
   return createApp(stores, undefined, undefined, customOptions, db);
 }
 
 export async function setupAppWithAuth(
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   customOptions?: any,
   db?: Db,
-): Promise<IUnleashTest> {
+): Promise<IGanpaTest> {
   return createApp(stores, AuthType.DEMO, undefined, customOptions, db);
 }
 
 export async function setupAppWithCustomAuth(
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   preHook: Function,
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   customOptions?: any,
   db?: Db,
-): Promise<IUnleashTest> {
+): Promise<IGanpaTest> {
   return createApp(stores, AuthType.CUSTOM, preHook, customOptions, db);
 }
 
 export async function setupAppWithBaseUrl(
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   baseUriPath = '/hosted',
-): Promise<IUnleashTest> {
+): Promise<IGanpaTest> {
   return createApp(stores, undefined, undefined, {
     server: {
       unleashUrl: 'http://localhost:4242',

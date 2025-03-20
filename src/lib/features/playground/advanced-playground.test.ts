@@ -1,12 +1,12 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { AdvancedPlaygroundResponseSchema } from '../../openapi';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

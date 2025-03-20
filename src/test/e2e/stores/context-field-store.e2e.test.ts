@@ -2,9 +2,9 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import type { IContextFieldDto } from '../../../lib/types/stores/context-field-store';
 import fc, { type Arbitrary } from 'fast-check';
-import type { IUnleashStores } from '../../../lib/types';
+import type { IGanpaStores } from '../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

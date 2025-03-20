@@ -33,7 +33,7 @@ import {
   type IProjectStore,
   type IProjectUpdate,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   MOVE_FEATURE_TOGGLE,
   ProjectAccessAddedEvent,
   ProjectAccessGroupRolesUpdated,
@@ -162,7 +162,7 @@ export default class ProjectService {
       projectReadModel,
       onboardingReadModel,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'projectStore'
       | 'projectOwnersReadModel'
       | 'projectFlagCreatorsReadModel'

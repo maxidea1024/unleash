@@ -2,9 +2,9 @@ import type { ISegmentStore } from './segment-store-type';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import NotFoundError from '../../error/notfound-error';
-import { type IUnleashStores, type IUser, TEST_AUDIT_USER } from '../../types';
+import { type IGanpaStores, type IUser, TEST_AUDIT_USER } from '../../types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let segmentStore: ISegmentStore;
 

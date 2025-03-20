@@ -1,7 +1,7 @@
 import { ApiTokenType } from '../types/models/api-token';
 import type { IGanpaConfig } from '../types/options';
-import type { IApiRequest, IAuthRequest } from '../routes/unleash-types';
-import type { IUnleashServices } from '../server-impl';
+import type { IApiRequest, IAuthRequest } from '../routes/ganpa-types';
+import type { IGanpaServices } from '../server-impl';
 
 const isClientApi = ({ path }) => {
   return path && path.indexOf('/api/client') > -1;
@@ -38,7 +38,7 @@ export default function apiAccessMiddleware(
     authentication,
     flagResolver,
   }: Pick<IGanpaConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
-  { apiTokenService }: Pick<IUnleashServices, 'apiTokenService'>,
+  { apiTokenService }: Pick<IGanpaServices, 'apiTokenService'>,
 ): any {
   const logger = getLogger('api-token-middleware.ts');
   logger.debug('Enabling api-token middleware');

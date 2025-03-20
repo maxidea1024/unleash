@@ -1,5 +1,5 @@
 import type { Logger } from '../logger';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { IUser } from '../types/user';
 import type {
@@ -14,7 +14,7 @@ export default class UserFeedbackService {
   constructor(
     {
       userFeedbackStore
-    }: Pick<IUnleashStores, 'userFeedbackStore'>,
+    }: Pick<IGanpaStores, 'userFeedbackStore'>,
     {
       getLogger
     }: Pick<IGanpaConfig, 'getLogger'>,

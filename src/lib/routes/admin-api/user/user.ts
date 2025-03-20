@@ -1,5 +1,5 @@
 import type { Response } from 'express';
-import type { IAuthRequest } from '../../unleash-types';
+import type { IAuthRequest } from '../../ganpa-types';
 import Controller from '../../controller';
 import type { AccessService } from '../../../services/access-service';
 import { AuthType, type IGanpaConfig } from '../../../types/options';

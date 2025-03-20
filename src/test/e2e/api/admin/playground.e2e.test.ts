@@ -3,7 +3,7 @@ import { clientFeature, clientFeatures } from '../../../arbitraries.test';
 import { generate as generateRequest } from '../../../../lib/openapi/spec/playground-request-schema.test';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import { type FeatureToggle, WeightType } from '../../../../lib/types/model';
@@ -18,7 +18,7 @@ import type { ClientFeatureSchema } from '../../../../lib/openapi/spec/client-fe
 import type { PlaygroundResponseSchema } from '../../../../lib/openapi/spec/playground-response-schema';
 import type { PlaygroundRequestSchema } from '../../../../lib/openapi/spec/playground-request-schema';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let token: IApiToken;
 
@@ -54,7 +54,7 @@ const testParams = {
 };
 
 const playgroundRequest = async (
-  testApp: IUnleashTest,
+  testApp: IGanpaTest,
   secret: string,
   request: PlaygroundRequestSchema,
 ): Promise<PlaygroundResponseSchema> => {

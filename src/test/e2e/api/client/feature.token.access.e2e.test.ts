@@ -1,4 +1,4 @@
-import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
+import { type IGanpaTest, setupAppWithAuth } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import type { ApiTokenService } from '../../../../lib/services/api-token-service';
@@ -6,7 +6,7 @@ import { ApiTokenType } from '../../../../lib/types/models/api-token';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
 import { TEST_AUDIT_USER } from '../../../../lib/types';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 let apiTokenService: ApiTokenService;

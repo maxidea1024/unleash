@@ -10,7 +10,7 @@ import { generate as generateContext } from '../../../lib/openapi/spec/sdk-conte
 import fc from 'fast-check';
 import { createTestConfig } from '../../config/test-config';
 import dbInit, { type ITestDb } from '../helpers/database-init';
-import type { IUnleashStores } from '../../../lib/types/stores';
+import type { IGanpaStores } from '../../../lib/types/stores';
 import type FeatureToggleService from '../../../lib/features/feature-toggle/feature-toggle-service';
 import {
   type FeatureToggle,
@@ -28,7 +28,7 @@ import { createPrivateProjectChecker } from '../../../lib/features/private-proje
 import { createFeatureToggleService } from '../../../lib/features';
 import { SegmentReadModel } from '../../../lib/features/segment/segment-read-model';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let service: PlaygroundService;
 let featureToggleService: FeatureToggleService;

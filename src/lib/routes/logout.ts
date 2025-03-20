@@ -2,7 +2,7 @@ import type { Response } from 'express';
 import { promisify } from 'util';
 import { type IGanpaConfig, NONE } from '../types';
 import Controller from './controller';
-import type { IAuthRequest } from './unleash-types';
+import type { IAuthRequest } from './ganpa-types';
 import type { IGanpaServices } from '../types';
 import type SessionService from '../services/session-service';
 

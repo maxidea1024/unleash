@@ -1,6 +1,6 @@
 import type {
   IFeatureStrategiesStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../../lib/types';
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
@@ -9,7 +9,7 @@ import type { IFeatureToggleStore } from '../../../lib/features/feature-toggle/t
 import type { IEnvironmentStore } from '../../../lib/features/project-environments/environment-store-type';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let featureEnvironmentStore: IFeatureEnvironmentStore;
 let featureStore: IFeatureToggleStore;
 let environmentStore: IEnvironmentStore;

@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import EventStore from '../events/event-store';
 import GroupStore from '../../db/group-store';
 import { AccountStore } from '../../db/account-store';
@@ -59,7 +59,7 @@ import {
 
 export const createProjectService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ProjectService => {
   const { eventBus, getLogger, flagResolver } = config;
   const eventStore = new EventStore(db, getLogger);
@@ -157,7 +157,7 @@ export const createProjectService = (
 };
 
 export const createFakeProjectService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ProjectService => {
   const { getLogger } = config;
   const eventStore = new FakeEventStore();

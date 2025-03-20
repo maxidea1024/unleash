@@ -9,7 +9,7 @@ import {
 import type { Logger } from '../../../logger';
 import { DELETE_FEATURE } from '../../../types/permissions';
 import type FeatureToggleService from '../../../features/feature-toggle/feature-toggle-service';
-import type { IAuthRequest } from '../../unleash-types';
+import type { IAuthRequest } from '../../ganpa-types';
 import type { OpenApiService } from '../../../services/openapi-service';
 import {
   emptyResponse,

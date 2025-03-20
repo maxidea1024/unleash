@@ -14,7 +14,7 @@ import {
 import type { ApiTokenService } from '../../services/api-token-service';
 import type { Logger } from '../../logger';
 import type { AccessService } from '../../services/access-service';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type { IUser } from '../../types/user';
 import type { IGanpaConfig } from '../../types/options';
 import { ApiTokenType, type IApiToken } from '../../types/models/api-token';

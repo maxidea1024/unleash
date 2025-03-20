@@ -3,7 +3,7 @@ import {
   minutesToMilliseconds,
   secondsToMilliseconds,
 } from 'date-fns';
-import type { IUnleashConfig, IUnleashServices } from '../../server-impl';
+import type { IGanpaConfig, IGanpaServices } from '../../server-impl';
 
 /**
  * Schedules service methods.
@@ -12,8 +12,8 @@ import type { IUnleashConfig, IUnleashServices } from '../../server-impl';
  * @param services
  */
 export const scheduleServices = async (
-  services: IUnleashServices,
-  config: IUnleashConfig,
+  services: IGanpaServices,
+  config: IGanpaConfig,
 ): Promise<void> => {
   const {
     accountService,

@@ -1,9 +1,9 @@
-import { type IUnleashTest, setupAppWithBaseUrl } from '../helpers/test-helper';
+import { type IGanpaTest, setupAppWithBaseUrl } from '../helpers/test-helper';
 
 import dbInit, { type ITestDb } from '../helpers/database-init';
 
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('routes_test_serial');

@@ -1,12 +1,12 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import { DEFAULT_ENV } from '../../../../lib/util/constants';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

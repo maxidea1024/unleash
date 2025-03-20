@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithAuth,
 } from '../../../test/e2e/helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
@@ -19,7 +19,7 @@ import {
 } from '../../types';
 import type { FrontendApiService } from './frontend-api-service';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let frontendApiService: FrontendApiService;
 beforeAll(async () => {

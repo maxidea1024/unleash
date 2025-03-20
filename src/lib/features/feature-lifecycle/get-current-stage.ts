@@ -17,5 +17,6 @@ export function getCurrentStage(
       return foundStage;
     }
   }
+
   return undefined;
 }

@@ -1,5 +1,5 @@
 import type { IStore } from '../../types/stores/store';
-import type { Db, IUnleashConfig, Logger } from '../../server-impl';
+import type { Db, IGanpaConfig, Logger } from '../../server-impl';
 import metricsHelper from '../../util/metrics-helper';
 import { DB_TIME } from '../../metric-events';
 import type { Row } from '../../db/crud/row-type';
@@ -24,7 +24,7 @@ export class JobStore
   protected readonly timer: (action: string) => Function;
   private readonly db: Db;
 
-  constructor(db: Db, config: Pick<IUnleashConfig, 'eventBus' | 'getLogger'>) {
+  constructor(db: Db, config: Pick<IGanpaConfig, 'eventBus' | 'getLogger'>) {
     this.logger = config.getLogger('job-store.ts');
 
     this.db = db;

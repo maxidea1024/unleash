@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import { SegmentService } from '../../services';
 import type { ISegmentService } from './segment-service-interface';
 import FeatureStrategiesStore from '../feature-toggle/feature-toggle-strategies-store';
@@ -24,7 +24,7 @@ import {
 
 export const createSegmentService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): SegmentService => {
   const { eventBus, getLogger, flagResolver } = config;
   const segmentStore = new SegmentStore(db, eventBus, getLogger, flagResolver);
@@ -57,7 +57,7 @@ export const createSegmentService = (
 };
 
 export const createFakeSegmentService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ISegmentService => {
   const segmentStore = new FakeSegmentStore();
   const featureStrategiesStore = new FakeFeatureStrategiesStore();

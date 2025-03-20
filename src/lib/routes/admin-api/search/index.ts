@@ -2,13 +2,13 @@ import EventSearchController from '../../../features/events/event-search-control
 import FeatureSearchController from '../../../features/feature-search/feature-search-controller';
 import type {
   Db,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
 } from '../../../server-impl';
 import Controller from '../../controller';
 
 export class SearchApiController extends Controller {
-  constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
+  constructor(config: IGanpaConfig, services: IGanpaServices, db: Db) {
     super(config);
 
     this.app.use(

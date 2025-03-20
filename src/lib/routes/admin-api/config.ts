@@ -7,7 +7,7 @@ import Controller from '../controller';
 import type VersionService from '../../services/version-service';
 import type SettingService from '../../services/setting-service';
 import {
-  type SimpleAuthSettings,
+  type ISimpleAuthSettings,
   simpleAuthSettingsKey,
 } from '../../types/settings/simple-auth-settings';
 import { ADMIN, NONE } from '../../types/permissions';
@@ -19,7 +19,7 @@ import {
 import type { OpenApiService } from '../../services/openapi-service';
 import type { EmailService } from '../../services/email-service';
 import { emptyResponse } from '../../openapi/util/standard-responses';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import NotFoundError from '../../error/notfound-error';
 import type { SetUiConfigSchema } from '../../openapi/spec/set-ui-config-schema';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
@@ -77,7 +77,7 @@ export default class ConfigController extends Controller {
           tags: ['Admin UI'],
           summary: 'Get UI configuration',
           description:
-            'Retrieves the full configuration used to set up the Unleash Admin UI.',
+            'Retrieves the full configuration used to set up the Ganpa Admin UI.',
           operationId: 'getUiConfig',
           responses: {
             200: createResponseSchema('uiConfigSchema'),
@@ -95,7 +95,7 @@ export default class ConfigController extends Controller {
         openApiService.validPath({
           tags: ['Admin UI'],
           summary: 'Set UI configuration',
-          description: 'Sets the UI configuration for this Unleash instance.',
+          description: 'Sets the UI configuration for this Ganpa instance.',
           operationId: 'setUiConfig',
           requestBody: createRequestSchema('setUiConfigSchema'),
           responses: { 200: emptyResponse },
@@ -111,7 +111,7 @@ export default class ConfigController extends Controller {
     const [frontendSettings, simpleAuthSettings, maintenanceMode] =
       await Promise.all([
         this.frontendApiService.getFrontendSettings(false),
-        this.settingService.get<SimpleAuthSettings>(simpleAuthSettingsKey),
+        this.settingService.get<ISimpleAuthSettings>(simpleAuthSettingsKey),
         this.maintenanceService.isMaintenanceMode(),
       ]);
 

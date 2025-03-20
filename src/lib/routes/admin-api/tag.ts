@@ -7,7 +7,7 @@ import type { Logger } from '../../logger';
 import Controller from '../controller';
 
 import { NONE, UPDATE_FEATURE } from '../../types/permissions';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import {
   createResponseSchema,

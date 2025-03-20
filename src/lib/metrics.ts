@@ -25,7 +25,7 @@ import {
   PROJECT_DELETED,
 } from './types/events';
 import type { IGanpaConfig } from './types/options';
-import type { IUnleashStores } from './types/stores';
+import type { IGanpaStores } from './types/stores';
 import { hoursToMilliseconds, minutesToMilliseconds } from 'date-fns';
 import type { InstanceStatsService } from './features/instance-stats/instance-stats-service';
 import type { IEnvironment, ISdkHeartbeat } from './types';
@@ -92,7 +92,7 @@ export function registerPrometheusPostgresMetrics(
 
 export function registerPrometheusMetrics(
   config: IGanpaConfig,
-  stores: IUnleashStores,
+  stores: IGanpaStores,
   version: string,
   eventBus: EventEmitter,
   instanceStatsService: InstanceStatsService,
@@ -1038,7 +1038,7 @@ export default class MetricsMonitor {
 
   async startMonitoring(
     config: IGanpaConfig,
-    stores: IUnleashStores,
+    stores: IGanpaStores,
     version: string,
     eventBus: EventEmitter,
     instanceStatsService: InstanceStatsService,

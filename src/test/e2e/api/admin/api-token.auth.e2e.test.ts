@@ -12,7 +12,7 @@ import {
   CREATE_PROJECT_API_TOKEN,
   DELETE_CLIENT_API_TOKEN,
   type IGanpaServices,
-  type IUnleashStores,
+  type IGanpaStores,
   READ_CLIENT_API_TOKEN,
   READ_FRONTEND_API_TOKEN,
   SYSTEM_USER,
@@ -24,7 +24,7 @@ import {
 import { addDays } from 'date-fns';
 import type { AccessService, UserService } from '../../../../lib/services';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

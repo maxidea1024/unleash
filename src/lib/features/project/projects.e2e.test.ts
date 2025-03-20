@@ -2,7 +2,7 @@ import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
   insertFeatureEnvironmentsLastSeen,
   insertLastSeenAt,
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
@@ -10,7 +10,7 @@ import getLogger from '../../../test/fixtures/no-logger';
 import type { IProjectStore } from '../../types';
 import { DEFAULT_ENV } from '../../util';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 let projectStore: IProjectStore;

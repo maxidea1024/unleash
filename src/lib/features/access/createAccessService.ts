@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import GroupStore from '../../db/group-store';
 import { AccountStore } from '../../db/account-store';
 import RoleStore from '../../db/role-store';
@@ -19,7 +19,7 @@ import {
 
 export const createAccessService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): AccessService => {
   const { eventBus, getLogger } = config;
   const groupStore = new GroupStore(db);
@@ -42,7 +42,7 @@ export const createAccessService = (
 };
 
 export const createFakeAccessService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): {
   accessService: AccessService;
   eventStore: IEventStore;

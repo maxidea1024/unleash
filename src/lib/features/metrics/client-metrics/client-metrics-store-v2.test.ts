@@ -2,10 +2,10 @@ import dbInit, {
   type ITestDb,
 } from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
-import type { IClientMetricsStoreV2, IUnleashStores } from '../../../types';
+import type { IClientMetricsStoreV2, IGanpaStores } from '../../../types';
 import { endOfDay, setHours, startOfHour, subDays } from 'date-fns';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let clientMetricsStore: IClientMetricsStoreV2;
 

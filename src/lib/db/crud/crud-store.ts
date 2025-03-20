@@ -1,12 +1,12 @@
 import { NotFoundError } from '../../error';
 import { DB_TIME } from '../../metric-events';
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import type { IStore } from '../../types/stores/store';
 import metricsHelper from '../../util/metrics-helper';
 import { defaultFromRow, defaultToRow } from './default-mappings';
 import type { Row } from './row-type';
 
-export type CrudStoreConfig = Pick<IUnleashConfig, 'eventBus'>;
+export type CrudStoreConfig = Pick<IGanpaConfig, 'eventBus'>;
 
 /**
  * This abstract class defines the basic operations for a CRUD store.

@@ -1,6 +1,6 @@
 import type { IGanpaConfig } from '../../types';
 import type MaintenanceService from './maintenance-service';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 
 export const MAINTENANCE_MODE_ENABLED =
   'Unleash is currently in maintenance mode.';

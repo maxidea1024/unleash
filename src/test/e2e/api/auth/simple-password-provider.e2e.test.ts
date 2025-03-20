@@ -1,13 +1,13 @@
 import { createTestConfig } from '../../../config/test-config';
 import {
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   TEST_AUDIT_USER,
 } from '../../../../lib/types';
 import UserService from '../../../../lib/services/user-service';
 import { AccessService } from '../../../../lib/services/access-service';
 import type { IUser } from '../../../../lib/types/user';
-import { type IUnleashTest, setupApp } from '../../helpers/test-helper';
+import { type IGanpaTest, setupApp } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { EmailService } from '../../../../lib/services/email-service';
@@ -18,8 +18,8 @@ import { GroupService } from '../../../../lib/services/group-service';
 import ResetTokenService from '../../../../lib/services/reset-token-service';
 import { createEventsService } from '../../../../lib/features';
 
-let app: IUnleashTest;
-let stores: IUnleashStores;
+let app: IGanpaTest;
+let stores: IGanpaStores;
 let db: ITestDb;
 const config: IGanpaConfig = createTestConfig({
   getLogger,

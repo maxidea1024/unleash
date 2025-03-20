@@ -1,5 +1,5 @@
 import type { IGanpaConfig } from '../types';
-import type { IApiRequest, IAuthRequest } from '../routes/unleash-types';
+import type { IApiRequest, IAuthRequest } from '../routes/ganpa-types';
 import { extractAuditInfo } from '../util';
 
 export const auditAccessMiddleware = ({

@@ -1,5 +1,5 @@
 import { createTestConfig } from '../../test/config/test-config';
-import type { IUnleashConfig, IUnleashOptions, IUser } from '../server-impl';
+import type { IGanpaConfig, IGanpaOptions, IUser } from '../server-impl';
 import { ApiTokenType, type IApiTokenCreate } from '../types/models/api-token';
 import {
   ADMIN_TOKEN_USER,
@@ -22,7 +22,7 @@ test('Should init api token', async () => {
     tokenName: 'admin',
   };
 
-  const config: IUnleashConfig = createTestConfig({
+  const config: IGanpaConfig = createTestConfig({
     authentication: {
       initApiTokens: [token],
     },
@@ -54,7 +54,7 @@ test("Shouldn't return frontend token when secret is undefined", async () => {
     expiresAt: undefined,
   };
 
-  const config: IUnleashConfig = createTestConfig({});
+  const config: IGanpaConfig = createTestConfig({});
   const { environmentStore, apiTokenService } =
     createFakeApiTokenService(config);
   await environmentStore.create({
@@ -80,7 +80,7 @@ test('Api token operations should all have events attached', async () => {
     expiresAt: undefined,
   };
 
-  const config: IUnleashConfig = createTestConfig({});
+  const config: IGanpaConfig = createTestConfig({});
 
   const { environmentStore, apiTokenService, eventService } =
     createFakeApiTokenService(config);
@@ -150,8 +150,8 @@ describe('API token getTokenWithCache', () => {
     expiresAt: undefined,
   };
 
-  const setup = (options?: IUnleashOptions) => {
-    const config: IUnleashConfig = createTestConfig(options);
+  const setup = (options?: IGanpaOptions) => {
+    const config: IGanpaConfig = createTestConfig(options);
     const { apiTokenService, apiTokenStore } =
       createFakeApiTokenService(config);
     return {
@@ -215,7 +215,7 @@ describe('API token getTokenWithCache', () => {
 });
 
 test('normalizes api token type casing to lowercase', async () => {
-  const config: IUnleashConfig = createTestConfig();
+  const config: IGanpaConfig = createTestConfig();
   const { apiTokenStore, apiTokenService, environmentStore } =
     createFakeApiTokenService(config);
 

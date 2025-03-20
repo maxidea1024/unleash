@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
@@ -9,7 +9,7 @@ import { DEFAULT_ENV } from '../../../../lib/util';
 import { addDays } from 'date-fns';
 
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('token_api_serial', getLogger);

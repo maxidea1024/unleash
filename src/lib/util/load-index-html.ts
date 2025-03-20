@@ -1,11 +1,11 @@
 import fs from 'fs';
-import type { IUnleashConfig } from '../server-impl';
+import type { IGanpaConfig } from '../server-impl';
 import { rewriteHTML } from './rewriteHTML';
 import path from 'path';
 import fetch from 'make-fetch-happen';
 
 export async function loadIndexHTML(
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   publicFolder: string,
 ): Promise<string> {
   const { cdnPrefix, baseUriPath = '' } = config.server;

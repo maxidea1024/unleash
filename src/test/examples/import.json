@@ -62,10 +62,20 @@
       "description": "A feature toggle with watiants",
       "enabled": true,
       "archived": false,
-      "strategies": [{ "name": "default" }],
+      "strategies": [
+        {
+          "name": "default"
+        }
+      ],
       "variants": [
-        { "name": "control", "weight": 50 },
-        { "name": "new", "weight": 50 }
+        {
+          "name": "control",
+          "weight": 50
+        },
+        {
+          "name": "new",
+          "weight": 50
+        }
       ]
     }
   ]

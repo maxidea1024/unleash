@@ -4,7 +4,7 @@ import permissions from '../../../test/fixtures/permissions';
 import getApp from '../../app';
 import { createTestConfig } from '../../../test/config/test-config';
 import { createServices } from '../../services';
-import type { IUnleashStores } from '../../types';
+import type { IGanpaStores } from '../../types';
 import type TestAgent from 'supertest/lib/agent';
 
 async function getSetup() {
@@ -24,7 +24,7 @@ async function getSetup() {
   };
 }
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let request: TestAgent<Test>;
 
 beforeEach(async () => {

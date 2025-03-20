@@ -4,7 +4,7 @@ import type { Logger } from '../../logger';
 import type { IGanpaConfig } from '../../types/options';
 import type { IGanpaServices } from '../../types/services';
 import type UserSplashService from '../../services/user-splash-service';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import { NONE } from '../../types/permissions';
 import type { OpenApiService } from '../../services/openapi-service';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';

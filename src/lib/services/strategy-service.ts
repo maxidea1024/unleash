@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IGanpaConfig } from '../types/options';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type {
   IMinimalStrategy,
   IStrategy,
@@ -28,7 +28,7 @@ export default class StrategyService {
   constructor(
     {
       strategyStore
-    }: Pick<IUnleashStores, 'strategyStore'>,
+    }: Pick<IGanpaStores, 'strategyStore'>,
     {
       getLogger
     }: Pick<IGanpaConfig, 'getLogger'>,

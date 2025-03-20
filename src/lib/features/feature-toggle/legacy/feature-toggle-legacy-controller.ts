@@ -8,7 +8,7 @@ import type FeatureToggleService from '../feature-toggle-service';
 import { querySchema } from '../../../schema/feature-schema';
 import type { IFeatureToggleQuery } from '../../../types/model';
 import type FeatureTagService from '../../../services/feature-tag-service';
-import type { IAuthRequest } from '../../../routes/unleash-types';
+import type { IAuthRequest } from '../../../routes/ganpa-types';
 import type { TagSchema } from '../../../openapi/spec/tag-schema';
 import type { TagsSchema } from '../../../openapi/spec/tags-schema';
 import type { OpenApiService } from '../../../services/openapi-service';

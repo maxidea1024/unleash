@@ -1,11 +1,11 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import PrivateProjectStore from './privateProjectStore';
 import { PrivateProjectChecker } from './privateProjectChecker';
 import { FakePrivateProjectChecker } from './fakePrivateProjectChecker';
 
 export const createPrivateProjectChecker = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): PrivateProjectChecker => {
   const { getLogger } = config;
   const privateProjectStore = new PrivateProjectStore(db, getLogger);

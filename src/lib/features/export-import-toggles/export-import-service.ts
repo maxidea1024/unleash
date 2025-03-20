@@ -18,7 +18,7 @@ import {
   type ITagTypeStore,
   type IGanpaConfig,
   type IGanpaServices,
-  type IUnleashStores,
+  type IGanpaStores,
   type IVariant,
   type WithRequired,
 } from '../../types';
@@ -109,7 +109,7 @@ export default class ExportImportService
 
   constructor(
     stores: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'importTogglesStore'
       | 'featureStrategiesStore'
       | 'featureToggleStore'

@@ -4,6 +4,7 @@ type SDKConfig = {
   [key: string]: string;
 };
 
+// TODO: Add the correct versions for the SDKs
 const config: SDKConfig = {
   'unleash-client-node': '5.3.2',
   'unleash-client-java': '9.2.0',

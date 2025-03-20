@@ -1,6 +1,6 @@
 import NameExistsError from '../../error/name-exists-error';
 import { tagTypeSchema } from '../../services/tag-type-schema';
-import type { IUnleashStores } from '../../types/stores';
+import type { IGanpaStores } from '../../types/stores';
 import {
   TagTypeCreatedEvent,
   TagTypeDeletedEvent,
@@ -18,7 +18,7 @@ export default class TagTypeService {
   private readonly logger: Logger;
 
   constructor(
-    { tagTypeStore }: Pick<IUnleashStores, 'tagTypeStore'>,
+    { tagTypeStore }: Pick<IGanpaStores, 'tagTypeStore'>,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {

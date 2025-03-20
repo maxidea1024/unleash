@@ -3,9 +3,9 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import SessionService from '../../../lib/services/session-service';
 import NotFoundError from '../../../lib/error/notfound-error';
 import { addDays, minutesToMilliseconds } from 'date-fns';
-import type { IUnleashStores } from '../../../lib/types';
+import type { IGanpaStores } from '../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let sessionService: SessionService;
 const newSession = {

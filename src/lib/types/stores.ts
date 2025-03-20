@@ -54,7 +54,7 @@ import { IOnboardingStore } from '../features/onboarding/onboarding-store-type';
 import type { IUserUnsubscribeStore } from '../features/user-subscriptions/user-unsubscribe-store-type';
 import type { IUserSubscriptionsReadModel } from '../features/user-subscriptions/user-subscriptions-read-model-type';
 
-export interface IUnleashStores {
+export interface IGanpaStores {
   accessStore: IAccessStore;
   accountStore: IAccountStore;
   addonStore: IAddonStore;

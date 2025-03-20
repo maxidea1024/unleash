@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
@@ -14,7 +14,7 @@ import {
 } from '../../types';
 import { DEFAULT_ENV } from '../../util';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let eventStore: IEventStore;
 

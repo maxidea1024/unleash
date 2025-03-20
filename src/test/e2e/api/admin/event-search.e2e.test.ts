@@ -4,18 +4,18 @@ import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
   FEATURE_CREATED,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
   RoleName,
   USER_CREATED,
 } from '../../../../lib/types';
 import type { AccessService, EventService } from '../../../../lib/services';
 import getLogger from '../../../fixtures/no-logger';
-import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
+import { type IGanpaTest, setupAppWithAuth } from '../../helpers/test-helper';
 import { createEventsService } from '../../../../lib/features';
 import { createTestConfig } from '../../../config/test-config';
 import type { IRole } from '../../../../lib/types/stores/access-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let eventService: EventService;
 const TEST_USER_ID = -9999;
@@ -24,7 +24,7 @@ const adminUserName = 'admin-user';
 
 const config: IGanpaConfig = createTestConfig();
 let adminRole: IRole;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let accessService: AccessService;
 
 const loginRegularUser = () =>

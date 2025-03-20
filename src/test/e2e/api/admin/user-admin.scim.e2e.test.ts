@@ -1,14 +1,14 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 let scimUserId: number;
 let regularUserId: number;

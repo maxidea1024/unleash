@@ -21,7 +21,7 @@ import type {
   IUsernameAdminUser,
 } from '../types/options';
 import type SessionService from './session-service';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import PasswordUndefinedError from '../error/password-undefined';
 import {
   UserCreatedEvent,
@@ -88,7 +88,7 @@ export default class UserService {
   private readonly unleashUrl: string;
 
   constructor(
-    stores: Pick<IUnleashStores, 'userStore'>,
+    stores: Pick<IGanpaStores, 'userStore'>,
     {
       server,
       getLogger,

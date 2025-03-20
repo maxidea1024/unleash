@@ -8,13 +8,13 @@ import {
   createFeatureFlag,
 } from '../../../test/e2e/helpers/app.utils';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import type { StrategiesUsingSegment } from './segment-service-interface';
 import type { IFeatureOverview, IUser } from '../../types';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 const SEGMENTS_BASE_PATH = '/api/admin/segments';
@@ -638,7 +638,7 @@ describe('detect strategy usage in change requests', () => {
   // Change request data is only counted for enterprise
   // instances, so we'll instantiate our own version of the app
   // for that.
-  let enterpriseApp: IUnleashTest;
+  let enterpriseApp: IGanpaTest;
 
   // likewise, we want to fetch from the right app to make sure
   // we get the right data

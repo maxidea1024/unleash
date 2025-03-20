@@ -18,7 +18,7 @@ import {
   getStandardResponses,
   type UpdateFeatureTypeLifetimeSchema,
 } from '../../openapi';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type { IFlagResolver } from '../../types';
 
 const version = 1;

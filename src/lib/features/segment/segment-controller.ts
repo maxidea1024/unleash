@@ -3,8 +3,8 @@ import Controller from '../../routes/controller';
 
 import type {
   IAuthRequest,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
   Logger,
 } from '../../server-impl';
 import {
@@ -56,13 +56,13 @@ export class SegmentsController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       segmentService,
       accessService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'segmentService' | 'accessService' | 'openApiService'
     >,
   ) {

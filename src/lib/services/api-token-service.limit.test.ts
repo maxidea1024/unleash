@@ -1,11 +1,11 @@
 import { createTestConfig } from '../../test/config/test-config';
-import type { IUnleashConfig } from '../server-impl';
+import type { IGanpaConfig } from '../server-impl';
 import { ApiTokenType } from '../types/models/api-token';
 import { ExceedsLimitError } from '../error/exceeds-limit-error';
 import { createFakeApiTokenService } from '../features/api-tokens/createApiTokenService';
 
 const createServiceWithLimit = (limit: number) => {
-  const config: IUnleashConfig = createTestConfig({
+  const config: IGanpaConfig = createTestConfig({
     experimental: {
       flags: {},
     },

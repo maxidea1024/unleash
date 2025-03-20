@@ -9,7 +9,7 @@ import {
 import type { IOnboardingReadModel } from './onboarding-read-model-type';
 import type ClientInstanceService from '../metrics/instance/instance-service';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import { ApiTokenType } from '../../types/models/api-token';
@@ -20,7 +20,7 @@ let onBoardingStore: IOnboardingStore;
 let featureToggleStore: IFeatureToggleStore;
 let lastSeenStore: ILastSeenStore;
 let instanceService: ClientInstanceService;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('onboarding_read_model', getLogger, {

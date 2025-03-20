@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import EnvironmentStore from '../project-environments/environment-store';
 import { ApiTokenService, type EventService } from '../../services';
 import FakeEnvironmentStore from '../project-environments/fake-environment-store';
@@ -12,7 +12,7 @@ import { ApiTokenStore } from '../../db/api-token-store';
 
 export const createApiTokenService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ApiTokenService => {
   const { eventBus, getLogger } = config;
   const apiTokenStore = new ApiTokenStore(
@@ -32,7 +32,7 @@ export const createApiTokenService = (
 };
 
 export const createFakeApiTokenService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): {
   apiTokenService: ApiTokenService;
   eventService: EventService;

@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
@@ -9,7 +9,7 @@ import type User from '../../../../lib/types/user';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
 import { TEST_AUDIT_USER } from '../../../../lib/types';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 const testUser = { name: 'test', id: -9999 } as User;
 let clientSecret: string;

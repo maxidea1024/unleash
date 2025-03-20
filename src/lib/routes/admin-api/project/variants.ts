@@ -11,7 +11,7 @@ import {
   UPDATE_FEATURE_VARIANTS,
 } from '../../../types/permissions';
 import { type IVariant, WeightType } from '../../../types/model';
-import type { IAuthRequest } from '../../unleash-types';
+import type { IAuthRequest } from '../../ganpa-types';
 import type { FeatureVariantsSchema } from '../../../openapi/spec/feature-variants-schema';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../../openapi/util/create-response-schema';

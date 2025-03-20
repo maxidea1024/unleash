@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import FeatureToggleStore from '../feature-toggle/feature-toggle-store';
 import ProjectStatsStore from '../../db/project-stats-store';
 import FakeProjectStore from '../../../test/fixtures/fake-project-store';
@@ -13,7 +13,7 @@ import FakeFeatureStrategiesStore from '../feature-toggle/fakes/fake-feature-str
 
 export const createProjectInsightsService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ProjectInsightsService => {
   const { eventBus, getLogger, flagResolver } = config;
   const projectStore = new ProjectStore(db, eventBus, getLogger, flagResolver);

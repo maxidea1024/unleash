@@ -19,7 +19,7 @@ import type {
   IImportTogglesStore,
   IntegrationEventsStore,
   IPrivateProjectStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../lib/types';
 import FakeSessionStore from './fake-session-store';
 import FakeFeatureEnvironmentStore from './fake-feature-environment-store';
@@ -63,7 +63,7 @@ const db = {
   }),
 };
 
-const createStores: () => IUnleashStores = () => {
+const createStores: () => IGanpaStores = () => {
   return {
     db,
     clientApplicationsStore: new FakeClientApplicationsStore(),

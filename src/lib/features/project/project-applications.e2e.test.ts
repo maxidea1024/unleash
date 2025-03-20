@@ -1,13 +1,13 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 
 import { ApiTokenType, type IApiToken } from '../../types/models/api-token';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let defaultToken: IApiToken;
 

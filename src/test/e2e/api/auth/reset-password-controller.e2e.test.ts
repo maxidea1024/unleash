@@ -7,7 +7,7 @@ import { AccessService } from '../../../../lib/services/access-service';
 import ResetTokenService from '../../../../lib/services/reset-token-service';
 import type { IUser } from '../../../../lib/types/user';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupApp,
   setupAppWithAuth,
 } from '../../helpers/test-helper';
@@ -20,11 +20,11 @@ import { RoleName } from '../../../../lib/types/model';
 import SettingService from '../../../../lib/services/setting-service';
 import FakeSettingStore from '../../../fixtures/fake-setting-store';
 import { GroupService } from '../../../../lib/services/group-service';
-import { type IUnleashStores, TEST_AUDIT_USER } from '../../../../lib/types';
+import { type IGanpaStores, TEST_AUDIT_USER } from '../../../../lib/types';
 import { createEventsService } from '../../../../lib/features';
 
-let app: IUnleashTest;
-let stores: IUnleashStores;
+let app: IGanpaTest;
+let stores: IGanpaStores;
 let db: ITestDb;
 const config: IGanpaConfig = createTestConfig({
   getLogger,

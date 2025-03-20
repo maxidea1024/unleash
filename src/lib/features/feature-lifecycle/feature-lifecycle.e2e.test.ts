@@ -1,6 +1,6 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithAuth,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
@@ -19,7 +19,7 @@ import { FeatureLifecycleReadModel } from './feature-lifecycle-read-model';
 import type { IFeatureLifecycleReadModel } from './feature-lifecycle-read-model-type';
 import { STAGE_ENTERED } from '../../metric-events';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let featureLifecycleStore: IFeatureLifecycleStore;
 let eventStore: IEventStore;

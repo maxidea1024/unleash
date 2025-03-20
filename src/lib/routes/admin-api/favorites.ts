@@ -4,7 +4,7 @@ import type { FavoritesService, OpenApiService } from '../../services';
 import type { Logger } from '../../logger';
 import { type IGanpaConfig, type IGanpaServices, NONE } from '../../types';
 import { emptyResponse, getStandardResponses } from '../../openapi';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 
 export default class FavoritesController extends Controller {
   private readonly favoritesService: FavoritesService;

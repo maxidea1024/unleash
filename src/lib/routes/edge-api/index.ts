@@ -4,7 +4,7 @@ import type { IGanpaConfig, IGanpaServices } from '../../types';
 import type { Logger } from '../../logger';
 import { NONE } from '../../types/permissions';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
-import type { RequestBody } from '../unleash-types';
+import type { RequestBody } from '../ganpa-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import {
   validatedEdgeTokensSchema,

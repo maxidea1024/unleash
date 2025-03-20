@@ -8,11 +8,11 @@ import type {
   IConstraint,
   IFeatureStrategiesReadModel,
   IProjectStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../../types';
 import { randomId } from '../../../util';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let featureStrategiesStore: IFeatureStrategiesStore;
 let featureToggleStore: IFeatureToggleStore;

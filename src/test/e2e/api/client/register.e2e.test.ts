@@ -1,5 +1,5 @@
 import faker from 'faker';
-import { type IUnleashTest, setupApp } from '../../helpers/test-helper';
+import { type IGanpaTest, setupApp } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import version from '../../../../lib/util/version';
@@ -10,7 +10,7 @@ const asyncFilter = async (arr, predicate) => {
   return arr.filter((_v, index) => results[index]);
 };
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

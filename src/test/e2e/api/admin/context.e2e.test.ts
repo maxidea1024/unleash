@@ -1,12 +1,12 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 beforeAll(async () => {
   db = await dbInit('context_api_serial', getLogger);

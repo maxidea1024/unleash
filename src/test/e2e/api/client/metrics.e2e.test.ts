@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import metricsExample from '../../../examples/client-metrics.json';
@@ -7,7 +7,7 @@ import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import { REQUEST_TIME } from '../../../../lib/metric-events';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

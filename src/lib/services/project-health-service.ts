@@ -1,4 +1,4 @@
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { IProject, IProjectHealthReport } from '../types/model';
@@ -24,7 +24,7 @@ export default class ProjectHealthService {
       featureTypeStore,
       featureToggleStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'projectStore' | 'featureTypeStore' | 'featureToggleStore'
     >,
     {

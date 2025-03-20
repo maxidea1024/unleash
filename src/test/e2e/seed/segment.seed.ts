@@ -7,7 +7,7 @@ import type {
   IFeatureToggleClient,
   ISegment,
 } from '../../../lib/types/model';
-import { type IUnleashTest, setupApp } from '../helpers/test-helper';
+import { type IGanpaTest, setupApp } from '../helpers/test-helper';
 import type { UpsertSegmentSchema } from '../../../lib/openapi';
 import { TEST_AUDIT_USER } from '../../../lib/types';
 
@@ -29,19 +29,19 @@ const seedSegmentSpec: ISeedSegmentSpec = {
 // The database schema to populate.
 const seedSchema = 'seed';
 
-const fetchSegments = (app: IUnleashTest): Promise<ISegment[]> => {
+const fetchSegments = (app: IGanpaTest): Promise<ISegment[]> => {
   return app.services.segmentService.getAll();
 };
 
 const createSegment = (
-  app: IUnleashTest,
+  app: IGanpaTest,
   postData: UpsertSegmentSchema,
 ): Promise<unknown> => {
   return app.services.segmentService.create(postData, TEST_AUDIT_USER);
 };
 
 const createFeatureToggle = (
-  app: IUnleashTest,
+  app: IGanpaTest,
   postData: object,
   expectStatusCode = 201,
 ): Promise<IFeatureToggleClient> => {
@@ -53,7 +53,7 @@ const createFeatureToggle = (
 };
 
 const addSegmentToStrategy = (
-  app: IUnleashTest,
+  app: IGanpaTest,
   segmentId: number,
   strategyId: string,
 ): Promise<unknown> => {
@@ -100,7 +100,7 @@ const seedFeatures = (
 };
 
 const seedSegmentsDatabase = async (
-  app: IUnleashTest,
+  app: IGanpaTest,
   spec: ISeedSegmentSpec,
 ): Promise<void> => {
   await Promise.all(

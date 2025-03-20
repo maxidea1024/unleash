@@ -13,7 +13,7 @@ import {
 } from '../../openapi';
 import Controller from '../../routes/controller';
 import type { Response } from 'express';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import type { PersonalDashboardService } from './personal-dashboard-service';
 import {
   personalDashboardProjectDetailsSchema,

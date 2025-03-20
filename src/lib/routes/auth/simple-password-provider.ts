@@ -1,12 +1,12 @@
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services/openapi-service';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../server-impl';
+import type { IGanpaConfig } from '../../server-impl';
 import type UserService from '../../services/user-service';
 import type { IGanpaServices } from '../../types';
 import { NONE } from '../../types/permissions';
 import Controller from '../controller';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import { userSchema, type UserSchema } from '../../openapi/spec/user-schema';
@@ -20,7 +20,7 @@ export class SimplePasswordProvider extends Controller {
   private readonly userService: UserService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       userService,
       openApiService,
@@ -28,7 +28,7 @@ export class SimplePasswordProvider extends Controller {
   ) {
     super(config);
 
-    // this.logger = config.getLogger('simple-password-provider.ts');
+    this.logger = config.getLogger('simple-password-provider.ts');
 
     this.openApiService = openApiService;
     this.userService = userService;

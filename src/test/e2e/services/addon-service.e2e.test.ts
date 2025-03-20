@@ -2,7 +2,7 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import { createTestConfig } from '../../config/test-config';
 import AddonService from '../../../lib/services/addon-service';
-import { type IUnleashStores, TEST_AUDIT_USER } from '../../../lib/types';
+import { type IGanpaStores, TEST_AUDIT_USER } from '../../../lib/types';
 
 import SimpleAddon from '../../../lib/services/addon-service-test-simple-addon';
 import TagTypeService from '../../../lib/features/tag-type/tag-type-service';
@@ -13,7 +13,7 @@ import { createEventsService } from '../../../lib/features';
 const addonProvider = { simple: new SimpleAddon() };
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let addonService: AddonService;
 const TEST_USER_ID = -9999;
 

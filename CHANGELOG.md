@@ -6760,7 +6760,7 @@ All notable changes to this project will be documented in this file.
 
 - fix: should allow revive toggles
 - fix: hasPermission should not throw
-- fix: Added enterpriseVersion to root of IUnleashConfig/IUnleashOptions
+- fix: Added enterpriseVersion to root of IGanpaConfig/IGanpaOptions
 - feat: add new user email (#793)
 - fix: User should require a ID field set (#799)
 - fix: introduce settingService

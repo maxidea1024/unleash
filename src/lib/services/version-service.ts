@@ -9,7 +9,7 @@ import type {
   IProjectStore,
   IRoleStore,
   ISegmentStore,
-  IUnleashStores,
+  IGanpaStores,
   IUserStore,
 } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
@@ -108,7 +108,7 @@ export default class VersionService {
       eventStore,
       featureStrategiesStore,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       | 'settingStore'
       | 'strategyStore'
       | 'userStore'

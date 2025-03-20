@@ -3,9 +3,9 @@ import AuthenticationRequired from '../../../../lib/types/authentication-require
 
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

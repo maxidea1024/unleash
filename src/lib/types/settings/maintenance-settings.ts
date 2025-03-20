@@ -1,5 +1,5 @@
 export const maintenanceSettingsKey = 'maintenance.mode';
 
-export interface MaintenanceSettings {
+export interface IMaintenanceSettings {
   enabled: boolean;
 }

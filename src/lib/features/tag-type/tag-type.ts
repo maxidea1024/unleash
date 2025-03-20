@@ -10,7 +10,7 @@ import type { IGanpaConfig } from '../../types/options';
 import type { IGanpaServices } from '../../types/services';
 import type TagTypeService from './tag-type-service';
 import type { Logger } from '../../logger';
-import type { IAuthRequest } from '../../routes/unleash-types';
+import type { IAuthRequest } from '../../routes/ganpa-types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import {
   createResponseSchema,

@@ -2,12 +2,12 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import ProjectHealthService from '../../../lib/services/project-health-service';
 import { createTestConfig } from '../../config/test-config';
-import { type IUnleashStores, TEST_AUDIT_USER } from '../../../lib/types';
+import { type IGanpaStores, TEST_AUDIT_USER } from '../../../lib/types';
 import type { IUser } from '../../../lib/server-impl';
 import { createProjectService } from '../../../lib/features';
 import type { ProjectService } from '../../../lib/services';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let projectService: ProjectService;
 let projectHealthService: ProjectHealthService;

@@ -1,5 +1,5 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupApp,
   setupAppWithBaseUrl,
 } from '../../helpers/test-helper';
@@ -10,7 +10,7 @@ import enforcer from 'openapi-enforcer';
 import semver from 'semver';
 import { openApiTags } from '../../../../lib/openapi/util/openapi-tags';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {
@@ -62,7 +62,7 @@ test('should serve the OpenAPI spec with a `version` property', async () => {
 });
 
 describe('subpath handling', () => {
-  let appWithSubPath: IUnleashTest;
+  let appWithSubPath: IGanpaTest;
   const subPath = '/absolute-nonsense';
 
   beforeAll(async () => {

@@ -29,7 +29,7 @@ import type {
   IEnvironmentStore,
   IFeatureLifecycleReadModel,
   IFeatureLifecycleStore,
-  IUnleashStores,
+  IGanpaStores,
 } from './types';
 import FakeEnvironmentStore from './features/project-environments/fake-environment-store';
 import { SchedulerService } from './services';
@@ -46,7 +46,7 @@ const prometheusRegister = register;
 let eventStore: IEventStore;
 let environmentStore: IEnvironmentStore;
 let statsService: InstanceStatsService;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let schedulerService: SchedulerService;
 let featureLifeCycleStore: IFeatureLifecycleStore;
 let featureLifeCycleReadModel: IFeatureLifecycleReadModel;

@@ -24,8 +24,8 @@ import ApiUser, { type IApiUser } from './types/api-user';
 import { type Logger, LogLevel } from './logger';
 import AuthenticationRequired from './types/authentication-required';
 import Controller from './routes/controller';
-import type { IApiRequest, IAuthRequest } from './routes/unleash-types';
-import type { SimpleAuthSettings } from './types/settings/simple-auth-settings';
+import type { IApiRequest, IAuthRequest } from './routes/ganpa-types';
+import type { ISimpleAuthSettings } from './types/settings/simple-auth-settings';
 import { Knex } from 'knex';
 import * as permissions from './types/permissions';
 import * as eventType from './types/events';
@@ -237,6 +237,6 @@ export type {
   IGanpaServices,
   IAuthRequest,
   IApiRequest,
-  SimpleAuthSettings,
+  ISimpleAuthSettings as SimpleAuthSettings,
   CustomAuthHandler,
 };

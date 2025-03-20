@@ -1,5 +1,5 @@
 import type { IGanpaConfig } from '../types/options';
-import type { IFavoriteProjectsStore, IUnleashStores } from '../types/stores';
+import type { IFavoriteProjectsStore, IGanpaStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { IFavoriteFeaturesStore } from '../types/stores/favorite-features';
 import type { IFavoriteFeature, IFavoriteProject } from '../types/favorites';
@@ -35,7 +35,7 @@ export class FavoritesService {
     {
       favoriteFeaturesStore,
       favoriteProjectsStore,
-    }: Pick<IUnleashStores, 'favoriteFeaturesStore' | 'favoriteProjectsStore'>,
+    }: Pick<IGanpaStores, 'favoriteFeaturesStore' | 'favoriteProjectsStore'>,
     config: IGanpaConfig,
     eventService: EventService,
   ) {

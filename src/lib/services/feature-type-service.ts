@@ -1,4 +1,4 @@
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type {
@@ -15,7 +15,7 @@ export default class FeatureTypeService {
   private readonly logger: Logger;
 
   constructor(
-    { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
+    { featureTypeStore }: Pick<IGanpaStores, 'featureTypeStore'>,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {

@@ -336,10 +336,12 @@ export interface IProjectParam {
 export interface IArchivedQuery {
   archived: boolean;
 }
+
 export interface ITagQuery {
   tagType: string;
   tagValue: string;
 }
+
 export interface IFeatureToggleQuery {
   tag?: string[][];
   project?: string[];

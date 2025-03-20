@@ -2,7 +2,7 @@ import { tagSchema } from './tag-schema';
 import NameExistsError from '../error/name-exists-error';
 import { TagCreatedEvent, TagDeletedEvent } from '../types/events';
 import type { Logger } from '../logger';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { ITagStore } from '../types/stores/tag-store';
 import type { ITag } from '../types/model';
@@ -17,7 +17,7 @@ export default class TagService {
   constructor(
     {
       tagStore
-    }: Pick<IUnleashStores, 'tagStore'>,
+    }: Pick<IGanpaStores, 'tagStore'>,
     {
       getLogger
     }: Pick<IGanpaConfig, 'getLogger'>,

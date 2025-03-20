@@ -8,7 +8,7 @@ import {
 } from '../../../types';
 import type ClientInstanceService from './instance-service';
 import type { Logger } from '../../../logger';
-import type { IAuthRequest } from '../../../routes/unleash-types';
+import type { IAuthRequest } from '../../../routes/ganpa-types';
 import type ClientMetricsService from '../client-metrics/metrics-service-v2';
 import { NONE } from '../../../types/permissions';
 import type { OpenApiService } from '../../../services/openapi-service';

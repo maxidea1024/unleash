@@ -1,7 +1,7 @@
 import type { Logger } from '../logger';
 import type { IUser } from '../types/user';
 import type { IGanpaConfig } from '../types/options';
-import type { IAccountStore, IUnleashStores } from '../types/stores';
+import type { IAccountStore, IGanpaStores } from '../types/stores';
 import type { AccessService } from './access-service';
 import { RoleName } from '../types/model';
 import type { IAdminCount } from '../types/stores/account-store';
@@ -17,7 +17,7 @@ export class AccountService {
   private lastSeenSecrets: Set<string> = new Set<string>();
 
   constructor(
-    stores: Pick<IUnleashStores, 'accountStore'>,
+    stores: Pick<IGanpaStores, 'accountStore'>,
     {
       getLogger
     }: Pick<IGanpaConfig, 'getLogger'>,

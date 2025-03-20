@@ -3,14 +3,14 @@ import dbInit, {
   type ITestDb,
 } from '../../../../test/e2e/helpers/database-init';
 import getLogger from '../../../../test/fixtures/no-logger';
-import type { IUnleashStores } from '../../../types';
+import type { IGanpaStores } from '../../../types';
 import type {
   IClientMetricsEnv,
   IClientMetricsStoreV2,
 } from './client-metrics-store-v2-type';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let clientMetricsStore: IClientMetricsStoreV2;
 
 beforeAll(async () => {

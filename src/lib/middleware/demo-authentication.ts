@@ -7,7 +7,7 @@ import type { IGanpaConfig } from '../types/options';
 import ApiUser from '../types/api-user';
 import { ApiTokenType } from '../types/models/api-token';
 import type { IAuthRequest, IUser } from '../server-impl';
-import type { IApiRequest } from '../routes/unleash-types';
+import type { IApiRequest } from '../routes/ganpa-types';
 import { encrypt } from '../util';
 
 export default function demoAuthentication(

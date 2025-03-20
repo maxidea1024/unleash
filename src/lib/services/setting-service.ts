@@ -1,5 +1,5 @@
 import type { IGanpaConfig } from '../types/options';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { ISettingStore } from '../types/stores/settings-store';
 import {
@@ -19,7 +19,7 @@ export default class SettingService {
   constructor(
     {
       settingStore
-    }: Pick<IUnleashStores, 'settingStore'>,
+    }: Pick<IGanpaStores, 'settingStore'>,
     config: IGanpaConfig,
     eventService: EventService,
   ) {

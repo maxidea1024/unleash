@@ -1,17 +1,17 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import {
   insertLastSeenAt,
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithAuth,
 } from '../../../test/e2e/helpers/test-helper';
 import getLogger from '../../../test/fixtures/no-logger';
 import type { FeatureSearchQueryParameters } from '../../openapi/spec/feature-search-query-parameters';
-import { DEFAULT_PROJECT, type IUnleashStores } from '../../types';
+import { DEFAULT_PROJECT, type IGanpaStores } from '../../types';
 import { DEFAULT_ENV } from '../../util';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 
 beforeAll(async () => {
   db = await dbInit('feature_search', getLogger);

@@ -4,8 +4,8 @@ import {
   type IFlagResolver,
   type IGanpaConfig,
 } from '../../../types';
-import type { ISdkHeartbeat, IUnleashStores } from '../../../types';
-import type { ToggleMetricsSummary } from '../../../types/models/metrics';
+import type { ISdkHeartbeat, IGanpaStores } from '../../../types';
+import type { IToggleMetricsSummary } from '../../../types/models/metrics';
 import type {
   IClientMetricsEnv,
   IClientMetricsStoreV2,
@@ -21,7 +21,7 @@ import type { LastSeenService } from '../last-seen/last-seen-service';
 import {
   generateDayBuckets,
   generateHourBuckets,
-  type HourBucket,
+  type IHourBucket,
 } from '../../../util/time-utils';
 import type { ClientMetricsSchema } from '../../../../lib/openapi';
 import { nameSchema } from '../../../schema/feature-schema';
@@ -38,7 +38,7 @@ export default class ClientMetricsService {
   private readonly logger: Logger;
 
   constructor(
-    { clientMetricsStoreV2 }: Pick<IUnleashStores, 'clientMetricsStoreV2'>,
+    { clientMetricsStoreV2 }: Pick<IGanpaStores, 'clientMetricsStoreV2'>,
     config: IGanpaConfig,
     lastSeenService: LastSeenService,
   ) {
@@ -195,7 +195,7 @@ export default class ClientMetricsService {
   // Overview over usage last "hour" bucket and all applications using the toggle
   async getFeatureToggleMetricsSummary(
     featureName: string,
-  ): Promise<ToggleMetricsSummary> {
+  ): Promise<IToggleMetricsSummary> {
     const metrics = await this.clientMetricsStoreV2.getMetricsForFeatureToggle(
       featureName,
       1,
@@ -229,7 +229,7 @@ export default class ClientMetricsService {
     featureName: string,
     hoursBack: number = 24,
   ): Promise<IClientMetricsEnv[]> {
-    let hours: HourBucket[];
+    let hours: IHourBucket[];
     let metrics: IClientMetricsEnv[];
     if (this.flagResolver.isEnabled('extendedUsageMetrics')) {
       // if we're in the daily range we need to add one more day

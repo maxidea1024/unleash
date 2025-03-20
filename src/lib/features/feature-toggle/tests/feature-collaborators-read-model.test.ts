@@ -1,7 +1,7 @@
 import type {
   IEventStore,
   IFeatureCollaboratorsReadModel,
-  IUnleashStores,
+  IGanpaStores,
   IUserStore,
 } from '../../../types';
 import getLogger from '../../../../test/fixtures/no-logger';
@@ -9,7 +9,7 @@ import dbInit, {
   type ITestDb,
 } from '../../../../test/e2e/helpers/database-init';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let eventStore: IEventStore;
 let usersStore: IUserStore;

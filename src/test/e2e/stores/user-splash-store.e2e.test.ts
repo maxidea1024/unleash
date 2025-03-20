@@ -2,9 +2,9 @@ import type { IUserSplashStore } from '../../../lib/types/stores/user-splash-sto
 import type { IUserStore } from '../../../lib/types/stores/user-store';
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
-import type { IUnleashStores, IUser } from '../../../lib/types';
+import type { IGanpaStores, IUser } from '../../../lib/types';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let userSplashStore: IUserSplashStore;
 let userStore: IUserStore;

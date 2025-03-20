@@ -35,7 +35,6 @@ export interface IUser {
   activeSessions?: number;
 }
 
-// TODO: LightUser로 이름을 변경하는게 좋을듯..?
 export type MinimalUser = Pick<
   IUser,
   'id' | 'name' | 'username' | 'email' | 'imageUrl'

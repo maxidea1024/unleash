@@ -10,7 +10,7 @@ import {
   UPDATE_STRATEGY,
 } from '../../types/permissions';
 import type { Request, Response } from 'express';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type { OpenApiService } from '../../services/openapi-service';
 import {
   emptyResponse,

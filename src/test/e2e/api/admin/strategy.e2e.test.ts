@@ -1,11 +1,11 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 beforeAll(async () => {

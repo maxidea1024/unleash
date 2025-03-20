@@ -5,11 +5,11 @@ import getLogger from '../../../../test/fixtures/no-logger';
 import type {
   IFeatureToggleStore,
   IProjectStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../../types';
 import type { FeatureToggleInsert } from '../feature-toggle-store';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 let featureToggleStore: IFeatureToggleStore;
 let projectStore: IProjectStore;

@@ -14,7 +14,7 @@ import {
   getStandardResponses,
 } from '../../openapi/util/standard-responses';
 import type { CreateApplicationSchema } from '../../openapi/spec/create-application-schema';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import { extractUserIdFromUser } from '../../util';
 import { type IFlagResolver, serializeDates } from '../../types';
 import {

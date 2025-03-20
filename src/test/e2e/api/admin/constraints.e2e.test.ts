@@ -1,11 +1,11 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 
 const PATH = '/api/admin/constraints/validate';

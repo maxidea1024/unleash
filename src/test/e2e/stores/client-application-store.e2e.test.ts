@@ -3,12 +3,12 @@ import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import type {
   IClientApplicationsStore,
-  IUnleashStores,
+  IGanpaStores,
 } from '../../../lib/types';
 import type { IClientApplication } from '../../../lib/types/stores/client-applications-store';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let clientApplicationsStore: IClientApplicationsStore;
 
 beforeAll(async () => {

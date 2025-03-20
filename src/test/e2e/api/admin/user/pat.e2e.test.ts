@@ -1,12 +1,12 @@
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithAuth,
 } from '../../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../../helpers/database-init';
 import getLogger from '../../../../fixtures/no-logger';
 import type { IPatStore } from '../../../../../lib/types/stores/pat-store';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
 let patStore: IPatStore;
 

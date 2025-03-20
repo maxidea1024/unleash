@@ -2,7 +2,7 @@ import supertest from 'supertest';
 import express from 'express';
 import { createTestConfig } from '../../test/config/test-config';
 import LogoutController from './logout';
-import type { IAuthRequest } from './unleash-types';
+import type { IAuthRequest } from './ganpa-types';
 import SessionService from '../services/session-service';
 import FakeSessionStore from '../../test/fixtures/fake-session-store';
 import noLogger from '../../test/fixtures/no-logger';

@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import { PlaygroundService } from './playground-service';
 import {
   createFakeFeatureToggleService,
@@ -13,7 +13,7 @@ import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 
 export const createPlaygroundService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): PlaygroundService => {
   const segmentReadModel = new SegmentReadModel(db);
   const privateProjectChecker = createPrivateProjectChecker(db, config);
@@ -31,7 +31,7 @@ export const createPlaygroundService = (
   return playgroundService;
 };
 
-export const createFakePlaygroundService = (config: IUnleashConfig) => {
+export const createFakePlaygroundService = (config: IGanpaConfig) => {
   const segmentReadModel = new FakeSegmentReadModel();
   const privateProjectChecker = createFakePrivateProjectChecker();
   const featureToggleService =

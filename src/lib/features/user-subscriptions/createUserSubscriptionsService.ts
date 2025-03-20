@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import { UserSubscriptionsService } from './user-subscriptions-service';
 import { UserUnsubscribeStore } from './user-unsubscribe-store';
 import {
@@ -10,7 +10,7 @@ import { UserSubscriptionsReadModel } from './user-subscriptions-read-model';
 import { FakeUserSubscriptionsReadModel } from './fake-user-subscriptions-read-model';
 
 export const createUserSubscriptionsService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
   (db: Db): UserSubscriptionsService => {
     const userUnsubscribeStore = new UserUnsubscribeStore(db);
     const userSubscriptionsReadModel = new UserSubscriptionsReadModel(db);
@@ -26,7 +26,7 @@ export const createUserSubscriptionsService =
   };
 
 export const createFakeUserSubscriptionsService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): UserSubscriptionsService => {
   const userUnsubscribeStore = new FakeUserUnsubscribeStore();
   const userSubscriptionsReadModel = new FakeUserSubscriptionsReadModel();

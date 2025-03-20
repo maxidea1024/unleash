@@ -1,16 +1,16 @@
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../helpers/test-helper';
 import getLogger from '../../../fixtures/no-logger';
-import type { IUnleashStores } from '../../../../lib/types';
+import type { IGanpaStores } from '../../../../lib/types';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
 import { registerPrometheusMetrics } from '../../../../lib/metrics';
 
-let app: IUnleashTest;
+let app: IGanpaTest;
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let refreshDbMetrics: () => Promise<void>;
 
 beforeAll(async () => {

@@ -6,7 +6,7 @@ import {
   UPDATE_PROJECT_SEGMENT,
 } from '../types/permissions';
 import type { IGanpaConfig } from '../types/options';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type User from '../types/user';
 import type { Request } from 'express';
 import { extractUserId } from '../util';
@@ -37,7 +37,7 @@ export default function rbacMiddleware(
   {
     featureToggleStore,
     segmentStore,
-  }: Pick<IUnleashStores, 'featureToggleStore' | 'segmentStore'>,
+  }: Pick<IGanpaStores, 'featureToggleStore' | 'segmentStore'>,
   accessService: PermissionChecker,
 ): any {
   const logger = config.getLogger('rbac-middleware.ts');

@@ -1,7 +1,7 @@
 import {
   UserPreferenceUpdatedEvent,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../../types';
 import type { Logger } from '../../logger';
 import type { IAuditUser } from '../../types/user';
@@ -23,7 +23,7 @@ export class UserSubscriptionsService {
       userUnsubscribeStore,
       userSubscriptionsReadModel,
     }: Pick<
-      IUnleashStores,
+      IGanpaStores,
       'userUnsubscribeStore' | 'userSubscriptionsReadModel'
     >,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,

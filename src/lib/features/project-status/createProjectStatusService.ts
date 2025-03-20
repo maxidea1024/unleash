@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import { ProjectStatusService } from './project-status-service';
 import EventStore from '../events/event-store';
 import FakeEventStore from '../../../test/fixtures/fake-event-store';
@@ -19,7 +19,7 @@ import { FakeProjectStaleFlagsReadModel } from './project-stale-flags-read-model
 
 export const createProjectStatusService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ProjectStatusService => {
   const eventStore = new EventStore(db, config.getLogger);
   const projectStore = new ProjectStore(

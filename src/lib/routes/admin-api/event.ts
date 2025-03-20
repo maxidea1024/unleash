@@ -21,7 +21,7 @@ import { getStandardResponses } from '../../../lib/openapi/util/standard-respons
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import type { DeprecatedSearchEventsSchema } from '../../openapi/spec/deprecated-search-events-schema';
 import type { IFlagResolver } from '../../types/experimental';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import {
   eventCreatorsSchema,
   type ProjectFlagCreatorsSchema,
@@ -72,9 +72,9 @@ export default class EventController extends Controller {
             },
           ],
           description:
-            'Returns **the last 100** events from the Unleash instance when called without a query parameter. When called with a `project` parameter, returns **all events** for the specified project.\n\nIf the provided project does not exist, the list of events will be empty.',
+            'Returns **the last 100** events from the Ganpa instance when called without a query parameter. When called with a `project` parameter, returns **all events** for the specified project.\n\nIf the provided project does not exist, the list of events will be empty.',
           summary:
-            'Get the most recent events from the Unleash instance or all events related to a project.',
+            'Get the most recent events from the Ganpa instance or all events related to a project.',
         }),
       ],
     });
@@ -219,7 +219,7 @@ export default class EventController extends Controller {
   }
 
   async getEventCreators(
-    _: IAuthRequest,
+    req: IAuthRequest,
     res: Response<ProjectFlagCreatorsSchema>,
   ): Promise<void> {
     const flagCreators = await this.eventService.getEventCreators();

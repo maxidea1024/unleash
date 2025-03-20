@@ -1,7 +1,7 @@
 import {
   ADMIN_TOKEN_USER,
   type IAccessStore,
-  type IUnleashStores,
+  type IGanpaStores,
   SYSTEM_USER_ID,
 } from '../../types';
 import type { IAccessReadModel } from './access-read-model-type';
@@ -12,7 +12,7 @@ const { ADMIN } = permissions;
 export class AccessReadModel implements IAccessReadModel {
   private readonly store: IAccessStore;
 
-  constructor({ accessStore }: Pick<IUnleashStores, 'accessStore'>) {
+  constructor({ accessStore }: Pick<IGanpaStores, 'accessStore'>) {
     this.store = accessStore;
   }
 

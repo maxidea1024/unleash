@@ -7,7 +7,7 @@ import type { AccessService } from '../../services/access-service';
 import type { Logger } from '../../logger';
 import type { IGanpaConfig, IGanpaServices, RoleName } from '../../types';
 import type ResetTokenService from '../../services/reset-token-service';
-import type { IAuthRequest } from '../unleash-types';
+import type { IAuthRequest } from '../ganpa-types';
 import type SettingService from '../../services/setting-service';
 import type { IUser } from '../../server-impl';
 import { anonymise } from '../../util/anonymise';

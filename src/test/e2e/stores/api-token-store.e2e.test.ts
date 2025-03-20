@@ -1,10 +1,10 @@
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
-import type { IUnleashStores } from '../../../lib/types';
+import type { IGanpaStores } from '../../../lib/types';
 import { ApiTokenType } from '../../../lib/types/models/api-token';
 import { randomId } from '../../../lib/util';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

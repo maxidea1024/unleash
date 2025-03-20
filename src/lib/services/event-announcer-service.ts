@@ -1,5 +1,5 @@
 import type { IGanpaConfig } from '../types/options';
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { IEventStore } from '../types/stores/event-store';
 import type { IFlagResolver } from '../types';
@@ -10,7 +10,7 @@ export default class EventAnnouncer {
   private readonly logger: Logger;
 
   constructor(
-    { eventStore }: Pick<IUnleashStores, 'eventStore'>,
+    { eventStore }: Pick<IGanpaStores, 'eventStore'>,
     {
       getLogger,
       flagResolver,

@@ -12,7 +12,7 @@ import {
   SYSTEM_USER_AUDIT,
   type IAuditUser,
   type IGanpaConfig,
-  type IUnleashStores,
+  type IGanpaStores,
 } from '../types';
 import type { IGroupStore } from '../types/stores/group-store';
 import type { Logger } from '../logger';
@@ -41,7 +41,7 @@ export class GroupService {
   private readonly logger: Logger;
 
   constructor(
-    stores: Pick<IUnleashStores, 'groupStore' | 'accountStore'>,
+    stores: Pick<IGanpaStores, 'groupStore' | 'accountStore'>,
     { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {

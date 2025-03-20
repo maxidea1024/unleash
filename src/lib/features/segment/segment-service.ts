@@ -2,7 +2,7 @@ import type { IGanpaConfig } from '../../types/options';
 import {
   type IAuditUser,
   type IFlagResolver,
-  type IUnleashStores,
+  type IGanpaStores,
   SegmentCreatedEvent,
   SegmentDeletedEvent,
   SegmentUpdatedEvent,
@@ -44,7 +44,7 @@ export class SegmentService implements ISegmentService {
     {
       segmentStore,
       featureStrategiesStore,
-    }: Pick<IUnleashStores, 'segmentStore' | 'featureStrategiesStore'>,
+    }: Pick<IGanpaStores, 'segmentStore' | 'featureStrategiesStore'>,
     changeRequestAccessReadModel: IChangeRequestAccessReadModel,
     changeRequestSegmentUsageReadModel: IChangeRequestSegmentUsageReadModel,
     config: IGanpaConfig,

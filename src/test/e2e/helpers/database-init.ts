@@ -8,10 +8,10 @@ import dbState from './database.json';
 import type { LogProvider } from '../../../lib/logger';
 import noLoggerProvider from '../../fixtures/no-logger';
 import type EnvironmentStore from '../../../lib/features/project-environments/environment-store';
-import type { IUnleashStores } from '../../../lib/types';
+import type { IGanpaStores } from '../../../lib/types';
 import type { IFeatureEnvironmentStore } from '../../../lib/types/stores/feature-environment-store';
 import { DEFAULT_ENV } from '../../../lib/util/constants';
-import type { IUnleashOptions, Knex } from '../../../lib/server-impl';
+import type { IGanpaOptions, Knex } from '../../../lib/server-impl';
 
 // require('db-migrate-shared').log.silence(false);
 
@@ -78,7 +78,7 @@ async function setupDatabase(stores) {
 }
 
 export interface ITestDb {
-  stores: IUnleashStores;
+  stores: IGanpaStores;
   reset: () => Promise<void>;
   destroy: () => Promise<void>;
   rawDatabase: Knex;
@@ -87,7 +87,7 @@ export interface ITestDb {
 export default async function init(
   databaseSchema = 'test',
   getLogger: LogProvider = noLoggerProvider,
-  configOverride: Partial<IUnleashOptions> = {},
+  configOverride: Partial<IGanpaOptions> = {},
 ): Promise<ITestDb> {
   const config = createTestConfig({
     db: {

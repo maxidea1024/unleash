@@ -15,7 +15,7 @@ import {
   createProjectService,
 } from '../../../lib/features';
 import {
-  type IUnleashStores,
+  type IGanpaStores,
   type IUser,
   TEST_AUDIT_USER,
 } from '../../../lib/types';
@@ -23,7 +23,7 @@ import type { User } from '../../../lib/server-impl';
 import { createProjectInsightsService } from './createProjectInsightsService';
 import { extractAuditInfoFromUser } from '../../util';
 
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 let projectService: ProjectService;

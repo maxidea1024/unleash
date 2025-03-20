@@ -1,7 +1,7 @@
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import getLogger from '../../../test/fixtures/no-logger';
 import {
-  type IUnleashTest,
+  type IGanpaTest,
   setupAppWithCustomConfig,
 } from '../../../test/e2e/helpers/test-helper';
 import type {
@@ -28,7 +28,7 @@ import { DEFAULT_ENV, extractAuditInfoFromUser } from '../../util';
 import { DEFAULT_PROJECT, TEST_AUDIT_USER } from '../../types';
 
 let db: ITestDb;
-let app: IUnleashTest;
+let app: IGanpaTest;
 
 const FEATURES_CLIENT_BASE_PATH = '/api/client/features';
 

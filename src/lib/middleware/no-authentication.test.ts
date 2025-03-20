@@ -1,4 +1,4 @@
-import type { IAuthRequest } from '../routes/unleash-types';
+import type { IAuthRequest } from '../routes/ganpa-types';
 import supertest from 'supertest';
 import express from 'express';
 import noAuthentication from './no-authentication';

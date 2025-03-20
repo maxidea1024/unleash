@@ -2,10 +2,10 @@ import dbInit from '../../test/e2e/helpers/database-init';
 import { IAuthType } from '../server-impl';
 import { setupAppWithCustomAuth } from '../../test/e2e/helpers/test-helper';
 import type { ITestDb } from '../../test/e2e/helpers/database-init';
-import type { IUnleashStores } from '../types';
+import type { IGanpaStores } from '../types';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 
 beforeAll(async () => {
   db = await dbInit('demo_auth_serial');

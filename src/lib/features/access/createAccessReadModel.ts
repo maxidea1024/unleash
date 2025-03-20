@@ -1,4 +1,4 @@
-import type { Db, IUnleashConfig } from '../../server-impl';
+import type { Db, IGanpaConfig } from '../../server-impl';
 import type { IAccessReadModel } from './access-read-model-type';
 import { AccessReadModel } from './access-read-model';
 import { AccessStore } from '../../db/access-store';
@@ -8,7 +8,7 @@ import type { IAccessStore } from '../../types';
 
 export const createAccessReadModel = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): IAccessReadModel => {
   const { eventBus, getLogger } = config;
   const accessStore = new AccessStore(db, eventBus, getLogger);

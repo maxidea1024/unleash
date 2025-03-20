@@ -1,12 +1,12 @@
 import getLogger from '../../../fixtures/no-logger';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
-import { type IUnleashTest, setupAppWithAuth } from '../../helpers/test-helper';
-import { AuthType, type IUnleashStores } from '../../../../lib/types';
+import { type IGanpaTest, setupAppWithAuth } from '../../helpers/test-helper';
+import { AuthType, type IGanpaStores } from '../../../../lib/types';
 import { ApiTokenType } from '../../../../lib/types/models/api-token';
 
-let app: IUnleashTest;
-let appWithBaseUrl: IUnleashTest;
-let stores: IUnleashStores;
+let app: IGanpaTest;
+let appWithBaseUrl: IGanpaTest;
+let stores: IGanpaStores;
 let db: ITestDb;
 
 beforeAll(async () => {

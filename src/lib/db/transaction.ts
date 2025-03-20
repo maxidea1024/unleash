@@ -1,5 +1,5 @@
 import type { Knex } from 'knex';
-import type { IUnleashConfig } from '../server-impl';
+import type { IGanpaConfig } from '../server-impl';
 
 export type KnexTransaction = Knex.Transaction;
 
@@ -32,7 +32,7 @@ export type DeferredServiceFactory<S> = (db: Knex) => S;
  * that might be bound to a different transaction.
  */
 export type ServiceFactory<S> = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ) => DeferredServiceFactory<S>;
 
 export type WithTransactional<S> = S & {

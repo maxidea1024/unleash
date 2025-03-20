@@ -1,4 +1,4 @@
-import type { IUnleashStores } from '../types/stores';
+import type { IGanpaStores } from '../types/stores';
 import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { ISession, ISessionStore } from '../types/stores/session-store';
@@ -11,7 +11,7 @@ export default class SessionService {
   constructor(
     {
       sessionStore
-    }: Pick<IUnleashStores, 'sessionStore'>,
+    }: Pick<IGanpaStores, 'sessionStore'>,
     {
       getLogger
     }: Pick<IGanpaConfig, 'getLogger'>,

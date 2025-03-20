@@ -10,10 +10,10 @@ import {
 import dbInit, { type ITestDb } from '../helpers/database-init';
 import getLogger from '../../fixtures/no-logger';
 import type { IEventStore } from '../../../lib/types/stores/event-store';
-import type { IAuditUser, IUnleashStores } from '../../../lib/types';
+import type { IAuditUser, IGanpaStores } from '../../../lib/types';
 
 let db: ITestDb;
-let stores: IUnleashStores;
+let stores: IGanpaStores;
 let eventStore: IEventStore;
 const TEST_USER_ID = -9999;
 
