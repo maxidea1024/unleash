@@ -2,7 +2,7 @@
 title: Getting Started
 ---
 
-> This section only applies if you plan to self-host Unleash. If you are looking for our hosted solution you should head over to [www.getunleash.io](https://www.getunleash.io/plans)
+> This section only applies if you plan to self-host Ganpa. If you are looking for our hosted solution you should head over to [www.getunleash.io](https://www.getunleash.io/plans)
 
 ## Requirements {#requirements}
 
@@ -12,31 +12,31 @@ You will need:
 - [PostgreSQL](https://www.postgresql.org/download/) v13.0+
 - [Create an unleash user and database](./database-setup).
 
-## Start Unleash server {#start-unleash-server}
+## Start Ganpa server {#start-unleash-server}
 
-Whichever option you choose to start Unleash, you must specify a database URI (it can be set in the environment variable DATABASE_URL). If your database server is not set up to support SSL you'll also need to set the environment variable `DATABASE_SSL` to `false`
+Whichever option you choose to start Ganpa, you must specify a database URI (it can be set in the environment variable DATABASE_URL). If your database server is not set up to support SSL you'll also need to set the environment variable `DATABASE_SSL` to `false`
 
 ---
 
 Once the server has started, you will see the message:
 
 ```sh
-Unleash started on http://localhost:4242
+Ganpa started on http://localhost:4242
 ```
 
-To run multiple replicas of Unleash simply point all instances to the same database.
+To run multiple replicas of Ganpa simply point all instances to the same database.
 
-The first time Unleash starts it will create a default user which you can use to sign-in to you Unleash instance and add more users with:
+The first time Ganpa starts it will create a default user which you can use to sign-in to you Ganpa instance and add more users with:
 
 - username: `admin`
 - password: `unleash4all`
 
-If you'd like the default admin user to be created with a different username and password, you may define the following environment variables when running Unleash:
+If you'd like the default admin user to be created with a different username and password, you may define the following environment variables when running Ganpa:
 
 - `UNLEASH_DEFAULT_ADMIN_USERNAME`
 - `UNLEASH_DEFAULT_ADMIN_PASSWORD`
 
-The way of defining these variables may vary depending on how you run Unleash.
+The way of defining these variables may vary depending on how you run Ganpa.
 
 
 ### Option 1 - use Docker {#option-one---use-docker}
@@ -44,7 +44,7 @@ The way of defining these variables may vary depending on how you run Unleash.
 **Useful links:**
 
 - [Docker image on dockerhub](https://hub.docker.com/r/unleashorg/unleash-server/)
-- [Unleash Helm Chart on artifacthub](https://artifacthub.io/packages/helm/unleash/unleash)
+- [Ganpa Helm Chart on artifacthub](https://artifacthub.io/packages/helm/unleash/unleash)
 
 **Steps:**
 
@@ -57,7 +57,7 @@ docker run -e POSTGRES_PASSWORD=some_password \
   --network unleash --name postgres postgres
 ```
 
-3. Start Unleash via docker:
+3. Start Ganpa via docker:
 
 ```sh
 docker run -p 4242:4242 \
@@ -71,7 +71,7 @@ docker run -p 4242:4242 \
 
 **Steps:**
 
-1. Clone the [Unleash repository](https://github.com/Unleash/unleash).
+1. Clone the [Ganpa repository](https://github.com/Unleash/unleash).
 2. Run `docker compose up -d` in repository root folder.
 
 ### Option 3 - from Node.js {#option-three---from-nodejs}
@@ -105,7 +105,7 @@ docker run -p 4242:4242 \
      })
      .then((unleash) => {
        console.log(
-         `Unleash started on http://localhost:${unleash.app.get('port')}`,
+         `Ganpa started on http://localhost:${unleash.app.get('port')}`,
        );
      });
    ```
@@ -121,7 +121,7 @@ docker run -p 4242:4242 \
 
 ## Test your server and create a sample API call {#test-your-server-and-create-a-sample-api-call}
 
-Once the Unleash server has started, go to [localhost:4242](http://localhost:4242) in your browser. If you see an empty list of feature flags, try creating one with [curl](https://curl.se/) from a terminal/bash shell:
+Once the Ganpa server has started, go to [localhost:4242](http://localhost:4242) in your browser. If you see an empty list of feature flags, try creating one with [curl](https://curl.se/) from a terminal/bash shell:
 
 ```
 curl --location -H "Authorization: <apitoken from previous step>" \
@@ -143,8 +143,8 @@ curl --location -H "Authorization: <apitoken from previous step>" \
 
 ## Version check {#version-check}
 
-- Unleash checks that it uses the latest version by making a call to https://version.unleash.run.
+- Ganpa checks that it uses the latest version by making a call to https://version.unleash.run.
   - This is a cloud function storing instance id to our database for statistics.
 - This request includes a unique instance id for your server.
-- If you do not wish to check for upgrades define the environment variable `CHECK_VERSION` to anything else other than `true` before starting, and Unleash won't make any calls
+- If you do not wish to check for upgrades define the environment variable `CHECK_VERSION` to anything else other than `true` before starting, and Ganpa won't make any calls
   - `export CHECK_VERSION=false`

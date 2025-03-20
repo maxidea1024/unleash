@@ -9,7 +9,7 @@ Because our product is open-core, we have complexities and needs for our SaaS pl
 ## Decision
 
 We have decided to standardise data-fetching and error handling by implementing a top level `useAPI` hook that will take care of formatting the
-request in the correct way adding the basePath if unleash is hosted on a subpath, wrap with error handlers and return the data in a consistent way.
+request in the correct way adding the basePath if Ganpa is hosted on a subpath, wrap with error handlers and return the data in a consistent way.
 
 Example:
 

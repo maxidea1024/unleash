@@ -8,7 +8,7 @@ Whenever we receive a payload in our backend for POST or PUT requests we need to
 
 ### Example: adding new setting field to project settings
 
-Project settings on Unleash 5.3:
+Project settings on Ganpa 5.3:
 ```shell
 curl --location --request PUT 'http://localhost:4242/api/admin/projects/default' \
 --header 'Authorization: INSERT_API_KEY' \
@@ -22,7 +22,7 @@ curl --location --request PUT 'http://localhost:4242/api/admin/projects/default'
 }'
 ```
 
-New version of project settings (Unleash 5.6):
+New version of project settings (Ganpa 5.6):
 
 ```shell
 curl --location --request PUT 'http://localhost:4242/api/admin/projects/default' \
@@ -37,7 +37,7 @@ curl --location --request PUT 'http://localhost:4242/api/admin/projects/default'
 }'
 ```
 
-Pay attention to the new field feature limit. If a customer updates Unleash to 5.6 but their integration still does not send that field, it may result in the unwanted behavior of setting that field to empty in the database, in case the server assumes that not sending the field means setting it to empty / `null`.
+Pay attention to the new field feature limit. If a customer updates Ganpa to 5.6 but their integration still does not send that field, it may result in the unwanted behavior of setting that field to empty in the database, in case the server assumes that not sending the field means setting it to empty / `null`.
 
 This bug can easily be an oversight but can be prevented by following some rules when designing the API payload.
 

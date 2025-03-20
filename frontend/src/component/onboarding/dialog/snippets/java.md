@@ -7,7 +7,7 @@
 </dependency>
 ```
 
-2\. Run Unleash
+2\. Run Ganpa
 ```java
 UnleashConfig config = UnleashConfig.builder()
     .appName("unleash-onboarding-java")
@@ -16,7 +16,7 @@ UnleashConfig config = UnleashConfig.builder()
     .apiKey("<YOUR_API_TOKEN>") // in production use environment variable
     .build();
 
-Unleash unleash = new DefaultUnleash(config);
+Ganpa unleash = new DefaultGanpa(config);
 
 while (true) {
     boolean featureEnabled = unleash.isEnabled("<YOUR_FLAG>");

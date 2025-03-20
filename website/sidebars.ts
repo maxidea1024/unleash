@@ -16,7 +16,7 @@ import docsSidebar from './docs/reference/api/unleash/sidebar.ts';
 const sidebars: SidebarsConfig = {
   academy: [
     {
-      label: 'Unleash Academy',
+      label: 'Ganpa Academy',
       collapsed: true,
       type: 'category',
       link: {
@@ -291,14 +291,14 @@ const sidebars: SidebarsConfig = {
     },
 
     {
-      label: 'Understanding Unleash',
+      label: 'Understanding Ganpa',
       collapsed: false,
       type: 'category',
       link: {
         type: 'generated-index',
-        title: 'Understanding Unleash',
+        title: 'Understanding Ganpa',
         description:
-          'Documentation on how Unleash works, high-level architecture and important concepts.',
+          'Documentation on how Ganpa works, high-level architecture and important concepts.',
         slug: 'understanding-unleash',
       },
       items: [
@@ -311,11 +311,11 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           link: {
             type: 'generated-index',
-            title: 'Unleash Concepts',
-            description: 'Documents describing the inner parts of Unleash.',
+            title: 'Ganpa Concepts',
+            description: 'Documents describing the inner parts of Ganpa.',
             slug: '/reference',
           },
-          label: 'Unleash Concepts',
+          label: 'Ganpa Concepts',
           items: [
             'reference/actions',
             'reference/activation-strategies',
@@ -358,14 +358,14 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      label: 'Using Unleash',
+      label: 'Using Ganpa',
       collapsed: false,
       type: 'category',
       link: {
         type: 'generated-index',
-        title: 'Using Unleash',
+        title: 'Using Ganpa',
         description:
-          'Documentation on how to accomplish specific tasks when building with Unleash, including API and SDK documentation.',
+          'Documentation on how to accomplish specific tasks when building with Ganpa, including API and SDK documentation.',
         slug: '/using-unleash',
       },
       items: [
@@ -374,10 +374,10 @@ const sidebars: SidebarsConfig = {
           collapsed: true,
           type: 'category',
           link: {
-            title: 'Unleash Server APIs',
+            title: 'Ganpa Server APIs',
             type: 'generated-index',
             description:
-              'Generated API docs based on the Unleash OpenAPI schema.',
+              'Generated API docs based on the Ganpa OpenAPI schema.',
             slug: '/reference/api/unleash',
           },
           items: [
@@ -473,9 +473,9 @@ const sidebars: SidebarsConfig = {
           type: 'category',
           link: {
             type: 'generated-index',
-            title: 'Self-Hosting Unleash',
+            title: 'Self-Hosting Ganpa',
             description:
-              'All you need to learn how to deploy and manage your own Unleash instance.',
+              'All you need to learn how to deploy and manage your own Ganpa instance.',
             slug: '/using-unleash/deploy',
           },
           label: 'Self-hosting',
@@ -567,12 +567,12 @@ const sidebars: SidebarsConfig = {
           },
           items: [
             {
-              label: 'Unleash API guides',
+              label: 'Ganpa API guides',
               type: 'category',
               link: {
                 type: 'generated-index',
-                title: 'How-to: Unleash API',
-                description: 'Learn how to work with the Unleash API',
+                title: 'How-to: Ganpa API',
+                description: 'Learn how to work with the Ganpa API',
                 slug: '/how-to/api',
               },
               items: [
@@ -586,12 +586,12 @@ const sidebars: SidebarsConfig = {
               ],
             },
             {
-              label: 'Unleash Proxy guides',
+              label: 'Ganpa Proxy guides',
               type: 'category',
               link: {
                 type: 'generated-index',
-                title: 'How-to: The Unleash Proxy',
-                description: 'Learn how to work with the Unleash Proxy',
+                title: 'How-to: The Ganpa Proxy',
+                description: 'Learn how to work with the Ganpa Proxy',
                 slug: '/how-to/proxy',
               },
               items: ['how-to/how-to-run-the-unleash-proxy'],
@@ -601,8 +601,8 @@ const sidebars: SidebarsConfig = {
               type: 'category',
               link: {
                 type: 'generated-index',
-                title: 'How-to: general Unleash tasks',
-                description: 'Guides for how to perform general Unleash tasks.',
+                title: 'How-to: general Ganpa tasks',
+                description: 'Guides for how to perform general Ganpa tasks.',
                 slug: '/how-to/misc',
               },
               items: [
@@ -649,12 +649,12 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      label: 'Contributing to Unleash',
+      label: 'Contributing to Ganpa',
       type: 'category',
       collapsed: true,
       link: {
         type: 'generated-index',
-        title: 'Contributing to Unleash',
+        title: 'Contributing to Ganpa',
         description: 'Learn how to contribute to unleash.',
         slug: '/contributing',
       },
@@ -677,7 +677,7 @@ const sidebars: SidebarsConfig = {
     {
       type: 'ref',
       id: 'unleash-academy/introduction',
-      label: 'Unleash Academy',
+      label: 'Ganpa Academy',
       className: 'show-when-collapsed',
     },
   ],

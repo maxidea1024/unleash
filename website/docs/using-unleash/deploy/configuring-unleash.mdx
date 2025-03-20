@@ -1,21 +1,21 @@
 ---
-title: Configuring Unleash
+title: Configuring Ganpa
 ---
 
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
 
-> This is the guide on how to configure **Unleash v5 self-hosted**.
+> This is the guide on how to configure **Ganpa v5 self-hosted**.
 
 ## Must configure
 
 ### Database
 
-In order for Unleash server to work, you need a running database and its connection details. See
+In order for Ganpa server to work, you need a running database and its connection details. See
 the [database configuration section](#database-configuration) for the available options and configuration details.
 
 ## Nice to configure
 
-### Unleash URL {#unleash-url}
+### Ganpa URL {#unleash-url}
 
 - Configured with `UNLEASH_URL` ** Should be set to the public discoverable URL of your instance, so if your instance is
   accessed by your users at `https://unleash.mysite.com` use that. ** If you're deploying this to a subpath, include the
@@ -50,8 +50,8 @@ For [more details, see here](./email-service.md)
 
 ## Further customization
 
-In order to customize "anything" in Unleash you need to
-use [Unleash from Node.js](./getting-started.md#option-two---from-nodejs) or start
+In order to customize "anything" in Ganpa you need to
+use [Ganpa from Node.js](./getting-started.md#option-two---from-nodejs) or start
 the [docker image](./getting-started.md#option-one---use-docker) with environment variables.
 
 ```js
@@ -77,7 +77,7 @@ const unleashOptions = {
 unleash.start(unleashOptions);
 ```
 
-**Available Unleash options include:**
+**Available Ganpa options include:**
 
 - **authentication** - (object) - An object for configuring/implementing custom admin authentication
 
@@ -89,7 +89,7 @@ unleash.start(unleashOptions);
         - `demo` - Only requires an email to sign in (was default in v3)
         - `none` - _Deprecated_ Turn off authentication completely. If no API token is provided towards /`api/client`
           or `/api/frontend` you will receive configuration for the "default" environment. We generally recommend you
-          use the `demo` type for simple, insecure usage of Unleash. This auth type has many known limitations,
+          use the `demo` type for simple, insecure usage of Ganpa. This auth type has many known limitations,
           particularly related to personalized capabilities such as favorites
           and [notifications](../../reference/notifications.md).
     - `customAuthHandler`: function `(app: any, config: IUnleashConfig): void` — custom express middleware handling
@@ -118,9 +118,9 @@ unleash.start(unleashOptions);
       and `INIT_FRONTEND_API_TOKENS`. All variables require a comma-separated list of API tokens to initialize (for
       instance `*:*.some-random-string, *:*.some-other-token`). The tokens found
       in `INIT_ADMIN_API_TOKENS`, `INIT_CLIENT_API_TOKENS`, and `INIT_FRONTEND_API_TOKENS` will be created as admin,
-      client, and frontend tokens respectively, and Unleash will assign usernames automatically.
+      client, and frontend tokens respectively, and Ganpa will assign usernames automatically.
 
-    -  `demoAllowAdminLogin` / `AUTH_DEMO_ALLOW_ADMIN_LOGIN`: `boolean` — Allows you to log in as the admin user when running Unleash with the `demo` auth type. To log in as the admin user, use `admin` as your email. Defaults to `false`.
+    -  `demoAllowAdminLogin` / `AUTH_DEMO_ALLOW_ADMIN_LOGIN`: `boolean` — Allows you to log in as the admin user when running Ganpa with the `demo` auth type. To log in as the admin user, use `admin` as your email. Defaults to `false`.
 
 - **databaseUrl** - (_deprecated_) the postgres database url to connect to. Only used if _db_ object is not specified,
   and overrides the _db_ object and any environment variables that change parts of it (like `DATABASE_SSL`). Should
@@ -131,16 +131,16 @@ unleash.start(unleashOptions);
   full overview of the available properties.
 - **disableLegacyFeaturesApi** (boolean) - whether to disable
   the [legacy features API](/reference/api/legacy/unleash/admin/features.md). Defaults
-  to `false` (`DISABLE_LEGACY_FEATURES_API`). Introduced in Unleash 4.6.
+  to `false` (`DISABLE_LEGACY_FEATURES_API`). Introduced in Ganpa 4.6.
 - **email** - the email object configuring an SMTP server for sending welcome mails and password reset mails
     - `host` - The server URL to your SMTP server
     - `port` - Which port the SMTP server is running on. Defaults to 465 (Secure SMTP)
     - `secure` (boolean) - Whether to use SMTPS or not.
-    - `sender` - Which email should be set as sender of mails being sent from Unleash?
+    - `sender` - Which email should be set as sender of mails being sent from Ganpa?
     - `smtpuser` - Username for your SMTP server
     - `smtppass` - Password for your SMTP server
-- ~~eventHook~~ (`function(event, data)`) - (_deprecated in Unleash 4.3_ in favor of
-  the [Webhook integration](/reference/integrations/webhook.md). **Removed in Unleash 5**) If provided, this function
+- ~~eventHook~~ (`function(event, data)`) - (_deprecated in Ganpa 4.3_ in favor of
+  the [Webhook integration](/reference/integrations/webhook.md). **Removed in Ganpa 5**) If provided, this function
   will be invoked whenever a feature is mutated. The possible values for `event`
   are `'feature-created'`, `'feature-archived'` and `'feature-revived'`. The `data` argument contains information about
   the mutation. Its fields are `type` (string) - the event type (same as `event`); `createdBy` (string) - the user who
@@ -157,7 +157,7 @@ unleash.start(unleashOptions);
   Express app instance is injected as first argument.
 - **preRouterHook** (function) - use this to register custom express middlewares before the `unleash` specific routers
   are added.
-- **secureHeaders** (boolean) - use this to enable security headers (HSTS, CSP, etc) when serving Unleash from HTTPS.
+- **secureHeaders** (boolean) - use this to enable security headers (HSTS, CSP, etc) when serving Ganpa from HTTPS.
   Can also be configured through the environment variable `SECURE_HEADERS`.
 - **additionalCspAllowedDomains** (CspAllowedDomains) - use this when you want to enable security headers but have
   additional domains you need to allow traffic to. You can set the following environment variables:
@@ -183,22 +183,22 @@ unleash.start(unleashOptions);
     - _baseUriPath_ (string) - use to register a base path for all routes on the application. For
       example `/my/unleash/base` (note the starting /). Defaults to `/`. Can also be configured through the environment
       variable `BASE_URI_PATH`.
-    - _unleashUrl_ (string) - Used to specify the official URL this instance of Unleash can be accessed at for an end
+    - _unleashUrl_ (string) - Used to specify the official URL this instance of Ganpa can be accessed at for an end
       user. Can also be configured through the environment variable `UNLEASH_URL`.
-    - _gracefulShutdownEnable_: (boolean) - Used to control if Unleash should shutdown gracefully (close connections,
+    - _gracefulShutdownEnable_: (boolean) - Used to control if Ganpa should shutdown gracefully (close connections,
       stop tasks,). Defaults to true. `GRACEFUL_SHUTDOWN_ENABLE`
-    - _gracefulShutdownTimeout_: (number) - Used to control the timeout, in milliseconds, for shutdown Unleash
+    - _gracefulShutdownTimeout_: (number) - Used to control the timeout, in milliseconds, for shutdown Ganpa
       gracefully. Will kill all connections regardless if this timeout is exceeded. Defaults to
       1000ms `GRACEFUL_SHUTDOWN_TIMEOUT`
     - _enableScheduledCreatedByMigration_: (boolean) - Schedules migrations that fills the field created_by_user_id for
       past events and features. It does it gradually in chunks and runs every 15 minutes so it doesn't affect the
-      application's performance. Defaults to false. **NOTE:** If your installation started with Unleash v5.8 or later,
+      application's performance. Defaults to false. **NOTE:** If your installation started with Ganpa v5.8 or later,
       you should not need this flag! `ENABLE_SCHEDULED_CREATED_BY_MIGRATION`
 - **session** - The session config object takes the following options:
     - _ttlHours_ (number) - The number of hours a user session is allowed to live before a new sign-in is required.
       Defaults to 48 hours. `SESSION_TTL_HOURS`
     - _clearSiteDataOnLogout_ (boolean) - When `true`, a logout action will return a Clear Site Data response header
-      instructing the browser to clear all cookies on the same domain Unleash is running on. If disabled unleash will
+      instructing the browser to clear all cookies on the same domain Ganpa is running on. If disabled unleash will
       only destroy and clear the session cookie. Defaults to _true_. `SESSION_CLEAR_SITE_DATA_ON_LOGOUT`
     - _cookieName_ - Name of the cookies used to hold the session id. Defaults to 'unleash-session'.
 - **ui** (object) - Set of UI specific overrides. You may set the following keys: `environment`, `slogan`.
@@ -217,13 +217,13 @@ unleash.start(unleashOptions);
     - `enabled` - set to true by default - Overridable with (`CLIENT_FEATURE_CACHING_ENABLED`)
     - `maxAge` - the time to cache features, set to 600 milliseconds by default - Overridable
       with (`CLIENT_FEATURE_CACHING_MAXAGE`) ) (accepts milliseconds)
-- **frontendApi** - Configuration options for the [Unleash front-end API](/reference/front-end-api.md).
+- **frontendApi** - Configuration options for the [Ganpa front-end API](/reference/front-end-api.md).
     - `refreshIntervalInMs` - how often (in milliseconds) front-end clients should refresh their data from the cache.
       Overridable with the `FRONTEND_API_REFRESH_INTERVAL_MS` environment variable.
 - **accessControlMaxAge** - You can configure the max-age of the Access-Control-Max-Age header. Defaults to 86400
   seconds. Overridable with the `ACCESS_CONTROL_MAX_AGE` environment variable.
 - **responseTimeWithAppNameKillSwitch** - use this to disable metrics with app names. This is enabled by default but may
-  increase the cardinality of metrics causing Unleash memory usage to grow if your app name is randomly generated (which
+  increase the cardinality of metrics causing Ganpa memory usage to grow if your app name is randomly generated (which
   is not recommended). Overridable with the `UNLEASH_RESPONSE_TIME_WITH_APP_NAME_KILL_SWITCH` environment variable.
 - **disableCompression** - Disables Express compression middleware, useful when configuring the application in a
   serverless environment. Defaults to `false`. Overridable with the `SERVER_DISABLE_COMPRESSION` environment variable.
@@ -256,7 +256,7 @@ unleash.start(unleashOptions);
 
 ### Disabling Auto-Start {#disabling-auto-start}
 
-If you're using Unleash as part of a larger express app, you can disable the automatic server start by
+If you're using Ganpa as part of a larger express app, you can disable the automatic server start by
 calling `server.create`. It takes the same options as `server.start`, but will not begin listening for connections.
 
 ```js
@@ -269,7 +269,7 @@ const start = async () => {
         databaseUrl: 'postgres://unleash_user:password@localhost:5432/unleash',
     });
     app.use(instance.app);
-    console.log(`Unleash app generated and attached to parent application`);
+    console.log(`Ganpa app generated and attached to parent application`);
 };
 
 start();
@@ -277,11 +277,11 @@ start();
 
 ### Graceful shutdown {#shutdown-unleash}
 
-> PS! Unleash will listen for the `SIGINT` signal and automatically trigger graceful shutdown of Unleash.
+> PS! Ganpa will listen for the `SIGINT` signal and automatically trigger graceful shutdown of Ganpa.
 
-If you need to stop Unleash (close database connections, and stop running Unleash tasks) you may use the stop function.
-Be aware that it is not possible to restart the Unleash instance after stopping it, but you can create a new instance of
-Unleash.
+If you need to stop Ganpa (close database connections, and stop running Ganpa tasks) you may use the stop function.
+Be aware that it is not possible to restart the Ganpa instance after stopping it, but you can create a new instance of
+Ganpa.
 
 ```js
 const express = require('express');
@@ -296,7 +296,7 @@ const start = async () => {
 
     //Sometime later
     await instance.stop();
-    console.log('Unleash has now stopped');
+    console.log('Ganpa has now stopped');
 };
 
 start();
@@ -306,13 +306,13 @@ start();
 
 :::caution
 
-Changing segment limits could have a negative impact on the performance of Unleash SDKs and cause network congestion.
+Changing segment limits could have a negative impact on the performance of Ganpa SDKs and cause network congestion.
 Think twice before changing these values.
 
 :::
 
 Some facets of the [segments feature](/reference/segments.mdx) can be customized via environment variables. This lets
-you change the [segment limits](/reference/segments.mdx#segment-limits) that Unleash uses.
+you change the [segment limits](/reference/segments.mdx#segment-limits) that Ganpa uses.
 
 `UNLEASH_STRATEGY_SEGMENTS_LIMIT` controls the maximum number of segments that can be applied to a single strategy. The
 default is 5.
@@ -320,15 +320,15 @@ default is 5.
 `UNLEASH_SEGMENT_VALUES_LIMIT` controls the maximum number of values that you can assign across a segment's constraints.
 The default is 1000 (Since v5.1.0; it was 100 before v5.1.0)
 
-## Securing Unleash {#securing-unleash}
+## Securing Ganpa {#securing-unleash}
 
-You can integrate Unleash with your authentication provider (OAuth 2.0). Read more
+You can integrate Ganpa with your authentication provider (OAuth 2.0). Read more
 about [securing unleash](./securing-unleash.md).
 
 ## How do I configure the log output? {#how-do-i-configure-the-log-output}
 
 By default, `unleash` uses [log4js](https://github.com/nomiddlename/log4js-node) to log important information. It is
-possible to swap out the logger provider (only when using Unleash programmatically). You do this by providing an
+possible to swap out the logger provider (only when using Ganpa programmatically). You do this by providing an
 implementation of the **getLogger** function as This enables filtering of log levels and easy redirection of output
 streams.
 
@@ -353,16 +353,16 @@ pino or winston.
 :::info
 
 In-code configuration values take precedence over environment values: If you provide a database username both via
-environment variables and in code with the Unleash options object, Unleash will use the in-code username.
+environment variables and in code with the Ganpa options object, Ganpa will use the in-code username.
 
 :::
 
-You cannot run the Unleash server without a database. You must provide Unleash with database connection details for it
+You cannot run the Ganpa server without a database. You must provide Ganpa with database connection details for it
 to start correctly.
 
 The available options are listed in the table below. Options can be specified either via JavaScript (only when starting
-Unleash via code) or via environment variables. The "property name" column below gives the name of the property on the
-Unleash options' `db` object.
+Ganpa via code) or via environment variables. The "property name" column below gives the name of the property on the
+Ganpa options' `db` object.
 
 | Property name            | Environment variable               | Default value                                    | Description                                                                                                                                                                    |
 |--------------------------|------------------------------------|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -392,7 +392,7 @@ these are top-level properties of the root configuration object, _not_ the `db` 
 
 | Property name     | Environment variable | Default value | Description                                                                                                                                                                                                                                           |
 |-------------------|----------------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `databaseUrl`     | `DATABASE_URL`       | N/A           | A string that matches a single-host [libpq connection string](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING), such as `postgres://USER:PASSWORD@HOST:PORT/DATABASE`. Unleash does **not** support using multiple hosts. |
+| `databaseUrl`     | `DATABASE_URL`       | N/A           | A string that matches a single-host [libpq connection string](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING), such as `postgres://USER:PASSWORD@HOST:PORT/DATABASE`. Ganpa does **not** support using multiple hosts. |
 | `databaseUrlFile` | `DATABASE_URL_FILE`  | N/A           | The path to a file that contains a [libpq connection string](https://www.postgresql.org/docs/current/libpq-connect.html#LIBPQ-CONNSTRING).                                                                                                            |
 
 Below is an example JavaScript configuration object.
@@ -419,12 +419,12 @@ const unleashOptions = {
 
 ### `db.ssl` vs `DATABASE_SSL` options
 
-When initializing Unleash from code, you'll provide the `db.ssl` option as a JavaScript object. As such, any functions
+When initializing Ganpa from code, you'll provide the `db.ssl` option as a JavaScript object. As such, any functions
 will get evaluated before the object is used for configuration. When using the `DATABASE_SSL` environment variable, you
 must provide the value as a stringified JSON object. The object will get parsed before being used for configuration, but
 no further evaluation will take place.
 
-If you want to read content from a file, you should either initialize Unleash via JavaScript or manually interpolate the
+If you want to read content from a file, you should either initialize Ganpa via JavaScript or manually interpolate the
 required values into the environment variable:
 
 <Tabs groupId="db-configuration-options">
@@ -491,10 +491,10 @@ Visit [the node-postgres library's SSL section](https://node-postgres.com/featur
 
 ### Supported Postgres SSL modes
 
-Unleash builds directly on the [node-postgres library](https://node-postgres.com/features/ssl), so we support all the
+Ganpa builds directly on the [node-postgres library](https://node-postgres.com/features/ssl), so we support all the
 same SSL modes that they support. As of version 8 (released on February 25th
 2020), [node-postgres no longer supports all sslmodes](https://node-postgres.com/announcements#2020-02-25). For this
-reason, Unleash cannot support all of Postgres' SSL modes. Specifically, Unleash **does not support** `sslmode=prefer`.
+reason, Ganpa cannot support all of Postgres' SSL modes. Specifically, Ganpa **does not support** `sslmode=prefer`.
 Instead you must know whether you require an SSL connection ahead of time.
 
 ### Recommended PostgreSQL spec
@@ -507,7 +507,7 @@ For PostgreSQL we recommend running with at least 1 CPU and at least 1Gi of memo
 | Azure    | B2s (2CPU / 4GB mem )          |
 | GCP      | 2 CPU / 4GB mem                |
 
-Unleash SAAS runs on db.t4g.small and we're happy with that.
+Ganpa SAAS runs on db.t4g.small and we're happy with that.
 
 
 ### Troubleshooting: database pooling connection timeouts {#database-pooling-connection-timeouts}
@@ -520,7 +520,7 @@ Unleash SAAS runs on db.t4g.small and we're happy with that.
 
 ### Troubleshooting: missing metrics from connected Edge instances
 
-If you're on Unleash 5.9.0 or newer, you might encounter issues with metrics from connected Edge instances. There are
+If you're on Ganpa 5.9.0 or newer, you might encounter issues with metrics from connected Edge instances. There are
 two solutions to this, the recommended way and the one that will work for 5.9.0 but probably not for later versions
 
 #### Recommended
@@ -531,14 +531,14 @@ two solutions to this, the recommended way and the one that will work for 5.9.0 
 
 #### Works in 5.9.0
 
-- If you absolutely cannot upgrade your Edge instances to v17.0.0 or newer you can start Unleash with the environmental
+- If you absolutely cannot upgrade your Edge instances to v17.0.0 or newer you can start Ganpa with the environmental
   flag `UNLEASH_EXPERIMENTAL_EDGE_BULK_METRICS` set to `true`
 - This will re-enable an endpoint that was disabled in 5.9.0 to allow users that cannot upgrade Edge just now to stay on
   an old Edge version, but still get client metrics.
 
-### Proxying requests from Unleash
+### Proxying requests from Ganpa
 
-You can configure proxy services that intercept all outgoing requests from Unleash. This lets you use the Microsoft
+You can configure proxy services that intercept all outgoing requests from Ganpa. This lets you use the Microsoft
 Teams or the Webhook integration for external services, even if the internet can only be reached via a proxy on your
 machine or container (for example if restricted by a firewall or similiar).
 

@@ -28,7 +28,7 @@ const links = [
     level: 'Beginners',
     header: 'Foundational',
     description:
-      'For all roles working with Unleash - Developers, Product owners, Leaders',
+      'For all roles working with Ganpa - Developers, Product owners, Leaders',
     link: 'foundational',
   },
   {
@@ -40,7 +40,7 @@ const links = [
   },
   {
     level: 'Advanced',
-    header: 'Managing Unleash for DevOps/Admins',
+    header: 'Managing Ganpa for DevOps/Admins',
     description:
       'For DevOps, Platform leads and Admins only after Foundational content has been reviewed',
     link: 'managing-unleash-for-devops',

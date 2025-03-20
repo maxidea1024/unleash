@@ -41,10 +41,12 @@ const GitHubContributors = ({ owner, repo, filePath }) => {
             }
             return 1;
           });
+
           setContributors(contributors);
         })
         .catch((error) => {
           console.error(error);
+
           setContributors([]);
         });
     };

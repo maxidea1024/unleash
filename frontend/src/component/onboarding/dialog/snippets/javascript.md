@@ -3,7 +3,7 @@
 npm install unleash-proxy-client
 ```
 
-2\. Run Unleash
+2\. Run Ganpa
 ```js
 const { UnleashClient } = require('unleash-proxy-client');
 

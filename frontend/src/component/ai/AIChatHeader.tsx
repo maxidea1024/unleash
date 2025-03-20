@@ -45,7 +45,7 @@ export const AIChatHeader = ({ onNew, onClose }: AIChatHeaderProps) => {
     <StyledHeader>
       <StyledTitleContainer>
         <AIIcon />
-        <StyledTitle>Unleash AI</StyledTitle>
+        <StyledTitle>Ganpa AI</StyledTitle>
       </StyledTitleContainer>
       <StyledActionsContainer>
         <Tooltip title='New chat' arrow>

@@ -43,14 +43,14 @@ const addDocsRoutePrefix = ({ from, ...rest }) => {
 };
 
 const config: Config = {
-  title: 'Unleash Documentation',
+  title: 'Ganpa Documentation',
   tagline: 'The enterprise ready feature flag service',
   url: 'https://docs.getunleash.io',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'Unleash', // Usually your GitHub org/user name.
+  organizationName: 'Ganpa', // Usually your GitHub org/user name.
   projectName: 'unleash.github.io', // Usually your repo name.
   trailingSlash: false,
   customFields: {
@@ -68,7 +68,7 @@ const config: Config = {
     },
     navbar: {
       logo: {
-        alt: 'Unleash logo',
+        alt: 'Ganpa logo',
         src: 'img/unleash_logo_white.svg',
         href: 'https://www.getunleash.io',
       },
@@ -111,7 +111,7 @@ const config: Config = {
         {
           type: 'dropdown',
           position: 'right',
-          html: '<span class="hide-at-small-sizes">Unleash </span>Academy',
+          html: '<span class="hide-at-small-sizes">Ganpa </span>Academy',
           to: 'unleash-academy/introduction',
           items: [
             {
@@ -127,7 +127,7 @@ const config: Config = {
             {
               type: 'doc',
               docId: 'unleash-academy/managing-unleash-for-devops',
-              label: 'Managing Unleash for DevOps/Admins',
+              label: 'Managing Ganpa for DevOps/Admins',
             },
           ],
         },
@@ -135,18 +135,18 @@ const config: Config = {
         {
           type: 'dropdown',
           position: 'right',
-          html: '<span class="hide-at-small-sizes">Unleash </span>Certification',
+          html: '<span class="hide-at-small-sizes">Ganpa </span>Certification',
           items: [
             {
-              label: 'Foundational Unleash',
+              label: 'Foundational Ganpa',
               href: 'https://docs.google.com/forms/d/1iPUk2I0k5xMzicn9aLMcPF3b9ub3ZwdVjRxCxWxV7js/viewform',
             },
             {
-              label: 'Advanced Unleash for Developers',
+              label: 'Advanced Ganpa for Developers',
               href: 'https://docs.google.com/forms/d/1NUL9hyO8Ys916TB6fPV3-jkvD97OmPXZ8_TO84Wjqgc/viewform',
             },
             {
-              label: 'Managing Unleash for DevOps/Admins',
+              label: 'Managing Ganpa for DevOps/Admins',
               href: 'https://docs.google.com/forms/d/1JlIqmXI3P7dj0n-OiUs2IYsYXgmqw23BChaemlSgHJA/viewform',
             },
           ],
@@ -171,7 +171,7 @@ const config: Config = {
           href: 'https://github.com/Unleash/unleash',
           position: 'right',
           className: 'header-github-link',
-          'aria-label': 'Unleash GitHub repository',
+          'aria-label': 'Ganpa GitHub repository',
         },
       ],
     },
@@ -230,7 +230,7 @@ const config: Config = {
               to: '/',
             },
             {
-              label: 'Unleash on GitHub',
+              label: 'Ganpa on GitHub',
               href: 'https://github.com/Unleash/unleash',
             },
             {
@@ -238,7 +238,7 @@ const config: Config = {
               href: 'https://github.com/orgs/Unleash/projects/10',
             },
             {
-              label: 'Unleash help center',
+              label: 'Ganpa help center',
               href: 'https://getunleash.zendesk.com/hc/en-gb',
             },
           ],
@@ -265,10 +265,10 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Unleash. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Ganpa. Built with Docusaurus.`,
       logo: {
         src: 'img/logo.svg',
-        alt: 'Unleash logo',
+        alt: 'Ganpa logo',
       },
     },
     image: 'img/logo.png',
@@ -884,7 +884,7 @@ const config: Config = {
     {
       src: 'https://widget.kapa.ai/kapa-widget.bundle.js',
       'data-website-id': '1d187510-1726-4011-b0f7-62742ae064ee',
-      'data-project-name': 'Unleash',
+      'data-project-name': 'Ganpa',
       'data-project-color': '#1A4049',
       'data-project-logo': 'https://cdn.getunleash.io/uploads/2022/05/logo.png',
       defer: true,

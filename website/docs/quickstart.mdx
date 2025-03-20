@@ -6,13 +6,13 @@ import Tabs from '@theme/Tabs';
 
 import TabItem from '@theme/TabItem';
 
-This guide helps you set up Unleash in just a few minutes. The fastest way to get started is by using [Docker](#set-up-unleash-with-docker). If Docker doesn't work for you, see [other ways to try Unleash](#additional-ways-to-try-unleash).
+This guide helps you set up Ganpa in just a few minutes. The fastest way to get started is by using [Docker](#set-up-unleash-with-docker). If Docker doesn't work for you, see [other ways to try Ganpa](#additional-ways-to-try-unleash).
 
-## Set up Unleash with Docker
+## Set up Ganpa with Docker
 
-### Start Unleash locally
+### Start Ganpa locally
 
-To start Unleash locally, clone the [Unleash repository](https://github.com/Unleash/unleash) and start the server with Docker Compose:
+To start Ganpa locally, clone the [Ganpa repository](https://github.com/Unleash/unleash) and start the server with Docker Compose:
 
 ```shell
 git clone git@github.com:Unleash/unleash.git
@@ -21,13 +21,13 @@ cd unleash
 docker compose up -d
 ```
 
-### Log in to the Unleash Admin UI
+### Log in to the Ganpa Admin UI
 
 In your browser, go to [http://localhost:4242](http://localhost:4242) and log in using the following credentials:
 - **username**: `admin`
 - **password**: `unleash4all`
 
-![Unleash Admin UI log in screen](/img/quickstart-login.png)
+![Ganpa Admin UI log in screen](/img/quickstart-login.png)
 
 ### Create your first flag
 
@@ -40,17 +40,17 @@ For more details on creating feature flags, see [How to create a feature flag](/
 
 ### Connect an SDK
 
-Next, use one of the client or server-side [SDKs](/reference/sdks) to connect Unleash with your application.
+Next, use one of the client or server-side [SDKs](/reference/sdks) to connect Ganpa with your application.
 
 1. Create an API token:
-    - For client-side SDKs, use a [frontend token](/reference/api-tokens-and-client-keys#front-end-tokens). 
+    - For client-side SDKs, use a [frontend token](/reference/api-tokens-and-client-keys#front-end-tokens).
     - For server-side SDKs, use a [client token](/reference/api-tokens-and-client-keys#client-tokens).
-2. Determine your Unleash URL:
-    - For client-side SDKs, use `<your-unleash-instance>/api/frontend`. 
+2. Determine your Ganpa URL:
+    - For client-side SDKs, use `<your-unleash-instance>/api/frontend`.
     - For server-side SDKs, use `<your-unleash-instance>/api`.
-3. Use the SDK to connect to Unleash in your application.
+3. Use the SDK to connect to Ganpa in your application.
 
-The following example shows how to use the [JavaScript SDK](/reference/sdks/javascript-browser) and the [Node.js SDK](/reference/sdks/node) to connect to your Unleash instance:
+The following example shows how to use the [JavaScript SDK](/reference/sdks/javascript-browser) and the [Node.js SDK](/reference/sdks/node) to connect to your Ganpa instance:
 
 
 <Tabs groupId="connect-sdk-quickstart">
@@ -67,7 +67,7 @@ const unleash = new UnleashClient({
 });
 
 unleash.on("synchronized", () => {
-    // Unleash is ready to serve updated feature flags.
+    // Ganpa is ready to serve updated feature flags.
 
     // Check a feature flag
     if (unleash.isEnabled("some-flag")) {
@@ -91,7 +91,7 @@ const unleash = initialize({
 });
 
 unleash.on("synchronized", () => {
-    // Unleash is ready to serve updated feature flags.
+    // Ganpa is ready to serve updated feature flags.
 
     if (unleash.isEnabled("some-flag")) {
         // do cool new things when the flag is enabled
@@ -102,11 +102,11 @@ unleash.on("synchronized", () => {
 </TabItem>
 </Tabs>
 
-## Other ways to try Unleash
+## Other ways to try Ganpa
 
-### Unleash demo instance
+### Ganpa demo instance
 
-You can also use the [Unleash demo instance](https://app.unleash-hosted.com/demo/) to test different use cases before setting up your own instance. The demo instance is available at `https://app.unleash-hosted.com/demo/`.
+You can also use the [Ganpa demo instance](https://app.unleash-hosted.com/demo/) to test different use cases before setting up your own instance. The demo instance is available at `https://app.unleash-hosted.com/demo/`.
 
 To run tests on this instance, use the following API URLs and keys:
 
@@ -126,20 +126,20 @@ curl https://app.unleash-hosted.com/demo/api/client/features \
 
 ### Other local setup options
 
-For other ways to get started locally, see the steps for [starting an Unleash server](using-unleash/deploy/getting-started#start-unleash-server).
+For other ways to get started locally, see the steps for [starting an Ganpa server](using-unleash/deploy/getting-started#start-unleash-server).
 
-## Hosting Unleash
+## Hosting Ganpa
 
-#### Hosted by Unleash 
+#### Hosted by Ganpa
 
-With our [Pro](/availability#plans) and [Enterprise](https://www.getunleash.io/pricing) plans, you can run Unleash in the cloud by using our hosted offerings.
+With our [Pro](/availability#plans) and [Enterprise](https://www.getunleash.io/pricing) plans, you can run Ganpa in the cloud by using our hosted offerings.
 
 #### Self-hosted
 
-Self-hosting Unleash is available for [Open Source](https://www.getunleash.io/pricing) and [Enterprise](https://www.getunleash.io/pricing) customers. Visit [Self-hosting Unleash](/using-unleash/deploy) to learn more.
+Self-hosting Ganpa is available for [Open Source](https://www.getunleash.io/pricing) and [Enterprise](https://www.getunleash.io/pricing) customers. Visit [Self-hosting Ganpa](/using-unleash/deploy) to learn more.
 
 ## Next steps
 
-Check out our reference documentation that explains all [core concepts](/reference) you need to get the most out of Unleash.
+Check out our reference documentation that explains all [core concepts](/reference) you need to get the most out of Ganpa.
 
 Explore feature flag best practices and language-specific tutorials in our [developer guides](/topics).
