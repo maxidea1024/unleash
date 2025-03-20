@@ -1,6 +1,6 @@
 import { sha256 } from 'js-sha256';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import type {
   IClientInstanceStore,
   IClientMetricsStoreV2,
@@ -141,7 +141,7 @@ export class InstanceStatsService {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
     versionService: VersionService,
     getActiveUsers: GetActiveUsers,
     getProductionChanges: GetProductionChanges,

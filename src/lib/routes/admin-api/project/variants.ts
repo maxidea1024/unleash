@@ -1,8 +1,8 @@
 import type FeatureToggleService from '../../../features/feature-toggle/feature-toggle-service';
 import type { Logger } from '../../../logger';
 import Controller from '../../controller';
-import type { IUnleashConfig } from '../../../types/options';
-import type { IUnleashServices } from '../../../types';
+import type { IGanpaConfig } from '../../../types/options';
+import type { IGanpaServices } from '../../../types';
 import type { Request, Response } from 'express';
 import type { Operation } from 'fast-json-patch';
 import {
@@ -43,13 +43,13 @@ export default class VariantsController extends Controller {
   private readonly accessService: AccessService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       featureToggleService,
       openApiService,
       accessService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'featureToggleService' | 'openApiService' | 'accessService'
     >,
   ) {

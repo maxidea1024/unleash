@@ -3,8 +3,8 @@ import {
   type EmailService,
   TemplateFormat,
 } from '../../services/email-service';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type { Request, Response } from 'express';
 import Controller from '../controller';
 import type { Logger } from '../../logger';
@@ -15,8 +15,8 @@ export default class EmailController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
-    { emailService }: Pick<IUnleashServices, 'emailService'>,
+    config: IGanpaConfig,
+    { emailService }: Pick<IGanpaServices, 'emailService'>,
   ) {
     super(config);
 

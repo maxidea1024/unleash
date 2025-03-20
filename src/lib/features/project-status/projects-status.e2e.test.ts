@@ -9,7 +9,7 @@ import {
   type IUser,
   RoleName,
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
 } from '../../types';
 import type { EventService } from '../../services';
 import { createEventsService } from '../events/createEventsService';
@@ -22,7 +22,7 @@ let db: ITestDb;
 let eventService: EventService;
 
 const TEST_USER_ID = -9999;
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 const insertHealthScore = (id: string, health: number) => {
   const irrelevantFlagTrendDetails = {

@@ -6,12 +6,12 @@ import type {
   FeatureInterface,
 } from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import { UnleashEvents } from 'unleash-client';
 import type { Logger } from '../../logger';
 import type { GlobalFrontendApiCache } from './global-frontend-api-cache';
 
-type Config = Pick<IUnleashConfig, 'getLogger'>;
+type Config = Pick<IGanpaConfig, 'getLogger'>;
 
 export class FrontendApiRepository
   extends EventEmitter

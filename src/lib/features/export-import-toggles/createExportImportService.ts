@@ -1,5 +1,5 @@
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import ExportImportService from './export-import-service';
 import { ImportTogglesStore } from './import-toggles-store';
 import FeatureToggleStore from '../feature-toggle/feature-toggle-store';
@@ -54,7 +54,7 @@ import { SegmentReadModel } from '../segment/segment-read-model';
 import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 
 export const createFakeExportImportTogglesService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ExportImportService => {
   const { getLogger, flagResolver } = config;
   const importTogglesStore = {} as ImportTogglesStore;
@@ -137,7 +137,7 @@ export const createFakeExportImportTogglesService = (
 };
 
 export const deferredExportImportTogglesService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): DeferredServiceFactory<ExportImportService> => {
   return (db: Db) => {
     const { eventBus, getLogger, flagResolver } = config;
@@ -247,7 +247,7 @@ export const deferredExportImportTogglesService = (
 
 export const createExportImportTogglesService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ExportImportService => {
   const unboundService = deferredExportImportTogglesService(config);
   return unboundService(db);

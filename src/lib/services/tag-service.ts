@@ -3,7 +3,7 @@ import NameExistsError from '../error/name-exists-error';
 import { TagCreatedEvent, TagDeletedEvent } from '../types/events';
 import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { ITagStore } from '../types/stores/tag-store';
 import type { ITag } from '../types/model';
 import type EventService from '../features/events/event-service';
@@ -20,7 +20,7 @@ export default class TagService {
     }: Pick<IUnleashStores, 'tagStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('tag-service.ts');

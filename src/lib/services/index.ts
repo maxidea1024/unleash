@@ -1,6 +1,6 @@
 import type {
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
   IUnleashStores,
 } from '../types';
 import FeatureTypeService from './feature-type-service';
@@ -163,9 +163,9 @@ import { ProjectStatusService } from '../features/project-status/project-status-
 
 export const createServices = (
   stores: IUnleashStores,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   db?: Db,
-): IUnleashServices => {
+): IGanpaServices => {
   const privateProjectChecker = db
     ? createPrivateProjectChecker(db, config)
     : createFakePrivateProjectChecker();

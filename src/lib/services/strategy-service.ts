@@ -1,5 +1,5 @@
 import type { Logger } from '../logger';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type {
   IMinimalStrategy,
@@ -31,7 +31,7 @@ export default class StrategyService {
     }: Pick<IUnleashStores, 'strategyStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('strategy-service.ts');

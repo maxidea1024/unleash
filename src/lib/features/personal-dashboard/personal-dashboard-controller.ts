@@ -1,6 +1,6 @@
 import {
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
 } from '../../types';
@@ -25,11 +25,11 @@ export default class PersonalDashboardController extends Controller {
   private readonly personalDashboardService: PersonalDashboardService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       openApiService,
       personalDashboardService,
-    }: Pick<IUnleashServices, 'openApiService' | 'personalDashboardService'>,
+    }: Pick<IGanpaServices, 'openApiService' | 'personalDashboardService'>,
   ) {
     super(config);
 

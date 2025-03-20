@@ -1,8 +1,8 @@
 import { Parser } from 'json2csv';
 import type { Response } from 'express';
 import type { AuthedRequest } from '../../types/core';
-import type { IUnleashServices } from '../../types/services';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';
 import type {
@@ -23,11 +23,11 @@ export default class InstanceAdminController extends Controller {
   private readonly jsonCsvParser: Parser;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       instanceStatsService,
       openApiService,
-    }: Pick<IUnleashServices, 'instanceStatsService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'instanceStatsService' | 'openApiService'>,
   ) {
     super(config);
 

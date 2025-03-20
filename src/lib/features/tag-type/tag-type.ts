@@ -6,8 +6,8 @@ import {
   NONE,
   UPDATE_TAG_TYPE,
 } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type TagTypeService from './tag-type-service';
 import type { Logger } from '../../logger';
 import type { IAuthRequest } from '../../routes/unleash-types';
@@ -38,11 +38,11 @@ export default class TagTypeController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalTagTypeService,
       openApiService,
-    }: Pick<IUnleashServices, 'transactionalTagTypeService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'transactionalTagTypeService' | 'openApiService'>,
   ) {
     super(config);
 

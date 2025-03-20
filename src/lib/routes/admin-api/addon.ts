@@ -2,8 +2,8 @@ import type { Request, Response } from 'express';
 import Controller from '../controller';
 import type {
   IFlagResolver,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
 } from '../../types';
 import type { Logger } from '../../logger';
 import type AddonService from '../../services/addon-service';
@@ -42,7 +42,7 @@ import { BadDataError } from '../../error';
 import type { IntegrationEventsService } from '../../services';
 
 type AddonServices = Pick<
-  IUnleashServices,
+  IGanpaServices,
   'addonService' | 'openApiService' | 'integrationEventsService'
 >;
 
@@ -56,7 +56,7 @@ export default class AddonController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     { addonService, openApiService, integrationEventsService }: AddonServices,
   ) {
     super(config);

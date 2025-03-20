@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { IFeatureTypeStore } from '../types/stores/feature-type-store';
 
@@ -9,7 +9,7 @@ export default class HealthService {
 
   constructor(
     { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('health-service.ts');
 

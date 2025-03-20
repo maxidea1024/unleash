@@ -1,10 +1,10 @@
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import type { IAuthRequest } from '../routes/unleash-types';
 import NotFoundError from '../error/notfound-error';
 import type { AccountService } from '../services/account-service';
 
 export default function patMiddleware(
-  { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+  { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
   { accountService }: { accountService: AccountService },
 ): any {
   const logger = getLogger('pat-middleware.ts');

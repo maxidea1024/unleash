@@ -1,8 +1,8 @@
 import type { Logger } from '../logger';
-import type { IUnleash } from '../types/core';
+import type { IGanpa } from '../types/core';
 
 export default function registerGracefulShutdown(
-  unleash: IUnleash,
+  unleash: IGanpa,
   logger: Logger,
 ): void {
   const closer = (signal: string) => async () => {

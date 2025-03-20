@@ -1,7 +1,7 @@
 import dbInit, { type ITestDb } from './helpers/database-init';
 import { setupAppWithCustomAuth } from './helpers/test-helper';
 import {
-  type IUnleashServices,
+  type IGanpaServices,
   type IUnleashStores,
   RoleName,
 } from '../../lib/types';
@@ -15,7 +15,7 @@ const preHook = (
   {
     userService,
     accessService,
-  }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+  }: Pick<IGanpaServices, 'userService' | 'accessService'>,
 ) => {
   app.use('/api/admin/', async (req, res, next) => {
     const role = await accessService.getPredefinedRole(RoleName.EDITOR);

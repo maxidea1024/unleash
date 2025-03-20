@@ -6,7 +6,7 @@ import AccessServiceMock from '../../test/fixtures/access-service-mock';
 import ResetTokenService from './reset-token-service';
 import { EmailService } from './email-service';
 import OwaspValidationError from '../error/owasp-validation-error';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import { createTestConfig } from '../../test/config/test-config';
 import SessionService from './session-service';
 import FakeSessionStore from '../../test/fixtures/fake-session-store';
@@ -17,7 +17,7 @@ import FakeSettingStore from '../../test/fixtures/fake-setting-store';
 import { extractAuditInfoFromUser } from '../util';
 import { createFakeEventsService } from '../features';
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 const systemUser = new User({ id: -1, username: 'system' });
 

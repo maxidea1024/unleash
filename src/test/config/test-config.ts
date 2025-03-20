@@ -1,8 +1,8 @@
 import merge from 'deepmerge';
 import {
   AuthType,
-  type IUnleashConfig,
-  type IUnleashOptions,
+  type IGanpaConfig,
+  type IGanpaOptions,
 } from '../../lib/types/options';
 import getLogger from '../fixtures/no-logger';
 import { createConfig } from '../../lib/create-config';
@@ -12,9 +12,9 @@ function mergeAll<T>(objects: Partial<T>[]): T {
   return merge.all<T>(objects.filter((i) => i));
 }
 
-export function createTestConfig(config?: IUnleashOptions): IUnleashConfig {
+export function createTestConfig(config?: IGanpaOptions): IGanpaConfig {
   getLogger.setMuteError(true);
-  const testConfig: IUnleashOptions = {
+  const testConfig: IGanpaOptions = {
     getLogger,
     authentication: { type: AuthType.NONE, createAdminUser: false },
     server: { secret: 'really-secret' },
@@ -32,6 +32,6 @@ export function createTestConfig(config?: IUnleashOptions): IUnleashConfig {
     },
     publicFolder: path.join(__dirname, '../examples'),
   };
-  const options = mergeAll<IUnleashOptions>([testConfig, config || {}]);
+  const options = mergeAll<IGanpaOptions>([testConfig, config || {}]);
   return createConfig(options);
 }

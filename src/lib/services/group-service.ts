@@ -11,7 +11,7 @@ import {
   GroupUpdatedEvent,
   SYSTEM_USER_AUDIT,
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
 } from '../types';
 import type { IGroupStore } from '../types/stores/group-store';
@@ -42,7 +42,7 @@ export class GroupService {
 
   constructor(
     stores: Pick<IUnleashStores, 'groupStore' | 'accountStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('group-service.ts');

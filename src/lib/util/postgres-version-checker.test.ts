@@ -1,9 +1,9 @@
-import type { ISettingStore, IUnleashConfig } from '../types';
+import type { ISettingStore, IGanpaConfig } from '../types';
 import { createTestConfig } from '../../test/config/test-config';
 import { compareAndLogPostgresVersion } from './postgres-version-checker';
 import FakeSettingStore from '../../test/fixtures/fake-setting-store';
 
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 let settingStore: ISettingStore;
 let infoMessages: string[];
 let errorMessages: string[];

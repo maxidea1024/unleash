@@ -7,7 +7,7 @@ import { FEATURES_CREATED_BY_PROCESSED } from '../../lib/metric-events';
 import type { EventService, FeatureToggleService } from '../../lib/services';
 import {
   ADMIN_TOKEN_USER,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
 } from '../../lib/types';
 import { createTestConfig } from '../config/test-config';
@@ -18,7 +18,7 @@ let db: ITestDb;
 let service: FeatureToggleService;
 let eventBus: EventEmitter;
 let eventService: EventService;
-let unleashConfig: IUnleashConfig;
+let unleashConfig: IGanpaConfig;
 
 beforeAll(async () => {
   const config = createTestConfig();

@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types';
 import Controller from '../../routes/controller';
 import {
   extractUserIdFromUser,
@@ -34,13 +34,13 @@ export default class ArchiveController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalFeatureToggleService,
       featureToggleService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'transactionalFeatureToggleService'
       | 'featureToggleService'
       | 'openApiService'

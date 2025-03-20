@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IUser } from '../types/user';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IAccountStore, IUnleashStores } from '../types/stores';
 import type { AccessService } from './access-service';
 import { RoleName } from '../types/model';
@@ -20,7 +20,7 @@ export class AccountService {
     stores: Pick<IUnleashStores, 'accountStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
     services: {
       accessService: AccessService;
     },

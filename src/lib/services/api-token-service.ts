@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import type { Logger } from '../logger';
 import { ADMIN, CLIENT, FRONTEND } from '../types/permissions';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import ApiUser, { type IApiUser } from '../types/api-user';
 import {
   ApiTokenType,
@@ -68,7 +68,7 @@ export class ApiTokenService {
       environmentStore,
     }: Pick<IUnleashStores, 'apiTokenStore' | 'environmentStore'>,
     config: Pick<
-      IUnleashConfig,
+      IGanpaConfig,
       | 'getLogger'
       | 'authentication'
       | 'flagResolver'

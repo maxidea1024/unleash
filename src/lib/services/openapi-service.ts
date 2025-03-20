@@ -1,6 +1,6 @@
 import openapi, { type IExpressOpenApi } from '@wesleytodd/openapi';
 import type { Express, RequestHandler, Response } from 'express';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import {
   createOpenApiSchema,
   type JsonSchemaProps,
@@ -14,12 +14,12 @@ import type { IFlagResolver } from '../types';
 import { fromOpenApiValidationErrors } from '../error/bad-data-error';
 
 export class OpenApiService {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly logger: Logger;
   private readonly api: IExpressOpenApi;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(config: IUnleashConfig) {
+  constructor(config: IGanpaConfig) {
     this.logger = config.getLogger('openapi-service.ts');
 
     this.config = config;

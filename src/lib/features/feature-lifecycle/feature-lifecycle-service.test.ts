@@ -4,7 +4,7 @@ import {
   FEATURE_CREATED,
   FEATURE_REVIVED,
   type IEnvironment,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type StageName,
 } from '../../types';
 import { createFakeFeatureLifecycleService } from './createFeatureLifecycle';
@@ -23,7 +23,7 @@ test('can insert and read lifecycle stages', async () => {
     flagResolver: { isEnabled: () => true },
     eventBus,
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
   const featureName = 'testFeature';
   await featureEnvironmentStore.addEnvironmentToFeature(
     featureName,

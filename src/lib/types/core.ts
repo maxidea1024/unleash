@@ -4,21 +4,21 @@ import type * as https from 'https';
 import type * as http from 'http';
 import type User from './user';
 import type { IAuditUser, IUser } from './user';
-import type { IUnleashConfig } from './options';
+import type { IGanpaConfig } from './options';
 import type { IUnleashStores } from './stores';
-import type { IUnleashServices } from './services';
+import type { IGanpaServices } from './services';
 
 export interface AuthedRequest extends Request {
   user: User;
 }
 
-export interface IUnleash {
+export interface IGanpa {
   app: any;
-  config: IUnleashConfig;
+  config: IGanpaConfig;
   eventBus: EventEmitter;
   stores: IUnleashStores;
   server?: http.Server | https.Server;
-  services: IUnleashServices;
+  services: IGanpaServices;
   stop: () => Promise<void>;
   version: string;
 }
@@ -27,18 +27,18 @@ export const SYSTEM_USER: Omit<IUser, 'email'> = {
   id: -1337,
   imageUrl: '',
   isAPI: false,
-  name: 'Unleash System',
+  name: 'Ganpa System',
   permissions: [],
-  username: 'unleash_system_user',
+  username: 'ganpa_system_user',
 };
 
 export const ADMIN_TOKEN_USER: Omit<IUser, 'email'> = {
   id: -42,
   imageUrl: '',
   isAPI: true,
-  name: 'Unleash Admin Token',
+  name: 'Ganpa Admin Token',
   permissions: [],
-  username: 'unleash_admin_token',
+  username: 'ganpa_admin_token',
 };
 
 export const SYSTEM_USER_AUDIT: IAuditUser = {

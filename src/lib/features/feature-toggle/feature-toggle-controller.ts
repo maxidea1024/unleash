@@ -8,8 +8,8 @@ import {
   DELETE_FEATURE_STRATEGY,
   type FeatureToggleView,
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
   UPDATE_FEATURE,
@@ -102,7 +102,7 @@ const PATH_STRATEGIES = `${PATH_ENV}/strategies`;
 const PATH_STRATEGY = `${PATH_STRATEGIES}/:strategyId`;
 
 type ProjectFeaturesServices = Pick<
-  IUnleashServices,
+  IGanpaServices,
   | 'featureToggleService'
   | 'projectHealthService'
   | 'openApiService'
@@ -122,7 +122,7 @@ export default class ProjectFeaturesController extends Controller {
   private readonly startTransaction: TransactionCreator<GanpaTransaction>;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       featureToggleService,
       openApiService,

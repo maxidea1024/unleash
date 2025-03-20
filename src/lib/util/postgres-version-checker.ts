@@ -1,10 +1,10 @@
-import type { ISettingStore, IUnleashConfig } from '../types';
+import type { ISettingStore, IGanpaConfig } from '../types';
 import semver, { lt, type SemVer } from 'semver';
 
 const MIN_SUPPORTED_POSTGRES_VERSION: SemVer = semver.parse('13.0.0')!;
 
 export async function compareAndLogPostgresVersion(
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   settingStore: ISettingStore,
 ): Promise<void> {
   const logger = config.getLogger('postgres-version-checker.ts');

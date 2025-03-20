@@ -1,5 +1,5 @@
 import memoizee from 'memoizee';
-import type { IAuditUser, IUnleashConfig } from '../../types';
+import type { IAuditUser, IGanpaConfig } from '../../types';
 import type { Logger } from '../../logger';
 import type SettingService from '../../services/setting-service';
 import { maintenanceSettingsKey } from '../../types/settings/maintenance-settings';
@@ -11,12 +11,12 @@ export interface IMaintenanceStatus {
 }
 
 export default class MaintenanceService implements IMaintenanceStatus {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly logger: Logger;
   private readonly settingService: SettingService;
   private readonly resolveMaintenance: () => Promise<boolean>;
 
-  constructor(config: IUnleashConfig, settingService: SettingService) {
+  constructor(config: IGanpaConfig, settingService: SettingService) {
     this.logger = config.getLogger('maintenance-service.ts');
 
     this.config = config;

@@ -1,6 +1,6 @@
 import type { Response } from 'express';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type EventService from '../../features/events/event-service';
 import { NONE } from '../../types/permissions';
 import type { OpenApiService } from '../../services/openapi-service';
@@ -35,11 +35,11 @@ export default class EventSearchController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       eventService,
       openApiService,
-    }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'eventService' | 'openApiService'>,
   ) {
     super(config);
 

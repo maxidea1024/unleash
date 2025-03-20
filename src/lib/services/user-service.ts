@@ -17,7 +17,7 @@ import OwaspValidationError from '../error/owasp-validation-error';
 import type { EmailService } from './email-service';
 import type {
   IAuthOption,
-  IUnleashConfig,
+  IGanpaConfig,
   IUsernameAdminUser,
 } from '../types/options';
 import type SessionService from './session-service';
@@ -96,7 +96,7 @@ export default class UserService {
       eventBus,
       flagResolver,
     }: Pick<
-      IUnleashConfig,
+      IGanpaConfig,
       'getLogger' | 'authentication' | 'server' | 'eventBus' | 'flagResolver'
     >,
     services: {

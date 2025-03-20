@@ -1,7 +1,7 @@
 import { BackstageController } from './backstage';
 import ResetPasswordController from './auth/reset-password-controller';
 import { SimplePasswordProvider } from './auth/simple-password-provider';
-import type { IUnleashConfig, IUnleashServices } from '../types';
+import type { IGanpaConfig, IGanpaServices } from '../types';
 import LogoutController from './logout';
 import rateLimit from 'express-rate-limit';
 import Controller from './controller';
@@ -15,7 +15,7 @@ import type { Db } from '../db/db';
 import { minutesToMilliseconds } from 'date-fns';
 
 export default class IndexRouter extends Controller {
-  constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
+  constructor(config: IGanpaConfig, services: IGanpaServices, db: Db) {
     super(config);
 
     this.use('/health', new HealthCheckController(config, services).router);

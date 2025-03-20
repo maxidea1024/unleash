@@ -3,13 +3,13 @@ import type { IClientApp } from '../../../types/model';
 import FakeEventStore from '../../../../test/fixtures/fake-event-store';
 import { createTestConfig } from '../../../../test/config/test-config';
 import { FakePrivateProjectChecker } from '../../private-project/fakePrivateProjectChecker';
-import type { IClientApplicationsStore, IUnleashConfig } from '../../../types';
+import type { IClientApplicationsStore, IGanpaConfig } from '../../../types';
 import FakeClientMetricsStoreV2 from '../client-metrics/fake-client-metrics-store-v2';
 import FakeStrategiesStore from '../../../../test/fixtures/fake-strategies-store';
 import FakeFeatureToggleStore from '../../feature-toggle/fakes/fake-feature-toggle-store';
 import type { IApplicationOverview } from './models';
 
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 beforeAll(() => {
   config = createTestConfig({});
 });

@@ -1,5 +1,5 @@
 import { ApiTokenType } from '../types/models/api-token';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IApiRequest, IAuthRequest } from '../routes/unleash-types';
 import type { IUnleashServices } from '../server-impl';
 
@@ -37,7 +37,7 @@ export default function apiAccessMiddleware(
     getLogger,
     authentication,
     flagResolver,
-  }: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
+  }: Pick<IGanpaConfig, 'getLogger' | 'authentication' | 'flagResolver'>,
   { apiTokenService }: Pick<IUnleashServices, 'apiTokenService'>,
 ): any {
   const logger = getLogger('api-token-middleware.ts');

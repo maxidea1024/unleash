@@ -1,6 +1,6 @@
 import {
   type IEventStore,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   type IUserStore,
   TEST_AUDIT_USER,
@@ -18,7 +18,7 @@ let userStore: IUserStore;
 let userSubscriptionService: UserSubscriptionsService;
 let userSubscriptionsReadModel: IUserSubscriptionsReadModel;
 let eventsStore: IEventStore;
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 
 beforeAll(async () => {
   db = await dbInit('user_subscriptions', getLogger);

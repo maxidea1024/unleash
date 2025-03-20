@@ -41,7 +41,7 @@ import BadDataError from '../error/bad-data-error';
 import type { IGroup } from '../types/group';
 import type { GroupService } from './group-service';
 import {
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUserAccessOverview,
   RoleCreatedEvent,
   RoleDeletedEvent,
@@ -143,7 +143,7 @@ export class AccessService {
     > & { groupStore?: any }, // TODO remove groupStore later, kept for backward compatibility with enterprise
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
     groupService: GroupService,
     eventService: EventService,
   ) {

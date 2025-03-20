@@ -1,5 +1,5 @@
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type StrategyService from '../../services/strategy-service';
 import type { Logger } from '../../logger';
 import Controller from '../controller';
@@ -40,11 +40,11 @@ export default class StrategyController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       strategyService,
       openApiService,
-    }: Pick<IUnleashServices, 'strategyService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'strategyService' | 'openApiService'>,
   ) {
     super(config);
 

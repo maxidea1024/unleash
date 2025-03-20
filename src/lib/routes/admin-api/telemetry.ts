@@ -1,10 +1,10 @@
 import type { Response } from 'express';
 import type { OpenApiService } from '../../services';
 import type { IAuthRequest } from '../unleash-types';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import Controller from '../controller';
 import { NONE } from '../../types/permissions';
-import type { IUnleashServices } from '../../types';
+import type { IGanpaServices } from '../../types';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
 import {
   telemetrySettingsSchema,
@@ -12,12 +12,12 @@ import {
 } from '../../openapi/spec/telemetry-settings-schema';
 
 export default class TelemetryController extends Controller {
-  readonly config: IUnleashConfig;
+  readonly config: IGanpaConfig;
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
-    { openApiService }: Pick<IUnleashServices, 'openApiService'>,
+    config: IGanpaConfig,
+    { openApiService }: Pick<IGanpaServices, 'openApiService'>,
   ) {
     super(config);
 

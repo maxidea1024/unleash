@@ -11,7 +11,7 @@ import {
   CREATE_CLIENT_API_TOKEN,
   CREATE_PROJECT_API_TOKEN,
   DELETE_CLIENT_API_TOKEN,
-  type IUnleashServices,
+  type IGanpaServices,
   type IUnleashStores,
   READ_CLIENT_API_TOKEN,
   READ_FRONTEND_API_TOKEN,
@@ -331,7 +331,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const builtInRole = await accessService.getPredefinedRole(
@@ -388,7 +388,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -442,7 +442,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -498,7 +498,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -579,7 +579,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -658,7 +658,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.ADMIN);
@@ -717,7 +717,7 @@ describe('Fine grained API token permissions', () => {
         {
           userService,
           accessService,
-        }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+        }: Pick<IGanpaServices, 'userService' | 'accessService'>,
       ) => {
         app.use('/api/admin/', async (req, res, next) => {
           const role = await accessService.getPredefinedRole(RoleName.EDITOR);
@@ -781,7 +781,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -839,7 +839,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -898,7 +898,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -961,7 +961,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -1019,7 +1019,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);
@@ -1077,7 +1077,7 @@ describe('Fine grained API token permissions', () => {
           {
             userService,
             accessService,
-          }: Pick<IUnleashServices, 'userService' | 'accessService'>,
+          }: Pick<IGanpaServices, 'userService' | 'accessService'>,
         ) => {
           app.use('/api/admin/', async (req, res, next) => {
             const role = await accessService.getPredefinedRole(RoleName.VIEWER);

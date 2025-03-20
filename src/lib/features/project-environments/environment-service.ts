@@ -7,7 +7,7 @@ import {
   type IFeatureStrategiesStore,
   type IProjectEnvironment,
   type ISortOrder,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   ProjectEnvironmentAdded,
   ProjectEnvironmentRemoved,
@@ -49,7 +49,7 @@ export default class EnvironmentService {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('environment-service.ts');

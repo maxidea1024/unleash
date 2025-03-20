@@ -2,11 +2,11 @@ import type { Knex } from 'knex';
 import session from 'express-session';
 import { ConnectSessionKnexStore } from 'connect-session-knex';
 import type { RequestHandler } from 'express';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import { hoursToMilliseconds } from 'date-fns';
 
 export default function sessionDb(
-  config: Pick<IUnleashConfig, 'session' | 'server' | 'secureHeaders'>,
+  config: Pick<IGanpaConfig, 'session' | 'server' | 'secureHeaders'>,
   knex: Knex,
 ): RequestHandler {
   let store: session.Store;

@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type TagService from '../../services/tag-service';
 import type { Logger } from '../../logger';
 
@@ -38,13 +38,13 @@ export default class TagController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       tagService,
       openApiService,
       featureTagService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'tagService' | 'openApiService' | 'featureTagService'
     >,
   ) {

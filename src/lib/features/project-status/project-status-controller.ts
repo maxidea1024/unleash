@@ -3,8 +3,8 @@ import Controller from '../../routes/controller';
 import {
   type IFlagResolver,
   type IProjectParam,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
 } from '../../types';
@@ -24,7 +24,7 @@ export default class ProjectStatusController extends Controller {
   private readonly openApiService: OpenApiService;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(config: IUnleashConfig, services: IUnleashServices) {
+  constructor(config: IGanpaConfig, services: IGanpaServices) {
     super(config);
 
     this.projectStatusService = services.projectStatusService;

@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
 import Controller from '../controller';
 import { NONE, UPDATE_APPLICATION } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type { Logger } from '../../logger';
 import type ClientInstanceService from '../../features/metrics/instance/instance-service';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
@@ -40,11 +40,11 @@ export default class MetricsController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       clientInstanceService,
       openApiService,
-    }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'clientInstanceService' | 'openApiService'>,
   ) {
     super(config);
 

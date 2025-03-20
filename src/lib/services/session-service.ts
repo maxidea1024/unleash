@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { ISession, ISessionStore } from '../types/stores/session-store';
 import { compareDesc } from 'date-fns';
@@ -14,7 +14,7 @@ export default class SessionService {
     }: Pick<IUnleashStores, 'sessionStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('session-service.ts');
 

@@ -4,8 +4,8 @@ import {
   type IArchivedQuery,
   type IFlagResolver,
   type IProjectParam,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
 } from '../../types';
@@ -56,7 +56,7 @@ export default class ProjectController extends Controller {
   private readonly clientInstanceService: ClientInstanceService;
   private readonly flagResolver: IFlagResolver;
 
-  constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
+  constructor(config: IGanpaConfig, services: IGanpaServices, db: Db) {
     super(config);
 
     this.projectService = services.projectService;

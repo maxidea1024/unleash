@@ -6,7 +6,7 @@ import type {
 } from '../types/stores/context-field-store';
 import type { IProjectStore } from '../features/project/project-store-type';
 import type { IFeatureStrategiesStore, IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { ContextFieldStrategiesSchema } from '../openapi/spec/context-field-strategies-schema';
 import {
   CONTEXT_FIELD_CREATED,
@@ -43,7 +43,7 @@ export default class ContextService {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {

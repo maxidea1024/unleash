@@ -4,7 +4,7 @@ import { URL } from 'url';
 import type { Logger } from '../logger';
 import UsedTokenError from '../error/used-token-error';
 import InvalidTokenError from '../error/invalid-token-error';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type {
   IResetQuery,
@@ -29,7 +29,7 @@ export default class ResetTokenService {
     {
       getLogger,
       server
-    }: Pick<IUnleashConfig, 'getLogger' | 'server'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'server'>,
   ) {
     this.logger = getLogger('reset-token-service.ts');
 

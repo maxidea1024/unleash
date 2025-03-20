@@ -1,6 +1,6 @@
 import {
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   serializeDates,
 } from '../../types';
@@ -22,7 +22,7 @@ export class InactiveUsersService {
     {
       getLogger,
       userInactivityThresholdInDays,
-    }: Pick<IUnleashConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'userInactivityThresholdInDays'>,
     services: {
       userService: UserService;
     },

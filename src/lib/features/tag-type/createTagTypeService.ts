@@ -1,5 +1,5 @@
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import TagTypeService from './tag-type-service';
 import TagTypeStore from './tag-type-store';
 import FakeTagTypeStore from './fake-tag-type-store';
@@ -9,7 +9,7 @@ import {
 } from '../events/createEventsService';
 
 export const createTagTypeService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
     (db: Db): TagTypeService => {
       const { getLogger, eventBus } = config;
       const eventService = createEventsService(db, config);
@@ -18,7 +18,7 @@ export const createTagTypeService =
     };
 
 export const createFakeTagTypeService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): TagTypeService => {
   const eventService = createFakeEventsService(config);
   const tagTypeStore = new FakeTagTypeStore();

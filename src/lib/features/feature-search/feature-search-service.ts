@@ -1,7 +1,7 @@
 import type { Logger } from '../../logger';
 import type {
   IFeatureSearchStore,
-  IUnleashConfig,
+  IGanpaConfig,
   IUnleashStores,
 } from '../../types';
 import type {
@@ -16,7 +16,7 @@ export class FeatureSearchService {
 
   constructor(
     { featureSearchStore }: Pick<IUnleashStores, 'featureSearchStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('feature-search-service.ts');
 

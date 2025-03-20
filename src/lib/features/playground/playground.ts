@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import { NONE } from '../../types/permissions';
 import Controller from '../../routes/controller';
 import type { OpenApiService } from '../../services/openapi-service';
@@ -29,11 +29,11 @@ export default class PlaygroundController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       openApiService,
       playgroundService,
-    }: Pick<IUnleashServices, 'openApiService' | 'playgroundService'>,
+    }: Pick<IGanpaServices, 'openApiService' | 'playgroundService'>,
   ) {
     super(config);
 

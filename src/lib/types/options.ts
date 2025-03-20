@@ -8,7 +8,7 @@ import type {
   IFlags,
 } from './experimental';
 import type SMTPTransport from 'nodemailer/lib/smtp-transport';
-import type { IUnleashServices } from './services';
+import type { IGanpaServices } from './services';
 import type { ResourceLimitsSchema } from '../openapi/spec/resource-limits-schema';
 
 export interface ISSLOption {
@@ -63,8 +63,8 @@ export enum AuthType {
 
 export type CustomAuthHandler = (
   app: Express,
-  config: Partial<IUnleashConfig>,
-  services?: IUnleashServices,
+  config: Partial<IGanpaConfig>,
+  services?: IGanpaServices,
 ) => void;
 
 export type IUsernameAdminUser = {
@@ -112,7 +112,7 @@ export interface IClientCachingOption {
   maxAge: number;
 }
 
-export interface IUnleashOptions {
+export interface IGanpaOptions {
   databaseUrl?: string;
   databaseUrlFile?: string;
   db?: Partial<IDBOption>;
@@ -235,7 +235,7 @@ export interface IRateLimiting {
   callSignalEndpointMaxPerSecond: number;
 }
 
-export interface IUnleashConfig {
+export interface IGanpaConfig {
   db: IDBOption;
   session: ISessionOption;
   getLogger: LogProvider;

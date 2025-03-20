@@ -2,8 +2,8 @@ import type { Response } from 'express';
 import type { IAuthRequest } from '../../unleash-types';
 import Controller from '../../controller';
 import type { AccessService } from '../../../services/access-service';
-import { AuthType, type IUnleashConfig } from '../../../types/options';
-import type { IUnleashServices } from '../../../types/services';
+import { AuthType, type IGanpaConfig } from '../../../types/options';
+import type { IGanpaServices } from '../../../types/services';
 import type UserService from '../../../services/user-service';
 import type UserFeedbackService from '../../../services/user-feedback-service';
 import type UserSplashService from '../../../services/user-splash-service';
@@ -45,7 +45,7 @@ export default class UserController extends Controller {
   private readonly userSubscriptionsService: UserSubscriptionsService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       accessService,
       userService,
@@ -55,7 +55,7 @@ export default class UserController extends Controller {
       projectService,
       transactionalUserSubscriptionsService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'accessService'
       | 'userService'
       | 'userFeedbackService'

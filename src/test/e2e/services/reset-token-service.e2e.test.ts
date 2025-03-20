@@ -4,7 +4,7 @@ import ResetTokenService from '../../../lib/services/reset-token-service';
 import UserService from '../../../lib/services/user-service';
 import { AccessService } from '../../../lib/services/access-service';
 import { EmailService } from '../../../lib/services/email-service';
-import type { IUnleashConfig } from '../../../lib/types/options';
+import type { IGanpaConfig } from '../../../lib/types/options';
 import { createTestConfig } from '../../config/test-config';
 import SessionService from '../../../lib/services/session-service';
 import InvalidTokenError from '../../../lib/error/invalid-token-error';
@@ -15,7 +15,7 @@ import { GroupService } from '../../../lib/services/group-service';
 import { type IUnleashStores, TEST_AUDIT_USER } from '../../../lib/types';
 import { createEventsService } from '../../../lib/features';
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 let stores: IUnleashStores;
 let db: ITestDb;

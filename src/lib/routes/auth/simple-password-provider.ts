@@ -3,7 +3,7 @@ import type { OpenApiService } from '../../services/openapi-service';
 import type { Logger } from '../../logger';
 import type { IUnleashConfig } from '../../server-impl';
 import type UserService from '../../services/user-service';
-import type { IUnleashServices } from '../../types';
+import type { IGanpaServices } from '../../types';
 import { NONE } from '../../types/permissions';
 import Controller from '../controller';
 import type { IAuthRequest } from '../unleash-types';
@@ -24,7 +24,7 @@ export class SimplePasswordProvider extends Controller {
     {
       userService,
       openApiService,
-    }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'userService' | 'openApiService'>,
   ) {
     super(config);
 

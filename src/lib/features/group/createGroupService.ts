@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import { GroupService } from '../../services';
 import type { Db } from '../../db/db';
 import GroupStore from '../../db/group-store';
@@ -7,7 +7,7 @@ import { createEventsService } from '../events/createEventsService';
 
 export const createGroupService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): GroupService => {
   const { getLogger } = config;
   const groupStore = new GroupStore(db);

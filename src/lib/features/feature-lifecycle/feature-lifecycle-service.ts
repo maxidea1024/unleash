@@ -10,7 +10,7 @@ import {
   type IEventStore,
   type IFeatureEnvironmentStore,
   type IFlagResolver,
-  type IUnleashConfig,
+  type IGanpaConfig,
 } from '../../types';
 import type {
   FeatureLifecycleView,
@@ -56,7 +56,7 @@ export class FeatureLifecycleService {
       flagResolver,
       eventBus,
       getLogger,
-    }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
+    }: Pick<IGanpaConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
     this.logger = getLogger('feature-lifecycle-service.ts');
 

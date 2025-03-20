@@ -1,6 +1,6 @@
 import { createTestConfig } from '../../../config/test-config';
 import {
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   TEST_AUDIT_USER,
 } from '../../../../lib/types';
@@ -21,7 +21,7 @@ import { createEventsService } from '../../../../lib/features';
 let app: IUnleashTest;
 let stores: IUnleashStores;
 let db: ITestDb;
-const config: IUnleashConfig = createTestConfig({
+const config: IGanpaConfig = createTestConfig({
   getLogger,
   server: {
     unleashUrl: 'http://localhost:3000',

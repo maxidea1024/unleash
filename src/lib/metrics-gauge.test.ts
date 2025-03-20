@@ -1,10 +1,10 @@
 import { register } from 'prom-client';
 import { createTestConfig } from '../test/config/test-config';
-import type { IUnleashConfig } from './types';
+import type { IGanpaConfig } from './types';
 import { DbMetricsMonitor } from './metrics-gauge';
 
 const prometheusRegister = register;
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 let dbMetrics: DbMetricsMonitor;
 
 beforeAll(async () => {

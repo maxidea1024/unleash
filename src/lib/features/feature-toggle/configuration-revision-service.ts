@@ -2,7 +2,7 @@ import type { Logger } from '../../logger';
 import type {
   IEventStore,
   IFlagResolver,
-  IUnleashConfig,
+  IGanpaConfig,
   IUnleashStores,
 } from '../../types';
 import EventEmitter from 'events';
@@ -22,7 +22,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {
     super();
 
@@ -38,7 +38,7 @@ export default class ConfigurationRevisionService extends EventEmitter {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {
     if (!ConfigurationRevisionService.instance) {
       ConfigurationRevisionService.instance = new ConfigurationRevisionService(

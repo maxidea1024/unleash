@@ -6,8 +6,8 @@ import Controller from '../../routes/controller';
 import type {
   IClientSegment,
   IFlagResolver,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
 } from '../../types';
 import type FeatureToggleService from '../feature-toggle/feature-toggle-service';
 import type { Logger } from '../../logger';
@@ -69,14 +69,14 @@ export default class FeatureController extends Controller {
       configurationRevisionService,
       featureToggleService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'clientFeatureToggleService'
       | 'clientSpecService'
       | 'openApiService'
       | 'configurationRevisionService'
       | 'featureToggleService'
     >,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
   ) {
     super(config);
 

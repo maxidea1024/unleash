@@ -5,7 +5,7 @@ import type { IApiUser } from '../../types/api-user';
 import type {
   IFeatureToggleClient,
   ISegmentReadModel,
-  IUnleashConfig,
+  IGanpaConfig,
 } from '../../types';
 import {
   mapFeatureForClient,
@@ -18,7 +18,7 @@ import type { IClientFeatureToggleReadModel } from './client-feature-toggle-read
 import metricsHelper from '../../util/metrics-helper';
 import { FUNCTION_TIME } from '../../metric-events';
 
-type Config = Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>;
+type Config = Pick<IGanpaConfig, 'getLogger' | 'flagResolver' | 'eventBus'>;
 
 type FrontendApiFeatureCache = Record<string, Record<string, FeatureInterface>>;
 

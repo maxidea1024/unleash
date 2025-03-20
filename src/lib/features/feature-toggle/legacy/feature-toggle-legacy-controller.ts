@@ -2,8 +2,8 @@
 import type { Request, Response } from 'express';
 import Controller from '../../../routes/controller';
 import { NONE, UPDATE_FEATURE } from '../../../types/permissions';
-import type { IUnleashConfig } from '../../../types/options';
-import type { IUnleashServices } from '../../../types';
+import type { IGanpaConfig } from '../../../types/options';
+import type { IGanpaServices } from '../../../types';
 import type FeatureToggleService from '../feature-toggle-service';
 import { querySchema } from '../../../schema/feature-schema';
 import type { IFeatureToggleQuery } from '../../../types/model';
@@ -33,13 +33,13 @@ export default class FeatureController extends Controller {
   private readonly service: FeatureToggleService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       featureTagService,
       featureToggleService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'featureTagService' | 'featureToggleService' | 'openApiService'
     >,
   ) {

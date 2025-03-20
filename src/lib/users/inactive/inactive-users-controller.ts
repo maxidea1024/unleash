@@ -2,8 +2,8 @@ import Controller from '../../routes/controller';
 import {
   ADMIN,
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
 } from '../../types';
 import type { Logger } from '../../logger';
 import type { InactiveUsersService } from './inactive-users-service';
@@ -30,11 +30,11 @@ export class InactiveUsersController extends Controller {
   private readonly userInactivityThresholdInDays: number;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       inactiveUsersService,
       openApiService,
-    }: Pick<IUnleashServices, 'inactiveUsersService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'inactiveUsersService' | 'openApiService'>,
   ) {
     super(config);
 

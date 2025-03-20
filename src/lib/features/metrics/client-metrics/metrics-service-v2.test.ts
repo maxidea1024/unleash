@@ -7,7 +7,7 @@ import EventEmitter from 'events';
 import { LastSeenService } from '../last-seen/last-seen-service';
 import type {
   IClientMetricsStoreV2,
-  IUnleashConfig,
+  IGanpaConfig,
 } from '../../../../lib/types';
 import { endOfDay, startOfHour, subDays, subHours } from 'date-fns';
 import type { IClientMetricsEnv } from './client-metrics-store-v2-type';
@@ -26,7 +26,7 @@ function initClientMetrics(flagEnabled = true) {
         return flagEnabled;
       },
     },
-  } as unknown as IUnleashConfig;
+  } as unknown as IGanpaConfig;
 
   const lastSeenService = new LastSeenService(
     {
@@ -159,7 +159,7 @@ test('get daily client metrics for a toggle', async () => {
       },
     },
     getLogger() {},
-  } as unknown as IUnleashConfig;
+  } as unknown as IGanpaConfig;
   const lastSeenService = {} as LastSeenService;
   const service = new ClientMetricsService(
     { clientMetricsStoreV2 },
@@ -215,7 +215,7 @@ test('get hourly client metrics for a toggle', async () => {
       },
     },
     getLogger() {},
-  } as unknown as IUnleashConfig;
+  } as unknown as IGanpaConfig;
   const lastSeenService = {} as LastSeenService;
   const service = new ClientMetricsService(
     { clientMetricsStoreV2 },
@@ -285,7 +285,7 @@ const setupMetricsService = ({
         },
       };
     },
-  } as unknown as IUnleashConfig;
+  } as unknown as IGanpaConfig;
   const lastSeenService = {} as LastSeenService;
   const service = new ClientMetricsService(
     { clientMetricsStoreV2 },

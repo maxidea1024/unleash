@@ -13,10 +13,10 @@ import sessionDb from './middleware/session-db';
 import {
   type CustomAuthHandler,
   AuthType,
-  type IUnleash,
-  type IUnleashConfig,
-  type IUnleashOptions,
-  type IUnleashServices,
+  type IGanpa,
+  type IGanpaConfig,
+  type IGanpaOptions,
+  type IGanpaServices,
   RoleName,
 } from './types';
 import User, { type IAuditUser, type IUser } from './types/user';
@@ -35,9 +35,9 @@ import { scheduleServices } from './features/scheduler/schedule-services';
 import { compareAndLogPostgresVersion } from './util/postgres-version-checker';
 
 async function createApp(
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   startApp: boolean,
-): Promise<IUnleash> {
+): Promise<IGanpa> {
   const logger = config.getLogger('server-impl.ts');
 
   const serverVersion = config.enterpriseVersion ?? version;
@@ -50,14 +50,16 @@ async function createApp(
   }
 
   const metricsMonitor = createMetricsMonitor();
-  const unleashSession = sessionDb(config, db);
+  const ganpaSession = sessionDb(config, db);
 
-  const stopUnleash = async (server?: StoppableServer) => {
+  const stopGanpa = async (server?: StoppableServer) => {
     logger.info('Shutting down Ganpa...');
+
     if (server) {
       const stopServer = promisify(server.stop);
       await stopServer();
     }
+
     if (typeof config.shutdownHook === 'function') {
       try {
         await config.shutdownHook();
@@ -65,8 +67,11 @@ async function createApp(
         logger.error('Failure when executing shutdown hook', e);
       }
     }
+
     services.schedulerService.stop();
+
     services.addonService.destroy();
+
     await db.destroy();
   };
 
@@ -75,7 +80,7 @@ async function createApp(
     config.server.secret = secret!;
   }
 
-  const app = await getApp(config, stores, services, unleashSession, db);
+  const app = await getApp(config, stores, services, ganpaSession, db);
 
   await metricsMonitor.startMonitoring(
     config,
@@ -86,7 +91,8 @@ async function createApp(
     services.schedulerService,
     db,
   );
-  const unleash: Omit<IUnleash, 'stop'> = {
+
+  const unleash: Omit<IGanpa, 'stop'> = {
     stores,
     eventBus: config.eventBus,
     services,
@@ -123,21 +129,23 @@ async function createApp(
 
       server.keepAliveTimeout = config.server.keepAliveTimeout;
       server.headersTimeout = config.server.headersTimeout;
+
       server.on('listening', () => {
         resolve({
           ...unleash,
           server,
-          stop: () => stopUnleash(server),
+          stop: () => stopGanpa(server),
         });
       });
+
       server.on('error', reject);
     } else {
-      resolve({ ...unleash, stop: stopUnleash });
+      resolve({ ...unleash, stop: stopGanpa });
     }
   });
 }
 
-async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
+async function start(options: IGanpaOptions = {}): Promise<IGanpa> {
   const config = createConfig(options);
   const logger = config.getLogger('server-impl.ts');
 
@@ -170,6 +178,7 @@ async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
   }
 
   const unleash = await createApp(config, true);
+
   if (config.server.gracefulShutdownEnable) {
     registerGracefulShutdown(unleash, logger);
   }
@@ -177,8 +186,9 @@ async function start(options: IUnleashOptions = {}): Promise<IUnleash> {
   return unleash;
 }
 
-async function create(options: IUnleashOptions): Promise<IUnleash> {
+async function create(options: IGanpaOptions): Promise<IGanpa> {
   const config = createConfig(options);
+
   const logger = config.getLogger('server-impl.ts');
 
   try {
@@ -218,13 +228,13 @@ export {
 
 export type {
   Logger,
-  IUnleash,
-  IUnleashOptions,
-  IUnleashConfig,
+  IGanpa,
+  IGanpaOptions,
+  IGanpaConfig,
   IUser,
   IApiUser,
   IAuditUser,
-  IUnleashServices,
+  IGanpaServices,
   IAuthRequest,
   IApiRequest,
   SimpleAuthSettings,

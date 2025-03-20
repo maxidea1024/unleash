@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../controller';
-import type { IUnleashServices } from '../../types/services';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
 import type EnvironmentService from '../../features/project-environments/environment-service';
 import type { Logger } from '../../logger';
 import { ADMIN, NONE } from '../../types/permissions';
@@ -40,11 +40,11 @@ export class EnvironmentsController extends Controller {
   private readonly service: EnvironmentService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       environmentService,
       openApiService,
-    }: Pick<IUnleashServices, 'environmentService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'environmentService' | 'openApiService'>,
   ) {
     super(config);
 

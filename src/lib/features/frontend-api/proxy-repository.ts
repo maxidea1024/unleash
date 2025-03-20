@@ -7,8 +7,8 @@ import type {
 } from 'unleash-client/lib/feature';
 import type { IApiUser } from '../../types/api-user';
 import type {
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
   IUnleashStores,
 } from '../../types';
 import {
@@ -26,12 +26,12 @@ import {
 } from '../../metric-events';
 import metricsHelper from '../../util/metrics-helper';
 
-type Config = Pick<IUnleashConfig, 'getLogger' | 'frontendApi' | 'eventBus'>;
+type Config = Pick<IGanpaConfig, 'getLogger' | 'frontendApi' | 'eventBus'>;
 
 type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
 
 type Services = Pick<
-  IUnleashServices,
+  IGanpaServices,
   'featureToggleService' | 'configurationRevisionService'
 >;
 

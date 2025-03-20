@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { ISettingStore } from '../types/stores/settings-store';
@@ -11,7 +11,7 @@ import type EventService from '../features/events/event-service';
 import type { IAuditUser } from '../types';
 
 export default class SettingService {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly logger: Logger;
   private readonly settingStore: ISettingStore;
   private readonly eventService: EventService;
@@ -20,7 +20,7 @@ export default class SettingService {
     {
       settingStore
     }: Pick<IUnleashStores, 'settingStore'>,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     eventService: EventService,
   ) {
     this.logger = config.getLogger('setting-service.ts');

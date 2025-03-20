@@ -3,7 +3,7 @@ import dbInit, { type ITestDb } from '../../helpers/database-init';
 
 import {
   FEATURE_CREATED,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   RoleName,
   USER_CREATED,
@@ -22,7 +22,7 @@ const TEST_USER_ID = -9999;
 const regularUserName = 'import-user';
 const adminUserName = 'admin-user';
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 let adminRole: IRole;
 let stores: IUnleashStores;
 let accessService: AccessService;

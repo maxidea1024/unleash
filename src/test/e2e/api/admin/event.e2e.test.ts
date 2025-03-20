@@ -7,7 +7,7 @@ import getLogger from '../../../fixtures/no-logger';
 import { FEATURE_CREATED, type IBaseEvent } from '../../../../lib/types/events';
 import { randomId } from '../../../../lib/util/random-id';
 import type { EventService } from '../../../../lib/services';
-import { type IUnleashConfig, SYSTEM_USER } from '../../../../lib/types';
+import { type IGanpaConfig, SYSTEM_USER } from '../../../../lib/types';
 import { createEventsService } from '../../../../lib/features';
 import { createTestConfig } from '../../../config/test-config';
 
@@ -16,7 +16,7 @@ let db: ITestDb;
 let eventService: EventService;
 const TEST_USER_ID = -9999;
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 beforeAll(async () => {
   db = await dbInit('event_api_serial', getLogger);

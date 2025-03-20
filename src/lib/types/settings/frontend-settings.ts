@@ -1,5 +1,5 @@
-import type { IUnleashConfig } from '../options';
+import type { IGanpaConfig } from '../options';
 
 export const frontendSettingsKey = 'unleash.frontend';
 
-export type FrontendSettings = Pick<IUnleashConfig, 'frontendApiOrigins'>;
+export type FrontendSettings = Pick<IGanpaConfig, 'frontendApiOrigins'>;

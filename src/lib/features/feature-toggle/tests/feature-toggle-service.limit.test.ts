@@ -4,7 +4,7 @@ import type {
   IConstraint,
   IFlagResolver,
   IStrategyConfig,
-  IUnleashConfig,
+  IGanpaConfig,
   IUser,
 } from '../../../types';
 import getLogger from '../../../../test/fixtures/no-logger';
@@ -26,7 +26,7 @@ describe('Strategy limits', () => {
         resourceLimits: {
           featureEnvironmentStrategies: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     const addStrategy = () =>
       featureToggleService.unprotectedCreateStrategy(
@@ -57,7 +57,7 @@ describe('Strategy limits', () => {
         resourceLimits: {
           constraints: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     const addStrategy = (constraints: IConstraint[]) =>
       featureToggleService.unprotectedCreateStrategy(
@@ -101,7 +101,7 @@ describe('Strategy limits', () => {
         resourceLimits: {
           constraints: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     const constraints: IConstraint[] = [
       {
@@ -167,7 +167,7 @@ describe('Strategy limits', () => {
         resourceLimits: {
           constraintValues: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     const addStrategyWithConstraints = (constraints: IConstraint[]) =>
       featureToggleService.unprotectedCreateStrategy(
@@ -205,7 +205,7 @@ describe('Strategy limits', () => {
         resourceLimits: {
           constraintValues: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     const constraints = (valueCount: number) =>
       [
@@ -274,7 +274,7 @@ describe('Flag limits', () => {
         resourceLimits: {
           featureFlags: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     await projectStore.create({
       name: 'default',
@@ -307,7 +307,7 @@ describe('Flag limits', () => {
         resourceLimits: {
           featureFlags: LIMIT,
         },
-      } as unknown as IUnleashConfig);
+      } as unknown as IGanpaConfig);
 
     await projectStore.create({
       name: 'default',

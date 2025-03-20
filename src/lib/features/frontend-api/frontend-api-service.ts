@@ -1,8 +1,8 @@
 import crypto from 'crypto';
 import type {
   IAuditUser,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
   IUnleashStores,
 } from '../../types';
 import type { Logger } from '../../logger';
@@ -30,14 +30,14 @@ import { FrontendApiRepository } from './frontend-api-repository';
 import type { GlobalFrontendApiCache } from './global-frontend-api-cache';
 
 export type Config = Pick<
-  IUnleashConfig,
+  IGanpaConfig,
   'getLogger' | 'frontendApi' | 'frontendApiOrigins' | 'eventBus'
 >;
 
 export type Stores = Pick<IUnleashStores, 'segmentReadModel'>;
 
 export type Services = Pick<
-  IUnleashServices,
+  IGanpaServices,
   | 'featureToggleService'
   | 'clientMetricsService'
   | 'settingService'

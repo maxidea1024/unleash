@@ -1,6 +1,6 @@
 import type { Response } from 'express';
 import Controller from '../controller';
-import type { IUnleashConfig, IUnleashServices } from '../../types';
+import type { IGanpaConfig, IGanpaServices } from '../../types';
 import type { Logger } from '../../logger';
 import { NONE } from '../../types/permissions';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
@@ -21,11 +21,11 @@ export default class EdgeController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       edgeService,
       openApiService,
-    }: Pick<IUnleashServices, 'edgeService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'edgeService' | 'openApiService'>,
   ) {
     super(config);
 

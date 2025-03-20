@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import type { Logger } from '../logger';
 import type { EdgeTokenSchema } from '../openapi/spec/edge-token-schema';
 import type { ValidatedEdgeTokensSchema } from '../openapi/spec/validated-edge-tokens-schema';
@@ -16,7 +16,7 @@ export default class EdgeService {
     {
       getLogger,
       eventBus,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver' | 'eventBus'>,
   ) {
     this.logger = getLogger('edge-service.ts');
 

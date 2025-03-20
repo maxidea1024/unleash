@@ -3,8 +3,8 @@ import type { Response } from 'express';
 import Controller from '../controller';
 import {
   ADMIN,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   serializeDates,
 } from '../../types';
 import type { Logger } from '../../logger';
@@ -40,14 +40,14 @@ export class PublicSignupController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       publicSignupTokenService,
       accessService,
       userService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'publicSignupTokenService'
       | 'accessService'
       | 'userService'

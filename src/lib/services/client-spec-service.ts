@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { Request } from 'express';
 import semver, { type SemVer } from 'semver';
@@ -14,7 +14,7 @@ export class ClientSpecService {
     segments: mustParseStrictSemVer('4.2.0'),
   };
 
-  constructor(config: Pick<IUnleashConfig, 'getLogger'>) {
+  constructor(config: Pick<IGanpaConfig, 'getLogger'>) {
     this.logger = config.getLogger('capability-service.ts');
   }
 

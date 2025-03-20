@@ -6,8 +6,8 @@ import {
   DELETE_CONTEXT_FIELD,
   NONE,
 } from '../../types/permissions';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type ContextService from '../../services/context-service';
 import type { Logger } from '../../logger';
 import type { IAuthRequest } from '../unleash-types';
@@ -47,11 +47,11 @@ export class ContextController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       contextService,
       openApiService,
-    }: Pick<IUnleashServices, 'contextService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'contextService' | 'openApiService'>,
   ) {
     super(config);
 

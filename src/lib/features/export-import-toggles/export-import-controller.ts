@@ -5,8 +5,8 @@ import type { IExportService, IImportService } from './export-import-service';
 import type { OpenApiService } from '../../services';
 import type { WithTransactional } from '../../db/transaction';
 import {
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
 } from '../../types';
@@ -32,13 +32,13 @@ export default class ExportImportController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       exportService,
       importService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'exportService' | 'importService' | 'openApiService'
     >,
   ) {

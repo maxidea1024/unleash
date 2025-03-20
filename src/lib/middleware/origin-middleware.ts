@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import { REQUEST_ORIGIN, emitMetricEvent } from '../metric-events';
 import {
   determineIntegrationSource,
@@ -10,7 +10,7 @@ export const originMiddleware = ({
   getLogger,
   eventBus,
   flagResolver,
-}: Pick<IUnleashConfig, 'getLogger' | 'eventBus' | 'flagResolver'>) => {
+}: Pick<IGanpaConfig, 'getLogger' | 'eventBus' | 'flagResolver'>) => {
   const logger = getLogger('origin-middleware.ts');
 
   logger.debug('Enabling origin middleware');

@@ -1,6 +1,6 @@
 import FeatureToggleClientStore from '../client-feature-toggles/client-feature-toggle-store';
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import FakeClientFeatureToggleStore from './fakes/fake-client-feature-toggle-store';
 import { ClientFeatureToggleService } from './client-feature-toggle-service';
 import { SegmentReadModel } from '../segment/segment-read-model';
@@ -8,7 +8,7 @@ import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 
 export const createClientFeatureToggleService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ClientFeatureToggleService => {
   const { getLogger, eventBus, flagResolver } = config;
 
@@ -33,7 +33,7 @@ export const createClientFeatureToggleService = (
 };
 
 export const createFakeClientFeatureToggleService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): ClientFeatureToggleService => {
   const { getLogger, flagResolver } = config;
 

@@ -7,7 +7,7 @@ import { EventService } from '../../services';
 import type {
   IEventStore,
   IFeatureTagStore,
-  IUnleashConfig,
+  IGanpaConfig,
 } from '../../types';
 import {
   createFakePrivateProjectChecker,
@@ -20,7 +20,7 @@ import {
 
 export const createEventsService: (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ) => EventService = (db, config) => {
   const eventStore = new EventStore(db, config.getLogger);
   const featureTagStore = new FeatureTagStore(
@@ -39,7 +39,7 @@ export const createEventsService: (
 };
 
 export const createFakeEventsService: (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   stores?: {
     eventStore?: IEventStore;
     featureTagStore?: IFeatureTagStore;

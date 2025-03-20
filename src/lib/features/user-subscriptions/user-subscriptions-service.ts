@@ -1,6 +1,6 @@
 import {
   UserPreferenceUpdatedEvent,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
 } from '../../types';
 import type { Logger } from '../../logger';
@@ -26,7 +26,7 @@ export class UserSubscriptionsService {
       IUnleashStores,
       'userUnsubscribeStore' | 'userSubscriptionsReadModel'
     >,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('user-subscription-service.ts');

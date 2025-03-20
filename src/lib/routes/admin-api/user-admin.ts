@@ -5,7 +5,7 @@ import type UserService from '../../services/user-service';
 import type { AccountService } from '../../services/account-service';
 import type { AccessService } from '../../services/access-service';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig, IUnleashServices, RoleName } from '../../types';
+import type { IGanpaConfig, IGanpaServices, RoleName } from '../../types';
 import type ResetTokenService from '../../services/reset-token-service';
 import type { IAuthRequest } from '../unleash-types';
 import type SettingService from '../../services/setting-service';
@@ -70,7 +70,7 @@ export default class UserAdminController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       userService,
       accountService,
@@ -80,7 +80,7 @@ export default class UserAdminController extends Controller {
       openApiService,
       groupService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'userService'
       | 'accountService'
       | 'accessService'

@@ -1,5 +1,5 @@
 import Controller from '../controller';
-import type { IUnleashServices, IUnleashConfig } from '../../types';
+import type { IGanpaServices, IGanpaConfig } from '../../types';
 import FeatureController from '../../features/feature-toggle/legacy/feature-toggle-legacy-controller';
 import { FeatureTypeController } from './feature-type';
 import ArchiveController from '../../features/feature-toggle/archive-feature-toggle-controller';
@@ -38,7 +38,7 @@ import { SearchApiController } from './search';
 import PersonalDashboardController from '../../features/personal-dashboard/personal-dashboard-controller';
 
 export class AdminApi extends Controller {
-  constructor(config: IUnleashConfig, services: IUnleashServices, db: Db) {
+  constructor(config: IGanpaConfig, services: IGanpaServices, db: Db) {
     super(config);
 
     this.app.use('/features', new FeatureController(config, services).router);

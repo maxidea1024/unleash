@@ -4,8 +4,8 @@ import type { FeatureSearchService, OpenApiService } from '../../services';
 import {
   type IFeatureSearchOverview,
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
 } from '../../types';
@@ -25,7 +25,7 @@ import { normalizeQueryParams } from './search-utils';
 import { anonymise } from '../../util';
 
 type FeatureSearchServices = Pick<
-  IUnleashServices,
+  IGanpaServices,
   'openApiService' | 'featureSearchService'
 >;
 
@@ -36,7 +36,7 @@ export default class FeatureSearchController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     { openApiService, featureSearchService }: FeatureSearchServices,
   ) {
     super(config);

@@ -1,5 +1,5 @@
 import type { Logger } from '../../logger';
-import type { IFlagResolver, IUnleashConfig } from '../../types';
+import type { IFlagResolver, IGanpaConfig } from '../../types';
 import type {
   IntegrationEventsStore,
   IntegrationEventWriteModel,
@@ -18,7 +18,7 @@ export class IntegrationEventsService {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {
     this.logger = getLogger('integration-events-service.ts');
 

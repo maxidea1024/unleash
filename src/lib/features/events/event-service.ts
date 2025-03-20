@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import type { IFeatureTagStore, IUnleashStores } from '../../types/stores';
 import type { Logger } from '../../logger';
 import type {
@@ -31,7 +31,7 @@ export default class EventService {
       eventStore,
       featureTagStore,
     }: Pick<IUnleashStores, 'eventStore' | 'featureTagStore'>,
-    { getLogger, eventBus }: Pick<IUnleashConfig, 'getLogger' | 'eventBus'>,
+    { getLogger, eventBus }: Pick<IGanpaConfig, 'getLogger' | 'eventBus'>,
     privateProjectChecker: IPrivateProjectChecker,
     accessReadModel: IAccessReadModel,
   ) {

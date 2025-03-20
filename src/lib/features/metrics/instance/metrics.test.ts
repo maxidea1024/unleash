@@ -5,8 +5,8 @@ import { clientMetricsSchema } from '../shared/schema';
 import { createServices } from '../../../services';
 import {
   AuthType,
-  type IUnleashOptions,
-  type IUnleashServices,
+  type IGanpaOptions,
+  type IGanpaServices,
   type IUnleashStores,
 } from '../../../types';
 import dbInit, {
@@ -18,7 +18,7 @@ import type TestAgent from 'supertest/lib/agent';
 
 let db: ITestDb;
 
-async function getSetup(opts?: IUnleashOptions) {
+async function getSetup(opts?: IGanpaOptions) {
   const config = createTestConfig(opts);
   db = await dbInit('metrics', config.getLogger);
 
@@ -35,7 +35,7 @@ async function getSetup(opts?: IUnleashOptions) {
 
 let request: TestAgent<Test>;
 let stores: IUnleashStores;
-let services: IUnleashServices;
+let services: IGanpaServices;
 let destroy: () => Promise<void>;
 
 beforeAll(async () => {

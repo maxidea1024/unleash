@@ -1,6 +1,6 @@
 import {
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   PatCreatedEvent,
   PatDeletedEvent,
@@ -16,14 +16,14 @@ import type EventService from '../features/events/event-service';
 import type { CreatePatSchema, PatSchema } from '../openapi';
 
 export default class PatService {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly logger: Logger;
   private readonly patStore: IPatStore;
   private readonly eventService: EventService;
 
   constructor(
     { patStore }: Pick<IUnleashStores, 'patStore'>,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     eventService: EventService,
   ) {
     this.logger = config.getLogger('pat-service.ts');

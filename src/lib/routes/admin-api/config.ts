@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import type { AuthedRequest } from '../../types/core';
-import type { IUnleashServices } from '../../types/services';
-import { AuthType, type IUnleashConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
+import { AuthType, type IGanpaConfig } from '../../types/options';
 import version from '../../util/version';
 import Controller from '../controller';
 import type VersionService from '../../services/version-service';
@@ -37,7 +37,7 @@ export default class ConfigController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       versionService,
       settingService,
@@ -47,7 +47,7 @@ export default class ConfigController extends Controller {
       maintenanceService,
       clientInstanceService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'versionService'
       | 'settingService'
       | 'emailService'

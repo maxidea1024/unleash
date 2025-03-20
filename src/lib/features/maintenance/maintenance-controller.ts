@@ -1,4 +1,4 @@
-import { ADMIN, type IUnleashConfig, type IUnleashServices } from '../../types';
+import { ADMIN, type IGanpaConfig, type IGanpaServices } from '../../types';
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
 import type { Logger } from '../../logger';
@@ -23,11 +23,11 @@ export default class MaintenanceController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       maintenanceService,
       openApiService,
-    }: Pick<IUnleashServices, 'maintenanceService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'maintenanceService' | 'openApiService'>,
   ) {
     super(config);
 

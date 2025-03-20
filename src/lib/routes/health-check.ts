@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../types/options';
-import type { IUnleashServices } from '../types/services';
+import type { IGanpaConfig } from '../types/options';
+import type { IGanpaServices } from '../types/services';
 // import type { Logger } from '../logger';
 // import type { OpenApiService } from '../services/openapi-service';
 import Controller from './controller';
@@ -13,8 +13,8 @@ export class HealthCheckController extends Controller {
   // private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
-    { openApiService }: Pick<IUnleashServices, 'openApiService'>,
+    config: IGanpaConfig,
+    { openApiService }: Pick<IGanpaServices, 'openApiService'>,
   ) {
     super(config);
 

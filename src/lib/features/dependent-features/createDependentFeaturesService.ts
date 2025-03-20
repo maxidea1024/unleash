@@ -4,7 +4,7 @@ import { DependentFeaturesStore } from './dependent-features-store';
 import { DependentFeaturesReadModel } from './dependent-features-read-model';
 import { FakeDependentFeaturesStore } from './fake-dependent-features-store';
 import { FakeDependentFeaturesReadModel } from './fake-dependent-features-read-model';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import {
   createChangeRequestAccessReadModel,
   createFakeChangeRequestAccessService,
@@ -17,7 +17,7 @@ import {
 } from '../events/createEventsService';
 
 export const createDependentFeaturesService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
   (db: Db): DependentFeaturesService => {
     const eventService = createEventsService(db, config);
     const dependentFeaturesStore = new DependentFeaturesStore(db);
@@ -37,7 +37,7 @@ export const createDependentFeaturesService =
   };
 
 export const createFakeDependentFeaturesService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): DependentFeaturesService => {
   const eventService = createFakeEventsService(config);
   const dependentFeaturesStore = new FakeDependentFeaturesStore();

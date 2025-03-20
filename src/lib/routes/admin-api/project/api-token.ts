@@ -14,8 +14,8 @@ import {
   ADMIN,
   CREATE_PROJECT_API_TOKEN,
   DELETE_PROJECT_API_TOKEN,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   READ_PROJECT_API_TOKEN,
   serializeDates,
 } from '../../../types';
@@ -52,7 +52,7 @@ export class ProjectApiTokenController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       apiTokenService,
       accessService,
@@ -60,7 +60,7 @@ export class ProjectApiTokenController extends Controller {
       openApiService,
       projectService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'apiTokenService'
       | 'accessService'
       | 'frontendApiService'

@@ -15,7 +15,7 @@ import { AccessStore } from '../../db/access-store';
 import RoleStore from '../../db/role-store';
 import EnvironmentStore from '../project-environments/environment-store';
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import FakeEventStore from '../../../test/fixtures/fake-event-store';
 import FakeFeatureStrategiesStore from './fakes/fake-feature-strategies-store';
 import FakeFeatureToggleStore from './fakes/fake-feature-toggle-store';
@@ -62,7 +62,7 @@ import { FeatureCollaboratorsReadModel } from './feature-collaborators-read-mode
 
 export const createFeatureToggleService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): FeatureToggleService => {
   const { getLogger, eventBus, flagResolver, resourceLimits } = config;
   const featureStrategiesStore = new FeatureStrategiesStore(
@@ -153,7 +153,7 @@ export const createFeatureToggleService = (
   return featureToggleService;
 };
 
-export const createFakeFeatureToggleService = (config: IUnleashConfig) => {
+export const createFakeFeatureToggleService = (config: IGanpaConfig) => {
   const { getLogger, flagResolver, resourceLimits } = config;
   const eventStore = new FakeEventStore();
   const strategyStore = new FakeStrategiesStore();

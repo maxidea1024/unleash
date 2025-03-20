@@ -2,7 +2,7 @@ import type {
   IFeatureToggleClientStore,
   IFeatureToggleQuery,
   ISegmentReadModel,
-  IUnleashConfig,
+  IGanpaConfig,
   IUnleashStores,
 } from '../../types';
 
@@ -20,7 +20,7 @@ export class ClientFeatureToggleService {
       clientFeatureToggleStore,
     }: Pick<IUnleashStores, 'clientFeatureToggleStore'>,
     segmentReadModel: ISegmentReadModel,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {
     this.logger = getLogger('client-feature-toggle-service.ts');
 

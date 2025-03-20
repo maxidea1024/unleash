@@ -8,7 +8,7 @@ import type { FeatureStrategySchema } from '../../../openapi';
 import type User from '../../../types/user';
 import {
   type IConstraint,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   type IVariant,
   SKIP_CHANGE_REQUEST,
@@ -37,7 +37,7 @@ let service: FeatureToggleService;
 let segmentService: ISegmentService;
 let eventService: EventService;
 let environmentService: EnvironmentService;
-let unleashConfig: IUnleashConfig;
+let unleashConfig: IGanpaConfig;
 const mockConstraints = (): IConstraint[] => {
   return Array.from({ length: 5 }).map(() => ({
     values: ['x', 'y', 'z'],

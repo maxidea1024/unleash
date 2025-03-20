@@ -1,6 +1,6 @@
 import type FeatureToggleService from '../feature-toggle/feature-toggle-service';
 import type { SdkContextSchema } from '../../openapi/spec/sdk-context-schema';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaServices } from '../../types/services';
 import { ALL } from '../../types/models/api-token';
 import type { PlaygroundFeatureSchema } from '../../openapi/spec/playground-feature-schema';
 import type { Logger } from '../../logger';
@@ -8,7 +8,7 @@ import type {
   IFlagResolver,
   ISegment,
   ISegmentReadModel,
-  IUnleashConfig,
+  IGanpaConfig,
 } from '../../types';
 import { offlineUnleashClient } from './offline-unleash-client';
 import type { FeatureInterface } from '../../features/playground/feature-evaluator/feature';
@@ -76,12 +76,12 @@ export class PlaygroundService {
   private readonly segmentReadModel: ISegmentReadModel;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       featureToggleService,
       privateProjectChecker,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'featureToggleService' | 'privateProjectChecker'
     >,
     segmentReadModel: ISegmentReadModel,

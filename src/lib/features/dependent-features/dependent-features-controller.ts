@@ -3,8 +3,8 @@ import Controller from '../../routes/controller';
 import type { OpenApiService } from '../../services';
 import {
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   UPDATE_FEATURE_DEPENDENCY,
 } from '../../types';
@@ -50,7 +50,7 @@ const PATH_PARENT_VARIANTS = `${PATH}/:parent/parent-variants`;
 const PATH_DEPENDENCY = `${PATH_FEATURE}/dependencies/:parent`;
 
 type DependentFeaturesServices = Pick<
-  IUnleashServices,
+  IGanpaServices,
   'transactionalDependentFeaturesService' | 'openApiService'
 >;
 
@@ -61,7 +61,7 @@ export default class DependentFeaturesController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalDependentFeaturesService,
       openApiService,

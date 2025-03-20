@@ -1,7 +1,7 @@
 import type {
   IFlagResolver,
   IProjectReadModel,
-  IUnleashConfig,
+  IGanpaConfig,
   IUserStore,
 } from '../../types';
 import type EventEmitter from 'events';
@@ -39,7 +39,7 @@ export class OnboardingService {
       flagResolver,
       eventBus,
       getLogger,
-    }: Pick<IUnleashConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
+    }: Pick<IGanpaConfig, 'flagResolver' | 'eventBus' | 'getLogger'>,
   ) {
     this.logger = getLogger('onboarding-service.ts');
 

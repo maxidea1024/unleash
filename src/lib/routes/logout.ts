@@ -1,9 +1,9 @@
 import type { Response } from 'express';
 import { promisify } from 'util';
-import { type IUnleashConfig, NONE } from '../types';
+import { type IGanpaConfig, NONE } from '../types';
 import Controller from './controller';
 import type { IAuthRequest } from './unleash-types';
-import type { IUnleashServices } from '../types';
+import type { IGanpaServices } from '../types';
 import type SessionService from '../services/session-service';
 
 export default class LogoutController extends Controller {
@@ -13,8 +13,8 @@ export default class LogoutController extends Controller {
   private readonly sessionService: SessionService;
 
   constructor(
-    config: IUnleashConfig,
-    { sessionService }: Pick<IUnleashServices, 'sessionService'>,
+    config: IGanpaConfig,
+    { sessionService }: Pick<IGanpaServices, 'sessionService'>,
   ) {
     super(config);
 

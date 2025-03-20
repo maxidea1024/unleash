@@ -1,8 +1,8 @@
 import type { Request, Response } from 'express';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaServices } from '../../types/services';
 import type FeatureTypeService from '../../services/feature-type-service';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import type { OpenApiService } from '../../services/openapi-service';
 import { ADMIN, NONE } from '../../types/permissions';
 import {
@@ -30,11 +30,11 @@ export class FeatureTypeController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       featureTypeService,
       openApiService,
-    }: Pick<IUnleashServices, 'featureTypeService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'featureTypeService' | 'openApiService'>,
   ) {
     super(config);
 

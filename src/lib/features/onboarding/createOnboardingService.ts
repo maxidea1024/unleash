@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import type { Db } from '../../db/db';
 import { OnboardingService } from './onboarding-service';
 import { OnboardingStore } from './onboarding-store';
@@ -9,7 +9,7 @@ import { FakeProjectReadModel } from '../project/fake-project-read-model';
 import { FakeOnboardingStore } from './fake-onboarding-store';
 
 export const createOnboardingService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
   (db: Db): OnboardingService => {
     const { eventBus, flagResolver, getLogger } = config;
     const onboardingStore = new OnboardingStore(db);
@@ -27,7 +27,7 @@ export const createOnboardingService =
     return onboardingService;
   };
 
-export const createFakeOnboardingService = (config: IUnleashConfig) => {
+export const createFakeOnboardingService = (config: IGanpaConfig) => {
   const onboardingStore = new FakeOnboardingStore();
   const projectReadModel = new FakeProjectReadModel();
   const userStore = new FakeUserStore();

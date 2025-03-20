@@ -1,5 +1,5 @@
 import { originMiddleware } from './origin-middleware';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import { createTestConfig } from '../../test/config/test-config';
 import type { Request, Response } from 'express';
 import { EventEmitter } from 'events';
@@ -23,7 +23,7 @@ describe('originMiddleware', () => {
   const eventBus = new EventEmitter();
   eventBus.emit = jest.fn();
 
-  let config: IUnleashConfig;
+  let config: IGanpaConfig;
 
   beforeEach(() => {
     config = {

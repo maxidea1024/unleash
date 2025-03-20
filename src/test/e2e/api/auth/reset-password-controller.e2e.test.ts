@@ -1,7 +1,7 @@
 import type { URL } from 'url';
 import EventEmitter from 'events';
 import { createTestConfig } from '../../../config/test-config';
-import type { IUnleashConfig } from '../../../../lib/types/options';
+import type { IGanpaConfig } from '../../../../lib/types/options';
 import UserService from '../../../../lib/services/user-service';
 import { AccessService } from '../../../../lib/services/access-service';
 import ResetTokenService from '../../../../lib/services/reset-token-service';
@@ -26,7 +26,7 @@ import { createEventsService } from '../../../../lib/features';
 let app: IUnleashTest;
 let stores: IUnleashStores;
 let db: ITestDb;
-const config: IUnleashConfig = createTestConfig({
+const config: IGanpaConfig = createTestConfig({
   getLogger,
   server: {
     unleashUrl: 'http://localhost:3000',

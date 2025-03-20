@@ -10,15 +10,15 @@ process.nextTick(async () => {
         db: process.env.DATABASE_URL
           ? undefined
           : {
-              user: 'unleash_user',
-              password: 'password',
-              host: 'localhost',
-              port: 5432,
-              database: process.env.UNLEASH_DATABASE_NAME || 'unleash',
-              schema: process.env.UNLEASH_DATABASE_SCHEMA,
-              ssl: false,
-              applicationName: 'unleash',
-            },
+            user: 'unleash_user',
+            password: 'password',
+            host: 'localhost',
+            port: 5432,
+            database: process.env.UNLEASH_DATABASE_NAME || 'unleash',
+            schema: process.env.UNLEASH_DATABASE_SCHEMA,
+            ssl: false,
+            applicationName: 'unleash',
+          },
         server: {
           enableRequestLogger: true,
           baseUriPath: '',
@@ -79,10 +79,8 @@ process.nextTick(async () => {
     );
   } catch (error) {
     if (error.code === 'EADDRINUSE') {
-      // eslint-disable-next-line no-console
       console.warn('Port in use. You might want to reload once more.');
     } else {
-      // eslint-disable-next-line no-console
       console.error(error);
       process.exit();
     }

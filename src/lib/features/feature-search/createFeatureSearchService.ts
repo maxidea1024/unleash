@@ -1,12 +1,12 @@
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 
 import { FeatureSearchService } from './feature-search-service';
 import FakeFeatureSearchStore from './fake-feature-search-store';
 import FeatureSearchStore from './feature-search-store';
 
 export const createFeatureSearchService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
   (db: Db): FeatureSearchService => {
     const { getLogger, eventBus, flagResolver } = config;
     const featureSearchStore = new FeatureSearchStore(
@@ -23,7 +23,7 @@ export const createFeatureSearchService =
   };
 
 export const createFakeFeatureSearchService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): FeatureSearchService => {
   const fakeFeatureSearchStore = new FakeFeatureSearchStore();
 

@@ -5,8 +5,8 @@ import {
 } from '../../helpers/test-helper';
 import dbInit, { type ITestDb } from '../../helpers/database-init';
 import getLogger from '../../../fixtures/no-logger';
-import type { IUnleashConfig } from '../../../../lib/types/options';
-import type { IUnleashServices } from '../../../../lib/types/services';
+import type { IGanpaConfig } from '../../../../lib/types/options';
+import type { IGanpaServices } from '../../../../lib/types/services';
 import type { IUnleashStores } from '../../../../lib/types';
 
 let stores: IUnleashStores;
@@ -21,8 +21,8 @@ beforeAll(async () => {
 
   const preHook = (
     application: Application,
-    config: IUnleashConfig,
-    { userService }: IUnleashServices,
+    config: IGanpaConfig,
+    { userService }: IGanpaServices,
   ) => {
     application.use(
       '/api/admin/',

@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IFavoriteProjectsStore, IUnleashStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { IFavoriteFeaturesStore } from '../types/stores/favorite-features';
@@ -25,7 +25,7 @@ export interface IFavoriteProjectProps {
 }
 
 export class FavoritesService {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly favoriteFeaturesStore: IFavoriteFeaturesStore;
   private readonly favoriteProjectsStore: IFavoriteProjectsStore;
   private readonly eventService: EventService;
@@ -36,7 +36,7 @@ export class FavoritesService {
       favoriteFeaturesStore,
       favoriteProjectsStore,
     }: Pick<IUnleashStores, 'favoriteFeaturesStore' | 'favoriteProjectsStore'>,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     eventService: EventService,
   ) {
     this.logger = config.getLogger('favorites-service.ts');

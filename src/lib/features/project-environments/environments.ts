@@ -1,8 +1,8 @@
 import type { Response } from 'express';
 import Controller from '../../routes/controller';
 import {
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   serializeDates,
   UPDATE_PROJECT,
   PROJECT_DEFAULT_STRATEGY_WRITE,
@@ -36,13 +36,13 @@ export default class EnvironmentsController extends Controller {
   private readonly projectService: ProjectService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalEnvironmentService,
       openApiService,
       projectService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'transactionalEnvironmentService' | 'openApiService' | 'projectService'
     >,
   ) {

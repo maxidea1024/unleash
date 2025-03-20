@@ -16,8 +16,8 @@ import {
   type IFeatureTagStore,
   type IFlagResolver,
   type ITagTypeStore,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   type IUnleashStores,
   type IVariant,
   type WithRequired,
@@ -121,7 +121,7 @@ export default class ExportImportService
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
     {
       featureToggleService,
       strategyService,
@@ -132,7 +132,7 @@ export default class ExportImportService
       featureTagService,
       dependentFeaturesService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'featureToggleService'
       | 'strategyService'
       | 'contextService'

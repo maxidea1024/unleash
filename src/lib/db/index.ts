@@ -1,4 +1,4 @@
-import type { IUnleashConfig, IUnleashStores } from '../types';
+import type { IGanpaConfig, IUnleashStores } from '../types';
 import EventStore from '../features/events/event-store';
 import FeatureToggleStore from '../features/feature-toggle/feature-toggle-store';
 import FeatureTypeStore from './feature-type-store';
@@ -57,7 +57,7 @@ import { UserUnsubscribeStore } from '../features/user-subscriptions/user-unsubs
 import { UserSubscriptionsReadModel } from '../features/user-subscriptions/user-subscriptions-read-model';
 
 export const createStores = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   db: Db,
 ): IUnleashStores => {
   const { getLogger, eventBus } = config;

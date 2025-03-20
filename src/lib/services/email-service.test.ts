@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import { EmailService } from './email-service';
 import noLoggerProvider from '../../test/fixtures/no-logger';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 
 test('Can send reset email', async () => {
   const emailService = new EmailService({
@@ -14,7 +14,7 @@ test('Can send reset email', async () => {
       sender: 'noreply@getunleash.ai',
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
   // TODO: 미리 띄워놓은 서버의 주소같은데, 이걸 테스트할때만 사용하는건가?
   const resetLinkUrl =
     'https://unleash-hosted.com/reset-password?token=$2b$10$M06Ysso6KL4ueH/xR6rdSuY5GSymdIwmIkEUJMRkB.Qn26r5Gi5vW';
@@ -41,7 +41,7 @@ test('Can send welcome mail', async () => {
       sender: 'noreply@getunleash.ai',
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
   const content = await emailService.sendGettingStartedMail(
     'Some username',
     'test@test.com',
@@ -67,7 +67,7 @@ test('Can supply additional SMTP transport options', async () => {
       },
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   expect(spy).toHaveBeenCalledWith({
     auth: {
@@ -94,7 +94,7 @@ test('should strip special characters from email subject', async () => {
       sender: 'noreply@getunleash.ai',
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
   expect(emailService.stripSpecialCharacters('http://evil.com')).toBe(
     'httpevilcom',
   );
@@ -116,7 +116,7 @@ test('Can send order environments email', async () => {
       sender: 'noreply@getunleash.ai',
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   const customerId = 'customer133';
   const environments = [
@@ -159,7 +159,7 @@ test('Can send productivity report email', async () => {
       sender: 'noreply@getunleash.ai',
     },
     getLogger: noLoggerProvider,
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   const content = await emailService.sendProductivityReportEmail(
     'user@user.com',

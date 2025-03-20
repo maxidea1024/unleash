@@ -1,7 +1,7 @@
 import { APPLICATION_CREATED, CLIENT_REGISTER } from '../../../types/events';
 import type { IApplication, IApplicationOverview } from './models';
 import type { IUnleashStores } from '../../../types/stores';
-import type { IUnleashConfig } from '../../../types/options';
+import type { IGanpaConfig } from '../../../types/options';
 import type { IEventStore } from '../../../types/stores/event-store';
 import type {
   IClientApplication,
@@ -60,7 +60,7 @@ export default class ClientInstanceService {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
     privateProjectChecker: IPrivateProjectChecker,
   ) {
     this.logger = getLogger('instance-service.ts');

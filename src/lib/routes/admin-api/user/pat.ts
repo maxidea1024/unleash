@@ -3,8 +3,8 @@ import Controller from '../../controller';
 import type { Logger } from '../../../logger';
 import type {
   IFlagResolver,
-  IUnleashConfig,
-  IUnleashServices,
+  IGanpaConfig,
+  IGanpaServices,
 } from '../../../types';
 import { createRequestSchema } from '../../../openapi/util/create-request-schema';
 import {
@@ -37,11 +37,11 @@ export default class PatController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       openApiService,
       patService,
-    }: Pick<IUnleashServices, 'openApiService' | 'patService'>,
+    }: Pick<IGanpaServices, 'openApiService' | 'patService'>,
   ) {
     super(config);
 

@@ -7,7 +7,7 @@ import {
   createFakeGetProductionChanges,
   createGetProductionChanges,
 } from './getProductionChanges';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import type { Db } from '../../db/db';
 import FeatureToggleStore from '../feature-toggle/feature-toggle-store';
 import UserStore from '../../db/user-store';
@@ -49,7 +49,7 @@ import {
   createGetLicensedUsers,
 } from './getLicensedUsers';
 
-export const createInstanceStatsService = (db: Db, config: IUnleashConfig) => {
+export const createInstanceStatsService = (db: Db, config: IGanpaConfig) => {
   const { eventBus, getLogger, flagResolver } = config;
   const featureToggleStore = new FeatureToggleStore(
     db,
@@ -134,7 +134,7 @@ export const createInstanceStatsService = (db: Db, config: IUnleashConfig) => {
   return instanceStatsService;
 };
 
-export const createFakeInstanceStatsService = (config: IUnleashConfig) => {
+export const createFakeInstanceStatsService = (config: IGanpaConfig) => {
   const { eventBus, getLogger, flagResolver } = config;
   const featureToggleStore = new FakeFeatureToggleStore();
   const userStore = new FakeUserStore();

@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../../controller';
-import type { IUnleashServices } from '../../../types/services';
-import type { IUnleashConfig } from '../../../types/options';
+import type { IGanpaServices } from '../../../types/services';
+import type { IGanpaConfig } from '../../../types/options';
 import type ProjectHealthService from '../../../services/project-health-service';
 import type { Logger } from '../../../logger';
 import type { IProjectParam } from '../../../types/model';
@@ -21,11 +21,11 @@ export default class ProjectHealthReport extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       projectHealthService,
       openApiService,
-    }: Pick<IUnleashServices, 'projectHealthService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'projectHealthService' | 'openApiService'>,
   ) {
     super(config);
 

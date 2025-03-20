@@ -3,8 +3,8 @@ import Controller from '../../../routes/controller';
 import {
   CLIENT_METRICS,
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
 } from '../../../types';
 import type ClientInstanceService from './instance-service';
 import type { Logger } from '../../../logger';
@@ -36,10 +36,10 @@ export default class ClientMetricsController extends Controller {
       clientMetricsService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'clientInstanceService' | 'clientMetricsService' | 'openApiService'
     >,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
   ) {
     super(config);
 

@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type { IProject, IProjectHealthReport } from '../types/model';
 import type { IFeatureToggleStore } from '../features/feature-toggle/types/feature-toggle-store-type';
@@ -29,7 +29,7 @@ export default class ProjectHealthService {
     >,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
     projectService: ProjectService,
   ) {
     this.logger = getLogger('project-health-service.ts');

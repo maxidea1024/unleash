@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUser } from '../types/user';
 import type {
   IUserFeedback,
@@ -17,7 +17,7 @@ export default class UserFeedbackService {
     }: Pick<IUnleashStores, 'userFeedbackStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('user-feedback-service.ts');
 

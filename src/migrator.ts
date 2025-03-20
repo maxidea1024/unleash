@@ -1,11 +1,11 @@
 import { log } from 'db-migrate-shared';
 import { getInstance } from 'db-migrate';
-import type { IUnleashConfig } from './lib/types/options';
+import type { IGanpaConfig } from './lib/types/options';
 import { secondsToMilliseconds } from 'date-fns';
 
 log.setLogLevel('error');
 
-export async function migrateDb({ db }: IUnleashConfig): Promise<void> {
+export async function migrateDb({ db }: IGanpaConfig): Promise<void> {
   const custom = {
     ...db,
     connectionTimeoutMillis: secondsToMilliseconds(10),
@@ -23,7 +23,7 @@ export async function migrateDb({ db }: IUnleashConfig): Promise<void> {
 }
 
 // This exists to ease testing
-export async function resetDb({ db }: IUnleashConfig): Promise<void> {
+export async function resetDb({ db }: IGanpaConfig): Promise<void> {
   const custom = {
     ...db,
     connectionTimeoutMillis: secondsToMilliseconds(10),

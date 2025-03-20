@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import type { Logger } from '../logger';
 import {
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   SYSTEM_USER_AUDIT,
 } from '../types';
@@ -37,7 +37,7 @@ export class PublicSignupTokenService {
       publicSignupTokenStore,
       roleStore,
     }: Pick<IUnleashStores, 'publicSignupTokenStore' | 'roleStore'>,
-    config: Pick<IUnleashConfig, 'getLogger' | 'authentication' | 'server'>,
+    config: Pick<IGanpaConfig, 'getLogger' | 'authentication' | 'server'>,
     userService: UserService,
     eventService: EventService,
   ) {

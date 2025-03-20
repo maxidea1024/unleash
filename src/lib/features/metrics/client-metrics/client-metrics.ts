@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import Controller from '../../../routes/controller';
-import type { IUnleashConfig } from '../../../types/options';
-import type { IFlagResolver, IUnleashServices } from '../../../types';
+import type { IGanpaConfig } from '../../../types/options';
+import type { IFlagResolver, IGanpaServices } from '../../../types';
 import type { Logger } from '../../../logger';
 import type ClientMetricsService from './metrics-service-v2';
 import { NONE } from '../../../types/permissions';
@@ -37,11 +37,11 @@ export default class ClientMetricsController extends Controller {
   private static HOURS_BACK_MAX_V2 = 24 * 91; // 91 days
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       clientMetricsService,
       openApiService,
-    }: Pick<IUnleashServices, 'clientMetricsService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'clientMetricsService' | 'openApiService'>,
   ) {
     super(config);
 

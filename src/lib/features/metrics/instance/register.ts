@@ -1,7 +1,7 @@
 import type { Response } from 'express';
 import Controller from '../../../routes/controller';
-import type { IFlagResolver, IUnleashServices } from '../../../types';
-import type { IUnleashConfig } from '../../../types/options';
+import type { IFlagResolver, IGanpaServices } from '../../../types';
+import type { IGanpaConfig } from '../../../types/options';
 import type { Logger } from '../../../logger';
 import type ClientInstanceService from './instance-service';
 import type { IAuthRequest, IUser } from '../../../server-impl';
@@ -27,8 +27,8 @@ export default class RegisterController extends Controller {
     {
       clientInstanceService,
       openApiService,
-    }: Pick<IUnleashServices, 'clientInstanceService' | 'openApiService'>,
-    config: IUnleashConfig,
+    }: Pick<IGanpaServices, 'clientInstanceService' | 'openApiService'>,
+    config: IGanpaConfig,
   ) {
     super(config);
 

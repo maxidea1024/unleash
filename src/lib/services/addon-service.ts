@@ -19,7 +19,7 @@ import type {
 } from '../types/stores/addon-store';
 import {
   type IAuditUser,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   SYSTEM_USER_AUDIT,
 } from '../types';
@@ -61,7 +61,7 @@ export default class AddonService {
       flagResolver,
       eventBus,
     }: Pick<
-      IUnleashConfig,
+      IGanpaConfig,
       'getLogger' | 'server' | 'flagResolver' | 'eventBus'
     >,
     tagTypeService: TagTypeService,

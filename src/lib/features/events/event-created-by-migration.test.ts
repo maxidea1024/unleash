@@ -3,13 +3,13 @@ import getLogger from '../../../test/fixtures/no-logger';
 import dbInit, { type ITestDb } from '../../../test/e2e/helpers/database-init';
 import { EventEmitter } from 'stream';
 import { EVENTS_CREATED_BY_PROCESSED } from '../../metric-events';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import { createTestConfig } from '../../../test/config/test-config';
 import { createEventsService } from './createEventsService';
 
 let db: ITestDb;
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 beforeAll(async () => {
   db = await dbInit('events_test', getLogger);

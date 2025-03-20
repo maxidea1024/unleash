@@ -1,4 +1,4 @@
-import type { IAuditUser, IFlagResolver, IUnleashConfig } from '../../types';
+import type { IAuditUser, IFlagResolver, IGanpaConfig } from '../../types';
 import getLogger from '../../../test/fixtures/no-logger';
 import { createFakeSegmentService } from './createSegmentService';
 
@@ -17,7 +17,7 @@ test('Should not allow to exceed segment limit', async () => {
     eventBus: {
       emit: () => {},
     },
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   const createSegment = (name: string) =>
     segmentService.create({ name, constraints: [] }, {} as IAuditUser);

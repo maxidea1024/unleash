@@ -1,5 +1,5 @@
 import type { Db } from '../../db/db';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import EnvironmentService from './environment-service';
 import EnvironmentStore from './environment-store';
 import FeatureStrategiesStore from '../feature-toggle/feature-toggle-strategies-store';
@@ -15,7 +15,7 @@ import {
 } from '../events/createEventsService';
 
 export const createEnvironmentService =
-  (config: IUnleashConfig) =>
+  (config: IGanpaConfig) =>
   (db: Db): EnvironmentService => {
     const { getLogger, eventBus, flagResolver } = config;
     const featureEnvironmentStore = new FeatureEnvironmentStore(
@@ -50,7 +50,7 @@ export const createEnvironmentService =
   };
 
 export const createFakeEnvironmentService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): EnvironmentService => {
   const featureEnvironmentStore = new FakeFeatureEnvironmentStore();
   const projectStore = new FakeProjectStore();

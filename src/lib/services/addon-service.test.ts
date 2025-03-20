@@ -16,7 +16,7 @@ import SimpleAddon from './addon-service-test-simple-addon';
 import type { IAddonProviders } from '../addons';
 import {
   type IFlagResolver,
-  type IUnleashConfig,
+  type IGanpaConfig,
   SYSTEM_USER,
   TEST_AUDIT_USER,
 } from '../types';
@@ -32,7 +32,7 @@ const TEST_USER_ID = -9999;
 
 let addonProvider: IAddonProviders;
 
-const config: IUnleashConfig = createTestConfig();
+const config: IGanpaConfig = createTestConfig();
 
 function getSetup() {
   const stores = createStores();

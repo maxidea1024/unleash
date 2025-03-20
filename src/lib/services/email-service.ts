@@ -4,7 +4,7 @@ import path from 'path';
 import { existsSync, readFileSync } from 'fs';
 import type { Logger } from '../logger';
 import NotFoundError from '../error/notfound-error';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 
 export interface IAuthOptions {
   user: string;
@@ -77,11 +77,11 @@ export type OrderEnvironmentData = {
 
 export class EmailService {
   private readonly logger: Logger;
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly mailer?: Transporter;
   private readonly sender: string;
 
-  constructor(config: IUnleashConfig) {
+  constructor(config: IGanpaConfig) {
     this.logger = config.getLogger('email-service.ts');
 
     this.config = config;

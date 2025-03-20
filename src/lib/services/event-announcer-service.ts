@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type { Logger } from '../logger';
 import type { IEventStore } from '../types/stores/event-store';
@@ -14,7 +14,7 @@ export default class EventAnnouncer {
     {
       getLogger,
       flagResolver,
-    }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+    }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   ) {
     this.logger = getLogger('event-announcer-service.ts');
 

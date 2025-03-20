@@ -1,5 +1,5 @@
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { Logger } from '../logger';
 import type {
   IFeatureType,
@@ -16,7 +16,7 @@ export default class FeatureTypeService {
 
   constructor(
     { featureTypeStore }: Pick<IUnleashStores, 'featureTypeStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('feature-type-service.ts');

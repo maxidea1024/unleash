@@ -8,7 +8,7 @@ import {
 } from '../../types/events';
 import type { Logger } from '../../logger';
 import type { ITagType, ITagTypeStore } from './tag-type-store-type';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import type EventService from '../events/event-service';
 import type { IAuditUser } from '../../types';
 
@@ -19,7 +19,7 @@ export default class TagTypeService {
 
   constructor(
     { tagTypeStore }: Pick<IUnleashStores, 'tagTypeStore'>,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('tag-type-service.ts');

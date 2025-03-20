@@ -1,8 +1,8 @@
 import type { FeatureLifecycleService } from './feature-lifecycle-service';
 import {
   type IFlagResolver,
-  type IUnleashConfig,
-  type IUnleashServices,
+  type IGanpaConfig,
+  type IGanpaServices,
   NONE,
   serializeDates,
   UPDATE_FEATURE,
@@ -35,12 +35,12 @@ export default class FeatureLifecycleController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalFeatureLifecycleService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       'openApiService' | 'transactionalFeatureLifecycleService'
     >,
   ) {

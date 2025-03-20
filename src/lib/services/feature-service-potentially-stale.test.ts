@@ -2,7 +2,7 @@ import {
   FEATURE_POTENTIALLY_STALE_ON,
   type IBaseEvent,
   type IFeatureCollaboratorsReadModel,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
 } from '../types';
 import { createTestConfig } from '../../test/config/test-config';
@@ -62,7 +62,7 @@ test('Should only store events for potentially stale on', async () => {
       experimental: {
         ...(config.experimental ?? {}),
       },
-    } as unknown as IUnleashConfig,
+    } as unknown as IGanpaConfig,
     {} as ISegmentService,
     {} as AccessService,
     eventService,

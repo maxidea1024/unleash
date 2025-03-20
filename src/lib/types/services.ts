@@ -60,7 +60,7 @@ import type { PersonalDashboardService } from '../features/personal-dashboard/pe
 import type { ProjectStatusService } from '../features/project-status/project-status-service';
 import type { UserSubscriptionsService } from '../features/user-subscriptions/user-subscriptions-service';
 
-export interface IUnleashServices {
+export interface IGanpaServices {
   transactionalAccessService: WithTransactional<AccessService>;
   accessService: AccessService;
   accountService: AccountService;

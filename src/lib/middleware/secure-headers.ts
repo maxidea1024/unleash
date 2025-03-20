@@ -1,9 +1,9 @@
 import helmet from 'helmet';
 import type { RequestHandler } from 'express';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import { hoursToSeconds } from 'date-fns';
 
-const secureHeaders: (config: IUnleashConfig) => RequestHandler = (config) => {
+const secureHeaders: (config: IGanpaConfig) => RequestHandler = (config) => {
   if (config.secureHeaders) {
     const includeUnsafeInline = !config.flagResolver.isEnabled(
       'removeUnsafeInlineStyleSrc',

@@ -1,8 +1,8 @@
 import type { Response } from 'express';
 import Controller from '../controller';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type UserFeedbackService from '../../services/user-feedback-service';
 import type { IAuthRequest } from '../unleash-types';
 import { NONE } from '../../types/permissions';
@@ -23,11 +23,11 @@ export default class UserFeedbackController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       userFeedbackService,
       openApiService,
-    }: Pick<IUnleashServices, 'userFeedbackService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'userFeedbackService' | 'openApiService'>,
   ) {
     super(config);
 

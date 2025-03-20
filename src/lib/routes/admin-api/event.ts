@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types/services';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types/services';
 import type EventService from '../../features/events/event-service';
 import { ADMIN, NONE } from '../../types/permissions';
 import type { IEvent, IEventList } from '../../types/events';
@@ -36,11 +36,11 @@ export default class EventController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       eventService,
       openApiService,
-    }: Pick<IUnleashServices, 'eventService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'eventService' | 'openApiService'>,
   ) {
     super(config);
 

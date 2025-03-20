@@ -16,11 +16,11 @@ import type { Logger } from '../../logger';
 import type { AccessService } from '../../services/access-service';
 import type { IAuthRequest } from '../unleash-types';
 import type { IUser } from '../../types/user';
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import { ApiTokenType, type IApiToken } from '../../types/models/api-token';
 import { createApiToken } from '../../schema/api-token-schema';
 import type { OpenApiService } from '../../services/openapi-service';
-import type { IFlagResolver, IUnleashServices } from '../../types';
+import type { IFlagResolver, IGanpaServices } from '../../types';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import {
   createResponseSchema,
@@ -125,14 +125,14 @@ export class ApiTokenController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       apiTokenService,
       accessService,
       frontendApiService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'apiTokenService'
       | 'accessService'
       | 'frontendApiService'

@@ -3,7 +3,7 @@ import Controller from './controller';
 import { NONE } from '../types/permissions';
 import type { Logger } from '../logger';
 import type { IAuthRequest } from './unleash-types';
-import type { IUnleashConfig, IUnleashServices } from '../types';
+import type { IGanpaConfig, IGanpaServices } from '../types';
 import type { OpenApiService } from '../services/openapi-service';
 import { createRequestSchema } from '../openapi/util/create-request-schema';
 import { createResponseSchema } from '../openapi/util/create-response-schema';
@@ -26,11 +26,11 @@ export class PublicInviteController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       publicSignupTokenService,
       openApiService,
-    }: Pick<IUnleashServices, 'publicSignupTokenService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'publicSignupTokenService' | 'openApiService'>,
   ) {
     super(config);
 

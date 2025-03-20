@@ -1,6 +1,6 @@
 import type { Logger } from '../logger';
 import type { IUnleashStores } from '../types/stores';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUser } from '../types/user';
 import type {
   IUserSplash,
@@ -17,7 +17,7 @@ export default class UserSplashService {
     }: Pick<IUnleashStores, 'userSplashStore'>,
     {
       getLogger
-    }: Pick<IUnleashConfig, 'getLogger'>,
+    }: Pick<IGanpaConfig, 'getLogger'>,
   ) {
     this.logger = getLogger('user-splash-service.ts');
 

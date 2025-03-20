@@ -2,7 +2,7 @@ import FakeEventStore from '../../../test/fixtures/fake-event-store';
 import { FakeFeatureLifecycleStore } from './fake-feature-lifecycle-store';
 import { FeatureLifecycleService } from './feature-lifecycle-service';
 import FakeEnvironmentStore from '../project-environments/fake-environment-store';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import EventStore from '../../db/event-store';
 import type { Db } from '../../db/db';
 import { FeatureLifecycleStore } from './feature-lifecycle-store';
@@ -15,7 +15,7 @@ import {
 } from '../events/createEventsService';
 
 export const createFeatureLifecycleService =
-  (config: IUnleashConfig) => (db: Db) => {
+  (config: IGanpaConfig) => (db: Db) => {
     const { eventBus, getLogger } = config;
     const eventStore = new EventStore(db, getLogger);
     const featureLifecycleStore = new FeatureLifecycleStore(db);
@@ -42,7 +42,7 @@ export const createFeatureLifecycleService =
     return featureLifecycleService;
   };
 
-export const createFakeFeatureLifecycleService = (config: IUnleashConfig) => {
+export const createFakeFeatureLifecycleService = (config: IGanpaConfig) => {
   const eventStore = new FakeEventStore();
   const featureLifecycleStore = new FakeFeatureLifecycleStore();
   const environmentStore = new FakeEnvironmentStore();

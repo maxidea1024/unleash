@@ -7,9 +7,9 @@ import apiTokenMiddleware, {
   TOKEN_TYPE_ERROR_MESSAGE,
 } from './api-token-middleware';
 import type { ApiTokenService } from '../services';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 
 beforeEach(() => {
   config = createTestConfig({

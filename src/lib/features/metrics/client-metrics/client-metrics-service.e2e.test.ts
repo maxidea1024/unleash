@@ -2,7 +2,7 @@ import ClientInstanceService from '../instance/instance-service';
 import type { IClientApp } from '../../../types/model';
 import { secondsToMilliseconds } from 'date-fns';
 import { createTestConfig } from '../../../../test/config/test-config';
-import type { IUnleashConfig, IUnleashStores } from '../../../types';
+import type { IGanpaConfig, IUnleashStores } from '../../../types';
 import { FakePrivateProjectChecker } from '../../private-project/fakePrivateProjectChecker';
 import type { ITestDb } from '../../../../test/e2e/helpers/database-init';
 
@@ -14,7 +14,7 @@ const { APPLICATION_CREATED } = require('../../../types/events');
 let stores: IUnleashStores;
 let db: ITestDb;
 let clientInstanceService: ClientInstanceService;
-let config: IUnleashConfig;
+let config: IGanpaConfig;
 beforeAll(async () => {
   db = await dbInit('client_metrics_service_serial', getLogger);
   stores = db.stores;

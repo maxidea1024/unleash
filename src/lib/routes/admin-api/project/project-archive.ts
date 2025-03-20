@@ -1,9 +1,9 @@
 import type { Response } from 'express';
-import type { IUnleashConfig } from '../../../types/options';
+import type { IGanpaConfig } from '../../../types/options';
 import {
   type IFlagResolver,
   type IProjectParam,
-  type IUnleashServices,
+  type IGanpaServices,
   UPDATE_FEATURE,
 } from '../../../types';
 import type { Logger } from '../../../logger';
@@ -44,13 +44,13 @@ export default class ProjectArchiveController extends Controller {
   private readonly flagResolver: IFlagResolver;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       transactionalFeatureToggleService,
       featureToggleService,
       openApiService,
     }: Pick<
-      IUnleashServices,
+      IGanpaServices,
       | 'transactionalFeatureToggleService'
       | 'featureToggleService'
       | 'openApiService'

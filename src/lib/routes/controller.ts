@@ -6,7 +6,7 @@ import {
   type RequestHandler,
 } from 'express';
 import type { Logger } from '../logger';
-import { type IUnleashConfig, NONE } from '../types';
+import { type IGanpaConfig, NONE } from '../types';
 import { handleErrors } from './util';
 import requireContentType from '../middleware/content-type-checker';
 import { PermissionError } from '../error';
@@ -84,9 +84,9 @@ const checkPrivateProjectPermissions = () => async (req, res, next) => {
 export default class Controller {
   private readonly ownLogger: Logger;
   app: IRouter;
-  config: IUnleashConfig;
+  config: IGanpaConfig;
 
-  constructor(config: IUnleashConfig) {
+  constructor(config: IGanpaConfig) {
     this.ownLogger = config.getLogger(`controller/${this.constructor.name}`);
 
     this.app = Router();

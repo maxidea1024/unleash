@@ -15,12 +15,12 @@ import ClientFeatureToggleReadModel from './client-feature-toggle-read-model';
 import { FakeSegmentReadModel } from '../segment/fake-segment-read-model';
 import FakeSettingStore from '../../../test/fixtures/fake-setting-store';
 import FakeClientFeatureToggleReadModel from './fake-client-feature-toggle-read-model';
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import type { Db } from '../../db/db';
 
 export const createFrontendApiService = (
   db: Db,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   // client metrics service needs to be shared because it uses in-memory cache
   clientMetricsService: ClientMetricsService,
   configurationRevisionService: ConfigurationRevisionService,
@@ -62,7 +62,7 @@ export const createFrontendApiService = (
 };
 
 export const createFakeFrontendApiService = (
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   clientMetricsService: ClientMetricsService,
   configurationRevisionService: ConfigurationRevisionService,
 ): FrontendApiService => {

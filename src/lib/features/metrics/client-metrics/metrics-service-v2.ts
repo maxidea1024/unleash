@@ -2,7 +2,7 @@ import type { Logger } from '../../../logger';
 import {
   CLIENT_METRICS_ADDED,
   type IFlagResolver,
-  type IUnleashConfig,
+  type IGanpaConfig,
 } from '../../../types';
 import type { ISdkHeartbeat, IUnleashStores } from '../../../types';
 import type { ToggleMetricsSummary } from '../../../types/models/metrics';
@@ -27,7 +27,7 @@ import type { ClientMetricsSchema } from '../../../../lib/openapi';
 import { nameSchema } from '../../../schema/feature-schema';
 
 export default class ClientMetricsService {
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private unsavedMetrics: IClientMetricsEnv[] = [];
   private readonly clientMetricsStoreV2: IClientMetricsStoreV2;
   private readonly lastSeenService: LastSeenService;
@@ -39,7 +39,7 @@ export default class ClientMetricsService {
 
   constructor(
     { clientMetricsStoreV2 }: Pick<IUnleashStores, 'clientMetricsStoreV2'>,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     lastSeenService: LastSeenService,
   ) {
     this.logger = config.getLogger('metrics-service-v2.ts');

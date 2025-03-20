@@ -5,7 +5,7 @@ import {
   UPDATE_FEATURE,
   UPDATE_PROJECT_SEGMENT,
 } from '../types/permissions';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IUnleashStores } from '../types/stores';
 import type User from '../types/user';
 import type { Request } from 'express';
@@ -33,7 +33,7 @@ export function findParam(
 }
 
 export default function rbacMiddleware(
-  config: Pick<IUnleashConfig, 'getLogger'>,
+  config: Pick<IGanpaConfig, 'getLogger'>,
   {
     featureToggleStore,
     segmentStore,

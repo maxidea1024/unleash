@@ -17,8 +17,8 @@ import {
   type IServerOption,
   type ISessionOption,
   type IUIConfig,
-  type IUnleashConfig,
-  type IUnleashOptions,
+  type IGanpaConfig,
+  type IGanpaOptions,
   type IVersionOption,
   type ISSLOption,
   type IUsernameAdminUser,
@@ -71,7 +71,7 @@ function mergeAll<T>(objects: Partial<T>[]): T {
   return merge.all<T>(objects.filter((i) => i));
 }
 
-function loadExperimental(options: IUnleashOptions): IExperimentalOptions {
+function loadExperimental(options: IGanpaOptions): IExperimentalOptions {
   return {
     ...defaultExperimentalOptions,
     ...options.experimental,
@@ -89,7 +89,7 @@ const defaultClientCachingOptions: IClientCachingOption = {
 };
 
 function loadClientCachingOptions(
-  options: IUnleashOptions,
+  options: IGanpaOptions,
 ): IClientCachingOption {
   const envs: Partial<IClientCachingOption> = {};
 
@@ -115,7 +115,7 @@ function loadClientCachingOptions(
 }
 
 function loadMetricsRateLimitingConfig(
-  options: IUnleashOptions,
+  options: IGanpaOptions,
 ): IMetricsRateLimiting {
   const clientMetricsMaxPerMinute = parseEnvVarNumber(
     process.env.REGISTER_CLIENT_RATE_LIMIT_PER_MINUTE,
@@ -144,7 +144,7 @@ function loadMetricsRateLimitingConfig(
   return mergeAll([defaultRateLimitOptions, options.metricsRateLimiting ?? {}]);
 }
 
-function loadRateLimitingConfig(options: IUnleashOptions): IRateLimiting {
+function loadRateLimitingConfig(options: IGanpaOptions): IRateLimiting {
   const createUserMaxPerMinute = parseEnvVarNumber(
     process.env.CREATE_USER_RATE_LIMIT_PER_MINUTE,
     20,
@@ -172,7 +172,7 @@ function loadRateLimitingConfig(options: IUnleashOptions): IRateLimiting {
   return mergeAll([defaultRateLimitOptions, options.rateLimiting || {}]);
 }
 
-function loadUI(options: IUnleashOptions): IUIConfig {
+function loadUI(options: IGanpaOptions): IUIConfig {
   const uiO = options.ui || {};
   const ui: IUIConfig = {
     environment: 'Open Source',
@@ -493,7 +493,7 @@ const parseCspEnvironmentVariables = (): ICspDomainConfig => {
 };
 
 // parse frontend api origins(CORS)
-const parseFrontendApiOrigins = (options: IUnleashOptions): string[] => {
+const parseFrontendApiOrigins = (options: IGanpaOptions): string[] => {
   const frontendApiOrigins = parseEnvVarStrings(
     process.env.UNLEASH_FRONTEND_API_ORIGINS,
     options.frontendApiOrigins || ['*'],
@@ -507,7 +507,7 @@ const parseFrontendApiOrigins = (options: IUnleashOptions): string[] => {
   return frontendApiOrigins;
 };
 
-export function createConfig(options: IUnleashOptions): IUnleashConfig {
+export function createConfig(options: IGanpaOptions): IGanpaConfig {
   let extraDbOptions = {};
 
   if (options.databaseUrl) {

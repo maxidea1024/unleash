@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types/options';
+import type { IGanpaConfig } from '../../types/options';
 import {
   type IAuditUser,
   type IFlagResolver,
@@ -34,7 +34,7 @@ export class SegmentService implements ISegmentService {
   private readonly featureStrategiesStore: IFeatureStrategiesStore;
   private readonly changeRequestAccessReadModel: IChangeRequestAccessReadModel;
   private readonly changeRequestSegmentUsageReadModel: IChangeRequestSegmentUsageReadModel;
-  private readonly config: IUnleashConfig;
+  private readonly config: IGanpaConfig;
   private readonly flagResolver: IFlagResolver;
   private readonly eventService: EventService;
   private readonly privateProjectChecker: IPrivateProjectChecker;
@@ -47,7 +47,7 @@ export class SegmentService implements ISegmentService {
     }: Pick<IUnleashStores, 'segmentStore' | 'featureStrategiesStore'>,
     changeRequestAccessReadModel: IChangeRequestAccessReadModel,
     changeRequestSegmentUsageReadModel: IChangeRequestSegmentUsageReadModel,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     eventService: EventService,
     privateProjectChecker: IPrivateProjectChecker,
   ) {

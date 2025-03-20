@@ -37,7 +37,7 @@ import {
   type ISegment,
   type IStrategyConfig,
   type IStrategyStore,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   type IVariant,
   PotentiallyStaleOnEvent,
@@ -194,7 +194,7 @@ export default class FeatureToggleService {
       eventBus,
       resourceLimits,
     }: Pick<
-      IUnleashConfig,
+      IGanpaConfig,
       'getLogger' | 'flagResolver' | 'eventBus' | 'resourceLimits'
     >,
     segmentService: ISegmentService,

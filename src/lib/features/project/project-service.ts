@@ -32,7 +32,7 @@ import {
   type IProjectRoleUsage,
   type IProjectStore,
   type IProjectUpdate,
-  type IUnleashConfig,
+  type IGanpaConfig,
   type IUnleashStores,
   MOVE_FEATURE_TOGGLE,
   ProjectAccessAddedEvent,
@@ -175,7 +175,7 @@ export default class ProjectService {
       | 'projectReadModel'
       | 'onboardingReadModel'
     >,
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     accessService: AccessService,
     featureToggleService: FeatureToggleService,
     groupService: GroupService,

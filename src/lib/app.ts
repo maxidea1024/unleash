@@ -8,8 +8,8 @@ import { responseTimeMetrics } from './middleware/response-time-metrics';
 import { corsOriginMiddleware } from './middleware/cors-origin-middleware';
 import rbacMiddleware from './middleware/rbac-middleware';
 import apiTokenMiddleware from './middleware/api-token-middleware';
-import type { IUnleashServices } from './types/services';
-import { AuthType, type IUnleashConfig } from './types/options';
+import type { IGanpaServices } from './types/services';
+import { AuthType, type IGanpaConfig } from './types/options';
 import type { IUnleashStores } from './types';
 import IndexRouter from './routes';
 import requestLogger from './middleware/request-logger';
@@ -30,9 +30,9 @@ import { auditAccessMiddleware } from './middleware';
 import { originMiddleware } from './middleware/origin-middleware';
 
 export default async function getApp(
-  config: IUnleashConfig,
+  config: IGanpaConfig,
   stores: IUnleashStores,
-  services: IUnleashServices,
+  services: IGanpaServices,
   unleashSession?: RequestHandler,
   db?: Knex,
 ): Promise<Application> {

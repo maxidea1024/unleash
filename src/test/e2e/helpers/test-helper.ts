@@ -2,7 +2,7 @@ import supertest from 'supertest';
 
 import getApp from '../../../lib/app';
 import { createTestConfig } from '../../config/test-config';
-import { AuthType, type IUnleashConfig } from '../../../lib/types/options';
+import { AuthType, type IGanpaConfig } from '../../../lib/types/options';
 import { createServices } from '../../../lib/services';
 import sessionDb from '../../../lib/middleware/session-db';
 import {
@@ -10,7 +10,7 @@ import {
   type FeatureToggleDTO,
   type IUnleashStores,
 } from '../../../lib/types';
-import type { IUnleashServices } from '../../../lib/types/services';
+import type { IGanpaServices } from '../../../lib/types/services';
 import type { Db } from '../../../lib/db/db';
 import type { IContextFieldDto } from '../../../lib/types/stores/context-field-store';
 import { DEFAULT_ENV } from '../../../lib/util';
@@ -29,14 +29,14 @@ process.env.NODE_ENV = 'test';
 export interface IUnleashTest extends IUnleashHttpAPI {
   request: TestAgent<Test>;
   destroy: () => Promise<void>;
-  services: IUnleashServices;
-  config: IUnleashConfig;
+  services: IGanpaServices;
+  config: IGanpaConfig;
 }
 
 export interface IUnleashNoSupertest {
   server: Server;
-  services: IUnleashServices;
-  config: IUnleashConfig;
+  services: IGanpaServices;
+  config: IGanpaConfig;
   destroy: () => Promise<void>;
 }
 
@@ -121,7 +121,7 @@ export interface IUnleashHttpAPI {
 
 function httpApis(
   request: TestAgent<Test>,
-  config: IUnleashConfig,
+  config: IGanpaConfig,
 ): IUnleashHttpAPI {
   const base = config.server.baseUriPath || '';
 

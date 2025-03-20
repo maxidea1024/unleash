@@ -2,7 +2,7 @@ import type { Response } from 'express';
 import Controller from '../controller';
 import type { FavoritesService, OpenApiService } from '../../services';
 import type { Logger } from '../../logger';
-import { type IUnleashConfig, type IUnleashServices, NONE } from '../../types';
+import { type IGanpaConfig, type IGanpaServices, NONE } from '../../types';
 import { emptyResponse, getStandardResponses } from '../../openapi';
 import type { IAuthRequest } from '../unleash-types';
 
@@ -12,11 +12,11 @@ export default class FavoritesController extends Controller {
   private readonly openApiService: OpenApiService;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       favoritesService,
       openApiService,
-    }: Pick<IUnleashServices, 'favoritesService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'favoritesService' | 'openApiService'>,
   ) {
     super(config);
 

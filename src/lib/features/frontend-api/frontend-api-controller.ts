@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
 import Controller from '../../routes/controller';
-import { type IUnleashConfig, type IUnleashServices, NONE } from '../../types';
+import { type IGanpaConfig, type IGanpaServices, NONE } from '../../types';
 import type { Logger } from '../../logger';
 import type { IApiUser } from '../../types/api-user';
 import {
@@ -33,7 +33,7 @@ interface ApiUserRequest<
 }
 
 type Services = Pick<
-  IUnleashServices,
+  IGanpaServices,
   'settingService' | 'frontendApiService' | 'openApiService'
 >;
 
@@ -42,7 +42,7 @@ export default class FrontendAPIController extends Controller {
   private readonly services: Services;
   private readonly timer: Function;
 
-  constructor(config: IUnleashConfig, services: Services) {
+  constructor(config: IGanpaConfig, services: Services) {
     super(config);
 
     this.logger = config.getLogger('frontend-api-controller.ts');

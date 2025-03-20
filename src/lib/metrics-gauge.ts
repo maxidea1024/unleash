@@ -1,5 +1,5 @@
 import type { Logger } from './logger';
-import type { IUnleashConfig } from './types';
+import type { IGanpaConfig } from './types';
 import { createGauge, type Gauge } from './util/metrics';
 
 type Query<R> = () => Promise<R | undefined | null>;
@@ -32,7 +32,7 @@ export class DbMetricsMonitor {
   private readonly updaters: Map<string, GaugeUpdater> = new Map();
   private readonly logger: Logger;
 
-  constructor({ getLogger }: Pick<IUnleashConfig, 'getLogger'>) {
+  constructor({ getLogger }: Pick<IGanpaConfig, 'getLogger'>) {
     this.logger = getLogger('metrics-gauge.ts');
   }
 

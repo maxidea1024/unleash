@@ -1,5 +1,5 @@
 import { bearerTokenMiddleware } from './bearer-token-middleware';
-import type { IUnleashConfig } from '../types';
+import type { IGanpaConfig } from '../types';
 import { createTestConfig } from '../../test/config/test-config';
 import getLogger from '../../test/fixtures/no-logger';
 import type { Request, Response } from 'express';
@@ -11,7 +11,7 @@ describe('bearerTokenMiddleware', () => {
   const res = {} as Response;
   const next = jest.fn();
 
-  let config: IUnleashConfig;
+  let config: IGanpaConfig;
 
   beforeEach(() => {
     config = createTestConfig({

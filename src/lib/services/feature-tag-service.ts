@@ -6,7 +6,7 @@ import {
   FeatureTaggedEvent,
   TAG_CREATED,
 } from '../types/events';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaConfig } from '../types/options';
 import type { IFeatureToggleStore, IUnleashStores } from '../types/stores';
 import { tagSchema } from './tag-schema';
 import type {
@@ -36,7 +36,7 @@ export default class FeatureTagService {
       IUnleashStores,
       'tagStore' | 'featureTagStore' | 'featureToggleStore'
     >,
-    { getLogger }: Pick<IUnleashConfig, 'getLogger'>,
+    { getLogger }: Pick<IGanpaConfig, 'getLogger'>,
     eventService: EventService,
   ) {
     this.logger = getLogger('feature-tag-service.ts');

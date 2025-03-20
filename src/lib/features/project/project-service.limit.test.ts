@@ -1,4 +1,4 @@
-import type { IAuditUser, IFlagResolver, IUnleashConfig } from '../../types';
+import type { IAuditUser, IFlagResolver, IGanpaConfig } from '../../types';
 import { createFakeProjectService } from './createProjectService';
 import type { IUser } from '../../types';
 import { createTestConfig } from '../../../test/config/test-config';
@@ -18,7 +18,7 @@ test('Should not allow to exceed project limit on create', async () => {
     eventBus: {
       emit: () => {},
     },
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   const createProject = (name: string) =>
     projectService.createProject({ name }, {} as IUser, {} as IAuditUser);
@@ -39,7 +39,7 @@ test('Should not allow to exceed project limit on revive', async () => {
     eventBus: {
       emit: () => {},
     },
-  } as unknown as IUnleashConfig);
+  } as unknown as IGanpaConfig);
 
   const createProject = (name: string) =>
     projectService.createProject(

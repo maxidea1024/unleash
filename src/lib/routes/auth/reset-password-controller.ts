@@ -2,8 +2,8 @@ import type { Request, Response } from 'express';
 import Controller from '../controller';
 import type UserService from '../../services/user-service';
 import type { Logger } from '../../logger';
-import type { IUnleashConfig } from '../../types/options';
-import type { IUnleashServices } from '../../types';
+import type { IGanpaConfig } from '../../types/options';
+import type { IGanpaServices } from '../../types';
 import { NONE } from '../../types/permissions';
 import { createRequestSchema } from '../../openapi/util/create-request-schema';
 import { createResponseSchema } from '../../openapi/util/create-response-schema';
@@ -40,11 +40,11 @@ export default class ResetPasswordController extends Controller {
   private readonly logger: Logger;
 
   constructor(
-    config: IUnleashConfig,
+    config: IGanpaConfig,
     {
       userService,
       openApiService,
-    }: Pick<IUnleashServices, 'userService' | 'openApiService'>,
+    }: Pick<IGanpaServices, 'userService' | 'openApiService'>,
   ) {
     super(config);
 

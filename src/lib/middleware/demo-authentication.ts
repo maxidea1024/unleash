@@ -2,8 +2,8 @@
 
 import type { Application } from 'express';
 import AuthenticationRequired from '../types/authentication-required';
-import type { IUnleashServices } from '../types/services';
-import type { IUnleashConfig } from '../types/options';
+import type { IGanpaServices } from '../types/services';
+import type { IGanpaConfig } from '../types/options';
 import ApiUser from '../types/api-user';
 import { ApiTokenType } from '../types/models/api-token';
 import type { IAuthRequest, IUser } from '../server-impl';
@@ -13,11 +13,11 @@ import { encrypt } from '../util';
 export default function demoAuthentication(
   app: Application,
   basePath: string,
-  { userService }: Pick<IUnleashServices, 'userService'>,
+  { userService }: Pick<IGanpaServices, 'userService'>,
   {
     authentication,
     flagResolver,
-  }: Pick<IUnleashConfig, 'authentication' | 'flagResolver'>,
+  }: Pick<IGanpaConfig, 'authentication' | 'flagResolver'>,
 ): void {
   app.post(`${basePath}/auth/demo/login`, async (req: IAuthRequest, res) => {
     let { email } = req.body;

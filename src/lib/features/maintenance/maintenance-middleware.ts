@@ -1,4 +1,4 @@
-import type { IUnleashConfig } from '../../types';
+import type { IGanpaConfig } from '../../types';
 import type MaintenanceService from './maintenance-service';
 import type { IAuthRequest } from '../../routes/unleash-types';
 
@@ -6,7 +6,7 @@ export const MAINTENANCE_MODE_ENABLED =
   'Unleash is currently in maintenance mode.';
 
 const maintenanceMiddleware = (
-  { getLogger }: Pick<IUnleashConfig, 'getLogger' | 'flagResolver'>,
+  { getLogger }: Pick<IGanpaConfig, 'getLogger' | 'flagResolver'>,
   maintenanceService: MaintenanceService,
 ): any => {
   const logger = getLogger('maintenance-middleware.ts');
