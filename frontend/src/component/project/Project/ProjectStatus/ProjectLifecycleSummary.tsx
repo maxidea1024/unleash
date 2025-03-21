@@ -138,6 +138,7 @@ export const ProjectLifecycleSummary = () => {
       return 'flags';
     }
   };
+
   return (
     <LifecycleList ref={loadingRef}>
       <LifecycleBox tooltipText={lifecycleMessages.initial}>

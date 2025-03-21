@@ -4,7 +4,7 @@ import { styled, Tooltip } from '@mui/material';
 import HelpOutline from '@mui/icons-material/HelpOutline';
 import type { IConstraint } from 'interfaces/strategy';
 import produce from 'immer';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { type IUseWeakMap, useWeakMap } from 'hooks/useWeakMap';
 import {
   constraintId,
@@ -74,7 +74,7 @@ export const useConstraintAccordionList = (
 ) => {
   // Constraint metadata: This is a weak map to give a constraint an ID by using the placement in memory.
   const state = useWeakMap<IConstraint, IConstraintAccordionListItemState>();
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const addConstraint =
     setConstraints &&
@@ -107,7 +107,7 @@ export const NewConstraintAccordionList = forwardRef<
   IConstraintAccordionListRef | undefined,
   IConstraintList
 >(({ constraints, setConstraints, state }, ref) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const onEdit =
     setConstraints &&

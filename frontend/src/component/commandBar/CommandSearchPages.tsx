@@ -6,7 +6,7 @@ import {
   StyledListItemIcon,
   StyledListItemText,
   listItemButtonStyle,
-  type CommandResultGroupItem,
+  type ICommandResultGroupItem,
 } from './RecentlyVisited/CommandResultGroup';
 import { ListItemButton } from '@mui/material';
 import { IconRenderer } from 'component/layout/MainLayout/NavigationSidebar/IconRenderer';
@@ -15,13 +15,13 @@ export const CommandSearchPages = ({
   items,
   onClick,
 }: {
-  items: CommandResultGroupItem[];
+  items: ICommandResultGroupItem[];
   onClick: () => void;
 }) => {
   const { trackEvent } = usePlausibleTracker();
   const groupName = 'Pages';
 
-  const onItemClick = (item: CommandResultGroupItem) => {
+  const onItemClick = (item: ICommandResultGroupItem) => {
     trackEvent('command-bar', {
       props: {
         eventType: `click`,

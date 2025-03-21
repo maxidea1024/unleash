@@ -4,15 +4,15 @@ import Header from 'component/menu/Header/Header';
 import Footer from 'component/menu/Footer/Footer';
 import Proclamation from 'component/common/Proclamation/Proclamation';
 import BreadcrumbNav from 'component/common/BreadcrumbNav/BreadcrumbNav';
-import textureImage from 'assets/img/texture.png';
+// import textureImage from 'assets/img/texture.png';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { SkipNavLink } from 'component/common/SkipNavLink/SkipNavLink';
 import { SkipNavTarget } from 'component/common/SkipNavLink/SkipNavTarget';
-import { formatAssetPath } from 'utils/formatPath';
+// import { formatAssetPath } from 'utils/formatPath';
 import { useOptionalPathParam } from 'hooks/useOptionalPathParam';
 import { useChangeRequestsEnabled } from 'hooks/useChangeRequestsEnabled';
 import { DraftBanner } from './DraftBanner/DraftBanner';
-import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
+// import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
 import { NavigationSidebar } from './NavigationSidebar/NavigationSidebar';
 import { MainLayoutEventTimeline } from './MainLayoutEventTimeline';
 import { EventTimelineProvider } from 'component/events/EventTimeline/EventTimelineProvider';
@@ -32,7 +32,7 @@ const MainLayoutContentWrapper = styled('main')(({ theme }) => ({
   margin: theme.spacing(0, 'auto'),
   flexGrow: 1,
   width: '100%',
-  backgroundColor: '#F0F0F0', //theme.palette.background.application,
+  backgroundColor: theme.palette.background.application,
   position: 'relative',
 }));
 

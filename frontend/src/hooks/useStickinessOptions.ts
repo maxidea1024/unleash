@@ -1,4 +1,4 @@
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 
 type OptionType = { key: string; label: string };
 
@@ -6,7 +6,7 @@ const DEFAULT_RANDOM_OPTION = 'random';
 const DEFAULT_STICKINESS_OPTION = 'default';
 
 export const useStickinessOptions = (value: string | undefined) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const options = context
     .filter((field) => field.stickiness)

@@ -3,7 +3,7 @@ import type { IConstraint } from 'interfaces/strategy';
 import { ConstraintAccordionViewHeaderInfo } from './ConstraintAccordionViewHeaderInfo';
 import { ConstraintAccordionHeaderActions } from '../../ConstraintAccordionHeaderActions/ConstraintAccordionHeaderActions';
 import { styled } from '@mui/system';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 
 type ConstraintAccordionViewHeaderProps = {
   constraint: IConstraint;
@@ -37,7 +37,7 @@ export const ConstraintAccordionViewHeader = ({
   compact,
   disabled,
 }: ConstraintAccordionViewHeaderProps) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
   const { contextName } = constraint;
 
   const disableEdit = !context

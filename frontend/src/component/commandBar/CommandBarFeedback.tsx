@@ -20,11 +20,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   fontSize: theme.spacing(1.5),
 }));
 
-interface ICommandBarFeedbackProps {
+type CommandBarFeedbackProps = {
   onSubmit: () => void;
-}
+};
 
-export const CommandBarFeedback = ({ onSubmit }: ICommandBarFeedbackProps) => {
+export const CommandBarFeedback = ({ onSubmit }: CommandBarFeedbackProps) => {
   const userType = useUserType();
   const { addFeedback } = useUserFeedbackApi();
   const { setToastData } = useToast();

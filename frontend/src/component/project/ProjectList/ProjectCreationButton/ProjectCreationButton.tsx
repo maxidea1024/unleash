@@ -11,18 +11,18 @@ import { CreateProjectDialog } from '../../Project/CreateProject/NewCreateProjec
 import { ThemeMode } from 'component/common/ThemeMode/ThemeMode';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 
-type CreateButtonData = {
+interface ICreateButtonData {
   disabled: boolean;
   tooltip?: Omit<TooltipResolverProps, 'children'>;
   endIcon?: ReactNode;
-};
+}
 
 const NAVIGATE_TO_CREATE_PROJECT = 'NAVIGATE_TO_CREATE_PROJECT';
 
 function resolveCreateButtonData(
   isOss: boolean,
   hasAccess: boolean,
-): CreateButtonData {
+): ICreateButtonData {
   if (isOss) {
     return {
       disabled: true,

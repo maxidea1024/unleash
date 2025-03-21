@@ -25,7 +25,7 @@ Applications evolve, and teams must manage all aspects of this evolution, includ
     -   [`useFlag` example](#useflag-example)
     -   [`useVariant` example](#usevariant-example)
     -   [`useUnleashClient` example](#useunleashclient-example)
-    -   [`useUnleashContext` example](#useunleashcontext-example)
+    -   [`useGanpaContext` example](#useunleashcontext-example)
     -   [`useFlags` example](#useflags-example)
     -   [`useFlagsStatus` example](#useflagsstatus-example)
 -   [Additional Examples](#additional-examples)
@@ -502,7 +502,7 @@ To take full advantage of our React SDK, we’ve compiled a list of the most com
 | [`useFlag`](#useflag-example)                     | determines whether or not the flag is enabled                                                                                                         | feature flag name (string) | true, false (boolean)               |
 | [`useVariant`](#usevariant-example)               | returns the flag variant that the user falls into                                                                                                     | feature flag name (string) | flag and flag variant data (object) |
 | [`useUnleashClient`](#useunleashclient-example)   | listens to client events and performs actions against them                                                                                            | none                       |                                     |
-| [`useUnleashContext`](#useunleashcontext-example) | retrieves information related to current flag request for you to update                                                                               | none                       |                                     |
+| [`useGanpaContext`](#useunleashcontext-example) | retrieves information related to current flag request for you to update                                                                               | none                       |                                     |
 | [`useFlags`](#useflags-example)                   | retrieves a list of all flags within your project                                                                                                     | none                       | an array of each flag object data   |
 | [`useFlagsStatus`](#useflagsstatus-example)       | retrieves status information of al flags within your project; tells you whether they have been successfully fetched and whether there were any errors | none                       | an object of flag data              |
 
@@ -542,10 +542,10 @@ unleashClient.on(“impression”, (events) => {
 });
 ```
 
-### `useUnleashContext` example
+### `useGanpaContext` example
 
 ```js
-const updateContext = useUnleashContext();
+const updateContext = useGanpaContext();
 
 useEffect(() => {
     // context is updated with userId

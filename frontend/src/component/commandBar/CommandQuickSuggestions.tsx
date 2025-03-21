@@ -16,6 +16,7 @@ const toListItemButton = (
   onClick: () => void,
 ) => {
   const key = `recently-visited-${index}`;
+
   if (item.featureId && item.projectId) {
     return (
       <RecentlyVisitedFeatureButton
@@ -27,6 +28,7 @@ const toListItemButton = (
       />
     );
   }
+
   if (item.projectId) {
     return (
       <RecentlyVisitedProjectButton
@@ -37,8 +39,13 @@ const toListItemButton = (
       />
     );
   }
-  if (!item.pathName) return null;
+
+  if (!item.pathName) {
+    return null;
+  }
+
   const name = routes[item.pathName]?.title ?? item.pathName;
+
   return (
     <RecentlyVisitedPathButton
       keyName={key}
@@ -58,9 +65,11 @@ export const CommandQuickSuggestions = ({
   routes: Record<string, { path: string; route: string; title: string }>;
 }) => {
   const { lastVisited } = useRecentlyVisited();
+
   const buttons = lastVisited.map((item, index) =>
     toListItemButton(item, routes, index, onClick),
   );
+
   return (
     <CommandResultGroup
       icon='default'

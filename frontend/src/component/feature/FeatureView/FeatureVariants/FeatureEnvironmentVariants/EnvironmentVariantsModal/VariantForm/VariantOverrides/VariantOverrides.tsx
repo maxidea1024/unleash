@@ -3,7 +3,7 @@ import { IconButton, styled, TextField, Tooltip } from '@mui/material';
 import Delete from '@mui/icons-material/Delete';
 import { Autocomplete } from '@mui/material';
 import { InputListField } from 'component/common/InputListField/InputListField';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import type { IOverride } from 'interfaces/featureToggle';
 import type { OverridesDispatchType } from './useOverrides';
 import SelectMenu from 'component/common/select';
@@ -52,7 +52,7 @@ export const OverrideConfig = ({
   overrides,
   overridesDispatch,
 }: OverrideConfigProps) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
   const contextNames = context.map(({ name }) => ({
     key: name,
     label: name,

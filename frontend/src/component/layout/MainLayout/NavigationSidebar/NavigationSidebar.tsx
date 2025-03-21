@@ -1,5 +1,5 @@
 import { Box, styled } from '@mui/material';
-import { type FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigationMode } from './useNavigationMode';
 import { ShowAdmin, ShowHide } from './ShowHide';
 import { useRoutes } from './useRoutes';
@@ -72,9 +72,11 @@ const StickyContainer = styled(Box)(({ theme }) => ({
   borderTop: `1px solid ${theme.palette.divider}`,
 }));
 
-export const NavigationSidebar: FC<{ NewInUnleash?: typeof NewInUnleash }> = ({
-  NewInUnleash,
-}) => {
+type NavigationSidebarProps = {
+  NewInUnleash?: typeof NewInUnleash;
+};
+
+export const NavigationSidebar = ({ NewInUnleash }: NavigationSidebarProps) => {
   const { routes } = useRoutes();
 
   const [mode, setMode] = useNavigationMode();

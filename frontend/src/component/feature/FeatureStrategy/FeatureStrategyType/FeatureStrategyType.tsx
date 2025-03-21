@@ -3,7 +3,7 @@ import DefaultStrategy from 'component/feature/StrategyTypes/DefaultStrategy/Def
 import FlexibleStrategy from 'component/feature/StrategyTypes/FlexibleStrategy/FlexibleStrategy';
 import UserWithIdStrategy from 'component/feature/StrategyTypes/UserWithIdStrategy/UserWithId';
 import GeneralStrategy from 'component/feature/StrategyTypes/GeneralStrategy/GeneralStrategy';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import produce from 'immer';
 import type React from 'react';
 import type { IFormErrors } from 'hooks/useFormErrors';
@@ -25,7 +25,7 @@ export const FeatureStrategyType = ({
   validateParameter,
   errors,
 }: FeatureStrategyTypeProps) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const updateParameter = (name: string, value: string) => {
     setStrategy(

@@ -18,7 +18,7 @@ import PermissionButton from 'component/common/PermissionButton/PermissionButton
 import { UPDATE_FEATURE_ENVIRONMENT_VARIANTS } from 'component/providers/AccessProvider/permissions';
 import { WeightType } from 'constants/variantTypes';
 import { v4 as uuidv4 } from 'uuid';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { updateWeightEdit } from 'component/common/util';
 import { StickinessSelect } from 'component/feature/StrategyTypes/FlexibleStrategy/StickinessSelect/StickinessSelect';
 import { useDefaultProjectSettings } from 'hooks/useDefaultProjectSettings';
@@ -145,7 +145,7 @@ export const EnvironmentVariantsModal = ({
   const featureId = useRequiredPathParam('featureId');
 
   const { uiConfig } = useUiConfig();
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
   const { defaultStickiness, loading } = useDefaultProjectSettings(projectId);
 
   const { isChangeRequestConfigured } = useChangeRequestsEnabled(projectId);

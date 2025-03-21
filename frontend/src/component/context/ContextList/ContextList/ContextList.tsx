@@ -11,7 +11,7 @@ import {
 import { PageContent } from 'component/common/PageContent/PageContent';
 import { PageHeader } from 'component/common/PageHeader/PageHeader';
 import { Dialogue as ConfirmDialogue } from 'component/common/Dialogue/Dialogue';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import useContextsApi from 'hooks/api/actions/useContextsApi/useContextsApi';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
@@ -28,7 +28,7 @@ import { UsedInCell } from '../UsedInCell';
 const ContextList = () => {
   const [showDelDialogue, setShowDelDialogue] = useState(false);
   const [name, setName] = useState<string>();
-  const { context, refetchUnleashContext, loading } = useUnleashContext();
+  const { context, refetch: refetchUnleashContext, loading } = useGanpaContext();
   const { removeContext } = useContextsApi();
   const { setToastData, setToastApiError } = useToast();
 

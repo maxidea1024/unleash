@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import type { IPayload } from 'interfaces/featureToggle';
 import { useOverrides } from 'component/feature/FeatureView/FeatureVariants/FeatureEnvironmentVariants/EnvironmentVariantsModal/VariantForm/VariantOverrides/useOverrides';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { WeightType } from 'constants/variantTypes';
 import type { IFeatureVariantEdit } from '../EnvironmentVariantsModal';
 import Delete from '@mui/icons-material/Delete';
@@ -197,7 +197,7 @@ export const VariantForm = ({
     'overrides' in variant ? variant.overrides || [] : [],
   );
 
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const [errors, setErrors] = useState<IVariantFormErrors>({});
 

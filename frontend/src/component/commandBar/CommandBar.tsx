@@ -14,14 +14,14 @@ import { SEARCH_INPUT } from 'utils/testIds';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import {
   CommandResultGroup,
-  type CommandResultGroupItem,
+  type ICommandResultGroupItem,
 } from './RecentlyVisited/CommandResultGroup';
 import { CommandPageSuggestions } from './CommandPageSuggestions';
 import { useRoutes } from 'component/layout/MainLayout/NavigationSidebar/useRoutes';
 import { useAsyncDebounce } from 'react-table';
 import useProjects from 'hooks/api/getters/useProjects/useProjects';
 import {
-  type CommandQueryCounter,
+  type ICommandQueryCounter,
   CommandSearchFeatures,
 } from './CommandSearchFeatures';
 import { usePlausibleTracker } from 'hooks/usePlausibleTracker';
@@ -102,13 +102,13 @@ export const CommandBar = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchString, setSearchString] = useState(undefined);
   const [searchedProjects, setSearchedProjects] = useState<
-    CommandResultGroupItem[]
+    ICommandResultGroupItem[]
   >([]);
-  const [searchedPages, setSearchedPages] = useState<CommandResultGroupItem[]>(
+  const [searchedPages, setSearchedPages] = useState<ICommandResultGroupItem[]>(
     [],
   );
   const [searchedFlagCount, setSearchedFlagCount] =
-    useState<CommandQueryCounter>({ query: '', count: 0 });
+    useState<ICommandQueryCounter>({ query: '', count: 0 });
   const [hasNoResults, setHasNoResults] = useState(false);
   const [value, setValue] = useState<string>('');
   const { routes } = useRoutes();
@@ -210,7 +210,9 @@ export const CommandBar = () => {
   const findCommandBarLinksAndSelectedIndex = () => {
     const allCommandBarLinks =
       searchContainerRef.current?.querySelectorAll('ul > a');
-    if (!allCommandBarLinks || allCommandBarLinks.length === 0) return;
+    if (!allCommandBarLinks || allCommandBarLinks.length === 0) {
+      return;
+    }
 
     let selectedIndex = -1;
 
@@ -233,11 +235,15 @@ export const CommandBar = () => {
     },
     () => {
       const itemsAndIndex = findCommandBarLinksAndSelectedIndex();
-      if (!itemsAndIndex) return;
+      if (!itemsAndIndex) {
+        return;
+      }
       const { allCommandBarLinks, selectedIndex } = itemsAndIndex;
 
       const newIndex = selectedIndex + 1;
-      if (newIndex >= allCommandBarLinks.length) return;
+      if (newIndex >= allCommandBarLinks.length) {
+        return;
+      }
 
       (allCommandBarLinks[newIndex] as HTMLElement).focus();
     },
@@ -249,7 +255,10 @@ export const CommandBar = () => {
     },
     () => {
       const itemsAndIndex = findCommandBarLinksAndSelectedIndex();
-      if (!itemsAndIndex) return;
+      if (!itemsAndIndex) {
+        return;
+      }
+
       const { allCommandBarLinks, selectedIndex } = itemsAndIndex;
 
       const newIndex = selectedIndex - 1;
@@ -267,6 +276,7 @@ export const CommandBar = () => {
   );
 
   useOnClickOutside([searchContainerRef], hideSuggestions);
+
   const onKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'Escape') {
       setShowSuggestions(false);

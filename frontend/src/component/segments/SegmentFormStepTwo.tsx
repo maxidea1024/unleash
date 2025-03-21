@@ -11,7 +11,7 @@ import {
   UPDATE_PROJECT_SEGMENT,
   UPDATE_SEGMENT,
 } from 'component/providers/AccessProvider/permissions';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import type { IConstraint } from 'interfaces/strategy';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -113,7 +113,7 @@ export const SegmentFormStepTwo = ({
   const constraintsAccordionListRef = useRef<IConstraintAccordionListRef>();
   const navigate = useNavigate();
   const { hasAccess } = useContext(AccessContext);
-  const { context = [] } = useUnleashContext();
+  const { context = [] } = useGanpaContext();
   const [open, setOpen] = useState(false);
   const segmentValuesCount = useSegmentValuesCount(constraints);
   const modePermission =

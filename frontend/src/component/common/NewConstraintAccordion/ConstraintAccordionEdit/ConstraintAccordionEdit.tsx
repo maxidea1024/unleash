@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { cleanConstraint } from 'utils/cleanConstraint';
 import useFeatureApi from 'hooks/api/actions/useFeatureApi/useFeatureApi';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import type { IGanpaContextDefinition } from 'interfaces/context';
 import { useConstraintInput } from './ConstraintAccordionEditBody/useConstraintInput/useConstraintInput';
@@ -92,7 +92,7 @@ export const ConstraintAccordionEdit = ({
     cleanConstraint(constraint),
   ]);
 
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
   const [contextDefinition, setContextDefinition] = useState(
     resolveContextDefinition(context, localConstraint.contextName),
   );

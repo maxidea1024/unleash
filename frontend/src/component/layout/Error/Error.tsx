@@ -21,7 +21,7 @@ export const Error = ({ error }: ErrorProps) => {
   const navigate = useNavigate();
   const { trackEvent } = usePlausibleTracker();
   const { isOss } = useUiConfig();
-  const showZendeskButton = !isOss();
+  const showZendeskButton = true;//!isOss();
 
   useEffect(() => {
     const { message, stack = 'unknown' } = error;

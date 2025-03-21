@@ -20,7 +20,7 @@ import {
   type SelectChangeEvent,
 } from '@mui/material';
 import debounce from 'debounce';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import useToast from 'hooks/useToast';
 import { PlaygroundEditor } from './PlaygroundEditor/PlaygroundEditor';
@@ -42,7 +42,7 @@ export const PlaygroundCodeFieldset = ({
   const theme = useTheme();
 
   const { setToastData } = useToast();
-  const { context: contextData } = useUnleashContext();
+  const { context: contextData } = useGanpaContext();
   const contextOptions = contextData
     .sort((a, b) => a.sortOrder - b.sortOrder)
     .map(({ name }) => name);

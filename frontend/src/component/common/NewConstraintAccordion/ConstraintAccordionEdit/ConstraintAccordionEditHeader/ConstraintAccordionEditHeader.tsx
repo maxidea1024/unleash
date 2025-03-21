@@ -1,5 +1,5 @@
 import type { IConstraint } from 'interfaces/strategy';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import GeneralSelect from 'component/common/GeneralSelect/GeneralSelect';
 import { ConstraintIcon } from 'component/common/ConstraintAccordion/ConstraintIcon';
 import {
@@ -101,7 +101,7 @@ export const ConstraintAccordionEditHeader = ({
   setInvertedOperator,
   setCaseInsensitive,
 }: ConstraintAccordionViewHeader) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
   const { contextName, operator } = localConstraint;
   const [showCaseSensitiveButton, setShowCaseSensitiveButton] = useState(false);
   const { uiConfig } = useUiConfig();

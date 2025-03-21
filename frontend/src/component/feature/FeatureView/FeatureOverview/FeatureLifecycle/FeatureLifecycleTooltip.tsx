@@ -19,7 +19,6 @@ import {
   DELETE_FEATURE,
   UPDATE_FEATURE,
 } from 'component/providers/AccessProvider/permissions';
-// import { ConditionallyRender } from 'component/common/ConditionallyRender/ConditionallyRender';
 import { isSafeToArchive } from './isSafeToArchive';
 import { useLocationSettings } from 'hooks/useLocationSettings';
 import { formatDateYMDHMS } from 'utils/formatDate';

@@ -3,20 +3,20 @@ import { formatApiPath } from 'utils/formatPath';
 import handleErrorResponses from '../httpErrorResponseHandler';
 import type { IGanpaContextDefinition } from 'interfaces/context';
 
-interface IUnleashContextOutput {
+interface IGanpaContextOutput {
   context: IGanpaContextDefinition[];
-  refetchUnleashContext: () => void;
+  refetch: () => void;
   loading: boolean;
   error?: Error;
 }
 
-const useUnleashContext = (
+const useGanpaContext = (
   options: SWRConfiguration = {
     revalidateOnFocus: true,
     revalidateOnReconnect: true,
     revalidateIfStale: true,
   },
-): IUnleashContextOutput => {
+): IGanpaContextOutput => {
   const CONTEXT_CACHE_KEY = 'api/admin/context';
 
   const { data, mutate, error, isValidating } = useSWR(
@@ -29,7 +29,7 @@ const useUnleashContext = (
     context: data || [],
     error,
     loading: isValidating && !error && !data,
-    refetchUnleashContext: mutate,
+    refetch: mutate,
   };
 };
 
@@ -42,4 +42,4 @@ const fetcher = () => {
     .then((res) => res.json());
 };
 
-export default useUnleashContext;
+export default useGanpaContext;

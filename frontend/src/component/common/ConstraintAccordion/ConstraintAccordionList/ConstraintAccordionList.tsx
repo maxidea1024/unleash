@@ -10,7 +10,7 @@ import HelpOutline from '@mui/icons-material/HelpOutline';
 import type { IConstraint } from 'interfaces/strategy';
 import { ConstraintAccordion } from 'component/common/ConstraintAccordion/ConstraintAccordion';
 import produce from 'immer';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import { type IUseWeakMap, useWeakMap } from 'hooks/useWeakMap';
 import { objectId } from 'utils/objectId';
 import { createEmptyConstraint } from 'component/common/ConstraintAccordion/ConstraintAccordionList/createEmptyConstraint';
@@ -80,7 +80,7 @@ export const useConstraintAccordionList = (
   ref: React.RefObject<IConstraintAccordionListRef>,
 ) => {
   const state = useWeakMap<IConstraint, IConstraintAccordionListItemState>();
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const addConstraint =
     setConstraints &&
@@ -173,7 +173,7 @@ export const ConstraintList = forwardRef<
   IConstraintAccordionListRef | undefined,
   IConstraintList
 >(({ constraints, setConstraints, state }, ref) => {
-  const { context } = useUnleashContext();
+  const { context } = useGanpaContext();
 
   const onEdit =
     setConstraints &&

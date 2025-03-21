@@ -1,18 +1,18 @@
 import {
   CommandResultGroup,
-  type CommandResultGroupItem,
+  type ICommandResultGroupItem,
 } from './RecentlyVisited/CommandResultGroup';
 import { useFeatureSearch } from 'hooks/api/getters/useFeatureSearch/useFeatureSearch';
 import { useEffect } from 'react';
 
-export type CommandQueryCounter = {
+export type ICommandQueryCounter = {
   query: string;
   count: number;
 };
 
 type CommandBarProps = {
   searchString: string;
-  setSearchedFlagCount: (count: CommandQueryCounter) => void;
+  setSearchedFlagCount: (count: ICommandQueryCounter) => void;
   onClick: () => void;
   setSearchLoading: (loading: boolean) => void;
 };
@@ -34,7 +34,7 @@ export const CommandSearchFeatures = ({
     'command-bar-cache',
   );
 
-  const flags: CommandResultGroupItem[] = features.map((feature) => ({
+  const flags: ICommandResultGroupItem[] = features.map((feature) => ({
     name: feature.name,
     link: `/projects/${feature.project}/features/${feature.name}`,
     description: feature.description,

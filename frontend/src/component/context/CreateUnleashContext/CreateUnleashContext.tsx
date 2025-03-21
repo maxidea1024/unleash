@@ -5,7 +5,7 @@ import { ContextForm } from '../ContextForm/ContextForm';
 import { CREATE_CONTEXT_FIELD } from 'component/providers/AccessProvider/permissions';
 import useContextsApi from 'hooks/api/actions/useContextsApi/useContextsApi';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
-import useUnleashContext from 'hooks/api/getters/useUnleashContext/useUnleashContext';
+import useGanpaContext from 'hooks/api/getters/useGanpaContext/useGanpaContext';
 import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 
@@ -38,7 +38,7 @@ export const CreateUnleashContext = ({
     errors,
   } = useContextForm();
   const { createContext, loading } = useContextsApi();
-  const { refetchUnleashContext } = useUnleashContext();
+  const { refetch: refetchUnleashContext } = useGanpaContext();
 
   const handleSubmit = async (e: Event) => {
     e.preventDefault();

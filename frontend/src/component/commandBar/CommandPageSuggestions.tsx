@@ -48,8 +48,11 @@ export const CommandPageSuggestions = ({
   onClick: () => void;
 }) => {
   const { trackEvent } = usePlausibleTracker();
+
   const filtered = pages.filter((page) => routes[page]);
+
   const pageItems = toListItemData(filtered, routes);
+
   const onItemClick = (item: IPageSuggestionItem) => {
     trackEvent('command-bar', {
       props: {
@@ -59,8 +62,10 @@ export const CommandPageSuggestions = ({
         pageType: item.name,
       },
     });
+
     onClick();
   };
+
   return (
     <CommandResultGroup icon='pages' groupName='Pages' onClick={onClick}>
       {pageItems.map((item, index) => (

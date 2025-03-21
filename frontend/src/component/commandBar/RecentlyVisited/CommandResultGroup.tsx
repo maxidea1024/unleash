@@ -22,6 +22,7 @@ export const listItemButtonStyle = (theme: Theme) => ({
   border: `1px solid transparent`,
   borderLeft: `${theme.spacing(0.5)} solid transparent`,
 });
+
 export const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.bodySize,
   padding: theme.spacing(0, 2.5),
@@ -41,7 +42,7 @@ export const StyledButtonTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.fontSizes.bodySize,
 }));
 
-export interface CommandResultGroupItem {
+export interface ICommandResultGroupItem {
   name: string;
   link: string;
   description?: string | null;
@@ -207,10 +208,10 @@ export const RecentlyVisitedFeatureButton = ({
 type CommandResultGroupProps = {
   icon: string;
   groupName: string;
-  items?: CommandResultGroupItem[];
+  items?: ICommandResultGroupItem[];
   onClick: () => void;
   children?: React.ReactNode;
-}
+};
 
 export const CommandResultGroup = ({
   icon,
@@ -229,7 +230,7 @@ export const CommandResultGroup = ({
 
   const slicedItems = items?.slice(0, 3);
 
-  const onItemClick = (item: CommandResultGroupItem) => {
+  const onItemClick = (item: ICommandResultGroupItem) => {
     trackEvent('command-bar', {
       props: {
         eventType: `click`,
