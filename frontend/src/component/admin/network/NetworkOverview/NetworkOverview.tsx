@@ -137,12 +137,10 @@ export const NetworkOverview = () => {
       }}
     >
       <StyleUnleashContainer>
-        <ArcherElement id='unleash'>
+        <ArcherElement id='ganpa'>
           <StyledElementBox>
             <ThemeMode darkmode={<LogoIconWhite />} lightmode={<LogoIcon />} />
-            <Typography sx={{ marginTop: theme.spacing(1) }}>
-              Unleash
-            </Typography>
+            <Typography sx={{ marginTop: theme.spacing(1) }}>Ganpa</Typography>
           </StyledElementBox>
         </ArcherElement>
       </StyleUnleashContainer>
@@ -153,7 +151,7 @@ export const NetworkOverview = () => {
             id={`${i}`}
             relations={[
               {
-                targetId: 'unleash',
+                targetId: 'ganpa',
                 targetAnchor: 'bottom',
                 sourceAnchor: 'top',
                 style: {

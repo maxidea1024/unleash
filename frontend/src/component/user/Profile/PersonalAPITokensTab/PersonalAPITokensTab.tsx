@@ -126,6 +126,7 @@ export const PersonalAPITokensTab = () => {
             if (date.getFullYear() > new Date().getFullYear() + 100) {
               return <TextCell>Never</TextCell>;
             }
+
             return <DateCell value={value} />;
           },
           maxWidth: 150,

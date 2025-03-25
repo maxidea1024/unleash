@@ -23,7 +23,7 @@ type Props = {
   payload?: any;
   url: string;
   title?: string;
-  endpointType?: 'Proxy API' | 'Unleash server API';
+  endpointType?: 'Proxy API' | 'Ganpa server API';
 };
 
 const Component: React.FC<Props> = ({
@@ -31,12 +31,12 @@ const Component: React.FC<Props> = ({
   payload,
   url,
   title,
-  endpointType = 'Unleash server API',
+  endpointType = 'Ganpa server API',
 }) => {
   const verbUpper = verb?.toUpperCase() || '';
   const prettyPayload = JSON.stringify(payload, null, indentation);
   const [baseUrl, authToken] =
-    endpointType === 'Unleash server API'
+    endpointType === 'Ganpa server API'
       ? ['unleash-url', 'API-token']
       : ['proxy-url', 'proxy-client-key'];
 

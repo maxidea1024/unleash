@@ -58,13 +58,13 @@ const StyledFigcaption = styled('figcaption')(({ theme }) => ({
 
 export const EDGE_INFO = {
   name: 'unleash',
-  displayName: 'Unleash Edge',
-  description: 'Unleash Edge is the successor to the Unleash Proxy.',
+  displayName: 'Ganpa Edge',
+  description: 'Ganpa Edge is the successor to the Ganpa Proxy.',
   documentationUrl: 'https://docs.getunleash.io/reference/unleash-edge',
-  howTo: `Unleash Edge sits between the Unleash API and your SDKs and provides a cached read-replica of your Unleash instance. This means you can scale up your Unleash instance to thousands of connected SDKs without increasing the number of requests you make to your Unleash instance.
-Unleash Edge offers two important features:
-  - **Performance:** Unleash Edge caches in memory and can run close to your end-users. A single instance can handle tens to hundreds of thousands of requests per second.
-  - **Resilience:** Unleash Edge is designed to survive restarts and operate properly even if you lose connection to your Unleash server.`,
+  howTo: `Ganpa Edge sits between the Ganpa API and your SDKs and provides a cached read-replica of your Ganpa instance. This means you can scale up your Ganpa instance to thousands of connected SDKs without increasing the number of requests you make to your Ganpa instance.
+Ganpa Edge offers two important features:
+  - **Performance:** Ganpa Edge caches in memory and can run close to your end-users. A single instance can handle tens to hundreds of thousands of requests per second.
+  - **Resilience:** Ganpa Edge is designed to survive restarts and operate properly even if you lose connection to your Ganpa server.`,
 };
 
 export const EdgeIntegration = () => {
@@ -75,7 +75,7 @@ export const EdgeIntegration = () => {
       title={`${displayName}`}
       description={description || ''}
       documentationLink={documentationUrl}
-      documentationLinkLabel='Unleash Edge documentation'
+      documentationLinkLabel='Ganpa Edge documentation'
     >
       <StyledContainer>
         <IntegrationHowToSection
@@ -88,7 +88,7 @@ export const EdgeIntegration = () => {
             rel='noopener noreferrer'
             href='https://github.com/Unleash/unleash-edge#readme'
           >
-            View Unleash Edge on GitHub{' '}
+            View Ganpa Edge on GitHub{' '}
             <LaunchIcon
               fontSize='inherit'
               sx={{
@@ -131,7 +131,7 @@ export const EdgeIntegration = () => {
                   >
                     Edge
                   </a>{' '}
-                  Edge &ndash; Connection to upstream node (Unleash instance or
+                  Edge &ndash; Connection to upstream node (Ganpa instance or
                   another Edge). Supports dynamic tokens, metrics and other
                   advanced features;
                 </li>
@@ -152,21 +152,21 @@ export const EdgeIntegration = () => {
           <section>
             <StyledDescriptionHeader variant='h3'>Edge</StyledDescriptionHeader>
             <Typography variant='body1'>
-              Edge mode is the "standard" mode for Unleash Edge and the one you
+              Edge mode is the "standard" mode for Ganpa Edge and the one you
               should default to in most cases. It connects to an upstream node,
-              such as your Unleash instance, and uses that as the source of
-              truth for feature flags.
+              such as your Ganpa instance, and uses that as the source of truth
+              for feature flags.
             </Typography>
             <StyledFigure>
               <img src={formatAssetPath(edgeMode)} alt='test' />
               <StyledFigcaption>Edge mode</StyledFigcaption>
             </StyledFigure>
             <Typography>
-              Other than connecting Edge directly to your Unleash instance, it's
+              Other than connecting Edge directly to your Ganpa instance, it's
               also possible to connect to another Edge instance (daisy
               chaining). You can have as many Edge nodes as you'd like between
-              the Edge node your clients are accessing and the Unleash server,
-              and it's also possible for multiple nodes to connect to a single
+              the Edge node your clients are accessing and the Ganpa server, and
+              it's also possible for multiple nodes to connect to a single
               upstream one.
             </Typography>
             <StyledFigure>
@@ -180,8 +180,8 @@ export const EdgeIntegration = () => {
             </StyledDescriptionHeader>
             <Typography>
               Offline mode is useful when there is no connection to an upstream
-              node, such as your Unleash instance or another Edge instance, or
-              as a tool to make working with Unleash easier during development.
+              node, such as your Ganpa instance or another Edge instance, or as
+              a tool to make working with Ganpa easier during development.
             </Typography>
             <StyledFigure>
               <img src={formatAssetPath(offlineMode)} alt='test' />

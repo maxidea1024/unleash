@@ -20,7 +20,11 @@ const resolveMode = (): themeMode => {
   return 'light';
 };
 
-const UIProvider = ({ children }: { children?: React.ReactNode }) => {
+type UIProviderProps = {
+  children?: React.ReactNode;
+};
+
+const UIProvider = ({ children }: UIProviderProps) => {
   const [toastData, setToast] = useState<IToast>(createEmptyToast());
   const [showFeedback, setShowFeedback] = useState(false);
   const [themeMode, setThemeMode] = useState(resolveMode());

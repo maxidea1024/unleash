@@ -100,9 +100,12 @@ const ProjectEnvironmentList = () => {
 
       if (enabledEnvs > 1) {
         setSelectedEnvironment(env);
+
         setHideDialog(true);
+
         return;
       }
+
       setToastData({
         title: 'One environment must be visible',
         text: 'You must always have at least one visible environment per project',
@@ -111,7 +114,9 @@ const ProjectEnvironmentList = () => {
     } else {
       try {
         await addEnvironmentToProject(projectId, env.name);
+
         refetch();
+
         setToastData({
           title: 'Environment set as visible',
           text: 'Environment successfully set as visible.',
@@ -127,7 +132,9 @@ const ProjectEnvironmentList = () => {
     if (selectedEnvironment) {
       try {
         await removeEnvironmentFromProject(projectId, selectedEnvironment.name);
+
         refetch();
+
         setToastData({
           title: 'Environment set as hidden',
           text: 'Environment successfully set as hidden.',
@@ -258,7 +265,6 @@ const ProjectEnvironmentList = () => {
                   <TableRow hover key={key} {...rowProps}>
                     {row.cells.map((cell) => {
                       const { key, ...cellProps } = cell.getCellProps();
-
                       return (
                         <TableCell key={key} {...cellProps}>
                           {cell.render('Cell')}

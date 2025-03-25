@@ -32,7 +32,9 @@ export const SegmentDeleteConfirm = ({
     onClose();
     setConfirmName('');
   };
+
   const formId = 'delete-segment-confirmation-form';
+
   return (
     <Dialogue
       title='Are you sure you want to delete this segment?'

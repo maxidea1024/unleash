@@ -1,7 +1,7 @@
 import type { IUiConfig } from 'interfaces/uiConfig';
 
 export const defaultValue: IUiConfig = {
-  name: 'Unleash',
+  name: 'Ganpa',
   version: '5.x',
   slogan: 'The enterprise ready feature flag service.',
   flags: {

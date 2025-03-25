@@ -40,7 +40,7 @@ export const ApiTokenDocs = () => {
         >
           SDK overview
         </a>{' '}
-        to connect Unleash to your application. Please note it can take up to{' '}
+        to connect Ganpa to your application. Please note it can take up to{' '}
         <strong>1 minute</strong> before a new API key is activated.
       </p>
       <GridContainer>

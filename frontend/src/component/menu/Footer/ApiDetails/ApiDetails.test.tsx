@@ -3,7 +3,7 @@ import { render } from 'utils/testRenderer';
 
 test('renders correctly with empty version', () => {
   const uiConfig = {
-    name: 'Unleash',
+    name: 'Ganpa',
     slogan: 'We are the best!',
     environment: 'test',
     version: '',
@@ -15,7 +15,7 @@ test('renders correctly with empty version', () => {
 
 test('renders correctly with ui-config', () => {
   const uiConfig = {
-    name: 'Unleash',
+    name: 'Ganpa',
     slogan: 'We are the best!',
     environment: 'test',
     version: '1.1.0',
@@ -27,7 +27,7 @@ test('renders correctly with ui-config', () => {
 
 test('renders correctly without uiConfig', () => {
   const uiConfig = {
-    name: 'Unleash',
+    name: 'Ganpa',
     version: '1.1.0',
   };
 
@@ -37,7 +37,7 @@ test('renders correctly without uiConfig', () => {
 
 test('renders correctly with versionInfo', () => {
   const uiConfig = {
-    name: 'Unleash',
+    name: 'Ganpa',
     version: '1.2.3',
     versionInfo: {
       instanceId: '1',

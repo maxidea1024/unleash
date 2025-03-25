@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormTemplate from 'component/common/FormTemplate/FormTemplate';
-
 import { CreateButton } from 'component/common/CreateButton/CreateButton';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import useToast from 'hooks/useToast';
@@ -12,7 +11,6 @@ import { formatUnknownError } from 'utils/formatUnknownError';
 import { usePageTitle } from 'hooks/usePageTitle';
 import { GO_BACK } from 'constants/navigate';
 import useProjectApiTokensApi from 'hooks/api/actions/useProjectApiTokensApi/useProjectApiTokensApi';
-
 import { useRequiredPathParam } from 'hooks/useRequiredPathParam';
 import ApiTokenForm from 'component/admin/apiToken/ApiTokenForm/ApiTokenForm';
 import { EnvironmentSelector } from 'component/admin/apiToken/ApiTokenForm/EnvironmentSelector/EnvironmentSelector';
@@ -101,7 +99,7 @@ export const CreateProjectApiTokenForm = () => {
       loading={loading}
       title={pageTitle}
       modal
-      description="Unleash SDKs use API tokens to authenticate to the Unleash API. Client SDKs need a token with 'client privileges', which allows them to fetch feature flag configurations and post usage metrics."
+      description="Ganpa SDKs use API tokens to authenticate to the Ganpa API. Client SDKs need a token with 'client privileges', which allows them to fetch feature flag configurations and post usage metrics."
       documentationLink='https://docs.getunleash.io/reference/api-tokens-and-client-keys'
       documentationLinkLabel='API tokens documentation'
       formatApiCode={formatApiCode}

@@ -42,7 +42,7 @@ test('should fetch initial form data from local storage', async () => {
 
   render(testDisplayComponent);
 
-  expect(screen.getByText('Unleash playground')).toBeInTheDocument();
+  expect(screen.getByText('Ganpa playground')).toBeInTheDocument();
   expect(screen.getByText('["projectA","projectB"]')).toBeInTheDocument();
   expect(screen.getByText('["development","production"]')).toBeInTheDocument();
   expect(screen.getByText('{"userId":"1"}')).toBeInTheDocument();
@@ -61,7 +61,7 @@ test('should fetch initial form data from url', async () => {
       '/playground?context=customContext&environments=customEnv&projects=urlProject&sort=name',
   });
 
-  expect(screen.getByText('Unleash playground')).toBeInTheDocument();
+  expect(screen.getByText('Ganpa playground')).toBeInTheDocument();
   expect(screen.getByText('["urlProject"]')).toBeInTheDocument();
   expect(screen.getByText('["customEnv"]')).toBeInTheDocument();
   expect(screen.getByText('"customContext"')).toBeInTheDocument();

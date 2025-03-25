@@ -110,7 +110,9 @@ export const SignalEndpointsModal = ({
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!validate()) return;
+    if (!validate()) {
+      return;
+    }
 
     try {
       if (editing) {
@@ -124,11 +126,14 @@ export const SignalEndpointsModal = ({
           newToken(token, signalEndpoint);
         }
       }
+
       setToastData({
         title: `Signal endpoint ${editing ? 'updated' : 'added'} successfully`,
         type: 'success',
       });
+
       refetch();
+
       setOpen(false);
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));

@@ -16,11 +16,11 @@ export const StrategyView = () => {
   const { applications } = useApplications();
   const navigate = useNavigate();
 
-  const strategy = strategies.find((strategy) => strategy.name === name);
-
   const handleEdit = () => {
     navigate(`/strategies/${name}/edit`);
   };
+
+  const strategy = strategies.find((strategy) => strategy.name === name);
 
   if (!strategy) {
     return null;

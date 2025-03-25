@@ -15,7 +15,7 @@ const server = testServerSetup();
 test('should render password auth', async () => {
   testServerRoute(server, '*', {
     defaultHidden: false,
-    message: 'You must sign in in order to use Unleash',
+    message: 'You must sign in in order to use Ganpa',
     path: '/auth/simple/login',
     type: 'password',
     options: [],
@@ -32,7 +32,7 @@ test('should render password auth', async () => {
 test('should not render password auth if defaultHidden is true', async () => {
   testServerRoute(server, '*', {
     defaultHidden: true,
-    message: 'You must sign in in order to use Unleash',
+    message: 'You must sign in in order to use Ganpa',
     path: '/auth/simple/login',
     type: 'password',
     options: [],
@@ -49,7 +49,7 @@ test('should not render password auth if defaultHidden is true', async () => {
 test('should render demo auth', async () => {
   testServerRoute(server, '*', {
     defaultHidden: false,
-    message: 'You must sign in in order to use Unleash',
+    message: 'You must sign in in order to use Ganpa',
     path: '/auth/demo/login',
     type: 'demo',
     options: [],
@@ -66,7 +66,7 @@ test('should render demo auth', async () => {
 test('should render email auth', async () => {
   testServerRoute(server, '*', {
     defaultHidden: false,
-    message: 'You must sign in in order to use Unleash',
+    message: 'You must sign in in order to use Ganpa',
     path: '/auth/unsecure/login',
     type: 'unsecure',
     options: [],
@@ -98,7 +98,7 @@ const testSSOAuthOption = async (authOption: string) => {
 
   testServerRoute(server, '*', {
     defaultHidden: true,
-    message: 'You must sign in in order to use Unleash',
+    message: 'You must sign in in order to use Ganpa',
     options: [{ type: authOption, message: '...', path: path }],
     path: '/auth/simple/login',
     type: 'password',

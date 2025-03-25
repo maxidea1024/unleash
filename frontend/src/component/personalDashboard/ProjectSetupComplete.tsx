@@ -8,7 +8,11 @@ const PercentageScore = styled('span')(({ theme }) => ({
   fontWeight: theme.typography.fontWeightBold,
 }));
 
-const ConnectedSdkProject = ({ project }: { project: string }) => {
+type ConnectedSdkProjectProps = {
+  project: string;
+};
+
+const ConnectedSdkProject = ({ project }: ConnectedSdkProjectProps) => {
   return (
     <>
       <Typography>

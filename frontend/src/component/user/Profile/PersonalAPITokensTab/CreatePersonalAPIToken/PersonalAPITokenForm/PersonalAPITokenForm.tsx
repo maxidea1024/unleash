@@ -192,12 +192,14 @@ export const PersonalAPITokenForm = ({
             value={expiresAt}
             onChange={(date) => {
               clearError(ErrorField.EXPIRES_AT);
+
               if (date < new Date()) {
                 setError(
                   ErrorField.EXPIRES_AT,
                   'Invalid date, must be in the future',
                 );
               }
+
               setExpiresAt(date);
             }}
             min={new Date()}

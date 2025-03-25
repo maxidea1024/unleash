@@ -31,7 +31,9 @@ const DemoAuth = ({ authDetails, redirect }: DemoAuthProps) => {
 
     try {
       await emailAuth(authDetails.path, email);
+
       refetchUser();
+
       navigate(redirect, { replace: true });
     } catch (error) {
       setToastApiError(formatUnknownError(error));

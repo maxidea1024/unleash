@@ -28,10 +28,10 @@ test('Display all application issues', async () => {
   await screen.findByText('my-app');
   await screen.findByText('mainStrategy');
   await screen.findByText(
-    `We detected 1 feature flag defined in the SDK that does not exist in Unleash`,
+    `We detected 1 feature flag defined in the SDK that does not exist in Ganpa`,
   );
   await screen.findByText(
-    `We detected 2 strategy types defined in the SDK that do not exist in Unleash`,
+    `We detected 2 strategy types defined in the SDK that do not exist in Ganpa`,
   );
   await screen.findByText(`We detected the following outdated SDKs`);
   await screen.findByText(`unleash-client-php:1.13.0`);

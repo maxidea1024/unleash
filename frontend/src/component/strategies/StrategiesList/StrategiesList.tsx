@@ -31,12 +31,6 @@ import { HelpIcon } from 'component/common/HelpIcon/HelpIcon';
 import { CustomStrategyInfo } from '../CustomStrategyInfo/CustomStrategyInfo';
 import { AddStrategyButton } from './AddStrategyButton/AddStrategyButton';
 
-type DialogueMetaData = {
-  show: boolean;
-  title: string;
-  onConfirm: () => void;
-};
-
 const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -127,6 +121,12 @@ const StrategyDeprecationWarning = () => (
     constraints, please reach out to us.
   </Alert>
 );
+
+type DialogueMetaData = {
+  show: boolean;
+  title: string;
+  onConfirm: () => void;
+};
 
 export const StrategiesList = () => {
   const navigate = useNavigate();

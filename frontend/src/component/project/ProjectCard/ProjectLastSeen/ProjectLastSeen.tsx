@@ -7,10 +7,6 @@ import { flexRow } from 'themes/themeStyles';
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 
-type ProjectLastSeenProps = {
-  date?: Date | number | string | null;
-};
-
 const StyledContainer = styled(Box)(({ theme }) => ({
   ...flexRow,
   justifyContent: 'flex-start',
@@ -46,6 +42,10 @@ const Title = () => (
     </Typography>
   </>
 );
+
+type ProjectLastSeenProps = {
+  date?: Date | number | string | null;
+};
 
 export const ProjectLastSeen = ({ date }: ProjectLastSeenProps) => {
   const getColor = useLastSeenColors();

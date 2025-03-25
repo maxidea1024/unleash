@@ -12,6 +12,7 @@ type AuthOptionProps = {
 
 const AuthOptions = ({ options }: AuthOptionProps) => {
   const { classes: themeStyles } = useThemeStyles();
+
   return (
     <>
       {options?.map((o) => (

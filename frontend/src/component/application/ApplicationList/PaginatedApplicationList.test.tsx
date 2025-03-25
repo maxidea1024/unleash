@@ -32,5 +32,5 @@ test('Display no applications connected', async () => {
   setupApi([]);
   render(<PaginatedApplicationList />);
 
-  await screen.findByText(/To connect your application to Unleash/);
+  await screen.findByText(/To connect your application to Ganpa/);
 });

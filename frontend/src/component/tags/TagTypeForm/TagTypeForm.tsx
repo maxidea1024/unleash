@@ -4,20 +4,6 @@ import type React from 'react';
 import { trim } from 'component/common/util';
 import { EDIT } from 'constants/misc';
 
-type TagTypeFormProps = {
-  tagName: string;
-  tagDesc: string;
-  setTagName: React.Dispatch<React.SetStateAction<string>>;
-  setTagDesc: React.Dispatch<React.SetStateAction<string>>;
-  handleSubmit: (e: any) => void;
-  handleCancel: () => void;
-  errors: { [key: string]: string };
-  mode: 'Create' | 'Edit';
-  clearErrors: () => void;
-  validateNameUniqueness?: () => void;
-  children?: React.ReactNode;
-};
-
 const StyledForm = styled('form')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -51,6 +37,20 @@ const StyledButtonContainer = styled('div')(({ theme }) => ({
 const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
+
+type TagTypeFormProps = {
+  tagName: string;
+  tagDesc: string;
+  setTagName: React.Dispatch<React.SetStateAction<string>>;
+  setTagDesc: React.Dispatch<React.SetStateAction<string>>;
+  handleSubmit: (e: any) => void;
+  handleCancel: () => void;
+  errors: { [key: string]: string };
+  mode: 'Create' | 'Edit';
+  clearErrors: () => void;
+  validateNameUniqueness?: () => void;
+  children?: React.ReactNode;
+};
 
 const TagTypeForm = ({
   children,

@@ -36,15 +36,6 @@ const paramTypesOptions = [
   },
 ];
 
-type StrategyParameterProps = {
-  set: React.Dispatch<React.SetStateAction<object>>;
-  input: IStrategyParameter;
-  index: number;
-  params: IStrategyParameter[];
-  setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
-  errors: { [key: string]: string };
-};
-
 const StyledParamsContainer = styled('div')(({ theme }) => ({
   maxWidth: '400px',
   margin: theme.spacing(2, 0),
@@ -87,6 +78,15 @@ const StyledDescriptionInput = styled(Input)(({ theme }) => ({
 const StyledFormControlLabel = styled(FormControlLabel)(({ theme }) => ({
   marginTop: theme.spacing(-1),
 }));
+
+type StrategyParameterProps = {
+  set: React.Dispatch<React.SetStateAction<object>>;
+  input: IStrategyParameter;
+  index: number;
+  params: IStrategyParameter[];
+  setParams: React.Dispatch<React.SetStateAction<IStrategyParameter[]>>;
+  errors: { [key: string]: string };
+};
 
 export const StrategyParameter = ({
   set,

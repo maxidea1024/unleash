@@ -3,7 +3,11 @@ import type { ReactNode } from 'react';
 import { ResponseError } from 'utils/apiUtils';
 import { useAuthUser } from 'hooks/api/getters/useAuth/useAuthUser';
 
-export const SWRProvider = ({ children }: { children?: ReactNode }) => {
+type SWRProviderProps = {
+  children?: ReactNode;
+};
+
+export const SWRProvider = ({ children }: SWRProviderProps) => {
   const { refetchUser } = useAuthUser();
 
   const onError = (error: Error) => {

@@ -12,12 +12,14 @@ export const FavoriteAction = ({ id, isFavorite }: FavoriteActionProps) => {
 
   const onFavorite = async (e: React.SyntheticEvent) => {
     e.preventDefault();
+
     try {
       if (isFavorite) {
         await unfavorite(id);
       } else {
         await favorite(id);
       }
+
       refetch();
     } catch (error) {
       setToastApiError('Something went wrong, could not update favorite');

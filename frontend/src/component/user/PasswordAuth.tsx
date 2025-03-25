@@ -57,6 +57,7 @@ const PasswordAuth = ({ authDetails, redirect }: PasswordAuthProps) => {
         usernameError: 'This is a required field',
       }));
     }
+
     if (!password) {
       setErrors((prev) => ({
         ...prev,

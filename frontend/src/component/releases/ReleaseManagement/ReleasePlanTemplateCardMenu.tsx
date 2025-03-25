@@ -14,10 +14,15 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { TemplateDeleteDialog } from './TemplateDeleteDialog';
 
+type ReleasePlanTemplateCardMenuProps = {
+  template: IReleasePlanTemplate;
+  onClick: () => void;
+};
+
 export const ReleasePlanTemplateCardMenu = ({
   template,
   onClick,
-}: { template: IReleasePlanTemplate; onClick: () => void }) => {
+}: ReleasePlanTemplateCardMenuProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const { deleteReleasePlanTemplate } = useReleasePlanTemplatesApi();
@@ -27,7 +32,9 @@ export const ReleasePlanTemplateCardMenu = ({
   const deleteReleasePlan = useCallback(async () => {
     try {
       await deleteReleasePlanTemplate(template.id);
+
       refetch();
+
       setToastData({
         type: 'success',
         title: 'Success',
@@ -45,6 +52,7 @@ export const ReleasePlanTemplateCardMenu = ({
 
   const handleMenuClick = (event: React.SyntheticEvent) => {
     event.stopPropagation();
+
     if (isMenuOpen) {
       closeMenu();
     } else {

@@ -196,7 +196,7 @@ export const AIChat = () => {
   if (!open) {
     return (
       <StyledAIIconContainer demoStepsVisible={demoStepsVisible}>
-        <Tooltip arrow title='Unleash AI'>
+        <Tooltip arrow title='Ganpa AI'>
           <Highlight highlightKey='unleashAI'>
             <StyledAIIconButton
               size='large'
@@ -251,7 +251,7 @@ export const AIChat = () => {
               ))}
               {loading && (
                 <AIChatMessage from='assistant'>
-                  _Unleash AI is typing..._
+                  _Ganpa AI is typing..._
                 </AIChatMessage>
               )}
               <div ref={chatEndRef} />

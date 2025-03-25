@@ -78,8 +78,8 @@ const CreateUser = () => {
   return (
     <FormTemplate
       loading={loading}
-      title='Create Unleash user'
-      description='In order for a user to get access to Unleash, they need to be assigned a root role, such as Viewer, Editor, or Admin.'
+      title='Create Ganpa user'
+      description='In order for a user to get access to Ganpa, they need to be assigned a root role, such as Viewer, Editor, or Admin.'
       documentationLink='https://docs.getunleash.io/reference/rbac#predefined-roles'
       documentationLinkLabel='User management documentation'
       formatApiCode={formatApiCode}

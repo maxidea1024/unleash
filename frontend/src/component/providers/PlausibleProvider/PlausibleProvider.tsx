@@ -1,5 +1,5 @@
 import type React from 'react';
-import { type FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Plausible from 'plausible-tracker';
 import { PlausibleContext } from 'contexts/PlausibleContext';
 import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
@@ -8,9 +8,11 @@ const PLAUSIBLE_UNLEASH_API_HOST = 'https://plausible.getunleash.io';
 const PLAUSIBLE_UNLEASH_DOMAIN = 'app.unleash-hosted.com';
 const LOCAL_TESTING = false;
 
-export const PlausibleProvider: FC<{ children?: React.ReactNode }> = ({
-  children,
-}) => {
+type PlausibleProviderProps = {
+  children?: React.ReactNode;
+};
+
+export const PlausibleProvider = ({ children }: PlausibleProviderProps) => {
   const [context, setContext] = useState<ReturnType<typeof Plausible> | null>(
     null,
   );

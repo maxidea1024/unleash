@@ -7,16 +7,16 @@ import useToast from 'hooks/useToast';
 import { formatUnknownError } from 'utils/formatUnknownError';
 import { useNavigate } from 'react-router-dom';
 
+const StyledParagraph = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(1),
+}));
+
 type ReviveProjectDialogProps = {
   name: string;
   id: string;
   open: boolean;
   onClose: () => void;
 };
-
-const StyledParagraph = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
-}));
 
 export const ReviveProjectDialog = ({
   name,
@@ -32,12 +32,20 @@ export const ReviveProjectDialog = ({
 
   const onClick = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    if (!id) return;
+
+    if (!id) {
+      return;
+    }
+
     try {
       await reviveProject(id);
+
       refetchProjects();
+
       refetchProjectArchive();
+
       navigate(`/projects/${id}`);
+
       setToastData({
         title: 'Revive project',
         type: 'success',
@@ -46,6 +54,7 @@ export const ReviveProjectDialog = ({
     } catch (ex: unknown) {
       setToastApiError(formatUnknownError(ex));
     }
+
     onClose();
   };
 

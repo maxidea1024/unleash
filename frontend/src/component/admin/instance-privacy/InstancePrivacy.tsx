@@ -23,18 +23,18 @@ const StyledBox = styled(Box)(({ theme }) => ({
 const versionCollectionDetails = {
   title: 'Version data collection',
   infoText:
-    "We collect the version of Unleash that you're using. We use this information to inform your Unleash instance of latest updates and critical security patches.",
+    "We collect the version of UnleGanpaash that you're using. We use this information to inform your Ganpa instance of latest updates and critical security patches.",
 
   concreteDetails: {
     'Instance ID': 'A unique ID generated for your instance',
-    Version: "The version of Unleash that you're using",
+    Version: "The version of Ganpa that you're using",
   },
 };
 
 const featureCollectionDetails = {
   title: 'Feature data collection',
   infoText:
-    'We collect data about your instance to improve the Unleash product user experience. We may also use the data in case you need help from our support team. Data collection is for internal use only and is not shared with third parties outside Unleash. As we want you to be in control of your data, we will leave it up to you to allow us to collect your data.',
+    'We collect data about your instance to improve the Ganpa product user experience. We may also use the data in case you need help from our support team. Data collection is for internal use only and is not shared with third parties outside Ganpa. As we want you to be in control of your data, we will leave it up to you to allow us to collect your data.',
   concreteDetails: {
     'Feature flags': 'The number of feature flags in your instance',
     Users: 'The number of users registered in your instance',
@@ -63,12 +63,12 @@ const versionCollectionActivenessManagementTexts: IFeatureActivenessManagementIn
     enabled: {
       environmentVariables: 'CHECK_VERSION=false',
       changeInfoText:
-        'Version info collection can be disabled by setting the environment variable `CHECK_VERSION` to `false` and restarting Unleash.',
+        'Version info collection can be disabled by setting the environment variable `CHECK_VERSION` to `false` and restarting Ganpa.',
     },
     disabled: {
       environmentVariables: 'CHECK_VERSION=true',
       changeInfoText:
-        'Version info collection can be enabled by setting the environment variable to true and restarting Unleash.',
+        'Version info collection can be enabled by setting the environment variable to true and restarting Ganpa.',
     },
   };
 
@@ -77,12 +77,12 @@ const featureCollectionActivenessManagementTexts: IFeatureActivenessManagementIn
     enabled: {
       environmentVariables: 'SEND_TELEMETRY=false',
       changeInfoText:
-        'Feature usage collection can be disabled by setting the environment variable to false and restarting Unleash.',
+        'Feature usage collection can be disabled by setting the environment variable to false and restarting Ganpa.',
     },
     disabled: {
       environmentVariables: 'SEND_TELEMETRY=true',
       changeInfoText:
-        'To enable feature usage collection set the environment variable to true and restart Unleash.',
+        'To enable feature usage collection set the environment variable to true and restart Ganpa.',
     },
   };
 

@@ -316,7 +316,7 @@ export const AdvancedPlayground = ({
     <PageContent
       header={
         <PageHeader
-          title='Unleash playground'
+          title='Ganpa playground'
           actions={<PlaygroundGuidancePopper />}
         />
       }

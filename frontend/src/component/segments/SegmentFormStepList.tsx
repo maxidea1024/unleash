@@ -1,12 +1,6 @@
 import FiberManualRecord from '@mui/icons-material/FiberManualRecord';
-import type React from 'react';
 import { styled } from '@mui/material';
 import { formTemplateSidebarWidth } from '../common/FormTemplate/FormTemplate.styles';
-
-type SegmentFormStepListProps = {
-  total: number;
-  current: number;
-};
 
 const StyledContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -44,6 +38,11 @@ const StyledFiberManualRecord = styled(FiberManualRecord, {
   opacity: filled ? 1 : 0.4,
   fontSize: filled ? 20 : 17,
 }));
+
+type SegmentFormStepListProps = {
+  total: number;
+  current: number;
+};
 
 export const SegmentFormStepList = ({
   total,

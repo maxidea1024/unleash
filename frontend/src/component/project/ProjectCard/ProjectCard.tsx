@@ -44,7 +44,9 @@ const StyledHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-type ProjectCardProps = ProjectSchema & { onHover?: () => void };
+type ProjectCardProps = ProjectSchema & {
+  onHover?: () => void;
+};
 
 export const ProjectCard = ({
   name,

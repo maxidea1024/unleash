@@ -5,14 +5,6 @@ import {
   type ProjectOwnersProps,
 } from './ProjectOwners/ProjectOwners';
 
-type ProjectCardFooterProps = {
-  id?: string;
-  isFavorite?: boolean;
-  children?: React.ReactNode;
-  disabled?: boolean;
-  owners: ProjectOwnersProps['owners'];
-};
-
 const StyledFooter = styled(Box)<{ disabled: boolean }>(
   ({ theme, disabled }) => ({
     display: 'flex',
@@ -25,6 +17,14 @@ const StyledFooter = styled(Box)<{ disabled: boolean }>(
     borderTop: `1px solid ${theme.palette.divider}`,
   }),
 );
+
+type ProjectCardFooterProps = {
+  id?: string;
+  isFavorite?: boolean;
+  children?: React.ReactNode;
+  disabled?: boolean;
+  owners: ProjectOwnersProps['owners'];
+};
 
 export const ProjectCardFooter = ({
   children,

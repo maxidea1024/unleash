@@ -45,6 +45,7 @@ export const hasAccess = (
   if (!permissions) {
     return false;
   }
+
   const permissionsToCheck = Array.isArray(permission)
     ? permission
     : [permission];

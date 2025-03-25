@@ -28,7 +28,9 @@ export const RemoveSegmentButton = ({ segment }: RemoveSegmentButtonProps) => {
   const onRemove = async () => {
     try {
       await deleteSegment(segment.id);
-      await refetchSegments();
+
+      refetchSegments();
+
       setToastData({
         type: 'success',
         title: 'Successfully deleted segment',

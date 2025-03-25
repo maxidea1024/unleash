@@ -148,6 +148,7 @@ export const NewUser = () => {
               if (isValidToken) {
                 return;
               }
+
               setEmail(e.target.value);
             }}
           />

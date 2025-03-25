@@ -15,7 +15,7 @@ const StyledAlert = styled(Alert)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-interface ISegmentProjectAlertProps {
+type SegmentProjectAlertProps = {
   projects: ProjectSchema[];
   strategies: (
     | IFeatureStrategy
@@ -24,14 +24,14 @@ interface ISegmentProjectAlertProps {
   )[];
   projectsUsed: string[];
   availableProjects: ProjectSchema[];
-}
+};
 
 export const SegmentProjectAlert = ({
   projects,
   strategies,
   projectsUsed,
   availableProjects,
-}: ISegmentProjectAlertProps) => {
+}: SegmentProjectAlertProps) => {
   const { trackEvent } = usePlausibleTracker();
 
   const trackClick = () => {

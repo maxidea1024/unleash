@@ -23,18 +23,6 @@ import useUiConfig from 'hooks/api/getters/useUiConfig/useUiConfig';
 import { useSegments } from 'hooks/api/getters/useSegments/useSegments';
 import { Limit } from '../common/Limit/Limit';
 
-type SegmentFormPartOneProps = {
-  name: string;
-  description: string;
-  project?: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
-  setProject: React.Dispatch<React.SetStateAction<string | undefined>>;
-  errors: { [key: string]: string };
-  clearErrors: () => void;
-  setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
-};
-
 const StyledForm = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -85,6 +73,18 @@ const useSegmentLimit = () => {
     currentCount: segmentsCount,
     loading: loadingSegments || loadingConfig,
   };
+};
+
+type SegmentFormPartOneProps = {
+  name: string;
+  description: string;
+  project?: string;
+  setName: React.Dispatch<React.SetStateAction<string>>;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  setProject: React.Dispatch<React.SetStateAction<string | undefined>>;
+  errors: { [key: string]: string };
+  clearErrors: () => void;
+  setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
 };
 
 export const SegmentFormStepOne = ({

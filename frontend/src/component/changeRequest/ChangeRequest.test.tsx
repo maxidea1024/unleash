@@ -90,7 +90,7 @@ const uiConfigForEnterprise = () =>
       featureEnvironmentStrategies: 10,
     },
     slogan: 'getunleash.io - All rights reserved',
-    name: 'Unleash enterprise',
+    name: 'Ganpa enterprise',
     links: [
       {
         value: 'Documentation',

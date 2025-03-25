@@ -69,17 +69,21 @@ export const CreateSegment = ({ modal }: CreateSegmentProps) => {
     clearErrors();
     try {
       await createSegment(getSegmentPayload());
-      await refetchSegments();
+
+      refetchSegments();
+
       if (projectId) {
         navigate(`/projects/${projectId}/settings/segments/`);
       } else {
         navigate('/segments/');
       }
+
       setToastData({
         title: 'Segment created',
         confetti: true,
         type: 'success',
       });
+
       showFeedbackCES({
         title: 'How easy was it to create a segment?',
         text: 'Please help us understand how we can improve segments',

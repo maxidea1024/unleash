@@ -67,15 +67,11 @@ const StandaloneLayout = ({
   children,
   BannerComponent,
 }: StandaloneLayoutProps) => {
-  const banner = BannerComponent ? (
-    BannerComponent
-  ) : (
-    <StandaloneBanner title='Ganpa' />
-  );
-
   return (
     <StyledContainer>
-      <StyledHeader>{banner}</StyledHeader>
+      <StyledHeader>
+        {BannerComponent ? BannerComponent : <StandaloneBanner title='Ganpa' />}
+      </StyledHeader>
       <StyledMain>
         <StyledInnerRightContainer>{children}</StyledInnerRightContainer>
       </StyledMain>

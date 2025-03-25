@@ -157,9 +157,9 @@ export const GoogleAuth = () => {
         </Grid>
         <Grid container spacing={3} mb={2}>
           <Grid item md={5}>
-            <strong>Unleash hostname</strong>
+            <strong>Ganpa hostname</strong>
             <p>
-              (Required) The hostname you are running Unleash on that Google
+              (Required) The hostname you are running Ganpa on that Google
               should send the user back to. The final callback URL will be{' '}
               <small>
                 <code>https://[unleash.hostname.com]/auth/google/callback</code>
@@ -169,7 +169,7 @@ export const GoogleAuth = () => {
           <Grid item md={6}>
             <TextField
               onChange={updateField}
-              label='Unleash Hostname'
+              label='Ganpa Hostname'
               name='unleashHostname'
               placeholder=''
               value={data.unleashHostname || ''}

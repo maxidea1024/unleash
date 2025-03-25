@@ -3,15 +3,6 @@ import { AvatarGroup } from 'component/common/AvatarGroup/AvatarGroup';
 import { UserAvatar } from 'component/common/UserAvatar/UserAvatar';
 import { flexColumn } from 'themes/themeStyles';
 
-type ProjectMembersProps = {
-  count?: number;
-  members: Array<{
-    imageUrl?: string;
-    email?: string;
-    name: string;
-  }>;
-};
-
 const StyledContainer = styled('div')(({ theme }) => ({
   ...flexColumn,
   alignItems: 'flex-end',
@@ -33,6 +24,15 @@ const StyledAvatar = styled(UserAvatar)(({ theme }) => ({
 const AvatarComponent = ({ ...props }) => (
   <StyledAvatar {...props} disableTooltip />
 );
+
+type ProjectMembersProps = {
+  count?: number;
+  members: Array<{
+    imageUrl?: string;
+    email?: string;
+    name: string;
+  }>;
+};
 
 export const ProjectMembers = ({ count = 0, members }: ProjectMembersProps) => {
   return (

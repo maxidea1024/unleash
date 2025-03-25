@@ -58,11 +58,15 @@ export const CreateStrategy = () => {
     const validName = validateStrategyName();
 
     if (validName && validateParams()) {
-      const payload = getStrategyPayload();
       try {
+        const payload = getStrategyPayload();
+
         await createStrategy(payload);
+
         refetchStrategies();
+
         navigate(`/strategies/${strategyName}`);
+
         setToastData({
           title: 'Strategy created',
           text: 'Successfully created strategy',

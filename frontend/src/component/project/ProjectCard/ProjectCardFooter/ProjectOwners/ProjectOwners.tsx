@@ -1,12 +1,7 @@
-import type { FC } from 'react';
 import { styled } from '@mui/material';
 import type { ProjectSchema, ProjectSchemaOwners } from 'openapi';
 import { AvatarComponent } from 'component/common/AvatarGroup/AvatarGroup';
 import { AvatarGroupFromOwners } from 'component/common/AvatarGroupFromOwners/AvatarGroupFromOwners';
-
-export type ProjectOwnersProps = {
-  owners?: ProjectSchema['owners'];
-};
 
 const StyledUserName = styled('span')(({ theme }) => ({
   fontSize: theme.typography.body2.fontSize,
@@ -62,6 +57,10 @@ const getOwnerName = (owner?: ProjectSchemaOwners[number]) => {
     default:
       return 'System';
   }
+};
+
+export type ProjectOwnersProps = {
+  owners?: ProjectSchema['owners'];
 };
 
 export const ProjectOwners = ({ owners = [] }: ProjectOwnersProps) => {

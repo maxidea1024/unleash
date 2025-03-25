@@ -16,6 +16,10 @@ import { FavoriteAction } from './FavoriteAction/FavoriteAction';
 import type { ProjectSchema } from 'openapi';
 import { Box } from '@mui/material';
 
+type ProjectCardProps = ProjectSchema & {
+  onHover?: () => void;
+};
+
 export const ProjectCard = ({
   name,
   featureCount,
@@ -26,7 +30,7 @@ export const ProjectCard = ({
   mode,
   favorite = false,
   owners,
-}: ProjectSchema & { onHover?: () => void }) => (
+}: ProjectCardProps) => (
   <StyledProjectCard onMouseEnter={onHover}>
     <StyledProjectCardBody>
       <StyledDivHeader>

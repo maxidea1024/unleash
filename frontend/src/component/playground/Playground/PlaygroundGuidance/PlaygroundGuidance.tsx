@@ -5,7 +5,7 @@ export const PlaygroundGuidance = () => {
   return (
     <Box sx={{ ml: 4 }}>
       <Typography variant='body1'>
-        Unleash playground is for helping you to understand how Unleash works,
+      Ganpa playground is for helping you to understand how Ganpa works,
         how feature flags are evaluated and for you to easily debug your feature
         flags.
       </Typography>

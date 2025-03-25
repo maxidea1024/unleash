@@ -26,7 +26,7 @@ const ConfirmUserLink = ({
       </Typography>
       <Typography variant='body1'>
         Please provide them with the following link. This will allow them to set
-        up their password and get started with their Unleash account.
+        up their password and get started with their Ganpa account.
       </Typography>
       <LinkField inviteLink={inviteLink} />
       <Alert severity='info' sx={{ mt: 2 }}>
@@ -38,7 +38,7 @@ const ConfirmUserLink = ({
             target='_blank'
             rel='noopener noreferrer'
           >
-            If you configure an email server for Unleash
+            If you configure an email server for Ganpa
           </a>{' '}
           we'll automatically send informational getting started emails to new
           users once you add them.

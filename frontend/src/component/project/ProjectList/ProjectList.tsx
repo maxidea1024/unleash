@@ -109,7 +109,6 @@ export const ProjectList = () => {
             loading={loading}
             projects={groupedProjects.myProjects}
           />
-
           <ProjectGroup
             sectionTitle='Other projects'
             sectionSubtitle='Projects in Ganpa that you have access to.'

@@ -120,7 +120,6 @@ export const ArchiveProjectList = () => {
         {error && (
           <StyledApiError onClick={refetch} text='Error fetching projects' />
         )}
-
         <SearchHighlightProvider value={searchValue}>
           <ProjectGroup
             loading={loading}

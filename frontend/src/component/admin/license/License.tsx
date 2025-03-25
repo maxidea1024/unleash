@@ -56,11 +56,14 @@ export const License = () => {
 
     try {
       await updateLicenseKey(token);
+
       setToastData({
         title: 'License key updated',
         type: 'success',
       });
+
       refetchLicense();
+
       reCheckLicense();
     } catch (error: unknown) {
       setToastApiError(formatUnknownError(error));
@@ -68,7 +71,7 @@ export const License = () => {
   };
 
   return (
-    <PageContent header={<PageHeader title='Unleash Enterprise License' />}>
+    <PageContent header={<PageHeader title='Ganpa Enterprise License' />}>
       <StyledBox>
         {license.token && (
           <div>
@@ -99,7 +102,7 @@ export const License = () => {
           </div>
         )}
         {!license.token && (
-          <p>You do not have a registered Unleash Enterprise License.</p>
+          <p>You do not have a registered Ganpa Enterprise License.</p>
         )}
 
         <form onSubmit={onSubmit}>

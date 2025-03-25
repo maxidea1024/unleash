@@ -52,17 +52,22 @@ export const CreateReleasePlanTemplate = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     clearErrors();
+
     const isValid = validate();
     if (isValid) {
       const payload = getTemplatePayload();
       try {
         const template = await createReleasePlanTemplate(payload);
+
         scrollToTop();
+
         setToastData({
           type: 'success',
           title: 'Release plan template created',
         });
+
         navigate(`/release-management/edit/${template.id}`);
       } catch (error: unknown) {
         setToastApiError(formatUnknownError(error));

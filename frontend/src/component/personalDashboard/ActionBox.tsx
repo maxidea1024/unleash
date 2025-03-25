@@ -28,7 +28,6 @@ export const ActionBox = ({
   return (
     <Container>
       {title ? <TitleContainer>{title}</TitleContainer> : null}
-
       {children}
     </Container>
   );

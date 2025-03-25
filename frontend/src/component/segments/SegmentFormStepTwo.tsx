@@ -32,15 +32,6 @@ import AccessContext from 'contexts/AccessContext';
 import { useSegmentLimits } from 'hooks/api/getters/useSegmentLimits/useSegmentLimits';
 import { GO_BACK } from 'constants/navigate';
 
-type SegmentFormPartTwoProps = {
-  project?: string;
-  constraints: IConstraint[];
-  setConstraints: React.Dispatch<React.SetStateAction<IConstraint[]>>;
-  setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
-  mode: SegmentFormMode;
-  children?: React.ReactNode;
-};
-
 const StyledForm = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -101,6 +92,15 @@ const StyledBackButton = styled(Button)(({ theme }) => ({
 const StyledCancelButton = styled(Button)(({ theme }) => ({
   marginLeft: theme.spacing(3),
 }));
+
+type SegmentFormPartTwoProps = {
+  project?: string;
+  constraints: IConstraint[];
+  setConstraints: React.Dispatch<React.SetStateAction<IConstraint[]>>;
+  setCurrentStep: React.Dispatch<React.SetStateAction<SegmentFormStep>>;
+  mode: SegmentFormMode;
+  children?: React.ReactNode;
+};
 
 export const SegmentFormStepTwo = ({
   children,

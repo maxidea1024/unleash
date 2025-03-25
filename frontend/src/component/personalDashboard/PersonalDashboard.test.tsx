@@ -8,7 +8,7 @@ const server = testServerSetup();
 const setupLongRunningProject = () => {
   testServerRoute(server, '/api/admin/user', {
     user: {
-      name: 'Unleash User',
+      name: 'Ganpa User',
     },
   });
 
@@ -70,7 +70,7 @@ const setupLongRunningProject = () => {
 const setupNewProject = () => {
   testServerRoute(server, '/api/admin/user', {
     user: {
-      name: 'Unleash User',
+      name: 'Ganpa User',
     },
   });
 
@@ -134,7 +134,7 @@ test('Render personal dashboard for a long running project', async () => {
 
   fireEvent.click(welcomeDialogClose);
 
-  await screen.findByText('Welcome Unleash User');
+  await screen.findByText('Welcome Ganpa User');
   await screen.findByText('projectName');
   await screen.findByText('10'); // members
   await screen.findByText('100'); // features
@@ -153,7 +153,7 @@ test('Render personal dashboard for a new project', async () => {
   setupNewProject();
   render(<PersonalDashboard />);
 
-  await screen.findByText('Welcome Unleash User');
+  await screen.findByText('Welcome Ganpa User');
   await screen.findByText('projectName');
   await screen.findByText('3'); // members
   await screen.findByText('0'); // features

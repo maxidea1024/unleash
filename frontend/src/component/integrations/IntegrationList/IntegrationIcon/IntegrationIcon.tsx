@@ -54,7 +54,7 @@ const integrations: Record<
   'slack-app': { title: 'Slack', icon: slackIcon },
   teams: { title: 'Teams', icon: teamsIcon },
   webhook: { title: 'Webhook', icon: webhooksIcon },
-  unleash: { title: 'Unleash', icon: unleashIcon },
+  ganpa: { title: 'Ganpa', icon: unleashIcon },
   android: { title: 'Android', icon: android },
   dotnet: { title: 'Dotnet', icon: dotnet },
   flutter: { title: 'Flutter', icon: flutter },

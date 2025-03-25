@@ -6,6 +6,12 @@ import { useState } from 'react';
 import { SegmentFormStepList } from 'component/segments/SegmentFormStepList';
 import { styled } from '@mui/material';
 
+const StyledForm = styled('form')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100%',
+}));
+
 export type SegmentFormStep = 1 | 2;
 export type SegmentFormMode = 'create' | 'edit';
 
@@ -24,12 +30,6 @@ type SegmentFormProps = {
   mode: SegmentFormMode;
   children?: React.ReactNode;
 };
-
-const StyledForm = styled('form')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
-}));
 
 export const SegmentForm = ({
   children,

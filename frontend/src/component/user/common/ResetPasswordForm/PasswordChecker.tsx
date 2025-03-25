@@ -75,13 +75,6 @@ const StyledStatusBar = styled('div', {
     : theme.palette.primary.main,
 }));
 
-type PasswordCheckerProps = {
-  password: string;
-  callback: Dispatch<SetStateAction<boolean>>;
-  style?: object;
-  hideOnCompletion?: boolean;
-};
-
 type ErrorResponse = {
   details: ErrorDetails[];
 };
@@ -89,6 +82,13 @@ type ErrorResponse = {
 type ErrorDetails = {
   message: string;
   validationErrors: string[];
+};
+
+type PasswordCheckerProps = {
+  password: string;
+  callback: Dispatch<SetStateAction<boolean>>;
+  style?: object;
+  hideOnCompletion?: boolean;
 };
 
 const PasswordChecker = ({

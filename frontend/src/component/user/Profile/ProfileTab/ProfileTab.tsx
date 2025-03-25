@@ -91,6 +91,7 @@ export const ProfileTab = ({ user }: ProfileTabProps) => {
   const { locationSettings, setLocationSettings } = useLocationSettings();
   const [currentLocale, setCurrentLocale] = useState<string>();
 
+  // TODO - add more locales
   const [possibleLocales, setPossibleLocales] = useState([
     'en-US',
     'en-GB',

@@ -143,7 +143,7 @@ const tokenDescriptions: {
 } = {
   client: {
     label: 'CLIENT',
-    title: 'Connect server-side SDK or Unleash Proxy/Edge',
+    title: 'Connect server-side SDK or Ganpa Proxy/Edge',
   },
   frontend: {
     label: 'FRONTEND',
@@ -152,6 +152,6 @@ const tokenDescriptions: {
   // TODO: 이건 제거해도 되는거 아닌가?
   admin: {
     label: 'ADMIN',
-    title: 'Full access for managing Unleash',
+    title: 'Full access for managing Ganpa',
   },
 };

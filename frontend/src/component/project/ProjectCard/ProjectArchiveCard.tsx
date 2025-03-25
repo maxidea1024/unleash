@@ -28,16 +28,6 @@ import { useSearchHighlightContext } from 'component/common/Table/SearchHighligh
 import { TimeAgo } from 'component/common/TimeAgo/TimeAgo';
 import { flexRow } from 'themes/themeStyles';
 
-export type ProjectArchiveCardProps = {
-  id: string;
-  name: string;
-  archivedAt?: string;
-  onRevive: () => void;
-  onDelete: () => void;
-  mode?: string;
-  owners?: ProjectSchemaOwners;
-};
-
 export const StyledDivHeader = styled('div')(({ theme }) => ({
   ...flexRow,
   width: '100%',
@@ -55,6 +45,16 @@ const StyledContent = styled('div')(({ theme }) => ({
   fontSize: theme.fontSizes.smallerBody,
   justifyContent: 'space-between',
 }));
+
+export type ProjectArchiveCardProps = {
+  id: string;
+  name: string;
+  archivedAt?: string;
+  onRevive: () => void;
+  onDelete: () => void;
+  mode?: string;
+  owners?: ProjectSchemaOwners;
+};
 
 export const ProjectArchiveCard = ({
   id,

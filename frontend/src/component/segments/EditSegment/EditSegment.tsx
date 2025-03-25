@@ -81,7 +81,9 @@ export const EditSegment = ({ modal }: EditSegmentProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     if (segment) {
       e.preventDefault();
+
       clearErrors();
+
       try {
         if (changeRequestEnv) {
           await addChange(segment.project || '', changeRequestEnv, {
@@ -92,12 +94,15 @@ export const EditSegment = ({ modal }: EditSegmentProps) => {
         } else {
           await updateSegment(segment.id, getSegmentPayload());
         }
+
         refetchSegments();
+
         if (projectId) {
           navigate(`/projects/${projectId}/settings/segments/`);
         } else {
           navigate('/segments/');
         }
+
         setToastData({
           title: `Segment ${changeRequestEnv ? 'change added to draft' : 'updated'}`,
           type: 'success',

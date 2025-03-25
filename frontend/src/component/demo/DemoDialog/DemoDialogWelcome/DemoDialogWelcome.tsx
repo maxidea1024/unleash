@@ -82,7 +82,7 @@ export const DemoDialogWelcome = ({
         <Typography>
           Open demo website in another tab:{' '}
           <StyledLink
-            href='https://hello.unleash.run/?utm_source=Demo_instance&utm_medium=OpenLink&utm_campaign=Unleash'
+            href='https://hello.unleash.run/?utm_source=Demo_instance&utm_medium=OpenLink&utm_campaign=Ganpa'
             target='_blank'
             rel='noreferrer'
             onClick={() => {

@@ -20,10 +20,10 @@ export const InstanceStats = () => {
   let version: string | undefined;
 
   if (stats?.versionEnterprise) {
-    versionTitle = 'Unleash Enterprise version';
+    versionTitle = 'Ganpa Enterprise version';
     version = stats.versionEnterprise;
   } else {
-    versionTitle = 'Unleash OSS version';
+    versionTitle = 'Ganpa OSS version';
     version = stats?.versionOSS;
   }
 

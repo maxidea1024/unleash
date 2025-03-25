@@ -81,7 +81,6 @@ export const ProjectEnvironmentTableSingle = ({
             <TableRow hover key={key} {...rowProps}>
               {row.cells.map((cell) => {
                 const { key, ...cellProps } = cell.getCellProps();
-
                 return (
                   <TableCell key={key} {...cellProps}>
                     {cell.render('Cell')}

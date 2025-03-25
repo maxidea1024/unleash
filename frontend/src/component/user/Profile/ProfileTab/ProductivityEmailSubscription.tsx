@@ -31,10 +31,12 @@ export const ProductivityEmailSubscription = ({
               try {
                 if (status === 'subscribed') {
                   await unsubscribe('productivity-report');
+
                   setToastData({
                     title: 'Unsubscribed from productivity report',
                     type: 'success',
                   });
+
                   trackEvent('productivity-report', {
                     props: {
                       eventType: 'subscribe',
@@ -42,10 +44,12 @@ export const ProductivityEmailSubscription = ({
                   });
                 } else {
                   await subscribe('productivity-report');
+
                   setToastData({
                     title: 'Subscribed to productivity report',
                     type: 'success',
                   });
+
                   trackEvent('productivity-report', {
                     props: {
                       eventType: 'unsubscribe',

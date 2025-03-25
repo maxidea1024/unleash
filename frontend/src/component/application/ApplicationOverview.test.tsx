@@ -104,10 +104,10 @@ test('Display application with issues', async () => {
   );
 
   await screen.findByText(
-    'We detected 1 feature flag defined in the SDK that does not exist in Unleash',
+    'We detected 1 feature flag defined in the SDK that does not exist in Ganpa',
   );
   await screen.findByText(
-    'We detected 1 strategy type defined in the SDK that does not exist in Unleash',
+    'We detected 1 strategy type defined in the SDK that does not exist in Ganpa',
   );
   await screen.findByText('feature1');
   await screen.findByText('strategy1');

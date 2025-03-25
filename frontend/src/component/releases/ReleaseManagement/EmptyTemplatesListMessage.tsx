@@ -19,6 +19,7 @@ const StyledCenter = styled('div')(({ theme }) => ({
 const StyledDiv = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(5),
 }));
+
 export const EmptyTemplatesListMessage = () => {
   return (
     <StyledDiv>

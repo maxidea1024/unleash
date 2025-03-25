@@ -153,7 +153,7 @@ export const PlaygroundConnectionFieldset = ({
       updateProjectsBasedOnValidToken(validToken);
     } else {
       setTokenError(
-        'Invalid token. Ensure you use a valid token from this Unleash instance.',
+        'Invalid token. Ensure you use a valid token from this Ganpa instance.',
       );
     }
   };

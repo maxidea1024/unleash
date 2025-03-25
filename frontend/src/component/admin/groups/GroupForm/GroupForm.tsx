@@ -167,7 +167,7 @@ export const GroupForm = ({
           <StyledDescriptionBlock>
             <Box sx={{ display: 'flex' }}>
               You can enable SSO groups synchronization if needed
-              <HelpIcon tooltip='SSO groups synchronization allows SSO groups to be mapped to Unleash groups, so that user group membership is properly synchronized.' />
+              <HelpIcon tooltip='SSO groups synchronization allows SSO groups to be mapped to Ganpa groups, so that user group membership is properly synchronized.' />
             </Box>
             <Link data-loading to={`/admin/auth`}>
               <span data-loading>View SSO configuration</span>

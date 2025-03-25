@@ -52,8 +52,8 @@ const TrialDialog = ({ instanceStatus, onExtendTrial }: TrialDialogProps) => {
         title={`Your free ${instanceStatus.plan} trial has expired!`}
       >
         <Typography>
-          Please contact your Unleash sales representative to avoid{' '}
-          <strong>deletion of your Unleash account.</strong>
+          Please contact your Ganpa sales representative to avoid{' '}
+          <strong>deletion of your Ganpa account.</strong>
         </Typography>
       </Dialogue>
     );

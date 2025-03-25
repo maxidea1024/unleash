@@ -56,9 +56,13 @@ const StyledMenu = styled('div')(({ theme }) => ({
   alignItems: 'center',
 }));
 
+type ReleasePlanTemplateCardProps = {
+  template: IReleasePlanTemplate;
+};
+
 export const ReleasePlanTemplateCard = ({
   template,
-}: { template: IReleasePlanTemplate }) => {
+}: ReleasePlanTemplateCardProps) => {
   const navigate = useNavigate();
   const onClick = () => {
     navigate(`/release-management/edit/${template.id}`);

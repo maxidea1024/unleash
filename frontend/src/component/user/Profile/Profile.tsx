@@ -39,6 +39,7 @@ export const Profile = () => {
     navigate(tab.path ? `/profile/${tab.path}` : '/profile', {
       replace: true,
     });
+
     setTab(tab.id);
   };
 

@@ -3,15 +3,15 @@ import PrivateProjectIcon from '@mui/icons-material/VisibilityOffOutlined';
 import { HtmlTooltip } from 'component/common/HtmlTooltip/HtmlTooltip';
 import { styled } from '@mui/material';
 
-type ProjectModeBadgeProps = {
-  mode?: 'private' | 'protected' | 'public' | string;
-};
-
 const StyledIcon = styled('div')(({ theme }) => ({
   color: theme.palette.primary.main,
   fontSize: theme.spacing(2.25),
   paddingTop: theme.spacing(0.75),
 }));
+
+type ProjectModeBadgeProps = {
+  mode?: 'private' | 'protected' | 'public' | string;
+};
 
 export const ProjectModeBadge = ({ mode }: ProjectModeBadgeProps) => {
   if (mode === 'private') {

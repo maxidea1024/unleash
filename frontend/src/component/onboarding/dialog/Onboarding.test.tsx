@@ -42,7 +42,7 @@ test('Onboarding for SDK', async () => {
 
   screen.getByText('1/3 - Choose SDK');
   screen.getByText('Select SDK');
-  screen.getByText('SDKs and Unleash');
+  screen.getByText('SDKs and Ganpa');
 
   const node = screen.getAllByText('Select')[0];
 

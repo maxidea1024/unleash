@@ -79,9 +79,12 @@ export const EditReleasePlanTemplate = () => {
   const handleCancel = () => {
     navigate('/release-management');
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     clearErrors();
+
     const isValid = validate();
     if (isValid) {
       const payload = getTemplatePayload();
@@ -91,6 +94,7 @@ export const EditReleasePlanTemplate = () => {
           id: templateId,
           milestones: template.milestones,
         });
+
         navigate('/release-management');
       } catch (error: unknown) {
         setToastApiError(formatUnknownError(error));
